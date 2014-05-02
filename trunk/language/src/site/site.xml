@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="${artifactId} ${version}">
+
+  <publishDate position="left" format="dd-MM-yyyy"/>
+
+  <bannerLeft>
+    <name>${artifactId} ${version}</name>
+  </bannerLeft>
+
+  <body>
+
+	  <menu name="DSOL Projects">
+			<item name="Simulation@TU Delft" href="http://simulation.tudelft.nl"/>
+			<item name="dsol" href="http://simulation.tudelft.nl/dsol/3.0/dsol/index.html"/>
+			<item name="dsol-devs" href="http://simulation.tudelft.nl/dsol/3.0/dsol-devs/index.html"/>
+			<item name="dsol-animation" href="http://simulation.tudelft.nl/dsol/3.0/dsol-animation/index.html"/>
+			<item name="dsol-gui" href="http://simulation.tudelft.nl/dsol/3.0/dsol-gui/index.html"/>
+			<item name="dsol-examples" href="http://simulation.tudelft.nl/dsol/3.0/dsol-examples/index.html"/>
+			<item name="dsol-hla" href="http://simulation.tudelft.nl/dsol/3.0/dsol-hla/index.html"/>
+			<item name="dsol-tutorial" href="http://simulation.tudelft.nl/dsol/3.0/dsol-tutorial/index.html"/>
+			<item name="dsol-xml" href="http://simulation.tudelft.nl/dsol/3.0/dsol-xml/index.html"/>
+			<item name="event" href="http://simulation.tudelft.nl/dsol/3.0/event/index.html"/>
+			<item name="interpreter" href="http://simulation.tudelft.nl/dsol/3.0/interpreter/index.html"/>
+			<item name="introspection" href="http://simulation.tudelft.nl/dsol/3.0/introspection/index.html"/>
+			<item name="jstats" href="http://simulation.tudelft.nl/dsol/3.0/jstats/index.html"/>
+			<item name="jstats-charts" href="http://simulation.tudelft.nl/dsol/3.0/jstats-charts/index.html"/>
+			<item name="language" href="http://simulation.tudelft.nl/dsol/3.0/language/index.html"/>
+			<item name="logger" href="http://simulation.tudelft.nl/dsol/3.0/logger/index.html"/>
+			<item name="naming" href="http://simulation.tudelft.nl/dsol/3.0/naming/index.html"/>
+	  </menu>
+      
+    ${reports}
+
+  </body>
+</project>

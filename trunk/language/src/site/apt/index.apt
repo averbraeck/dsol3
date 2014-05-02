@@ -1,0 +1,25 @@
+
+dsol language project
+
+	The language services are very generic services that are simulation independent, and can be used for many projects. 
+	 	
+	 	* <<concurrent>>: worker threads for several tasks
+	 	
+	 	* <<d2>>: helper functions for 2-dimensional calculations
+	 	
+	 	* <<d3>>: helper functions for 3-dimensional calculations
+	 	
+	 	* <<filters>>: simple topical filtering system, can be used for contexts
+	 	
+	 	* <<io>>: URLResource that will resolve most url-based sources automatically
+	 	
+	 	* <<primitives>>: boxing wrappers for pre-Java1.5 autoboxing
+	 	
+	 	* <<reflection>>: the missing classes in reflection - get all fields / methods, also of superclasses
+	 	
+	 	* <<swing>>: a couple of helper classes for Swing
+	 	
+	 	* <<util>>: currently only a bit manipulation class
+	 	
+	 	[]
+	 	
