@@ -1,0 +1,34 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>dsol</groupId>
+    <artifactId>dsol-base</artifactId>
+    <version>3.0.0-beta1</version>
+  </parent>
+  <artifactId>language</artifactId>
+  <name>DSOL language project</name>
+  <description>General classes that are independent of DSOL (reflection, URL, etc.)</description>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+      <optional>true</optional>
+    </dependency>
+    
+    <dependency>
+      <groupId>java3d</groupId>
+      <artifactId>vecmath</artifactId>
+      <version>${java3d.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>java3d</groupId>
+      <artifactId>j3d-core</artifactId>
+      <version>${java3d.version}</version>
+    </dependency>
+  </dependencies>
+  
+</project>
