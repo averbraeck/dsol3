@@ -4,7 +4,7 @@
 
 	<groupId>dsol</groupId>
 	<artifactId>dsol-base</artifactId>
-	<version>3.0.0-beta1</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>DSOL version 3</name>
@@ -59,7 +59,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+		<dsol-version>3.0.0-SNAPSHOT</dsol-version>
 		<junit.version>4.11</junit.version>
 		<java3d.version>1.5.1</java3d.version>
 	</properties>
@@ -75,11 +75,6 @@
 		<resources>
 			<resource>
 				<directory>${basedir}/src/conf</directory>
-				<includes>
-					<include>*.properties</include>
-					<include>*.xml</include>
-					<include>*.xsd</include>
-				</includes>
 			</resource>
 		</resources>
 
@@ -91,17 +86,87 @@
 			</extension>
 		</extensions>
 
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.3</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.1</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+					<configuration>
+						<links>
+							<link>http://download.oracle.com/javase/7/docs/api/</link>
+							<link>http://download.java.net/media/java3d/javadoc/1.5.0/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/language/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/event/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/logger/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/interpreter/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/jstats/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/jstats-charts/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/naming/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/dsol/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/dsol-xml/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/dsol-gui/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/dsol-animation/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/dsol-examples/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/dsol-tutorial/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/dsol-devs/apidocs/</link>
+							<link>http://simulation.tudelft.nl/dsol/3.0/dsol-hla/apidocs/</link>
+						</links>
+					</configuration>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<reporting>
@@ -125,56 +190,32 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.3</version>
-			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<links>
-						<link>http://download.oracle.com/javase/7/docs/api/</link>
-						<link>http://download.java.net/media/java3d/javadoc/1.5.0/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/language/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/event/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/logger/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/interpreter/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/jstats/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/jstats-charts/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/naming/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol-xml/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol-gui/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol-animation/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol-examples/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol-tutorial/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol-devs/apidocs/</link>
-						<link>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol-hla/apidocs/</link>
-					</links>
-				</configuration>
-			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.4</version>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.12.1</version>
 				<configuration>
-					<configLocation>development/dsol_checks_31_15.xml</configLocation>
-					<enableRulesSummary>false</enableRulesSummary>
+					<configLocation>development/dsol-checks.xml</configLocation>
 				</configuration>
+				<reportSets>
+					<reportSet>
+						<configuration>
+							<enableRulesSummary>true</enableRulesSummary>
+						</configuration>
+						<reports>
+							<report>checkstyle</report>
+						</reports>
+					</reportSet>
+				</reportSets>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
@@ -183,7 +224,7 @@
 					<targetJdk>1.7</targetJdk>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
@@ -196,8 +237,35 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
+
 		</plugins>
 	</reporting>
+
+	<!-- dependency versions for all projects -->
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+				<optional>true</optional>
+			</dependency>
+
+			<dependency>
+				<groupId>java3d</groupId>
+				<artifactId>vecmath</artifactId>
+				<version>${java3d.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>java3d</groupId>
+				<artifactId>j3d-core</artifactId>
+				<version>${java3d.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<!-- More Project Information -->
 
@@ -206,7 +274,7 @@
 	<licenses>
 		<license>
 			<name>BSD-style license</name>
-			<url>http://sk-3.tbm.tudelft.nl/dsol/3.0/dsol/dsol-license.html</url>
+			<url>http://simulation.tudelft.nl/dsol/3.0/dsol/dsol-license.html</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
@@ -273,9 +341,9 @@
 	<!-- Environment Settings -->
 
 	<scm>
-		<connection>scm:svn:https://svn.tbm.tudelft.nl/DSOL300/dsol-base/</connection>
+		<connection>scm:svn:https://svn.tbm.tudelft.nl/DSOL300/</connection>
 		<url>http://svn.tbm.tudelft.nl/</url>
-		<developerConnection>scm:svn:https://svn.tbm.tudelft.nl/DSOL300/dsol-base/</developerConnection>
+		<developerConnection>scm:svn:https://svn.tbm.tudelft.nl/DSOL300/</developerConnection>
 	</scm>
 
 	<!-- In order for distributionManagement to work, include the following
@@ -290,25 +358,25 @@
 	-->
 
 	<distributionManagement>
-		<downloadUrl>http://sk-3.tbm.tudelft.nl/maven</downloadUrl>
+		<downloadUrl>http://simulation.tudelft.nl/maven</downloadUrl>
 		<repository>
 			<uniqueVersion>false</uniqueVersion>
 			<id>dsol-deployment</id>
 			<name>dsol repository</name>
-			<url>scp://sk-3.tbm.tudelft.nl/home/web/simulation.tudelft.nl/html/maven</url>
+			<url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/maven</url>
 			<layout>default</layout>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>true</uniqueVersion>
 			<id>dsol-deployment</id>
 			<name>dsol language snapshots</name>
-			<url>scp://sk-3.tbm.tudelft.nl/home/web/simulation.tudelft.nl/html/maven</url>
+			<url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/maven</url>
 			<layout>default</layout>
 		</snapshotRepository>
 		<site>
 			<id>dsol-deployment</id>
 			<name>dsol language website</name>
-			<url>scp://sk-3.tbm.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/3.0/language</url>
+			<url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/3.0</url>
 		</site>
 	</distributionManagement>
 
