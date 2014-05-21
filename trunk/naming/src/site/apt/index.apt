@@ -1,0 +1,46 @@
+
+dsol naming project
+
+	The naming service provides Yellow Page functionality to the DSOL suite. The The naming service
+	provides Yellow Page functionality to the DSOL suite. The value of a Yellow Page service is 
+	that it provides distributed objects in the simulation suite the ability to lookup each other. 
+	The naming service provides this functionality both to simulation model objects and to those 
+	objects constituting the DSOL suite.
+	
+	The naming service links DSOL to the JNDI framework. The Java Naming
+	and Directory Interface (JNDI) provides Java technology-enabled applications
+	with a unified interface to multiple naming and directory services.
+	In these naming and directory service both model objects, and
+	statistical output can be stored and shared. 
+	
+	The file <<<jndi.properties>>> in the conf directory indicates what kind of jndi context has to be
+	used. Often this is:
+	
++---+
+# memory context
+java.naming.factory.initial=nl.tudelft.simulation.naming.JVMContextFactory
++---+
+	
+	But it can also be:
+
++---+	
+# Persistent File Context
+java.naming.factory.initial=nl.tudelft.simulation.naming.FileContextFactory
+java.naming.provider.url=/tmp/context.jdo
++---+
+
+	or
+	
++---+
+# RemoteContext to a wrapped in-memory context
+java.naming.factory.initial=nl.tudelft.simulation.naming.RemoteContextFactory
+java.naming.provider.url=http://127.0.0.1:1099/remoteContext
+wrapped.naming.factory.initial=nl.tudelft.simulation.naming.JVMContextFactory
++---+
+	
+	The implementation of the naming service links DSOL to the Java Naming and
+	Directory Interface (JNDI) framework. JNDI provides Java applications a unified
+	interface to multiple naming and directory services.
+	The service provided by JNDI is described in a <<<Context>>> interface. All objects in
+	the DSOL suite use an implementation of this <<<Context>>> to lookup or bind objects.
+	
