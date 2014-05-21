@@ -13,35 +13,29 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
 
 /**
- * The StatisticsTableModel class defines the tableModel used by the statistics
- * objects.
+ * The StatisticsTableModel class defines the tableModel used by the statistics objects.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
  */
-public class StatisticsTableModel extends DefaultTableModel implements
-        EventListenerInterface
+public class StatisticsTableModel extends DefaultTableModel implements EventListenerInterface
 {
     /** eventTypes represent the eventTypes corresponding to the colmumns */
     private EventType[] eventTypes = null;
 
     /**
      * constructs a new StatisticsTableModel
-     * 
      * @param columnNames the names of the columns
      * @param eventTypes the eventTypes representing the column
      * @param rows the number of rows
      */
-    public StatisticsTableModel(final Object[] columnNames,
-            final EventType[] eventTypes, final int rows)
+    public StatisticsTableModel(final Object[] columnNames, final EventType[] eventTypes, final int rows)
     {
         super(columnNames, rows);
         if (rows != eventTypes.length)
@@ -52,8 +46,7 @@ public class StatisticsTableModel extends DefaultTableModel implements
     }
 
     /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface
-     *      #notify(nl.tudelft.simulation.event.EventInterface)
+     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
      */
     public void notify(final EventInterface event)
     {

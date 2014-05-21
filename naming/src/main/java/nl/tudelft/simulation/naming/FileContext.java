@@ -24,13 +24,11 @@ import nl.tudelft.simulation.logger.Logger;
 /**
  * The FileContext as implementation of the Context interface.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.3 2004-03-24
  * @since 1.5
@@ -39,13 +37,12 @@ public class FileContext extends JVMContext implements Serializable
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** file links to the file */
     private File file = null;
 
     /**
      * constructs a new FileContext
-     * 
      * @param file the file to write to
      */
     public FileContext(final File file)
@@ -56,13 +53,11 @@ public class FileContext extends JVMContext implements Serializable
 
     /**
      * constructs a new FileContext
-     * 
      * @param file the file to which to write
      * @param parent the parent context
      * @param atomicName the atomicName
      */
-    public FileContext(final File file, final Context parent,
-            final String atomicName)
+    public FileContext(final File file, final Context parent, final String atomicName)
     {
         super(parent, atomicName);
         this.file = file;
@@ -70,7 +65,6 @@ public class FileContext extends JVMContext implements Serializable
 
     /**
      * saves this object to file
-     * 
      * @throws NamingException on ioException
      */
     private synchronized void save() throws NamingException
@@ -79,11 +73,12 @@ public class FileContext extends JVMContext implements Serializable
         {
             FileContext clone = (FileContext) this.clone();
             clone.listeners.clear();
-            ObjectOutputStream stream = new ObjectOutputStream(
-                    new BufferedOutputStream(new FileOutputStream(this.file)));
+            ObjectOutputStream stream =
+                    new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(this.file)));
             stream.writeObject(this);
             stream.close();
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             Logger.warning(this, "save", exception);
             throw new NamingException(exception.getMessage());
@@ -94,8 +89,7 @@ public class FileContext extends JVMContext implements Serializable
      * @see javax.naming.Context#bind(javax.naming.Name, java.lang.Object)
      */
     @Override
-	public void bind(final Name name, final Object value)
-            throws NamingException
+    public void bind(final Name name, final Object value) throws NamingException
     {
         super.bind(name, value);
         this.save();
@@ -104,9 +98,8 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#bind(java.lang.String, java.lang.Object)
      */
-    @Override    
-    public void bind(final String name, final Object value)
-            throws NamingException
+    @Override
+    public void bind(final String name, final Object value) throws NamingException
     {
         super.bind(name, value);
         this.save();
@@ -115,7 +108,7 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#createSubcontext(javax.naming.Name)
      */
-    @Override    
+    @Override
     public Context createSubcontext(final Name name) throws NamingException
     {
         Context result = super.createSubcontext(name);
@@ -126,7 +119,7 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#createSubcontext(java.lang.String)
      */
-    @Override    
+    @Override
     public Context createSubcontext(final String arg0) throws NamingException
     {
         Context result = super.createSubcontext(arg0);
@@ -137,7 +130,7 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#destroySubcontext(javax.naming.Name)
      */
-    @Override    
+    @Override
     public void destroySubcontext(final Name arg0) throws NamingException
     {
         super.destroySubcontext(arg0);
@@ -147,7 +140,7 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#destroySubcontext(java.lang.String)
      */
-    @Override    
+    @Override
     public void destroySubcontext(final String arg0) throws NamingException
     {
         super.destroySubcontext(arg0);
@@ -157,9 +150,8 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#rebind(javax.naming.Name, java.lang.Object)
      */
-    @Override    
-    public void rebind(final Name name, final Object value)
-            throws NamingException
+    @Override
+    public void rebind(final Name name, final Object value) throws NamingException
     {
         super.rebind(name, value);
         this.save();
@@ -168,9 +160,8 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#rebind(java.lang.String, java.lang.Object)
      */
-    @Override    
-    public void rebind(final String name, final Object value)
-            throws NamingException
+    @Override
+    public void rebind(final String name, final Object value) throws NamingException
     {
         super.rebind(name, value);
         this.save();
@@ -179,9 +170,8 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#removeFromEnvironment(java.lang.String)
      */
-    @Override    
-    public Object removeFromEnvironment(final String arg0)
-            throws NamingException
+    @Override
+    public Object removeFromEnvironment(final String arg0) throws NamingException
     {
         Object result = super.removeFromEnvironment(arg0);
         this.save();
@@ -191,9 +181,8 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#rename(javax.naming.Name, javax.naming.Name)
      */
-    @Override    
-    public void rename(final Name nameOld, final Name nameNew)
-            throws NamingException
+    @Override
+    public void rename(final Name nameOld, final Name nameNew) throws NamingException
     {
         super.rename(nameOld, nameNew);
         this.save();
@@ -202,9 +191,8 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#rename(java.lang.String, java.lang.String)
      */
-    @Override    
-    public void rename(final String nameOld, final String nameNew)
-            throws NamingException
+    @Override
+    public void rename(final String nameOld, final String nameNew) throws NamingException
     {
         super.rename(nameOld, nameNew);
         this.save();
@@ -213,7 +201,7 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#unbind(javax.naming.Name)
      */
-    @Override    
+    @Override
     public void unbind(final Name name) throws NamingException
     {
         super.unbind(name);
@@ -223,7 +211,7 @@ public class FileContext extends JVMContext implements Serializable
     /**
      * @see javax.naming.Context#unbind(java.lang.String)
      */
-    @Override    
+    @Override
     public void unbind(final String name) throws NamingException
     {
         super.unbind(name);
@@ -237,8 +225,7 @@ public class FileContext extends JVMContext implements Serializable
     public synchronized Object clone() throws CloneNotSupportedException
     {
         FileContext clone = new FileContext(this.file);
-        Map<String, Object> elementsMap = new HashMap<String, Object>(
-                this.elements);
+        Map<String, Object> elementsMap = new HashMap<String, Object>(this.elements);
         for (Iterator<String> i = elementsMap.keySet().iterator(); i.hasNext();)
         {
             String key = i.next();

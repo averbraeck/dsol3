@@ -12,13 +12,11 @@ import java.io.IOException;
 
 /**
  * A LineNumber <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -32,7 +30,6 @@ public class LineNumber
 
     /**
      * constructs a new LineNumber
-     * 
      * @param dataInput dataInput to use
      * @throws IOException on failure
      */

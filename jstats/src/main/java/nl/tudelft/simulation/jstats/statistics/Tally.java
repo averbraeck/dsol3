@@ -18,13 +18,11 @@ import nl.tudelft.simulation.language.filters.FilterInterface;
 /**
  * The Tally class defines a statistics event tally.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
@@ -32,14 +30,12 @@ import nl.tudelft.simulation.language.filters.FilterInterface;
 public class Tally extends StatisticsObject implements EventListenerInterface
 {
     /** SAMPLE_MEAN_EVENT is fired whenever the sample mean is updated */
-    public static final EventType SAMPLE_MEAN_EVENT = new EventType(
-            "SAMPLE_MEAN_EVENT");
+    public static final EventType SAMPLE_MEAN_EVENT = new EventType("SAMPLE_MEAN_EVENT");
 
     /**
      * SAMPLE_VARIANCE_EVENT is fired whenever the sample variance is updated
      */
-    public static final EventType SAMPLE_VARIANCE_EVENT = new EventType(
-            "SAMPLE_VARIANCE_EVENT");
+    public static final EventType SAMPLE_VARIANCE_EVENT = new EventType("SAMPLE_VARIANCE_EVENT");
 
     /** MIN_EVENT is fired whenever a new minimum value has reached */
     public static final EventType MIN_EVENT = new EventType("MIN_EVENT");
@@ -51,11 +47,9 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     public static final EventType N_EVENT = new EventType("N_EVENT");
 
     /**
-     * STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is
-     * updated
+     * STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is updated
      */
-    public static final EventType STANDARD_DEVIATION_EVENT = new EventType(
-            "STANDARD_DEVIATION_EVENT");
+    public static final EventType STANDARD_DEVIATION_EVENT = new EventType("STANDARD_DEVIATION_EVENT");
 
     /** SUM_EVENT is fired whenever the sum sis updated */
     public static final EventType SUM_EVENT = new EventType("SUM_EVENT");
@@ -99,15 +93,13 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     /**
      * the confidenceDistribution
      */
-    private DistNormal confidenceDistribution = new DistNormal(
-            new MersenneTwister());
+    private DistNormal confidenceDistribution = new DistNormal(new MersenneTwister());
 
     /** the semaphore */
     protected Object semaphore = new Object();
 
     /**
      * Constructs a new Tally
-     * 
      * @param description the description of this tally
      */
     public Tally(final String description)
@@ -118,7 +110,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets the Filter on this tally
-     * 
      * @param filter the filter.
      */
     public void setFilter(final FilterInterface filter)
@@ -128,7 +119,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * Returns the sampleMean of all oberservations since the initialization
-     * 
      * @return double the sampleMean
      */
     public double getSampleMean()
@@ -138,11 +128,8 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the confidence interval on either side of the mean
-     * 
-     * @param alpha Alpha is the significance level used to compute the
-     *        confidence level. The confidence level equals 100*(1 - alpha)%, or
-     *        in other words, an alpha of 0.05 indicates a 95 percent confidence
-     *        level.
+     * @param alpha Alpha is the significance level used to compute the confidence level. The confidence level equals
+     *            100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
      * @return double[] the confidence interval of this tally
      */
     public double[] getConfidenceInterval(final double alpha)
@@ -152,11 +139,8 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the confidence interval based of the mean
-     * 
-     * @param alpha Alpha is the significance level used to compute the
-     *        confidence level. The confidence level equals 100*(1 - alpha)%, or
-     *        in other words, an alpha of 0.05 indicates a 95 percent confidence
-     *        level.
+     * @param alpha Alpha is the significance level used to compute the confidence level. The confidence level equals
+     *            100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
      * @param side the side of the confidence interval with respect to the mean
      * @return double[] the confidence interval of this tally
      */
@@ -164,8 +148,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     {
         if (!(side == LEFT_SIDE_CONFIDENCE || side == BOTH_SIDE_CONFIDENCE || side == RIGTH_SIDE_CONFIDENCE))
         {
-            throw new IllegalArgumentException(
-                    "side of confidence level is not defined");
+            throw new IllegalArgumentException("side of confidence level is not defined");
         }
         if (alpha < 0 || alpha > 1)
         {
@@ -173,8 +156,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
         }
         synchronized (this.semaphore)
         {
-            if (new Double(this.sampleMean).isNaN()
-                    || new Double(this.getStdDev()).isNaN())
+            if (new Double(this.sampleMean).isNaN() || new Double(this.getStdDev()).isNaN())
             {
                 return null;
             }
@@ -183,12 +165,9 @@ public class Tally extends StatisticsObject implements EventListenerInterface
             {
                 level = 1 - alpha / 2.0;
             }
-            double z = this.confidenceDistribution
-                    .getInverseCumulativeProbability(level);
-            double confidence = z
-                    * Math.sqrt(this.getSampleVariance() / this.n);
-            double[] result = { this.sampleMean - confidence,
-                    this.sampleMean + confidence };
+            double z = this.confidenceDistribution.getInverseCumulativeProbability(level);
+            double confidence = z * Math.sqrt(this.getSampleVariance() / this.n);
+            double[] result = {this.sampleMean - confidence, this.sampleMean + confidence};
             if (side == Tally.LEFT_SIDE_CONFIDENCE)
             {
                 result[1] = this.sampleMean;
@@ -205,7 +184,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the description of this tally
-     * 
      * @return Sting description
      */
     public String getDescription()
@@ -215,7 +193,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * Returns the max.
-     * 
      * @return double
      */
     public double getMax()
@@ -225,7 +202,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * Returns the min.
-     * 
      * @return double
      */
     public double getMin()
@@ -235,7 +211,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * Returns the number of observations
-     * 
      * @return long n
      */
     public long getN()
@@ -245,7 +220,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * Returns the current tally standard deviation
-     * 
      * @return double the standard deviation
      */
     public double getStdDev()
@@ -262,7 +236,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the sum of the values of the observations
-     * 
      * @return double sum
      */
     public double getSum()
@@ -272,7 +245,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * Returns the current tally variance
-     * 
      * @return double samplevariance
      */
     public double getSampleVariance()
@@ -293,13 +265,11 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     @Override
     public TableModel getTable()
     {
-        String[] columnNames = { "field", "value" };
-        EventType[] eventTypes = { null, Tally.N_EVENT, Tally.MIN_EVENT,
-                Tally.MAX_EVENT, Tally.SAMPLE_MEAN_EVENT,
-                Tally.SAMPLE_VARIANCE_EVENT, Tally.STANDARD_DEVIATION_EVENT,
-                Tally.SUM_EVENT };
-        StatisticsTableModel result = new StatisticsTableModel(columnNames,
-                eventTypes, 8);
+        String[] columnNames = {"field", "value"};
+        EventType[] eventTypes =
+                {null, Tally.N_EVENT, Tally.MIN_EVENT, Tally.MAX_EVENT, Tally.SAMPLE_MEAN_EVENT,
+                        Tally.SAMPLE_VARIANCE_EVENT, Tally.STANDARD_DEVIATION_EVENT, Tally.SUM_EVENT};
+        StatisticsTableModel result = new StatisticsTableModel(columnNames, eventTypes, 8);
         this.addListener(result, Tally.N_EVENT, true);
         this.addListener(result, Tally.MAX_EVENT, true);
         this.addListener(result, Tally.MIN_EVENT, true);
@@ -331,8 +301,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * initializes the Tally. This methods sets the max, min, n, sum and
-     * variance values to their initial values.
+     * initializes the Tally. This methods sets the max, min, n, sum and variance values to their initial values.
      */
     public void initialize()
     {
@@ -348,7 +317,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * is this tally initialized?
-     * 
      * @return true whenever this.initialize is invoked.
      */
     public boolean isInitialized()
@@ -357,8 +325,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface
-     *      #notify(nl.tudelft.simulation.event.EventInterface)
+     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
      */
     public void notify(final EventInterface event)
     {
@@ -367,7 +334,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
             throw new IllegalArgumentException("Tally does not accept " + event);
         }
         double value = ((Number) event.getContent()).doubleValue();
-        if (!this.filter.accept(new double[] { value, value }))
+        if (!this.filter.accept(new double[]{value, value}))
         {
             return;
         }
@@ -379,10 +346,8 @@ public class Tally extends StatisticsObject implements EventListenerInterface
             }
             // see Knuth's The Art Of Computer Programming
             // Volume II: Seminumerical Algorithms
-            double newsampleMean = this.sampleMean + (value - this.sampleMean)
-                    / (this.n + 1);
-            this.varianceSum += (value - this.sampleMean)
-                    * (value - newsampleMean);
+            double newsampleMean = this.sampleMean + (value - this.sampleMean) / (this.n + 1);
+            this.varianceSum += (value - this.sampleMean) * (value - newsampleMean);
             this.setSampleMean(newsampleMean);
             this.setSum(this.sum + value);
             this.setN(this.n + 1);
@@ -397,9 +362,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
             if (this.n > 1)
             {
                 this.fireEvent(Tally.STANDARD_DEVIATION_EVENT, getStdDev());
-                this
-                        .fireEvent(Tally.SAMPLE_VARIANCE_EVENT,
-                                getSampleVariance());
+                this.fireEvent(Tally.SAMPLE_VARIANCE_EVENT, getSampleVariance());
             }
         }
     }
@@ -416,7 +379,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     // ***************** PROTECTED METHODS **************/
     /**
      * sets sampleMean
-     * 
      * @param sampleMean the new mean
      * @return double sampleMean
      */
@@ -429,7 +391,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets min
-     * 
      * @param min the new minimum value
      * @return double the input
      */
@@ -442,7 +403,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets max
-     * 
      * @param max the new maximum value
      * @return double the input
      */
@@ -455,7 +415,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets n
-     * 
      * @param n the new n
      * @return double the input
      */
@@ -468,7 +427,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets the count
-     * 
      * @param sum the new sum
      * @return double the input
      */

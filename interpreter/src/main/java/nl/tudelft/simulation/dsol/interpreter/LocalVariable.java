@@ -9,26 +9,21 @@ package nl.tudelft.simulation.dsol.interpreter;
 import nl.tudelft.simulation.dsol.interpreter.classfile.LocalVariableDescriptor;
 
 /**
- * Each frame (???3.6) contains an array of variables known as its local
- * variables. The length of the local variable array of a frame is determined at
- * compile time and supplied in the binary representation of a class or
- * interface along with the code for the method associated with the frame
- * (???4.7.3). A single local variable can hold a value of type boolean, byte,
- * char, short, int, float, reference, or returnAddress. A pair of local
- * variables can hold a value of type long or double.
+ * Each frame (???3.6) contains an array of variables known as its local variables. The length of the local variable
+ * array of a frame is determined at compile time and supplied in the binary representation of a class or interface
+ * along with the code for the method associated with the frame (???4.7.3). A single local variable can hold a value of
+ * type boolean, byte, char, short, int, float, reference, or returnAddress. A pair of local variables can hold a value
+ * of type long or double.
  * <p>
- * Local variables are addressed by indexing. The index of the first local
- * variable is zero. An integer is be considered to be an index into the local
- * variable array if and only if that integer is between zero and one less than
- * the size of the local variable array.
+ * Local variables are addressed by indexing. The index of the first local variable is zero. An integer is be considered
+ * to be an index into the local variable array if and only if that integer is between zero and one less than the size
+ * of the local variable array.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
  * @since 1.5
@@ -43,7 +38,6 @@ public class LocalVariable implements Cloneable
 
     /**
      * constructs a new LocalVariable
-     * 
      * @param localVariableDescriptor the descriptor
      */
     public LocalVariable(final LocalVariableDescriptor localVariableDescriptor)
@@ -84,8 +78,7 @@ public class LocalVariable implements Cloneable
         String result = "variable";
         if (this.localVariableDescriptor != null)
         {
-            result = result + " descriptor="
-                    + this.localVariableDescriptor.toString();
+            result = result + " descriptor=" + this.localVariableDescriptor.toString();
         }
         if (this.value != null)
         {
@@ -93,7 +86,8 @@ public class LocalVariable implements Cloneable
             if (this.value instanceof StringBuffer)
             {
                 valueString = StringBuffer.class.getName();
-            } else
+            }
+            else
             {
                 valueString = this.value.toString();
             }
@@ -104,12 +98,10 @@ public class LocalVariable implements Cloneable
 
     /**
      * creates a new array of local variables
-     * 
      * @param descriptors the descriptors
      * @return LocalVariable[]
      */
-    public static LocalVariable[] newInstance(
-            final LocalVariableDescriptor[] descriptors)
+    public static LocalVariable[] newInstance(final LocalVariableDescriptor[] descriptors)
     {
         LocalVariable[] result = new LocalVariable[descriptors.length];
         for (int i = 0; i < result.length; i++)
@@ -121,13 +113,11 @@ public class LocalVariable implements Cloneable
 
     /**
      * replaces the value of a localVarialbe
-     * 
      * @param localVariables the set to introspect
      * @param oldValue the oldValue
      * @param newValue the new value
      */
-    public static void replace(final LocalVariable[] localVariables,
-            final Object oldValue, final Object newValue)
+    public static void replace(final LocalVariable[] localVariables, final Object oldValue, final Object newValue)
     {
         synchronized (localVariables)
         {
@@ -143,7 +133,6 @@ public class LocalVariable implements Cloneable
 
     /**
      * parses the localVariables to string
-     * 
      * @param localVariables the localVariables
      * @return String the result
      */

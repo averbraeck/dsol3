@@ -14,21 +14,17 @@ import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 
 /**
- * The Event producing map provides a map to which one can subscribe interest in
- * entry changes. This class does not keep track of changes which take place
- * indirectly. One is for example not notified on
- * <code>map.iterator.remove()</code>. A listener must subscribe to the
- * iterator, key set, etc. individually.
+ * The Event producing map provides a map to which one can subscribe interest in entry changes. This class does not keep
+ * track of changes which take place indirectly. One is for example not notified on <code>map.iterator.remove()</code>.
+ * A listener must subscribe to the iterator, key set, etc. individually.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands.
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands.
  * <p>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
  * </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty
- * 
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:12 $
  * @since 1.5
@@ -39,21 +35,18 @@ public class EventProducingMap<K, V> extends EventProducer implements Map<K, V>
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** OBJECT_ADDED_EVENT is fired on new entries */
-    public static final EventType OBJECT_ADDED_EVENT = new EventType(
-            "OBJECT_ADDED_EVENT");
+    public static final EventType OBJECT_ADDED_EVENT = new EventType("OBJECT_ADDED_EVENT");
 
     /** OBJECT_REMOVED_EVENT is fired on removel of entries */
-    public static final EventType OBJECT_REMOVED_EVENT = new EventType(
-            "OBJECT_REMOVED_EVENT");
+    public static final EventType OBJECT_REMOVED_EVENT = new EventType("OBJECT_REMOVED_EVENT");
 
     /** the parent map */
     private Map<K, V> parent = null;
 
     /**
      * constructs a new EventProducingMap.
-     * 
      * @param parent the parent map.
      */
     public EventProducingMap(final Map<K, V> parent)
@@ -125,7 +118,7 @@ public class EventProducingMap<K, V> extends EventProducer implements Map<K, V>
     /**
      * @see java.util.Map#putAll(java.util.Map)
      */
-    public void putAll(final Map< ? extends K, ? extends V> arg0)
+    public void putAll(final Map<? extends K, ? extends V> arg0)
     {
         this.parent.putAll(arg0);
         this.fireEvent(OBJECT_ADDED_EVENT, null);

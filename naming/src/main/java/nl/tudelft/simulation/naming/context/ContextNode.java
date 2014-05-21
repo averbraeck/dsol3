@@ -26,26 +26,22 @@ import nl.tudelft.simulation.logger.Logger;
 /**
  * A node in the context.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.5 2004-03-24
  * @since 1.5
  */
-public class ContextNode extends DefaultMutableTreeNode implements
-        NamespaceChangeListener
+public class ContextNode extends DefaultMutableTreeNode implements NamespaceChangeListener
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** NODE_CHANGED_EVENT */
-    public static final EventType NODE_CHANGED_EVENT = new EventType(
-            "NODE_CHANGED_EVENT");
+    public static final EventType NODE_CHANGED_EVENT = new EventType("NODE_CHANGED_EVENT");
 
     /** the context */
     private EventContext context = null;
@@ -61,7 +57,6 @@ public class ContextNode extends DefaultMutableTreeNode implements
 
     /**
      * constructs a new ContextNode
-     * 
      * @param treeModel the treeModel
      * @param name the name
      * @param context the context
@@ -69,9 +64,8 @@ public class ContextNode extends DefaultMutableTreeNode implements
      * @param displayFields the fields to show
      * @throws NamingException on failure
      */
-    public ContextNode(final ContextTreeModel treeModel, final String name,
-            final EventContext context, final Class<?>[] displayClasses,
-            final boolean displayFields) throws NamingException
+    public ContextNode(final ContextTreeModel treeModel, final String name, final EventContext context,
+            final Class<?>[] displayClasses, final boolean displayFields) throws NamingException
     {
         super(name);
         this.treeModel = treeModel;
@@ -83,8 +77,7 @@ public class ContextNode extends DefaultMutableTreeNode implements
         while (bindings.hasMore())
         {
             Binding binding = bindings.next();
-            this.objectAdded(new NamingEvent(this.context,
-                    NamingEvent.OBJECT_ADDED, binding, null, null));
+            this.objectAdded(new NamingEvent(this.context, NamingEvent.OBJECT_ADDED, binding, null, null));
         }
         this.context.addNamingListener("", EventContext.OBJECT_SCOPE, this);
         this.context.addNamingListener("", EventContext.SUBTREE_SCOPE, this);
@@ -92,7 +85,6 @@ public class ContextNode extends DefaultMutableTreeNode implements
 
     /**
      * constructs a new ContextNode
-     * 
      * @param userObject the userObject
      */
     public ContextNode(final Object userObject)
@@ -101,8 +93,7 @@ public class ContextNode extends DefaultMutableTreeNode implements
     }
 
     /**
-     * @see javax.naming.event.NamespaceChangeListener
-     *      #objectAdded(javax.naming.event.NamingEvent)
+     * @see javax.naming.event.NamespaceChangeListener #objectAdded(javax.naming.event.NamingEvent)
      */
     public void objectAdded(final NamingEvent event)
     {
@@ -112,26 +103,24 @@ public class ContextNode extends DefaultMutableTreeNode implements
             EventContext eventContext = (EventContext) item.getObject();
             try
             {
-                Name name = eventContext.getNameParser("").parse(
-                        eventContext.getNameInNamespace());
-                this.add(new ContextNode(this.treeModel, name.get(
-                        name.size() - 1).toString(), eventContext,
+                Name name = eventContext.getNameParser("").parse(eventContext.getNameInNamespace());
+                this.add(new ContextNode(this.treeModel, name.get(name.size() - 1).toString(), eventContext,
                         this.displayClasses, this.displayFields));
-            } catch (NamingException exception)
+            }
+            catch (NamingException exception)
             {
                 Logger.warning(this, "objectAdded", exception);
             }
-        } else if (this.display(item.getObject()))
+        }
+        else if (this.display(item.getObject()))
         {
             this.contructObject(this, item.getObject());
         }
-        this.treeModel.fireTreeStructureChanged(this, this.getPath(), null,
-                null);
+        this.treeModel.fireTreeStructureChanged(this, this.getPath(), null, null);
     }
 
     /**
-     * @see javax.naming.event.NamespaceChangeListener
-     *      #objectRemoved(javax.naming.event.NamingEvent)
+     * @see javax.naming.event.NamespaceChangeListener #objectRemoved(javax.naming.event.NamingEvent)
      */
     public void objectRemoved(final NamingEvent event)
     {
@@ -140,13 +129,11 @@ public class ContextNode extends DefaultMutableTreeNode implements
         {
             this.remove(item.getObject());
         }
-        this.treeModel.fireTreeStructureChanged(this, this.getPath(), null,
-                null);
+        this.treeModel.fireTreeStructureChanged(this, this.getPath(), null, null);
     }
 
     /**
      * removes the child from context
-     * 
      * @param object the object
      */
     private void remove(final Object object)
@@ -157,8 +144,7 @@ public class ContextNode extends DefaultMutableTreeNode implements
         }
         for (int i = 0; i < this.getChildCount(); i++)
         {
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) this
-                    .getChildAt(i);
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getChildAt(i);
             if (node.getUserObject().equals(object))
             {
                 this.remove(i);
@@ -169,18 +155,15 @@ public class ContextNode extends DefaultMutableTreeNode implements
     }
 
     /**
-     * @see javax.naming.event.NamespaceChangeListener
-     *      #objectRenamed(javax.naming.event.NamingEvent)
+     * @see javax.naming.event.NamespaceChangeListener #objectRenamed(javax.naming.event.NamingEvent)
      */
     public void objectRenamed(final NamingEvent event)
     {
-        throw new RuntimeException("objectRenamed(" + event.toString()
-                + ") not implemented yet");
+        throw new RuntimeException("objectRenamed(" + event.toString() + ") not implemented yet");
     }
 
     /**
-     * @see javax.naming.event.NamingListener
-     *      #namingExceptionThrown(javax.naming.event.NamingExceptionEvent)
+     * @see javax.naming.event.NamingListener #namingExceptionThrown(javax.naming.event.NamingExceptionEvent)
      */
     public void namingExceptionThrown(final NamingExceptionEvent event)
     {
@@ -189,7 +172,6 @@ public class ContextNode extends DefaultMutableTreeNode implements
 
     /**
      * display this object.
-     * 
      * @param object the object
      * @return boolean
      */
@@ -200,11 +182,10 @@ public class ContextNode extends DefaultMutableTreeNode implements
 
     /**
      * display this class.
-     * 
      * @param myClass the class
      * @return boolean
      */
-    private boolean display(final Class< ? > myClass)
+    private boolean display(final Class<?> myClass)
     {
         if (this.displayClasses == null)
         {
@@ -221,7 +202,7 @@ public class ContextNode extends DefaultMutableTreeNode implements
                 return true;
             }
         }
-        Class< ? >[] interfaces = myClass.getInterfaces();
+        Class<?>[] interfaces = myClass.getInterfaces();
         for (int i = 0; i < interfaces.length; i++)
         {
             for (int j = 0; j < this.displayClasses.length; j++)
@@ -237,35 +218,32 @@ public class ContextNode extends DefaultMutableTreeNode implements
 
     /**
      * constructs an Object
-     * 
      * @param root the root element
      * @param object the object
      * @return root
      */
-    private DefaultMutableTreeNode contructObject(
-            final DefaultMutableTreeNode root, final Object object)
+    private DefaultMutableTreeNode contructObject(final DefaultMutableTreeNode root, final Object object)
     {
         if (!this.displayFields)
         {
             root.add(new DefaultMutableTreeNode(object));
-        } else
+        }
+        else
         {
             DefaultMutableTreeNode child = new DefaultMutableTreeNode(object);
             try
             {
                 BeanInfo beanInfo = Introspector.getBeanInfo(object.getClass());
-                PropertyDescriptor[] descriptors = beanInfo
-                        .getPropertyDescriptors();
+                PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
                 for (int i = 0; i < descriptors.length; i++)
                 {
                     String name = "attr:" + descriptors[i].getName();
-                    String value = " value:"
-                            + descriptors[i].getReadMethod().invoke(object)
-                                    .toString();
+                    String value = " value:" + descriptors[i].getReadMethod().invoke(object).toString();
                     child.add(new DefaultMutableTreeNode(name + "  " + value));
                 }
                 root.add(child);
-            } catch (Exception exception)
+            }
+            catch (Exception exception)
             {
                 exception = null;
                 // No problem, we just don't show

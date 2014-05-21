@@ -17,13 +17,11 @@ import java.util.TimerTask;
 /**
  * provides a timed update mechanism for components
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.2 Apr 16, 2004
  * @since 1.5
@@ -42,7 +40,6 @@ public class UpdateTimer extends TimerTask
 
     /**
      * constructs a new UpdateTimer
-     * 
      * @param period the period in milliseconds
      */
     public UpdateTimer(final long period)
@@ -53,17 +50,15 @@ public class UpdateTimer extends TimerTask
 
     /**
      * adds a component to the list.
-     * 
      * @param component the component
      */
     @SuppressWarnings("unchecked")
     public synchronized void add(final Component component)
     {
-        List<WeakReference<Component>> arrayList = new ArrayList<WeakReference<Component>>(
-                Arrays.asList(this.components));
+        List<WeakReference<Component>> arrayList =
+                new ArrayList<WeakReference<Component>>(Arrays.asList(this.components));
         arrayList.add(new WeakReference<Component>(component));
-        this.components = arrayList
-                .toArray(new WeakReference[arrayList.size()]);
+        this.components = arrayList.toArray(new WeakReference[arrayList.size()]);
         // The first table added
         if (this.timer == null)
         {
@@ -74,7 +69,6 @@ public class UpdateTimer extends TimerTask
 
     /**
      * removes a component from a list
-     * 
      * @param component the component
      */
     public synchronized void remove(final Component component)
@@ -90,17 +84,15 @@ public class UpdateTimer extends TimerTask
 
     /**
      * removes a reference from a list
-     * 
      * @param reference the reference
      */
     @SuppressWarnings("unchecked")
     private synchronized void remove(final WeakReference reference)
     {
-        List<WeakReference<Component>> arrayList = new ArrayList<WeakReference<Component>>(
-                Arrays.asList(this.components));
+        List<WeakReference<Component>> arrayList =
+                new ArrayList<WeakReference<Component>>(Arrays.asList(this.components));
         arrayList.remove(reference);
-        this.components = arrayList
-                .toArray(new WeakReference[arrayList.size()]);
+        this.components = arrayList.toArray(new WeakReference[arrayList.size()]);
         if (this.components.length == 0)
         {
             // The last component is removed. Let's cancel the timer
@@ -120,7 +112,8 @@ public class UpdateTimer extends TimerTask
             if (component != null)
             {
                 component.repaint();
-            } else
+            }
+            else
             {
                 this.remove(this.components[i]);
             }

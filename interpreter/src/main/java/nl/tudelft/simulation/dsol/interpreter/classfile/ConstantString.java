@@ -12,13 +12,11 @@ import java.io.IOException;
 
 /**
  * A ConstantString <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -29,20 +27,17 @@ public class ConstantString extends Constant
 
     /**
      * constructs a new ConstantString
-     * 
      * @param constantPool the constantPool it is part of
      * @param inputStream the inputstream to read from
      * @throws IOException on failure
      */
-    public ConstantString(final Constant[] constantPool,
-            final DataInput inputStream) throws IOException
+    public ConstantString(final Constant[] constantPool, final DataInput inputStream) throws IOException
     {
         this(constantPool, inputStream.readUnsignedShort());
     }
 
     /**
      * constructs a new ConstantString
-     * 
      * @param constantPool the constantPool it is part of
      * @param stringIndex the stringIndex
      */
@@ -63,7 +58,6 @@ public class ConstantString extends Constant
 
     /**
      * returns the name index
-     * 
      * @return stringIndex
      */
     public int getStringIndex()
@@ -73,7 +67,6 @@ public class ConstantString extends Constant
 
     /**
      * returns the className of this constant
-     * 
      * @return String the className
      */
     public String getValue()

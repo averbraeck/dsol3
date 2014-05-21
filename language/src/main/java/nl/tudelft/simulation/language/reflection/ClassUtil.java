@@ -24,40 +24,31 @@ import nl.tudelft.simulation.language.primitives.Primitive;
 /**
  * ClassUtil is a utility class providing assistance for Java Classes.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/">
- * www.simulation.tudelft.nl</a>.
+ * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ * following conditions are met:
  * <ul>
- * <li>Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.</li>
+ * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ * disclaimer.</li>
+ * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+ * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.</li>
  * </ul>
- * This software is provided by the copyright holders and contributors "as is"
- * and any express or implied warranties, including, but not limited to, the
- * implied warranties of merchantability and fitness for a particular purpose
- * are disclaimed. In no event shall the copyright holder or contributors be
- * liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of
- * substitute goods or services; loss of use, data, or profits; or business
- * interruption) however caused and on any theory of liability, whether in
- * contract, strict liability, or tort (including negligence or otherwise)
- * arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
- * 
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
- *         href="mailto:nlang@fbk.eur.nl">Niels Lang </a><a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+ * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
+ * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
+ * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
+ * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
+ * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
+ * of this software, even if advised of the possibility of such damage.
+ * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a href="mailto:nlang@fbk.eur.nl">Niels
+ *         Lang </a><a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @version $Revision: 1.3 $ $Date: 2010/08/10 11:39:11 $
  * @since 1.5
  */
@@ -78,7 +69,6 @@ public final class ClassUtil
     /** ************ CONSTRUCTOR UTILITIES *********** */
     /**
      * gets all the constructors of a class and adds the result to result.
-     * 
      * @param clazz the class
      * @param result the resulting set
      * @return result
@@ -96,7 +86,6 @@ public final class ClassUtil
 
     /**
      * returns the interface method.
-     * 
      * @param clazz the class to start with
      * @param callerClass the calling class
      * @param parameterTypes the parameterTypes
@@ -116,7 +105,6 @@ public final class ClassUtil
 
     /**
      * returns the interface method.
-     * 
      * @param clazz the class to start with
      * @param parameterTypes the parameterTypes
      * @return Constructor
@@ -128,7 +116,8 @@ public final class ClassUtil
         try
         {
             return resolveConstructorSuper(clazz, (Class<?>[]) ClassUtil.checkInput(parameterTypes, Class.class));
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             String className = clazz.getName();
             if (className.indexOf("$") >= 0)
@@ -137,12 +126,13 @@ public final class ClassUtil
                 try
                 {
                     parentClass = Class.forName(className.substring(0, className.lastIndexOf("$")));
-                } catch (Exception e2)
+                }
+                catch (Exception e2)
                 {
                     throw new NoSuchMethodException("class " + parentClass + " not found to resolve constructor");
                 }
-                return ClassUtil.resolveConstructor(parentClass, (Class<?>[]) ClassUtil.checkInput(parameterTypes,
-                        Class.class));
+                return ClassUtil.resolveConstructor(parentClass,
+                        (Class<?>[]) ClassUtil.checkInput(parameterTypes, Class.class));
             }
             throw new NoSuchMethodException("class " + clazz + " does not contain constructor");
         }
@@ -150,7 +140,6 @@ public final class ClassUtil
 
     /**
      * returns the constructor.
-     * 
      * @param clazz the clazz to start with
      * @param arguments the arguments
      * @return Constructor
@@ -168,7 +157,8 @@ public final class ClassUtil
         try
         {
             return ClassUtil.resolveConstructor(clazz, parameterTypes);
-        } catch (NoSuchMethodException noSuchMethodException)
+        }
+        catch (NoSuchMethodException noSuchMethodException)
         {
             // We get all constructors
             Constructor<?>[] constructors = ClassUtil.getAllConstructors(clazz, new Constructor[0]);
@@ -184,9 +174,7 @@ public final class ClassUtil
     /* ************ FIELD UTILITIES *********** */
 
     /**
-     * gets all the fields of a class (public, protected, package, and private)
-     * and adds the result to the return value.
-     * 
+     * gets all the fields of a class (public, protected, package, and private) and adds the result to the return value.
      * @param clazz the class
      * @param result the resulting set
      * @return the set of fields including all fields of the field clazz
@@ -207,7 +195,6 @@ public final class ClassUtil
 
     /**
      * gets all the fields of a class (public, protected, package, and private).
-     * 
      * @param clazz the class
      * @return all fields of the class
      */
@@ -219,7 +206,6 @@ public final class ClassUtil
 
     /**
      * resolves the field for a class, taking into account inner classes.
-     * 
      * @param clazz the class to resolve the field for, including inner classes
      * @param fieldName name of the field
      * @return Field the field
@@ -231,7 +217,8 @@ public final class ClassUtil
         try
         {
             return resolveFieldSuper(clazz, fieldName);
-        } catch (NoSuchFieldException noSuchFieldException)
+        }
+        catch (NoSuchFieldException noSuchFieldException)
         {
             String className = clazz.getName();
             if (className.indexOf("$") >= 0)
@@ -240,7 +227,8 @@ public final class ClassUtil
                 try
                 {
                     clazz2 = Class.forName(className.substring(0, className.lastIndexOf("$")));
-                } catch (ClassNotFoundException classNotFoundException)
+                }
+                catch (ClassNotFoundException classNotFoundException)
                 {
                     throw new NoSuchFieldException("class " + clazz + " not found to resolve field " + fieldName);
                 }
@@ -252,7 +240,6 @@ public final class ClassUtil
 
     /**
      * returns the field.
-     * 
      * @param clazz the class to start with
      * @param callerClass the calling class
      * @param name the fieldName
@@ -272,7 +259,6 @@ public final class ClassUtil
 
     /**
      * resolves the field for a given object instance.
-     * 
      * @param object the object to resolve the field for
      * @param fieldName name of the field to resolve
      * @return the field (if found)
@@ -290,7 +276,6 @@ public final class ClassUtil
     /** ************ METHOD UTILITIES *********** */
     /**
      * gets all the methods of a class and adds the result to result.
-     * 
      * @param clazz the class
      * @param name the name of the method
      * @param result the resulting set
@@ -316,7 +301,6 @@ public final class ClassUtil
 
     /**
      * returns the interface method.
-     * 
      * @param clazz the class to start with
      * @param callerClass the caller class
      * @param name the name of the method
@@ -337,7 +321,6 @@ public final class ClassUtil
 
     /**
      * returns the interface method.
-     * 
      * @param clazz the class to start with
      * @param name the name of the method
      * @param parameterTypes the parameterTypes
@@ -350,7 +333,8 @@ public final class ClassUtil
         try
         {
             return resolveMethodSuper(clazz, name, (Class<?>[]) ClassUtil.checkInput(parameterTypes, Class.class));
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             String className = clazz.getName();
             if (className.indexOf("$") >= 0)
@@ -359,12 +343,13 @@ public final class ClassUtil
                 try
                 {
                     parentClass = Class.forName(className.substring(0, className.lastIndexOf("$")));
-                } catch (Exception e2)
+                }
+                catch (Exception e2)
                 {
                     throw new NoSuchMethodException("class " + parentClass + " not found to resolve method " + name);
                 }
-                return ClassUtil.resolveMethod(parentClass, name, (Class<?>[]) ClassUtil.checkInput(parameterTypes,
-                        Class.class));
+                return ClassUtil.resolveMethod(parentClass, name,
+                        (Class<?>[]) ClassUtil.checkInput(parameterTypes, Class.class));
             }
             throw new NoSuchMethodException("class " + clazz + " does not contain method " + name);
         }
@@ -372,7 +357,6 @@ public final class ClassUtil
 
     /**
      * resolves a method the method.
-     * 
      * @param object the object to start with
      * @param name the name of the method
      * @param parameterTypes the parameterTypes
@@ -391,7 +375,6 @@ public final class ClassUtil
 
     /**
      * returns the method.
-     * 
      * @param object the object to start with
      * @param name the name of the method
      * @param arguments the arguments
@@ -410,7 +393,8 @@ public final class ClassUtil
         try
         {
             return ClassUtil.resolveMethod(object, name, parameterTypes);
-        } catch (NoSuchMethodException noSuchMethodException)
+        }
+        catch (NoSuchMethodException noSuchMethodException)
         {
             // We get all methods
             Method[] methods = ClassUtil.getAllMethods(object.getClass(), name, new Method[0]);
@@ -432,9 +416,7 @@ public final class ClassUtil
     }
 
     /**
-     * Returns whether a declaringClass is accessible according to the
-     * modifiers.
-     * 
+     * Returns whether a declaringClass is accessible according to the modifiers.
      * @param modifiers the modifiers
      * @param declaringClass the declaringClass
      * @param caller the caller
@@ -466,12 +448,10 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns whether constructor 'a' is more specific than
-     * constructor 'b', as defined in the Java Language Specification ???15.12.
-     * 
-     * @return true if 'a' is more specific than b, false otherwise. 'false' is
-     *         also returned when constructors are incompatible, e.g. have
-     *         different names or a different number of parameters.
+     * Determines & returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
+     * Language Specification ???15.12.
+     * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
+     *         incompatible, e.g. have different names or a different number of parameters.
      * @param a reflects the first constructor
      * @param b reflects the second constructor
      */
@@ -494,12 +474,10 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns whether constructor 'a' is more specific than
-     * constructor 'b', as defined in the Java Language Specification ???15.12.
-     * 
-     * @return true if 'a' is more specific than b, false otherwise. 'false' is
-     *         also returned when constructors are incompatible, e.g. have
-     *         different names or a different number of parameters.
+     * Determines & returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
+     * Language Specification ???15.12.
+     * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
+     *         incompatible, e.g. have different names or a different number of parameters.
      * @param a reflects the first constructor
      * @param b reflects the second constructor
      */
@@ -516,12 +494,10 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns whether constructor 'a' is more specific than
-     * constructor 'b', as defined in the Java Language Specification ???15.12.
-     * 
-     * @return true if 'a' is more specific than b, false otherwise. 'false' is
-     *         also returned when constructors are incompatible, e.g. have
-     *         different names or a different number of parameters.
+     * Determines & returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
+     * Language Specification ???15.12.
+     * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
+     *         incompatible, e.g. have different names or a different number of parameters.
      * @param a reflects the first method
      * @param b reflects the second method
      */
@@ -536,10 +512,8 @@ public final class ClassUtil
 
     /**
      * Returns whether a field is visible for a caller.
-     * 
      * @param field The field
-     * @param caller The class of the caller for whom invocation visibility is
-     *            checked.
+     * @param caller The class of the caller for whom invocation visibility is checked.
      * @return boolean yes or no
      */
     public static boolean isVisible(final Field field, final Class<?> caller)
@@ -549,10 +523,8 @@ public final class ClassUtil
 
     /**
      * Returns whether a constructor is visible for a caller.
-     * 
      * @param constructor The constructor
-     * @param caller The class of the caller for whom invocation visibility is
-     *            checked.
+     * @param caller The class of the caller for whom invocation visibility is checked.
      * @return boolean yes or no
      */
     public static boolean isVisible(final Constructor<?> constructor, final Class<?> caller)
@@ -562,10 +534,8 @@ public final class ClassUtil
 
     /**
      * Returns whether a method is visible for a caller.
-     * 
      * @param method The method
-     * @param caller The class of the caller for whom invocation visibility is
-     *            checked.
+     * @param caller The class of the caller for whom invocation visibility is checked.
      * @return boolean yes or no
      */
     public static boolean isVisible(final Method method, final Class<?> caller)
@@ -574,15 +544,12 @@ public final class ClassUtil
     }
 
     /**
-     * Filters an array methods for signatures that are compatible with a given
-     * signature.
-     * 
+     * Filters an array methods for signatures that are compatible with a given signature.
      * @param methods which are methods to be filtered.
      * @param name reflects the method's name, part of the signature
      * @param argTypes are the method's argument types
-     * @return Method[] An unordered Method-array consisting of the elements of
-     *         'methods' that match with the given signature. An array with 0
-     *         elements is returned when no matching Method objects are found.
+     * @return Method[] An unordered Method-array consisting of the elements of 'methods' that match with the given
+     *         signature. An array with 0 elements is returned when no matching Method objects are found.
      */
     public static Method[] matchSignature(final Method[] methods, final String name, final Class<?>[] argTypes)
     {
@@ -598,9 +565,7 @@ public final class ClassUtil
     }
 
     /**
-     * Filters an array methods for signatures that are compatible with a given
-     * signature.
-     * 
+     * Filters an array methods for signatures that are compatible with a given signature.
      * @param method The method to be filtered.
      * @param name reflects the method's name, part of the signature
      * @param argTypes are the method's argument types
@@ -628,9 +593,7 @@ public final class ClassUtil
     }
 
     /**
-     * Filters an array methods for signatures that are compatible with a given
-     * signature.
-     * 
+     * Filters an array methods for signatures that are compatible with a given signature.
      * @param constructor which are constructors to be filtered.
      * @param argTypes are the constructor's argument types
      * @return boolean if methodParameters assignable from argTypes
@@ -653,15 +616,11 @@ public final class ClassUtil
     }
 
     /**
-     * Filters an array methods for signatures that are compatible with a given
-     * signature.
-     * 
+     * Filters an array methods for signatures that are compatible with a given signature.
      * @param constructors which are constructors to be filtered.
      * @param argTypes are the constructor's argument types
-     * @return Constructor<?>[] An unordered Constructor-array consisting of the
-     *         elements of 'constructors' that match with the given signature.
-     *         An array with 0 elements is returned when no matching Method
-     *         objects are found.
+     * @return Constructor<?>[] An unordered Constructor-array consisting of the elements of 'constructors' that match
+     *         with the given signature. An array with 0 elements is returned when no matching Method objects are found.
      */
     public static Constructor<?>[] matchSignature(final Constructor<?>[] constructors, final Class<?>[] argTypes)
     {
@@ -678,7 +637,6 @@ public final class ClassUtil
 
     /**
      * converts an array of objects to their corresponding classes
-     * 
      * @param array the array to invoke
      * @return Class<?>[] the result;
      */
@@ -694,7 +652,8 @@ public final class ClassUtil
             if (array[i] == null)
             {
                 result[i] = null;
-            } else
+            }
+            else
             {
                 result[i] = array[i].getClass();
             }
@@ -705,7 +664,6 @@ public final class ClassUtil
     /** ************** PRIVATE METHODS ********* */
     /**
      * checks the input of an array
-     * 
      * @param array the array
      * @param myClass the class of the result
      * @return Returns array if array!=null else returns myClass[0]
@@ -720,16 +678,12 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns the most specific constructor as defined in the Java
-     * Language Specification ???15.12. The current algorithm is simple and
-     * reliable, but probably slow.
-     * 
-     * @param methods are the constructors to be searched. They are assumed to
-     *            have the same name and number of parameters, as determined by
-     *            the constructor matchSignature.
+     * Determines & returns the most specific constructor as defined in the Java Language Specification ???15.12. The
+     * current algorithm is simple and reliable, but probably slow.
+     * @param methods are the constructors to be searched. They are assumed to have the same name and number of
+     *            parameters, as determined by the constructor matchSignature.
      * @return Constructor which is the most specific constructor.
-     * @throws NoSuchMethodException when no constructor is found that's more
-     *             specific than the others.
+     * @throws NoSuchMethodException when no constructor is found that's more specific than the others.
      */
     private static Constructor<?> getSpecificConstructor(final Constructor<?>[] methods) throws NoSuchMethodException
     {
@@ -770,16 +724,12 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns the most specific method as defined in the Java
-     * Language Specification ???15.12. The current algorithm is simple and
-     * reliable, but probably slow.
-     * 
-     * @param methods which are the methods to be searched. They are assumed to
-     *            have the same name and number of parameters, as determined by
-     *            the method matchSignature.
+     * Determines & returns the most specific method as defined in the Java Language Specification ???15.12. The current
+     * algorithm is simple and reliable, but probably slow.
+     * @param methods which are the methods to be searched. They are assumed to have the same name and number of
+     *            parameters, as determined by the method matchSignature.
      * @return The most specific method.
-     * @throws NoSuchMethodException when no method is found that's more
-     *             specific than the others.
+     * @throws NoSuchMethodException when no method is found that's more specific than the others.
      */
     private static Method getSpecificMethod(final Method[] methods) throws NoSuchMethodException
     {
@@ -822,7 +772,6 @@ public final class ClassUtil
 
     /**
      * returns the constructor
-     * 
      * @param clazz the class to start with
      * @param parameterTypes the parameterTypes
      * @return Method
@@ -841,7 +790,8 @@ public final class ClassUtil
             Constructor<?> constructor = clazz.getDeclaredConstructor(parameterTypes);
             CACHE.put(key, constructor);
             return constructor;
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             if (clazz.getSuperclass() != null)
             {
@@ -853,7 +803,6 @@ public final class ClassUtil
 
     /**
      * returns the interface method
-     * 
      * @param clazz the class to start with
      * @param name the name of the method
      * @param parameterTypes the parameterTypes
@@ -873,7 +822,8 @@ public final class ClassUtil
             Method method = clazz.getDeclaredMethod(name, parameterTypes);
             CACHE.put(key, method);
             return method;
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             if (clazz.getSuperclass() != null)
             {
@@ -885,7 +835,6 @@ public final class ClassUtil
 
     /**
      * resolves the field for a class, taking into account superclasses
-     * 
      * @param clazz the class for which superclasses will be probed
      * @param fieldName the name of the field to resolve
      * @return the field (if found)
@@ -903,7 +852,8 @@ public final class ClassUtil
             Field result = clazz.getDeclaredField(fieldName);
             CACHE.put("FIELD:" + clazz + "@" + fieldName, result);
             return result;
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             if (clazz.getSuperclass() != null)
             {

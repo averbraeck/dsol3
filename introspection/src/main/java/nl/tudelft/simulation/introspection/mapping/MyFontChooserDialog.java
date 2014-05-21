@@ -16,16 +16,14 @@ import java.util.List;
 import org.jfree.ui.FontChooserDialog;
 
 /**
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version 1.0 02.04.2003 <br>
- * @author <a href="http://www.simulation.tudelft.nl/people/lang.html">Niels
- *         Lang </a>, <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="http://www.simulation.tudelft.nl/people/lang.html">Niels Lang </a>, <a
+ *         href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
 public class MyFontChooserDialog extends FontChooserDialog
 {
@@ -39,8 +37,7 @@ public class MyFontChooserDialog extends FontChooserDialog
      * @param arg2 the parent frame
      * @param arg3 the font
      */
-    public MyFontChooserDialog(final Dialog arg0, final String arg1,
-            final boolean arg2, final Font arg3)
+    public MyFontChooserDialog(final Dialog arg0, final String arg1, final boolean arg2, final Font arg3)
     {
         super(arg0, arg1, arg2, arg3);
     }
@@ -51,8 +48,7 @@ public class MyFontChooserDialog extends FontChooserDialog
      * @param arg2 the parent frame
      * @param arg3 the font
      */
-    public MyFontChooserDialog(final Frame arg0, final String arg1,
-            final boolean arg2, final Font arg3)
+    public MyFontChooserDialog(final Frame arg0, final String arg1, final boolean arg2, final Font arg3)
     {
         super(arg0, arg1, arg2, arg3);
     }
@@ -75,7 +71,6 @@ public class MyFontChooserDialog extends FontChooserDialog
 
     /**
      * adds a user listener to the fontChooser Dialog
-     * 
      * @param l the listener
      */
     public void addUserListener(final UserListenerInterface l)
@@ -85,7 +80,6 @@ public class MyFontChooserDialog extends FontChooserDialog
 
     /**
      * removes a userListener in the fontChooser
-     * 
      * @param l the listener
      */
     public void removeUserListener(final UserListenerInterface l)
@@ -115,8 +109,7 @@ public class MyFontChooserDialog extends FontChooserDialog
      */
     private void notifyOK()
     {
-        for (Iterator<UserListenerInterface> i = this.listeners.iterator(); i
-                .hasNext();)
+        for (Iterator<UserListenerInterface> i = this.listeners.iterator(); i.hasNext();)
         {
             i.next().okActionPerformed();
         }
@@ -127,8 +120,7 @@ public class MyFontChooserDialog extends FontChooserDialog
      */
     private void notifyCancel()
     {
-        for (Iterator<UserListenerInterface> i = this.listeners.iterator(); i
-                .hasNext();)
+        for (Iterator<UserListenerInterface> i = this.listeners.iterator(); i.hasNext();)
         {
             i.next().cancelActionPerformed();
         }

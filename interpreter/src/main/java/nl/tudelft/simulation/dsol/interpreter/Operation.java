@@ -10,16 +10,14 @@ package nl.tudelft.simulation.dsol.interpreter;
 import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
 
 /**
- * Represents a Java virtual machine instruction. An operation is id-ed with a
- * short opcode and has a predefined bytelength.
+ * Represents a Java virtual machine instruction. An operation is id-ed with a short opcode and has a predefined
+ * bytelength.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
  * @since 1.5
@@ -54,26 +52,23 @@ public abstract class Operation
     @Override
     public String toString()
     {
-        return this.getClass().getName().substring(
-                this.getClass().getName().lastIndexOf(".") + 1);
+        return this.getClass().getName().substring(this.getClass().getName().lastIndexOf(".") + 1);
     }
 
     /**
      * represents a set of operations as string.
-     * 
      * @param methodDescriptor the methodDescriptor
      * @param operations the operations to represent
      * @return The resulting string.
      */
-    public static String toString(final MethodDescriptor methodDescriptor,
-            final Operation[] operations)
+    public static String toString(final MethodDescriptor methodDescriptor, final Operation[] operations)
     {
         String result = "";
         for (int i = 0; i < operations.length; i++)
         {
-            result = result + i + ": " + " ("
-                    + methodDescriptor.getBytePosition(i) + ")"
-                    + operations[i].toString() + "\n";
+            result =
+                    result + i + ": " + " (" + methodDescriptor.getBytePosition(i) + ")" + operations[i].toString()
+                            + "\n";
         }
         return result;
     }

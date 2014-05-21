@@ -26,23 +26,20 @@ import nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface;
 
 /**
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 7, 2004
  * @since 1.5
  */
-public class RemoteContext extends UnicastRemoteObject implements
-        RemoteContextInterface
+public class RemoteContext extends UnicastRemoteObject implements RemoteContextInterface
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** the underlying eventcontext */
     private EventContext eventContext = null;
 
@@ -52,24 +49,20 @@ public class RemoteContext extends UnicastRemoteObject implements
 
     /**
      * constructs a new RemoteContext
-     * 
      * @param eventContext the underlying context
      * @throws RemoteException on network failure
      */
-    public RemoteContext(final EventContext eventContext)
-            throws RemoteException
+    public RemoteContext(final EventContext eventContext) throws RemoteException
     {
         super();
         this.eventContext = eventContext;
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addNamingListener(javax.naming.Name,
-     *      int,
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addNamingListener(javax.naming.Name, int,
      *      nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface)
      */
-    public void addNamingListener(Name target, int scope,
-            RemoteContextListenerInterface l) throws NamingException
+    public void addNamingListener(Name target, int scope, RemoteContextListenerInterface l) throws NamingException
     {
         RemoteContextListenerClient client = new RemoteContextListenerClient(l);
         this.listeners.put(l, client);
@@ -77,12 +70,10 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addNamingListener(java.lang.String,
-     *      int,
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addNamingListener(java.lang.String, int,
      *      nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface)
      */
-    public void addNamingListener(String target, int scope,
-            RemoteContextListenerInterface l) throws NamingException
+    public void addNamingListener(String target, int scope, RemoteContextListenerInterface l) throws NamingException
     {
         RemoteContextListenerClient client = new RemoteContextListenerClient(l);
         this.listeners.put(l, client);
@@ -92,8 +83,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     /**
      * @see nl.tudelft.simulation.naming.RemoteContextInterface#removeNamingListener(nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface)
      */
-    public void removeNamingListener(RemoteContextListenerInterface l)
-            throws NamingException
+    public void removeNamingListener(RemoteContextListenerInterface l) throws NamingException
     {
         this.eventContext.removeNamingListener(this.listeners.remove(l));
     }
@@ -123,8 +113,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#bind(javax.naming.Name,
-     *      java.lang.Object)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#bind(javax.naming.Name, java.lang.Object)
      */
     public void bind(Name name, Object obj) throws NamingException
     {
@@ -132,8 +121,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#bind(java.lang.String,
-     *      java.lang.Object)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#bind(java.lang.String, java.lang.Object)
      */
     public void bind(String name, Object obj) throws NamingException
     {
@@ -141,8 +129,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rebind(javax.naming.Name,
-     *      java.lang.Object)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rebind(javax.naming.Name, java.lang.Object)
      */
     public void rebind(Name name, Object obj) throws NamingException
     {
@@ -150,8 +137,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rebind(java.lang.String,
-     *      java.lang.Object)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rebind(java.lang.String, java.lang.Object)
      */
     public void rebind(String name, Object obj) throws NamingException
     {
@@ -175,8 +161,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rename(javax.naming.Name,
-     *      javax.naming.Name)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rename(javax.naming.Name, javax.naming.Name)
      */
     public void rename(Name oldName, Name newName) throws NamingException
     {
@@ -184,8 +169,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rename(java.lang.String,
-     *      java.lang.String)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rename(java.lang.String, java.lang.String)
      */
     public void rename(String oldName, String newName) throws NamingException
     {
@@ -195,8 +179,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     /**
      * @see nl.tudelft.simulation.naming.RemoteContextInterface#list(javax.naming.Name)
      */
-    public NamingEnumeration<NameClassPair> list(Name name)
-            throws NamingException
+    public NamingEnumeration<NameClassPair> list(Name name) throws NamingException
     {
         return this.eventContext.list(name);
     }
@@ -204,8 +187,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     /**
      * @see nl.tudelft.simulation.naming.RemoteContextInterface#list(java.lang.String)
      */
-    public NamingEnumeration<NameClassPair> list(String name)
-            throws NamingException
+    public NamingEnumeration<NameClassPair> list(String name) throws NamingException
     {
         return this.eventContext.list(name);
     }
@@ -213,8 +195,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     /**
      * @see nl.tudelft.simulation.naming.RemoteContextInterface#listBindings(javax.naming.Name)
      */
-    public NamingEnumeration<Binding> listBindings(Name name)
-            throws NamingException
+    public NamingEnumeration<Binding> listBindings(Name name) throws NamingException
     {
         return this.eventContext.listBindings(name);
     }
@@ -222,8 +203,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     /**
      * @see nl.tudelft.simulation.naming.RemoteContextInterface#listBindings(java.lang.String)
      */
-    public NamingEnumeration<Binding> listBindings(String name)
-            throws NamingException
+    public NamingEnumeration<Binding> listBindings(String name) throws NamingException
     {
         return this.eventContext.listBindings(name);
     }
@@ -247,22 +227,18 @@ public class RemoteContext extends UnicastRemoteObject implements
     /**
      * @see nl.tudelft.simulation.naming.RemoteContextInterface#createSubcontext(javax.naming.Name)
      */
-    public RemoteContextInterface createSubcontext(Name name)
-            throws NamingException, RemoteException
+    public RemoteContextInterface createSubcontext(Name name) throws NamingException, RemoteException
     {
-        EventContext child = (EventContext) this.eventContext
-                .createSubcontext(name);
+        EventContext child = (EventContext) this.eventContext.createSubcontext(name);
         return new RemoteContext(child);
     }
 
     /**
      * @see nl.tudelft.simulation.naming.RemoteContextInterface#createSubcontext(java.lang.String)
      */
-    public RemoteContextInterface createSubcontext(String name)
-            throws NamingException, RemoteException
+    public RemoteContextInterface createSubcontext(String name) throws NamingException, RemoteException
     {
-        EventContext child = (EventContext) this.eventContext
-                .createSubcontext(name);
+        EventContext child = (EventContext) this.eventContext.createSubcontext(name);
         return new RemoteContext(child);
     }
 
@@ -299,8 +275,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#composeName(javax.naming.Name,
-     *      javax.naming.Name)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#composeName(javax.naming.Name, javax.naming.Name)
      */
     public Name composeName(Name name, Name prefix) throws NamingException
     {
@@ -308,21 +283,17 @@ public class RemoteContext extends UnicastRemoteObject implements
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#composeName(java.lang.String,
-     *      java.lang.String)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#composeName(java.lang.String, java.lang.String)
      */
-    public String composeName(String name, String prefix)
-            throws NamingException
+    public String composeName(String name, String prefix) throws NamingException
     {
         return this.eventContext.composeName(name, prefix);
     }
 
     /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addToEnvironment(java.lang.String,
-     *      java.lang.Object)
+     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addToEnvironment(java.lang.String, java.lang.Object)
      */
-    public Object addToEnvironment(String propName, Object propVal)
-            throws NamingException
+    public Object addToEnvironment(String propName, Object propVal) throws NamingException
     {
         return this.eventContext.addToEnvironment(propName, propVal);
     }
@@ -338,7 +309,7 @@ public class RemoteContext extends UnicastRemoteObject implements
     /**
      * @see nl.tudelft.simulation.naming.RemoteContextInterface#getEnvironment()
      */
-    public Hashtable<?,?> getEnvironment() throws NamingException
+    public Hashtable<?, ?> getEnvironment() throws NamingException
     {
         return this.eventContext.getEnvironment();
     }

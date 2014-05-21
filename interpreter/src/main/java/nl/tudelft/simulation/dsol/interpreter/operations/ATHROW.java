@@ -13,19 +13,15 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ExceptionEntry;
 /**
  * The ATHROW operation as defined in <a
  * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc.html">
- * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc.html
- * </a>.
+ * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc.html </a>.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a><a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander
- *         Verbraeck </a>
+ *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:20 $
  * @since 1.5
  */
@@ -39,7 +35,6 @@ public class ATHROW extends Operation
 
     /**
      * constructs a new ARETURN
-     * 
      * @param bytePosition where the ARETURN starts
      */
     public ATHROW(final int bytePosition)
@@ -50,7 +45,6 @@ public class ATHROW extends Operation
 
     /**
      * executes the aThrow operation on a frame
-     * 
      * @param frame the frame
      * @return the frame
      */
@@ -65,10 +59,9 @@ public class ATHROW extends Operation
         frame.getOperandStack().clear();
         frame.getOperandStack().push(throwable);
         // Now we search for a handler
-        ExceptionEntry[] exceptionEntries = frame.getMethodDescriptor()
-                .getExceptionTable();
-        ExceptionEntry exceptionEntry = ExceptionEntry.resolveExceptionEntry(
-                exceptionEntries, throwable.getClass(), this.bytePosition);
+        ExceptionEntry[] exceptionEntries = frame.getMethodDescriptor().getExceptionTable();
+        ExceptionEntry exceptionEntry =
+                ExceptionEntry.resolveExceptionEntry(exceptionEntries, throwable.getClass(), this.bytePosition);
         frame.getOperandStack().push(exceptionEntry);
         return frame;
     }
@@ -93,7 +86,6 @@ public class ATHROW extends Operation
 
     /**
      * sets the bytePosition of this ATROW operation
-     * 
      * @param bytePosition the bytePosition
      */
     public void setBytePosition(int bytePosition)

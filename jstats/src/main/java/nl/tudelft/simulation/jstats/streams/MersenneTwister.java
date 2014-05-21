@@ -3,28 +3,21 @@ package nl.tudelft.simulation.jstats.streams;
 /**
  * A java implementation of the Mersenne Twister pseudo random number generator.
  * <P>
- * This is a Java version of the C-program for MT19937: Integer version.
- * genrand() generates one pseudorandom unsigned integer (32bit) which is
- * uniformly distributed among 0 to 2^32-1 for each call. sgenrand(seed) set
- * initial values to the working area of 624 words. (seed is any 32-bit integer
- * except for 0).
+ * This is a Java version of the C-program for MT19937: Integer version. genrand() generates one pseudorandom unsigned
+ * integer (32bit) which is uniformly distributed among 0 to 2^32-1 for each call. sgenrand(seed) set initial values to
+ * the working area of 624 words. (seed is any 32-bit integer except for 0).
  * <p>
- * Orignally Coded by Takuji Nishimura, considering the suggestions by Topher
- * Cooper and Marc Rieffel in July-Aug. 1997. More information can be found at
- * <A HREF="http://www.math.keio.ac.jp/matumoto/emt.html">
+ * Orignally Coded by Takuji Nishimura, considering the suggestions by Topher Cooper and Marc Rieffel in July-Aug. 1997.
+ * More information can be found at <A HREF="http://www.math.keio.ac.jp/matumoto/emt.html">
  * http://www.math.keio.ac.jp/matumoto/emt.html </A>.
  * <P>
- * Makoto Matsumoto and Takuji Nishimura, the original authors ask "When you use
- * this, send an email to: matumoto@math.keio.ac.jp with an appropriate
- * reference to your work" You might also point out this was a translation.
+ * Makoto Matsumoto and Takuji Nishimura, the original authors ask "When you use this, send an email to:
+ * matumoto@math.keio.ac.jp with an appropriate reference to your work" You might also point out this was a translation.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:54 $
  * @since 1.5
@@ -65,8 +58,7 @@ public class MersenneTwister extends RandomNumberGenerator
     private int[] mag01;
 
     /**
-     * constructs a new Mersenne Twister.
-     * <code>System.currentTimeMillis()</code> is used as seed value.
+     * constructs a new Mersenne Twister. <code>System.currentTimeMillis()</code> is used as seed value.
      */
     public MersenneTwister()
     {
@@ -75,7 +67,6 @@ public class MersenneTwister extends RandomNumberGenerator
 
     /**
      * Constructor using a given seed.
-     * 
      * @param seed The initial seed.
      */
     public MersenneTwister(final long seed)
@@ -116,8 +107,7 @@ public class MersenneTwister extends RandomNumberGenerator
     {
         if (bits < 0 || bits > 64)
         {
-            throw new IllegalArgumentException("bits (" + bits
-                    + ") not in range [0,64]");
+            throw new IllegalArgumentException("bits (" + bits + ") not in range [0,64]");
         }
         int y;
         if (this.mti >= N) // generate N words at one time
@@ -131,8 +121,7 @@ public class MersenneTwister extends RandomNumberGenerator
             for (; kk < N - 1; kk++)
             {
                 y = (this.mt[kk] & UPPER_MASK) | (this.mt[kk + 1] & LOWER_MASK);
-                this.mt[kk] = this.mt[kk + (M - N)] ^ (y >>> 1)
-                        ^ this.mag01[y & 0x1];
+                this.mt[kk] = this.mt[kk + (M - N)] ^ (y >>> 1) ^ this.mag01[y & 0x1];
             }
             y = (this.mt[N - 1] & UPPER_MASK) | (this.mt[0] & LOWER_MASK);
             this.mt[N - 1] = this.mt[M - 1] ^ (y >>> 1) ^ this.mag01[y & 0x1];

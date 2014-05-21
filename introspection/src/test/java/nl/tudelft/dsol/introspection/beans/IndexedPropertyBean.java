@@ -10,17 +10,13 @@ import java.util.Vector;
 
 /**
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -28,7 +24,7 @@ public class IndexedPropertyBean extends Object
 {
 
     /** Holds value of property indexedProp. */
-    private String[] indexedProp = new String[] { "test1", "test2" };
+    private String[] indexedProp = new String[]{"test1", "test2"};
 
     /** Holds value of property vector. */
     private Vector vector;
@@ -54,7 +50,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Indexed getter for property indexedProp.
-     * 
      * @param index Index of the property.
      * @return Value of the property at <CODE>index</CODE>.
      */
@@ -65,7 +60,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Getter for property indexedProp.
-     * 
      * @return Value of property indexedProp.
      */
     public String[] getIndexedProp()
@@ -75,7 +69,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Indexed setter for property indexedProp.
-     * 
      * @param index Index of the property.
      * @param indexedProp New value of the property at <CODE>index</CODE>.
      */
@@ -86,7 +79,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Setter for property indexedProp.
-     * 
      * @param indexedProp New value of property indexedProp.
      */
     public void setIndexedProp(final String[] indexedProp)
@@ -96,7 +88,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Getter for property vector.
-     * 
      * @return Value of property vector.
      */
     public Vector getVector()
@@ -106,7 +97,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Setter for property vector.
-     * 
      * @param vector New value of property vector.
      */
     public void setVector(final Vector vector)
@@ -116,7 +106,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Getter for property collection.
-     * 
      * @return Value of property collection.
      */
     public java.util.HashMap getCollection()
@@ -126,7 +115,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Setter for property collection.
-     * 
      * @param collection New value of property collection.
      */
     public void setCollection(final HashMap collection)
@@ -136,7 +124,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Getter for property beans.
-     * 
      * @return Value of property beans.
      */
     public TestBean[] getBeans()
@@ -146,7 +133,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Setter for property beans.
-     * 
      * @param beans New value of property beans.
      */
     public void setBeans(final TestBean[] beans)
@@ -156,7 +142,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Getter for property doubleValue.
-     * 
      * @return Value of property doubleValue.
      */
     public Double getDoubleValue()
@@ -166,7 +151,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Setter for property doubleValue.
-     * 
      * @param doubleValue New value of property doubleValue.
      */
     public void setDoubleValue(final Double doubleValue)
@@ -176,7 +160,6 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Getter for property serializedDoubleValue.
-     * 
      * @return Value of property serializedDoubleValue.
      */
     public java.io.Serializable getSerializedDoubleValue()
@@ -186,11 +169,9 @@ public class IndexedPropertyBean extends Object
 
     /**
      * Setter for property serializedDoubleValue.
-     * 
      * @param serializedDoubleValue New value of property serializedDoubleValue.
      */
-    public void setSerializedDoubleValue(
-            final Serializable serializedDoubleValue)
+    public void setSerializedDoubleValue(final Serializable serializedDoubleValue)
     {
         this.serializedDoubleValue = serializedDoubleValue;
     }

@@ -9,19 +9,16 @@ package nl.tudelft.simulation.event;
 import java.io.Serializable;
 
 /**
- * The EventType is a masker used for the subscription to asynchronous events.
- * Eventtypes are used by EventProducers to show which events they potentially
- * fire. EventTypes should be defined as static final fields.
+ * The EventType is a masker used for the subscription to asynchronous events. Eventtypes are used by EventProducers to
+ * show which events they potentially fire. EventTypes should be defined as static final fields.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands.
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands.
  * <p>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
  * </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty
- * 
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:11 $
  * @since 1.5
@@ -30,7 +27,7 @@ public final class EventType implements Serializable
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** value is the flag number */
     private int value;
 
@@ -39,9 +36,7 @@ public final class EventType implements Serializable
 
     /**
      * constructs a new EventType.
-     * 
-     * @param name the name of this eventType. Two values are not appreciated :
-     *        <code>null</code> and <code>""</code>.
+     * @param name the name of this eventType. Two values are not appreciated : <code>null</code> and <code>""</code>.
      */
     public EventType(final String name)
     {
@@ -58,7 +53,7 @@ public final class EventType implements Serializable
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-	public boolean equals(final Object arg0)
+    public boolean equals(final Object arg0)
     {
         if (!(arg0 instanceof EventType))
         {
@@ -68,35 +63,32 @@ public final class EventType implements Serializable
     }
 
     /**
-     * Returns a hash code for the name of the this eventType. The hash code for
-     * an <code>EventType</code> object is computed as <blockquote>
+     * Returns a hash code for the name of the this eventType. The hash code for an <code>EventType</code> object is
+     * computed as <blockquote>
      * 
      * <pre>
      * 
-     *  
-     *   
-     *    
-     *     
-     *      
+     * 
+     * 
+     * 
+     * 
+     * 
      *        s[0]*31&circ;(n-1) + s[1]*31&circ;(n-2) + ... + s[n-1]
-     *       
-     *      
-     *     
-     *    
-     *   
-     *  
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
      * </pre>
      * 
-     * </blockquote> using <code>int</code> arithmetic, where
-     * <code>s[i]</code> is the <i>i </i>th character of the name of the
-     * eventType, <code>n</code> is the length of the name, and <code>^</code>
-     * indicates exponentiation. This algoritm assures JVM, host, time
-     * independency.
-     * 
+     * </blockquote> using <code>int</code> arithmetic, where <code>s[i]</code> is the <i>i </i>th character of the name
+     * of the eventType, <code>n</code> is the length of the name, and <code>^</code> indicates exponentiation. This
+     * algoritm assures JVM, host, time independency.
      * @return a hash code value for this object.
      */
     @Override
-	public int hashCode()
+    public int hashCode()
     {
         return this.value;
     }
@@ -105,7 +97,7 @@ public final class EventType implements Serializable
      * @see java.lang.Object#toString()
      */
     @Override
-	public String toString()
+    public String toString()
     {
         return this.name;
     }

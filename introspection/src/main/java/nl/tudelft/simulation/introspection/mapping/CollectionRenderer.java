@@ -15,10 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * Renders Collection values in a human-readable manner.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
  * @since 1.5
  */
 public class CollectionRenderer extends DefaultTableCellRenderer
@@ -28,10 +25,10 @@ public class CollectionRenderer extends DefaultTableCellRenderer
      *      java.lang.Object, boolean, boolean, int, int)
      */
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column)
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+            int row, int column)
     {
-        List<Object> coll = new ArrayList<Object>((Collection< ? >) value);
+        List<Object> coll = new ArrayList<Object>((Collection<?>) value);
         String content = "Collection of ";
         if (coll.size() > 0)
             content += getShortName(coll.get(0).getClass());
@@ -45,7 +42,6 @@ public class CollectionRenderer extends DefaultTableCellRenderer
 
     /**
      * Returns the short name of a class
-     * 
      * @param clasz the class
      * @return the short name
      */

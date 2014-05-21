@@ -24,20 +24,16 @@ import nl.tudelft.simulation.introspection.mapping.DefaultConfiguration;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * A table-element that spawns an introspection dialog for a property. In the
- * new dialog, the property has become the introspected object.
+ * A table-element that spawns an introspection dialog for a property. In the new dialog, the property has become the
+ * introspected object.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -54,12 +50,10 @@ public class ExpandButton extends JButton
 
     /**
      * constructs a new ExpandButton
-     * 
      * @param property the property
      * @param model the model
      */
-    public ExpandButton(final Property property,
-            final IntrospectingTableModelInterface model)
+    public ExpandButton(final Property property, final IntrospectingTableModelInterface model)
     {
         super("+");
         this.setMargin(new Insets(0, 0, 0, 0));
@@ -78,9 +72,7 @@ public class ExpandButton extends JButton
     }
 
     /**
-     * Sets the JTable in which this button is actually displayed. The reference
-     * is used to facilitate dialog creation.
-     * 
+     * Sets the JTable in which this button is actually displayed. The reference is used to facilitate dialog creation.
      * @param table the table
      */
     public void setMyJTable(final JTable table)
@@ -100,18 +92,17 @@ public class ExpandButton extends JButton
         if (this.myTable != null)
         {
             Window parentWindow = SwingUtilities.getWindowAncestor(this);
-            new IntroSpectionDialog(parentWindow, this.PROPERTY.getName()
-                    + ", " + this.PROPERTY.getValue(), instantiateTable());
-        } else
+            new IntroSpectionDialog(parentWindow, this.PROPERTY.getName() + ", " + this.PROPERTY.getValue(),
+                    instantiateTable());
+        }
+        else
         {
-            new IntroSpectionDialog(this.PROPERTY.getName() + ", "
-                    + this.PROPERTY.getValue(), instantiateTable());
+            new IntroSpectionDialog(this.PROPERTY.getName() + ", " + this.PROPERTY.getValue(), instantiateTable());
         }
     }
 
     /**
      * instantiates a JTable with an object model of the property.
-     * 
      * @return the JTable
      */
     private JTable instantiateTable()
@@ -121,48 +112,43 @@ public class ExpandButton extends JButton
         Introspector introspector = this.MODEL.getIntrospector();
         try
         {
-            Class< ? > modelClass = null;
+            Class<?> modelClass = null;
             if (this.PROPERTY.isCollection())
             {
                 modelClass = manager.getDefaultCollectionObjectTableModel();
-                Constructor< ? > c = modelClass.getConstructor(new Class[] {
-                        Property.class, Introspector.class });
-                newModel = (IntrospectingTableModelInterface) c
-                        .newInstance(new Object[] { this.PROPERTY, introspector });
-            } else
+                Constructor<?> c = modelClass.getConstructor(new Class[]{Property.class, Introspector.class});
+                newModel = (IntrospectingTableModelInterface) c.newInstance(new Object[]{this.PROPERTY, introspector});
+            }
+            else
             {
                 modelClass = manager.getDefaultObjectTableModel();
-                Constructor< ? > c = modelClass.getConstructor(new Class[] {
-                        Object.class, Introspector.class });
-                newModel = (IntrospectingTableModelInterface) c
-                        .newInstance(new Object[] { this.PROPERTY.getValue(),
-                                introspector });
+                Constructor<?> c = modelClass.getConstructor(new Class[]{Object.class, Introspector.class});
+                newModel =
+                        (IntrospectingTableModelInterface) c.newInstance(new Object[]{this.PROPERTY.getValue(),
+                                introspector});
             }
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
-            Logger.warning(this, "instantiate",
-                    " could not instantiate parent tablemodel, using default. Exception:"
-                            + exception.getMessage());
+            Logger.warning(this, "instantiate", " could not instantiate parent tablemodel, using default. Exception:"
+                    + exception.getMessage());
             if (this.PROPERTY.isCollection())
             {
                 newModel = new CollectionTableModel(this.PROPERTY);
-            } else
+            }
+            else
             {
                 newModel = new ObjectTableModel(this.PROPERTY.getValue());
             }
         }
         // Propagate CellPresentation configuration.
-        CellPresentationConfiguration config = DefaultConfiguration
-                .getDefaultConfiguration();
+        CellPresentationConfiguration config = DefaultConfiguration.getDefaultConfiguration();
         if (this.myTable instanceof ICellPresentationConfigProvider)
-            config = ((ICellPresentationConfigProvider) this.myTable)
-                    .getCellPresentationConfiguration();
+            config = ((ICellPresentationConfigProvider) this.myTable).getCellPresentationConfiguration();
         JTable result = new ObjectJTable(newModel, config);
         // Propagate model settings
-        newModel.getModelManager().setDefaultCollectionObjectTableModel(
-                manager.getDefaultCollectionObjectTableModel());
-        newModel.getModelManager().setDefaultObjectTableModel(
-                manager.getDefaultObjectTableModel());
+        newModel.getModelManager().setDefaultCollectionObjectTableModel(manager.getDefaultCollectionObjectTableModel());
+        newModel.getModelManager().setDefaultObjectTableModel(manager.getDefaultObjectTableModel());
         return result;
     }
 }

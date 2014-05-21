@@ -13,17 +13,13 @@ import java.util.List;
 /**
  * The AbstractSupressIntrospector.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -34,7 +30,6 @@ public abstract class AbstractSuppressIntrospector implements Introspector
 
     /**
      * Constructor for AbstractSuppressIntrospector.
-     * 
      * @param parent the parent introspector
      */
     public AbstractSuppressIntrospector(final Introspector parent)
@@ -52,8 +47,7 @@ public abstract class AbstractSuppressIntrospector implements Introspector
         List<Property> result = new ArrayList<Property>();
         for (int i = 0; i < original.length; i++)
         {
-            if (!this.suppress(original[i].getType())
-                    && !this.suppress(original[i].getName()))
+            if (!this.suppress(original[i].getType()) && !this.suppress(original[i].getName()))
             {
                 result.add(original[i]);
             }
@@ -76,8 +70,7 @@ public abstract class AbstractSuppressIntrospector implements Introspector
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getProperty(Object,
-     *      String)
+     * @see nl.tudelft.simulation.introspection.Introspector#getProperty(Object, String)
      */
     public Property getProperty(final Object arg0, final String arg1)
     {
@@ -94,7 +87,6 @@ public abstract class AbstractSuppressIntrospector implements Introspector
 
     /**
      * Method suppress.
-     * 
      * @param type the type of tyhe class
      * @return boolean whether to supress
      */
@@ -109,7 +101,6 @@ public abstract class AbstractSuppressIntrospector implements Introspector
 
     /**
      * Method suppress.
-     * 
      * @param propertyName the propertyName
      * @return whether to supress
      */

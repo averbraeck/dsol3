@@ -9,20 +9,15 @@ package nl.tudelft.simulation.introspection.table;
 import javax.swing.table.TableModel;
 
 /**
- * An interface that defines methods for adding and deleting rows from a
- * tablemodel.
+ * An interface that defines methods for adding and deleting rows from a tablemodel.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -30,14 +25,12 @@ public interface DynamicTableModel extends TableModel
 {
     /**
      * Deletes a specific row from the TableModel.
-     * 
      * @param index The (TableModel) index of the row to be deleted
      */
     void deleteRow(int index);
 
     /**
      * Deletes a specific set of rows from the TableModel.
-     * 
      * @param indices The (TableModel) indices of the rows to be deleted
      */
     void deleteRows(int[] indices);
@@ -49,14 +42,13 @@ public interface DynamicTableModel extends TableModel
 
     /**
      * Creates a number of new rows at the end of the TableModel
-     * 
      * @param amount The number of rows to be created.
      */
     void createRows(int amount);
 
     /**
-     * @return whether or not the rows in this model can be edited. If false,
-     *         calls to create and delete methods will have no final result.
+     * @return whether or not the rows in this model can be edited. If false, calls to create and delete methods will
+     *         have no final result.
      */
     public boolean isRowEditable();
 }

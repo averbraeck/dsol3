@@ -22,13 +22,11 @@ import nl.tudelft.simulation.language.reflection.MethodSignature;
 
 /**
  * A MethodDescriptor <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -66,13 +64,11 @@ public class MethodDescriptor
 
     /**
      * constructs a new MethodDescriptor
-     * 
      * @param dataInput the dataInput
      * @param constantPool the constantPool
      * @throws IOException on ioException
      */
-    public MethodDescriptor(final DataInput dataInput,
-            final Constant[] constantPool) throws IOException
+    public MethodDescriptor(final DataInput dataInput, final Constant[] constantPool) throws IOException
     {
         super();
         this.constantPool = constantPool;
@@ -81,7 +77,6 @@ public class MethodDescriptor
 
     /**
      * returns the bytePosition of the operation.
-     * 
      * @param operationIndex the n-th operation
      * @return the bytePostion
      */
@@ -92,7 +87,6 @@ public class MethodDescriptor
 
     /**
      * returns the exception table of the method
-     * 
      * @return the exceptiontable
      */
     public ExceptionEntry[] getExceptionTable()
@@ -102,7 +96,6 @@ public class MethodDescriptor
 
     /**
      * returns the linenumber table of the method
-     * 
      * @return the linenumber table
      */
     public LineNumber[] getLineNumberTable()
@@ -112,7 +105,6 @@ public class MethodDescriptor
 
     /**
      * returns the localvariable descriptors
-     * 
      * @return the localvairable descriptors
      */
     public LocalVariableDescriptor[] getLocalVariableTable()
@@ -122,7 +114,6 @@ public class MethodDescriptor
 
     /**
      * returns the maximum stack size of this method
-     * 
      * @return int the maximum stacksize of this method
      */
     public int getMaxStack()
@@ -148,7 +139,6 @@ public class MethodDescriptor
 
     /**
      * returns the name of the method
-     * 
      * @return the name of the method
      */
     public String getName()
@@ -158,7 +148,6 @@ public class MethodDescriptor
 
     /**
      * returns the operations of the method.
-     * 
      * @return the operations of the method.
      */
     public Operation[] getOperations()
@@ -167,9 +156,7 @@ public class MethodDescriptor
     }
 
     /**
-     * returns the index number of the operation in the operationtable of the
-     * operation starting at bytePosition
-     * 
+     * returns the index number of the operation in the operationtable of the operation starting at bytePosition
      * @param bytePosition the bytePosition
      * @return the number
      */
@@ -182,13 +169,11 @@ public class MethodDescriptor
                 return i;
             }
         }
-        throw new NoSuchElementException("At bytePosition(" + bytePosition
-                + ") no operation starts");
+        throw new NoSuchElementException("At bytePosition(" + bytePosition + ") no operation starts");
     }
 
     /**
      * returns the operation at bytePosition
-     * 
      * @param bytePosition the position to start
      * @return the operation
      */
@@ -206,7 +191,6 @@ public class MethodDescriptor
 
     /**
      * sets the method of this descriptor
-     * 
      * @param method the method
      */
     public void setMethod(final AccessibleObject method)
@@ -218,7 +202,6 @@ public class MethodDescriptor
 
     /**
      * reads the method
-     * 
      * @param dataInput the dataInput
      * @throws IOException on ioException
      */
@@ -228,23 +211,21 @@ public class MethodDescriptor
         dataInput.skipBytes(2);
 
         // We resolve the name of the method
-        this.name = ((ConstantUTF8) this.constantPool[dataInput
-                .readUnsignedShort()]).getValue();
+        this.name = ((ConstantUTF8) this.constantPool[dataInput.readUnsignedShort()]).getValue();
 
-        this.methodSignature = new MethodSignature(
-                ((ConstantUTF8) this.constantPool[dataInput.readUnsignedShort()])
-                        .getValue());
+        this.methodSignature =
+                new MethodSignature(((ConstantUTF8) this.constantPool[dataInput.readUnsignedShort()]).getValue());
 
         // The attributes
         int attributeCount = dataInput.readUnsignedShort();
         for (int i = 0; i < attributeCount; i++)
         {
-            String attributeName = ((ConstantUTF8) this.constantPool[dataInput
-                    .readUnsignedShort()]).getValue();
+            String attributeName = ((ConstantUTF8) this.constantPool[dataInput.readUnsignedShort()]).getValue();
             if (attributeName.equals("Code"))
             {
                 this.readCodeAttribute(dataInput);
-            } else
+            }
+            else
             {
                 // unknown attribute. Let's skip the rest
                 dataInput.skipBytes(dataInput.readInt());
@@ -254,19 +235,16 @@ public class MethodDescriptor
 
     /**
      * reads the codeAttribute and returns the new position
-     * 
      * @param dataInput the dataInput
      * @throws IOException on failure
      */
-    private void readCodeAttribute(final DataInput dataInput)
-            throws IOException
+    private void readCodeAttribute(final DataInput dataInput) throws IOException
     {
         // We skip the length
         dataInput.skipBytes(4);
 
         this.maxStack = dataInput.readUnsignedShort();
-        this.localVariableTable = new LocalVariableDescriptor[dataInput
-                .readUnsignedShort()];
+        this.localVariableTable = new LocalVariableDescriptor[dataInput.readUnsignedShort()];
 
         // Let's parse the actual code
         int codeLength = dataInput.readInt();
@@ -276,16 +254,14 @@ public class MethodDescriptor
         int position = 0;
         while (position < codeLength)
         {
-            Operation operation = Interpreter.INTERPRETER_FACTORY
-                    .readOperation(dataInput, position);
+            Operation operation = Interpreter.INTERPRETER_FACTORY.readOperation(dataInput, position);
             code.add(operation);
             positions.add(position);
             position = position + operation.getByteLength();
         }
         if (position != codeLength)
         {
-            throw new InterpreterException(" byteCode readmethod pos"
-                    + position + "!= codeL" + codeLength);
+            throw new InterpreterException(" byteCode readmethod pos" + position + "!= codeL" + codeLength);
         }
 
         // Now we convert the lists to arrays.
@@ -303,23 +279,23 @@ public class MethodDescriptor
         this.exceptionTable = new ExceptionEntry[dataInput.readUnsignedShort()];
         for (int i = 0; i < this.exceptionTable.length; i++)
         {
-            this.exceptionTable[i] = new ExceptionEntry(dataInput,
-                    this.constantPool);
+            this.exceptionTable[i] = new ExceptionEntry(dataInput, this.constantPool);
         }
 
         // The attributes
         int attributeCount = dataInput.readUnsignedShort();
         for (int i = 0; i < attributeCount; i++)
         {
-            String attributeName = ((ConstantUTF8) this.constantPool[dataInput
-                    .readUnsignedShort()]).getValue();
+            String attributeName = ((ConstantUTF8) this.constantPool[dataInput.readUnsignedShort()]).getValue();
             if (attributeName.equals("LineNumberTable"))
             {
                 this.readLineNumberTable(dataInput);
-            } else if (attributeName.equals("LocalVariableTable"))
+            }
+            else if (attributeName.equals("LocalVariableTable"))
             {
                 this.readLocalVariableTable(dataInput);
-            } else
+            }
+            else
             {
                 // unknown attribute. Let's skip the rest
                 dataInput.skipBytes(dataInput.readInt());
@@ -329,12 +305,10 @@ public class MethodDescriptor
 
     /**
      * reads the localVariableTable
-     * 
      * @param dataInput the dataInput to read
      * @throws IOException on failure
      */
-    private void readLineNumberTable(final DataInput dataInput)
-            throws IOException
+    private void readLineNumberTable(final DataInput dataInput) throws IOException
     {
         // We skip the length(u4)
         dataInput.skipBytes(4);
@@ -348,12 +322,10 @@ public class MethodDescriptor
 
     /**
      * reads the localVariableTable
-     * 
      * @param dataInput the dataInput to read
      * @throws IOException on failure
      */
-    private void readLocalVariableTable(final DataInput dataInput)
-            throws IOException
+    private void readLocalVariableTable(final DataInput dataInput) throws IOException
     {
         // We skip the length(u4)
         dataInput.skipBytes(4);
@@ -361,8 +333,7 @@ public class MethodDescriptor
         int variables = dataInput.readUnsignedShort();
         for (int i = 0; i < variables; i++)
         {
-            LocalVariableDescriptor variable = new LocalVariableDescriptor(
-                    dataInput, this.constantPool);
+            LocalVariableDescriptor variable = new LocalVariableDescriptor(dataInput, this.constantPool);
             this.localVariableTable[variable.getIndex()] = variable;
         }
     }

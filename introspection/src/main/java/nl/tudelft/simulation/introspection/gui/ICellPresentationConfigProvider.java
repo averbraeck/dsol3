@@ -9,10 +9,7 @@ import nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration
 /**
  * Allows discovery of a cell presentation configuration {see
  * nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration}.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
  * @since 1.5
  */
 public interface ICellPresentationConfigProvider

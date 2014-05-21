@@ -11,13 +11,11 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
 
 /**
  * A Frame <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -36,8 +34,7 @@ public class Frame implements Cloneable
     private boolean paused = false;
 
     /**
-     * the returnPosition refers the position in the operation[] to invoke on
-     * return
+     * the returnPosition refers the position in the operation[] to invoke on return
      */
     private int returnPosition = 0;
 
@@ -49,15 +46,13 @@ public class Frame implements Cloneable
 
     /**
      * constructs a new Frame
-     * 
      * @param constantPool the constantPool
      * @param localVariables the localVariables
      * @param operations the array of operations to execute
      * @param stack the stack
      * @param methodDescriptor the methodDescriptor
      */
-    public Frame(final Constant[] constantPool,
-            final LocalVariable[] localVariables, final Operation[] operations,
+    public Frame(final Constant[] constantPool, final LocalVariable[] localVariables, final Operation[] operations,
             final OperandStack stack, final MethodDescriptor methodDescriptor)
     {
         super();
@@ -152,8 +147,7 @@ public class Frame implements Cloneable
             variables[i] = (LocalVariable) this.localVariables[i].clone();
         }
         OperandStack newStack = (OperandStack) this.operandStack.clone();
-        Frame frame = new Frame(this.constantPool, variables, this.operations,
-                newStack, this.methodDescriptor);
+        Frame frame = new Frame(this.constantPool, variables, this.operations, newStack, this.methodDescriptor);
         return frame;
     }
 

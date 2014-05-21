@@ -8,24 +8,17 @@ import java.awt.Font;
 import java.util.logging.Logger;
 
 /**
- * @author (c) 2003 <a href="http://www.tudelft.nl">Delft University of
- *         Technology </a>, Delft, the Netherlands <br>
- *         <a href="http://www.tbm.tudelft.nl">Faculty of Technology, Policy and
- *         Management </a> <br>
- *         <a href="http://www.sk.tbm.tudelft.nl">Department of System
- *         Engineering </a> <br>
- *         Main researcher : <a
- *         href="http://www.tbm.tudelft.nl/webstaf/alexandv/">Dr. Ir. A.
- *         Verbraeck <a/><br>
- *         Assistant researchers <a href="http://www.peter-jacobs.com">Ir.
- *         P.H.M. Jacobs </a> and <a
+ * @author (c) 2003 <a href="http://www.tudelft.nl">Delft University of Technology </a>, Delft, the Netherlands <br>
+ *         <a href="http://www.tbm.tudelft.nl">Faculty of Technology, Policy and Management </a> <br>
+ *         <a href="http://www.sk.tbm.tudelft.nl">Department of System Engineering </a> <br>
+ *         Main researcher : <a href="http://www.tbm.tudelft.nl/webstaf/alexandv/">Dr. Ir. A. Verbraeck <a/><br>
+ *         Assistant researchers <a href="http://www.peter-jacobs.com">Ir. P.H.M. Jacobs </a> and <a
  *         href="http://www.tbm.tudelft.nl/webstaf/nielsl">Ir. N.A. Lang </a>
  */
 public class TestBean extends java.lang.Object implements java.io.Serializable
 {
     /** the error logger */
-    private static Logger logger = Logger
-            .getLogger("nl.tudelft.tbm.sk.introspection");
+    private static Logger logger = Logger.getLogger("nl.tudelft.tbm.sk.introspection");
 
     /** Holds value of property firstProperty. */
     private String firstProperty = "First ;-)";
@@ -56,7 +49,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Getter for property firstProperty.
-     * 
      * @return Value of property firstProperty.
      */
     public String getFirstProperty()
@@ -67,7 +59,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Setter for property firstProperty.
-     * 
      * @param firstProperty New value of property firstProperty.
      */
     public void setFirstProperty(String firstProperty)
@@ -78,7 +69,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Getter for property secondProperty.
-     * 
      * @return Value of property secondProperty.
      */
     public String getSecondProperty()
@@ -89,7 +79,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Setter for property secondProperty.
-     * 
      * @param secondProperty New value of property secondProperty.
      */
     public void setSecondProperty(String secondProperty)
@@ -100,7 +89,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Getter for property intProp.
-     * 
      * @return Value of property intProp.
      */
     public int getIntProp()
@@ -111,7 +99,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Setter for property intProp.
-     * 
      * @param intProp New value of property intProp.
      */
     public void setIntProp(int intProp)
@@ -122,7 +109,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Getter for property color.
-     * 
      * @return Value of property color.
      */
     public java.awt.Color getColor()
@@ -132,7 +118,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Setter for property color.
-     * 
      * @param color New value of property color.
      */
     public void setColor(java.awt.Color color)
@@ -142,7 +127,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Getter for property font.
-     * 
      * @return Value of property font.
      */
     public Font getFont()
@@ -152,7 +136,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Setter for property font.
-     * 
      * @param font New value of property font.
      */
     public void setFont(Font font)
@@ -162,7 +145,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Getter for property subBean.
-     * 
      * @return Value of property subBean.
      */
     public SubTestBean getSubBean()
@@ -172,7 +154,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Setter for property subBean.
-     * 
      * @param subBean New value of property subBean.
      */
     public void setSubBean(SubTestBean subBean)
@@ -187,14 +168,14 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
     public String toString()
     {
         String result;
-        result = this.getColor() + this.getFirstProperty()
-                + this.getSecondProperty() + this.getFont() + this.getIntProp();
+        result =
+                this.getColor() + this.getFirstProperty() + this.getSecondProperty() + this.getFont()
+                        + this.getIntProp();
         return result;
     }
 
     /**
      * Getter for property testBean2.
-     * 
      * @return Value of property testBean2.
      */
     public SubTestBean2Interface getTestBean2()
@@ -204,7 +185,6 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
 
     /**
      * Setter for property testBean2.
-     * 
      * @param testBean2 New value of property testBean2.
      */
     public void setTestBean2(SubTestBean2Interface testBean2)

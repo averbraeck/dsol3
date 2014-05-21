@@ -17,28 +17,23 @@ import nl.tudelft.simulation.logger.Logger;
 /**
  * The ObjectTableModel.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
-public class ObjectTableModel extends AbstractTableModel implements
-        IntrospectingTableModelInterface
+public class ObjectTableModel extends AbstractTableModel implements IntrospectingTableModelInterface
 {
     /** the properties */
     protected Property[] properties = new Property[0];
 
     /** the columns */
-    private static String[] columns = { "Property", "+", "Value" };
+    private static String[] columns = {"Property", "+", "Value"};
 
     /** the expand buttons */
     private ExpandButton[] buttons;
@@ -50,11 +45,8 @@ public class ObjectTableModel extends AbstractTableModel implements
     private ModelManager manager = new DefaultModelManager();
 
     /**
-     * Creates an ObjectTableModel utilizing a {see
-     * nl.tudelft.simulation.introspection.beans.BeanIntrospector}.
-     * 
-     * @param bean The object to be introspected according to the bean
-     *        property-paradigm.
+     * Creates an ObjectTableModel utilizing a {see nl.tudelft.simulation.introspection.beans.BeanIntrospector}.
+     * @param bean The object to be introspected according to the bean property-paradigm.
      */
     public ObjectTableModel(final Object bean)
     {
@@ -63,7 +55,6 @@ public class ObjectTableModel extends AbstractTableModel implements
 
     /**
      * Creates an ObjectTableModel utilizing a custom introspector.
-     * 
      * @param object The object to be introspected.
      * @param introspector The introspector instance utilized.
      */
@@ -136,8 +127,7 @@ public class ObjectTableModel extends AbstractTableModel implements
         }
         if (columnIndex == 2)
         {
-            return (this.properties[rowIndex].isEditable() && !this.properties[rowIndex]
-                    .getType().isArray());
+            return (this.properties[rowIndex].isEditable() && !this.properties[rowIndex].getType().isArray());
         }
         return false;
     }
@@ -146,8 +136,7 @@ public class ObjectTableModel extends AbstractTableModel implements
      * @see javax.swing.table.TableModel#setValueAt(Object, int, int)
      */
     @Override
-    public void setValueAt(final Object aValue, final int rowIndex,
-            final int columnIndex)
+    public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
     {
         if ((columnIndex != 2) || (!isCellEditable(rowIndex, columnIndex)))
         {
@@ -157,7 +146,8 @@ public class ObjectTableModel extends AbstractTableModel implements
         try
         {
             requested.setValue(aValue);
-        } catch (IllegalArgumentException exception)
+        }
+        catch (IllegalArgumentException exception)
         {
             Logger.warning(this, "setValueAt", exception);
         }
@@ -167,7 +157,7 @@ public class ObjectTableModel extends AbstractTableModel implements
      * @see javax.swing.table.TableModel#getColumnClass(int)
      */
     @Override
-    public Class< ? > getColumnClass(final int columnIndex)
+    public Class<?> getColumnClass(final int columnIndex)
     {
         if (columnIndex == 1)
         {
@@ -177,8 +167,7 @@ public class ObjectTableModel extends AbstractTableModel implements
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface
-     *      #getTypeAt(int,int)
+     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getTypeAt(int,int)
      */
     public Class getTypeAt(final int rowIndex, final int columnIndex)
     {
@@ -200,8 +189,7 @@ public class ObjectTableModel extends AbstractTableModel implements
 
     /**
      * @param property the property
-     * @return Returns the index of the property in this tablemodel which name
-     *         matches 'property'.
+     * @return Returns the index of the property in this tablemodel which name matches 'property'.
      */
     protected int getPropertyIndex(final String property)
     {
@@ -216,8 +204,7 @@ public class ObjectTableModel extends AbstractTableModel implements
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface
-     *      #getProperty(java.lang.String)
+     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getProperty(java.lang.String)
      */
     public Property getProperty(final String propertyName)
     {
@@ -230,8 +217,7 @@ public class ObjectTableModel extends AbstractTableModel implements
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface
-     *      #getIntrospector()
+     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getIntrospector()
      */
     public Introspector getIntrospector()
     {
@@ -240,7 +226,6 @@ public class ObjectTableModel extends AbstractTableModel implements
 
     /**
      * Sets the modelmanager. By default, a {see DefaultModelManager}is used.
-     * 
      * @param manager the manager
      */
     public void setModelManager(final ModelManager manager)
@@ -250,9 +235,7 @@ public class ObjectTableModel extends AbstractTableModel implements
 
     /**
      * By default, a {see DefaultModelManager}returned.
-     * 
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface
-     *      #getModelManager()
+     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getModelManager()
      */
     public ModelManager getModelManager()
     {

@@ -12,16 +12,13 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
- * The test script for the reference package. All classes in this package are
- * tested with this test
+ * The test script for the reference package. All classes in this package are tested with this test
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:12 $
  * @since 1.5
@@ -41,7 +38,6 @@ public class EventRefTest extends TestCase
 
     /**
      * constructs a new EventIteratorTest
-     * 
      * @param method the name of the test method
      */
     public EventRefTest(final String method)
@@ -61,8 +57,8 @@ public class EventRefTest extends TestCase
 
             Object referent = new String("EventIteratorTest");
             /*
-             * It is absolutely amazing what you see if you replace the above
-             * with the following: Object referent = "EventIteratorTest";
+             * It is absolutely amazing what you see if you replace the above with the following: Object referent =
+             * "EventIteratorTest";
              */
 
             Reference<Object> reference = new WeakReference<Object>(referent);
@@ -72,26 +68,23 @@ public class EventRefTest extends TestCase
 
             // Test 2: We since we have a pointer to referent, gc should
             // clean the weakReference
-            reference = new WeakReference<Object>(new String(
-                    "EventIteratorTest"));
+            reference = new WeakReference<Object>(new String("EventIteratorTest"));
             Runtime.getRuntime().gc();
             Assert.assertNull(reference.get());
 
             // Test 3: The strong reference...
-            reference = new StrongReference<Object>(new String(
-                    "EventIteratorTest"));
+            reference = new StrongReference<Object>(new String("EventIteratorTest"));
             Assert.assertNotNull(reference.get());
             Runtime.getRuntime().gc();
             Assert.assertNotNull(reference.get());
 
             // A Strong one
-            new MarshalledObject<Object>(new StrongReference<Object>(new Double(12)))
-                    .get();
+            new MarshalledObject<Object>(new StrongReference<Object>(new Double(12))).get();
 
             // A Weak one
-            new MarshalledObject<Object>(new WeakReference<Object>(new Double(12)))
-                    .get();
-        } catch (Throwable throwable)
+            new MarshalledObject<Object>(new WeakReference<Object>(new Double(12))).get();
+        }
+        catch (Throwable throwable)
         {
             // runtime exceptions are not appreciated
             throwable.printStackTrace();

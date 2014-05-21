@@ -17,19 +17,16 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 /**
  * The test script for the EventIterator class.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:12 $
  * @since 1.5
  */
-public class EventIteratorTest extends TestCase implements
-        EventListenerInterface
+public class EventIteratorTest extends TestCase implements EventListenerInterface
 {
     /** a check on the removed state */
     private boolean removed = false;
@@ -47,7 +44,6 @@ public class EventIteratorTest extends TestCase implements
 
     /**
      * constructs a new EventIteratorTest
-     * 
      * @param method the name of the test method
      */
     public EventIteratorTest(final String method)
@@ -62,8 +58,7 @@ public class EventIteratorTest extends TestCase implements
     {
         List<Object> list = new ArrayList<Object>();
         list.add(new Object());
-        EventIterator<Object> iterator = new EventIterator<Object>(list
-                .iterator());
+        EventIterator<Object> iterator = new EventIterator<Object>(list.iterator());
         iterator.next();
         iterator.addListener(this, EventIterator.OBJECT_REMOVED_EVENT);
         iterator.remove();
@@ -71,8 +66,7 @@ public class EventIteratorTest extends TestCase implements
     }
 
     /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface
-     *      #notify(nl.tudelft.simulation.event.EventInterface)
+     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
      */
     public void notify(final EventInterface event)
     {

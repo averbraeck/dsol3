@@ -12,16 +12,13 @@ import nl.tudelft.simulation.event.TimedEvent;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * The Persisten class defines a statistics event persistent. A Persistent is a
- * time-averaged tally.
+ * The Persisten class defines a statistics event persistent. A Persistent is a time-averaged tally.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
@@ -45,7 +42,6 @@ public class Persistent extends Tally
 
     /**
      * constructs a new Persistent with a description.
-     * 
      * @param description the description of this Persistent
      */
     public Persistent(final String description)
@@ -63,8 +59,7 @@ public class Persistent extends Tally
         {
             if (super.n > 1)
             {
-                return Math.sqrt(super.varianceSum
-                        / (this.elapsedTime - this.deltaTime));
+                return Math.sqrt(super.varianceSum / (this.elapsedTime - this.deltaTime));
             }
             return Double.NaN;
         }
@@ -102,40 +97,34 @@ public class Persistent extends Tally
     }
 
     /**
-     * @see nl.tudelft.simulation.jstats.statistics.Tally
-     *      #notify(nl.tudelft.simulation.event.EventInterface)
+     * @see nl.tudelft.simulation.jstats.statistics.Tally #notify(nl.tudelft.simulation.event.EventInterface)
      */
     @Override
     public void notify(final EventInterface event)
     {
-        if (!(event instanceof TimedEvent)
-                || !(event.getContent() instanceof Number))
+        if (!(event instanceof TimedEvent) || !(event.getContent() instanceof Number))
         {
-            throw new IllegalArgumentException(
-                    "event !=TimedEvent || event.source !=Double ("
-                            + event.getContent().getClass().toString() + ")");
+            throw new IllegalArgumentException("event !=TimedEvent || event.source !=Double ("
+                    + event.getContent().getClass().toString() + ")");
         }
         TimedEvent timedEvent = (TimedEvent) event;
         double value = 0.0;
         if (event.getContent() instanceof Number)
         {
             value = ((Number) event.getContent()).doubleValue();
-        } else
-        {
-            Logger.warning(this, "notify", event.getContent()
-                    + "should be a number.");
         }
-        if (!this.filter
-                .accept(new double[] { timedEvent.getTimeStamp(), value }))
+        else
+        {
+            Logger.warning(this, "notify", event.getContent() + "should be a number.");
+        }
+        if (!this.filter.accept(new double[]{timedEvent.getTimeStamp(), value}))
         {
             return;
         }
         synchronized (this.semaphore)
         {
-            super.fireEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent
-                    .getTimeStamp());
-            super.fireEvent(Persistent.VALUE_EVENT, value, timedEvent
-                    .getTimeStamp());
+            super.fireEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent.getTimeStamp());
+            super.fireEvent(Persistent.VALUE_EVENT, value, timedEvent.getTimeStamp());
             super.setN(super.n + 1); // we increase the number of
             // measurements.
             if (value < super.min)
@@ -154,26 +143,25 @@ public class Persistent extends Tally
             {
                 super.setSampleMean(value);
                 this.startTime = timedEvent.getTimeStamp();
-            } else
+            }
+            else
             {
-                this.deltaTime = timedEvent.getTimeStamp()
-                        - (this.elapsedTime + this.startTime);
+                this.deltaTime = timedEvent.getTimeStamp() - (this.elapsedTime + this.startTime);
                 if (this.deltaTime > 0.0)
                 {
-                    double newAverage = ((super.sampleMean * (this.elapsedTime)) + (this.lastValue * this.deltaTime))
-                            / (this.elapsedTime + this.deltaTime);
-                    super.varianceSum += (this.lastValue - super.sampleMean)
-                            * (this.lastValue - newAverage) * this.deltaTime;
+                    double newAverage =
+                            ((super.sampleMean * (this.elapsedTime)) + (this.lastValue * this.deltaTime))
+                                    / (this.elapsedTime + this.deltaTime);
+                    super.varianceSum +=
+                            (this.lastValue - super.sampleMean) * (this.lastValue - newAverage) * this.deltaTime;
                     super.setSampleMean(newAverage);
                     this.elapsedTime = this.elapsedTime + this.deltaTime;
                 }
             }
             if (this.n > 1)
             {
-                super.fireEvent(Tally.STANDARD_DEVIATION_EVENT, this
-                        .getStdDev());
-                this.fireEvent(Tally.SAMPLE_VARIANCE_EVENT, this
-                        .getSampleVariance());
+                super.fireEvent(Tally.STANDARD_DEVIATION_EVENT, this.getStdDev());
+                this.fireEvent(Tally.SAMPLE_VARIANCE_EVENT, this.getSampleVariance());
             }
             this.lastValue = value;
         }

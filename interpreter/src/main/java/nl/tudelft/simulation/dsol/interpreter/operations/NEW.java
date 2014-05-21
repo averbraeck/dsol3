@@ -18,19 +18,15 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantClass;
 /**
  * The NEW operation as defined in <a
  * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc10.html">
- * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc10.html
- * </a>.
+ * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc10.html </a>.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a><a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander
- *         Verbraeck </a>
+ *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:22 $
  * @since 1.5
  */
@@ -44,7 +40,6 @@ public class NEW extends VoidOperation
 
     /**
      * constructs a new NEW
-     * 
      * @param dataInput the dataInput
      * @throws IOException on IOfailure
      */
@@ -55,22 +50,20 @@ public class NEW extends VoidOperation
     }
 
     /**
-     * @see nl.tudelft.simulation.dsol.interpreter.operations.VoidOperation#execute(
-     *      nl.tudelft.simulation.dsol.interpreter.OperandStack,
+     * @see nl.tudelft.simulation.dsol.interpreter.operations.VoidOperation#execute(nl.tudelft.simulation.dsol.interpreter.OperandStack,
      *      nl.tudelft.simulation.dsol.interpreter.classfile.Constant[],
      *      nl.tudelft.simulation.dsol.interpreter.LocalVariable[])
      */
     @Override
-    public void execute(final OperandStack stack,
-            final Constant[] constantPool, final LocalVariable[] localVariables)
+    public void execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
     {
         try
         {
             Class instanceClass = null;
-            instanceClass = ((ConstantClass) constantPool[this.index])
-                    .getValue().getClassValue();
+            instanceClass = ((ConstantClass) constantPool[this.index]).getValue().getClassValue();
             stack.push(new UninitializedInstance(instanceClass));
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             throw new InterpreterException(exception);
         }
@@ -104,7 +97,6 @@ public class NEW extends VoidOperation
 
         /**
          * constructs a new UninitializedInstance
-         * 
          * @param instanceClass the class of which an instance must be made
          */
         public UninitializedInstance(final Class instanceClass)

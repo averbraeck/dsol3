@@ -14,13 +14,11 @@ import nl.tudelft.simulation.language.reflection.FieldSignature;
 
 /**
  * A ConstantClass <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -31,20 +29,17 @@ public class ConstantClass extends Constant
 
     /**
      * constructs a new ConstantClass
-     * 
      * @param dataInput the inputstream to read from
      * @param constantPool the constantPool it is part of
      * @throws IOException on failure
      */
-    public ConstantClass(final Constant[] constantPool,
-            final DataInput dataInput) throws IOException
+    public ConstantClass(final Constant[] constantPool, final DataInput dataInput) throws IOException
     {
         this(constantPool, dataInput.readUnsignedShort());
     }
 
     /**
      * constructs a new ClassConstant
-     * 
      * @param nameIndex the nameIndex
      * @param constantPool the constantPool it is part of
      */
@@ -65,7 +60,6 @@ public class ConstantClass extends Constant
 
     /**
      * returns the name index
-     * 
      * @return nameIndex
      */
     public int getNameIndex()
@@ -75,13 +69,11 @@ public class ConstantClass extends Constant
 
     /**
      * returns the className of this constant
-     * 
      * @return String the className
      */
     public FieldSignature getValue()
     {
-        return new FieldSignature(
-                ((ConstantUTF8) super.constantPool[this.nameIndex]).getValue());
+        return new FieldSignature(((ConstantUTF8) super.constantPool[this.nameIndex]).getValue());
     }
 
     /**

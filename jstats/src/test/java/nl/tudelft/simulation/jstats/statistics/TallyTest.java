@@ -13,13 +13,11 @@ import nl.tudelft.simulation.event.Event;
 /**
  * The TallyTest test the tally.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.6, 2004-03-18
  * @since 1.5
@@ -39,7 +37,6 @@ public class TallyTest extends TestCase
 
     /**
      * constructs a new TallyTest
-     * 
      * @param arg0 the name of the method to be tested
      */
     public TallyTest(final String arg0)
@@ -67,8 +64,7 @@ public class TallyTest extends TestCase
         Assert.assertTrue(new Double(tally.getSum()).isNaN());
         Assert.assertTrue(tally.getN() == Long.MIN_VALUE);
         Assert.assertTrue(tally.getConfidenceInterval(0.95) == null);
-        Assert.assertTrue(tally.getConfidenceInterval(0.95,
-                Tally.LEFT_SIDE_CONFIDENCE) == null);
+        Assert.assertTrue(tally.getConfidenceInterval(0.95, Tally.LEFT_SIDE_CONFIDENCE) == null);
 
         // now we initialize the tally
         tally.initialize();
@@ -82,16 +78,15 @@ public class TallyTest extends TestCase
         Assert.assertTrue(tally.getSum() == 0);
         Assert.assertTrue(tally.getN() == 0);
         Assert.assertTrue(tally.getConfidenceInterval(0.95) == null);
-        Assert.assertTrue(tally.getConfidenceInterval(0.95,
-                Tally.LEFT_SIDE_CONFIDENCE) == null);
+        Assert.assertTrue(tally.getConfidenceInterval(0.95, Tally.LEFT_SIDE_CONFIDENCE) == null);
 
         // We first fire a wrong event
         try
         {
             tally.notify(new Event(null, "ERROR", "ERROR"));
-            Assert
-                    .fail("tally should react on events.value !instanceOf Double");
-        } catch (Exception exception)
+            Assert.fail("tally should react on events.value !instanceOf Double");
+        }
+        catch (Exception exception)
         {
             Assert.assertNotNull(exception);
         }
@@ -110,7 +105,8 @@ public class TallyTest extends TestCase
             tally.notify(new Event(null, this, new Double(1.8)));
             tally.notify(new Event(null, this, new Double(1.9)));
             tally.notify(new Event(null, this, new Double(2.0)));
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             Assert.fail(exception.getMessage());
         }
@@ -126,8 +122,7 @@ public class TallyTest extends TestCase
         Assert.assertTrue(variance == 0.11);
         double stdv = Math.round(1000 * tally.getStdDev()) / 1000.0;
         Assert.assertTrue(stdv == 0.332);
-        double confidence = Math
-                .round(1000 * tally.getConfidenceInterval(0.05)[0]) / 1000.0;
+        double confidence = Math.round(1000 * tally.getConfidenceInterval(0.05)[0]) / 1000.0;
         Assert.assertTrue(confidence == 1.304);
 
         // we check the input of the confidence interval
@@ -135,20 +130,20 @@ public class TallyTest extends TestCase
         {
             tally.getConfidenceInterval(0.95, (short) 14);
             Assert.fail("14 is not defined as side of confidence level");
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
-            Assert.assertTrue(exception.getClass().equals(
-                    IllegalArgumentException.class));
+            Assert.assertTrue(exception.getClass().equals(IllegalArgumentException.class));
         }
         try
         {
             Assert.assertTrue(tally.getConfidenceInterval(-0.95) == null);
             Assert.assertTrue(tally.getConfidenceInterval(1.14) == null);
             Assert.fail("should have reacted on wrong confidence levels");
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
-            Assert.assertTrue(exception.getClass().equals(
-                    IllegalArgumentException.class));
+            Assert.assertTrue(exception.getClass().equals(IllegalArgumentException.class));
         }
 
         Assert.assertTrue(Math.abs(tally.getSampleMean() - 1.5) < 10E-6);
@@ -162,8 +157,7 @@ public class TallyTest extends TestCase
         variance = variance / 10.0;
         double stDev = Math.sqrt(variance);
 
-        Assert
-                .assertTrue(Math.abs(tally.getSampleVariance() - variance) < 10E-6);
+        Assert.assertTrue(Math.abs(tally.getSampleVariance() - variance) < 10E-6);
         Assert.assertTrue(Math.abs(tally.getStdDev() - stDev) < 10E-6);
     }
 }

@@ -7,40 +7,32 @@ package nl.tudelft.simulation.language.concurrent;
 import java.util.logging.Logger;
 
 /**
- * The WorkerThread is a working thread. The thread sleeps while not
- * interrupted. If interrupted the job.run operation is invoked.
+ * The WorkerThread is a working thread. The thread sleeps while not interrupted. If interrupted the job.run operation
+ * is invoked.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/">
- * www.simulation.tudelft.nl</a>.
+ * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ * following conditions are met:
  * <ul>
- * <li>Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.</li>
+ * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ * disclaimer.</li>
+ * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+ * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.</li>
  * </ul>
- * This software is provided by the copyright holders and contributors "as is"
- * and any express or implied warranties, including, but not limited to, the
- * implied warranties of merchantability and fitness for a particular purpose
- * are disclaimed. In no event shall the copyright holder or contributors be
- * liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of
- * substitute goods or services; loss of use, data, or profits; or business
- * interruption) however caused and on any theory of liability, whether in
- * contract, strict liability, or tort (including negligence or otherwise)
- * arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
- * 
+ * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+ * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
+ * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
+ * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
+ * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
+ * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
+ * of this software, even if advised of the possibility of such damage.
  * @version Oct 17, 2009
  * @author <a href="mailto:phmjacobs@hotmail.com">Peter H.M. Jacobs</a>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -56,7 +48,6 @@ public class WorkerThread extends Thread
 
     /**
      * constructs a new SimulatorRunThread.
-     * 
      * @param name the name of the thread
      * @param job the job to run
      */
@@ -79,10 +70,10 @@ public class WorkerThread extends Thread
         try
         {
             super.finalize();
-        } catch (Throwable exception)
+        }
+        catch (Throwable exception)
         {
-            Logger.getLogger("nl.tudelft.simulation.language.concurrent")
-                    .warning(exception.getMessage());
+            Logger.getLogger("nl.tudelft.simulation.language.concurrent").warning(exception.getMessage());
             exception.printStackTrace();
         }
     }
@@ -98,17 +89,17 @@ public class WorkerThread extends Thread
             try
             {
                 this.wait(); // as long as possible
-            } catch (InterruptedException interruptedException)
+            }
+            catch (InterruptedException interruptedException)
             {
                 this.interrupt(); // set the status to interrupted
                 try
                 {
                     this.job.run();
-                } catch (Exception exception)
+                }
+                catch (Exception exception)
                 {
-                    Logger.getLogger(
-                            "nl.tudelft.simulation.language.concurrent")
-                            .severe(exception.getMessage());
+                    Logger.getLogger("nl.tudelft.simulation.language.concurrent").severe(exception.getMessage());
                     exception.printStackTrace();
                 }
                 Thread.interrupted();

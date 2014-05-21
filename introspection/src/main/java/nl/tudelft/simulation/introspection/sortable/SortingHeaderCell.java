@@ -16,17 +16,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * The sorting header cell.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -52,7 +48,6 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
 
     /**
      * constructs a new SortingHeaderCell
-     * 
      * @param sort the sort mode (none, ascending, descending).
      */
     public SortingHeaderCell(final int sort)
@@ -82,7 +77,6 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
 
     /**
      * sets the sort mode
-     * 
      * @param sort the new mode
      */
     public void setSort(final int sort)
@@ -100,7 +94,6 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
 
     /**
      * is the header cell sorted?
-     * 
      * @return whether the header cell is sorted
      */
     public boolean isSorted()
@@ -110,7 +103,6 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
 
     /**
      * is the header cell ascendingly sorted?
-     * 
      * @return whether the header cell is ascendingly sorted.
      */
     public boolean isAscendingSorted()
@@ -130,12 +122,11 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
         int height = this.getHeight();
         if (this.sortMode == SortingHeaderCell.SORT_DESCENDING)
         {
-            g.fillPolygon(new int[] { width - 14, width - 9, width - 4 },
-                    new int[] { 4, height - 4, 4 }, 3);
-        } else if (this.sortMode == SortingHeaderCell.SORT_ASCENDING)
+            g.fillPolygon(new int[]{width - 14, width - 9, width - 4}, new int[]{4, height - 4, 4}, 3);
+        }
+        else if (this.sortMode == SortingHeaderCell.SORT_ASCENDING)
         {
-            g.fillPolygon(new int[] { width - 14, width - 9, width - 4 },
-                    new int[] { height - 4, 4, height - 4 }, 3);
+            g.fillPolygon(new int[]{width - 14, width - 9, width - 4}, new int[]{height - 4, 4, height - 4}, 3);
         }
     }
 

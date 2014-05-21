@@ -11,23 +11,14 @@ import javax.swing.JComponent;
 import nl.tudelft.simulation.introspection.gui.ExpandButton;
 
 /**
- * A default implementation of the {see CellPresentationConfiguration}
- * interface. Editors and renders are provided for the JComponent, Color and
- * Font classes. Furthermore, a special editor is provided for the ExpandButton
- * class, to implement the pop-up behaviour of the {see
- * nl.tudelft.simulation.introspection.gui.ExpandButton}.
- * 
- * @author (c) 2003 <a href="http://www.tudelft.nl">Delft University of
- *         Technology </a>, Delft, the Netherlands <br>
- *         <a href="http://www.tbm.tudelft.nl">Faculty of Technology, Policy and
- *         Management </a> <br>
- *         <a href="http://www.sk.tbm.tudelft.nl">Department of System
- *         Engineering </a> <br>
- *         Main researcher : <a
- *         href="http://www.tbm.tudelft.nl/webstaf/alexandv/">Dr. Ir. A.
- *         Verbraeck <a/><br>
- *         Assistant researchers <a href="http://www.peter-jacobs.com">Ir.
- *         P.H.M. Jacobs </a> and <a
+ * A default implementation of the {see CellPresentationConfiguration} interface. Editors and renders are provided for
+ * the JComponent, Color and Font classes. Furthermore, a special editor is provided for the ExpandButton class, to
+ * implement the pop-up behaviour of the {see nl.tudelft.simulation.introspection.gui.ExpandButton}.
+ * @author (c) 2003 <a href="http://www.tudelft.nl">Delft University of Technology </a>, Delft, the Netherlands <br>
+ *         <a href="http://www.tbm.tudelft.nl">Faculty of Technology, Policy and Management </a> <br>
+ *         <a href="http://www.sk.tbm.tudelft.nl">Department of System Engineering </a> <br>
+ *         Main researcher : <a href="http://www.tbm.tudelft.nl/webstaf/alexandv/">Dr. Ir. A. Verbraeck <a/><br>
+ *         Assistant researchers <a href="http://www.peter-jacobs.com">Ir. P.H.M. Jacobs </a> and <a
  *         href="http://www.tbm.tudelft.nl/webstaf/nielsl">Ir. N.A. Lang </a>
  */
 public class DefaultConfiguration implements CellPresentationConfiguration
@@ -65,30 +56,26 @@ public class DefaultConfiguration implements CellPresentationConfiguration
 
     /**
      * adds a renderer to the configuration
-     * 
      * @param cellType the cellType
      * @param renderingClass the renderingClass
      */
-    protected synchronized void addRenderer(final Class cellType,
-            final Class renderingClass)
+    protected synchronized void addRenderer(final Class cellType, final Class renderingClass)
     {
-        this.renderers.add(new Class[] { cellType, renderingClass });
+        this.renderers.add(new Class[]{cellType, renderingClass});
     }
 
     /**
      * adds an editingClass to a cellType
-     * 
      * @param cellType the cellType
      * @param editingClass an editingClass
      */
     protected void addEditor(final Class cellType, final Class editingClass)
     {
-        this.editors.add(new Class[] { cellType, editingClass });
+        this.editors.add(new Class[]{cellType, editingClass});
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration
-     *      #getRenderers()
+     * @see nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration #getRenderers()
      */
     public Class[][] getRenderers()
     {
@@ -96,8 +83,7 @@ public class DefaultConfiguration implements CellPresentationConfiguration
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration
-     *      #getEditors()
+     * @see nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration #getEditors()
      */
     public Class[][] getEditors()
     {

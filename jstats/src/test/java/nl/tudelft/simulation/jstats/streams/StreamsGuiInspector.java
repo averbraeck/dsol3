@@ -15,16 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * The DistributionsGUIInspector provides graphical insight in the randomness of
- * different streams.
+ * The DistributionsGUIInspector provides graphical insight in the randomness of different streams.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.0, 2004-03-18
  * @since 1.5
@@ -39,7 +36,6 @@ public class StreamsGuiInspector extends JPanel
 
     /**
      * constructs a new DistributionsGUIInspector
-     * 
      * @param stream the stream to display
      */
     public StreamsGuiInspector(final StreamInterface stream)
@@ -58,14 +54,12 @@ public class StreamsGuiInspector extends JPanel
         Graphics2D g2 = (Graphics2D) g;
         for (int i = 0; i < 10000; i++)
         {
-            g2.fillOval(this.stream.nextInt(0, 500), this.stream
-                    .nextInt(0, 500), 1, 1);
+            g2.fillOval(this.stream.nextInt(0, 500), this.stream.nextInt(0, 500), 1, 1);
         }
     }
 
     /**
      * executes the main program
-     * 
      * @param args the commandline arguments
      */
     public static void main(final String[] args)
@@ -74,12 +68,9 @@ public class StreamsGuiInspector extends JPanel
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JTabbedPane contentPane = new JTabbedPane();
-        contentPane.add("Java2Random", new StreamsGuiInspector(
-                new Java2Random()));
-        contentPane.add("MersenneTwister", new StreamsGuiInspector(
-                new MersenneTwister()));
-        contentPane.add("DX120Generator", new StreamsGuiInspector(
-                new DX120Generator()));
+        contentPane.add("Java2Random", new StreamsGuiInspector(new Java2Random()));
+        contentPane.add("MersenneTwister", new StreamsGuiInspector(new MersenneTwister()));
+        contentPane.add("DX120Generator", new StreamsGuiInspector(new DX120Generator()));
 
         app.getContentPane().add(contentPane);
         app.pack();

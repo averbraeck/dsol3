@@ -11,13 +11,11 @@ import java.io.IOException;
 
 /**
  * A Constant <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -28,7 +26,6 @@ public abstract class Constant
 
     /**
      * constructs a new Constant
-     * 
      * @param constantPool the constantPool it is part of
      */
     public Constant(final Constant[] constantPool)
@@ -39,21 +36,18 @@ public abstract class Constant
 
     /**
      * returns the tag of the constant
-     * 
      * @return int the constant tag
      */
     public abstract int getTag();
 
     /**
      * reads a constant from the stream
-     * 
      * @param dataInput the dataInput
      * @param constantPool the constantPool
      * @return Constant
      * @throws IOException on exception
      */
-    public static Constant readConstant(final Constant[] constantPool,
-            final DataInput dataInput) throws IOException
+    public static Constant readConstant(final Constant[] constantPool, final DataInput dataInput) throws IOException
     {
         int tag = dataInput.readUnsignedByte();
         switch (tag)
@@ -87,7 +81,6 @@ public abstract class Constant
 
     /**
      * parses the constantPool to string
-     * 
      * @param constantPool the pool
      * @return String
      */
@@ -99,7 +92,8 @@ public abstract class Constant
             if (constantPool[i] != null)
             {
                 result = result + i + ": " + constantPool[i].toString() + "\n";
-            } else
+            }
+            else
             {
                 result = result + i + ": empty \n";
             }

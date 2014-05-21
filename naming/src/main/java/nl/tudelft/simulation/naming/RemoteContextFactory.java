@@ -22,16 +22,14 @@ import javax.naming.spi.InitialContextFactory;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * A factory for RemoteContextClient instances, automatically invoked by JNDI
- * when the correct jndi.properties file has been used.
+ * A factory for RemoteContextClient instances, automatically invoked by JNDI when the correct jndi.properties file has
+ * been used.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.1 2004-03-24
  * @since 1.5
@@ -44,8 +42,7 @@ public class RemoteContextFactory implements InitialContextFactory
     /**
      * @see javax.naming.spi.InitialContextFactory #getInitialContext(Hashtable)
      */
-    public synchronized Context getInitialContext(
-            final Hashtable< ? extends Object, ? extends Object> environment)
+    public synchronized Context getInitialContext(final Hashtable<? extends Object, ? extends Object> environment)
     {
         // If the context is already looked up, let's return immediately
         if (RemoteContextFactory.context != null)
@@ -57,8 +54,7 @@ public class RemoteContextFactory implements InitialContextFactory
         try
         {
             URL url = new URL(environment.get(Context.PROVIDER_URL).toString());
-            Registry registry = LocateRegistry.getRegistry(url.getHost(), url
-                    .getPort());
+            Registry registry = LocateRegistry.getRegistry(url.getHost(), url.getPort());
 
             // If there is no registry, registry!=null, so we have to test the
             // registry
@@ -68,21 +64,18 @@ public class RemoteContextFactory implements InitialContextFactory
             try
             {
                 registry.list();
-            } catch (ConnectException connectException)
+            }
+            catch (ConnectException connectException)
             {
                 // Since we cannot find the registry, we must perhaps create
                 // one..
                 // This is only allowed if the host is our localhost. We cannot
                 // create a registry on a remote host.
-                if (!(url.getHost().equals("localhost")
-                        || url.getHost().equals("127.0.0.1")
-                        || url.getHost().equals(
-                                InetAddress.getLocalHost().getHostName()) || url
-                        .getHost().equals(
-                                InetAddress.getLocalHost().getHostAddress())))
+                if (!(url.getHost().equals("localhost") || url.getHost().equals("127.0.0.1")
+                        || url.getHost().equals(InetAddress.getLocalHost().getHostName()) || url.getHost().equals(
+                        InetAddress.getLocalHost().getHostAddress())))
                 {
-                    throw new IllegalArgumentException(
-                            "cannot create registry on remote host");
+                    throw new IllegalArgumentException("cannot create registry on remote host");
                 }
                 registry = LocateRegistry.createRegistry(url.getPort());
             }
@@ -91,41 +84,37 @@ public class RemoteContextFactory implements InitialContextFactory
             RemoteContextInterface remoteContext = null;
             try
             {
-                remoteContext = (RemoteContextInterface) registry.lookup(url
-                        .getFile());
-            } catch (NotBoundException notBoundException)
+                remoteContext = (RemoteContextInterface) registry.lookup(url.getFile());
+            }
+            catch (NotBoundException notBoundException)
             {
                 // Since we cannot find the context, we must create one..
                 // This is done based on the java.naming.wrapped properties in
                 // jndi.properties
                 Hashtable<Object, Object> wrappedEnvironment = new Hashtable<Object, Object>();
-                for (Iterator< ? > iterator = environment.keySet().iterator(); iterator
-                        .hasNext();)
+                for (Iterator<?> iterator = environment.keySet().iterator(); iterator.hasNext();)
                 {
                     String key = iterator.next().toString();
                     if (key.startsWith(RemoteContextInterface.WRAPPED_PREFIX))
                     {
-                        wrappedEnvironment.put(key.replaceFirst(
-                                RemoteContextInterface.WRAPPED_PREFIX,
-                                "java.naming"), environment.get(key));
+                        wrappedEnvironment.put(key.replaceFirst(RemoteContextInterface.WRAPPED_PREFIX, "java.naming"),
+                                environment.get(key));
                     }
                 }
                 if (wrappedEnvironment.isEmpty())
                 {
                     // If we do not throw this exception and accept an empty
                     // environment, we'll get in an infinte loop
-                    throw new IllegalArgumentException(
-                            "no wrapped initial context defined");
+                    throw new IllegalArgumentException("no wrapped initial context defined");
                 }
-                EventContext wrappedContext = new InitialEventContext(
-                        wrappedEnvironment);
+                EventContext wrappedContext = new InitialEventContext(wrappedEnvironment);
                 remoteContext = new RemoteContext(wrappedContext);
                 registry.bind(url.getFile(), remoteContext);
             }
-            RemoteContextFactory.context = new RemoteContextClient(
-                    remoteContext);
+            RemoteContextFactory.context = new RemoteContextClient(remoteContext);
             return RemoteContextFactory.context;
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             Logger.warning(this, "getInitialContext", exception);
             return null;

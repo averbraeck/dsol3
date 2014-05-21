@@ -11,18 +11,15 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Poisson distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/PoissonDistribution.html">
- * http://mathworld.wolfram.com/PoissonDistribution.html </a>
+ * href="http://mathworld.wolfram.com/PoissonDistribution.html"> http://mathworld.wolfram.com/PoissonDistribution.html
+ * </a>
  * <p>
- * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a href="mailto:a.verbraeck@tudelft.nl">
- *         Alexander Verbraeck </a> <br>
+ * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
  *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
  * @version 1.8 2004-03-22
  * @since 1.5
@@ -37,7 +34,6 @@ public class DistPoisson extends DistDiscrete
 
     /**
      * constructs a new poisson distribution
-     * 
      * @param stream the numberstream
      * @param lambda the lambda parameter
      */
@@ -47,7 +43,8 @@ public class DistPoisson extends DistDiscrete
         if (lambda > 0.0)
         {
             this.lambda = lambda;
-        } else
+        }
+        else
         {
             throw new IllegalArgumentException("Error Poisson - lambda<=0");
         }
@@ -68,21 +65,20 @@ public class DistPoisson extends DistDiscrete
         {
             s = s * this.stream.nextDouble();
             x++;
-        } while (s > this.expl);
+        }
+        while (s > this.expl);
         return x;
     }
 
     /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistDiscrete
-     *      #probability(int)
+     * @see nl.tudelft.simulation.jstats.distributions.DistDiscrete #probability(int)
      */
     @Override
     public double probability(final int observation)
     {
         if (observation >= 0)
         {
-            return (Math.exp(-this.lambda) * Math.pow(this.lambda, observation))
-                    / ProbMath.faculty(observation);
+            return (Math.exp(-this.lambda) * Math.pow(this.lambda, observation)) / ProbMath.faculty(observation);
         }
         return 0;
     }

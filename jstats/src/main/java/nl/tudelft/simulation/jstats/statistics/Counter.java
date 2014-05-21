@@ -16,13 +16,11 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * The Counter class defines a statistics event counter.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
@@ -49,7 +47,6 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * constructs a new CounterTest
-     * 
      * @param description the description for this counter
      */
     public Counter(final String description)
@@ -60,7 +57,6 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * Returns the current counter value
-     * 
      * @return long the counter value
      */
     public long getCount()
@@ -70,7 +66,6 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * Returns the current number of observations
-     * 
      * @return long the number of observations
      */
     public long getN()
@@ -79,8 +74,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface
-     *      #notify(nl.tudelft.simulation.event.EventInterface)
+     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
      */
     public void notify(final EventInterface event)
     {
@@ -89,7 +83,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
         {
             value = Math.round(((Number) event.getContent()).doubleValue());
         }
-        if (!this.filter.accept(new double[] { value, value }))
+        if (!this.filter.accept(new double[]{value, value}))
         {
             return;
         }
@@ -128,7 +122,6 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * is the counter initialized?
-     * 
      * @return returns whether the counter is initialized
      */
     public boolean isInitialized()
@@ -138,7 +131,6 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets the count
-     * 
      * @param count the value
      */
     private void setCount(final long count)
@@ -149,7 +141,6 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets n
-     * 
      * @param n the number of measurements
      */
     private void setN(final long n)
@@ -160,7 +151,6 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the description of the counter
-     * 
      * @return String the description
      */
     public String getDescription()
@@ -174,10 +164,9 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     @Override
     public TableModel getTable()
     {
-        String[] columnNames = { "field", "value" };
-        EventType[] eventTypes = { null, Counter.N_EVENT, Counter.COUNT_EVENT };
-        StatisticsTableModel result = new StatisticsTableModel(columnNames,
-                eventTypes, 3);
+        String[] columnNames = {"field", "value"};
+        EventType[] eventTypes = {null, Counter.N_EVENT, Counter.COUNT_EVENT};
+        StatisticsTableModel result = new StatisticsTableModel(columnNames, eventTypes, 3);
         this.addListener(result, Counter.N_EVENT, true);
         this.addListener(result, Counter.COUNT_EVENT, true);
 

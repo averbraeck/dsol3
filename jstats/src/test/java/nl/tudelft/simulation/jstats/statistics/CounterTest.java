@@ -15,13 +15,11 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 /**
  * The counterTest test the counter.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.0, 2004-03-18
  * @since 1.5
@@ -41,7 +39,6 @@ public class CounterTest extends TestCase
 
     /**
      * constructs a new CounterTest.
-     * 
      * @param arg0 the name of the test method
      */
     public CounterTest(final String arg0)
@@ -69,17 +66,14 @@ public class CounterTest extends TestCase
             public void notify(final EventInterface event)
             {
                 Assert.assertTrue(event.getType().equals(Counter.COUNT_EVENT));
-                Assert.assertTrue(event.getContent().getClass().equals(
-                        Long.class));
+                Assert.assertTrue(event.getContent().getClass().equals(Long.class));
             }
         }, Counter.COUNT_EVENT);
 
         long value = 0;
         for (int i = 0; i < 100; i++)
         {
-            counter
-                    .notify(new Event(Counter.COUNT_EVENT, this,
-                            new Long(2 * i)));
+            counter.notify(new Event(Counter.COUNT_EVENT, this, new Long(2 * i)));
             value = value + 2 * i;
         }
         Assert.assertTrue(counter.getN() == 100);

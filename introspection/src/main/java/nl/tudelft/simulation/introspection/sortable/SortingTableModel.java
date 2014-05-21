@@ -24,43 +24,35 @@ import nl.tudelft.simulation.logger.Logger;
 /**
  * The SortingTableModel.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
 public class SortingTableModel implements TableModel, Sortable
 {
     /** the listeners */
-    protected Map<ProxyListener, TableModelListener> proxyListeners = new HashMap<ProxyListener, TableModelListener>(
-            5);
+    protected Map<ProxyListener, TableModelListener> proxyListeners = new HashMap<ProxyListener, TableModelListener>(5);
 
     /** the source */
     protected TableModel source;
 
     /** the index */
-    private List<Object> index = Collections
-            .synchronizedList(new ArrayList<Object>());
+    private List<Object> index = Collections.synchronizedList(new ArrayList<Object>());
 
     /** expandedIndex */
     protected Integer[] expandedIndex;
 
     /** the definitions */
-    private List<Definition> definitions = Collections
-            .synchronizedList(new ArrayList<Definition>());
+    private List<Definition> definitions = Collections.synchronizedList(new ArrayList<Definition>());
 
     /**
      * constructs a new SortingTableModel
-     * 
      * @param source the sorce
      */
     public SortingTableModel(final TableModel source)
@@ -91,8 +83,7 @@ public class SortingTableModel implements TableModel, Sortable
         initIndex();
         for (Definition definition : this.definitions)
         {
-            this.index = sortList(this.index, definition.isAcendingSort(),
-                    definition.getFieldID());
+            this.index = sortList(this.index, definition.isAcendingSort(), definition.getFieldID());
         }
         this.expandIndex();
     }
@@ -107,8 +98,9 @@ public class SortingTableModel implements TableModel, Sortable
         {
             if (current instanceof List)
             {
-                expandedList.addAll((List< ? >) current);
-            } else
+                expandedList.addAll((List<?>) current);
+            }
+            else
             {
                 expandedList.add(current);
             }
@@ -136,8 +128,7 @@ public class SortingTableModel implements TableModel, Sortable
      * @param column the column
      * @return the sortedList
      */
-    private List<Object> sortList(final List<Object> unsorted,
-            final boolean ascending, final int column)
+    private List<Object> sortList(final List<Object> unsorted, final boolean ascending, final int column)
     {
         List<Object> result = new ArrayList<Object>(unsorted.size());
         synchronized (unsorted)
@@ -147,9 +138,10 @@ public class SortingTableModel implements TableModel, Sortable
                 if (current instanceof Integer)
                 {
                     result.add(current);
-                } else
+                }
+                else
                 {
-                    List< ? > currentList = (List< ? >) current;
+                    List<?> currentList = (List<?>) current;
                     result.addAll(sortSubList(currentList, ascending, column));
                 }
             }
@@ -164,8 +156,7 @@ public class SortingTableModel implements TableModel, Sortable
      * @return the sortedList
      */
     @SuppressWarnings("unchecked")
-    private List<Object> sortSubList(final List< ? > unsorted,
-            final boolean ascending, final int column)
+    private List<Object> sortSubList(final List<?> unsorted, final boolean ascending, final int column)
     {
         List<Object> result = new ArrayList<Object>(unsorted.size());
         synchronized (unsorted)
@@ -173,8 +164,7 @@ public class SortingTableModel implements TableModel, Sortable
             for (int i = 0; i < unsorted.size(); i++)
             {
                 Integer unsortedEntry = (Integer) unsorted.get(i);
-                Object current = this.source.getValueAt(unsortedEntry
-                        .intValue(), column);
+                Object current = this.source.getValueAt(unsortedEntry.intValue(), column);
                 boolean allocated = false;
                 for (int y = 0; (y < result.size() && !allocated); y++)
                 {
@@ -183,28 +173,25 @@ public class SortingTableModel implements TableModel, Sortable
                     if (resultValue instanceof List)
                     {
                         inList = true;
-                        resultValue = this.source.getValueAt(
-                                ((Integer) ((List< ? >) resultValue).get(0))
-                                        .intValue(), column);
-                    } else
-                    {
-                        resultValue = this.source.getValueAt(
-                                ((Integer) resultValue).intValue(), column);
+                        resultValue =
+                                this.source.getValueAt(((Integer) ((List<?>) resultValue).get(0)).intValue(), column);
                     }
-                    if (current instanceof Comparable
-                            && resultValue instanceof Comparable)
+                    else
+                    {
+                        resultValue = this.source.getValueAt(((Integer) resultValue).intValue(), column);
+                    }
+                    if (current instanceof Comparable && resultValue instanceof Comparable)
                     {
                         try
                         {
-                            int comparisson = ((Comparable) current)
-                                    .compareTo(resultValue);
+                            int comparisson = ((Comparable) current).compareTo(resultValue);
                             if (comparisson == 0)
                             {
                                 if (inList)
                                 {
-                                    ((List<Object>) result.get(y))
-                                            .add(unsortedEntry);
-                                } else
+                                    ((List<Object>) result.get(y)).add(unsortedEntry);
+                                }
+                                else
                                 {
                                     List valueList = new ArrayList(2);
                                     valueList.add(result.get(y));
@@ -214,17 +201,16 @@ public class SortingTableModel implements TableModel, Sortable
                                 }
                                 allocated = true;
                             }
-                            if (ascending && comparisson < 0 || !ascending
-                                    && comparisson > 0)
+                            if (ascending && comparisson < 0 || !ascending && comparisson > 0)
                             {
                                 result.add(y, unsortedEntry);
                                 allocated = true;
                             }
-                        } catch (ClassCastException exception)
+                        }
+                        catch (ClassCastException exception)
                         {
-                            Logger.info(this, "sortSubList",
-                                    " Could not compare " + current + " and "
-                                            + resultValue + ": " + exception);
+                            Logger.info(this, "sortSubList", " Could not compare " + current + " and " + resultValue
+                                    + ": " + exception);
                         }
                     }
                 }
@@ -246,8 +232,7 @@ public class SortingTableModel implements TableModel, Sortable
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.sortable.Sortable
-     *      #setDefinitions(Definition[])
+     * @see nl.tudelft.simulation.introspection.sortable.Sortable #setDefinitions(Definition[])
      */
     public void setDefinitions(final Definition[] definitions)
     {
@@ -276,7 +261,7 @@ public class SortingTableModel implements TableModel, Sortable
     /**
      * @see javax.swing.table.TableModel#getColumnClass(int)
      */
-    public Class< ? > getColumnClass(final int columnIndex)
+    public Class<?> getColumnClass(final int columnIndex)
     {
         return this.source.getColumnClass(columnIndex);
     }
@@ -316,13 +301,11 @@ public class SortingTableModel implements TableModel, Sortable
         }
         if (rowIndex > this.expandedIndex.length)
         {
-            Logger.warning(this, "getValueAt", " could not retrieve row "
-                    + rowIndex
+            Logger.warning(this, "getValueAt", " could not retrieve row " + rowIndex
                     + " from sorted list. Returning default instead.");
             return this.source.getValueAt(rowIndex, columnIndex);
         }
-        return this.source.getValueAt(this.expandedIndex[rowIndex].intValue(),
-                columnIndex);
+        return this.source.getValueAt(this.expandedIndex[rowIndex].intValue(), columnIndex);
     }
 
     /**
@@ -330,8 +313,7 @@ public class SortingTableModel implements TableModel, Sortable
      */
     public boolean isCellEditable(final int rowIndex, final int columnIndex)
     {
-        return this.source.isCellEditable(this.expandedIndex[rowIndex]
-                .intValue(), columnIndex);
+        return this.source.isCellEditable(this.expandedIndex[rowIndex].intValue(), columnIndex);
     }
 
     /**
@@ -347,18 +329,15 @@ public class SortingTableModel implements TableModel, Sortable
     /**
      * @see javax.swing.table.TableModel#setValueAt(Object, int, int)
      */
-    public void setValueAt(final Object aValue, final int rowIndex,
-            final int columnIndex)
+    public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
     {
         if (rowIndex > this.expandedIndex.length)
         {
-            Logger.warning(this, "setValueAt", " could not retrieve row "
-                    + rowIndex
+            Logger.warning(this, "setValueAt", " could not retrieve row " + rowIndex
                     + " from sorted list. Ignoring 'setValue' command.");
             return;
         }
-        this.source.setValueAt(aValue, this.expandedIndex[rowIndex].intValue(),
-                columnIndex);
+        this.source.setValueAt(aValue, this.expandedIndex[rowIndex].intValue(), columnIndex);
         this.buildIndex();
         if (this.source instanceof DefaultTableModel)
         {

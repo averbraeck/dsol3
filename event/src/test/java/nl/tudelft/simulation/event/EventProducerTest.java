@@ -20,13 +20,11 @@ import junit.framework.TestCase;
 /**
  * The test script for the EventProducer class.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:11 $
  * @since 1.5
@@ -46,7 +44,6 @@ public class EventProducerTest extends TestCase
 
     /**
      * constructs a new EventIteratorTest
-     * 
      * @param arg0 the name of the test method
      */
     public EventProducerTest(final String arg0)
@@ -70,16 +67,13 @@ public class EventProducerTest extends TestCase
     {
         try
         {
-            File file = File.createTempFile("dsol", ".tmp", new File(System
-                    .getProperty("java.io.tmpdir")));
-            ObjectOutputStream output = new ObjectOutputStream(
-                    new FileOutputStream(file));
+            File file = File.createTempFile("dsol", ".tmp", new File(System.getProperty("java.io.tmpdir")));
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(file));
 
             // Let's test for Serializability
             EventProducerInterface producer = new EventProducerChild();
             output.writeObject(producer);
-            ObjectInputStream input = new ObjectInputStream(
-                    new FileInputStream(file));
+            ObjectInputStream input = new ObjectInputStream(new FileInputStream(file));
             producer = (EventProducerInterface) input.readObject();
             Assert.assertNotNull(producer);
 
@@ -95,15 +89,15 @@ public class EventProducerTest extends TestCase
 
             output.close();
             input.close();
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             Assert.fail();
         }
     }
 
     /**
-     * tests the basic behavior of the eventProducer. All but Serializability,
-     * and concurrency is tested.
+     * tests the basic behavior of the eventProducer. All but Serializability, and concurrency is tested.
      */
     public void basic()
     {
@@ -123,10 +117,10 @@ public class EventProducerTest extends TestCase
             new EventProducerParent();
             // This must fail since EVENT_D and EVENT_C have the same value
             Assert.fail("double eventType values");
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
-            Assert.assertTrue(exception.getClass().equals(
-                    RuntimeException.class));
+            Assert.assertTrue(exception.getClass().equals(RuntimeException.class));
         }
 
         // Now we test the eventProducer
@@ -138,38 +132,31 @@ public class EventProducerTest extends TestCase
             producer.addListener(listener1, EventProducerParent.EVENT_E);
             producer.addListener(listener3, EventProducerParent.EVENT_E);
 
-            ((EventProducerParent) producer).fireEvent(new Event(
-                    EventProducerParent.EVENT_E, producer, "HI"));
+            ((EventProducerParent) producer).fireEvent(new Event(EventProducerParent.EVENT_E, producer, "HI"));
 
-            ((EventProducerParent) producer).fireEvent(new Event(
-                    EventProducerParent.EVENT_E, producer, "HI"));
+            ((EventProducerParent) producer).fireEvent(new Event(EventProducerParent.EVENT_E, producer, "HI"));
 
-            ((EventProducerParent) producer).fireEvent(new Event(
-                    EventProducerChild.EVENT_A, producer, "HI"));
+            ((EventProducerParent) producer).fireEvent(new Event(EventProducerChild.EVENT_A, producer, "HI"));
 
             // we try to remove the listener from a wrong eventType.
-            Assert.assertFalse(producer.removeListener(listener1,
-                    EventProducerChild.EVENT_A));
+            Assert.assertFalse(producer.removeListener(listener1, EventProducerChild.EVENT_A));
 
             // now we try to remove the same listener again.
-            Assert.assertFalse(producer.removeListener(listener1,
-                    EventProducerParent.EVENT_E));
+            Assert.assertFalse(producer.removeListener(listener1, EventProducerParent.EVENT_E));
 
             // Now we subscribe twice on the same event. The first time should
             // succeed. The second fail.
-            Assert.assertFalse(producer.addListener(listener1,
-                    EventProducerChild.EVENT_B));
+            Assert.assertFalse(producer.addListener(listener1, EventProducerChild.EVENT_B));
 
             // Now we add a null listener
-            Assert.assertFalse(producer.addListener(null,
-                    EventProducerChild.EVENT_A));
+            Assert.assertFalse(producer.addListener(null, EventProducerChild.EVENT_A));
 
             // Now we add some random listeners
-            Assert.assertTrue(producer.addListener(listener1,
-                    EventProducerChild.EVENT_A));
+            Assert.assertTrue(producer.addListener(listener1, EventProducerChild.EVENT_A));
 
             // Assert.assertTrue(producer.removeAllListeners() == 4);
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             Assert.fail(exception.getMessage());
         }
@@ -185,7 +172,6 @@ public class EventProducerTest extends TestCase
 
         /**
          * constructs a new Listener1
-         * 
          * @param name the name of the listener
          */
         public RemoveListener(final String name)
@@ -194,28 +180,22 @@ public class EventProducerTest extends TestCase
         }
 
         /**
-         * @see nl.tudelft.simulation.event.EventListenerInterface
-         *      #notify(nl.tudelft.simulation.event.EventInterface)
+         * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
          */
         public void notify(final EventInterface event) throws RemoteException
         {
-            Assert.assertTrue(event.getType().equals(
-                    EventProducerParent.EVENT_E));
-            EventProducerInterface producer = (EventProducerInterface) event
-                    .getSource();
-            Assert.assertTrue(producer.removeListener(this,
-                    EventProducerParent.eventD));
-            Assert.assertTrue(producer.removeListener(this,
-                    EventProducerParent.EVENT_E));
-            Assert.assertFalse(producer.removeListener(this,
-                    EventProducerParent.EVENT_E));
+            Assert.assertTrue(event.getType().equals(EventProducerParent.EVENT_E));
+            EventProducerInterface producer = (EventProducerInterface) event.getSource();
+            Assert.assertTrue(producer.removeListener(this, EventProducerParent.eventD));
+            Assert.assertTrue(producer.removeListener(this, EventProducerParent.EVENT_E));
+            Assert.assertFalse(producer.removeListener(this, EventProducerParent.EVENT_E));
         }
 
         /**
          * @see java.lang.Object#toString()
          */
         @Override
-		public String toString()
+        public String toString()
         {
             return this.name;
         }
@@ -224,18 +204,16 @@ public class EventProducerTest extends TestCase
     /**
      * A basic listener class
      */
-    private static class SimpleListener implements EventListenerInterface,
-            Serializable
+    private static class SimpleListener implements EventListenerInterface, Serializable
     {
         /** The default serial version UID for serializable classes */
         private static final long serialVersionUID = 1L;
-        
+
         /** name is the name of the listener */
         private String name;
 
         /**
          * constructs a new Listener1
-         * 
          * @param name the name of the listener
          */
         public SimpleListener(final String name)
@@ -244,8 +222,7 @@ public class EventProducerTest extends TestCase
         }
 
         /**
-         * @see nl.tudelft.simulation.event.EventListenerInterface
-         *      #notify(nl.tudelft.simulation.event.EventInterface)
+         * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
          */
         public void notify(final EventInterface event)
         {
@@ -256,7 +233,7 @@ public class EventProducerTest extends TestCase
          * @see java.lang.Object#toString()
          */
         @Override
-		public String toString()
+        public String toString()
         {
             return this.name;
         }

@@ -14,19 +14,15 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
 /**
  * The WIDE operation as defined in <a
  * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc15.html">
- * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc15.html
- * </a>.
+ * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc15.html </a>.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a><a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander
- *         Verbraeck </a>
+ *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:22 $
  * @since 1.5
  */
@@ -40,7 +36,6 @@ public class WIDE extends Operation
 
     /**
      * constructs a new WIDE
-     * 
      * @param dataInput the dataInput
      * @throws IOException on IOfailure
      */
@@ -87,8 +82,7 @@ public class WIDE extends Operation
                 this.target = new IINC(dataInput, true);
                 break;
             default:
-                throw new IOException("Cannot use operand=" + operand
-                        + " in wide");
+                throw new IOException("Cannot use operand=" + operand + " in wide");
         }
     }
 

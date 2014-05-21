@@ -23,13 +23,10 @@ import nl.tudelft.simulation.event.remote.RemoteEventListenerInterface;
 /**
  * The specifies
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/">
- * www.simulation.tudelft.nl/dsol </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public
- * License (GPL) </a>, no warranty <br>
- * 
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:11 $
  * @since 1.5
@@ -40,7 +37,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** the hasMap we map on */
     private Map<K, V> map = new HashMap<K, V>();
 
@@ -103,7 +100,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#putAll(java.util.Map)
      */
-    public void putAll(Map< ? extends K, ? extends V> t)
+    public void putAll(Map<? extends K, ? extends V> t)
     {
         this.map.putAll(t);
     }
@@ -150,20 +147,17 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
 
     /**
      * writes a serializable method to stream
-     * 
      * @param out the outputstream
      * @throws IOException on IOException
      */
     @SuppressWarnings("unchecked")
-    private synchronized void writeObject(final ObjectOutputStream out)
-            throws IOException
+    private synchronized void writeObject(final ObjectOutputStream out) throws IOException
     {
         Map outMap = new HashMap();
         for (Iterator<K> i = this.keySet().iterator(); i.hasNext();)
         {
             Object key = i.next();
-            ArrayList entriesList = new ArrayList(Arrays
-                    .asList((Reference[]) this.get(key)));
+            ArrayList entriesList = new ArrayList(Arrays.asList((Reference[]) this.get(key)));
             for (Iterator ii = entriesList.iterator(); ii.hasNext();)
             {
                 Reference reference = (Reference) ii.next();
@@ -174,8 +168,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
             }
             if (!entriesList.isEmpty())
             {
-                outMap.put(key, entriesList.toArray(new Reference[entriesList
-                        .size()]));
+                outMap.put(key, entriesList.toArray(new Reference[entriesList.size()]));
             }
         }
         out.writeObject(outMap);
@@ -183,14 +176,12 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
 
     /**
      * reads a serializable method from stream
-     * 
      * @param in the inputstream
      * @throws IOException on IOException
      * @throws ClassNotFoundException on ClassNotFoundException
      */
     @SuppressWarnings("unchecked")
-    private synchronized void readObject(final java.io.ObjectInputStream in)
-            throws IOException, ClassNotFoundException
+    private synchronized void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException
     {
         this.map = (HashMap) in.readObject();
     }
