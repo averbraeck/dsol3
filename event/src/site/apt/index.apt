@@ -1,0 +1,16 @@
+
+dsol event project
+
+	The event service provides a distributed asynchronous event mechanism.
+	It provides a set of interfaces and classes for listeners and producers of
+	events. This service forms the basis for all other services.
+	
+	Contrary to many other event services that work with strings or integers to 
+	identify the events, this event mechanism is strongly typed. It uses the <<<EventType>>> 
+	to denote a type of event for which messages are exchanged. EventTypes are identified
+	by a String, and a check for uniqueness of the string <within the class> in which it is
+	defined is carried out by an invisible <static> constructor method.
+	
+	Another helpful feature for dsol is the fact that <<<RemoteEvent>>>s are defined,
+	which can be used for remote subscriptions in a distributed setting.
+	
