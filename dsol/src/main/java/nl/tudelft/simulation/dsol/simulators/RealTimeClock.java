@@ -1,0 +1,134 @@
+/*
+ * @(#) RealTimeClock.java Sep 6, 2003 Copyright (c) 2002-2005 Delft University
+ * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. This software is proprietary information of Delft University of
+ * Technology 
+ */
+package nl.tudelft.simulation.dsol.simulators;
+
+import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.event.EventType;
+import nl.tudelft.simulation.logger.Logger;
+
+/**
+ * The reference implementation of the realTimeClock. The realTime clock is a DEVDESS simulator which runs at a ratio of
+ * realTime. If the executionTime exceeds the timeStep, a catchup mechanism is triggered to make up lost time in
+ * consecutive steps.
+ * <p>
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @since 1.5
+ */
+public class RealTimeClock extends Animator implements DEVDESSSimulatorInterface
+{
+    /** the backlog event */
+    public static final EventType BACKLOG_EVENT = new EventType("BACKLOG_EVENT");
+
+    /** the backLog of the clock */
+    private long backlog = 0L;
+
+    /** the starttime of the clock */
+    private long startTime = 0L;
+
+    /**
+     * constructs a new RealTimeClock
+     */
+    public RealTimeClock()
+    {
+        super();
+    }
+
+    /**
+     * @see nl.tudelft.simulation.dsol.simulators.DEVSSimulator#run()
+     */
+    @Override
+    public void run()
+    {
+        super.worker.setPriority(Thread.MAX_PRIORITY);
+        this.startTime = System.currentTimeMillis();
+        int count = 0;
+        long animationFactor = Math.round(this.animationDelay / this.timeStep);
+        while (this.isRunning() && !this.eventList.isEmpty()
+                && this.simulatorTime <= this.replication.getTreatment().getRunLength())
+        {
+            long now = System.currentTimeMillis();
+            double runUntil = (now - this.startTime) + this.timeStep;
+            while (!this.eventList.isEmpty() && this.running
+                    && runUntil >= this.eventList.first().getAbsoluteExecutionTime())
+            {
+                synchronized (super.semaphore)
+                {
+                    SimEventInterface event = this.eventList.removeFirst();
+                    this.simulatorTime = event.getAbsoluteExecutionTime();
+                    try
+                    {
+                        event.execute();
+                    }
+                    catch (Exception exception)
+                    {
+                        Logger.severe(this, "run", exception);
+                    }
+                }
+            }
+            if (this.running)
+            {
+                this.simulatorTime = runUntil;
+            }
+            this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            if ((count % animationFactor) == 0)
+            {
+                this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime, this.simulatorTime);
+            }
+            count++;
+            try
+            {
+                long used = System.currentTimeMillis() - now;
+                long delay = Math.round(this.timeStep - used);
+                if (delay >= 0)
+                {
+                    long catchUp = Math.min(this.backlog, delay);
+                    this.backlog = this.backlog - catchUp;
+                    super.fireEvent(BACKLOG_EVENT, (-delay + catchUp));
+                    Thread.sleep(delay - catchUp);
+                }
+                else
+                {
+                    this.backlog = this.backlog + (-1 * delay);
+                    super.fireEvent(BACKLOG_EVENT, -1 * delay);
+                }
+            }
+            catch (InterruptedException interruptedException)
+            {
+                // Nothing to be done.
+                interruptedException = null;
+            }
+        }
+    }
+
+    /**
+     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #getAnimationDelay()
+     */
+    @Override
+    public long getAnimationDelay()
+    {
+        return this.animationDelay;
+    }
+
+    /**
+     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #setAnimationDelay(long)
+     */
+    @Override
+    public void setAnimationDelay(final long animationDelay)
+    {
+        if (animationDelay < this.timeStep)
+        {
+            Logger.warning(this, "setAnimationDelay",
+                    "Be careful: it does not seem wise to have an animationdelay<timeStep");
+        }
+        this.animationDelay = animationDelay;
+    }
+}

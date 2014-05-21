@@ -1,0 +1,19 @@
+Run DSOL online
+
+	DSOL can be started online both as an applet and as a Java Webstart version. (both versions require 7Mb download.)
+
+*-----------------------------------------------*
+|START DSOL AS APPLET							|
+*-----------------------------------------------*
+|START DSOL AS JAVA WEB-START APPLICATION		|
+*-----------------------------------------------*
+
+
+Releases
+
+	Releases can be found {{http://sourceforge.net/projects/dsol}}.
+
+
+CVS access
+
+	Information about CVS access can be found at {{http://www.simulation.tudelft.nl}}.

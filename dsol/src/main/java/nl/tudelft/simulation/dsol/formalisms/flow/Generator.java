@@ -1,0 +1,241 @@
+/*
+ * @(#)Generator.java Feb 1, 2003 Copyright (c) 2002-2005 Delft University of
+ * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * This software is proprietary information of Delft University of Technology
+ * 
+ */
+package nl.tudelft.simulation.dsol.formalisms.flow;
+
+import java.lang.reflect.Constructor;
+import java.rmi.RemoteException;
+
+import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.event.EventType;
+import nl.tudelft.simulation.jstats.distributions.DistContinuous;
+import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
+import nl.tudelft.simulation.language.reflection.ClassUtil;
+import nl.tudelft.simulation.language.reflection.SerializableConstructor;
+import nl.tudelft.simulation.logger.Logger;
+
+/**
+ * This class defines a generator <br>
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ */
+public class Generator extends Station
+{
+    /** CREATE_EVENT is fired on creation */
+    public static final EventType CREATE_EVENT = new EventType("CREATE_EVENT");
+
+    /**
+     * constructorArguments refer to the arguments invoked by the
+     */
+    protected Object[] constructorArguments;
+
+    /**
+     * interval defines the inter construction time
+     */
+    protected DistContinuous interval;
+
+    /**
+     * startTime defines the absolute startTime for the generator
+     */
+    protected DistContinuous startTime;
+
+    /**
+     * batchsize refers to the number of objects constructed
+     */
+    private DistDiscrete batchSize;
+
+    /**
+     * constructor refers to the constructor to be invoked
+     */
+    protected SerializableConstructor constructor;
+
+    /**
+     * maxNumber is the max number of objects to be created. -1=Long.infinity
+     */
+    private long maxNumber = -1;
+
+    /** number refers to the currently constructed number */
+    private long number = 0;
+
+    /**
+     * nextEvent refers to the next simEvent
+     */
+    protected SimEvent nextEvent = null;
+
+    /**
+     * constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
+     * Generator when a destination has been indicated with the setDestination method. This constructor has a maximum
+     * number of entities generated, which results in stopping the generator when the maximum number of entities has
+     * been reached.
+     * @param simulator is the on which the construction of the objects must be scheduled.
+     * @param myClass is the class of which entities are created
+     * @param constructorArguments are the parameters for the constructor of myClass. of arguments.
+     *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+     * @throws SimRuntimeException on constructor invokation.
+     */
+    public Generator(final DEVSSimulatorInterface simulator, final Class<?> myClass, final Object[] constructorArguments)
+            throws SimRuntimeException
+    {
+        super(simulator);
+        try
+        {
+            Constructor<?> constructor = ClassUtil.resolveConstructor(myClass, constructorArguments);
+            this.constructor = new SerializableConstructor(constructor);
+        }
+        catch (Exception exception)
+        {
+            throw new SimRuntimeException(exception);
+        }
+        this.constructorArguments = constructorArguments;
+    }
+
+    /**
+     * generates a new entity with the basic constructorArguments
+     * @throws SimRuntimeException on construction failure
+     */
+    public void generate() throws SimRuntimeException
+    {
+        this.generate(this.constructorArguments);
+    }
+
+    /**
+     * generates a new entity
+     * @param constructorArguments are the parameters used in the constructor.
+     * @throws SimRuntimeException on construction failure
+     */
+    public synchronized void generate(final Object[] constructorArguments) throws SimRuntimeException
+    {
+        try
+        {
+            if (this.maxNumber == -1 || this.number < this.maxNumber)
+            {
+                this.number++;
+                for (int i = 0; i < this.batchSize.draw(); i++)
+                {
+                    Object object = this.constructor.deSerialize().newInstance(constructorArguments);
+                    Logger.finest(this, "generate", "created " + this.number + "th instance of "
+                            + this.constructor.deSerialize().getDeclaringClass());
+                    this.fireEvent(Generator.CREATE_EVENT, 1);
+                    this.releaseObject(object);
+                }
+                this.nextEvent =
+                        new SimEvent(this.simulator.getSimulatorTime() + this.interval.draw(), this, this, "generate",
+                                null);
+                this.simulator.scheduleEvent(this.nextEvent);
+            }
+        }
+        catch (Exception exception)
+        {
+            throw new SimRuntimeException(exception);
+        }
+    }
+
+    /**
+     * @see StationInterface#receiveObject(Object)
+     */
+    @Override
+    public void receiveObject(final Object object)
+    {
+        try
+        {
+            this.releaseObject(object);
+        }
+        catch (RemoteException remoteException)
+        {
+            Logger.warning(this, "receiveObject", remoteException);
+        }
+    }
+
+    /**
+     * returns the batchSize
+     * @return DistDiscrete
+     */
+    public DistDiscrete getBatchSize()
+    {
+        return this.batchSize;
+    }
+
+    /**
+     * returns the interarrival intercal
+     * @return DistContinuous
+     */
+    public DistContinuous getInterval()
+    {
+        return this.interval;
+    }
+
+    /**
+     * returns the maximum number of entities to be created
+     * @return long the maxNumber
+     */
+    public long getMaxNumber()
+    {
+        return this.maxNumber;
+    }
+
+    /**
+     * sets the batchsize of the generator
+     * @param batchSize is the number of entities simultaniously constructed
+     */
+    public void setBatchSize(final DistDiscrete batchSize)
+    {
+        this.batchSize = batchSize;
+    }
+
+    /**
+     * sets the interarrival distribution
+     * @param interval is the interarrival time
+     */
+    public void setInterval(final DistContinuous interval)
+    {
+        this.interval = interval;
+    }
+
+    /**
+     * sets the maximum number of entities to be created
+     * @param maxNumber is the maxNumber
+     */
+    public void setMaxNumber(final long maxNumber)
+    {
+        this.maxNumber = maxNumber;
+    }
+
+    /**
+     * returns the startTime of the generator
+     * @return DistContinuous
+     */
+    public DistContinuous getStartTime()
+    {
+        return this.startTime;
+    }
+
+    /**
+     * sets the startTime
+     * @param startTime is the absolute startTime
+     */
+    public synchronized void setStartTime(final DistContinuous startTime)
+    {
+        this.startTime = startTime;
+        try
+        {
+            this.nextEvent = new SimEvent(startTime.draw(), this, this, "generate", null);
+            this.simulator.scheduleEvent(this.nextEvent);
+        }
+        catch (Exception exception)
+        {
+            Logger.warning(this, "setStartTime", exception);
+        }
+    }
+
+}

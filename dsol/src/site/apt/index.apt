@@ -1,0 +1,19 @@
+
+What is DSOL?
+	
+	DSOL is an open source, Java based, suite for continuous and discrete event simulation. 
+	Its first release was introduced at IEEE's Winter Simulation Conference 2002.
+	The starting points for DSOL were that it should be possible to create simulation models 
+	that are inherintly distributed, and simulation models that are built on the premises of object oriented principles.
+	DSOL is based on Zeigler's (2000) framework for modeling and simulation, which means that the basic entities
+	in a simulation study are a model, and a simulator, governed for experimentatiopn by and experimental frame. 
+	All these elements surface in the DSOL simulation framework: the ModelInterface, implemented by the user, 
+	the SimulatorInterface with several implementations such as the DEVSSimulator and the DESSSimulator, and
+	the class ExperimentalFrame for setting the experiment. 
+	
+Implemented  formalisms
+	
+	At the moment, the following formalisms have been implemented in DSOL: event scheduling, process interaction, 
+	differential equations, and flow modeling. Extensions created by others (but currently still outside the core
+	implementation) are for instance agent modeling, Petri nets, and classical DEVS.
+ 
