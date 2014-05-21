@@ -26,13 +26,11 @@ import nl.tudelft.simulation.naming.listener.RemoteContextListener;
 /**
  * The FileContext as implementation of the Context interface.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.1 2004-03-24
  * @since 1.5
@@ -41,13 +39,12 @@ public class RemoteContextClient implements EventContext, Serializable
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** the remoteContext on which all calls are passed */
     private RemoteContextInterface remoteContext = null;
 
     /**
      * constructs a new RemoteContextClient
-     * 
      * @param remoteContext the remoteContext on which all calls are passed.
      */
     public RemoteContextClient(final RemoteContextInterface remoteContext)
@@ -57,50 +54,47 @@ public class RemoteContextClient implements EventContext, Serializable
     }
 
     /**
-     * @see javax.naming.event.EventContext#addNamingListener(javax.naming.Name,
-     *      int, javax.naming.event.NamingListener)
+     * @see javax.naming.event.EventContext#addNamingListener(javax.naming.Name, int, javax.naming.event.NamingListener)
      */
-    public void addNamingListener(Name target, int scope, NamingListener l)
-            throws NamingException
+    public void addNamingListener(Name target, int scope, NamingListener l) throws NamingException
     {
         try
         {
-            this.remoteContext.addNamingListener(target, scope,
-                    new RemoteContextListener((ContextListenerInterface) l));
-        } catch (RemoteException remoteException)
+            this.remoteContext
+                    .addNamingListener(target, scope, new RemoteContextListener((ContextListenerInterface) l));
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
     }
 
     /**
-     * @see javax.naming.event.EventContext #addNamingListener(java.lang.String,
-     *      int, javax.naming.event.NamingListener)
+     * @see javax.naming.event.EventContext #addNamingListener(java.lang.String, int, javax.naming.event.NamingListener)
      */
-    public void addNamingListener(String target, int scope, NamingListener l)
-            throws NamingException
+    public void addNamingListener(String target, int scope, NamingListener l) throws NamingException
     {
         try
         {
-            this.remoteContext.addNamingListener(target, scope,
-                    new RemoteContextListener((ContextListenerInterface) l));
-        } catch (RemoteException remoteException)
+            this.remoteContext
+                    .addNamingListener(target, scope, new RemoteContextListener((ContextListenerInterface) l));
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
     }
 
     /**
-     * @see javax.naming.event.EventContext
-     *      #removeNamingListener(javax.naming.event.NamingListener)
+     * @see javax.naming.event.EventContext #removeNamingListener(javax.naming.event.NamingListener)
      */
     public void removeNamingListener(NamingListener l) throws NamingException
     {
         try
         {
-            this.remoteContext.removeNamingListener(new RemoteContextListener(
-                    (ContextListenerInterface) l));
-        } catch (RemoteException remoteException)
+            this.remoteContext.removeNamingListener(new RemoteContextListener((ContextListenerInterface) l));
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -114,23 +108,23 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.targetMustExist();
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
     }
 
     /**
-     * @see javax.naming.Context#addToEnvironment(java.lang.String,
-     *      java.lang.Object)
+     * @see javax.naming.Context#addToEnvironment(java.lang.String, java.lang.Object)
      */
-    public Object addToEnvironment(String propName, Object propVal)
-            throws NamingException
+    public Object addToEnvironment(String propName, Object propVal) throws NamingException
     {
         try
         {
             return this.remoteContext.addToEnvironment(propName, propVal);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -144,7 +138,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.bind(name, obj);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -158,7 +153,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.bind(name, obj);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -172,22 +168,23 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.close();
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
     }
 
     /**
-     * @see javax.naming.Context#composeName(javax.naming.Name,
-     *      javax.naming.Name)
+     * @see javax.naming.Context#composeName(javax.naming.Name, javax.naming.Name)
      */
     public Name composeName(Name name, Name prefix) throws NamingException
     {
         try
         {
             return this.remoteContext.composeName(name, prefix);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -196,13 +193,13 @@ public class RemoteContextClient implements EventContext, Serializable
     /**
      * @see javax.naming.Context#composeName(java.lang.String, java.lang.String)
      */
-    public String composeName(String name, String prefix)
-            throws NamingException
+    public String composeName(String name, String prefix) throws NamingException
     {
         try
         {
             return this.remoteContext.composeName(name, prefix);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -215,9 +212,9 @@ public class RemoteContextClient implements EventContext, Serializable
     {
         try
         {
-            return new RemoteContextClient(this.remoteContext
-                    .createSubcontext(name));
-        } catch (RemoteException remoteException)
+            return new RemoteContextClient(this.remoteContext.createSubcontext(name));
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -231,9 +228,9 @@ public class RemoteContextClient implements EventContext, Serializable
     {
         try
         {
-            return new RemoteContextClient(this.remoteContext
-                    .createSubcontext(name));
-        } catch (RemoteException remoteException)
+            return new RemoteContextClient(this.remoteContext.createSubcontext(name));
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -247,7 +244,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.destroySubcontext(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -261,7 +259,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.destroySubcontext(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -270,12 +269,13 @@ public class RemoteContextClient implements EventContext, Serializable
     /**
      * @see javax.naming.Context#getEnvironment()
      */
-    public Hashtable< ? , ? > getEnvironment() throws NamingException
+    public Hashtable<?, ?> getEnvironment() throws NamingException
     {
         try
         {
             return this.remoteContext.getEnvironment();
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -290,7 +290,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.getNameInNamespace();
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -304,7 +305,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.getNameParser(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -319,7 +321,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.getNameParser(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -329,13 +332,13 @@ public class RemoteContextClient implements EventContext, Serializable
     /**
      * @see javax.naming.Context#list(javax.naming.Name)
      */
-    public NamingEnumeration<NameClassPair> list(Name name)
-            throws NamingException
+    public NamingEnumeration<NameClassPair> list(Name name) throws NamingException
     {
         try
         {
             return this.remoteContext.list(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -345,13 +348,13 @@ public class RemoteContextClient implements EventContext, Serializable
     /**
      * @see javax.naming.Context#list(java.lang.String)
      */
-    public NamingEnumeration<NameClassPair> list(String name)
-            throws NamingException
+    public NamingEnumeration<NameClassPair> list(String name) throws NamingException
     {
         try
         {
             return this.remoteContext.list(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -361,13 +364,13 @@ public class RemoteContextClient implements EventContext, Serializable
     /**
      * @see javax.naming.Context#listBindings(javax.naming.Name)
      */
-    public NamingEnumeration<Binding> listBindings(Name name)
-            throws NamingException
+    public NamingEnumeration<Binding> listBindings(Name name) throws NamingException
     {
         try
         {
             return this.remoteContext.listBindings(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -377,13 +380,13 @@ public class RemoteContextClient implements EventContext, Serializable
     /**
      * @see javax.naming.Context#listBindings(java.lang.String)
      */
-    public NamingEnumeration<Binding> listBindings(String name)
-            throws NamingException
+    public NamingEnumeration<Binding> listBindings(String name) throws NamingException
     {
         try
         {
             return this.remoteContext.listBindings(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -398,7 +401,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.lookup(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -413,7 +417,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.lookup(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -428,7 +433,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.lookupLink(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -443,7 +449,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.lookupLink(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -458,7 +465,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.rebind(name, obj);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -473,7 +481,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.rebind(name, obj);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -487,7 +496,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             return this.remoteContext.removeFromEnvironment(propName);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -502,7 +512,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.rename(oldName, newName);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -516,7 +527,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.rename(oldName, newName);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -530,7 +542,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.unbind(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }
@@ -545,7 +558,8 @@ public class RemoteContextClient implements EventContext, Serializable
         try
         {
             this.remoteContext.unbind(name);
-        } catch (RemoteException remoteException)
+        }
+        catch (RemoteException remoteException)
         {
             throw new NamingException(remoteException.getMessage());
         }

@@ -12,13 +12,11 @@ import java.io.IOException;
 
 /**
  * A ExceptionEntry <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.1 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -38,13 +36,11 @@ public class ExceptionEntry
 
     /**
      * constructs a new ExceptionEntry
-     * 
      * @param dataInput the input to read
      * @param constantPool the constantPool of this entry
      * @throws IOException on IOFailure
      */
-    public ExceptionEntry(final DataInput dataInput,
-            final Constant[] constantPool) throws IOException
+    public ExceptionEntry(final DataInput dataInput, final Constant[] constantPool) throws IOException
     {
         super();
         this.startByte = dataInput.readUnsignedShort();
@@ -56,12 +52,11 @@ public class ExceptionEntry
         {
             try
             {
-                this.catchType = ((ConstantClass) constantPool[catchTypeIndex])
-                        .getValue().getClassValue();
-            } catch (Exception exception)
+                this.catchType = ((ConstantClass) constantPool[catchTypeIndex]).getValue().getClassValue();
+            }
+            catch (Exception exception)
             {
-                throw new IOException(
-                        "could not resolve catchType in ExceptionEntry");
+                throw new IOException("could not resolve catchType in ExceptionEntry");
             }
         }
     }
@@ -69,7 +64,7 @@ public class ExceptionEntry
     /**
      * @return Returns the catchType.
      */
-    public Class< ? > getCatchType()
+    public Class<?> getCatchType()
     {
         return this.catchType;
     }
@@ -100,15 +95,12 @@ public class ExceptionEntry
 
     /**
      * Resolves the exceptionEntry for this particular exceptionType
-     * 
      * @param entries the entries to choose from
      * @param exceptionType the exception type
      * @param bytePosition the position where the exception starts
-     * @return the most specific exceptionType. null is no exceptionType is
-     *         found
+     * @return the most specific exceptionType. null is no exceptionType is found
      */
-    public static ExceptionEntry resolveExceptionEntry(
-            final ExceptionEntry[] entries, Class exceptionType,
+    public static ExceptionEntry resolveExceptionEntry(final ExceptionEntry[] entries, Class exceptionType,
             final int bytePosition)
     {
         if (entries == null || exceptionType == null)
@@ -117,8 +109,7 @@ public class ExceptionEntry
         }
         for (int i = 0; i < entries.length; i++)
         {
-            if (entries[i].getCatchType().isAssignableFrom(exceptionType)
-                    && bytePosition >= entries[i].getStartByte()
+            if (entries[i].getCatchType().isAssignableFrom(exceptionType) && bytePosition >= entries[i].getStartByte()
                     && bytePosition <= entries[i].getEndByte())
             {
                 return entries[i];

@@ -15,16 +15,13 @@ import java.util.logging.LogRecord;
 
 /**
  * A MemoryHandler which makes it possible to push to a dynamic target. <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:39:18 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>, <a
- *         href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
+ * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>, <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
  */
 public class MemoryHandler extends Handler
 {
@@ -32,8 +29,7 @@ public class MemoryHandler extends Handler
     private int size = 100;
 
     /** the entires of the handler */
-    private List<LogRecord> entries = Collections
-            .synchronizedList(new ArrayList<LogRecord>(100));
+    private List<LogRecord> entries = Collections.synchronizedList(new ArrayList<LogRecord>(100));
 
     /**
      * constructs a new MemoryHandler
@@ -45,7 +41,6 @@ public class MemoryHandler extends Handler
 
     /**
      * constructs a new MemoryHandler
-     * 
      * @param size the size of the memoryHandler
      */
     public MemoryHandler(final int size)
@@ -58,7 +53,7 @@ public class MemoryHandler extends Handler
      * @see java.util.logging.Handler#close()
      */
     @Override
-	public void close()
+    public void close()
     {
         this.flush();
     }
@@ -67,7 +62,7 @@ public class MemoryHandler extends Handler
      * @see java.util.logging.Handler#flush()
      */
     @Override
-	public void flush()
+    public void flush()
     {
         this.entries.clear();
     }
@@ -76,14 +71,13 @@ public class MemoryHandler extends Handler
      * @see java.util.logging.Handler#getFormatter()
      */
     @Override
-	public Formatter getFormatter()
+    public Formatter getFormatter()
     {
         return null;
     }
 
     /**
      * returns the size
-     * 
      * @return int the number of records this handler can hold
      */
     public int getSize()
@@ -95,7 +89,7 @@ public class MemoryHandler extends Handler
      * @see java.util.logging.Handler#publish(java.util.logging.LogRecord)
      */
     @Override
-	public synchronized void publish(final LogRecord logRecord)
+    public synchronized void publish(final LogRecord logRecord)
     {
         this.entries.add(logRecord);
         if (this.entries.size() > this.size)
@@ -106,7 +100,6 @@ public class MemoryHandler extends Handler
 
     /**
      * pushes the memory to a handler
-     * 
      * @param target the target
      */
     public synchronized void push(final Handler target)
@@ -122,15 +115,13 @@ public class MemoryHandler extends Handler
      * @see java.util.logging.Handler#setFormatter(java.util.logging.Formatter)
      */
     @Override
-	public void setFormatter(final Formatter arg0)
+    public void setFormatter(final Formatter arg0)
     {
-        throw new IllegalArgumentException("Cannot set a " + arg0
-                + " on this handler");
+        throw new IllegalArgumentException("Cannot set a " + arg0 + " on this handler");
     }
 
     /**
      * sets the number of records this handler can hold
-     * 
      * @param size the size
      */
     public void setSize(final int size)

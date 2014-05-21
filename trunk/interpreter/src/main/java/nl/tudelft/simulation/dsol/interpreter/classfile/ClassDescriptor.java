@@ -16,20 +16,18 @@ import java.util.Map;
 
 /**
  * A ClassDescriptor <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
 public class ClassDescriptor
 {
     /** the repository which caches descriptors */
-    private static final Map<Class< ? >, ClassDescriptor> CACHE = new HashMap<Class< ? >, ClassDescriptor>();
+    private static final Map<Class<?>, ClassDescriptor> CACHE = new HashMap<Class<?>, ClassDescriptor>();
 
     /** the constantPool */
     private Constant[] constantPool = null;
@@ -38,18 +36,16 @@ public class ClassDescriptor
     private Map<AccessibleObject, MethodDescriptor> methods = new HashMap<AccessibleObject, MethodDescriptor>();
 
     /** the javaClass we are reading */
-    private Class< ? > javaClass = null;
+    private Class<?> javaClass = null;
 
     /**
      * returns the classDescriptor of this class
-     * 
      * @param clazz the class the clazz to parse
      * @return ClassDescriptor the descriptor
      * @throws IOException on IO exception
      * @throws ClassNotFoundException if clazz cannot be found
      */
-    public static ClassDescriptor get(final Class clazz) throws IOException,
-            ClassNotFoundException
+    public static ClassDescriptor get(final Class clazz) throws IOException, ClassNotFoundException
     {
         synchronized (CACHE)
         {
@@ -65,13 +61,11 @@ public class ClassDescriptor
 
     /**
      * constructs a new ClassDescriptor
-     * 
      * @param javaClass the class to read
      * @throws IOException on IO - failure
      * @throws ClassNotFoundException on incomplete classPath
      */
-    private ClassDescriptor(final Class javaClass) throws IOException,
-            ClassNotFoundException
+    private ClassDescriptor(final Class javaClass) throws IOException, ClassNotFoundException
     {
         super();
         this.javaClass = javaClass;
@@ -80,14 +74,12 @@ public class ClassDescriptor
         {
             classLoader = ClassLoader.getSystemClassLoader();
         }
-        this.readClass(new DataInputStream(classLoader
-                .getResourceAsStream(javaClass.getName().replace('.', '/')
-                        + ".class")));
+        this.readClass(new DataInputStream(classLoader.getResourceAsStream(javaClass.getName().replace('.', '/')
+                + ".class")));
     }
 
     /**
      * returns the methodDescriptor of the method.
-     * 
      * @param method the method to resolve.
      * @return its descriptor.
      */
@@ -98,7 +90,6 @@ public class ClassDescriptor
 
     /**
      * returns the constantpool of a classfile
-     * 
      * @return Constant[] the constantpool
      */
     public Constant[] getConstantPool()
@@ -108,26 +99,22 @@ public class ClassDescriptor
 
     /**
      * returns the methods of this class
-     * 
      * @return MethodDescriptor[]
      */
     public MethodDescriptor[] getMethods()
     {
-        return this.methods.values().toArray(
-                new MethodDescriptor[this.methods.size()]);
+        return this.methods.values().toArray(new MethodDescriptor[this.methods.size()]);
     }
 
     /** ** PRIVATE PARSING METHODS *** */
 
     /**
      * reads the class
-     * 
      * @param dataInput the dataInput
      * @throws IOException on failure
      * @throws ClassNotFoundException on incomplete classPath
      */
-    private void readClass(final DataInput dataInput) throws IOException,
-            ClassNotFoundException
+    private void readClass(final DataInput dataInput) throws IOException, ClassNotFoundException
     {
         // We skip the magic(u4) and version(u2,u2)
         dataInput.skipBytes(8);
@@ -162,11 +149,10 @@ public class ClassDescriptor
         int methodCount = dataInput.readUnsignedShort();
         for (int i = 0; i < methodCount; i++)
         {
-            MethodDescriptor methodDescriptor = new MethodDescriptor(dataInput,
-                    this.constantPool);
-            AccessibleObject method = this.parseMethod(methodDescriptor
-                    .getName(), methodDescriptor.getMethodSignature()
-                    .getParameterTypes());
+            MethodDescriptor methodDescriptor = new MethodDescriptor(dataInput, this.constantPool);
+            AccessibleObject method =
+                    this.parseMethod(methodDescriptor.getName(), methodDescriptor.getMethodSignature()
+                            .getParameterTypes());
             methodDescriptor.setMethod(method);
             this.methods.put(method, methodDescriptor);
         }
@@ -174,7 +160,6 @@ public class ClassDescriptor
 
     /**
      * reads the constantpool from file
-     * 
      * @param dataInput the stream
      * @throws IOException on failure
      */
@@ -183,22 +168,18 @@ public class ClassDescriptor
         this.constantPool = new Constant[dataInput.readUnsignedShort()];
 
         /*
-         * constant_pool[0] is unused by the compiler and may be used freely by
-         * the implementation.
+         * constant_pool[0] is unused by the compiler and may be used freely by the implementation.
          */
         for (int i = 1; i < this.constantPool.length; i++)
         {
-            this.constantPool[i] = Constant.readConstant(this.constantPool,
-                    dataInput);
+            this.constantPool[i] = Constant.readConstant(this.constantPool, dataInput);
 
-            if (this.constantPool[i] instanceof ConstantDouble
-                    || this.constantPool[i] instanceof ConstantLong)
+            if (this.constantPool[i] instanceof ConstantDouble || this.constantPool[i] instanceof ConstantLong)
             {
                 /*
-                 * Quote from the JVM specification: "All eight byte constants
-                 * take up two spots in the constant pool. If this is the n'th
-                 * byte in the constant pool, then the next item will be
-                 * numbered n+2" Thus we have to increment the index counter.
+                 * Quote from the JVM specification: "All eight byte constants take up two spots in the constant pool.
+                 * If this is the n'th byte in the constant pool, then the next item will be numbered n+2" Thus we have
+                 * to increment the index counter.
                  */
                 i++;
             }
@@ -207,13 +188,11 @@ public class ClassDescriptor
 
     /**
      * parses a methodName and descriptor to an accessibleObject
-     * 
      * @param methodName the name of the method
      * @param argumentClasses the argumentClasses
      * @return the AccessibleObject
      */
-    private AccessibleObject parseMethod(final String methodName,
-            final Class[] argumentClasses)
+    private AccessibleObject parseMethod(final String methodName, final Class[] argumentClasses)
     {
         try
         {
@@ -223,11 +202,11 @@ public class ClassDescriptor
             }
             if (!methodName.equals("<init>"))
             {
-                return this.javaClass.getDeclaredMethod(methodName,
-                        argumentClasses);
+                return this.javaClass.getDeclaredMethod(methodName, argumentClasses);
             }
             return this.javaClass.getDeclaredConstructor(argumentClasses);
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             return null;
         }

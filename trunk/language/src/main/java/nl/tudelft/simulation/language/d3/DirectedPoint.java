@@ -15,37 +15,29 @@ import javax.vecmath.Tuple3f;
 /**
  * The location object.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/">
- * www.simulation.tudelft.nl</a>.
+ * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ * following conditions are met:
  * <ul>
- * <li>Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.</li>
+ * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ * disclaimer.</li>
+ * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+ * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.</li>
  * </ul>
- * This software is provided by the copyright holders and contributors "as is"
- * and any express or implied warranties, including, but not limited to, the
- * implied warranties of merchantability and fitness for a particular purpose
- * are disclaimed. In no event shall the copyright holder or contributors be
- * liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of
- * substitute goods or services; loss of use, data, or profits; or business
- * interruption) however caused and on any theory of liability, whether in
- * contract, strict liability, or tort (including negligence or otherwise)
- * arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
- * 
+ * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+ * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
+ * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
+ * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
+ * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
+ * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
+ * of this software, even if advised of the possibility of such damage.
  * @version $Revision: 1.2 $ $Date: 2009/10/21 07:32:42 $
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  */
@@ -53,7 +45,7 @@ public class DirectedPoint extends CartesianPoint
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** rotX is the rotX. */
     private double rotX = 0.0;
 
@@ -73,7 +65,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param x the x value
      * @param y the y value
      * @param z the z value
@@ -85,7 +76,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param x the x value
      * @param y the y value
      * @param z the z value
@@ -93,8 +83,8 @@ public class DirectedPoint extends CartesianPoint
      * @param rotY rotY
      * @param rotZ rotZ
      */
-    public DirectedPoint(final double x, final double y, final double z,
-            final double rotX, final double rotY, final double rotZ)
+    public DirectedPoint(final double x, final double y, final double z, final double rotX, final double rotY,
+            final double rotZ)
     {
         super(x, y, z);
         this.rotX = rotX;
@@ -104,7 +94,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param point2D the point
      * @param rotZ rotZ
      */
@@ -116,7 +105,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param xyz the xyx value
      */
     public DirectedPoint(final double[] xyz)
@@ -126,7 +114,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param cartesianPoint the cartesianPoint
      */
     public DirectedPoint(final Point3d cartesianPoint)
@@ -136,7 +123,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param sphericalPoint the sphericalPoint
      */
     public DirectedPoint(final SphericalPoint sphericalPoint)
@@ -146,7 +132,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param location the location
      */
     public DirectedPoint(final DirectedPoint location)
@@ -159,7 +144,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param point2D the point
      */
     public DirectedPoint(final Point2D point2D)
@@ -169,7 +153,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param point the point
      */
     public DirectedPoint(final Point3f point)
@@ -179,7 +162,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param tuple the point
      */
     public DirectedPoint(final Tuple3d tuple)
@@ -189,7 +171,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * 
      * @param tuple the point
      */
     public DirectedPoint(final Tuple3f tuple)
@@ -199,7 +180,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * returns ther rotY-value.
-     * 
      * @return double
      */
     public double getRotY()
@@ -209,7 +189,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * sets the rotY.
-     * 
      * @param rotY the rotY-value
      */
     public void setRotY(final double rotY)
@@ -219,7 +198,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * returns the rotZ value.
-     * 
      * @return double
      */
     public double getRotZ()
@@ -229,7 +207,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * sets the rotZ value.
-     * 
      * @param rotZ the rotZ-value
      */
     public void setRotZ(final double rotZ)
@@ -239,7 +216,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * returns the rotX value.
-     * 
      * @return double
      */
     public double getRotX()
@@ -249,7 +225,6 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * sets the rotX.
-     * 
      * @param rotX rotX-value
      */
     public void setRotX(final double rotX)
@@ -263,8 +238,8 @@ public class DirectedPoint extends CartesianPoint
     @Override
     public final String toString()
     {
-        return "[position=" + super.toString() + ";RotX=" + this.rotX
-                + ";RotY=" + this.rotY + ";RotZ=" + this.rotZ + "]";
+        return "[position=" + super.toString() + ";RotX=" + this.rotX + ";RotY=" + this.rotY + ";RotZ=" + this.rotZ
+                + "]";
     }
 
     /**
@@ -273,8 +248,7 @@ public class DirectedPoint extends CartesianPoint
     @Override
     public Object clone()
     {
-        return new DirectedPoint(this.x, this.y, this.z, this.rotX, this.rotY,
-                this.rotZ);
+        return new DirectedPoint(this.x, this.y, this.z, this.rotX, this.rotY, this.rotZ);
     }
 
     /**
@@ -288,8 +262,7 @@ public class DirectedPoint extends CartesianPoint
             return false;
         }
         DirectedPoint loc = (DirectedPoint) arg0;
-        return (super.equals(arg0) && loc.rotX == this.rotX
-                && loc.rotY == this.rotY && loc.rotZ == this.rotZ);
+        return (super.equals(arg0) && loc.rotX == this.rotX && loc.rotY == this.rotY && loc.rotZ == this.rotZ);
     }
 
     /**

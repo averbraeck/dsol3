@@ -13,13 +13,11 @@ import nl.tudelft.simulation.language.reflection.FieldSignature;
 
 /**
  * A Constant <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -42,21 +40,17 @@ public class LocalVariableDescriptor
 
     /**
      * constructs a new LocalVariableDescriptor
-     * 
      * @param dataInput the dataInput to read
      * @param constantPool the constantPool for this variable
      * @throws IOException on failure
      */
-    public LocalVariableDescriptor(final DataInput dataInput,
-            final Constant[] constantPool) throws IOException
+    public LocalVariableDescriptor(final DataInput dataInput, final Constant[] constantPool) throws IOException
     {
         this.startByte = dataInput.readUnsignedShort();
         this.length = dataInput.readUnsignedShort();
-        this.name = ((ConstantUTF8) constantPool[dataInput.readUnsignedShort()])
-                .getValue();
-        this.fieldSignature = new FieldSignature(
-                ((ConstantUTF8) constantPool[dataInput.readUnsignedShort()])
-                        .getValue());
+        this.name = ((ConstantUTF8) constantPool[dataInput.readUnsignedShort()]).getValue();
+        this.fieldSignature =
+                new FieldSignature(((ConstantUTF8) constantPool[dataInput.readUnsignedShort()]).getValue());
         this.index = dataInput.readUnsignedShort();
     }
 

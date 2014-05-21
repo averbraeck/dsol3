@@ -12,14 +12,10 @@ import java.util.List;
 import java.util.SortedMap;
 
 /**
- * The histogram specifies a histogram chart for the DSOL framework. <O>(c)
- * copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/">
- * www.simulation.tudelft.nl/dsol </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public
- * License (GPL) </a>, no warranty <br>
- * 
+ * The histogram specifies a histogram chart for the DSOL framework. <O>(c) copyright 2004 <a
+ * href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:55 $
  * @since 1.5
@@ -34,7 +30,6 @@ public class Observations implements ObservationsInterface
 
     /**
      * constructs a new Observations
-     * 
      * @param observations the observations
      */
     public Observations(final Number[] observations)
@@ -53,14 +48,11 @@ public class Observations implements ObservationsInterface
 
     /**
      * constructs a new Observations
-     * 
-     * @param observations a sortedMap of observations. The double values in the
-     *        map either represent actual times of observation, or represent a
-     *        probability
+     * @param observations a sortedMap of observations. The double values in the map either represent actual times of
+     *            observation, or represent a probability
      * @param cummulative are the probabilities in the map cummulative?
      */
-    public Observations(final SortedMap<Number, Double> observations,
-            final boolean cummulative)
+    public Observations(final SortedMap<Number, Double> observations, final boolean cummulative)
     {
         super();
         this.data = new Number[2][observations.size()];
@@ -81,10 +73,8 @@ public class Observations implements ObservationsInterface
 
     /**
      * constructs a new Observations
-     * 
-     * @param observations a sortedMap of observations. The double values in the
-     *        map either represent actual times of observation, or represent a
-     *        probability
+     * @param observations a sortedMap of observations. The double values in the map either represent actual times of
+     *            observation, or represent a probability
      * @param cummulative are the probabilities in the map cummulative?
      */
     public Observations(final Number[][] observations, final boolean cummulative)
@@ -143,9 +133,7 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * Returns the index of the entry of this structure. Returns -1 if entry not
-     * in structure.
-     * 
+     * Returns the index of the entry of this structure. Returns -1 if entry not in structure.
      * @param entry the entry
      * @return the index of this entry.
      */
@@ -161,7 +149,6 @@ public class Observations implements ObservationsInterface
 
     /**
      * Returns the cummulative probabilities
-     * 
      * @return the list of cummulative probabilities
      */
     public List<Double> getCumProbabilities()
@@ -177,7 +164,6 @@ public class Observations implements ObservationsInterface
 
     /**
      * Returns the observations
-     * 
      * @return the list of observations
      */
     public List<Number> getObservations()
@@ -186,12 +172,9 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * returns whether the structure contains this specific object (either an
-     * observation or a probability).
-     * 
+     * returns whether the structure contains this specific object (either an observation or a probability).
      * @param object the object to look for
-     * @param type the type (either the ObservationsInterface.OBSERVATION or the
-     *        ObservationsInterface.CUMPROBABILITY)
+     * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @return true if object in observation.
      */
     public boolean contains(final Number object, final byte type)
@@ -204,42 +187,31 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * Returns the entry to which the structure maps the specific object.
-     * Returns <tt>null</tt> if the structure contains no entry for the
-     * object. The object might either refer to an observation or to a
-     * probability. If multiple entries match the search, there is no garantuee
-     * which entry is returned.
-     * 
+     * Returns the entry to which the structure maps the specific object. Returns <tt>null</tt> if the structure
+     * contains no entry for the object. The object might either refer to an observation or to a probability. If
+     * multiple entries match the search, there is no garantuee which entry is returned.
      * @param object entry whose associated entry is to be returned.
-     * @param type the type (either the ObservationsInterface.OBSERVATION or the
-     *        ObservationsInterface.CUMPROBABILITY)
+     * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @return the entries which comply.
      */
-    public ObservationsInterface.Entry getEntry(final Number object,
-            final byte type)
+    public ObservationsInterface.Entry getEntry(final Number object, final byte type)
     {
         int index = this.getIndex(object, type);
         return this.get(index);
     }
 
     /**
-     * Gets the entry corresponding to the specified key if inclusive; if not
-     * inclusive or such entry does not exists, returns the entry for the
-     * greatest key less than the specified key; if no such entry exists (i.e.,
-     * the least key in the Tree is greater than the specified key), returns
-     * <tt>null</tt>. If multiple entries match the search, there is no
-     * garantuee which entry is returned.
-     * 
+     * Gets the entry corresponding to the specified key if inclusive; if not inclusive or such entry does not exists,
+     * returns the entry for the greatest key less than the specified key; if no such entry exists (i.e., the least key
+     * in the Tree is greater than the specified key), returns <tt>null</tt>. If multiple entries match the search,
+     * there is no garantuee which entry is returned.
      * @param object object whose next key associated value is to be returned.
-     * @param type the type (either the ObservationsInterface.OBSERVATION or the
-     *        ObservationsInterface.CUMPROBABILITY)
+     * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive if inclusive and structure contains key key is returned
-     * @return the value to which this structure maps the specified key, or
-     *         <tt>null</tt> if the structure contains no mapping for this
-     *         key.
+     * @return the value to which this structure maps the specified key, or <tt>null</tt> if the structure contains no
+     *         mapping for this key.
      */
-    public Entry getPrecedingEntry(final Number object, final byte type,
-            final boolean inclusive)
+    public Entry getPrecedingEntry(final Number object, final byte type, final boolean inclusive)
     {
         int index = -1;
         if (inclusive && (index = this.getIndex(object, type)) > -1)
@@ -250,23 +222,17 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * Gets the entry corresponding to the specified key if inclusive; if not
-     * inclusive or such entry does not exists, returns the entry for the least
-     * key greater than the specified key; if no such entry exists (i.e., the
-     * greatest key in the Tree is less than the specified key), returns
-     * <tt>null</tt>. If multiple entries match the search, there is no
-     * garantuee which entry is returned.
-     * 
+     * Gets the entry corresponding to the specified key if inclusive; if not inclusive or such entry does not exists,
+     * returns the entry for the least key greater than the specified key; if no such entry exists (i.e., the greatest
+     * key in the Tree is less than the specified key), returns <tt>null</tt>. If multiple entries match the search,
+     * there is no garantuee which entry is returned.
      * @param object object whose associated value is to be returned.
-     * @param type the type (either the ObservationsInterface.OBSERVATION or the
-     *        ObservationsInterface.CUMPROBABILITY)
+     * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive if inclusive and structure contains key key is returned
-     * @return the value to which this structure maps the specified key, or
-     *         <tt>null</tt> if the structure contains no mapping for this
-     *         key.
+     * @return the value to which this structure maps the specified key, or <tt>null</tt> if the structure contains no
+     *         mapping for this key.
      */
-    public Entry getCeilingEntry(final Number object, final byte type,
-            final boolean inclusive)
+    public Entry getCeilingEntry(final Number object, final byte type, final boolean inclusive)
     {
         int index = this.getIndex(object, type);
         if (inclusive && index > -1)
@@ -291,11 +257,9 @@ public class Observations implements ObservationsInterface
 
     /**
      * Returns the element at the specified position in this structure.
-     * 
      * @param index index of element to return.
      * @return the entry at the specified position in this list.
-     * @throws IndexOutOfBoundsException if the index is out of range (index
-     *         &lt; 0 || index &gt;= size()).
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size()).
      */
     public Entry get(final int index)
     {
@@ -303,13 +267,11 @@ public class Observations implements ObservationsInterface
         {
             return null;
         }
-        return new Observations.Observation(this.data[OBSERVATION][index],
-                (Double) this.data[CUMPROBABILITY][index]);
+        return new Observations.Observation(this.data[OBSERVATION][index], (Double) this.data[CUMPROBABILITY][index]);
     }
 
     /**
      * returns the preceding index of the object
-     * 
      * @param object the object
      * @param type the type
      * @return the index.
@@ -321,7 +283,6 @@ public class Observations implements ObservationsInterface
 
     /**
      * returns the preceding index of the object
-     * 
      * @param object the object
      * @param type the type
      * @return the index.
@@ -332,8 +293,7 @@ public class Observations implements ObservationsInterface
         {
             return -1;
         }
-        if (this.data[type][this.size() - 1].doubleValue() <= object
-                .doubleValue())
+        if (this.data[type][this.size() - 1].doubleValue() <= object.doubleValue())
         {
             return -1;
         }
@@ -343,15 +303,15 @@ public class Observations implements ObservationsInterface
         {
             stepSize = 0.5 * stepSize;
             if (this.data[type][index].doubleValue() < object.doubleValue()
-                    && this.data[type][index + 1].doubleValue() >= object
-                            .doubleValue())
+                    && this.data[type][index + 1].doubleValue() >= object.doubleValue())
             {
                 return index;
             }
             if (this.data[type][index].doubleValue() >= object.doubleValue())
             {
                 index = (int) Math.floor(index - stepSize);
-            } else
+            }
+            else
             {
                 index = (int) Math.ceil(index + stepSize);
             }
@@ -359,8 +319,7 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * normalizes the data structure. This implies that all observation values
-     * are replaced with their 1/sum value.
+     * normalizes the data structure. This implies that all observation values are replaced with their 1/sum value.
      */
     private void normalize()
     {
@@ -372,8 +331,7 @@ public class Observations implements ObservationsInterface
         boolean toBeConverted = false;
         for (int i = 0; i < this.data[CUMPROBABILITY].length; i++)
         {
-            if (!toBeConverted
-                    && this.data[CUMPROBABILITY][i].doubleValue() > 1.0)
+            if (!toBeConverted && this.data[CUMPROBABILITY][i].doubleValue() > 1.0)
             {
                 toBeConverted = true;
             }
@@ -385,8 +343,7 @@ public class Observations implements ObservationsInterface
         }
         for (int i = 0; i < this.data[CUMPROBABILITY].length; i++)
         {
-            this.data[CUMPROBABILITY][i] = new Double(
-                    this.data[CUMPROBABILITY][i].doubleValue() / sum);
+            this.data[CUMPROBABILITY][i] = new Double(this.data[CUMPROBABILITY][i].doubleValue() / sum);
         }
     }
 
@@ -412,25 +369,17 @@ public class Observations implements ObservationsInterface
         String result = "DistDiscreteEmpirical[\n";
         for (int i = 0; i < this.data[0].length; i++)
         {
-            result = result + "(" + this.data[0][i] + ";" + this.data[1][i]
-                    + ")\n";
+            result = result + "(" + this.data[0][i] + ";" + this.data[1][i] + ")\n";
         }
         return result;
     }
 
     /**
-     * The Observation class holds one observation, cummulative probability
-     * entry. <O>(c) copyright 2004 <a
-     * href="http://www.simulation.tudelft.nl/dsol/">Delft University of
-     * Technology </a>, the Netherlands. <br>
-     * See for project information <a
-     * href="http://www.simulation.tudelft.nl/dsol/">
-     * www.simulation.tudelft.nl/dsol </a> <br>
-     * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General
-     * Public License (GPL) </a>, no warranty <br>
-     * 
-     * @author <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs
-     *         </a>
+     * The Observation class holds one observation, cummulative probability entry. <O>(c) copyright 2004 <a
+     * href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
+     * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
+     * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
+     * @author <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
      * @version 1.0 Nov 2, 2004
      * @since 1.5
      */
@@ -444,7 +393,6 @@ public class Observations implements ObservationsInterface
 
         /**
          * constructs a new Observation
-         * 
          * @param observation the observation
          * @param cumProbability the cum probabilty
          */
@@ -465,7 +413,6 @@ public class Observations implements ObservationsInterface
 
         /**
          * Returns the observation corresponding to this entry.
-         * 
          * @return the observation corresponding to this entry.
          */
         public Number getObservation()

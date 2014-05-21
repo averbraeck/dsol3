@@ -14,13 +14,11 @@ import nl.tudelft.simulation.event.TimedEvent;
 /**
  * The PersistentTest test the persistent
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.0, 2004-03-18
  * @since 1.5
@@ -40,7 +38,6 @@ public class PersistentTest extends TestCase
 
     /**
      * constructs a new PersistentTest
-     * 
      * @param arg0 the name of the method to be tested
      */
     public PersistentTest(final String arg0)
@@ -68,8 +65,7 @@ public class PersistentTest extends TestCase
         Assert.assertTrue(new Double(persistent.getSum()).isNaN());
         Assert.assertTrue(persistent.getN() == Long.MIN_VALUE);
         Assert.assertTrue(persistent.getConfidenceInterval(0.95) == null);
-        Assert.assertTrue(persistent.getConfidenceInterval(0.95,
-                Tally.LEFT_SIDE_CONFIDENCE) == null);
+        Assert.assertTrue(persistent.getConfidenceInterval(0.95, Tally.LEFT_SIDE_CONFIDENCE) == null);
 
         // now we initialize the persistent
 
@@ -84,16 +80,15 @@ public class PersistentTest extends TestCase
         Assert.assertTrue(persistent.getSum() == 0);
         Assert.assertTrue(persistent.getN() == 0);
         Assert.assertTrue(persistent.getConfidenceInterval(0.95) == null);
-        Assert.assertTrue(persistent.getConfidenceInterval(0.95,
-                Tally.LEFT_SIDE_CONFIDENCE) == null);
+        Assert.assertTrue(persistent.getConfidenceInterval(0.95, Tally.LEFT_SIDE_CONFIDENCE) == null);
 
         // We first fire a wrong event
         try
         {
             persistent.notify(new Event(null, "ERROR", "ERROR"));
-            Assert
-                    .fail("persistent should react on events.value !instanceOf Double");
-        } catch (Exception exception)
+            Assert.fail("persistent should react on events.value !instanceOf Double");
+        }
+        catch (Exception exception)
         {
             Assert.assertNotNull(exception);
         }
@@ -113,7 +108,8 @@ public class PersistentTest extends TestCase
             persistent.notify(new TimedEvent(null, this, new Double(1.9), 0.9));
             persistent.notify(new TimedEvent(null, this, new Double(2.0), 1.0));
             persistent.notify(new TimedEvent(null, this, new Double(2.1), 1.1));
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             Assert.fail(exception.getMessage());
         }
@@ -134,8 +130,7 @@ public class PersistentTest extends TestCase
         variance = variance / 10.0;
         double stDev = Math.sqrt(variance);
 
-        Assert
-                .assertTrue(Math.abs(persistent.getSampleVariance() - variance) < 10E-6);
+        Assert.assertTrue(Math.abs(persistent.getSampleVariance() - variance) < 10E-6);
         Assert.assertTrue(Math.abs(persistent.getStdDev() - stDev) < 10E-6);
     }
 }

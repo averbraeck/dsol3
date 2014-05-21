@@ -15,19 +15,15 @@ import nl.tudelft.simulation.dsol.interpreter.Frame;
 import nl.tudelft.simulation.dsol.interpreter.Operation;
 
 /**
- * The ReturnOperation is an abstract class for all operations which do return
- * any value.
+ * The ReturnOperation is an abstract class for all operations which do return any value.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a><a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander
- *         Verbraeck </a>
+ *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:21 $
  * @since 1.5
  */
@@ -35,7 +31,6 @@ public abstract class ReturnOperation extends Operation
 {
     /**
      * executes the operation
-     * 
      * @param frame the current frame
      * @return Object the result
      */
@@ -43,7 +38,6 @@ public abstract class ReturnOperation extends Operation
 
     /**
      * is the accessibleObject synchronized?
-     * 
      * @param object the method or constructor
      * @return isSynchronized?
      */
@@ -58,7 +52,6 @@ public abstract class ReturnOperation extends Operation
 
     /**
      * is the accessibleObject static?
-     * 
      * @param object the method or constructor
      * @return isStatic?
      */

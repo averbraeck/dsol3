@@ -8,47 +8,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Monitor class. In the Java programming language there is a lock associated
- * with every object. The language does not provide a way to perform separate
- * lock and unlock operations; instead, they are implicitly performed by
- * high-level constructs that always arrange to pair such operations correctly.
- * This Monitor class, however, provides separate monitorenter and monitorexit
- * instructions that implement the lock and unlock operations.
+ * Monitor class. In the Java programming language there is a lock associated with every object. The language does not
+ * provide a way to perform separate lock and unlock operations; instead, they are implicitly performed by high-level
+ * constructs that always arrange to pair such operations correctly. This Monitor class, however, provides separate
+ * monitorenter and monitorexit instructions that implement the lock and unlock operations.
  * <p>
- * The class is final for now, as it is not the idea that the class should be
- * extended. It has only static methods.
+ * The class is final for now, as it is not the idea that the class should be extended. It has only static methods.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/">
- * www.simulation.tudelft.nl</a>.
+ * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ * following conditions are met:
  * <ul>
- * <li>Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.</li>
+ * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ * disclaimer.</li>
+ * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+ * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.</li>
  * </ul>
- * This software is provided by the copyright holders and contributors "as is"
- * and any express or implied warranties, including, but not limited to, the
- * implied warranties of merchantability and fitness for a particular purpose
- * are disclaimed. In no event shall the copyright holder or contributors be
- * liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of
- * substitute goods or services; loss of use, data, or profits; or business
- * interruption) however caused and on any theory of liability, whether in
- * contract, strict liability, or tort (including negligence or otherwise)
- * arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
- * 
+ * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+ * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
+ * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
+ * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
+ * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
+ * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
+ * of this software, even if advised of the possibility of such damage.
  * @version Oct 17, 2009
  * @author <a href="mailto:phmjacobs@hotmail.com">Peter H.M. Jacobs</a>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -69,7 +58,6 @@ public final class Monitor
 
     /**
      * locks an object for the current thread.
-     * 
      * @param object the object to lock
      */
     public static void lock(final Object object)
@@ -79,7 +67,6 @@ public final class Monitor
 
     /**
      * locks an object for the given requestor.
-     * 
      * @param object the object to lock.
      * @param requestor the requesting thread.
      */
@@ -89,21 +76,21 @@ public final class Monitor
         {
             if (Monitor.get(object) == null)
             {
-                Monitor.locks.add(new Entry(object, new MonitorThread(
-                        requestor, object)));
-            } else
+                Monitor.locks.add(new Entry(object, new MonitorThread(requestor, object)));
+            }
+            else
             {
                 MonitorThread thread = Monitor.get(object);
                 if (thread.getOwner().equals(requestor))
                 {
                     thread.increaseCounter();
-                } else
+                }
+                else
                 {
                     synchronized (object)
                     {
                         // We wait until we gained access to the monitor
-                        Monitor.locks.add(new Entry(object, new MonitorThread(
-                                requestor, object)));
+                        Monitor.locks.add(new Entry(object, new MonitorThread(requestor, object)));
                     }
                 }
             }
@@ -112,7 +99,6 @@ public final class Monitor
 
     /**
      * unlocks an object locked by the current Thread.
-     * 
      * @param object the object to unlock
      */
     public static void unlock(final Object object)
@@ -122,7 +108,6 @@ public final class Monitor
 
     /**
      * unlocks an object locked by owner.
-     * 
      * @param object the object to unlock.
      * @param owner the owning thread.
      */
@@ -133,13 +118,12 @@ public final class Monitor
             MonitorThread thread = Monitor.get(object);
             if (thread == null)
             {
-                throw new IllegalMonitorStateException("object(" + object
-                        + ") is not locked");
+                throw new IllegalMonitorStateException("object(" + object + ") is not locked");
             }
             if (!thread.getOwner().equals(owner))
             {
-                throw new IllegalMonitorStateException(owner + " cannot"
-                        + " unlock object owned by " + thread.getOwner());
+                throw new IllegalMonitorStateException(owner + " cannot" + " unlock object owned by "
+                        + thread.getOwner());
             }
             thread.decreaseCounter();
             if (thread.getCounter() == 0)
@@ -152,7 +136,6 @@ public final class Monitor
 
     /**
      * returns the MonitorThread for a specific key.
-     * 
      * @param key the key to resolve
      * @return the MonitorThread
      */
@@ -181,7 +164,6 @@ public final class Monitor
 
         /**
          * constructs a new Entry.
-         * 
          * @param key the key that locked the thread
          * @param thread the thread to be locked
          */
@@ -225,7 +207,6 @@ public final class Monitor
 
         /**
          * constructs a new MonitorThread.
-         * 
          * @param owner the owning thread
          * @param object the object
          */
@@ -245,13 +226,13 @@ public final class Monitor
                 try
                 {
                     this.owner.wait();
-                } catch (InterruptedException exception)
+                }
+                catch (InterruptedException exception)
                 {
                     exception = null;
                     /*
-                     * This interrupted exception is thrown because this monitor
-                     * thread has started and interrupted its constructor. We
-                     * now know object is locked and may therefore return.
+                     * This interrupted exception is thrown because this monitor thread has started and interrupted its
+                     * constructor. We now know object is locked and may therefore return.
                      */
                 }
             }
@@ -307,7 +288,8 @@ public final class Monitor
                     // We join
                     this.join();
                 }
-            } catch (Exception exception)
+            }
+            catch (Exception exception)
             {
                 // This is OK.. We use this construction in the
                 // MonitorTest.unlock to release a lock

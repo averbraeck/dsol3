@@ -11,18 +11,15 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Erlang distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/ErlangDistribution.html">
- * http://mathworld.wolfram.com/ErlangDistribution.html </a>
+ * href="http://mathworld.wolfram.com/ErlangDistribution.html"> http://mathworld.wolfram.com/ErlangDistribution.html
+ * </a>
  * <p>
- * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a href="mailto:a.verbraeck@tudelft.nl">
- *         Alexander Verbraeck </a> <br>
+ * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
  *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
  * @since 1.5
@@ -46,28 +43,27 @@ public class DistErlang extends DistContinuous
 
     /**
      * constructs a new Erlang distribution
-     * 
      * @param stream the numberstream
      * @param k is the k-parameter
      * @param beta is the beta-parameter
      */
-    public DistErlang(final StreamInterface stream, final int k,
-            final double beta)
+    public DistErlang(final StreamInterface stream, final int k, final double beta)
     {
         super(stream);
         if ((k > 0) && (beta > 0.0))
         {
             this.k = k;
             this.beta = beta;
-        } else
+        }
+        else
         {
-            throw new IllegalArgumentException(
-                    "Error Erlang - k <= 0 or beta < 0");
+            throw new IllegalArgumentException("Error Erlang - k <= 0 or beta < 0");
         }
         if (this.k <= DistErlang.GAMMABORDER)
         {
             this.betak = -this.beta / this.k;
-        } else
+        }
+        else
         {
             this.distGamma = new DistGamma(stream, this.k, this.beta);
         }
@@ -95,8 +91,7 @@ public class DistErlang extends DistContinuous
     }
 
     /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistContinuous
-     *      #probDensity(double)
+     * @see nl.tudelft.simulation.jstats.distributions.DistContinuous #probDensity(double)
      */
     @Override
     public double probDensity(final double observation)
@@ -106,13 +101,8 @@ public class DistErlang extends DistContinuous
             return 0;
         }
         return this.beta
-                * Math
-                        .exp(-this.beta
-                                * observation
-                                * (Math
-                                        .pow(this.beta * observation,
-                                                this.k - 1) / ProbMath
-                                        .faculty(this.k - 1)));
+                * Math.exp(-this.beta * observation
+                        * (Math.pow(this.beta * observation, this.k - 1) / ProbMath.faculty(this.k - 1)));
     }
 
     /**

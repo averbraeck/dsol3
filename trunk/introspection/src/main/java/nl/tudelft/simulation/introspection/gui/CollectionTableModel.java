@@ -28,43 +28,35 @@ import nl.tudelft.simulation.introspection.table.DynamicTableModel;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * A tablemodel used to manage and present the instances of a composite
- * property.
+ * A tablemodel used to manage and present the instances of a composite property.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
-public class CollectionTableModel extends AbstractTableModel implements
-        IntrospectingTableModelInterface, DynamicTableModel
+public class CollectionTableModel extends AbstractTableModel implements IntrospectingTableModelInterface,
+        DynamicTableModel
 {
     /** the instances of the collection */
-    protected Map<Integer, Object> instances = Collections
-            .synchronizedMap(new HashMap<Integer, Object>(20));
+    protected Map<Integer, Object> instances = Collections.synchronizedMap(new HashMap<Integer, Object>(20));
 
     /** the keys identifying specific instances */
-    protected List<Integer> keys = Collections
-            .synchronizedList(new ArrayList<Integer>(20));
+    protected List<Integer> keys = Collections.synchronizedList(new ArrayList<Integer>(20));
 
     /** the componentType */
-    private Class< ? > componentType = null;
+    private Class<?> componentType = null;
 
     /** the COLUMNS of this tabbleModel */
-    private static final String[] COLUMNS = { "#", "+", "Instance" };
+    private static final String[] COLUMNS = {"#", "+", "Instance"};
 
     /** the expand button */
-    private List<ExpandButton> buttons = Collections
-            .synchronizedList(new ArrayList<ExpandButton>(20));
+    private List<ExpandButton> buttons = Collections.synchronizedList(new ArrayList<ExpandButton>(20));
 
     /** the parentProperty */
     private Property parentProperty;
@@ -80,7 +72,6 @@ public class CollectionTableModel extends AbstractTableModel implements
 
     /**
      * constructs a new CollectionTableModel
-     * 
      * @param parentProperty the parentPropert
      */
     public CollectionTableModel(final Property parentProperty)
@@ -90,12 +81,10 @@ public class CollectionTableModel extends AbstractTableModel implements
 
     /**
      * constructs a new CollectionTableModel
-     * 
      * @param parentProperty the parentProperty
      * @param introspector the introspector to use
      */
-    public CollectionTableModel(final Property parentProperty,
-            final Introspector introspector)
+    public CollectionTableModel(final Property parentProperty, final Introspector introspector)
     {
         Object values = parentProperty.getValue();
         if (values.getClass().isArray())
@@ -107,8 +96,7 @@ public class CollectionTableModel extends AbstractTableModel implements
         }
         if (values instanceof Collection)
         {
-            for (Iterator< ? > i = ((Collection< ? >) values).iterator(); i
-                    .hasNext();)
+            for (Iterator<?> i = ((Collection<?>) values).iterator(); i.hasNext();)
             {
                 addValue(i.next());
             }
@@ -124,7 +112,6 @@ public class CollectionTableModel extends AbstractTableModel implements
 
     /**
      * Adds a new value to the managed composite property.
-     * 
      * @param value the value to add
      */
     private void addValue(final Object value)
@@ -196,8 +183,7 @@ public class CollectionTableModel extends AbstractTableModel implements
      * @see javax.swing.table.TableModel#setValueAt(Object, int, int)
      */
     @Override
-    public void setValueAt(final Object aValue, final int rowIndex,
-            final int columnIndex)
+    public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
     {
         if (columnIndex == 2)
         {
@@ -226,7 +212,7 @@ public class CollectionTableModel extends AbstractTableModel implements
      * @see javax.swing.table.TableModel#getColumnClass(int)
      */
     @Override
-    public Class< ? > getColumnClass(final int columnIndex)
+    public Class<?> getColumnClass(final int columnIndex)
     {
         if (columnIndex == 1)
         {
@@ -236,11 +222,9 @@ public class CollectionTableModel extends AbstractTableModel implements
     }
 
     /**
-     * The collection table model labels all properties according to their
-     * rowIndex. Only these labels are expected to be requested here.
-     * 
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface
-     *      #getProperty(java.lang.String)
+     * The collection table model labels all properties according to their rowIndex. Only these labels are expected to
+     * be requested here.
+     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getProperty(java.lang.String)
      */
     public Property getProperty(final String propertyName)
     {
@@ -254,8 +238,7 @@ public class CollectionTableModel extends AbstractTableModel implements
      */
     protected Property getProperty(final int index)
     {
-        return new CollectionProperty(this.keys.get(index), this.parentProperty
-                .getName());
+        return new CollectionProperty(this.keys.get(index), this.parentProperty.getName());
     }
 
     /**
@@ -270,9 +253,8 @@ public class CollectionTableModel extends AbstractTableModel implements
         private final String name;
 
         /**
-         * This implementation is NOT thread-safe. When multiple users will edit
-         * the parent at the same time, errors are expected.
-         * 
+         * This implementation is NOT thread-safe. When multiple users will edit the parent at the same time, errors are
+         * expected.
          * @param key the key
          * @param name the name
          */
@@ -295,14 +277,13 @@ public class CollectionTableModel extends AbstractTableModel implements
          */
         public String getName()
         {
-            return this.name + "["
-                    + CollectionTableModel.this.keys.indexOf(this.key) + "]";
+            return this.name + "[" + CollectionTableModel.this.keys.indexOf(this.key) + "]";
         }
 
         /**
          * @see nl.tudelft.simulation.introspection.Property#getType()
          */
-        public Class< ? > getType()
+        public Class<?> getType()
         {
             return CollectionTableModel.this.instances.get(this.key).getClass();
         }
@@ -329,8 +310,7 @@ public class CollectionTableModel extends AbstractTableModel implements
         @Override
         protected void setRegularValue(final Object value)
         {
-            throw new IllegalArgumentException(this + " is only supposed to be"
-                    + " set to composite values."
+            throw new IllegalArgumentException(this + " is only supposed to be" + " set to composite values."
                     + "A program is not supposed to arrive here.");
         }
 
@@ -359,17 +339,15 @@ public class CollectionTableModel extends AbstractTableModel implements
         }
         try
         {
-            Constructor< ? > instanceConstructor = this.componentType
-                    .getConstructor(new Class[0]);
+            Constructor<?> instanceConstructor = this.componentType.getConstructor(new Class[0]);
             Object instance = instanceConstructor.newInstance(new Object[0]);
             addValue(instance);
-            this.buttons.add(new ExpandButton(
-                    getProperty(this.instances.size() - 1), this));
+            this.buttons.add(new ExpandButton(getProperty(this.instances.size() - 1), this));
             update();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
-            Logger.warning(this, "createRow",
-                    "Could not instantiate new instance: " + e.getMessage());
+            Logger.warning(this, "createRow", "Could not instantiate new instance: " + e.getMessage());
         }
     }
 
@@ -409,8 +387,7 @@ public class CollectionTableModel extends AbstractTableModel implements
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface
-     *      #getIntrospector()
+     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getIntrospector()
      */
     public Introspector getIntrospector()
     {
@@ -418,8 +395,7 @@ public class CollectionTableModel extends AbstractTableModel implements
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface
-     *      #getTypeAt(int,int)
+     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getTypeAt(int,int)
      */
     public Class getTypeAt(final int rowIndex, final int columnIndex)
     {
@@ -440,7 +416,6 @@ public class CollectionTableModel extends AbstractTableModel implements
 
     /**
      * Sets the modelmanager. By default, a {see DefaultModelManager}is used.
-     * 
      * @param manager the manager
      */
     public void setModelManager(final ModelManager manager)
@@ -450,9 +425,7 @@ public class CollectionTableModel extends AbstractTableModel implements
 
     /**
      * By default, a {see DefaultModelManager}returned.
-     * 
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface
-     *      #getModelManager()
+     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getModelManager()
      * @return the Manager
      */
     public ModelManager getModelManager()

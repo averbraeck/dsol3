@@ -23,34 +23,25 @@ import nl.tudelft.simulation.introspection.sortable.SortDefinition;
 import nl.tudelft.simulation.introspection.sortable.SortingTableHeader;
 
 /**
- * * A customization of a standard JTable to allow the display of an
- * introspected object. The behaviour of the ObjectJTable depends on the
- * contained TableModel. {see ObjectTableModel}provides a view of the properties
- * and values of a single introspected object. {see
- * CollectionTableModel}provides a view on a collection of instances: usually
- * the value of a composite property.
+ * * A customization of a standard JTable to allow the display of an introspected object. The behaviour of the
+ * ObjectJTable depends on the contained TableModel. {see ObjectTableModel}provides a view of the properties and values
+ * of a single introspected object. {see CollectionTableModel}provides a view on a collection of instances: usually the
+ * value of a composite property.
  * <p>
- * A configuration mechanism is implemented to load the editors and renders to
- * be used by this JTable. See {see
- * #setConfig(nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration)}
- * for details.
+ * A configuration mechanism is implemented to load the editors and renders to be used by this JTable. See {see
+ * #setConfig(nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration)} for details.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
-public class ObjectJTable extends JTable implements ObjectJTableInterface,
-        ICellPresentationConfigProvider
+public class ObjectJTable extends JTable implements ObjectJTableInterface, ICellPresentationConfigProvider
 {
     /** the updateTimer */
     private static UpdateTimer updateTimer = new UpdateTimer(100L);
@@ -68,7 +59,6 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface,
 
     /**
      * constructs a new ObjectJTable
-     * 
      * @param dm the defaultTableModel
      */
     public ObjectJTable(final IntrospectingTableModelInterface dm)
@@ -78,12 +68,10 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface,
 
     /**
      * constructs a new ObjectJTable
-     * 
      * @param dm the defaultTableModel
      * @param config the CellPresentationConfiguration
      */
-    public ObjectJTable(final IntrospectingTableModelInterface dm,
-            final CellPresentationConfiguration config)
+    public ObjectJTable(final IntrospectingTableModelInterface dm, final CellPresentationConfiguration config)
     {
         super(new SortingObjectTableModel(dm));
         this.CONFIG = config;
@@ -92,12 +80,10 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface,
 
     /**
      * Constructor for ObjectJTable.
-     * 
      * @param dm the defaultTableModel
      * @param cm the tableColumnModel
      */
-    public ObjectJTable(final IntrospectingTableModelInterface dm,
-            final TableColumnModel cm)
+    public ObjectJTable(final IntrospectingTableModelInterface dm, final TableColumnModel cm)
     {
         super(new SortingObjectTableModel(dm), cm);
         this.CONFIG = DefaultConfiguration.getDefaultConfiguration();
@@ -106,13 +92,12 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface,
 
     /**
      * Constructor for ObjectJTable.
-     * 
      * @param dm the defaultTableModel
      * @param cm the tableColumnModel
      * @param sm the listSelectionModel
      */
-    public ObjectJTable(final IntrospectingTableModelInterface dm,
-            final TableColumnModel cm, final ListSelectionModel sm)
+    public ObjectJTable(final IntrospectingTableModelInterface dm, final TableColumnModel cm,
+            final ListSelectionModel sm)
     {
         super(new SortingObjectTableModel(dm), cm, sm);
         this.CONFIG = DefaultConfiguration.getDefaultConfiguration();
@@ -129,7 +114,6 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface,
 
     /**
      * initializes the objectJTable
-     * 
      * @param model the model
      */
     private void init(IntrospectingTableModelInterface model)
@@ -137,17 +121,14 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface,
         this.introspectionTableModel = model;
         initConfig();
         setPreferredScrollableViewportSize(this.getPreferredSize());
-        JTableHeader header = new SortingTableHeader(
-                new SortDefinition[] { new SortDefinition(0, true) });
+        JTableHeader header = new SortingTableHeader(new SortDefinition[]{new SortDefinition(0, true)});
         this.setTableHeader(header);
         header.setColumnModel(this.getColumnModel());
         ObjectJTable.updateTimer.add(this);
     }
 
     /**
-     * Enables the installation of a special renderer for arrays and
-     * Collections.
-     * 
+     * Enables the installation of a special renderer for arrays and Collections.
      * @see javax.swing.JTable#getDefaultRenderer(java.lang.Class)
      */
     @Override
@@ -179,38 +160,35 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface,
                 }
                 if (ObjectJTable.this.hasShown && !isDisplayable())
                 {
-                    ObjectJTable.this.getModel().removeTableModelListener(
-                            ObjectJTable.this);
+                    ObjectJTable.this.getModel().removeTableModelListener(ObjectJTable.this);
                 }
             }
         }
     }
 
     /**
-     * Initializes the configuration, by propagating its settings to the table's
-     * set of default renderers/editors.
+     * Initializes the configuration, by propagating its settings to the table's set of default renderers/editors.
      */
     private void initConfig()
     {
         addHierarchyListener(new ParentListener());
-        Class< ? >[][] renderers = this.CONFIG.getRenderers();
-        Class< ? >[][] editors = this.CONFIG.getEditors();
+        Class<?>[][] renderers = this.CONFIG.getRenderers();
+        Class<?>[][] editors = this.CONFIG.getEditors();
         try
         {
             for (int i = 0; i < renderers.length; i++)
             {
-                this.setDefaultRenderer(renderers[i][0],
-                        (TableCellRenderer) renderers[i][1].newInstance());
+                this.setDefaultRenderer(renderers[i][0], (TableCellRenderer) renderers[i][1].newInstance());
             }
             for (int i = 0; i < editors.length; i++)
             {
-                this.setDefaultEditor(editors[i][0],
-                        (TableCellEditor) editors[i][1].newInstance());
+                this.setDefaultEditor(editors[i][0], (TableCellEditor) editors[i][1].newInstance());
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
-            throw new IllegalArgumentException("Configuration " + this.CONFIG
-                    + "failed, " + "probably invalid classes.");
+            throw new IllegalArgumentException("Configuration " + this.CONFIG + "failed, "
+                    + "probably invalid classes.");
         }
         this.getColumn(getColumnName(0)).setPreferredWidth(70);
         this.getColumn(getColumnName(1)).setMaxWidth(25);
@@ -219,8 +197,7 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface,
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.gui.ObjectJTableInterface
-     *      #getIntrospectingTableModel()
+     * @see nl.tudelft.simulation.introspection.gui.ObjectJTableInterface #getIntrospectingTableModel()
      */
     public IntrospectingTableModelInterface getIntrospectingTableModel()
     {

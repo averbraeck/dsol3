@@ -15,30 +15,25 @@ import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 
 /**
- * The Event producing list provides a list to which one can subscribe interest
- * in entry changes. This class does not keep track of changes which take place
- * indirectly. One is for example not notified on
- * <code>map.iterator.remove()</code>. A listener must subscribe to the
- * iterator individually.
+ * The Event producing list provides a list to which one can subscribe interest in entry changes. This class does not
+ * keep track of changes which take place indirectly. One is for example not notified on
+ * <code>map.iterator.remove()</code>. A listener must subscribe to the iterator individually.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands.
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands.
  * <p>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
  * </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands.
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands.
  * <p>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
  * </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty
- * 
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:12 $
  * @since 1.5
@@ -48,21 +43,18 @@ public class EventProducingList<T> extends EventProducer implements List<T>
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** OBJECT_ADDED_EVENT is fired on new entries */
-    public static final EventType OBJECT_ADDED_EVENT = new EventType(
-            "OBJECT_ADDED_EVENT");
+    public static final EventType OBJECT_ADDED_EVENT = new EventType("OBJECT_ADDED_EVENT");
 
     /** OBJECT_REMOVED_EVENT is fired on removel of entries */
-    public static final EventType OBJECT_REMOVED_EVENT = new EventType(
-            "OBJECT_REMOVED_EVENT");
+    public static final EventType OBJECT_REMOVED_EVENT = new EventType("OBJECT_REMOVED_EVENT");
 
     /** the parent list */
     private List<T> parent = null;
 
     /**
      * constructs a new EventProducingList.
-     * 
      * @param parent the parent list.
      */
     public EventProducingList(final List<T> parent)
@@ -118,7 +110,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     /**
      * @see java.util.Collection#addAll(java.util.Collection)
      */
-    public boolean addAll(final Collection< ? extends T> c)
+    public boolean addAll(final Collection<? extends T> c)
     {
         boolean result = this.parent.addAll(c);
         this.fireEvent(OBJECT_ADDED_EVENT, null);
@@ -128,7 +120,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     /**
      * @see java.util.List#addAll(int, java.util.Collection)
      */
-    public boolean addAll(final int index, final Collection< ? extends T> c)
+    public boolean addAll(final int index, final Collection<? extends T> c)
     {
         boolean result = this.parent.addAll(index, c);
         this.fireEvent(OBJECT_ADDED_EVENT, null);

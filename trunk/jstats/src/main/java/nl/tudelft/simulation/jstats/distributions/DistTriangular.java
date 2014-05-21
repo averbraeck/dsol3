@@ -13,15 +13,12 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * href="http://mathworld.wolfram.com/TriangularDistribution.html">
  * http://mathworld.wolfram.com/TriangularDistribution.html </a>
  * <p>
- * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a href="mailto:a.verbraeck@tudelft.nl">
- *         Alexander Verbraeck </a> <br>
+ * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
  *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
  * @since 1.5
@@ -39,14 +36,12 @@ public class DistTriangular extends DistContinuous
 
     /**
      * constructs a new triangular distribution
-     * 
      * @param stream the numberstream
      * @param a the minimum
      * @param b the mode
      * @param c the maximum
      */
-    public DistTriangular(final StreamInterface stream, final double a,
-            final double b, final double c)
+    public DistTriangular(final StreamInterface stream, final double a, final double b, final double c)
     {
         super(stream);
         if ((a < b) && (b < c))
@@ -54,10 +49,10 @@ public class DistTriangular extends DistContinuous
             this.a = a;
             this.b = b;
             this.c = c;
-        } else
+        }
+        else
         {
-            throw new IllegalArgumentException(
-                    "Error condition for tria: a<b<c");
+            throw new IllegalArgumentException("Error condition for tria: a<b<c");
         }
     }
 
@@ -70,29 +65,24 @@ public class DistTriangular extends DistContinuous
         double u = this.stream.nextDouble();
         if (u <= ((this.b - this.a) / (this.c - this.a)))
         {
-            return this.a
-                    + Math.sqrt((this.b - this.a) * (this.c - this.a) * u);
+            return this.a + Math.sqrt((this.b - this.a) * (this.c - this.a) * u);
         }
-        return this.c
-                - Math.sqrt((this.c - this.a) * (this.c - this.b) * (1.0d - u));
+        return this.c - Math.sqrt((this.c - this.a) * (this.c - this.b) * (1.0d - u));
     }
 
     /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistContinuous
-     *      #probDensity(double)
+     * @see nl.tudelft.simulation.jstats.distributions.DistContinuous #probDensity(double)
      */
     @Override
     public double probDensity(final double observation)
     {
         if (observation >= this.a && observation <= this.b)
         {
-            return 2 * (observation - this.a)
-                    / ((this.c - this.a) * (this.b - this.a));
+            return 2 * (observation - this.a) / ((this.c - this.a) * (this.b - this.a));
         }
         if (observation >= this.b && observation <= this.c)
         {
-            return 2 * (this.c - observation)
-                    / ((this.c - this.a) * (this.c - this.b));
+            return 2 * (this.c - observation) / ((this.c - this.a) * (this.c - this.b));
         }
         return 0.0;
     }

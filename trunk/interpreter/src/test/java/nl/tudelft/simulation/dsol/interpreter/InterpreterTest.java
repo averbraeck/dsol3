@@ -15,13 +15,11 @@ import nl.tudelft.simulation.logger.Logger;
 /**
  * The InterpreterTest.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.2 Mar 31, 2004
  * @since 1.5
@@ -45,7 +43,8 @@ public class InterpreterTest
         try
         {
             throw new RuntimeException("exception 1");
-        } catch (RuntimeException runtimeException)
+        }
+        catch (RuntimeException runtimeException)
         {
             System.out.println(runtimeException.getMessage());
         }
@@ -53,7 +52,8 @@ public class InterpreterTest
         try
         {
             throw new RuntimeException("exception 2");
-        } catch (RuntimeException runtimeException)
+        }
+        catch (RuntimeException runtimeException)
         {
             System.out.println(runtimeException.getMessage());
         }
@@ -61,7 +61,6 @@ public class InterpreterTest
 
     /**
      * we do method b
-     * 
      * @throws RemoteException to trigger a remoteException
      */
     public void doB() throws RemoteException
@@ -80,11 +79,13 @@ public class InterpreterTest
             try
             {
                 throw new RuntimeException("hoi");
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 this.doB();
             }
-        } catch (RemoteException r1)
+        }
+        catch (RemoteException r1)
         {
             System.out.println("R1");
             throw new IllegalStateException();
@@ -93,7 +94,6 @@ public class InterpreterTest
 
     /**
      * executes the application
-     * 
      * @param args the commandline arguments
      */
     public static void main(final String[] args)
@@ -103,7 +103,8 @@ public class InterpreterTest
             Logger.setLogLevel(Level.WARNING);
             Interpreter.invoke(new InterpreterTest(), "doC", null, null);
             Interpreter.invoke(new InterpreterTest(), "doA", null, null);
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             exception.printStackTrace();
         }

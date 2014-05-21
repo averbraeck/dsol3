@@ -12,13 +12,11 @@ import java.io.IOException;
 
 /**
  * A ConstantFieldref <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -32,27 +30,22 @@ public class ConstantFieldref extends Constant
 
     /**
      * constructs a new ConstantFieldref
-     * 
      * @param constantPool the constantPool it is part of
      * @param inputStream the inputstream to read from
      * @throws IOException on failure
      */
-    public ConstantFieldref(final Constant[] constantPool,
-            final DataInput inputStream) throws IOException
+    public ConstantFieldref(final Constant[] constantPool, final DataInput inputStream) throws IOException
     {
-        this(constantPool, inputStream.readUnsignedShort(), inputStream
-                .readUnsignedShort());
+        this(constantPool, inputStream.readUnsignedShort(), inputStream.readUnsignedShort());
     }
 
     /**
      * constructs a new ConstantFieldref
-     * 
      * @param constantPool the constantPool it is part of
      * @param classIndex the classIndex
      * @param nameAndTypeIndex the NameAndTypeIndex
      */
-    public ConstantFieldref(final Constant[] constantPool,
-            final int classIndex, final int nameAndTypeIndex)
+    public ConstantFieldref(final Constant[] constantPool, final int classIndex, final int nameAndTypeIndex)
     {
         super(constantPool);
         this.classIndex = classIndex;
@@ -70,7 +63,6 @@ public class ConstantFieldref extends Constant
 
     /**
      * returns the classindex
-     * 
      * @return classIndex
      */
     public int getClassIndex()
@@ -80,7 +72,6 @@ public class ConstantFieldref extends Constant
 
     /**
      * returns the nameAndTypeIndex
-     * 
      * @return nameAndTypeIndex
      */
     public int getNameAndTypeIndex()
@@ -90,7 +81,6 @@ public class ConstantFieldref extends Constant
 
     /**
      * returns the constantClass of this constant
-     * 
      * @return ConstantClass the constantClass
      */
     public ConstantClass getConstantClass()
@@ -100,7 +90,6 @@ public class ConstantFieldref extends Constant
 
     /**
      * returns the nameAndType constant
-     * 
      * @return ConstantNameAndType
      */
     public ConstantNameAndType getConstantNameAndType()
@@ -114,7 +103,6 @@ public class ConstantFieldref extends Constant
     @Override
     public String toString()
     {
-        return "ConstantFieldref[classIndex=" + this.classIndex
-                + " nameAndTypeIndex=" + this.nameAndTypeIndex + "]";
+        return "ConstantFieldref[classIndex=" + this.classIndex + " nameAndTypeIndex=" + this.nameAndTypeIndex + "]";
     }
 }

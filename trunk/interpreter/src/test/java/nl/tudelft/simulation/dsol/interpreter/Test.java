@@ -15,7 +15,6 @@ public class Test
 {
     /**
      * executes the test
-     * 
      * @param args the command line arguments
      */
     public static void main(String[] args)
@@ -33,7 +32,6 @@ public class Test
 
     /**
      * counts the links
-     * 
      * @param link the link
      * @return the number of links
      */
@@ -54,7 +52,6 @@ public class Test
 
         /**
          * constructs a new Link
-         * 
          * @param next the next
          */
         public Link(Link next)

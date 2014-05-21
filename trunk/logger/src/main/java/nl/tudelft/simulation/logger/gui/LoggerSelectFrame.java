@@ -23,22 +23,19 @@ import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A LoggerSelectFrame <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:39:18 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>,, <a
- *         href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
+ * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>,, <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
  */
 public class LoggerSelectFrame extends JFrame implements EventListenerInterface
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** the loggerChooser */
     private JComboBox loggerChooser;
 
@@ -61,13 +58,10 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
     {
         JPanel contentPane = new JPanel(new BorderLayout());
         this.loggerChooser = new JComboBox(Logger.getLoggerNames());
-        contentPane.setPreferredSize(new Dimension(300,
-                (int) this.loggerChooser.getPreferredSize().getHeight()));
+        contentPane.setPreferredSize(new Dimension(300, (int) this.loggerChooser.getPreferredSize().getHeight()));
         Logger.LOGGERS.addListener(this, EventProducingMap.OBJECT_ADDED_EVENT);
-        Logger.LOGGERS
-                .addListener(this, EventProducingMap.OBJECT_REMOVED_EVENT);
-        this.openButton.addActionListener(new MyActionListener(
-                this.loggerChooser));
+        Logger.LOGGERS.addListener(this, EventProducingMap.OBJECT_REMOVED_EVENT);
+        this.openButton.addActionListener(new MyActionListener(this.loggerChooser));
         contentPane.add(this.loggerChooser, BorderLayout.CENTER);
         contentPane.add(this.openButton, BorderLayout.EAST);
         this.setContentPane(contentPane);
@@ -76,14 +70,12 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
     }
 
     /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface
-     *      #notify(nl.tudelft.simulation.event.EventInterface)
+     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
      */
     public synchronized void notify(final EventInterface event)
     {
         if (event.getType().equals(EventProducingMap.OBJECT_ADDED_EVENT)
-                || event.getType().equals(
-                        EventProducingMap.OBJECT_REMOVED_EVENT))
+                || event.getType().equals(EventProducingMap.OBJECT_REMOVED_EVENT))
         {
             String[] names = Logger.getLoggerNames();
             this.loggerChooser.removeAllItems();
@@ -105,7 +97,6 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
 
         /**
          * creates a new MyActionListener
-         * 
          * @param loggerChooser the chooser
          */
         public MyActionListener(final JComboBox loggerChooser)
@@ -122,11 +113,10 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
             {
                 String logger = (String) this.myLoggerChooser.getSelectedItem();
                 new LoggerFrame(java.util.logging.Logger.getLogger(logger));
-            } else
+            }
+            else
             {
-                Logger.warning(this, "actionPerformed", actionEvent
-                        .getActionCommand()
-                        + " on empty logger");
+                Logger.warning(this, "actionPerformed", actionEvent.getActionCommand() + " on empty logger");
             }
         }
     }

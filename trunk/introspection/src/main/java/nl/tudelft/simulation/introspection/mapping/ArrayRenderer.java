@@ -13,24 +13,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * Renders array values in a human-readable manner.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
  * @since 1.5
  */
 public class ArrayRenderer extends DefaultTableCellRenderer
 {
     /**
-     * A LABEL is returned, preventing users from editing the array contents
-     * directly.
-     * 
+     * A LABEL is returned, preventing users from editing the array contents directly.
      * @see javax.swing.table.DefaultTableCellRenderer#getTableCellRendererComponent(javax.swing.JTable,
      *      java.lang.Object, boolean, boolean, int, int)
      */
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column)
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+            int row, int column)
     {
         Class clasz = value.getClass().getComponentType();
         String text = "[] of " + getShortName(clasz) + ": ";
@@ -38,7 +33,8 @@ public class ArrayRenderer extends DefaultTableCellRenderer
         {
             for (int i = 0; i < Array.getLength(value); i++)
                 text += Array.get(value, i) + "; ";
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             // Unfortunately, we now have nothing more than:
             text += "?";

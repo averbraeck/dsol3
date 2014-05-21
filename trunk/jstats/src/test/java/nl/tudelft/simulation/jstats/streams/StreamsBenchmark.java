@@ -7,16 +7,13 @@
 package nl.tudelft.simulation.jstats.streams;
 
 /**
- * The StreamsBenchmark provides computational execution speed insight in the
- * different streams.
+ * The StreamsBenchmark provides computational execution speed insight in the different streams.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.0, 2004-03-18
  * @since 1.5
@@ -34,7 +31,6 @@ public final class StreamsBenchmark
 
     /**
      * benchmarks a stream by drawing 1000000 double values
-     * 
      * @param stream the stream to test
      * @return the execution time in milliseconds
      */
@@ -50,16 +46,12 @@ public final class StreamsBenchmark
 
     /**
      * executes the benchmark
-     * 
      * @param args the commandline arguments
      */
     public static void main(final String[] args)
     {
-        System.out.println("Java2Random : "
-                + StreamsBenchmark.benchmark(new Java2Random()));
-        System.out.println("MersenneTwister : "
-                + StreamsBenchmark.benchmark(new MersenneTwister()));
-        System.out.println("DX120Generator : "
-                + StreamsBenchmark.benchmark(new DX120Generator()));
+        System.out.println("Java2Random : " + StreamsBenchmark.benchmark(new Java2Random()));
+        System.out.println("MersenneTwister : " + StreamsBenchmark.benchmark(new MersenneTwister()));
+        System.out.println("DX120Generator : " + StreamsBenchmark.benchmark(new DX120Generator()));
     }
 }

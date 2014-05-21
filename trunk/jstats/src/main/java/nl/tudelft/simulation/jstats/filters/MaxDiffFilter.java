@@ -9,23 +9,18 @@ package nl.tudelft.simulation.jstats.filters;
 import nl.tudelft.simulation.language.filters.AbstractFilter;
 
 /**
- * The MaxDiffFilter accepts entries if their value> percentage of the last
- * received Value.
+ * The MaxDiffFilter accepts entries if their value> percentage of the last received Value.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft
- * University of Technology </a>, the Netherlands.
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
+ * Netherlands.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/">
- * www.simulation.tudelft.nl/dsol </a>
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
  * <p>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty
  * <p>
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:41 $
  * @since 1.5
  */
@@ -39,25 +34,20 @@ public class MaxDiffFilter extends AbstractFilter
 
     /**
      * constructs a new MaxDiffFilter
-     * 
-     * @param acceptedDifferencePercentage the maximum accepted difference
-     *        percentage, e.g. 10%
+     * @param acceptedDifferencePercentage the maximum accepted difference percentage, e.g. 10%
      */
     public MaxDiffFilter(final double acceptedDifferencePercentage)
     {
         super();
-        if (acceptedDifferencePercentage <= 0
-                && acceptedDifferencePercentage > 1.0)
+        if (acceptedDifferencePercentage <= 0 && acceptedDifferencePercentage > 1.0)
         {
-            throw new IllegalArgumentException(
-                    "percentage should be between [0.0,1.0]");
+            throw new IllegalArgumentException("percentage should be between [0.0,1.0]");
         }
         this.acceptedDifferencePercentage = acceptedDifferencePercentage;
     }
 
     /**
      * filters based on the maximum difference.
-     * 
      * @param entry we expect a double[2] representing x,y as input.
      * @see nl.tudelft.simulation.language.filters.AbstractFilter#filter(java.lang.Object)
      * @return whether to accept the entry
@@ -67,12 +57,10 @@ public class MaxDiffFilter extends AbstractFilter
     {
         if (!(entry instanceof double[]) || ((double[]) entry).length != 2)
         {
-            throw new IllegalArgumentException(
-                    "entry should be instance of double[2] representing x,y");
+            throw new IllegalArgumentException("entry should be instance of double[2] representing x,y");
         }
         double[] value = (double[]) entry;
-        if ((Math.abs(value[1] - this.lastReceivedValue)) >= this.lastReceivedValue
-                * this.acceptedDifferencePercentage)
+        if ((Math.abs(value[1] - this.lastReceivedValue)) >= this.lastReceivedValue * this.acceptedDifferencePercentage)
         {
             this.lastReceivedValue = value[1];
             return true;
@@ -87,8 +75,6 @@ public class MaxDiffFilter extends AbstractFilter
     @Override
     public String getCriterium()
     {
-        return "accepts entries if their value>"
-                + this.acceptedDifferencePercentage
-                + "% of the last received Value";
+        return "accepts entries if their value>" + this.acceptedDifferencePercentage + "% of the last received Value";
     }
 }

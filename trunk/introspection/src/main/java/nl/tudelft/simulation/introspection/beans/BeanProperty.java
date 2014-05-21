@@ -16,20 +16,15 @@ import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * The JavaBean TM implementation of the Property interface. See {see
- * BeanIntrospector}for details.
+ * The JavaBean TM implementation of the Property interface. See {see BeanIntrospector}for details.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -44,12 +39,10 @@ public class BeanProperty extends AbstractProperty implements Property
 
     /**
      * constructs a new BeanProperty
-     * 
      * @param bean the bean to introspect
      * @param descriptor the descriptor of the property
      */
-    protected BeanProperty(final Object bean,
-            final PropertyDescriptor descriptor)
+    protected BeanProperty(final Object bean, final PropertyDescriptor descriptor)
     {
         this.bean = bean;
         this.descriptor = descriptor;
@@ -66,14 +59,13 @@ public class BeanProperty extends AbstractProperty implements Property
     /**
      * @see nl.tudelft.simulation.introspection.Property#getType()
      */
-    public Class< ? > getType()
+    public Class<?> getType()
     {
         return this.descriptor.getPropertyType();
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.AbstractProperty
-     *      #setRegularValue(java.lang.Object)
+     * @see nl.tudelft.simulation.introspection.AbstractProperty #setRegularValue(java.lang.Object)
      */
     @Override
     protected void setRegularValue(final Object values)
@@ -86,7 +78,8 @@ public class BeanProperty extends AbstractProperty implements Property
             if (values instanceof String)
             {
                 editor.setAsText((String) values);
-            } else
+            }
+            else
             {
                 editor.setValue(values);
             }
@@ -95,8 +88,9 @@ public class BeanProperty extends AbstractProperty implements Property
         Method writeMethod = this.descriptor.getWriteMethod();
         try
         {
-            writeMethod.invoke(this.bean, new Object[] { newValue });
-        } catch (Throwable throwable)
+            writeMethod.invoke(this.bean, new Object[]{newValue});
+        }
+        catch (Throwable throwable)
         {
             Logger.warning(this, "setRegularValue", throwable);
         }
@@ -115,7 +109,8 @@ public class BeanProperty extends AbstractProperty implements Property
             {
                 result = readMethod.invoke(this.bean, new Object[0]);
             }
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             Logger.warning(this, "getValue of " + getName(), exception);
         }

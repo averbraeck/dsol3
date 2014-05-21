@@ -17,13 +17,11 @@ import nl.tudelft.simulation.naming.InitialEventContext;
 /**
  * Tests the NamingSuite.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.4 2004-04-08
  * @since 1.5
@@ -40,7 +38,6 @@ public final class NamingTestSuite
 
     /**
      * constructs the test suite
-     * 
      * @return Test the main DSOL Test Suite
      */
     public static Test suite()
@@ -51,26 +48,22 @@ public final class NamingTestSuite
         try
         {
             Properties properties = new Properties();
-            properties.put("java.naming.factory.initial",
-                    "nl.tudelft.simulation.naming.JVMContextFactory");
+            properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.JVMContextFactory");
             Context context = new InitialEventContext(properties);
             suite.addTest(new ContextTest(context));
 
-            properties.put("java.naming.factory.initial",
-                    "nl.tudelft.simulation.naming.FileContextFactory");
+            properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.FileContextFactory");
             properties.put("java.naming.provider.url", "file:/tmp/context.jpo");
             context = new InitialEventContext(properties);
             suite.addTest(new ContextTest(context));
 
-            properties.put("java.naming.factory.initial",
-                    "nl.tudelft.simulation.naming.RemoteContextFactory");
-            properties.put("java.naming.provider.url",
-                    "http://localhost:1099/remoteContext");
-            properties.put("wrapped.naming.factory.initial",
-                    "nl.tudelft.simulation.naming.JVMContextFactory");
+            properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.RemoteContextFactory");
+            properties.put("java.naming.provider.url", "http://localhost:1099/remoteContext");
+            properties.put("wrapped.naming.factory.initial", "nl.tudelft.simulation.naming.JVMContextFactory");
             context = new InitialEventContext(properties);
             suite.addTest(new ContextTest(context));
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             exception = null;
         }

@@ -15,17 +15,13 @@ import nl.tudelft.simulation.logger.Logger;
 /**
  * The field implementation of the Property interface. See for details.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -42,13 +38,11 @@ public class FieldProperty extends AbstractProperty implements Property
 
     /**
      * constructs a new FieldProperty
-     * 
      * @param owner its owner
      * @param descriptor the descriptor
      * @param editable is the property editable
      */
-    public FieldProperty(final Object owner, final Field descriptor,
-            final boolean editable)
+    public FieldProperty(final Object owner, final Field descriptor, final boolean editable)
     {
         // Check whether descriptor is valid for owner should be conducted here
         this.owner = owner;
@@ -59,7 +53,6 @@ public class FieldProperty extends AbstractProperty implements Property
 
     /**
      * constructs a new FieldProperty
-     * 
      * @param owner its owner
      * @param descriptor the descriptor
      */
@@ -79,14 +72,13 @@ public class FieldProperty extends AbstractProperty implements Property
     /**
      * @see nl.tudelft.simulation.introspection.Property#getType()
      */
-    public Class< ? > getType()
+    public Class<?> getType()
     {
         return this.descriptor.getType();
     }
 
     /**
-     * @see nl.tudelft.simulation.introspection.AbstractProperty
-     *      #setRegularValue(java.lang.Object)
+     * @see nl.tudelft.simulation.introspection.AbstractProperty #setRegularValue(java.lang.Object)
      */
     @Override
     public void setRegularValue(final Object value)
@@ -94,15 +86,15 @@ public class FieldProperty extends AbstractProperty implements Property
         Class type = this.descriptor.getType();
         if (!type.isInstance(value) || !this.editable)
         {
-            throw new IllegalArgumentException("Cannot assign " + value
-                    + " to " + this.owner + ", " + this.descriptor);
+            throw new IllegalArgumentException("Cannot assign " + value + " to " + this.owner + ", " + this.descriptor);
         }
         synchronized (this.owner)
         {
             try
             {
                 this.descriptor.set(this.owner, value);
-            } catch (Exception exception)
+            }
+            catch (Exception exception)
             {
                 Logger.warning(this, "setRegularValue", exception);
             }
@@ -117,7 +109,8 @@ public class FieldProperty extends AbstractProperty implements Property
         try
         {
             return this.descriptor.get(this.owner);
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             Logger.warning(this, "getValue", exception);
         }

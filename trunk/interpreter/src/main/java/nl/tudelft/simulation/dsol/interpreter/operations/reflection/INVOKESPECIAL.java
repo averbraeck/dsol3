@@ -24,19 +24,14 @@ import nl.tudelft.simulation.language.reflection.MethodSignature;
 
 /**
  * INVOKESPECIAL <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version 1.0 $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
- *         <br>
- *         <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander
- *         Verbraeck </a>
+ * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a> <br>
+ *         <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class INVOKESPECIAL extends InvokeOperation
 {
@@ -48,7 +43,6 @@ public class INVOKESPECIAL extends InvokeOperation
 
     /**
      * constructs a new INVOKESPECIAL
-     * 
      * @param dataInput the dataInput
      * @throws IOException on IOfailure
      */
@@ -67,51 +61,41 @@ public class INVOKESPECIAL extends InvokeOperation
     {
         try
         {
-            ConstantMethodref constantMethodref = (ConstantMethodref) frame
-                    .getConstantPool()[this.index];
-            Class[] parameterTypes = new MethodSignature(constantMethodref
-                    .getConstantNameAndType().getDescriptor())
-                    .getParameterTypes();
-            String methodName = constantMethodref.getConstantNameAndType()
-                    .getName();
+            ConstantMethodref constantMethodref = (ConstantMethodref) frame.getConstantPool()[this.index];
+            Class[] parameterTypes =
+                    new MethodSignature(constantMethodref.getConstantNameAndType().getDescriptor()).getParameterTypes();
+            String methodName = constantMethodref.getConstantNameAndType().getName();
             if (methodName.equals("<init>"))
             {
                 Object[] args = new Object[parameterTypes.length];
                 for (int i = args.length - 1; i > -1; i--)
                 {
-                    args[i] = Primitive.cast(parameterTypes[i], frame
-                            .getOperandStack().pop());
+                    args[i] = Primitive.cast(parameterTypes[i], frame.getOperandStack().pop());
                 }
                 Object objectRef = frame.getOperandStack().pop();
-                Class instanceClass = ((NEW.UninitializedInstance) objectRef)
-                        .getInstanceClass();
-                Constructor< ? > constructor = ClassUtil.resolveConstructor(
-                        instanceClass, parameterTypes);
+                Class instanceClass = ((NEW.UninitializedInstance) objectRef).getInstanceClass();
+                Constructor<?> constructor = ClassUtil.resolveConstructor(instanceClass, parameterTypes);
                 constructor.setAccessible(true);
                 Object result = constructor.newInstance(args);
                 frame.getOperandStack().replace(objectRef, result);
-                LocalVariable.replace(frame.getLocalVariables(), objectRef,
-                        result);
+                LocalVariable.replace(frame.getLocalVariables(), objectRef, result);
                 return null;
             }
 
-            Object objectRef = frame.getOperandStack().peek(
-                    parameterTypes.length);
+            Object objectRef = frame.getOperandStack().peek(parameterTypes.length);
 
             // Now the normal methods
             Method method = null;
 
             // look if we need to resolve a super() method
-            Class referenceClass = constantMethodref.getConstantClass()
-                    .getValue().getClassValue();
+            Class referenceClass = constantMethodref.getConstantClass().getValue().getClassValue();
             if (objectRef.getClass().getSuperclass().equals(referenceClass))
             {
-                method = ClassUtil.resolveMethod(objectRef.getClass()
-                        .getSuperclass(), methodName, parameterTypes);
-            } else
+                method = ClassUtil.resolveMethod(objectRef.getClass().getSuperclass(), methodName, parameterTypes);
+            }
+            else
             {
-                method = ClassUtil.resolveMethod(objectRef, methodName,
-                        parameterTypes);
+                method = ClassUtil.resolveMethod(objectRef, methodName, parameterTypes);
             }
 
             synchronized (frame.getOperandStack())
@@ -120,13 +104,13 @@ public class INVOKESPECIAL extends InvokeOperation
                 Object[] args = new Object[parameterTypes.length];
                 for (int i = args.length - 1; i > -1; i--)
                 {
-                    args[i] = Primitive.cast(parameterTypes[i], frame
-                            .getOperandStack().pop());
+                    args[i] = Primitive.cast(parameterTypes[i], frame.getOperandStack().pop());
                 }
                 frame.getOperandStack().pop();
                 return this.execute(frame, objectRef, method, args);
             }
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             throw new InterpreterException(exception);
         }
@@ -134,7 +118,6 @@ public class INVOKESPECIAL extends InvokeOperation
 
     /**
      * executes the method on the objectRef
-     * 
      * @param frame the frame
      * @param objectRef the objectRef
      * @param method the method
@@ -142,15 +125,16 @@ public class INVOKESPECIAL extends InvokeOperation
      * @return the resulting Frame
      * @throws Exception on reflection exception
      */
-    public Frame execute(final Frame frame, final Object objectRef,
-            final Method method, final Object[] arguments) throws Exception
+    public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
+            throws Exception
     {
         method.setAccessible(true);
         Object result = null;
         try
         {
             result = method.invoke(objectRef, arguments);
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             frame.getOperandStack().push(exception.getCause());
             throw exception;

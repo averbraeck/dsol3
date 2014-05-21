@@ -14,13 +14,11 @@ import javax.naming.NamingException;
 /**
  * The ContextTransferable class transfers keys in DropNDrag Operations.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version 1.2 2004-03-24
  * @since 1.5
@@ -32,10 +30,8 @@ public class ContextTransferable implements Transferable
 
     /**
      * constructs a new ContextTransferable
-     * 
      * @param object the object to send
-     * @throws NamingException whenever the object cannot be found in the
-     *         context
+     * @throws NamingException whenever the object cannot be found in the context
      */
     public ContextTransferable(final Object object) throws NamingException
     {
@@ -48,12 +44,11 @@ public class ContextTransferable implements Transferable
      */
     public DataFlavor[] getTransferDataFlavors()
     {
-        return new DataFlavor[] { DataFlavor.stringFlavor };
+        return new DataFlavor[]{DataFlavor.stringFlavor};
     }
 
     /**
-     * @see java.awt.datatransfer.Transferable
-     *      #isDataFlavorSupported(java.awt.datatransfer.DataFlavor)
+     * @see java.awt.datatransfer.Transferable #isDataFlavorSupported(java.awt.datatransfer.DataFlavor)
      */
     public boolean isDataFlavorSupported(final DataFlavor flavor)
     {
@@ -65,8 +60,7 @@ public class ContextTransferable implements Transferable
     }
 
     /**
-     * @see java.awt.datatransfer.Transferable
-     *      #getTransferData(java.awt.datatransfer.DataFlavor)
+     * @see java.awt.datatransfer.Transferable #getTransferData(java.awt.datatransfer.DataFlavor)
      */
     public Object getTransferData(final DataFlavor flavor)
     {

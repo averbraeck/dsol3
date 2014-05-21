@@ -12,13 +12,11 @@ import java.io.IOException;
 
 /**
  * A ConstantUTF8 <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -29,20 +27,17 @@ public class ConstantUTF8 extends Constant
 
     /**
      * constructs a new ConstantUTF8
-     * 
      * @param constantPool the constantPool it is part of
      * @param inputStream the inputstream to read from
      * @throws IOException on failure
      */
-    public ConstantUTF8(final Constant[] constantPool,
-            final DataInput inputStream) throws IOException
+    public ConstantUTF8(final Constant[] constantPool, final DataInput inputStream) throws IOException
     {
         this(constantPool, inputStream.readUTF());
     }
 
     /**
      * constructs a new ConstantUTF8
-     * 
      * @param constantPool the constantPool it is part of
      * @param value the content
      */
@@ -63,7 +58,6 @@ public class ConstantUTF8 extends Constant
 
     /**
      * returns the name index
-     * 
      * @return nameIndex
      */
     public String getValue()

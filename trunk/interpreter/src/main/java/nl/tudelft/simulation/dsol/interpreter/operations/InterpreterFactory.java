@@ -13,13 +13,11 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
 
 /**
  * A InterpreterFactory <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version 1.0 Jan 14, 2004 <br>
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -34,22 +32,19 @@ public class InterpreterFactory implements FactoryInterface
     }
 
     /**
-     * @see nl.tudelft.simulation.dsol.interpreter.operations.FactoryInterface#readOperation(java.io.DataInput,
-     *      int)
+     * @see nl.tudelft.simulation.dsol.interpreter.operations.FactoryInterface#readOperation(java.io.DataInput, int)
      */
-    public Operation readOperation(final DataInput dataInput,
-            final int startBytePosition) throws IOException
+    public Operation readOperation(final DataInput dataInput, final int startBytePosition) throws IOException
     {
         int operand = dataInput.readUnsignedByte();
         return this.readOperation(operand, dataInput, startBytePosition);
     }
 
     /**
-     * @see nl.tudelft.simulation.dsol.interpreter.operations.FactoryInterface#readOperation(int,
-     *      java.io.DataInput, int)
+     * @see nl.tudelft.simulation.dsol.interpreter.operations.FactoryInterface#readOperation(int, java.io.DataInput,
+     *      int)
      */
-    public Operation readOperation(final int operand,
-            final DataInput dataInput, final int startBytePositon)
+    public Operation readOperation(final int operand, final DataInput dataInput, final int startBytePositon)
             throws IOException
     {
         switch (operand)
@@ -393,8 +388,7 @@ public class InterpreterFactory implements FactoryInterface
             case LNEG.OP:
                 return new LNEG();
             case LOOKUPSWITCH.OP:
-                return new LOOKUPSWITCH(dataInput,
-                        (4 - ((startBytePositon + 1) % 4)) % 4);
+                return new LOOKUPSWITCH(dataInput, (4 - ((startBytePositon + 1) % 4)) % 4);
             case LOR.OP:
                 return new LOR();
             case LREM.OP:
@@ -454,8 +448,7 @@ public class InterpreterFactory implements FactoryInterface
             case SWAP.OP:
                 return new SWAP();
             case TABLESWITCH.OP:
-                return new TABLESWITCH(dataInput,
-                        (4 - ((startBytePositon + 1) % 4)) % 4);
+                return new TABLESWITCH(dataInput, (4 - ((startBytePositon + 1) % 4)) % 4);
             case WIDE.OP:
                 return new WIDE(dataInput);
             case IMPDEP1:
@@ -465,8 +458,7 @@ public class InterpreterFactory implements FactoryInterface
             case BREAKPOINT:
                 return new NOP();
             default:
-                throw new IOException("Unable to read operation[" + operand
-                        + "]");
+                throw new IOException("Unable to read operation[" + operand + "]");
         }
     }
 }

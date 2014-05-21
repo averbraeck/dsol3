@@ -27,22 +27,17 @@ import javax.swing.WindowConstants;
 import nl.tudelft.simulation.introspection.table.DynamicTableModel;
 
 /**
- * A GUI element for presentation and manipulation of an introspected object.
- * The dialog is 'powered' by an instance of {see ObjectJTable}. The dialog is
- * positioned to a 'parent' window, or displayed centered if no parent window is
+ * A GUI element for presentation and manipulation of an introspected object. The dialog is 'powered' by an instance of
+ * {see ObjectJTable}. The dialog is positioned to a 'parent' window, or displayed centered if no parent window is
  * available.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a
- *         href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels
- *         Lang </a><a href="http://www.peter-jacobs.com/index.htm">Peter
- *         Jacobs </a>
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
+ *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -56,7 +51,6 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * 
      * @param introspected The introspected object
      */
     public IntroSpectionDialog(final Object introspected)
@@ -66,19 +60,16 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * 
      * @param parent The parent window, used for locating the dialog
      * @param introspected The introspected object
      */
     public IntroSpectionDialog(final Window parent, final Object introspected)
     {
-        this(parent, introspected.toString(), new ObjectJTable(
-                new ObjectTableModel(introspected)));
+        this(parent, introspected.toString(), new ObjectJTable(new ObjectTableModel(introspected)));
     }
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * 
      * @param title The title of the frame
      * @param introspected The introspected object
      */
@@ -89,48 +80,38 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * 
      * @param title The title of the dialog
-     * @param content The object table-model containing the data of the
-     *        introspected object
+     * @param content The object table-model containing the data of the introspected object
      */
-    public IntroSpectionDialog(final String title,
-            final IntrospectingTableModelInterface content)
+    public IntroSpectionDialog(final String title, final IntrospectingTableModelInterface content)
     {
         this(null, title, content);
     }
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * 
      * @param parent The parent window, used for locating the dialog
      * @param title The title of the dialog
-     * @param content The object table-model containing the data of the
-     *        introspected object
+     * @param content The object table-model containing the data of the introspected object
      */
-    public IntroSpectionDialog(final Window parent, final String title,
-            final IntrospectingTableModelInterface content)
+    public IntroSpectionDialog(final Window parent, final String title, final IntrospectingTableModelInterface content)
     {
         this(parent, title, new ObjectJTable(content));
     }
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * 
      * @param parent The parent window, used for locating the dialog
      * @param title The title of the dialog
      * @param introspected The introspected object
      */
-    public IntroSpectionDialog(final Frame parent, final Object introspected,
-            final String title)
+    public IntroSpectionDialog(final Frame parent, final Object introspected, final String title)
     {
-        this(parent, title,
-                new ObjectJTable(new ObjectTableModel(introspected)));
+        this(parent, title, new ObjectJTable(new ObjectTableModel(introspected)));
     }
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * 
      * @param title The title of the dialog
      * @param content The table displaying the data of the introspected object
      */
@@ -141,13 +122,11 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * 
      * @param parent The parent window, used for locating the dialog
      * @param title The title of the dialog
      * @param content The table displaying the data of the introspected object
      */
-    public IntroSpectionDialog(final Window parent, final String title,
-            final JTable content)
+    public IntroSpectionDialog(final Window parent, final String title, final JTable content)
     {
         super();
         this.parent = parent;
@@ -156,7 +135,6 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * initializes the dialog
-     * 
      * @param title the title of the dialog
      * @param table the table to display
      */
@@ -167,18 +145,17 @@ public class IntroSpectionDialog extends JDialog
         this.setTitle(title);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.getContentPane().setLayout(new BorderLayout());
-        JScrollPane pane = new JScrollPane(table,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane pane =
+                new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         this.getContentPane().add(pane, BorderLayout.CENTER);
         if (table instanceof ObjectJTableInterface)
         {
             if (((ObjectJTableInterface) table).getIntrospectingTableModel() instanceof DynamicTableModel)
             {
-                DynamicTableModel model = (DynamicTableModel) ((ObjectJTableInterface) table)
-                        .getIntrospectingTableModel();
-                this.getContentPane().add(new ButtonPanel(model, table),
-                        BorderLayout.SOUTH);
+                DynamicTableModel model =
+                        (DynamicTableModel) ((ObjectJTableInterface) table).getIntrospectingTableModel();
+                this.getContentPane().add(new ButtonPanel(model, table), BorderLayout.SOUTH);
             }
         }
         this.pack();
@@ -199,14 +176,12 @@ public class IntroSpectionDialog extends JDialog
         {
             return;
         }
-        this.table.setPreferredScrollableViewportSize(this.table
-                .getPreferredSize());
+        this.table.setPreferredScrollableViewportSize(this.table.getPreferredSize());
         pack();
     }
 
     /**
-     * Initializes the location of this dialog relative to its parent window if
-     * any.
+     * Initializes the location of this dialog relative to its parent window if any.
      */
     protected void setRelativeLocation()
     {
@@ -214,8 +189,7 @@ public class IntroSpectionDialog extends JDialog
     }
 
     /**
-     * The ButtonPanel adds functionality for adding and removing rows in a
-     * table.
+     * The ButtonPanel adds functionality for adding and removing rows in a table.
      */
     class ButtonPanel extends JPanel
     {
@@ -227,7 +201,6 @@ public class IntroSpectionDialog extends JDialog
 
         /**
          * Constructs a new ButtonPanel
-         * 
          * @param model the model to control
          * @param viewer the viewer to control
          */

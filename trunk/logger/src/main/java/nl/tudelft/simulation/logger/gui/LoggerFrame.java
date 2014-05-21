@@ -13,28 +13,24 @@ import javax.swing.WindowConstants;
 
 /**
  * The LoggerFrame <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:39:18 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>, <a
- *         href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
+ * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>, <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
  */
 public class LoggerFrame extends JFrame
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
-    
+
     /** the Logger */
     private Logger logger = null;
 
     /**
      * constructs a new LoggerFrame
-     * 
      * @param logger the logger to see
      */
     public LoggerFrame(final Logger logger)
@@ -60,7 +56,7 @@ public class LoggerFrame extends JFrame
      * @see java.awt.Window#dispose()
      */
     @Override
-	public void dispose()
+    public void dispose()
     {
         LogPanel content = (LogPanel) this.getContentPane();
         content.finalize();

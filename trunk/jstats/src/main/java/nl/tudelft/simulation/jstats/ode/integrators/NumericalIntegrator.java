@@ -11,16 +11,13 @@ import java.io.Serializable;
 import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
 
 /**
- * Provides basic methods for all numerical integration methods. They mostly
- * include matrix computation.
+ * Provides basic methods for all numerical integration methods. They mostly include matrix computation.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
@@ -63,8 +60,8 @@ public abstract class NumericalIntegrator implements Serializable
      * @param equation the differential equation
      * @return the integrator
      */
-    public static NumericalIntegrator resolve(final short integrationMethod,
-            final double timeStep, final DifferentialEquationInterface equation)
+    public static NumericalIntegrator resolve(final short integrationMethod, final double timeStep,
+            final DifferentialEquationInterface equation)
     {
         switch (integrationMethod)
         {
@@ -102,12 +99,10 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * constructs a new NumericalIntegrator
-     * 
      * @param timeStep the timeStep
      * @param equation the differentialEquation
      */
-    public NumericalIntegrator(final double timeStep,
-            final DifferentialEquationInterface equation)
+    public NumericalIntegrator(final double timeStep, final DifferentialEquationInterface equation)
     {
         this.timeStep = timeStep;
         this.equation = equation;
@@ -115,7 +110,6 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * computes the next value
-     * 
      * @param x the x value corresponding to the last y-value computed
      * @param y the last y value
      * @return the new value
@@ -124,7 +118,6 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * multiplies a vector with a constant
-     * 
      * @param constant the constant
      * @param vector the vector
      * @return the new vector
@@ -141,7 +134,6 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds two vectors
-     * 
      * @param a vector a
      * @param b vector b
      * @return the new vector
@@ -158,7 +150,6 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds a number of vectors
-     * 
      * @param a vector a
      * @param b vector b
      * @param c vector c
@@ -176,15 +167,13 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds a number of vectors
-     * 
      * @param a vector a
      * @param b vector b
      * @param c vector c
      * @param d vector d
      * @return the sum
      */
-    protected double[] add(final double[] a, final double[] b,
-            final double[] c, final double[] d)
+    protected double[] add(final double[] a, final double[] b, final double[] c, final double[] d)
     {
         double[] sum = new double[a.length];
         for (int i = 0; i < a.length; i++)
@@ -196,7 +185,6 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds a number of vectors
-     * 
      * @param a vector a
      * @param b vector b
      * @param c vector c
@@ -204,8 +192,7 @@ public abstract class NumericalIntegrator implements Serializable
      * @param e vector e
      * @return the sum
      */
-    protected double[] add(final double[] a, final double[] b,
-            final double[] c, final double[] d, final double[] e)
+    protected double[] add(final double[] a, final double[] b, final double[] c, final double[] d, final double[] e)
     {
         double[] sum = new double[a.length];
         for (int i = 0; i < a.length; i++)
@@ -217,7 +204,6 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds a number of vectors
-     * 
      * @param a vector a
      * @param b vector b
      * @param c vector c
@@ -226,8 +212,7 @@ public abstract class NumericalIntegrator implements Serializable
      * @param f vector f
      * @return the sum
      */
-    protected double[] add(final double[] a, final double[] b,
-            final double[] c, final double[] d, final double[] e,
+    protected double[] add(final double[] a, final double[] b, final double[] c, final double[] d, final double[] e,
             final double[] f)
     {
         double[] sum = new double[a.length];

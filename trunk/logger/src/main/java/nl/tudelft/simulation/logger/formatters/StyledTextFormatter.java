@@ -16,16 +16,13 @@ import java.util.logging.LogRecord;
 
 /**
  * A StyledTextFormatter <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:39:18 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>, <a
- *         href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
+ * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>, <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
  */
 public class StyledTextFormatter extends Formatter
 {
@@ -59,7 +56,6 @@ public class StyledTextFormatter extends Formatter
 
     /**
      * constructs a new StyledTextFormatter
-     * 
      * @param showOrigin whether or not to show the origin
      */
     public StyledTextFormatter(final boolean showOrigin)
@@ -69,22 +65,20 @@ public class StyledTextFormatter extends Formatter
 
     /**
      * tags a message
-     * 
      * @param tag the tag
      * @param message the message
      * @return String
      */
     private String tag(final String tag, final String message)
     {
-        return "<" + tag + ">" + message + "</" + tag + ">"
-                + StyledTextFormatter.SEPARATOR;
+        return "<" + tag + ">" + message + "</" + tag + ">" + StyledTextFormatter.SEPARATOR;
     }
 
     /**
      * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
      */
     @Override
-	public String format(final LogRecord record)
+    public String format(final LogRecord record)
     {
         StringBuffer message = new StringBuffer();
         try
@@ -92,12 +86,12 @@ public class StyledTextFormatter extends Formatter
             // Print level
             Level level = record.getLevel();
             this.date.setTime(record.getMillis());
-            String levelLabel = this.dateFormatter.format(this.date) + " "
-                    + level.getName() + ": ";
+            String levelLabel = this.dateFormatter.format(this.date) + " " + level.getName() + ": ";
             if (level.equals(Level.WARNING) || level.equals(Level.SEVERE))
             {
                 message.append(this.tag(STYLE_WARNING, levelLabel));
-            } else if (!level.equals(Level.INFO))
+            }
+            else if (!level.equals(Level.INFO))
             {
                 message.append(this.tag(STYLE_FINE, levelLabel));
             }
@@ -128,8 +122,7 @@ public class StyledTextFormatter extends Formatter
                 {
                     methodName = record.getSourceMethodName();
                 }
-                String originLog = "Origin: " + sourceName + "#" + methodName
-                        + "\n";
+                String originLog = "Origin: " + sourceName + "#" + methodName + "\n";
                 message.append(this.tag(STYLE_ORIGIN, originLog));
                 if (record.getThrown() != null)
                 {
@@ -139,9 +132,9 @@ public class StyledTextFormatter extends Formatter
                         PrintWriter printWriter = new PrintWriter(stringWriter);
                         record.getThrown().printStackTrace(printWriter);
                         printWriter.close();
-                        message.append(this.tag(STYLE_ORIGIN, stringWriter
-                                .toString()));
-                    } catch (Exception exception)
+                        message.append(this.tag(STYLE_ORIGIN, stringWriter.toString()));
+                    }
+                    catch (Exception exception)
                     {
                         // We neglegt this exception
                         exception = null;
@@ -149,7 +142,8 @@ public class StyledTextFormatter extends Formatter
                 }
             }
             message.append(this.tag(STYLE_DEFAULT, "\n"));
-        } catch (Throwable exception)
+        }
+        catch (Throwable exception)
         {
             System.out.println("Logger formatter exception " + record);
         }

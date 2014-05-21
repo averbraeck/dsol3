@@ -20,39 +20,31 @@ import nl.tudelft.simulation.language.concurrent.Monitor;
 
 /**
  * PROCESSINVOKEVIRTUAL <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
- *         <br>
- *         <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander
- *         Verbraeck </a>
+ * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a> <br>
+ *         <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class PROCESSINVOKEVIRTUAL extends CUSTOMINVOKEVIRTUAL
 {
     /**
      * constructs a new PROCESSINVOKEVIRTUAL
-     * 
      * @param interpreterOracle
      * @param dataInput the dataInput
      * @throws IOException on IOfailure
      */
-    public PROCESSINVOKEVIRTUAL(
-            final InterpreterOracleInterface interpreterOracle,
-            final DataInput dataInput) throws IOException
+    public PROCESSINVOKEVIRTUAL(final InterpreterOracleInterface interpreterOracle, final DataInput dataInput)
+            throws IOException
     {
         super(interpreterOracle, dataInput);
     }
 
     /**
      * executes the operation and returns a new Frame
-     * 
      * @param frame the original frame
      * @param objectRef the object on which to invoke the method
      * @param arguments the arguments with which to invoke the method
@@ -61,14 +53,14 @@ public class PROCESSINVOKEVIRTUAL extends CUSTOMINVOKEVIRTUAL
      * @return a new frame
      */
     @Override
-    public Frame execute(final Frame frame, final Object objectRef,
-            final Method method, final Object[] arguments) throws Exception
+    public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
+            throws Exception
     {
         if (!Process.class.isAssignableFrom(method.getDeclaringClass()))
         {
             return super.execute(frame, objectRef, method, arguments);
         }
-        if(method.getName().equals("resume"))
+        if (method.getName().equals("resume"))
         {
             return super.execute(frame, objectRef, method, arguments);
         }

@@ -11,17 +11,11 @@ import java.io.Serializable;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * @author (c) 2003 <a href="http://www.tudelft.nl">Delft University of
- *         Technology </a>, Delft, the Netherlands <br>
- *         <a href="http://www.tbm.tudelft.nl">Faculty of Technology, Policy and
- *         Management </a> <br>
- *         <a href="http://www.sk.tbm.tudelft.nl">Department of System
- *         Engineering </a> <br>
- *         Main researcher : <a
- *         href="http://www.tbm.tudelft.nl/webstaf/alexandv/">Dr. Ir. A.
- *         Verbraeck <a/><br>
- *         Assistant researchers <a href="http://www.peter-jacobs.com">Ir.
- *         P.H.M. Jacobs </a> and <a
+ * @author (c) 2003 <a href="http://www.tudelft.nl">Delft University of Technology </a>, Delft, the Netherlands <br>
+ *         <a href="http://www.tbm.tudelft.nl">Faculty of Technology, Policy and Management </a> <br>
+ *         <a href="http://www.sk.tbm.tudelft.nl">Department of System Engineering </a> <br>
+ *         Main researcher : <a href="http://www.tbm.tudelft.nl/webstaf/alexandv/">Dr. Ir. A. Verbraeck <a/><br>
+ *         Assistant researchers <a href="http://www.peter-jacobs.com">Ir. P.H.M. Jacobs </a> and <a
  *         href="http://www.tbm.tudelft.nl/webstaf/nielsl">Ir. N.A. Lang </a>
  */
 public class SubTestBean implements Serializable
@@ -49,20 +43,16 @@ public class SubTestBean implements Serializable
 
     /**
      * Getter for property firstProperty.
-     * 
      * @return Value of property firstProperty.
      */
     public String getFirstProperty()
     {
-        Logger
-                .info(this, "getFirstProperty", this.firstProperty
-                        + "requested.");
+        Logger.info(this, "getFirstProperty", this.firstProperty + "requested.");
         return this.firstProperty;
     }
 
     /**
      * Setter for property firstProperty.
-     * 
      * @param firstProperty New value of property firstProperty.
      */
     public void setFirstProperty(final String firstProperty)
@@ -73,19 +63,16 @@ public class SubTestBean implements Serializable
 
     /**
      * Getter for property secondProperty.
-     * 
      * @return Value of property secondProperty.
      */
     public String getSecondProperty()
     {
-        Logger.info(this, "getSecondProperty", this.secondProperty
-                + "requested.");
+        Logger.info(this, "getSecondProperty", this.secondProperty + "requested.");
         return this.secondProperty;
     }
 
     /**
      * Setter for property secondProperty.
-     * 
      * @param secondProperty New value of property secondProperty.
      */
     public void setSecondProperty(final String secondProperty)
@@ -96,7 +83,6 @@ public class SubTestBean implements Serializable
 
     /**
      * Getter for property intProp.
-     * 
      * @return Value of property intProp.
      */
     public int getIntProp()
@@ -107,7 +93,6 @@ public class SubTestBean implements Serializable
 
     /**
      * Setter for property intProp.
-     * 
      * @param intProp New value of property intProp.
      */
     public void setIntProp(final int intProp)
@@ -118,7 +103,6 @@ public class SubTestBean implements Serializable
 
     /**
      * Getter for property color.
-     * 
      * @return Value of property color.
      */
     public Color getColor()
@@ -128,7 +112,6 @@ public class SubTestBean implements Serializable
 
     /**
      * Setter for property color.
-     * 
      * @param color New value of property color.
      */
     public void setColor(final Color color)
@@ -138,7 +121,6 @@ public class SubTestBean implements Serializable
 
     /**
      * Getter for property font.
-     * 
      * @return Value of property font.
      */
     public Font getFont()
@@ -148,7 +130,6 @@ public class SubTestBean implements Serializable
 
     /**
      * Setter for property font.
-     * 
      * @param font New value of property font.
      */
     public void setFont(final Font font)
@@ -162,7 +143,7 @@ public class SubTestBean implements Serializable
     @Override
     public String toString()
     {
-        return "" + this.getColor() + this.getFirstProperty() + this.getFont()
-                + this.getIntProp() + this.getSecondProperty();
+        return "" + this.getColor() + this.getFirstProperty() + this.getFont() + this.getIntProp()
+                + this.getSecondProperty();
     }
 }

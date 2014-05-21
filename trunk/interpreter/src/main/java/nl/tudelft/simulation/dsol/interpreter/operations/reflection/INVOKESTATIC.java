@@ -21,19 +21,14 @@ import nl.tudelft.simulation.language.reflection.MethodSignature;
 
 /**
  * INVOKESTATIC <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version 1.0 $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
- *         <br>
- *         <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander
- *         Verbraeck </a>
+ * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a> <br>
+ *         <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class INVOKESTATIC extends InvokeOperation
 {
@@ -45,7 +40,6 @@ public class INVOKESTATIC extends InvokeOperation
 
     /**
      * constructs a new INVOKESTATIC
-     * 
      * @param dataInput the dataInput
      * @throws IOException on IOfailure
      */
@@ -65,18 +59,13 @@ public class INVOKESTATIC extends InvokeOperation
         try
         {
             Method method = null;
-            ConstantMethodref constantMethodref = (ConstantMethodref) frame
-                    .getConstantPool()[this.index];
-            Class referenceClass = constantMethodref.getConstantClass()
-                    .getValue().getClassValue();
-            Class[] parameterTypes = new MethodSignature(constantMethodref
-                    .getConstantNameAndType().getDescriptor())
-                    .getParameterTypes();
+            ConstantMethodref constantMethodref = (ConstantMethodref) frame.getConstantPool()[this.index];
+            Class referenceClass = constantMethodref.getConstantClass().getValue().getClassValue();
+            Class[] parameterTypes =
+                    new MethodSignature(constantMethodref.getConstantNameAndType().getDescriptor()).getParameterTypes();
 
-            String methodName = constantMethodref.getConstantNameAndType()
-                    .getName();
-            method = ClassUtil.resolveMethod(referenceClass, methodName,
-                    parameterTypes);
+            String methodName = constantMethodref.getConstantNameAndType().getName();
+            method = ClassUtil.resolveMethod(referenceClass, methodName, parameterTypes);
 
             synchronized (frame.getOperandStack())
             {
@@ -84,13 +73,12 @@ public class INVOKESTATIC extends InvokeOperation
                 Object[] args = new Object[parameterTypes.length];
                 for (int i = args.length - 1; i > -1; i--)
                 {
-                    args[i] = Primitive.cast(parameterTypes[i], frame
-                            .getOperandStack().pop());
+                    args[i] = Primitive.cast(parameterTypes[i], frame.getOperandStack().pop());
                 }
-                return this.execute(frame, method.getDeclaringClass(), method,
-                        args);
+                return this.execute(frame, method.getDeclaringClass(), method, args);
             }
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             throw new InterpreterException(exception);
         }
@@ -98,7 +86,6 @@ public class INVOKESTATIC extends InvokeOperation
 
     /**
      * executes the method on the objectRef
-     * 
      * @param frame the frame
      * @param objectRef the objectRef
      * @param method the method
@@ -106,15 +93,16 @@ public class INVOKESTATIC extends InvokeOperation
      * @return the resulting Frame
      * @throws Exception on reflection exception
      */
-    public Frame execute(final Frame frame, final Object objectRef,
-            final Method method, final Object[] arguments) throws Exception
+    public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
+            throws Exception
     {
         method.setAccessible(true);
         Object result = null;
         try
         {
             result = method.invoke(objectRef, arguments);
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             frame.getOperandStack().push(exception.getCause());
             throw exception;

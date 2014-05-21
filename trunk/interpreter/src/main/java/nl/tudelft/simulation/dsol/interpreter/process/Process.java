@@ -17,15 +17,12 @@ import nl.tudelft.simulation.language.reflection.ClassUtil;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * The Process class is an abstract Process which can be suspended and resumed.
- * <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * The Process class is an abstract Process which can be suspended and resumed. <br>
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -44,8 +41,7 @@ public abstract class Process extends EventProducer
     public static final short DEAD = 3;
 
     /** the EventType */
-    public static final EventType STATE_CHANGE_EVENT = new EventType(
-            "STATE_CHANGE_EVENT");
+    public static final EventType STATE_CHANGE_EVENT = new EventType("STATE_CHANGE_EVENT");
 
     /** the state of the process */
     protected short state = Process.INITIAL;
@@ -61,9 +57,9 @@ public abstract class Process extends EventProducer
         super();
         try
         {
-            this.frameStack.push(Interpreter.createFrame(this, ClassUtil
-                    .resolveMethod(this, "process", null), null));
-        } catch (Exception exception)
+            this.frameStack.push(Interpreter.createFrame(this, ClassUtil.resolveMethod(this, "process", null), null));
+        }
+        catch (Exception exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -81,15 +77,15 @@ public abstract class Process extends EventProducer
         }
         if (this.state == EXECUTING)
         {
-            throw new IllegalStateException(
-                    "Cannot resume a process in state==executing");
+            throw new IllegalStateException("Cannot resume a process in state==executing");
         }
         try
         {
             this.setState(Process.EXECUTING);
             this.frameStack.peek().setPaused(false);
             Interpreter.interpret(this.frameStack);
-        } catch (InterpreterException exception)
+        }
+        catch (InterpreterException exception)
         {
             exception.printStackTrace();
             Logger.warning(this, "<init>", exception);
@@ -97,8 +93,7 @@ public abstract class Process extends EventProducer
     }
 
     /**
-     * cancels this process entirely. After the process.cancel() is invoked a
-     * process can no longer be resumed.
+     * cancels this process entirely. After the process.cancel() is invoked a process can no longer be resumed.
      */
     public void cancel()
     {
@@ -119,15 +114,13 @@ public abstract class Process extends EventProducer
      */
     public final void suspend()
     {
-        throw new IllegalStateException(
-                "suspend should be interpreted."
-                        + " One may not invoke this method directly. If this exception occurs, "
-                        + "make sure that the method that invoked it, was interpreted.");
+        throw new IllegalStateException("suspend should be interpreted."
+                + " One may not invoke this method directly. If this exception occurs, "
+                + "make sure that the method that invoked it, was interpreted.");
     }
 
     /**
      * sets the state of the process
-     * 
      * @param state the new state
      */
     protected final void setState(final short state)
@@ -135,8 +128,7 @@ public abstract class Process extends EventProducer
         // Let's check for a reliable order
         if (this.state == Process.SUSPENDED && state == Process.SUSPENDED)
         {
-            throw new IllegalStateException(
-                    "Cannot suspend a suspended process");
+            throw new IllegalStateException("Cannot suspend a suspended process");
         }
         this.state = state;
         super.fireEvent(STATE_CHANGE_EVENT, state);
@@ -144,7 +136,6 @@ public abstract class Process extends EventProducer
 
     /**
      * Returns the state of a process
-     * 
      * @return the state
      */
     public short getState()

@@ -13,15 +13,12 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * href="http://mathworld.wolfram.com/ContinuousDistribution.html">
  * http://mathworld.wolfram.com/ContinuousDistribution.html </a>
  * <p>
- * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a href="mailto:a.verbraeck@tudelft.nl">
- *         Alexander Verbraeck </a> <br>
+ * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
+ * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
  *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
  * @since 1.5
@@ -30,7 +27,6 @@ public abstract class DistContinuous extends Dist
 {
     /**
      * constructs a new continuous distribution
-     * 
      * @param stream the stream
      */
     public DistContinuous(final StreamInterface stream)
@@ -39,16 +35,13 @@ public abstract class DistContinuous extends Dist
     }
 
     /**
-     * draws the next stream value according to the probability of this this
-     * distribution.
-     * 
+     * draws the next stream value according to the probability of this this distribution.
      * @return the next double value drawn.
      */
     public abstract double draw();
 
     /**
      * returns the propbability density value of an observation
-     * 
      * @param observation the observation.
      * @return double the probability density.
      */

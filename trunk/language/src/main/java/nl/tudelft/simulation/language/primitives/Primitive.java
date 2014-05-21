@@ -6,41 +6,32 @@
 package nl.tudelft.simulation.language.primitives;
 
 /**
- * The Primitive class is a utility class to deal with primitives. Besides
- * widening and unwidening this class casts and parses UTF8 strings into
- * appropriate primitive classes.
+ * The Primitive class is a utility class to deal with primitives. Besides widening and unwidening this class casts and
+ * parses UTF8 strings into appropriate primitive classes.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/">
- * www.simulation.tudelft.nl</a>.
+ * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ * following conditions are met:
  * <ul>
- * <li>Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.</li>
+ * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ * disclaimer.</li>
+ * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+ * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.</li>
  * </ul>
- * This software is provided by the copyright holders and contributors "as is"
- * and any express or implied warranties, including, but not limited to, the
- * implied warranties of merchantability and fitness for a particular purpose
- * are disclaimed. In no event shall the copyright holder or contributors be
- * liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of
- * substitute goods or services; loss of use, data, or profits; or business
- * interruption) however caused and on any theory of liability, whether in
- * contract, strict liability, or tort (including negligence or otherwise)
- * arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
- * 
+ * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+ * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
+ * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
+ * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
+ * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
+ * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
+ * of this software, even if advised of the possibility of such damage.
  * @version $Revision: 1.2 $ $Date: 2009/10/21 07:32:43 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -57,7 +48,6 @@ public final class Primitive
 
     /**
      * casts a set of values to classes.
-     * 
      * @param classes the classes to cast to
      * @param values the values
      * @return the newly creates values
@@ -73,7 +63,6 @@ public final class Primitive
 
     /**
      * casts an object to a instance of clazz.
-     * 
      * @param clazz the class to cast to
      * @param object the object to cast
      * @return the casted object
@@ -137,11 +126,8 @@ public final class Primitive
     }
 
     /**
-     * returns the primitiveClass of the name given as defined by the Java VM
-     * class constants. (i.e. both "int" and "I" return int.class). Both void
-     * and "V" return void.class. null is returned whenever an unknown className
-     * is given.
-     * 
+     * returns the primitiveClass of the name given as defined by the Java VM class constants. (i.e. both "int" and "I"
+     * return int.class). Both void and "V" return void.class. null is returned whenever an unknown className is given.
      * @param className the className
      * @return Class the primitiveClass
      */
@@ -188,10 +174,8 @@ public final class Primitive
 
     /**
      * gets the primitive of the given wrapperClass.
-     * 
      * @param wrapperClass the wrapper class
-     * @return the primitive Class. null is returned whenever wrapperClass is
-     *         not a wrapperclass.
+     * @return the primitive Class. null is returned whenever wrapperClass is not a wrapperclass.
      */
     public static Class<?> getPrimitive(final Class<?> wrapperClass)
     {
@@ -232,10 +216,8 @@ public final class Primitive
 
     /**
      * gets the wrapper of this primitive class.
-     * 
      * @param primitiveClass the primitive class
-     * @return the Class. null is returned whenever wrapperClass is not a
-     *         wrapperclass.
+     * @return the Class. null is returned whenever wrapperClass is not a wrapperclass.
      */
     public static Class<?> getWrapper(final Class<?> primitiveClass)
     {
@@ -276,7 +258,6 @@ public final class Primitive
 
     /**
      * casts an object to Boolean.
-     * 
      * @param object the object
      * @return Boolean
      */
@@ -300,7 +281,6 @@ public final class Primitive
 
     /**
      * casts an object to Byte.
-     * 
      * @param object the object
      * @return Byte
      */
@@ -315,7 +295,6 @@ public final class Primitive
 
     /**
      * casts an object to Character.
-     * 
      * @param object the object to parse
      * @return Integer the result
      */
@@ -330,7 +309,6 @@ public final class Primitive
 
     /**
      * casts an object to Double.
-     * 
      * @param object the object to parse
      * @return Integer the result
      */
@@ -341,7 +319,6 @@ public final class Primitive
 
     /**
      * casts an object to Float.
-     * 
      * @param object the object to parse
      * @return Float the result
      */
@@ -352,7 +329,6 @@ public final class Primitive
 
     /**
      * casts an object to Long.
-     * 
      * @param object the object to parse
      * @return Long the result
      */
@@ -363,7 +339,6 @@ public final class Primitive
 
     /**
      * casts an object to Short.
-     * 
      * @param object the object to parse
      * @return Long the result
      */
@@ -374,7 +349,6 @@ public final class Primitive
 
     /**
      * casts an object to Integer.
-     * 
      * @param object the object to parse
      * @return Integer the result
      */

@@ -7,16 +7,13 @@
 package nl.tudelft.simulation.jstats.math;
 
 /**
- * The PropMath class defines some very basic probabilistic mathematical
- * functions.
+ * The PropMath class defines some very basic probabilistic mathematical functions.
  * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
@@ -34,7 +31,6 @@ public final class ProbMath
 
     /**
      * computes the faculty of n.
-     * 
      * @param n is the input
      * @return faculty of n
      */
@@ -58,7 +54,6 @@ public final class ProbMath
 
     /**
      * computes the permutations of n over m.
-     * 
      * @param n the first parameter
      * @param m the second parameter
      * @return the permutations of n over m
@@ -67,8 +62,7 @@ public final class ProbMath
     {
         if (m > n)
         {
-            throw new IllegalArgumentException(
-                    "permutations of (n,m) with m>n ?...");
+            throw new IllegalArgumentException("permutations of (n,m) with m>n ?...");
         }
         return faculty(n) / (faculty(m) * faculty(n - m));
     }

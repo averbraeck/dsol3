@@ -13,19 +13,16 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
 /**
  * The DifferentialEquation is the abstract basis for
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
+ * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:41 $
  * @since 1.5
  */
-public abstract class DifferentialEquation extends EventProducer implements
-        DifferentialEquationInterface
+public abstract class DifferentialEquation extends EventProducer implements DifferentialEquationInterface
 {
 
     /**
@@ -44,7 +41,6 @@ public abstract class DifferentialEquation extends EventProducer implements
 
     /**
      * constructs a new DifferentialEquation with default integrator.
-     * 
      * @param timeStep the timeStep to use.
      */
     public DifferentialEquation(final double timeStep)
@@ -54,12 +50,10 @@ public abstract class DifferentialEquation extends EventProducer implements
 
     /**
      * constructs a new DifferentialEquation with a user-specified integrator.
-     * 
      * @param timeStep the timeStep to use.
      * @param integrator the integrator to use.
      */
-    public DifferentialEquation(final double timeStep,
-            final NumericalIntegrator integrator)
+    public DifferentialEquation(final double timeStep, final NumericalIntegrator integrator)
     {
         super();
         this.timeStep = timeStep;
@@ -68,22 +62,18 @@ public abstract class DifferentialEquation extends EventProducer implements
 
     /**
      * constructs a new DifferentialEquation with a preselected integrator.
-     * 
      * @param timeStep the timeStep to use.
      * @param integrationMethod the integrator to use.
      */
-    public DifferentialEquation(final double timeStep,
-            final short integrationMethod)
+    public DifferentialEquation(final double timeStep, final short integrationMethod)
     {
         super();
         this.timeStep = timeStep;
-        this.integrator = NumericalIntegrator.resolve(integrationMethod,
-                timeStep, this);
+        this.integrator = NumericalIntegrator.resolve(integrationMethod, timeStep, this);
     }
 
     /**
-     * @see nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface#initialize(double,
-     *      double[])
+     * @see nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface#initialize(double, double[])
      */
     public void initialize(final double x, final double[] y)
     {
@@ -111,14 +101,12 @@ public abstract class DifferentialEquation extends EventProducer implements
 
     /**
      * integrates Y
-     * 
      * @param x the x-value
      * @param initialX the initial X value
      * @param initialY the initial Y value
      * @return the new Y value
      */
-    protected double[] integrateY(final double x, double initialX,
-            double[] initialY)
+    protected double[] integrateY(final double x, double initialX, double[] initialY)
     {
         // we request the new value from the integrator.
         while (x > initialX + this.timeStep)
