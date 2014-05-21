@@ -73,7 +73,7 @@
 		<testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
 		<outputDirectory>${basedir}/target/classes</outputDirectory>
 		<testOutputDirectory> ${basedir}/target/test-classes</testOutputDirectory>
-		
+
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -342,6 +342,15 @@
 				<role>developer</role>
 			</roles>
 			<timezone>1</timezone>
+		</contributor>
+		<contributor>
+			<name>Mamadou Seck</name>
+			<organization>Old Dominion University, USA</organization>
+			<organizationUrl>http://www.odu.edu</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>-5</timezone>
 		</contributor>
 	</contributors>
 
