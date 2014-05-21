@@ -1,0 +1,14 @@
+
+dsol logger project
+
+	The DSOL simulation suite contains a logger service which is based on Java’s
+	logging mechanism. The value of this service is that output, debug information, 
+	warnings, etc. produced by objects in the suite are captured and, after they are 
+	filtered and formatted, presented to subscribed listeners.	
+	DSOL’s Logger service provides a set of filters and formatters to provide
+	distributed logging.
+	
+	In a next version of dsol, the service might be replaced by or wrapped by log4j, 
+	as the latest version of log4j contain fast and efficient code that offers much
+	more possibilities than the current logging mechanism in dsol.
+	 	
