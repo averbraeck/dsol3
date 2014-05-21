@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<document>
+	<properties>
+		<author email="a.verbraeck@tudelft.nl">Alexander Verbraeck</author>
+		<title>changes to NAMING project</title>
+	</properties>
+	<body>
+		<release version="2.0.13" date="2009-06-06">
+			<action dev="alexandv" type="update">Last updates for Java 1.5 made</action>
+			<action dev="alexandv" type="update">documentation pages extended</action>
+		</release>
+		<release version="2.0.11" date="2007-11-10">
+			<action dev="alexandv" type="update">Changed directory structure for Maven 2</action>
+			<action dev="alexandv" type="fix">Serializability added for a few classes</action>
+			<action dev="alexandv" type="update">serialVersionUID field added for most classes</action>
+		</release>
+       	<release version="2.0.0-ALPHA" date="2005-06-29">
+			<action dev="PeterJacobs" type="update">Targetted on JVM 1.5 platform</action>
+		</release>    
+   		<release version="1.6.3" date="2004-12-15">
+            <action dev="PeterJacobs" type="fix">Javadoc</action>
+            <action dev="PeterJacobs" type="update">Licence changed from GPL to LGPL</action>            
+        </release>
+        <release version="1.6.2" date="2004-09-29">
+            <action dev="PeterJacobs" type="fix">Project dependencies</action>
+        </release>
+        <release version="1.6.1" date="2004-09-28">
+            <action dev="PeterJacobs" type="add">NAMING became a maven project</action>
+        </release>
+    </body>
+</document>
