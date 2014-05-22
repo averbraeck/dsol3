@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dsol="http://www.simulation.tudelft.nl"
+  targetNamespace="http://www.simulation.tudelft.nl"
+>
+
+  <!-- ############################### ROOT DEFINITION OF EXPERIMENT ######################### -->
+
+  <xsd:element name="experimentalFrame">
+    <xsd:complexType mixed="true">
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" minOccurs="1" name="experiment" type="dsol:experiment" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="experiment" mixed="true">
+    <xsd:all>
+      <xsd:element maxOccurs="1" minOccurs="0" name="name" type="xsd:string" />
+      <xsd:element maxOccurs="1" minOccurs="0" name="analyst" type="xsd:string" />
+      <xsd:element maxOccurs="1" minOccurs="1" name="model" type="dsol:model" />
+      <xsd:element maxOccurs="1" minOccurs="0" name="simulator-class" type="xsd:string" />
+      <xsd:element maxOccurs="1" minOccurs="1" name="treatment" type="dsol:treatment" />
+      <xsd:element maxOccurs="1" minOccurs="1" name="replications" type="dsol:replications" />
+    </xsd:all>
+  </xsd:complexType>
+
+  <!-- ######################################################################################### -->
+
+  <xsd:complexType name="treatment" mixed="true">
+    <xsd:sequence>
+      <xsd:element name="startTime" maxOccurs="1" minOccurs="0" type="xsd:dateTime" />
+      <xsd:element name="timeUnit" default="UNIT" maxOccurs="1" minOccurs="1" type="dsol:timeUnit" />
+      <xsd:element name="warmupPeriod" maxOccurs="1" minOccurs="0" type="dsol:period" />
+      <xsd:element name="runLength" maxOccurs="1" minOccurs="0" type="dsol:period" />
+      <xsd:element name="properties" maxOccurs="1" minOccurs="0" type="dsol:properties" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="replications">
+    <xsd:sequence>
+      <xsd:element name="replication" maxOccurs="unbounded" minOccurs="1" type="dsol:replication" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="properties">
+    <xsd:sequence>
+      <xsd:element name="property" maxOccurs="unbounded" minOccurs="1" type="dsol:property" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="property">
+    <xsd:complexContent>
+      <xsd:restriction base="xsd:anyType">
+        <xsd:attribute name="key" type="xsd:string" />
+        <xsd:attribute name="value" type="xsd:string" />
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="period">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:double">
+        <xsd:attribute name="unit" type="dsol:timeUnit" use="required" />
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="model">
+    <xsd:sequence>
+      <xsd:element name="model-class" maxOccurs="1" minOccurs="1" type="xsd:string" />
+      <xsd:element name="class-path" maxOccurs="1" minOccurs="0" type="dsol:classPath" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="classPath">
+    <xsd:sequence>
+      <xsd:element name="jar-file" maxOccurs="unbounded" minOccurs="1" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="replication">
+    <xsd:sequence>
+      <xsd:element name="stream" maxOccurs="unbounded" minOccurs="1" type="dsol:stream" />
+    </xsd:sequence>
+    <xsd:attribute name="description" type="xsd:string" />
+  </xsd:complexType>
+
+  <xsd:complexType name="stream">
+    <xsd:attribute name="name" type="xsd:string" use="required" />
+    <xsd:attribute name="seed" type="xsd:positiveInteger" use="required" />
+  </xsd:complexType>
+
+  <xsd:simpleType name="timeUnit">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MILLISECOND" />
+      <xsd:enumeration value="SECOND" />
+      <xsd:enumeration value="MINUTE" />
+      <xsd:enumeration value="HOUR" />
+      <xsd:enumeration value="DAY" />
+      <xsd:enumeration value="WEEK" />
+      <xsd:enumeration value="YEAR" />
+      <xsd:enumeration value="UNIT" />
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
