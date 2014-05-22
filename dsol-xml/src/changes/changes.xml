@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<document>
+	<properties>
+		<author email="a.verbraeck@tudelft.nl">Alexander Verbraeck</author>
+		<title>changes to DSOL-XML</title>
+	</properties>
+	<body>
+		<release version="2.1.0" date="2009-10-31">
+			<action dev="alexandv" type="update">Experiment xsd-file changed to move replications to the experiment instead of the treatment. The individual replication elements need to be surrounded by a replications element. This means that experiment xml-files need to be updated!</action>
+            <action dev="alexandv" type="fix">Changed the URLClassLoader to look in /target/classes instead of /bin, as the default output directories have changed with the use of Maven-2</action>
+		</release>
+		<release version="2.0.11" date="2007-11-10">
+			<action dev="alexandv" type="update">Changed directory structure for Maven 2</action>
+			<action dev="alexandv" type="fix">Serializability added for a few classes</action>
+			<action dev="alexandv" type="update">serialVersionUID field added for most classes</action>
+		</release>
+       	<release version="2.0.0-ALPHA" date="2005-06-29">
+			<action dev="PeterJacobs" type="update">Targetted on JVM 1.5 platform</action>
+			<action dev="PeterJacobs" type="update">Experiment is redefined; xsd and parsing code according.</action>
+		</release>
+	    <release version="1.6.4" date="2004-12-15">
+		    <action dev="PeterJacobs" type="fix">Javadoc</action>
+            <action dev="PeterJacobs" type="update">Licence changed from GPL to LGPL</action>            
+        </release>
+        <release version="1.6.2" date="2004-09-28">
+            <action dev="PeterJacobs" type="fix">Project dependencies</action>
+        </release>
+        <release version="1.6.1" date="2004-09-28">
+            <action dev="PeterJacobs" type="add">DSOL-XML became a maven project</action>
+        </release>
+    </body>
+</document>
