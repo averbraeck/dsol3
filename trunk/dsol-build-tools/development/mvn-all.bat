@@ -17,6 +17,9 @@ FOR %%A IN (
 	jstats-charts
 	dsol
 	dsol-xml
+	gisbeans
+	dsol-animation
+	dsol-gui
 ) DO FOR %%B IN (
 	%*
 ) DO CALL "%~dp0mvn-cmd.bat" %%~dp0..\..\%%A %%B
