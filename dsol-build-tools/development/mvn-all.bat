@@ -14,6 +14,9 @@ FOR %%A IN (
 	interpreter
 	introspection
 	jstats
+	jstats-charts
+	dsol
+	dsol-xml
 ) DO FOR %%B IN (
 	%*
 ) DO CALL "%~dp0mvn-cmd.bat" %%~dp0..\..\%%A %%B
