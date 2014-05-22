@@ -6,7 +6,6 @@
 		<artifactId>dsol-base</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 	</parent>
-	<groupId>gisbeans</groupId>
 	<artifactId>gisbeans</artifactId>
 	<name>GISBEANS project to read ESRI Shape files for animation</name>
 	<description>The gisbeans library for the DSOL suite enables quick reading of ESRI Shape files</description>
