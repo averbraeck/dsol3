@@ -7,11 +7,24 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.EventType;
 
 /**
@@ -114,6 +127,33 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
+    void scheduleEventAbs(A absoluteTime, Object source, Object target, String method, Object[] args)
+            throws RemoteException, SimRuntimeException;
+
+    /**
+     * schedules a methodCall at an absolute time.
+     * @param absoluteTime the exact time to schedule the method on the simulator.
+     * @param priority the priority compared to other events scheduled at the same time.
+     * @param source the source of the event
+     * @param target the target
+     * @param method the method
+     * @param args the arguments.
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventAbs(A absoluteTime, short priority, Object source, Object target, String method, Object[] args)
+            throws RemoteException, SimRuntimeException;
+
+    /**
+     * schedules a methodCall at an absolute time.
+     * @param absoluteTime the exact time to schedule the method on the simulator.
+     * @param source the source of the event
+     * @param target the target
+     * @param method the method
+     * @param args the arguments.
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
     void scheduleEventAbs(T absoluteTime, Object source, Object target, String method, Object[] args)
             throws RemoteException, SimRuntimeException;
 
@@ -149,4 +189,63 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws SimRuntimeException whenever simulator.isRunning()==true
      */
     void setEventList(EventListInterface<T> eventList) throws RemoteException, SimRuntimeException;
+    
+    /***********************************************************************************************************/
+    /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access interface DEVSSimulatorInterface.Double */
+    public static interface Double extends DEVSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface DEVSSimulatorInterface.Float */
+    public static interface Float extends DEVSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface DEVSSimulatorInterface.Long */
+    public static interface Long extends DEVSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface DEVSSimulatorInterface.DoubleUnit */
+    public static interface DoubleUnit extends DEVSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface DEVSSimulatorInterface.FloatUnit */
+    public static interface FloatUnit extends DEVSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface DEVSSimulatorInterface.LongUnit */
+    public static interface LongUnit extends DEVSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface DEVSSimulatorInterface.CalendarDouble */
+    public static interface CalendarDouble extends DEVSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface DEVSSimulatorInterface.CalendarFloat */
+    public static interface CalendarFloat extends DEVSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface DEVSSimulatorInterface.CalendarLong */
+    public static interface CalendarLong extends DEVSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    {
+        // typed extension
+    }
+
 }

@@ -13,6 +13,7 @@ import nl.tudelft.simulation.dsol.ModelInterface;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.formalisms.process.TestExperimentalFrame;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -54,8 +55,8 @@ public class Model implements ModelInterface
     public void constructModel(final SimulatorInterface simulator) throws SimRuntimeException, RemoteException
     {
         this.simulator = simulator;
-        DEVSSimulatorInterface devsSimulator = (DEVSSimulatorInterface) simulator;
-        devsSimulator.scheduleEvent(10.0, this, this, "pause", null);
+        DEVSSimulatorInterface devsSimulator = (DEVSSimulatorInterface.Double) simulator;
+        devsSimulator.scheduleEventAbs(new SimTimeDouble(10.0), this, this, "pause", null);
     }
 
     /**

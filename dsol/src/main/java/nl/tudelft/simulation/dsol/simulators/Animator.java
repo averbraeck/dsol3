@@ -6,8 +6,22 @@
  */
 package nl.tudelft.simulation.dsol.simulators;
 
+import java.util.Calendar;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
@@ -109,4 +123,153 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
             this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
         }
     }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class Animator.Double */
+    public static class Double extends Animator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
+            AnimatorInterface.Double
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Double(final java.lang.Double initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class Animator.Float */
+    public static class Float extends Animator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
+            AnimatorInterface.Float
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Float(final java.lang.Float initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class Animator.Long */
+    public static class Long extends Animator<java.lang.Long, java.lang.Long, SimTimeLong> implements
+            AnimatorInterface.Long
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Long(final java.lang.Long initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class Animator.DoubleUnit */
+    public static class DoubleUnit extends Animator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
+            AnimatorInterface.DoubleUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public DoubleUnit(final UnitTimeDouble initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class Animator.FloatUnit */
+    public static class FloatUnit extends Animator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
+            AnimatorInterface.FloatUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public FloatUnit(final UnitTimeFloat initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class Animator.LongUnit */
+    public static class LongUnit extends Animator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            AnimatorInterface.LongUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public LongUnit(final UnitTimeLong initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class Animator.CalendarDouble */
+    public static class CalendarDouble extends Animator<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
+            AnimatorInterface.CalendarDouble
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarDouble(final UnitTimeDouble initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class Animator.CalendarFloat */
+    public static class CalendarFloat extends Animator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
+            AnimatorInterface.CalendarFloat
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarFloat(final UnitTimeFloat initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class Animator.CalendarLong */
+    public static class CalendarLong extends Animator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
+            AnimatorInterface.CalendarLong
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarLong(final UnitTimeLong initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
 }

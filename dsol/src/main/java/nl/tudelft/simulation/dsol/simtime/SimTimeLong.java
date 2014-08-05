@@ -63,6 +63,15 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
     }
 
     /**
+     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
+     */
+    @Override
+    public Long minus(final SimTimeLong absoluteTime)
+    {
+        return this.get().longValue() - absoluteTime.get().longValue();
+    }
+
+    /**
      * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
      */
     @Override

@@ -6,8 +6,22 @@
  */
 package nl.tudelft.simulation.dsol.simulators;
 
+import java.util.Calendar;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
 
@@ -28,8 +42,8 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        Animator<A, R, T> implements DEVDESSSimulatorInterface<A, R, T>
+public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends Animator<A, R, T> implements DEVDESSSimulatorInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -66,7 +80,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
                 && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
         {
             long now = System.currentTimeMillis();
-            T runUntil = this.simulatorTime.plus(this.timeStep); // TODO: (now - this.startTime) + this.timeStep.longValue();
+            T runUntil = this.simulatorTime.plus(this.timeStep); // TODO: (now - this.startTime) +
+                                                                 // this.timeStep.longValue();
             while (!this.eventList.isEmpty() && this.running
                     && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
@@ -136,4 +151,153 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
     {
         this.animationDelay = animationDelay;
     }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class RealTimeClock.Double */
+    public class Double extends RealTimeClock<java.lang.Double, java.lang.Double, SimTimeDouble> implements
+            DEVDESSSimulatorInterface.Double
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Double(final java.lang.Double initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class RealTimeClock.Float */
+    public class Float extends RealTimeClock<java.lang.Float, java.lang.Float, SimTimeFloat> implements
+            DEVDESSSimulatorInterface.Float
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Float(final java.lang.Float initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class RealTimeClock.Long */
+    public class Long extends RealTimeClock<java.lang.Long, java.lang.Long, SimTimeLong> implements
+            DEVDESSSimulatorInterface.Long
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Long(final java.lang.Long initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class RealTimeClock.DoubleUnit */
+    public class DoubleUnit extends RealTimeClock<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
+            DEVDESSSimulatorInterface.DoubleUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public DoubleUnit(final UnitTimeDouble initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class RealTimeClock.FloatUnit */
+    public class FloatUnit extends RealTimeClock<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
+            DEVDESSSimulatorInterface.FloatUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public FloatUnit(final UnitTimeFloat initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class RealTimeClock.LongUnit */
+    public class LongUnit extends RealTimeClock<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            DEVDESSSimulatorInterface.LongUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public LongUnit(final UnitTimeLong initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class RealTimeClock.CalendarDouble */
+    public class CalendarDouble extends RealTimeClock<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
+            DEVDESSSimulatorInterface.CalendarDouble
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarDouble(final UnitTimeDouble initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class RealTimeClock.CalendarFloat */
+    public class CalendarFloat extends RealTimeClock<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
+            DEVDESSSimulatorInterface.CalendarFloat
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarFloat(final UnitTimeFloat initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class RealTimeClock.CalendarLong */
+    public class CalendarLong extends RealTimeClock<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
+            DEVDESSSimulatorInterface.CalendarLong
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarLong(final UnitTimeLong initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
 }

@@ -63,6 +63,17 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
     }
 
     /**
+     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
+     */
+    @Override
+    public UnitTimeFloat minus(final SimTimeFloatUnit absoluteTime)
+    {
+        UnitTimeFloat ret = new UnitTimeFloat(this.time.getTime(), this.time.getUnit());
+        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.get().getTimeMsec());
+        return ret;
+    }
+
+    /**
      * @see nl.tudelft.simulation.dsol.simtime.SimTime#compareTo(nl.tudelft.simulation.dsol.simtime.SimTime)
      */
     @Override

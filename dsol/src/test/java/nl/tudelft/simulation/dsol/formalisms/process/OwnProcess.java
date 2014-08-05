@@ -7,6 +7,7 @@
 package nl.tudelft.simulation.dsol.formalisms.process;
 
 import junit.framework.Assert;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
@@ -29,7 +30,7 @@ public class OwnProcess extends Process
     /**
      * @param simulator
      */
-    public OwnProcess(DEVSSimulatorInterface simulator)
+    public OwnProcess(DEVSSimulatorInterface.Double simulator)
     {
         super(simulator);
     }
@@ -42,12 +43,12 @@ public class OwnProcess extends Process
     {
         try
         {
-            double time = super.simulator.getSimulatorTime();
+            SimTime time = super.simulator.getSimulatorTime();
             System.out.println(this + " started @ " + time);
             super.hold(10.0);
-            double newTime = super.simulator.getSimulatorTime();
+            SimTime newTime = super.simulator.getSimulatorTime();
             System.out.println(this + " finished @ " + newTime);
-            Assert.assertTrue(newTime - time == 10.0);
+            Assert.assertTrue((newTime.minus(time)).doubleValue() == 10.0);
         }
         catch (Exception e)
         {

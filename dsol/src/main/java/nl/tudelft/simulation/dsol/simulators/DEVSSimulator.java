@@ -7,6 +7,7 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
@@ -16,6 +17,18 @@ import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.logger.Logger;
 
@@ -147,6 +160,30 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /**
+     * @see nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface#scheduleEventAbs(java.lang.Comparable, short,
+     *      java.lang.Object, java.lang.Object, java.lang.String, java.lang.Object[])
+     */
+    @Override
+    public void scheduleEventAbs(final A absoluteTime, final short priority, final Object source, final Object target,
+            final String method, final Object[] args) throws RemoteException, SimRuntimeException
+    {
+        T absTime = this.simulatorTime.copy();
+        absTime.set(absoluteTime);
+        scheduleEvent(new SimEvent<T>(absTime, priority, source, target, method, args));
+    }
+
+    /**
+     * @see nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface#scheduleEventAbs(java.lang.Comparable,
+     *      java.lang.Object, java.lang.Object, java.lang.String, java.lang.Object[])
+     */
+    @Override
+    public void scheduleEventAbs(final A absoluteTime, final Object source, final Object target, final String method,
+            final Object[] args) throws RemoteException, SimRuntimeException
+    {
+        scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
+    }
+
+    /**
      * @see nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface#scheduleEventNow(short, java.lang.Object,
      *      java.lang.Object, java.lang.String, java.lang.Object[])
      */
@@ -242,4 +279,81 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
             this.fireEvent(new Event(SimulatorInterface.END_OF_REPLICATION_EVENT, this, null));
         }
     }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class DEVSSimulator.Double */
+    public static class Double extends DEVSSimulator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
+            DEVSSimulatorInterface.Double
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class DEVSSimulator.Float */
+    public static class Float extends DEVSSimulator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
+            DEVSSimulatorInterface.Float
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class DEVSSimulator.Long */
+    public static class Long extends DEVSSimulator<java.lang.Long, java.lang.Long, SimTimeLong> implements
+            DEVSSimulatorInterface.Long
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class DEVSSimulator.DoubleUnit */
+    public static class DoubleUnit extends DEVSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
+            DEVSSimulatorInterface.DoubleUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class DEVSSimulator.FloatUnit */
+    public static class FloatUnit extends DEVSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
+            DEVSSimulatorInterface.FloatUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class DEVSSimulator.LongUnit */
+    public static class LongUnit extends DEVSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            DEVSSimulatorInterface.LongUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class DEVSSimulator.CalendarDouble */
+    public static class CalendarDouble extends DEVSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
+            DEVSSimulatorInterface.CalendarDouble
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class DEVSSimulator.CalendarFloat */
+    public static class CalendarFloat extends DEVSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
+            DEVSSimulatorInterface.CalendarFloat
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class DEVSSimulator.CalendarLong */
+    public static class CalendarLong extends DEVSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
+            DEVSSimulatorInterface.CalendarLong
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
 }

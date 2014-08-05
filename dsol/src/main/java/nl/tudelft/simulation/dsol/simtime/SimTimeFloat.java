@@ -63,6 +63,15 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
     }
 
     /**
+     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
+     */
+    @Override
+    public Float minus(final SimTimeFloat absoluteTime)
+    {
+        return this.get().floatValue() - absoluteTime.get().floatValue();
+    }
+
+    /**
      * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
      */
     @Override

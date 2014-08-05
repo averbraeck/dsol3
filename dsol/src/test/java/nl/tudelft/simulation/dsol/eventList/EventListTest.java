@@ -12,6 +12,7 @@ import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
 import nl.tudelft.simulation.dsol.eventlists.RedBlackTree;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 
 /**
  * This class defines the JUnit test for the TreeMapEventListOld <br>
@@ -32,7 +33,7 @@ public class EventListTest extends TestCase
     /**
      * eventList is the eventList on which the test is fired
      */
-    private EventListInterface eventList = null;
+    private EventListInterface<SimTimeDouble> eventList = null;
 
     /**
      * constructs a new RedblackTree
@@ -46,7 +47,7 @@ public class EventListTest extends TestCase
      * constructs a new BasicReflectionTest
      * @param eventList is the eventList on which the test is fired
      */
-    public EventListTest(final EventListInterface eventList)
+    public EventListTest(final EventListInterface<SimTimeDouble> eventList)
     {
         this(EventListTest.TEST_METHOD_NAME, eventList);
     }
@@ -56,7 +57,7 @@ public class EventListTest extends TestCase
      * @param arg0 the name of the test method
      * @param eventList is the eventList on which the test is fired
      */
-    public EventListTest(final String arg0, final EventListInterface eventList)
+    public EventListTest(final String arg0, final EventListInterface<SimTimeDouble> eventList)
     {
         super(arg0);
         this.eventList = eventList;
@@ -74,7 +75,8 @@ public class EventListTest extends TestCase
             // between [0..200]
             for (int i = 0; i < 500; i++)
             {
-                this.eventList.add(new SimEvent(200 * Math.random(), this, new String(), "trim", null));
+                this.eventList.add(new SimEvent<SimTimeDouble>(new SimTimeDouble(200 * Math.random()), this,
+                        new String(), "trim", null));
             }
 
             // Now we assert some getters on the eventList
@@ -85,9 +87,9 @@ public class EventListTest extends TestCase
             double time = 0;
             for (int i = 0; i < 500; i++)
             {
-                SimEventInterface simEvent = this.eventList.first();
+                SimEventInterface<SimTimeDouble> simEvent = this.eventList.first();
                 this.eventList.remove(this.eventList.first());
-                double executionTime = simEvent.getAbsoluteExecutionTime();
+                double executionTime = simEvent.getAbsoluteExecutionTime().get().doubleValue();
                 Assert.assertTrue(executionTime >= 0.0);
                 Assert.assertTrue(executionTime <= 200.0);
                 Assert.assertTrue(executionTime >= time);
@@ -98,16 +100,17 @@ public class EventListTest extends TestCase
             // different priorities on time=0.0
             for (int i = 1; i < 10; i++)
             {
-                this.eventList.add(new SimEvent(0.0, (short) i, this, new String(), "trim", null));
+                this.eventList.add(new SimEvent<SimTimeDouble>(new SimTimeDouble(0.0), (short) i, this, new String(),
+                        "trim", null));
             }
             short priority = SimEventInterface.MAX_PRIORITY;
 
             // Let's empty the eventList and check the priorities
             while (!this.eventList.isEmpty())
             {
-                SimEventInterface simEvent = this.eventList.first();
+                SimEventInterface<SimTimeDouble> simEvent = this.eventList.first();
                 this.eventList.remove(this.eventList.first());
-                double executionTime = simEvent.getAbsoluteExecutionTime();
+                double executionTime = simEvent.getAbsoluteExecutionTime().get().doubleValue();
                 short eventPriority = simEvent.getPriority();
 
                 Assert.assertTrue(executionTime == 0.0);
@@ -122,12 +125,13 @@ public class EventListTest extends TestCase
             Assert.assertNull(this.eventList.first());
             // TODO: this gives an error
             // Assert.assertFalse(this.eventList.remove(null));
-            Assert.assertFalse(this.eventList.remove(new SimEvent(200 * Math.random(), this, new String(), "trim", null)));
+            Assert.assertFalse(this.eventList.remove(new SimEvent(new SimTimeDouble(200 * Math.random()), this,
+                    new String(), "trim", null)));
             this.eventList.clear();
 
             // Let's cancel an event
-            this.eventList.add(new SimEvent(100, this, this, "toString", null));
-            SimEventInterface simEvent = new SimEvent(100, this, this, "toString", null);
+            this.eventList.add(new SimEvent(new SimTimeDouble(100), this, this, "toString", null));
+            SimEventInterface simEvent = new SimEvent(new SimTimeDouble(100), this, this, "toString", null);
             this.eventList.add(simEvent);
             assertTrue(this.eventList.remove(simEvent));
         }

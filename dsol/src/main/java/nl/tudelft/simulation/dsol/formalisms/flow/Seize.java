@@ -13,6 +13,7 @@ import java.util.List;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
@@ -64,7 +65,7 @@ public class Seize extends Station implements ResourceRequestorInterface
      * @param resource which is claimed
      * @param requestedCapacity is the amount which is claimed by the seize
      */
-    public Seize(final DEVSSimulatorInterface simulator, final Resource resource, final double requestedCapacity)
+    public Seize(final DEVSSimulatorInterface<?, ?, ?> simulator, final Resource resource, final double requestedCapacity)
     {
         super(simulator);
         if (requestedCapacity < 0.0)
@@ -143,7 +144,7 @@ public class Seize extends Station implements ResourceRequestorInterface
                     this.queue.remove(request);
                 }
                 this.fireEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
-                double delay = this.simulator.getSimulatorTime() - request.getCreationTime();
+                double delay = (this.simulator.getSimulatorTime().minus(request.getCreationTime())).doubleValue();
                 this.fireEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime());
                 this.releaseObject(request.getEntity());
                 return;
@@ -157,13 +158,13 @@ public class Seize extends Station implements ResourceRequestorInterface
     public static class Request
     {
         /** amount is the requested amount */
-        private double amount;
+        private final double amount;
 
         /** entity is the object requesting the amount */
-        private Object entity;
+        private final Object entity;
 
         /** creationTime refers to the moment the request was created */
-        private double creationTime = Double.NaN;
+        private final SimTime<?, ?, ?> creationTime;
 
         /**
          * Method Request.
@@ -171,7 +172,7 @@ public class Seize extends Station implements ResourceRequestorInterface
          * @param amount is the requested amount
          * @param creationTime the time the request was created
          */
-        public Request(final Object entity, final double amount, final double creationTime)
+        public Request(final Object entity, final double amount, final SimTime<?, ?, ?> creationTime)
         {
             this.entity = entity;
             this.amount = amount;
@@ -200,7 +201,7 @@ public class Seize extends Station implements ResourceRequestorInterface
          * Returns the creationTime
          * @return double
          */
-        public double getCreationTime()
+        public SimTime<?, ?, ?> getCreationTime()
         {
             return this.creationTime;
         }

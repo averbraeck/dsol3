@@ -8,6 +8,7 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.rmi.RemoteException;
 
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 
@@ -21,26 +22,29 @@ import nl.tudelft.simulation.event.EventProducer;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class Station extends EventProducer implements StationInterface
+public abstract class Station<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends EventProducer implements StationInterface
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
 
-    /**
-     * simulator is the simulator on which behavior is scheduled
-     */
-    protected DEVSSimulatorInterface simulator;
+    /** simulator is the simulator on which behavior is scheduled */
+    protected DEVSSimulatorInterface<A, R, T> simulator;
 
-    /**
-     * destination refers to the next station in the process-model chain
-     */
+    /** destination refers to the next station in the process-model chain */
     protected StationInterface destination;
 
     /**
      * constructs a new Station.
      * @param simulator is the simulator on which behavior is scheduled
      */
-    public Station(final DEVSSimulatorInterface simulator)
+    public Station(final DEVSSimulatorInterface<A, R, T> simulator)
     {
         super();
         this.simulator = simulator;

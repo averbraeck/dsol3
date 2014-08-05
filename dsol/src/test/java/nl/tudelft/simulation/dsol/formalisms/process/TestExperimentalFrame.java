@@ -20,8 +20,9 @@ import nl.tudelft.simulation.dsol.ModelInterface;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.TimeUnitInterface;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.TimeUnit;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -48,7 +49,7 @@ public final class TestExperimentalFrame
     public static final long STARTTIME = 0;
 
     /** TIMEUNIT refers to the time units of the experiment */
-    public static final TimeUnitInterface TIMEUNIT = TimeUnitInterface.UNIT;
+    public static final TimeUnit TIMEUNIT = TimeUnit.UNIT;
 
     /** RUNLENGTH is the runLength for this experiment */
     public static final double RUNLENGTH = 100;
@@ -126,10 +127,7 @@ public final class TestExperimentalFrame
      */
     public static Treatment createTreatment(final Context context, final Experiment experiment)
     {
-        Treatment treatment = new Treatment(experiment);
-        treatment.setWarmupPeriod(0.0);
-        treatment.setRunLength(100.0);
-        treatment.setStartTime(System.currentTimeMillis());
+        Treatment treatment = new Treatment(experiment, "1", new SimTimeDouble(System.currentTimeMillis()), 0.0, 100.0);
         return treatment;
     }
 

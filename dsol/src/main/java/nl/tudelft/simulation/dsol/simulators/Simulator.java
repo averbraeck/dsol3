@@ -9,12 +9,25 @@ package nl.tudelft.simulation.dsol.simulators;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeEventProducer;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.jstats.statistics.StatisticsObject;
 import nl.tudelft.simulation.language.concurrent.WorkerThread;
@@ -36,11 +49,11 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class Simulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        SimTimeEventProducer implements SimulatorInterface<A, R, T>, Runnable
+public abstract class Simulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends SimTimeEventProducer implements SimulatorInterface<A, R, T>, Runnable
 {
     /** */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 20140805L;
 
     /** simulatorTime represents the simulationTime */
     protected T simulatorTime;
@@ -226,4 +239,81 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             throw new IOException(exception.getMessage());
         }
     }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class Simulator.Double */
+    public static abstract class Double extends Simulator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
+            SimulatorInterface.Double
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class Simulator.Float */
+    public static abstract class Float extends Simulator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
+            SimulatorInterface.Float
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class Simulator.Long */
+    public static abstract class Long extends Simulator<java.lang.Long, java.lang.Long, SimTimeLong> implements
+            SimulatorInterface.Long
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class Simulator.DoubleUnit */
+    public static abstract class DoubleUnit extends Simulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+            implements SimulatorInterface.DoubleUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class Simulator.FloatUnit */
+    public static abstract class FloatUnit extends Simulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
+            SimulatorInterface.FloatUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class Simulator.LongUnit */
+    public static abstract class LongUnit extends Simulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            SimulatorInterface.LongUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class Simulator.CalendarDouble */
+    public static abstract class CalendarDouble extends Simulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+            implements SimulatorInterface.CalendarDouble
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class Simulator.CalendarFloat */
+    public static abstract class CalendarFloat extends Simulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+            implements SimulatorInterface.CalendarFloat
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
+    /** Easy access class Simulator.CalendarLong */
+    public static abstract class CalendarLong extends Simulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
+            SimulatorInterface.CalendarLong
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+    }
+
 }
