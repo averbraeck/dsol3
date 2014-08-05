@@ -9,6 +9,7 @@ package nl.tudelft.simulation.dsol.simulators;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
@@ -49,7 +50,7 @@ public class DEVSTestModel extends TestModel
         {
             try
             {
-                this.simulator.scheduleEvent(new SimEvent(Math.random() * i, this, this, "run", null));
+                this.simulator.scheduleEvent(new SimEvent(new SimTimeDouble(Math.random() * i), this, this, "run", null));
             }
             catch (Exception exception)
             {

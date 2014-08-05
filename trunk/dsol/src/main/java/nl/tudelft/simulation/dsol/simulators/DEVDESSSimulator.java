@@ -6,8 +6,22 @@
  */
 package nl.tudelft.simulation.dsol.simulators;
 
+import java.util.Calendar;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
@@ -26,8 +40,8 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        DEVSSimulator<A, R, T> implements DEVDESSSimulatorInterface<A, R, T>
+public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends DEVSSimulator<A, R, T> implements DEVDESSSimulatorInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -102,4 +116,153 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
             }
         }
     }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class DEVDESSSimulator.Double */
+    public static class Double extends DEVDESSSimulator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
+            DEVDESSSimulatorInterface.Double
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Double(final java.lang.Double initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class DEVDESSSimulator.Float */
+    public static class Float extends DEVDESSSimulator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
+            DEVDESSSimulatorInterface.Float
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Float(final java.lang.Float initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class DEVDESSSimulator.Long */
+    public static class Long extends DEVDESSSimulator<java.lang.Long, java.lang.Long, SimTimeLong> implements
+            DEVDESSSimulatorInterface.Long
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public Long(final java.lang.Long initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class DEVDESSSimulator.DoubleUnit */
+    public static class DoubleUnit extends DEVDESSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+            implements DEVDESSSimulatorInterface.DoubleUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public DoubleUnit(final UnitTimeDouble initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class DEVDESSSimulator.FloatUnit */
+    public static class FloatUnit extends DEVDESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
+            DEVDESSSimulatorInterface.FloatUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public FloatUnit(final UnitTimeFloat initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class DEVDESSSimulator.LongUnit */
+    public static class LongUnit extends DEVDESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            DEVDESSSimulatorInterface.LongUnit
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public LongUnit(final UnitTimeLong initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class DEVDESSSimulator.CalendarDouble */
+    public static class CalendarDouble extends DEVDESSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+            implements DEVDESSSimulatorInterface.CalendarDouble
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarDouble(final UnitTimeDouble initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class DEVDESSSimulator.CalendarFloat */
+    public static class CalendarFloat extends DEVDESSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
+            DEVDESSSimulatorInterface.CalendarFloat
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarFloat(final UnitTimeFloat initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
+    /** Easy access class DEVDESSSimulator.CalendarLong */
+    public static class CalendarLong extends DEVDESSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
+            DEVDESSSimulatorInterface.CalendarLong
+    {
+        /** */
+        private static final long serialVersionUID = 20140805L;
+
+        /**
+         * @param initialTimeStep
+         */
+        public CalendarLong(final UnitTimeLong initialTimeStep)
+        {
+            super(initialTimeStep);
+        }
+    }
+
 }

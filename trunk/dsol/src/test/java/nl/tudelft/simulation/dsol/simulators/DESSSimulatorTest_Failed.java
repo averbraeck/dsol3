@@ -26,7 +26,7 @@ public class DESSSimulatorTest_Failed extends SimulatorTest_NotCorrect
      */
     public DESSSimulatorTest_Failed()
     {
-        super(new DESSSimulator());
+        super(new DESSSimulator(0.1));
     }
 
     /**

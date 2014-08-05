@@ -63,6 +63,17 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
     }
 
     /**
+     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
+     */
+    @Override
+    public UnitTimeLong minus(final SimTimeLongUnit absoluteTime)
+    {
+        UnitTimeLong ret = new UnitTimeLong(this.time.getTime(), this.time.getUnit());
+        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.get().getTimeMsec());
+        return ret;
+    }
+
+    /**
      * @see nl.tudelft.simulation.dsol.simtime.SimTime#compareTo(nl.tudelft.simulation.dsol.simtime.SimTime)
      */
     @Override

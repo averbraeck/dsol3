@@ -63,6 +63,15 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
     }
 
     /**
+     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
+     */
+    @Override
+    public Double minus(final SimTimeDouble absoluteTime)
+    {
+        return this.get().doubleValue() - absoluteTime.get().doubleValue();
+    }
+
+    /**
      * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
      */
     @Override

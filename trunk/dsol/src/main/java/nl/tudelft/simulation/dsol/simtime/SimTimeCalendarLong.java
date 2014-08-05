@@ -40,11 +40,22 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
     private long timeMsec;
 
     /**
-     * @param time
+     * Constructor. super(time) calls set(time).
+     * @param time the calendar time item.
      */
     public SimTimeCalendarLong(final Calendar time)
     {
         super(time);
+    }
+
+    /**
+     * Constructor based on (long) millisecond time.
+     * @param timeMsec the calendar time in milliseconds.
+     */
+    public SimTimeCalendarLong(final long timeMsec)
+    {
+        super(new GregorianCalendar());
+        this.timeMsec = timeMsec;
     }
 
     /**
@@ -63,6 +74,17 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
     public void subtract(UnitTimeLong simTime)
     {
         this.timeMsec -= simTime.getTimeMsec();
+    }
+
+    /**
+     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
+     */
+    @Override
+    public UnitTimeLong minus(final SimTimeCalendarLong absoluteTime)
+    {
+        UnitTimeLong ret = new UnitTimeLong(this.timeMsec, TimeUnit.MILLISECOND);
+        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.timeMsec);
+        return ret;
     }
 
     /**
@@ -111,6 +133,14 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(this.timeMsec);
         return cal;
+    }
+
+    /**
+     * @return timeMsec
+     */
+    public long getTimeMsec()
+    {
+        return this.timeMsec;
     }
 
 }

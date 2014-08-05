@@ -131,6 +131,13 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
     
     /**
+     * The minus function of two absolute times returns a relative time.
+     * @param absoluteTime the time to subtract.
+     * @return the relative time difference between this SimTime object and the provided absoluteTime argument.
+     */
+    public abstract R minus(final T absoluteTime);
+    
+    /**
      * @param simTime the time to compare to
      * @return true if greater than simTime
      */

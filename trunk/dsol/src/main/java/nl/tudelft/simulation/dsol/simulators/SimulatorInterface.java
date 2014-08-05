@@ -9,11 +9,24 @@ package nl.tudelft.simulation.dsol.simulators;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.EventProducerInterface;
 import nl.tudelft.simulation.event.EventType;
 
@@ -111,4 +124,63 @@ public abstract interface SimulatorInterface<A extends Comparable<A>, R extends 
      * @throws SimRuntimeException whenever stopping fails. Possible occasions include stopping a stopped simulator
      */
     void stop() throws RemoteException, SimRuntimeException;
+
+    /***********************************************************************************************************/
+    /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access interface SimulatorInterface.Double */
+    public interface Double extends SimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface SimulatorInterface.Float */
+    public interface Float extends SimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface SimulatorInterface.Long */
+    public interface Long extends SimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface SimulatorInterface.DoubleUnit */
+    public interface DoubleUnit extends SimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface SimulatorInterface.FloatUnit */
+    public interface FloatUnit extends SimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface SimulatorInterface.LongUnit */
+    public interface LongUnit extends SimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface SimulatorInterface.CalendarDouble */
+    public interface CalendarDouble extends SimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface SimulatorInterface.CalendarFloat */
+    public interface CalendarFloat extends SimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    {
+        // typed extension
+    }
+
+    /** Easy access interface SimulatorInterface.CalendarLong */
+    public interface CalendarLong extends SimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    {
+        // typed extension
+    }
+
 }

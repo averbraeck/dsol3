@@ -6,8 +6,9 @@ import java.util.TreeMap;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
@@ -25,14 +26,22 @@ import nl.tudelft.simulation.logger.Logger;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Schedule extends Generator
+public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
+        Generator<A, R, T>
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
+
     /**
      * schedule is a time sorted map of distributions
      */
-    private SortedMap<Double, DistContinuous> schedule = Collections
-            .synchronizedSortedMap(new TreeMap<Double, DistContinuous>());
+    private SortedMap<T, DistContinuousTime<R>> schedule = Collections
+            .synchronizedSortedMap(new TreeMap<T, DistContinuousTime<R>>());
 
     /**
      * constructs a new Schedule
@@ -40,10 +49,10 @@ public class Schedule extends Generator
      * @param myClass is the class of which entities are created
      * @param constructorArguments are the parameters for the constructor of myClass. of arguments.
      *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
-     * @throws SimRuntimeException on constructor invokation.
+     * @throws SimRuntimeException on constructor invocation.
      */
-    public Schedule(final DEVSSimulatorInterface simulator, final Class myClass, final Object[] constructorArguments)
-            throws SimRuntimeException
+    public Schedule(final DEVSSimulatorInterface<A, R, T> simulator, final Class<?> myClass,
+            final Object[] constructorArguments) throws SimRuntimeException
     {
         super(simulator, myClass, constructorArguments);
     }
@@ -52,7 +61,7 @@ public class Schedule extends Generator
      * returns the schedule
      * @return SortedMap the schedule
      */
-    public SortedMap<Double, DistContinuous> getSchedule()
+    public SortedMap<T, DistContinuousTime<R>> getSchedule()
     {
         return this.schedule;
     }
@@ -61,7 +70,7 @@ public class Schedule extends Generator
      * sets the schedule
      * @param map is the new map
      */
-    public synchronized void setSchedule(final SortedMap<Double, DistContinuous> map)
+    public synchronized void setSchedule(final SortedMap<T, DistContinuousTime<R>> map)
     {
         this.schedule = map;
         this.changeIntervalTime();
@@ -79,7 +88,7 @@ public class Schedule extends Generator
                 this.simulator.cancelEvent(super.nextEvent);
                 this.interval = this.schedule.values().iterator().next();
                 this.schedule.remove(this.schedule.firstKey());
-                this.simulator.scheduleEvent(new SimEvent(this.schedule.firstKey().doubleValue(), this, this,
+                this.simulator.scheduleEvent(new SimEvent<T>(this.schedule.firstKey(), this, this,
                         "changeIntervalTime", null));
                 this.generate(this.constructorArguments);
                 Logger.finest(this, "changeIntervalTime", "set the intervalTime to " + this.interval);

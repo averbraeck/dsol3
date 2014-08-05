@@ -13,6 +13,7 @@ import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.logger.Logger;
 
@@ -25,25 +26,32 @@ import nl.tudelft.simulation.logger.Logger;
  * warranty.
  * @version 1.0 Jan 19, 2004 <br>
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public abstract class Process extends nl.tudelft.simulation.dsol.interpreter.process.Process implements
-        ResourceRequestorInterface
+public abstract class Process<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends nl.tudelft.simulation.dsol.interpreter.process.Process implements ResourceRequestorInterface
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
+
     /**
      * the simulator to schedule on
      */
-    protected DEVSSimulatorInterface simulator = null;
+    protected DEVSSimulatorInterface<A, R, T> simulator = null;
 
     /**
      * the simEvent which is used to schedule the resume.
      */
-    private SimEventInterface simEvent = null;
+    private SimEventInterface<T> simEvent = null;
 
     /**
      * constructs a new Process and IMMEDIATELY STARTS ITS PROCESS METHOD
      * @param simulator the simulator to schedule on
      */
-    public Process(final DEVSSimulatorInterface simulator)
+    public Process(final DEVSSimulatorInterface<A, R, T> simulator)
     {
         this(simulator, true);
     }
@@ -53,7 +61,7 @@ public abstract class Process extends nl.tudelft.simulation.dsol.interpreter.pro
      * @param simulator the simulator to schedule on
      * @param start whether to immediately start this process
      */
-    public Process(final DEVSSimulatorInterface simulator, final boolean start)
+    public Process(final DEVSSimulatorInterface<A, R, T> simulator, final boolean start)
     {
         super();
         this.simulator = simulator;
@@ -61,12 +69,8 @@ public abstract class Process extends nl.tudelft.simulation.dsol.interpreter.pro
         {
             try
             {
-                double simulatorTime = this.simulator.getSimulatorTime();
-                if (Double.isNaN(simulatorTime))
-                {
-                    simulatorTime = 0.0;
-                }
-                this.simEvent = new SimEvent(simulatorTime, this, this, "resume", null);
+                T simulatorTime = this.simulator.getSimulatorTime();
+                this.simEvent = new SimEvent<T>(simulatorTime, this, this, "resume", null);
                 this.simulator.scheduleEvent(this.simEvent);
             }
             catch (Exception exception)
@@ -89,10 +93,10 @@ public abstract class Process extends nl.tudelft.simulation.dsol.interpreter.pro
      * @throws SimRuntimeException on negative duration
      * @throws RemoteException on network failure
      */
-    protected void hold(final double duration) throws SimRuntimeException, RemoteException
+    protected void hold(final R duration) throws SimRuntimeException, RemoteException
     {
         // First we schedule the resume operation
-        this.simEvent = new SimEvent(this.simulator.getSimulatorTime() + duration, this, this, "resume", null);
+        this.simEvent = new SimEvent<T>(this.simulator.getSimulatorTime().plus(duration), this, this, "resume", null);
         this.simulator.scheduleEvent(this.simEvent);
         // Now we suspend
         this.suspend();

@@ -8,6 +8,7 @@ package nl.tudelft.simulation.dsol.experiment;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import nl.tudelft.simulation.dsol.simtime.TimeUnit;
 
 /**
  * This class defines the JUnit test for the TimeUnit class <br>
@@ -47,17 +48,15 @@ public class TimeUnitTest extends TestCase
      */
     public void test()
     {
-        Assert.assertEquals(new Long(TimeUnitInterface.WEEK.getValue()),
-                new Long(7L * TimeUnitInterface.DAY.getValue()));
-        Assert.assertEquals(new Long(TimeUnitInterface.DAY.getValue()),
-                new Long(24L * TimeUnitInterface.HOUR.getValue()));
-        Assert.assertEquals(new Long(TimeUnitInterface.HOUR.getValue()),
-                new Long(60L * TimeUnitInterface.MINUTE.getValue()));
-        Assert.assertEquals(new Long(TimeUnitInterface.MINUTE.getValue()),
-                new Long(60L * TimeUnitInterface.SECOND.getValue()));
-        Assert.assertEquals(new Long(TimeUnitInterface.SECOND.getValue()), new Long(
-                1000L * TimeUnitInterface.MILLISECOND.getValue()));
-        Assert.assertEquals(new Long(TimeUnitInterface.MILLISECOND.getValue()),
-                new Long(TimeUnitInterface.UNIT.getValue()));
+        Assert.assertEquals(new Long((long) TimeUnit.WEEK.getFactor()), new Long(7L * (long) TimeUnit.DAY.getFactor()));
+        Assert.assertEquals(new Long((long) TimeUnit.DAY.getFactor()), new Long(24L * (long) TimeUnit.HOUR.getFactor()));
+        Assert.assertEquals(new Long((long) TimeUnit.HOUR.getFactor()),
+                new Long(60L * (long) TimeUnit.MINUTE.getFactor()));
+        Assert.assertEquals(new Long((long) TimeUnit.MINUTE.getFactor()),
+                new Long(60L * (long) TimeUnit.SECOND.getFactor()));
+        Assert.assertEquals(new Long((long) TimeUnit.SECOND.getFactor()),
+                new Long(1000L * (long) TimeUnit.MILLISECOND.getFactor()));
+        Assert.assertEquals(new Long((long) TimeUnit.MILLISECOND.getFactor()),
+                new Long((long) TimeUnit.UNIT.getFactor()));
     }
 }

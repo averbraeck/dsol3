@@ -11,9 +11,11 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime;
+import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
 import nl.tudelft.simulation.language.reflection.SerializableConstructor;
@@ -29,9 +31,17 @@ import nl.tudelft.simulation.logger.Logger;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Generator extends Station
+public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
+        Station<A, R, T>
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
+
     /** CREATE_EVENT is fired on creation */
     public static final EventType CREATE_EVENT = new EventType("CREATE_EVENT");
 
@@ -43,12 +53,12 @@ public class Generator extends Station
     /**
      * interval defines the inter construction time
      */
-    protected DistContinuous interval;
+    protected DistContinuousTime<R> interval;
 
     /**
      * startTime defines the absolute startTime for the generator
      */
-    protected DistContinuous startTime;
+    protected DistContinuousSimTime<A, R, T> startTime;
 
     /**
      * batchsize refers to the number of objects constructed
@@ -71,7 +81,7 @@ public class Generator extends Station
     /**
      * nextEvent refers to the next simEvent
      */
-    protected SimEvent nextEvent = null;
+    protected SimEvent<T> nextEvent = null;
 
     /**
      * constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
@@ -84,14 +94,14 @@ public class Generator extends Station
      *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
      * @throws SimRuntimeException on constructor invokation.
      */
-    public Generator(final DEVSSimulatorInterface simulator, final Class<?> myClass, final Object[] constructorArguments)
-            throws SimRuntimeException
+    public Generator(final DEVSSimulatorInterface<A, R, T> simulator, final Class<?> myClass,
+            final Object[] constructorArguments) throws SimRuntimeException
     {
         super(simulator);
         try
         {
-            Constructor<?> constructor = ClassUtil.resolveConstructor(myClass, constructorArguments);
-            this.constructor = new SerializableConstructor(constructor);
+            Constructor<?> c = ClassUtil.resolveConstructor(myClass, constructorArguments);
+            this.constructor = new SerializableConstructor(c);
         }
         catch (Exception exception)
         {
@@ -111,10 +121,10 @@ public class Generator extends Station
 
     /**
      * generates a new entity
-     * @param constructorArguments are the parameters used in the constructor.
+     * @param specialConstructorArguments are the parameters used in the constructor.
      * @throws SimRuntimeException on construction failure
      */
-    public synchronized void generate(final Object[] constructorArguments) throws SimRuntimeException
+    public synchronized void generate(final Object[] specialConstructorArguments) throws SimRuntimeException
     {
         try
         {
@@ -123,15 +133,15 @@ public class Generator extends Station
                 this.number++;
                 for (int i = 0; i < this.batchSize.draw(); i++)
                 {
-                    Object object = this.constructor.deSerialize().newInstance(constructorArguments);
+                    Object object = this.constructor.deSerialize().newInstance(specialConstructorArguments);
                     Logger.finest(this, "generate", "created " + this.number + "th instance of "
                             + this.constructor.deSerialize().getDeclaringClass());
                     this.fireEvent(Generator.CREATE_EVENT, 1);
                     this.releaseObject(object);
                 }
                 this.nextEvent =
-                        new SimEvent(this.simulator.getSimulatorTime() + this.interval.draw(), this, this, "generate",
-                                null);
+                        new SimEvent<T>(this.simulator.getSimulatorTime().plus(this.interval.draw()), this, this,
+                                "generate", null);
                 this.simulator.scheduleEvent(this.nextEvent);
             }
         }
@@ -167,10 +177,10 @@ public class Generator extends Station
     }
 
     /**
-     * returns the interarrival intercal
+     * returns the interarrival interval
      * @return DistContinuous
      */
-    public DistContinuous getInterval()
+    public DistContinuousTime<R> getInterval()
     {
         return this.interval;
     }
@@ -197,7 +207,7 @@ public class Generator extends Station
      * sets the interarrival distribution
      * @param interval is the interarrival time
      */
-    public void setInterval(final DistContinuous interval)
+    public void setInterval(final DistContinuousTime<R> interval)
     {
         this.interval = interval;
     }
@@ -215,7 +225,7 @@ public class Generator extends Station
      * returns the startTime of the generator
      * @return DistContinuous
      */
-    public DistContinuous getStartTime()
+    public DistContinuousSimTime<A, R, T> getStartTime()
     {
         return this.startTime;
     }
@@ -224,12 +234,12 @@ public class Generator extends Station
      * sets the startTime
      * @param startTime is the absolute startTime
      */
-    public synchronized void setStartTime(final DistContinuous startTime)
+    public synchronized void setStartTime(final DistContinuousSimTime<A, R, T> startTime)
     {
         this.startTime = startTime;
         try
         {
-            this.nextEvent = new SimEvent(startTime.draw(), this, this, "generate", null);
+            this.nextEvent = new SimEvent<T>(startTime.draw(), this, this, "generate", null);
             this.simulator.scheduleEvent(this.nextEvent);
         }
         catch (Exception exception)

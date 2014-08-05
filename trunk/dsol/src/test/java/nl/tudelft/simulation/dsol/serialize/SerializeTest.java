@@ -14,6 +14,7 @@ import nl.tudelft.simulation.dsol.eventlists.RedBlackTree;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.process.TestExperimentalFrame;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.Animator;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVDESSSimulator;
@@ -55,10 +56,10 @@ public class SerializeTest extends TestCase
         {
             // We start with the simulators.
             new MarshalledObject(new DEVSSimulator());
-            new MarshalledObject(new DESSSimulator());
-            new MarshalledObject(new DEVDESSSimulator());
-            new MarshalledObject(new Animator());
-            new MarshalledObject(new RealTimeClock());
+            new MarshalledObject(new DESSSimulator(0.1));
+            new MarshalledObject(new DEVDESSSimulator(0.1));
+            new MarshalledObject(new Animator(0.1));
+            new MarshalledObject(new RealTimeClock(0.1));
 
             // Now we look at the experiment
             ExperimentalFrame experimentalFrame =
@@ -69,10 +70,10 @@ public class SerializeTest extends TestCase
 
             // The DEVS formalism
             new MarshalledObject(new RedBlackTree());
-            new MarshalledObject(new SimEvent(1.1, "Peter", "Peter", "toString", null));
+            new MarshalledObject(new SimEvent(new SimTimeDouble(1.1), "Peter", "Peter", "toString", null));
 
             // The DESS formalism
-            new MarshalledObject(new DifferentialEquation(new DESSSimulator(), 0.1, NumericalIntegrator.ADAMS));
+            new MarshalledObject(new DifferentialEquation(new DESSSimulator(0.1), 0.1, NumericalIntegrator.ADAMS));
 
             // The process interaction formalism
             new Process(new DEVSSimulator());
