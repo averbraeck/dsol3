@@ -6,11 +6,10 @@
  */
 package nl.tudelft.simulation.dsol.simulators;
 
-import junit.framework.Assert;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 
 /**
- * The DESSSSimulatorTest test the DEVS Simulator <br>
+ * The DEVSSimulatorTest test the DEVS Simulator <br>
  * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
@@ -20,42 +19,34 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
-public class RealTimeClockTest
+public class DEVSSimulatorTest_Failed extends SimulatorTest_NotCorrect
 {
     /**
      * constructs a new DEVSSimulatorTest
      */
-    public RealTimeClockTest()
+    public DEVSSimulatorTest_Failed()
     {
-        super();
+        super(new DEVSSimulator());
     }
 
     /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorTest#test()
+     * @see nl.tudelft.simulation.dsol.simulators.SimulatorTest_NotCorrect#test()
      */
+    @Override
     public void test()
     {
-        try
-        {
-            RealTimeClock clock = new RealTimeClock();
-            clock.setTimeStep(10);
-
-            ExperimentalFrame experiment = TestExperiment.createExperimentalFrame(clock, new TestModel());
-            experiment.getExperiments().get(0).getTreatment().setRunLength(100000);
-            experiment.start();
-        }
-        catch (Exception e)
-        {
-            Assert.fail(e.getMessage());
-        }
+        super.test();
+        ExperimentalFrame experimentalFrame =
+                TestExperiment.createExperimentalFrame(new DEVSSimulator(), new DEVSTestModel());
+        experimentalFrame.start();
     }
 
     /**
-     * Executes a DESSSimulatorTest
-     * @param args the arguments given on the command line
+     * The main method
+     * @param args command-line input
      */
     public static void main(final String[] args)
     {
-        new RealTimeClockTest().test();
+        new DEVSSimulatorTest_Failed().test();
     }
 }

@@ -12,8 +12,10 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeEventProducer;
 import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.jstats.statistics.StatisticsObject;
 import nl.tudelft.simulation.language.concurrent.WorkerThread;
 import nl.tudelft.simulation.logger.Logger;
@@ -28,18 +30,26 @@ import nl.tudelft.simulation.logger.Logger;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class Simulator extends EventProducer implements SimulatorInterface, Runnable
+public abstract class Simulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
+        SimTimeEventProducer implements SimulatorInterface<A, R, T>, Runnable
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** simulatorTime represents the simulationTime */
-    protected double simulatorTime = Double.NaN;
+    protected T simulatorTime;
 
     /** running represents the binary state of the simulator */
     protected transient boolean running = false;
 
     /** replication represents the currently active replication */
-    protected Replication replication = null;
+    protected Replication<A, R, T> replication = null;
 
     /** a worker */
     protected transient WorkerThread worker = null;
@@ -59,7 +69,7 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
     /**
      * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface #getSimulatorTime()
      */
-    public double getSimulatorTime()
+    public T getSimulatorTime()
     {
         return this.simulatorTime;
     }
@@ -67,7 +77,7 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
     /**
      * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface #getReplication()
      */
-    public Replication getReplication()
+    public Replication<A, R, T> getReplication()
     {
         return this.replication;
     }
@@ -75,10 +85,10 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
     /**
      * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface #initialize(Replication,short)
      */
-    public void initialize(final Replication replication, final short replicationMode) throws RemoteException,
-            SimRuntimeException
+    public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
+            throws RemoteException, SimRuntimeException
     {
-        if (replication == null)
+        if (initReplication == null)
         {
             throw new IllegalArgumentException("replication == null ?");
         }
@@ -89,10 +99,9 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
         synchronized (this.semaphore)
         {
             this.removeAllListeners(StatisticsObject.class);
-            this.replication = replication;
-            this.simulatorTime = 0.0;
-            this.fireEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime,
-                    ((SimulatorInterface) this).getSimulatorTime());
+            this.replication = initReplication;
+            this.simulatorTime.setZero();
+            this.fireEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime);
             this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
             Logger.finer(this, "initialize", "OK");
         }
@@ -126,7 +135,7 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
         {
             throw new SimRuntimeException("Cannot start a simulator" + " without replication details");
         }
-        if (this.simulatorTime >= this.replication.getTreatment().getRunLength())
+        if (this.simulatorTime.ge(this.replication.getTreatment().getEndTime()))
         {
             throw new SimRuntimeException("Cannot start simulator : " + "simulatorTime = runLength");
         }
@@ -160,7 +169,7 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
         {
             throw new SimRuntimeException("Cannot step a simulator " + "without replication details");
         }
-        if (this.simulatorTime >= this.replication.getTreatment().getRunLength())
+        if (this.simulatorTime.ge(this.replication.getTreatment().getEndTime()))
         {
             throw new SimRuntimeException("Cannot step simulator: " + "SimulatorTime = runControl.runLength");
         }
@@ -177,10 +186,9 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
         {
             this.running = false;
             Logger.finer(this, "stop", "OK");
-            if (this.simulatorTime >= this.getReplication().getTreatment().getRunLength())
+            if (this.simulatorTime.ge(this.getReplication().getTreatment().getEndTime()))
             {
-                this.fireEvent(new Event(SimulatorInterface.END_OF_REPLICATION_EVENT, this, new Double(
-                        this.simulatorTime)));
+                this.fireEvent(new Event(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime));
             }
             this.fireEvent(SimulatorInterface.STOP_EVENT, null);
         }
@@ -193,7 +201,7 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException
     {
-        out.writeObject(new Double(this.simulatorTime));
+        out.writeObject(this.simulatorTime);
         out.writeObject(this.replication);
     }
 
@@ -202,12 +210,13 @@ public abstract class Simulator extends EventProducer implements SimulatorInterf
      * @param in the inputstream
      * @throws IOException on IOException
      */
+    @SuppressWarnings("unchecked")
     private synchronized void readObject(final java.io.ObjectInputStream in) throws IOException
     {
         try
         {
-            this.simulatorTime = ((Double) in.readObject()).doubleValue();
-            this.replication = (Replication) in.readObject();
+            this.simulatorTime = (T) in.readObject();
+            this.replication = (Replication<A, R, T>) in.readObject();
             this.running = false;
             this.semaphore = new Object();
             this.worker = new WorkerThread(this.getClass().getName(), this);

@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.naming.Context;
 
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -24,9 +25,13 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Replication implements Serializable
+public class Replication<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> implements Serializable
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
@@ -38,7 +43,7 @@ public class Replication implements Serializable
     private String description = "rep_no_description";
 
     /** the experiment to which this replication belongs */
-    private Experiment experiment = null;
+    private Experiment<A, R, T> experiment = null;
 
     /** the contextRoot of this replication */
     private Context context = null;
@@ -48,7 +53,7 @@ public class Replication implements Serializable
      * @param context the name under which this replication can be found in the nameSpace
      * @param experiment the experiment to which this replication belongs
      */
-    public Replication(final Context context, final Experiment experiment)
+    public Replication(final Context context, final Experiment<A, R, T> experiment)
     {
         super();
         this.experiment = experiment;
@@ -115,7 +120,7 @@ public class Replication implements Serializable
     /**
      * @return Returns the experiment.
      */
-    public Experiment getExperiment()
+    public Experiment<A, R, T> getExperiment()
     {
         return this.experiment;
     }
@@ -124,7 +129,7 @@ public class Replication implements Serializable
      * @return Returns the treatment. This is a convenience method to avoid the getExperiment().getTreatment() many
      *         times.
      */
-    public Treatment getTreatment()
+    public Treatment<A, R, T> getTreatment()
     {
         return this.experiment.getTreatment();
     }

@@ -13,11 +13,12 @@ import java.util.List;
 import javax.naming.Context;
 
 import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeEventProducer;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
 
@@ -31,8 +32,13 @@ import nl.tudelft.simulation.logger.Logger;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Experiment extends EventProducer implements EventListenerInterface, Serializable
+public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
+        SimTimeEventProducer implements EventListenerInterface, Serializable
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
@@ -47,13 +53,13 @@ public class Experiment extends EventProducer implements EventListenerInterface,
     public static final EventType SIMULATOR_CHANGED_EVENT = new EventType("SIMULATOR_CHANGED_EVENT");
 
     /** replications are the replications of this experiment */
-    private List<Replication> replications;
+    private List<Replication<A, R, T>> replications;
 
     /** treatment represent the treatment of this experiment */
-    private Treatment treatment = null;
+    private Treatment<A, R, T> treatment = null;
 
     /** simulator reflects the simulator */
-    private SimulatorInterface simulator;
+    private SimulatorInterface<A, R, T> simulator;
 
     /** model reflects the model */
     private ModelInterface model;
@@ -90,7 +96,7 @@ public class Experiment extends EventProducer implements EventListenerInterface,
      * @param simulator the simulator
      * @param model the model to experiment with
      */
-    public Experiment(final Context context, final Treatment treatment, final SimulatorInterface simulator,
+    public Experiment(final Context context, final Treatment<A, R, T> treatment, final SimulatorInterface<A, R, T> simulator,
             final ModelInterface model)
     {
         this(context);
@@ -111,7 +117,7 @@ public class Experiment extends EventProducer implements EventListenerInterface,
      * sets the simulator
      * @param simulator the simulator
      */
-    public synchronized void setSimulator(final SimulatorInterface simulator)
+    public synchronized void setSimulator(final SimulatorInterface<A, R, T> simulator)
     {
         this.simulator = simulator;
         this.fireEvent(SIMULATOR_CHANGED_EVENT, simulator);
@@ -121,7 +127,7 @@ public class Experiment extends EventProducer implements EventListenerInterface,
      * returns the simulator
      * @return SimulatorInterface
      */
-    public SimulatorInterface getSimulator()
+    public SimulatorInterface<A, R, T> getSimulator()
     {
         return this.simulator;
     }
@@ -138,7 +144,7 @@ public class Experiment extends EventProducer implements EventListenerInterface,
     /**
      * @return Returns the replications.
      */
-    public List<Replication> getReplications()
+    public List<Replication<A, R, T>> getReplications()
     {
         return this.replications;
     }
@@ -146,7 +152,7 @@ public class Experiment extends EventProducer implements EventListenerInterface,
     /**
      * @param replications The replications to set.
      */
-    public void setReplications(final List<Replication> replications)
+    public void setReplications(final List<Replication<A, R, T>> replications)
     {
         this.replications = replications;
     }
@@ -184,7 +190,7 @@ public class Experiment extends EventProducer implements EventListenerInterface,
                 try
                 {
                     this.currentReplication++;
-                    Replication next = this.getReplications().get(this.currentReplication);
+                    Replication<A, R, T> next = this.getReplications().get(this.currentReplication);
                     this.simulator.initialize(next, this.treatment.getReplicationMode());
                     this.simulator.start();
                 }
@@ -216,7 +222,7 @@ public class Experiment extends EventProducer implements EventListenerInterface,
      * Returns the treatment of this experiment
      * @return the treatment of this experiment
      */
-    public Treatment getTreatment()
+    public Treatment<A, R, T> getTreatment()
     {
         return this.treatment;
     }
@@ -225,7 +231,7 @@ public class Experiment extends EventProducer implements EventListenerInterface,
      * sets the treatment of an experiment
      * @param treatment the treatment
      */
-    public void setTreatment(final Treatment treatment)
+    public void setTreatment(final Treatment<A, R, T> treatment)
     {
         this.treatment = treatment;
     }

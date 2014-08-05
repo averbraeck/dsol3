@@ -27,6 +27,9 @@ import nl.tudelft.simulation.event.EventType;
  */
 public class Counter extends StatisticsObject implements EventListenerInterface
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
+
     /** COUNT_EVENT is fired whenever setCount() is invoked */
     public static final EventType COUNT_EVENT = new EventType("COUNT_EVENT");
 
@@ -83,10 +86,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
         {
             value = Math.round(((Number) event.getContent()).doubleValue());
         }
-        if (!this.filter.accept(new double[]{value, value}))
-        {
-            return;
-        }
+
         synchronized (this.semaphore)
         {
             this.setCount(this.count + value);

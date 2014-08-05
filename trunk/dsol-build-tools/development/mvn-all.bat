@@ -6,6 +6,7 @@ ECHO Running Maven commands %* for specified Maven artifacts in relative directo
 
 SET _=%CD%
 FOR %%A IN (
+	dsol-build-tools
 	dsol-base
 	language
 	event
@@ -19,7 +20,6 @@ FOR %%A IN (
 	dsol-xml
 	gisbeans
 	dsol-animation
-	dsol-gui
 ) DO FOR %%B IN (
 	%*
 ) DO CALL "%~dp0mvn-cmd.bat" %%~dp0..\..\%%A %%B

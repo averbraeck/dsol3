@@ -7,6 +7,7 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
 
@@ -21,10 +22,18 @@ import nl.tudelft.simulation.logger.Logger;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class RealTimeClock extends Animator implements DEVDESSSimulatorInterface
+public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
+        Animator<A, R, T> implements DEVDESSSimulatorInterface<A, R, T>
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
+
     /** the backlog event */
     public static final EventType BACKLOG_EVENT = new EventType("BACKLOG_EVENT");
 
@@ -35,11 +44,12 @@ public class RealTimeClock extends Animator implements DEVDESSSimulatorInterface
     private long startTime = 0L;
 
     /**
-     * constructs a new RealTimeClock
+     * constructs a new RealTimeClock.
+     * @param initialTimeStep the initial time step to use in the integration.
      */
-    public RealTimeClock()
+    public RealTimeClock(final R initialTimeStep)
     {
-        super();
+        super(initialTimeStep);
     }
 
     /**
@@ -51,18 +61,18 @@ public class RealTimeClock extends Animator implements DEVDESSSimulatorInterface
         super.worker.setPriority(Thread.MAX_PRIORITY);
         this.startTime = System.currentTimeMillis();
         int count = 0;
-        long animationFactor = Math.round(this.animationDelay / this.timeStep);
+        long animationFactor = Math.round(this.animationDelay / this.timeStep.doubleValue());
         while (this.isRunning() && !this.eventList.isEmpty()
-                && this.simulatorTime <= this.replication.getTreatment().getRunLength())
+                && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
         {
             long now = System.currentTimeMillis();
-            double runUntil = (now - this.startTime) + this.timeStep;
+            T runUntil = this.simulatorTime.plus(this.timeStep); // TODO: (now - this.startTime) + this.timeStep.longValue();
             while (!this.eventList.isEmpty() && this.running
-                    && runUntil >= this.eventList.first().getAbsoluteExecutionTime())
+                    && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
                 synchronized (super.semaphore)
                 {
-                    SimEventInterface event = this.eventList.removeFirst();
+                    SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
                     try
                     {
@@ -87,7 +97,7 @@ public class RealTimeClock extends Animator implements DEVDESSSimulatorInterface
             try
             {
                 long used = System.currentTimeMillis() - now;
-                long delay = Math.round(this.timeStep - used);
+                long delay = Math.round(this.timeStep.doubleValue() - used);
                 if (delay >= 0)
                 {
                     long catchUp = Math.min(this.backlog, delay);
@@ -124,11 +134,6 @@ public class RealTimeClock extends Animator implements DEVDESSSimulatorInterface
     @Override
     public void setAnimationDelay(final long animationDelay)
     {
-        if (animationDelay < this.timeStep)
-        {
-            Logger.warning(this, "setAnimationDelay",
-                    "Be careful: it does not seem wise to have an animationdelay<timeStep");
-        }
         this.animationDelay = animationDelay;
     }
 }

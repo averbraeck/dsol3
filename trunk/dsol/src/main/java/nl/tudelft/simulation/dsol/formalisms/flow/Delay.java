@@ -27,7 +27,9 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class Delay extends Station
 {
-
+    /** */
+    private static final long serialVersionUID = 20140805L;
+    
     /**
      * delayDistribution which is the distribution defining the delay
      */
@@ -38,7 +40,7 @@ public class Delay extends Station
      * @param simulator is the simulator
      * @param delayDistribution is the delayDistribution
      */
-    public Delay(final DEVSSimulatorInterface simulator, final DistContinuous delayDistribution)
+    public Delay(final DEVSSimulatorInterface<?, ?, ?> simulator, final DistContinuous delayDistribution)
     {
         super(simulator);
         this.delayDistribution = delayDistribution;

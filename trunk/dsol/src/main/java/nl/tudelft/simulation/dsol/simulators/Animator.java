@@ -7,6 +7,7 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
@@ -19,12 +20,27 @@ import nl.tudelft.simulation.logger.Logger;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Animator extends DEVDESSSimulator implements AnimatorInterface
+public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
+        DEVDESSSimulator<A, R, T> implements AnimatorInterface<A, R, T>
 {
+    /** */
+    private static final long serialVersionUID = 20140804L;
 
-    /** AnimationDelay refers to the delay in miliseconds between timeSteps */
+    /**
+     * @param initialTimeStep
+     */
+    public Animator(final R initialTimeStep)
+    {
+        super(initialTimeStep);
+    }
+
+    /** AnimationDelay refers to the delay in milliseconds between timeSteps */
     protected long animationDelay = 100L;
 
     /**
@@ -52,7 +68,7 @@ public class Animator extends DEVDESSSimulator implements AnimatorInterface
     public void run()
     {
         while (this.isRunning() && !this.eventList.isEmpty()
-                && this.simulatorTime <= this.replication.getTreatment().getRunLength())
+                && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
         {
             try
             {
@@ -66,13 +82,13 @@ public class Animator extends DEVDESSSimulator implements AnimatorInterface
                 exception = null;
                 // Let's neglect this sleep...
             }
-            double runUntil = this.simulatorTime + this.timeStep;
+            T runUntil = this.simulatorTime.plus(this.timeStep);
             while (!this.eventList.isEmpty() && this.running
-                    && runUntil >= this.eventList.first().getAbsoluteExecutionTime())
+                    && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
                 synchronized (super.semaphore)
                 {
-                    SimEventInterface event = this.eventList.removeFirst();
+                    SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
                     this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
                     try

@@ -13,7 +13,6 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
-import nl.tudelft.simulation.language.filters.FilterInterface;
 
 /**
  * The Tally class defines a statistics event tally.
@@ -29,6 +28,9 @@ import nl.tudelft.simulation.language.filters.FilterInterface;
  */
 public class Tally extends StatisticsObject implements EventListenerInterface
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
+
     /** SAMPLE_MEAN_EVENT is fired whenever the sample mean is updated */
     public static final EventType SAMPLE_MEAN_EVENT = new EventType("SAMPLE_MEAN_EVENT");
 
@@ -46,9 +48,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     /** N_EVENT is fired whenever on a change in measurements */
     public static final EventType N_EVENT = new EventType("N_EVENT");
 
-    /**
-     * STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is updated
-     */
+    /** STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is updated */
     public static final EventType STANDARD_DEVIATION_EVENT = new EventType("STANDARD_DEVIATION_EVENT");
 
     /** SUM_EVENT is fired whenever the sum sis updated */
@@ -106,15 +106,6 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     {
         super();
         this.description = description;
-    }
-
-    /**
-     * sets the Filter on this tally
-     * @param filter the filter.
-     */
-    public void setFilter(final FilterInterface filter)
-    {
-        this.filter = filter;
     }
 
     /**
@@ -334,10 +325,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
             throw new IllegalArgumentException("Tally does not accept " + event);
         }
         double value = ((Number) event.getContent()).doubleValue();
-        if (!this.filter.accept(new double[]{value, value}))
-        {
-            return;
-        }
+
         synchronized (this.semaphore)
         {
             if (new Double(this.sampleMean).isNaN())

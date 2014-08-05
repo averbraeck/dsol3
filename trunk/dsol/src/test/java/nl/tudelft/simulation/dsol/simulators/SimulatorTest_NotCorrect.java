@@ -23,7 +23,7 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
-public class SimulatorTest extends TestCase
+public class SimulatorTest_NotCorrect extends TestCase
 {
     /** TEST_METHOD refers to the name of the test method */
     public static final String TEST_METHOD = "test";
@@ -37,7 +37,7 @@ public class SimulatorTest extends TestCase
      * constructs a new SimulatorTest
      * @param target is the simulator which to test
      */
-    public SimulatorTest(final SimulatorInterface target)
+    public SimulatorTest_NotCorrect(final SimulatorInterface target)
     {
         this(TEST_METHOD, target);
     }
@@ -47,7 +47,7 @@ public class SimulatorTest extends TestCase
      * @param arg0 the name of the test method
      * @param target is the simulator which to test
      */
-    public SimulatorTest(final String arg0, final SimulatorInterface target)
+    public SimulatorTest_NotCorrect(final String arg0, final SimulatorInterface target)
     {
         super(arg0);
         this.simulator = target;

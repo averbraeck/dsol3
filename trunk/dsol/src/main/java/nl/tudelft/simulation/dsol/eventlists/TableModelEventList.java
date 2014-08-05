@@ -6,7 +6,6 @@
  */
 package nl.tudelft.simulation.dsol.eventlists;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +13,7 @@ import javax.swing.table.TableModel;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
 
@@ -28,9 +28,10 @@ import nl.tudelft.simulation.logger.Logger;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
+ * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
  */
-public class TableModelEventList extends RedBlackTree
+public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTree<T>
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
@@ -55,14 +56,13 @@ public class TableModelEventList extends RedBlackTree
      * constructs a new TableModelEventList
      * @param origin the origin
      */
-    public TableModelEventList(final EventListInterface origin)
+    public TableModelEventList(final EventListInterface<T> origin)
     {
         super();
         synchronized (origin)
         {
-            Collection<? extends SimEventInterface> collection =
-                    Arrays.asList(origin.toArray(new SimEventInterface[origin.size()]));
-            this.addAll(collection);
+            // TODO: make a copy of all the events for this event list?
+            this.addAll(origin);
         }
     }
 
@@ -70,10 +70,11 @@ public class TableModelEventList extends RedBlackTree
      * returns the TreeMapEventList
      * @return EventListenerInterface
      */
-    public synchronized EventListInterface getOrigin()
+    public synchronized EventListInterface<T> getOrigin()
     {
-        RedBlackTree result = new RedBlackTree();
-        result.addAll(Arrays.asList(this.toArray(new SimEventInterface[this.size()])));
+        RedBlackTree<T> result = new RedBlackTree<T>();
+        // TODO: make a copy first?
+        result.addAll(this);
         return result;
     }
 
@@ -94,13 +95,13 @@ public class TableModelEventList extends RedBlackTree
         try
         {
             this.tableModel.setRowCount(0);
-            for (SimEventInterface simEventInterface : this)
+            for (SimEventInterface<T> simEventInterface : this)
             {
                 if (simEventInterface instanceof SimEvent)
                 {
                     Object[] row = new Object[4];
-                    SimEvent event = (SimEvent) simEventInterface;
-                    row[0] = new Double(event.getAbsoluteExecutionTime());
+                    SimEvent<T> event = (SimEvent<T>) simEventInterface;
+                    row[0] = event.getAbsoluteExecutionTime().toString();
                     row[1] = this.formatObject(event.getSource().toString());
                     row[2] = this.formatObject(event.getTarget().toString());
                     row[3] = this.formatObject(event.getMethod().toString());
@@ -147,7 +148,7 @@ public class TableModelEventList extends RedBlackTree
      *      #add(nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface)
      */
     @Override
-    public synchronized boolean add(final SimEventInterface value)
+    public synchronized boolean add(final SimEventInterface<T> value)
     {
         synchronized (this.tableModel)
         {
@@ -161,7 +162,7 @@ public class TableModelEventList extends RedBlackTree
      * @see nl.tudelft.simulation.dsol.eventlists.EventListInterface #addAll(java.util.Collection)
      */
     @Override
-    public synchronized boolean addAll(final Collection<? extends SimEventInterface> collection)
+    public synchronized boolean addAll(final Collection<? extends SimEventInterface<T>> collection)
     {
         synchronized (this.tableModel)
         {
@@ -217,11 +218,11 @@ public class TableModelEventList extends RedBlackTree
      * @see nl.tudelft.simulation.dsol.eventlists.EventListInterface#removeFirst()
      */
     @Override
-    public synchronized SimEventInterface removeFirst()
+    public synchronized SimEventInterface<T> removeFirst()
     {
         synchronized (this.tableModel)
         {
-            SimEventInterface result = super.removeFirst();
+            SimEventInterface<T> result = super.removeFirst();
             this.updateTableModel();
             return result;
         }
@@ -231,11 +232,11 @@ public class TableModelEventList extends RedBlackTree
      * @see nl.tudelft.simulation.dsol.eventlists.EventListInterface#removeLast()
      */
     @Override
-    public synchronized SimEventInterface removeLast()
+    public synchronized SimEventInterface<T> removeLast()
     {
         synchronized (this.tableModel)
         {
-            SimEventInterface result = super.removeLast();
+            SimEventInterface<T> result = super.removeLast();
             this.updateTableModel();
             return result;
         }
