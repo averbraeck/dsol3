@@ -6,6 +6,13 @@
  */
 package nl.tudelft.simulation.dsol;
 
+import nl.tudelft.simulation.dsol.eventList.EventListTest;
+import nl.tudelft.simulation.dsol.experiment.TimeUnitTest;
+import nl.tudelft.simulation.dsol.serialize.SerializeTest;
+import nl.tudelft.simulation.dsol.simulators.DESSSimulatorTest_Failed;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorTest_Failed;
+import nl.tudelft.simulation.dsol.simulators.RealTimeClockTest_Failed;
+import nl.tudelft.simulation.dsol.simulators.SimulatorTest_NotCorrect;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -37,6 +44,13 @@ public final class DSOLTestSuite
     public static Test suite()
     {
         TestSuite suite = new TestSuite("DSOL Test Suite");
+        suite.addTest(new EventListTest());
+        suite.addTest(new TimeUnitTest());
+        suite.addTest(new SerializeTest("SerializeTest"));
+        // suite.addTest(new DESSSimulatorTest());
+        // suite.addTest(new DEVSSimulatorTest());
+        // suite.addTest(new RealTimeClockTest_Failed());
+        // TODO: suite.addTest(new SimulatorTest());
         return suite;
     }
 }

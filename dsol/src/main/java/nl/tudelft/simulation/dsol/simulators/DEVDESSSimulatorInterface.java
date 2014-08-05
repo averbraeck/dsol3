@@ -6,6 +6,8 @@
  */
 package nl.tudelft.simulation.dsol.simulators;
 
+import nl.tudelft.simulation.dsol.simtime.SimTime;
+
 /**
  * The DEVSDESS simulator embodies both the continuous and the discrete formalism. This simulator takes pre-defined time
  * steps in between it loops over its eventlist. A better name for this formalism would therefore be the DEVSinDESS
@@ -19,10 +21,14 @@ package nl.tudelft.simulation.dsol.simulators;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public interface DEVDESSSimulatorInterface extends DEVSSimulatorInterface, DESSSimulatorInterface
+public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends DEVSSimulatorInterface<A, R, T>, DESSSimulatorInterface<A, R, T>
 {
-    // This interface combines the DESS and DEVS interfaces and does not add
-    // any operations.
+    // This interface combines the DESS and DEVS interfaces and does not add any operations.
 }

@@ -9,6 +9,7 @@ package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 import java.io.Serializable;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 
 /**
  * A SimEventInterface embodies the envolope in the scheduled method invocation information is stored.
@@ -20,9 +21,10 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:36:43 $
+ * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
  */
-public interface SimEventInterface extends Serializable
+public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializable
 {
     /** MAX_PRIORITY is a constant reflecting the maximum priority */
     short MAX_PRIORITY = 10;
@@ -42,7 +44,7 @@ public interface SimEventInterface extends Serializable
     /**
      * @return the scheduled execution time of a simulation event.
      */
-    double getAbsoluteExecutionTime();
+    T getAbsoluteExecutionTime();
 
     /**
      * @return The priority of a simulation event. The priorities are programmed according to the Java thread priority.

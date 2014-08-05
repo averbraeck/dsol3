@@ -7,8 +7,9 @@
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Properties;
+
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 
 /**
  * The treatment is comprises the specification of input data, the runControl and the specification of output data.
@@ -21,65 +22,88 @@ import java.util.Properties;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Treatment implements Serializable
+public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> implements
+        Serializable
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
 
-    /** the TERMINATING replication mode */
-    public static final short REPLICATION_MODE_TERMINATING = 0;
-
-    /** the TERMINATING replication mode */
-    public static final short REPLICATION_MODE_STEADY_STATE = 1;
-
     /** the replication mode */
-    private short replicationMode = Treatment.REPLICATION_MODE_TERMINATING;
+    private final ReplicationMode replicationMode;
 
     /** the experiment to which this treatment belongs */
-    private Experiment experiment = null;
+    private final Experiment<A, R, T> experiment;
 
     /** warmupPeriod is the warmup period */
-    private double warmupPeriod = 0.0;
+    private final R warmupPeriod;
 
     /** runLength reflects the runLength of the treatment */
-    private double runLength = Double.NaN;
+    private final R runLength;
 
-    /** startTime of the treatment */
-    private long startTime = 0L;
+    /** the start time of the simulation */
+    private final T startTime;
 
-    /** timeUnit reflects the timeUnit */
-    private TimeUnitInterface timeUnit = TimeUnitInterface.UNIT;
+    /** the end time of the simulation */
+    private final T endTime;
+
+    /** the warmup time of the simulation (included in the total run length)*/
+    private final T warmupTime;
 
     /** the properties of this treatment */
     private Properties properties = new Properties();
 
-    /**
-     * constructs a Treatment
-     * @param experiment reflects the experiment
-     */
-    public Treatment(final Experiment experiment)
-    {
-        this(experiment, Treatment.REPLICATION_MODE_TERMINATING);
-    }
+    /** the id */
+    private final String id;
 
     /**
-     * constructs a Treatment
+     * constructs a Treatment.
      * @param experiment reflects the experiment
+     * @param id an id to recognize the treatment
+     * @param startTime the absolute start time of a run (can be zero)
+     * @param warmupPeriod the relative warmup time of a run (can be zero), <u>included</u> in the runLength
+     * @param runLength the run length of a run (relative to the start time)
      * @param replicationMode the replication mode of this treatment
      */
-    public Treatment(final Experiment experiment, final short replicationMode)
+    public Treatment(final Experiment<A, R, T> experiment, final String id, final T startTime, final R warmupPeriod,
+            final R runLength, final ReplicationMode replicationMode)
     {
         super();
         this.experiment = experiment;
+        this.id = id;
+        this.startTime = startTime;
+        this.warmupPeriod = warmupPeriod;
+        this.runLength = runLength;
+        this.endTime = startTime.copy();
+        this.endTime.add(runLength);
+        this.warmupTime = startTime.copy();
+        this.warmupTime.add(warmupPeriod);
         this.replicationMode = replicationMode;
+    }
+
+    /**
+     * constructs a Treatment.
+     * @param experiment reflects the experiment
+     * @param id an id to recognize the treatment
+     * @param startTime the absolute start time of a run (can be zero)
+     * @param warmupPeriod the relative warmup time of a run (can be zero), <u>included</u> in the runLength
+     * @param runLength the run length of a run (relative to the start time)
+     */
+    public Treatment(final Experiment<A, R, T> experiment, final String id, final T startTime, final R warmupPeriod,
+            final R runLength)
+    {
+        this(experiment, id, startTime, warmupPeriod, runLength, ReplicationMode.TERMINATING);
     }
 
     /**
      * Returns the experiment
      * @return the experiment
      */
-    public Experiment getExperiment()
+    public Experiment<A, R, T> getExperiment()
     {
         return this.experiment;
     }
@@ -94,24 +118,6 @@ public class Treatment implements Serializable
     }
 
     /**
-     * returns the startTime
-     * @return long the startTime
-     */
-    public long getStartTime()
-    {
-        return this.startTime;
-    }
-
-    /**
-     * returns the timeUnit
-     * @return timeUnit
-     */
-    public TimeUnitInterface getTimeUnit()
-    {
-        return this.timeUnit;
-    }
-
-    /**
      * sets the properties
      * @param properties the properties
      */
@@ -121,80 +127,59 @@ public class Treatment implements Serializable
     }
 
     /**
-     * sets the startTime of the treatment
-     * @param startTime reflects the startTime
-     */
-    public void setStartTime(final long startTime)
-    {
-        this.startTime = startTime;
-    }
-
-    /**
-     * sets the timeUnit of the treatment
-     * @param timeUnit is the timeunit
-     */
-    public void setTimeUnit(final TimeUnitInterface timeUnit)
-    {
-        this.timeUnit = timeUnit;
-    }
-
-    /**
-     * sets the experiment of this treatment
-     * @param experiment the experiment
-     */
-    public void setExperiment(final Experiment experiment)
-    {
-        this.experiment = experiment;
-    }
-
-    /**
-     * Returns the replication mode of this treatment.
      * @return the replication mode of this treatment.
      */
-    public short getReplicationMode()
+    public ReplicationMode getReplicationMode()
     {
         return this.replicationMode;
     }
 
     /**
-     * sets the replication mode of this treatment
-     * @param replicationMode the replication mode
-     */
-    public void setReplicationMode(final short replicationMode)
-    {
-        this.replicationMode = replicationMode;
-    }
-
-    /**
      * @return Returns the runLength.
      */
-    public double getRunLength()
+    public R getRunLength()
     {
         return this.runLength;
     }
 
     /**
-     * @param runLength The runLength to set.
-     */
-    public void setRunLength(final double runLength)
-    {
-        this.runLength = runLength;
-    }
-
-    /**
      * @return Returns the warmupPeriod.
      */
-    public double getWarmupPeriod()
+    public R getWarmupPeriod()
     {
         return this.warmupPeriod;
     }
 
     /**
-     * @param warmupPeriod The warmupPeriod to set.
+     * @return the absolute end time of the simulation that can be compared with the simulator time.
      */
-    public void setWarmupPeriod(final double warmupPeriod)
+    public T getEndTime()
     {
-        this.warmupPeriod = warmupPeriod;
+        return this.endTime;
+    }
+
+    /**
+     * @return startTime
+     */
+    public T getStartTime()
+    {
+        return this.startTime;
+    }
+
+    /**
+     * @return warmupTime
+     */
+    public T getWarmupTime()
+    {
+        return this.warmupTime;
+    }
+
+    /**
+     * @return id
+     */
+    public String getId()
+    {
+        return this.id;
     }
 
     /**
@@ -203,12 +188,7 @@ public class Treatment implements Serializable
     @Override
     public String toString()
     {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(this.getStartTime());
-
-        String result =
-                "[" + super.toString() + " ; " + calendar.getTime().toString() + " ; " + this.getTimeUnit()
-                        + " ; warmup=" + this.warmupPeriod + " ; runLength=" + this.runLength + "]";
+        String result = "[Treatment; warmup=" + this.warmupPeriod + " ; runLength=" + this.runLength + "]";
         return result;
     }
 }

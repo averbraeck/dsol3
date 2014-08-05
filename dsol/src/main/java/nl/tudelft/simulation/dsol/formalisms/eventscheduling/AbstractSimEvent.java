@@ -9,6 +9,7 @@ package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 import java.io.Serializable;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 
 /**
  * The AbstractSimEvent forms the basement for SimEvents and defines a compare method by which eventLists can compare
@@ -21,15 +22,19 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:36:43 $
+ * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
  */
-public abstract class AbstractSimEvent implements SimEventInterface, Comparable<AbstractSimEvent>, Serializable
+public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements SimEventInterface<T>, Comparable<AbstractSimEvent<T>>, Serializable
 {
+    /** */
+    private static final long serialVersionUID = 20140804L;
+
     /** a counter counting the number of constructed simEvents */
-    private static long constructorCounter = 0l;
+    private static long constructorCounter = 0L;
 
     /** absoluteExecutionTime reflects the time at which the event is scheduled */
-    protected double absoluteExecutionTime = Double.NaN;
+    protected T absoluteExecutionTime;
 
     /** priority reflects the priority of the event */
     protected short priority = SimEventInterface.NORMAL_PRIORITY;
@@ -41,7 +46,7 @@ public abstract class AbstractSimEvent implements SimEventInterface, Comparable<
      * The constuctor of the event stores the time the event must be executed and the object and method to invoke
      * @param executionTime reflects the time the event has to be executed.
      */
-    public AbstractSimEvent(final double executionTime)
+    public AbstractSimEvent(final T executionTime)
     {
         this(executionTime, SimEventInterface.NORMAL_PRIORITY);
     }
@@ -51,7 +56,7 @@ public abstract class AbstractSimEvent implements SimEventInterface, Comparable<
      * @param executionTime reflects the time the event has to be executed.
      * @param priority reflects the priority of the event
      */
-    public AbstractSimEvent(final double executionTime, final short priority)
+    public AbstractSimEvent(final T executionTime, final short priority)
     {
         this.absoluteExecutionTime = executionTime;
         if (priority < SimEventInterface.MIN_PRIORITY - 1 || priority > SimEventInterface.MAX_PRIORITY + 1)
@@ -67,17 +72,17 @@ public abstract class AbstractSimEvent implements SimEventInterface, Comparable<
     /**
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
-    public int compareTo(final AbstractSimEvent simEvent)
+    public int compareTo(final AbstractSimEvent<T> simEvent)
     {
         if (this.equals(simEvent))
         {
             return 0;
         }
-        if (this.absoluteExecutionTime < simEvent.getAbsoluteExecutionTime())
+        if (this.absoluteExecutionTime.lt(simEvent.getAbsoluteExecutionTime()))
         {
             return -1;
         }
-        if (this.absoluteExecutionTime > simEvent.getAbsoluteExecutionTime())
+        if (this.absoluteExecutionTime.gt(simEvent.getAbsoluteExecutionTime()))
         {
             return 1;
         }
@@ -109,7 +114,7 @@ public abstract class AbstractSimEvent implements SimEventInterface, Comparable<
     /**
      * @return The execution time of a simulation event
      */
-    public double getAbsoluteExecutionTime()
+    public T getAbsoluteExecutionTime()
     {
         return this.absoluteExecutionTime;
     }

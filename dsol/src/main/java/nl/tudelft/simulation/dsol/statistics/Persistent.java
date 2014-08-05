@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
@@ -28,11 +29,15 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @param <T> the absolute simulation time to use in the warmup event.
  */
-public class Persistent extends nl.tudelft.simulation.jstats.statistics.Persistent
+public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jstats.statistics.Persistent
 {
+    /** */
+    private static final long serialVersionUID = 20140804L;
+
     /** simulator */
-    private SimulatorInterface simulator = null;
+    private SimulatorInterface<?, ?, T> simulator = null;
 
     /** Am I stopped ? */
     private boolean stopped = false;
@@ -43,11 +48,11 @@ public class Persistent extends nl.tudelft.simulation.jstats.statistics.Persiste
      * @param simulator the simulator
      * @throws RemoteException on network failure
      */
-    public Persistent(final String description, final SimulatorInterface simulator) throws RemoteException
+    public Persistent(final String description, final SimulatorInterface<?, ?, T> simulator) throws RemoteException
     {
         super(description);
         this.simulator = simulator;
-        if (this.simulator.getSimulatorTime() > this.simulator.getReplication().getTreatment().getWarmupPeriod())
+        if (this.simulator.getSimulatorTime().gt(this.simulator.getReplication().getTreatment().getWarmupTime()))
         {
             this.initialize();
         }
@@ -77,7 +82,7 @@ public class Persistent extends nl.tudelft.simulation.jstats.statistics.Persiste
      * @param field the field which is counted
      * @throws RemoteException on network failure
      */
-    public Persistent(final String description, final SimulatorInterface simulator,
+    public Persistent(final String description, final SimulatorInterface<?, ?, T> simulator,
             final EventProducerInterface target, final EventType field) throws RemoteException
     {
         this(description, simulator);

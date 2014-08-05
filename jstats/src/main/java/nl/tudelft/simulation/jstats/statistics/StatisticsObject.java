@@ -17,8 +17,6 @@ import javax.swing.table.TableModel;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.jstats.Swingable;
-import nl.tudelft.simulation.language.filters.FilterInterface;
-import nl.tudelft.simulation.language.filters.ZeroFilter;
 
 /**
  * The StatisticsObject class defines a statistics object. This abstract class is used to create general table
@@ -36,16 +34,8 @@ import nl.tudelft.simulation.language.filters.ZeroFilter;
 
 public abstract class StatisticsObject extends EventProducer implements Swingable, EventListenerInterface, Serializable
 {
-    /** the filter applied to the Counter */
-    protected FilterInterface filter = new ZeroFilter();
-
-    /**
-     * constructs a new StatisticsObject
-     */
-    public StatisticsObject()
-    {
-        super();
-    }
+    /** */
+    private static final long serialVersionUID = 20140804L;
 
     /**
      * represents the statistics object as Table.

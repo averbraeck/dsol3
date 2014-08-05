@@ -33,6 +33,9 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class Resource extends EventProducer
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
+
     /** the counter counting the requests */
     protected static long counter = 0;
 
@@ -62,7 +65,7 @@ public class Resource extends EventProducer
             new RequestComparator()));
 
     /** simulator defines the simulator on which is scheduled */
-    protected DEVSSimulatorInterface simulator;
+    protected DEVSSimulatorInterface<?, ?, ?> simulator;
 
     /** the description of the resource */
     protected String description = "resource";
@@ -73,7 +76,7 @@ public class Resource extends EventProducer
      * @param description the description of this resource
      * @param capacity of the resource
      */
-    public Resource(final DEVSSimulatorInterface simulator, final String description, final double capacity)
+    public Resource(final DEVSSimulatorInterface<?, ?, ?> simulator, final String description, final double capacity)
     {
         super();
         this.description = description;
@@ -86,7 +89,7 @@ public class Resource extends EventProducer
      * @param simulator on which is scheduled
      * @param capacity of the resource
      */
-    public Resource(final DEVSSimulatorInterface simulator, final double capacity)
+    public Resource(final DEVSSimulatorInterface<?, ?, ?> simulator, final double capacity)
     {
         this(simulator, "resource", capacity);
     }
@@ -188,7 +191,7 @@ public class Resource extends EventProducer
         if ((this.claimedCapacity + amount) <= this.capacity)
         {
             this.alterClaimedCapacity(amount);
-            this.simulator.scheduleEvent(0, this, requestor, "receiveRequestedResource", new Object[]{
+            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource", new Object[]{
                     new Double(amount), this});
         }
         else
@@ -253,7 +256,7 @@ public class Resource extends EventProducer
     /**
      * the RequestComparator. This comparator first checks on priority, then on ID.
      */
-    private class RequestComparator implements Comparator<Request>
+    protected class RequestComparator implements Comparator<Request>
     {
         /**
          * compares two request.

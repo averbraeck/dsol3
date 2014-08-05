@@ -12,6 +12,8 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.event.EventProducerInterface;
 import nl.tudelft.simulation.event.EventType;
 
@@ -20,17 +22,22 @@ import nl.tudelft.simulation.event.EventType;
  * computational object capable of executing the model. The simulator is therefore an object which must can be stopped,
  * paused, started, reset, etc.
  * <p>
- * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-
-public abstract interface SimulatorInterface extends Remote, Serializable, EventProducerInterface
+public abstract interface SimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends Remote, Serializable, EventProducerInterface
 {
     /** END_OF_REPLICATION_EVENT is fired when a replication is finished */
     EventType END_OF_REPLICATION_EVENT = new EventType("END_OF_REPLICATION_EVENT");
@@ -58,14 +65,14 @@ public abstract interface SimulatorInterface extends Remote, Serializable, Event
      * @return the simulator time.
      * @throws RemoteException on network failure.
      */
-    double getSimulatorTime() throws RemoteException;
+    T getSimulatorTime() throws RemoteException;
 
     /**
      * returns the currently executed replication.
      * @return the current replication
      * @throws RemoteException on network failure
      */
-    Replication getReplication() throws RemoteException;
+    Replication<A, R, T> getReplication() throws RemoteException;
 
     /**
      * initializes the simulator with a specified replication.
@@ -74,7 +81,8 @@ public abstract interface SimulatorInterface extends Remote, Serializable, Event
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on simulator failure (simulator is running)
      */
-    void initialize(Replication replication, short replicationMode) throws RemoteException, SimRuntimeException;
+    void initialize(Replication<A, R, T> replication, ReplicationMode replicationMode) throws RemoteException,
+            SimRuntimeException;
 
     /**
      * is the simulator running.

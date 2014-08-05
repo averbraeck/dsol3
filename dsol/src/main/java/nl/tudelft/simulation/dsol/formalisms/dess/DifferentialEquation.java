@@ -8,6 +8,7 @@ package nl.tudelft.simulation.dsol.formalisms.dess;
 
 import java.rmi.RemoteException;
 
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
@@ -26,12 +27,20 @@ import nl.tudelft.simulation.logger.Logger;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:46 $
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class DifferentialEquation extends nl.tudelft.simulation.jstats.ode.DifferentialEquation implements
-        DifferentialEquationInterface, EventListenerInterface
+public abstract class DifferentialEquation<A extends Number & Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends nl.tudelft.simulation.jstats.ode.DifferentialEquation implements DifferentialEquationInterface,
+        EventListenerInterface
 {
-    // we initialze the array (30 size set seems enough..)
+    /** */
+    private static final long serialVersionUID = 20140804L;
+
+    // we initialize the array (30 size set seems enough..)
     static
     {
         for (int i = 0; i < VALUE_CHANGED_EVENT.length; i++)
@@ -41,10 +50,10 @@ public abstract class DifferentialEquation extends nl.tudelft.simulation.jstats.
     }
 
     /** simulator */
-    protected DESSSimulatorInterface simulator = null;
+    protected DESSSimulatorInterface<A, R, T> simulator = null;
 
     /** the previousX */
-    protected double previousX = 0.0;
+    protected double previousX;
 
     /** the previousY */
     protected double[] previousY = null;
@@ -54,7 +63,7 @@ public abstract class DifferentialEquation extends nl.tudelft.simulation.jstats.
      * @param simulator the simulator
      * @throws RemoteException on network exception
      */
-    public DifferentialEquation(final DESSSimulatorInterface simulator) throws RemoteException
+    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator) throws RemoteException
     {
         this(simulator, simulator.getTimeStep(), NumericalIntegrator.DEFAULT_INTEGRATOR);
     }
@@ -64,7 +73,7 @@ public abstract class DifferentialEquation extends nl.tudelft.simulation.jstats.
      * @param simulator the simulator
      * @param timeStep the timeStep for ODE estimation
      */
-    public DifferentialEquation(final DESSSimulatorInterface simulator, final double timeStep)
+    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final R timeStep)
     {
         this(simulator, timeStep, NumericalIntegrator.DEFAULT_INTEGRATOR);
     }
@@ -75,10 +84,10 @@ public abstract class DifferentialEquation extends nl.tudelft.simulation.jstats.
      * @param timeStep the timeStep for ODE estimation.
      * @param numericalMethod the numerical method to be used.
      */
-    public DifferentialEquation(final DESSSimulatorInterface simulator, final double timeStep,
+    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final R timeStep,
             final short numericalMethod)
     {
-        super(timeStep, numericalMethod);
+        super(timeStep.doubleValue(), numericalMethod);
         this.simulator = simulator;
         try
         {
@@ -96,7 +105,7 @@ public abstract class DifferentialEquation extends nl.tudelft.simulation.jstats.
      * @param timeStep the timeStep for ODE estimation.
      * @param numericalIntegrator the actual integrator to be used.
      */
-    public DifferentialEquation(final DESSSimulatorInterface simulator, final double timeStep,
+    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final double timeStep,
             final NumericalIntegrator numericalIntegrator)
     {
         super(timeStep, numericalIntegrator);
@@ -119,18 +128,19 @@ public abstract class DifferentialEquation extends nl.tudelft.simulation.jstats.
         if (event.getSource() instanceof DESSSimulatorInterface
                 && event.getType().equals(SimulatorInterface.TIME_CHANGED_EVENT))
         {
-            if (this.simulator.getSimulatorTime() < super.x0 || Double.isNaN(super.x0))
+            if (this.simulator.getSimulatorTime().get().doubleValue() < super.x0 || Double.isNaN(super.x0))
             {
                 return;
             }
             // do not put super here!
-            this.previousY = integrateY(this.simulator.getSimulatorTime(), this.previousX, this.previousY);
+            this.previousY =
+                    integrateY(this.simulator.getSimulatorTime().get().doubleValue(), this.previousX, this.previousY);
             for (int i = 0; i < super.y0.length; i++)
             {
-                this.fireEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i],
-                        this.simulator.getSimulatorTime());
+                this.fireEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i], this.simulator
+                        .getSimulatorTime());
             }
-            this.previousX = this.simulator.getSimulatorTime();
+            this.previousX = this.simulator.getSimulatorTime().get().doubleValue();
         }
     }
 

@@ -18,15 +18,16 @@ package nl.tudelft.simulation.event;
  * warranty
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:12 $
+ * @param <T> the object type of the timestamp
  * @since 1.5
  */
-public class TimedEvent extends Event
+public class TimedEvent<T extends Comparable<T>> extends Event implements Comparable<TimedEvent<T>>
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
 
     /** timeStamp refers to the time stamp of the event */
-    private double timeStamp = Double.NaN;
+    private final T timeStamp;
 
     /**
      * constructs a new timed event.
@@ -35,7 +36,7 @@ public class TimedEvent extends Event
      * @param value the value of the event.
      * @param timeStamp the timeStamp.
      */
-    public TimedEvent(final EventType type, final Object source, final Object value, final double timeStamp)
+    public TimedEvent(final EventType type, final Object source, final Object value, final T timeStamp)
     {
         super(type, source, value);
         this.timeStamp = timeStamp;
@@ -45,9 +46,18 @@ public class TimedEvent extends Event
      * returns the timeStamp of this event.
      * @return the timestamp as double.
      */
-    public double getTimeStamp()
+    public T getTimeStamp()
     {
         return this.timeStamp;
+    }
+
+    /**
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(TimedEvent<T> o)
+    {
+        return this.timeStamp.compareTo(o.getTimeStamp());
     }
 
     /**

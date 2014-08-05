@@ -6,6 +6,8 @@
  */
 package nl.tudelft.simulation.dsol.simulators;
 
+import junit.framework.Assert;
+import junit.framework.TestCase;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 
 /**
@@ -19,28 +21,34 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
-public class DESSSimulatorTest extends SimulatorTest
+public class RealTimeClockTest_Failed extends TestCase
 {
     /**
      * constructs a new DEVSSimulatorTest
      */
-    public DESSSimulatorTest()
+    public RealTimeClockTest_Failed()
     {
-        super(new DESSSimulator());
+        super();
     }
 
     /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorTest#test()
+     * @see nl.tudelft.simulation.dsol.simulators.SimulatorTest_NotCorrect#test()
      */
-    @Override
     public void test()
     {
-        super.test();
+        try
+        {
+            RealTimeClock clock = new RealTimeClock();
+            clock.setTimeStep(10);
 
-        DESSSimulatorInterface dessSimulator = (DESSSimulatorInterface) super.simulator;
-        ExperimentalFrame experimentalFrame = TestExperiment.createExperimentalFrame(dessSimulator, new TestModel());
-        experimentalFrame.start();
-
+            ExperimentalFrame experiment = TestExperiment.createExperimentalFrame(clock, new TestModel());
+            experiment.getExperiments().get(0).getTreatment().setRunLength(100000);
+            experiment.start();
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getMessage());
+        }
     }
 
     /**
@@ -49,6 +57,6 @@ public class DESSSimulatorTest extends SimulatorTest
      */
     public static void main(final String[] args)
     {
-        new DESSSimulatorTest().test();
+        new RealTimeClockTest_Failed().test();
     }
 }

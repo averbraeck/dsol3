@@ -10,6 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
@@ -24,46 +25,42 @@ import nl.tudelft.simulation.language.reflection.ClassUtil;
  * warranty.
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:36:43 $
+ * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
  */
-public class SimEvent extends AbstractSimEvent
+public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
 {
-    /**
-     * source reflects the source that created the simevent
-     */
+    /** */
+    private static final long serialVersionUID = 20140804L;
+
+    /** source reflects the source that created the simevent */
     protected Object source = null;
 
-    /**
-     * target reflects the target on which a state change is scheduled
-     */
+    /** target reflects the target on which a state change is scheduled */
     protected Object target = null;
 
-    /**
-     * method is the method which embodies the state change
-     */
-    protected String method = null;
+    /** method is the method which embodies the state change */
+    protected String methodName = null;
 
-    /**
-     * args are the arguments which are used to invoke the method with
-     */
+    /** args are the arguments which are used to invoke the method with */
     protected Object[] args = null;
 
     /**
-     * The constuctor of the event stores the time the event must be executed and the object and method to invoke
+     * The constructor of the event stores the time the event must be executed and the object and method to invoke
      * @param executionTime reflects the time the event has to be executed.
      * @param source reflects the source that created the method
      * @param target reflects the object on which the method must be invoked.
      * @param method reflects the method to invoke
      * @param args reflects the argumenst the method to invoke with
      */
-    public SimEvent(final double executionTime, final Object source, final Object target, final String method,
+    public SimEvent(final T executionTime, final Object source, final Object target, final String method,
             final Object[] args)
     {
         this(executionTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
 
     /**
-     * The constuctor of the event stores the time the event must be executed and the object and method to invoke
+     * The constructor of the event stores the time the event must be executed and the object and method to invoke
      * @param executionTime reflects the time the event has to be executed.
      * @param priority reflects the priority of the event
      * @param source reflects the source that created the method
@@ -71,7 +68,7 @@ public class SimEvent extends AbstractSimEvent
      * @param method reflects the method to invoke
      * @param args reflects the argumenst the method to invoke with
      */
-    public SimEvent(final double executionTime, final short priority, final Object source, final Object target,
+    public SimEvent(final T executionTime, final short priority, final Object source, final Object target,
             final String method, final Object[] args)
     {
         super(executionTime, priority);
@@ -81,7 +78,7 @@ public class SimEvent extends AbstractSimEvent
         }
         this.source = source;
         this.target = target;
-        this.method = method;
+        this.methodName = method;
         this.args = args;
     }
 
@@ -93,27 +90,27 @@ public class SimEvent extends AbstractSimEvent
     {
         try
         {
-            if (this.method.equals("<init>"))
+            if (this.methodName.equals("<init>"))
             {
                 if (!(this.target instanceof Class))
                 {
                     throw new SimRuntimeException(
                             "Invoking a constructor implies that target should be instance of Class");
                 }
-                Constructor<?> constructor = ClassUtil.resolveConstructor((Class) this.target, this.args);
+                Constructor<?> constructor = ClassUtil.resolveConstructor((Class<?>) this.target, this.args);
                 if (!ClassUtil.isVisible(constructor, this.source.getClass()))
                 {
-                    throw new SimRuntimeException(this.method + " is not accessible for " + this.source);
+                    throw new SimRuntimeException(this.methodName + " is not accessible for " + this.source);
                 }
                 constructor.setAccessible(true);
                 constructor.newInstance(this.args);
             }
             else
             {
-                Method method = ClassUtil.resolveMethod(this.target, this.method, this.args);
+                Method method = ClassUtil.resolveMethod(this.target, this.methodName, this.args);
                 if (!ClassUtil.isVisible(method, this.source.getClass()))
                 {
-                    throw new SimRuntimeException(this.method + " is not accessible for " + this.source);
+                    throw new SimRuntimeException(this.methodName + " is not accessible for " + this.source);
                 }
                 method.setAccessible(true);
                 method.invoke(this.target, this.args);
@@ -139,7 +136,7 @@ public class SimEvent extends AbstractSimEvent
      */
     public String getMethod()
     {
-        return this.method;
+        return this.methodName;
     }
 
     /**
@@ -165,6 +162,6 @@ public class SimEvent extends AbstractSimEvent
     public String toString()
     {
         return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; source="
-                + this.source + "; target=" + this.target + "; method=" + this.method + "; args=" + this.args + "]";
+                + this.source + "; target=" + this.target + "; method=" + this.methodName + "; args=" + this.args + "]";
     }
 }

@@ -25,7 +25,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
-public class ExperimentalFrame extends EventProducer implements Iterator<Experiment>, EventListenerInterface
+public class ExperimentalFrame extends EventProducer implements Iterator<Experiment<?, ?, ?>>, EventListenerInterface
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     public static final EventType END_OF_EXPERIMENTALFRAME_EVENT = new EventType("END_OF_EXPERIMENTALFRAME_EVENT");
 
     /** the list of experiments defined in this experimental frame */
-    protected List<Experiment> experiments = null;
+    protected List<Experiment<?, ?, ?>> experiments = null;
 
     /** the current experiment */
     protected int currentExperiment = -1;
@@ -85,7 +85,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
      * overwrite this method.
      * @see java.util.Iterator#next()
      */
-    public Experiment next()
+    public Experiment<?, ?, ?> next()
     {
         this.currentExperiment++;
         return this.experiments.get(this.currentExperiment);
@@ -102,7 +102,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     /**
      * @return Returns the experiments.
      */
-    public List<Experiment> getExperiments()
+    public List<Experiment<?, ?, ?>> getExperiments()
     {
         return this.experiments;
     }
@@ -110,7 +110,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     /**
      * @param experiments The experiments to set.
      */
-    public void setExperiments(final List<Experiment> experiments)
+    public void setExperiments(final List<Experiment<?, ?, ?>> experiments)
     {
         this.experiments = experiments;
     }
@@ -141,7 +141,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
             if (this.hasNext())
             {
                 // we can run the next experiment...s
-                Experiment next = this.next();
+                Experiment<?, ?, ?> next = this.next();
                 next.addListener(this, Experiment.END_OF_EXPERIMENT_EVENT, false);
                 next.start();
             }
@@ -169,7 +169,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     public String toString()
     {
         String result = "ExperimentalFrame ";
-        for (Experiment experiment : this.experiments)
+        for (Experiment<?, ?, ?> experiment : this.experiments)
         {
             result = result + "\n [Experiment=" + experiment.toString();
         }
@@ -198,7 +198,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
      */
     public void reset()
     {
-        for (Experiment experiment : this.experiments)
+        for (Experiment<?, ?, ?> experiment : this.experiments)
         {
             experiment.reset();
         }

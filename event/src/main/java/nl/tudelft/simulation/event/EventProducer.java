@@ -269,7 +269,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param time a timestamp for the event.
      * @return the byte value.
      */
-    protected synchronized byte fireEvent(final EventType eventType, final byte value, final double time)
+    protected synchronized byte fireEvent(final EventType eventType, final byte value, final Comparable<?> time)
     {
         this.fireEvent(eventType, new Byte(value), time);
         return value;
@@ -282,7 +282,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param time a timestamp for the event.
      * @return the byte value.
      */
-    protected synchronized boolean fireEvent(final EventType eventType, final boolean value, final double time)
+    protected synchronized boolean fireEvent(final EventType eventType, final boolean value, final Comparable<?> time)
     {
         this.fireEvent(eventType, new Boolean(value), time);
         return value;
@@ -307,7 +307,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param time a timestamp for the event.
      * @return the double value.
      */
-    protected synchronized double fireEvent(final EventType eventType, final double value, final double time)
+    protected synchronized double fireEvent(final EventType eventType, final double value, final Comparable<?> time)
     {
         this.fireEvent(eventType, new Double(value), time);
         return value;
@@ -332,7 +332,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param time a timestamp for the event.
      * @return the integer value.
      */
-    protected synchronized int fireEvent(final EventType eventType, final int value, final double time)
+    protected synchronized int fireEvent(final EventType eventType, final int value, final Comparable<?> time)
     {
         this.fireEvent(eventType, new Integer(value), time);
         return value;
@@ -357,7 +357,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param time a timestamp for the event.
      * @return the long value.
      */
-    protected synchronized long fireEvent(final EventType eventType, final long value, final double time)
+    protected synchronized long fireEvent(final EventType eventType, final long value, final Comparable<?> time)
     {
         this.fireEvent(eventType, new Long(value), time);
         return value;
@@ -382,7 +382,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param time a timestamp for the event.
      * @return the Serializable value.
      */
-    protected synchronized Object fireEvent(final EventType eventType, final Object value, final double time)
+    protected synchronized Object fireEvent(final EventType eventType, final Object value, final Comparable<?> time)
     {
         this.fireEvent(new TimedEvent(eventType, this, value, time));
         return value;
@@ -407,7 +407,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param time a timestamp for the event.
      * @return the short value.
      */
-    protected synchronized short fireEvent(final EventType eventType, final short value, final double time)
+    protected synchronized short fireEvent(final EventType eventType, final short value, final Comparable<?> time)
     {
         this.fireEvent(eventType, new Short(value), time);
         return value;

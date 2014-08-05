@@ -25,6 +25,9 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class Persistent extends Tally
 {
+    /** */
+    private static final long serialVersionUID = 20140805L;
+
     /** VALUE_EVENT is fired whenever on a change in measurements */
     public static final EventType VALUE_EVENT = new EventType("VALUE_EVENT");
 
@@ -107,7 +110,8 @@ public class Persistent extends Tally
             throw new IllegalArgumentException("event !=TimedEvent || event.source !=Double ("
                     + event.getContent().getClass().toString() + ")");
         }
-        TimedEvent timedEvent = (TimedEvent) event;
+        // TODO: what if this is not a Double?
+        TimedEvent<Double> timedEvent = (TimedEvent<Double>) event;
         double value = 0.0;
         if (event.getContent() instanceof Number)
         {
@@ -117,10 +121,7 @@ public class Persistent extends Tally
         {
             Logger.warning(this, "notify", event.getContent() + "should be a number.");
         }
-        if (!this.filter.accept(new double[]{timedEvent.getTimeStamp(), value}))
-        {
-            return;
-        }
+
         synchronized (this.semaphore)
         {
             super.fireEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent.getTimeStamp());

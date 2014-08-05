@@ -9,7 +9,7 @@ package nl.tudelft.simulation.dsol.simulators;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 
 /**
- * The DEVSSimulatorTest test the DEVS Simulator <br>
+ * The DESSSSimulatorTest test the DEVS Simulator <br>
  * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
@@ -19,34 +19,36 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
-public class DEVSSimulatorTest extends SimulatorTest
+public class DESSSimulatorTest_Failed extends SimulatorTest_NotCorrect
 {
     /**
      * constructs a new DEVSSimulatorTest
      */
-    public DEVSSimulatorTest()
+    public DESSSimulatorTest_Failed()
     {
-        super(new DEVSSimulator());
+        super(new DESSSimulator());
     }
 
     /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorTest#test()
+     * @see nl.tudelft.simulation.dsol.simulators.SimulatorTest_NotCorrect#test()
      */
     @Override
     public void test()
     {
         super.test();
-        ExperimentalFrame experimentalFrame =
-                TestExperiment.createExperimentalFrame(new DEVSSimulator(), new DEVSTestModel());
+
+        DESSSimulatorInterface dessSimulator = (DESSSimulatorInterface) super.simulator;
+        ExperimentalFrame experimentalFrame = TestExperiment.createExperimentalFrame(dessSimulator, new TestModel());
         experimentalFrame.start();
+
     }
 
     /**
-     * The main method
-     * @param args command-line input
+     * Executes a DESSSimulatorTest
+     * @param args the arguments given on the command line
      */
     public static void main(final String[] args)
     {
-        new DEVSSimulatorTest().test();
+        new DESSSimulatorTest_Failed().test();
     }
 }
