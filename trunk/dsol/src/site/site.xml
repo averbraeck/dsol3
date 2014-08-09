@@ -11,7 +11,6 @@
 
 	  <menu name="DSOL 3.0 Projects">
 			<item name="Simulation@TU Delft" href="http://simulation.tudelft.nl"/>
-			<item name="dsol project" href="http://simulation.tudelft.nl/dsol/3.0/index.html"/>
 			<item name="dsol-base" href="http://simulation.tudelft.nl/dsol/3.0/dsol-base/index.html"/>
 			<item name="dsol-core" href="http://simulation.tudelft.nl/dsol/3.0/dsol-core/index.html"/>
 			<item name="dsol-swing" href="http://simulation.tudelft.nl/dsol/3.0/dsol-swing/index.html"/>
@@ -21,7 +20,16 @@
 			<item name="dsol-hla" href="http://simulation.tudelft.nl/dsol/3.0/dsol-hla/index.html"/>
 	  </menu>
       
-    ${reports}
-
+    <menu name="DSOL features">
+      <item name="DSOL intro" href="intro.html"/>
+      <item name="Features" href="features.html"/>
+      <item name="Download" href="download.html"/>
+      <item name="News and status" href="news.html"/>
+      <item name="Getting started" href="gettingStarted.html"/>
+      <item name="Documentation" href="documentation.html"/>
+      <item name="Portfolio" href="portfolio.html"/>
+      <item name="Developers toolkit" href="developers.html"/>
+    </menu>
+    
   </body>
 </project>
