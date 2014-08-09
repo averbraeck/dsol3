@@ -20,8 +20,8 @@
 			<item name="dsol-demo" href="http://simulation.tudelft.nl/dsol/3.0/dsol-demo/index.html"/>
 			<item name="dsol-hla" href="http://simulation.tudelft.nl/dsol/3.0/dsol-hla/index.html"/>
 	  </menu>
-      
-    ${reports}
 
+    ${reports}
+    
   </body>
 </project>
