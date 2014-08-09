@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="${artifactId} ${version}">
+
+	<publishDate position="left" format="dd-MM-yyyy" />
+
+	<bannerLeft>
+		<name>${artifactId} ${version}</name>
+	</bannerLeft>
+
+	<body>
+
+		<menu name="DSOL 3.0 Projects">
+			<item name="Simulation@TU Delft" href="http://simulation.tudelft.nl"/>
+			<item name="dsol project" href="http://simulation.tudelft.nl/dsol/3.0/index.html"/>
+			<item name="dsol-base" href="http://simulation.tudelft.nl/dsol/3.0/dsol-base/index.html"/>
+			<item name="dsol-core" href="http://simulation.tudelft.nl/dsol/3.0/dsol-core/index.html"/>
+			<item name="dsol-swing" href="http://simulation.tudelft.nl/dsol/3.0/dsol-swing/index.html"/>
+			<item name="dsol-fx" href="http://simulation.tudelft.nl/dsol/3.0/dsol-fx/index.html"/>
+			<item name="dsol-web" href="http://simulation.tudelft.nl/dsol/3.0/dsol-web/index.html"/>
+			<item name="dsol-demo" href="http://simulation.tudelft.nl/dsol/3.0/dsol-demo/index.html"/>
+			<item name="dsol-hla" href="http://simulation.tudelft.nl/dsol/3.0/dsol-hla/index.html"/>
+		</menu>
+
+		${reports}
+
+	</body>
+</project>
