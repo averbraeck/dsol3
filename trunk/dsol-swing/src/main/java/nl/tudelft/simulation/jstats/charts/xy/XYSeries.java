@@ -79,12 +79,13 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
      */
     public synchronized void notify(final EventInterface event)
     {
-        TimedEvent timedEvent = (TimedEvent) event;
+        TimedEvent<?> timedEvent = (TimedEvent<?>) event;
+        Number timeStamp = (Number) timedEvent.getTimeStamp();
 
         // We have chosen to simply neglect <=0.0 values on logarithmic axis
         if (this.axisType == XYChart.XLOGARITHMIC_YLINEAR || this.axisType == XYChart.XLOGARITHMIC_YLOGARITHMIC)
         {
-            if (timedEvent.getTimeStamp() <= 0.0)
+            if (timeStamp.doubleValue() <= 0.0)
             {
                 Logger.warning(this, "notify", "refusing xvalue of " + event + " on logrithmic chart");
                 return;
@@ -98,7 +99,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
                 return;
             }
         }
-        double[] point = {timedEvent.getTimeStamp(), ((Number) timedEvent.getContent()).doubleValue()};
+        double[] point = {timeStamp.doubleValue(), ((Number) timedEvent.getContent()).doubleValue()};
         if (!this.filter.accept(point))
         {
             return;
