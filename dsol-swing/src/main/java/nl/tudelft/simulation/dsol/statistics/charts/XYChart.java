@@ -34,7 +34,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
      */
     public XYChart(final SimulatorInterface simulator, final String title) throws RemoteException
     {
-        this(simulator, title, new double[]{0, simulator.getReplication().getTreatment().getRunLength()});
+        this(simulator, title, new double[]{0, simulator.getReplication().getTreatment().getRunLength().doubleValue()});
     }
 
     /**
@@ -46,7 +46,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
      */
     public XYChart(final SimulatorInterface simulator, final String title, final short axisType) throws RemoteException
     {
-        this(simulator, title, new double[]{0, simulator.getReplication().getTreatment().getRunLength()}, axisType);
+        this(simulator, title, new double[]{0, simulator.getReplication().getTreatment().getRunLength().doubleValue()}, axisType);
     }
 
     /**
