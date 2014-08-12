@@ -1,8 +1,8 @@
 /*
- * @(#) RealTimeClock.java Sep 6, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
+ * @(#) Animator.java Sep 6, 2003 Copyright (c) 2002-2005 Delft University of
+ * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * This software is proprietary information of Delft University of Technology
+ * 
  */
 package nl.tudelft.simulation.dsol.simulators;
 
@@ -22,19 +22,17 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * The reference implementation of the realTimeClock. The realTime clock is a DEVDESS simulator which runs at a ratio of
- * realTime. If the executionTime exceeds the timeStep, a catchup mechanism is triggered to make up lost time in
- * consecutive steps.
+ * The reference implementation of the animator.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -42,28 +40,39 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends DEVDESSAnimator<A, R, T> implements DEVDESSSimulatorInterface<A, R, T>
+public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends DEVDESSSimulator<A, R, T> implements AnimatorInterface
 {
     /** */
-    private static final long serialVersionUID = 20140805L;
-
-    /** the backlog event */
-    public static final EventType BACKLOG_EVENT = new EventType("BACKLOG_EVENT");
-
-    /** the backLog of the clock */
-    private long backlog = 0L;
-
-    /** the starttime of the clock */
-    private long startTime = 0L;
+    private static final long serialVersionUID = 20140804L;
 
     /**
-     * constructs a new RealTimeClock.
-     * @param initialTimeStep the initial time step to use in the integration.
+     * @param initialTimeStep
      */
-    public RealTimeClock(final R initialTimeStep)
+    public DEVDESSAnimator(final R initialTimeStep)
     {
         super(initialTimeStep);
+    }
+
+    /** AnimationDelay refers to the delay in milliseconds between timeSteps */
+    protected long animationDelay = 100L;
+
+    /**
+     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #getAnimationDelay()
+     */
+    public long getAnimationDelay()
+    {
+        return this.animationDelay;
+    }
+
+    /**
+     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #setAnimationDelay(long)
+     */
+    public void setAnimationDelay(final long animationDelay)
+    {
+        this.animationDelay = animationDelay;
+        Logger.finer(this, "setAnimationDelay", "set the animationDelay to " + animationDelay);
+        this.fireEvent(ANIMATION_DELAY_CHANGED_EVENT, animationDelay);
     }
 
     /**
@@ -72,16 +81,22 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
     @Override
     public void run()
     {
-        super.worker.setPriority(Thread.MAX_PRIORITY);
-        this.startTime = System.currentTimeMillis();
-        int count = 0;
-        long animationFactor = Math.round(this.animationDelay / this.timeStep.doubleValue());
         while (this.isRunning() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
         {
-            long now = System.currentTimeMillis();
-            T runUntil = this.simulatorTime.plus(this.timeStep); // TODO: (now - this.startTime) +
-                                                                 // this.timeStep.longValue();
+            try
+            {
+                if (this.animationDelay > 0)
+                {
+                    Thread.sleep(this.animationDelay);
+                }
+            }
+            catch (Exception exception)
+            {
+                exception = null;
+                // Let's neglect this sleep...
+            }
+            T runUntil = this.simulatorTime.plus(this.timeStep);
             while (!this.eventList.isEmpty() && this.running
                     && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
@@ -89,6 +104,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
+                    this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
                     try
                     {
                         event.execute();
@@ -104,61 +120,16 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
                 this.simulatorTime = runUntil;
             }
             this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
-            if ((count % animationFactor) == 0)
-            {
-                this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime, this.simulatorTime);
-            }
-            count++;
-            try
-            {
-                long used = System.currentTimeMillis() - now;
-                long delay = Math.round(this.timeStep.doubleValue() - used);
-                if (delay >= 0)
-                {
-                    long catchUp = Math.min(this.backlog, delay);
-                    this.backlog = this.backlog - catchUp;
-                    super.fireEvent(BACKLOG_EVENT, (-delay + catchUp));
-                    Thread.sleep(delay - catchUp);
-                }
-                else
-                {
-                    this.backlog = this.backlog + (-1 * delay);
-                    super.fireEvent(BACKLOG_EVENT, -1 * delay);
-                }
-            }
-            catch (InterruptedException interruptedException)
-            {
-                // Nothing to be done.
-                interruptedException = null;
-            }
+            this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
         }
-    }
-
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #getAnimationDelay()
-     */
-    @Override
-    public long getAnimationDelay()
-    {
-        return this.animationDelay;
-    }
-
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #setAnimationDelay(long)
-     */
-    @Override
-    public void setAnimationDelay(final long animationDelay)
-    {
-        this.animationDelay = animationDelay;
     }
 
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class RealTimeClock.Double */
-    public class Double extends RealTimeClock<java.lang.Double, java.lang.Double, SimTimeDouble> implements
-            DEVDESSSimulatorInterface.Double
+    /** Easy access class Animator.Double */
+    public static class Double extends DEVDESSAnimator<java.lang.Double, java.lang.Double, SimTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -172,9 +143,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.Float */
-    public class Float extends RealTimeClock<java.lang.Float, java.lang.Float, SimTimeFloat> implements
-            DEVDESSSimulatorInterface.Float
+    /** Easy access class Animator.Float */
+    public static class Float extends DEVDESSAnimator<java.lang.Float, java.lang.Float, SimTimeFloat>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -188,9 +158,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.Long */
-    public class Long extends RealTimeClock<java.lang.Long, java.lang.Long, SimTimeLong> implements
-            DEVDESSSimulatorInterface.Long
+    /** Easy access class Animator.Long */
+    public static class Long extends DEVDESSAnimator<java.lang.Long, java.lang.Long, SimTimeLong>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -204,9 +173,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.DoubleUnit */
-    public class DoubleUnit extends RealTimeClock<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
-            DEVDESSSimulatorInterface.DoubleUnit
+    /** Easy access class Animator.DoubleUnit */
+    public static class DoubleUnit extends DEVDESSAnimator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -220,9 +188,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.FloatUnit */
-    public class FloatUnit extends RealTimeClock<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DEVDESSSimulatorInterface.FloatUnit
+    /** Easy access class Animator.FloatUnit */
+    public static class FloatUnit extends DEVDESSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -236,9 +203,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.LongUnit */
-    public class LongUnit extends RealTimeClock<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DEVDESSSimulatorInterface.LongUnit
+    /** Easy access class Animator.LongUnit */
+    public static class LongUnit extends DEVDESSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -252,9 +218,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.CalendarDouble */
-    public class CalendarDouble extends RealTimeClock<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
-            DEVDESSSimulatorInterface.CalendarDouble
+    /** Easy access class Animator.CalendarDouble */
+    public static class CalendarDouble extends DEVDESSAnimator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -268,9 +233,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.CalendarFloat */
-    public class CalendarFloat extends RealTimeClock<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
-            DEVDESSSimulatorInterface.CalendarFloat
+    /** Easy access class Animator.CalendarFloat */
+    public static class CalendarFloat extends DEVDESSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -284,9 +248,8 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.CalendarLong */
-    public class CalendarLong extends RealTimeClock<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            DEVDESSSimulatorInterface.CalendarLong
+    /** Easy access class Animator.CalendarLong */
+    public static class CalendarLong extends DEVDESSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         /** */
         private static final long serialVersionUID = 20140805L;

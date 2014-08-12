@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.naming.Context;
 
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
@@ -24,8 +25,13 @@ import nl.tudelft.simulation.logger.Logger;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, such as
+ *            Double or UnitTimeLong, the absolute and relative types are the same.
+ * @param <T> the simulation time type based on the absolute and relative time.
  */
-public class ExperimentalFrame extends EventProducer implements Iterator<Experiment<?, ?, ?>>, EventListenerInterface
+public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends EventProducer implements Iterator<Experiment<A, R, T>>, EventListenerInterface
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;
@@ -36,7 +42,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     public static final EventType END_OF_EXPERIMENTALFRAME_EVENT = new EventType("END_OF_EXPERIMENTALFRAME_EVENT");
 
     /** the list of experiments defined in this experimental frame */
-    protected List<Experiment<?, ?, ?>> experiments = null;
+    protected List<Experiment<A, R, T>> experiments = null;
 
     /** the current experiment */
     protected int currentExperiment = -1;
@@ -85,7 +91,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
      * overwrite this method.
      * @see java.util.Iterator#next()
      */
-    public Experiment<?, ?, ?> next()
+    public Experiment<A, R, T> next()
     {
         this.currentExperiment++;
         return this.experiments.get(this.currentExperiment);
@@ -102,7 +108,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     /**
      * @return Returns the experiments.
      */
-    public List<Experiment<?, ?, ?>> getExperiments()
+    public List<Experiment<A, R, T>> getExperiments()
     {
         return this.experiments;
     }
@@ -110,7 +116,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     /**
      * @param experiments The experiments to set.
      */
-    public void setExperiments(final List<Experiment<?, ?, ?>> experiments)
+    public void setExperiments(final List<Experiment<A, R, T>> experiments)
     {
         this.experiments = experiments;
     }
