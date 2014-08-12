@@ -40,8 +40,8 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        DEVDESSSimulator<A, R, T> implements AnimatorInterface<A, R, T>
+public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends DEVSSimulator<A, R, T> implements AnimatorInterface
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -49,9 +49,9 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
     /**
      * @param initialTimeStep
      */
-    public Animator(final R initialTimeStep)
+    public DEVSAnimator()
     {
-        super(initialTimeStep);
+        super();
     }
 
     /** AnimationDelay refers to the delay in milliseconds between timeSteps */
@@ -96,9 +96,9 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
                 exception = null;
                 // Let's neglect this sleep...
             }
-            T runUntil = this.simulatorTime.plus(this.timeStep);
-            while (!this.eventList.isEmpty() && this.running
-                    && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
+            // T runUntil = this.simulatorTime.plus(this.timeStep);
+            while (!this.eventList.isEmpty() && this.running)
+            // && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
                 synchronized (super.semaphore)
                 {
@@ -117,7 +117,7 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
             }
             if (this.running)
             {
-                this.simulatorTime = runUntil;
+                // this.simulatorTime = runUntil;
             }
             this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
             this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
@@ -129,8 +129,7 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
     /***********************************************************************************************************/
 
     /** Easy access class Animator.Double */
-    public static class Double extends Animator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
-            AnimatorInterface.Double
+    public static class Double extends DEVSAnimator<java.lang.Double, java.lang.Double, SimTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -138,15 +137,14 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public Double(final java.lang.Double initialTimeStep)
+        public Double()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 
     /** Easy access class Animator.Float */
-    public static class Float extends Animator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
-            AnimatorInterface.Float
+    public static class Float extends DEVSAnimator<java.lang.Float, java.lang.Float, SimTimeFloat>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -154,15 +152,14 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public Float(final java.lang.Float initialTimeStep)
+        public Float()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 
     /** Easy access class Animator.Long */
-    public static class Long extends Animator<java.lang.Long, java.lang.Long, SimTimeLong> implements
-            AnimatorInterface.Long
+    public static class Long extends DEVSAnimator<java.lang.Long, java.lang.Long, SimTimeLong>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -170,15 +167,14 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public Long(final java.lang.Long initialTimeStep)
+        public Long()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 
     /** Easy access class Animator.DoubleUnit */
-    public static class DoubleUnit extends Animator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
-            AnimatorInterface.DoubleUnit
+    public static class DoubleUnit extends DEVSAnimator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -186,15 +182,14 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public DoubleUnit(final UnitTimeDouble initialTimeStep)
+        public DoubleUnit()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 
     /** Easy access class Animator.FloatUnit */
-    public static class FloatUnit extends Animator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            AnimatorInterface.FloatUnit
+    public static class FloatUnit extends DEVSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -202,15 +197,14 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public FloatUnit(final UnitTimeFloat initialTimeStep)
+        public FloatUnit()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 
     /** Easy access class Animator.LongUnit */
-    public static class LongUnit extends Animator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            AnimatorInterface.LongUnit
+    public static class LongUnit extends DEVSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -218,15 +212,14 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public LongUnit(final UnitTimeLong initialTimeStep)
+        public LongUnit()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 
     /** Easy access class Animator.CalendarDouble */
-    public static class CalendarDouble extends Animator<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
-            AnimatorInterface.CalendarDouble
+    public static class CalendarDouble extends DEVSAnimator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -234,15 +227,14 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public CalendarDouble(final UnitTimeDouble initialTimeStep)
+        public CalendarDouble()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 
     /** Easy access class Animator.CalendarFloat */
-    public static class CalendarFloat extends Animator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
-            AnimatorInterface.CalendarFloat
+    public static class CalendarFloat extends DEVSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -250,15 +242,14 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public CalendarFloat(final UnitTimeFloat initialTimeStep)
+        public CalendarFloat()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 
     /** Easy access class Animator.CalendarLong */
-    public static class CalendarLong extends Animator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            AnimatorInterface.CalendarLong
+    public static class CalendarLong extends DEVSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -266,9 +257,9 @@ public class Animator<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * @param initialTimeStep
          */
-        public CalendarLong(final UnitTimeLong initialTimeStep)
+        public CalendarLong()
         {
-            super(initialTimeStep);
+            super();
         }
     }
 

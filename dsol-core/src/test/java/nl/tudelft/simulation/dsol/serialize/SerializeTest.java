@@ -15,7 +15,7 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.process.TestExperimentalFrame;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.Animator;
+import nl.tudelft.simulation.dsol.simulators.DEVDESSAnimator;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVDESSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
@@ -58,7 +58,7 @@ public class SerializeTest extends TestCase
             new MarshalledObject(new DEVSSimulator());
             new MarshalledObject(new DESSSimulator(0.1));
             new MarshalledObject(new DEVDESSSimulator(0.1));
-            new MarshalledObject(new Animator(0.1));
+            new MarshalledObject(new DEVDESSAnimator(0.1));
             new MarshalledObject(new RealTimeClock(0.1));
 
             // Now we look at the experiment
