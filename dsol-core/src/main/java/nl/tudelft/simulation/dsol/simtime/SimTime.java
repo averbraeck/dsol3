@@ -37,8 +37,8 @@ import java.io.Serializable;
  *            relative time with a unit.
  * @param <T> the extended type itself to be able to implement a comparator, and to ease the use of return types.
  */
-public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>> implements
-        Serializable, Comparable<T>
+public abstract class SimTime<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        implements Serializable, Comparable<T>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -117,7 +117,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, 
         ret.add(relativeTime);
         return ret;
     }
-    
+
     /**
      * The minus function makes a copy of the time, subtracts the relative time, and returns the result.
      * @param relativeTime the time to subtract.
@@ -129,14 +129,14 @@ public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, 
         ret.subtract(relativeTime);
         return ret;
     }
-    
+
     /**
      * The minus function of two absolute times returns a relative time.
      * @param absoluteTime the time to subtract.
      * @return the relative time difference between this SimTime object and the provided absoluteTime argument.
      */
     public abstract R minus(final T absoluteTime);
-    
+
     /**
      * @param simTime the time to compare to
      * @return true if greater than simTime
@@ -198,7 +198,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, 
     {
         return eq(this.copy().setZero());
     }
-    
+
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
@@ -206,7 +206,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, 
     {
         return ne(this.copy().setZero());
     }
-    
+
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
@@ -214,7 +214,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, 
     {
         return lt(this.copy().setZero());
     }
-    
+
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
@@ -222,7 +222,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, 
     {
         return le(this.copy().setZero());
     }
-    
+
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
@@ -230,7 +230,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, 
     {
         return gt(this.copy().setZero());
     }
-    
+
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
@@ -238,7 +238,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, 
     {
         return ge(this.copy().setZero());
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
