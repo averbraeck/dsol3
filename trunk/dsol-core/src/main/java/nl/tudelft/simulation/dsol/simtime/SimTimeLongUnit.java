@@ -98,7 +98,7 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
     @Override
     public SimTimeLongUnit copy()
     {
-        return new SimTimeLongUnit(this.time);
+        return new SimTimeLongUnit(new UnitTimeLong(this.time.getTime(), this.time.getUnit()));
     }
 
     /**

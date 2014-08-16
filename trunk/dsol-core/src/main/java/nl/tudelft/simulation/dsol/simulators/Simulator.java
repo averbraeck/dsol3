@@ -49,7 +49,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class Simulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public abstract class Simulator<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
         extends SimTimeEventProducer implements SimulatorInterface<A, R, T>, Runnable
 {
     /** */
@@ -116,7 +116,6 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             this.simulatorTime = initReplication.getTreatment().getStartTime().copy();
             this.fireEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime);
             this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
-            Logger.finer(this, "initialize", "OK");
         }
     }
 
@@ -157,7 +156,6 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             this.running = true;
             this.fireEvent(START_EVENT, null);
             this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
-            Logger.finer(this, "start", "OK");
             if (!Thread.currentThread().getName().equals(this.worker.getName()))
             {
                 this.worker.interrupt();
@@ -186,7 +184,6 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         {
             throw new SimRuntimeException("Cannot step simulator: " + "SimulatorTime = runControl.runLength");
         }
-        Logger.finer(this, "step", "OK");
         this.fireEvent(SimulatorInterface.STEP_EVENT, null);
     }
 
@@ -198,7 +195,6 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         if (this.isRunning())
         {
             this.running = false;
-            Logger.finer(this, "stop", "OK");
             if (this.simulatorTime.ge(this.getReplication().getTreatment().getEndTime()))
             {
                 this.fireEvent(new Event(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime));

@@ -98,7 +98,7 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
     @Override
     public SimTimeFloatUnit copy()
     {
-        return new SimTimeFloatUnit(this.time);
+        return new SimTimeFloatUnit(new UnitTimeFloat(this.time.getTime(), this.time.getUnit()));
     }
 
     /**

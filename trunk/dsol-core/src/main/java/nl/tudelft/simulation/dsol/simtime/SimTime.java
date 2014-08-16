@@ -37,7 +37,7 @@ import java.io.Serializable;
  *            relative time with a unit.
  * @param <T> the extended type itself to be able to implement a comparator, and to ease the use of return types.
  */
-public abstract class SimTime<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> implements
+public abstract class SimTime<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>> implements
         Serializable, Comparable<T>
 {
     /** */
