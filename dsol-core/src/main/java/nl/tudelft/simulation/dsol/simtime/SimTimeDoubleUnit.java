@@ -98,7 +98,7 @@ public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, S
     @Override
     public SimTimeDoubleUnit copy()
     {
-        return new SimTimeDoubleUnit(this.time);
+        return new SimTimeDoubleUnit(new UnitTimeDouble(this.time.getTime(), this.time.getUnit()));
     }
 
     /**

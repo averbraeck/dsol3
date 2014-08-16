@@ -41,7 +41,7 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
         extends DEVSSimulatorInterface<A, R, T>, DESSSimulatorInterface<A, R, T>
 {
     // This interface combines the DESS and DEVS interfaces and does not add any operations.

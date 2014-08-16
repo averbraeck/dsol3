@@ -43,7 +43,7 @@ import nl.tudelft.simulation.event.EventType;
  * @since 1.5
  */
 
-public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
         extends SimulatorInterface<A, R, T>
 {
     /** TIME_STEP_CHANGED_EVENT is fired when the time step is set */

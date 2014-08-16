@@ -42,7 +42,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class RealTimeClock<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
         extends DEVDESSAnimator<A, R, T> implements DEVDESSSimulatorInterface<A, R, T>
 {
     /** */
@@ -75,7 +75,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         super.worker.setPriority(Thread.MAX_PRIORITY);
         this.startTime = System.currentTimeMillis();
         int count = 0;
-        long animationFactor = Math.round(this.animationDelay / this.timeStep.doubleValue());
+        long animationFactor = Math.round(this.animationDelay); // TODO: / this.timeStep.doubleValue());
         while (this.isRunning() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
         {
@@ -112,7 +112,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
             try
             {
                 long used = System.currentTimeMillis() - now;
-                long delay = Math.round(this.timeStep.doubleValue() - used);
+                long delay = 0L; // TODO: Math.round(this.timeStep.doubleValue() - used);
                 if (delay >= 0)
                 {
                     long catchUp = Math.min(this.backlog, delay);

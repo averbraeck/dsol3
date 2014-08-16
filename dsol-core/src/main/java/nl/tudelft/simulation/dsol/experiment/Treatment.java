@@ -27,7 +27,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> implements
+public class Treatment<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>> implements
         Serializable
 {
     /** The default serial version UID for serializable classes */
@@ -75,7 +75,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         super();
         this.experiment = experiment;
         this.id = id;
-        this.startTime = startTime;
+        this.startTime = startTime.copy();
         this.warmupPeriod = warmupPeriod;
         this.runLength = runLength;
         this.endTime = startTime.copy();

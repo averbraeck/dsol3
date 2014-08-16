@@ -144,8 +144,8 @@ public class Seize extends Station implements ResourceRequestorInterface
                     this.queue.remove(request);
                 }
                 this.fireEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
-                double delay = (this.simulator.getSimulatorTime().minus(request.getCreationTime())).doubleValue();
-                this.fireEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime());
+                // TODO: R delay = (this.simulator.getSimulatorTime().minus(request.getCreationTime()));
+                // TODO: this.fireEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime());
                 this.releaseObject(request.getEntity());
                 return;
             }
