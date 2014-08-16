@@ -45,7 +45,7 @@ import nl.tudelft.simulation.event.EventType;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
+public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends SimulatorInterface<A, R, T>
 {
     /** The EVENTLIST_CHANGED_EVENT is fired when the eventList is changed */

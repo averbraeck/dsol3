@@ -50,7 +50,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the simulation time type based on the absolute and relative time.
  * @since 1.5
  */
-public class DEVSSimulator<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
+public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Simulator<A, R, T> implements DEVSSimulatorInterface<A, R, T>
 {
     /** */

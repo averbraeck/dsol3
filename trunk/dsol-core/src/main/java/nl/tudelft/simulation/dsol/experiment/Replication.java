@@ -34,7 +34,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Replication<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>> implements Serializable
+public class Replication<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> implements Serializable
 {
     /** The default serial version UID for serializable classes */
     private static final long serialVersionUID = 1L;

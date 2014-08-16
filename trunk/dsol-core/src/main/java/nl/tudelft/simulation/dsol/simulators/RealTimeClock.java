@@ -42,7 +42,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class RealTimeClock<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
+public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends DEVDESSAnimator<A, R, T> implements DEVDESSSimulatorInterface<A, R, T>
 {
     /** */

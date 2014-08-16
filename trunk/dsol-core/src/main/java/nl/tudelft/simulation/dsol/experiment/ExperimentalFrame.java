@@ -30,7 +30,7 @@ import nl.tudelft.simulation.logger.Logger;
  *            Double or UnitTimeLong, the absolute and relative types are the same.
  * @param <T> the simulation time type based on the absolute and relative time.
  */
-public class ExperimentalFrame<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
+public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends EventProducer implements Iterator<Experiment<A, R, T>>, EventListenerInterface
 {
     /** The default serial version UID for serializable classes */

@@ -31,7 +31,6 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.jstats.statistics.StatisticsObject;
 import nl.tudelft.simulation.language.concurrent.WorkerThread;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The Simulator class is an abstract implementation of the SimulatorInterface.
@@ -49,7 +48,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class Simulator<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
+public abstract class Simulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends SimTimeEventProducer implements SimulatorInterface<A, R, T>, Runnable
 {
     /** */

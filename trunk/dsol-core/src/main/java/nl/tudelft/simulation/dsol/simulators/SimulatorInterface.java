@@ -49,7 +49,7 @@ import nl.tudelft.simulation.event.EventType;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract interface SimulatorInterface<A extends Comparable<A>, R extends Comparable<R>, T extends SimTime<A, R, T>>
+public abstract interface SimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Remote, Serializable, EventProducerInterface
 {
     /** END_OF_REPLICATION_EVENT is fired when a replication is finished */
