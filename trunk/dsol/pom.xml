@@ -467,6 +467,12 @@
 				<version>${project.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>tablelayout</groupId>
+				<artifactId>TableLayout</artifactId>
+				<version>20020517</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
