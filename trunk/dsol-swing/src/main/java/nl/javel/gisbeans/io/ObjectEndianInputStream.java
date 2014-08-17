@@ -13,7 +13,8 @@ import java.io.InputStream;
 /**
  * This class enables the object inputstream to be switched from little to big endian. The class works exactly like an
  * ObjectInputStream
- * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a><a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a>
+ * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a><a href="mailto:peter.jacobs@javel.nl">Peter Jacobs
+ *         </a>
  * @version 1.0
  * @since JDK 1.0
  */
