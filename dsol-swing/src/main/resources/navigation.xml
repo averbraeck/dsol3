@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsol:navigation 
+	xmlns:dsol="http://www.simulation.tudelft.nl/dsol"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<menu name="File">
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.OpenFileAction" />
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.OpenURLAction" />
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.CloseExperimentAction" />
+		<separator/>
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.RecentAction" />
+		<separator/>
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.ExitAction" />
+	</menu>
+	<menu name="Tools">
+		<action className="nl.tudelft.simulation.dsol.gui.actions.PauseAction" />
+	</menu>
+	<menu name="Window">
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.ViewContextAction" />
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.ViewStatisticsAction" />
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.ViewAnimationPanelAction" />
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.ViewEventlistAction" />						
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.ViewAnimation3dAction" />	
+		<separator/>
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.ViewLoggerAction" />	
+		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.ViewMemoryAction" />	
+	</menu>
+</dsol:navigation>	  
