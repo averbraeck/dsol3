@@ -92,7 +92,7 @@ public abstract class DSOLPanel<A extends Comparable<A>, R extends Number & Comp
     {
         this.createContentPane();
         this.addTabs();
-        this.model.constructModel(this.simulator);
+        // this.model.constructModel(this.simulator);
     }
 
     /**
