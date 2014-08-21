@@ -50,12 +50,12 @@ public class MM1Panel extends DSOLPanel<Double, Double, SimTimeDouble>
     public MM1Panel(ModelInterface.Double model, DEVSSimulatorInterface.Double simulator)
     {
         super(model, simulator);
+        addTabs();
     }
 
     /**
-     * @see nl.tudelft.simulation.dsol.gui.swing.DSOLPanel#addTabs()
+     * add a number of charts for the demo.
      */
-    @Override
     protected void addTabs()
     {
         TablePanel charts = new TablePanel(3, 2);

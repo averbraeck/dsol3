@@ -32,7 +32,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public abstract class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends JPanel
 {
     /** */
@@ -91,7 +91,6 @@ public abstract class DSOLPanel<A extends Comparable<A>, R extends Number & Comp
     public void initialize() throws RemoteException, SimRuntimeException
     {
         this.createContentPane();
-        this.addTabs();
         // this.model.constructModel(this.simulator);
     }
 
@@ -109,15 +108,6 @@ public abstract class DSOLPanel<A extends Comparable<A>, R extends Number & Comp
         // Let's add our console to our tabbed pane
         this.tabbedPane.addTab("console", new JScrollPane(this.console));
 
-        // Let's find some content for our infoscreen and add it to our tabbedPane
-        String helpSource = "/" + this.getClass().getPackage().getName().replace('.', '/') + "/package.html";
-        URL page = this.getClass().getResource(helpSource);
-        if (page != null)
-        {
-            HTMLPanel htmlPanel = new HTMLPanel(page);
-            this.tabbedPane.addTab("info", new JScrollPane(htmlPanel));
-        }
-
         // Let's display our tabbed contentPane
         this.add(this.tabbedPane, BorderLayout.CENTER);
 
@@ -127,7 +117,11 @@ public abstract class DSOLPanel<A extends Comparable<A>, R extends Number & Comp
     }
 
     /**
-     * Add e.g, statistics tabs to the content pane
+     * @return tabbedPane
      */
-    protected abstract void addTabs();
+    public TabbedContentPane getTabbedPane()
+    {
+        return this.tabbedPane;
+    }
+
 }
