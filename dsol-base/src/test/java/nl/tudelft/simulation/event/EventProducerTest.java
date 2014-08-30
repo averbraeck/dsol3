@@ -1,9 +1,3 @@
-/*
- * @(#) EventProducerTest.java Sep 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.event;
 
 import java.io.File;
@@ -14,7 +8,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
@@ -25,7 +18,7 @@ import junit.framework.TestCase;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:11 $
  * @since 1.5
  */
@@ -75,10 +68,10 @@ public class EventProducerTest extends TestCase
             output.writeObject(producer);
             ObjectInputStream input = new ObjectInputStream(new FileInputStream(file));
             producer = (EventProducerInterface) input.readObject();
-            Assert.assertNotNull(producer);
+            input.close();
+            assertNotNull(producer);
 
-            // Now we start testing the persistency of listeners after
-            // Serialization
+            // Now we start testing the persistency of listeners after Serialization
             SimpleListener listener = new SimpleListener("Listener");
             producer = new EventProducerChild();
             producer.addListener(listener, EventProducerChild.EVENT_A);
@@ -92,7 +85,7 @@ public class EventProducerTest extends TestCase
         }
         catch (Exception exception)
         {
-            Assert.fail();
+            fail();
         }
     }
 
@@ -116,11 +109,11 @@ public class EventProducerTest extends TestCase
         {
             new EventProducerParent();
             // This must fail since EVENT_D and EVENT_C have the same value
-            Assert.fail("double eventType values");
+            fail("double eventType values");
         }
         catch (Exception exception)
         {
-            Assert.assertTrue(exception.getClass().equals(RuntimeException.class));
+            assertTrue(exception.getClass().equals(RuntimeException.class));
         }
 
         // Now we test the eventProducer
@@ -139,26 +132,26 @@ public class EventProducerTest extends TestCase
             ((EventProducerParent) producer).fireEvent(new Event(EventProducerChild.EVENT_A, producer, "HI"));
 
             // we try to remove the listener from a wrong eventType.
-            Assert.assertFalse(producer.removeListener(listener1, EventProducerChild.EVENT_A));
+            assertFalse(producer.removeListener(listener1, EventProducerChild.EVENT_A));
 
             // now we try to remove the same listener again.
-            Assert.assertFalse(producer.removeListener(listener1, EventProducerParent.EVENT_E));
+            assertFalse(producer.removeListener(listener1, EventProducerParent.EVENT_E));
 
             // Now we subscribe twice on the same event. The first time should
             // succeed. The second fail.
-            Assert.assertFalse(producer.addListener(listener1, EventProducerChild.EVENT_B));
+            assertFalse(producer.addListener(listener1, EventProducerChild.EVENT_B));
 
             // Now we add a null listener
-            Assert.assertFalse(producer.addListener(null, EventProducerChild.EVENT_A));
+            assertFalse(producer.addListener(null, EventProducerChild.EVENT_A));
 
             // Now we add some random listeners
-            Assert.assertTrue(producer.addListener(listener1, EventProducerChild.EVENT_A));
+            assertTrue(producer.addListener(listener1, EventProducerChild.EVENT_A));
 
-            // Assert.assertTrue(producer.removeAllListeners() == 4);
+            // assertTrue(producer.removeAllListeners() == 4);
         }
         catch (Exception exception)
         {
-            Assert.fail(exception.getMessage());
+            fail(exception.getMessage());
         }
     }
 
@@ -184,11 +177,11 @@ public class EventProducerTest extends TestCase
          */
         public void notify(final EventInterface event) throws RemoteException
         {
-            Assert.assertTrue(event.getType().equals(EventProducerParent.EVENT_E));
+            assertTrue(event.getType().equals(EventProducerParent.EVENT_E));
             EventProducerInterface producer = (EventProducerInterface) event.getSource();
-            Assert.assertTrue(producer.removeListener(this, EventProducerParent.eventD));
-            Assert.assertTrue(producer.removeListener(this, EventProducerParent.EVENT_E));
-            Assert.assertFalse(producer.removeListener(this, EventProducerParent.EVENT_E));
+            assertTrue(producer.removeListener(this, EventProducerParent.eventD));
+            assertTrue(producer.removeListener(this, EventProducerParent.EVENT_E));
+            assertFalse(producer.removeListener(this, EventProducerParent.EVENT_E));
         }
 
         /**
@@ -226,7 +219,7 @@ public class EventProducerTest extends TestCase
          */
         public void notify(final EventInterface event)
         {
-            Assert.assertTrue(event != null);
+            assertTrue(event != null);
         }
 
         /**

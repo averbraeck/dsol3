@@ -26,7 +26,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantString;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a><a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a><a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:22 $
  * @since 1.5

@@ -1,19 +1,12 @@
-/*
- * @(#) EventListenerMap.java Jan 13, 2005 Copyright (c) 2004 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology The code is published under the General Public License
- */
 package nl.tudelft.simulation.event;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,25 +14,21 @@ import nl.tudelft.simulation.event.ref.Reference;
 import nl.tudelft.simulation.event.remote.RemoteEventListenerInterface;
 
 /**
- * The specifies
- * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
- * @author <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:11 $
+ * The EventListenerMap maps EventTypes on lists of References to EventListeners. The References can be Weak or Strong.
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5
- * @param <K> the key type in this eventlist
- * @param <V> the value type of this map
  */
-public class EventListenerMap<K, V> implements Map<K, V>, Serializable
+public class EventListenerMap implements Map<EventType, List<Reference<EventListenerInterface>>>, Serializable
 {
     /** The default serial version UID for serializable classes */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 20140830L;
 
     /** the hasMap we map on */
-    private Map<K, V> map = new HashMap<K, V>();
+    private Map<EventType, List<Reference<EventListenerInterface>>> map = new HashMap<>();
 
     /**
      * constructs a new EventListenerMap
@@ -52,6 +41,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#size()
      */
+    @Override
     public int size()
     {
         return this.map.size();
@@ -60,6 +50,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#clear()
      */
+    @Override
     public void clear()
     {
         this.map.clear();
@@ -68,6 +59,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#isEmpty()
      */
+    @Override
     public boolean isEmpty()
     {
         return this.map.isEmpty();
@@ -76,6 +68,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#containsKey(java.lang.Object)
      */
+    @Override
     public boolean containsKey(Object key)
     {
         return this.map.containsKey(key);
@@ -84,6 +77,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#containsValue(java.lang.Object)
      */
+    @Override
     public boolean containsValue(Object value)
     {
         return this.map.containsValue(value);
@@ -92,7 +86,8 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#values()
      */
-    public Collection<V> values()
+    @Override
+    public Collection<List<Reference<EventListenerInterface>>> values()
     {
         return this.map.values();
     }
@@ -100,15 +95,17 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#putAll(java.util.Map)
      */
-    public void putAll(Map<? extends K, ? extends V> t)
+    @Override
+    public void putAll(Map<? extends EventType, ? extends List<Reference<EventListenerInterface>>> m)
     {
-        this.map.putAll(t);
+        this.map.putAll(m);
     }
 
     /**
      * @see java.util.Map#entrySet()
      */
-    public Set<Map.Entry<K, V>> entrySet()
+    @Override
+    public Set<Map.Entry<EventType, List<Reference<EventListenerInterface>>>> entrySet()
     {
         return this.map.entrySet();
     }
@@ -116,7 +113,8 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#keySet()
      */
-    public Set<K> keySet()
+    @Override
+    public Set<EventType> keySet()
     {
         return this.map.keySet();
     }
@@ -124,7 +122,8 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#get(java.lang.Object)
      */
-    public V get(Object key)
+    @Override
+    public List<Reference<EventListenerInterface>> get(Object key)
     {
         return this.map.get(key);
     }
@@ -132,7 +131,8 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#remove(java.lang.Object)
      */
-    public V remove(Object key)
+    @Override
+    public List<Reference<EventListenerInterface>> remove(Object key)
     {
         return this.map.remove(key);
     }
@@ -140,27 +140,27 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
     /**
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
-    public V put(K key, V value)
+    @Override
+    public List<Reference<EventListenerInterface>> put(EventType key, List<Reference<EventListenerInterface>> value)
     {
         return this.map.put(key, value);
     }
 
     /**
      * writes a serializable method to stream
-     * @param out the outputstream
+     * @param out the output stream
      * @throws IOException on IOException
      */
-    @SuppressWarnings("unchecked")
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException
     {
-        Map outMap = new HashMap();
-        for (Iterator<K> i = this.keySet().iterator(); i.hasNext();)
+        Map<EventType, List<Reference<EventListenerInterface>>> outMap = new HashMap<>();
+        for (Iterator<EventType> i = this.keySet().iterator(); i.hasNext();)
         {
-            Object key = i.next();
-            ArrayList entriesList = new ArrayList(Arrays.asList((Reference[]) this.get(key)));
-            for (Iterator ii = entriesList.iterator(); ii.hasNext();)
+            EventType key = i.next();
+            List<Reference<EventListenerInterface>> entriesList = this.get(key);
+            for (Iterator<Reference<EventListenerInterface>> ii = entriesList.iterator(); ii.hasNext();)
             {
-                Reference reference = (Reference) ii.next();
+                Reference<EventListenerInterface> reference = ii.next();
                 if (reference.get() instanceof RemoteEventListenerInterface)
                 {
                     ii.remove();
@@ -168,7 +168,7 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
             }
             if (!entriesList.isEmpty())
             {
-                outMap.put(key, entriesList.toArray(new Reference[entriesList.size()]));
+                outMap.put(key, entriesList);
             }
         }
         out.writeObject(outMap);
@@ -176,13 +176,13 @@ public class EventListenerMap<K, V> implements Map<K, V>, Serializable
 
     /**
      * reads a serializable method from stream
-     * @param in the inputstream
+     * @param in the input stream
      * @throws IOException on IOException
      * @throws ClassNotFoundException on ClassNotFoundException
      */
     @SuppressWarnings("unchecked")
-    private synchronized void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException
+    private void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException
     {
-        this.map = (HashMap) in.readObject();
+        this.map = (HashMap<EventType, List<Reference<EventListenerInterface>>>) in.readObject();
     }
 }

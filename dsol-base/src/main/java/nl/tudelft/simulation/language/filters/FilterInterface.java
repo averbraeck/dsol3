@@ -36,7 +36,7 @@ import java.io.Serializable;
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
  * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang" >Niels Lang </a>
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2009/10/21 07:32:42 $
  * @since 1.5
  */

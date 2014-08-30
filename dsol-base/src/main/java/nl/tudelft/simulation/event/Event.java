@@ -1,38 +1,27 @@
-/*
- * @(#)Event April 4, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.event;
 
 /**
  * The Event class forms the reference implementation for the EventInterface.
- * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands.
- * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/event">www.simulation.tudelft.nl/event
- * </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:11 $
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5
  */
 public class Event implements EventInterface
 {
     /** The default serial version UID for serializable classes */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 20140826L;
 
     /** type is the type of the event */
-    protected EventType type;
+    private final EventType type;
 
     /** content refers to the content of the event */
-    protected Object content;
+    private final Object content;
 
     /** the source of an event */
-    protected Object source;
+    private final Object source;
 
     /**
      * constructs a new Event.
@@ -79,5 +68,56 @@ public class Event implements EventInterface
     {
         return "[" + this.getClass().getName() + ";" + this.getType() + ";" + this.getSource() + ";"
                 + this.getContent() + "]";
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.content == null) ? 0 : this.content.hashCode());
+        result = prime * result + ((this.source == null) ? 0 : this.source.hashCode());
+        result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
+        return result;
+    }
+
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Event other = (Event) obj;
+        if (this.content == null)
+        {
+            if (other.content != null)
+                return false;
+        }
+        else if (!this.content.equals(other.content))
+            return false;
+        if (this.source == null)
+        {
+            if (other.source != null)
+                return false;
+        }
+        else if (!this.source.equals(other.source))
+            return false;
+        if (this.type == null)
+        {
+            if (other.type != null)
+                return false;
+        }
+        else if (!this.type.equals(other.type))
+            return false;
+        return true;
     }
 }
