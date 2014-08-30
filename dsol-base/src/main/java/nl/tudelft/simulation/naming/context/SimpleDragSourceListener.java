@@ -1,9 +1,3 @@
-/*
- * @(#) SimpleDragSourceListener.java Oct 17, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.naming.context;
 
 import java.awt.dnd.DragSource;
@@ -35,45 +29,35 @@ public class SimpleDragSourceListener implements DragSourceListener
         super();
     }
 
-    /**
-     * @see java.awt.dnd.DragSourceListener #dragEnter(java.awt.dnd.DragSourceDragEvent)
-     */
+    /** {@inheritDoc} */
     public void dragEnter(final DragSourceDragEvent dsde)
     {
         DragSourceContext context = dsde.getDragSourceContext();
         context.setCursor(DragSource.DefaultCopyDrop);
     }
 
-    /**
-     * @see java.awt.dnd.DragSourceListener #dragOver(java.awt.dnd.DragSourceDragEvent)
-     */
+    /** {@inheritDoc} */
     public void dragOver(final DragSourceDragEvent dsde)
     {
         DragSourceContext context = dsde.getDragSourceContext();
         context.setCursor(DragSource.DefaultCopyDrop);
     }
 
-    /**
-     * @see java.awt.dnd.DragSourceListener #dropActionChanged(java.awt.dnd.DragSourceDragEvent)
-     */
+    /** {@inheritDoc} */
     public void dropActionChanged(final DragSourceDragEvent dsde)
     {
         DragSourceContext context = dsde.getDragSourceContext();
         context.setCursor(DragSource.DefaultCopyDrop);
     }
 
-    /**
-     * @see java.awt.dnd.DragSourceListener #dragExit(java.awt.dnd.DragSourceEvent)
-     */
+    /** {@inheritDoc} */
     public void dragExit(final DragSourceEvent dse)
     {
         DragSourceContext context = dse.getDragSourceContext();
         context.setCursor(DragSource.DefaultCopyDrop);
     }
 
-    /**
-     * @see java.awt.dnd.DragSourceListener #dragDropEnd(java.awt.dnd.DragSourceDropEvent)
-     */
+    /** {@inheritDoc} */
     public void dragDropEnd(final DragSourceDropEvent dsde)
     {
         DragSourceContext context = dsde.getDragSourceContext();

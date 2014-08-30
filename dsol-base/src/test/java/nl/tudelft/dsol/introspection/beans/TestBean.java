@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class TestBean extends java.lang.Object implements java.io.Serializable
 {
-    /** the error logger */
+    /** the error logger. */
     private static Logger logger = Logger.getLogger("nl.tudelft.tbm.sk.introspection");
 
     /** Holds value of property firstProperty. */
@@ -41,7 +41,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
     /** Holds value of property testBean2. */
     private SubTestBean2Interface testBean2 = new SubTestBean2();
 
-    /** Creates new TestBean */
+    /** Creates new TestBean. */
     public TestBean()
     {
         super();
@@ -161,9 +161,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
         this.subBean = subBean;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

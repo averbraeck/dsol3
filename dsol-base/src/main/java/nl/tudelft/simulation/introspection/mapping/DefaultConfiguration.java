@@ -23,7 +23,7 @@ import nl.tudelft.simulation.introspection.gui.ExpandButton;
  */
 public class DefaultConfiguration implements CellPresentationConfiguration
 {
-    /** the defaultConfiguation */
+    /** the defaultConfiguation. */
     private static DefaultConfiguration defaultConfig;
     static
     {
@@ -39,10 +39,10 @@ public class DefaultConfiguration implements CellPresentationConfiguration
         defaultConfig.addEditor(ExpandButton.class, ExpandButtonEditor.class);
     }
 
-    /** the renderers */
+    /** the renderers. */
     private Set<Class[]> renderers = new HashSet<Class[]>();
 
-    /** the editors */
+    /** the editors. */
     private Set<Class[]> editors = new HashSet<Class[]>();
 
     /**
@@ -73,17 +73,13 @@ public class DefaultConfiguration implements CellPresentationConfiguration
         this.editors.add(new Class[]{cellType, editingClass});
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration #getRenderers()
-     */
+    /** {@inheritDoc} */
     public Class[][] getRenderers()
     {
         return this.renderers.toArray(new Class[0][0]);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration #getEditors()
-     */
+    /** {@inheritDoc} */
     public Class[][] getEditors()
     {
         return this.editors.toArray(new Class[0][0]);

@@ -1,9 +1,3 @@
-/*
- * @(#) InterpreterFactory.java Jan 14, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.interpreter.operations;
 
 import java.io.DataInput;
@@ -24,26 +18,21 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
 public class InterpreterFactory implements FactoryInterface
 {
     /**
-     * constructs a new InterpreterFactory
+     * constructs a new InterpreterFactory.
      */
     public InterpreterFactory()
     {
         super();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.interpreter.operations.FactoryInterface#readOperation(java.io.DataInput, int)
-     */
+    /** {@inheritDoc} */
     public Operation readOperation(final DataInput dataInput, final int startBytePosition) throws IOException
     {
         int operand = dataInput.readUnsignedByte();
         return this.readOperation(operand, dataInput, startBytePosition);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.interpreter.operations.FactoryInterface#readOperation(int, java.io.DataInput,
-     *      int)
-     */
+    /** {@inheritDoc} */
     public Operation readOperation(final int operand, final DataInput dataInput, final int startBytePositon)
             throws IOException
     {

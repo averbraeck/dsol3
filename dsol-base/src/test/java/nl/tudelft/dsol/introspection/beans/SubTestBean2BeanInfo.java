@@ -22,7 +22,7 @@ import java.beans.SimpleBeanInfo;
 public class SubTestBean2BeanInfo extends SimpleBeanInfo
 {
 
-    /** Property identifiers //GEN-FIRST:Properties */
+    /** Property identifiers //GEN-FIRST:Properties. */
     private static final int PROPERTY_testProp1 = 0;
 
     /** Property array */
@@ -65,31 +65,31 @@ public class SubTestBean2BeanInfo extends SimpleBeanInfo
 
     // GEN-LAST:Methods
 
-    /** iconColor */
+    /** iconColor. */
     private static Image iconColor16 = null; // GEN-BEGIN:IconsDef
 
-    /** iconColor */
+    /** iconColor. */
     private static Image iconColor32 = null;
 
-    /** iconColor */
+    /** iconColor. */
     private static Image iconMono16 = null;
 
-    /** iconColor */
+    /** iconColor. */
     private static Image iconMono32 = null; // GEN-END:IconsDef
 
-    /** iconName */
+    /** iconName. */
     private static String iconNameC16 = null;
 
-    /** iconName */
+    /** iconName. */
     private static String iconNameC32 = null;
 
-    /** iconName */
+    /** iconName. */
     private static String iconNameM16 = null;
 
-    /** iconName */
+    /** iconName. */
     private static String iconNameM32 = null;
 
-    /** iconName */
+    /** iconName. */
     private static int defaultPropertyIndex = -1;
 
     /**

@@ -1,8 +1,3 @@
-/*
- * @(#) DirectionalLine.java 23-jul-2004 Copyright (c) 2002-2005 Delft University of Technology Jaffalaan 5,
- * 2628 BX Delft, the Netherlands. All rights reserved. This software is proprietary information of Delft
- * University of Technology 
- */
 package nl.tudelft.simulation.language.d2;
 
 import java.awt.geom.Line2D;
@@ -40,7 +35,7 @@ import java.awt.geom.Point2D;
  */
 public class DirectionalLine extends Line2D.Double
 {
-    /** the default serialVersionUID */
+    /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
 
     /** point at the back of the line. */
@@ -108,9 +103,7 @@ public class DirectionalLine extends Line2D.Double
         this.calcNormal();
     }
 
-    /**
-     * @see java.awt.geom.Line2D#setLine(double, double, double, double)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setLine(final double x1, final double y1, final double x2, final double y2)
     {
@@ -158,9 +151,7 @@ public class DirectionalLine extends Line2D.Double
                 || ((this.x1 == line.x2 && this.x2 == line.x1 && this.y1 == line.y2 && this.y2 == line.y1));
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

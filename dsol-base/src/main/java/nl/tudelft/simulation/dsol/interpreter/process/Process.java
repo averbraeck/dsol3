@@ -1,9 +1,3 @@
-/*
- * @(#) Process.java $Date: 2010/08/10 11:38:24 $ Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.interpreter.process;
 
 import java.util.Stack;
@@ -28,29 +22,29 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public abstract class Process extends EventProducer
 {
-    /** the initial state */
+    /** the initial state. */
     public static final short INITIAL = 0;
 
-    /** the initial state */
+    /** the initial state. */
     public static final short EXECUTING = 1;
 
-    /** the initial state */
+    /** the initial state. */
     public static final short SUSPENDED = 2;
 
-    /** the initial state */
+    /** the initial state. */
     public static final short DEAD = 3;
 
-    /** the EventType */
+    /** the EventType. */
     public static final EventType STATE_CHANGE_EVENT = new EventType("STATE_CHANGE_EVENT");
 
-    /** the state of the process */
+    /** the state of the process. */
     protected short state = Process.INITIAL;
 
-    /** the processStack of this process */
+    /** the processStack of this process. */
     protected Stack<Frame> frameStack = new Stack<Frame>();
 
     /**
-     * constructs a new Process
+     * constructs a new Process.
      */
     public Process()
     {

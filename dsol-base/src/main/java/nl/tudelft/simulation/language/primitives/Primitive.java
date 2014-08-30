@@ -1,8 +1,3 @@
-/*
- * @(#) Primitive.java Jan 15, 2004 Copyright (c) 2002-2005 Delft University of Technology Jaffalaan 5, 2628
- * BX Delft, the Netherlands. All rights reserved. This software is proprietary information of Delft
- * University of Technology 
- */
 package nl.tudelft.simulation.language.primitives;
 
 /**
@@ -38,7 +33,7 @@ package nl.tudelft.simulation.language.primitives;
 public final class Primitive
 {
     /**
-     * constructs a new Primitive
+     * constructs a new Primitive.
      */
     private Primitive()
     {

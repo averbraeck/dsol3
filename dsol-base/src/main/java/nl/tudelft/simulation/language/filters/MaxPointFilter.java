@@ -1,8 +1,3 @@
-/*
- * @(#) MaxPointFilter.java Oct 26, 2004 Copyright (c) 2002-2005 Delft University of Technology Jaffalaan 5,
- * 2628 BX Delft, the Netherlands. All rights reserved. This software is proprietary information of Delft
- * University of Technology 
- */
 package nl.tudelft.simulation.language.filters;
 
 /**
@@ -37,7 +32,7 @@ package nl.tudelft.simulation.language.filters;
  */
 public class MaxPointFilter extends AbstractFilter
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /** the maxPoints to use. */
@@ -56,9 +51,7 @@ public class MaxPointFilter extends AbstractFilter
         this.maxPoints = maxPoints;
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.AbstractFilter#filter(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     protected synchronized boolean filter(final Object entry)
     {
@@ -70,9 +63,7 @@ public class MaxPointFilter extends AbstractFilter
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.FilterInterface#getCriterium()
-     */
+    /** {@inheritDoc} */
     @Override
     public String getCriterium()
     {

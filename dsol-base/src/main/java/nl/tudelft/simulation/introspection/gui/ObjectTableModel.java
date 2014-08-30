@@ -1,9 +1,3 @@
-/*
- * @(#) ObjectTableModel.java Apr 15, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.introspection.gui;
 
@@ -29,19 +23,19 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class ObjectTableModel extends AbstractTableModel implements IntrospectingTableModelInterface
 {
-    /** the properties */
+    /** the properties. */
     protected Property[] properties = new Property[0];
 
-    /** the columns */
+    /** the columns. */
     private static String[] columns = {"Property", "+", "Value"};
 
-    /** the expand buttons */
+    /** the expand buttons. */
     private ExpandButton[] buttons;
 
-    /** the introspector */
+    /** the introspector. */
     private Introspector introspector = null;
 
-    /** The model manager */
+    /** The model manager. */
     private ModelManager manager = new DefaultModelManager();
 
     /**
@@ -69,25 +63,19 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         this.introspector = introspector;
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getRowCount()
-     */
+    /** {@inheritDoc} */
     public int getRowCount()
     {
         return this.properties.length;
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnCount()
-     */
+    /** {@inheritDoc} */
     public int getColumnCount()
     {
         return columns.length;
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getValueAt(int, int)
-     */
+    /** {@inheritDoc} */
     public Object getValueAt(final int rowIndex, final int columnIndex)
     {
         Property requested = this.properties[rowIndex];
@@ -106,18 +94,14 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         return null;
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnName(int)
-     */
+    /** {@inheritDoc} */
     @Override
     public String getColumnName(final int columnIndex)
     {
         return columns[columnIndex];
     }
 
-    /**
-     * @see javax.swing.table.TableModel#isCellEditable(int, int)
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean isCellEditable(final int rowIndex, final int columnIndex)
     {
@@ -132,9 +116,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         return false;
     }
 
-    /**
-     * @see javax.swing.table.TableModel#setValueAt(Object, int, int)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
     {
@@ -153,9 +135,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         }
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnClass(int)
-     */
+    /** {@inheritDoc} */
     @Override
     public Class<?> getColumnClass(final int columnIndex)
     {
@@ -166,9 +146,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         return Object.class;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getTypeAt(int,int)
-     */
+    /** {@inheritDoc} */
     public Class getTypeAt(final int rowIndex, final int columnIndex)
     {
         Property requested = this.properties[rowIndex];
@@ -203,9 +181,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         return -1;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getProperty(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Property getProperty(final String propertyName)
     {
         int index = getPropertyIndex(propertyName);
@@ -216,9 +192,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         return this.properties[index];
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getIntrospector()
-     */
+    /** {@inheritDoc} */
     public Introspector getIntrospector()
     {
         return this.introspector;

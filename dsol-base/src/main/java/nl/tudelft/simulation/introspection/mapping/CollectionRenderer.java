@@ -20,10 +20,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class CollectionRenderer extends DefaultTableCellRenderer
 {
-    /**
-     * @see javax.swing.table.DefaultTableCellRenderer#getTableCellRendererComponent(javax.swing.JTable,
-     *      java.lang.Object, boolean, boolean, int, int)
-     */
+    /** {@inheritDoc} */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
             int row, int column)

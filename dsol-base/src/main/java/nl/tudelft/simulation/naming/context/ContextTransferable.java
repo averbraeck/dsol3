@@ -1,9 +1,3 @@
-/*
- * @(#) ContextTransferable.java Oct 25, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.naming.context;
 
 import java.awt.datatransfer.DataFlavor;
@@ -25,11 +19,11 @@ import javax.naming.NamingException;
  */
 public class ContextTransferable implements Transferable
 {
-    /** the name under which the object can be found in the context */
+    /** the name under which the object can be found in the context. */
     private String name = null;
 
     /**
-     * constructs a new ContextTransferable
+     * constructs a new ContextTransferable.
      * @param object the object to send
      * @throws NamingException whenever the object cannot be found in the context
      */
@@ -39,17 +33,13 @@ public class ContextTransferable implements Transferable
         this.name = ContextUtil.resolveKey(object);
     }
 
-    /**
-     * @see java.awt.datatransfer.Transferable#getTransferDataFlavors()
-     */
+    /** {@inheritDoc} */
     public DataFlavor[] getTransferDataFlavors()
     {
         return new DataFlavor[]{DataFlavor.stringFlavor};
     }
 
-    /**
-     * @see java.awt.datatransfer.Transferable #isDataFlavorSupported(java.awt.datatransfer.DataFlavor)
-     */
+    /** {@inheritDoc} */
     public boolean isDataFlavorSupported(final DataFlavor flavor)
     {
         if (flavor.equals(DataFlavor.stringFlavor))
@@ -59,9 +49,7 @@ public class ContextTransferable implements Transferable
         return false;
     }
 
-    /**
-     * @see java.awt.datatransfer.Transferable #getTransferData(java.awt.datatransfer.DataFlavor)
-     */
+    /** {@inheritDoc} */
     public Object getTransferData(final DataFlavor flavor)
     {
         if (flavor.equals(DataFlavor.stringFlavor))

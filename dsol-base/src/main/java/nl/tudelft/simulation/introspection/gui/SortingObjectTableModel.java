@@ -1,9 +1,3 @@
-/*
- * @(#) SortingObjectTableModel.java Apr 15, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.introspection.gui;
 
 import javax.swing.table.TableModel;
@@ -37,9 +31,7 @@ public class SortingObjectTableModel extends SortingTableModel implements Intros
         super(source);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getIntrospector()
-     */
+    /** {@inheritDoc} */
     public Introspector getIntrospector()
     {
         if (!(this.source instanceof IntrospectingTableModelInterface))
@@ -49,9 +41,7 @@ public class SortingObjectTableModel extends SortingTableModel implements Intros
         return ((IntrospectingTableModelInterface) this.source).getIntrospector();
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui. IntrospectingTableModelInterface#getProperty(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Property getProperty(final String propertyName)
     {
         if (!(this.source instanceof IntrospectingTableModelInterface))
@@ -61,9 +51,7 @@ public class SortingObjectTableModel extends SortingTableModel implements Intros
         return ((IntrospectingTableModelInterface) this.source).getProperty(propertyName);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getTypeAt(int,int)
-     */
+    /** {@inheritDoc} */
     public Class getTypeAt(final int rowIndex, final int columnIndex)
     {
         if (!(this.source instanceof IntrospectingTableModelInterface))
@@ -74,9 +62,7 @@ public class SortingObjectTableModel extends SortingTableModel implements Intros
                 columnIndex);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getModelManager()
-     */
+    /** {@inheritDoc} */
     public ModelManager getModelManager()
     {
         if (!(this.source instanceof IntrospectingTableModelInterface))

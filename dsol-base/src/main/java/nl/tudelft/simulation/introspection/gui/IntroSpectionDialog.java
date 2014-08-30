@@ -1,9 +1,3 @@
-/*
- * @(#) IntroSpectionDialog.java Apr 15, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.introspection.gui;
 
@@ -43,10 +37,10 @@ import nl.tudelft.simulation.introspection.table.DynamicTableModel;
  */
 public class IntroSpectionDialog extends JDialog
 {
-    /** the table, set during initialization */
+    /** the table, set during initialization. */
     private JTable table;
 
-    /** the parent window, set during initialization */
+    /** the parent window, set during initialization. */
     private Window parent;
 
     /**
@@ -193,14 +187,14 @@ public class IntroSpectionDialog extends JDialog
      */
     class ButtonPanel extends JPanel
     {
-        /** model */
+        /** model. */
         private DynamicTableModel model;
 
-        /** the viewer */
+        /** the viewer. */
         private JTable viewer;
 
         /**
-         * Constructs a new ButtonPanel
+         * Constructs a new ButtonPanel.
          * @param model the model to control
          * @param viewer the viewer to control
          */

@@ -1,9 +1,3 @@
-/*
- * @(#) BeanIntrospector.java Apr 15, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.introspection.beans;
 
 import java.beans.BeanInfo;
@@ -37,9 +31,7 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class BeanIntrospector implements Introspector
 {
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getProperties(Object)
-     */
+    /** {@inheritDoc} */
     public Property[] getProperties(final Object introspected)
     {
         Set<Property> props = new HashSet<Property>();
@@ -60,9 +52,7 @@ public class BeanIntrospector implements Introspector
         return props.toArray(new Property[props.size()]);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getProperty(Object, String)
-     */
+    /** {@inheritDoc} */
     public Property getProperty(final Object introspected, final String property)
     {
         try
@@ -84,9 +74,7 @@ public class BeanIntrospector implements Introspector
         throw new IllegalArgumentException("Property '" + property + "' not found for " + introspected);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getPropertyNames(Object)
-     */
+    /** {@inheritDoc} */
     public String[] getPropertyNames(final Object introspected)
     {
         Set<String> props = new HashSet<String>();

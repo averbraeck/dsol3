@@ -1,9 +1,3 @@
-/*
- * @(#) RemoteContext.java Apr 7, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.naming;
 
 import java.rmi.RemoteException;
@@ -37,18 +31,18 @@ import nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface;
  */
 public class RemoteContext extends UnicastRemoteObject implements RemoteContextInterface
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the underlying eventcontext */
+    /** the underlying eventcontext. */
     private EventContext eventContext = null;
 
-    /** the listeners */
+    /** the listeners. */
     private Map<RemoteContextListenerInterface, RemoteContextListenerClient> listeners = Collections
             .synchronizedMap(new HashMap<RemoteContextListenerInterface, RemoteContextListenerClient>());
 
     /**
-     * constructs a new RemoteContext
+     * constructs a new RemoteContext.
      * @param eventContext the underlying context
      * @throws RemoteException on network failure
      */
@@ -58,10 +52,7 @@ public class RemoteContext extends UnicastRemoteObject implements RemoteContextI
         this.eventContext = eventContext;
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addNamingListener(javax.naming.Name, int,
-     *      nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface)
-     */
+    /** {@inheritDoc} */
     public void addNamingListener(Name target, int scope, RemoteContextListenerInterface l) throws NamingException
     {
         RemoteContextListenerClient client = new RemoteContextListenerClient(l);
@@ -69,10 +60,7 @@ public class RemoteContext extends UnicastRemoteObject implements RemoteContextI
         this.eventContext.addNamingListener(target, scope, client);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addNamingListener(java.lang.String, int,
-     *      nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface)
-     */
+    /** {@inheritDoc} */
     public void addNamingListener(String target, int scope, RemoteContextListenerInterface l) throws NamingException
     {
         RemoteContextListenerClient client = new RemoteContextListenerClient(l);
@@ -80,251 +68,189 @@ public class RemoteContext extends UnicastRemoteObject implements RemoteContextI
         this.eventContext.addNamingListener(target, scope, client);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#removeNamingListener(nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface)
-     */
+    /** {@inheritDoc} */
     public void removeNamingListener(RemoteContextListenerInterface l) throws NamingException
     {
         this.eventContext.removeNamingListener(this.listeners.remove(l));
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#targetMustExist()
-     */
+    /** {@inheritDoc} */
     public boolean targetMustExist() throws NamingException
     {
         return this.eventContext.targetMustExist();
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#lookup(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public Object lookup(Name name) throws NamingException
     {
         return this.eventContext.lookup(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#lookup(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Object lookup(String name) throws NamingException
     {
         return this.eventContext.lookup(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#bind(javax.naming.Name, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public void bind(Name name, Object obj) throws NamingException
     {
         this.eventContext.bind(name, obj);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#bind(java.lang.String, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public void bind(String name, Object obj) throws NamingException
     {
         this.eventContext.bind(name, obj);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rebind(javax.naming.Name, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public void rebind(Name name, Object obj) throws NamingException
     {
         this.eventContext.rebind(name, obj);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rebind(java.lang.String, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public void rebind(String name, Object obj) throws NamingException
     {
         this.eventContext.rebind(name, obj);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#unbind(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public void unbind(Name name) throws NamingException
     {
         this.eventContext.unbind(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#unbind(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void unbind(String name) throws NamingException
     {
         this.eventContext.unbind(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rename(javax.naming.Name, javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public void rename(Name oldName, Name newName) throws NamingException
     {
         this.eventContext.rename(oldName, newName);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#rename(java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void rename(String oldName, String newName) throws NamingException
     {
         this.eventContext.rename(oldName, newName);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#list(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<NameClassPair> list(Name name) throws NamingException
     {
         return this.eventContext.list(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#list(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<NameClassPair> list(String name) throws NamingException
     {
         return this.eventContext.list(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#listBindings(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<Binding> listBindings(Name name) throws NamingException
     {
         return this.eventContext.listBindings(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#listBindings(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<Binding> listBindings(String name) throws NamingException
     {
         return this.eventContext.listBindings(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#destroySubcontext(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public void destroySubcontext(Name name) throws NamingException
     {
         this.eventContext.destroySubcontext(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#destroySubcontext(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void destroySubcontext(String name) throws NamingException
     {
         this.eventContext.destroySubcontext(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#createSubcontext(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public RemoteContextInterface createSubcontext(Name name) throws NamingException, RemoteException
     {
         EventContext child = (EventContext) this.eventContext.createSubcontext(name);
         return new RemoteContext(child);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#createSubcontext(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public RemoteContextInterface createSubcontext(String name) throws NamingException, RemoteException
     {
         EventContext child = (EventContext) this.eventContext.createSubcontext(name);
         return new RemoteContext(child);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#lookupLink(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public Object lookupLink(Name name) throws NamingException
     {
         return this.eventContext.lookupLink(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#lookupLink(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Object lookupLink(String name) throws NamingException
     {
         return this.eventContext.lookupLink(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#getNameParser(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public NameParser getNameParser(Name name) throws NamingException
     {
         return this.eventContext.getNameParser(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#getNameParser(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NameParser getNameParser(String name) throws NamingException
     {
         return this.eventContext.getNameParser(name);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#composeName(javax.naming.Name, javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public Name composeName(Name name, Name prefix) throws NamingException
     {
         return this.eventContext.composeName(name, prefix);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#composeName(java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public String composeName(String name, String prefix) throws NamingException
     {
         return this.eventContext.composeName(name, prefix);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#addToEnvironment(java.lang.String, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public Object addToEnvironment(String propName, Object propVal) throws NamingException
     {
         return this.eventContext.addToEnvironment(propName, propVal);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#removeFromEnvironment(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Object removeFromEnvironment(String propName) throws NamingException
     {
         return this.eventContext.removeFromEnvironment(propName);
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#getEnvironment()
-     */
+    /** {@inheritDoc} */
     public Hashtable<?, ?> getEnvironment() throws NamingException
     {
         return this.eventContext.getEnvironment();
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#close()
-     */
+    /** {@inheritDoc} */
     public void close() throws NamingException
     {
         this.eventContext.close();
     }
 
-    /**
-     * @see nl.tudelft.simulation.naming.RemoteContextInterface#getNameInNamespace()
-     */
+    /** {@inheritDoc} */
     public String getNameInNamespace() throws NamingException
     {
         return this.eventContext.getNameInNamespace();

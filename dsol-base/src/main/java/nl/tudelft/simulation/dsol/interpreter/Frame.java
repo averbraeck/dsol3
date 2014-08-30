@@ -1,9 +1,3 @@
-/*
- * @(#) Frame.java Jan 5, 2004 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.interpreter;
 
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
@@ -11,26 +5,24 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
 
 /**
  * A Frame <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class Frame implements Cloneable
 {
-    /** the constantPool of this frame */
+    /** the constantPool of this frame. */
     protected Constant[] constantPool = null;
 
-    /** the localVariables of this frame */
+    /** the localVariables of this frame. */
     protected LocalVariable[] localVariables = null;
 
-    /** the operandStack of this frame */
+    /** the operandStack of this frame. */
     protected OperandStack operandStack = null;
 
-    /** is this frame paused */
+    /** is this frame paused. */
     private boolean paused = false;
 
     /**
@@ -38,14 +30,14 @@ public class Frame implements Cloneable
      */
     private int returnPosition = 0;
 
-    /** the operations in the frame */
+    /** the operations in the frame. */
     private Operation[] operations = null;
 
-    /** the methodDescriptor of the frame */
+    /** the methodDescriptor of the frame. */
     private MethodDescriptor methodDescriptor;
 
     /**
-     * constructs a new Frame
+     * constructs a new Frame.
      * @param constantPool the constantPool
      * @param localVariables the localVariables
      * @param operations the array of operations to execute
@@ -135,9 +127,7 @@ public class Frame implements Cloneable
         this.paused = paused;
     }
 
-    /**
-     * @see java.lang.Object#clone()
-     */
+    /** {@inheritDoc} */
     @Override
     public Object clone()
     {
@@ -151,9 +141,7 @@ public class Frame implements Cloneable
         return frame;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

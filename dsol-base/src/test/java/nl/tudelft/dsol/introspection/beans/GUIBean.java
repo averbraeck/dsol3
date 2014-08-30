@@ -1,9 +1,3 @@
-/*
- * @(#)GUIBean.java April 15, 2004 Copyright (c) 2002-2005-2004 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.dsol.introspection.beans;
 
 import java.awt.Color;
@@ -24,13 +18,13 @@ import java.awt.Font;
  */
 public class GUIBean
 {
-    /** the color to use */
+    /** the color to use. */
     private Color color = Color.YELLOW;
 
-    /** the font to use */
+    /** the font to use. */
     private Font font = new Font("Arial", Font.BOLD, 11);
 
-    /** the colorSet */
+    /** the colorSet. */
     private Color[] colorSet = new Color[]{Color.BLACK, Color.BLUE};
 
     /**

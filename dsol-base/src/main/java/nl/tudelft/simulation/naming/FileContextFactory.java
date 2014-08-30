@@ -1,9 +1,3 @@
-/*
- * @(#)FileContextFactory.java Feb 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.naming;
 
 import java.io.BufferedInputStream;
@@ -33,12 +27,10 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class FileContextFactory implements InitialContextFactory
 {
-    /** context refers to the static JVMContext */
+    /** context refers to the static JVMContext. */
     private static FileContext context = null;
 
-    /**
-     * @see javax.naming.spi.InitialContextFactory#getInitialContext(Hashtable)
-     */
+    /** {@inheritDoc} */
     public synchronized Context getInitialContext(final Hashtable<?, ?> environment)
     {
         if (context == null)

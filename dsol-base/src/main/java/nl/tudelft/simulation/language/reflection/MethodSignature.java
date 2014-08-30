@@ -1,9 +1,3 @@
-/*
- * @(#) MethodSignature.java Jan 12, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.language.reflection;
 
 import java.io.Serializable;
@@ -48,14 +42,14 @@ import java.util.List;
  */
 public class MethodSignature implements Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the value of the methodDescriptor */
+    /** the value of the methodDescriptor. */
     private String value = null;
 
     /**
-     * constructs a new MethodSignature
+     * constructs a new MethodSignature.
      * @param value the descriptor
      */
     public MethodSignature(final String value)
@@ -65,7 +59,7 @@ public class MethodSignature implements Serializable
     }
 
     /**
-     * constructs a new MethodSignature
+     * constructs a new MethodSignature.
      * @param method the method
      */
     public MethodSignature(final Method method)
@@ -85,7 +79,7 @@ public class MethodSignature implements Serializable
     }
 
     /**
-     * constructs a new MethodSignature
+     * constructs a new MethodSignature.
      * @param constructor the constructor
      */
     public MethodSignature(final Constructor<?> constructor)
@@ -141,9 +135,7 @@ public class MethodSignature implements Serializable
         return MethodSignature.getReturnType(this.value);
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

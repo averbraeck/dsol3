@@ -28,7 +28,7 @@ import nl.tudelft.simulation.event.EventType;
  */
 public class EventLogHandler extends Handler implements EventProducerInterface
 {
-    /** LOG_RECORD_PRODUCED_EVENT is fired whenever an log record is received */
+    /** LOG_RECORD_PRODUCED_EVENT is fired whenever an log record is received. */
     public static final EventType LOG_RECORD_PRODUCED_EVENT = new EventType("LOG_RECORD_PRODUCED_EVENT");
 
     /** our private postman */
@@ -42,58 +42,43 @@ public class EventLogHandler extends Handler implements EventProducerInterface
         super();
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface
-     *      #addListener(nl.tudelft.simulation.event.EventListenerInterface, nl.tudelft.simulation.event.EventType)
-     */
+    /** {@inheritDoc} */
+    @Override
     public boolean addListener(final EventListenerInterface listener, final EventType eventType)
     {
         return this.postman.addListener(listener, eventType);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface
-     *      #addListener(nl.tudelft.simulation.event.EventListenerInterface, nl.tudelft.simulation.event.EventType,
-     *      boolean)
-     */
+    /** {@inheritDoc} */
+    @Override
     public boolean addListener(final EventListenerInterface listener, final EventType eventType, final boolean weak)
     {
         return this.postman.addListener(listener, eventType, weak);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface
-     *      #addListener(nl.tudelft.simulation.event.EventListenerInterface, nl.tudelft.simulation.event.EventType,
-     *      short)
-     */
+    /** {@inheritDoc} */
+    @Override
     public boolean addListener(final EventListenerInterface listener, final EventType eventType, final short position)
     {
         return this.postman.addListener(listener, eventType, position);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface
-     *      #addListener(nl.tudelft.simulation.event.EventListenerInterface, nl.tudelft.simulation.event.EventType,
-     *      short,boolean)
-     */
+    /** {@inheritDoc} */
+    @Override
     public boolean addListener(final EventListenerInterface listener, final EventType eventType, final short position,
             final boolean weak)
     {
         return this.postman.addListener(listener, eventType, position, weak);
     }
 
-    /**
-     * @see java.util.logging.Handler#close()
-     */
+    /** {@inheritDoc} */
     @Override
     public void close()
     {
         this.flush();
     }
 
-    /**
-     * @see java.util.logging.Handler#flush()
-     */
+    /** {@inheritDoc} */
     @Override
     public void flush()
     {
@@ -101,16 +86,15 @@ public class EventLogHandler extends Handler implements EventProducerInterface
     }
 
     /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface#getEventTypes()
+     * @return the event types. Not a method of EventProducerInterface anymore.
+     * TODO: see if the method can be removed.
      */
     public EventType[] getEventTypes()
     {
         return new EventType[]{EventLogHandler.LOG_RECORD_PRODUCED_EVENT};
     }
 
-    /**
-     * @see java.util.logging.Handler#publish(java.util.logging.LogRecord)
-     */
+    /** {@inheritDoc} */
     @Override
     public void publish(final LogRecord arg0)
     {
@@ -118,10 +102,8 @@ public class EventLogHandler extends Handler implements EventProducerInterface
                 arg0)));
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface
-     *      #removeListener(nl.tudelft.simulation.event.EventListenerInterface, nl.tudelft.simulation.event.EventType)
-     */
+    /** {@inheritDoc} */
+    @Override
     public boolean removeListener(final EventListenerInterface listener, final EventType eventType)
     {
         return this.postman.removeListener(listener, eventType);
@@ -135,9 +117,7 @@ public class EventLogHandler extends Handler implements EventProducerInterface
         /** The default serial version UID for serializable classes */
         private static final long serialVersionUID = 1L;
 
-        /**
-         * @see nl.tudelft.simulation.event.EventProducer #fireEvent(nl.tudelft.simulation.event.EventInterface)
-         */
+        /** {@inheritDoc} */
         @Override
         public EventInterface fireEvent(final EventInterface event)
         {

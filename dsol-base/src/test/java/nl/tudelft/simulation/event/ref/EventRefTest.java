@@ -1,9 +1,3 @@
-/*
- * @(#) EventIteratorTest.java Sep 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.event.ref;
 
 import java.rmi.MarshalledObject;
@@ -25,7 +19,7 @@ import junit.framework.TestCase;
  */
 public class EventRefTest extends TestCase
 {
-    /** TEST_METHOD is the name of the test method */
+    /** TEST_METHOD is the name of the test method. */
     public static final String TEST_METHOD = "test";
 
     /**
@@ -37,7 +31,7 @@ public class EventRefTest extends TestCase
     }
 
     /**
-     * constructs a new EventIteratorTest
+     * constructs a new EventIteratorTest.
      * @param method the name of the test method
      */
     public EventRefTest(final String method)
@@ -72,7 +66,7 @@ public class EventRefTest extends TestCase
             Runtime.getRuntime().gc();
             Assert.assertNull(reference.get());
 
-            // Test 3: The strong reference...
+            // Test 3: The strong reference..
             reference = new StrongReference<Object>(new String("EventIteratorTest"));
             Assert.assertNotNull(reference.get());
             Runtime.getRuntime().gc();

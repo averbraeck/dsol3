@@ -1,8 +1,3 @@
-/*
- * @(#) CartesianPoint.java Nov 12, 2003 Copyright (c) 2002-2005 Delft University of Technology Jaffalaan 5,
- * 2628 BX Delft, the Netherlands. All rights reserved. This software is proprietary information of Delft
- * University of Technology 
- */
 package nl.tudelft.simulation.language.d3;
 
 import java.awt.geom.Point2D;
@@ -42,7 +37,7 @@ import javax.vecmath.Tuple3f;
  */
 public class CartesianPoint extends javax.vecmath.Point3d
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /**

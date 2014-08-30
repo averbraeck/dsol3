@@ -1,10 +1,3 @@
-/*
- * @(#) RemoteContextListenerClient.java Apr 14, 2004 Copyright (c) 2002-2005
- * Delft University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands.
- * All rights reserved. This software is proprietary information of Delft
- * University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.naming.listener;
 
 import java.rmi.RemoteException;
@@ -28,7 +21,7 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class RemoteContextListenerClient implements ContextListenerInterface
 {
-    /** the target to use */
+    /** the target to use. */
     private RemoteContextListenerInterface target = null;
 
     /**
@@ -41,9 +34,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         this.target = target;
     }
 
-    /**
-     * @see javax.naming.event.NamingListener #namingExceptionThrown(javax.naming.event.NamingExceptionEvent)
-     */
+    /** {@inheritDoc} */
     public void namingExceptionThrown(NamingExceptionEvent evt)
     {
         try
@@ -56,9 +47,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener#objectAdded(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectAdded(NamingEvent evt)
     {
         try
@@ -71,9 +60,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener#objectRemoved(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectRemoved(NamingEvent evt)
     {
         try
@@ -86,9 +73,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener#objectRenamed(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectRenamed(NamingEvent evt)
     {
         try
@@ -101,10 +86,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
     }
 
-    /**
-     * *
-     * @see javax.naming.event.ObjectChangeListener#objectChanged(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectChanged(NamingEvent evt)
     {
         try

@@ -1,10 +1,3 @@
-/*
- * @(#) ClassDescriptor.java $Date: 2007/01/07 05:00:12 $ Copyright (c)
- * 2002-2005 Delft University of Technology Jaffalaan 5, 2628 BX Delft, the
- * Netherlands. All rights reserved. This software is proprietary information of
- * Delft University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.dsol.interpreter.classfile;
 
 import java.io.DataInput;
@@ -15,27 +8,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A ClassDescriptor <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * A ClassDescriptor.
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class ClassDescriptor
 {
-    /** the repository which caches descriptors */
+    /** the repository which caches descriptors. */
     private static final Map<Class<?>, ClassDescriptor> CACHE = new HashMap<Class<?>, ClassDescriptor>();
 
-    /** the constantPool */
+    /** the constantPool. */
     private Constant[] constantPool = null;
 
-    /** the localVariables */
+    /** the localVariables. */
     private Map<AccessibleObject, MethodDescriptor> methods = new HashMap<AccessibleObject, MethodDescriptor>();
 
-    /** the javaClass we are reading */
+    /** the javaClass we are reading. */
     private Class<?> javaClass = null;
 
     /**
@@ -60,7 +51,7 @@ public class ClassDescriptor
     }
 
     /**
-     * constructs a new ClassDescriptor
+     * constructs a new ClassDescriptor.
      * @param javaClass the class to read
      * @throws IOException on IO - failure
      * @throws ClassNotFoundException on incomplete classPath

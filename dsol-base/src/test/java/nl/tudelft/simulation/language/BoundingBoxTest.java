@@ -1,9 +1,3 @@
-/*
- * @(#) MonitorTest.java Sep 28, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.language;
 
 import junit.framework.TestCase;
@@ -26,7 +20,7 @@ public class BoundingBoxTest extends TestCase
 {
 
     /**
-     * constructs a new MonitorTest
+     * constructs a new MonitorTest.
      */
     public BoundingBoxTest()
     {
@@ -34,7 +28,7 @@ public class BoundingBoxTest extends TestCase
     }
 
     /**
-     * constructs a new MonitorTest
+     * constructs a new MonitorTest.
      * @param arg0
      */
     public BoundingBoxTest(String arg0)

@@ -1,9 +1,3 @@
-/*
- * @(#) SortDefinition.java Apr 14, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.introspection.sortable;
 
 /**
@@ -21,14 +15,14 @@ package nl.tudelft.simulation.introspection.sortable;
  */
 public class SortDefinition implements Sortable.Definition
 {
-    /** the fieldID */
+    /** the fieldId. */
     private int fieldID;
 
-    /** whether sorting should occur ascending */
+    /** whether sorting should occur ascending. */
     private boolean ascending;
 
     /**
-     * constructs a new SortDefinition
+     * constructs a new SortDefinition.
      * @param fieldID the fieldID
      * @param ascending whether sorting should occur ascending
      */
@@ -38,33 +32,25 @@ public class SortDefinition implements Sortable.Definition
         this.ascending = ascending;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.sortable.Sortable.Definition#getFieldID()
-     */
+    /** {@inheritDoc} */
     public int getFieldID()
     {
         return this.fieldID;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.sortable.Sortable.Definition #isAcendingSort()
-     */
+    /** {@inheritDoc} */
     public boolean isAcendingSort()
     {
         return this.ascending;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.sortable.Sortable.Definition #setAscending(boolean)
-     */
+    /** {@inheritDoc} */
     public void setAscending(final boolean ascending)
     {
         this.ascending = ascending;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

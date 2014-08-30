@@ -1,9 +1,3 @@
-/*
- * @(#) FieldProperty.java Apr 15, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.introspection.fields;
 
 import java.lang.reflect.Field;
@@ -30,14 +24,14 @@ public class FieldProperty extends AbstractProperty implements Property
     /** the owner of the fieldProperty */
     private Object owner = null;
 
-    /** the descriptor of the field */
+    /** the descriptor of the field. */
     private Field descriptor = null;
 
-    /** is the property editable */
+    /** is the property editable. */
     private boolean editable = false;
 
     /**
-     * constructs a new FieldProperty
+     * constructs a new FieldProperty.
      * @param owner its owner
      * @param descriptor the descriptor
      * @param editable is the property editable
@@ -52,7 +46,7 @@ public class FieldProperty extends AbstractProperty implements Property
     }
 
     /**
-     * constructs a new FieldProperty
+     * constructs a new FieldProperty.
      * @param owner its owner
      * @param descriptor the descriptor
      */
@@ -61,25 +55,19 @@ public class FieldProperty extends AbstractProperty implements Property
         this(owner, descriptor, true);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getName()
-     */
+    /** {@inheritDoc} */
     public String getName()
     {
         return this.descriptor.getName();
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getType()
-     */
+    /** {@inheritDoc} */
     public Class<?> getType()
     {
         return this.descriptor.getType();
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.AbstractProperty #setRegularValue(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setRegularValue(final Object value)
     {
@@ -101,9 +89,7 @@ public class FieldProperty extends AbstractProperty implements Property
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getValue()
-     */
+    /** {@inheritDoc} */
     public Object getValue()
     {
         try
@@ -117,17 +103,13 @@ public class FieldProperty extends AbstractProperty implements Property
         return null;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getInstance()
-     */
+    /** {@inheritDoc} */
     public Object getInstance()
     {
         return this.owner;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#isEditable()
-     */
+    /** {@inheritDoc} */
     public boolean isEditable()
     {
         return this.editable;

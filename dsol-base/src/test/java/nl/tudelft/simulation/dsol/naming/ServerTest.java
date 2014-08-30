@@ -8,12 +8,6 @@ import javax.naming.event.NamingExceptionEvent;
 import nl.tudelft.simulation.naming.InitialEventContext;
 import nl.tudelft.simulation.naming.listener.ContextListenerInterface;
 
-/*
- * @(#) ServerTest.java Apr 16, 2004 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 
 /**
  * The ServerTest.
@@ -30,7 +24,7 @@ import nl.tudelft.simulation.naming.listener.ContextListenerInterface;
 public class ServerTest implements ContextListenerInterface
 {
     /**
-     * constructs a new ServerTest
+     * constructs a new ServerTest.
      * @param context the context to use.
      * @throws NamingException on subscription
      */
@@ -58,41 +52,31 @@ public class ServerTest implements ContextListenerInterface
         }
     }
 
-    /**
-     * @see javax.naming.event.ObjectChangeListener#objectChanged(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectChanged(NamingEvent evt)
     {
         System.out.println("changed " + evt);
     }
 
-    /**
-     * @see javax.naming.event.NamingListener#namingExceptionThrown(javax.naming.event.NamingExceptionEvent)
-     */
+    /** {@inheritDoc} */
     public void namingExceptionThrown(NamingExceptionEvent evt)
     {
         System.out.println("exception " + evt);
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener#objectAdded(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectAdded(NamingEvent evt)
     {
         System.out.println("added" + evt);
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener#objectRemoved(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectRemoved(NamingEvent evt)
     {
         System.out.println("removed" + evt);
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener#objectRenamed(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectRenamed(NamingEvent evt)
     {
         System.out.println("renamed : " + evt);

@@ -1,10 +1,3 @@
-/*
- * @(#) INVOKESPECIAL.java $Date: 2010/08/10 11:38:24 $ Copyright (c) 2002-2005
- * Delft University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands.
- * All rights reserved. This software is proprietary information of Delft
- * University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.dsol.interpreter.operations.reflection;
 
 import java.io.DataInput;
@@ -35,14 +28,14 @@ import nl.tudelft.simulation.language.reflection.MethodSignature;
  */
 public class INVOKESPECIAL extends InvokeOperation
 {
-    /** OP refers to the operand code */
+    /** OP refers to the operand code. */
     public static final int OP = 183;
 
-    /** the index to load */
+    /** the index to load. */
     protected int index = -1;
 
     /**
-     * constructs a new INVOKESPECIAL
+     * constructs a new INVOKESPECIAL.
      * @param dataInput the dataInput
      * @throws IOException on IOfailure
      */
@@ -52,10 +45,7 @@ public class INVOKESPECIAL extends InvokeOperation
         this.index = dataInput.readUnsignedShort();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.interpreter.operations.InvokeOperation
-     *      #execute(nl.tudelft.simulation.dsol.interpreter.Frame)
-     */
+    /** {@inheritDoc} */
     @Override
     public Frame execute(final Frame frame)
     {
@@ -148,20 +138,16 @@ public class INVOKESPECIAL extends InvokeOperation
         return null;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.interpreter.Operation#getByteLength()
-     */
+    /** {@inheritDoc} */
     @Override
-    public int getByteLength()
+    public final int getByteLength()
     {
         return OPCODE_BYTE_LENGTH + 2;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.interpreter.Operation#getOpcode()
-     */
+    /** {@inheritDoc} */
     @Override
-    public int getOpcode()
+    public final int getOpcode()
     {
         return INVOKESPECIAL.OP;
     }

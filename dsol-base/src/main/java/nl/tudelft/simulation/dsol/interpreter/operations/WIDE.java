@@ -1,9 +1,3 @@
-/*
- * @(#) WIDE.java $Date: 2010/08/10 11:38:22 $ Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.interpreter.operations;
 
 import java.io.DataInput;
@@ -15,27 +9,22 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
  * The WIDE operation as defined in <a
  * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc15.html">
  * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc15.html </a>.
- * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a><a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:22 $
- * @since 1.5
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class WIDE extends Operation
 {
-    /** OP refers to the operand code */
+    /** OP refers to the operand code. */
     public static final int OP = 196;
 
-    /** the index to the target */
+    /** the index to the target. */
     private Operation target;
 
     /**
-     * constructs a new WIDE
+     * constructs a new WIDE.
      * @param dataInput the dataInput
      * @throws IOException on IOfailure
      */
@@ -86,20 +75,16 @@ public class WIDE extends Operation
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.interpreter.Operation#getByteLength()
-     */
+    /** {@inheritDoc} */
     @Override
-    public int getByteLength()
+    public final int getByteLength()
     {
         return 2 * OPCODE_BYTE_LENGTH + this.target.getByteLength();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.interpreter.Operation#getOpcode()
-     */
+    /** {@inheritDoc} */
     @Override
-    public int getOpcode()
+    public final int getOpcode()
     {
         return WIDE.OP;
     }

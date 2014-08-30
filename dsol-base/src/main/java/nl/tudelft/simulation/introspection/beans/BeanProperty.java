@@ -1,9 +1,3 @@
-/*
- * @(#) BeanProperty.java Apr 15, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.introspection.beans;
 
 import java.beans.PropertyDescriptor;
@@ -34,11 +28,11 @@ public class BeanProperty extends AbstractProperty implements Property
     /** the bean whichs owns the property */
     private Object bean = null;
 
-    /** the propertyDescriptor */
+    /** the propertyDescriptor. */
     private PropertyDescriptor descriptor = null;
 
     /**
-     * constructs a new BeanProperty
+     * constructs a new BeanProperty.
      * @param bean the bean to introspect
      * @param descriptor the descriptor of the property
      */
@@ -48,25 +42,19 @@ public class BeanProperty extends AbstractProperty implements Property
         this.descriptor = descriptor;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getName()
-     */
+    /** {@inheritDoc} */
     public String getName()
     {
         return this.descriptor.getName();
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getType()
-     */
+    /** {@inheritDoc} */
     public Class<?> getType()
     {
         return this.descriptor.getPropertyType();
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.AbstractProperty #setRegularValue(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     protected void setRegularValue(final Object values)
     {
@@ -96,9 +84,7 @@ public class BeanProperty extends AbstractProperty implements Property
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getValue()
-     */
+    /** {@inheritDoc} */
     public Object getValue()
     {
         Object result = null;
@@ -117,17 +103,13 @@ public class BeanProperty extends AbstractProperty implements Property
         return result;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getInstance()
-     */
+    /** {@inheritDoc} */
     public Object getInstance()
     {
         return this.bean;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#isEditable()
-     */
+    /** {@inheritDoc} */
     public boolean isEditable()
     {
         return !(this.descriptor.getWriteMethod() == null);

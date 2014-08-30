@@ -24,122 +24,98 @@ import nl.tudelft.simulation.event.remote.RemoteEventListenerInterface;
  */
 public class EventListenerMap implements Map<EventType, List<Reference<EventListenerInterface>>>, Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20140830L;
 
-    /** the hasMap we map on */
+    /** the hasMap we map on. */
     private Map<EventType, List<Reference<EventListenerInterface>>> map = new HashMap<>();
 
     /**
-     * constructs a new EventListenerMap
+     * constructs a new EventListenerMap.
      */
     public EventListenerMap()
     {
         super();
     }
 
-    /**
-     * @see java.util.Map#size()
-     */
+    /** {@inheritDoc} */
     @Override
     public int size()
     {
         return this.map.size();
     }
 
-    /**
-     * @see java.util.Map#clear()
-     */
+    /** {@inheritDoc} */
     @Override
     public void clear()
     {
         this.map.clear();
     }
 
-    /**
-     * @see java.util.Map#isEmpty()
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean isEmpty()
     {
         return this.map.isEmpty();
     }
 
-    /**
-     * @see java.util.Map#containsKey(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean containsKey(Object key)
     {
         return this.map.containsKey(key);
     }
 
-    /**
-     * @see java.util.Map#containsValue(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean containsValue(Object value)
     {
         return this.map.containsValue(value);
     }
 
-    /**
-     * @see java.util.Map#values()
-     */
+    /** {@inheritDoc} */
     @Override
     public Collection<List<Reference<EventListenerInterface>>> values()
     {
         return this.map.values();
     }
 
-    /**
-     * @see java.util.Map#putAll(java.util.Map)
-     */
+    /** {@inheritDoc} */
     @Override
     public void putAll(Map<? extends EventType, ? extends List<Reference<EventListenerInterface>>> m)
     {
         this.map.putAll(m);
     }
 
-    /**
-     * @see java.util.Map#entrySet()
-     */
+    /** {@inheritDoc} */
     @Override
     public Set<Map.Entry<EventType, List<Reference<EventListenerInterface>>>> entrySet()
     {
         return this.map.entrySet();
     }
 
-    /**
-     * @see java.util.Map#keySet()
-     */
+    /** {@inheritDoc} */
     @Override
     public Set<EventType> keySet()
     {
         return this.map.keySet();
     }
 
-    /**
-     * @see java.util.Map#get(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public List<Reference<EventListenerInterface>> get(Object key)
     {
         return this.map.get(key);
     }
 
-    /**
-     * @see java.util.Map#remove(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public List<Reference<EventListenerInterface>> remove(Object key)
     {
         return this.map.remove(key);
     }
 
-    /**
-     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public List<Reference<EventListenerInterface>> put(EventType key, List<Reference<EventListenerInterface>> value)
     {

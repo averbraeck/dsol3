@@ -1,10 +1,3 @@
-/*
- * @(#) RemoteContextListenerInterface.java Apr 14, 2004 Copyright (c) 2002-2005
- * Delft University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands.
- * All rights reserved. This software is proprietary information of Delft
- * University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.naming.listener;
 
 import java.rmi.Remote;

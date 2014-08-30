@@ -22,10 +22,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public class MyColorRenderer implements TableCellRenderer
 {
-    /**
-     * @see javax.swing.table.TableCellRenderer #getTableCellRendererComponent(javax.swing.JTable, java.lang.Object,
-     *      boolean, boolean, int, int)
-     */
+    /** {@inheritDoc} */
     public Component getTableCellRendererComponent(final JTable table, final Object value, final boolean isSelected,
             final boolean hasFocus, final int row, final int column)
     {

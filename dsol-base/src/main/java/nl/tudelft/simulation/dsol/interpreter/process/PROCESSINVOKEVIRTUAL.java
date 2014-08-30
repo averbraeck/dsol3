@@ -1,10 +1,3 @@
-/*
- * @(#) PROCESSINVOKEVIRTUAL.java $Date: 2010/08/10 11:38:24 $ Copyright (c)
- * 2002-2005 Delft University of Technology Jaffalaan 5, 2628 BX Delft, the
- * Netherlands. All rights reserved. This software is proprietary information of
- * Delft University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.dsol.interpreter.process;
 
 import java.io.DataInput;
@@ -32,7 +25,7 @@ import nl.tudelft.simulation.language.concurrent.Monitor;
 public class PROCESSINVOKEVIRTUAL extends CUSTOMINVOKEVIRTUAL
 {
     /**
-     * constructs a new PROCESSINVOKEVIRTUAL
+     * constructs a new PROCESSINVOKEVIRTUAL.
      * @param interpreterOracle
      * @param dataInput the dataInput
      * @throws IOException on IOfailure

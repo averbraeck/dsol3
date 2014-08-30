@@ -13,10 +13,10 @@ package nl.tudelft.simulation.event.ref;
  */
 public class WeakReference<T> extends Reference<T>
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20140830L;
 
-    /** the reference */
+    /** the reference. */
     private transient java.lang.ref.WeakReference<T> reference = null;
 
     /**
@@ -28,18 +28,14 @@ public class WeakReference<T> extends Reference<T>
         this.reference = new java.lang.ref.WeakReference<T>(referent);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.ref.Reference#get()
-     */
+    /** {@inheritDoc} */
     @Override
     public T get()
     {
         return this.reference.get();
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.ref.Reference#set(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     protected void set(final T value)
     {

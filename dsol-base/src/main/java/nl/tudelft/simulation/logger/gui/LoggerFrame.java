@@ -1,9 +1,3 @@
-/*
- * @(#) LoggerFrame.java Oct 26, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.logger.gui;
 
 import java.util.logging.Logger;
@@ -23,14 +17,14 @@ import javax.swing.WindowConstants;
  */
 public class LoggerFrame extends JFrame
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the Logger */
+    /** the Logger. */
     private Logger logger = null;
 
     /**
-     * constructs a new LoggerFrame
+     * constructs a new LoggerFrame.
      * @param logger the logger to see
      */
     public LoggerFrame(final Logger logger)
@@ -52,9 +46,7 @@ public class LoggerFrame extends JFrame
         this.setContentPane(logPanel);
     }
 
-    /**
-     * @see java.awt.Window#dispose()
-     */
+    /** {@inheritDoc} */
     @Override
     public void dispose()
     {

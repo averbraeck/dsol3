@@ -22,12 +22,10 @@ import javax.swing.table.TableCellEditor;
  */
 public class SwingCellEditor extends AbstractCellEditor implements TableCellEditor
 {
-    /** the value to edit */
+    /** the value to edit. */
     private JComponent value = new JPanel();
 
-    /**
-     * @see javax.swing.table.TableCellEditor#getTableCellEditorComponent(JTable, Object, boolean, int, int)
-     */
+    /** {@inheritDoc} */
     public Component getTableCellEditorComponent(final JTable table, final Object value, final boolean isSelected,
             final int row, final int column)
     {
@@ -35,9 +33,7 @@ public class SwingCellEditor extends AbstractCellEditor implements TableCellEdit
         return (JComponent) value;
     }
 
-    /**
-     * @see javax.swing.CellEditor#getCellEditorValue()
-     */
+    /** {@inheritDoc} */
     public Object getCellEditorValue()
     {
         return this.value;

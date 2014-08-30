@@ -1,9 +1,3 @@
-/*
- * @(#) SwingWorker.java Apr 29, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.language.swing;
 
 import javax.swing.SwingUtilities;
@@ -40,7 +34,7 @@ import javax.swing.SwingUtilities;
  */
 public abstract class SwingWorker
 {
-    /** the value of the worker */
+    /** the value of the worker. */
     private Object value; // see getValue(), setValue()
 
     /** the thread to use. */
@@ -167,11 +161,11 @@ public abstract class SwingWorker
      */
     private static class ThreadVar
     {
-        /** the thread to use */
+        /** the thread to use. */
         private Thread thread;
 
         /**
-         * constructs a new ThreadVar
+         * constructs a new ThreadVar.
          * @param t the thread
          */
         ThreadVar(final Thread t)

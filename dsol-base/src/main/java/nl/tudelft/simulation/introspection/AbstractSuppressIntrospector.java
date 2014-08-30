@@ -1,10 +1,3 @@
-/*
- * @(#)AbstractSupressIntrospector.java April 15, 2004 Copyright (c)
- * 2002-2005-2004 Delft University of Technology Jaffalaan 5, 2628 BX Delft, the
- * Netherlands. All rights reserved. This software is proprietary information of
- * Delft University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.introspection;
 
 import java.util.ArrayList;
@@ -25,7 +18,7 @@ import java.util.List;
  */
 public abstract class AbstractSuppressIntrospector implements Introspector
 {
-    /** the parent introspector */
+    /** the parent introspector. */
     protected Introspector parent;
 
     /**
@@ -38,9 +31,7 @@ public abstract class AbstractSuppressIntrospector implements Introspector
         this.parent = parent;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getProperties(Object)
-     */
+    /** {@inheritDoc} */
     public Property[] getProperties(final Object arg0)
     {
         Property[] original = this.parent.getProperties(arg0);
@@ -55,9 +46,7 @@ public abstract class AbstractSuppressIntrospector implements Introspector
         return result.toArray(new Property[0]);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getPropertyNames(Object)
-     */
+    /** {@inheritDoc} */
     public String[] getPropertyNames(final Object arg0)
     {
         Property[] properties = this.getProperties(arg0);
@@ -69,9 +58,7 @@ public abstract class AbstractSuppressIntrospector implements Introspector
         return result;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getProperty(Object, String)
-     */
+    /** {@inheritDoc} */
     public Property getProperty(final Object arg0, final String arg1)
     {
         Property[] properties = this.getProperties(arg0);

@@ -1,9 +1,3 @@
-/*
- * @(#) SortingTableModel.java April 15, 2004 Copyright (c) 2002-2005-2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.introspection.sortable;
 
@@ -36,10 +30,10 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class SortingTableModel implements TableModel, Sortable
 {
-    /** the listeners */
+    /** the listeners. */
     protected Map<ProxyListener, TableModelListener> proxyListeners = new HashMap<ProxyListener, TableModelListener>(5);
 
-    /** the source */
+    /** the source. */
     protected TableModel source;
 
     /** the index */
@@ -48,11 +42,11 @@ public class SortingTableModel implements TableModel, Sortable
     /** expandedIndex */
     protected Integer[] expandedIndex;
 
-    /** the definitions */
+    /** the definitions. */
     private List<Definition> definitions = Collections.synchronizedList(new ArrayList<Definition>());
 
     /**
-     * constructs a new SortingTableModel
+     * constructs a new SortingTableModel.
      * @param source the sorce
      */
     public SortingTableModel(final TableModel source)
@@ -65,9 +59,7 @@ public class SortingTableModel implements TableModel, Sortable
      */
     private class ProxyListener implements TableModelListener
     {
-        /**
-         * @see javax.swing.event.TableModelListener#tableChanged(javax.swing.event.TableModelEvent)
-         */
+        /** {@inheritDoc} */
         public void tableChanged(final TableModelEvent e)
         {
             sort();
@@ -223,34 +215,26 @@ public class SortingTableModel implements TableModel, Sortable
         return result;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.sortable.Sortable#getDefinitions()
-     */
+    /** {@inheritDoc} */
     public Definition[] getDefinitions()
     {
         return this.definitions.toArray(new Definition[0]);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.sortable.Sortable #setDefinitions(Definition[])
-     */
+    /** {@inheritDoc} */
     public void setDefinitions(final Definition[] definitions)
     {
         this.definitions.clear();
         this.definitions.addAll(Arrays.asList(definitions));
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.sortable.Sortable#sort()
-     */
+    /** {@inheritDoc} */
     public void sort()
     {
         buildIndex();
     }
 
-    /**
-     * @see javax.swing.table.TableModel#addTableModelListener(TableModelListener)
-     */
+    /** {@inheritDoc} */
     public void addTableModelListener(final TableModelListener l)
     {
         ProxyListener proxy = new ProxyListener();
@@ -258,41 +242,31 @@ public class SortingTableModel implements TableModel, Sortable
         this.source.addTableModelListener(proxy);
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnClass(int)
-     */
+    /** {@inheritDoc} */
     public Class<?> getColumnClass(final int columnIndex)
     {
         return this.source.getColumnClass(columnIndex);
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnCount()
-     */
+    /** {@inheritDoc} */
     public int getColumnCount()
     {
         return this.source.getColumnCount();
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnName(int)
-     */
+    /** {@inheritDoc} */
     public String getColumnName(final int columnIndex)
     {
         return this.source.getColumnName(columnIndex);
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getRowCount()
-     */
+    /** {@inheritDoc} */
     public int getRowCount()
     {
         return this.source.getRowCount();
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getValueAt(int, int)
-     */
+    /** {@inheritDoc} */
     public Object getValueAt(final int rowIndex, final int columnIndex)
     {
         if (this.expandedIndex == null)
@@ -308,17 +282,13 @@ public class SortingTableModel implements TableModel, Sortable
         return this.source.getValueAt(this.expandedIndex[rowIndex].intValue(), columnIndex);
     }
 
-    /**
-     * @see javax.swing.table.TableModel#isCellEditable(int, int)
-     */
+    /** {@inheritDoc} */
     public boolean isCellEditable(final int rowIndex, final int columnIndex)
     {
         return this.source.isCellEditable(this.expandedIndex[rowIndex].intValue(), columnIndex);
     }
 
-    /**
-     * @see javax.swing.table.TableModel#removeTableModelListener(TableModelListener)
-     */
+    /** {@inheritDoc} */
     public void removeTableModelListener(final TableModelListener l)
     {
         ProxyListener proxy = (ProxyListener) this.proxyListeners.get(l);
@@ -326,9 +296,7 @@ public class SortingTableModel implements TableModel, Sortable
         this.proxyListeners.remove(proxy);
     }
 
-    /**
-     * @see javax.swing.table.TableModel#setValueAt(Object, int, int)
-     */
+    /** {@inheritDoc} */
     public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
     {
         if (rowIndex > this.expandedIndex.length)

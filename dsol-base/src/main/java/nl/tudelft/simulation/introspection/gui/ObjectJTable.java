@@ -1,9 +1,3 @@
-/*
- * @(#) ObjectJTable.java Apr 15, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.introspection.gui;
 
 import java.awt.event.HierarchyEvent;
@@ -43,13 +37,13 @@ import nl.tudelft.simulation.introspection.sortable.SortingTableHeader;
  */
 public class ObjectJTable extends JTable implements ObjectJTableInterface, ICellPresentationConfigProvider
 {
-    /** the updateTimer */
+    /** the updateTimer. */
     private static UpdateTimer updateTimer = new UpdateTimer(100L);
 
     /** hasShown? */
     protected boolean hasShown = false;
 
-    /** the introspectionTableModel */
+    /** the introspectionTableModel. */
     private IntrospectingTableModelInterface introspectionTableModel;
 
     /**
@@ -58,7 +52,7 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
     private final CellPresentationConfiguration CONFIG;
 
     /**
-     * constructs a new ObjectJTable
+     * constructs a new ObjectJTable.
      * @param dm the defaultTableModel
      */
     public ObjectJTable(final IntrospectingTableModelInterface dm)
@@ -67,7 +61,7 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
     }
 
     /**
-     * constructs a new ObjectJTable
+     * constructs a new ObjectJTable.
      * @param dm the defaultTableModel
      * @param config the CellPresentationConfiguration
      */
@@ -104,9 +98,7 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
         init(dm);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.ICellPresentationConfigProvider#getCellPresentationConfiguration()
-     */
+    /** {@inheritDoc} */
     public CellPresentationConfiguration getCellPresentationConfiguration()
     {
         return this.CONFIG;
@@ -146,9 +138,7 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
      */
     private class ParentListener implements HierarchyListener
     {
-        /**
-         * @see java.awt.event.HierarchyListener#hierarchyChanged(HierarchyEvent)
-         */
+        /** {@inheritDoc} */
         public void hierarchyChanged(final HierarchyEvent e)
         {
             if (e.getChangeFlags() == HierarchyEvent.DISPLAYABILITY_CHANGED)
@@ -196,9 +186,7 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
         this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.ObjectJTableInterface #getIntrospectingTableModel()
-     */
+    /** {@inheritDoc} */
     public IntrospectingTableModelInterface getIntrospectingTableModel()
     {
         return this.introspectionTableModel;

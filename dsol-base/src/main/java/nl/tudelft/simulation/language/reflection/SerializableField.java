@@ -1,8 +1,3 @@
-/*
- * @(#) SerializableField.java Jan 20, 2004 Copyright (c) 2002-2005 Delft University of Technology Jaffalaan
- * 5, 2628 BX Delft, the Netherlands. All rights reserved. This software is proprietary information of Delft
- * University of Technology 
- */
 package nl.tudelft.simulation.language.reflection;
 
 import java.io.IOException;
@@ -42,11 +37,11 @@ import java.lang.reflect.Field;
  */
 public class SerializableField implements Serializable
 {
-    /** the field */
+    /** the field. */
     private Field field = null;
 
     /**
-     * constructs a new SerializableField
+     * constructs a new SerializableField.
      * @param field The field
      */
     public SerializableField(final Field field)
@@ -56,7 +51,7 @@ public class SerializableField implements Serializable
     }
 
     /**
-     * constructs a new SerializableField
+     * constructs a new SerializableField.
      * @param clazz the clazz this field is instance of
      * @param fieldName the name of the field
      * @throws NoSuchFieldException whenever the field is not defined in clazz

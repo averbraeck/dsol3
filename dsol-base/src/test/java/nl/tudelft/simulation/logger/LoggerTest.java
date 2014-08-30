@@ -1,9 +1,3 @@
-/*
- * @(#) LoggerTest.java Sep 28, 2004 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.logger;
 
 import junit.framework.TestCase;
@@ -23,7 +17,7 @@ public class LoggerTest extends TestCase
 {
 
     /**
-     * constructs a new LoggerTest
+     * constructs a new LoggerTest.
      */
     public LoggerTest()
     {
@@ -31,7 +25,7 @@ public class LoggerTest extends TestCase
     }
 
     /**
-     * constructs a new LoggerTest
+     * constructs a new LoggerTest.
      * @param arg0
      */
     public LoggerTest(String arg0)

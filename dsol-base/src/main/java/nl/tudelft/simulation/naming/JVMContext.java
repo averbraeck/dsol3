@@ -1,9 +1,3 @@
-/*
- * @(#)JVMContext.java Feb 1, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.naming;
 
 import java.io.Serializable;
@@ -50,19 +44,19 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class JVMContext extends EventProducer implements EventContext, EventProducerInterface, Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** NUMBER_CHANGED_EVENT is fired whenever the number of children changes */
+    /** NUMBER_CHANGED_EVENT is fired whenever the number of children changes. */
     public static final EventType NUMBER_CHANGED_EVENT = new EventType("Number changed");
 
-    /** CHILD_ADDED_EVENT is fired whenever a child is added */
+    /** CHILD_ADDED_EVENT is fired whenever a child is added. */
     public static final EventType CHILD_ADDED_EVENT = new EventType("Child added");
 
-    /** CHILD_REMOVED_EVENT is fired whenever a child is removed */
+    /** CHILD_REMOVED_EVENT is fired whenever a child is removed. */
     public static final EventType CHILD_REMOVED_EVENT = new EventType("Child removed");
 
-    /** the syntax of this parser */
+    /** the syntax of this parser. */
     private static Properties syntax = new Properties();
 
     static
@@ -75,20 +69,20 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         syntax.put("jndi.syntax.typeval", "=");
     }
 
-    /** the parent context */
+    /** the parent context. */
     protected Context parent;
 
-    /** the atomicName */
+    /** the atomicName. */
     private String atomicName;
 
-    /** the children */
+    /** the children. */
     protected Map<String, Object> elements = Collections.synchronizedMap(new TreeMap<String, Object>());
 
-    /** the eventListeners */
+    /** the eventListeners. */
     protected List<EventContextListenerRecord> eventListeners = Collections
             .synchronizedList(new ArrayList<EventContextListenerRecord>());
 
-    /** the nameParser */
+    /** the nameParser. */
     protected NameParser parser = new MyParser(JVMContext.syntax);
 
     /**
@@ -100,7 +94,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /**
-     * constructs a new JVMContext
+     * constructs a new JVMContext.
      * @param parent the parent context
      * @param atomicName the atomicname
      */
@@ -110,9 +104,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         this.atomicName = atomicName;
     }
 
-    /**
-     * @see java.lang.Object#clone()
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized Object clone() throws CloneNotSupportedException
     {
@@ -168,9 +160,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return name;
     }
 
-    /**
-     * @see javax.naming.Context#lookup(Name)
-     */
+    /** {@inheritDoc} */
     public synchronized Object lookup(final Name name) throws NamingException
     {
         // Handle absolute path
@@ -205,17 +195,13 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return this.elements.get(relativeName.toString());
     }
 
-    /**
-     * @see javax.naming.Context#lookup(String)
-     */
+    /** {@inheritDoc} */
     public Object lookup(final String arg0) throws NamingException
     {
         return lookup(this.parser.parse(arg0));
     }
 
-    /**
-     * @see javax.naming.Context#bind(Name, Object)
-     */
+    /** {@inheritDoc} */
     public synchronized void bind(final Name name, final Object value) throws NamingException
     {
         if (isRootForwardable(name))
@@ -238,33 +224,25 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         }
     }
 
-    /**
-     * @see javax.naming.Context#bind(String, Object)
-     */
+    /** {@inheritDoc} */
     public void bind(final String name, final Object value) throws NamingException
     {
         bind(this.parser.parse(name), value);
     }
 
-    /**
-     * @see javax.naming.Context#rebind(Name, Object)
-     */
+    /** {@inheritDoc} */
     public void rebind(final Name name, final Object value) throws NamingException
     {
         this.bind(name, value);
     }
 
-    /**
-     * @see javax.naming.Context#rebind(String, Object)
-     */
+    /** {@inheritDoc} */
     public void rebind(final String name, final Object value) throws NamingException
     {
         this.bind(name, value);
     }
 
-    /**
-     * @see javax.naming.Context#unbind(Name)
-     */
+    /** {@inheritDoc} */
     public synchronized void unbind(final Name name) throws NamingException
     {
         if (isRootForwardable(name))
@@ -288,25 +266,19 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         }
     }
 
-    /**
-     * @see javax.naming.Context#unbind(String)
-     */
+    /** {@inheritDoc} */
     public void unbind(final String name) throws NamingException
     {
         unbind(this.parser.parse(name));
     }
 
-    /**
-     * @see javax.naming.Context#rename(Name, Name)
-     */
+    /** {@inheritDoc} */
     public void rename(final Name nameOld, final Name nameNew) throws NamingException
     {
         rename(nameOld.toString(), nameNew.toString());
     }
 
-    /**
-     * @see javax.naming.Context#rename(String, String)
-     */
+    /** {@inheritDoc} */
     public synchronized void rename(final String nameOld, final String nameNew) throws NamingException
     {
         if (!this.elements.containsKey(nameOld))
@@ -318,17 +290,13 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         this.elements.put(nameNew, value);
     }
 
-    /**
-     * @see javax.naming.Context#list(Name)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<NameClassPair> list(final Name name)
     {
         return this.list(name.toString());
     }
 
-    /**
-     * @see javax.naming.Context#list(String)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<NameClassPair> list(final String name)
     {
         if (name == null)
@@ -338,9 +306,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return new NamingList<NameClassPair>(true);
     }
 
-    /**
-     * @see javax.naming.Context#listBindings(Name)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<Binding> listBindings(final Name name)
     {
         if (name == null)
@@ -350,9 +316,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return new NamingList<Binding>(false);
     }
 
-    /**
-     * @see javax.naming.Context#listBindings(String)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<Binding> listBindings(final String name)
     {
         if (name == null)
@@ -362,25 +326,19 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return new NamingList<Binding>(false);
     }
 
-    /**
-     * @see javax.naming.Context#destroySubcontext(Name)
-     */
+    /** {@inheritDoc} */
     public void destroySubcontext(final Name name) throws NamingException
     {
         this.unbind(name);
     }
 
-    /**
-     * @see javax.naming.Context#destroySubcontext(String)
-     */
+    /** {@inheritDoc} */
     public void destroySubcontext(final String name) throws NamingException
     {
         this.unbind(name);
     }
 
-    /**
-     * @see javax.naming.Context#createSubcontext(Name)
-     */
+    /** {@inheritDoc} */
     public synchronized Context createSubcontext(final Name name) throws NamingException
     {
         if (name.size() == 1)
@@ -394,33 +352,25 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return c.createSubcontext(name.getSuffix(1));
     }
 
-    /**
-     * @see javax.naming.Context#createSubcontext(String)
-     */
+    /** {@inheritDoc} */
     public Context createSubcontext(final String arg0) throws NamingException
     {
         return createSubcontext(this.parser.parse(arg0));
     }
 
-    /**
-     * @see javax.naming.Context#lookupLink(Name)
-     */
+    /** {@inheritDoc} */
     public Object lookupLink(final Name name)
     {
         return this.elements.get(name.toString());
     }
 
-    /**
-     * @see javax.naming.Context#lookupLink(String)
-     */
+    /** {@inheritDoc} */
     public Object lookupLink(final String name) throws NamingException
     {
         return lookup(name);
     }
 
-    /**
-     * @see javax.naming.Context#getNameParser(Name)
-     */
+    /** {@inheritDoc} */
     public NameParser getNameParser(final Name name)
     {
         if (name == null)
@@ -430,9 +380,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return this.parser;
     }
 
-    /**
-     * @see javax.naming.Context#getNameParser(String)
-     */
+    /** {@inheritDoc} */
     public NameParser getNameParser(final String name)
     {
         if (name == null)
@@ -442,57 +390,43 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return this.parser;
     }
 
-    /**
-     * @see javax.naming.Context#composeName(Name, Name)
-     */
+    /** {@inheritDoc} */
     public Name composeName(final Name arg0, final Name arg1) throws NamingException
     {
         throw new NamingException("composeName " + arg0 + ", " + arg1 + " is not supported.");
     }
 
-    /**
-     * @see javax.naming.Context#composeName(String, String)
-     */
+    /** {@inheritDoc} */
     public String composeName(final String arg0, final String arg1) throws NamingException
     {
         throw new NamingException("composeName " + arg0 + ", " + arg1 + " is not supported.");
     }
 
-    /**
-     * @see javax.naming.Context#addToEnvironment(String, Object)
-     */
+    /** {@inheritDoc} */
     public Object addToEnvironment(final String arg0, final Object arg1) throws NamingException
     {
         throw new NamingException("addToEnvironment " + arg0 + ", " + arg1 + " is not supported.");
     }
 
-    /**
-     * @see javax.naming.Context#removeFromEnvironment(String)
-     */
+    /** {@inheritDoc} */
     public Object removeFromEnvironment(final String arg0) throws NamingException
     {
         throw new NamingException("removeFromEnvironment " + arg0 + " is not supported.");
     }
 
-    /**
-     * @see javax.naming.Context#getEnvironment()
-     */
+    /** {@inheritDoc} */
     public Hashtable<?, ?> getEnvironment() throws NamingException
     {
         throw new NamingException("Not supported.");
     }
 
-    /**
-     * @see javax.naming.Context#close()
-     */
+    /** {@inheritDoc} */
     public void close()
     {
         // We don't do anything on close
     }
 
-    /**
-     * @see javax.naming.Context#getNameInNamespace()
-     */
+    /** {@inheritDoc} */
     public synchronized String getNameInNamespace() throws NamingException
     {
         if (this.parent != null)
@@ -502,25 +436,19 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         return this.atomicName;
     }
 
-    /**
-     * @see javax.naming.event.EventContext #addNamingListener(Name, int, NamingListener)
-     */
+    /** {@inheritDoc} */
     public void addNamingListener(final Name target, final int scope, final NamingListener l)
     {
         this.eventListeners.add(new EventContextListenerRecord(target, scope, l));
     }
 
-    /**
-     * @see javax.naming.event.EventContext #addNamingListener(String, int, NamingListener)
-     */
+    /** {@inheritDoc} */
     public void addNamingListener(final String target, final int scope, final NamingListener l) throws NamingException
     {
         addNamingListener(this.parser.parse(target), scope, l);
     }
 
-    /**
-     * @see javax.naming.event.EventContext #removeNamingListener(NamingListener)
-     */
+    /** {@inheritDoc} */
     public synchronized void removeNamingListener(final NamingListener l)
     {
         EventContextListenerRecord removable = null;
@@ -538,9 +466,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         }
     }
 
-    /**
-     * @see javax.naming.event.EventContext#targetMustExist()
-     */
+    /** {@inheritDoc} */
     public boolean targetMustExist()
     {
         return false;
@@ -599,9 +525,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         }
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -620,13 +544,13 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
      */
     private class EventContextListenerRecord
     {
-        /** target name to which a subscription is made */
+        /** target name to which a subscription is made. */
         private Name target;
 
-        /** the scope */
+        /** the scope. */
         private int scope;
 
-        /** the listener */
+        /** the listener. */
         private NamingListener listener;
 
         /**
@@ -676,14 +600,14 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
      */
     private class NamingList<T extends NameClassPair> extends ArrayList<T> implements NamingEnumeration<T>
     {
-        /** The default serial version UID for serializable classes */
+        /** The default serial version UID for serializable classes. */
         private static final long serialVersionUID = 1L;
 
-        /** the iterator */
+        /** the iterator. */
         private Iterator<T> myIterator = null;
 
         /**
-         * constructs a new NamingList
+         * constructs a new NamingList.
          * @param classList isClassList
          */
         @SuppressWarnings("unchecked")
@@ -703,17 +627,13 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             }
         }
 
-        /**
-         * @see javax.naming.NamingEnumeration#close()
-         */
+        /** {@inheritDoc} */
         public void close()
         {
             this.myIterator = null;
         }
 
-        /**
-         * @see java.util.Enumeration#hasMoreElements()
-         */
+        /** {@inheritDoc} */
         public boolean hasMoreElements()
         {
             if (this.myIterator == null)
@@ -729,9 +649,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             return true;
         }
 
-        /**
-         * @see java.util.Enumeration#nextElement()
-         */
+        /** {@inheritDoc} */
         public T nextElement()
         {
             if (this.myIterator == null)
@@ -741,17 +659,13 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             return this.myIterator.next();
         }
 
-        /**
-         * @see javax.naming.NamingEnumeration#hasMore()
-         */
+        /** {@inheritDoc} */
         public boolean hasMore()
         {
             return hasMoreElements();
         }
 
-        /**
-         * @see javax.naming.NamingEnumeration#next()
-         */
+        /** {@inheritDoc} */
         public T next()
         {
             return nextElement();
@@ -763,14 +677,14 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
      */
     private class MyParser implements NameParser, Serializable
     {
-        /** The default serial version UID for serializable classes */
+        /** The default serial version UID for serializable classes. */
         private static final long serialVersionUID = 1L;
 
         /** the syntax */
         private Properties syntaxProperties = null;
 
         /**
-         * constructs a new MyParser
+         * constructs a new MyParser.
          * @param syntax the syntax properties
          */
         public MyParser(final Properties syntax)
@@ -778,9 +692,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             this.syntaxProperties = syntax;
         }
 
-        /**
-         * @see javax.naming.NameParser#parse(String)
-         */
+        /** {@inheritDoc} */
         public Name parse(final String name) throws NamingException
         {
             Name result = new CompoundName(name, this.syntaxProperties);

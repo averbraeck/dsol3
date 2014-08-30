@@ -1,9 +1,3 @@
-/*
- * @(#) ExpandButton.java Apr 15, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 
 package nl.tudelft.simulation.introspection.gui;
 
@@ -39,17 +33,17 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class ExpandButton extends JButton
 {
-    /** the JTable in which this button is actually displayed */
+    /** the JTable in which this button is actually displayed. */
     private JTable myTable;
 
     /** the property */
     private final Property PROPERTY;
 
-    /** the model */
+    /** the model. */
     private final IntrospectingTableModelInterface MODEL;
 
     /**
-     * constructs a new ExpandButton
+     * constructs a new ExpandButton.
      * @param property the property
      * @param model the model
      */
@@ -61,9 +55,7 @@ public class ExpandButton extends JButton
         this.MODEL = model;
         this.addActionListener(new ActionListener()
         {
-            /**
-             * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-             */
+            /** {@inheritDoc} */
             public void actionPerformed(ActionEvent e)
             {
                 showTable();

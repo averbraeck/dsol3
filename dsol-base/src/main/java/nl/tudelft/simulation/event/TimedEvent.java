@@ -13,10 +13,10 @@ package nl.tudelft.simulation.event;
  */
 public class TimedEvent<T extends Comparable<T>> extends Event implements Comparable<TimedEvent<T>>
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20140826L;
 
-    /** timeStamp refers to the time stamp of the event */
+    /** timeStamp refers to the time stamp of the event. */
     private final T timeStamp;
 
     /**
@@ -41,18 +41,14 @@ public class TimedEvent<T extends Comparable<T>> extends Event implements Compar
         return this.timeStamp;
     }
 
-    /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(TimedEvent<T> o)
     {
         return this.timeStamp.compareTo(o.getTimeStamp());
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

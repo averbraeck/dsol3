@@ -1,9 +1,3 @@
-/*
- * @(#) StyledTextFormatter.java Nov 18, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.logger.formatters;
 
 import java.io.PrintWriter;
@@ -27,35 +21,35 @@ import java.util.logging.LogRecord;
 public class StyledTextFormatter extends Formatter
 {
 
-    /** the DEFAULT_STYLE */
+    /** the DEFAULT_STYLe. */
     public static final String STYLE_DEFAULT = "STYLE_DEFAULT";
 
-    /** the SOURCE_STYLE */
+    /** the SOURCE_STYLe. */
     public static final String STYLE_SOURCE = "STYLE_SOURCE";
 
-    /** the WARNING_STYLE */
+    /** the WARNING_STYLe. */
     public static final String STYLE_WARNING = "STYLE_WARNING";
 
-    /** THE FINE_STYLE */
+    /** THE FINE_STYLe. */
     public static final String STYLE_FINE = "STYLE_FINE";
 
-    /** THE ORIGIN_STYLE */
+    /** THE ORIGIN_STYLe. */
     public static final String STYLE_ORIGIN = "STYLE_ORIGIN";
 
-    /** The separator used */
+    /** The separator used. */
     public static final String SEPARATOR = "!!@@!!";
 
-    /** show the origin */
+    /** show the origin. */
     private boolean showOrigin = true;
 
-    /** a date to use */
+    /** a date to use. */
     private Date date = new Date();
 
-    /** a dateFormatter to use */
+    /** a dateFormatter to use. */
     private DateFormat dateFormatter = DateFormat.getTimeInstance();
 
     /**
-     * constructs a new StyledTextFormatter
+     * constructs a new StyledTextFormatter.
      * @param showOrigin whether or not to show the origin
      */
     public StyledTextFormatter(final boolean showOrigin)
@@ -74,9 +68,7 @@ public class StyledTextFormatter extends Formatter
         return "<" + tag + ">" + message + "</" + tag + ">" + StyledTextFormatter.SEPARATOR;
     }
 
-    /**
-     * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
-     */
+    /** {@inheritDoc} */
     @Override
     public String format(final LogRecord record)
     {

@@ -1,9 +1,3 @@
-/*
- * @(#) UpdateTimer.java Apr 16, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.introspection.gui;
 
 import java.awt.Component;
@@ -28,18 +22,18 @@ import java.util.TimerTask;
  */
 public class UpdateTimer extends TimerTask
 {
-    /** the tables to update */
+    /** the tables to update. */
     @SuppressWarnings("unchecked")
     private WeakReference<Component>[] components = new WeakReference[0];
 
-    /** the timer */
+    /** the timer. */
     private Timer timer = null;
 
-    /** the period for this timer */
+    /** the period for this timer. */
     private long period = 300L;
 
     /**
-     * constructs a new UpdateTimer
+     * constructs a new UpdateTimer.
      * @param period the period in milliseconds
      */
     public UpdateTimer(final long period)
@@ -100,9 +94,7 @@ public class UpdateTimer extends TimerTask
         }
     }
 
-    /**
-     * @see java.lang.Runnable#run()
-     */
+    /** {@inheritDoc} */
     @Override
     public void run()
     {

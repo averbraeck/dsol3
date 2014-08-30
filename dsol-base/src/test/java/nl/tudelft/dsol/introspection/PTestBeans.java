@@ -1,9 +1,3 @@
-/*
- * @(#)PTestBeans.java April 15, 2004 Copyright (c) 2002-2005-2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.dsol.introspection;
 
 import nl.tudelft.dsol.introspection.beans.SubTestBean2;
@@ -27,7 +21,7 @@ import nl.tudelft.simulation.logger.Logger;
 public final class PTestBeans
 {
     /**
-     * constructs a new PTestBeans
+     * constructs a new PTestBeans.
      */
     private PTestBeans()
     {

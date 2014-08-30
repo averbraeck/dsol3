@@ -1,10 +1,3 @@
-/*
- * @(#) SortingTableHeader.java April 15, 2004 Copyright (c) 2002-2005-2004
- * Delft University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands.
- * All rights reserved. This software is proprietary information of Delft
- * University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.introspection.sortable;
 
 import java.awt.event.MouseAdapter;
@@ -33,11 +26,11 @@ import javax.swing.table.TableModel;
  */
 public class SortingTableHeader extends JTableHeader
 {
-    /** the definitions of the tableHeader */
+    /** the definitions of the tableHeader. */
     protected List<Sortable.Definition> definitions = new ArrayList<Sortable.Definition>(5);
 
     /**
-     * constructs a new SortingTableHeader
+     * constructs a new SortingTableHeader.
      * @param defaultSorting the defaultSorting definitions
      */
     public SortingTableHeader(final Sortable.Definition[] defaultSorting)
@@ -53,9 +46,7 @@ public class SortingTableHeader extends JTableHeader
     {
         this.addMouseListener(new MouseAdapter()
         {
-            /**
-             * @see java.awt.event.MouseAdapter#mouseClicked(MouseEvent)
-             */
+            /** {@inheritDoc} */
             @Override
             public void mouseClicked(final MouseEvent e)
             {
@@ -135,9 +126,7 @@ public class SortingTableHeader extends JTableHeader
         }
     }
 
-    /**
-     * @see javax.swing.table.JTableHeader#setColumnModel(TableColumnModel)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setColumnModel(final TableColumnModel columnModel)
     {
@@ -170,9 +159,7 @@ public class SortingTableHeader extends JTableHeader
         return SortingHeaderCell.SORT_NONE;
     }
 
-    /**
-     * @see javax.swing.table.JTableHeader#setTable(JTable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setTable(final JTable table)
     {

@@ -1,9 +1,3 @@
-/*
- * @(#) ZeroFilter.java Oct 26, 2004 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.language.filters;
 
 /**
@@ -38,29 +32,25 @@ package nl.tudelft.simulation.language.filters;
  */
 public class ZeroFilter extends AbstractFilter
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /**
-     * constructs a new ZeroFilte
+     * constructs a new ZeroFilte.
      */
     public ZeroFilter()
     {
         super();
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.AbstractFilter#filter(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     protected boolean filter(final Object entry)
     {
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.FilterInterface#getCriterium()
-     */
+    /** {@inheritDoc} */
     @Override
     public String getCriterium()
     {

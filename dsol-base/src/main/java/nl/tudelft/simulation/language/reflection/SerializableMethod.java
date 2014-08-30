@@ -1,9 +1,3 @@
-/*
- * @(#) SerializableMethod.java Jan 20, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.language.reflection;
 
 import java.io.IOException;
@@ -43,11 +37,11 @@ import java.lang.reflect.Method;
  */
 public class SerializableMethod implements Serializable
 {
-    /** the method to use */
+    /** the method to use. */
     private Method method = null;
 
     /**
-     * constructs a new SerializableMethod
+     * constructs a new SerializableMethod.
      * @param method the method
      */
     public SerializableMethod(final Method method)
@@ -57,7 +51,7 @@ public class SerializableMethod implements Serializable
     }
 
     /**
-     * constructs a new SerializableMethod
+     * constructs a new SerializableMethod.
      * @param clazz the clazz this field is instance of
      * @param methodName the name of the method
      * @param parameterTypes The parameterTypes of the method

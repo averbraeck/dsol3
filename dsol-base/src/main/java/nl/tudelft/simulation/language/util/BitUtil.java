@@ -1,8 +1,3 @@
-/*
- * @(#) BitUtil.java Apr 27, 2004 Copyright (c) 2002-2009 Delft University of Technology Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.language.util;
 
 import java.io.Serializable;
@@ -41,7 +36,7 @@ import java.util.BitSet;
  */
 public final class BitUtil implements Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /**

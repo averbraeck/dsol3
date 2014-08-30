@@ -25,16 +25,16 @@ public class IndexedPropertyBeanBeanInfo extends SimpleBeanInfo
     /** Property identifiers //GEN-FIRST:Properties * */
     private static final int PROPERTY_beans = 0;
 
-    /** Property identifiers Collection */
+    /** Property identifiers Collection. */
     private static final int PROPERTY_collection = 1;
 
-    /** Property identifiers Vector */
+    /** Property identifiers Vector. */
     private static final int PROPERTY_vector = 2;
 
-    /** Property identifiers Double */
+    /** Property identifiers Double. */
     private static final int PROPERTY_doubleValue = 3;
 
-    /** Property identifiers SerializableDouble */
+    /** Property identifiers SerializableDouble. */
     private static final int PROPERTY_serializedDoubleValue = 4;
 
     /** Property identifiers IndexedProperty */
@@ -93,31 +93,31 @@ public class IndexedPropertyBeanBeanInfo extends SimpleBeanInfo
 
     // GEN-LAST:Methods
 
-    /** the iconColor */
+    /** the iconColor. */
     private static java.awt.Image iconColor16 = null; // GEN-BEGIN:IconsDef
 
-    /** the iconColor */
+    /** the iconColor. */
     private static java.awt.Image iconColor32 = null;
 
-    /** the iconColor */
+    /** the iconColor. */
     private static java.awt.Image iconMono16 = null;
 
-    /** the iconColor */
+    /** the iconColor. */
     private static java.awt.Image iconMono32 = null; // GEN-END:IconsDef
 
-    /** the iconName */
+    /** the iconName. */
     private static String iconNameC16 = null; // GEN-BEGIN:Icons
 
-    /** the iconName */
+    /** the iconName. */
     private static String iconNameC32 = null;
 
-    /** the iconName */
+    /** the iconName. */
     private static String iconNameM16 = null;
 
-    /** the iconName */
+    /** the iconName. */
     private static String iconNameM32 = null; // GEN-END:Icons
 
-    /** the iconName */
+    /** the iconName. */
     private static int defaultPropertyIndex = -1; // GEN-BEGIN:Idx
 
     /**

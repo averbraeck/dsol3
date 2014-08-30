@@ -1,9 +1,3 @@
-/*
- * @(#) CollectionTableModel.java Apr 15, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.introspection.gui;
 
@@ -43,35 +37,35 @@ import nl.tudelft.simulation.logger.Logger;
 public class CollectionTableModel extends AbstractTableModel implements IntrospectingTableModelInterface,
         DynamicTableModel
 {
-    /** the instances of the collection */
+    /** the instances of the collection. */
     protected Map<Integer, Object> instances = Collections.synchronizedMap(new HashMap<Integer, Object>(20));
 
-    /** the keys identifying specific instances */
+    /** the keys identifying specific instances. */
     protected List<Integer> keys = Collections.synchronizedList(new ArrayList<Integer>(20));
 
-    /** the componentType */
+    /** the componentType. */
     private Class<?> componentType = null;
 
-    /** the COLUMNS of this tabbleModel */
+    /** the COLUMNS of this tabbleModel. */
     private static final String[] COLUMNS = {"#", "+", "Instance"};
 
-    /** the expand button */
+    /** the expand button. */
     private List<ExpandButton> buttons = Collections.synchronizedList(new ArrayList<ExpandButton>(20));
 
     /** the parentProperty */
     private Property parentProperty;
 
-    /** the introspector */
+    /** the introspector. */
     private Introspector introspector;
 
-    /** The model manager */
+    /** The model manager. */
     private ModelManager manager = new DefaultModelManager();
 
-    /** The highest key currently allocated */
+    /** The highest key currently allocated. */
     private int maxKey = 0;
 
     /**
-     * constructs a new CollectionTableModel
+     * constructs a new CollectionTableModel.
      * @param parentProperty the parentPropert
      */
     public CollectionTableModel(final Property parentProperty)
@@ -80,7 +74,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
     }
 
     /**
-     * constructs a new CollectionTableModel
+     * constructs a new CollectionTableModel.
      * @param parentProperty the parentProperty
      * @param introspector the introspector to use
      */
@@ -121,25 +115,19 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         this.instances.put(nextKey, value);
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getRowCount()
-     */
+    /** {@inheritDoc} */
     public int getRowCount()
     {
         return this.instances.size();
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnCount()
-     */
+    /** {@inheritDoc} */
     public int getColumnCount()
     {
         return CollectionTableModel.COLUMNS.length;
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getValueAt(int, int)
-     */
+    /** {@inheritDoc} */
     public Object getValueAt(final int rowIndex, final int columnIndex)
     {
         if (columnIndex == 0)
@@ -157,18 +145,14 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         return null;
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnName(int)
-     */
+    /** {@inheritDoc} */
     @Override
     public String getColumnName(final int columnIndex)
     {
         return CollectionTableModel.COLUMNS[columnIndex];
     }
 
-    /**
-     * @see javax.swing.table.TableModel#isCellEditable(int, int)
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean isCellEditable(final int rowIndex, final int columnIndex)
     {
@@ -179,9 +163,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         return false;
     }
 
-    /**
-     * @see javax.swing.table.TableModel#setValueAt(Object, int, int)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
     {
@@ -208,9 +190,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         this.fireTableDataChanged();
     }
 
-    /**
-     * @see javax.swing.table.TableModel#getColumnClass(int)
-     */
+    /** {@inheritDoc} */
     @Override
     public Class<?> getColumnClass(final int columnIndex)
     {
@@ -249,7 +229,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         /** the key of this property */
         private final Integer key;
 
-        /** the name */
+        /** the name. */
         private final String name;
 
         /**
@@ -264,49 +244,37 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
             this.name = name;
         }
 
-        /**
-         * @see nl.tudelft.simulation.introspection.Property#getInstance()
-         */
+        /** {@inheritDoc} */
         public Object getInstance()
         {
             return CollectionTableModel.this.instances.values();
         }
 
-        /**
-         * @see nl.tudelft.simulation.introspection.Property#getName()
-         */
+        /** {@inheritDoc} */
         public String getName()
         {
             return this.name + "[" + CollectionTableModel.this.keys.indexOf(this.key) + "]";
         }
 
-        /**
-         * @see nl.tudelft.simulation.introspection.Property#getType()
-         */
+        /** {@inheritDoc} */
         public Class<?> getType()
         {
             return CollectionTableModel.this.instances.get(this.key).getClass();
         }
 
-        /**
-         * @see nl.tudelft.simulation.introspection.Property#getValue()
-         */
+        /** {@inheritDoc} */
         public Object getValue()
         {
             return CollectionTableModel.this.instances.get(this.key);
         }
 
-        /**
-         * @see nl.tudelft.simulation.introspection.Property#isEditable()
-         */
+        /** {@inheritDoc} */
         public boolean isEditable()
         {
             return true;
         }
 
-        /**
-         * @see nl.tudelft.simulation.introspection.AbstractProperty#setRegularValue(java.lang.Object)
-         */
+        /** {@inheritDoc} */
         @Override
         protected void setRegularValue(final Object value)
         {
@@ -314,9 +282,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
                     + "A program is not supposed to arrive here.");
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        /** {@inheritDoc} */
         @Override
         public String toString()
         {
@@ -324,9 +290,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.table.DynamicTableModel#createRow()
-     */
+    /** {@inheritDoc} */
     public void createRow()
     {
         if (this.componentType == null)
@@ -351,9 +315,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.table.DynamicTableModel#createRows(int)
-     */
+    /** {@inheritDoc} */
     public void createRows(final int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -362,9 +324,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.table.DynamicTableModel#deleteRow(int)
-     */
+    /** {@inheritDoc} */
     public void deleteRow(final int index)
     {
         Integer deletionKey = this.keys.get(index);
@@ -374,9 +334,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         update();
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.table.DynamicTableModel#deleteRows(int[])
-     */
+    /** {@inheritDoc} */
     public synchronized void deleteRows(final int[] indices)
     {
         Arrays.sort(indices);
@@ -386,17 +344,13 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getIntrospector()
-     */
+    /** {@inheritDoc} */
     public Introspector getIntrospector()
     {
         return this.introspector;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.IntrospectingTableModelInterface #getTypeAt(int,int)
-     */
+    /** {@inheritDoc} */
     public Class getTypeAt(final int rowIndex, final int columnIndex)
     {
         if (columnIndex == 0)
@@ -433,9 +387,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         return this.manager;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.table.DynamicTableModel#isRowEditable()
-     */
+    /** {@inheritDoc} */
     public boolean isRowEditable()
     {
         return this.parentProperty.isEditable();

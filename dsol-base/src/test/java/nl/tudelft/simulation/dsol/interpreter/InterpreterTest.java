@@ -1,9 +1,3 @@
-/*
- * @(#) InterpreterTest.java Mar 31, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.dsol.interpreter;
 
@@ -27,7 +21,7 @@ import nl.tudelft.simulation.logger.Logger;
 public class InterpreterTest
 {
     /**
-     * constructs a new InterpreterTest
+     * constructs a new InterpreterTest.
      */
     private InterpreterTest()
     {

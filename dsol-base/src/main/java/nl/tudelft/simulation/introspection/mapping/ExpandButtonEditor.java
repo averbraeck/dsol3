@@ -24,12 +24,10 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class ExpandButtonEditor extends AbstractCellEditor implements TableCellEditor
 {
-    /** the value */
+    /** the value. */
     private JComponent value;
 
-    /**
-     * @see javax.swing.table.TableCellEditor#getTableCellEditorComponent(JTable, Object, boolean, int, int)
-     */
+    /** {@inheritDoc} */
     public Component getTableCellEditorComponent(final JTable table, final Object value, final boolean isSelected,
             final int row, final int column)
     {
@@ -45,9 +43,7 @@ public class ExpandButtonEditor extends AbstractCellEditor implements TableCellE
         return (Component) value;
     }
 
-    /**
-     * @see javax.swing.CellEditor#getCellEditorValue()
-     */
+    /** {@inheritDoc} */
     public Object getCellEditorValue()
     {
         return this.value;
