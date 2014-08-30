@@ -248,6 +248,8 @@
 		</module>
 		<module name="HiddenField">
 			<property name="severity" value="warning" />
+			<property name="ignoreConstructorParameter" value="true"/>
+			<property name="ignoreSetter" value="true"/>
 		</module>
 		<module name="IllegalInstantiation">
 			<property name="severity" value="warning" />
