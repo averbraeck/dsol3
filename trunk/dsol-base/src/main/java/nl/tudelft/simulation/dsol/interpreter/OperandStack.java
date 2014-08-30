@@ -1,9 +1,3 @@
-/*
- * @(#) OperandStack.java Jan 5, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.dsol.interpreter;
 
 import java.util.ArrayList;
@@ -24,26 +18,23 @@ import java.util.Arrays;
  * added be the top two values of the operand stack, pushed there by previous instructions. Both of the int values are
  * popped from the operand stack. They are added, and their sum is pushed back onto the operand stack. Subcomputations
  * may be nested on the operand stack, resulting in values that can be used by the encompassing computation.
- * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5
  */
 public class OperandStack implements Cloneable
 {
-    /** the actual pointer */
+    /** the actual pointer. */
     private int pointer = 0;
 
-    /** the stackContent */
+    /** the stackContent. */
     private Object[] stack = null;
 
     /**
-     * constructs a new OperandStack
+     * constructs a new OperandStack.
      * @param initialSize the stackSize
      */
     public OperandStack(final int initialSize)
@@ -151,9 +142,7 @@ public class OperandStack implements Cloneable
         }
     }
 
-    /**
-     * @see java.lang.Object#clone()
-     */
+    /** {@inheritDoc} */
     @Override
     public Object clone()
     {
@@ -163,9 +152,7 @@ public class OperandStack implements Cloneable
         return newStack;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

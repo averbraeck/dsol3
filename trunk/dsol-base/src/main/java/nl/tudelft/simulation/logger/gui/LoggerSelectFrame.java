@@ -1,9 +1,3 @@
-/*
- * @(#) LoggerSelectFrame.java Nov 18, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.logger.gui;
 
 import java.awt.BorderLayout;
@@ -33,17 +27,17 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class LoggerSelectFrame extends JFrame implements EventListenerInterface
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the loggerChooser */
+    /** the loggerChooser. */
     private JComboBox loggerChooser;
 
-    /** the openButton */
+    /** the openButton. */
     private JButton openButton = new JButton("Open");
 
     /**
-     * constructs a new LoggerSelectFrame
+     * constructs a new LoggerSelectFrame.
      */
     public LoggerSelectFrame()
     {
@@ -69,9 +63,7 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
         setVisible(true);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public synchronized void notify(final EventInterface event)
     {
         if (event.getType().equals(EventProducingMap.OBJECT_ADDED_EVENT)
@@ -92,7 +84,7 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
      */
     private class MyActionListener implements ActionListener
     {
-        /** the loggerChooser */
+        /** the loggerChooser. */
         private JComboBox myLoggerChooser = null;
 
         /**
@@ -104,9 +96,7 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
             this.myLoggerChooser = loggerChooser;
         }
 
-        /**
-         * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
-         */
+        /** {@inheritDoc} */
         public void actionPerformed(final ActionEvent actionEvent)
         {
             if (this.myLoggerChooser.getSelectedItem() != null)

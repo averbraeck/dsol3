@@ -1,9 +1,3 @@
-/*
- * @(#) EventRefTestSuite.java Aug 26, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.event;
 
 import junit.framework.Test;
@@ -26,7 +20,7 @@ import nl.tudelft.simulation.event.util.EventIteratorTest;
 public final class EventTestSuite
 {
     /**
-     * constructs a new EventRefTestSuite
+     * constructs a new EventRefTestSuite.
      */
     private EventTestSuite()
     {

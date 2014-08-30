@@ -14,13 +14,13 @@ import java.io.Serializable;
  */
 public final class EventType implements Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20140830L;
 
-    /** the internal representation of the hashCode */
+    /** the internal representation of the hashCode. */
     private final int hashcode;
 
-    /** name refers to the name of the eventType */
+    /** name refers to the name of the eventType. */
     private final String name;
 
     /**
@@ -38,9 +38,7 @@ public final class EventType implements Serializable
         this.name = name;
     }
 
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(final Object object)
     {
@@ -70,9 +68,7 @@ public final class EventType implements Serializable
         return this.hashcode;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

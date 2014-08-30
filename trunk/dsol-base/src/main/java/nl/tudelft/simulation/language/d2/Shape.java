@@ -1,7 +1,3 @@
-/*
- * @(#) Shape.java Jun 17, 2004 Copyright (c) 2002-2009 Delft University of Technology Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved. The code is published under a BSD-style license.
- */
 package nl.tudelft.simulation.language.d2;
 
 import java.awt.geom.Rectangle2D;

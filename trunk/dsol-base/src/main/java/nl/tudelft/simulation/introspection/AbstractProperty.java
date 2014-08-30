@@ -1,9 +1,3 @@
-/*
- * @(#)AbstractProperty.java April 15, 2004 Copyright (c) 2002-2005-2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.introspection;
 
 import java.lang.reflect.Array;
@@ -89,9 +83,7 @@ public abstract class AbstractProperty implements Property
         return false;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Property#getComponentType()
-     */
+    /** {@inheritDoc} */
     public Class getComponentType()
     {
         if (!isCollection())

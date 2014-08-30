@@ -1,9 +1,3 @@
-/*
- * @(#)JVMContextFactory.java Feb 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.naming;
 
 import java.net.InetAddress;
@@ -36,12 +30,10 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class RemoteContextFactory implements InitialContextFactory
 {
-    /** context refers to the static RemoteContextClient */
+    /** context refers to the static RemoteContextClient. */
     private static RemoteContextClient context = null;
 
-    /**
-     * @see javax.naming.spi.InitialContextFactory #getInitialContext(Hashtable)
-     */
+    /** {@inheritDoc} */
     public synchronized Context getInitialContext(final Hashtable<? extends Object, ? extends Object> environment)
     {
         // If the context is already looked up, let's return immediately
@@ -68,7 +60,7 @@ public class RemoteContextFactory implements InitialContextFactory
             catch (ConnectException connectException)
             {
                 // Since we cannot find the registry, we must perhaps create
-                // one..
+                // one.
                 // This is only allowed if the host is our localhost. We cannot
                 // create a registry on a remote host.
                 if (!(url.getHost().equals("localhost") || url.getHost().equals("127.0.0.1")
@@ -88,7 +80,7 @@ public class RemoteContextFactory implements InitialContextFactory
             }
             catch (NotBoundException notBoundException)
             {
-                // Since we cannot find the context, we must create one..
+                // Since we cannot find the context, we must create one.
                 // This is done based on the java.naming.wrapped properties in
                 // jndi.properties
                 Hashtable<Object, Object> wrappedEnvironment = new Hashtable<Object, Object>();

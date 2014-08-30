@@ -1,8 +1,3 @@
-/*
- * @(#) DirectedPoint.java Sep 6, 2003 Copyright (c) 2002-2005 Delft University of Technology Jaffalaan 5,
- * 2628 BX Delft, the Netherlands. All rights reserved. This software is proprietary information of Delft
- * University of Technology 
- */
 package nl.tudelft.simulation.language.d3;
 
 import java.awt.geom.Point2D;
@@ -43,7 +38,7 @@ import javax.vecmath.Tuple3f;
  */
 public class DirectedPoint extends CartesianPoint
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /** rotX is the rotX. */
@@ -232,9 +227,7 @@ public class DirectedPoint extends CartesianPoint
         this.rotX = rotX;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public final String toString()
     {
@@ -242,18 +235,14 @@ public class DirectedPoint extends CartesianPoint
                 + "]";
     }
 
-    /**
-     * @see java.lang.Object#clone()
-     */
+    /** {@inheritDoc} */
     @Override
     public Object clone()
     {
         return new DirectedPoint(this.x, this.y, this.z, this.rotX, this.rotY, this.rotZ);
     }
 
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(final Object arg0)
     {
@@ -265,18 +254,14 @@ public class DirectedPoint extends CartesianPoint
         return (super.equals(arg0) && loc.rotX == this.rotX && loc.rotY == this.rotY && loc.rotZ == this.rotZ);
     }
 
-    /**
-     * @see javax.vecmath.Tuple3d#equals(javax.vecmath.Tuple3d)
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(final Tuple3d arg0)
     {
         return this.equals((Object) arg0);
     }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
+    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {

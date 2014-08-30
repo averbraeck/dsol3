@@ -1,9 +1,3 @@
-/*
- * @(#) FieldSignature.java Jan 12, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.language.reflection;
 
 import java.io.Serializable;
@@ -49,17 +43,17 @@ import nl.tudelft.simulation.language.primitives.Primitive;
  */
 public class FieldSignature implements Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the CAHCHE */
+    /** the CAHCHe. */
     private static final Map<String, Class<?>> CACHE = new HashMap<String, Class<?>>();
 
-    /** the value of the field descriptor */
+    /** the value of the field descriptor. */
     private String value;
 
     /**
-     * constructs a new FieldSignature
+     * constructs a new FieldSignature.
      * @param value the value of the descriptor
      */
     public FieldSignature(final String value)
@@ -69,7 +63,7 @@ public class FieldSignature implements Serializable
     }
 
     /**
-     * constructs a new FieldSignature
+     * constructs a new FieldSignature.
      * @param clazz The class
      */
     public FieldSignature(final Class<?> clazz)
@@ -94,9 +88,7 @@ public class FieldSignature implements Serializable
         return FieldSignature.toClass(this.value);
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

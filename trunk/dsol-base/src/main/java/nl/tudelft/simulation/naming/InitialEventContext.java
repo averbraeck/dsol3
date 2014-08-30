@@ -1,9 +1,3 @@
-/*
- * @(#)InitialEventContext.java Feb 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.naming;
 
 import java.util.Hashtable;
@@ -50,7 +44,7 @@ import com.sun.naming.internal.ResourceManager;
 @SuppressWarnings("restriction")
 public class InitialEventContext implements EventContext
 {
-    /** the properties of the initialEventContext */
+    /** the properties of the initialEventContext. */
     protected Hashtable<Object, Object> myProps = null;
 
     /**

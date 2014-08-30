@@ -1,9 +1,3 @@
-/*
- * @(#) FileContext.java Oct 23, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.naming;
 
 import java.io.Serializable;
@@ -37,14 +31,14 @@ import nl.tudelft.simulation.naming.listener.RemoteContextListener;
  */
 public class RemoteContextClient implements EventContext, Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the remoteContext on which all calls are passed */
+    /** the remoteContext on which all calls are passed. */
     private RemoteContextInterface remoteContext = null;
 
     /**
-     * constructs a new RemoteContextClient
+     * constructs a new RemoteContextClient.
      * @param remoteContext the remoteContext on which all calls are passed.
      */
     public RemoteContextClient(final RemoteContextInterface remoteContext)
@@ -53,9 +47,7 @@ public class RemoteContextClient implements EventContext, Serializable
         this.remoteContext = remoteContext;
     }
 
-    /**
-     * @see javax.naming.event.EventContext#addNamingListener(javax.naming.Name, int, javax.naming.event.NamingListener)
-     */
+    /** {@inheritDoc} */
     public void addNamingListener(Name target, int scope, NamingListener l) throws NamingException
     {
         try
@@ -69,9 +61,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.event.EventContext #addNamingListener(java.lang.String, int, javax.naming.event.NamingListener)
-     */
+    /** {@inheritDoc} */
     public void addNamingListener(String target, int scope, NamingListener l) throws NamingException
     {
         try
@@ -85,9 +75,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.event.EventContext #removeNamingListener(javax.naming.event.NamingListener)
-     */
+    /** {@inheritDoc} */
     public void removeNamingListener(NamingListener l) throws NamingException
     {
         try
@@ -100,9 +88,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.event.EventContext#targetMustExist()
-     */
+    /** {@inheritDoc} */
     public boolean targetMustExist() throws NamingException
     {
         try
@@ -115,9 +101,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#addToEnvironment(java.lang.String, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public Object addToEnvironment(String propName, Object propVal) throws NamingException
     {
         try
@@ -130,9 +114,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#bind(javax.naming.Name, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public void bind(Name name, Object obj) throws NamingException
     {
         try
@@ -145,9 +127,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#bind(java.lang.String, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public void bind(String name, Object obj) throws NamingException
     {
         try
@@ -160,9 +140,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#close()
-     */
+    /** {@inheritDoc} */
     public void close() throws NamingException
     {
         try
@@ -175,9 +153,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#composeName(javax.naming.Name, javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public Name composeName(Name name, Name prefix) throws NamingException
     {
         try
@@ -190,9 +166,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#composeName(java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public String composeName(String name, String prefix) throws NamingException
     {
         try
@@ -205,9 +179,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#createSubcontext(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public Context createSubcontext(Name name) throws NamingException
     {
         try
@@ -221,9 +193,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#createSubcontext(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Context createSubcontext(String name) throws NamingException
     {
         try
@@ -236,9 +206,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#destroySubcontext(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public void destroySubcontext(Name name) throws NamingException
     {
         try
@@ -251,9 +219,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#destroySubcontext(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void destroySubcontext(String name) throws NamingException
     {
         try
@@ -266,9 +232,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#getEnvironment()
-     */
+    /** {@inheritDoc} */
     public Hashtable<?, ?> getEnvironment() throws NamingException
     {
         try
@@ -282,9 +246,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#getNameInNamespace()
-     */
+    /** {@inheritDoc} */
     public String getNameInNamespace() throws NamingException
     {
         try
@@ -297,9 +259,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#getNameParser(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public NameParser getNameParser(Name name) throws NamingException
     {
         try
@@ -313,9 +273,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#getNameParser(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NameParser getNameParser(String name) throws NamingException
     {
         try
@@ -329,9 +287,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#list(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<NameClassPair> list(Name name) throws NamingException
     {
         try
@@ -345,9 +301,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#list(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<NameClassPair> list(String name) throws NamingException
     {
         try
@@ -361,9 +315,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#listBindings(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<Binding> listBindings(Name name) throws NamingException
     {
         try
@@ -377,9 +329,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#listBindings(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NamingEnumeration<Binding> listBindings(String name) throws NamingException
     {
         try
@@ -393,9 +343,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#lookup(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public Object lookup(Name name) throws NamingException
     {
         try
@@ -409,9 +357,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#lookup(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Object lookup(String name) throws NamingException
     {
         try
@@ -425,9 +371,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#lookupLink(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public Object lookupLink(Name name) throws NamingException
     {
         try
@@ -441,9 +385,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#lookupLink(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Object lookupLink(String name) throws NamingException
     {
         try
@@ -457,9 +399,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#rebind(javax.naming.Name, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public void rebind(Name name, Object obj) throws NamingException
     {
         try
@@ -473,9 +413,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#rebind(java.lang.String, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public void rebind(String name, Object obj) throws NamingException
     {
         try
@@ -488,9 +426,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#removeFromEnvironment(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Object removeFromEnvironment(String propName) throws NamingException
     {
         try
@@ -504,9 +440,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#rename(javax.naming.Name, javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public void rename(Name oldName, Name newName) throws NamingException
     {
         try
@@ -519,9 +453,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#rename(java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void rename(String oldName, String newName) throws NamingException
     {
         try
@@ -534,9 +466,7 @@ public class RemoteContextClient implements EventContext, Serializable
         }
     }
 
-    /**
-     * @see javax.naming.Context#unbind(javax.naming.Name)
-     */
+    /** {@inheritDoc} */
     public void unbind(Name name) throws NamingException
     {
         try
@@ -550,9 +480,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     }
 
-    /**
-     * @see javax.naming.Context#unbind(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void unbind(String name) throws NamingException
     {
         try

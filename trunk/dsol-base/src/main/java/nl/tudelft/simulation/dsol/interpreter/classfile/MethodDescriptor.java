@@ -1,10 +1,3 @@
-/*
- * @(#) MethodDescriptor.java $Date: 2007/01/07 05:00:12 $ Copyright (c)
- * 2002-2005 Delft University of Technology Jaffalaan 5, 2628 BX Delft, the
- * Netherlands. All rights reserved. This software is proprietary information of
- * Delft University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.dsol.interpreter.classfile;
 
 import java.io.DataInput;
@@ -21,49 +14,47 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
 import nl.tudelft.simulation.language.reflection.MethodSignature;
 
 /**
- * A MethodDescriptor <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:12 $
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * A MethodDescriptor.
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class MethodDescriptor
 {
-    /** bytePositions */
+    /** bytePositions. */
     private int[] bytePositions = new int[0];
 
-    /** the constantPool to use */
+    /** the constantPool to use. */
     private Constant[] constantPool = new Constant[0];
 
-    /** the exceptionTable */
+    /** the exceptionTable. */
     private ExceptionEntry[] exceptionTable = new ExceptionEntry[0];
 
-    /** the localVarialbes */
+    /** the localVarialbes. */
     private LineNumber[] lineNumberTable = new LineNumber[0];
 
-    /** the localVarialbes */
+    /** the localVarialbes. */
     private LocalVariableDescriptor[] localVariableTable = new LocalVariableDescriptor[0];
 
-    /** the maxStack of this method */
+    /** the maxStack of this method. */
     private int maxStack = -1;
 
-    /** the method */
+    /** the method. */
     private AccessibleObject method = null;
 
-    /** the methodSignature */
+    /** the methodSignature. */
     private MethodSignature methodSignature = null;
 
-    /** the name of the method */
+    /** the name of the method. */
     private String name;
 
-    /** the operations */
+    /** the operations. */
     private Operation[] operations = new Operation[0];
 
     /**
-     * constructs a new MethodDescriptor
+     * constructs a new MethodDescriptor.
      * @param dataInput the dataInput
      * @param constantPool the constantPool
      * @throws IOException on ioException

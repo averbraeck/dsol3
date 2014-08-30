@@ -1,9 +1,3 @@
-/*
- * @(#) CompositeFilter.java Oct 26, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.language.filters;
 
 /**
@@ -39,23 +33,23 @@ package nl.tudelft.simulation.language.filters;
  */
 public class CompositeFilter extends AbstractFilter
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the AND operator */
+    /** the AND operator. */
     public static final short AND = 0;
 
-    /** the OR operator */
+    /** the OR operator. */
     public static final short OR = 1;
 
-    /** the operator of the composite filter */
+    /** the operator of the composite filter. */
     private short operator = -1;
 
-    /** the filters to compose */
+    /** the filters to compose. */
     private FilterInterface[] filters = new FilterInterface[2];
 
     /**
-     * constructs a new CompositeFilter
+     * constructs a new CompositeFilter.
      * @param filter1 the first filter
      * @param filter2 the second filter
      * @param operator the operator (AND or OR)
@@ -72,9 +66,7 @@ public class CompositeFilter extends AbstractFilter
         this.operator = operator;
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.AbstractFilter#filter(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     protected boolean filter(final Object entry)
     {
@@ -98,9 +90,7 @@ public class CompositeFilter extends AbstractFilter
         return "OR";
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.AbstractFilter#getCriterium()
-     */
+    /** {@inheritDoc} */
     @Override
     public String getCriterium()
     {

@@ -1,9 +1,3 @@
-/*
- * @(#) SortingHeaderCell.java April 15, 2004 Copyright (c) 2002-2005-2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.introspection.sortable;
 
 import java.awt.Color;
@@ -28,26 +22,26 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class SortingHeaderCell extends DefaultTableCellRenderer
 {
-    /** SORT_NONE means that sorting is off */
+    /** SORT_NONE means that sorting is off. */
     public static final int SORT_NONE = 0;
 
-    /** SORT_NONE means that sorting is ascending */
+    /** SORT_NONE means that sorting is ascending. */
     public static final int SORT_ASCENDING = 1;
 
-    /** SORT_NONE means that sorting is descending */
+    /** SORT_NONE means that sorting is descending. */
     public static final int SORT_DESCENDING = 2;
 
-    /** counts the number of created instances */
+    /** counts the number of created instances. */
     protected static int instanceCounter = 0;
 
-    /** the sortMode */
+    /** the sortMode. */
     private int sortMode = SortingHeaderCell.SORT_NONE;
 
-    /** the id of the instance */
+    /** the id of the instance. */
     private int id = SortingHeaderCell.instanceCounter;
 
     /**
-     * constructs a new SortingHeaderCell
+     * constructs a new SortingHeaderCell.
      * @param sort the sort mode (none, ascending, descending).
      */
     public SortingHeaderCell(final int sort)
@@ -110,9 +104,7 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
         return this.sortMode == SORT_ASCENDING;
     }
 
-    /**
-     * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-     */
+    /** {@inheritDoc} */
     @Override
     public void paintComponent(final Graphics g)
     {
@@ -130,9 +122,7 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
         }
     }
 
-    /**
-     * @see javax.swing.table.DefaultTableCellRenderer#setValue(Object)
-     */
+    /** {@inheritDoc} */
     @Override
     protected void setValue(final Object value)
     {
@@ -140,9 +130,7 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
         this.setBorder(BorderFactory.createRaisedBevelBorder());
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

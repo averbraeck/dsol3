@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 public abstract class Reference<T> implements Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20140830L;
 
     /**

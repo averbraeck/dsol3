@@ -23,12 +23,10 @@ import javax.swing.table.TableCellEditor;
  */
 public class MyDefaultEditor implements TableCellEditor
 {
-    /** the delegate */
+    /** the delegate. */
     private TableCellEditor delegate = new DefaultCellEditor(new JTextField());
 
-    /**
-     * @see javax.swing.table.TableCellEditor#getTableCellEditorComponent(JTable, Object, boolean, int, int)
-     */
+    /** {@inheritDoc} */
     public Component getTableCellEditorComponent(final JTable table, final Object value, final boolean isSelected,
             final int row, final int column)
     {
@@ -40,57 +38,43 @@ public class MyDefaultEditor implements TableCellEditor
         return this.delegate.getTableCellEditorComponent(table, value, isSelected, row, column);
     }
 
-    /**
-     * @see javax.swing.CellEditor#cancelCellEditing()
-     */
+    /** {@inheritDoc} */
     public void cancelCellEditing()
     {
         this.delegate.cancelCellEditing();
     }
 
-    /**
-     * @see javax.swing.CellEditor#getCellEditorValue()
-     */
+    /** {@inheritDoc} */
     public Object getCellEditorValue()
     {
         return this.delegate.getCellEditorValue();
     }
 
-    /**
-     * @see javax.swing.CellEditor#isCellEditable(EventObject)
-     */
+    /** {@inheritDoc} */
     public boolean isCellEditable(final EventObject anEvent)
     {
         return this.delegate.isCellEditable(anEvent);
     }
 
-    /**
-     * @see javax.swing.CellEditor#shouldSelectCell(EventObject)
-     */
+    /** {@inheritDoc} */
     public boolean shouldSelectCell(final EventObject anEvent)
     {
         return this.delegate.shouldSelectCell(anEvent);
     }
 
-    /**
-     * @see javax.swing.CellEditor#stopCellEditing()
-     */
+    /** {@inheritDoc} */
     public boolean stopCellEditing()
     {
         return this.delegate.stopCellEditing();
     }
 
-    /**
-     * @see javax.swing.CellEditor#addCellEditorListener(CellEditorListener)
-     */
+    /** {@inheritDoc} */
     public void addCellEditorListener(final CellEditorListener l)
     {
         this.delegate.addCellEditorListener(l);
     }
 
-    /**
-     * @see javax.swing.CellEditor#removeCellEditorListener(CellEditorListener)
-     */
+    /** {@inheritDoc} */
     public void removeCellEditorListener(final CellEditorListener l)
     {
         this.delegate.removeCellEditorListener(l);

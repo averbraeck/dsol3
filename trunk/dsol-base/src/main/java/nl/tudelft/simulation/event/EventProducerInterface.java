@@ -14,10 +14,10 @@ import java.rmi.RemoteException;
  */
 public interface EventProducerInterface
 {
-    /** The FIRST_POSITION in the queue */
+    /** The FIRST_POSITION in the queue. */
     short FIRST_POSITION = 0;
 
-    /** The LAST_POSITION in the queue */
+    /** The LAST_POSITION in the queue. */
     short LAST_POSITION = -1;
 
     /**

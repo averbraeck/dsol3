@@ -28,10 +28,10 @@ import nl.tudelft.simulation.event.ref.WeakReference;
  */
 public abstract class EventProducer implements EventProducerInterface, Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20140830L;
 
-    /** listeners is the collection of interested listeners */
+    /** listeners is the collection of interested listeners. */
     protected Map<EventType, List<Reference<EventListenerInterface>>> listeners = Collections
             .synchronizedMap(new EventListenerMap());
 
@@ -40,7 +40,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      */
     private transient Object semaphore = new Object();
 
-    /** the cache to prevent continuous reflection */
+    /** the cache to prevent continuous reflection. */
     private transient EventType[] cache = null;
 
     /**
@@ -77,32 +77,23 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
         }
     }
 
-    /**
-     * adds the listener as weak reference to the listener.
-     * @see nl.tudelft.simulation.event.EventProducerInterface #addListener(EventListenerInterface, EventType)
-     */
+    /** {@inheritDoc} */
+    @Override
     public synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType)
     {
         return this.addListener(listener, eventType, EventProducerInterface.FIRST_POSITION);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface
-     *      #addListener(nl.tudelft.simulation.event.EventListenerInterface, nl.tudelft.simulation.event.EventType,
-     *      boolean)
-     */
+    /** {@inheritDoc} */
+    @Override
     public synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
             final boolean weak)
     {
         return this.addListener(listener, eventType, EventProducerInterface.FIRST_POSITION, weak);
     }
 
-    /**
-     * adds the listener as weak reference to the listener.
-     * @see nl.tudelft.simulation.event.EventProducerInterface
-     *      #addListener(nl.tudelft.simulation.event.EventListenerInterface, nl.tudelft.simulation.event.EventType,
-     *      short)
-     */
+    /** {@inheritDoc} */
+    @Override
     public synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
             final short position)
     {
@@ -113,11 +104,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
         return this.addListener(listener, eventType, position, false);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface
-     *      #addListener(nl.tudelft.simulation.event.EventListenerInterface, nl.tudelft.simulation.event.EventType,
-     *      short, boolean)
-     */
+    /** {@inheritDoc} */
+    @Override
     public synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
             final short position, final boolean weak)
     {
@@ -412,9 +400,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
         return value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface#getEventTypes()
-     */
+    /** {@inheritDoc} */
     private synchronized EventType[] getEventTypes()
     {
         if (this.cache != null)
@@ -494,9 +480,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
         return result;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducerInterface #removeListener(EventListenerInterface, EventType)
-     */
+    /** {@inheritDoc} */
+    @Override
     public synchronized boolean removeListener(final EventListenerInterface listener, final EventType eventType)
     {
         if (!this.listeners.containsKey(eventType))

@@ -1,9 +1,3 @@
-/*
- * @(#) ContextTest.java Oct 23, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.dsol.naming;
 
 import javax.naming.Context;
@@ -27,10 +21,10 @@ import nl.tudelft.simulation.naming.JVMContext;
  */
 public class ContextTest extends TestCase
 {
-    /** TEST_METHOD_NAME refers to the name of the test method */
+    /** TEST_METHOD_NAME refers to the name of the test method. */
     public static final String TEST_METHOD_NAME = "test";
 
-    /** eventList is the eventList on which the test is fired */
+    /** eventList is the eventList on which the test is fired. */
     private Context context = null;
 
     /**
@@ -51,7 +45,7 @@ public class ContextTest extends TestCase
     }
 
     /**
-     * constructs a new EventListTest
+     * constructs a new EventListTest.
      * @param arg0 the name of the test method
      * @param context is the context on which the test is fired
      */

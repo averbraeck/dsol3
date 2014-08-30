@@ -1,9 +1,3 @@
-/*
- * @(#) EventProducerChild.java Sep 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.event;
 
 /**
@@ -20,30 +14,28 @@ package nl.tudelft.simulation.event;
  */
 public class EventProducerParent extends EventProducerChild
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** event_c is merely a test event */
+    /** event_c is merely a test event. */
     @SuppressWarnings("hiding")
     public static final EventType EVENT_C = new EventType("EVENT_C");
 
-    /** event_d is merely a test event */
+    /** event_d is merely a test event. */
     protected static EventType eventD = new EventType("EVENT_D");
 
-    /** event_e is merely a test event */
+    /** event_e is merely a test event. */
     public static final EventType EVENT_E = new EventType("EVENT_E");
 
     /**
-     * constructs a new EventProducerChild
+     * constructs a new EventProducerChild.
      */
     public EventProducerParent()
     {
         super();
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventProducer #fireEvent(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     @Override
     public EventInterface fireEvent(final EventInterface event)
     {

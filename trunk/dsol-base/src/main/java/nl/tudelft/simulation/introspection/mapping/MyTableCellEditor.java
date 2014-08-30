@@ -23,9 +23,7 @@ import javax.swing.table.TableCellEditor;
  */
 public class MyTableCellEditor implements TableCellEditor
 {
-    /**
-     * @see javax.swing.table.TableCellEditor#getTableCellEditorComponent(JTable, Object, boolean, int, int)
-     */
+    /** {@inheritDoc} */
     public Component getTableCellEditorComponent(final JTable table, final Object value, final boolean isSelected,
             final int row, final int column)
     {
@@ -34,57 +32,43 @@ public class MyTableCellEditor implements TableCellEditor
         return result;
     }
 
-    /**
-     * @see javax.swing.CellEditor#getCellEditorValue()
-     */
+    /** {@inheritDoc} */
     public Object getCellEditorValue()
     {
         return null;
     }
 
-    /**
-     * @see javax.swing.CellEditor#isCellEditable(EventObject)
-     */
+    /** {@inheritDoc} */
     public boolean isCellEditable(final EventObject anEvent)
     {
         return false;
     }
 
-    /**
-     * @see javax.swing.CellEditor#shouldSelectCell(EventObject)
-     */
+    /** {@inheritDoc} */
     public boolean shouldSelectCell(final EventObject anEvent)
     {
         return false;
     }
 
-    /**
-     * @see javax.swing.CellEditor#stopCellEditing()
-     */
+    /** {@inheritDoc} */
     public boolean stopCellEditing()
     {
         return false;
     }
 
-    /**
-     * @see javax.swing.CellEditor#cancelCellEditing()
-     */
+    /** {@inheritDoc} */
     public void cancelCellEditing()
     {
         // We cannot edit; this method will never be invoked.
     }
 
-    /**
-     * @see javax.swing.CellEditor#addCellEditorListener(CellEditorListener)
-     */
+    /** {@inheritDoc} */
     public void addCellEditorListener(final CellEditorListener l)
     {
         // Strange, we do not edit
     }
 
-    /**
-     * @see javax.swing.CellEditor#removeCellEditorListener(CellEditorListener)
-     */
+    /** {@inheritDoc} */
     public void removeCellEditorListener(final CellEditorListener l)
     {
         // Same story

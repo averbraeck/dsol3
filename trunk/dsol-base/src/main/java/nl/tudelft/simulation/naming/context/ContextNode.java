@@ -1,9 +1,3 @@
-/*
- * @(#) ContextNode.java Nov 6, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.naming.context;
 
 import java.beans.BeanInfo;
@@ -37,13 +31,13 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class ContextNode extends DefaultMutableTreeNode implements NamespaceChangeListener
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /** NODE_CHANGED_EVENT */
     public static final EventType NODE_CHANGED_EVENT = new EventType("NODE_CHANGED_EVENT");
 
-    /** the context */
+    /** the context. */
     private EventContext context = null;
 
     /** displayClasses the classes to display */
@@ -52,11 +46,11 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
     /** display the fields ?.. */
     private boolean displayFields = false;
 
-    /** the treeModel */
+    /** the treeModel. */
     private ContextTreeModel treeModel = null;
 
     /**
-     * constructs a new ContextNode
+     * constructs a new ContextNode.
      * @param treeModel the treeModel
      * @param name the name
      * @param context the context
@@ -84,7 +78,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
     }
 
     /**
-     * constructs a new ContextNode
+     * constructs a new ContextNode.
      * @param userObject the userObject
      */
     public ContextNode(final Object userObject)
@@ -92,9 +86,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
         super(userObject, true);
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener #objectAdded(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectAdded(final NamingEvent event)
     {
         Binding item = event.getNewBinding();
@@ -119,9 +111,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
         this.treeModel.fireTreeStructureChanged(this, this.getPath(), null, null);
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener #objectRemoved(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectRemoved(final NamingEvent event)
     {
         Binding item = event.getOldBinding();
@@ -154,17 +144,13 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
         throw new NullPointerException("Could not find " + object);
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener #objectRenamed(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
     public void objectRenamed(final NamingEvent event)
     {
         throw new RuntimeException("objectRenamed(" + event.toString() + ") not implemented yet");
     }
 
-    /**
-     * @see javax.naming.event.NamingListener #namingExceptionThrown(javax.naming.event.NamingExceptionEvent)
-     */
+    /** {@inheritDoc} */
     public void namingExceptionThrown(final NamingExceptionEvent event)
     {
         Logger.warning(this, "namingExceptionThrown", event.getException());

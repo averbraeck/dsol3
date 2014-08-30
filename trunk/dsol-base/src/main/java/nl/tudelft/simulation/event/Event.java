@@ -11,16 +11,16 @@ package nl.tudelft.simulation.event;
  */
 public class Event implements EventInterface
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20140826L;
 
-    /** type is the type of the event */
+    /** type is the type of the event. */
     private final EventType type;
 
-    /** content refers to the content of the event */
+    /** content refers to the content of the event. */
     private final Object content;
 
-    /** the source of an event */
+    /** the source of an event. */
     private final Object source;
 
     /**
@@ -36,33 +36,28 @@ public class Event implements EventInterface
         this.content = content;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventInterface#getSource()
-     */
-    public Object getSource()
+    /** {@inheritDoc} */
+    @Override
+    public final Object getSource()
     {
         return this.source;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventInterface#getContent()
-     */
-    public Object getContent()
+    /** {@inheritDoc} */
+    @Override
+    public final Object getContent()
     {
         return this.content;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventInterface#getType()
-     */
-    public EventType getType()
+    /** {@inheritDoc} */
+    @Override
+    public final EventType getType()
     {
         return this.type;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -70,9 +65,7 @@ public class Event implements EventInterface
                 + this.getContent() + "]";
     }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
+    /** {@inheritDoc} */
     @Override
     public int hashCode()
     {
@@ -84,40 +77,58 @@ public class Event implements EventInterface
         return result;
     }
 
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
         if (this == obj)
+        {
             return true;
-        if (obj == null)
+        }
+        if (obj == null || getClass() != obj.getClass())
+        {
             return false;
-        if (getClass() != obj.getClass())
-            return false;
+        }
+
+        // content
         Event other = (Event) obj;
         if (this.content == null)
         {
             if (other.content != null)
+            {
                 return false;
+            }
         }
         else if (!this.content.equals(other.content))
+        {
             return false;
+        }
+
+        // source
         if (this.source == null)
         {
             if (other.source != null)
+            {
                 return false;
+            }
         }
         else if (!this.source.equals(other.source))
+        {
             return false;
+        }
+
+        // type
         if (this.type == null)
         {
             if (other.type != null)
+            {
                 return false;
+            }
         }
         else if (!this.type.equals(other.type))
+        {
             return false;
+        }
         return true;
     }
 }

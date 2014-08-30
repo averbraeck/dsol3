@@ -23,10 +23,10 @@ package nl.tudelft.simulation.introspection.gui;
  */
 public class DefaultModelManager implements ModelManager
 {
-    /** the class of the defaultTableModel */
+    /** the class of the defaultTableModel. */
     protected Class defaultObjectTableModel = ObjectTableModel.class;
 
-    /** the class of the defaultCollectionTableModel */
+    /** the class of the defaultCollectionTableModel. */
     protected Class defaultCollectionObjectTableModel = CollectionTableModel.class;
 
     /**
@@ -48,33 +48,25 @@ public class DefaultModelManager implements ModelManager
         this.defaultCollectionObjectTableModel = collectionModelClass;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.ModelManager #getDefaultCollectionObjectTableModel()
-     */
+    /** {@inheritDoc} */
     public Class getDefaultCollectionObjectTableModel()
     {
         return this.defaultCollectionObjectTableModel;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.ModelManager #getDefaultObjectTableModel()
-     */
+    /** {@inheritDoc} */
     public Class getDefaultObjectTableModel()
     {
         return this.defaultObjectTableModel;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.ModelManager #setDefaultCollectionObjectTableModel(java.lang.Class)
-     */
+    /** {@inheritDoc} */
     public void setDefaultCollectionObjectTableModel(final Class defaultCollectionObjectTableModel)
     {
         this.defaultCollectionObjectTableModel = defaultCollectionObjectTableModel;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.gui.ModelManager #setDefaultObjectTableModel(java.lang.Class)
-     */
+    /** {@inheritDoc} */
     public void setDefaultObjectTableModel(final Class defaultObjectTableModel)
     {
         this.defaultObjectTableModel = defaultObjectTableModel;

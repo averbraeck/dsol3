@@ -1,7 +1,3 @@
-/*
- * @(#) SimulatorRunThread.java Oct 15, 2003 Copyright (c) 2002-2009 Delft University of Technology Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved. The code is published under a BSD-style license.
- */
 package nl.tudelft.simulation.language.concurrent;
 
 import java.util.logging.Logger;
@@ -60,9 +56,7 @@ public class WorkerThread extends Thread
         this.start();
     }
 
-    /**
-     * @see java.lang.Object#finalize()
-     */
+    /** {@inheritDoc} */
     @Override
     public final synchronized void finalize()
     {
@@ -78,9 +72,7 @@ public class WorkerThread extends Thread
         }
     }
 
-    /**
-     * @see java.lang.Runnable#run()
-     */
+    /** {@inheritDoc} */
     @Override
     public final synchronized void run()
     {

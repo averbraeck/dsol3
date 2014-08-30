@@ -1,9 +1,3 @@
-/*
- * @(#) ScreenManager.java Apr 29, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.language.swing;
 
 import java.awt.DisplayMode;
@@ -43,7 +37,7 @@ import javax.swing.JFrame;
  */
 public class ScreenManager
 {
-    /** the environment */
+    /** the environment. */
     private GraphicsEnvironment environment;
 
     /**

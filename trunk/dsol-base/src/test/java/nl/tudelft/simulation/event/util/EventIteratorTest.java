@@ -1,9 +1,3 @@
-/*
- * @(#) EventIteratorTest.java Sep 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.event.util;
 
 import java.util.ArrayList;
@@ -28,10 +22,10 @@ import nl.tudelft.simulation.event.EventListenerInterface;
  */
 public class EventIteratorTest extends TestCase implements EventListenerInterface
 {
-    /** a check on the removed state */
+    /** a check on the removed state. */
     private boolean removed = false;
 
-    /** TEST_METHOD is the name of the test method */
+    /** TEST_METHOD is the name of the test method. */
     public static final String TEST_METHOD = "test";
 
     /**
@@ -43,7 +37,7 @@ public class EventIteratorTest extends TestCase implements EventListenerInterfac
     }
 
     /**
-     * constructs a new EventIteratorTest
+     * constructs a new EventIteratorTest.
      * @param method the name of the test method
      */
     public EventIteratorTest(final String method)
@@ -65,9 +59,7 @@ public class EventIteratorTest extends TestCase implements EventListenerInterfac
         Assert.assertTrue(this.removed);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public void notify(final EventInterface event)
     {
         if (event.getType().equals(EventIterator.OBJECT_REMOVED_EVENT))

@@ -16,10 +16,10 @@ package nl.tudelft.simulation.event.ref;
  */
 public class StrongReference<T> extends Reference<T>
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the referent */
+    /** the referent. */
     private transient T referent = null;
 
     /**
@@ -32,18 +32,14 @@ public class StrongReference<T> extends Reference<T>
         this.referent = referent;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.ref.Reference#get()
-     */
+    /** {@inheritDoc} */
     @Override
     public T get()
     {
         return this.referent;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.ref.Reference#set(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     protected void set(final T value)
     {

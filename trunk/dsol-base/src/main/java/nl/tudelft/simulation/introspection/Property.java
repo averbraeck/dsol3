@@ -1,9 +1,3 @@
-/*
- * @(#)Property.java April 14, 2004 Copyright (c) 2002-2005-2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.introspection;
 
 /**

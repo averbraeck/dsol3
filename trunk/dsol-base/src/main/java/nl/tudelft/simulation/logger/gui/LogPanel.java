@@ -1,9 +1,3 @@
-/*
- * @(#) LogPanel.java Nov 18, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.logger.gui;
 
 import java.awt.BorderLayout;
@@ -49,29 +43,29 @@ import nl.tudelft.simulation.logger.handlers.MemoryHandler;
  */
 public class LogPanel extends JPanel implements EventListenerInterface
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the maximum number of records to show */
+    /** the maximum number of records to show. */
     private int bufferSize = 10000;
 
     /** the logger to display */
     private Logger logger = null;
 
-    /** the handler for this panel */
+    /** the handler for this panel. */
     private EventLogHandler handler = null;
 
     /** defines whether we clean automatically */
     private JCheckBox autoCheck = null;
 
-    /** the textPane */
+    /** the textPane. */
     private JTextPane textPane = new JTextPane();
 
-    /** counts the row number */
+    /** counts the row number. */
     private int row = 0;
 
     /**
-     * constructs a new LogPanel
+     * constructs a new LogPanel.
      * @param logger the logger to show
      */
     public LogPanel(final Logger logger)
@@ -82,9 +76,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
         this.initializeLogger();
     }
 
-    /**
-     * @see java.lang.Object#finalize()
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized void finalize()
     {
@@ -108,9 +100,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
         return this.bufferSize;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public void notify(final EventInterface event)
     {
         if (!event.getType().equals(EventLogHandler.LOG_RECORD_PRODUCED_EVENT))
@@ -316,14 +306,14 @@ public class LogPanel extends JPanel implements EventListenerInterface
      */
     private class MyLevelChooser implements ActionListener
     {
-        /** the owner */
+        /** the owner. */
         private Logger myLogger = null;
 
-        /** the owner */
+        /** the owner. */
         private JComboBox owner = null;
 
         /**
-         * constructs a new logPanel
+         * constructs a new logPanel.
          * @param logger the logger
          * @param owner the owner
          */
@@ -333,9 +323,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
             this.owner = owner;
         }
 
-        /**
-         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-         */
+        /** {@inheritDoc} */
         public void actionPerformed(final ActionEvent actionEvent)
         {
             if (actionEvent.getSource() != null)
@@ -350,14 +338,14 @@ public class LogPanel extends JPanel implements EventListenerInterface
      */
     private class ChangeBufferSizeListener implements ActionListener
     {
-        /** the owner */
+        /** the owner. */
         private LogPanel owner = null;
 
-        /** the textField */
+        /** the textField. */
         private JTextField textField = null;
 
         /**
-         * constructs a new logPanel
+         * constructs a new logPanel.
          * @param logPanel the logPanel
          * @param textField the textField
          */
@@ -367,9 +355,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
             this.textField = textField;
         }
 
-        /**
-         * @see java.awt.event.ActionListener #actionPerformed(java.awt.event.ActionEvent)
-         */
+        /** {@inheritDoc} */
         public void actionPerformed(final ActionEvent actionEvent)
         {
             if (actionEvent == null)
@@ -410,7 +396,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
      */
     private class DocumentCleaner implements ActionListener
     {
-        /** the document to clean */
+        /** the document to clean. */
         private Document document = null;
 
         /**
@@ -422,9 +408,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
             this.document = document;
         }
 
-        /**
-         * @see java.awt.event.ActionListener #actionPerformed(java.awt.event.ActionEvent)
-         */
+        /** {@inheritDoc} */
         public void actionPerformed(final ActionEvent actionEvent)
         {
             if (actionEvent == null)
@@ -450,14 +434,14 @@ public class LogPanel extends JPanel implements EventListenerInterface
      */
     private class Record
     {
-        /** the message */
+        /** the message. */
         private String message;
 
-        /** the style */
+        /** the style. */
         private Style style;
 
         /**
-         * constructs a new Record
+         * constructs a new Record.
          * @param message the message
          * @param style the style
          */

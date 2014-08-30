@@ -1,9 +1,3 @@
-/*
- * @(#) DSOLIntrospector.java Apr 15, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.introspection.fields;
 
 import java.lang.reflect.Field;
@@ -39,11 +33,11 @@ import nl.tudelft.simulation.logger.Logger;
 
 public class FieldIntrospector implements Introspector
 {
-    /** useDeepIntrospection */
+    /** useDeepIntrospection. */
     private boolean useDeepIntrospection = true;
 
     /**
-     * constructs a new FieldIntrospector
+     * constructs a new FieldIntrospector.
      */
     public FieldIntrospector()
     {
@@ -51,7 +45,7 @@ public class FieldIntrospector implements Introspector
     }
 
     /**
-     * constructs a new FieldIntrospector
+     * constructs a new FieldIntrospector.
      * @param useDeepIntrospection whether to use deep introspection
      */
     public FieldIntrospector(final boolean useDeepIntrospection)
@@ -59,9 +53,7 @@ public class FieldIntrospector implements Introspector
         this.useDeepIntrospection = useDeepIntrospection;
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getProperties(Object)
-     */
+    /** {@inheritDoc} */
     public Property[] getProperties(final Object introspected)
     {
         Set<Property> props = new HashSet<Property>();
@@ -107,9 +99,7 @@ public class FieldIntrospector implements Introspector
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getProperty(Object, String)
-     */
+    /** {@inheritDoc} */
     public Property getProperty(final Object introspected, final String property)
     {
         try
@@ -130,9 +120,7 @@ public class FieldIntrospector implements Introspector
         throw new IllegalArgumentException("Property '" + property + "' not found for " + introspected);
     }
 
-    /**
-     * @see nl.tudelft.simulation.introspection.Introspector#getPropertyNames(Object)
-     */
+    /** {@inheritDoc} */
     public String[] getPropertyNames(final Object introspected)
     {
         Set<String> props = new HashSet<String>();

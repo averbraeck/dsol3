@@ -1,9 +1,3 @@
-/*
- * @(#) AbstractFilter.java Oct 26, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.language.filters;
 
 /**
@@ -40,39 +34,33 @@ package nl.tudelft.simulation.language.filters;
  */
 public abstract class AbstractFilter implements FilterInterface
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** is this filter inverted */
+    /** is this filter inverted. */
     protected boolean inverted = false;
 
     /**
-     * constructs a new AbstractFilter
+     * constructs a new AbstractFilter.
      */
     public AbstractFilter()
     {
         super();
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.FilterInterface#isInverted()
-     */
+    /** {@inheritDoc} */
     public boolean isInverted()
     {
         return this.inverted;
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.FilterInterface #setInverted(boolean)
-     */
+    /** {@inheritDoc} */
     public void setInverted(final boolean inverted)
     {
         this.inverted = inverted;
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.FilterInterface#accept(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public boolean accept(final Object entry)
     {
         boolean value = this.filter(entry);
@@ -116,9 +104,7 @@ public abstract class AbstractFilter implements FilterInterface
         return new CompositeFilter(this, filter, CompositeFilter.OR);
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

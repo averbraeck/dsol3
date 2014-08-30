@@ -24,11 +24,11 @@ import junit.framework.TestCase;
  */
 public class EventProducerTest extends TestCase
 {
-    /** TEST_METHOD is the name of the test method */
+    /** TEST_METHOD is the name of the test method. */
     public static final String TEST_METHOD = "test";
 
     /**
-     * constructs a new EventIteratorTest
+     * constructs a new EventIteratorTest.
      */
     public EventProducerTest()
     {
@@ -36,7 +36,7 @@ public class EventProducerTest extends TestCase
     }
 
     /**
-     * constructs a new EventIteratorTest
+     * constructs a new EventIteratorTest.
      * @param arg0 the name of the test method
      */
     public EventProducerTest(final String arg0)
@@ -160,11 +160,11 @@ public class EventProducerTest extends TestCase
      */
     private static class RemoveListener implements EventListenerInterface
     {
-        /** name is the name of the listener */
+        /** name is the name of the listener. */
         private String name;
 
         /**
-         * constructs a new Listener1
+         * constructs a new Listener1.
          * @param name the name of the listener
          */
         public RemoveListener(final String name)
@@ -172,9 +172,7 @@ public class EventProducerTest extends TestCase
             this.name = name;
         }
 
-        /**
-         * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-         */
+        /** {@inheritDoc} */
         public void notify(final EventInterface event) throws RemoteException
         {
             assertTrue(event.getType().equals(EventProducerParent.EVENT_E));
@@ -184,9 +182,7 @@ public class EventProducerTest extends TestCase
             assertFalse(producer.removeListener(this, EventProducerParent.EVENT_E));
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        /** {@inheritDoc} */
         @Override
         public String toString()
         {
@@ -199,14 +195,14 @@ public class EventProducerTest extends TestCase
      */
     private static class SimpleListener implements EventListenerInterface, Serializable
     {
-        /** The default serial version UID for serializable classes */
+        /** The default serial version UID for serializable classes. */
         private static final long serialVersionUID = 1L;
 
-        /** name is the name of the listener */
+        /** name is the name of the listener. */
         private String name;
 
         /**
-         * constructs a new Listener1
+         * constructs a new Listener1.
          * @param name the name of the listener
          */
         public SimpleListener(final String name)
@@ -214,17 +210,13 @@ public class EventProducerTest extends TestCase
             this.name = name;
         }
 
-        /**
-         * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-         */
+        /** {@inheritDoc} */
         public void notify(final EventInterface event)
         {
             assertTrue(event != null);
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        /** {@inheritDoc} */
         @Override
         public String toString()
         {

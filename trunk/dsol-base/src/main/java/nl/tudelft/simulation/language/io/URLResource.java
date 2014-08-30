@@ -1,8 +1,3 @@
-/*
- * @(#) URLResource.java Jun 17, 2004 Copyright (c) 2002-2005 Delft University of Technology Jaffalaan 5, 2628
- * BX Delft, the Netherlands. All rights reserved. This software is proprietary information of Delft
- * University of Technology 
- */
 package nl.tudelft.simulation.language.io;
 
 import java.io.File;
@@ -266,10 +261,10 @@ public final class URLResource
      */
     private static class PasswordAuthenticator extends Authenticator
     {
-        /** my user name */
+        /** my user name. */
         private String userName = null;
 
-        /** my password */
+        /** my password. */
         private String password = null;
 
         /**
@@ -284,9 +279,7 @@ public final class URLResource
             this.password = password;
         }
 
-        /**
-         * @see java.net.Authenticator#getPasswordAuthentication()
-         */
+        /** {@inheritDoc} */
         @Override
         protected PasswordAuthentication getPasswordAuthentication()
         {

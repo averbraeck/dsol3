@@ -1,9 +1,3 @@
-/*
- * @(#) ContextTreeModel.java Oct 26, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology The code is published under the General Public License
- */
 package nl.tudelft.simulation.naming.context;
 
 import javax.naming.NamingException;
@@ -24,11 +18,11 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public class ContextTreeModel extends DefaultTreeModel
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /**
-     * constructs a new ContextTreeModel
+     * constructs a new ContextTreeModel.
      * @param context the context
      * @throws NamingException on failure
      */
@@ -38,7 +32,7 @@ public class ContextTreeModel extends DefaultTreeModel
     }
 
     /**
-     * constructs a new ContextTreeModel
+     * constructs a new ContextTreeModel.
      * @param context the context
      * @param displayClasses the set of classes to display as children
      * @param displayFields should we display them?
@@ -51,10 +45,7 @@ public class ContextTreeModel extends DefaultTreeModel
         this.setRoot(new ContextNode(this, "/", context, displayClasses, displayFields));
     }
 
-    /**
-     * @see javax.swing.tree.DefaultTreeModel#fireTreeStructureChanged(java.lang.Object, java.lang.Object[], int[],
-     *      java.lang.Object[])
-     */
+    /** {@inheritDoc} */
     @Override
     protected void fireTreeStructureChanged(final Object arg0, final Object[] arg1, final int[] arg2,
             final Object[] arg3)

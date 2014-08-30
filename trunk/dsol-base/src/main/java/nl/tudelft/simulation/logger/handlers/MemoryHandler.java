@@ -1,9 +1,3 @@
-/*
- * @(#) MemoryHandler.java Nov 20, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.logger.handlers;
 
 import java.util.ArrayList;
@@ -25,14 +19,14 @@ import java.util.logging.LogRecord;
  */
 public class MemoryHandler extends Handler
 {
-    /** the size of the memoryHandler */
+    /** the size of the memoryHandler. */
     private int size = 100;
 
-    /** the entires of the handler */
+    /** the entires of the handler. */
     private List<LogRecord> entries = Collections.synchronizedList(new ArrayList<LogRecord>(100));
 
     /**
-     * constructs a new MemoryHandler
+     * constructs a new MemoryHandler.
      */
     public MemoryHandler()
     {
@@ -40,7 +34,7 @@ public class MemoryHandler extends Handler
     }
 
     /**
-     * constructs a new MemoryHandler
+     * constructs a new MemoryHandler.
      * @param size the size of the memoryHandler
      */
     public MemoryHandler(final int size)
@@ -49,27 +43,21 @@ public class MemoryHandler extends Handler
         this.size = size;
     }
 
-    /**
-     * @see java.util.logging.Handler#close()
-     */
+    /** {@inheritDoc} */
     @Override
     public void close()
     {
         this.flush();
     }
 
-    /**
-     * @see java.util.logging.Handler#flush()
-     */
+    /** {@inheritDoc} */
     @Override
     public void flush()
     {
         this.entries.clear();
     }
 
-    /**
-     * @see java.util.logging.Handler#getFormatter()
-     */
+    /** {@inheritDoc} */
     @Override
     public Formatter getFormatter()
     {
@@ -85,9 +73,7 @@ public class MemoryHandler extends Handler
         return this.size;
     }
 
-    /**
-     * @see java.util.logging.Handler#publish(java.util.logging.LogRecord)
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized void publish(final LogRecord logRecord)
     {
@@ -111,9 +97,7 @@ public class MemoryHandler extends Handler
         this.flush();
     }
 
-    /**
-     * @see java.util.logging.Handler#setFormatter(java.util.logging.Formatter)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setFormatter(final Formatter arg0)
     {

@@ -26,10 +26,10 @@ import javax.swing.table.TableCellEditor;
  */
 public class MyColorEditor extends AbstractCellEditor implements TableCellEditor
 {
-    /** the value */
+    /** the value. */
     protected Color value;
 
-    /** the cellPanel */
+    /** the cellPanel. */
     protected JPanel cellPanel = new JPanel();
 
     /**
@@ -37,11 +37,11 @@ public class MyColorEditor extends AbstractCellEditor implements TableCellEditor
      */
     private class OKListener implements ActionListener
     {
-        /** the color chooser */
+        /** the color chooser. */
         private JColorChooser chooser;
 
         /**
-         * constructs a new OKListener
+         * constructs a new OKListener.
          * @param chooser the color chooser.
          */
         public OKListener(JColorChooser chooser)
@@ -49,9 +49,7 @@ public class MyColorEditor extends AbstractCellEditor implements TableCellEditor
             this.chooser = chooser;
         }
 
-        /**
-         * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
-         */
+        /** {@inheritDoc} */
         public synchronized void actionPerformed(ActionEvent event)
         {
             MyColorEditor.this.value = this.chooser.getColor();
@@ -66,26 +64,20 @@ public class MyColorEditor extends AbstractCellEditor implements TableCellEditor
      */
     private class CancelListener implements ActionListener
     {
-        /**
-         * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
-         */
+        /** {@inheritDoc} */
         public void actionPerformed(ActionEvent e)
         {
             MyColorEditor.this.cancelCellEditing();
         }
     }
 
-    /**
-     * @see javax.swing.CellEditor#getCellEditorValue()
-     */
+    /** {@inheritDoc} */
     public Object getCellEditorValue()
     {
         return this.value;
     }
 
-    /**
-     * @see javax.swing.table.TableCellEditor#getTableCellEditorComponent(JTable, Object, boolean, int, int)
-     */
+    /** {@inheritDoc} */
     public Component getTableCellEditorComponent(final JTable table, final Object value, final boolean isSelected,
             final int row, final int column)
     {

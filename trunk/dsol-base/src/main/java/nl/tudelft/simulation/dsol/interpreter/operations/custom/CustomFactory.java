@@ -1,9 +1,3 @@
-/*
- * @(#) InterpreterFactory.java Jan 14, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.interpreter.operations.custom;
 
 import java.io.DataInput;
@@ -28,11 +22,11 @@ import nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKEVIRTUA
  */
 public class CustomFactory extends InterpreterFactory
 {
-    /** the interpreterOracle to use */
+    /** the interpreterOracle to use. */
     protected InterpreterOracleInterface interpreterOracle = null;
 
     /**
-     * constructs a new InterpreterFactory
+     * constructs a new InterpreterFactory.
      * @param interpreterOracle the oracle to use
      */
     public CustomFactory(final InterpreterOracleInterface interpreterOracle)
@@ -41,10 +35,7 @@ public class CustomFactory extends InterpreterFactory
         this.interpreterOracle = interpreterOracle;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.interpreter.operations.FactoryInterface #readOperation(int, java.io.DataInput,
-     *      int)
-     */
+    /** {@inheritDoc} */
     @Override
     public Operation readOperation(final int operand, final DataInput dataInput, final int startBytePostion)
             throws IOException

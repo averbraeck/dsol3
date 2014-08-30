@@ -1,9 +1,3 @@
-/*
- * @(#) ContextUtil.java Oct 26, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.naming.context;
 
 import java.util.Enumeration;
@@ -32,7 +26,7 @@ import nl.tudelft.simulation.logger.Logger;
 public class ContextUtil
 {
     /**
-     * constructs a new ContextUtil
+     * constructs a new ContextUtil.
      */
     protected ContextUtil()
     {

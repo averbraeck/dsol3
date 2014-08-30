@@ -1,9 +1,3 @@
-/*
- * @(#) Logger.java Aug 27, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.logger;
 
 import java.util.Collections;
@@ -30,19 +24,19 @@ import nl.tudelft.simulation.language.reflection.ClassUtil;
  */
 public class Logger
 {
-    /** loggers are the currently available loggers */
+    /** loggers are the currently available loggers. */
     public static final EventProducingMap<String, java.util.logging.Logger> LOGGERS =
             new EventProducingMap<String, java.util.logging.Logger>(
                     Collections.synchronizedMap(new HashMap<String, java.util.logging.Logger>()));
 
-    /** the defaultHandler to use */
+    /** the defaultHandler to use. */
     private static Class<?> defaultHandler = ConsoleHandler.class;
 
-    /** the logLevel threshold */
+    /** the logLevel threshold. */
     private static Level logLevel = Level.ALL;
 
     /**
-     * constructs a new Logger
+     * constructs a new Logger.
      */
     protected Logger()
     {

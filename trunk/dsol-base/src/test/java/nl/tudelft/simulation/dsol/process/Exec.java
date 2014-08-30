@@ -1,9 +1,3 @@
-/*
- * @(#) Exec.java Feb 1, 2005 Copyright (c) 2004 Delft University of Technology
- * Jaffalaan 5, 2628 BX Delft, the Netherlands All rights reserved. This
- * software is proprietary information of Delft University of Technology The
- * code is published under the General Public License
- */
 package nl.tudelft.simulation.dsol.process;
 
 import nl.tudelft.simulation.dsol.interpreter.process.Process;
@@ -22,7 +16,7 @@ import nl.tudelft.simulation.dsol.interpreter.process.Process;
 public class Exec
 {
     /**
-     * constructs a new Exec
+     * constructs a new Exec.
      */
     public Exec()
     {

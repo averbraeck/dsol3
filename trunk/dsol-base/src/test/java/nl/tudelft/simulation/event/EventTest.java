@@ -1,9 +1,3 @@
-/*
- * @(#) EventIteratorTest.java Sep 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.event;
 
 import junit.framework.Assert;
@@ -23,7 +17,7 @@ import junit.framework.TestCase;
  */
 public class EventTest extends TestCase
 {
-    /** TEST_METHOD is the name of the test method */
+    /** TEST_METHOD is the name of the test method. */
     public static final String TEST_METHOD = "test";
 
     /**
@@ -35,7 +29,7 @@ public class EventTest extends TestCase
     }
 
     /**
-     * constructs a new EventIteratorTest
+     * constructs a new EventIteratorTest.
      * @param method the name of the test method
      */
     public EventTest(final String method)

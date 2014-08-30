@@ -35,7 +35,7 @@ public class SubTestBean implements Serializable
     /** Holds value of property font. */
     private Font font;
 
-    /** Creates new TestBean */
+    /** Creates new TestBean. */
     public SubTestBean()
     {
         super();
@@ -137,9 +137,7 @@ public class SubTestBean implements Serializable
         this.font = font;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

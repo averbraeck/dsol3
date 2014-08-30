@@ -1,9 +1,3 @@
-/*
- * @(#) MonitorTest.java Sep 28, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.language.primitive;
 
 import junit.framework.TestCase;
@@ -27,7 +21,7 @@ public class PrimitiveTest extends TestCase
 {
 
     /**
-     * constructs a new PrimitiveTest
+     * constructs a new PrimitiveTest.
      */
     public PrimitiveTest()
     {
@@ -35,7 +29,7 @@ public class PrimitiveTest extends TestCase
     }
 
     /**
-     * constructs a new PrimitiveTest
+     * constructs a new PrimitiveTest.
      * @param arg0
      */
     public PrimitiveTest(String arg0)

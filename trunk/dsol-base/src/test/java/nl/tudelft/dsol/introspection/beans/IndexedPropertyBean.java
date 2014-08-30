@@ -41,7 +41,7 @@ public class IndexedPropertyBean extends Object
     /** Holds value of property serializedDoubleValue. */
     private java.io.Serializable serializedDoubleValue = new Double(1717);
 
-    /** Creates new IndexedPropertyBean */
+    /** Creates new IndexedPropertyBean. */
     public IndexedPropertyBean()
     {
         this.indexedProp[0] = "nul";

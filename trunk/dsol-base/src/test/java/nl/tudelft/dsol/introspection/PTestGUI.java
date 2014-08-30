@@ -1,9 +1,3 @@
-/*
- * @(#)PTestGui.java April 15, 2004 Copyright (c) 2002-2005-2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.dsol.introspection;
 
@@ -29,7 +23,7 @@ import nl.tudelft.simulation.introspection.gui.ObjectTableModel;
 public final class PTestGUI
 {
     /**
-     * constructs a new PTestGUI
+     * constructs a new PTestGUI.
      */
     private PTestGUI()
     {

@@ -1,24 +1,15 @@
-/*
- * @(#) ExceptionEntry.java $Date: 2007/01/07 05:00:12 $ Copyright (c) 2002-2005
- * Delft University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands.
- * All rights reserved. This software is proprietary information of Delft
- * University of Technology The code is published under the Lesser General
- * Public License
- */
 package nl.tudelft.simulation.dsol.interpreter.classfile;
 
 import java.io.DataInput;
 import java.io.IOException;
 
 /**
- * A ExceptionEntry <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.1 $
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * A ExceptionEntry.
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class ExceptionEntry
 {
@@ -28,14 +19,14 @@ public class ExceptionEntry
     /** the end byte of the entry */
     private int endByte;
 
-    /** the handler number */
+    /** the handler number. */
     private int handler;
 
-    /** the catchType of this handler */
+    /** the catchType of this handler. */
     private Class catchType = Exception.class;
 
     /**
-     * constructs a new ExceptionEntry
+     * constructs a new ExceptionEntry.
      * @param dataInput the input to read
      * @param constantPool the constantPool of this entry
      * @throws IOException on IOFailure
