@@ -8,7 +8,7 @@ package nl.javel.gisbeans.map;
 public class GraphicsException extends Exception
 {
     /**
-     * constructs a new GraphicsException
+     * constructs a new GraphicsException.
      */
     public GraphicsException()
     {
@@ -16,7 +16,7 @@ public class GraphicsException extends Exception
     }
 
     /**
-     * constructs a new GraphicsException
+     * constructs a new GraphicsException.
      * @param msg the exception message
      */
     public GraphicsException(String msg)

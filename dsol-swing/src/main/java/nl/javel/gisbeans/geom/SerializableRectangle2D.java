@@ -37,7 +37,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
     public static class Double extends SerializableRectangle2D
     {
 
-        /** the rectangle */
+        /** the rectangle. */
         private Rectangle2D rectangle;
 
         /**
@@ -49,7 +49,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
         }
 
         /**
-         * constructs a new Double
+         * constructs a new Double.
          * @param x
          * @param y
          * @param w
@@ -60,97 +60,73 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
             this.rectangle = new Rectangle2D.Double(x, y, w, h);
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#createIntersection(java.awt.geom.Rectangle2D)
-         */
+        /** {@inheritDoc} */
         public Rectangle2D createIntersection(final Rectangle2D r)
         {
             return this.rectangle.createIntersection(r);
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#createUnion(java.awt.geom.Rectangle2D)
-         */
+        /** {@inheritDoc} */
         public Rectangle2D createUnion(final Rectangle2D r)
         {
             return this.rectangle.createUnion(r);
         }
 
-        /**
-         * @see java.awt.Shape#getBounds2D()
-         */
+        /** {@inheritDoc} */
         public Rectangle2D getBounds2D()
         {
             return this.rectangle.getBounds2D();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#getHeight()
-         */
+        /** {@inheritDoc} */
         public double getHeight()
         {
             return this.rectangle.getHeight();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#getWidth()
-         */
+        /** {@inheritDoc} */
         public double getWidth()
         {
             return this.rectangle.getWidth();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#getX()
-         */
+        /** {@inheritDoc} */
         public double getX()
         {
             return this.rectangle.getX();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#getY()
-         */
+        /** {@inheritDoc} */
         public double getY()
         {
             return this.rectangle.getY();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#isEmpty()
-         */
+        /** {@inheritDoc} */
         public boolean isEmpty()
         {
             return this.rectangle.isEmpty();
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#outcode(double, double)
-         */
+        /** {@inheritDoc} */
         public int outcode(final double x, final double y)
         {
             return this.rectangle.outcode(x, y);
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#setRect(double, double, double, double)
-         */
+        /** {@inheritDoc} */
         public void setRect(final double x, final double y, final double w, final double h)
         {
             this.rectangle.setRect(x, y, w, h);
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#setRect(java.awt.geom.Rectangle2D)
-         */
+        /** {@inheritDoc} */
         public void setRect(final Rectangle2D r)
         {
             this.rectangle.setRect(r);
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        /** {@inheritDoc} */
         public String toString()
         {
             return this.rectangle.toString();
@@ -191,7 +167,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
     public static class Float extends SerializableRectangle2D
     {
 
-        /** the rectangle */
+        /** the rectangle. */
         private Rectangle2D rectangle;
 
         /**
@@ -214,73 +190,55 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
             this.rectangle = new Rectangle2D.Float(x, y, w, h);
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#createIntersection(java.awt.geom.Rectangle2D)
-         */
+        /** {@inheritDoc} */
         public Rectangle2D createIntersection(final Rectangle2D r)
         {
             return this.rectangle.createIntersection(r);
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#createUnion(java.awt.geom.Rectangle2D)
-         */
+        /** {@inheritDoc} */
         public Rectangle2D createUnion(final Rectangle2D r)
         {
             return this.rectangle.createUnion(r);
         }
 
-        /**
-         * @see java.awt.Shape#getBounds2D()
-         */
+        /** {@inheritDoc} */
         public Rectangle2D getBounds2D()
         {
             return this.rectangle.getBounds2D();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#getHeight()
-         */
+        /** {@inheritDoc} */
         public double getHeight()
         {
             return this.rectangle.getHeight();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#getWidth()
-         */
+        /** {@inheritDoc} */
         public double getWidth()
         {
             return this.rectangle.getWidth();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#getX()
-         */
+        /** {@inheritDoc} */
         public double getX()
         {
             return this.rectangle.getX();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#getY()
-         */
+        /** {@inheritDoc} */
         public double getY()
         {
             return this.rectangle.getY();
         }
 
-        /**
-         * @see java.awt.geom.RectangularShape#isEmpty()
-         */
+        /** {@inheritDoc} */
         public boolean isEmpty()
         {
             return this.rectangle.isEmpty();
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#outcode(double, double)
-         */
+        /** {@inheritDoc} */
         public int outcode(final double x, final double y)
         {
             return this.rectangle.outcode(x, y);
@@ -297,25 +255,19 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
             this.rectangle.setRect(x, y, w, h);
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#setRect(double, double, double, double)
-         */
+        /** {@inheritDoc} */
         public void setRect(final double x, final double y, final double w, final double h)
         {
             this.rectangle.setRect(x, y, w, h);
         }
 
-        /**
-         * @see java.awt.geom.Rectangle2D#setRect(java.awt.geom.Rectangle2D)
-         */
+        /** {@inheritDoc} */
         public void setRect(final Rectangle2D r)
         {
             this.rectangle.setRect(r);
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        /** {@inheritDoc} */
         public String toString()
         {
             return this.rectangle.toString();

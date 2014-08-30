@@ -20,12 +20,10 @@ import java.io.IOException;
 public class SerializableGeneralPath implements java.io.Serializable, java.awt.Shape, java.lang.Cloneable
 {
 
-    /** the general path */
+    /** the general path. */
     private GeneralPath generalPath;
 
-    /**
-     * @see java.awt.geom.GeneralPath#GeneralPath()
-     */
+    /** {@inheritDoc} */
     public SerializableGeneralPath()
     {
         this.generalPath = new GeneralPath();
@@ -77,9 +75,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         this.generalPath.append(s, connect);
     }
 
-    /**
-     * @see java.lang.Object#clone()
-     */
+    /** {@inheritDoc} */
     public Object clone()
     {
         SerializableGeneralPath clone = new SerializableGeneralPath();
@@ -87,41 +83,31 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         return clone;
     }
 
-    /**
-     * @see java.awt.geom.GeneralPath#closePath()
-     */
+    /** {@inheritDoc} */
     public void closePath()
     {
         this.generalPath.closePath();
     }
 
-    /**
-     * @see java.awt.Shape#contains(double, double, double, double)
-     */
+    /** {@inheritDoc} */
     public boolean contains(final double param, final double param1, final double param2, final double param3)
     {
         return this.generalPath.contains(param, param1, param2, param3);
     }
 
-    /**
-     * @see java.awt.Shape#contains(double, double)
-     */
+    /** {@inheritDoc} */
     public boolean contains(final double param, final double param1)
     {
         return this.generalPath.contains(param, param1);
     }
 
-    /**
-     * @see java.awt.Shape#contains(java.awt.geom.Rectangle2D)
-     */
+    /** {@inheritDoc} */
     public boolean contains(final java.awt.geom.Rectangle2D rectangle2D)
     {
         return this.generalPath.contains(rectangle2D);
     }
 
-    /**
-     * @see java.awt.Shape#contains(java.awt.geom.Point2D)
-     */
+    /** {@inheritDoc} */
     public boolean contains(final java.awt.geom.Point2D point2D)
     {
         return this.generalPath.contains(point2D);
@@ -150,17 +136,13 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         this.generalPath.curveTo(x1, y1, x2, y2, x3, y3);
     }
 
-    /**
-     * @see java.awt.Shape#getBounds()
-     */
+    /** {@inheritDoc} */
     public java.awt.Rectangle getBounds()
     {
         return this.generalPath.getBounds();
     }
 
-    /**
-     * @see java.awt.Shape#getBounds2D()
-     */
+    /** {@inheritDoc} */
     public java.awt.geom.Rectangle2D getBounds2D()
     {
         return this.generalPath.getBounds2D();
@@ -174,17 +156,13 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         return this.generalPath.getCurrentPoint();
     }
 
-    /**
-     * @see java.awt.Shape#getPathIterator(java.awt.geom.AffineTransform)
-     */
+    /** {@inheritDoc} */
     public java.awt.geom.PathIterator getPathIterator(final java.awt.geom.AffineTransform affineTransform)
     {
         return this.generalPath.getPathIterator(affineTransform);
     }
 
-    /**
-     * @see java.awt.Shape#getPathIterator(java.awt.geom.AffineTransform, double)
-     */
+    /** {@inheritDoc} */
     public java.awt.geom.PathIterator getPathIterator(final java.awt.geom.AffineTransform affineTransform,
             final double param)
     {
@@ -199,17 +177,13 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         return this.generalPath.getWindingRule();
     }
 
-    /**
-     * @see java.awt.Shape#intersects(double, double, double, double)
-     */
+    /** {@inheritDoc} */
     public boolean intersects(final double param, final double param1, final double param2, final double param3)
     {
         return this.generalPath.intersects(param, param1, param2, param3);
     }
 
-    /**
-     * @see java.awt.Shape#intersects(java.awt.geom.Rectangle2D)
-     */
+    /** {@inheritDoc} */
     public boolean intersects(final java.awt.geom.Rectangle2D rectangle2D)
     {
         return this.generalPath.intersects(rectangle2D);
@@ -244,9 +218,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         this.generalPath.quadTo(x1, y1, x2, y2);
     }
 
-    /**
-     * @see java.awt.geom.GeneralPath#reset()
-     */
+    /** {@inheritDoc} */
     public void reset()
     {
         this.generalPath.reset();
@@ -295,7 +267,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         float[] coords = new float[6];
         PathIterator i = this.generalPath.getPathIterator(null);
         // Now the Path iterator is present, we simply walk along the shape and
-        // serialize the points...
+        // serialize the points..
         while (!i.isDone())
         {
             int segment = i.currentSegment(coords);
@@ -344,7 +316,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         this.generalPath = new GeneralPath(in.readInt());
         int segment;
         while ((segment = in.readInt()) != -1)
-        // The -1 value was our ending point...
+        // The -1 value was our ending point..
         {
             switch (segment)
             {

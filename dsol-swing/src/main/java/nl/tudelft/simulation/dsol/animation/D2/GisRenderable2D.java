@@ -1,9 +1,3 @@
-/*
- * @(#) GisRenderable2D.java Apr 29, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.animation.D2;
 
 import java.awt.Dimension;
@@ -37,7 +31,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:20 $
  * @since 1.5
  */
@@ -46,13 +40,13 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
     /** the map to display */
     protected MapInterface map = null;
 
-    /** the image cached image */
+    /** the image cached image. */
     protected BufferedImage image = null;
 
-    /** the cached extent */
+    /** the cached extent. */
     protected Rectangle2D extent = new Rectangle2D.Double();
 
-    /** the cached screenSize */
+    /** the cached screenSize. */
     protected Dimension screenSize = new Dimension();
 
     /**
@@ -66,7 +60,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
     protected Bounds bounds = null;
 
     /**
-     * constructs a new GisRenderable2D
+     * constructs a new GisRenderable2D.
      * @param simulator the simulator.
      * @param mapFile the mapfile to use.
      */
@@ -113,10 +107,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface #paint(java.awt.Graphics2D,
-     *      java.awt.geom.Rectangle2D, java.awt.Dimension, java.awt.image.ImageObserver)
-     */
+    /** {@inheritDoc} */
     public void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer)
     {
@@ -139,25 +130,19 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface#getSource()
-     */
+    /** {@inheritDoc} */
     public LocatableInterface getSource()
     {
         return this;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.LocatableInterface#getBounds()
-     */
+    /** {@inheritDoc} */
     public Bounds getBounds()
     {
         return this.bounds;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.LocatableInterface#getLocation()
-     */
+    /** {@inheritDoc} */
     public DirectedPoint getLocation()
     {
         return this.location;
@@ -198,10 +183,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface#contains(java.awt.geom.Point2D,
-     *      java.awt.geom.Rectangle2D, java.awt.Dimension)
-     */
+    /** {@inheritDoc} */
     public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
     {
         return false;

@@ -36,13 +36,13 @@ public class ShapeFile implements DataSourceInterface
     /** the URLS */
     private URL shpFile = null, shxFile = null, dbfFile = null;
 
-    /** the number of shapes */
+    /** the number of shapes. */
     private int numShapes = 0;
 
-    /** the type */
+    /** the type. */
     private int type = MapInterface.POLYGON;
 
-    /** our DBF reader */
+    /** our DBF reader. */
     private DbfReader dbfReader;
 
     /** the NULLSHAPE as defined by ESRI */
@@ -90,11 +90,11 @@ public class ShapeFile implements DataSourceInterface
     /** may we cache parsed data?.. */
     private boolean cache = true;
 
-    /** the cachedContent */
+    /** the cachedContent. */
     private ArrayList cachedContent = null;
 
     /**
-     * constructs a new ESRI ShapeFile
+     * constructs a new ESRI ShapeFile.
      * @param url URL may or may not end with their extension.
      * @throws IOException throws an IOException if the shxFile is not accessable
      */
@@ -138,33 +138,25 @@ public class ShapeFile implements DataSourceInterface
         this.dbfReader.setCache(cache);
     }
 
-    /**
-     * @see DataSourceInterface#getColumnNames()
-     */
+    /** {@inheritDoc} */
     public String[] getColumnNames()
     {
         return this.dbfReader.getColumnNames();
     }
 
-    /**
-     * @see nl.javel.gisbeans.io.DataSourceInterface#getAttributes()
-     */
+    /** {@inheritDoc} */
     public String[][] getAttributes() throws IOException
     {
         return this.dbfReader.getRows();
     }
 
-    /**
-     * @see DataSourceInterface#getDataSource()
-     */
+    /** {@inheritDoc} */
     public URL getDataSource()
     {
         return this.shpFile;
     }
 
-    /**
-     * @see DataSourceInterface#getNumShapes()
-     */
+    /** {@inheritDoc} */
     public int getNumShapes()
     {
         return this.numShapes;

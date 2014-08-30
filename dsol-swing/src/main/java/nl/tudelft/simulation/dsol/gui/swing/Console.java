@@ -1,10 +1,3 @@
-/*
- * @(#)Console.java May 4, 2014
- * 
- * Copyright (c) 2014 Delft University of Technology Jaffalaan 5, 
- * 2628 BX Delft, the Netherlands All rights reserved.
- * The code is published under the BSD License
- */
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.Color;
@@ -96,9 +89,7 @@ public class Console extends JTextArea
             this.textArea = textArea;
         }
 
-        /**
-         * @see java.util.logging.Handler#publish(LogRecord)
-         */
+        /** {@inheritDoc} */
         public void publish(LogRecord record)
         {
             if (record.getThrown() != null)
@@ -113,17 +104,13 @@ public class Console extends JTextArea
             }
         }
 
-        /**
-         * @see java.util.logging.Handler#close()
-         */
+        /** {@inheritDoc} */
         public void close()
         {
             //
         }
 
-        /**
-         * @see java.util.logging.Handler#flush()
-         */
+        /** {@inheritDoc} */
         public void flush()
         {
             //

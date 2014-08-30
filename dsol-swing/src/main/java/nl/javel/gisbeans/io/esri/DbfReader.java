@@ -22,28 +22,28 @@ import nl.javel.gisbeans.io.ObjectEndianInputStream;
  */
 public class DbfReader implements Serializable
 {
-    /** the FBFFile */
+    /** the FBFFile. */
     private URL dbfFile;
 
-    /** the numberofColumns */
+    /** the numberofColumns. */
     private int[] columnLength;
 
-    /** the names of the columns */
+    /** the names of the columns. */
     private String[] columnNames;
 
-    /** the headerLength */
+    /** the headerLength. */
     private int headerLength = 0;
 
-    /** the number of columns */
+    /** the number of columns. */
     private int numColumns = 0;
 
-    /** the number of records */
+    /** the number of records. */
     private int numRecords = 0;
 
-    /** the length of the records */
+    /** the length of the records. */
     private int recordLength = 0;
 
-    /** the cachedContent */
+    /** the cachedContent. */
     private transient String[][] cachedContent = null;
 
     /** may we cache parsed data?.. */
@@ -119,7 +119,7 @@ public class DbfReader implements Serializable
             throw new IndexOutOfBoundsException("dbfFile : rowNumber > numRecords");
         }
 
-        // Let's see if we may cache..
+        // Let's see if we may cache.
         if (this.cachedContent != null && this.cache)
         {
             return this.cachedContent[rowNumber];
@@ -148,7 +148,7 @@ public class DbfReader implements Serializable
      */
     public String[][] getRows() throws IOException
     {
-        // Let's see if we may cache..
+        // Let's see if we may cache.
         if (this.cachedContent != null && this.cache)
         {
             return this.cachedContent;

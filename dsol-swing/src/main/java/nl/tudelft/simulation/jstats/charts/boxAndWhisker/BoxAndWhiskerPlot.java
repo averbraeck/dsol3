@@ -1,9 +1,3 @@
-/*
- * @(#) BoxAndWhiskerPlot.java Sep 24, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.jstats.charts.boxAndWhisker;
 
@@ -35,37 +29,37 @@ import org.jfree.chart.plot.PlotState;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:06 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
 {
-    /** serialversionUID */
+    /** serialversionUId. */
     private static final long serialVersionUID = 1L;
 
-    /** BORDER_SIZE refers to the width of the border on the panel */
+    /** BORDER_SIZE refers to the width of the border on the panel. */
     public static final short BORDER_SIZE = 50;
 
-    /** PLOT_TYPE refers to the plot type */
+    /** PLOT_TYPE refers to the plot type. */
     public static final String PLOT_TYPE = "SUMMARY_PLOT";
 
-    /** FONT defines the font of the plot */
+    /** FONT defines the font of the plot. */
     public static final Font FONT = new Font("SansSerif", Font.PLAIN, 10);
 
-    /** TITLE_FONT defines the font of the plot */
+    /** TITLE_FONT defines the font of the plot. */
     public static final Font TITLE_FONT = new Font("SansSerif", Font.BOLD, 15);
 
-    /** target is the tally to represent */
+    /** target is the tally to represent. */
     protected Tally[] tallies = new Tally[0];
 
-    /** formatter formats the text */
+    /** formatter formats the text. */
     protected NumberFormat formatter = NumberFormat.getInstance();
 
-    /** the confidenceInterval */
+    /** the confidenceInterval. */
     protected double confidenceInterval = 0.05;
 
     /**
-     * constructs a new BoxAndWhiskerPlot
+     * constructs a new BoxAndWhiskerPlot.
      */
     public BoxAndWhiskerPlot()
     {
@@ -84,18 +78,14 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         this.tallies = list.toArray(new Tally[list.size()]);
     }
 
-    /**
-     * @see org.jfree.chart.plot.Plot#getPlotType()
-     */
+    /** {@inheritDoc} */
     @Override
     public String getPlotType()
     {
         return PLOT_TYPE;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public void notify(final EventInterface event)
     {
         this.notifyListeners(new PlotChangeEvent(this));
@@ -235,10 +225,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         }
     }
 
-    /**
-     * @see org.jfree.chart.plot.Plot#draw(java.awt.Graphics2D, java.awt.geom.Rectangle2D, java.awt.geom.Point2D,
-     *      org.jfree.chart.plot.PlotState, org.jfree.chart.plot.PlotRenderingInfo)
-     */
+    /** {@inheritDoc} */
     public void draw(final Graphics2D g2, final Rectangle2D rectangle, final Point2D point, final PlotState plotState,
             final PlotRenderingInfo plotRenderingInfo)
     {

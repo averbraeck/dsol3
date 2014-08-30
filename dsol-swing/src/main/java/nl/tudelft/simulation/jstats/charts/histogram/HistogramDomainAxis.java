@@ -1,9 +1,3 @@
-/*
- * @(#) HistogramDomainAxis.java Sep 28, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.jstats.charts.histogram;
 
@@ -30,20 +24,20 @@ import org.jfree.ui.RectangleEdge;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:02 $
  * @since 1.5
  */
 public class HistogramDomainAxis extends NumberAxis
 {
-    /** labels refers to the labels to be printed */
+    /** labels refers to the labels to be printed. */
     protected String[] labels = null;
 
-    /** maxLabelHeight refers to the maximum label heigth */
+    /** maxLabelHeight refers to the maximum label heigth. */
     protected double maxLabelHeight = -1;
 
     /**
-     * constructs a new HistogramDomainAxis
+     * constructs a new HistogramDomainAxis.
      * @param parent the plot to which this axis belongs
      * @param label the label of the axis
      * @param domain the domain
@@ -63,9 +57,7 @@ public class HistogramDomainAxis extends NumberAxis
         this.labels = this.createLabels(domain, numberOfBins);
     }
 
-    /**
-     * @see org.jfree.chart.axis.ValueAxis#valueToJava2D(double, java.awt.geom.Rectangle2D, org.jfree.ui.RectangleEdge)
-     */
+    /** {@inheritDoc} */
     @Override
     public double valueToJava2D(final double value, final Rectangle2D dataArea, final RectangleEdge edge)
     {
@@ -73,9 +65,7 @@ public class HistogramDomainAxis extends NumberAxis
         return dataArea.getX() + ratio * (dataArea.getWidth());
     }
 
-    /**
-     * @see org.jfree.chart.axis.ValueAxis#java2DToValue(double, java.awt.geom.Rectangle2D, org.jfree.ui.RectangleEdge)
-     */
+    /** {@inheritDoc} */
     @Override
     public double java2DToValue(final double value, final Rectangle2D dataArea, final RectangleEdge edge)
     {
@@ -83,9 +73,7 @@ public class HistogramDomainAxis extends NumberAxis
         return this.getLowerBound() + ratio * (this.getUpperBound() - this.getLowerBound());
     }
 
-    /**
-     * @see org.jfree.chart.axis.Axis #reserveSpace(Graphics2D, Plot, Rectangle2D, RectangleEdge, AxisSpace)
-     */
+    /** {@inheritDoc} */
     @Override
     public AxisSpace reserveSpace(final Graphics2D g2, final Plot dataPlot, final Rectangle2D dataArea,
             final RectangleEdge edge, final AxisSpace axisSpace)
@@ -134,10 +122,7 @@ public class HistogramDomainAxis extends NumberAxis
         return result;
     }
 
-    /**
-     * @see org.jfree.chart.axis.Axis#draw(java.awt.Graphics2D, double, java.awt.geom.Rectangle2D,
-     *      java.awt.geom.Rectangle2D, org.jfree.ui.RectangleEdge, org.jfree.chart.plot.PlotRenderingInfo)
-     */
+    /** {@inheritDoc} */
     @Override
     public AxisState draw(final Graphics2D g2, final double cursor, final Rectangle2D plotArea,
             final Rectangle2D dataArea, final RectangleEdge edge, final PlotRenderingInfo arg5)

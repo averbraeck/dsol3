@@ -1,12 +1,3 @@
-/*
- * @(#) StaticAttribute.java Jun 22, 2004
- * 
- * Copyright (c) 2002-2009 Delft University of Technology Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved.
- * 
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.javel.gisbeans.map;
 
 /**
@@ -22,14 +13,14 @@ package nl.javel.gisbeans.map;
  */
 public class StaticAttribute extends AbstractAttribute
 {
-    /** the static angle */
+    /** the static angle. */
     private double angle = 0.0;
 
-    /** the static value */
+    /** the static value. */
     private String value = null;
 
     /**
-     * constructs a new StaticAttribute
+     * constructs a new StaticAttribute.
      * @param layer the layer
      * @param angle the angle
      * @param value the value
@@ -41,17 +32,13 @@ public class StaticAttribute extends AbstractAttribute
         this.value = value;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getAngle(int)
-     */
+    /** {@inheritDoc} */
     public double getAngle(int shapeIndex)
     {
         return this.angle;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getValue(int)
-     */
+    /** {@inheritDoc} */
     public String getValue(int shapeIndex)
     {
         return this.value;

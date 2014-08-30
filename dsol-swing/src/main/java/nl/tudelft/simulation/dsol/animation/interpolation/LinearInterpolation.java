@@ -1,9 +1,3 @@
-/*
- * @(#) LinearInterpolation.java Mar 4, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.animation.interpolation;
 
 import nl.tudelft.simulation.language.d3.DirectedPoint;
@@ -16,14 +10,14 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:25 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class LinearInterpolation implements InterpolationInterface
 {
-    /** the start time */
+    /** the start time. */
     protected double startTime = Double.NaN;
 
-    /** the end time */
+    /** the end time. */
     protected double endTime = Double.NaN;
 
     /**
@@ -37,7 +31,7 @@ public class LinearInterpolation implements InterpolationInterface
     private DirectedPoint destination = null;
 
     /**
-     * constructs a new LinearInterpolation
+     * constructs a new LinearInterpolation.
      * @param startTime the startingTime
      * @param endTime the endTime
      * @param origin the origin
@@ -57,9 +51,7 @@ public class LinearInterpolation implements InterpolationInterface
         this.destination = (DirectedPoint) destination.clone();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.interpolation.InterpolationInterface #getLocation(double)
-     */
+    /** {@inheritDoc} */
     public DirectedPoint getLocation(final double time)
     {
         if (time <= this.startTime)

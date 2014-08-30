@@ -1,10 +1,3 @@
-/*
- * @(#)StatusBar.java May 4, 2014
- * 
- * Copyright (c) 2014 Delft University of Technology Jaffalaan 5, 
- * 2628 BX Delft, the Netherlands All rights reserved.
- * The code is published under the BSD License
- */
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import info.clearthought.layout.TableLayout;
@@ -59,7 +52,7 @@ public class StatusBar extends JPanel
     /** */
     protected Logger logger = Logger.getLogger("nl.tudelft.simulation.medlabs.simulation.gui");
 
-    /** timer update in msec */
+    /** timer update in msec. */
     protected final long PERIOD = 1000;
 
     /** */
@@ -116,9 +109,7 @@ public class StatusBar extends JPanel
             this.period = period;
         }
 
-        /**
-         * @see java.util.TimerTask#run()
-         */
+        /** {@inheritDoc} */
         @Override
         public void run()
         {

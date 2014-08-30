@@ -1,10 +1,3 @@
-/*
- * @(#)DSOLApplication.java May 4, 2014
- * 
- * Copyright (c) 2014 Delft University of Technology Jaffalaan 5, 
- * 2628 BX Delft, the Netherlands All rights reserved.
- * The code is published under the BSD License
- */
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.Frame;

@@ -1,10 +1,3 @@
-/*
- * @(#)SpeedControlDialog.java May 4, 2014
- * 
- * Copyright (c) 2014 Delft University of Technology Jaffalaan 5, 
- * 2628 BX Delft, the Netherlands All rights reserved.
- * The code is published under the BSD License
- */
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.BorderLayout;
@@ -175,9 +168,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
     }
 
-    /**
-     * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
-     */
+    /** {@inheritDoc} */
     public void actionPerformed(ActionEvent e)
     {
         if (((JButton) e.getSource()).getName().equals("closeButton"))
@@ -186,9 +177,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
     }
 
-    /**
-     * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
-     */
+    /** {@inheritDoc} */
     public void stateChanged(ChangeEvent event)
     {
         try
@@ -221,9 +210,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface#notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public void notify(EventInterface event)
     {
         // XXX:

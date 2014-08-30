@@ -1,12 +1,3 @@
-/*
- * @(#) MapFileXMLParser.java Sep 1, 2002
- * 
- * Copyright (c) 2002-2004 Javel b.v. Delft, the Netherlands All rights
- * reserved.
- * 
- * This software is proprietary information of Javel b.v. The code is published
- * under the General Public License
- */
 
 package nl.javel.gisbeans.map.mapfile;
 
@@ -63,7 +54,7 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public final class MapFileXMLParser
 {
-    /** the default mapfile */
+    /** the default mapfile. */
     public static final URL MAPFILE_SCHEMA = URLResource.getResource("/mapfile.xsd");
 
     /**
@@ -588,17 +579,13 @@ public final class MapFileXMLParser
                     + exception.getColumnNumber();
         }
 
-        /**
-         * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
-         */
+        /** {@inheritDoc} */
         public void error(SAXParseException e) throws SAXException
         {
             throw new SAXException(formatError(e));
         }
 
-        /**
-         * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
-         */
+        /** {@inheritDoc} */
         public void fatalError(SAXParseException e) throws SAXException
         {
             throw new SAXException(formatError(e));

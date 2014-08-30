@@ -1,9 +1,3 @@
-/*
- * @(#) XYChart.java Oct 19, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.statistics.charts;
 
 import java.rmi.RemoteException;
@@ -22,12 +16,12 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:21 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 {
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @throws RemoteException on network failure
@@ -38,7 +32,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param axisType the axisType to use.
@@ -51,7 +45,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param domain the domain
@@ -71,7 +65,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param period the period
@@ -91,7 +85,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param domain the domain
@@ -112,7 +106,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param period the period
@@ -133,7 +127,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param domain the domain
@@ -154,7 +148,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param period the period
@@ -175,7 +169,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param domain the domain
@@ -198,7 +192,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param simulator the simulator
      * @param title the title
      * @param period the period
@@ -220,9 +214,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

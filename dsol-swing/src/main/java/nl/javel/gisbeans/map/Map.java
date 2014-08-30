@@ -21,46 +21,42 @@ import nl.javel.gisbeans.geom.SerializableRectangle2D;
  */
 public class Map implements MapInterface
 {
-    /** the extent of the map */
+    /** the extent of the map. */
     private SerializableRectangle2D extent;
 
-    /** the layers of the map */
+    /** the layers of the map. */
     private List layers;
 
-    /** the mapfileImage */
+    /** the mapfileImage. */
     private ImageInterface image;
 
-    /** the name of the mapFile */
+    /** the name of the mapFile. */
     private String name;
 
-    /** the referenceMap */
+    /** the referenceMap. */
     private ReferenceMapInterface referenceMap;
 
-    /** the map units */
+    /** the map units. */
     private int units;
 
-    /** the screen resolution */
+    /** the screen resolution. */
     private final int RESOLUTION = 72;
 
     /**
-     * constructs a new Map
+     * constructs a new Map.
      */
     public Map()
     {
         super();
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#addLayer(LayerInterface)
-     */
+    /** {@inheritDoc} */
     public void addLayer(LayerInterface layer)
     {
         this.layers.add(layer);
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#drawLegend(java.awt.Graphics2D)
-     */
+    /** {@inheritDoc} */
     public Graphics2D drawLegend(final Graphics2D graphics)
     {
         if (this.getImage().getLegend().isStatus())
@@ -109,12 +105,10 @@ public class Map implements MapInterface
         return graphics;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#drawMap(Graphics2D)
-     */
+    /** {@inheritDoc} */
     public Graphics2D drawMap(Graphics2D graphics) throws GraphicsException
     {
-        // We fill the background */
+        // We fill the background. */
         graphics.setColor(this.getImage().getBackgroundColor());
         graphics.fillRect(0, 0, (int) this.getImage().getSize().getWidth(), (int) this.getImage().getSize().getHeight());
 
@@ -287,17 +281,13 @@ public class Map implements MapInterface
         return graphics;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#drawReferenceMap(Graphics2D)
-     */
+    /** {@inheritDoc} */
     public Graphics2D drawReferenceMap(Graphics2D graphics)
     {
         return graphics;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#drawScalebar(Graphics2D)
-     */
+    /** {@inheritDoc} */
     public Graphics2D drawScalebar(Graphics2D graphics)
     {
         if (this.getImage().getScalebar().isStatus())
@@ -381,49 +371,37 @@ public class Map implements MapInterface
         return graphics;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#getExtent()
-     */
+    /** {@inheritDoc} */
     public SerializableRectangle2D getExtent()
     {
         return this.extent;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#getImage()
-     */
+    /** {@inheritDoc} */
     public ImageInterface getImage()
     {
         return this.image;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#getLayers()
-     */
+    /** {@inheritDoc} */
     public List getLayers()
     {
         return this.layers;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#getName()
-     */
+    /** {@inheritDoc} */
     public String getName()
     {
         return this.name;
     }
 
-    /**
-     * @see MapInterface#getScale()
-     */
+    /** {@inheritDoc} */
     public double getScale()
     {
         return (this.getImage().getSize().getWidth() / (2.54 * this.RESOLUTION)) * this.extent.getWidth();
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#getReferenceMap()
-     */
+    /** {@inheritDoc} */
     public ReferenceMapInterface getReferenceMap()
     {
         return this.referenceMap;
@@ -439,17 +417,13 @@ public class Map implements MapInterface
                 / this.image.getSize().getHeight());
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#getUnits()
-     */
+    /** {@inheritDoc} */
     public int getUnits()
     {
         return this.units;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#setExtent(java.awt.geom.Rectangle2D)
-     */
+    /** {@inheritDoc} */
     public void setExtent(final Rectangle2D extent)
     {
         this.extent =
@@ -457,57 +431,43 @@ public class Map implements MapInterface
                         extent.getHeight());
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#setImage(ImageInterface)
-     */
+    /** {@inheritDoc} */
     public void setImage(ImageInterface image)
     {
         this.image = image;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#setLayers(List)
-     */
+    /** {@inheritDoc} */
     public void setLayers(List layers)
     {
         this.layers = layers;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#setLayer(int, LayerInterface)
-     */
+    /** {@inheritDoc} */
     public void setLayer(int index, LayerInterface layer)
     {
         this.layers.set(index, layer);
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#setName(String)
-     */
+    /** {@inheritDoc} */
     public void setName(String name)
     {
         this.name = name;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#setReferenceMap(ReferenceMapInterface)
-     */
+    /** {@inheritDoc} */
     public void setReferenceMap(ReferenceMapInterface referenceMap)
     {
         this.referenceMap = referenceMap;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#setUnits(int)
-     */
+    /** {@inheritDoc} */
     public void setUnits(int units)
     {
         this.units = units;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface#zoom(double)
-     */
+    /** {@inheritDoc} */
     public void zoom(double zoomFactor)
     {
         if (zoomFactor == 0)
@@ -527,9 +487,7 @@ public class Map implements MapInterface
         this.extent = new SerializableRectangle2D.Double(centerX - 0.5 * width, centerY - 0.5 * height, width, height);
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface #zoomPoint(java.awt.geom.Point2D, double)
-     */
+    /** {@inheritDoc} */
     public void zoomPoint(Point2D pixelPosition, double zoomFactor)
     {
         if (zoomFactor == 0)
@@ -550,9 +508,7 @@ public class Map implements MapInterface
         this.extent = new SerializableRectangle2D.Double(centerX - 0.5 * width, centerY - 0.5 * height, width, height);
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.MapInterface #zoomRectangle(nl.javel.gisbeans.geom.SerializableRectangle2D)
-     */
+    /** {@inheritDoc} */
     public void zoomRectangle(SerializableRectangle2D rectangle)
     {
 

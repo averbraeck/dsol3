@@ -1,9 +1,3 @@
-/*
- * @(#) EditableRenderable2D.java Aug 3, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.animation.D2;
 
 import nl.tudelft.simulation.dsol.animation.Editable;
@@ -18,7 +12,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:20 $
  * @since 1.5
  */
@@ -31,7 +25,7 @@ public abstract class EditableRenderable2D extends Renderable2D implements Edita
     protected Editable source = null;
 
     /**
-     * constructs a new EditableRenderable2D
+     * constructs a new EditableRenderable2D.
      * @param source the source and target
      * @param simulator the simulator
      */
@@ -41,73 +35,55 @@ public abstract class EditableRenderable2D extends Renderable2D implements Edita
         this.source = source;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#isClosedShape()
-     */
+    /** {@inheritDoc} */
     public boolean isClosedShape()
     {
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#allowMove()
-     */
+    /** {@inheritDoc} */
     public boolean allowMove()
     {
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#allowRotate()
-     */
+    /** {@inheritDoc} */
     public boolean allowRotate()
     {
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#allowScale()
-     */
+    /** {@inheritDoc} */
     public boolean allowScale()
     {
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#allowEditPoints()
-     */
+    /** {@inheritDoc} */
     public boolean allowEditPoints()
     {
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#allowDelete()
-     */
+    /** {@inheritDoc} */
     public boolean allowDelete()
     {
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#allowAddOrDeletePoints()
-     */
+    /** {@inheritDoc} */
     public boolean allowAddOrDeletePoints()
     {
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#getMaxNumberOfPoints()
-     */
+    /** {@inheritDoc} */
     public int getMaxNumberOfPoints()
     {
         return Integer.MAX_VALUE;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.EditableRenderable2DInterface#getMinNumberOfPoints()
-     */
+    /** {@inheritDoc} */
     public int getMinNumberOfPoints()
     {
         return 1;
