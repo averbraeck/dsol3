@@ -18,7 +18,7 @@ package nl.tudelft.simulation.jstats.streams;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:54 $
  * @since 1.5
  */
@@ -30,28 +30,28 @@ public class MersenneTwister extends RandomNumberGenerator
     /** Period parameter M */
     private static final int M = 397;
 
-    /** constant vector a */
+    /** constant vector a. */
     private static final int MATRIX_A = 0x9908b0df;
 
-    /** most significant w-r bits */
+    /** most significant w-r bits. */
     private static final int UPPER_MASK = 0x80000000;
 
-    /** least significant w-r bits */
+    /** least significant w-r bits. */
     private static final int LOWER_MASK = 0x7fffffff;
 
-    /** tempering mask B */
+    /** tempering mask b. */
     private static final int TEMPERING_MASK_B = 0x9d2c5680;
 
-    /** tempering mask B */
+    /** tempering mask b. */
     private static final int TEMPERING_MASK_C = 0xefc60000;
 
-    /** unsigned mask for promoting int -> long */
+    /** unsigned mask for promoting int -> long. */
     private static final int UMASK = (1 << 31) - 1;
 
-    /** the array for the state vector */
+    /** the array for the state vector. */
     private int[] mt;
 
-    /** The counter mti==N+1 means mt[N] is not initialized */
+    /** The counter mti==N+1 means mt[N] is not initialized. */
     private int mti;
 
     /** magic01 */
@@ -99,9 +99,7 @@ public class MersenneTwister extends RandomNumberGenerator
         this.mag01[1] = MATRIX_A;
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.streams.RandomNumberGenerator#next(int)
-     */
+    /** {@inheritDoc} */
     @Override
     protected synchronized long next(final int bits)
     {
@@ -139,9 +137,7 @@ public class MersenneTwister extends RandomNumberGenerator
         return y << 32 + this.next(bits - 32);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.streams.StreamInterface#setSeed(long)
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized void setSeed(final long seed)
     {

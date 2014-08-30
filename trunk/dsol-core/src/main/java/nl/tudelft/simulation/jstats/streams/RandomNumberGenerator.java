@@ -1,9 +1,3 @@
-/*
- * @(#) RandomNumberGenerator.java Feb 19, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.jstats.streams;
 
 /**
@@ -13,13 +7,13 @@ package nl.tudelft.simulation.jstats.streams;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
  */
 public abstract class RandomNumberGenerator implements StreamInterface
 {
-    /** the seed of the generator */
+    /** the seed of the generator. */
     protected long seed = -1;
 
     /**
@@ -44,9 +38,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
         this.setSeed(seed);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.streams.StreamInterface#reset()
-     */
+    /** {@inheritDoc} */
     public void reset()
     {
         this.setSeed(this.seed);
@@ -244,22 +236,16 @@ public abstract class RandomNumberGenerator implements StreamInterface
         return ((next(32)) << 32) + next(32);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.streams.StreamInterface#setSeed(long)
-     */
+    /** {@inheritDoc} */
     public abstract void setSeed(final long seed);
 
-    /**
-     * @see nl.tudelft.simulation.jstats.streams.StreamInterface#getSeed()
-     */
+    /** {@inheritDoc} */
     public long getSeed()
     {
         return this.seed;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

@@ -1,9 +1,3 @@
-/*
- * @(#) RungeKuttaFehlberg.java May 12, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.jstats.ode.integrators;
 
 import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
@@ -36,11 +30,11 @@ public class RungeKuttaFehlberg extends NumericalIntegrator
     /** the parameters for c4_i, in y_n+1 = y_n + c4_1 k_1 + c4_2 k_2 + ... */
     protected static double[] c4 = new double[]{25d / 216d, 0d, 1408d / 2565d, 2197d / 4104d, -1d / 5d, 0d};
 
-    /** the numer of k-s in the method */
+    /** the numer of k-s in the method. */
     protected static int nk = 6;
 
     /**
-     * constructs a new RungeKuttaFehlberg
+     * constructs a new RungeKuttaFehlberg.
      * @param timeStep the timeStep
      * @param equation the differentialEquation
      */
@@ -49,9 +43,7 @@ public class RungeKuttaFehlberg extends NumericalIntegrator
         super(timeStep, equation);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator #next(double,double[])
-     */
+    /** {@inheritDoc} */
     @Override
     public double[] next(final double x, final double[] y)
     {

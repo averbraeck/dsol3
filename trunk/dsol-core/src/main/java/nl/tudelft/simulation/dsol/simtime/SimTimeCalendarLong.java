@@ -36,7 +36,7 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** value represents the value in milliseconds */
+    /** value represents the value in milliseconds. */
     private long timeMsec;
 
     /**
@@ -58,27 +58,21 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
         this.timeMsec = timeMsec;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#add(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void add(UnitTimeLong simTime)
     {
         this.timeMsec += simTime.getTimeMsec();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#add(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void subtract(UnitTimeLong simTime)
     {
         this.timeMsec -= simTime.getTimeMsec();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public UnitTimeLong minus(final SimTimeCalendarLong absoluteTime)
     {
@@ -87,18 +81,14 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
         return ret;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#compareTo(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(SimTimeCalendarLong simTime)
     {
         return Long.compare(this.timeMsec, simTime.timeMsec);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#setZero()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeCalendarLong setZero()
     {
@@ -106,27 +96,21 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
         return this;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#copy()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeCalendarLong copy()
     {
         return new SimTimeCalendarLong(get());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void set(Calendar value)
     {
         this.timeMsec = value.getTimeInMillis();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#get()
-     */
+    /** {@inheritDoc} */
     @Override
     public Calendar get()
     {

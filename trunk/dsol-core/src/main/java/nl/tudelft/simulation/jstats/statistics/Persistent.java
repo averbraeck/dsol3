@@ -1,9 +1,3 @@
-/*
- * @(#)Persistent.java Apr 3, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.statistics;
 
 import nl.tudelft.simulation.event.EventInterface;
@@ -19,7 +13,7 @@ import nl.tudelft.simulation.logger.Logger;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
  */
@@ -28,19 +22,19 @@ public class Persistent extends Tally
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** VALUE_EVENT is fired whenever on a change in measurements */
+    /** VALUE_EVENT is fired whenever on a change in measurements. */
     public static final EventType VALUE_EVENT = new EventType("VALUE_EVENT");
 
-    /** startTime defines the time of the first event */
+    /** startTime defines the time of the first event. */
     private double startTime = Double.NaN;
 
-    /** elapsedTime tracks the elapsed time */
+    /** elapsedTime tracks the elapsed time. */
     private double elapsedTime = Double.NaN;
 
-    /** deltaTime defines the time between 2 events */
+    /** deltaTime defines the time between 2 events. */
     private double deltaTime = Double.NaN;
 
-    /** lastvalue tracks the last value */
+    /** lastvalue tracks the last value. */
     private double lastValue = Double.NaN;
 
     /**
@@ -52,9 +46,7 @@ public class Persistent extends Tally
         super(description);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.statistics.Tally#getStdDev()
-     */
+    /** {@inheritDoc} */
     @Override
     public double getStdDev()
     {
@@ -68,9 +60,7 @@ public class Persistent extends Tally
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.statistics.Tally#getSampleVariance()
-     */
+    /** {@inheritDoc} */
     @Override
     public double getSampleVariance()
     {
@@ -84,9 +74,7 @@ public class Persistent extends Tally
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.statistics.Tally#initialize()
-     */
+    /** {@inheritDoc} */
     @Override
     public void initialize()
     {
@@ -99,15 +87,13 @@ public class Persistent extends Tally
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.statistics.Tally #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     @Override
     public void notify(final EventInterface event)
     {
-        if (!(event instanceof TimedEvent) || !(event.getContent() instanceof Number))
+        if (!(event instanceof TimedEvent<?>) || !(event.getContent() instanceof Number))
         {
-            throw new IllegalArgumentException("event !=TimedEvent || event.source !=Double ("
+            throw new IllegalArgumentException("event != TimedEvent || event.source != Double ("
                     + event.getContent().getClass().toString() + ")");
         }
         // TODO: what if this is not a Double?
@@ -124,10 +110,9 @@ public class Persistent extends Tally
 
         synchronized (this.semaphore)
         {
-            super.fireEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent.getTimeStamp());
-            super.fireEvent(Persistent.VALUE_EVENT, value, timedEvent.getTimeStamp());
-            super.setN(super.n + 1); // we increase the number of
-            // measurements.
+            super.fireTimedEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent.getTimeStamp());
+            super.fireTimedEvent(Persistent.VALUE_EVENT, value, timedEvent.getTimeStamp());
+            super.setN(super.n + 1); // we increase the number of measurements.
             if (value < super.min)
             {
                 super.setMin(value);
@@ -138,8 +123,7 @@ public class Persistent extends Tally
             }
             super.setSum(super.sum + value);
 
-            // see Knuth's The Art Of Computer Programming Volume II:
-            // Seminumerical Algorithms
+            // see Knuth's The Art Of Computer Programming Volume II: Seminumerical Algorithms
             if (this.n == 1)
             {
                 super.setSampleMean(value);

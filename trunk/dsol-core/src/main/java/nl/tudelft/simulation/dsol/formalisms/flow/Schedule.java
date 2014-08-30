@@ -24,7 +24,7 @@ import nl.tudelft.simulation.logger.Logger;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -44,7 +44,7 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
             .synchronizedSortedMap(new TreeMap<T, DistContinuousTime<R>>());
 
     /**
-     * constructs a new Schedule
+     * constructs a new Schedule.
      * @param simulator is the on which the construction of the objects must be scheduled.
      * @param myClass is the class of which entities are created
      * @param constructorArguments are the parameters for the constructor of myClass. of arguments.

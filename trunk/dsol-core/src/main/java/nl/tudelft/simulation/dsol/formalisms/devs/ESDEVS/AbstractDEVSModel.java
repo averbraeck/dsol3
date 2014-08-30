@@ -56,40 +56,40 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public abstract class AbstractDEVSModel extends EventProducer
 {
-    /** the default serial version UID */
+    /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
 
-    /** the parent model we are part of */
+    /** the parent model we are part of. */
     protected CoupledModel parentModel;
 
-    /** the simulator this model or component will schedule its events on */
+    /** the simulator this model or component will schedule its events on. */
     protected DEVSSimulatorInterface.Double simulator;
 
-    /** all DEVS models are named - this is the component name */
+    /** all DEVS models are named - this is the component name. */
     protected String modelName;
 
-    /** all DEVS models are named - this is the full name with dot notation */
+    /** all DEVS models are named - this is the full name with dot notation. */
     protected String fullName;
 
-    /** event for listeners about state update */
+    /** event for listeners about state update. */
     public static final EventType STATE_UPDATE = new EventType("STATE_UPDATE");
 
-    /** map of call classes and fields for which the state will be reported */
+    /** map of call classes and fields for which the state will be reported. */
     private static Map<Class<?>, Set<Field>> stateFieldMap = new HashMap<Class<?>, Set<Field>>();
 
-    /** set of fields for this class which the state will be reported */
+    /** set of fields for this class which the state will be reported. */
     private Set<Field> stateFieldSet = null;
 
-    /** the fields of the AtomicModel */
+    /** the fields of the AtomicModel. */
     private static Set<Field> atomicFields = new HashSet<Field>();
 
-    /** the fields of the CoupledModel */
+    /** the fields of the CoupledModel. */
     private static Set<Field> coupledFields = new HashSet<Field>();
 
     /** the fields of the AbstractEntity */
     private static Set<Field> entityFields = new HashSet<Field>();
 
-    /** the fields of the AbstractDEVSMOdel */
+    /** the fields of the AbstractDEVSMOdel. */
     private static Set<Field> abstractDEVSFields = new HashSet<Field>();
 
     /**
@@ -292,16 +292,16 @@ public abstract class AbstractDEVSModel extends EventProducer
      */
     public class StateUpdate implements Serializable
     {
-        /** the default serial version UID */
+        /** the default serial version UId. */
         private static final long serialVersionUID = 1L;
 
-        /** the name of the model */
+        /** the name of the model. */
         private String model;
 
-        /** the name of the variable */
+        /** the name of the variable. */
         private String variable;
 
-        /** the value of the variable */
+        /** the value of the variable. */
         private Object value;
 
         /**

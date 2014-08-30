@@ -1,9 +1,3 @@
-/*
- * @(#)CounterTest.java Apr 3, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.statistics;
 
 import javax.swing.table.TableModel;
@@ -21,7 +15,7 @@ import nl.tudelft.simulation.event.EventType;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
  */
@@ -30,26 +24,26 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** COUNT_EVENT is fired whenever setCount() is invoked */
+    /** COUNT_EVENT is fired whenever setCount() is invoked. */
     public static final EventType COUNT_EVENT = new EventType("COUNT_EVENT");
 
-    /** N_EVENT is fired on every new measurement */
+    /** N_EVENT is fired on every new measurement. */
     public static final EventType N_EVENT = new EventType("N_EVENT");
 
-    /** count represents the value of the counter */
+    /** count represents the value of the counter. */
     protected long count = Long.MIN_VALUE;
 
-    /** n represents the number of measurements */
+    /** n represents the number of measurements. */
     protected long n = Long.MIN_VALUE;
 
-    /** description refers to the title of this counter */
+    /** description refers to the title of this counter. */
     protected String description;
 
-    /** the semaphore */
+    /** the semaphore. */
     private Object semaphore = new Object();
 
     /**
-     * constructs a new CounterTest
+     * constructs a new CounterTest.
      * @param description the description for this counter
      */
     public Counter(final String description)
@@ -76,9 +70,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
         return this.n;
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public void notify(final EventInterface event)
     {
         long value = 1;
@@ -99,9 +91,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
         }
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -158,9 +148,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
         return this.description;
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.statistics.StatisticsObject #getTable()
-     */
+    /** {@inheritDoc} */
     @Override
     public TableModel getTable()
     {

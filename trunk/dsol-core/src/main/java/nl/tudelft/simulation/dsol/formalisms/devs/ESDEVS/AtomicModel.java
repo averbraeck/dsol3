@@ -49,37 +49,37 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public abstract class AtomicModel extends AbstractDEVSPortModel
 {
-    /** the default serialVersionUID */
+    /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
 
-    /** future Execution of the Internal Transition */
+    /** future Execution of the Internal Transition. */
     private SimEvent<SimTimeDouble> nextEvent;
 
-    /** remaining TimeAdvance */
+    /** remaining TimeAdvance. */
     protected double sigma;
 
     /** the current phase (if applicable) */
     protected Phase phase = new Phase(""); 
 
-    /** the time of the previous event in this component */
+    /** the time of the previous event in this component. */
     private double timeLastEvent;
 
-    /** the time of the next scheduled event in this component */
+    /** the time of the next scheduled event in this component. */
     private double timeNextEvent;
 
-    /** the time span since the last event */
+    /** the time span since the last event. */
     private double elapsedTime;
 
     /** the active input port that is currently processed in Parallel DEVS */
     protected InputPort<?> activePort = null;
 
-    /** conflict handling static: first the internal event */
+    /** conflict handling static: first the internal event. */
     public static final boolean INTERNAL_FIRST = true;
 
-    /** conflict handling static: first the external event */
+    /** conflict handling static: first the external event. */
     public static final boolean EXTERNAL_FIRST = false;
 
-    /** applied conflict handling strategy in this component */
+    /** applied conflict handling strategy in this component. */
     private boolean conflictStrategy = AtomicModel.INTERNAL_FIRST;
 
     /**

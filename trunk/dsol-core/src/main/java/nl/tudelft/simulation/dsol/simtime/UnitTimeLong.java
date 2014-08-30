@@ -42,28 +42,21 @@ public class UnitTimeLong extends UnitTime<Long, UnitTimeLong>
         super(time, unit);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.UnitTime#compareTo(nl.tudelft.simulation.dsol.simtime.UnitTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(final UnitTimeLong unitTime)
     {
         return Double.compare(this.timeMsec, unitTime.getTimeMsec());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.UnitTime#convertToMsec(java.lang.Number,
-     *      nl.tudelft.simulation.dsol.simtime.TimeUnit)
-     */
+    /** {@inheritDoc} */
     @Override
     protected Long convertToMsec(final Long time, final TimeUnit timeUnit)
     {
         return (long) (time * (timeUnit.getFactor() / TimeUnit.MILLISECOND.getFactor()));
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.UnitTime#getTime()
-     */
+    /** {@inheritDoc} */
     @Override
     public Long getTime()
     {

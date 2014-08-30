@@ -1,9 +1,3 @@
-/*
- * @(#)SimRuntimeException.java April 4, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol;
 
 /**
@@ -15,12 +9,12 @@ package nl.tudelft.simulation.dsol;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:43 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a href="mailto:nlang@fbk.eur.nl">Niels
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a href="mailto:nlang@fbk.eur.nl">Niels
  *         Lang </a><a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class SimRuntimeException extends Exception
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -32,7 +26,7 @@ public class SimRuntimeException extends Exception
     }
 
     /**
-     * constructs a new SimRuntimeException
+     * constructs a new SimRuntimeException.
      * @param message the exception message
      */
     public SimRuntimeException(final String message)
@@ -41,7 +35,7 @@ public class SimRuntimeException extends Exception
     }
 
     /**
-     * constructs a new SimRuntimeException
+     * constructs a new SimRuntimeException.
      * @param message the exception message
      * @param cause the originating throwable
      */

@@ -23,7 +23,7 @@ import nl.tudelft.simulation.logger.Logger;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, such as
@@ -33,7 +33,7 @@ import nl.tudelft.simulation.logger.Logger;
 public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends EventProducer implements Iterator<Experiment<A, R, T>>, EventListenerInterface
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -41,10 +41,10 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
      */
     public static final EventType END_OF_EXPERIMENTALFRAME_EVENT = new EventType("END_OF_EXPERIMENTALFRAME_EVENT");
 
-    /** the list of experiments defined in this experimental frame */
+    /** the list of experiments defined in this experimental frame. */
     protected List<Experiment<A, R, T>> experiments = null;
 
-    /** the current experiment */
+    /** the current experiment. */
     protected int currentExperiment = -1;
 
     /**
@@ -52,11 +52,11 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
      */
     private Context context = null;
 
-    /** the URL where we can find this experimentalFrame */
+    /** the URL where we can find this experimentalFrame. */
     private URL url = null;
 
     /**
-     * constructs a new ExperimentalFrame
+     * constructs a new ExperimentalFrame.
      * @param context the contet to use
      */
     public ExperimentalFrame(final Context context)
@@ -65,7 +65,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /**
-     * constructs a new Experimental frame
+     * constructs a new Experimental frame.
      * @param context the name in the nameSpace
      * @param url the url of the experimental frame
      */
@@ -97,9 +97,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
         return this.experiments.get(this.currentExperiment);
     }
 
-    /**
-     * @see java.util.Iterator#remove()
-     */
+    /** {@inheritDoc} */
     public void remove()
     {
         this.experiments.remove(this.currentExperiment);
@@ -136,9 +134,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface#notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public void notify(final EventInterface event) throws RemoteException
     {
         if (event.getType().equals(Experiment.END_OF_EXPERIMENT_EVENT))

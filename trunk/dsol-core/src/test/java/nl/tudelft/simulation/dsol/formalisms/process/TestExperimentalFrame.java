@@ -1,9 +1,3 @@
-/*
- * @(#) TestExperimentalFrame.java Sep 4, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.formalisms.process;
 
 import java.text.DateFormat;
@@ -38,7 +32,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 2.0 21.09.2003 <br>
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public final class TestExperimentalFrame
@@ -48,19 +42,19 @@ public final class TestExperimentalFrame
      */
     public static final long STARTTIME = 0;
 
-    /** TIMEUNIT refers to the time units of the experiment */
+    /** TIMEUNIT refers to the time units of the experiment. */
     public static final TimeUnit TIMEUNIT = TimeUnit.UNIT;
 
-    /** RUNLENGTH is the runLength for this experiment */
+    /** RUNLENGTH is the runLength for this experiment. */
     public static final double RUNLENGTH = 100;
 
-    /** WARMUP period defines the warmup period for the experiment */
+    /** WARMUP period defines the warmup period for the experiment. */
     public static final double WARMUP = 10;
 
-    /** SEED is the seed value for the DEFAULT stream */
+    /** SEED is the seed value for the DEFAULT stream. */
     public static final long SEED = 42;
 
-    /** TIMESTEP is the timeStep to be used for the DESS formalism */
+    /** TIMESTEP is the timeStep to be used for the DESS formalism. */
     public static final double TIMESTEP = 0.01;
 
     /**

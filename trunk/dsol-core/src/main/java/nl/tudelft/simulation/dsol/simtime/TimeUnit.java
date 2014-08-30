@@ -29,16 +29,16 @@ package nl.tudelft.simulation.dsol.simtime;
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public enum TimeUnit {
-    /** UNIT reflects the non actual time related unit */
+    /** UNIT reflects the non actual time related unit. */
     UNIT(1.0, "units", "u"),
 
     /** MILLISECOND reflects the MILLISECONDS */
     MILLISECOND(1.0, "milliseconds", "ms"),
 
-    /** SECOND reflects the SECOND */
+    /** SECOND reflects the SECONd. */
     SECOND(1000.0, "seconds", "s"),
 
-    /** MINUTE reflects the MINUTE */
+    /** MINUTE reflects the MINUTe. */
     MINUTE(60000.0, "minutes", "m"),
 
     /** HOUR reflects the HOUR */
@@ -53,13 +53,13 @@ public enum TimeUnit {
     /** YEAR reflects the YEAR */
     YEAR(365.0 * 24.0 * 60000.0 * 60.0, "years", "y");
 
-    /** conversion factor to msec */
+    /** conversion factor to msec. */
     private final double factor;
 
-    /** name for reporting */
+    /** name for reporting. */
     private final String name;
 
-    /** abbreviation for reporting */
+    /** abbreviation for reporting. */
     private final String abbreviation;
 
     /**

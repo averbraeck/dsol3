@@ -49,7 +49,7 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class OutputPort<T> implements OutputPortInterface<T>
 {
-    /** The model to which the port links */
+    /** The model to which the port links. */
     private AbstractDEVSModel model;
 
     /**

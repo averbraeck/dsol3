@@ -1,9 +1,3 @@
-/*
- * @(#) JStatsTestSuite.java Aug 26, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.jstats;
 
 import junit.framework.Test;
@@ -23,12 +17,12 @@ import nl.tudelft.simulation.jstats.streams.StreamTest;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:41 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public final class JStatsTestSuite
 {
     /**
-     * constructs a new JStatsTestSuite
+     * constructs a new JStatsTestSuite.
      */
     private JStatsTestSuite()
     {

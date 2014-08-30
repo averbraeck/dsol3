@@ -1,9 +1,3 @@
-/*
- * @(#)StationInterface.java Feb 1, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.rmi.RemoteException;
@@ -26,22 +20,22 @@ import nl.tudelft.simulation.logger.Logger;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @since 1.5
  */
 public class Seize extends Station implements ResourceRequestorInterface
 {
-    /** QUEUE_LENGTH_EVENT is fired when the queue length is changed */
+    /** QUEUE_LENGTH_EVENT is fired when the queue length is changed. */
     public static final EventType QUEUE_LENGTH_EVENT = new EventType("QUEUE_QUEUE_LENGTH_EVENTLENGTH_EVENT");
 
-    /** DELAY_TIME is fired when a new delayTime is computed */
+    /** DELAY_TIME is fired when a new delayTime is computed. */
     public static final EventType DELAY_TIME = new EventType("DELAY_TIME");
 
-    /** queue refers to the list of waiting requestors */
+    /** queue refers to the list of waiting requestors. */
     private List<Request> queue = Collections.synchronizedList(new ArrayList<Request>());
 
-    /** requestedCapacity is the amount of resource requested on the resource */
+    /** requestedCapacity is the amount of resource requested on the resource. */
     private double requestedCapacity = Double.NaN;
 
     /**
@@ -92,7 +86,7 @@ public class Seize extends Station implements ResourceRequestorInterface
         }
         try
         {
-            this.fireEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
+            this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
             this.resource.requestCapacity(requestedCapacity, this);
         }
         catch (Exception exception)
@@ -101,9 +95,7 @@ public class Seize extends Station implements ResourceRequestorInterface
         }
     }
 
-    /**
-     * @see StationInterface#receiveObject(Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public void receiveObject(final Object object) throws RemoteException
     {
@@ -128,10 +120,7 @@ public class Seize extends Station implements ResourceRequestorInterface
         return this.queue;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface #receiveRequestedResource(double,
-     *      nl.tudelft.simulation.dsol.formalisms.Resource)
-     */
+    /** {@inheritDoc} */
     public void receiveRequestedResource(final double requestedCapacity, final Resource resource)
             throws RemoteException
     {
@@ -143,7 +132,7 @@ public class Seize extends Station implements ResourceRequestorInterface
                 {
                     this.queue.remove(request);
                 }
-                this.fireEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
+                this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
                 // TODO: R delay = (this.simulator.getSimulatorTime().minus(request.getCreationTime()));
                 // TODO: this.fireEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime());
                 this.releaseObject(request.getEntity());
@@ -157,13 +146,13 @@ public class Seize extends Station implements ResourceRequestorInterface
      */
     public static class Request
     {
-        /** amount is the requested amount */
+        /** amount is the requested amount. */
         private final double amount;
 
-        /** entity is the object requesting the amount */
+        /** entity is the object requesting the amount. */
         private final Object entity;
 
-        /** creationTime refers to the moment the request was created */
+        /** creationTime refers to the moment the request was created. */
         private final SimTime<?, ?, ?> creationTime;
 
         /**

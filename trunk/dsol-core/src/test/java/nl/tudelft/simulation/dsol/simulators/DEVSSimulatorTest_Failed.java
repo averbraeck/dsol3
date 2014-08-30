@@ -1,9 +1,3 @@
-/*
- * @(#) DEVSSimulatorTest.java Sep 4, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.simulators;
 
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
@@ -16,22 +10,20 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 2.0 21.09.2003 <br>
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class DEVSSimulatorTest_Failed extends SimulatorTest_NotCorrect
 {
     /**
-     * constructs a new DEVSSimulatorTest
+     * constructs a new DEVSSimulatorTest.
      */
     public DEVSSimulatorTest_Failed()
     {
         super(new DEVSSimulator());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorTest_NotCorrect#test()
-     */
+    /** {@inheritDoc} */
     @Override
     public void test()
     {

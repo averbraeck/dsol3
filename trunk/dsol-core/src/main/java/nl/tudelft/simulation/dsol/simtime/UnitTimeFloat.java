@@ -43,28 +43,21 @@ public class UnitTimeFloat extends UnitTime<Float, UnitTimeFloat>
         super(time, unit);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.UnitTime#compareTo(nl.tudelft.simulation.dsol.simtime.UnitTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(final UnitTimeFloat unitTime)
     {
         return Double.compare(this.timeMsec, unitTime.getTimeMsec());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.UnitTime#convertToMsec(java.lang.Number,
-     *      nl.tudelft.simulation.dsol.simtime.TimeUnit)
-     */
+    /** {@inheritDoc} */
     @Override
     protected Float convertToMsec(final Float time, final TimeUnit timeUnit)
     {
         return (float) (time * (timeUnit.getFactor() / TimeUnit.MILLISECOND.getFactor()));
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.UnitTime#getTime()
-     */
+    /** {@inheritDoc} */
     @Override
     public Float getTime()
     {

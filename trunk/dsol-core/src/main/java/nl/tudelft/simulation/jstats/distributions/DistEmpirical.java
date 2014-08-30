@@ -1,9 +1,3 @@
-/*
- * @(#) DistEmpirical.java Nov 1, 2004 Copyright (c) 2004 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * The code is published under the General Public License
- */
 package nl.tudelft.simulation.jstats.distributions;
 
 import java.util.List;
@@ -20,7 +14,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
- * @author <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:53 $
  * @since 1.5
  */
@@ -30,7 +24,7 @@ public class DistEmpirical extends DistContinuous
     private ObservationsInterface observations = null;
 
     /**
-     * constructs a new DistEmpirical
+     * constructs a new DistEmpirical.
      * @param stream the stream to use
      * @param observations the observations underlying this empirical distribution. The observations do not need to be
      *            sorted. Double observations are allowed and are used.
@@ -42,7 +36,7 @@ public class DistEmpirical extends DistContinuous
     }
 
     /**
-     * constructs a new DistEmpirical
+     * constructs a new DistEmpirical.
      * @param stream the stream to use
      * @param observations the observations underlying this empirical distribution. The observations do not need to be
      *            sorted. Double observations are allowed and are used.
@@ -54,7 +48,7 @@ public class DistEmpirical extends DistContinuous
     }
 
     /**
-     * constructs a new DistEmpirical
+     * constructs a new DistEmpirical.
      * @param stream the stream to use
      * @param observations the observations underlying this empirical distribution. The observations do not need to be
      *            sorted. Double observations are allowed and are used.
@@ -65,7 +59,7 @@ public class DistEmpirical extends DistContinuous
     }
 
     /**
-     * constructs a new DistEmpirical
+     * constructs a new DistEmpirical.
      * @param stream the stream to use
      * @param observations the observations underlying this empirical distribution. The observations do not need to be
      *            sorted. Double observations are allowed and are used.
@@ -78,9 +72,7 @@ public class DistEmpirical extends DistContinuous
         this.observations = new Observations(observations, cummulative);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistContinuous#draw()
-     */
+    /** {@inheritDoc} */
     @Override
     public double draw()
     {
@@ -125,9 +117,7 @@ public class DistEmpirical extends DistContinuous
         return +xi + (p - i + 1) * (this.observations.get(i).getObservation().doubleValue() - xi);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistContinuous#probDensity(double)
-     */
+    /** {@inheritDoc} */
     @Override
     public double probDensity(final double observation)
     {

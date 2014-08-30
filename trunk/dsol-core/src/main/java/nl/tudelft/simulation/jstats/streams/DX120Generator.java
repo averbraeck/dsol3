@@ -1,9 +1,3 @@
-/*
- * @(#) DX120Generator.java Mar 19, 2004 Copyright (c) 2004 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.streams;
 
 /**
@@ -15,31 +9,31 @@ package nl.tudelft.simulation.jstats.streams;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
  */
 public class DX120Generator extends RandomNumberGenerator
 {
-    /** the k value of the DX-120 Generator */
+    /** the k value of the DX-120 Generator. */
     private static final int K = 120;
 
     /** the mask value 2^31-1 (or 1 < < 31)-1 */
     private static final int MASK = Integer.MAX_VALUE;
 
-    /** the LCG multiplier */
+    /** the LCG multiplier. */
     private static final int MULTIPLIER = 16807;
 
-    /** the buffer for this generator */
+    /** the buffer for this generator. */
     private int[] buffer = null;
 
-    /** indexing attributes */
+    /** indexing attributes. */
     private int index;
 
-    /** indexing attributes */
+    /** indexing attributes. */
     private int k13;
 
-    /** indexing attributes */
+    /** indexing attributes. */
     private int k23;
 
     /**
@@ -51,7 +45,7 @@ public class DX120Generator extends RandomNumberGenerator
     }
 
     /**
-     * constructs a new LC48Generator
+     * constructs a new LC48Generator.
      * @param seed the seed
      */
     public DX120Generator(final long seed)
@@ -86,9 +80,7 @@ public class DX120Generator extends RandomNumberGenerator
         this.k23 = K - 2 * K / 3 - 1; // (k23 = 39)
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.streams.RandomNumberGenerator#next(int)
-     */
+    /** {@inheritDoc} */
     @Override
     protected synchronized long next(final int bits)
     {
@@ -119,9 +111,7 @@ public class DX120Generator extends RandomNumberGenerator
         return (this.buffer[this.index]) << 32 + this.next(bits - 32);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.streams.StreamInterface#setSeed(long)
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized void setSeed(final long seed)
     {

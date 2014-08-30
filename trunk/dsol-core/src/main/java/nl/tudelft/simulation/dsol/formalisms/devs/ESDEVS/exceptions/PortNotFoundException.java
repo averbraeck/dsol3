@@ -42,7 +42,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS.exceptions;
 public class PortNotFoundException extends Exception
 {
 
-    /** the default serial version UID */
+    /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
 
     /**

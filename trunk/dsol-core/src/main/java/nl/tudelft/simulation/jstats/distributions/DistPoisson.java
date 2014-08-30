@@ -1,9 +1,3 @@
-/*
- * @(#)DistPoisson.java Apr 3, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.distributions;
 
 import nl.tudelft.simulation.jstats.math.ProbMath;
@@ -20,20 +14,20 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version 1.8 2004-03-22
  * @since 1.5
  */
 public class DistPoisson extends DistDiscrete
 {
-    /** lambda is the lambda parameter */
+    /** lambda is the lambda parameter. */
     private double lambda;
 
-    /** expl is a helper variable */
+    /** expl is a helper variable. */
     private double expl;
 
     /**
-     * constructs a new poisson distribution
+     * constructs a new poisson distribution.
      * @param stream the numberstream
      * @param lambda the lambda parameter
      */
@@ -51,9 +45,7 @@ public class DistPoisson extends DistDiscrete
         this.expl = Math.exp(-this.lambda);
     }
 
-    /**
-     * @see DistDiscrete#draw()
-     */
+    /** {@inheritDoc} */
     @Override
     public long draw()
     {
@@ -70,9 +62,7 @@ public class DistPoisson extends DistDiscrete
         return x;
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistDiscrete #probability(int)
-     */
+    /** {@inheritDoc} */
     @Override
     public double probability(final int observation)
     {
@@ -83,9 +73,7 @@ public class DistPoisson extends DistDiscrete
         return 0;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

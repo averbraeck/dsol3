@@ -1,9 +1,3 @@
-/*
- * @(#)Simulator.java Aug 18, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.IOException;
@@ -20,7 +14,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
-import nl.tudelft.simulation.dsol.simtime.SimTimeEventProducer;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
@@ -28,7 +21,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
-import nl.tudelft.simulation.event.Event;
+import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.jstats.statistics.StatisticsObject;
 import nl.tudelft.simulation.language.concurrent.WorkerThread;
 
@@ -40,7 +33,7 @@ import nl.tudelft.simulation.language.concurrent.WorkerThread;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -49,28 +42,28 @@ import nl.tudelft.simulation.language.concurrent.WorkerThread;
  * @since 1.5
  */
 public abstract class Simulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends SimTimeEventProducer implements SimulatorInterface<A, R, T>, Runnable
+        extends EventProducer implements SimulatorInterface<A, R, T>, Runnable
 {
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** simulatorTime represents the simulationTime */
+    /** simulatorTime represents the simulationTime. */
     protected T simulatorTime;
 
-    /** running represents the binary state of the simulator */
+    /** running represents the binary state of the simulator. */
     protected transient boolean running = false;
 
-    /** replication represents the currently active replication */
+    /** replication represents the currently active replication. */
     protected Replication<A, R, T> replication = null;
 
-    /** a worker */
+    /** a worker. */
     protected transient WorkerThread worker = null;
 
-    /** the simulatorSemaphore */
+    /** the simulatorSemaphore. */
     protected transient Object semaphore = new Object();
 
     /**
-     * constructs a new Simulator
+     * constructs a new Simulator.
      */
     public Simulator()
     {
@@ -78,25 +71,19 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         this.worker = new WorkerThread(this.getClass().getName(), this);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface #getSimulatorTime()
-     */
+    /** {@inheritDoc} */
     public T getSimulatorTime()
     {
         return this.simulatorTime;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface #getReplication()
-     */
+    /** {@inheritDoc} */
     public Replication<A, R, T> getReplication()
     {
         return this.replication;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface #initialize(Replication,short)
-     */
+    /** {@inheritDoc} */
     public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
             throws RemoteException, SimRuntimeException
     {
@@ -113,14 +100,12 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             this.removeAllListeners(StatisticsObject.class);
             this.replication = initReplication;
             this.simulatorTime = initReplication.getTreatment().getStartTime().copy();
-            this.fireEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime);
-            this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface#isRunning()
-     */
+    /** {@inheritDoc} */
     public boolean isRunning()
     {
         return this.running;
@@ -133,9 +118,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
      */
     public abstract void run();
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface#start()
-     */
+    /** {@inheritDoc} */
     public void start() throws SimRuntimeException
     {
         if (this.isRunning())
@@ -153,8 +136,8 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         synchronized (this.semaphore)
         {
             this.running = true;
-            this.fireEvent(START_EVENT, null);
-            this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireEvent(START_EVENT);
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
             if (!Thread.currentThread().getName().equals(this.worker.getName()))
             {
                 this.worker.interrupt();
@@ -166,9 +149,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface#step()
-     */
+    /** {@inheritDoc} */
     public void step() throws SimRuntimeException
     {
         if (this.isRunning())
@@ -183,12 +164,10 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         {
             throw new SimRuntimeException("Cannot step simulator: " + "SimulatorTime = runControl.runLength");
         }
-        this.fireEvent(SimulatorInterface.STEP_EVENT, null);
+        this.fireEvent(SimulatorInterface.STEP_EVENT);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface#stop()
-     */
+    /** {@inheritDoc} */
     public void stop()
     {
         if (this.isRunning())
@@ -196,9 +175,9 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             this.running = false;
             if (this.simulatorTime.ge(this.getReplication().getTreatment().getEndTime()))
             {
-                this.fireEvent(new Event(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime));
+                this.fireTimedEvent(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime);
             }
-            this.fireEvent(SimulatorInterface.STOP_EVENT, null);
+            this.fireEvent(SimulatorInterface.STOP_EVENT);
         }
     }
 
@@ -239,7 +218,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class Simulator.Double */
+    /** Easy access class Simulator.Double. */
     public static abstract class Double extends Simulator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
             SimulatorInterface.Double
     {
@@ -247,7 +226,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.Float */
+    /** Easy access class Simulator.Float. */
     public static abstract class Float extends Simulator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
             SimulatorInterface.Float
     {
@@ -255,7 +234,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.Long */
+    /** Easy access class Simulator.Long. */
     public static abstract class Long extends Simulator<java.lang.Long, java.lang.Long, SimTimeLong> implements
             SimulatorInterface.Long
     {
@@ -263,7 +242,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.DoubleUnit */
+    /** Easy access class Simulator.DoubleUnit. */
     public static abstract class DoubleUnit extends Simulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
             implements SimulatorInterface.DoubleUnit
     {
@@ -271,7 +250,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.FloatUnit */
+    /** Easy access class Simulator.FloatUnit. */
     public static abstract class FloatUnit extends Simulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
             SimulatorInterface.FloatUnit
     {
@@ -279,7 +258,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.LongUnit */
+    /** Easy access class Simulator.LongUnit. */
     public static abstract class LongUnit extends Simulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
             SimulatorInterface.LongUnit
     {
@@ -287,7 +266,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.CalendarDouble */
+    /** Easy access class Simulator.CalendarDouble. */
     public static abstract class CalendarDouble extends Simulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
             implements SimulatorInterface.CalendarDouble
     {
@@ -295,7 +274,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.CalendarFloat */
+    /** Easy access class Simulator.CalendarFloat. */
     public static abstract class CalendarFloat extends Simulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
             implements SimulatorInterface.CalendarFloat
     {
@@ -303,7 +282,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.CalendarLong */
+    /** Easy access class Simulator.CalendarLong. */
     public static abstract class CalendarLong extends Simulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
             SimulatorInterface.CalendarLong
     {

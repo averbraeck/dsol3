@@ -33,7 +33,7 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** value represents the value in milliseconds */
+    /** value represents the value in milliseconds. */
     private UnitTimeFloat time;
 
     /**
@@ -44,27 +44,21 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
         super(new UnitTimeFloat(time.getTime(), time.getUnit()));
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#add(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void add(UnitTimeFloat simTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() + simTime.getTimeMsec());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#subtract(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void subtract(final UnitTimeFloat simTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() - simTime.getTimeMsec());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public UnitTimeFloat minus(final SimTimeFloatUnit absoluteTime)
     {
@@ -73,18 +67,14 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
         return ret;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#compareTo(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(SimTimeFloatUnit simTime)
     {
         return this.time.compareTo(simTime.get());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#setZero()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeFloatUnit setZero()
     {
@@ -92,27 +82,21 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
         return this;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#copy()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeFloatUnit copy()
     {
         return new SimTimeFloatUnit(new UnitTimeFloat(this.time.getTime(), this.time.getUnit()));
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void set(UnitTimeFloat value)
     {
         this.time = new UnitTimeFloat(value.getTime(), value.getUnit());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#get()
-     */
+    /** {@inheritDoc} */
     @Override
     public UnitTimeFloat get()
     {

@@ -56,7 +56,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** the wrapped distribution */
+    /** the wrapped distribution. */
     protected final DistContinuous wrappedDistribution;
 
     /**
@@ -89,7 +89,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class DistContinuousSimTime.Double */
+    /** Easy access class DistContinuousSimTime.Double. */
     public static class Double extends DistContinuousSimTime<java.lang.Double, java.lang.Double, SimTimeDouble>
     {
         /** */
@@ -103,9 +103,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             super(wrappedDistribution);
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeDouble draw()
         {
@@ -113,7 +111,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         }
     }
 
-    /** Easy access class DistContinuousSimTime.Float */
+    /** Easy access class DistContinuousSimTime.Float. */
     public static class Float extends DistContinuousSimTime<java.lang.Float, java.lang.Float, SimTimeFloat>
     {
         /** */
@@ -127,9 +125,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             super(wrappedDistribution);
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeFloat draw()
         {
@@ -137,7 +133,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         }
     }
 
-    /** Easy access class DistContinuousSimTime.Long */
+    /** Easy access class DistContinuousSimTime.Long. */
     public static class Long extends DistContinuousSimTime<java.lang.Long, java.lang.Long, SimTimeLong>
     {
         /** */
@@ -151,9 +147,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             super(wrappedDistribution);
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeLong draw()
         {
@@ -161,13 +155,13 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         }
     }
 
-    /** Easy access class DistContinuousSimTime.DoubleUnit */
+    /** Easy access class DistContinuousSimTime.DoubleUnit. */
     public static class DoubleUnit extends DistContinuousSimTime<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -180,9 +174,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeDoubleUnit draw()
         {
@@ -190,13 +182,13 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         }
     }
 
-    /** Easy access class DistContinuousSimTime.FloatUnit */
+    /** Easy access class DistContinuousSimTime.FloatUnit. */
     public static class FloatUnit extends DistContinuousSimTime<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -209,9 +201,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeFloatUnit draw()
         {
@@ -219,13 +209,13 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         }
     }
 
-    /** Easy access class DistContinuousSimTime.LongUnit */
+    /** Easy access class DistContinuousSimTime.LongUnit. */
     public static class LongUnit extends DistContinuousSimTime<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -238,9 +228,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeLongUnit draw()
         {
@@ -248,13 +236,13 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         }
     }
 
-    /** Easy access class DistContinuousSimTime.CalendarDouble */
+    /** Easy access class DistContinuousSimTime.CalendarDouble. */
     public static class CalendarDouble extends DistContinuousSimTime<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -267,9 +255,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeCalendarDouble draw()
         {
@@ -278,13 +264,13 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         }
     }
 
-    /** Easy access class DistContinuousSimTime.CalendarFloat */
+    /** Easy access class DistContinuousSimTime.CalendarFloat. */
     public static class CalendarFloat extends DistContinuousSimTime<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -297,9 +283,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeCalendarFloat draw()
         {
@@ -308,13 +292,13 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         }
     }
 
-    /** Easy access class DistContinuousSimTime.CalendarLong */
+    /** Easy access class DistContinuousSimTime.CalendarLong. */
     public static class CalendarLong extends DistContinuousSimTime<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -327,9 +311,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimTimeCalendarLong draw()
         {

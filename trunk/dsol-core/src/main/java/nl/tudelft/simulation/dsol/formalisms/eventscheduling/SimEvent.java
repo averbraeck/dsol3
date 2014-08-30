@@ -1,9 +1,3 @@
-/*
- * @(#)SimEvent.java Feb 1, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 
 import java.lang.reflect.Constructor;
@@ -23,7 +17,7 @@ import nl.tudelft.simulation.language.reflection.ClassUtil;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:36:43 $
  * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
@@ -33,16 +27,16 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /** */
     private static final long serialVersionUID = 20140804L;
 
-    /** source reflects the source that created the simevent */
+    /** source reflects the source that created the simevent. */
     protected Object source = null;
 
-    /** target reflects the target on which a state change is scheduled */
+    /** target reflects the target on which a state change is scheduled. */
     protected Object target = null;
 
-    /** method is the method which embodies the state change */
+    /** method is the method which embodies the state change. */
     protected String methodName = null;
 
-    /** args are the arguments which are used to invoke the method with */
+    /** args are the arguments which are used to invoke the method with. */
     protected Object[] args = null;
 
     /**
@@ -82,9 +76,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
         this.args = args;
     }
 
-    /**
-     * @see SimEventInterface#execute()
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized void execute() throws SimRuntimeException
     {
@@ -155,9 +147,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
         return this.target;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

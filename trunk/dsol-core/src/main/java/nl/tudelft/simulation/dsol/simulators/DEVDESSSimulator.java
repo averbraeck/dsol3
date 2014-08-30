@@ -1,9 +1,3 @@
-/*
- * @(#)AnimatorInterface.java Aug 18, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
@@ -32,7 +26,7 @@ import nl.tudelft.simulation.logger.Logger;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -46,7 +40,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** timeStep represents the timestep of the DESS simulator */
+    /** timeStep represents the timestep of the DESS simulator. */
     protected R timeStep;
 
     /**
@@ -59,17 +53,13 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         setTimeStep(initialTimeStep);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface #getTimeStep()
-     */
+    /** {@inheritDoc} */
     public R getTimeStep()
     {
         return this.timeStep;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface #setTimeStep(double)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setTimeStep(final R timeStep)
     {
@@ -81,9 +71,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.DEVSSimulator#run()
-     */
+    /** {@inheritDoc} */
     @Override
     public void run()
     {
@@ -98,7 +86,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
-                    this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
                     try
                     {
                         event.execute();
@@ -112,7 +100,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
                 {
                     this.simulatorTime = runUntil;
                 }
-                this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
             }
         }
     }
@@ -121,7 +109,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class DEVDESSSimulator.Double */
+    /** Easy access class DEVDESSSimulator.Double. */
     public static class Double extends DEVDESSSimulator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
             DEVDESSSimulatorInterface.Double
     {
@@ -137,7 +125,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class DEVDESSSimulator.Float */
+    /** Easy access class DEVDESSSimulator.Float. */
     public static class Float extends DEVDESSSimulator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
             DEVDESSSimulatorInterface.Float
     {
@@ -153,7 +141,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class DEVDESSSimulator.Long */
+    /** Easy access class DEVDESSSimulator.Long. */
     public static class Long extends DEVDESSSimulator<java.lang.Long, java.lang.Long, SimTimeLong> implements
             DEVDESSSimulatorInterface.Long
     {
@@ -169,7 +157,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class DEVDESSSimulator.DoubleUnit */
+    /** Easy access class DEVDESSSimulator.DoubleUnit. */
     public static class DoubleUnit extends DEVDESSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
             implements DEVDESSSimulatorInterface.DoubleUnit
     {
@@ -185,7 +173,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class DEVDESSSimulator.FloatUnit */
+    /** Easy access class DEVDESSSimulator.FloatUnit. */
     public static class FloatUnit extends DEVDESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
             DEVDESSSimulatorInterface.FloatUnit
     {
@@ -201,7 +189,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class DEVDESSSimulator.LongUnit */
+    /** Easy access class DEVDESSSimulator.LongUnit. */
     public static class LongUnit extends DEVDESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
             DEVDESSSimulatorInterface.LongUnit
     {
@@ -217,7 +205,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class DEVDESSSimulator.CalendarDouble */
+    /** Easy access class DEVDESSSimulator.CalendarDouble. */
     public static class CalendarDouble extends DEVDESSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
             implements DEVDESSSimulatorInterface.CalendarDouble
     {
@@ -233,7 +221,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class DEVDESSSimulator.CalendarFloat */
+    /** Easy access class DEVDESSSimulator.CalendarFloat. */
     public static class CalendarFloat extends DEVDESSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
             DEVDESSSimulatorInterface.CalendarFloat
     {
@@ -249,7 +237,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class DEVDESSSimulator.CalendarLong */
+    /** Easy access class DEVDESSSimulator.CalendarLong. */
     public static class CalendarLong extends DEVDESSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
             DEVDESSSimulatorInterface.CalendarLong
     {

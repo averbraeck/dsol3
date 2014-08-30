@@ -1,9 +1,3 @@
-/*
- * @(#)Tally.java Apr 3, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.statistics;
 
 import javax.swing.table.TableModel;
@@ -22,7 +16,7 @@ import nl.tudelft.simulation.jstats.streams.MersenneTwister;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
  */
@@ -31,7 +25,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** SAMPLE_MEAN_EVENT is fired whenever the sample mean is updated */
+    /** SAMPLE_MEAN_EVENT is fired whenever the sample mean is updated. */
     public static final EventType SAMPLE_MEAN_EVENT = new EventType("SAMPLE_MEAN_EVENT");
 
     /**
@@ -39,28 +33,28 @@ public class Tally extends StatisticsObject implements EventListenerInterface
      */
     public static final EventType SAMPLE_VARIANCE_EVENT = new EventType("SAMPLE_VARIANCE_EVENT");
 
-    /** MIN_EVENT is fired whenever a new minimum value has reached */
+    /** MIN_EVENT is fired whenever a new minimum value has reached. */
     public static final EventType MIN_EVENT = new EventType("MIN_EVENT");
 
-    /** MAX_EVENT is fired whenever a new maximum value has reached */
+    /** MAX_EVENT is fired whenever a new maximum value has reached. */
     public static final EventType MAX_EVENT = new EventType("MAX_EVENT");
 
-    /** N_EVENT is fired whenever on a change in measurements */
+    /** N_EVENT is fired whenever on a change in measurements. */
     public static final EventType N_EVENT = new EventType("N_EVENT");
 
-    /** STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is updated */
+    /** STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is updated. */
     public static final EventType STANDARD_DEVIATION_EVENT = new EventType("STANDARD_DEVIATION_EVENT");
 
-    /** SUM_EVENT is fired whenever the sum sis updated */
+    /** SUM_EVENT is fired whenever the sum sis updated. */
     public static final EventType SUM_EVENT = new EventType("SUM_EVENT");
 
-    /** LEFT_SIDE_CONFIDENCE refers to the left side confidence */
+    /** LEFT_SIDE_CONFIDENCE refers to the left side confidence. */
     public static final short LEFT_SIDE_CONFIDENCE = -1;
 
-    /** BOTH_SIDE_CONFIDENCE refers to both sides of the confidence */
+    /** BOTH_SIDE_CONFIDENCE refers to both sides of the confidence. */
     public static final short BOTH_SIDE_CONFIDENCE = 0;
 
-    /** RIGTH_SIDE_CONFIDENCE refers to the right side confidence */
+    /** RIGTH_SIDE_CONFIDENCE refers to the right side confidence. */
     public static final short RIGTH_SIDE_CONFIDENCE = 1;
 
     /** sum refers to the sum of the tally */
@@ -95,11 +89,11 @@ public class Tally extends StatisticsObject implements EventListenerInterface
      */
     private DistNormal confidenceDistribution = new DistNormal(new MersenneTwister());
 
-    /** the semaphore */
+    /** the semaphore. */
     protected Object semaphore = new Object();
 
     /**
-     * Constructs a new Tally
+     * Constructs a new Tally.
      * @param description the description of this tally
      */
     public Tally(final String description)
@@ -250,9 +244,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.statistics.StatisticsObject#getTable()
-     */
+    /** {@inheritDoc} */
     @Override
     public TableModel getTable()
     {
@@ -315,9 +307,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
         return !Double.isNaN(this.max);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public void notify(final EventInterface event)
     {
         if (!(event.getContent() instanceof Number))
@@ -355,9 +345,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
         }
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

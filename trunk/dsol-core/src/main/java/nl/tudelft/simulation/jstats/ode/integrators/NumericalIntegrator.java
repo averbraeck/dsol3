@@ -1,9 +1,3 @@
-/*
- * @(#) NumericalIntegrator.java Apr 20, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.jstats.ode.integrators;
 
 import java.io.Serializable;
@@ -18,40 +12,40 @@ import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
  * @since 1.5
  */
 public abstract class NumericalIntegrator implements Serializable
 {
-    /** Euler's integration */
+    /** Euler's integration. */
     public static final short EULER = 0;
 
-    /** Heun's integration */
+    /** Heun's integration. */
     public static final short HEUN = 1;
 
-    /** RungeKutta's (3rd level) integration */
+    /** RungeKutta's (3rd level) integration. */
     public static final short RUNGEKUTTA3 = 2;
 
-    /** RungeKutta's (4th level) integration */
+    /** RungeKutta's (4th level) integration. */
     public static final short RUNGEKUTTA4 = 3;
 
-    /** Adam's integration */
+    /** Adam's integration. */
     public static final short ADAMS = 4;
 
-    /** Gill's integration */
+    /** Gill's integration. */
     public static final short GILL = 5;
 
-    /** Milne's integration */
+    /** Milne's integration. */
     public static final short MILNE = 6;
 
-    /** Runge-Kutta-Fehlberg integration */
+    /** Runge-Kutta-Fehlberg integration. */
     public static final short RUNGEKUTTAFEHLBERG = 7;
 
-    /** Runge-Kutta-Cash-Carp integration */
+    /** Runge-Kutta-Cash-Carp integration. */
     public static final short RUNGEKUTTACASHCARP = 8;
 
-    /** The default integrator */
+    /** The default integrator. */
     public static final short DEFAULT_INTEGRATOR = NumericalIntegrator.RUNGEKUTTA4;
 
     /**
@@ -88,17 +82,17 @@ public abstract class NumericalIntegrator implements Serializable
         }
     }
 
-    /** the timeStep to use */
+    /** the timeStep to use. */
     protected double timeStep = Double.NaN;
 
-    /** the calculated error of the last step */
+    /** the calculated error of the last step. */
     protected double[] error = null;
 
-    /** the equation to integrate */
+    /** the equation to integrate. */
     protected DifferentialEquationInterface equation = null;
 
     /**
-     * constructs a new NumericalIntegrator
+     * constructs a new NumericalIntegrator.
      * @param timeStep the timeStep
      * @param equation the differentialEquation
      */

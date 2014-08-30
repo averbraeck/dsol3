@@ -1,12 +1,3 @@
-/*
- * @(#)AbstractEntity.java Oct 21, 2009
- * 
- * Copyright (c) 2003, 2004 Delft University of Technology Jaffalaan 5, 
- * 2628 BX Delft, the Netherlands All rights reserved.
- * 
- * This software is proprietary information of Delft University of Technology
- * The code is published under the General Public License
- */
 package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -52,7 +43,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  */
 public class AbstractEntity extends AbstractDEVSModel
 {
-    /** the default serial version UID */
+    /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
 
     /**

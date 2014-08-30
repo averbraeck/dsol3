@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -44,7 +45,7 @@ import nl.tudelft.simulation.event.ref.Reference;
  */
 public abstract class CoupledModel extends AbstractDEVSPortModel
 {
-    /** the default serialVersionUID */
+    /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
 
     /** the internal couplings (from internal models to internal models) */
@@ -60,7 +61,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      */
     protected Set<EIC<?>> externalInputCouplingSet = new HashSet<EIC<?>>();
 
-    /** the models within this coupled model */
+    /** the models within this coupled model. */
     protected Set<AbstractDEVSModel> modelComponents = new HashSet<AbstractDEVSModel>();
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -280,7 +281,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     {
         this.modelComponents.add(model);
 
-        Reference<EventListenerInterface>[] elis = this.listeners.get(AbstractDEVSModel.STATE_UPDATE);
+        List<Reference<EventListenerInterface>> elis = this.listeners.get(AbstractDEVSModel.STATE_UPDATE);
 
         if (elis == null)
         {

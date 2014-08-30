@@ -1,9 +1,3 @@
-/*
- * @(#) StaticLocation.java Mar 4, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.dsol.animation;
 
 import java.awt.geom.Point2D;
@@ -20,11 +14,11 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class StaticLocation extends DirectedPoint implements LocatableInterface
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -33,7 +27,7 @@ public class StaticLocation extends DirectedPoint implements LocatableInterface
     protected Bounds bounds = null;
 
     /**
-     * constructs a new StaticLocation
+     * constructs a new StaticLocation.
      * @param x the x location
      * @param y the y location
      * @param z the z location
@@ -50,7 +44,7 @@ public class StaticLocation extends DirectedPoint implements LocatableInterface
     }
 
     /**
-     * constructs a new StaticLocation
+     * constructs a new StaticLocation.
      * @param point2D the point2d
      * @param rotZ the rotation in the xy plane
      * @param bounds the bounds
@@ -62,7 +56,7 @@ public class StaticLocation extends DirectedPoint implements LocatableInterface
     }
 
     /**
-     * constructs a new StaticLocation
+     * constructs a new StaticLocation.
      * @param location the location
      * @param bounds the bounds
      */
@@ -72,17 +66,13 @@ public class StaticLocation extends DirectedPoint implements LocatableInterface
         this.bounds = bounds;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.LocatableInterface #getLocation()
-     */
+    /** {@inheritDoc} */
     public DirectedPoint getLocation()
     {
         return this;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.LocatableInterface #getBounds()
-     */
+    /** {@inheritDoc} */
     public Bounds getBounds()
     {
         return this.bounds;
