@@ -1,9 +1,3 @@
-/*
- * @(#)AbstractXMLParser.java Jun 27, 2004 Copyright (c) 2002-2005, 2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.xml;
 
@@ -39,16 +33,16 @@ import org.xml.sax.helpers.XMLReaderFactory;
  */
 public abstract class AbstractXMLParser
 {
-    /** schema validation on/off */
+    /** schema validation on/off. */
     private boolean validateSchema;
 
-    /** the URL of the file to parse */
+    /** the URL of the file to parse. */
     private URL url;
 
-    /** the URL of the schema file */
+    /** the URL of the schema file. */
     private URL schema;
 
-    /** the namespace of the schema */
+    /** the namespace of the schema. */
     private String schemaNamespace;
 
     /**
@@ -142,26 +136,20 @@ public abstract class AbstractXMLParser
                     + exception.getColumnNumber();
         }
 
-        /**
-         * @see org.xml.sax.ErrorHandler#warning(org.xml.sax.SAXParseException)
-         */
+        /** {@inheritDoc} */
         public void warning(final SAXParseException exception)
         {
             // ignore, but log
             Logger.warning(this, formatError(exception), exception);
         }
 
-        /**
-         * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
-         */
+        /** {@inheritDoc} */
         public void error(final SAXParseException e) throws SAXException
         {
             throw new SAXException(formatError(e));
         }
 
-        /**
-         * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
-         */
+        /** {@inheritDoc} */
         public void fatalError(final SAXParseException e) throws SAXException
         {
             throw new SAXException(formatError(e));
@@ -185,27 +173,20 @@ public abstract class AbstractXMLParser
         /** the fallback defaultHandler2 */
         private DefaultHandler2 defaultHandler2 = new DefaultHandler2();
 
-        /**
-         * @see org.xml.sax.ext.EntityResolver2#getExternalSubset(java.lang.String, java.lang.String)
-         */
+        /** {@inheritDoc} */
         public InputSource getExternalSubset(final String name, final String baseURI) throws SAXException, IOException
         {
             return this.defaultHandler2.getExternalSubset(name, baseURI);
         }
 
-        /**
-         * @see org.xml.sax.ext.EntityResolver2#resolveEntity(java.lang.String, java.lang.String, java.lang.String,
-         *      java.lang.String)
-         */
+        /** {@inheritDoc} */
         public InputSource resolveEntity(final String name, final String publicId, final String baseURI,
                 final String systemId) throws SAXException, IOException
         {
             return this.defaultHandler2.resolveEntity(name, publicId, baseURI, systemId);
         }
 
-        /**
-         * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
-         */
+        /** {@inheritDoc} */
         public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException
         {
             URL url;

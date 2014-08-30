@@ -1,9 +1,3 @@
-/*
- * @(#)DistributionParser.java Jun 25, 2004 Copyright (c) 2002-2005, 2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.xml.language;
 
@@ -26,11 +20,11 @@ import org.jdom2.Element;
  */
 public final class LocationParser
 {
-    /** the default schema file */
+    /** the default schema file. */
     public static final URL LOCATIONFILE_SCHEMA = LocationParser.class.getResource("/xsd/location.xsd");
 
     /**
-     * constructs a new LocationParser
+     * constructs a new LocationParser.
      */
     private LocationParser()
     {

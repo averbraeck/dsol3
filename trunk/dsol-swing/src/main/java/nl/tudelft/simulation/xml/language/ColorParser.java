@@ -1,9 +1,3 @@
-/*
- * @(#)DistributionParser.java Jun 25, 2004 Copyright (c) 2002-2005, 2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.xml.language;
 
@@ -25,11 +19,11 @@ import org.jdom2.Element;
  */
 public final class ColorParser
 {
-    /** the default mapfile */
+    /** the default mapfile. */
     public static final URL COLORFILE_SCHEMA = ColorParser.class.getResource("/xsd/color.xsd");
 
     /**
-     * constructs a new ColorParser
+     * constructs a new ColorParser.
      */
     private ColorParser()
     {

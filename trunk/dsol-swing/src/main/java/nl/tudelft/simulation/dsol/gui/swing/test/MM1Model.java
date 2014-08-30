@@ -48,35 +48,33 @@ public class MM1Model implements ModelInterface.Double
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** the simulator */
+    /** the simulator. */
     private DEVSSimulatorInterface.Double simulator;
 
     /** resource capacity */
     private int capacity = 1;
 
-    /** busy units */
+    /** busy units. */
     private int busy = 0;
 
-    /** the stream */
+    /** the stream. */
     private StreamInterface stream = new MersenneTwister();
 
-    /** interarrival time */
+    /** interarrival time. */
     private DistContinuousTime.Double interarrivalTime = new DistContinuousTime.Double(new DistExponential(this.stream,
             1.0));
 
-    /** processing time */
+    /** processing time. */
     private DistContinuousTime.Double processingTime = new DistContinuousTime.Double(new DistTriangular(this.stream,
             0.8, 0.9, 1.1));
 
-    /** queue of waiting entities */
+    /** queue of waiting entities. */
     private List<QueueEntry<Entity>> queue = new ArrayList<QueueEntry<Entity>>();
 
-    /** entity counter for id */
+    /** entity counter for id. */
     private int entityCounter = 0;
 
-    /**
-     * @see nl.tudelft.simulation.dsol.ModelInterface#constructModel(nl.tudelft.simulation.dsol.simulators.SimulatorInterface)
-     */
+    /** {@inheritDoc} */
     @Override
     public void constructModel(SimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble> _simulator)
             throws SimRuntimeException, RemoteException
@@ -142,9 +140,7 @@ public class MM1Model implements ModelInterface.Double
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.ModelInterface#getSimulator()
-     */
+    /** {@inheritDoc} */
     @Override
     public DEVSSimulatorInterface.Double getSimulator() throws RemoteException
     {
@@ -154,10 +150,10 @@ public class MM1Model implements ModelInterface.Double
     /******************************************************************************************************/
     protected class Entity
     {
-        /** time of creation for statistics */
+        /** time of creation for statistics. */
         private final SimTimeDouble createTime;
 
-        /** id number */
+        /** id number. */
         private final int id;
 
         /**
@@ -187,9 +183,7 @@ public class MM1Model implements ModelInterface.Double
             return this.id;
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        /** {@inheritDoc} */
         @Override
         public String toString()
         {
@@ -200,10 +194,10 @@ public class MM1Model implements ModelInterface.Double
     /******************************************************************************************************/
     protected class QueueEntry<E>
     {
-        /** time of queue entry for statistics */
+        /** time of queue entry for statistics. */
         private final SimTimeDouble queueInTime;
 
-        /** object in the queue */
+        /** object in the queue. */
         final E object;
 
         /**
@@ -233,9 +227,7 @@ public class MM1Model implements ModelInterface.Double
             return this.object;
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        /** {@inheritDoc} */
         @Override
         public String toString()
         {

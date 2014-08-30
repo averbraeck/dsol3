@@ -38,13 +38,13 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** the simulator */
+    /** the simulator. */
     public SimulatorInterface<A, R, T> simulator;
 
     /** */
     protected Console console = new Console();
 
-    /** the model */
+    /** the model. */
     private ModelInterface<A, R, T> model;
 
     /** */

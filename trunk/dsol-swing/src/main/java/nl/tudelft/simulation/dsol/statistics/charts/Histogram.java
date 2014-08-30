@@ -1,9 +1,3 @@
-/*
- * @(#) Histogram.java Oct 19, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.statistics.charts;
 
 import java.rmi.RemoteException;
@@ -22,13 +16,13 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:21 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.Histogram
 {
 
     /**
-     * constructs a new Histogram
+     * constructs a new Histogram.
      * @param simulator the simulator
      * @param title the title of the plot
      * @param domain the domain of the plot
@@ -51,7 +45,7 @@ public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.His
     }
 
     /**
-     * constructs a new Histogram
+     * constructs a new Histogram.
      * @param simulator the simulator
      * @param title the title
      * @param domain the domain
@@ -72,9 +66,7 @@ public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.His
         }
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

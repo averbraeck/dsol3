@@ -1,9 +1,3 @@
-/*
- * @(#) Renderable3DInterface.java May 10, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.animation.D3;
 
 /**
@@ -24,7 +18,7 @@ public interface Renderable3DInterface
      */
     int STATIC_OBJECT = 0;
 
-    /** Simulated objects are objects that move, rotate or change shape */
+    /** Simulated objects are objects that move, rotate or change shape. */
     int DYNAMIC_OBJECT = 1;
 
     /**

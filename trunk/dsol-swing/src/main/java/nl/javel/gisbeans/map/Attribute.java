@@ -1,12 +1,3 @@
-/*
- * @(#) Attribute.java Jun 22, 2004
- * 
- * Copyright (c) 2002-2009 Delft University of Technology Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved.
- * 
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.javel.gisbeans.map;
 
 /**
@@ -29,17 +20,17 @@ public class Attribute extends AbstractAttribute
     /** DEGREES */
     public static final short DEGREES = 1;
 
-    /** the angleColumn */
+    /** the angleColumn. */
     private int angleColumn = 0;
 
-    /** the valueColumn */
+    /** the valueColumn. */
     private int valueColumn = 0;
 
-    /** the mode of the angle */
+    /** the mode of the angle. */
     private short mode = RADIANS;
 
     /**
-     * constructs a new Attribute
+     * constructs a new Attribute.
      * @param layer
      * @param mode the mode (degrees or radians)
      * @param angleColumn the angleColumn
@@ -52,9 +43,7 @@ public class Attribute extends AbstractAttribute
         this.valueColumn = valueColumn;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getAngle(int)
-     */
+    /** {@inheritDoc} */
     public double getAngle(int shapeIndex)
     {
         if (this.angleColumn == -1)
@@ -78,9 +67,7 @@ public class Attribute extends AbstractAttribute
         }
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getValue(int)
-     */
+    /** {@inheritDoc} */
     public String getValue(int shapeIndex)
     {
         try

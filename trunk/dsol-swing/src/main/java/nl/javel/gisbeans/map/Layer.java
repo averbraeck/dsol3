@@ -18,199 +18,159 @@ import nl.javel.gisbeans.io.DataSourceInterface;
  */
 public class Layer implements LayerInterface
 {
-    /** the fillColor of the layer */
+    /** the fillColor of the layer. */
     private Color fillColor = new Color(255, 255, 255, 255);
 
-    /** the dataSource to use */
+    /** the dataSource to use. */
     private DataSourceInterface dataSource;
 
-    /** the maxScale */
+    /** the maxScale. */
     private int maxScale = 0;
 
-    /** the minScale */
+    /** the minScale. */
     private int minScale = Integer.MAX_VALUE;
 
-    /** the outlineColor */
+    /** the outlineColor. */
     private Color outlineColor = Color.BLACK;
 
-    /** the name of the layer */
+    /** the name of the layer. */
     private String name;
 
-    /** the status */
+    /** the status. */
     private boolean status = true;
 
-    /** whether to transform */
+    /** whether to transform. */
     private boolean transform = false;
 
-    /** the attributes of the layer */
+    /** the attributes of the layer. */
     private List attributes;
 
-    /** the symbols of the layer */
+    /** the symbols of the layer. */
     private List symbols;
 
     /**
-     * constructs a new layer
+     * constructs a new layer.
      */
     public Layer()
     {
         super();
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.LayerInterface#getSymbols()
-     */
+    /** {@inheritDoc} */
     public List getSymbols()
     {
         return this.symbols;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.LayerInterface#getAttributes()
-     */
+    /** {@inheritDoc} */
     public List getAttributes()
     {
         return this.attributes;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.LayerInterface#getAttribute(int)
-     */
+    /** {@inheritDoc} */
     public AttributeInterface getAttribute(int index)
     {
         return (AttributeInterface) this.attributes.get(index);
     }
 
-    /**
-     * @see LayerInterface#getColor()
-     */
+    /** {@inheritDoc} */
     public Color getColor()
     {
         return this.fillColor;
     }
 
-    /**
-     * @see LayerInterface#setColor(Color)
-     */
+    /** {@inheritDoc} */
     public void setColor(Color color)
     {
         this.fillColor = color;
     }
 
-    /**
-     * @see LayerInterface#getDataSource()
-     */
+    /** {@inheritDoc} */
     public DataSourceInterface getDataSource()
     {
         return this.dataSource;
     }
 
-    /**
-     * @see LayerInterface#setAttributes(List attributes)
-     */
+    /** {@inheritDoc} */
     public void setAttributes(List attributes)
     {
         this.attributes = attributes;
     }
 
-    /**
-     * @see LayerInterface#setDataSource(nl.javel.gisbeans.io.DataSourceInterface)
-     */
+    /** {@inheritDoc} */
     public void setDataSource(DataSourceInterface dataSource)
     {
         this.dataSource = dataSource;
     }
 
-    /**
-     * @see LayerInterface#getMaxScale()
-     */
+    /** {@inheritDoc} */
     public int getMaxScale()
     {
         return this.maxScale;
     }
 
-    /**
-     * @see LayerInterface#setMaxScale(int)
-     */
+    /** {@inheritDoc} */
     public void setMaxScale(int maxScale)
     {
         this.maxScale = maxScale;
     }
 
-    /**
-     * @see LayerInterface#getMinScale()
-     */
+    /** {@inheritDoc} */
     public int getMinScale()
     {
         return this.minScale;
     }
 
-    /**
-     * @see LayerInterface#setMinScale(int)
-     */
+    /** {@inheritDoc} */
     public void setMinScale(int minScale)
     {
         this.minScale = minScale;
     }
 
-    /**
-     * @see LayerInterface#getName()
-     */
+    /** {@inheritDoc} */
     public String getName()
     {
         return this.name;
     }
 
-    /**
-     * @see LayerInterface#setName(String)
-     */
+    /** {@inheritDoc} */
     public void setName(String name)
     {
         this.name = name;
     }
 
-    /**
-     * @see LayerInterface#getOutlineColor()
-     */
+    /** {@inheritDoc} */
     public Color getOutlineColor()
     {
         return this.outlineColor;
     }
 
-    /**
-     * @see LayerInterface#setOutlineColor(Color)
-     */
+    /** {@inheritDoc} */
     public void setOutlineColor(Color outlineColor)
     {
         this.outlineColor = outlineColor;
     }
 
-    /**
-     * @see LayerInterface#isStatus()
-     */
+    /** {@inheritDoc} */
     public boolean isStatus()
     {
         return this.status;
     }
 
-    /**
-     * @see LayerInterface#setStatus(boolean)
-     */
+    /** {@inheritDoc} */
     public void setStatus(boolean status)
     {
         this.status = status;
     }
 
-    /**
-     * @see LayerInterface#isTransform()
-     */
+    /** {@inheritDoc} */
     public boolean isTransform()
     {
         return this.transform;
     }
 
-    /**
-     * @see LayerInterface#setTransform(boolean)
-     */
+    /** {@inheritDoc} */
     public void setTransform(boolean transform)
     {
         this.transform = transform;

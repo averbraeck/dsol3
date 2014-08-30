@@ -1,10 +1,3 @@
-/*
- * @(#)SimulatorControlPanel.java May 4, 2014
- * 
- * Copyright (c) 2014 Delft University of Technology Jaffalaan 5, 
- * 2628 BX Delft, the Netherlands All rights reserved.
- * The code is published under the BSD License
- */
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.BorderLayout;
@@ -186,9 +179,7 @@ public class SimulatorControlPanel extends JPanel
             this.target = target;
         }
 
-        /**
-         * @see java.awt.event.ActionListener#actionPerformed(ActionEvent)
-         */
+        /** {@inheritDoc} */
         public void actionPerformed(ActionEvent e)
         {
             String actionName = "";

@@ -1,9 +1,3 @@
-/*
- * @(#) ColorInterpolation.java May 12, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.animation.interpolation;
 
 import java.awt.Color;
@@ -21,25 +15,25 @@ import java.awt.Color;
  */
 public class ColorInterpolation
 {
-    /** the origin */
+    /** the origin. */
     private Color origin = null;
 
-    /** the destination */
+    /** the destination. */
     private Color destination = null;
 
-    /** the calculated RGB values */
+    /** the calculated RGB values. */
     private int[] calculatedRGBValues = {0, 0, 0};
 
-    /** the original starting RGB values */
+    /** the original starting RGB values. */
     private int[] originalStartingRGBValues = {0, 0, 0};
 
-    /** the original destination RGB values */
+    /** the original destination RGB values. */
     private int[] originalDestinationRGBValues = {0, 0, 0};
 
-    /** the start time */
+    /** the start time. */
     private double startTime = Double.NaN;
 
-    /** the end time */
+    /** the end time. */
     private double endTime = Double.NaN;
 
     /**

@@ -1,9 +1,3 @@
-/*
- * @(#)ExperimentParser.java Aug 18, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.xml.dsol;
 
 import java.io.IOException;
@@ -51,11 +45,11 @@ import org.jdom2.input.SAXBuilder;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 2.0 21.09.2003 <br>
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class ExperimentParser
 {
-    /** builder the xerces parser with validation turned on */
+    /** builder the xerces parser with validation turned on. */
     private static SAXBuilder builder = new SAXBuilder("org.apache.xerces.parsers.SAXParser", true);
     static
     {
@@ -245,7 +239,7 @@ public class ExperimentParser
         }
     }
 
-    /** characters that can be used in a classpath */
+    /** characters that can be used in a classpath. */
     private static String legalChars = ".@$_-abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /**

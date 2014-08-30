@@ -28,88 +28,68 @@ public class ReferenceMap implements ReferenceMapInterface
     private boolean status = false;
 
     /**
-     * constructs a new ReferenceMap
+     * constructs a new ReferenceMap.
      */
     public ReferenceMap()
     {
         super();
     }
 
-    /**
-     * @see ReferenceMapInterface#getImage()
-     */
+    /** {@inheritDoc} */
     public URL getImage()
     {
         return this.image;
     }
 
-    /**
-     * @see ReferenceMapInterface#setImage(URL image)
-     */
+    /** {@inheritDoc} */
     public void setImage(URL image)
     {
         this.image = image;
     }
 
-    /**
-     * @see ReferenceMapInterface#getExtent()
-     */
+    /** {@inheritDoc} */
     public double[] getExtent()
     {
         return this.extent;
     }
 
-    /**
-     * @see ReferenceMapInterface#setExtent(double[] extent)
-     */
+    /** {@inheritDoc} */
     public void setExtent(double[] extent)
     {
         this.extent = extent;
     }
 
-    /**
-     * @see ReferenceMapInterface#getOutlineColor()
-     */
+    /** {@inheritDoc} */
     public Color getOutlineColor()
     {
         return this.outLineColor;
     }
 
-    /**
-     * @see ReferenceMapInterface#setOutlineColor(Color outlineColor)
-     */
+    /** {@inheritDoc} */
     public void setOutlineColor(Color outlineColor)
     {
         this.outLineColor = outlineColor;
     }
 
-    /**
-     * @see ReferenceMapInterface#getSize()
-     */
+    /** {@inheritDoc} */
     public Dimension getSize()
     {
         return this.size;
     }
 
-    /**
-     * @see ReferenceMapInterface#setSize(Dimension size)
-     */
+    /** {@inheritDoc} */
     public void setSize(Dimension size)
     {
         this.size = size;
     }
 
-    /**
-     * @see ReferenceMapInterface#isStatus()
-     */
+    /** {@inheritDoc} */
     public boolean isStatus()
     {
         return this.status;
     }
 
-    /**
-     * @see ReferenceMapInterface#setStatus(boolean status)
-     */
+    /** {@inheritDoc} */
     public void setStatus(boolean status)
     {
         this.status = status;

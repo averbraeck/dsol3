@@ -1,9 +1,3 @@
-/*
- * @(#) Histogram.java Sep 22, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.charts.histogram;
 
 import java.awt.Color;
@@ -32,26 +26,26 @@ import org.jfree.chart.plot.PlotOrientation;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:02 $
  * @since 1.5
  */
 public class Histogram implements Swingable
 {
-    /** LABEL_X_AXIS is the label on the X-axis */
+    /** LABEL_X_AXIS is the label on the X-axis. */
     public static final String LABEL_X_AXIS = "X";
 
-    /** LABEL_Y_AXIS is the label on the Y-axis */
+    /** LABEL_Y_AXIS is the label on the Y-axis. */
     public static final String LABEL_Y_AXIS = "#";
 
-    /** chart refers to the chart */
+    /** chart refers to the chart. */
     protected JFreeChart chart = null;
 
-    /** dataset refers to the dataset */
+    /** dataset refers to the dataset. */
     protected HistogramDataset dataset = null;
 
     /**
-     * constructs a new Histogram
+     * constructs a new Histogram.
      * @param title the title
      * @param domain the domain
      * @param numberofBins the numberofbins

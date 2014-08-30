@@ -21,16 +21,16 @@ import java.io.InputStream;
 public class ObjectEndianInputStream implements EndianInterface, DataInput
 {
 
-    /** the datainput stream */
+    /** the datainput stream. */
     private DataInputStream dataInputStream;
 
-    /** the inputStream */
+    /** the inputStream. */
     private InputStream inputStream;
 
-    /** an 8byte buffer */
+    /** an 8byte buffer. */
     private byte[] buffer = new byte[8];
 
-    /** the code */
+    /** the code. */
     private int encode = EndianInterface.BIG_ENDIAN;
 
     /**
@@ -43,9 +43,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         this.dataInputStream = new DataInputStream(inputStream);
     }
 
-    /**
-     * @see java.io.DataInput#readShort()
-     */
+    /** {@inheritDoc} */
     public final short readShort() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -56,9 +54,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return (short) ((this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff));
     }
 
-    /**
-     * @see java.io.DataInput#readUnsignedShort()
-     */
+    /** {@inheritDoc} */
     public final int readUnsignedShort() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -69,9 +65,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return ((this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff));
     }
 
-    /**
-     * @see java.io.DataInput#readChar()
-     */
+    /** {@inheritDoc} */
     public final char readChar() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -82,9 +76,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return (char) ((this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff));
     }
 
-    /**
-     * @see java.io.DataInput#readInt()
-     */
+    /** {@inheritDoc} */
     public final int readInt() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -96,9 +88,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
                 | (this.buffer[0] & 0xff);
     }
 
-    /**
-     * @see java.io.DataInput#readLong()
-     */
+    /** {@inheritDoc} */
     public final long readLong() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -125,9 +115,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return Float.intBitsToFloat(readInt());
     }
 
-    /**
-     * @see java.io.DataInput#readDouble()
-     */
+    /** {@inheritDoc} */
     public final double readDouble() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -161,69 +149,53 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return this.inputStream.read(b, off, len);
     }
 
-    /**
-     * @see java.io.DataInput#readFully(byte[])
-     */
+    /** {@inheritDoc} */
     public final void readFully(final byte[] b) throws IOException
     {
         this.dataInputStream.readFully(b, 0, b.length);
     }
 
-    /**
-     * @see java.io.DataInput#readFully(byte[], int, int)
-     */
+    /** {@inheritDoc} */
     public final void readFully(final byte[] b, final int off, final int len) throws IOException
     {
         this.dataInputStream.readFully(b, off, len);
     }
 
-    /**
-     * @see java.io.DataInput#skipBytes(int)
-     */
+    /** {@inheritDoc} */
     public final int skipBytes(final int n) throws IOException
     {
         return this.dataInputStream.skipBytes(n);
     }
 
-    /**
-     * @see java.io.DataInput#readBoolean()
-     */
+    /** {@inheritDoc} */
     public final boolean readBoolean() throws IOException
     {
         return this.dataInputStream.readBoolean();
     }
 
-    /**
-     * @see java.io.DataInput#readByte()
-     */
+    /** {@inheritDoc} */
     public final byte readByte() throws IOException
     {
         return this.dataInputStream.readByte();
     }
 
-    /**
-     * @see java.io.DataInput#readUnsignedByte()
-     */
+    /** {@inheritDoc} */
     public final int readUnsignedByte() throws IOException
     {
         return this.dataInputStream.readUnsignedByte();
     }
 
-    /**
-     * @see java.io.DataInput#readUTF()
-     */
+    /** {@inheritDoc} */
     public final String readUTF() throws IOException
     {
         return this.dataInputStream.readUTF();
     }
 
-    /**
-     * @see java.io.DataInput#readLine()
-     */
+    /** {@inheritDoc} */
     public final String readLine()
     {
         return null; // This method is deprecated because it does not work
-        // OK...
+        // OK..
     }
 
     /**
@@ -245,17 +217,13 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         this.dataInputStream.close();
     }
 
-    /**
-     * @see nl.javel.gisbeans.io.EndianInterface#setEncode(int)
-     */
+    /** {@inheritDoc} */
     public void setEncode(final int encode)
     {
         this.encode = encode;
     }
 
-    /**
-     * @see nl.javel.gisbeans.io.EndianInterface#getEncode()
-     */
+    /** {@inheritDoc} */
     public int getEncode()
     {
         return this.encode;

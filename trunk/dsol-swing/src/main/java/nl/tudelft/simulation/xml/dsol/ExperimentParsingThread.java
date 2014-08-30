@@ -1,9 +1,3 @@
-/*
- * @(#) ExperimentParsingThread.java Mar 2, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.xml.dsol;
 
 import java.io.IOException;
@@ -23,17 +17,17 @@ import nl.tudelft.simulation.logger.Logger;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 1.0 Mar 2, 2004 <br>
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class ExperimentParsingThread extends Thread
 {
     /** EXPERIMENT_PARSED_EVENT */
     public static final EventType EXPERIMENT_PARSED_EVENT = new EventType("EXPERIMENT_PARSED_EVENT");
 
-    /** the owning listener */
+    /** the owning listener. */
     protected EventListenerInterface source = null;
 
-    /** the experiment */
+    /** the experiment. */
     protected URL experiment = null;
 
     /**
@@ -48,9 +42,7 @@ public class ExperimentParsingThread extends Thread
         this.experiment = experiment;
     }
 
-    /**
-     * @see java.lang.Runnable#run()
-     */
+    /** {@inheritDoc} */
     @Override
     public void run()
     {

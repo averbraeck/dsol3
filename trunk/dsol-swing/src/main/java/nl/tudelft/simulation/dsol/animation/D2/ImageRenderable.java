@@ -1,9 +1,3 @@
-/*
- * @(#) ImageRenderable.java Apr 30, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.animation.D2;
 
 import java.awt.Dimension;
@@ -35,46 +29,46 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:21 $
  * @since 1.5
  */
 public abstract class ImageRenderable extends Renderable2D
 {
-    /** the cache of imageIcons */
+    /** the cache of imageIcons. */
     private transient static Map<URL, ImageIcon> cache = new HashMap<URL, ImageIcon>();
 
-    /** LEFT-BOTTOM location */
+    /** LEFT-BOTTOM location. */
     public static final short LB = -4;
 
-    /** CENTER-BOTTOM location */
+    /** CENTER-BOTTOM location. */
     public static final short CB = -3;
 
-    /** RIGHT-BOTTOM location */
+    /** RIGHT-BOTTOM location. */
     public static final short RB = -2;
 
-    /** LEFT-CENTER location */
+    /** LEFT-CENTER location. */
     public static final short LC = -1;
 
-    /** CENTER-CENTER location */
+    /** CENTER-CENTER location. */
     public static final short CC = 0;
 
-    /** RIGHT-CENTER location */
+    /** RIGHT-CENTER location. */
     public static final short RC = 1;
 
-    /** LEFT-TOP location */
+    /** LEFT-TOP location. */
     public static final short LT = 2;
 
-    /** CENTER-TOP location */
+    /** CENTER-TOP location. */
     public static final short CT = 3;
 
-    /** RIGHT-TOP location */
+    /** RIGHT-TOP location. */
     public static final short RT = 4;
 
-    /** the imageIcons to use */
+    /** the imageIcons to use. */
     protected URL[] images = null;
 
-    /** the imageIcons to be used */
+    /** the imageIcons to be used. */
     protected transient ImageIcon[] imageIcons = null;
 
     /**
@@ -83,7 +77,7 @@ public abstract class ImageRenderable extends Renderable2D
     protected short orientation = ImageRenderable.CC;
 
     /**
-     * constructs a new ImageRenderable
+     * constructs a new ImageRenderable.
      * @param source the source to be animated.
      * @param simulator the simulator to be used.
      * @param images the image urls.
@@ -118,7 +112,7 @@ public abstract class ImageRenderable extends Renderable2D
     }
 
     /**
-     * constructs a new ImageRenderable
+     * constructs a new ImageRenderable.
      * @param staticLocation the static location of the set of imageIcons
      * @param size the size of the imageIcons in world coordinates.
      * @param simulator the simulator to be used
@@ -132,7 +126,7 @@ public abstract class ImageRenderable extends Renderable2D
     }
 
     /**
-     * constructs a new ImageRenderable
+     * constructs a new ImageRenderable.
      * @param staticLocation the static location of the set of imageIcons
      * @param size the size of the imageIcons in world coordinates.
      * @param simulator the simulator to be used
@@ -145,10 +139,7 @@ public abstract class ImageRenderable extends Renderable2D
                 0.0)), simulator, images);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.Renderable2D#paint(java.awt.Graphics2D,
-     *      java.awt.image.ImageObserver)
-     */
+    /** {@inheritDoc} */
     @Override
     public void paint(final Graphics2D graphics, final ImageObserver observer) throws RemoteException
     {

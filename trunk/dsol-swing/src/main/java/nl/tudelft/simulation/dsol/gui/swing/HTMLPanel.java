@@ -1,10 +1,3 @@
-/*
- * @(#)HTMLPanel.java May 4, 2014
- * 
- * Copyright (c) 2014 Delft University of Technology Jaffalaan 5, 
- * 2628 BX Delft, the Netherlands All rights reserved.
- * The code is published under the BSD License
- */
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.Toolkit;
@@ -33,9 +26,7 @@ public class HTMLPanel extends JEditorPane
     /** */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see java.lang.Object#Object()
-     */
+    /** {@inheritDoc} */
     public HTMLPanel()
     {
         super();
@@ -43,18 +34,14 @@ public class HTMLPanel extends JEditorPane
         this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
     }
 
-    /**
-     * @see javax.swing.JEditorPane#JEditorPane(URL)
-     */
+    /** {@inheritDoc} */
     public HTMLPanel(URL page)
     {
         this();
         this.setPage(page);
     }
 
-    /**
-     * @see javax.swing.JEditorPane#setPage(URL)
-     */
+    /** {@inheritDoc} */
     public void setPage(URL page)
     {
         try

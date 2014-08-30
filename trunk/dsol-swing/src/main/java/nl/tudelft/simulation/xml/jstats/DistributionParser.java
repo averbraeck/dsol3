@@ -1,9 +1,3 @@
-/*
- * @(#)DistributionParser.java Jun 25, 2004 Copyright (c) 2002-2005, 2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.xml.jstats;
 
@@ -40,11 +34,11 @@ import org.jdom2.Namespace;
  */
 public final class DistributionParser
 {
-    /** the default schema file */
+    /** the default schema file. */
     public static final URL DISTRIBUTIONFILE_SCHEMA = DistributionParser.class.getResource("/xsd/distribution.xsd");
 
     /**
-     * constructs a new DistributionParser
+     * constructs a new DistributionParser.
      */
     private DistributionParser()
     {

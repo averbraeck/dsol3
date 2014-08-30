@@ -26,72 +26,56 @@ public class Image implements ImageInterface
     private java.awt.Dimension size = new java.awt.Dimension(500, 500);
 
     /**
-     * constructs a new Image
+     * constructs a new Image.
      */
     public Image()
     {
         super();
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.ImageInterface#getBackgroundColor()
-     */
+    /** {@inheritDoc} */
     public java.awt.Color getBackgroundColor()
     {
         return this.backgroundColor;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.ImageInterface#getLegend()
-     */
+    /** {@inheritDoc} */
     public LegendInterface getLegend()
     {
         return this.legend;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.ImageInterface#getScalebar()
-     */
+    /** {@inheritDoc} */
     public ScalebarInterface getScalebar()
     {
         return this.scalebar;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.ImageInterface#getSize()
-     */
+    /** {@inheritDoc} */
     public Dimension getSize()
     {
         return this.size;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.ImageInterface#setBackgroundColor(java.awt.Color)
-     */
+    /** {@inheritDoc} */
     public void setBackgroundColor(Color backgroundColor)
     {
         this.backgroundColor = backgroundColor;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.ImageInterface#setLegend(nl.javel.gisbeans.map.LegendInterface)
-     */
+    /** {@inheritDoc} */
     public void setLegend(LegendInterface legend)
     {
         this.legend = legend;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.ImageInterface#setScalebar(nl.javel.gisbeans.map.ScalebarInterface)
-     */
+    /** {@inheritDoc} */
     public void setScalebar(ScalebarInterface scalebar)
     {
         this.scalebar = scalebar;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.ImageInterface#setSize(java.awt.Dimension)
-     */
+    /** {@inheritDoc} */
     public void setSize(Dimension size)
     {
         this.size = size;

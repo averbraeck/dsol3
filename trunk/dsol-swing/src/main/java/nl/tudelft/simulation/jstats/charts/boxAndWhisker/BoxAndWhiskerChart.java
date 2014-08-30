@@ -1,9 +1,3 @@
-/*
- * @(#) BoxAndWhiskerChart.java Sep 24, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.jstats.charts.boxAndWhisker;
 
 import java.awt.Color;
@@ -27,19 +21,19 @@ import org.jfree.chart.plot.Plot;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:07 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a href="mailto:a.verbraeck@tudelft.nl">
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a href="mailto:a.verbraeck@tudelft.nl">
  *         Alexander Verbraeck </a>
  */
 public class BoxAndWhiskerChart implements Swingable
 {
-    /** TITLE_FONT refers to the font to be used for the title of the plot */
+    /** TITLE_FONT refers to the font to be used for the title of the plot. */
     public static final Font TITLE_FONT = new Font("SansSerif", Font.BOLD, 18);
 
-    /** chart refers to the actual chart */
+    /** chart refers to the actual chart. */
     private JFreeChart chart = null;
 
     /**
-     * constructs a new BoxAndWhiskerChart
+     * constructs a new BoxAndWhiskerChart.
      * @param title the title of the chart
      */
     public BoxAndWhiskerChart(final String title)

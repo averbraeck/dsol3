@@ -16,10 +16,10 @@ import java.io.Serializable;
  */
 public class GisObject implements Serializable
 {
-    /** the represented shape */
+    /** the represented shape. */
     private Object shape;
 
-    /** the attributes */
+    /** the attributes. */
     private String[] attributes;
 
     /**

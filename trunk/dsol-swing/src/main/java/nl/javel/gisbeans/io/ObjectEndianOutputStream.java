@@ -21,13 +21,13 @@ import java.io.OutputStream;
 public class ObjectEndianOutputStream implements EndianInterface, DataOutput
 {
 
-    /** the dataOutputStream */
+    /** the dataOutputStream. */
     private DataOutputStream dataOutputStream = null;
 
-    /** the buffer */
+    /** the buffer. */
     private byte[] buffer = new byte[8];
 
-    /** the encode */
+    /** the encode. */
     private int encode = EndianInterface.BIG_ENDIAN;
 
     /**
@@ -39,17 +39,13 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         this.dataOutputStream = new DataOutputStream(outputStream);
     }
 
-    /**
-     * @see java.io.DataOutput#write(byte[], int, int)
-     */
+    /** {@inheritDoc} */
     public void write(final byte[] buffer, final int off, final int len) throws IOException
     {
         this.dataOutputStream.write(this.buffer, off, len);
     }
 
-    /**
-     * @see java.io.DataOutput#writeFloat(float)
-     */
+    /** {@inheritDoc} */
     public void writeFloat(final float value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -62,17 +58,13 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /**
-     * @see java.io.DataOutput#write(int)
-     */
+    /** {@inheritDoc} */
     public void write(final int value) throws IOException
     {
         this.dataOutputStream.write(value);
     }
 
-    /**
-     * @see java.io.DataOutput#writeShort(int)
-     */
+    /** {@inheritDoc} */
     public void writeShort(final int value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -87,17 +79,13 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /**
-     * @see java.io.DataOutput#writeBytes(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void writeBytes(final String string) throws IOException
     {
         this.dataOutputStream.writeBytes(string);
     }
 
-    /**
-     * @see java.io.DataOutput#writeChar(int)
-     */
+    /** {@inheritDoc} */
     public void writeChar(final int value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -112,25 +100,19 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /**
-     * @see java.io.DataOutput#writeByte(int)
-     */
+    /** {@inheritDoc} */
     public void writeByte(final int value) throws IOException
     {
         this.dataOutputStream.writeByte(value);
     }
 
-    /**
-     * @see java.io.DataOutput#writeBoolean(boolean)
-     */
+    /** {@inheritDoc} */
     public void writeBoolean(final boolean value) throws IOException
     {
         this.dataOutputStream.writeBoolean(value);
     }
 
-    /**
-     * @see java.io.DataOutput#writeLong(long)
-     */
+    /** {@inheritDoc} */
     public void writeLong(final long value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -151,17 +133,13 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /**
-     * @see java.io.DataOutput#writeUTF(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void writeUTF(final String string) throws IOException
     {
         this.dataOutputStream.writeUTF(string);
     }
 
-    /**
-     * @see java.io.DataOutput#writeInt(int)
-     */
+    /** {@inheritDoc} */
     public void writeInt(final int value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -178,9 +156,7 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /**
-     * @see java.io.DataOutput#writeChars(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void writeChars(final String string) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -197,17 +173,13 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /**
-     * @see java.io.DataOutput#write(byte[])
-     */
+    /** {@inheritDoc} */
     public void write(final byte[] buffer) throws IOException
     {
         this.dataOutputStream.write(this.buffer, 0, this.buffer.length);
     }
 
-    /**
-     * @see java.io.DataOutput#writeDouble(double)
-     */
+    /** {@inheritDoc} */
     public void writeDouble(final double value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -246,17 +218,13 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         this.dataOutputStream.close();
     }
 
-    /**
-     * @see nl.javel.gisbeans.io.EndianInterface#setEncode(int)
-     */
+    /** {@inheritDoc} */
     public void setEncode(final int encode)
     {
         this.encode = encode;
     }
 
-    /**
-     * @see nl.javel.gisbeans.io.EndianInterface#getEncode()
-     */
+    /** {@inheritDoc} */
     public int getEncode()
     {
         return this.encode;

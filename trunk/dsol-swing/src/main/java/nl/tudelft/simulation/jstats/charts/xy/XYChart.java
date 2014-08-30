@@ -1,9 +1,3 @@
-/*
- * @(#) XYChart.java Sep 22, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.charts.xy;
 
 import java.awt.Color;
@@ -31,44 +25,44 @@ import org.jfree.chart.plot.PlotOrientation;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:04 $
  * @since 1.5
  */
 public class XYChart implements Swingable
 {
-    /** x-axis is linear y-axis is linear */
+    /** x-axis is linear y-axis is linear. */
     public static final short XLINEAR_YLINEAR = 0;
 
-    /** x-axis is linear y-axis is logarithmic */
+    /** x-axis is linear y-axis is logarithmic. */
     public static final short XLINEAR_YLOGARITHMIC = 1;
 
-    /** x-axis is logarithmic y-axis is linear */
+    /** x-axis is logarithmic y-axis is linear. */
     public static final short XLOGARITHMIC_YLINEAR = 2;
 
-    /** x-axis is logarithmic y-axis is logarithmic */
+    /** x-axis is logarithmic y-axis is logarithmic. */
     public static final short XLOGARITHMIC_YLOGARITHMIC = 3;
 
-    /** LABEL_X_AXIS is the label on the X-axis */
+    /** LABEL_X_AXIS is the label on the X-axis. */
     public static final String LABEL_X_AXIS = "X";
 
-    /** LABEL_Y_AXIS is the label on the Y-axis */
+    /** LABEL_Y_AXIS is the label on the Y-axis. */
     public static final String LABEL_Y_AXIS = "value";
 
-    /** chart refers to the chart */
+    /** chart refers to the chart. */
     protected JFreeChart chart = null;
 
-    /** dataset refers to the dataset */
+    /** dataset refers to the dataset. */
     protected XYDataset dataset = new XYDataset();
 
-    /** the axis type of the chart */
+    /** the axis type of the chart. */
     protected short axisType = XLINEAR_YLINEAR;
 
-    /** the period to show on the domain axis */
+    /** the period to show on the domain axis. */
     private double period = Double.POSITIVE_INFINITY;
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title the title
      */
     public XYChart(final String title)
@@ -77,7 +71,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title the title
      * @param axisType the axisType
      */
@@ -87,7 +81,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title tht title
      * @param domain the domain
      */
@@ -97,7 +91,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title tht title
      * @param period the period to show in the domain
      */
@@ -107,7 +101,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title tht title
      * @param period the period to show in the domain
      * @param axisType the axisType to use.
@@ -118,7 +112,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title tht title
      * @param domain the domain
      * @param axisType the axisType to use.
@@ -129,7 +123,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title the title
      * @param domain the domain
      * @param range the range
@@ -140,7 +134,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title the title
      * @param period the period to show in the domain
      * @param range the range
@@ -151,7 +145,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title the title
      * @param period the period to show in the domain
      * @param range the range
@@ -163,7 +157,7 @@ public class XYChart implements Swingable
     }
 
     /**
-     * constructs a new XYChart
+     * constructs a new XYChart.
      * @param title the title
      * @param domain the domain
      * @param range the range

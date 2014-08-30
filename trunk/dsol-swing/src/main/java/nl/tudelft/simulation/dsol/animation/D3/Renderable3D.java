@@ -1,9 +1,3 @@
-/*
- * @(#) Renderable3D.java May 10, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.dsol.animation.D3;
 
 import java.awt.geom.Point2D;
@@ -244,7 +238,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
             DirectedPoint location = this.getSource().getLocation();
             this.translate.set(new Vector3d(location.x * this.scale, location.y * this.scale, location.z * this.scale));
 
-            // Hope the order of the rotations is correct ...
+            // Hope the order of the rotations is correct ..
             this.yaw.setRotation(new AxisAngle4d(0, 0, 1, location.getRotX()));
             this.pitch.setRotation(new AxisAngle4d(0, 1, 0, location.getRotZ()));
             this.roll.setRotation(new AxisAngle4d(1, 0, 0, location.getRotY()));

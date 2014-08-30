@@ -21,40 +21,40 @@ import nl.javel.gisbeans.geom.SerializableRectangle2D;
  */
 public interface MapInterface extends java.io.Serializable
 {
-    /** MINX contant */
+    /** MINX contant. */
     public static final byte MINX = 0;
 
-    /** MINY contant */
+    /** MINY contant. */
     public static final byte MINY = 1;
 
-    /** MAXX contant */
+    /** MAXX contant. */
     public static final byte MAXX = 2;
 
-    /** MAXY contant */
+    /** MAXY contant. */
     public static final byte MAXY = 3;
 
-    /** FEET contant */
+    /** FEET contant. */
     public static final byte FEET = 0;
 
-    /** INCHES contant */
+    /** INCHES contant. */
     public static final byte INCHES = 1;
 
-    /** KILOMETERS contant */
+    /** KILOMETERS contant. */
     public static final byte KILOMETERS = 2;
 
-    /** METERS contant */
+    /** METERS contant. */
     public static final byte METERS = 3;
 
-    /** MILES contant */
+    /** MILES contant. */
     public static final byte MILES = 4;
 
-    /** DD contant */
+    /** DD contant. */
     public static final byte DD = 5;
 
     /** UL */
     public static final byte UL = 0;
 
-    /** UC */
+    /** Uc. */
     public static final byte UC = 1;
 
     /** UR */
@@ -63,7 +63,7 @@ public interface MapInterface extends java.io.Serializable
     /** CL */
     public static final byte CL = 3;
 
-    /** CC */
+    /** Cc. */
     public static final byte CC = 4;
 
     /** CR */
@@ -72,7 +72,7 @@ public interface MapInterface extends java.io.Serializable
     /** LL */
     public static final byte LL = 6;
 
-    /** LC */
+    /** Lc. */
     public static final byte LC = 7;
 
     /** LR */
@@ -81,13 +81,13 @@ public interface MapInterface extends java.io.Serializable
     /** TEXT */
     public static final byte TEXT = 0;
 
-    /** ANGLEDEG */
+    /** ANGLEDEg. */
     public static final byte ANGLEDEG = 1;
 
-    /** ANGLERAD */
+    /** ANGLERAd. */
     public static final byte ANGLERAD = 2;
 
-    /** IMAGE */
+    /** IMAGe. */
     public static final byte IMAGE = 3;
 
     /** AIRPHOTO */
@@ -99,7 +99,7 @@ public interface MapInterface extends java.io.Serializable
     /** POINT */
     public static final byte POINT = 1;
 
-    /** LINE */
+    /** LINe. */
     public static final byte LINE = 2;
 
     /** FEET_TO_METER */
@@ -214,7 +214,7 @@ public interface MapInterface extends java.io.Serializable
 
     /**
      * Setter for property extent.
-     * @param extent New value of property extent..
+     * @param extent New value of property extent.
      * @throws RemoteException on network exception
      */
     public void setExtent(Rectangle2D extent) throws RemoteException;

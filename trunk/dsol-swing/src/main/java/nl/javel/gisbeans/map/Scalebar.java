@@ -45,129 +45,97 @@ public class Scalebar implements ScalebarInterface
         super();
     }
 
-    /**
-     * @see ScalebarInterface#getBackgroundColor()
-     */
+    /** {@inheritDoc} */
     public java.awt.Color getBackgroundColor()
     {
         return this.backgroundColor;
     }
 
-    /**
-     * @see ScalebarInterface#getColor()
-     */
+    /** {@inheritDoc} */
     public java.awt.Color getColor()
     {
         return this.color;
     }
 
-    /**
-     * @see ScalebarInterface#getIntervals()
-     */
+    /** {@inheritDoc} */
     public int getIntervals()
     {
         return this.intervals;
     }
 
-    /**
-     * @see ScalebarInterface#getPosition()
-     */
+    /** {@inheritDoc} */
     public int getPosition()
     {
         return this.position;
     }
 
-    /**
-     * @see ScalebarInterface#getSize()
-     */
+    /** {@inheritDoc} */
     public Dimension getSize()
     {
         return this.size;
     }
 
-    /**
-     * @see ScalebarInterface#getUnits()
-     */
+    /** {@inheritDoc} */
     public int getUnits()
     {
         return this.units;
     }
 
-    /**
-     * @see ScalebarInterface#isEmbed()
-     */
+    /** {@inheritDoc} */
     public boolean isEmbed()
     {
         return this.embed;
     }
 
-    /**
-     * @see ScalebarInterface#isStatus()
-     */
+    /** {@inheritDoc} */
     public boolean isStatus()
     {
         return this.status;
     }
 
-    /**
-     * @see ScalebarInterface#setBackgroundColor(Color backgroundColor)
-     */
+    /** {@inheritDoc} */
     public void setBackgroundColor(Color backgroundColor)
     {
         this.backgroundColor = backgroundColor;
     }
 
-    /**
-     * @see ScalebarInterface#setColor(Color color)
-     */
+    /** {@inheritDoc} */
     public void setColor(Color color)
     {
         this.color = color;
     }
 
-    /**
-     * @see ScalebarInterface#setEmbed(boolean embed)
-     */
+    /** {@inheritDoc} */
     public void setEmbed(boolean embed)
     {
         this.embed = embed;
     }
 
-    /**
-     * @see ScalebarInterface#setIntervals(int intervals)
-     */
+    /** {@inheritDoc} */
     public void setIntervals(int intervals)
     {
         this.intervals = intervals;
     }
 
-    /**
-     * @see ScalebarInterface#setPosition(int position)
-     */
+    /** {@inheritDoc} */
     public void setPosition(int position)
     {
         this.position = position;
     }
 
-    /**
-     * @see ScalebarInterface#setSize(Dimension size)
-     */
+    /** {@inheritDoc} */
     public void setSize(Dimension size)
     {
         this.size = size;
     }
 
-    /**
-     * @see ScalebarInterface#setStatus(boolean status)
-     */
+    /** {@inheritDoc} */
     public void setStatus(boolean status)
     {
         this.status = status;
     }
 
-    /**
-     * @see ScalebarInterface#setUnits(int units)
-     */
+    /** {@inheritDoc} */
     public void setUnits(int units)
     {
         this.units = units;

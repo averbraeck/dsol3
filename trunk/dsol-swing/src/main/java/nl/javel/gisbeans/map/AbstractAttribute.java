@@ -16,26 +16,26 @@ import java.awt.Font;
  */
 public abstract class AbstractAttribute implements AttributeInterface
 {
-    /** the default font to use */
+    /** the default font to use. */
     private Font font = new Font("arial", Font.TRUETYPE_FONT, 10);
 
-    /** the font color */
+    /** the font color. */
     private Color fontColor = Color.BLACK;
 
-    /** the position of the attribute */
+    /** the position of the attribute. */
     private int position = MapInterface.CC;
 
-    /** the layer of this attribute */
+    /** the layer of this attribute. */
     protected LayerInterface layer = null;
 
-    /** the minimumScale */
+    /** the minimumScale. */
     private double minScale = Double.MAX_VALUE;
 
-    /** the maximumScale */
+    /** the maximumScale. */
     private double maxScale = 0.0;
 
     /**
-     * constructs a new AbstractAttribute
+     * constructs a new AbstractAttribute.
      * @param layer the layer of this attribute
      */
     public AbstractAttribute(LayerInterface layer)
@@ -44,99 +44,73 @@ public abstract class AbstractAttribute implements AttributeInterface
         this.layer = layer;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#setFont(java.awt.Font)
-     */
+    /** {@inheritDoc} */
     public void setFont(Font font)
     {
         this.font = font;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getFont()
-     */
+    /** {@inheritDoc} */
     public Font getFont()
     {
         return this.font;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getFontColor()
-     */
+    /** {@inheritDoc} */
     public Color getFontColor()
     {
         return this.fontColor;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#setFontColor(java.awt.Color)
-     */
+    /** {@inheritDoc} */
     public void setFontColor(Color fontColor)
     {
         this.fontColor = fontColor;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getValue(int)
-     */
+    /** {@inheritDoc} */
     public abstract String getValue(int shapeIndex);
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getAngle(int)
-     */
+    /** {@inheritDoc} */
     public abstract double getAngle(int shapeIndex);
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getPosition()
-     */
+    /** {@inheritDoc} */
     public int getPosition()
     {
         return this.position;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#setPosition(int)
-     */
+    /** {@inheritDoc} */
     public void setPosition(int position)
     {
         this.position = position;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getLayer()
-     */
+    /** {@inheritDoc} */
     public LayerInterface getLayer()
     {
         return this.layer;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getMaxScale()
-     */
+    /** {@inheritDoc} */
     public double getMaxScale()
     {
         return this.maxScale;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#getMinScale()
-     */
+    /** {@inheritDoc} */
     public double getMinScale()
     {
         return this.minScale;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#setMaxScale(int)
-     */
+    /** {@inheritDoc} */
     public void setMaxScale(double maxScale)
     {
         this.maxScale = maxScale;
     }
 
-    /**
-     * @see nl.javel.gisbeans.map.AttributeInterface#setMinScale(int)
-     */
+    /** {@inheritDoc} */
     public void setMinScale(double minScale)
     {
         this.minScale = minScale;

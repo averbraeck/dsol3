@@ -1,9 +1,3 @@
-/*
- * @(#) Renderable2D.java Nov 10, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.dsol.animation.D2;
 
 import java.awt.Dimension;
@@ -33,7 +27,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:20 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public abstract class Renderable2D implements Renderable2DInterface
 {
@@ -68,7 +62,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     protected LocatableInterface source = null;
 
     /**
-     * constructs a new Renderable2D
+     * constructs a new Renderable2D.
      * @param source the source
      * @param simulator the simulator
      */
@@ -151,9 +145,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         this.scale = scale;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface#getSource()
-     */
+    /** {@inheritDoc} */
     public LocatableInterface getSource()
     {
         return this.source;
@@ -175,10 +167,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         this.translate = translate;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface #paint(Graphics2D, Rectangle2D,
-     *      Dimension,ImageObserver)
-     */
+    /** {@inheritDoc} */
     public synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer)
     {
@@ -234,10 +223,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface #contains(java.awt.geom.Point2D,
-     *      java.awt.geom.Rectangle2D, java.awt.Dimension)
-     */
+    /** {@inheritDoc} */
     public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
     {
         try
@@ -274,9 +260,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         }
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

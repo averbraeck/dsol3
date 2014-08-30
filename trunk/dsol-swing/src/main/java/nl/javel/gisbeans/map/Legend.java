@@ -33,129 +33,97 @@ public class Legend implements LegendInterface
 
     private Font font = new Font("arial", Font.TRUETYPE_FONT, 10);
 
-    /**
-     * @see LegendInterface#getBackgroundColor()
-     */
+    /** {@inheritDoc} */
     public Color getBackgroundColor()
     {
         return this.backgroundColor;
     }
 
-    /**
-     * @see LegendInterface#setBackgroundColor(Color)
-     */
+    /** {@inheritDoc} */
     public void setBackgroundColor(Color backgroundColor)
     {
         this.backgroundColor = backgroundColor;
     }
 
-    /**
-     * @see LegendInterface#getOutlineColor()
-     */
+    /** {@inheritDoc} */
     public Color getOutlineColor()
     {
         return this.outlineColor;
     }
 
-    /**
-     * @see LegendInterface#setOutlineColor(Color)
-     */
+    /** {@inheritDoc} */
     public void setOutlineColor(Color outlineColor)
     {
         this.outlineColor = outlineColor;
     }
 
-    /**
-     * @see LegendInterface#getFontColor()
-     */
+    /** {@inheritDoc} */
     public Color getFontColor()
     {
         return this.fontColor;
     }
 
-    /**
-     * @see LegendInterface#setFontColor(Color fontColor)
-     */
+    /** {@inheritDoc} */
     public void setFontColor(Color fontColor)
     {
         this.fontColor = fontColor;
     }
 
-    /**
-     * @see LegendInterface#setFont(Font font)
-     */
+    /** {@inheritDoc} */
     public void setFont(Font font)
     {
         this.font = font;
     }
 
-    /**
-     * @see LegendInterface#getFont()
-     */
+    /** {@inheritDoc} */
     public Font getFont()
     {
         return this.font;
     }
 
-    /**
-     * @see LegendInterface#isEmbed()
-     */
+    /** {@inheritDoc} */
     public boolean isEmbed()
     {
         return this.embed;
     }
 
-    /**
-     * @see LegendInterface#setEmbed(boolean)
-     */
+    /** {@inheritDoc} */
     public void setEmbed(boolean embed)
     {
         this.embed = embed;
     }
 
-    /**
-     * @see LegendInterface#getPosition()
-     */
+    /** {@inheritDoc} */
     public int getPosition()
     {
         return this.position;
     }
 
-    /**
-     * @see LegendInterface#setPosition(int)
-     */
+    /** {@inheritDoc} */
     public void setPosition(int position)
     {
         this.position = position;
     }
 
-    /**
-     * @see LegendInterface#getSize()
-     */
+    /** {@inheritDoc} */
     public Dimension getSize()
     {
         return this.size;
     }
 
-    /**
-     * @see LegendInterface#setSize(Dimension)
-     */
+    /** {@inheritDoc} */
     public void setSize(Dimension size)
     {
         this.size = size;
     }
 
-    /**
-     * @see LegendInterface#isStatus()
-     */
+    /** {@inheritDoc} */
     public boolean isStatus()
     {
         return this.status;
     }
 
-    /**
-     * @see LegendInterface#setStatus(boolean)
-     */
+    /** {@inheritDoc} */
     public void setStatus(boolean status)
     {
         this.status = status;

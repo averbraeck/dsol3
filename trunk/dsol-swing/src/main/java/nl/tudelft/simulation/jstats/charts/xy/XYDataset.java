@@ -1,9 +1,3 @@
-/*
- * @(#) XYDataset.java Sep 26, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.charts.xy;
 
 import java.util.ArrayList;
@@ -25,21 +19,21 @@ import org.jfree.data.general.DatasetChangeListener;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2014/05/05 00:26:06 $
  * @since 1.5
  */
 public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.xy.XYDataset, DatasetChangeListener
 {
 
-    /** default UID */
+    /** default UId. */
     private static final long serialVersionUID = 1L;
 
-    /** series contains the series of the set */
+    /** series contains the series of the set. */
     private XYSeries[] series = new XYSeries[0];
 
     /**
-     * constructs a new XYDataset
+     * constructs a new XYDataset.
      */
     public XYDataset()
     {
@@ -47,9 +41,7 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
         this.fireDatasetChanged();
     }
 
-    /**
-     * @see org.jfree.data.DatasetChangeListener #datasetChanged(org.jfree.data.DatasetChangeEvent)
-     */
+    /** {@inheritDoc} */
     public void datasetChanged(final DatasetChangeEvent arg0)
     {
         if (arg0 != null)
@@ -71,41 +63,31 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
         this.fireDatasetChanged();
     }
 
-    /**
-     * @see org.jfree.data.xy.XYDataset#getDomainOrder()
-     */
+    /** {@inheritDoc} */
     public DomainOrder getDomainOrder()
     {
         return DomainOrder.ASCENDING;
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getItemCount(int)
-     */
+    /** {@inheritDoc} */
     public int getItemCount(final int serie)
     {
         return this.series[serie].getItemCount();
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getXValue(int, int)
-     */
+    /** {@inheritDoc} */
     public double getXValue(final int serie, final int item)
     {
         return this.series[serie].getXValue(item);
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getYValue(int, int)
-     */
+    /** {@inheritDoc} */
     public double getYValue(final int serie, final int item)
     {
         return this.series[serie].getYValue(item);
     }
 
-    /**
-     * @see org.jfree.data.SeriesDataset#getSeriesCount()
-     */
+    /** {@inheritDoc} */
     public int getSeriesCount()
     {
         return this.series.length;
@@ -120,17 +102,13 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
         return this.series[serie].getSeriesName();
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getX(int, int)
-     */
+    /** {@inheritDoc} */
     public Number getX(final int serie, final int item)
     {
         return new Double(this.series[serie].getXValue(item));
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getY(int, int)
-     */
+    /** {@inheritDoc} */
     public Number getY(final int serie, final int item)
     {
         return new Double(this.series[serie].getYValue(item));
@@ -148,9 +126,7 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
         }
     }
 
-    /**
-     * @see org.jfree.data.general.AbstractSeriesDataset#getSeriesKey(int)
-     */
+    /** {@inheritDoc} */
     @Override
     public Comparable getSeriesKey(int arg0)
     {

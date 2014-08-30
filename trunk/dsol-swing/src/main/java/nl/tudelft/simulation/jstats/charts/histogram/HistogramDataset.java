@@ -1,9 +1,3 @@
-/*
- * @(#)HistogramDataset.java Sep 22, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 
 package nl.tudelft.simulation.jstats.charts.histogram;
 
@@ -25,26 +19,26 @@ import org.jfree.data.xy.IntervalXYDataset;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:02 $
  * @since 1.5
  */
 public class HistogramDataset extends SimpleHistogramDataset implements IntervalXYDataset, DatasetChangeListener
 {
-    /** domain is the minimal value to be displayed in this set */
+    /** domain is the minimal value to be displayed in this set. */
     protected double[] domain = null;
 
-    /** range is the maximum value to be displayed in the set */
+    /** range is the maximum value to be displayed in the set. */
     protected double[] range = null;
 
     /** numberOfBins is the number of bins (or categories between min-max) */
     protected int numberOfBins = 0;
 
-    /** series the series in this set */
+    /** series the series in this set. */
     protected HistogramSeries[] series = new HistogramSeries[0];
 
     /**
-     * constructs a new HistogramDataset
+     * constructs a new HistogramDataset.
      * @param domain the domain of the set.
      * @param range the range of the set.
      * @param numberOfBins the number of bins
@@ -82,9 +76,7 @@ public class HistogramDataset extends SimpleHistogramDataset implements Interval
         this.fireDatasetChanged();
     }
 
-    /**
-     * @see org.jfree.data.DatasetChangeListener #datasetChanged(org.jfree.data.DatasetChangeEvent)
-     */
+    /** {@inheritDoc} */
     public void datasetChanged(final DatasetChangeEvent arg0)
     {
         if (arg0 != null)
@@ -93,65 +85,49 @@ public class HistogramDataset extends SimpleHistogramDataset implements Interval
         }
     }
 
-    /**
-     * @see org.jfree.data.statistics.SimpleHistogramDataset#getEndXValue(int, int)
-     */
+    /** {@inheritDoc} */
     public double getEndXValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getEndXValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.IntervalXYDataset#getEndYValue(int, int)
-     */
+    /** {@inheritDoc} */
     public double getEndYValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getEndYValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.IntervalXYDataset#getStartXValue(int, int)
-     */
+    /** {@inheritDoc} */
     public double getStartXValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getStartXValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.IntervalXYDataset#getStartYValue(int, int)
-     */
+    /** {@inheritDoc} */
     public double getStartYValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getStartYValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getItemCount(int)
-     */
+    /** {@inheritDoc} */
     public int getItemCount(final int serieNr)
     {
         return this.series[serieNr].getBinCount();
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getXValue(int, int)
-     */
+    /** {@inheritDoc} */
     public double getXValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getXValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getYValue(int, int)
-     */
+    /** {@inheritDoc} */
     public double getYValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getYValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.SeriesDataset#getSeriesCount()
-     */
+    /** {@inheritDoc} */
     public int getSeriesCount()
     {
         return this.series.length;
@@ -166,49 +142,37 @@ public class HistogramDataset extends SimpleHistogramDataset implements Interval
         return this.series[serieNr].getName();
     }
 
-    /**
-     * @see org.jfree.data.IntervalXYDataset#getEndX(int, int)
-     */
+    /** {@inheritDoc} */
     public Number getEndX(final int serieNr, final int bin)
     {
         return this.series[serieNr].getEndXValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.IntervalXYDataset#getEndY(int, int)
-     */
+    /** {@inheritDoc} */
     public Number getEndY(final int serieNr, final int bin)
     {
         return this.series[serieNr].getEndYValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.IntervalXYDataset#getStartX(int, int)
-     */
+    /** {@inheritDoc} */
     public Number getStartX(final int serieNr, final int bin)
     {
         return this.series[serieNr].getStartXValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.IntervalXYDataset#getStartY(int, int)
-     */
+    /** {@inheritDoc} */
     public Number getStartY(final int serieNr, final int bin)
     {
         return this.series[serieNr].getStartYValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getX(int, int)
-     */
+    /** {@inheritDoc} */
     public Number getX(final int serieNr, final int bin)
     {
         return this.series[serieNr].getXValue(bin);
     }
 
-    /**
-     * @see org.jfree.data.XYDataset#getY(int, int)
-     */
+    /** {@inheritDoc} */
     public Number getY(final int serieNr, final int bin)
     {
         return this.series[serieNr].getYValue(bin);
