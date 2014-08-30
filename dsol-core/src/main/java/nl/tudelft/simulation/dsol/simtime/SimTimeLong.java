@@ -33,7 +33,7 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
     /** */
     private static final long serialVersionUID = 20140803L;
 
-    /** the locally stored time */
+    /** the locally stored time. */
     private long time;
 
     /**
@@ -44,54 +44,42 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
         super(time);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#add(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public void add(final Long value)
     {
         this.time += value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#subtract(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void subtract(final Long value)
     {
         this.time -= value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public Long minus(final SimTimeLong absoluteTime)
     {
         return this.get().longValue() - absoluteTime.get().longValue();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void set(final Long value)
     {
         this.time = value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#get()
-     */
+    /** {@inheritDoc} */
     @Override
     public Long get()
     {
         return this.time;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#setZero()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeLong setZero()
     {
@@ -99,18 +87,14 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
         return this;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#compareTo(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(SimTimeLong simTime)
     {
         return Long.compare(this.time, simTime.get());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#copy()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeLong copy()
     {

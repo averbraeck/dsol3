@@ -1,9 +1,3 @@
-/*
- * @(#) Utilization.java Dec 8, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.formalisms.flow.statistics;
 
 import java.rmi.RemoteException;
@@ -28,7 +22,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:46 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class Utilization extends Persistent
 {
@@ -41,7 +35,7 @@ public class Utilization extends Persistent
     private SimulatorInterface simulator = null;
 
     /**
-     * constructs a new Utilization
+     * constructs a new Utilization.
      * @param description the description of this utilization
      * @param simulator the simulator
      * @param target the target
@@ -67,9 +61,7 @@ public class Utilization extends Persistent
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     @Override
     public void notify(final EventInterface event)
     {

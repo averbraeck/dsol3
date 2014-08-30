@@ -1,9 +1,3 @@
-/*
- * @(#) Editable.java Aug 3, 2004 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.animation;
 
 import java.util.HashMap;
@@ -31,16 +25,16 @@ import nl.tudelft.simulation.logger.Logger;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
  * @since 1.5
  */
 public abstract class Editable extends EventProducer implements LocatableInterface
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the static map of editables */
+    /** the static map of editables. */
     private static Map<Object, Object> editables = new HashMap<Object, Object>();
 
     // We read editables from a file called editable.properties
@@ -93,7 +87,7 @@ public abstract class Editable extends EventProducer implements LocatableInterfa
     }
 
     /**
-     * constructs a new Editable
+     * constructs a new Editable.
      * @param simulator the simulator to schedule on
      * @param location the initial location
      */
@@ -139,17 +133,13 @@ public abstract class Editable extends EventProducer implements LocatableInterfa
         this.vertices = vertices;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.LocatableInterface#getBounds()
-     */
+    /** {@inheritDoc} */
     public Bounds getBounds()
     {
         return this.bounds;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.animation.LocatableInterface#getLocation()
-     */
+    /** {@inheritDoc} */
     public DirectedPoint getLocation()
     {
         return this.location;

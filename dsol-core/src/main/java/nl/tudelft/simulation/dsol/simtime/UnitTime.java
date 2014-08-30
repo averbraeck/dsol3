@@ -38,10 +38,10 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
     /** */
     private static final long serialVersionUID = 20140802L;
 
-    /** value represents the value in milliseconds */
+    /** value represents the value in milliseconds. */
     protected N timeMsec;
 
-    /** original unit */
+    /** original unit. */
     protected final TimeUnit unit;
 
     /**
@@ -90,36 +90,28 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
         return this.unit;
     }
 
-    /**
-     * @see java.lang.Number#intValue()
-     */
+    /** {@inheritDoc} */
     @Override
     public int intValue()
     {
         return this.timeMsec.intValue();
     }
 
-    /**
-     * @see java.lang.Number#longValue()
-     */
+    /** {@inheritDoc} */
     @Override
     public long longValue()
     {
         return this.timeMsec.longValue();
     }
 
-    /**
-     * @see java.lang.Number#floatValue()
-     */
+    /** {@inheritDoc} */
     @Override
     public float floatValue()
     {
         return this.timeMsec.floatValue();
     }
 
-    /**
-     * @see java.lang.Number#doubleValue()
-     */
+    /** {@inheritDoc} */
     @Override
     public double doubleValue()
     {
@@ -172,9 +164,7 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
         return convert(TimeUnit.HOUR);
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

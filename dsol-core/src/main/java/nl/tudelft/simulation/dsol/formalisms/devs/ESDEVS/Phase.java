@@ -48,10 +48,10 @@ import java.io.Serializable;
  */
 public class Phase implements Serializable
 {
-    /** the default serial version UID */
+    /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
 
-    /** the identifier of the phase */
+    /** the identifier of the phase. */
     private String name;
 
     /**
@@ -75,9 +75,7 @@ public class Phase implements Serializable
     }
 
     @Override
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     public String toString()
     {
         String result;

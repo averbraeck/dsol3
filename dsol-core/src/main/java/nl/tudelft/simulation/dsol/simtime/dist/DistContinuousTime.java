@@ -41,7 +41,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** the wrapped distribution */
+    /** the wrapped distribution. */
     protected final DistContinuous wrappedDistribution;
     
     /**
@@ -74,7 +74,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class DistContinuousTime.Double */
+    /** Easy access class DistContinuousTime.Double. */
     public static class Double extends DistContinuousTime<java.lang.Double>
     {
         /** */
@@ -88,9 +88,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             super(wrappedDistribution);
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public java.lang.Double draw()
         {
@@ -98,7 +96,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         }
     }
 
-    /** Easy access class DistContinuousTime.Float */
+    /** Easy access class DistContinuousTime.Float. */
     public static class Float extends DistContinuousTime<java.lang.Float>
     {
         /** */
@@ -112,9 +110,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             super(wrappedDistribution);
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public java.lang.Float draw()
         {
@@ -122,7 +118,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         }
     }
 
-    /** Easy access class DistContinuousTime.Long */
+    /** Easy access class DistContinuousTime.Long. */
     public static class Long extends DistContinuousTime<java.lang.Long>
     {
         /** */
@@ -136,9 +132,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             super(wrappedDistribution);
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public java.lang.Long draw()
         {
@@ -146,13 +140,13 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         }
     }
 
-    /** Easy access class DistContinuousTime.DoubleUnit */
+    /** Easy access class DistContinuousTime.DoubleUnit. */
     public static class DoubleUnit extends DistContinuousTime<UnitTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
         
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -165,9 +159,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public UnitTimeDouble draw()
         {
@@ -175,13 +167,13 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         }
     }
 
-    /** Easy access class DistContinuousTime.FloatUnit */
+    /** Easy access class DistContinuousTime.FloatUnit. */
     public static class FloatUnit extends DistContinuousTime<UnitTimeFloat>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
         
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -194,9 +186,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public UnitTimeFloat draw()
         {
@@ -204,13 +194,13 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         }
     }
 
-    /** Easy access class DistContinuousTime.LongUnit */
+    /** Easy access class DistContinuousTime.LongUnit. */
     public static class LongUnit extends DistContinuousTime<UnitTimeLong> 
     {
         /** */
         private static final long serialVersionUID = 20140805L;
         
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -223,9 +213,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public UnitTimeLong draw()
         {
@@ -233,13 +221,13 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         }
     }
 
-    /** Easy access class DistContinuousTime.CalendarDouble */
+    /** Easy access class DistContinuousTime.CalendarDouble. */
     public static class CalendarDouble extends DistContinuousTime<UnitTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
         
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -252,9 +240,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public UnitTimeDouble draw()
         {
@@ -262,13 +248,13 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         }
     }
 
-    /** Easy access class DistContinuousTime.CalendarFloat */
+    /** Easy access class DistContinuousTime.CalendarFloat. */
     public static class CalendarFloat extends DistContinuousTime<UnitTimeFloat>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
         
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -281,9 +267,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public UnitTimeFloat draw()
         {
@@ -291,13 +275,13 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         }
     }
 
-    /** Easy access class DistContinuousTime.CalendarLong */
+    /** Easy access class DistContinuousTime.CalendarLong. */
     public static class CalendarLong extends DistContinuousTime<UnitTimeLong>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
         
-        /** the time unit */
+        /** the time unit. */
         private final TimeUnit unit;
 
         /**
@@ -310,9 +294,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
             this.unit = unit;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime#draw()
-         */
+        /** {@inheritDoc} */
         @Override
         public UnitTimeLong draw()
         {

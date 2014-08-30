@@ -1,14 +1,9 @@
-/*
- * @(#)DESSSimulatorInterface.java Aug 18, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
+import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -34,7 +29,7 @@ import nl.tudelft.simulation.event.EventType;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -46,7 +41,7 @@ import nl.tudelft.simulation.event.EventType;
 public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends SimulatorInterface<A, R, T>
 {
-    /** TIME_STEP_CHANGED_EVENT is fired when the time step is set */
+    /** TIME_STEP_CHANGED_EVENT is fired when the time step is set. */
     EventType TIME_STEP_CHANGED_EVENT = new EventType("TIME_STEP_CHANGED_EVENT");
 
     /**
@@ -59,63 +54,64 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /**
      * Method setTimeStep sets the time step of the simulator
      * @param timeStep the new timeStep. Its value should be >0.0
+     * @throws SimRuntimeException when timestep <= 0, NaN, or Infinity
      * @throws RemoteException on network failure
      */
-    void setTimeStep(R timeStep) throws RemoteException;
+    void setTimeStep(R timeStep) throws SimRuntimeException, RemoteException;
     
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
-    /** Easy access interface DESSSimulatorInterface.Double */
+    /** Easy access interface DESSSimulatorInterface.Double. */
     public static interface Double extends DESSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.Float */
+    /** Easy access interface DESSSimulatorInterface.Float. */
     public static interface Float extends DESSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.Long */
+    /** Easy access interface DESSSimulatorInterface.Long. */
     public static interface Long extends DESSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.DoubleUnit */
+    /** Easy access interface DESSSimulatorInterface.DoubleUnit. */
     public static interface DoubleUnit extends DESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.FloatUnit */
+    /** Easy access interface DESSSimulatorInterface.FloatUnit. */
     public static interface FloatUnit extends DESSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.LongUnit */
+    /** Easy access interface DESSSimulatorInterface.LongUnit. */
     public static interface LongUnit extends DESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.CalendarDouble */
+    /** Easy access interface DESSSimulatorInterface.CalendarDouble. */
     public static interface CalendarDouble extends DESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.CalendarFloat */
+    /** Easy access interface DESSSimulatorInterface.CalendarFloat. */
     public static interface CalendarFloat extends DESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.CalendarLong */
+    /** Easy access interface DESSSimulatorInterface.CalendarLong. */
     public static interface CalendarLong extends DESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         // typed extension

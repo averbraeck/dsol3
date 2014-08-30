@@ -1,9 +1,3 @@
-/*
- * @(#) Animator.java Sep 6, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
@@ -32,7 +26,7 @@ import nl.tudelft.simulation.logger.Logger;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -54,29 +48,23 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         super(initialTimeStep);
     }
 
-    /** AnimationDelay refers to the delay in milliseconds between timeSteps */
+    /** AnimationDelay refers to the delay in milliseconds between timeSteps. */
     protected long animationDelay = 100L;
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #getAnimationDelay()
-     */
+    /** {@inheritDoc} */
     public long getAnimationDelay()
     {
         return this.animationDelay;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #setAnimationDelay(long)
-     */
+    /** {@inheritDoc} */
     public void setAnimationDelay(final long animationDelay)
     {
         this.animationDelay = animationDelay;
         this.fireEvent(ANIMATION_DELAY_CHANGED_EVENT, animationDelay);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.DEVSSimulator#run()
-     */
+    /** {@inheritDoc} */
     @Override
     public void run()
     {
@@ -93,7 +81,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
             catch (Exception exception)
             {
                 exception = null;
-                // Let's neglect this sleep...
+                // Let's neglect this sleep..
             }
             T runUntil = this.simulatorTime.plus(this.timeStep);
             while (!this.eventList.isEmpty() && this.running
@@ -103,7 +91,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
-                    this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
                     try
                     {
                         event.execute();
@@ -118,7 +106,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
             {
                 this.simulatorTime = runUntil;
             }
-            this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
             this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
         }
     }
@@ -127,7 +115,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class Animator.Double */
+    /** Easy access class Animator.Double. */
     public static class Double extends DEVDESSAnimator<java.lang.Double, java.lang.Double, SimTimeDouble>
     {
         /** */
@@ -142,7 +130,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.Float */
+    /** Easy access class Animator.Float. */
     public static class Float extends DEVDESSAnimator<java.lang.Float, java.lang.Float, SimTimeFloat>
     {
         /** */
@@ -157,7 +145,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.Long */
+    /** Easy access class Animator.Long. */
     public static class Long extends DEVDESSAnimator<java.lang.Long, java.lang.Long, SimTimeLong>
     {
         /** */
@@ -172,7 +160,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.DoubleUnit */
+    /** Easy access class Animator.DoubleUnit. */
     public static class DoubleUnit extends DEVDESSAnimator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         /** */
@@ -187,7 +175,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.FloatUnit */
+    /** Easy access class Animator.FloatUnit. */
     public static class FloatUnit extends DEVDESSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         /** */
@@ -202,7 +190,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.LongUnit */
+    /** Easy access class Animator.LongUnit. */
     public static class LongUnit extends DEVDESSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         /** */
@@ -217,7 +205,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.CalendarDouble */
+    /** Easy access class Animator.CalendarDouble. */
     public static class CalendarDouble extends DEVDESSAnimator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         /** */
@@ -232,7 +220,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.CalendarFloat */
+    /** Easy access class Animator.CalendarFloat. */
     public static class CalendarFloat extends DEVDESSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         /** */
@@ -247,7 +235,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.CalendarLong */
+    /** Easy access class Animator.CalendarLong. */
     public static class CalendarLong extends DEVDESSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         /** */

@@ -1,9 +1,3 @@
-/*
- * @(#) DifferentialEquation.java Oct 25, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.formalisms.dess;
 
 import java.rmi.RemoteException;
@@ -25,7 +19,7 @@ import nl.tudelft.simulation.logger.Logger;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:46 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -49,7 +43,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
         }
     }
 
-    /** simulator */
+    /** simulator. */
     protected DESSSimulatorInterface<A, R, T> simulator = null;
 
     /** the previousX */
@@ -79,7 +73,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     }
 
     /**
-     * constructs a new DifferentialEquation
+     * constructs a new DifferentialEquation.
      * @param simulator the simulator.
      * @param timeStep the timeStep for ODE estimation.
      * @param numericalMethod the numerical method to be used.
@@ -100,7 +94,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     }
 
     /**
-     * constructs a new DifferentialEquation
+     * constructs a new DifferentialEquation.
      * @param simulator the simulator.
      * @param timeStep the timeStep for ODE estimation.
      * @param numericalIntegrator the actual integrator to be used.
@@ -120,9 +114,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
         }
     }
 
-    /**
-     * @see EventListenerInterface#notify(EventInterface)
-     */
+    /** {@inheritDoc} */
     public synchronized void notify(final EventInterface event) throws RemoteException
     {
         if (event.getSource() instanceof DESSSimulatorInterface
@@ -137,16 +129,14 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
                     integrateY(this.simulator.getSimulatorTime().get().doubleValue(), this.previousX, this.previousY);
             for (int i = 0; i < super.y0.length; i++)
             {
-                this.fireEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i], this.simulator
+                this.fireTimedEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i], this.simulator
                         .getSimulatorTime());
             }
             this.previousX = this.simulator.getSimulatorTime().get().doubleValue();
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface#initialize(double, double[])
-     */
+    /** {@inheritDoc} */
     @Override
     public void initialize(final double x, final double[] y)
     {

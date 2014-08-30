@@ -14,7 +14,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 public final class DistributionsBenchmark
 {
     /**
-     * constructs a new StreamBenchmark
+     * constructs a new StreamBenchmark.
      */
     private DistributionsBenchmark()
     {

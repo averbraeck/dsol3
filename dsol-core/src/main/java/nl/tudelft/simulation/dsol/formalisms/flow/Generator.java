@@ -1,9 +1,3 @@
-/*
- * @(#)Generator.java Feb 1, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.lang.reflect.Constructor;
@@ -29,7 +23,7 @@ import nl.tudelft.simulation.logger.Logger;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -42,7 +36,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** CREATE_EVENT is fired on creation */
+    /** CREATE_EVENT is fired on creation. */
     public static final EventType CREATE_EVENT = new EventType("CREATE_EVENT");
 
     /**
@@ -75,7 +69,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
      */
     private long maxNumber = -1;
 
-    /** number refers to the currently constructed number */
+    /** number refers to the currently constructed number. */
     private long number = 0;
 
     /**
@@ -151,9 +145,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
         }
     }
 
-    /**
-     * @see StationInterface#receiveObject(Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public void receiveObject(final Object object)
     {

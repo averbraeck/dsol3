@@ -1,9 +1,3 @@
-/*
- * @(#)DistBeta.java Apr 3, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.distributions;
 
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -19,23 +13,23 @@ import cern.jet.stat.Gamma;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
  * @since 1.5
  */
 public class DistBeta extends DistContinuous
 {
 
-    /** dist1 refers to the first Gamma distribution */
+    /** dist1 refers to the first Gamma distribution. */
     private DistGamma dist1;
 
-    /** dist2 refers to the second Gamma distribution */
+    /** dist2 refers to the second Gamma distribution. */
     private DistGamma dist2;
 
-    /** alpha1 is the first parameter for the Beta distribution */
+    /** alpha1 is the first parameter for the Beta distribution. */
     private double alpha1;
 
-    /** alpha2 is the second parameter for the Beta distribution */
+    /** alpha2 is the second parameter for the Beta distribution. */
     private double alpha2;
 
     /**
@@ -60,9 +54,7 @@ public class DistBeta extends DistContinuous
         this.dist2 = new DistGamma(stream, this.alpha2, 1.0);
     }
 
-    /**
-     * @see DistContinuous#draw()
-     */
+    /** {@inheritDoc} */
     @Override
     public double draw()
     {
@@ -73,9 +65,7 @@ public class DistBeta extends DistContinuous
         return y1 / (y1 + y2);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistContinuous #probDensity(double)
-     */
+    /** {@inheritDoc} */
     @Override
     public double probDensity(final double observation)
     {
@@ -87,9 +77,7 @@ public class DistBeta extends DistContinuous
         return 0;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

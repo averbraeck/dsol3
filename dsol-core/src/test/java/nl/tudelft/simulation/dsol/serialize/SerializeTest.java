@@ -1,9 +1,3 @@
-/*
- * @(#) SerializeTest.java Dec 7, 2004 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.dsol.serialize;
 
 import java.rmi.MarshalledObject;
@@ -30,16 +24,16 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 2.0 21.09.2003 <br>
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class SerializeTest extends TestCase
 {
-    /** TEST_METHOD_NAME refers to the name of the test method */
+    /** TEST_METHOD_NAME refers to the name of the test method. */
     public static final String TEST_METHOD_NAME = "test";
 
     /**
-     * constructs a new BasicReflectionTest
+     * constructs a new BasicReflectionTest.
      * @param testMethod the name of the test method
      */
     public SerializeTest(final String testMethod)

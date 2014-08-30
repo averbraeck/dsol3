@@ -78,9 +78,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
         return ret;
     }
 
-    /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public abstract int compareTo(final T simTime);
 
@@ -239,9 +237,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
         return ge(this.copy().setZero());
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

@@ -47,13 +47,13 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  */
 public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
 {
-    /** the default serial version UID */
+    /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
 
-    /** the set of input ports */
+    /** the set of input ports. */
     protected Map<String, InputPortInterface<?>> inputPortMap = new HashMap<String, InputPortInterface<?>>();
 
-    /** the set of output ports */
+    /** the set of output ports. */
     protected Map<String, OutputPortInterface<?>> outputPortMap = new HashMap<String, OutputPortInterface<?>>();
 
     /**

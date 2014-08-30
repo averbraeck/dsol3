@@ -1,10 +1,3 @@
-/*
- * @(#)CachingNumericalIntegrator.java May 2, 2004 Copyright (c) 2002-2005, 2004
- * Delft University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands.
- * All rights reserved. This software is proprietary information of Delft
- * University of Technology The code is published under the Lesser General
- * Public License
- */
 
 package nl.tudelft.simulation.jstats.ode.integrators;
 
@@ -32,7 +25,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
     /** the cache for y'(k-1), y'(k-2), etc. */
     private double[][] cacheDY;
 
-    /** the number of cache places filled = the last cache place used */
+    /** the number of cache places filled = the last cache place used. */
     private int lastCachePlace = -1;
 
     /**
@@ -40,7 +33,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
      */
     protected NumericalIntegrator startingIntegrator = null;
 
-    /** the substeps to use when starting the integrator */
+    /** the substeps to use when starting the integrator. */
     protected int startingSubSteps = 10;
 
     /**
@@ -63,9 +56,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
         this.startingSubSteps = startingSubSteps;
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator#setTimeStep(double)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setTimeStep(final double timeStep)
     {
@@ -73,9 +64,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
         this.lastCachePlace = -1;
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator#next(double, double[])
-     */
+    /** {@inheritDoc} */
     @Override
     public double[] next(final double x, final double[] y)
     {

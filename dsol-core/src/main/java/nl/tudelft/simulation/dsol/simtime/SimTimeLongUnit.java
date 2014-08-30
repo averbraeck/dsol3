@@ -33,7 +33,7 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** value represents the value in milliseconds */
+    /** value represents the value in milliseconds. */
     private UnitTimeLong time;
 
     /**
@@ -44,27 +44,21 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
         super(new UnitTimeLong(time.getTime(), time.getUnit()));
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#add(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void add(UnitTimeLong simTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() + simTime.getTimeMsec());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#subtract(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void subtract(final UnitTimeLong simTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() - simTime.getTimeMsec());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public UnitTimeLong minus(final SimTimeLongUnit absoluteTime)
     {
@@ -73,18 +67,14 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
         return ret;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#compareTo(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(SimTimeLongUnit simTime)
     {
         return this.time.compareTo(simTime.get());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#setZero()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeLongUnit setZero()
     {
@@ -92,27 +82,21 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
         return this;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#copy()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeLongUnit copy()
     {
         return new SimTimeLongUnit(new UnitTimeLong(this.time.getTime(), this.time.getUnit()));
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void set(UnitTimeLong value)
     {
         this.time = new UnitTimeLong(value.getTime(), value.getUnit());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#get()
-     */
+    /** {@inheritDoc} */
     @Override
     public UnitTimeLong get()
     {

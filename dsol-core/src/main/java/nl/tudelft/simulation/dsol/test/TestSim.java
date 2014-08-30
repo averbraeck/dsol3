@@ -106,18 +106,14 @@ public class TestSim
             this.simulator = simulator;
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.ModelInterface#constructModel(nl.tudelft.simulation.dsol.simulators.SimulatorInterface)
-         */
+        /** {@inheritDoc} */
         @Override
         public void constructModel(SimulatorInterface simulator) throws SimRuntimeException, RemoteException
         {
             //
         }
 
-        /**
-         * @see nl.tudelft.simulation.dsol.ModelInterface#getSimulator()
-         */
+        /** {@inheritDoc} */
         @Override
         public SimulatorInterface getSimulator() throws RemoteException
         {

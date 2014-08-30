@@ -1,9 +1,3 @@
-/*
- * @(#)Station.java Feb 1, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.rmi.RemoteException;
@@ -20,7 +14,7 @@ import nl.tudelft.simulation.event.EventProducer;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -34,10 +28,10 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** simulator is the simulator on which behavior is scheduled */
+    /** simulator is the simulator on which behavior is scheduled. */
     protected DEVSSimulatorInterface<A, R, T> simulator;
 
-    /** destination refers to the next station in the process-model chain */
+    /** destination refers to the next station in the process-model chain. */
     protected StationInterface destination;
 
     /**
@@ -50,17 +44,13 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
         this.simulator = simulator;
     }
 
-    /**
-     * @see StationInterface#receiveObject(Object)
-     */
+    /** {@inheritDoc} */
     public void receiveObject(final Object object) throws RemoteException
     {
-        this.fireEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime());
     }
 
-    /**
-     * @see StationInterface#setDestination(StationInterface)
-     */
+    /** {@inheritDoc} */
     public void setDestination(final StationInterface destination)
     {
         this.destination = destination;
@@ -73,7 +63,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
      */
     protected synchronized void releaseObject(final Object object) throws RemoteException
     {
-        this.fireEvent(StationInterface.RELEASE_EVENT, 0.0, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(StationInterface.RELEASE_EVENT, 0.0, this.simulator.getSimulatorTime());
         if (this.destination != null)
         {
             this.destination.receiveObject(object);

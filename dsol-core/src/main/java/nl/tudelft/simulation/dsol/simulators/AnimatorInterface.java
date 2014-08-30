@@ -1,9 +1,3 @@
-/*
- * @(#)AnimatorInterface.java Aug 18, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
@@ -18,19 +12,19 @@ import nl.tudelft.simulation.event.EventType;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @since 1.5
  */
 public interface AnimatorInterface
 {
-    /** DEFAULT_ANIMATION_DELAY of 0 miliseconds used in the animator */
+    /** DEFAULT_ANIMATION_DELAY of 0 miliseconds used in the animator. */
     long DEFAULT_ANIMATION_DELAY = 0L;
 
-    /** UPDATE_ANIMATION_EVENT is fired to wake up animatable components */
+    /** UPDATE_ANIMATION_EVENT is fired to wake up animatable components. */
     EventType UPDATE_ANIMATION_EVENT = new EventType("UPDATE_ANIMATION_EVENT");
 
-    /** ANIMATION_DELAY_CHANGED_EVENT is fired when the time step is set */
+    /** ANIMATION_DELAY_CHANGED_EVENT is fired when the time step is set. */
     EventType ANIMATION_DELAY_CHANGED_EVENT = new EventType("ANIMATION_DELAY_CHANGED_EVENT");
 
     /**

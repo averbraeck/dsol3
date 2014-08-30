@@ -33,7 +33,7 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
     /** */
     private static final long serialVersionUID = 20140803L;
     
-    /** the locally stored time */
+    /** the locally stored time. */
     private float time;
 
     /**
@@ -44,54 +44,42 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
         super(time);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#add(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public void add(final Float value)
     {
         this.time += value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#subtract(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void subtract(final Float value)
     {
         this.time -= value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public Float minus(final SimTimeFloat absoluteTime)
     {
         return this.get().floatValue() - absoluteTime.get().floatValue();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void set(final Float value)
     {
         this.time = value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#get()
-     */
+    /** {@inheritDoc} */
     @Override
     public Float get()
     {
         return this.time;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#setZero()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeFloat setZero()
     {
@@ -99,18 +87,14 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
         return this;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#compareTo(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(SimTimeFloat simTime)
     {
         return Float.compare(this.time, simTime.get());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#copy()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeFloat copy()
     {

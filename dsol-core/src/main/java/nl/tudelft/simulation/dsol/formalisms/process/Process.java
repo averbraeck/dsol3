@@ -1,9 +1,3 @@
-/*
- * @(#) Process.java Jan 19, 2004 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.formalisms.process;
 
 import java.rmi.RemoteException;
@@ -25,7 +19,7 @@ import nl.tudelft.simulation.logger.Logger;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 1.0 Jan 19, 2004 <br>
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
@@ -57,7 +51,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * Constructs a new <code>Process</code>
+     * Constructs a new <code>Process</code>.
      * @param simulator the simulator to schedule on
      * @param start whether to immediately start this process
      */
@@ -102,9 +96,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
         this.suspend();
     }
 
-    /**
-     * @see Process#cancel()
-     */
+    /** {@inheritDoc} */
     @Override
     public void cancel()
     {
@@ -122,9 +114,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /**
-     * @see Process#resume()
-     */
+    /** {@inheritDoc} */
     @Override
     public void resume()
     {
@@ -132,10 +122,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
         super.resume();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface#receiveRequestedResource(double,
-     *      nl.tudelft.simulation.dsol.formalisms.Resource)
-     */
+    /** {@inheritDoc} */
     public void receiveRequestedResource(final double requestedCapacity, final Resource resource)
     {
         this.resume();

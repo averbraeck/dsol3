@@ -1,9 +1,3 @@
-/*
- * @(#)DistLogNormal.java Apr 3, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.jstats.distributions;
 
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -19,7 +13,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
  * @since 1.5
  */
@@ -45,9 +39,7 @@ public class DistLogNormal extends DistNormal
         }
     }
 
-    /**
-     * @see DistContinuous#draw()
-     */
+    /** {@inheritDoc} */
     @Override
     public double draw()
     {
@@ -55,9 +47,7 @@ public class DistLogNormal extends DistNormal
         return Math.exp(y);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistContinuous #probDensity(double)
-     */
+    /** {@inheritDoc} */
     @Override
     public double probDensity(final double observation)
     {
@@ -69,9 +59,7 @@ public class DistLogNormal extends DistNormal
         return 0.0;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

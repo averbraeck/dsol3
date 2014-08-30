@@ -1,9 +1,3 @@
-/*
- * @(#)SimulatorIntergace.java April 4, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.Serializable;
@@ -40,7 +34,7 @@ import nl.tudelft.simulation.event.EventType;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
@@ -52,25 +46,25 @@ import nl.tudelft.simulation.event.EventType;
 public abstract interface SimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Remote, Serializable, EventProducerInterface
 {
-    /** END_OF_REPLICATION_EVENT is fired when a replication is finished */
+    /** END_OF_REPLICATION_EVENT is fired when a replication is finished. */
     EventType END_OF_REPLICATION_EVENT = new EventType("END_OF_REPLICATION_EVENT");
 
-    /** START_EVENT is fired when the simulator is started */
+    /** START_EVENT is fired when the simulator is started. */
     EventType START_REPLICATION_EVENT = new EventType("START_REPLICATION_EVENT");
 
-    /** START_EVENT is fired when the simulator is started */
+    /** START_EVENT is fired when the simulator is started. */
     EventType START_EVENT = new EventType("START_EVENT");
 
-    /** STEP_EVENT is fired when the simulator is stepped */
+    /** STEP_EVENT is fired when the simulator is stepped. */
     EventType STEP_EVENT = new EventType("STEP_EVENT");
 
-    /** STOP_EVENT is fired when the simulator is stopped */
+    /** STOP_EVENT is fired when the simulator is stopped. */
     EventType STOP_EVENT = new EventType("STOP_EVENT");
 
-    /** TIME_CHANGED_EVENT is fired when the simulatorTime is updated */
+    /** TIME_CHANGED_EVENT is fired when the simulatorTime is updated. */
     EventType TIME_CHANGED_EVENT = new EventType("TIME_CHANGED_EVENT");
 
-    /** WARMUP_EVENT is fired when the initialize method is invoked */
+    /** WARMUP_EVENT is fired when the initialize method is invoked. */
     EventType WARMUP_EVENT = new EventType("WARMUP_EVENT");
 
     /**
@@ -129,55 +123,55 @@ public abstract interface SimulatorInterface<A extends Comparable<A>, R extends 
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
-    /** Easy access interface SimulatorInterface.Double */
+    /** Easy access interface SimulatorInterface.Double. */
     public static interface Double extends SimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
     {
         // typed extension
     }
 
-    /** Easy access interface SimulatorInterface.Float */
+    /** Easy access interface SimulatorInterface.Float. */
     public static interface Float extends SimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
     {
         // typed extension
     }
 
-    /** Easy access interface SimulatorInterface.Long */
+    /** Easy access interface SimulatorInterface.Long. */
     public static interface Long extends SimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
     {
         // typed extension
     }
 
-    /** Easy access interface SimulatorInterface.DoubleUnit */
+    /** Easy access interface SimulatorInterface.DoubleUnit. */
     public static interface DoubleUnit extends SimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface SimulatorInterface.FloatUnit */
+    /** Easy access interface SimulatorInterface.FloatUnit. */
     public static interface FloatUnit extends SimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface SimulatorInterface.LongUnit */
+    /** Easy access interface SimulatorInterface.LongUnit. */
     public static interface LongUnit extends SimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface SimulatorInterface.CalendarDouble */
+    /** Easy access interface SimulatorInterface.CalendarDouble. */
     public static interface CalendarDouble extends SimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
-    /** Easy access interface SimulatorInterface.CalendarFloat */
+    /** Easy access interface SimulatorInterface.CalendarFloat. */
     public static interface CalendarFloat extends SimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         // typed extension
     }
 
-    /** Easy access interface SimulatorInterface.CalendarLong */
+    /** Easy access interface SimulatorInterface.CalendarLong. */
     public static interface CalendarLong extends SimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         // typed extension

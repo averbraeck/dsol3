@@ -1,9 +1,3 @@
-/*
- * @(#) Counter.java Sep 21, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.statistics;
 
 import java.rmi.RemoteException;
@@ -29,7 +23,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <T> the absolute simulation time to use in the warmup event.
  */
 public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jstats.statistics.Counter
@@ -37,14 +31,14 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
     /** */
     private static final long serialVersionUID = 20140804L;
 
-    /** the simulator to subscribe to and from */
+    /** the simulator to subscribe to and from. */
     private SimulatorInterface<?, ?, T> simulator = null;
 
-    /** we stopped the counter */
+    /** we stopped the counter. */
     private boolean stopped = false;
 
     /**
-     * constructs a new Counter
+     * constructs a new Counter.
      * @param description refers to the description of this counter
      * @param simulator the simulator
      * @throws RemoteException on network failure
@@ -74,7 +68,7 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
     }
 
     /**
-     * constructs a new Counter
+     * constructs a new Counter.
      * @param description the description
      * @param simulator the simulator of this model
      * @param target the target on which to count
@@ -88,9 +82,7 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
         target.addListener(this, field, false);
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     @Override
     public void notify(final EventInterface event)
     {

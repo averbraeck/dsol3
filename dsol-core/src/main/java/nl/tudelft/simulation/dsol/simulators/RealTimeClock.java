@@ -1,9 +1,3 @@
-/*
- * @(#) RealTimeClock.java Sep 6, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
@@ -34,7 +28,7 @@ import nl.tudelft.simulation.logger.Logger;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -48,13 +42,13 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** the backlog event */
+    /** the backlog event. */
     public static final EventType BACKLOG_EVENT = new EventType("BACKLOG_EVENT");
 
-    /** the backLog of the clock */
+    /** the backLog of the clock. */
     private long backlog = 0L;
 
-    /** the starttime of the clock */
+    /** the starttime of the clock. */
     private long startTime = 0L;
 
     /**
@@ -66,9 +60,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         super(initialTimeStep);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.DEVSSimulator#run()
-     */
+    /** {@inheritDoc} */
     @Override
     public void run()
     {
@@ -103,10 +95,10 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
             {
                 this.simulatorTime = runUntil;
             }
-            this.fireEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
             if ((count % animationFactor) == 0)
             {
-                this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime, this.simulatorTime);
+                this.fireTimedEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime, this.simulatorTime);
             }
             count++;
             try
@@ -134,18 +126,14 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #getAnimationDelay()
-     */
+    /** {@inheritDoc} */
     @Override
     public long getAnimationDelay()
     {
         return this.animationDelay;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.AnimatorInterface #setAnimationDelay(long)
-     */
+    /** {@inheritDoc} */
     @Override
     public void setAnimationDelay(final long animationDelay)
     {
@@ -156,7 +144,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class RealTimeClock.Double */
+    /** Easy access class RealTimeClock.Double. */
     public class Double extends RealTimeClock<java.lang.Double, java.lang.Double, SimTimeDouble> implements
             DEVDESSSimulatorInterface.Double
     {
@@ -172,7 +160,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.Float */
+    /** Easy access class RealTimeClock.Float. */
     public class Float extends RealTimeClock<java.lang.Float, java.lang.Float, SimTimeFloat> implements
             DEVDESSSimulatorInterface.Float
     {
@@ -188,7 +176,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.Long */
+    /** Easy access class RealTimeClock.Long. */
     public class Long extends RealTimeClock<java.lang.Long, java.lang.Long, SimTimeLong> implements
             DEVDESSSimulatorInterface.Long
     {
@@ -204,7 +192,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.DoubleUnit */
+    /** Easy access class RealTimeClock.DoubleUnit. */
     public class DoubleUnit extends RealTimeClock<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
             DEVDESSSimulatorInterface.DoubleUnit
     {
@@ -220,7 +208,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.FloatUnit */
+    /** Easy access class RealTimeClock.FloatUnit. */
     public class FloatUnit extends RealTimeClock<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
             DEVDESSSimulatorInterface.FloatUnit
     {
@@ -236,7 +224,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.LongUnit */
+    /** Easy access class RealTimeClock.LongUnit. */
     public class LongUnit extends RealTimeClock<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
             DEVDESSSimulatorInterface.LongUnit
     {
@@ -252,7 +240,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.CalendarDouble */
+    /** Easy access class RealTimeClock.CalendarDouble. */
     public class CalendarDouble extends RealTimeClock<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
             DEVDESSSimulatorInterface.CalendarDouble
     {
@@ -268,7 +256,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.CalendarFloat */
+    /** Easy access class RealTimeClock.CalendarFloat. */
     public class CalendarFloat extends RealTimeClock<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
             DEVDESSSimulatorInterface.CalendarFloat
     {
@@ -284,7 +272,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** Easy access class RealTimeClock.CalendarLong */
+    /** Easy access class RealTimeClock.CalendarLong. */
     public class CalendarLong extends RealTimeClock<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
             DEVDESSSimulatorInterface.CalendarLong
     {

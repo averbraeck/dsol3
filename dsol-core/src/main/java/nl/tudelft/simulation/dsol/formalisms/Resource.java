@@ -1,9 +1,3 @@
-/*
- * @(#)Resource.java Feb 1, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.formalisms;
 
 import java.rmi.RemoteException;
@@ -27,7 +21,7 @@ import nl.tudelft.simulation.logger.Logger;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
  * @since 1.5
  */
@@ -36,13 +30,13 @@ public class Resource extends EventProducer
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /** the counter counting the requests */
+    /** the counter counting the requests. */
     protected static long counter = 0;
 
     /** UTILIZATION_EVENT is fired on activity */
     public static final EventType UTILIZATION_EVENT = new EventType("UTILIZATION_EVENT");
 
-    /** RESOURCE_REQUESTED_QUEUE_LENGTH fired on changes in queue length */
+    /** RESOURCE_REQUESTED_QUEUE_LENGTH fired on changes in queue length. */
     public static final EventType RESOURCE_REQUESTED_QUEUE_LENGTH = new EventType("RESOURCE_REQUESTED_QUEUE_LENGTH");
 
     /** the minimum priority */
@@ -54,20 +48,20 @@ public class Resource extends EventProducer
     /** the default average priority */
     public static final int DEFAULT_REQUEST_PRIORITY = 5;
 
-    /** capacity defines the maximuum capacity of the resource */
+    /** capacity defines the maximuum capacity of the resource. */
     protected double capacity;
 
     /** claimedCapacity defines the currently claimed capacity */
     protected double claimedCapacity = 0.0;
 
-    /** request defines the list of requestors for this resource */
+    /** request defines the list of requestors for this resource. */
     protected SortedSet<Request> requests = Collections.synchronizedSortedSet(new TreeSet<Request>(
             new RequestComparator()));
 
-    /** simulator defines the simulator on which is scheduled */
+    /** simulator defines the simulator on which is scheduled. */
     protected DEVSSimulatorInterface<?, ?, ?> simulator;
 
-    /** the description of the resource */
+    /** the description of the resource. */
     protected String description = "resource";
 
     /**
@@ -139,7 +133,7 @@ public class Resource extends EventProducer
     private synchronized void alterClaimedCapacity(final double amount) throws RemoteException
     {
         this.claimedCapacity += amount;
-        this.fireEvent(Resource.UTILIZATION_EVENT, this.claimedCapacity, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(Resource.UTILIZATION_EVENT, this.claimedCapacity, this.simulator.getSimulatorTime());
     }
 
     /**
@@ -200,7 +194,7 @@ public class Resource extends EventProducer
             {
                 this.requests.add(new Request(requestor, amount, priority));
             }
-            this.fireEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
+            this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
                     this.simulator.getSimulatorTime());
         }
     }
@@ -233,7 +227,7 @@ public class Resource extends EventProducer
                     {
                         i.remove();
                     }
-                    this.fireEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
+                    this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
                             this.simulator.getSimulatorTime());
                 }
                 else
@@ -244,9 +238,7 @@ public class Resource extends EventProducer
         }
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -291,20 +283,20 @@ public class Resource extends EventProducer
      */
     public static class Request
     {
-        /** the priority of the request */
+        /** the priority of the request. */
         private int priority = 5;
 
-        /** the number of this request */
+        /** the number of this request. */
         private long id = -1;
 
-        /** requestor the resourceRequestor */
+        /** requestor the resourceRequestor. */
         private ResourceRequestorInterface requestor;
 
-        /** amount is the amount requested by the resource */
+        /** amount is the amount requested by the resource. */
         private double amount;
 
         /**
-         * constructs a new Request
+         * constructs a new Request.
          * @param requestor the requestor
          * @param amount the requested amount
          * @param priority the priority of the request
@@ -354,9 +346,7 @@ public class Resource extends EventProducer
             return this.id;
         }
 
-        /**
-         * @see java.lang.Object#toString()
-         */
+        /** {@inheritDoc} */
         @Override
         public String toString()
         {

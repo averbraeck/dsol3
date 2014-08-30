@@ -1,9 +1,3 @@
-/*
- * @(#)Treatment.java Aug 18, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
@@ -20,7 +14,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -30,34 +24,34 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
 public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> implements
         Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the replication mode */
+    /** the replication mode. */
     private final ReplicationMode replicationMode;
 
-    /** the experiment to which this treatment belongs */
+    /** the experiment to which this treatment belongs. */
     private final Experiment<A, R, T> experiment;
 
-    /** warmupPeriod is the warmup period */
+    /** warmupPeriod is the warmup period. */
     private final R warmupPeriod;
 
-    /** runLength reflects the runLength of the treatment */
+    /** runLength reflects the runLength of the treatment. */
     private final R runLength;
 
-    /** the start time of the simulation */
+    /** the start time of the simulation. */
     private final T startTime;
 
-    /** the end time of the simulation */
+    /** the end time of the simulation. */
     private final T endTime;
 
     /** the warmup time of the simulation (included in the total run length)*/
     private final T warmupTime;
 
-    /** the properties of this treatment */
+    /** the properties of this treatment. */
     private Properties properties = new Properties();
 
-    /** the id */
+    /** the id. */
     private final String id;
 
     /**
@@ -182,9 +176,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         return this.id;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

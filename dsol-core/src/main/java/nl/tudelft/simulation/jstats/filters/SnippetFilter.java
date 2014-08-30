@@ -1,9 +1,3 @@
-/*
- * @(#) ModulusFilter.java Oct 26, 2004 Copyright (c) 2004 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.jstats.filters;
 
 import nl.tudelft.simulation.language.filters.AbstractFilter;
@@ -17,16 +11,16 @@ import nl.tudelft.simulation.language.filters.AbstractFilter;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:41 $
  * @since 1.5
  */
 public class SnippetFilter extends AbstractFilter
 {
-    /** the snippet representing the xRange for this filter */
+    /** the snippet representing the xRange for this filter. */
     private double snippet = Double.NaN;
 
-    /** the amount of points already accepted */
+    /** the amount of points already accepted. */
     private double lastAcceptedXValue = -Double.MAX_VALUE;
 
     /**
@@ -44,9 +38,7 @@ public class SnippetFilter extends AbstractFilter
         this.snippet = snippet;
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.AbstractFilter #filter(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean filter(final Object entry)
     {
@@ -63,9 +55,7 @@ public class SnippetFilter extends AbstractFilter
         return false;
     }
 
-    /**
-     * @see nl.tudelft.simulation.language.filters.FilterInterface#getCriterium()
-     */
+    /** {@inheritDoc} */
     @Override
     public String getCriterium()
     {

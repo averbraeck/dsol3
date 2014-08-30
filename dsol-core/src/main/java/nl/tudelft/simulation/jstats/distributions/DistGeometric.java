@@ -1,9 +1,3 @@
-/*
- * @(#)DistGeometric.java Apr 3, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology 
- */
 package nl.tudelft.simulation.jstats.distributions;
 
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -19,16 +13,16 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
  * @since 1.5
  */
 public class DistGeometric extends DistDiscrete
 {
-    /** p is the p-value of the geometric distribution */
+    /** p is the p-value of the geometric distribution. */
     private double p;
 
-    /** lnp is a helper variable to avoid repetitive calculation */
+    /** lnp is a helper variable to avoid repetitive calculation. */
     private double lnp;
 
     /**
@@ -50,9 +44,7 @@ public class DistGeometric extends DistDiscrete
         this.lnp = Math.log(1.0 - this.p);
     }
 
-    /**
-     * @see DistDiscrete#draw()
-     */
+    /** {@inheritDoc} */
     @Override
     public long draw()
     {
@@ -60,9 +52,7 @@ public class DistGeometric extends DistDiscrete
         return (long) (Math.floor(Math.log(u) / this.lnp));
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.DistDiscrete #probability(int)
-     */
+    /** {@inheritDoc} */
     @Override
     public double probability(final int observation)
     {
@@ -73,9 +63,7 @@ public class DistGeometric extends DistDiscrete
         return 0.0;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {

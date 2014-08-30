@@ -44,10 +44,10 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
  */
 public class EOC<T>
 {
-    /** the output port of the sending component */
+    /** the output port of the sending component. */
     private OutputPortInterface<T> fromPort;
 
-    /** the input port of the receiving component */
+    /** the input port of the receiving component. */
     private OutputPortInterface<T> toPort;
 
     /**

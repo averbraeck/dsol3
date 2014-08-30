@@ -15,13 +15,13 @@ import nl.tudelft.simulation.dsol.simulators.Simulator;
  */
 public class AbstractOrder extends Process
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /** our BWM */
     String car1 = "bmw";
 
-    /** our second car */
+    /** our second car. */
     String car2 = null;
 
     /**

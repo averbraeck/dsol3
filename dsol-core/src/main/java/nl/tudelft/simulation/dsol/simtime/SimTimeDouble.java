@@ -33,7 +33,7 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
     /** */
     private static final long serialVersionUID = 20140803L;
     
-    /** the locally stored time */
+    /** the locally stored time. */
     private double time;
 
     /**
@@ -44,54 +44,42 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
         super(time);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#add(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
     public void add(final Double value)
     {
         this.time += value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#subtract(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void subtract(final Double value)
     {
         this.time -= value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#minus(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public Double minus(final SimTimeDouble absoluteTime)
     {
         return this.get().doubleValue() - absoluteTime.get().doubleValue();
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#set(java.lang.Comparable)
-     */
+    /** {@inheritDoc} */
     @Override
     public void set(final Double value)
     {
         this.time = value;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#get()
-     */
+    /** {@inheritDoc} */
     @Override
     public Double get()
     {
         return this.time;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#setZero()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeDouble setZero()
     {
@@ -99,18 +87,14 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
         return this;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#compareTo(nl.tudelft.simulation.dsol.simtime.SimTime)
-     */
+    /** {@inheritDoc} */
     @Override
     public int compareTo(SimTimeDouble simTime)
     {
         return Double.compare(this.time, simTime.get());
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simtime.SimTime#copy()
-     */
+    /** {@inheritDoc} */
     @Override
     public SimTimeDouble copy()
     {

@@ -44,7 +44,7 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class InputPort<T> implements InputPortInterface<T>
 {
-    /** The model to which the port links */
+    /** The model to which the port links. */
     private AbstractDEVSModel model;
 
     /** Is the model atomic or not? */

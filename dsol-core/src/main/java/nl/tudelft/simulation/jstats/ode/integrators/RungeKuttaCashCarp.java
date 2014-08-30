@@ -1,9 +1,3 @@
-/*
- * @(#) RungeKuttaCashCarp.java May 12, 2004 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology 
- */
 package nl.tudelft.simulation.jstats.ode.integrators;
 
 import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
@@ -37,11 +31,11 @@ public class RungeKuttaCashCarp extends NumericalIntegrator
     protected static double[] c4 = new double[]{2825d / 27648d, 0d, 18575d / 48384d, 13525d / 55296d, 277d / 14336d,
             1d / 4d};
 
-    /** the numer of k-s in the method */
+    /** the numer of k-s in the method. */
     protected static int nk = 6;
 
     /**
-     * constructs a new RungeKuttaCashCarp
+     * constructs a new RungeKuttaCashCarp.
      * @param timeStep the timeStep
      * @param equation the differentialEquation
      */
@@ -50,9 +44,7 @@ public class RungeKuttaCashCarp extends NumericalIntegrator
         super(timeStep, equation);
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator #next(double,double[])
-     */
+    /** {@inheritDoc} */
     @Override
     public double[] next(final double x, final double[] y)
     {

@@ -1,9 +1,3 @@
-/*
- * @(#)SimEvent.java Feb 1, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 
 import java.io.Serializable;
@@ -20,7 +14,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:36:43 $
  * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
@@ -30,16 +24,16 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements Si
     /** */
     private static final long serialVersionUID = 20140804L;
 
-    /** a counter counting the number of constructed simEvents */
+    /** a counter counting the number of constructed simEvents. */
     private static long constructorCounter = 0L;
 
-    /** absoluteExecutionTime reflects the time at which the event is scheduled */
+    /** absoluteExecutionTime reflects the time at which the event is scheduled. */
     protected T absoluteExecutionTime;
 
-    /** priority reflects the priority of the event */
+    /** priority reflects the priority of the event. */
     protected short priority = SimEventInterface.NORMAL_PRIORITY;
 
-    /** the id used in compare statements */
+    /** the id used in compare statements. */
     protected long id = 0L;
 
     /**
@@ -69,9 +63,7 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements Si
         this.id = AbstractSimEvent.constructorCounter;
     }
 
-    /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public int compareTo(final AbstractSimEvent<T> simEvent)
     {
         if (this.equals(simEvent))

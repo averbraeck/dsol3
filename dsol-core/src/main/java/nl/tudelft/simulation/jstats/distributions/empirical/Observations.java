@@ -1,9 +1,3 @@
-/*
- * @(#) Observations.java Nov 2, 2004 Copyright (c) 2004 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * The code is published under the General Public License
- */
 package nl.tudelft.simulation.jstats.distributions.empirical;
 
 import java.util.ArrayList;
@@ -16,20 +10,20 @@ import java.util.SortedMap;
  * href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
- * @author <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:55 $
  * @since 1.5
  */
 public class Observations implements ObservationsInterface
 {
-    /** the data */
+    /** the data. */
     private Number[][] data = null;
 
     /** is the data grouped ? */
     private boolean grouped = false;
 
     /**
-     * constructs a new Observations
+     * constructs a new Observations.
      * @param observations the observations
      */
     public Observations(final Number[] observations)
@@ -47,7 +41,7 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * constructs a new Observations
+     * constructs a new Observations.
      * @param observations a sortedMap of observations. The double values in the map either represent actual times of
      *            observation, or represent a probability
      * @param cummulative are the probabilities in the map cummulative?
@@ -72,7 +66,7 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * constructs a new Observations
+     * constructs a new Observations.
      * @param observations a sortedMap of observations. The double values in the map either represent actual times of
      *            observation, or represent a probability
      * @param cummulative are the probabilities in the map cummulative?
@@ -94,17 +88,13 @@ public class Observations implements ObservationsInterface
         this.grouped = true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.empirical.ObservationsInterface#size()
-     */
+    /** {@inheritDoc} */
     public int size()
     {
         return this.data[ObservationsInterface.OBSERVATION].length;
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.empirical.ObservationsInterface#isEmpty()
-     */
+    /** {@inheritDoc} */
     public boolean isEmpty()
     {
         if (this.data == null)
@@ -124,9 +114,7 @@ public class Observations implements ObservationsInterface
         return true;
     }
 
-    /**
-     * @see nl.tudelft.simulation.jstats.distributions.empirical.ObservationsInterface#isGrouped()
-     */
+    /** {@inheritDoc} */
     public boolean isGrouped()
     {
         return this.grouped;
@@ -360,9 +348,7 @@ public class Observations implements ObservationsInterface
         }
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
@@ -379,20 +365,20 @@ public class Observations implements ObservationsInterface
      * href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
      * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
      * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
-     * @author <a href="http://www.peter-jacobs.com/index.htm"> Peter Jacobs </a>
+     * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
      * @version 1.0 Nov 2, 2004
      * @since 1.5
      */
     public class Observation implements Entry
     {
-        /** the observation */
+        /** the observation. */
         private Number observation = null;
 
         /** the cummulative probability */
         private Double cumProbability = null;
 
         /**
-         * constructs a new Observation
+         * constructs a new Observation.
          * @param observation the observation
          * @param cumProbability the cum probabilty
          */
@@ -403,9 +389,7 @@ public class Observations implements ObservationsInterface
             this.cumProbability = cumProbability;
         }
 
-        /**
-         * @see nl.tudelft.simulation.jstats.distributions.empirical.ObservationsInterface.Entry#getCumProbability()
-         */
+        /** {@inheritDoc} */
         public Double getCumProbability()
         {
             return this.cumProbability;

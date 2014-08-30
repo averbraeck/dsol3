@@ -1,9 +1,3 @@
-/*
- * @(#)Experiment.java Aug 18, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * 
- */
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
@@ -14,11 +8,11 @@ import javax.naming.Context;
 
 import nl.tudelft.simulation.dsol.ModelInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeEventProducer;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
+import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
 
@@ -30,7 +24,7 @@ import nl.tudelft.simulation.logger.Logger;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -38,49 +32,49 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
 public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        SimTimeEventProducer implements EventListenerInterface, Serializable
+        EventProducer implements EventListenerInterface, Serializable
 {
-    /** The default serial version UID for serializable classes */
+    /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** END_OF_EXPERIMENT_EVENT is fired when the experiment is ended */
+    /** END_OF_EXPERIMENT_EVENT is fired when the experiment is ended. */
     public static final EventType END_OF_EXPERIMENT_EVENT = new EventType("END_OF_EXPERIMENT_EVENT");
 
-    /** MODEL_CHANGED_EVENT is fired whenever the model is changed */
+    /** MODEL_CHANGED_EVENT is fired whenever the model is changed. */
     public static final EventType MODEL_CHANGED_EVENT = new EventType("MODEL_CHANGED_EVENT");
 
-    /** SIMULATOR_CHANGED_EVENT is fired whenever the simulator is changed */
+    /** SIMULATOR_CHANGED_EVENT is fired whenever the simulator is changed. */
     public static final EventType SIMULATOR_CHANGED_EVENT = new EventType("SIMULATOR_CHANGED_EVENT");
 
-    /** replications are the replications of this experiment */
+    /** replications are the replications of this experiment. */
     private List<Replication<A, R, T>> replications;
 
-    /** treatment represent the treatment of this experiment */
+    /** treatment represent the treatment of this experiment. */
     private Treatment<A, R, T> treatment = null;
 
-    /** simulator reflects the simulator */
+    /** simulator reflects the simulator. */
     private SimulatorInterface<A, R, T> simulator;
 
-    /** model reflects the model */
+    /** model reflects the model. */
     private ModelInterface model;
 
-    /** the context */
+    /** the context. */
     private Context context = null;
 
-    /** the description of this experiment */
+    /** the description of this experiment. */
     private String description = null;
 
-    /** the analyst for this experiment */
+    /** the analyst for this experiment. */
     private String analyst = null;
 
-    /** the current replication */
+    /** the current replication. */
     private int currentReplication = -1;
 
     /** are we already subscribed to the END_OF_REPLICATION_EVENT */
     private boolean subscribed = false;
 
     /**
-     * constructs a new Experiment
+     * constructs a new Experiment.
      * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
      */
     public Experiment(final Context context)
@@ -90,7 +84,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     }
 
     /**
-     * constructs a new Experiment
+     * constructs a new Experiment.
      * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
      * @param treatment the treatment for this experiment
      * @param simulator the simulator
@@ -172,9 +166,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface#notify(nl.tudelft.simulation.event.EventInterface)
-     */
+    /** {@inheritDoc} */
     public void notify(final EventInterface event) throws RemoteException
     {
         if (!this.subscribed)
@@ -236,9 +228,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         this.treatment = treatment;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
