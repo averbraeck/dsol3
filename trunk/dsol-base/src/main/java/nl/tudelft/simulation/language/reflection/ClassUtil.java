@@ -47,7 +47,7 @@ import nl.tudelft.simulation.language.primitives.Primitive;
  * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>, <a href="mailto:nlang@fbk.eur.nl">Niels
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a href="mailto:nlang@fbk.eur.nl">Niels
  *         Lang </a><a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  * @version $Revision: 1.3 $ $Date: 2010/08/10 11:39:11 $
  * @since 1.5

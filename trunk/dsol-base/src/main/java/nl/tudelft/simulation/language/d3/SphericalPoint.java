@@ -32,7 +32,7 @@ package nl.tudelft.simulation.language.d3;
  * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
- * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2009/10/21 07:32:42 $
  * @since 1.5
  */
