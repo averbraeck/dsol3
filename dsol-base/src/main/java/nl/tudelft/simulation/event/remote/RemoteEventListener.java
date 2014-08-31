@@ -16,14 +16,13 @@ import nl.tudelft.simulation.event.EventListenerInterface;
  */
 public class RemoteEventListener implements RemoteEventListenerInterface
 {
-
     /** the owner of the remote listener. */
     private EventListenerInterface owner = null;
 
     /**
      * Constructs a new RemoteListener.
      * @param owner The owner of the listener.
-     * @throws RemoteException
+     * @throws RemoteException in case of network error
      */
     public RemoteEventListener(final EventListenerInterface owner) throws RemoteException
     {
@@ -33,6 +32,7 @@ public class RemoteEventListener implements RemoteEventListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void notify(final EventInterface event) throws RemoteException
     {
         this.owner.notify(event);

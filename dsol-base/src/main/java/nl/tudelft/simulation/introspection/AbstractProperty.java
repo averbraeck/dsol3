@@ -3,19 +3,14 @@ package nl.tudelft.simulation.introspection;
 import java.lang.reflect.Array;
 import java.util.Collection;
 
-import nl.tudelft.simulation.logger.Logger;
-
 /**
  * A default Property implementation that provides a standard way to handle composite values.
- * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.1 Apr 15, 2004
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
+ * @author Niels Lang.
  * @since 1.5
  */
 public abstract class AbstractProperty implements Property
@@ -28,6 +23,7 @@ public abstract class AbstractProperty implements Property
      * @see nl.tudelft.simulation.introspection.Property#setValue(java.lang.Object)
      */
     @SuppressWarnings("unchecked")
+    @Override
     public void setValue(final Object value)
     {
         if (!this.isCollection())
@@ -37,7 +33,7 @@ public abstract class AbstractProperty implements Property
         }
         if (!(value instanceof Collection))
         {
-            throw new IllegalArgumentException(this + "assign Collection values to composite properties");
+            throw new IllegalArgumentException(this + " - assign Collection values to composite properties");
         }
         if (this.getType().isArray())
         {
@@ -56,7 +52,8 @@ public abstract class AbstractProperty implements Property
                 }
                 catch (UnsupportedOperationException e)
                 {
-                    Logger.warning(this, "setValue", "could not empty " + oldValues + "setValue method canceled");
+                    throw new IllegalArgumentException(this + " - setValue: could not empty " + oldValues
+                            + "setValue method canceled");
                 }
             }
         }
@@ -74,6 +71,7 @@ public abstract class AbstractProperty implements Property
      * property with composite value.
      * @see nl.tudelft.simulation.introspection.Property#isCollection()
      */
+    @Override
     public boolean isCollection()
     {
         if (getType().isArray() || Collection.class.isAssignableFrom(getType()))
@@ -84,7 +82,8 @@ public abstract class AbstractProperty implements Property
     }
 
     /** {@inheritDoc} */
-    public Class getComponentType()
+    @Override
+    public Class<?> getComponentType()
     {
         if (!isCollection())
         {
@@ -94,7 +93,7 @@ public abstract class AbstractProperty implements Property
         {
             return getType().getComponentType();
         }
-        Collection value = (Collection) getValue();
+        Collection<?> value = (Collection<?>) getValue();
         if (value == null || value.size() == 0)
         {
             return null;

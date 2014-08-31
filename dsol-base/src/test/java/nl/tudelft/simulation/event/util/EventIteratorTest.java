@@ -59,8 +59,7 @@ public class EventIteratorTest extends TestCase implements EventListenerInterfac
         Assert.assertTrue(this.removed);
     }
 
-    /** {@inheritDoc} */
-    public void notify(final EventInterface event)
+    /** {@inheritDoc} */ @Override public  void notify(final EventInterface event)
     {
         if (event.getType().equals(EventIterator.OBJECT_REMOVED_EVENT))
         {

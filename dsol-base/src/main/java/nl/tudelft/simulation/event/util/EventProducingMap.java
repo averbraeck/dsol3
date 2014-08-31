@@ -45,36 +45,42 @@ public class EventProducingMap<K, V> extends EventProducer implements Map<K, V>
     }
 
     /** {@inheritDoc} */
+    @Override
     public int size()
     {
         return this.parent.size();
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean isEmpty()
     {
         return this.parent.isEmpty();
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean containsKey(final Object arg0)
     {
         return this.parent.containsKey(arg0);
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean containsValue(final Object arg0)
     {
         return this.parent.containsValue(arg0);
     }
 
     /** {@inheritDoc} */
+    @Override
     public V get(final Object arg0)
     {
         return this.parent.get(arg0);
     }
 
     /** {@inheritDoc} */
+    @Override
     public V put(final K arg0, final V arg1)
     {
         V result = this.parent.put(arg0, arg1);
@@ -83,6 +89,7 @@ public class EventProducingMap<K, V> extends EventProducer implements Map<K, V>
     }
 
     /** {@inheritDoc} */
+    @Override
     public V remove(final Object arg0)
     {
         V result = this.parent.remove(arg0);
@@ -91,6 +98,7 @@ public class EventProducingMap<K, V> extends EventProducer implements Map<K, V>
     }
 
     /** {@inheritDoc} */
+    @Override
     public void putAll(final Map<? extends K, ? extends V> arg0)
     {
         this.parent.putAll(arg0);
@@ -98,6 +106,7 @@ public class EventProducingMap<K, V> extends EventProducer implements Map<K, V>
     }
 
     /** {@inheritDoc} */
+    @Override
     public void clear()
     {
         this.parent.clear();
@@ -105,18 +114,21 @@ public class EventProducingMap<K, V> extends EventProducer implements Map<K, V>
     }
 
     /** {@inheritDoc} */
+    @Override
     public Set<K> keySet()
     {
         return this.parent.keySet();
     }
 
     /** {@inheritDoc} */
+    @Override
     public Collection<V> values()
     {
         return this.parent.values();
     }
 
     /** {@inheritDoc} */
+    @Override
     public Set<Map.Entry<K, V>> entrySet()
     {
         return this.parent.entrySet();

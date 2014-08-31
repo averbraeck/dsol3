@@ -87,6 +87,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectAdded(final NamingEvent event)
     {
         Binding item = event.getNewBinding();
@@ -112,6 +113,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectRemoved(final NamingEvent event)
     {
         Binding item = event.getOldBinding();
@@ -145,12 +147,14 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectRenamed(final NamingEvent event)
     {
         throw new RuntimeException("objectRenamed(" + event.toString() + ") not implemented yet");
     }
 
     /** {@inheritDoc} */
+    @Override
     public void namingExceptionThrown(final NamingExceptionEvent event)
     {
         Logger.warning(this, "namingExceptionThrown", event.getException());

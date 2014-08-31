@@ -9,7 +9,6 @@ import java.util.Set;
 
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The IntrospectionField introspector provides a field manipulation implementation of the introspection interfaces. Its
@@ -18,16 +17,12 @@ import nl.tudelft.simulation.logger.Logger;
  * <li>Properties are discovered by searching for an object's fields (visibility neutral)</li>
  * <li>Property value are manipulated by setting field values (visibility neutral)</li>
  * </ul>
- * <p>
- * During construction, one can choose for either deep introspection (i.e. including fields from all superclasses), or
- * regular introspection (inlude declared fields only). (c) copyright 2002-2005-2004 <a
- * href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.1 Apr 15, 2004
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
+ * @author Niels Lang.
  * @since 1.5
  */
 
@@ -54,6 +49,7 @@ public class FieldIntrospector implements Introspector
     }
 
     /** {@inheritDoc} */
+    @Override
     public Property[] getProperties(final Object introspected)
     {
         Set<Property> props = new HashSet<Property>();
@@ -67,7 +63,7 @@ public class FieldIntrospector implements Introspector
         }
         catch (Exception e)
         {
-            Logger.warning(this, "getProperties", e);
+            throw new IllegalArgumentException(this + " - getProperties", e);
         }
         return props.toArray(new Property[props.size()]);
     }
@@ -77,7 +73,7 @@ public class FieldIntrospector implements Introspector
      * @param clasz the class to use
      * @return Field[] the fields
      */
-    private Field[] collectFields(final Class clasz)
+    private Field[] collectFields(final Class<?> clasz)
     {
         List<Field> fields = new ArrayList<Field>(10);
         this.addFields(fields, clasz, this.useDeepIntrospection);
@@ -100,6 +96,7 @@ public class FieldIntrospector implements Introspector
     }
 
     /** {@inheritDoc} */
+    @Override
     public Property getProperty(final Object introspected, final String property)
     {
         try
@@ -115,12 +112,13 @@ public class FieldIntrospector implements Introspector
         }
         catch (Exception e)
         {
-            Logger.warning(this, "getProperty", e);
+            throw new IllegalArgumentException(this + " - getProperty", e);
         }
         throw new IllegalArgumentException("Property '" + property + "' not found for " + introspected);
     }
 
     /** {@inheritDoc} */
+    @Override
     public String[] getPropertyNames(final Object introspected)
     {
         Set<String> props = new HashSet<String>();
@@ -134,7 +132,7 @@ public class FieldIntrospector implements Introspector
         }
         catch (Exception e)
         {
-            Logger.warning(this, "getPropertyNames", e);
+            throw new IllegalArgumentException(this + " - getPropertyNames", e);
         }
         return props.toArray(new String[props.size()]);
     }

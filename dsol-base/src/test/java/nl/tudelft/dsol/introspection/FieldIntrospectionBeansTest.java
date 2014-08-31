@@ -14,12 +14,12 @@ import nl.tudelft.simulation.logger.Logger;
  *         Assistant researchers <a href="https://www.linkedin.com/in/peterhmjacobs">Ir. P.H.M. Jacobs </a> and <a
  *         href="http://www.tbm.tudelft.nl/webstaf/nielsl">Ir. N.A. Lang </a>
  */
-public final class PTestFieldIntrospector
+public final class FieldIntrospectionBeansTest
 {
     /**
      * constructs a new PTestFieldIntrospector
      */
-    private PTestFieldIntrospector()
+    private FieldIntrospectionBeansTest()
     {
         super();
         // unreachable code
@@ -33,16 +33,16 @@ public final class PTestFieldIntrospector
     {
         try
         {
-            Logger.info(PTestFieldIntrospector.class, "main", "Running field introspector test");
+            Logger.info(FieldIntrospectionBeansTest.class, "main", "Running field introspector test");
             Property[] props = (new FieldIntrospector()).getProperties(new SubTestBean2());
             for (int i = 0; i < props.length; i++)
             {
-                Logger.info(PTestFieldIntrospector.class, "main", "Prop name: " + props[i].getName());
-                Logger.info(PTestFieldIntrospector.class, "main", "Prop class: " + props[i].getType());
-                Logger.info(PTestFieldIntrospector.class, "main", "Prop value: " + props[i].getValue());
-                Logger.info(PTestFieldIntrospector.class, "main", "Setting Possible? ");
+                Logger.info(FieldIntrospectionBeansTest.class, "main", "Prop name: " + props[i].getName());
+                Logger.info(FieldIntrospectionBeansTest.class, "main", "Prop class: " + props[i].getType());
+                Logger.info(FieldIntrospectionBeansTest.class, "main", "Prop value: " + props[i].getValue());
+                Logger.info(FieldIntrospectionBeansTest.class, "main", "Setting Possible? ");
                 props[i].setValue("TEST");
-                Logger.info(PTestFieldIntrospector.class, "main",
+                Logger.info(FieldIntrospectionBeansTest.class, "main",
                         "If so, 'TEST' should be retrieved: " + props[i].getValue());
             }
         }

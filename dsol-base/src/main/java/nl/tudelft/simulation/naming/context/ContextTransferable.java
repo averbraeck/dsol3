@@ -34,12 +34,14 @@ public class ContextTransferable implements Transferable
     }
 
     /** {@inheritDoc} */
+    @Override
     public DataFlavor[] getTransferDataFlavors()
     {
         return new DataFlavor[]{DataFlavor.stringFlavor};
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean isDataFlavorSupported(final DataFlavor flavor)
     {
         if (flavor.equals(DataFlavor.stringFlavor))
@@ -50,6 +52,7 @@ public class ContextTransferable implements Transferable
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object getTransferData(final DataFlavor flavor)
     {
         if (flavor.equals(DataFlavor.stringFlavor))

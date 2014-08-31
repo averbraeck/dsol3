@@ -37,18 +37,21 @@ public class EventIterator<T> extends EventProducer implements Iterator<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean hasNext()
     {
         return this.parent.hasNext();
     }
 
     /** {@inheritDoc} */
+    @Override
     public T next()
     {
         return this.parent.next();
     }
 
     /** {@inheritDoc} */
+    @Override
     public void remove()
     {
         this.parent.remove();

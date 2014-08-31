@@ -34,6 +34,7 @@ public class RemoteContextFactory implements InitialContextFactory
     private static RemoteContextClient context = null;
 
     /** {@inheritDoc} */
+    @Override
     public synchronized Context getInitialContext(final Hashtable<? extends Object, ? extends Object> environment)
     {
         // If the context is already looked up, let's return immediately

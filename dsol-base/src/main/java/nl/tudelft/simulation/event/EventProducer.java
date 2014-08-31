@@ -66,7 +66,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
     }
 
     /**
-     * constructs a new EventProducer and checks for double values in events
+     * constructs a new EventProducer and checks for double values in events.
      */
     public EventProducer()
     {
@@ -236,6 +236,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param value the value of the event.
      * @param time a timestamp for the event.
      * @return the Serializable value.
+     * @param <C> the comparable type to indicate the time when the event is fired.
      */
     protected synchronized <C extends Comparable<C>> Object fireTimedEvent(final EventType eventType,
             final Object value, final C time)
@@ -261,6 +262,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param eventType the eventType of the event.
      * @param value the value of the event.
      * @param time a timestamp for the event.
+     * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the byte value.
      */
     protected synchronized <C extends Comparable<C>> byte fireTimedEvent(final EventType eventType, final byte value,
@@ -274,7 +276,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * fires a boolean value to listeners subscribed to eventType.
      * @param eventType the eventType of the event.
      * @param value the value of the event.
-     * @return the byte value.
+     * @return the boolean value.
      */
     protected synchronized boolean fireEvent(final EventType eventType, final boolean value)
     {
@@ -287,7 +289,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param eventType the eventType of the event.
      * @param value the value of the event.
      * @param time a timestamp for the event.
-     * @return the byte value.
+     * @param <C> the comparable type to indicate the time when the event is fired.
+     * @return the boolean value.
      */
     protected synchronized <C extends Comparable<C>> boolean fireTimedEvent(final EventType eventType,
             final boolean value, final C time)
@@ -313,6 +316,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param eventType the eventType of the event.
      * @param value the value of the event.
      * @param time a timestamp for the event.
+     * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the double value.
      */
     protected synchronized <C extends Comparable<C>> double fireTimedEvent(final EventType eventType,
@@ -339,6 +343,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param eventType the eventType of the event.
      * @param value the value of the event.
      * @param time a timestamp for the event.
+     * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the integer value.
      */
     protected synchronized <C extends Comparable<C>> int fireTimedEvent(final EventType eventType, final int value,
@@ -365,6 +370,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param eventType the eventType of the event.
      * @param value the value of the event.
      * @param time a timestamp for the event.
+     * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the long value.
      */
     protected synchronized <C extends Comparable<C>> long fireTimedEvent(final EventType eventType, final long value,
@@ -391,6 +397,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param eventType the eventType of the event.
      * @param value the value of the event.
      * @param time a timestamp for the event.
+     * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the short value.
      */
     protected synchronized <C extends Comparable<C>> short fireTimedEvent(final EventType eventType, final short value,
@@ -519,7 +526,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
     }
 
     /**
-     * removes a reference from the subscription list
+     * removes a reference from the subscription list.
      * @param reference the reference to remove
      * @param eventType the eventType for which reference must be removed
      * @return success whenever the reference is removes; otherwise returns false.
@@ -544,7 +551,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
     }
 
     /**
-     * writes a serializable method to stream
+     * writes a serializable method to stream.
      * @param out the output stream
      * @throws IOException on IOException
      */
@@ -554,9 +561,10 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
     }
 
     /**
-     * reads a serializable method from stream
+     * reads a serializable method from stream.
      * @param in the input stream
      * @throws IOException on IOException
+     * @throws ClassNotFoundException on class cast exeption when reading object
      */
     private void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException
     {
