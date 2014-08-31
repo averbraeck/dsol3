@@ -22,7 +22,7 @@ import nl.tudelft.simulation.language.concurrent.Monitor;
 public class CUSTOMINVOKESPECIAL extends nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKESPECIAL
 {
     /** the interpreterOracle to use. */
-    private InterpreterOracleInterface interpreterOracle = null;
+    private final InterpreterOracleInterface interpreterOracle;
 
     /**
      * constructs a new CUSTOMINVOKESPECIAL.
@@ -37,14 +37,7 @@ public class CUSTOMINVOKESPECIAL extends nl.tudelft.simulation.dsol.interpreter.
         this.interpreterOracle = interpreterOracle;
     }
 
-    /**
-     * executes the frame
-     * @param frame the frame to execute
-     * @param objectRef the object reference
-     * @param method the method to execute
-     * @param arguments the arguments
-     * @throws Exception when stuff goes wrong
-     */
+    /** {@inheritDoc} */
     @Override
     public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception

@@ -35,7 +35,7 @@ public class IXOR extends VoidOperation
     {
         int i2 = Primitive.toInteger(stack.pop()).intValue();
         int i1 = Primitive.toInteger(stack.pop()).intValue();
-        stack.push(new Integer(i1 ^ i2));
+        stack.push(Integer.valueOf(i1 ^ i2));
     }
 
     /** {@inheritDoc} */

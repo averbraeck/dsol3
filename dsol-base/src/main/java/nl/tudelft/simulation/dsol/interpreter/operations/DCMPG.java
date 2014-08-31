@@ -36,11 +36,11 @@ public class DCMPG extends VoidOperation
         Double value1 = (Double) stack.pop();
         if (value1.isNaN() || value2.isNaN())
         {
-            stack.push(new Integer(1));
+            stack.push(Integer.valueOf(1));
         }
         else
         {
-            stack.push(new Integer(value1.compareTo(value2)));
+            stack.push(Integer.valueOf(value1.compareTo(value2)));
         }
     }
 

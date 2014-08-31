@@ -35,7 +35,7 @@ public class LUSHR extends VoidOperation
     {
         long l2 = Primitive.toLong(stack.pop()).longValue();
         long l1 = Primitive.toLong(stack.pop()).longValue();
-        stack.push(new Long(l1 >>> l2));
+        stack.push(Long.valueOf(l1 >>> l2));
     }
 
     /** {@inheritDoc} */

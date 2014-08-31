@@ -37,7 +37,7 @@ public class SALOAD extends VoidOperation
     {
         int index = Primitive.toInteger(stack.pop()).intValue();
         Object arrayref = stack.pop();
-        stack.push(new Short(Array.getShort(arrayref, index)));
+        stack.push(Short.valueOf(Array.getShort(arrayref, index)));
     }
 
     /** {@inheritDoc} */

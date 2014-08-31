@@ -37,7 +37,7 @@ public class PROCESSINVOKESPECIAL extends CUSTOMINVOKESPECIAL
     }
 
     /**
-     * executes the operation and returns a new Frame
+     * executes the operation and returns a new Frame.
      * @param frame the original frame
      * @param objectRef the object on which to invoke the method
      * @param arguments the arguments with which to invoke the method
@@ -49,7 +49,7 @@ public class PROCESSINVOKESPECIAL extends CUSTOMINVOKESPECIAL
     public final Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception
     {
-        if (!Process.class.isAssignableFrom(method.getDeclaringClass()))
+        if (!InterpretableProcess.class.isAssignableFrom(method.getDeclaringClass()))
         {
             return super.execute(frame, objectRef, method, arguments);
         }
@@ -59,11 +59,11 @@ public class PROCESSINVOKESPECIAL extends CUSTOMINVOKESPECIAL
         }
 
         // Let's check for the suspend method
-        if (method.equals(ProcessFactory.SUSPEND_METHOD))
+        if (method.equals(ProcessFactory.suspendMethod))
         {
             // we set the state of the process to suspended
-            Process process = (Process) objectRef;
-            process.setState(Process.SUSPENDED);
+            InterpretableProcess process = (InterpretableProcess) objectRef;
+            process.setState(InterpretableProcess.SUSPENDED);
 
             // we pause the frame
             frame.setPaused(true);

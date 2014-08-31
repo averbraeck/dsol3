@@ -64,8 +64,8 @@ public interface Property
 
     /**
      * Returns the type of the collection components contained in this Property.
-     * @return The type of the collection components contained in this Property. Returns null when isCollection() returns
-     *         false, or when the component type could not be determined by this Property.
+     * @return The type of the collection components contained in this Property. Returns null when isCollection()
+     *         returns false, or when the component type could not be determined by this Property.
      */
     Class getComponentType();
 }

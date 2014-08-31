@@ -22,14 +22,14 @@ import nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKEVIRTUA
  */
 public class ProcessFactory extends CustomFactory
 {
-    /** the SUSPEND METHOd. */
-    public static Method SUSPEND_METHOD;
+    /** the SUSPEND METHOD. */
+    protected static Method suspendMethod;
 
     static
     {
         try
         {
-            SUSPEND_METHOD = Process.class.getMethod("suspend");
+            suspendMethod = InterpretableProcess.class.getMethod("suspend");
         }
         catch (Exception exception)
         {
@@ -55,15 +55,15 @@ public class ProcessFactory extends CustomFactory
      * @throws IOException on IO exception
      */
     @Override
-    public Operation readOperation(final int operand, final DataInput dataInput, final int startBytePostion)
+    public final Operation readOperation(final int operand, final DataInput dataInput, final int startBytePostion)
             throws IOException
     {
         switch (operand)
         {
             case INVOKESPECIAL.OP:
-                return new PROCESSINVOKESPECIAL(super.interpreterOracle, dataInput);
+                return new PROCESSINVOKESPECIAL(getInterpreterOracle(), dataInput);
             case INVOKEVIRTUAL.OP:
-                return new PROCESSINVOKEVIRTUAL(super.interpreterOracle, dataInput);
+                return new PROCESSINVOKEVIRTUAL(getInterpreterOracle(), dataInput);
             default:
                 return super.readOperation(operand, dataInput, startBytePostion);
         }

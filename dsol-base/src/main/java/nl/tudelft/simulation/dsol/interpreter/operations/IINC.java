@@ -70,7 +70,7 @@ public class IINC extends VoidOperation
             final LocalVariable[] localVariables)
     {
         int oldValue = Primitive.toInteger(localVariables[this.index].getValue()).intValue();
-        localVariables[this.index].setValue(new Integer(oldValue + this.constant));
+        localVariables[this.index].setValue(Integer.valueOf(oldValue + this.constant));
     }
 
     /** {@inheritDoc} */

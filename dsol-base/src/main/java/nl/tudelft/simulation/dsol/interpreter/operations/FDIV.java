@@ -34,7 +34,7 @@ public class FDIV extends VoidOperation
     {
         float value2 = ((Number) stack.pop()).floatValue();
         float value1 = ((Number) stack.pop()).floatValue();
-        stack.push(new Float(value1 / value2));
+        stack.push(Float.valueOf(value1 / value2));
     }
 
     /** {@inheritDoc} */

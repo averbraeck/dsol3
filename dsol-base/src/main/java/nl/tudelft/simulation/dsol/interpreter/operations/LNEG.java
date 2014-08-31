@@ -33,7 +33,7 @@ public class LNEG extends VoidOperation
             final LocalVariable[] localVariables)
     {
         long l = ((Long) stack.pop()).longValue();
-        stack.push(new Long(-l));
+        stack.push(Long.valueOf(-l));
     }
 
     /** {@inheritDoc} */

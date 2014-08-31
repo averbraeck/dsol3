@@ -32,7 +32,7 @@ public class ICONST_m1 extends VoidOperation
     public final void execute(final OperandStack stack, final Constant[] constantPool,
             final LocalVariable[] localVariables)
     {
-        stack.push(new Integer(-1));
+        stack.push(Integer.valueOf(-1));
     }
 
     /** {@inheritDoc} */

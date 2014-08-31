@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.process;
 
-import nl.tudelft.simulation.dsol.interpreter.process.Process;
+import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 
 /**
  * The specifies
@@ -13,7 +13,7 @@ import nl.tudelft.simulation.dsol.interpreter.process.Process;
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:13 $
  * @since 1.5
  */
-class Dog extends Process
+class Dog extends InterpretableProcess
 {
     /**
      * constructs a new Cow.
@@ -28,7 +28,7 @@ class Dog extends Process
     public void bark()
     {
         System.out.println("bark");
-        this.suspend();
+        this.suspendProcess();
     }
 
     /**

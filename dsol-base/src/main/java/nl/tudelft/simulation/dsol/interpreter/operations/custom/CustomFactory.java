@@ -23,7 +23,7 @@ import nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKEVIRTUA
 public class CustomFactory extends InterpreterFactory
 {
     /** the interpreterOracle to use. */
-    protected InterpreterOracleInterface interpreterOracle = null;
+    private final InterpreterOracleInterface interpreterOracle;
 
     /**
      * constructs a new InterpreterFactory.
@@ -53,5 +53,13 @@ public class CustomFactory extends InterpreterFactory
             default:
                 return super.readOperation(operand, dataInput, startBytePostion);
         }
+    }
+
+    /**
+     * @return interpreterOracle
+     */
+    public final InterpreterOracleInterface getInterpreterOracle()
+    {
+        return this.interpreterOracle;
     }
 }

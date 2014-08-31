@@ -39,10 +39,11 @@ public class IFLT extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool,
+            final LocalVariable[] localVariables)
     {
         Integer objectRef = Primitive.toInteger(stack.pop());
-        if (objectRef.compareTo(new Integer(0)) < 0)
+        if (objectRef.compareTo(Integer.valueOf(0)) < 0)
         {
             return this.offset;
         }

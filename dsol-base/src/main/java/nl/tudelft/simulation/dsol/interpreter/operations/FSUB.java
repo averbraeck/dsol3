@@ -34,7 +34,7 @@ public class FSUB extends VoidOperation
     {
         float f2 = ((Float) stack.pop()).floatValue();
         float f1 = ((Float) stack.pop()).floatValue();
-        stack.push(new Float(f1 - f2));
+        stack.push(Float.valueOf(f1 - f2));
     }
 
     /** {@inheritDoc} */

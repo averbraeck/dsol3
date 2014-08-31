@@ -82,7 +82,7 @@ public class INVOKEVIRTUAL extends InvokeOperation
     }
 
     /**
-     * executes the method on the objectRef
+     * executes the method on the objectRef.
      * @param frame the frame
      * @param objectRef the objectRef
      * @param method the method

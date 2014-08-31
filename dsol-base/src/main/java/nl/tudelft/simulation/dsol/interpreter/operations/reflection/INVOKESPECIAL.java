@@ -32,7 +32,7 @@ public class INVOKESPECIAL extends InvokeOperation
     public static final int OP = 183;
 
     /** the index to load. */
-    protected int index = -1;
+    protected final int index;
 
     /**
      * constructs a new INVOKESPECIAL.
@@ -47,7 +47,7 @@ public class INVOKESPECIAL extends InvokeOperation
 
     /** {@inheritDoc} */
     @Override
-    public Frame execute(final Frame frame)
+    public final Frame execute(final Frame frame)
     {
         try
         {
@@ -107,7 +107,7 @@ public class INVOKESPECIAL extends InvokeOperation
     }
 
     /**
-     * executes the method on the objectRef
+     * executes the method on the objectRef.
      * @param frame the frame
      * @param objectRef the objectRef
      * @param method the method

@@ -36,7 +36,7 @@ public class I2S extends VoidOperation
         int i = Primitive.toInteger(stack.pop()).intValue();
         // push an integer onto the stack, as shorts are not really known in
         // the JVM
-        stack.push(new Integer((short) i));
+        stack.push(Integer.valueOf((short) i));
     }
 
     /** {@inheritDoc} */

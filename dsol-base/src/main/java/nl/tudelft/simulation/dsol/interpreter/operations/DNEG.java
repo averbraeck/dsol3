@@ -33,7 +33,7 @@ public class DNEG extends VoidOperation
             final LocalVariable[] localVariables)
     {
         double d = ((Number) stack.pop()).doubleValue();
-        stack.push(new Double(-d));
+        stack.push(Double.valueOf(-d));
     }
 
     /** {@inheritDoc} */

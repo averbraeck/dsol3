@@ -46,13 +46,13 @@ public class LOOKUPSWITCH extends JumpOperation
             this.byteLength = this.byteLength + padding;
         }
 
-        this.offsets.put("default", new Integer(dataInput.readInt()));
+        this.offsets.put("default", Integer.valueOf(dataInput.readInt()));
         int entries = dataInput.readInt();
         this.byteLength = this.byteLength + 8;
         for (int i = 0; i < entries; i++)
         {
-            Integer match = new Integer(dataInput.readInt());
-            Integer offset = new Integer(dataInput.readInt());
+            Integer match = Integer.valueOf(dataInput.readInt());
+            Integer offset = Integer.valueOf(dataInput.readInt());
             this.offsets.put(match, offset);
             this.byteLength = this.byteLength + 8;
         }
@@ -60,7 +60,8 @@ public class LOOKUPSWITCH extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool,
+            final LocalVariable[] localVariables)
     {
         Integer key = (Integer) stack.pop();
         Integer offset = this.offsets.get(key);

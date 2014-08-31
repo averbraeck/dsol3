@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.interpreter;
 
-import nl.tudelft.simulation.dsol.interpreter.process.Process;
+import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 
 /**
  * A Test class.
@@ -20,8 +20,8 @@ public class Test
     private void doIt()
     {
         // Now we create a process and resume its operation.
-        Process process = new MyProcess();
-        process.resume();
+        InterpretableProcess process = new MyProcess();
+        process.resumeProcess();
     }
 
     /**
@@ -57,7 +57,7 @@ public class Test
     /**
      * the Process
      */
-    private class MyProcess extends Process
+    private class MyProcess extends InterpretableProcess
     {
         /**
          * constructs a Process

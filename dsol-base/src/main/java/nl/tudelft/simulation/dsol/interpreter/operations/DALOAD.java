@@ -37,7 +37,7 @@ public class DALOAD extends VoidOperation
     {
         int index = Primitive.toInteger(stack.pop()).intValue();
         Object arrayref = stack.pop();
-        stack.push(new Double(Array.getDouble(arrayref, index)));
+        stack.push(Double.valueOf(Array.getDouble(arrayref, index)));
     }
 
     /** {@inheritDoc} */

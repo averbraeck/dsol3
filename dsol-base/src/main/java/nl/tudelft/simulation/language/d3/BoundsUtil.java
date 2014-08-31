@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.language.d3;
 
 import java.awt.geom.Rectangle2D;

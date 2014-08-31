@@ -33,7 +33,7 @@ public class D2I extends VoidOperation
             final LocalVariable[] localVariables)
     {
         double d = ((Number) stack.pop()).doubleValue();
-        stack.push(new Integer((int) d));
+        stack.push(Integer.valueOf((int) d));
     }
 
     /** {@inheritDoc} */

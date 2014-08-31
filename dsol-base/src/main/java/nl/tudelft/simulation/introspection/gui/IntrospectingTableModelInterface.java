@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.introspection.gui;
 
 import javax.swing.table.TableModel;

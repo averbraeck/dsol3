@@ -33,7 +33,7 @@ public class D2F extends VoidOperation
             final LocalVariable[] localVariables)
     {
         double d = ((Number) stack.pop()).doubleValue();
-        stack.push(new Float((float) d));
+        stack.push(Float.valueOf((float) d));
     }
 
     /** {@inheritDoc} */

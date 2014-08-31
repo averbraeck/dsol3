@@ -34,7 +34,7 @@ public class FMUL extends VoidOperation
     {
         float f2 = ((Number) stack.pop()).floatValue();
         float f1 = ((Number) stack.pop()).floatValue();
-        stack.push(new Float(f1 * f2));
+        stack.push(Float.valueOf(f1 * f2));
     }
 
     /** {@inheritDoc} */

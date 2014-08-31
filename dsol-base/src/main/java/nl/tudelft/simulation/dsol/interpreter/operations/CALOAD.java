@@ -37,7 +37,7 @@ public class CALOAD extends VoidOperation
     {
         int index = Primitive.toInteger(stack.pop()).intValue();
         Object arrayref = stack.pop();
-        stack.push(new Character(Array.getChar(arrayref, index)));
+        stack.push(Character.valueOf(Array.getChar(arrayref, index)));
     }
 
     /** {@inheritDoc} */

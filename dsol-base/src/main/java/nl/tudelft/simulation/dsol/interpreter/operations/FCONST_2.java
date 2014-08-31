@@ -32,7 +32,7 @@ public class FCONST_2 extends VoidOperation
     public final void execute(final OperandStack stack, final Constant[] constantPool,
             final LocalVariable[] localVariables)
     {
-        stack.push(new Float(2.0));
+        stack.push(Float.valueOf(2.0f));
     }
 
     /** {@inheritDoc} */

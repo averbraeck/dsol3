@@ -34,7 +34,7 @@ public class I2L extends VoidOperation
             final LocalVariable[] localVariables)
     {
         int i = Primitive.toInteger(stack.pop()).intValue();
-        stack.push(new Long(i));
+        stack.push(Long.valueOf(i));
     }
 
     /** {@inheritDoc} */

@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.introspection.sortable;
 
 import java.util.ArrayList;
