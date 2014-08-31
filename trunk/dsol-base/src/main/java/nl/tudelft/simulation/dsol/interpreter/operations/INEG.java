@@ -34,7 +34,7 @@ public class INEG extends VoidOperation
             final LocalVariable[] localVariables)
     {
         int i = Primitive.toInteger(stack.pop()).intValue();
-        stack.push(new Integer(-i));
+        stack.push(Integer.valueOf(-i));
     }
 
     /** {@inheritDoc} */

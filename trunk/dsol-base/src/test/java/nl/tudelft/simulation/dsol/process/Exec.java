@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.process;
 
-import nl.tudelft.simulation.dsol.interpreter.process.Process;
+import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 
 /**
  * The specifies
@@ -26,9 +26,9 @@ public class Exec
     /**
      * @param process
      */
-    private static void elaborate(Process process)
+    private static void elaborate(InterpretableProcess process)
     {
-        process.resume();
+        process.resumeProcess();
     }
 
     /**

@@ -36,7 +36,7 @@ public class I2C extends VoidOperation
         int i = Primitive.toInteger(stack.pop()).intValue();
         // push an integer onto the stack, as chars are not really known in the
         // JVM
-        stack.push(new Integer((char) i));
+        stack.push(Integer.valueOf((char) i));
     }
 
     /** {@inheritDoc} */

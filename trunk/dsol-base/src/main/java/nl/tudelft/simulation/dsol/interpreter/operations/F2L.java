@@ -33,7 +33,7 @@ public class F2L extends VoidOperation
             final LocalVariable[] localVariables)
     {
         float f = ((Number) stack.pop()).floatValue();
-        stack.push(new Long((long) f));
+        stack.push(Long.valueOf((long) f));
     }
 
     /** {@inheritDoc} */

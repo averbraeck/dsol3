@@ -36,7 +36,7 @@ public class I2B extends VoidOperation
         int i = Primitive.toInteger(stack.pop()).intValue();
         // push an integer onto the stack, as bytes are not really known in the
         // JVM
-        stack.push(new Integer((byte) i));
+        stack.push(Integer.valueOf((byte) i));
     }
 
     /** {@inheritDoc} */

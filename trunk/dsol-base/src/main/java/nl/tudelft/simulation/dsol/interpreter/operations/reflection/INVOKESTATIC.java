@@ -29,7 +29,7 @@ public class INVOKESTATIC extends InvokeOperation
     public static final int OP = 184;
 
     /** the index to load. */
-    protected int index = -1;
+    protected final int index;
 
     /**
      * constructs a new INVOKESTATIC.
@@ -75,7 +75,7 @@ public class INVOKESTATIC extends InvokeOperation
     }
 
     /**
-     * executes the method on the objectRef
+     * executes the method on the objectRef.
      * @param frame the frame
      * @param objectRef the objectRef
      * @param method the method

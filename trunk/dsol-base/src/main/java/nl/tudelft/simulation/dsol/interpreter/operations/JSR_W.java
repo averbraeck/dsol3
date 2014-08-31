@@ -43,9 +43,10 @@ public class JSR_W extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool,
+            final LocalVariable[] localVariables)
     {
-        stack.push(new Integer(this.nextAddress));
+        stack.push(Integer.valueOf(this.nextAddress));
         return this.offset;
     }
 

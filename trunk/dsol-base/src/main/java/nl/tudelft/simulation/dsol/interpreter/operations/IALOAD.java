@@ -37,7 +37,7 @@ public class IALOAD extends VoidOperation
     {
         int index = Primitive.toInteger(stack.pop()).intValue();
         Object arrayref = stack.pop();
-        stack.push(new Integer(Array.getInt(arrayref, index)));
+        stack.push(Integer.valueOf(Array.getInt(arrayref, index)));
     }
 
     /** {@inheritDoc} */

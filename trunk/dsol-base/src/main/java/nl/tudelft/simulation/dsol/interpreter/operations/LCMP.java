@@ -36,15 +36,15 @@ public class LCMP extends VoidOperation
         long l1 = ((Long) stack.pop()).longValue();
         if (l1 > l2)
         {
-            stack.push(new Integer(1));
+            stack.push(Integer.valueOf(1));
         }
         else if (l1 < l2)
         {
-            stack.push(new Integer(-1));
+            stack.push(Integer.valueOf(-1));
         }
         else
         {
-            stack.push(new Integer(0));
+            stack.push(Integer.valueOf(0));
         }
     }
 

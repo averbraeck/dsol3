@@ -55,11 +55,11 @@ public class INSTANCEOF extends VoidOperation
         }
         if (reference != null && clazz.isInstance(reference))
         {
-            stack.push(new Integer(1));
+            stack.push(Integer.valueOf(1));
         }
         else
         {
-            stack.push(new Integer(0));
+            stack.push(Integer.valueOf(0));
         }
     }
 

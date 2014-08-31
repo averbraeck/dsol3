@@ -32,7 +32,7 @@ public class LCONST_1 extends VoidOperation
     public final void execute(final OperandStack stack, final Constant[] constantPool,
             final LocalVariable[] localVariables)
     {
-        stack.push(new Long(1));
+        stack.push(Long.valueOf(1));
     }
 
     /** {@inheritDoc} */

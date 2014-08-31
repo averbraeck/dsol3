@@ -33,7 +33,7 @@ public class L2I extends VoidOperation
             final LocalVariable[] localVariables)
     {
         long i = ((Long) stack.pop()).longValue();
-        stack.push(new Integer((int) i));
+        stack.push(Integer.valueOf((int) i));
     }
 
     /** {@inheritDoc} */

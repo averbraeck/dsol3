@@ -32,7 +32,7 @@ public class DCONST_0 extends VoidOperation
     public final void execute(final OperandStack stack, final Constant[] constantPool,
             final LocalVariable[] localVariables)
     {
-        stack.push(new Double(0.0));
+        stack.push(Double.valueOf(0.0));
     }
 
     /** {@inheritDoc} */

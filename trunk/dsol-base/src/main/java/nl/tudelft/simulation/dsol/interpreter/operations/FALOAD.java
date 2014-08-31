@@ -37,7 +37,7 @@ public class FALOAD extends VoidOperation
     {
         int index = Primitive.toInteger(stack.pop()).intValue();
         Object arrayref = stack.pop();
-        stack.push(new Float(Array.getFloat(arrayref, index)));
+        stack.push(Float.valueOf(Array.getFloat(arrayref, index)));
     }
 
     /** {@inheritDoc} */

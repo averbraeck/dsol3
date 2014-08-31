@@ -38,7 +38,8 @@ public class IF_ACMPNE extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool,
+            final LocalVariable[] localVariables)
     {
         Object obj2 = stack.pop();
         Object obj1 = stack.pop();

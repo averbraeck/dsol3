@@ -20,7 +20,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:24 $
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public abstract class Process extends EventProducer
+public abstract class InterpretableProcess extends EventProducer
 {
     /** */
     private static final long serialVersionUID = 20140830L;
@@ -41,15 +41,15 @@ public abstract class Process extends EventProducer
     public static final EventType STATE_CHANGE_EVENT = new EventType("STATE_CHANGE_EVENT");
 
     /** the state of the process. */
-    protected short state = Process.INITIAL;
+    private short state = InterpretableProcess.INITIAL;
 
     /** the processStack of this process. */
-    protected Stack<Frame> frameStack = new Stack<Frame>();
+    private final Stack<Frame> frameStack = new Stack<Frame>();
 
     /**
      * constructs a new Process.
      */
-    public Process()
+    public InterpretableProcess()
     {
         super();
         try
@@ -63,9 +63,9 @@ public abstract class Process extends EventProducer
     }
 
     /**
-     * resumes this process
+     * resumes this process.
      */
-    public void resume()
+    public final void resumeProcess()
     {
         if (this.frameStack.isEmpty() || this.state == DEAD)
         {
@@ -78,7 +78,7 @@ public abstract class Process extends EventProducer
         }
         try
         {
-            this.setState(Process.EXECUTING);
+            this.setState(InterpretableProcess.EXECUTING);
             this.frameStack.peek().setPaused(false);
             Interpreter.interpret(this.frameStack);
         }
@@ -90,26 +90,26 @@ public abstract class Process extends EventProducer
     }
 
     /**
-     * cancels this process entirely. After the process.cancel() is invoked a process can no longer be resumed.
+     * cancels this process entirely. After the process.cancelProcess() is invoked a process can no longer be resumed.
      */
-    public void cancel()
+    public final void cancelProcess()
     {
         boolean executing = this.state == EXECUTING;
         if (executing)
         {
-            this.suspend();
+            this.suspendProcess();
         }
-        this.state = Process.DEAD;
+        this.state = InterpretableProcess.DEAD;
         if (executing)
         {
-            this.resume();
+            this.resumeProcess();
         }
     }
 
     /**
-     * suspends a process
+     * suspends a process.
      */
-    public final void suspend()
+    public final void suspendProcess()
     {
         throw new IllegalStateException("suspend should be interpreted."
                 + " One may not invoke this method directly. If this exception occurs, "
@@ -117,13 +117,13 @@ public abstract class Process extends EventProducer
     }
 
     /**
-     * sets the state of the process
+     * sets the state of the process.
      * @param state the new state
      */
     protected final void setState(final short state)
     {
         // Let's check for a reliable order
-        if (this.state == Process.SUSPENDED && state == Process.SUSPENDED)
+        if (this.state == InterpretableProcess.SUSPENDED && state == InterpretableProcess.SUSPENDED)
         {
             throw new IllegalStateException("Cannot suspend a suspended process");
         }
@@ -132,10 +132,10 @@ public abstract class Process extends EventProducer
     }
 
     /**
-     * Returns the state of a process
+     * Returns the state of a process.
      * @return the state
      */
-    public short getState()
+    protected final short getState()
     {
         return this.state;
     }

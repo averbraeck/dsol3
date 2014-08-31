@@ -15,7 +15,7 @@ import nl.tudelft.simulation.language.reflection.FieldSignature;
  */
 public final class ConstantClass extends Constant
 {
-    /** gets the name index */
+    /** gets the name index. */
     private int nameIndex;
 
     /**

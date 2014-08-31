@@ -13,9 +13,9 @@ import java.lang.reflect.Method;
 public interface InterpreterOracleInterface
 {
     /**
-     * whether to interpret methods defined in instances of myClass
+     * whether to interpret methods defined in instances of myClass.
      * @param method the method to inspect
      * @return whether to interpret methods defined in instances of myClass
      */
-    public boolean shouldBeInterpreted(final Method method);
+    boolean shouldBeInterpreted(final Method method);
 }

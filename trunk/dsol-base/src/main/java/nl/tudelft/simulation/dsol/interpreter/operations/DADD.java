@@ -34,7 +34,7 @@ public class DADD extends VoidOperation
     {
         double value2 = ((Number) stack.pop()).doubleValue();
         double value1 = ((Number) stack.pop()).doubleValue();
-        stack.push(new Double(value1 + value2));
+        stack.push(Double.valueOf(value1 + value2));
     }
 
     /** {@inheritDoc} */

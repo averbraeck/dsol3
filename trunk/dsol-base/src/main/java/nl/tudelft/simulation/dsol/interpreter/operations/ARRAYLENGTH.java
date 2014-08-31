@@ -35,7 +35,7 @@ public class ARRAYLENGTH extends VoidOperation
             final LocalVariable[] localVariables)
     {
         Object arrayref = stack.pop();
-        stack.push(new Integer(Array.getLength(arrayref)));
+        stack.push(Integer.valueOf(Array.getLength(arrayref)));
     }
 
     /** {@inheritDoc} */

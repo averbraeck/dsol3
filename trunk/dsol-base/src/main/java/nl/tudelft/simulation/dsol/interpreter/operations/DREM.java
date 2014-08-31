@@ -34,7 +34,7 @@ public class DREM extends VoidOperation
     {
         double d2 = ((Number) stack.pop()).doubleValue();
         double d1 = ((Number) stack.pop()).doubleValue();
-        stack.push(new Double(d1 % d2));
+        stack.push(Double.valueOf(d1 % d2));
     }
 
     /** {@inheritDoc} */

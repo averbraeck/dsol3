@@ -23,7 +23,7 @@ public class RemoteEventListener implements RemoteEventListenerInterface
     /**
      * Constructs a new RemoteListener.
      * @param owner The owner of the listener.
-     * @throws RemoteException 
+     * @throws RemoteException
      */
     public RemoteEventListener(final EventListenerInterface owner) throws RemoteException
     {

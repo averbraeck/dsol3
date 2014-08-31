@@ -18,7 +18,7 @@ import nl.tudelft.simulation.dsol.interpreter.operations.custom.InterpreterOracl
 public class ProcessInterpreterOracle implements InterpreterOracleInterface
 {
     /**
-     * constructs a new ProcessInterpreterOracle
+     * constructs a new ProcessInterpreterOracle.
      */
     public ProcessInterpreterOracle()
     {
@@ -30,9 +30,9 @@ public class ProcessInterpreterOracle implements InterpreterOracleInterface
      * @param method the method to introspect
      * @return whether to interprete this method
      */
-    public boolean shouldBeInterpreted(final Method method)
+    public final boolean shouldBeInterpreted(final Method method)
     {
-        if (Process.class.isAssignableFrom(method.getDeclaringClass()))
+        if (InterpretableProcess.class.isAssignableFrom(method.getDeclaringClass()))
         {
             return true;
         }

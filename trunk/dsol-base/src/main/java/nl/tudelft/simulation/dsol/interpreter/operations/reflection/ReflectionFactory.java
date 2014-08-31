@@ -28,7 +28,7 @@ public class ReflectionFactory extends InterpreterFactory
 
     /** {@inheritDoc} */
     @Override
-    public Operation readOperation(final int operand, final DataInput dataInput, final int startBytePostion)
+    public final Operation readOperation(final int operand, final DataInput dataInput, final int startBytePostion)
             throws IOException
     {
         switch (operand)

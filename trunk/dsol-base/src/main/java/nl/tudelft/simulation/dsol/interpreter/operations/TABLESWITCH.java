@@ -54,14 +54,14 @@ public class TABLESWITCH extends JumpOperation
         }
 
         // Now we place the default value at position 0
-        this.offsets.add(new Integer(dataInput.readInt()));
+        this.offsets.add(Integer.valueOf(dataInput.readInt()));
         this.lowValue = dataInput.readInt();
         this.highValue = dataInput.readInt();
         int entries = this.highValue - this.lowValue + 1;
         this.byteLength = this.byteLength + 12;
         for (int i = 0; i < entries; i++)
         {
-            Integer offset = new Integer(dataInput.readInt());
+            Integer offset = Integer.valueOf(dataInput.readInt());
             this.offsets.add(offset);
             this.byteLength = this.byteLength + 4;
         }
@@ -69,7 +69,8 @@ public class TABLESWITCH extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool,
+            final LocalVariable[] localVariables)
     {
         int index = ((Integer) stack.pop()).intValue();
         int offset = -1;

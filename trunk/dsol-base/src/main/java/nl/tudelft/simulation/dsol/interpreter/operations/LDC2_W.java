@@ -46,11 +46,11 @@ public class LDC2_W extends VoidOperation
         Constant constant = constantPool[this.index];
         if (constant instanceof ConstantLong)
         {
-            stack.push(new Long(((ConstantLong) constant).getValue()));
+            stack.push(Long.valueOf(((ConstantLong) constant).getValue()));
         }
         else if (constant instanceof ConstantDouble)
         {
-            stack.push(new Double(((ConstantDouble) constant).getValue()));
+            stack.push(Double.valueOf(((ConstantDouble) constant).getValue()));
         }
     }
 

@@ -71,7 +71,7 @@ public final class MethodDescriptor
      * @param operationIndex the n-th operation
      * @return the bytePostion
      */
-    public final int getBytePosition(final int operationIndex)
+    public int getBytePosition(final int operationIndex)
     {
         return this.bytePositions[operationIndex];
     }
@@ -80,7 +80,7 @@ public final class MethodDescriptor
      * returns the exception table of the method.
      * @return the exceptiontable
      */
-    public final ExceptionEntry[] getExceptionTable()
+    public ExceptionEntry[] getExceptionTable()
     {
         return this.exceptionTable;
     }
@@ -89,7 +89,7 @@ public final class MethodDescriptor
      * returns the linenumber table of the method.
      * @return the linenumber table
      */
-    public final LineNumber[] getLineNumberTable()
+    public LineNumber[] getLineNumberTable()
     {
         return this.lineNumberTable;
     }
@@ -98,7 +98,7 @@ public final class MethodDescriptor
      * returns the localvariable descriptors.
      * @return the localvairable descriptors
      */
-    public final LocalVariableDescriptor[] getLocalVariableTable()
+    public LocalVariableDescriptor[] getLocalVariableTable()
     {
         return this.localVariableTable;
     }
@@ -107,7 +107,7 @@ public final class MethodDescriptor
      * returns the maximum stack size of this method.
      * @return int the maximum stacksize of this method
      */
-    public final int getMaxStack()
+    public int getMaxStack()
     {
         return this.maxStack;
     }
@@ -115,7 +115,7 @@ public final class MethodDescriptor
     /**
      * @return Returns the method
      */
-    public final AccessibleObject getMethod()
+    public AccessibleObject getMethod()
     {
         return this.method;
     }
@@ -123,7 +123,7 @@ public final class MethodDescriptor
     /**
      * @return Returns the methodSignature
      */
-    public final MethodSignature getMethodSignature()
+    public MethodSignature getMethodSignature()
     {
         return this.methodSignature;
     }
@@ -132,7 +132,7 @@ public final class MethodDescriptor
      * returns the name of the method.
      * @return the name of the method
      */
-    public final String getName()
+    public String getName()
     {
         return this.name;
     }
@@ -141,7 +141,7 @@ public final class MethodDescriptor
      * returns the operations of the method.
      * @return the operations of the method.
      */
-    public final Operation[] getOperations()
+    public Operation[] getOperations()
     {
         return this.operations;
     }
@@ -151,7 +151,7 @@ public final class MethodDescriptor
      * @param bytePosition the bytePosition
      * @return the number
      */
-    public final int getOperationIndex(final int bytePosition)
+    public int getOperationIndex(final int bytePosition)
     {
         for (int i = 0; i < this.bytePositions.length; i++)
         {
@@ -168,7 +168,7 @@ public final class MethodDescriptor
      * @param bytePosition the position to start
      * @return the operation
      */
-    public final Operation getOperation(final int bytePosition)
+    public Operation getOperation(final int bytePosition)
     {
         for (int i = 0; i < this.bytePositions.length; i++)
         {
@@ -184,7 +184,7 @@ public final class MethodDescriptor
      * sets the method of this descriptor.
      * @param method the method
      */
-    public final void setMethod(final AccessibleObject method)
+    public void setMethod(final AccessibleObject method)
     {
         this.method = method;
     }

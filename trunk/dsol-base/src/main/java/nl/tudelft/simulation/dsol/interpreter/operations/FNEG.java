@@ -33,7 +33,7 @@ public class FNEG extends VoidOperation
             final LocalVariable[] localVariables)
     {
         float f = ((Number) stack.pop()).floatValue();
-        stack.push(new Float(-f));
+        stack.push(Float.valueOf(-f));
     }
 
     /** {@inheritDoc} */

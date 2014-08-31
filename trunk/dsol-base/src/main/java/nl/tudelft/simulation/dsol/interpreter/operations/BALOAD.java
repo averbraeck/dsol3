@@ -37,7 +37,7 @@ public class BALOAD extends VoidOperation
     {
         int index = Primitive.toInteger(stack.pop()).intValue();
         Object arrayref = stack.pop();
-        stack.push(new Byte(Array.getByte(arrayref, index)));
+        stack.push(Byte.valueOf(Array.getByte(arrayref, index)));
     }
 
     /** {@inheritDoc} */

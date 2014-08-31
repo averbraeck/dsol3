@@ -50,11 +50,11 @@ public class LDC extends VoidOperation
         Constant constant = constantPool[this.index];
         if (constant instanceof ConstantInteger)
         {
-            stack.push(new Integer(((ConstantInteger) constant).getValue()));
+            stack.push(Integer.valueOf(((ConstantInteger) constant).getValue()));
         }
         else if (constant instanceof ConstantFloat)
         {
-            stack.push(new Float(((ConstantFloat) constant).getValue()));
+            stack.push(Float.valueOf(((ConstantFloat) constant).getValue()));
         }
         else if (constant instanceof ConstantString)
         {

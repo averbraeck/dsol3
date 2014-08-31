@@ -34,7 +34,7 @@ public class I2D extends VoidOperation
             final LocalVariable[] localVariables)
     {
         int i = Primitive.toInteger(stack.pop()).intValue();
-        stack.push(new Double(i));
+        stack.push(Double.valueOf(i));
     }
 
     /** {@inheritDoc} */

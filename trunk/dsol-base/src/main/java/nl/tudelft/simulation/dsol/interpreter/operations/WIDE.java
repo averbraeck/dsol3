@@ -92,7 +92,7 @@ public class WIDE extends Operation
     /**
      * @return Returns the target.
      */
-    public Operation getTarget()
+    public final Operation getTarget()
     {
         return this.target;
     }

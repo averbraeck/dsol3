@@ -23,7 +23,8 @@ public abstract class Reference<T> implements Serializable
     /**
      * Returns this reference object's referent. If this reference object has been cleared, either by the program or by
      * the garbage collector, then this method returns <code>null</code>.
-     * @return The object to which this reference refers, or <code>null</code> if this reference object has been cleared.
+     * @return The object to which this reference refers, or <code>null</code> if this reference object has been
+     *         cleared.
      */
     public abstract T get();
 

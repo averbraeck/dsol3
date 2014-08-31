@@ -34,7 +34,7 @@ public class I2F extends VoidOperation
             final LocalVariable[] localVariables)
     {
         int i = Primitive.toInteger(stack.pop()).intValue();
-        stack.push(new Float(i));
+        stack.push(Float.valueOf(i));
     }
 
     /** {@inheritDoc} */
