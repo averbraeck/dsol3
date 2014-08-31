@@ -39,6 +39,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void reset()
     {
         this.setSeed(this.seed);
@@ -237,9 +238,11 @@ public abstract class RandomNumberGenerator implements StreamInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public abstract void setSeed(final long seed);
 
     /** {@inheritDoc} */
+    @Override
     public long getSeed()
     {
         return this.seed;

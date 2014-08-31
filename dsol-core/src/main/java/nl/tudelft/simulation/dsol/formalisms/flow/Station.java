@@ -45,12 +45,14 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** {@inheritDoc} */
+    @Override
     public void receiveObject(final Object object) throws RemoteException
     {
         this.fireTimedEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime());
     }
 
     /** {@inheritDoc} */
+    @Override
     public void setDestination(final StationInterface destination)
     {
         this.destination = destination;

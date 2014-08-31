@@ -28,7 +28,8 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Replication<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> implements Serializable
+public class Replication<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        implements Serializable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -59,14 +60,14 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * constructs a stand-alone Replication and make a treatment and experiment as well.
-     * @param id 
-     * @param startTime 
-     * @param warmupPeriod 
-     * @param runLength 
-     * @param model 
+     * @param id
+     * @param startTime
+     * @param warmupPeriod
+     * @param runLength
+     * @param model
      */
-    public Replication(final String id, final T startTime, final R warmupPeriod,
-            final R runLength, final ModelInterface<A, R, T> model)
+    public Replication(final String id, final T startTime, final R warmupPeriod, final R runLength,
+            final ModelInterface<A, R, T> model)
     {
         super();
         this.context = null;
@@ -77,11 +78,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
         catch (NamingException namingException)
         {
             // TODO exception
-           namingException.printStackTrace();
+            namingException.printStackTrace();
         }
         this.experiment = new Experiment<A, R, T>(this.context);
         this.experiment.setModel(model);
-        Treatment<A, R, T> treatment = new Treatment<A, R, T>(this.experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+        Treatment<A, R, T> treatment =
+                new Treatment<A, R, T>(this.experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
         this.experiment.setTreatment(treatment);
     }
 

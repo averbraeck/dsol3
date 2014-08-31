@@ -43,7 +43,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
 
     /** the wrapped distribution. */
     protected final DistContinuous wrappedDistribution;
-    
+
     /**
      * constructs a new continuous distribution
      * @param wrappedDistribution the wrapped continuous distribution
@@ -145,7 +145,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-        
+
         /** the time unit. */
         private final TimeUnit unit;
 
@@ -172,7 +172,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-        
+
         /** the time unit. */
         private final TimeUnit unit;
 
@@ -195,18 +195,18 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.LongUnit. */
-    public static class LongUnit extends DistContinuousTime<UnitTimeLong> 
+    public static class LongUnit extends DistContinuousTime<UnitTimeLong>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-        
+
         /** the time unit. */
         private final TimeUnit unit;
 
         /**
          * @param wrappedDistribution the wrapped continuous distribution
-          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
-        */
+         * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
+         */
         public LongUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
         {
             super(wrappedDistribution);
@@ -226,7 +226,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-        
+
         /** the time unit. */
         private final TimeUnit unit;
 
@@ -253,7 +253,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-        
+
         /** the time unit. */
         private final TimeUnit unit;
 
@@ -280,7 +280,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-        
+
         /** the time unit. */
         private final TimeUnit unit;
 

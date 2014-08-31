@@ -89,12 +89,14 @@ public class Observations implements ObservationsInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public int size()
     {
         return this.data[ObservationsInterface.OBSERVATION].length;
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean isEmpty()
     {
         if (this.data == null)
@@ -115,6 +117,7 @@ public class Observations implements ObservationsInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean isGrouped()
     {
         return this.grouped;
@@ -390,6 +393,7 @@ public class Observations implements ObservationsInterface
         }
 
         /** {@inheritDoc} */
+        @Override
         public Double getCumProbability()
         {
             return this.cumProbability;

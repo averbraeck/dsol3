@@ -308,6 +308,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void notify(final EventInterface event)
     {
         if (!(event.getContent() instanceof Number))

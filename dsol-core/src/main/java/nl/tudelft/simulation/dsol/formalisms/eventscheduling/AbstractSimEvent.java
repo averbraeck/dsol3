@@ -19,7 +19,8 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
  */
-public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements SimEventInterface<T>, Comparable<AbstractSimEvent<T>>, Serializable
+public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements SimEventInterface<T>,
+        Comparable<AbstractSimEvent<T>>, Serializable
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -64,6 +65,7 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements Si
     }
 
     /** {@inheritDoc} */
+    @Override
     public int compareTo(final AbstractSimEvent<T> simEvent)
     {
         if (this.equals(simEvent))

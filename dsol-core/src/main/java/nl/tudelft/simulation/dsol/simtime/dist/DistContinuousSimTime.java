@@ -287,7 +287,8 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         @Override
         public SimTimeCalendarFloat draw()
         {
-            float ms = new UnitTimeFloat((float) super.wrappedDistribution.draw(), this.unit).getTimeMsec().floatValue();
+            float ms =
+                    new UnitTimeFloat((float) super.wrappedDistribution.draw(), this.unit).getTimeMsec().floatValue();
             return new SimTimeCalendarFloat(ms);
         }
     }

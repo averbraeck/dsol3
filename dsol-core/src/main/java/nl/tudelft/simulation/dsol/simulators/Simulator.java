@@ -72,18 +72,21 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** {@inheritDoc} */
+    @Override
     public T getSimulatorTime()
     {
         return this.simulatorTime;
     }
 
     /** {@inheritDoc} */
+    @Override
     public Replication<A, R, T> getReplication()
     {
         return this.replication;
     }
 
     /** {@inheritDoc} */
+    @Override
     public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
             throws RemoteException, SimRuntimeException
     {
@@ -106,6 +109,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean isRunning()
     {
         return this.running;
@@ -119,6 +123,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     public abstract void run();
 
     /** {@inheritDoc} */
+    @Override
     public void start() throws SimRuntimeException
     {
         if (this.isRunning())
@@ -150,6 +155,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** {@inheritDoc} */
+    @Override
     public void step() throws SimRuntimeException
     {
         if (this.isRunning())
@@ -168,6 +174,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** {@inheritDoc} */
+    @Override
     public void stop()
     {
         if (this.isRunning())

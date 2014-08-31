@@ -59,7 +59,8 @@ public class Seize extends Station implements ResourceRequestorInterface
      * @param resource which is claimed
      * @param requestedCapacity is the amount which is claimed by the seize
      */
-    public Seize(final DEVSSimulatorInterface<?, ?, ?> simulator, final Resource resource, final double requestedCapacity)
+    public Seize(final DEVSSimulatorInterface<?, ?, ?> simulator, final Resource resource,
+            final double requestedCapacity)
     {
         super(simulator);
         if (requestedCapacity < 0.0)
@@ -121,6 +122,7 @@ public class Seize extends Station implements ResourceRequestorInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void receiveRequestedResource(final double requestedCapacity, final Resource resource)
             throws RemoteException
     {
@@ -132,7 +134,8 @@ public class Seize extends Station implements ResourceRequestorInterface
                 {
                     this.queue.remove(request);
                 }
-                this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
+                this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(),
+                        this.simulator.getSimulatorTime());
                 // TODO: R delay = (this.simulator.getSimulatorTime().minus(request.getCreationTime()));
                 // TODO: this.fireEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime());
                 this.releaseObject(request.getEntity());

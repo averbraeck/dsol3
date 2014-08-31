@@ -67,6 +67,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** {@inheritDoc} */
+    @Override
     public R getTimeStep()
     {
         return this.timeStep;

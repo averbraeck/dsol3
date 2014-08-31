@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.jstats.ode.integrators;
 
 import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;

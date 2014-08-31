@@ -7,6 +7,7 @@ import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.logger.Logger;
@@ -26,7 +27,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
 public abstract class Process<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends nl.tudelft.simulation.dsol.interpreter.process.Process implements ResourceRequestorInterface
+        extends InterpretableProcess implements ResourceRequestorInterface
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -96,11 +97,12 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
         this.suspend();
     }
 
-    /** {@inheritDoc} */
-    @Override
+    /**
+     * cancels this process entirely. After the process.cancel() is invoked a process can no longer be resumed.
+     */
     public void cancel()
     {
-        super.cancel();
+        super.cancelProcess();
         if (this.simEvent != null)
         {
             try
@@ -114,15 +116,25 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** {@inheritDoc} */
-    @Override
+    /**
+     * resumes this process.
+     */
     public void resume()
     {
         this.simEvent = null;
-        super.resume();
+        super.resumeProcess();
+    }
+
+    /**
+     * suspends this process.
+     */
+    public void suspend()
+    {
+        super.suspendProcess();
     }
 
     /** {@inheritDoc} */
+    @Override
     public void receiveRequestedResource(final double requestedCapacity, final Resource resource)
     {
         this.resume();

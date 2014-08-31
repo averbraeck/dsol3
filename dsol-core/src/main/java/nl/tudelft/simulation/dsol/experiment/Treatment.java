@@ -21,8 +21,8 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> implements
-        Serializable
+public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        implements Serializable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /** the end time of the simulation. */
     private final T endTime;
 
-    /** the warmup time of the simulation (included in the total run length)*/
+    /** the warmup time of the simulation (included in the total run length) */
     private final T warmupTime;
 
     /** the properties of this treatment. */

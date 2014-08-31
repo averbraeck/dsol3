@@ -40,6 +40,7 @@ public class StatisticsTableModel extends DefaultTableModel implements EventList
     }
 
     /** {@inheritDoc} */
+    @Override
     public void notify(final EventInterface event)
     {
         for (int i = 0; i < this.eventTypes.length; i++)

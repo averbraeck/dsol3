@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.simtime;
 
-
 /**
  * <p>
  * Copyright (c) 2002-2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights

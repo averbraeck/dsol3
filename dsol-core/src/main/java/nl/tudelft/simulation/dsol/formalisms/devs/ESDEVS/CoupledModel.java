@@ -102,8 +102,14 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
 
     }
 
-    @Override
-    public boolean addListener(final EventListenerInterface eli, final EventType et)
+    /**
+     * Add a listener recursively to the model and all its submodels. Delegate it for this coupled model to the embedded
+     * event producer.
+     * @param eli the event listener.
+     * @param et the event type.
+     * @return success or failure of adding the listener to all submodels.
+     */
+    public boolean addHierarchicalListener(final EventListenerInterface eli, final EventType et)
     {
         boolean returnBoolean = true;
         returnBoolean &= super.addListener(eli, et);

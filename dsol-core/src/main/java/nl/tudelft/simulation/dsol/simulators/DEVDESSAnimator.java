@@ -52,12 +52,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     protected long animationDelay = 100L;
 
     /** {@inheritDoc} */
+    @Override
     public long getAnimationDelay()
     {
         return this.animationDelay;
     }
 
     /** {@inheritDoc} */
+    @Override
     public void setAnimationDelay(final long animationDelay)
     {
         this.animationDelay = animationDelay;

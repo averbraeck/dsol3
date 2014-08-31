@@ -43,8 +43,7 @@ public class Model implements ModelInterface
         super();
     }
 
-    /** {@inheritDoc} */
-    public void constructModel(final SimulatorInterface simulator) throws SimRuntimeException, RemoteException
+    /** {@inheritDoc} */ @Override public  void constructModel(final SimulatorInterface simulator) throws SimRuntimeException, RemoteException
     {
         this.simulator = simulator;
         DEVSSimulatorInterface devsSimulator = (DEVSSimulatorInterface.Double) simulator;

@@ -63,7 +63,8 @@ public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Nu
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.DoubleUnit. */
-    public static interface DoubleUnit extends DEVDESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static interface DoubleUnit extends
+            DEVDESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
@@ -81,13 +82,15 @@ public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Nu
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.CalendarDouble. */
-    public static interface CalendarDouble extends DEVDESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static interface CalendarDouble extends
+            DEVDESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.CalendarFloat. */
-    public static interface CalendarFloat extends DEVDESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static interface CalendarFloat extends
+            DEVDESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         // typed extension
     }

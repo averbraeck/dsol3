@@ -183,7 +183,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws SimRuntimeException whenever simulator.isRunning()==true
      */
     void setEventList(EventListInterface<T> eventList) throws RemoteException, SimRuntimeException;
-    
+
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
@@ -207,7 +207,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DEVSSimulatorInterface.DoubleUnit. */
-    public static interface DoubleUnit extends DEVSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static interface DoubleUnit extends
+            DEVSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
@@ -225,7 +226,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarDouble. */
-    public static interface CalendarDouble extends DEVSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static interface CalendarDouble extends
+            DEVSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }

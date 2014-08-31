@@ -90,8 +90,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
      * @param simulator the simulator
      * @param model the model to experiment with
      */
-    public Experiment(final Context context, final Treatment<A, R, T> treatment, final SimulatorInterface<A, R, T> simulator,
-            final ModelInterface model)
+    public Experiment(final Context context, final Treatment<A, R, T> treatment,
+            final SimulatorInterface<A, R, T> simulator, final ModelInterface model)
     {
         this(context);
         this.setSimulator(simulator);
@@ -167,6 +167,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     }
 
     /** {@inheritDoc} */
+    @Override
     public void notify(final EventInterface event) throws RemoteException
     {
         if (!this.subscribed)
