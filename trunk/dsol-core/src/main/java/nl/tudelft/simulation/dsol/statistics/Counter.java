@@ -75,8 +75,8 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
      * @param field the field which is counted
      * @throws RemoteException on network failure
      */
-    public Counter(final String description, final SimulatorInterface<?, ?, T> simulator, final EventProducerInterface target,
-            final EventType field) throws RemoteException
+    public Counter(final String description, final SimulatorInterface<?, ?, T> simulator,
+            final EventProducerInterface target, final EventType field) throws RemoteException
     {
         this(description, simulator);
         target.addListener(this, field, false);

@@ -24,8 +24,7 @@ public class Function extends DifferentialEquation
         super.initialize(0, new double[]{0.5, 1.5});
     }
 
-    /** {@inheritDoc} */
-    public double[] dy(final double x, final double[] y)
+    /** {@inheritDoc} */ @Override public  double[] dy(final double x, final double[] y)
     {
         return new double[]{y[1], -0.2 * y[1] - Math.sin(y[0])};
     }

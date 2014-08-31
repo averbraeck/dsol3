@@ -53,7 +53,7 @@ public class TestSim
     /**
      * @throws SimRuntimeException
      * @throws RemoteException
-     * @throws NamingException 
+     * @throws NamingException
      */
     public TestSim() throws SimRuntimeException, RemoteException, NamingException
     {
@@ -85,7 +85,7 @@ public class TestSim
      * @param args
      * @throws SimRuntimeException
      * @throws RemoteException
-     * @throws NamingException 
+     * @throws NamingException
      */
     public static void main(String[] args) throws SimRuntimeException, RemoteException, NamingException
     {

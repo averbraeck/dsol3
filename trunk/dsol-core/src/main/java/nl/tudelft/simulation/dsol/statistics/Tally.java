@@ -74,8 +74,8 @@ public class Tally<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jst
      * @param field the field which is counted
      * @throws RemoteException on network failure.
      */
-    public Tally(final String description, final SimulatorInterface<?, ?, T> simulator, final EventProducerInterface target,
-            final EventType field) throws RemoteException
+    public Tally(final String description, final SimulatorInterface<?, ?, T> simulator,
+            final EventProducerInterface target, final EventType field) throws RemoteException
     {
         this(description, simulator);
         target.addListener(this, field, false);

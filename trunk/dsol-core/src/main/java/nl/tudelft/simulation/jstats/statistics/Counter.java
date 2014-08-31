@@ -71,6 +71,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void notify(final EventInterface event)
     {
         long value = 1;

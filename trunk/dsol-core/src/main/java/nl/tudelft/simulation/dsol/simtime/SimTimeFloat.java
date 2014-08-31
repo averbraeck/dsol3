@@ -32,7 +32,7 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
 {
     /** */
     private static final long serialVersionUID = 20140803L;
-    
+
     /** the locally stored time. */
     private float time;
 

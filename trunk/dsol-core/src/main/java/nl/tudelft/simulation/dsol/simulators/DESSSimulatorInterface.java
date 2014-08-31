@@ -58,7 +58,7 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure
      */
     void setTimeStep(R timeStep) throws SimRuntimeException, RemoteException;
-    
+
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
@@ -82,7 +82,8 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DESSSimulatorInterface.DoubleUnit. */
-    public static interface DoubleUnit extends DESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static interface DoubleUnit extends
+            DESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
@@ -100,7 +101,8 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DESSSimulatorInterface.CalendarDouble. */
-    public static interface CalendarDouble extends DESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static interface CalendarDouble extends
+            DESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }

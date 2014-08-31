@@ -35,8 +35,7 @@ public class TestModel implements ModelInterface, EventListenerInterface
         super();
     }
 
-    /** {@inheritDoc} */
-    public void constructModel(final SimulatorInterface simulator) throws RemoteException
+    /** {@inheritDoc} */ @Override public  void constructModel(final SimulatorInterface simulator) throws RemoteException
     {
         this.simulator = simulator;
         simulator.addListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT, false);
@@ -55,8 +54,7 @@ public class TestModel implements ModelInterface, EventListenerInterface
         return this.simulator;
     }
 
-    /** {@inheritDoc} */
-    public void notify(final EventInterface event)
+    /** {@inheritDoc} */ @Override public  void notify(final EventInterface event)
     {
         if (event.getType().equals(SimulatorInterface.START_EVENT))
         {

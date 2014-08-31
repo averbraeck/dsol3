@@ -15,6 +15,8 @@ import java.util.Random;
  */
 public class Java2Random extends Random implements StreamInterface
 {
+    /** */
+    private static final long serialVersionUID = 20140831L;
 
     /**
      * seed is a link to the seed value. The reason to store the seed in this variable is that there is no getSeed() on
@@ -30,23 +32,25 @@ public class Java2Random extends Random implements StreamInterface
         this(System.currentTimeMillis());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * reates a new Java2Random and in initializes with a given seed.
+     * @param seed the seed to use.
+     */
     public Java2Random(final long seed)
     {
         super(seed);
         this.seed = seed;
     }
 
-    /**
-     * resets a stream
-     * @see nl.tudelft.simulation.jstats.streams.StreamInterface#reset()
-     */
+    /** {@inheritDoc} */
+    @Override
     public void reset()
     {
         this.setSeed(this.seed);
     }
 
     /** {@inheritDoc} */
+    @Override
     public int nextInt(final int i, final int j)
     {
         return i + (int) Math.floor((j - i + 1) * this.nextDouble());
@@ -61,6 +65,7 @@ public class Java2Random extends Random implements StreamInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public long getSeed()
     {
         return this.seed;

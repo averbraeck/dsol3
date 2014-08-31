@@ -25,7 +25,7 @@ public class RealTimeClockTest_Failed extends TestCase
         super();
     }
 
-    /** {@inheritDoc} */
+    /** */
     public void test()
     {
         try

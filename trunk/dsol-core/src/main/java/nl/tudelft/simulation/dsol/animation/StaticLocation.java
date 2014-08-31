@@ -67,12 +67,14 @@ public class StaticLocation extends DirectedPoint implements LocatableInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public DirectedPoint getLocation()
     {
         return this;
     }
 
     /** {@inheritDoc} */
+    @Override
     public Bounds getBounds()
     {
         return this.bounds;

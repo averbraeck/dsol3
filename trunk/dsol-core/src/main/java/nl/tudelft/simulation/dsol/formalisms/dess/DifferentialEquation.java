@@ -115,6 +115,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized void notify(final EventInterface event) throws RemoteException
     {
         if (event.getSource() instanceof DESSSimulatorInterface
@@ -129,8 +130,8 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
                     integrateY(this.simulator.getSimulatorTime().get().doubleValue(), this.previousX, this.previousY);
             for (int i = 0; i < super.y0.length; i++)
             {
-                this.fireTimedEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i], this.simulator
-                        .getSimulatorTime());
+                this.fireTimedEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i],
+                        this.simulator.getSimulatorTime());
             }
             this.previousX = this.simulator.getSimulatorTime().get().doubleValue();
         }

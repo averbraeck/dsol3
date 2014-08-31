@@ -19,7 +19,7 @@ public abstract class Dist implements java.io.Serializable
 {
     /** */
     private static final long serialVersionUID = 20140805L;
-    
+
     /** stream is the random number generator from which to draw. */
     protected final StreamInterface stream;
 

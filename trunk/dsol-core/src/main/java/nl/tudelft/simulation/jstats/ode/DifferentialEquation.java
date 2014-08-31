@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.jstats.ode;
 
 import nl.tudelft.simulation.event.EventProducer;
@@ -67,6 +66,7 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     }
 
     /** {@inheritDoc} */
+    @Override
     public void initialize(final double x, final double[] y)
     {
         this.x0 = x;
@@ -74,6 +74,7 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     }
 
     /** {@inheritDoc} */
+    @Override
     public double[] y(final double x)
     {
         // If the ODE is not initialized, the cache is empty.

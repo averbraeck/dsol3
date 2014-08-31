@@ -54,6 +54,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** {@inheritDoc} */
+    @Override
     public R getTimeStep()
     {
         return this.timeStep;

@@ -19,7 +19,8 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
  */
-public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventInterface<T>> implements EventListInterface<T>
+public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventInterface<T>> implements
+        EventListInterface<T>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -33,6 +34,7 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized SimEventInterface<T> removeFirst()
     {
         SimEventInterface<T> first = this.first();
@@ -41,6 +43,7 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized SimEventInterface<T> removeLast()
     {
         SimEventInterface<T> last = this.last();

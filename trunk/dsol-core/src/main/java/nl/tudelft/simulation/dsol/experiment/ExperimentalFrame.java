@@ -98,6 +98,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /** {@inheritDoc} */
+    @Override
     public void remove()
     {
         this.experiments.remove(this.currentExperiment);
@@ -135,6 +136,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /** {@inheritDoc} */
+    @Override
     public void notify(final EventInterface event) throws RemoteException
     {
         if (event.getType().equals(Experiment.END_OF_EXPERIMENT_EVENT))

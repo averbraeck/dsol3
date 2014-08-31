@@ -14,42 +14,33 @@ import nl.tudelft.simulation.language.support.ClassUtilV2;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * AbstractDEVSModel class. The basic model or component from which the
- * AtomicModel, the CoupledModel, and the AbstractEntity are derived. The
- * DEVSModel provides basic functionality for reporting its state changes
- * through the publish/subscribe mechanism.
+ * AbstractDEVSModel class. The basic model or component from which the AtomicModel, the CoupledModel, and the
+ * AbstractEntity are derived. The DEVSModel provides basic functionality for reporting its state changes through the
+ * publish/subscribe mechanism.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX
- * Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/">
- * www.simulation.tudelft.nl</a>.
+ * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ * following conditions are met:
  * <ul>
- * <li>Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its
- * contributors may be used to endorse or promote products derived from this
- * software without specific prior written permission.</li>
+ * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ * disclaimer.</li>
+ * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+ * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
+ * promote products derived from this software without specific prior written permission.</li>
  * </ul>
- * This software is provided by the copyright holders and contributors "as is"
- * and any express or implied warranties, including, but not limited to, the
- * implied warranties of merchantability and fitness for a particular purpose
- * are disclaimed. In no event shall the copyright holder or contributors be
- * liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of
- * substitute goods or services; loss of use, data, or profits; or business
- * interruption) however caused and on any theory of liability, whether in
- * contract, strict liability, or tort (including negligence or otherwise)
- * arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
- * 
+ * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
+ * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
+ * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
+ * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
+ * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
+ * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
+ * of this software, even if advised of the possibility of such damage.
  * @version Oct 17, 2009 <br>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
@@ -93,8 +84,8 @@ public abstract class AbstractDEVSModel extends EventProducer
     private static Set<Field> abstractDEVSFields = new HashSet<Field>();
 
     /**
-     * Static constructor. Takes care of filling the static constants the first
-     * time an extension of the AbstractDEVSModel is created.
+     * Static constructor. Takes care of filling the static constants the first time an extension of the
+     * AbstractDEVSModel is created.
      */
     static
     {
@@ -105,10 +96,8 @@ public abstract class AbstractDEVSModel extends EventProducer
     }
 
     /**
-     * Constructor for an abstract DEVS model: we have to indicate the simulator
-     * to schedule the events on, and the parent model we are part of. A parent
-     * model of null means that we are the top model.
-     * 
+     * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+     * parent model we are part of. A parent model of null means that we are the top model.
      * @param modelName the name of this component
      * @param simulator the simulator to schedule the events on.
      * @param parentModel the parent model we are part of.
@@ -179,9 +168,7 @@ public abstract class AbstractDEVSModel extends EventProducer
 
     /**
      * Print the model, preceded by a user provided string.
-     * 
-     * @param header the user provided string to print in front of the model
-     *            (e.g. newlines, header).
+     * @param header the user provided string to print in front of the model (e.g. newlines, header).
      */
     public abstract void printModel(String header);
 
@@ -190,11 +177,9 @@ public abstract class AbstractDEVSModel extends EventProducer
     // ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Create state field set. For this first version, take all the fields into
-     * account as state variables. The method substract the fields that are on
-     * the level of AbstractModel or Atomic Model or higher; only leave the
-     * non-static fields that are part of the descendents of the abstract
-     * models.
+     * Create state field set. For this first version, take all the fields into account as state variables. The method
+     * substract the fields that are on the level of AbstractModel or Atomic Model or higher; only leave the non-static
+     * fields that are part of the descendents of the abstract models.
      */
     private void createStateFieldSet()
     {
@@ -203,13 +188,16 @@ public abstract class AbstractDEVSModel extends EventProducer
         if (this instanceof AtomicModel)
         {
             fieldSet.removeAll(AbstractDEVSModel.atomicFields);
-        } else if (this instanceof CoupledModel)
+        }
+        else if (this instanceof CoupledModel)
         {
             fieldSet.removeAll(AbstractDEVSModel.coupledFields);
-        } else if (this instanceof AbstractEntity)
+        }
+        else if (this instanceof AbstractEntity)
         {
             fieldSet.removeAll(AbstractDEVSModel.entityFields);
-        } else
+        }
+        else
         {
             fieldSet.removeAll(AbstractDEVSModel.abstractDEVSFields);
         }
@@ -221,15 +209,12 @@ public abstract class AbstractDEVSModel extends EventProducer
     }
 
     /**
-     * Fire a state update. At this moment, all state variables are reported for
-     * an atomic model when it fires its delta_internal or delta_external
-     * method. More intelligence can be added here later. For simple types, a
-     * comparison with the old value (state map) is possible. For complex
-     * variables (objects) this is more difficult as a deep clone should be
-     * saved as old state, followed by a full comparison. This does not seem
-     * practical, and more expensive than firing the state change of all state
-     * variables. The intelligence to detect real state changes then has to be
-     * built in at the receiver's side.
+     * Fire a state update. At this moment, all state variables are reported for an atomic model when it fires its
+     * delta_internal or delta_external method. More intelligence can be added here later. For simple types, a
+     * comparison with the old value (state map) is possible. For complex variables (objects) this is more difficult as
+     * a deep clone should be saved as old state, followed by a full comparison. This does not seem practical, and more
+     * expensive than firing the state change of all state variables. The intelligence to detect real state changes then
+     * has to be built in at the receiver's side.
      */
     protected void fireUpdatedState()
     {
@@ -240,7 +225,8 @@ public abstract class AbstractDEVSModel extends EventProducer
                 field.setAccessible(true);
                 StateUpdate stateUpdate = new StateUpdate(this.getModelName(), field.getName(), field.get(this));
                 this.fireEvent(AbstractDEVSModel.STATE_UPDATE, stateUpdate);
-            } catch (IllegalAccessException exception)
+            }
+            catch (IllegalAccessException exception)
             {
                 Logger.severe(this, "fireUpdateState", "Tried to fire update for variable " + field.getName()
                         + " but got an exception.");
@@ -251,41 +237,31 @@ public abstract class AbstractDEVSModel extends EventProducer
     }
 
     /**
-     * StateUpdate class. Reports a state update. Right now, it is a modelname -
-     * variable name - value tuple.
+     * StateUpdate class. Reports a state update. Right now, it is a modelname - variable name - value tuple.
      * <p>
-     * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628
-     * BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * reserved.
      * <p>
-     * See for project information <a href="http://www.simulation.tudelft.nl/">
-     * www.simulation.tudelft.nl</a>.
+     * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
      * <p>
      * The DSOL project is distributed under the following BSD-style license:<br>
-     * Redistribution and use in source and binary forms, with or without
-     * modification, are permitted provided that the following conditions are
-     * met:
+     * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+     * following conditions are met:
      * <ul>
-     * <li>Redistributions of source code must retain the above copyright
-     * notice, this list of conditions and the following disclaimer.</li>
-     * <li>Redistributions in binary form must reproduce the above copyright
-     * notice, this list of conditions and the following disclaimer in the
-     * documentation and/or other materials provided with the distribution.</li>
-     * <li>Neither the name of Delft University of Technology, nor the names of
-     * its contributors may be used to endorse or promote products derived from
-     * this software without specific prior written permission.</li>
+     * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the
+     * following disclaimer.</li>
+     * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+     * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+     * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse
+     * or promote products derived from this software without specific prior written permission.</li>
      * </ul>
-     * This software is provided by the copyright holders and contributors
-     * "as is" and any express or implied warranties, including, but not limited
-     * to, the implied warranties of merchantability and fitness for a
-     * particular purpose are disclaimed. In no event shall the copyright holder
-     * or contributors be liable for any direct, indirect, incidental, special,
-     * exemplary, or consequential damages (including, but not limited to,
-     * procurement of substitute goods or services; loss of use, data, or
-     * profits; or business interruption) however caused and on any theory of
-     * liability, whether in contract, strict liability, or tort (including
-     * negligence or otherwise) arising in any way out of the use of this
-     * software, even if advised of the possibility of such damage.
-     * 
+     * This software is provided by the copyright holders and contributors "as is" and any express or implied
+     * warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular
+     * purpose are disclaimed. In no event shall the copyright holder or contributors be liable for any direct,
+     * indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of
+     * substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any
+     * theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising
+     * in any way out of the use of this software, even if advised of the possibility of such damage.
      * @version Oct 17, 2009 <br>
      * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
      * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
@@ -306,7 +282,6 @@ public abstract class AbstractDEVSModel extends EventProducer
 
         /**
          * Construct a StateUPdate tuple to report a state update.
-         * 
          * @param modelName the name of the model
          * @param variableName the name of the variable
          * @param value the value

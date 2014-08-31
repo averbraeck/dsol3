@@ -32,7 +32,7 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
 {
     /** */
     private static final long serialVersionUID = 20140803L;
-    
+
     /** the locally stored time. */
     private double time;
 

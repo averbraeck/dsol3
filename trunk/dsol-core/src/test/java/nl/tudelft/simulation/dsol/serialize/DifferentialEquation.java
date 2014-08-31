@@ -63,8 +63,7 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
         super(simulator, timeStep, numericalIntegrator);
     }
 
-    /** {@inheritDoc} */
-    public double[] dy(double arg0, double[] arg1)
+    /** {@inheritDoc} */ @Override public  double[] dy(double arg0, double[] arg1)
     {
         return new double[]{1.0};
     }

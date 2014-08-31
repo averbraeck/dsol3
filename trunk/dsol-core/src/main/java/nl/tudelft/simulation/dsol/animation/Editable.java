@@ -134,12 +134,14 @@ public abstract class Editable extends EventProducer implements LocatableInterfa
     }
 
     /** {@inheritDoc} */
+    @Override
     public Bounds getBounds()
     {
         return this.bounds;
     }
 
     /** {@inheritDoc} */
+    @Override
     public DirectedPoint getLocation()
     {
         return this.location;
