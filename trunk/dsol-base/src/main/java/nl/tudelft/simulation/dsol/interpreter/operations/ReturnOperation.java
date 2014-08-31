@@ -19,7 +19,7 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
 public abstract class ReturnOperation extends Operation
 {
     /**
-     * executes the operation
+     * executes the operation.
      * @param frame the current frame
      * @return Object the result
      */
