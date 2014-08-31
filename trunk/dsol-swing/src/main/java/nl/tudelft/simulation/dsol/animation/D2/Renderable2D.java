@@ -145,8 +145,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         this.scale = scale;
     }
 
-    /** {@inheritDoc} */
-    public LocatableInterface getSource()
+    /** {@inheritDoc} */ @Override public  LocatableInterface getSource()
     {
         return this.source;
     }
@@ -167,8 +166,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         this.translate = translate;
     }
 
-    /** {@inheritDoc} */
-    public synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
+    /** {@inheritDoc} */ @Override public  synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer)
     {
         try
@@ -223,8 +221,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         }
     }
 
-    /** {@inheritDoc} */
-    public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
+    /** {@inheritDoc} */ @Override public  boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
     {
         try
         {

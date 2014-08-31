@@ -39,14 +39,12 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         this.dataOutputStream = new DataOutputStream(outputStream);
     }
 
-    /** {@inheritDoc} */
-    public void write(final byte[] buffer, final int off, final int len) throws IOException
+    /** {@inheritDoc} */ @Override public  void write(final byte[] buffer, final int off, final int len) throws IOException
     {
         this.dataOutputStream.write(this.buffer, off, len);
     }
 
-    /** {@inheritDoc} */
-    public void writeFloat(final float value) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeFloat(final float value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -58,14 +56,12 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /** {@inheritDoc} */
-    public void write(final int value) throws IOException
+    /** {@inheritDoc} */ @Override public  void write(final int value) throws IOException
     {
         this.dataOutputStream.write(value);
     }
 
-    /** {@inheritDoc} */
-    public void writeShort(final int value) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeShort(final int value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -79,14 +75,12 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /** {@inheritDoc} */
-    public void writeBytes(final String string) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeBytes(final String string) throws IOException
     {
         this.dataOutputStream.writeBytes(string);
     }
 
-    /** {@inheritDoc} */
-    public void writeChar(final int value) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeChar(final int value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -100,20 +94,17 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /** {@inheritDoc} */
-    public void writeByte(final int value) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeByte(final int value) throws IOException
     {
         this.dataOutputStream.writeByte(value);
     }
 
-    /** {@inheritDoc} */
-    public void writeBoolean(final boolean value) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeBoolean(final boolean value) throws IOException
     {
         this.dataOutputStream.writeBoolean(value);
     }
 
-    /** {@inheritDoc} */
-    public void writeLong(final long value) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeLong(final long value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -133,14 +124,12 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /** {@inheritDoc} */
-    public void writeUTF(final String string) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeUTF(final String string) throws IOException
     {
         this.dataOutputStream.writeUTF(string);
     }
 
-    /** {@inheritDoc} */
-    public void writeInt(final int value) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeInt(final int value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -156,8 +145,7 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /** {@inheritDoc} */
-    public void writeChars(final String string) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeChars(final String string) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -173,14 +161,12 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         }
     }
 
-    /** {@inheritDoc} */
-    public void write(final byte[] buffer) throws IOException
+    /** {@inheritDoc} */ @Override public  void write(final byte[] buffer) throws IOException
     {
         this.dataOutputStream.write(this.buffer, 0, this.buffer.length);
     }
 
-    /** {@inheritDoc} */
-    public void writeDouble(final double value) throws IOException
+    /** {@inheritDoc} */ @Override public  void writeDouble(final double value) throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -218,14 +204,12 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
         this.dataOutputStream.close();
     }
 
-    /** {@inheritDoc} */
-    public void setEncode(final int encode)
+    /** {@inheritDoc} */ @Override public  void setEncode(final int encode)
     {
         this.encode = encode;
     }
 
-    /** {@inheritDoc} */
-    public int getEncode()
+    /** {@inheritDoc} */ @Override public  int getEncode()
     {
         return this.encode;
     }

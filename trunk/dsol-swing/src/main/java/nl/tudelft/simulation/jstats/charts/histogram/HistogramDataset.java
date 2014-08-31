@@ -76,8 +76,7 @@ public class HistogramDataset extends SimpleHistogramDataset implements Interval
         this.fireDatasetChanged();
     }
 
-    /** {@inheritDoc} */
-    public void datasetChanged(final DatasetChangeEvent arg0)
+    /** {@inheritDoc} */ @Override public  void datasetChanged(final DatasetChangeEvent arg0)
     {
         if (arg0 != null)
         {
@@ -85,50 +84,42 @@ public class HistogramDataset extends SimpleHistogramDataset implements Interval
         }
     }
 
-    /** {@inheritDoc} */
-    public double getEndXValue(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  double getEndXValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getEndXValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public double getEndYValue(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  double getEndYValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getEndYValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public double getStartXValue(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  double getStartXValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getStartXValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public double getStartYValue(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  double getStartYValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getStartYValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public int getItemCount(final int serieNr)
+    /** {@inheritDoc} */ @Override public  int getItemCount(final int serieNr)
     {
         return this.series[serieNr].getBinCount();
     }
 
-    /** {@inheritDoc} */
-    public double getXValue(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  double getXValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getXValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public double getYValue(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  double getYValue(final int serieNr, final int bin)
     {
         return this.series[serieNr].getYValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public int getSeriesCount()
+    /** {@inheritDoc} */ @Override public  int getSeriesCount()
     {
         return this.series.length;
     }
@@ -142,38 +133,32 @@ public class HistogramDataset extends SimpleHistogramDataset implements Interval
         return this.series[serieNr].getName();
     }
 
-    /** {@inheritDoc} */
-    public Number getEndX(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  Number getEndX(final int serieNr, final int bin)
     {
         return this.series[serieNr].getEndXValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public Number getEndY(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  Number getEndY(final int serieNr, final int bin)
     {
         return this.series[serieNr].getEndYValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public Number getStartX(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  Number getStartX(final int serieNr, final int bin)
     {
         return this.series[serieNr].getStartXValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public Number getStartY(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  Number getStartY(final int serieNr, final int bin)
     {
         return this.series[serieNr].getStartYValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public Number getX(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  Number getX(final int serieNr, final int bin)
     {
         return this.series[serieNr].getXValue(bin);
     }
 
-    /** {@inheritDoc} */
-    public Number getY(final int serieNr, final int bin)
+    /** {@inheritDoc} */ @Override public  Number getY(final int serieNr, final int bin)
     {
         return this.series[serieNr].getYValue(bin);
     }

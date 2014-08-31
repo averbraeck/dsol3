@@ -68,8 +68,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         this.fireDatasetChanged();
     }
 
-    /** {@inheritDoc} */
-    public synchronized void notify(final EventInterface event)
+    /** {@inheritDoc} */ @Override public  synchronized void notify(final EventInterface event)
     {
         TimedEvent<?> timedEvent = (TimedEvent<?>) event;
         Number timeStamp = (Number) timedEvent.getTimeStamp();

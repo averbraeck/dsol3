@@ -27,8 +27,7 @@ public class DummyModel implements ModelInterface
         super();
     }
 
-    /** {@inheritDoc} */
-    public void constructModel(final SimulatorInterface simulator)
+    /** {@inheritDoc} */ @Override public  void constructModel(final SimulatorInterface simulator)
     {
         // We have constructed a model.
     }

@@ -179,8 +179,7 @@ public class SimulatorControlPanel extends JPanel
             this.target = target;
         }
 
-        /** {@inheritDoc} */
-        public void actionPerformed(ActionEvent e)
+        /** {@inheritDoc} */ @Override public  void actionPerformed(ActionEvent e)
         {
             String actionName = "";
             if (e.getSource().getClass().equals(JButton.class))

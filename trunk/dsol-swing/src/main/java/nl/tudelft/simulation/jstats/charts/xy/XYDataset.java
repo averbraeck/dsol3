@@ -41,8 +41,7 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
         this.fireDatasetChanged();
     }
 
-    /** {@inheritDoc} */
-    public void datasetChanged(final DatasetChangeEvent arg0)
+    /** {@inheritDoc} */ @Override public  void datasetChanged(final DatasetChangeEvent arg0)
     {
         if (arg0 != null)
         {
@@ -63,32 +62,27 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
         this.fireDatasetChanged();
     }
 
-    /** {@inheritDoc} */
-    public DomainOrder getDomainOrder()
+    /** {@inheritDoc} */ @Override public  DomainOrder getDomainOrder()
     {
         return DomainOrder.ASCENDING;
     }
 
-    /** {@inheritDoc} */
-    public int getItemCount(final int serie)
+    /** {@inheritDoc} */ @Override public  int getItemCount(final int serie)
     {
         return this.series[serie].getItemCount();
     }
 
-    /** {@inheritDoc} */
-    public double getXValue(final int serie, final int item)
+    /** {@inheritDoc} */ @Override public  double getXValue(final int serie, final int item)
     {
         return this.series[serie].getXValue(item);
     }
 
-    /** {@inheritDoc} */
-    public double getYValue(final int serie, final int item)
+    /** {@inheritDoc} */ @Override public  double getYValue(final int serie, final int item)
     {
         return this.series[serie].getYValue(item);
     }
 
-    /** {@inheritDoc} */
-    public int getSeriesCount()
+    /** {@inheritDoc} */ @Override public  int getSeriesCount()
     {
         return this.series.length;
     }
@@ -102,14 +96,12 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
         return this.series[serie].getSeriesName();
     }
 
-    /** {@inheritDoc} */
-    public Number getX(final int serie, final int item)
+    /** {@inheritDoc} */ @Override public  Number getX(final int serie, final int item)
     {
         return new Double(this.series[serie].getXValue(item));
     }
 
-    /** {@inheritDoc} */
-    public Number getY(final int serie, final int item)
+    /** {@inheritDoc} */ @Override public  Number getY(final int serie, final int item)
     {
         return new Double(this.series[serie].getYValue(item));
     }

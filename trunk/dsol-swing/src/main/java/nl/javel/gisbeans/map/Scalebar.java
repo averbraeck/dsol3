@@ -45,98 +45,82 @@ public class Scalebar implements ScalebarInterface
         super();
     }
 
-    /** {@inheritDoc} */
-    public java.awt.Color getBackgroundColor()
+    /** {@inheritDoc} */ @Override public  java.awt.Color getBackgroundColor()
     {
         return this.backgroundColor;
     }
 
-    /** {@inheritDoc} */
-    public java.awt.Color getColor()
+    /** {@inheritDoc} */ @Override public  java.awt.Color getColor()
     {
         return this.color;
     }
 
-    /** {@inheritDoc} */
-    public int getIntervals()
+    /** {@inheritDoc} */ @Override public  int getIntervals()
     {
         return this.intervals;
     }
 
-    /** {@inheritDoc} */
-    public int getPosition()
+    /** {@inheritDoc} */ @Override public  int getPosition()
     {
         return this.position;
     }
 
-    /** {@inheritDoc} */
-    public Dimension getSize()
+    /** {@inheritDoc} */ @Override public  Dimension getSize()
     {
         return this.size;
     }
 
-    /** {@inheritDoc} */
-    public int getUnits()
+    /** {@inheritDoc} */ @Override public  int getUnits()
     {
         return this.units;
     }
 
-    /** {@inheritDoc} */
-    public boolean isEmbed()
+    /** {@inheritDoc} */ @Override public  boolean isEmbed()
     {
         return this.embed;
     }
 
-    /** {@inheritDoc} */
-    public boolean isStatus()
+    /** {@inheritDoc} */ @Override public  boolean isStatus()
     {
         return this.status;
     }
 
-    /** {@inheritDoc} */
-    public void setBackgroundColor(Color backgroundColor)
+    /** {@inheritDoc} */ @Override public  void setBackgroundColor(Color backgroundColor)
     {
         this.backgroundColor = backgroundColor;
     }
 
-    /** {@inheritDoc} */
-    public void setColor(Color color)
+    /** {@inheritDoc} */ @Override public  void setColor(Color color)
     {
         this.color = color;
     }
 
-    /** {@inheritDoc} */
-    public void setEmbed(boolean embed)
+    /** {@inheritDoc} */ @Override public  void setEmbed(boolean embed)
     {
         this.embed = embed;
     }
 
-    /** {@inheritDoc} */
-    public void setIntervals(int intervals)
+    /** {@inheritDoc} */ @Override public  void setIntervals(int intervals)
     {
         this.intervals = intervals;
     }
 
-    /** {@inheritDoc} */
-    public void setPosition(int position)
+    /** {@inheritDoc} */ @Override public  void setPosition(int position)
     {
         this.position = position;
     }
 
-    /** {@inheritDoc} */
-    public void setSize(Dimension size)
+    /** {@inheritDoc} */ @Override public  void setSize(Dimension size)
     {
         this.size = size;
     }
 
-    /** {@inheritDoc} */
-    public void setStatus(boolean status)
+    /** {@inheritDoc} */ @Override public  void setStatus(boolean status)
     {
         this.status = status;
     }
 
-    /** {@inheritDoc} */
-    public void setUnits(int units)
+    /** {@inheritDoc} */ @Override public  void setUnits(int units)
     {
         this.units = units;
     }

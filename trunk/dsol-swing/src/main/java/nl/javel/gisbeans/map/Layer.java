@@ -56,122 +56,102 @@ public class Layer implements LayerInterface
         super();
     }
 
-    /** {@inheritDoc} */
-    public List getSymbols()
+    /** {@inheritDoc} */ @Override public  List getSymbols()
     {
         return this.symbols;
     }
 
-    /** {@inheritDoc} */
-    public List getAttributes()
+    /** {@inheritDoc} */ @Override public  List getAttributes()
     {
         return this.attributes;
     }
 
-    /** {@inheritDoc} */
-    public AttributeInterface getAttribute(int index)
+    /** {@inheritDoc} */ @Override public  AttributeInterface getAttribute(int index)
     {
         return (AttributeInterface) this.attributes.get(index);
     }
 
-    /** {@inheritDoc} */
-    public Color getColor()
+    /** {@inheritDoc} */ @Override public  Color getColor()
     {
         return this.fillColor;
     }
 
-    /** {@inheritDoc} */
-    public void setColor(Color color)
+    /** {@inheritDoc} */ @Override public  void setColor(Color color)
     {
         this.fillColor = color;
     }
 
-    /** {@inheritDoc} */
-    public DataSourceInterface getDataSource()
+    /** {@inheritDoc} */ @Override public  DataSourceInterface getDataSource()
     {
         return this.dataSource;
     }
 
-    /** {@inheritDoc} */
-    public void setAttributes(List attributes)
+    /** {@inheritDoc} */ @Override public  void setAttributes(List attributes)
     {
         this.attributes = attributes;
     }
 
-    /** {@inheritDoc} */
-    public void setDataSource(DataSourceInterface dataSource)
+    /** {@inheritDoc} */ @Override public  void setDataSource(DataSourceInterface dataSource)
     {
         this.dataSource = dataSource;
     }
 
-    /** {@inheritDoc} */
-    public int getMaxScale()
+    /** {@inheritDoc} */ @Override public  int getMaxScale()
     {
         return this.maxScale;
     }
 
-    /** {@inheritDoc} */
-    public void setMaxScale(int maxScale)
+    /** {@inheritDoc} */ @Override public  void setMaxScale(int maxScale)
     {
         this.maxScale = maxScale;
     }
 
-    /** {@inheritDoc} */
-    public int getMinScale()
+    /** {@inheritDoc} */ @Override public  int getMinScale()
     {
         return this.minScale;
     }
 
-    /** {@inheritDoc} */
-    public void setMinScale(int minScale)
+    /** {@inheritDoc} */ @Override public  void setMinScale(int minScale)
     {
         this.minScale = minScale;
     }
 
-    /** {@inheritDoc} */
-    public String getName()
+    /** {@inheritDoc} */ @Override public  String getName()
     {
         return this.name;
     }
 
-    /** {@inheritDoc} */
-    public void setName(String name)
+    /** {@inheritDoc} */ @Override public  void setName(String name)
     {
         this.name = name;
     }
 
-    /** {@inheritDoc} */
-    public Color getOutlineColor()
+    /** {@inheritDoc} */ @Override public  Color getOutlineColor()
     {
         return this.outlineColor;
     }
 
-    /** {@inheritDoc} */
-    public void setOutlineColor(Color outlineColor)
+    /** {@inheritDoc} */ @Override public  void setOutlineColor(Color outlineColor)
     {
         this.outlineColor = outlineColor;
     }
 
-    /** {@inheritDoc} */
-    public boolean isStatus()
+    /** {@inheritDoc} */ @Override public  boolean isStatus()
     {
         return this.status;
     }
 
-    /** {@inheritDoc} */
-    public void setStatus(boolean status)
+    /** {@inheritDoc} */ @Override public  void setStatus(boolean status)
     {
         this.status = status;
     }
 
-    /** {@inheritDoc} */
-    public boolean isTransform()
+    /** {@inheritDoc} */ @Override public  boolean isTransform()
     {
         return this.transform;
     }
 
-    /** {@inheritDoc} */
-    public void setTransform(boolean transform)
+    /** {@inheritDoc} */ @Override public  void setTransform(boolean transform)
     {
         this.transform = transform;
     }

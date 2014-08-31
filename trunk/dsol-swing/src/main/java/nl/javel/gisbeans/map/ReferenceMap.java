@@ -35,62 +35,52 @@ public class ReferenceMap implements ReferenceMapInterface
         super();
     }
 
-    /** {@inheritDoc} */
-    public URL getImage()
+    /** {@inheritDoc} */ @Override public  URL getImage()
     {
         return this.image;
     }
 
-    /** {@inheritDoc} */
-    public void setImage(URL image)
+    /** {@inheritDoc} */ @Override public  void setImage(URL image)
     {
         this.image = image;
     }
 
-    /** {@inheritDoc} */
-    public double[] getExtent()
+    /** {@inheritDoc} */ @Override public  double[] getExtent()
     {
         return this.extent;
     }
 
-    /** {@inheritDoc} */
-    public void setExtent(double[] extent)
+    /** {@inheritDoc} */ @Override public  void setExtent(double[] extent)
     {
         this.extent = extent;
     }
 
-    /** {@inheritDoc} */
-    public Color getOutlineColor()
+    /** {@inheritDoc} */ @Override public  Color getOutlineColor()
     {
         return this.outLineColor;
     }
 
-    /** {@inheritDoc} */
-    public void setOutlineColor(Color outlineColor)
+    /** {@inheritDoc} */ @Override public  void setOutlineColor(Color outlineColor)
     {
         this.outLineColor = outlineColor;
     }
 
-    /** {@inheritDoc} */
-    public Dimension getSize()
+    /** {@inheritDoc} */ @Override public  Dimension getSize()
     {
         return this.size;
     }
 
-    /** {@inheritDoc} */
-    public void setSize(Dimension size)
+    /** {@inheritDoc} */ @Override public  void setSize(Dimension size)
     {
         this.size = size;
     }
 
-    /** {@inheritDoc} */
-    public boolean isStatus()
+    /** {@inheritDoc} */ @Override public  boolean isStatus()
     {
         return this.status;
     }
 
-    /** {@inheritDoc} */
-    public void setStatus(boolean status)
+    /** {@inheritDoc} */ @Override public  void setStatus(boolean status)
     {
         this.status = status;
     }
