@@ -39,7 +39,7 @@ public class IF_ICMPLE extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
     {
         Integer obj2 = Primitive.toInteger(stack.pop());
         Integer obj1 = Primitive.toInteger(stack.pop());

@@ -24,7 +24,7 @@ public class NEW extends VoidOperation
     /** OP refers to the operand code. */
     public static final int OP = 187;
 
-    /** index refers to the constantpool index */
+    /** index refers to the constantpool index. */
     private final int index;
 
     /**
@@ -45,7 +45,7 @@ public class NEW extends VoidOperation
     {
         try
         {
-            Class instanceClass = null;
+            Class<?> instanceClass = null;
             instanceClass = ((ConstantClass) constantPool[this.index]).getValue().getClassValue();
             stack.push(new UninitializedInstance(instanceClass));
         }
@@ -70,18 +70,18 @@ public class NEW extends VoidOperation
     }
 
     /**
-     * holder class for "to-be-constructed" instances
+     * holder class for "to-be-constructed" instances.
      */
     public static class UninitializedInstance
     {
         /** the value. */
-        private Class instanceClass = null;
+        private Class<?> instanceClass = null;
 
         /**
-         * constructs a new UninitializedInstance
+         * constructs a new UninitializedInstance.
          * @param instanceClass the class of which an instance must be made
          */
-        public UninitializedInstance(final Class instanceClass)
+        public UninitializedInstance(final Class<?> instanceClass)
         {
             this.instanceClass = instanceClass;
         }
@@ -89,7 +89,7 @@ public class NEW extends VoidOperation
         /**
          * @return return the instanceClass
          */
-        public Class getInstanceClass()
+        public final Class<?> getInstanceClass()
         {
             return this.instanceClass;
         }

@@ -44,7 +44,7 @@ public class INSTANCEOF extends VoidOperation
             final LocalVariable[] localVariables)
     {
         Object reference = stack.pop();
-        Class clazz = null;
+        Class<?> clazz = null;
         try
         {
             clazz = ((ConstantClass) constantPool[this.index]).getValue().getClassValue();

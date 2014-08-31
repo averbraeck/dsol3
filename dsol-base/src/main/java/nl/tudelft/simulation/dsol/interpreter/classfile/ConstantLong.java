@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5
  */
-public class ConstantLong extends Constant
+public final class ConstantLong extends Constant
 {
     /** the value. */
     private long bytes;
@@ -47,7 +47,7 @@ public class ConstantLong extends Constant
     }
 
     /**
-     * returns the value
+     * returns the value.
      * @return long the value
      */
     public long getValue()

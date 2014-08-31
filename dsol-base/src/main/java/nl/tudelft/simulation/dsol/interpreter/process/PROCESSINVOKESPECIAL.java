@@ -46,7 +46,7 @@ public class PROCESSINVOKESPECIAL extends CUSTOMINVOKESPECIAL
      * @return a new frame
      */
     @Override
-    public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
+    public final Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception
     {
         if (!Process.class.isAssignableFrom(method.getDeclaringClass()))

@@ -11,9 +11,9 @@ import java.io.IOException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ConstantUTF8 extends Constant
+public final class ConstantUTF8 extends Constant
 {
-    /** gets the name index */
+    /** gets the name index. */
     private String value;
 
     /**
@@ -46,7 +46,7 @@ public class ConstantUTF8 extends Constant
     }
 
     /**
-     * returns the name index
+     * returns the name index.
      * @return nameIndex
      */
     public String getValue()

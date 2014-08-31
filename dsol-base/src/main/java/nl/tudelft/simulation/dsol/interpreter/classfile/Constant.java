@@ -14,7 +14,7 @@ import java.io.IOException;
 public abstract class Constant
 {
     /** the constantPool it is part of. */
-    protected Constant[] constantPool = null;
+    private final Constant[] constantPool;
 
     /**
      * constructs a new Constant.
@@ -27,13 +27,13 @@ public abstract class Constant
     }
 
     /**
-     * returns the tag of the constant
+     * returns the tag of the constant.
      * @return int the constant tag
      */
     public abstract int getTag();
 
     /**
-     * reads a constant from the stream
+     * reads a constant from the stream.
      * @param dataInput the dataInput
      * @param constantPool the constantPool
      * @return Constant
@@ -72,7 +72,7 @@ public abstract class Constant
     }
 
     /**
-     * parses the constantPool to string
+     * parses the constantPool to string.
      * @param constantPool the pool
      * @return String
      */
@@ -91,5 +91,13 @@ public abstract class Constant
             }
         }
         return result;
+    }
+
+    /**
+     * @return constantPool
+     */
+    protected final Constant[] getConstantPool()
+    {
+        return this.constantPool;
     }
 }

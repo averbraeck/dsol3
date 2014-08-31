@@ -22,7 +22,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.LocalVariableDescriptor;
 public class LocalVariable implements Cloneable
 {
     /** the localVariableDescriptor. */
-    private LocalVariableDescriptor localVariableDescriptor = null;
+    private final LocalVariableDescriptor localVariableDescriptor;
 
     /** the runtime value of the localVariable. */
     private Object value = null;
@@ -39,7 +39,7 @@ public class LocalVariable implements Cloneable
     /**
      * @return Returns the localVariableDescriptor.
      */
-    public LocalVariableDescriptor getLocalVariableDescriptor()
+    public final LocalVariableDescriptor getLocalVariableDescriptor()
     {
         return this.localVariableDescriptor;
     }
@@ -47,7 +47,7 @@ public class LocalVariable implements Cloneable
     /**
      * @return Returns the value.
      */
-    public synchronized Object getValue()
+    public final synchronized Object getValue()
     {
         return this.value;
     }
@@ -55,7 +55,7 @@ public class LocalVariable implements Cloneable
     /**
      * @param value The value to set.
      */
-    public synchronized void setValue(final Object value)
+    public final synchronized void setValue(final Object value)
     {
         this.value = value;
     }
@@ -86,7 +86,7 @@ public class LocalVariable implements Cloneable
     }
 
     /**
-     * creates a new array of local variables
+     * creates a new array of local variables.
      * @param descriptors the descriptors
      * @return LocalVariable[]
      */
@@ -101,7 +101,7 @@ public class LocalVariable implements Cloneable
     }
 
     /**
-     * replaces the value of a localVarialbe
+     * replaces the value of a local variable.
      * @param localVariables the set to introspect
      * @param oldValue the oldValue
      * @param newValue the new value
@@ -121,7 +121,7 @@ public class LocalVariable implements Cloneable
     }
 
     /**
-     * parses the localVariables to string
+     * parses the localVariables to string.
      * @param localVariables the localVariables
      * @return String the result
      */

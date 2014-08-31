@@ -16,7 +16,7 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
 public abstract class InvokeOperation extends Operation
 {
     /**
-     * executes the operation
+     * executes the operation.
      * @param frame The current frame
      * @return Frame the newly created frame or null when the invocation already took place
      */

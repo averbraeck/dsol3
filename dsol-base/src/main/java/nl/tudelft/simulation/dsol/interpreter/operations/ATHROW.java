@@ -37,7 +37,7 @@ public class ATHROW extends Operation
      * @param frame the frame
      * @return the frame
      */
-    public Frame execute(final Frame frame)
+    public final Frame execute(final Frame frame)
     {
         Throwable throwable = new NullPointerException();
         if (!frame.getOperandStack().isEmpty())
@@ -81,7 +81,7 @@ public class ATHROW extends Operation
      * As an exception, the Interpreter class needs to be able to set the byte position.
      * @param bytePosition set bytePosition
      */
-    public void setBytePosition(final int bytePosition)
+    public final void setBytePosition(final int bytePosition)
     {
         this.bytePosition = bytePosition;
     }

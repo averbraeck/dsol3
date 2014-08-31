@@ -44,7 +44,7 @@ public class INVOKEVIRTUAL extends InvokeOperation
 
     /** {@inheritDoc} */
     @Override
-    public Frame execute(final Frame frame)
+    public final Frame execute(final Frame frame)
     {
         try
         {
@@ -55,7 +55,7 @@ public class INVOKEVIRTUAL extends InvokeOperation
                 // We resolve the class and the parameterTypes from the
                 // constantPool
                 ConstantMethodref constantMethodref = (ConstantMethodref) frame.getConstantPool()[this.index];
-                Class[] parameterTypes =
+                Class<?>[] parameterTypes =
                         new MethodSignature(constantMethodref.getConstantNameAndType().getDescriptor())
                                 .getParameterTypes();
 

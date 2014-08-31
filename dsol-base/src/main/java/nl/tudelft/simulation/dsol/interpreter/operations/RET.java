@@ -61,7 +61,7 @@ public class RET extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
     {
         return Primitive.toInteger(localVariables[this.index].getValue()).intValue();
     }

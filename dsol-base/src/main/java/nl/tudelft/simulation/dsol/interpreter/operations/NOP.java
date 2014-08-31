@@ -16,7 +16,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
  */
 public class NOP extends VoidOperation
 {
-    /** OP refers to the operand code */
+    /** OP refers to the operand code. */
     public static final int OP = 0;
 
     /**

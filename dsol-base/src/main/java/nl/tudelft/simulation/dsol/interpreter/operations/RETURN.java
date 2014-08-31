@@ -30,7 +30,7 @@ public class RETURN extends ReturnOperation
 
     /** {@inheritDoc} */
     @Override
-    public Object execute(final Frame frame)
+    public final Object execute(final Frame frame)
     {
         if (ReturnOperation.isSynchronized(frame.getMethodDescriptor().getMethod()))
         {

@@ -22,6 +22,9 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public abstract class Process extends EventProducer
 {
+    /** */
+    private static final long serialVersionUID = 20140830L;
+
     /** the initial state. */
     public static final short INITIAL = 0;
 

@@ -14,8 +14,9 @@ import java.util.Map;
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @since 1.5
  */
-public class ClassDescriptor
+public final class ClassDescriptor
 {
     /** the repository which caches descriptors. */
     private static final Map<Class<?>, ClassDescriptor> CACHE = new HashMap<Class<?>, ClassDescriptor>();
@@ -27,16 +28,16 @@ public class ClassDescriptor
     private Map<AccessibleObject, MethodDescriptor> methods = new HashMap<AccessibleObject, MethodDescriptor>();
 
     /** the javaClass we are reading. */
-    private Class<?> javaClass = null;
+    private final Class<?> javaClass;
 
     /**
-     * returns the classDescriptor of this class
+     * returns the classDescriptor of this class.
      * @param clazz the class the clazz to parse
      * @return ClassDescriptor the descriptor
      * @throws IOException on IO exception
      * @throws ClassNotFoundException if clazz cannot be found
      */
-    public static ClassDescriptor get(final Class clazz) throws IOException, ClassNotFoundException
+    public static ClassDescriptor get(final Class<?> clazz) throws IOException, ClassNotFoundException
     {
         synchronized (CACHE)
         {
@@ -56,7 +57,7 @@ public class ClassDescriptor
      * @throws IOException on IO - failure
      * @throws ClassNotFoundException on incomplete classPath
      */
-    private ClassDescriptor(final Class javaClass) throws IOException, ClassNotFoundException
+    private ClassDescriptor(final Class<?> javaClass) throws IOException, ClassNotFoundException
     {
         super();
         this.javaClass = javaClass;
@@ -80,7 +81,7 @@ public class ClassDescriptor
     }
 
     /**
-     * returns the constantpool of a classfile
+     * returns the constantpool of a classfile.
      * @return Constant[] the constantpool
      */
     public Constant[] getConstantPool()
@@ -89,7 +90,7 @@ public class ClassDescriptor
     }
 
     /**
-     * returns the methods of this class
+     * returns the methods of this class.
      * @return MethodDescriptor[]
      */
     public MethodDescriptor[] getMethods()
@@ -100,7 +101,7 @@ public class ClassDescriptor
     /** ** PRIVATE PARSING METHODS *** */
 
     /**
-     * reads the class
+     * reads the class.
      * @param dataInput the dataInput
      * @throws IOException on failure
      * @throws ClassNotFoundException on incomplete classPath
@@ -150,7 +151,7 @@ public class ClassDescriptor
     }
 
     /**
-     * reads the constantpool from file
+     * reads the constantpool from file.
      * @param dataInput the stream
      * @throws IOException on failure
      */
@@ -178,12 +179,12 @@ public class ClassDescriptor
     }
 
     /**
-     * parses a methodName and descriptor to an accessibleObject
+     * parses a methodName and descriptor to an accessibleObject.
      * @param methodName the name of the method
      * @param argumentClasses the argumentClasses
      * @return the AccessibleObject
      */
-    private AccessibleObject parseMethod(final String methodName, final Class[] argumentClasses)
+    private AccessibleObject parseMethod(final String methodName, final Class<?>[] argumentClasses)
     {
         try
         {

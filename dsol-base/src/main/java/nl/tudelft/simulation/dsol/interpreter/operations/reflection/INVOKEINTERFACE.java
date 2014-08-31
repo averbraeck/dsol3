@@ -45,7 +45,7 @@ public class INVOKEINTERFACE extends InvokeOperation
 
     /** {@inheritDoc} */
     @Override
-    public Frame execute(final Frame frame)
+    public final Frame execute(final Frame frame)
     {
         try
         {
@@ -57,7 +57,7 @@ public class INVOKEINTERFACE extends InvokeOperation
                 // constantPool
                 ConstantInterfaceMethodref constantInterfaceMethodref =
                         (ConstantInterfaceMethodref) frame.getConstantPool()[this.index];
-                Class[] parameterTypes =
+                Class<?>[] parameterTypes =
                         new MethodSignature(constantInterfaceMethodref.getConstantNameAndType().getDescriptor())
                                 .getParameterTypes();
 

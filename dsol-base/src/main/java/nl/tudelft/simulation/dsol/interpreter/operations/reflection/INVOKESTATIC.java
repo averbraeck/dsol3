@@ -44,14 +44,14 @@ public class INVOKESTATIC extends InvokeOperation
 
     /** {@inheritDoc} */
     @Override
-    public Frame execute(final Frame frame)
+    public final Frame execute(final Frame frame)
     {
         try
         {
             Method method = null;
             ConstantMethodref constantMethodref = (ConstantMethodref) frame.getConstantPool()[this.index];
-            Class referenceClass = constantMethodref.getConstantClass().getValue().getClassValue();
-            Class[] parameterTypes =
+            Class<?> referenceClass = constantMethodref.getConstantClass().getValue().getClassValue();
+            Class<?>[] parameterTypes =
                     new MethodSignature(constantMethodref.getConstantNameAndType().getDescriptor()).getParameterTypes();
 
             String methodName = constantMethodref.getConstantNameAndType().getName();

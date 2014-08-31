@@ -46,7 +46,7 @@ public class CUSTOMINVOKESTATIC extends nl.tudelft.simulation.dsol.interpreter.o
      * @throws Exception when stuff goes wrong
      */
     @Override
-    public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
+    public final Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception
     {
         if (!this.interpreterOracle.shouldBeInterpreted(method))

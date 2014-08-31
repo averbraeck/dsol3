@@ -30,8 +30,8 @@ public class MULTIANEWARRAY extends VoidOperation
     /** the index to load. */
     private final int index;
 
-    /** the dimensions of the new array */
-    private int dimensions = -1;
+    /** the dimensions of the new array. */
+    private int numDimensions = -1;
 
     /**
      * constructs a new MULTIANEWARRAY.
@@ -42,7 +42,7 @@ public class MULTIANEWARRAY extends VoidOperation
     {
         super();
         this.index = dataInput.readUnsignedShort();
-        this.dimensions = dataInput.readUnsignedByte();
+        this.numDimensions = dataInput.readUnsignedByte();
     }
 
     /** {@inheritDoc} */
@@ -51,7 +51,7 @@ public class MULTIANEWARRAY extends VoidOperation
             final LocalVariable[] localVariables)
     {
         ConstantClass constant = (ConstantClass) constantPool[this.index];
-        Class clazz = null;
+        Class<?> clazz = null;
         try
         {
             clazz = constant.getValue().getClassValue();
@@ -60,14 +60,14 @@ public class MULTIANEWARRAY extends VoidOperation
         {
             throw new InterpreterException(exception);
         }
-        int[] dimensions = new int[this.dimensions];
+        int[] dimensions = new int[this.numDimensions];
         for (int i = dimensions.length - 1; i >= 0; i--)
         {
             dimensions[i] = Primitive.toInteger(stack.pop()).intValue();
         }
         try
         {
-            Class componentType = FieldSignature.toClass(clazz.getName().replaceAll("\\[", ""));
+            Class<?> componentType = FieldSignature.toClass(clazz.getName().replaceAll("\\[", ""));
             Object result = newArray(0, dimensions, componentType);
             stack.push(result);
         }
@@ -78,7 +78,7 @@ public class MULTIANEWARRAY extends VoidOperation
     }
 
     /**
-     * creates a new Array
+     * creates a new Array.
      * @param depth the depth
      * @param dimensions the dimensions
      * @param clazz the clazz

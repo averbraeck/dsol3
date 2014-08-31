@@ -14,27 +14,25 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
 public class Frame implements Cloneable
 {
     /** the constantPool of this frame. */
-    protected Constant[] constantPool = null;
+    private final Constant[] constantPool;
 
     /** the localVariables of this frame. */
-    protected LocalVariable[] localVariables = null;
+    private final LocalVariable[] localVariables;
 
     /** the operandStack of this frame. */
-    protected OperandStack operandStack = null;
+    private final OperandStack operandStack;
 
     /** is this frame paused. */
     private boolean paused = false;
 
-    /**
-     * the returnPosition refers the position in the operation[] to invoke on return
-     */
+    /** the returnPosition refers the position in the operation[] to invoke on return. */
     private int returnPosition = 0;
 
     /** the operations in the frame. */
-    private Operation[] operations = null;
+    private final Operation[] operations;
 
     /** the methodDescriptor of the frame. */
-    private MethodDescriptor methodDescriptor;
+    private final MethodDescriptor methodDescriptor;
 
     /**
      * constructs a new Frame.
@@ -58,7 +56,7 @@ public class Frame implements Cloneable
     /**
      * @return Returns the constantPool.
      */
-    public Constant[] getConstantPool()
+    public final Constant[] getConstantPool()
     {
         return this.constantPool;
     }
@@ -66,7 +64,7 @@ public class Frame implements Cloneable
     /**
      * @return Returns the localVariables.
      */
-    public LocalVariable[] getLocalVariables()
+    public final LocalVariable[] getLocalVariables()
     {
         return this.localVariables;
     }
@@ -74,7 +72,7 @@ public class Frame implements Cloneable
     /**
      * @return Returns the returnPosition.
      */
-    public int getReturnPosition()
+    public final int getReturnPosition()
     {
         return this.returnPosition;
     }
@@ -82,7 +80,7 @@ public class Frame implements Cloneable
     /**
      * @return Returns the operations.
      */
-    public Operation[] getOperations()
+    public final Operation[] getOperations()
     {
         return this.operations;
     }
@@ -90,7 +88,7 @@ public class Frame implements Cloneable
     /**
      * @param returnPosition The returnPosition to set.
      */
-    public void setReturnPosition(final int returnPosition)
+    public final void setReturnPosition(final int returnPosition)
     {
         this.returnPosition = returnPosition;
     }
@@ -98,7 +96,7 @@ public class Frame implements Cloneable
     /**
      * @return Returns the methodDescriptor.
      */
-    public MethodDescriptor getMethodDescriptor()
+    public final MethodDescriptor getMethodDescriptor()
     {
         return this.methodDescriptor;
     }
@@ -106,7 +104,7 @@ public class Frame implements Cloneable
     /**
      * @return Returns the operandStack.
      */
-    public OperandStack getOperandStack()
+    public final OperandStack getOperandStack()
     {
         return this.operandStack;
     }
@@ -114,7 +112,7 @@ public class Frame implements Cloneable
     /**
      * @return Returns whether the frame is paused.
      */
-    public boolean isPaused()
+    public final boolean isPaused()
     {
         return this.paused;
     }
@@ -122,14 +120,14 @@ public class Frame implements Cloneable
     /**
      * @param paused The paused to set.
      */
-    public void setPaused(final boolean paused)
+    public final void setPaused(final boolean paused)
     {
         this.paused = paused;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Object clone()
+    public final Object clone()
     {
         LocalVariable[] variables = new LocalVariable[this.localVariables.length];
         for (int i = 0; i < variables.length; i++)

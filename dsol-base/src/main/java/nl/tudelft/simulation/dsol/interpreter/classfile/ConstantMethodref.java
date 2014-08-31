@@ -11,12 +11,12 @@ import java.io.IOException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ConstantMethodref extends Constant
+public final class ConstantMethodref extends Constant
 {
-    /** the class index */
+    /** the class index. */
     private int classIndex;
 
-    /** the name / type index */
+    /** the name / type index. */
     private int nameAndTypeIndex;
 
     /**
@@ -51,7 +51,7 @@ public class ConstantMethodref extends Constant
     }
 
     /**
-     * returns the classindex
+     * returns the classindex.
      * @return classIndex
      */
     public int getClassIndex()
@@ -60,7 +60,7 @@ public class ConstantMethodref extends Constant
     }
 
     /**
-     * returns the nameAndTypeIndex
+     * returns the nameAndTypeIndex.
      * @return nameAndTypeIndex
      */
     public int getNameAndTypeIndex()
@@ -69,21 +69,21 @@ public class ConstantMethodref extends Constant
     }
 
     /**
-     * returns the constantClass of this constant
+     * returns the constantClass of this constant.
      * @return ConstantClass the constantClass
      */
     public ConstantClass getConstantClass()
     {
-        return ((ConstantClass) super.constantPool[this.classIndex]);
+        return ((ConstantClass) super.getConstantPool()[this.classIndex]);
     }
 
     /**
-     * returns the nameAndType constant
+     * returns the nameAndType constant.
      * @return ConstantNameAndType
      */
     public ConstantNameAndType getConstantNameAndType()
     {
-        return ((ConstantNameAndType) super.constantPool[this.nameAndTypeIndex]);
+        return ((ConstantNameAndType) super.getConstantPool()[this.nameAndTypeIndex]);
     }
 
     /** {@inheritDoc} */

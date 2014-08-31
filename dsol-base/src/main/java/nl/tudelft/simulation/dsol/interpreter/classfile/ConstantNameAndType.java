@@ -11,12 +11,12 @@ import java.io.IOException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ConstantNameAndType extends Constant
+public final class ConstantNameAndType extends Constant
 {
-    /** the name index */
+    /** the name index. */
     private int nameIndex;
 
-    /** the descriptor index */
+    /** the descriptor index. */
     private int descriptorIndex;
 
     /**
@@ -51,7 +51,7 @@ public class ConstantNameAndType extends Constant
     }
 
     /**
-     * returns the nameindex
+     * returns the nameindex.
      * @return nameIndex
      */
     public int getNameIndex()
@@ -60,7 +60,7 @@ public class ConstantNameAndType extends Constant
     }
 
     /**
-     * returns the descriptorIndex
+     * returns the descriptorIndex.
      * @return descriptorIndex
      */
     public int getDescriptorIndex()
@@ -69,21 +69,21 @@ public class ConstantNameAndType extends Constant
     }
 
     /**
-     * returns the name of this constant
+     * returns the name of this constant.
      * @return String the name
      */
     public String getName()
     {
-        return ((ConstantUTF8) super.constantPool[this.nameIndex]).getValue();
+        return ((ConstantUTF8) super.getConstantPool()[this.nameIndex]).getValue();
     }
 
     /**
-     * returns the type of this constant
+     * returns the type of this constant.
      * @return String the type
      */
     public String getDescriptor()
     {
-        return ((ConstantUTF8) super.constantPool[this.descriptorIndex]).getValue();
+        return ((ConstantUTF8) super.getConstantPool()[this.descriptorIndex]).getValue();
     }
 
     /** {@inheritDoc} */

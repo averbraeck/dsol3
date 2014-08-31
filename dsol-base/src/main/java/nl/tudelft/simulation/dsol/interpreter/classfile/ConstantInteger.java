@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ConstantInteger extends Constant
+public final class ConstantInteger extends Constant
 {
     /** the value. */
     private int bytes;
@@ -46,7 +46,7 @@ public class ConstantInteger extends Constant
     }
 
     /**
-     * returns the value
+     * returns the value.
      * @return int the value
      */
     public int getValue()

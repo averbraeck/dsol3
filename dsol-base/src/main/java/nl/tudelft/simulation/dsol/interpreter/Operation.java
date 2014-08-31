@@ -14,16 +14,16 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
  */
 public abstract class Operation
 {
-    /** OPCODE_BYTE_LENGTH */
+    /** OPCODE_BYTE_LENGTH. */
     public static final int OPCODE_BYTE_LENGTH = 1;
 
-    /** RESERVED OPCODe. */
+    /** RESERVED OPCODE. */
     public static final int BREAKPOINT = 202;
 
-    /** RESERVED OPCODe. */
+    /** RESERVED OPCODE. */
     public static final int IMPDEP1 = 254;
 
-    /** RESERVED OPCODe. */
+    /** RESERVED OPCODE. */
     public static final int IMPDEP2 = 255;
 
     /**

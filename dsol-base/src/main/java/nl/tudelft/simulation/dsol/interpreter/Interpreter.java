@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Stack;
-import java.util.logging.Level;
 
 import nl.tudelft.simulation.dsol.interpreter.classfile.ClassDescriptor;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
@@ -28,7 +27,6 @@ import nl.tudelft.simulation.dsol.interpreter.operations.WIDE;
 import nl.tudelft.simulation.dsol.interpreter.operations.custom.InterpreterOracleInterface;
 import nl.tudelft.simulation.language.io.URLResource;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The Java interpreter.
@@ -40,25 +38,20 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public final class Interpreter
 {
-    /** the CACHe. */
+    /** the cache. */
     private static final Map<AccessibleObject, Frame> CACHE = new HashMap<AccessibleObject, Frame>();
 
     /** the interpreter factory class name. */
-    public static FactoryInterface INTERPRETER_FACTORY = null;
+    private static FactoryInterface interpreterFactory = null;
 
     static
     {
-        java.util.logging.Logger logger = Logger.resolveLogger(Interpreter.class);
-        logger.setUseParentHandlers(false);
-        Level logLevel = Level.WARNING;
         FactoryInterface factory = new InterpreterFactory();
         try
         {
             Properties properties = new Properties();
             properties.load(URLResource.getResourceAsStream("/interpreter.properties"));
 
-            logLevel = Level.parse(properties.getProperty("interpreter.logLevel"));
-            logger.setLevel(logLevel);
             Class<?> factoryClass = Class.forName(properties.getProperty("interpreter.operation.factory"));
             if (properties.getProperty("interpreter.operation.oracle") != null)
             {
@@ -68,12 +61,10 @@ public final class Interpreter
                 factory =
                         (FactoryInterface) factoryClass.getConstructor(new Class[]{InterpreterOracleInterface.class})
                                 .newInstance(new Object[]{oracle});
-
             }
             else
             {
                 factory = (FactoryInterface) factoryClass.newInstance();
-
             }
         }
         catch (Exception exception)
@@ -90,7 +81,15 @@ public final class Interpreter
      */
     public static void setFactory(final FactoryInterface factory)
     {
-        Interpreter.INTERPRETER_FACTORY = factory;
+        Interpreter.interpreterFactory = factory;
+    }
+
+    /**
+     * @return interpreterFactory
+     */
+    public static FactoryInterface getFactory()
+    {
+        return interpreterFactory;
     }
 
     /**
@@ -98,12 +97,11 @@ public final class Interpreter
      */
     private Interpreter()
     {
-        super();
         // unreachable code
     }
 
     /**
-     * creates a frame for a method
+     * creates a frame for a method.
      * @param object the object on which the method must be invoked
      * @param method the method or constructor
      * @param arguments the arguments
@@ -147,7 +145,7 @@ public final class Interpreter
         // If method!=static put object on localVariableTable
         int modifiers = -1;
         int counter = 0;
-        Class[] parameterTypes = null;
+        Class<?>[] parameterTypes = null;
         if (method instanceof Method)
         {
             parameterTypes = ((Method) method).getParameterTypes();
@@ -156,38 +154,29 @@ public final class Interpreter
         else
         {
             parameterTypes = ((Constructor<?>) method).getParameterTypes();
-            modifiers = ((Constructor) method).getModifiers();
+            modifiers = ((Constructor<?>) method).getModifiers();
         }
 
         if (!Modifier.isStatic(modifiers))
         {
-            frame.localVariables[counter++].setValue(object);
+            frame.getLocalVariables()[counter++].setValue(object);
         }
 
         // add the call parameters for the method to the stack
         for (int i = 0; i < args.length; i++)
         {
-            frame.localVariables[counter++].setValue(arguments[i]);
+            frame.getLocalVariables()[counter++].setValue(arguments[i]);
             if ((parameterTypes[i].equals(double.class)) || (parameterTypes[i].equals(long.class)))
             {
                 counter++;
             }
         }
 
-        if (Logger.getLogLevel().intValue() <= Level.FINER.intValue())
-        {
-            String logMessage =
-                    frame.getMethodDescriptor().getMethod().toString()
-                            + "\n"
-                            + Operation.toString(frame.getMethodDescriptor(), frame.getMethodDescriptor()
-                                    .getOperations());
-            Logger.finer(Interpreter.class, "createFrame", logMessage);
-        }
         return frame;
     }
 
     /**
-     * throws an exception
+     * throws an exception.
      * @param operation the aThrow operation to invoke
      * @param frame the frame to start with
      * @param frameStack the framestack
@@ -225,12 +214,11 @@ public final class Interpreter
     }
 
     /**
-     * interprets the frameStack
+     * interprets the frameStack.
      * @param frameStack the frameStack of the interpreter
      * @return Object the return value of the invoked method
-     * @throws InterpreterException on failure
      */
-    public static Object interpret(final Stack<Frame> frameStack) throws InterpreterException
+    public static Object interpret(final Stack<Frame> frameStack)
     {
         Frame frame = frameStack.peek();
         OperandStack operandStack = frame.getOperandStack();
@@ -238,16 +226,9 @@ public final class Interpreter
         LocalVariable[] localVariables = frame.getLocalVariables();
         MethodDescriptor methodDescriptor = frame.getMethodDescriptor();
         int operationIndex = frame.getReturnPosition();
-        boolean log = Logger.getLogLevel().intValue() <= Level.FINEST.intValue();
         while (true)
         {
             Operation operation = frame.getOperations()[operationIndex];
-            // Let's log
-            if (log)
-            {
-                Logger.finest(Interpreter.class, "interpret", "" + operandStack);
-                Logger.finest(Interpreter.class, "interpret", "" + frameStack.size() + " " + operation);
-            }
 
             // WIDE is special. We need to get its target
             if (operation instanceof WIDE)
@@ -356,7 +337,7 @@ public final class Interpreter
     }
 
     /**
-     * interpretes the invocation of a method on an object
+     * interprets the invocation of a method on an object.
      * @param object the object on which the method must be invoked
      * @param methodName the methodName
      * @param arguments the arguments
@@ -364,7 +345,7 @@ public final class Interpreter
      * @return Object the result
      */
     public static Object invoke(final Object object, final String methodName, final Object[] arguments,
-            final Class[] argumentTypes)
+            final Class<?>[] argumentTypes)
     {
         try
         {
@@ -373,7 +354,7 @@ public final class Interpreter
             {
                 if (object instanceof Class)
                 {
-                    method = ClassUtil.resolveMethod((Class) object, methodName, argumentTypes);
+                    method = ClassUtil.resolveMethod((Class<?>) object, methodName, argumentTypes);
                 }
                 else
                 {
@@ -393,23 +374,17 @@ public final class Interpreter
     }
 
     /**
-     * interpretes the invocation of a method on an object
+     * interprets the invocation of a method on an object.
      * @param object the object on which the method must be invoked
      * @param method the method
      * @param arguments the arguments
      * @return Object the result
-     * @throws InterpreterException on failure
      */
     public static Object invoke(final Object object, final AccessibleObject method, final Object[] arguments)
-            throws InterpreterException
     {
-        if (Logger.getLogLevel().intValue() <= Level.FINE.intValue())
-        {
-            Logger.fine(Interpreter.class, "invoke", method.toString());
-        }
         try
         {
-            if (method instanceof Constructor && Modifier.isNative(((Constructor) method).getModifiers()))
+            if (method instanceof Constructor && Modifier.isNative(((Constructor<?>) method).getModifiers()))
             {
                 return ((Constructor<?>) method).newInstance(arguments);
             }
@@ -419,7 +394,7 @@ public final class Interpreter
             }
             Stack<Frame> frameStack = new Stack<Frame>();
             frameStack.push(Interpreter.createFrame(object, method, arguments));
-            // Now we interprete
+            // Now we interpret
             return Interpreter.interpret(frameStack);
         }
         catch (Exception exception)
@@ -427,4 +402,5 @@ public final class Interpreter
             throw new InterpreterException(exception);
         }
     }
-}
+
+ }

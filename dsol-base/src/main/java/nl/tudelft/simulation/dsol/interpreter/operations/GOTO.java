@@ -19,10 +19,10 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
  */
 public class GOTO extends JumpOperation
 {
-    /** OP refers to the operand code */
+    /** OP refers to the operand code. */
     public static final int OP = 167;
 
-    /** the index to load */
+    /** the index to load. */
     private final int offset;
 
     /**

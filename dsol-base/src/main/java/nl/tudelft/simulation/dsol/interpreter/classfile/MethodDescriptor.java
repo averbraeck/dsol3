@@ -21,7 +21,7 @@ import nl.tudelft.simulation.language.reflection.MethodSignature;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MethodDescriptor
+public final class MethodDescriptor
 {
     /** bytePositions. */
     private int[] bytePositions = new int[0];
@@ -71,43 +71,43 @@ public class MethodDescriptor
      * @param operationIndex the n-th operation
      * @return the bytePostion
      */
-    public int getBytePosition(final int operationIndex)
+    public final int getBytePosition(final int operationIndex)
     {
         return this.bytePositions[operationIndex];
     }
 
     /**
-     * returns the exception table of the method
+     * returns the exception table of the method.
      * @return the exceptiontable
      */
-    public ExceptionEntry[] getExceptionTable()
+    public final ExceptionEntry[] getExceptionTable()
     {
         return this.exceptionTable;
     }
 
     /**
-     * returns the linenumber table of the method
+     * returns the linenumber table of the method.
      * @return the linenumber table
      */
-    public LineNumber[] getLineNumberTable()
+    public final LineNumber[] getLineNumberTable()
     {
         return this.lineNumberTable;
     }
 
     /**
-     * returns the localvariable descriptors
+     * returns the localvariable descriptors.
      * @return the localvairable descriptors
      */
-    public LocalVariableDescriptor[] getLocalVariableTable()
+    public final LocalVariableDescriptor[] getLocalVariableTable()
     {
         return this.localVariableTable;
     }
 
     /**
-     * returns the maximum stack size of this method
+     * returns the maximum stack size of this method.
      * @return int the maximum stacksize of this method
      */
-    public int getMaxStack()
+    public final int getMaxStack()
     {
         return this.maxStack;
     }
@@ -115,7 +115,7 @@ public class MethodDescriptor
     /**
      * @return Returns the method
      */
-    public AccessibleObject getMethod()
+    public final AccessibleObject getMethod()
     {
         return this.method;
     }
@@ -123,16 +123,16 @@ public class MethodDescriptor
     /**
      * @return Returns the methodSignature
      */
-    public MethodSignature getMethodSignature()
+    public final MethodSignature getMethodSignature()
     {
         return this.methodSignature;
     }
 
     /**
-     * returns the name of the method
+     * returns the name of the method.
      * @return the name of the method
      */
-    public String getName()
+    public final String getName()
     {
         return this.name;
     }
@@ -141,17 +141,17 @@ public class MethodDescriptor
      * returns the operations of the method.
      * @return the operations of the method.
      */
-    public Operation[] getOperations()
+    public final Operation[] getOperations()
     {
         return this.operations;
     }
 
     /**
-     * returns the index number of the operation in the operationtable of the operation starting at bytePosition
+     * returns the index number of the operation in the operationtable of the operation starting at bytePosition.
      * @param bytePosition the bytePosition
      * @return the number
      */
-    public int getOperationIndex(final int bytePosition)
+    public final int getOperationIndex(final int bytePosition)
     {
         for (int i = 0; i < this.bytePositions.length; i++)
         {
@@ -164,11 +164,11 @@ public class MethodDescriptor
     }
 
     /**
-     * returns the operation at bytePosition
+     * returns the operation at bytePosition.
      * @param bytePosition the position to start
      * @return the operation
      */
-    public Operation getOperation(final int bytePosition)
+    public final Operation getOperation(final int bytePosition)
     {
         for (int i = 0; i < this.bytePositions.length; i++)
         {
@@ -181,10 +181,10 @@ public class MethodDescriptor
     }
 
     /**
-     * sets the method of this descriptor
+     * sets the method of this descriptor.
      * @param method the method
      */
-    public void setMethod(final AccessibleObject method)
+    public final void setMethod(final AccessibleObject method)
     {
         this.method = method;
     }
@@ -192,7 +192,7 @@ public class MethodDescriptor
     /** ******************** Private Parsing Methods ************** */
 
     /**
-     * reads the method
+     * reads the method.
      * @param dataInput the dataInput
      * @throws IOException on ioException
      */
@@ -225,7 +225,7 @@ public class MethodDescriptor
     }
 
     /**
-     * reads the codeAttribute and returns the new position
+     * reads the codeAttribute and returns the new position.
      * @param dataInput the dataInput
      * @throws IOException on failure
      */
@@ -245,7 +245,7 @@ public class MethodDescriptor
         int position = 0;
         while (position < codeLength)
         {
-            Operation operation = Interpreter.INTERPRETER_FACTORY.readOperation(dataInput, position);
+            Operation operation = Interpreter.getFactory().readOperation(dataInput, position);
             code.add(operation);
             positions.add(position);
             position = position + operation.getByteLength();
@@ -295,7 +295,7 @@ public class MethodDescriptor
     }
 
     /**
-     * reads the localVariableTable
+     * reads the localVariableTable.
      * @param dataInput the dataInput to read
      * @throws IOException on failure
      */
@@ -312,7 +312,7 @@ public class MethodDescriptor
     }
 
     /**
-     * reads the localVariableTable
+     * reads the localVariableTable.
      * @param dataInput the dataInput to read
      * @throws IOException on failure
      */

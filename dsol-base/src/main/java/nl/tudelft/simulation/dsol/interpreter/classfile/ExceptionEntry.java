@@ -11,19 +11,19 @@ import java.io.IOException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ExceptionEntry
+public final class ExceptionEntry
 {
-    /** the start byte of the entry */
-    private int startByte;
+    /** the start byte of the entry. */
+    private final int startByte;
 
-    /** the end byte of the entry */
-    private int endByte;
+    /** the end byte of the entry. */
+    private final int endByte;
 
     /** the handler number. */
-    private int handler;
+    private final int handler;
 
     /** the catchType of this handler. */
-    private Class catchType = Exception.class;
+    private final Class<?> catchType;
 
     /**
      * constructs a new ExceptionEntry.
@@ -49,6 +49,10 @@ public class ExceptionEntry
             {
                 throw new IOException("could not resolve catchType in ExceptionEntry");
             }
+        }
+        else
+        {
+            this.catchType = Exception.class;
         }
     }
 
@@ -85,13 +89,13 @@ public class ExceptionEntry
     }
 
     /**
-     * Resolves the exceptionEntry for this particular exceptionType
+     * Resolves the exceptionEntry for this particular exceptionType.
      * @param entries the entries to choose from
      * @param exceptionType the exception type
      * @param bytePosition the position where the exception starts
      * @return the most specific exceptionType. null is no exceptionType is found
      */
-    public static ExceptionEntry resolveExceptionEntry(final ExceptionEntry[] entries, Class exceptionType,
+    public static ExceptionEntry resolveExceptionEntry(final ExceptionEntry[] entries, final Class<?> exceptionType,
             final int bytePosition)
     {
         if (entries == null || exceptionType == null)
