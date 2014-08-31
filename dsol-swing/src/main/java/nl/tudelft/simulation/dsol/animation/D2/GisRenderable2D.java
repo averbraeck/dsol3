@@ -107,8 +107,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /** {@inheritDoc} */
-    public void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
+    /** {@inheritDoc} */ @Override public  void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer)
     {
         try
@@ -130,20 +129,17 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /** {@inheritDoc} */
-    public LocatableInterface getSource()
+    /** {@inheritDoc} */ @Override public  LocatableInterface getSource()
     {
         return this;
     }
 
-    /** {@inheritDoc} */
-    public Bounds getBounds()
+    /** {@inheritDoc} */ @Override public  Bounds getBounds()
     {
         return this.bounds;
     }
 
-    /** {@inheritDoc} */
-    public DirectedPoint getLocation()
+    /** {@inheritDoc} */ @Override public  DirectedPoint getLocation()
     {
         return this.location;
     }
@@ -183,8 +179,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /** {@inheritDoc} */
-    public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
+    /** {@inheritDoc} */ @Override public  boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
     {
         return false;
     }

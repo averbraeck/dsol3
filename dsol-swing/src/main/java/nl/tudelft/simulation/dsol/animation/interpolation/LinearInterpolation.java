@@ -51,8 +51,7 @@ public class LinearInterpolation implements InterpolationInterface
         this.destination = (DirectedPoint) destination.clone();
     }
 
-    /** {@inheritDoc} */
-    public DirectedPoint getLocation(final double time)
+    /** {@inheritDoc} */ @Override public  DirectedPoint getLocation(final double time)
     {
         if (time <= this.startTime)
         {

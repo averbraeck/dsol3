@@ -43,8 +43,7 @@ public class Attribute extends AbstractAttribute
         this.valueColumn = valueColumn;
     }
 
-    /** {@inheritDoc} */
-    public double getAngle(int shapeIndex)
+    /** {@inheritDoc} */ @Override public  double getAngle(int shapeIndex)
     {
         if (this.angleColumn == -1)
         {
@@ -67,8 +66,7 @@ public class Attribute extends AbstractAttribute
         }
     }
 
-    /** {@inheritDoc} */
-    public String getValue(int shapeIndex)
+    /** {@inheritDoc} */ @Override public  String getValue(int shapeIndex)
     {
         try
         {

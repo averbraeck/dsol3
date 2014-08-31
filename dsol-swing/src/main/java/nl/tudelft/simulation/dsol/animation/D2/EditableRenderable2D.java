@@ -35,56 +35,47 @@ public abstract class EditableRenderable2D extends Renderable2D implements Edita
         this.source = source;
     }
 
-    /** {@inheritDoc} */
-    public boolean isClosedShape()
+    /** {@inheritDoc} */ @Override public  boolean isClosedShape()
     {
         return true;
     }
 
-    /** {@inheritDoc} */
-    public boolean allowMove()
+    /** {@inheritDoc} */ @Override public  boolean allowMove()
     {
         return true;
     }
 
-    /** {@inheritDoc} */
-    public boolean allowRotate()
+    /** {@inheritDoc} */ @Override public  boolean allowRotate()
     {
         return true;
     }
 
-    /** {@inheritDoc} */
-    public boolean allowScale()
+    /** {@inheritDoc} */ @Override public  boolean allowScale()
     {
         return true;
     }
 
-    /** {@inheritDoc} */
-    public boolean allowEditPoints()
+    /** {@inheritDoc} */ @Override public  boolean allowEditPoints()
     {
         return true;
     }
 
-    /** {@inheritDoc} */
-    public boolean allowDelete()
+    /** {@inheritDoc} */ @Override public  boolean allowDelete()
     {
         return true;
     }
 
-    /** {@inheritDoc} */
-    public boolean allowAddOrDeletePoints()
+    /** {@inheritDoc} */ @Override public  boolean allowAddOrDeletePoints()
     {
         return true;
     }
 
-    /** {@inheritDoc} */
-    public int getMaxNumberOfPoints()
+    /** {@inheritDoc} */ @Override public  int getMaxNumberOfPoints()
     {
         return Integer.MAX_VALUE;
     }
 
-    /** {@inheritDoc} */
-    public int getMinNumberOfPoints()
+    /** {@inheritDoc} */ @Override public  int getMinNumberOfPoints()
     {
         return 1;
     }

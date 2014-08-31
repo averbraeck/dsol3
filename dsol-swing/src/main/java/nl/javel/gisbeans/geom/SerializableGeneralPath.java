@@ -23,14 +23,16 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     /** the general path. */
     private GeneralPath generalPath;
 
-    /** {@inheritDoc} */
+    /**
+     * Construct a default general path that can be serialized.
+     */
     public SerializableGeneralPath()
     {
         this.generalPath = new GeneralPath();
     }
 
     /**
-     * constructs a new SerializableGeneralPath
+     * constructs a new SerializableGeneralPath.
      * @param rule the windingRule
      */
     public SerializableGeneralPath(final int rule)
@@ -39,7 +41,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * constructs a new SerializableGeneralPath
+     * constructs a new SerializableGeneralPath.
      * @param rule the windingRule
      * @param initialCapacity the initialCapacity
      */
@@ -49,7 +51,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * constructs a new SerializableGeneralPath
+     * constructs a new SerializableGeneralPath.
      * @param s the shape
      */
     public SerializableGeneralPath(final Shape s)
@@ -76,6 +78,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object clone()
     {
         SerializableGeneralPath clone = new SerializableGeneralPath();
@@ -83,31 +86,37 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         return clone;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * 
+     */
     public void closePath()
     {
         this.generalPath.closePath();
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean contains(final double param, final double param1, final double param2, final double param3)
     {
         return this.generalPath.contains(param, param1, param2, param3);
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean contains(final double param, final double param1)
     {
         return this.generalPath.contains(param, param1);
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean contains(final java.awt.geom.Rectangle2D rectangle2D)
     {
         return this.generalPath.contains(rectangle2D);
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean contains(final java.awt.geom.Point2D point2D)
     {
         return this.generalPath.contains(point2D);
@@ -137,12 +146,14 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /** {@inheritDoc} */
+    @Override
     public java.awt.Rectangle getBounds()
     {
         return this.generalPath.getBounds();
     }
 
     /** {@inheritDoc} */
+    @Override
     public java.awt.geom.Rectangle2D getBounds2D()
     {
         return this.generalPath.getBounds2D();
@@ -157,12 +168,14 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /** {@inheritDoc} */
+    @Override
     public java.awt.geom.PathIterator getPathIterator(final java.awt.geom.AffineTransform affineTransform)
     {
         return this.generalPath.getPathIterator(affineTransform);
     }
 
     /** {@inheritDoc} */
+    @Override
     public java.awt.geom.PathIterator getPathIterator(final java.awt.geom.AffineTransform affineTransform,
             final double param)
     {
@@ -178,12 +191,14 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean intersects(final double param, final double param1, final double param2, final double param3)
     {
         return this.generalPath.intersects(param, param1, param2, param3);
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean intersects(final java.awt.geom.Rectangle2D rectangle2D)
     {
         return this.generalPath.intersects(rectangle2D);
@@ -218,7 +233,9 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
         this.generalPath.quadTo(x1, y1, x2, y2);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * 
+     */
     public void reset()
     {
         this.generalPath.reset();

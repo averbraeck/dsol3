@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -26,7 +27,9 @@ public class HTMLPanel extends JEditorPane
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** {@inheritDoc} */
+    /**
+     * Construct an HTML panel for the user interface.
+     */
     public HTMLPanel()
     {
         super();
@@ -34,15 +37,20 @@ public class HTMLPanel extends JEditorPane
         this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
     }
 
-    /** {@inheritDoc} */
-    public HTMLPanel(URL page)
+    /**
+     * Construct an HTML panel for the user interface.
+     * @param page the URL of the page to display in the panel.
+     * @throws IOException in case page cannot be loaded
+     */
+    public HTMLPanel(final URL page) throws IOException
     {
         this();
         this.setPage(page);
     }
 
     /** {@inheritDoc} */
-    public void setPage(URL page)
+    @Override
+    public void setPage(final URL page) throws IOException
     {
         try
         {

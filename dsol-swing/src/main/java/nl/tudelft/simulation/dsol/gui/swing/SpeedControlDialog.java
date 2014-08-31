@@ -168,8 +168,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
     }
 
-    /** {@inheritDoc} */
-    public void actionPerformed(ActionEvent e)
+    /** {@inheritDoc} */ @Override public  void actionPerformed(ActionEvent e)
     {
         if (((JButton) e.getSource()).getName().equals("closeButton"))
         {
@@ -177,8 +176,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
     }
 
-    /** {@inheritDoc} */
-    public void stateChanged(ChangeEvent event)
+    /** {@inheritDoc} */ @Override public  void stateChanged(ChangeEvent event)
     {
         try
         {
@@ -210,8 +208,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
     }
 
-    /** {@inheritDoc} */
-    public void notify(EventInterface event)
+    /** {@inheritDoc} */ @Override public  void notify(EventInterface event)
     {
         // XXX:
         /*-

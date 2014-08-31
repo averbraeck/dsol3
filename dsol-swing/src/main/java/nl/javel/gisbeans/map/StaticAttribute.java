@@ -32,14 +32,12 @@ public class StaticAttribute extends AbstractAttribute
         this.value = value;
     }
 
-    /** {@inheritDoc} */
-    public double getAngle(int shapeIndex)
+    /** {@inheritDoc} */ @Override public  double getAngle(int shapeIndex)
     {
         return this.angle;
     }
 
-    /** {@inheritDoc} */
-    public String getValue(int shapeIndex)
+    /** {@inheritDoc} */ @Override public  String getValue(int shapeIndex)
     {
         return this.value;
     }
