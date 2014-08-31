@@ -13,7 +13,7 @@ import nl.tudelft.simulation.language.reflection.FieldSignature;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ConstantClass extends Constant
+public final class ConstantClass extends Constant
 {
     /** gets the name index */
     private int nameIndex;
@@ -48,7 +48,7 @@ public class ConstantClass extends Constant
     }
 
     /**
-     * returns the name index
+     * returns the name index.
      * @return nameIndex
      */
     public int getNameIndex()
@@ -57,12 +57,12 @@ public class ConstantClass extends Constant
     }
 
     /**
-     * returns the className of this constant
+     * returns the className of this constant.
      * @return String the className
      */
     public FieldSignature getValue()
     {
-        return new FieldSignature(((ConstantUTF8) super.constantPool[this.nameIndex]).getValue());
+        return new FieldSignature(((ConstantUTF8) super.getConstantPool()[this.nameIndex]).getValue());
     }
 
     /** {@inheritDoc} */

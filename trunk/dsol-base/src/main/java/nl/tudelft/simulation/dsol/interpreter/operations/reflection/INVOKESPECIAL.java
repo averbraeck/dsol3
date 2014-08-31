@@ -52,7 +52,7 @@ public class INVOKESPECIAL extends InvokeOperation
         try
         {
             ConstantMethodref constantMethodref = (ConstantMethodref) frame.getConstantPool()[this.index];
-            Class[] parameterTypes =
+            Class<?>[] parameterTypes =
                     new MethodSignature(constantMethodref.getConstantNameAndType().getDescriptor()).getParameterTypes();
             String methodName = constantMethodref.getConstantNameAndType().getName();
             if (methodName.equals("<init>"))
@@ -63,7 +63,7 @@ public class INVOKESPECIAL extends InvokeOperation
                     args[i] = Primitive.cast(parameterTypes[i], frame.getOperandStack().pop());
                 }
                 Object objectRef = frame.getOperandStack().pop();
-                Class instanceClass = ((NEW.UninitializedInstance) objectRef).getInstanceClass();
+                Class<?> instanceClass = ((NEW.UninitializedInstance) objectRef).getInstanceClass();
                 Constructor<?> constructor = ClassUtil.resolveConstructor(instanceClass, parameterTypes);
                 constructor.setAccessible(true);
                 Object result = constructor.newInstance(args);
@@ -78,7 +78,7 @@ public class INVOKESPECIAL extends InvokeOperation
             Method method = null;
 
             // look if we need to resolve a super() method
-            Class referenceClass = constantMethodref.getConstantClass().getValue().getClassValue();
+            Class<?> referenceClass = constantMethodref.getConstantClass().getValue().getClassValue();
             if (objectRef.getClass().getSuperclass().equals(referenceClass))
             {
                 method = ClassUtil.resolveMethod(objectRef.getClass().getSuperclass(), methodName, parameterTypes);

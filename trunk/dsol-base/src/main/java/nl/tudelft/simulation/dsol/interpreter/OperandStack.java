@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Each frame (???3.6) contains a last-in-first-out (LIFO) stack known as its operand stack. The maximum depth of the
+ * Each frame (par. 3.6) contains a last-in-first-out (LIFO) stack known as its operand stack. The maximum depth of the
  * operand stack of a frame is determined at compile time and is supplied along with the code for the method associated
- * with the frame (???4.7.3). Where it is clear by context, we will sometimes refer to the operand stack of the current
- * frame as simply the operand stack.
+ * with the frame (par. 4.7.3). Where it is clear by context, we will sometimes refer to the operand stack of the
+ * current frame as simply the operand stack.
  * <p>
  * The operand stack is empty when the frame that contains it is created. The Java virtual machine supplies instructions
  * to load constants or values from local variables or fields onto the operand stack. Other Java virtual machine
  * instructions take operands from the operand stack, operate on them, and push the result back onto the operand stack.
  * The operand stack is also used to prepare parameters to be passed to methods and to receive method results.
  * <p>
- * For example, the <link>IADD </link> instruction adds two int values together. It requires that the int values to be
- * added be the top two values of the operand stack, pushed there by previous instructions. Both of the int values are
- * popped from the operand stack. They are added, and their sum is pushed back onto the operand stack. Subcomputations
- * may be nested on the operand stack, resulting in values that can be used by the encompassing computation.
+ * For example, the IADD instruction adds two int values together. It requires that the int values to be added be the
+ * top two values of the operand stack, pushed there by previous instructions. Both of the int values are popped from
+ * the operand stack. They are added, and their sum is pushed back onto the operand stack. Subcomputations may be nested
+ * on the operand stack, resulting in values that can be used by the encompassing computation.
  * <p />
  * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
@@ -44,18 +44,18 @@ public class OperandStack implements Cloneable
     }
 
     /**
-     * clears the operand stack
+     * clears the operand stack.
      */
-    public void clear()
+    public final void clear()
     {
         this.pointer = 0;
     }
 
     /**
-     * is the OperandStack Empty
+     * is the OperandStack empty.
      * @return whether the operandStack is empty
      */
-    public boolean isEmpty()
+    public final boolean isEmpty()
     {
         return this.pointer == 0;
     }
@@ -64,7 +64,7 @@ public class OperandStack implements Cloneable
      * pops the first object from the operandstack.
      * @return the top object from the stack
      */
-    public Object pop()
+    public final Object pop()
     {
         synchronized (this.stack)
         {
@@ -73,10 +73,10 @@ public class OperandStack implements Cloneable
     }
 
     /**
-     * peeks the first object from the stack. This is a pop without remove
+     * peeks the first object from the stack. This is a pop without remove.
      * @return Object the first object
      */
-    public Object peek()
+    public final Object peek()
     {
         synchronized (this.stack)
         {
@@ -89,7 +89,7 @@ public class OperandStack implements Cloneable
      * @param depth the depth-object
      * @return the depth object.
      */
-    public Object peek(final int depth)
+    public final Object peek(final int depth)
     {
         synchronized (this.stack)
         {
@@ -98,10 +98,10 @@ public class OperandStack implements Cloneable
     }
 
     /**
-     * pushes object on the stack
+     * pushes object on the stack.
      * @param object the object to be pushed to the stack
      */
-    public void push(final Object object)
+    public final void push(final Object object)
     {
         synchronized (this.stack)
         {
@@ -121,11 +121,11 @@ public class OperandStack implements Cloneable
     }
 
     /**
-     * replaces all instances of oldObject by newObject
+     * replaces all instances of oldObject by newObject.
      * @param oldObject the oldObject
      * @param newObject the newObject
      */
-    public void replace(final Object oldObject, final Object newObject)
+    public final void replace(final Object oldObject, final Object newObject)
     {
         synchronized (this.stack)
         {
@@ -148,7 +148,7 @@ public class OperandStack implements Cloneable
     {
         OperandStack newStack = new OperandStack(this.stack.length);
         newStack.pointer = this.pointer;
-        newStack.stack = (Object[]) this.stack.clone();
+        newStack.stack = this.stack.clone();
         return newStack;
     }
 

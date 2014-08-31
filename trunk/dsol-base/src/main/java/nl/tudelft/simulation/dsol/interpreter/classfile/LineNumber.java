@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class LineNumber
+public final class LineNumber
 {
     /** the startByte attribute. */
     private int startByte = -1;

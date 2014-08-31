@@ -49,7 +49,7 @@ public class GETSTATIC extends VoidOperation
         {
             Field field = null;
             ConstantFieldref constantFieldref = (ConstantFieldref) constantPool[this.index];
-            Class referenceClass = constantFieldref.getConstantClass().getValue().getClassValue();
+            Class<?> referenceClass = constantFieldref.getConstantClass().getValue().getClassValue();
             field = ClassUtil.resolveField(referenceClass, constantFieldref.getConstantNameAndType().getName());
             field.setAccessible(true);
             stack.push(field.get(null));

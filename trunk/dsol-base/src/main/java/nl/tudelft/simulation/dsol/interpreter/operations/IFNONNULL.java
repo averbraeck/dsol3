@@ -38,7 +38,7 @@ public class IFNONNULL extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
     {
         if (stack.pop() != null)
         {

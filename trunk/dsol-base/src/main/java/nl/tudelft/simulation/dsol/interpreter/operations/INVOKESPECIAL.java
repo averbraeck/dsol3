@@ -33,7 +33,7 @@ public class INVOKESPECIAL extends nl.tudelft.simulation.dsol.interpreter.operat
 
     /** {@inheritDoc} */
     @Override
-    public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
+    public final Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception
     {
         if (Modifier.isNative(method.getModifiers()))

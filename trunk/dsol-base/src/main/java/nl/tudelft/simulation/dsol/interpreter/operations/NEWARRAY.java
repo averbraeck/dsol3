@@ -43,7 +43,7 @@ public class NEWARRAY extends VoidOperation
             final LocalVariable[] localVariables)
     {
         int length = ((Integer) stack.pop()).intValue();
-        Class clazz = null;
+        Class<?> clazz = null;
         switch (this.atype)
         {
             case 4:

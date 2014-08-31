@@ -30,7 +30,7 @@ public class MONITORENTER extends VoidOperation
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void execute(final OperandStack stack, final Constant[] constantPool,
+    public final synchronized void execute(final OperandStack stack, final Constant[] constantPool,
             final LocalVariable[] localVariables)
     {
         Monitor.lock(stack.pop());

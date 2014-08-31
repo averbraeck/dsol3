@@ -60,7 +60,7 @@ public class LOOKUPSWITCH extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
     {
         Integer key = (Integer) stack.pop();
         Integer offset = this.offsets.get(key);

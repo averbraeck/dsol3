@@ -11,9 +11,9 @@ import java.io.IOException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ConstantString extends Constant
+public final class ConstantString extends Constant
 {
-    /** gets the name index */
+    /** gets the name index. */
     private int stringIndex;
 
     /**
@@ -46,7 +46,7 @@ public class ConstantString extends Constant
     }
 
     /**
-     * returns the name index
+     * returns the name index.
      * @return stringIndex
      */
     public int getStringIndex()
@@ -55,12 +55,12 @@ public class ConstantString extends Constant
     }
 
     /**
-     * returns the className of this constant
+     * returns the className of this constant.
      * @return String the className
      */
     public String getValue()
     {
-        return ((ConstantUTF8) super.constantPool[this.stringIndex]).getValue();
+        return ((ConstantUTF8) super.getConstantPool()[this.stringIndex]).getValue();
     }
 
     /** {@inheritDoc} */

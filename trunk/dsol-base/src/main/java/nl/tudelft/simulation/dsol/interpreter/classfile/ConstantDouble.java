@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5
  */
-public class ConstantDouble extends Constant
+public final class ConstantDouble extends Constant
 {
     /** the value. */
     private double bytes;
@@ -47,7 +47,7 @@ public class ConstantDouble extends Constant
     }
 
     /**
-     * returns the value
+     * returns the value.
      * @return double the value
      */
     public double getValue()

@@ -26,7 +26,7 @@ public class InterpreterFactory implements FactoryInterface
     }
 
     /** {@inheritDoc} */
-    public Operation readOperation(final DataInput dataInput, final int startBytePosition) throws IOException
+    public final Operation readOperation(final DataInput dataInput, final int startBytePosition) throws IOException
     {
         int operand = dataInput.readUnsignedByte();
         return this.readOperation(operand, dataInput, startBytePosition);

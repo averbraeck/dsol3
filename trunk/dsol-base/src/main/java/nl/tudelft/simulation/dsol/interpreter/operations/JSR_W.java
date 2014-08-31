@@ -26,7 +26,7 @@ public class JSR_W extends JumpOperation
     private final int offset;
 
     /** the startAddress of the next operation. */
-    private int nextAddress = -1;
+    private final int nextAddress;
 
     /**
      * constructs a new JSR_W.
@@ -43,7 +43,7 @@ public class JSR_W extends JumpOperation
 
     /** {@inheritDoc} */
     @Override
-    public int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public final int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
     {
         stack.push(new Integer(this.nextAddress));
         return this.offset;
