@@ -18,12 +18,12 @@ import nl.tudelft.simulation.logger.Logger;
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
-public final class PTestBeans
+public final class IntrodpectionBeansTest
 {
     /**
      * constructs a new PTestBeans.
      */
-    private PTestBeans()
+    private IntrodpectionBeansTest()
     {
         super();
         // unreachable code;
@@ -38,9 +38,9 @@ public final class PTestBeans
         Property[] props = (new BeanIntrospector()).getProperties(new SubTestBean2());
         for (int i = 0; i < props.length; i++)
         {
-            Logger.info(PTestBeans.class, "main", "Prop name: " + props[i].getName());
-            Logger.info(PTestBeans.class, "main", "Prop class: " + props[i].getType());
-            Logger.info(PTestBeans.class, "main", "Prop value: " + props[i].getValue());
+            Logger.info(IntrodpectionBeansTest.class, "main", "Prop name: " + props[i].getName());
+            Logger.info(IntrodpectionBeansTest.class, "main", "Prop class: " + props[i].getType());
+            Logger.info(IntrodpectionBeansTest.class, "main", "Prop value: " + props[i].getValue());
         }
     }
 }

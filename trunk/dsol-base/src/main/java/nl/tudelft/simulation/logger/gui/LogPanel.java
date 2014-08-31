@@ -102,6 +102,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void notify(final EventInterface event)
     {
         if (!event.getType().equals(EventLogHandler.LOG_RECORD_PRODUCED_EVENT))
@@ -325,6 +326,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
         }
 
         /** {@inheritDoc} */
+        @Override
         public void actionPerformed(final ActionEvent actionEvent)
         {
             if (actionEvent.getSource() != null)
@@ -357,6 +359,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
         }
 
         /** {@inheritDoc} */
+        @Override
         public void actionPerformed(final ActionEvent actionEvent)
         {
             if (actionEvent == null)
@@ -410,6 +413,7 @@ public class LogPanel extends JPanel implements EventListenerInterface
         }
 
         /** {@inheritDoc} */
+        @Override
         public void actionPerformed(final ActionEvent actionEvent)
         {
             if (actionEvent == null)

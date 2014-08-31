@@ -161,6 +161,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized Object lookup(final Name name) throws NamingException
     {
         // Handle absolute path
@@ -196,12 +197,14 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object lookup(final String arg0) throws NamingException
     {
         return lookup(this.parser.parse(arg0));
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized void bind(final Name name, final Object value) throws NamingException
     {
         if (isRootForwardable(name))
@@ -225,24 +228,28 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public void bind(final String name, final Object value) throws NamingException
     {
         bind(this.parser.parse(name), value);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void rebind(final Name name, final Object value) throws NamingException
     {
         this.bind(name, value);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void rebind(final String name, final Object value) throws NamingException
     {
         this.bind(name, value);
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized void unbind(final Name name) throws NamingException
     {
         if (isRootForwardable(name))
@@ -267,18 +274,21 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public void unbind(final String name) throws NamingException
     {
         unbind(this.parser.parse(name));
     }
 
     /** {@inheritDoc} */
+    @Override
     public void rename(final Name nameOld, final Name nameNew) throws NamingException
     {
         rename(nameOld.toString(), nameNew.toString());
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized void rename(final String nameOld, final String nameNew) throws NamingException
     {
         if (!this.elements.containsKey(nameOld))
@@ -291,12 +301,14 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public NamingEnumeration<NameClassPair> list(final Name name)
     {
         return this.list(name.toString());
     }
 
     /** {@inheritDoc} */
+    @Override
     public NamingEnumeration<NameClassPair> list(final String name)
     {
         if (name == null)
@@ -307,6 +319,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public NamingEnumeration<Binding> listBindings(final Name name)
     {
         if (name == null)
@@ -317,6 +330,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public NamingEnumeration<Binding> listBindings(final String name)
     {
         if (name == null)
@@ -327,18 +341,21 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public void destroySubcontext(final Name name) throws NamingException
     {
         this.unbind(name);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void destroySubcontext(final String name) throws NamingException
     {
         this.unbind(name);
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized Context createSubcontext(final Name name) throws NamingException
     {
         if (name.size() == 1)
@@ -353,24 +370,28 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public Context createSubcontext(final String arg0) throws NamingException
     {
         return createSubcontext(this.parser.parse(arg0));
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object lookupLink(final Name name)
     {
         return this.elements.get(name.toString());
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object lookupLink(final String name) throws NamingException
     {
         return lookup(name);
     }
 
     /** {@inheritDoc} */
+    @Override
     public NameParser getNameParser(final Name name)
     {
         if (name == null)
@@ -381,6 +402,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public NameParser getNameParser(final String name)
     {
         if (name == null)
@@ -391,42 +413,49 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public Name composeName(final Name arg0, final Name arg1) throws NamingException
     {
         throw new NamingException("composeName " + arg0 + ", " + arg1 + " is not supported.");
     }
 
     /** {@inheritDoc} */
+    @Override
     public String composeName(final String arg0, final String arg1) throws NamingException
     {
         throw new NamingException("composeName " + arg0 + ", " + arg1 + " is not supported.");
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object addToEnvironment(final String arg0, final Object arg1) throws NamingException
     {
         throw new NamingException("addToEnvironment " + arg0 + ", " + arg1 + " is not supported.");
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object removeFromEnvironment(final String arg0) throws NamingException
     {
         throw new NamingException("removeFromEnvironment " + arg0 + " is not supported.");
     }
 
     /** {@inheritDoc} */
+    @Override
     public Hashtable<?, ?> getEnvironment() throws NamingException
     {
         throw new NamingException("Not supported.");
     }
 
     /** {@inheritDoc} */
+    @Override
     public void close()
     {
         // We don't do anything on close
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized String getNameInNamespace() throws NamingException
     {
         if (this.parent != null)
@@ -437,18 +466,21 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public void addNamingListener(final Name target, final int scope, final NamingListener l)
     {
         this.eventListeners.add(new EventContextListenerRecord(target, scope, l));
     }
 
     /** {@inheritDoc} */
+    @Override
     public void addNamingListener(final String target, final int scope, final NamingListener l) throws NamingException
     {
         addNamingListener(this.parser.parse(target), scope, l);
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized void removeNamingListener(final NamingListener l)
     {
         EventContextListenerRecord removable = null;
@@ -467,6 +499,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean targetMustExist()
     {
         return false;
@@ -628,12 +661,14 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         }
 
         /** {@inheritDoc} */
+        @Override
         public void close()
         {
             this.myIterator = null;
         }
 
         /** {@inheritDoc} */
+        @Override
         public boolean hasMoreElements()
         {
             if (this.myIterator == null)
@@ -650,6 +685,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         }
 
         /** {@inheritDoc} */
+        @Override
         public T nextElement()
         {
             if (this.myIterator == null)
@@ -660,12 +696,14 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         }
 
         /** {@inheritDoc} */
+        @Override
         public boolean hasMore()
         {
             return hasMoreElements();
         }
 
         /** {@inheritDoc} */
+        @Override
         public T next()
         {
             return nextElement();
@@ -693,6 +731,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
         }
 
         /** {@inheritDoc} */
+        @Override
         public Name parse(final String name) throws NamingException
         {
             Name result = new CompoundName(name, this.syntaxProperties);

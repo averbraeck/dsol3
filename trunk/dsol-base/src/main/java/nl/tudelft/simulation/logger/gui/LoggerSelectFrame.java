@@ -65,6 +65,7 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public synchronized void notify(final EventInterface event)
     {
         if (event.getType().equals(EventProducingMap.OBJECT_ADDED_EVENT)
@@ -98,6 +99,7 @@ public class LoggerSelectFrame extends JFrame implements EventListenerInterface
         }
 
         /** {@inheritDoc} */
+        @Override
         public void actionPerformed(final ActionEvent actionEvent)
         {
             if (this.myLoggerChooser.getSelectedItem() != null)

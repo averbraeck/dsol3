@@ -34,14 +34,14 @@ public class StrongReference<T> extends Reference<T>
 
     /** {@inheritDoc} */
     @Override
-    public T get()
+    public final T get()
     {
         return this.referent;
     }
 
     /** {@inheritDoc} */
     @Override
-    protected void set(final T value)
+    protected final void set(final T value)
     {
         this.referent = value;
     }

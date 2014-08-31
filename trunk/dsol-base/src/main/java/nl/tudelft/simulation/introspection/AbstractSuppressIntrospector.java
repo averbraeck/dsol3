@@ -5,15 +5,12 @@ import java.util.List;
 
 /**
  * The AbstractSupressIntrospector.
- * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.1 Apr 15, 2004
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
+ * @author Niels Lang.
  * @since 1.5
  */
 public abstract class AbstractSuppressIntrospector implements Introspector
@@ -32,6 +29,7 @@ public abstract class AbstractSuppressIntrospector implements Introspector
     }
 
     /** {@inheritDoc} */
+    @Override
     public Property[] getProperties(final Object arg0)
     {
         Property[] original = this.parent.getProperties(arg0);
@@ -47,6 +45,7 @@ public abstract class AbstractSuppressIntrospector implements Introspector
     }
 
     /** {@inheritDoc} */
+    @Override
     public String[] getPropertyNames(final Object arg0)
     {
         Property[] properties = this.getProperties(arg0);
@@ -59,6 +58,7 @@ public abstract class AbstractSuppressIntrospector implements Introspector
     }
 
     /** {@inheritDoc} */
+    @Override
     public Property getProperty(final Object arg0, final String arg1)
     {
         Property[] properties = this.getProperties(arg0);
@@ -74,10 +74,10 @@ public abstract class AbstractSuppressIntrospector implements Introspector
 
     /**
      * Method suppress.
-     * @param type the type of tyhe class
+     * @param type the type of the class
      * @return boolean whether to supress
      */
-    protected boolean suppress(final Class type)
+    protected boolean suppress(final Class<?> type)
     {
         if (type.equals(Class.class))
         {

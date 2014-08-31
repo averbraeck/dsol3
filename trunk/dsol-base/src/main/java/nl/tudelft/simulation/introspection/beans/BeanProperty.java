@@ -7,25 +7,21 @@ import java.lang.reflect.Method;
 
 import nl.tudelft.simulation.introspection.AbstractProperty;
 import nl.tudelft.simulation.introspection.Property;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The JavaBean TM implementation of the Property interface. See {see BeanIntrospector}for details.
- * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.1 Apr 15, 2004
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
+ * @author Niels Lang.
  * @since 1.5
  */
 
 public class BeanProperty extends AbstractProperty implements Property
 {
-    /** the bean whichs owns the property */
+    /** the bean that owns the property. */
     private Object bean = null;
 
     /** the propertyDescriptor. */
@@ -43,12 +39,14 @@ public class BeanProperty extends AbstractProperty implements Property
     }
 
     /** {@inheritDoc} */
+    @Override
     public String getName()
     {
         return this.descriptor.getName();
     }
 
     /** {@inheritDoc} */
+    @Override
     public Class<?> getType()
     {
         return this.descriptor.getPropertyType();
@@ -58,7 +56,7 @@ public class BeanProperty extends AbstractProperty implements Property
     @Override
     protected void setRegularValue(final Object values)
     {
-        Class type = this.descriptor.getPropertyType();
+        Class<?> type = this.descriptor.getPropertyType();
         PropertyEditor editor = PropertyEditorManager.findEditor(type);
         Object newValue = values;
         if (editor != null)
@@ -80,11 +78,12 @@ public class BeanProperty extends AbstractProperty implements Property
         }
         catch (Throwable throwable)
         {
-            Logger.warning(this, "setRegularValue", throwable);
+            throw new IllegalArgumentException(this + " - setRegularValue", throwable);
         }
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object getValue()
     {
         Object result = null;
@@ -98,18 +97,20 @@ public class BeanProperty extends AbstractProperty implements Property
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "getValue of " + getName(), exception);
+            throw new IllegalArgumentException(this + "getValue of " + getName(), exception);
         }
         return result;
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object getInstance()
     {
         return this.bean;
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean isEditable()
     {
         return !(this.descriptor.getWriteMethod() == null);

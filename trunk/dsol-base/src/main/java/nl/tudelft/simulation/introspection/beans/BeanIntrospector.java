@@ -7,7 +7,6 @@ import java.util.Set;
 
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The Bean introspector provides a simplified JavaBean TM implementation of the introspection interfaces. Its behavior
@@ -18,20 +17,18 @@ import nl.tudelft.simulation.logger.Logger;
  * be altered</li>
  * <li>Indexed properties are probably not correctly supported.</li>
  * </ul>
- * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.1 Apr 15, 2004
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
+ * @author Niels Lang.
  * @since 1.5
  */
 public class BeanIntrospector implements Introspector
 {
     /** {@inheritDoc} */
+    @Override
     public Property[] getProperties(final Object introspected)
     {
         Set<Property> props = new HashSet<Property>();
@@ -47,12 +44,13 @@ public class BeanIntrospector implements Introspector
         }
         catch (Exception e)
         {
-            Logger.warning(this, "getProperties", e);
+            throw new IllegalArgumentException(this + " - getProperties", e);
         }
         return props.toArray(new Property[props.size()]);
     }
 
     /** {@inheritDoc} */
+    @Override
     public Property getProperty(final Object introspected, final String property)
     {
         try
@@ -69,12 +67,13 @@ public class BeanIntrospector implements Introspector
         }
         catch (Exception e)
         {
-            Logger.warning(this, "getProperty", e);
+            throw new IllegalArgumentException(this + " - getProperty", e);
         }
         throw new IllegalArgumentException("Property '" + property + "' not found for " + introspected);
     }
 
     /** {@inheritDoc} */
+    @Override
     public String[] getPropertyNames(final Object introspected)
     {
         Set<String> props = new HashSet<String>();
@@ -89,7 +88,7 @@ public class BeanIntrospector implements Introspector
         }
         catch (Exception e)
         {
-            Logger.warning(this, "getPropertyNames", e);
+            throw new IllegalArgumentException(this + " - getPropertyNames", e);
         }
         return props.toArray(new String[props.size()]);
     }

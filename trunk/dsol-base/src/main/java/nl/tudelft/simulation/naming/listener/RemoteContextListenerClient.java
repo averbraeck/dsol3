@@ -35,6 +35,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void namingExceptionThrown(NamingExceptionEvent evt)
     {
         try
@@ -48,6 +49,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectAdded(NamingEvent evt)
     {
         try
@@ -61,6 +63,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectRemoved(NamingEvent evt)
     {
         try
@@ -74,6 +77,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectRenamed(NamingEvent evt)
     {
         try
@@ -87,6 +91,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectChanged(NamingEvent evt)
     {
         try

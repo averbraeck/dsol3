@@ -61,14 +61,14 @@ public final class EventListenerMap implements Map<EventType, List<Reference<Eve
 
     /** {@inheritDoc} */
     @Override
-    public boolean containsKey(Object key)
+    public boolean containsKey(final Object key)
     {
         return this.map.containsKey(key);
     }
 
     /** {@inheritDoc} */
     @Override
-    public boolean containsValue(Object value)
+    public boolean containsValue(final Object value)
     {
         return this.map.containsValue(value);
     }
@@ -82,7 +82,7 @@ public final class EventListenerMap implements Map<EventType, List<Reference<Eve
 
     /** {@inheritDoc} */
     @Override
-    public void putAll(Map<? extends EventType, ? extends List<Reference<EventListenerInterface>>> m)
+    public void putAll(final Map<? extends EventType, ? extends List<Reference<EventListenerInterface>>> m)
     {
         this.map.putAll(m);
     }
@@ -103,27 +103,28 @@ public final class EventListenerMap implements Map<EventType, List<Reference<Eve
 
     /** {@inheritDoc} */
     @Override
-    public List<Reference<EventListenerInterface>> get(Object key)
+    public List<Reference<EventListenerInterface>> get(final Object key)
     {
         return this.map.get(key);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<Reference<EventListenerInterface>> remove(Object key)
+    public List<Reference<EventListenerInterface>> remove(final Object key)
     {
         return this.map.remove(key);
     }
 
     /** {@inheritDoc} */
     @Override
-    public List<Reference<EventListenerInterface>> put(EventType key, List<Reference<EventListenerInterface>> value)
+    public List<Reference<EventListenerInterface>> put(final EventType key,
+            final List<Reference<EventListenerInterface>> value)
     {
         return this.map.put(key, value);
     }
 
     /**
-     * writes a serializable method to stream
+     * writes a serializable method to stream.
      * @param out the output stream
      * @throws IOException on IOException
      */
@@ -151,7 +152,7 @@ public final class EventListenerMap implements Map<EventType, List<Reference<Eve
     }
 
     /**
-     * reads a serializable method from stream
+     * reads a serializable method from stream.
      * @param in the input stream
      * @throws IOException on IOException
      * @throws ClassNotFoundException on ClassNotFoundException

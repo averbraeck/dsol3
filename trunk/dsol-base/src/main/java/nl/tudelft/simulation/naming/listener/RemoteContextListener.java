@@ -38,30 +38,35 @@ public class RemoteContextListener extends UnicastRemoteObject implements Remote
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectChanged(NamingEvent evt)
     {
         this.listener.objectChanged(evt);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectAdded(NamingEvent evt)
     {
         this.listener.objectAdded(evt);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectRemoved(NamingEvent evt)
     {
         this.listener.objectRemoved(evt);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void objectRenamed(NamingEvent evt)
     {
         this.listener.objectRemoved(evt);
     }
 
     /** {@inheritDoc} */
+    @Override
     public void namingExceptionThrown(NamingExceptionEvent evt)
     {
         this.listener.namingExceptionThrown(evt);

@@ -31,6 +31,7 @@ public class FileContextFactory implements InitialContextFactory
     private static FileContext context = null;
 
     /** {@inheritDoc} */
+    @Override
     public synchronized Context getInitialContext(final Hashtable<?, ?> environment)
     {
         if (context == null)

@@ -26,6 +26,7 @@ public class JVMContextFactory implements InitialContextFactory
     private static JVMContext context = null;
 
     /** {@inheritDoc} */
+    @Override
     public synchronized Context getInitialContext(final Hashtable<?, ?> environment)
     {
         if (JVMContextFactory.context == null)

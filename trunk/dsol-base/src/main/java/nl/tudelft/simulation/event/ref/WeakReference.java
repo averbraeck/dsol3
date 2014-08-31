@@ -30,14 +30,14 @@ public class WeakReference<T> extends Reference<T>
 
     /** {@inheritDoc} */
     @Override
-    public T get()
+    public final T get()
     {
         return this.reference.get();
     }
 
     /** {@inheritDoc} */
     @Override
-    protected void set(final T value)
+    protected final void set(final T value)
     {
         this.reference = new java.lang.ref.WeakReference<T>(value);
     }

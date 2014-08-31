@@ -20,7 +20,7 @@ public class RemoteEventProducer extends EventProducer implements RemoteEventPro
 
     /**
      * Constructs a new RemoteEventProducer.
-     * @throws RemoteException
+     * @throws RemoteException in case of network error
      */
     public RemoteEventProducer() throws RemoteException
     {

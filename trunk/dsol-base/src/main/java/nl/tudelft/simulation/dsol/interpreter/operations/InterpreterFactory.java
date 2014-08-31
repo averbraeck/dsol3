@@ -26,6 +26,7 @@ public class InterpreterFactory implements FactoryInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public final Operation readOperation(final DataInput dataInput, final int startBytePosition) throws IOException
     {
         int operand = dataInput.readUnsignedByte();
@@ -33,6 +34,7 @@ public class InterpreterFactory implements FactoryInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public Operation readOperation(final int operand, final DataInput dataInput, final int startBytePositon)
             throws IOException
     {

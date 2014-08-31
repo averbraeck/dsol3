@@ -30,6 +30,7 @@ public class SimpleDragSourceListener implements DragSourceListener
     }
 
     /** {@inheritDoc} */
+    @Override
     public void dragEnter(final DragSourceDragEvent dsde)
     {
         DragSourceContext context = dsde.getDragSourceContext();
@@ -37,6 +38,7 @@ public class SimpleDragSourceListener implements DragSourceListener
     }
 
     /** {@inheritDoc} */
+    @Override
     public void dragOver(final DragSourceDragEvent dsde)
     {
         DragSourceContext context = dsde.getDragSourceContext();
@@ -44,6 +46,7 @@ public class SimpleDragSourceListener implements DragSourceListener
     }
 
     /** {@inheritDoc} */
+    @Override
     public void dropActionChanged(final DragSourceDragEvent dsde)
     {
         DragSourceContext context = dsde.getDragSourceContext();
@@ -51,6 +54,7 @@ public class SimpleDragSourceListener implements DragSourceListener
     }
 
     /** {@inheritDoc} */
+    @Override
     public void dragExit(final DragSourceEvent dse)
     {
         DragSourceContext context = dse.getDragSourceContext();
@@ -58,6 +62,7 @@ public class SimpleDragSourceListener implements DragSourceListener
     }
 
     /** {@inheritDoc} */
+    @Override
     public void dragDropEnd(final DragSourceDropEvent dsde)
     {
         DragSourceContext context = dsde.getDragSourceContext();

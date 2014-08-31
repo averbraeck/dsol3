@@ -4,15 +4,12 @@ package nl.tudelft.simulation.introspection;
  * A property defines a characteristic of an object. It has a name, a type and provides methods to view and alter its
  * value. Different introspection implementation may provide different definitions for what exactly are regarded to be
  * the 'properties' of an object.
- * <p>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.1 Apr 15, 2004
+ * <p />
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
+ * @author Niels Lang.
  * @since 1.5
  */
 public interface Property
@@ -67,5 +64,5 @@ public interface Property
      * @return The type of the collection components contained in this Property. Returns null when isCollection()
      *         returns false, or when the component type could not be determined by this Property.
      */
-    Class getComponentType();
+    Class<?> getComponentType();
 }

@@ -21,11 +21,8 @@ public class ProcessInterpreterOracle implements InterpreterOracleInterface
         super();
     }
 
-    /**
-     * should this method be interpreted?
-     * @param method the method to introspect
-     * @return whether to interprete this method
-     */
+    /** {@inheritDoc} */
+    @Override
     public final boolean shouldBeInterpreted(final Method method)
     {
         if (InterpretableProcess.class.isAssignableFrom(method.getDeclaringClass()))

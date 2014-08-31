@@ -49,18 +49,21 @@ public abstract class AbstractFilter implements FilterInterface
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean isInverted()
     {
         return this.inverted;
     }
 
     /** {@inheritDoc} */
+    @Override
     public void setInverted(final boolean inverted)
     {
         this.inverted = inverted;
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean accept(final Object entry)
     {
         boolean value = this.filter(entry);

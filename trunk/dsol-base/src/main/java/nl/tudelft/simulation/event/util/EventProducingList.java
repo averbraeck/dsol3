@@ -46,18 +46,21 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public int size()
     {
         return this.parent.size();
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean isEmpty()
     {
         return this.parent.isEmpty();
     }
 
     /** {@inheritDoc} */
+    @Override
     public void clear()
     {
         this.parent.clear();
@@ -65,6 +68,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public void add(final int index, final T element)
     {
         this.parent.add(index, element);
@@ -72,6 +76,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean add(final T o)
     {
         boolean result = this.parent.add(o);
@@ -80,6 +85,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean addAll(final Collection<? extends T> c)
     {
         boolean result = this.parent.addAll(c);
@@ -88,6 +94,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean addAll(final int index, final Collection<? extends T> c)
     {
         boolean result = this.parent.addAll(index, c);
@@ -96,54 +103,63 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean contains(final Object o)
     {
         return this.parent.contains(o);
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean containsAll(final Collection<?> c)
     {
         return this.parent.containsAll(c);
     }
 
     /** {@inheritDoc} */
+    @Override
     public T get(final int index)
     {
         return this.parent.get(index);
     }
 
     /** {@inheritDoc} */
+    @Override
     public int indexOf(final Object o)
     {
         return this.parent.indexOf(o);
     }
 
     /** {@inheritDoc} */
+    @Override
     public Iterator<T> iterator()
     {
         return new EventIterator<T>(this.parent.iterator());
     }
 
     /** {@inheritDoc} */
+    @Override
     public int lastIndexOf(final Object o)
     {
         return this.parent.lastIndexOf(o);
     }
 
     /** {@inheritDoc} */
+    @Override
     public ListIterator<T> listIterator()
     {
         return this.parent.listIterator();
     }
 
     /** {@inheritDoc} */
+    @Override
     public ListIterator<T> listIterator(final int index)
     {
         return this.parent.listIterator(index);
     }
 
     /** {@inheritDoc} */
+    @Override
     public T remove(final int index)
     {
         T result = this.parent.remove(index);
@@ -152,6 +168,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean remove(final Object o)
     {
         boolean result = this.parent.remove(o);
@@ -160,6 +177,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean removeAll(final Collection<?> c)
     {
         boolean result = this.parent.removeAll(c);
@@ -168,6 +186,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public boolean retainAll(final Collection<?> c)
     {
         boolean result = this.parent.retainAll(c);
@@ -176,6 +195,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public T set(final int index, final T element)
     {
         T result = this.parent.set(index, element);
@@ -184,18 +204,21 @@ public class EventProducingList<T> extends EventProducer implements List<T>
     }
 
     /** {@inheritDoc} */
+    @Override
     public List<T> subList(final int fromIndex, final int toIndex)
     {
         return this.parent.subList(fromIndex, toIndex);
     }
 
     /** {@inheritDoc} */
+    @Override
     public Object[] toArray()
     {
         return this.parent.toArray();
     }
 
     /** {@inheritDoc} */
+    @Override
     public <E> E[] toArray(final E[] a)
     {
         return this.parent.toArray(a);
