@@ -51,8 +51,11 @@
 
 	<!-- Checks whether files end with a new line. -->
 	<!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
+	<!-- AV: added properties -->
 	<module name="NewlineAtEndOfFile">
 		<property name="severity" value="warning" />
+		<property name="fileExtensions" value="java, xml, xsd, html, apt"/>
+		<property name="lineSeparator" value="crlf"/>
 	</module>
 
 	<!-- Checks that property files contain the same keys. -->
