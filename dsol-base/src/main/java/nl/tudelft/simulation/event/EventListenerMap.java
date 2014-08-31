@@ -22,7 +22,7 @@ import nl.tudelft.simulation.event.remote.RemoteEventListenerInterface;
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5
  */
-public class EventListenerMap implements Map<EventType, List<Reference<EventListenerInterface>>>, Serializable
+public final class EventListenerMap implements Map<EventType, List<Reference<EventListenerInterface>>>, Serializable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20140830L;

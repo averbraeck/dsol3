@@ -79,14 +79,14 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType)
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType)
     {
         return this.addListener(listener, eventType, EventProducerInterface.FIRST_POSITION);
     }
 
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
             final boolean weak)
     {
         return this.addListener(listener, eventType, EventProducerInterface.FIRST_POSITION, weak);
@@ -94,7 +94,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
             final short position)
     {
         if (listener == null || position < EventProducerInterface.LAST_POSITION)
@@ -106,7 +106,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
             final short position, final boolean weak)
     {
         if (listener == null || position < EventProducerInterface.LAST_POSITION)
@@ -400,7 +400,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
         return value;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * @return the event types of this EventProducer
+     */
     private synchronized EventType[] getEventTypes()
     {
         if (this.cache != null)
@@ -482,7 +484,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean removeListener(final EventListenerInterface listener, final EventType eventType)
+    public final synchronized boolean removeListener(final EventListenerInterface listener, final EventType eventType)
     {
         if (!this.listeners.containsKey(eventType))
         {

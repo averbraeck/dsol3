@@ -17,7 +17,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 public abstract class JumpOperation extends Operation
 {
     /**
-     * executes the operation
+     * executes the operation.
      * @param stack the stack to operate on
      * @param constantPool the constantpool
      * @param localvariables the localvariables
