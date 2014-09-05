@@ -210,8 +210,8 @@ public class InterpreterFactory implements FactoryInterface
                 return new GETSTATIC(dataInput);
             case GOTO.OP:
                 return new GOTO(dataInput);
-            case GOTOW.OP:
-                return new GOTOW(dataInput);
+            case GOTO_W.OP:
+                return new GOTO_W(dataInput);
             case I2B.OP:
                 return new I2B();
             case I2C.OP:
@@ -232,8 +232,8 @@ public class InterpreterFactory implements FactoryInterface
                 return new IAND();
             case IASTORE.OP:
                 return new IASTORE();
-            case ICONST_m1.OP:
-                return new ICONST_m1();
+            case ICONST_M1.OP:
+                return new ICONST_M1();
             case ICONST_0.OP:
                 return new ICONST_0();
             case ICONST_1.OP:
@@ -306,6 +306,8 @@ public class InterpreterFactory implements FactoryInterface
                 return new INVOKESTATIC(dataInput);
             case nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKEVIRTUAL.OP:
                 return new INVOKEVIRTUAL(dataInput);
+            case nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKEDYNAMIC.OP:
+                return new INVOKEDYNAMIC(dataInput);
             case IOR.OP:
                 return new IOR();
             case IREM.OP:

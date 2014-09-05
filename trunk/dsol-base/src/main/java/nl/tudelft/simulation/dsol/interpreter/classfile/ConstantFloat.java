@@ -24,7 +24,7 @@ public final class ConstantFloat extends Constant
      */
     public ConstantFloat(final Constant[] constantPool, final DataInput inputStream) throws IOException
     {
-        this(constantPool, inputStream.readInt());
+        this(constantPool, inputStream.readFloat());
     }
 
     /**
