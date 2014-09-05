@@ -250,12 +250,8 @@ public class Resource extends EventProducer
      */
     protected class RequestComparator implements Comparator<Request>
     {
-        /**
-         * compares two request.
-         * @param arg0 the first request
-         * @param arg1 the second request
-         * @return the integer value
-         */
+        /** {@inheritDoc} */
+        @Override
         public int compare(final Request arg0, final Request arg1)
         {
             if (arg0.getPriority() > arg1.getPriority())
