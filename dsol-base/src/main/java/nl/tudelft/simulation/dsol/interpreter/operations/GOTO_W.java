@@ -17,7 +17,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class GOTOW extends JumpOperation
+public class GOTO_W extends JumpOperation
 {
     /** OP refers to the operand code. */
     public static final int OP = 200;
@@ -30,7 +30,7 @@ public class GOTOW extends JumpOperation
      * @param dataInput the dataInput
      * @throws IOException on IOfailure
      */
-    public GOTOW(final DataInput dataInput) throws IOException
+    public GOTO_W(final DataInput dataInput) throws IOException
     {
         super();
         this.offset = dataInput.readInt();
@@ -54,6 +54,6 @@ public class GOTOW extends JumpOperation
     @Override
     public final int getOpcode()
     {
-        return GOTOW.OP;
+        return GOTO_W.OP;
     }
 }

@@ -14,7 +14,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ICONST_m1 extends VoidOperation
+public class ICONST_M1 extends VoidOperation
 {
     /** OP refers to the operand code. */
     public static final int OP = 2;
@@ -22,7 +22,7 @@ public class ICONST_m1 extends VoidOperation
     /**
      * constructs a new ICONST_m1.
      */
-    public ICONST_m1()
+    public ICONST_M1()
     {
         super();
     }
@@ -46,6 +46,6 @@ public class ICONST_m1 extends VoidOperation
     @Override
     public final int getOpcode()
     {
-        return ICONST_m1.OP;
+        return ICONST_M1.OP;
     }
 }

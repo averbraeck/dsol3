@@ -62,6 +62,6 @@ public class IF_ICMPNE extends JumpOperation
     @Override
     public final int getOpcode()
     {
-        return IF_ICMPEQ.OP;
+        return IF_ICMPNE.OP;
     }
 }
