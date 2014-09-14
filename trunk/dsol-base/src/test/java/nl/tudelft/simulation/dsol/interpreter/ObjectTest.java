@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.interpreter;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -26,7 +25,7 @@ public class ObjectTest
 
         String eabc = new String("ABC");
         String iabc = new String("ABC");
-        ObjectMethods e1 = new ObjectMethods(eabc);
+        ObjectMethods e1 = new ObjectMethods(eabc); 
         ObjectMethods i1 = new ObjectMethods(iabc);
         ObjectMethods e2 = new ObjectMethods(eabc);
         ObjectMethods i2 = new ObjectMethods(iabc);
@@ -35,10 +34,10 @@ public class ObjectTest
         ObjectMethods e4 = new ObjectMethods(new String("DEF"));
         ObjectMethods i4 = new ObjectMethods(new String("DEF"));
         
-        System.out.println("=========================================");
-        Interpreter.DEBUG = true;
-        Interpreter.invoke(i1, "getC", new Object[]{}, new Class<?>[]{});
-        System.out.println("=========================================");
+        // System.out.println("=========================================");
+        // Interpreter.DEBUG = true;
+        // Interpreter.invoke(i1, "getC", new Object[]{}, new Class<?>[]{});
+        // System.out.println("=========================================");
 
         // object methods
         assertFalse("Object equals content (e)", e1.equals(e3));
