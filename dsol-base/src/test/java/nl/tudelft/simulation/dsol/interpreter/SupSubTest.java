@@ -22,7 +22,7 @@ public class SupSubTest
     {
         System.out.println("SupSubTest");
 
-        Interpreter.DEBUG = true;
+        // Interpreter.DEBUG = true;
 
         SupMethods sup = new SupMethods();
         SubMethods sub = new SubMethods();
@@ -54,7 +54,6 @@ public class SupSubTest
         assertEquals("Sup.splusDEF (i)",
                 Interpreter.invoke(sup, "sPlusDEF", new Object[]{"ABC"}, new Class<?>[]{String.class}), "ABCDEFABC");
          */
-
         // new StringBuilder().append("abc");
 
     }
