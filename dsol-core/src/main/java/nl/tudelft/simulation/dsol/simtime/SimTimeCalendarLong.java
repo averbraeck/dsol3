@@ -60,30 +60,30 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public void add(UnitTimeLong simTime)
+    public void add(final UnitTimeLong relativeTime)
     {
-        this.timeMsec += simTime.getTimeMsec();
+        this.timeMsec += relativeTime.getTimeMsec();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(UnitTimeLong simTime)
+    public void subtract(final UnitTimeLong relativeTime)
     {
-        this.timeMsec -= simTime.getTimeMsec();
+        this.timeMsec -= relativeTime.getTimeMsec();
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeLong minus(final SimTimeCalendarLong absoluteTime)
+    public UnitTimeLong minus(final SimTimeCalendarLong simTime)
     {
         UnitTimeLong ret = new UnitTimeLong(this.timeMsec, TimeUnit.MILLISECOND);
-        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.timeMsec);
+        ret.setTimeMsec(ret.getTimeMsec() - simTime.timeMsec);
         return ret;
     }
 
     /** {@inheritDoc} */
     @Override
-    public int compareTo(SimTimeCalendarLong simTime)
+    public int compareTo(final SimTimeCalendarLong simTime)
     {
         return Long.compare(this.timeMsec, simTime.timeMsec);
     }
@@ -105,9 +105,9 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public void set(Calendar value)
+    public void set(final Calendar absoluteTime)
     {
-        this.timeMsec = value.getTimeInMillis();
+        this.timeMsec = absoluteTime.getTimeInMillis();
     }
 
     /** {@inheritDoc} */

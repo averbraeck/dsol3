@@ -46,30 +46,30 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
 
     /** {@inheritDoc} */
     @Override
-    public void add(final Float value)
+    public void add(final Float relativeTime)
     {
-        this.time += value;
+        this.time += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final Float value)
+    public void subtract(final Float relativeTime)
     {
-        this.time -= value;
+        this.time -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Float minus(final SimTimeFloat absoluteTime)
+    public Float minus(final SimTimeFloat simTime)
     {
-        return this.get().floatValue() - absoluteTime.get().floatValue();
+        return this.get().floatValue() - simTime.get().floatValue();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final Float value)
+    public void set(final Float absoluteValue)
     {
-        this.time = value;
+        this.time = absoluteValue;
     }
 
     /** {@inheritDoc} */
@@ -85,13 +85,6 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
     {
         this.time = 0.0f;
         return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int compareTo(SimTimeFloat simTime)
-    {
-        return Float.compare(this.time, simTime.get());
     }
 
     /** {@inheritDoc} */

@@ -35,9 +35,10 @@ import java.io.Serializable;
  * @param <R> the relative number type, e.g. Double for the internal storage type to ensure type safety. This is the
  *            <i>relative</i> number, so in case of a Calendar for a simulation time, the relative storage type is a
  *            relative time with a unit.
- * @param <T> the extended type itself to be able to implement a comparator, and to ease the use of return types.
+ * @param <T> the extended type itself to be able to implement a comparator, and to ease the use of extension return
+ *            types.
  */
-public abstract class SimTime<A extends Comparable<? super A>, R extends Number & Comparable<? super R>, T extends SimTime<A, R, T>>
+public abstract class SimTime<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         implements Serializable, Comparable<T>
 {
     /** */
@@ -52,35 +53,38 @@ public abstract class SimTime<A extends Comparable<? super A>, R extends Number 
     }
 
     /**
-     * add a simtime to this simtime.
-     * @param simTime the simtime to add.
+     * add a relative time to this simtime.
+     * @param relativeTime the time to add.
      */
-    public abstract void add(final R simTime);
+    public abstract void add(final R relativeTime);
 
     /**
      * subtract a simtime from this simtime.
-     * @param simTime the simtime to subtract.
+     * @param relativeTime the simtime to subtract.
      */
-    public abstract void subtract(final R simTime);
+    public abstract void subtract(final R relativeTime);
 
     /**
      * add a number of simtimes.
      * @param absTime the absolute time to add the values to.
-     * @param relTimes the relative times to add.
+     * @param relativeTimes the relative times to add.
      * @return the sum of the absolute time and the relative times.
      */
     @SuppressWarnings("unchecked")
-    public T sum(final T absTime, final R... relTimes)
+    public T sum(final T absTime, final R... relativeTimes)
     {
         T ret = absTime.copy();
-        for (R relTime : relTimes)
+        for (R relTime : relativeTimes)
             ret.add(relTime);
         return ret;
     }
 
     /** {@inheritDoc} */
-    // @Override
-    // public abstract int compareTo(final T simTime);
+    @Override
+    public int compareTo(final T simTime)
+    {
+        return get().compareTo(simTime.get());
+    }
 
     /**
      * initialize a simtime to its logical 'zero' time.
@@ -95,9 +99,9 @@ public abstract class SimTime<A extends Comparable<? super A>, R extends Number 
 
     /**
      * set the value of the SimTime.
-     * @param value the value to set the SimTime to.
+     * @param absoluteTime the value to set the SimTime to.
      */
-    public abstract void set(final A value);
+    public abstract void set(final A absoluteTime);
 
     /**
      * @return the value of the SimTime.
@@ -130,10 +134,10 @@ public abstract class SimTime<A extends Comparable<? super A>, R extends Number 
 
     /**
      * The minus function of two absolute times returns a relative time.
-     * @param absoluteTime the time to subtract.
+     * @param simTime the time to subtract.
      * @return the relative time difference between this SimTime object and the provided absoluteTime argument.
      */
-    public abstract R minus(final T absoluteTime);
+    public abstract R minus(final T simTime);
 
     /**
      * @param simTime the time to compare to

@@ -60,30 +60,30 @@ public class SimTimeCalendarDouble extends SimTime<Calendar, UnitTimeDouble, Sim
 
     /** {@inheritDoc} */
     @Override
-    public void add(UnitTimeDouble simTime)
+    public void add(final UnitTimeDouble relativeTime)
     {
-        this.timeMsec += simTime.getTimeMsec();
+        this.timeMsec += relativeTime.getTimeMsec();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(UnitTimeDouble simTime)
+    public void subtract(final UnitTimeDouble relativeTime)
     {
-        this.timeMsec -= simTime.getTimeMsec();
+        this.timeMsec -= relativeTime.getTimeMsec();
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeDouble minus(final SimTimeCalendarDouble absoluteTime)
+    public UnitTimeDouble minus(final SimTimeCalendarDouble simTime)
     {
         UnitTimeDouble ret = new UnitTimeDouble(this.timeMsec, TimeUnit.MILLISECOND);
-        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.timeMsec);
+        ret.setTimeMsec(ret.getTimeMsec() - simTime.timeMsec);
         return ret;
     }
 
     /** {@inheritDoc} */
     @Override
-    public int compareTo(SimTimeCalendarDouble simTime)
+    public int compareTo(final SimTimeCalendarDouble simTime)
     {
         return Double.compare(this.timeMsec, simTime.timeMsec);
     }
@@ -105,9 +105,9 @@ public class SimTimeCalendarDouble extends SimTime<Calendar, UnitTimeDouble, Sim
 
     /** {@inheritDoc} */
     @Override
-    public void set(Calendar value)
+    public void set(final Calendar absoluteTime)
     {
-        this.timeMsec = value.getTimeInMillis();
+        this.timeMsec = absoluteTime.getTimeInMillis();
     }
 
     /** {@inheritDoc} */

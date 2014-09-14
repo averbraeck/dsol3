@@ -46,30 +46,30 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
 
     /** {@inheritDoc} */
     @Override
-    public void add(final Double value)
+    public void add(final Double relativeTime)
     {
-        this.time += value;
+        this.time += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final Double value)
+    public void subtract(final Double relativeTime)
     {
-        this.time -= value;
+        this.time -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double minus(final SimTimeDouble absoluteTime)
+    public Double minus(final SimTimeDouble simTime)
     {
-        return this.get().doubleValue() - absoluteTime.get().doubleValue();
+        return this.time - simTime.time;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final Double value)
+    public void set(final Double absoluteTime)
     {
-        this.time = value;
+        this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
@@ -85,13 +85,6 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
     {
         this.time = 0.0d;
         return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int compareTo(SimTimeDouble simTime)
-    {
-        return Double.compare(this.time, simTime.get());
     }
 
     /** {@inheritDoc} */

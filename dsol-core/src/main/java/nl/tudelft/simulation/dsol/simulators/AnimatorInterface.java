@@ -2,6 +2,9 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
 
+import javax.naming.Context;
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.event.EventType;
 
 /**
@@ -41,4 +44,11 @@ public interface AnimatorInterface
      */
     void setAnimationDelay(long miliseconds) throws RemoteException;
 
+    /**
+     * This contract has been added, because sometimes the simulator is cast as an AnimatorInterface. In that case we
+     * can also guarantee that a contect is present.
+     * @return the context specific to the animator
+     * @throws NamingException
+     */
+    Context getContext() throws NamingException;
 }

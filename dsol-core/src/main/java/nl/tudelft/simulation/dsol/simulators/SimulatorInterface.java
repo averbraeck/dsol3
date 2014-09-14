@@ -5,6 +5,9 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
+import javax.naming.Context;
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -119,6 +122,12 @@ public abstract interface SimulatorInterface<A extends Comparable<A>, R extends 
      */
     void stop() throws RemoteException, SimRuntimeException;
 
+    /**
+     * @return the context specific to the simulator
+     * @throws NamingException
+     */
+    Context getContext() throws NamingException;
+    
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
