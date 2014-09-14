@@ -54,28 +54,55 @@ public class PUTSTATIC extends VoidOperation
             field.setAccessible(true);
             Object value = stack.pop();
             Object target = null;
+            
             if (!field.getType().isPrimitive())
             {
                 field.set(target, value);
                 return;
             }
-            if (field.getType().equals(boolean.class) || field.getType().equals(byte.class)
-                    || field.getType().equals(char.class) || field.getType().equals(short.class)
-                    || field.getType().equals(int.class))
+            
+            if (field.getType().equals(boolean.class))
+            {
+                field.setBoolean(target, ((int) value) == 1);
+                return;
+            }
+
+            if (field.getType().equals(byte.class))
+            {
+                field.setByte(target, ((Integer) value).byteValue());
+                return;
+            }
+            
+            if (field.getType().equals(char.class))
+            {
+                field.setChar(target, (char) (((Integer) value).byteValue()));
+                return;
+            }
+            
+            if (field.getType().equals(short.class))
+            {
+                field.setShort(target, ((Short) value).shortValue());
+                return;
+            }
+            
+            if (field.getType().equals(int.class))
             {
                 field.setInt(target, ((Integer) value).intValue());
                 return;
             }
+            
             if (field.getType().equals(float.class))
             {
                 field.setFloat(target, ((Float) value).floatValue());
                 return;
             }
+            
             if (field.getType().equals(long.class))
             {
                 field.setLong(target, ((Long) value).longValue());
                 return;
             }
+            
             if (field.getType().equals(double.class))
             {
                 field.setDouble(target, ((Double) value).doubleValue());

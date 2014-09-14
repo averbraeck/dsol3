@@ -6,6 +6,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import nl.tudelft.simulation.dsol.interpreter.Frame;
+import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantMethodref;
@@ -66,6 +67,12 @@ public class INVOKESPECIAL extends InvokeOperation
                 Object result = constructor.newInstance(args);
                 frame.getOperandStack().replace(objectRef, result);
                 LocalVariable.replace(frame.getLocalVariables(), objectRef, result);
+                
+                if (Interpreter.DEBUG)
+                {
+                    System.out.println("  " + instanceClass.getSimpleName() + ".<init>");
+                }
+                
                 return null;
             }
 
@@ -115,6 +122,11 @@ public class INVOKESPECIAL extends InvokeOperation
     public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception
     {
+        if (Interpreter.DEBUG)
+        {
+            System.out.println("  invoke " + objectRef.getClass().getSimpleName() + "." + method.getName());
+        }
+        
         method.setAccessible(true);
         Object result = null;
         try

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 import nl.tudelft.simulation.dsol.interpreter.Frame;
+import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantMethodref;
 import nl.tudelft.simulation.dsol.interpreter.operations.InvokeOperation;
@@ -38,6 +39,7 @@ public class INVOKEDYNAMIC extends InvokeOperation
     public INVOKEDYNAMIC(final DataInput dataInput) throws IOException
     {
         super();
+        System.err.println("INVOKEDYNAMIC has been copied from INVOKESTATIC and that is 100% sure not correct");
         this.index = dataInput.readUnsignedShort();
         dataInput.readUnsignedShort(); // 2 bytes with signature 0 0
     }
@@ -86,6 +88,11 @@ public class INVOKEDYNAMIC extends InvokeOperation
     public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception
     {
+        if (Interpreter.DEBUG)
+        {
+            System.out.println("  invoke " + objectRef.getClass().getSimpleName() + "." + method.getName());
+        }
+        
         method.setAccessible(true);
         Object result = null;
         try
