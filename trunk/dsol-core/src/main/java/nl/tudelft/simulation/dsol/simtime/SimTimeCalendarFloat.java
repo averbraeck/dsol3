@@ -60,24 +60,24 @@ public class SimTimeCalendarFloat extends SimTime<Calendar, UnitTimeFloat, SimTi
 
     /** {@inheritDoc} */
     @Override
-    public void add(UnitTimeFloat simTime)
+    public void add(final UnitTimeFloat relativeTime)
     {
-        this.timeMsec += simTime.getTimeMsec();
+        this.timeMsec += relativeTime.getTimeMsec();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(UnitTimeFloat simTime)
+    public void subtract(final UnitTimeFloat relativeTime)
     {
-        this.timeMsec -= simTime.getTimeMsec();
+        this.timeMsec -= relativeTime.getTimeMsec();
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeFloat minus(final SimTimeCalendarFloat absoluteTime)
+    public UnitTimeFloat minus(final SimTimeCalendarFloat simTime)
     {
         UnitTimeFloat ret = new UnitTimeFloat(this.timeMsec, TimeUnit.MILLISECOND);
-        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.timeMsec);
+        ret.setTimeMsec(ret.getTimeMsec() - simTime.timeMsec);
         return ret;
     }
 
@@ -105,9 +105,9 @@ public class SimTimeCalendarFloat extends SimTime<Calendar, UnitTimeFloat, SimTi
 
     /** {@inheritDoc} */
     @Override
-    public void set(Calendar value)
+    public void set(final Calendar absoluteTime)
     {
-        this.timeMsec = value.getTimeInMillis();
+        this.timeMsec = absoluteTime.getTimeInMillis();
     }
 
     /** {@inheritDoc} */

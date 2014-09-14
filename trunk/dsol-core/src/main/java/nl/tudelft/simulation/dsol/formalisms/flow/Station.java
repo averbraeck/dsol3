@@ -72,10 +72,8 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /**
-     * Returns the destination.
-     * @return the destination station
-     */
+    /** {@inheritDoc} */
+    @Override
     public StationInterface getDestination()
     {
         return this.destination;

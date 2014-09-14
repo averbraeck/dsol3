@@ -39,39 +39,32 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
     /**
      * @param time
      */
-    public SimTimeLongUnit(UnitTimeLong time)
+    public SimTimeLongUnit(final UnitTimeLong time)
     {
         super(new UnitTimeLong(time.getTime(), time.getUnit()));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void add(UnitTimeLong simTime)
+    public void add(final UnitTimeLong relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() + simTime.getTimeMsec());
+        this.time.setTimeMsec(this.time.getTimeMsec() + relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final UnitTimeLong simTime)
+    public void subtract(final UnitTimeLong relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() - simTime.getTimeMsec());
+        this.time.setTimeMsec(this.time.getTimeMsec() - relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeLong minus(final SimTimeLongUnit absoluteTime)
+    public UnitTimeLong minus(final SimTimeLongUnit simTime)
     {
         UnitTimeLong ret = new UnitTimeLong(this.time.getTime(), this.time.getUnit());
-        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.get().getTimeMsec());
+        ret.setTimeMsec(ret.getTimeMsec() - simTime.get().getTimeMsec());
         return ret;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int compareTo(SimTimeLongUnit simTime)
-    {
-        return this.time.compareTo(simTime.get());
     }
 
     /** {@inheritDoc} */
@@ -91,9 +84,9 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public void set(UnitTimeLong value)
+    public void set(final UnitTimeLong absoluteTime)
     {
-        this.time = new UnitTimeLong(value.getTime(), value.getUnit());
+        this.time = new UnitTimeLong(absoluteTime.getTime(), absoluteTime.getUnit());
     }
 
     /** {@inheritDoc} */

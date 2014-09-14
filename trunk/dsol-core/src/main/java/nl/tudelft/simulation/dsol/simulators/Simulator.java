@@ -5,6 +5,10 @@ import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -55,6 +59,9 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** replication represents the currently active replication. */
     protected Replication<A, R, T> replication = null;
+
+    /** the cached context that can be used for animation and statistics for this simulator */
+    private Context cachedContext = null;
 
     /** a worker. */
     protected transient WorkerThread worker = null;
@@ -120,6 +127,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
      * on the formalism. Where discrete event formalisms loop over an eventlist continuous simulators take pre-defined
      * time steps.
      */
+    @Override
     public abstract void run();
 
     /** {@inheritDoc} */
@@ -188,6 +196,16 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         }
     }
 
+
+    /** {@inheritDoc} */
+    @Override
+    public Context getContext() throws NamingException
+    {
+        if (this.cachedContext == null)
+            this.cachedContext = (new InitialContext()).createSubcontext(String.valueOf(this.hashCode()));
+        return this.cachedContext;
+    }
+    
     /**
      * writes a serializable method to stream
      * @param out the outputstream

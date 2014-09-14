@@ -39,39 +39,32 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
     /**
      * @param time
      */
-    public SimTimeFloatUnit(UnitTimeFloat time)
+    public SimTimeFloatUnit(final UnitTimeFloat time)
     {
         super(new UnitTimeFloat(time.getTime(), time.getUnit()));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void add(UnitTimeFloat simTime)
+    public void add(final UnitTimeFloat relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() + simTime.getTimeMsec());
+        this.time.setTimeMsec(this.time.getTimeMsec() + relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final UnitTimeFloat simTime)
+    public void subtract(final UnitTimeFloat relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() - simTime.getTimeMsec());
+        this.time.setTimeMsec(this.time.getTimeMsec() - relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeFloat minus(final SimTimeFloatUnit absoluteTime)
+    public UnitTimeFloat minus(final SimTimeFloatUnit simTime)
     {
         UnitTimeFloat ret = new UnitTimeFloat(this.time.getTime(), this.time.getUnit());
-        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.get().getTimeMsec());
+        ret.setTimeMsec(ret.getTimeMsec() - simTime.get().getTimeMsec());
         return ret;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int compareTo(SimTimeFloatUnit simTime)
-    {
-        return this.time.compareTo(simTime.get());
     }
 
     /** {@inheritDoc} */
@@ -91,9 +84,9 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
 
     /** {@inheritDoc} */
     @Override
-    public void set(UnitTimeFloat value)
+    public void set(final UnitTimeFloat absoluteTime)
     {
-        this.time = new UnitTimeFloat(value.getTime(), value.getUnit());
+        this.time = new UnitTimeFloat(absoluteTime.getTime(), absoluteTime.getUnit());
     }
 
     /** {@inheritDoc} */

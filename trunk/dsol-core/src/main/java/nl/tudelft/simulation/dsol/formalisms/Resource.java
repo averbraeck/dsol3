@@ -8,6 +8,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
@@ -23,9 +24,10 @@ import nl.tudelft.simulation.logger.Logger;
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
+ * @param <T> the simulation time type to use.
  * @since 1.5
  */
-public class Resource extends EventProducer
+public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -59,7 +61,7 @@ public class Resource extends EventProducer
             new RequestComparator()));
 
     /** simulator defines the simulator on which is scheduled. */
-    protected DEVSSimulatorInterface<?, ?, ?> simulator;
+    protected DEVSSimulatorInterface<?, ?, T> simulator;
 
     /** the description of the resource. */
     protected String description = "resource";
@@ -70,7 +72,7 @@ public class Resource extends EventProducer
      * @param description the description of this resource
      * @param capacity of the resource
      */
-    public Resource(final DEVSSimulatorInterface<?, ?, ?> simulator, final String description, final double capacity)
+    public Resource(final DEVSSimulatorInterface<?, ?, T> simulator, final String description, final double capacity)
     {
         super();
         this.description = description;
@@ -83,7 +85,7 @@ public class Resource extends EventProducer
      * @param simulator on which is scheduled
      * @param capacity of the resource
      */
-    public Resource(final DEVSSimulatorInterface<?, ?, ?> simulator, final double capacity)
+    public Resource(final DEVSSimulatorInterface<?, ?, T> simulator, final double capacity)
     {
         this(simulator, "resource", capacity);
     }

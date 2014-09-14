@@ -2,6 +2,8 @@ package nl.tudelft.simulation.dsol.formalisms;
 
 import java.rmi.RemoteException;
 
+import nl.tudelft.simulation.dsol.simtime.SimTime;
+
 /**
  * This interface provides a callback method to the resource. Whenever resource is available this method is invoked on
  * the requestor.
@@ -13,15 +15,16 @@ import java.rmi.RemoteException;
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
+ * @param <T> the simulation time type.
  * @since 1.5
  */
-public interface ResourceRequestorInterface
+public interface ResourceRequestorInterface<T extends SimTime<?, ?, T>>
 {
     /**
-     * receive the requested resource
-     * @param requestedCapacity reflects the amount requested
-     * @param resource the requested resource
-     * @throws RemoteException on network failure
+     * receive the requested resource.
+     * @param requestedCapacity reflects the amount requested.
+     * @param resource the requested resource.
+     * @throws RemoteException on network failure.
      */
-    void receiveRequestedResource(final double requestedCapacity, final Resource resource) throws RemoteException;
+    void receiveRequestedResource(final double requestedCapacity, final Resource<T> resource) throws RemoteException;
 }

@@ -39,39 +39,32 @@ public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, S
     /**
      * @param time
      */
-    public SimTimeDoubleUnit(UnitTimeDouble time)
+    public SimTimeDoubleUnit(final UnitTimeDouble time)
     {
         super(new UnitTimeDouble(time.getTime(), time.getUnit()));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void add(UnitTimeDouble simTime)
+    public void add(final UnitTimeDouble relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() + simTime.getTimeMsec());
+        this.time.setTimeMsec(this.time.getTimeMsec() + relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final UnitTimeDouble simTime)
+    public void subtract(final UnitTimeDouble relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() - simTime.getTimeMsec());
+        this.time.setTimeMsec(this.time.getTimeMsec() - relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeDouble minus(final SimTimeDoubleUnit absoluteTime)
+    public UnitTimeDouble minus(final SimTimeDoubleUnit simTime)
     {
         UnitTimeDouble ret = new UnitTimeDouble(this.time.getTime(), this.time.getUnit());
-        ret.setTimeMsec(ret.getTimeMsec() - absoluteTime.get().getTimeMsec());
+        ret.setTimeMsec(ret.getTimeMsec() - simTime.get().getTimeMsec());
         return ret;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int compareTo(SimTimeDoubleUnit simTime)
-    {
-        return this.time.compareTo(simTime.get());
     }
 
     /** {@inheritDoc} */
@@ -91,9 +84,9 @@ public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, S
 
     /** {@inheritDoc} */
     @Override
-    public void set(UnitTimeDouble value)
+    public void set(final UnitTimeDouble absoluteTime)
     {
-        this.time = new UnitTimeDouble(value.getTime(), value.getUnit());
+        this.time = new UnitTimeDouble(absoluteTime.getTime(), absoluteTime.getUnit());
     }
 
     /** {@inheritDoc} */
