@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 import nl.tudelft.simulation.dsol.interpreter.Frame;
+import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantMethodref;
 import nl.tudelft.simulation.dsol.interpreter.operations.InvokeOperation;
@@ -90,6 +91,11 @@ public class INVOKEVIRTUAL extends InvokeOperation
     public Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception
     {
+        if (Interpreter.DEBUG)
+        {
+            System.out.println("  invoke " + objectRef.getClass().getSimpleName() + "." + method.getName());
+        }
+        
         method.setAccessible(true);
         Object result = null;
         try

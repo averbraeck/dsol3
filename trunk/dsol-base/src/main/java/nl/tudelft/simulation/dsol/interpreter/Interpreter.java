@@ -13,6 +13,7 @@ import java.util.Stack;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ClassDescriptor;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ExceptionEntry;
+import nl.tudelft.simulation.dsol.interpreter.classfile.LineNumber;
 import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
 import nl.tudelft.simulation.dsol.interpreter.operations.ATHROW;
 import nl.tudelft.simulation.dsol.interpreter.operations.FactoryInterface;
@@ -43,6 +44,9 @@ public final class Interpreter
 
     /** the interpreter factory class name. */
     private static FactoryInterface interpreterFactory = null;
+
+    /** DEBUG tells to print the bytecode statements to stdout */
+    public static boolean DEBUG = false;
 
     static
     {
@@ -172,6 +176,17 @@ public final class Interpreter
             }
         }
 
+        if (Interpreter.DEBUG)
+        {
+            AccessibleObject m = frame.getMethodDescriptor().getMethod();
+            String c = null;
+            if (m instanceof Method)
+                c = ((Method) m).getDeclaringClass().getSimpleName();
+            else
+                c = ((Constructor<?>) m).getDeclaringClass().getSimpleName();
+            System.out.println("  createFrame " + c + "." + frame.getMethodDescriptor().getName());
+        }
+
         return frame;
     }
 
@@ -229,6 +244,39 @@ public final class Interpreter
         while (true)
         {
             Operation operation = frame.getOperations()[operationIndex];
+
+            if (DEBUG)
+            {
+                // find the line number
+                int bytePos = 0;
+                for (int i = 0; i < operationIndex; i++)
+                {
+                    bytePos += frame.getOperations()[i].getByteLength();
+                }
+                int line = 0;
+                if (frame.getMethodDescriptor().getLineNumberTable().length == 1)
+                    line = frame.getMethodDescriptor().getLineNumberTable()[0].getLineNumber();
+                for (int i = 0; i < frame.getMethodDescriptor().getLineNumberTable().length - 1; i++)
+                {
+                    LineNumber ln1 = frame.getMethodDescriptor().getLineNumberTable()[i];
+                    LineNumber ln2 = frame.getMethodDescriptor().getLineNumberTable()[i + 1];
+                    if (bytePos >= ln1.getStartByte() && bytePos < ln2.getStartByte())
+                        line = ln1.getLineNumber();
+                }
+                // System.out.print(bytePos + ":");
+                // for (LineNumber ln : frame.getMethodDescriptor().getLineNumberTable())
+                // System.out.print(" " + ln.getLineNumber() + "=" + ln.getStartByte());
+                // System.out.println();
+                String methodName;
+                if (frame.getMethodDescriptor().getMethod() instanceof Method)
+                    methodName = ((Method) frame.getMethodDescriptor().getMethod()).getDeclaringClass().getSimpleName();
+                else
+                    methodName =
+                            ((Constructor<?>) frame.getMethodDescriptor().getMethod()).getDeclaringClass()
+                                    .getSimpleName();
+                System.out.println(operation.getClass().getSimpleName() + " @ " + methodName + "."
+                        + frame.getMethodDescriptor().getName() + "(" + line + ")");
+            }
 
             // WIDE is special. We need to get its target
             if (operation instanceof WIDE)
@@ -382,6 +430,16 @@ public final class Interpreter
      */
     public static Object invoke(final Object object, final AccessibleObject method, final Object[] arguments)
     {
+        if (DEBUG)
+        {
+            String methodName;
+            if (method instanceof Method)
+                methodName = ((Method) method).getName();
+            else
+                methodName = ((Constructor<?>) method).getName();
+            System.out.println("  invoke " + object.getClass().getSimpleName() + "." + methodName);
+        }
+
         try
         {
             if (method instanceof Constructor && Modifier.isNative(((Constructor<?>) method).getModifiers()))

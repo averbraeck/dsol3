@@ -42,7 +42,7 @@ public class CUSTOMINVOKEINTERFACE extends nl.tudelft.simulation.dsol.interprete
     public final Frame execute(final Frame frame, final Object objectRef, final Method method, final Object[] arguments)
             throws Exception
     {
-        if (!this.interpreterOracle.shouldBeInterpreted(method))
+        if (!this.interpreterOracle.shouldBeInterpreted(method) || Modifier.isNative(method.getModifiers()))
         {
             return super.execute(frame, objectRef, method, arguments);
         }
