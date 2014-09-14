@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.xml.language;
 
 import java.io.IOException;

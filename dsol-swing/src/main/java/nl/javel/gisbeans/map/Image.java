@@ -33,42 +33,58 @@ public class Image implements ImageInterface
         super();
     }
 
-    /** {@inheritDoc} */ @Override public  java.awt.Color getBackgroundColor()
+    /** {@inheritDoc} */
+    @Override
+    public java.awt.Color getBackgroundColor()
     {
         return this.backgroundColor;
     }
 
-    /** {@inheritDoc} */ @Override public  LegendInterface getLegend()
+    /** {@inheritDoc} */
+    @Override
+    public LegendInterface getLegend()
     {
         return this.legend;
     }
 
-    /** {@inheritDoc} */ @Override public  ScalebarInterface getScalebar()
+    /** {@inheritDoc} */
+    @Override
+    public ScalebarInterface getScalebar()
     {
         return this.scalebar;
     }
 
-    /** {@inheritDoc} */ @Override public  Dimension getSize()
+    /** {@inheritDoc} */
+    @Override
+    public Dimension getSize()
     {
         return this.size;
     }
 
-    /** {@inheritDoc} */ @Override public  void setBackgroundColor(Color backgroundColor)
+    /** {@inheritDoc} */
+    @Override
+    public void setBackgroundColor(Color backgroundColor)
     {
         this.backgroundColor = backgroundColor;
     }
 
-    /** {@inheritDoc} */ @Override public  void setLegend(LegendInterface legend)
+    /** {@inheritDoc} */
+    @Override
+    public void setLegend(LegendInterface legend)
     {
         this.legend = legend;
     }
 
-    /** {@inheritDoc} */ @Override public  void setScalebar(ScalebarInterface scalebar)
+    /** {@inheritDoc} */
+    @Override
+    public void setScalebar(ScalebarInterface scalebar)
     {
         this.scalebar = scalebar;
     }
 
-    /** {@inheritDoc} */ @Override public  void setSize(Dimension size)
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(Dimension size)
     {
         this.size = size;
     }

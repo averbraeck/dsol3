@@ -3,6 +3,9 @@ package nl.tudelft.simulation.dsol.animation.D2;
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.net.URL;
+import java.rmi.RemoteException;
+
+import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.animation.LocatableInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -26,8 +29,11 @@ public class SingleImageRenderable extends ImageRenderable
      * @param source the moving source
      * @param simulator the simulator
      * @param image the image to animate
+     * @throws NamingException
+     * @throws RemoteException
      */
-    public SingleImageRenderable(final LocatableInterface source, final SimulatorInterface simulator, final URL image)
+    public SingleImageRenderable(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator,
+            final URL image) throws RemoteException, NamingException
     {
         super(source, simulator, new URL[]{image});
     }
@@ -38,9 +44,11 @@ public class SingleImageRenderable extends ImageRenderable
      * @param size the size
      * @param simulator the simulator
      * @param image the image
+     * @throws NamingException
+     * @throws RemoteException
      */
     public SingleImageRenderable(final Point2D staticLocation, final Dimension size,
-            final SimulatorInterface simulator, final URL image)
+            final SimulatorInterface<?, ?, ?> simulator, final URL image) throws RemoteException, NamingException
     {
         super(staticLocation, size, simulator, new URL[]{image});
     }
@@ -51,9 +59,11 @@ public class SingleImageRenderable extends ImageRenderable
      * @param size the size of the image
      * @param simulator the simulator
      * @param image the image
+     * @throws NamingException
+     * @throws RemoteException
      */
     public SingleImageRenderable(final DirectedPoint staticLocation, final Dimension size,
-            final SimulatorInterface simulator, final URL image)
+            final SimulatorInterface<?, ?, ?> simulator, final URL image) throws RemoteException, NamingException
     {
         super(staticLocation, size, simulator, new URL[]{image});
     }

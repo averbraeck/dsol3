@@ -89,7 +89,9 @@ public class Console extends JTextArea
             this.textArea = textArea;
         }
 
-        /** {@inheritDoc} */ @Override public  void publish(LogRecord record)
+        /** {@inheritDoc} */
+        @Override
+        public void publish(LogRecord record)
         {
             if (record.getThrown() != null)
             {
@@ -103,12 +105,16 @@ public class Console extends JTextArea
             }
         }
 
-        /** {@inheritDoc} */ @Override public  void close()
+        /** {@inheritDoc} */
+        @Override
+        public void close()
         {
             //
         }
 
-        /** {@inheritDoc} */ @Override public  void flush()
+        /** {@inheritDoc} */
+        @Override
+        public void flush()
         {
             //
         }

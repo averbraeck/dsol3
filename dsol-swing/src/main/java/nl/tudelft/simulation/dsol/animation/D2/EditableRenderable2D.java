@@ -1,5 +1,9 @@
 package nl.tudelft.simulation.dsol.animation.D2;
 
+import java.rmi.RemoteException;
+
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.animation.Editable;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
@@ -28,54 +32,74 @@ public abstract class EditableRenderable2D extends Renderable2D implements Edita
      * constructs a new EditableRenderable2D.
      * @param source the source and target
      * @param simulator the simulator
+     * @throws NamingException 
+     * @throws RemoteException 
      */
-    public EditableRenderable2D(final Editable source, final SimulatorInterface simulator)
+    public EditableRenderable2D(final Editable source, final SimulatorInterface<?, ?, ?> simulator) throws RemoteException, NamingException
     {
         super(source, simulator);
         this.source = source;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean isClosedShape()
+    /** {@inheritDoc} */
+    @Override
+    public boolean isClosedShape()
     {
         return true;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean allowMove()
+    /** {@inheritDoc} */
+    @Override
+    public boolean allowMove()
     {
         return true;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean allowRotate()
+    /** {@inheritDoc} */
+    @Override
+    public boolean allowRotate()
     {
         return true;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean allowScale()
+    /** {@inheritDoc} */
+    @Override
+    public boolean allowScale()
     {
         return true;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean allowEditPoints()
+    /** {@inheritDoc} */
+    @Override
+    public boolean allowEditPoints()
     {
         return true;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean allowDelete()
+    /** {@inheritDoc} */
+    @Override
+    public boolean allowDelete()
     {
         return true;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean allowAddOrDeletePoints()
+    /** {@inheritDoc} */
+    @Override
+    public boolean allowAddOrDeletePoints()
     {
         return true;
     }
 
-    /** {@inheritDoc} */ @Override public  int getMaxNumberOfPoints()
+    /** {@inheritDoc} */
+    @Override
+    public int getMaxNumberOfPoints()
     {
         return Integer.MAX_VALUE;
     }
 
-    /** {@inheritDoc} */ @Override public  int getMinNumberOfPoints()
+    /** {@inheritDoc} */
+    @Override
+    public int getMinNumberOfPoints()
     {
         return 1;
     }

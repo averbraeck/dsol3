@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.xml.jstats;
 
 import java.io.IOException;

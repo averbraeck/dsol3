@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.xml;
 
 import java.io.IOException;
@@ -136,18 +135,24 @@ public abstract class AbstractXMLParser
                     + exception.getColumnNumber();
         }
 
-        /** {@inheritDoc} */ @Override public  void warning(final SAXParseException exception)
+        /** {@inheritDoc} */
+        @Override
+        public void warning(final SAXParseException exception)
         {
             // ignore, but log
             Logger.warning(this, formatError(exception), exception);
         }
 
-        /** {@inheritDoc} */ @Override public  void error(final SAXParseException e) throws SAXException
+        /** {@inheritDoc} */
+        @Override
+        public void error(final SAXParseException e) throws SAXException
         {
             throw new SAXException(formatError(e));
         }
 
-        /** {@inheritDoc} */ @Override public  void fatalError(final SAXParseException e) throws SAXException
+        /** {@inheritDoc} */
+        @Override
+        public void fatalError(final SAXParseException e) throws SAXException
         {
             throw new SAXException(formatError(e));
         }
@@ -170,18 +175,24 @@ public abstract class AbstractXMLParser
         /** the fallback defaultHandler2 */
         private DefaultHandler2 defaultHandler2 = new DefaultHandler2();
 
-        /** {@inheritDoc} */ @Override public  InputSource getExternalSubset(final String name, final String baseURI) throws SAXException, IOException
+        /** {@inheritDoc} */
+        @Override
+        public InputSource getExternalSubset(final String name, final String baseURI) throws SAXException, IOException
         {
             return this.defaultHandler2.getExternalSubset(name, baseURI);
         }
 
-        /** {@inheritDoc} */ @Override public  InputSource resolveEntity(final String name, final String publicId, final String baseURI,
+        /** {@inheritDoc} */
+        @Override
+        public InputSource resolveEntity(final String name, final String publicId, final String baseURI,
                 final String systemId) throws SAXException, IOException
         {
             return this.defaultHandler2.resolveEntity(name, publicId, baseURI, systemId);
         }
 
-        /** {@inheritDoc} */ @Override public  InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException
+        /** {@inheritDoc} */
+        @Override
+        public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException
         {
             URL url;
             if (systemId.startsWith("file:"))

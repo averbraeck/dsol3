@@ -56,102 +56,142 @@ public class Layer implements LayerInterface
         super();
     }
 
-    /** {@inheritDoc} */ @Override public  List getSymbols()
+    /** {@inheritDoc} */
+    @Override
+    public List getSymbols()
     {
         return this.symbols;
     }
 
-    /** {@inheritDoc} */ @Override public  List getAttributes()
+    /** {@inheritDoc} */
+    @Override
+    public List getAttributes()
     {
         return this.attributes;
     }
 
-    /** {@inheritDoc} */ @Override public  AttributeInterface getAttribute(int index)
+    /** {@inheritDoc} */
+    @Override
+    public AttributeInterface getAttribute(int index)
     {
         return (AttributeInterface) this.attributes.get(index);
     }
 
-    /** {@inheritDoc} */ @Override public  Color getColor()
+    /** {@inheritDoc} */
+    @Override
+    public Color getColor()
     {
         return this.fillColor;
     }
 
-    /** {@inheritDoc} */ @Override public  void setColor(Color color)
+    /** {@inheritDoc} */
+    @Override
+    public void setColor(Color color)
     {
         this.fillColor = color;
     }
 
-    /** {@inheritDoc} */ @Override public  DataSourceInterface getDataSource()
+    /** {@inheritDoc} */
+    @Override
+    public DataSourceInterface getDataSource()
     {
         return this.dataSource;
     }
 
-    /** {@inheritDoc} */ @Override public  void setAttributes(List attributes)
+    /** {@inheritDoc} */
+    @Override
+    public void setAttributes(List attributes)
     {
         this.attributes = attributes;
     }
 
-    /** {@inheritDoc} */ @Override public  void setDataSource(DataSourceInterface dataSource)
+    /** {@inheritDoc} */
+    @Override
+    public void setDataSource(DataSourceInterface dataSource)
     {
         this.dataSource = dataSource;
     }
 
-    /** {@inheritDoc} */ @Override public  int getMaxScale()
+    /** {@inheritDoc} */
+    @Override
+    public int getMaxScale()
     {
         return this.maxScale;
     }
 
-    /** {@inheritDoc} */ @Override public  void setMaxScale(int maxScale)
+    /** {@inheritDoc} */
+    @Override
+    public void setMaxScale(int maxScale)
     {
         this.maxScale = maxScale;
     }
 
-    /** {@inheritDoc} */ @Override public  int getMinScale()
+    /** {@inheritDoc} */
+    @Override
+    public int getMinScale()
     {
         return this.minScale;
     }
 
-    /** {@inheritDoc} */ @Override public  void setMinScale(int minScale)
+    /** {@inheritDoc} */
+    @Override
+    public void setMinScale(int minScale)
     {
         this.minScale = minScale;
     }
 
-    /** {@inheritDoc} */ @Override public  String getName()
+    /** {@inheritDoc} */
+    @Override
+    public String getName()
     {
         return this.name;
     }
 
-    /** {@inheritDoc} */ @Override public  void setName(String name)
+    /** {@inheritDoc} */
+    @Override
+    public void setName(String name)
     {
         this.name = name;
     }
 
-    /** {@inheritDoc} */ @Override public  Color getOutlineColor()
+    /** {@inheritDoc} */
+    @Override
+    public Color getOutlineColor()
     {
         return this.outlineColor;
     }
 
-    /** {@inheritDoc} */ @Override public  void setOutlineColor(Color outlineColor)
+    /** {@inheritDoc} */
+    @Override
+    public void setOutlineColor(Color outlineColor)
     {
         this.outlineColor = outlineColor;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean isStatus()
+    /** {@inheritDoc} */
+    @Override
+    public boolean isStatus()
     {
         return this.status;
     }
 
-    /** {@inheritDoc} */ @Override public  void setStatus(boolean status)
+    /** {@inheritDoc} */
+    @Override
+    public void setStatus(boolean status)
     {
         this.status = status;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean isTransform()
+    /** {@inheritDoc} */
+    @Override
+    public boolean isTransform()
     {
         return this.transform;
     }
 
-    /** {@inheritDoc} */ @Override public  void setTransform(boolean transform)
+    /** {@inheritDoc} */
+    @Override
+    public void setTransform(boolean transform)
     {
         this.transform = transform;
     }

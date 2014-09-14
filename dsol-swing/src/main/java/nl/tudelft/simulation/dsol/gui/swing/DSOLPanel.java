@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.BorderLayout;
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,8 +31,8 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends JPanel
+public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
+        JPanel
 {
     /** */
     private static final long serialVersionUID = 1L;

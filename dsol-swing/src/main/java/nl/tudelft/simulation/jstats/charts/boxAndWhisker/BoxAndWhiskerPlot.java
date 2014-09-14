@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.jstats.charts.boxAndWhisker;
 
 import java.awt.Color;
@@ -85,7 +84,9 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         return PLOT_TYPE;
     }
 
-    /** {@inheritDoc} */ @Override public  void notify(final EventInterface event)
+    /** {@inheritDoc} */
+    @Override
+    public void notify(final EventInterface event)
     {
         this.notifyListeners(new PlotChangeEvent(this));
     }
@@ -224,7 +225,9 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         }
     }
 
-    /** {@inheritDoc} */ @Override public  void draw(final Graphics2D g2, final Rectangle2D rectangle, final Point2D point, final PlotState plotState,
+    /** {@inheritDoc} */
+    @Override
+    public void draw(final Graphics2D g2, final Rectangle2D rectangle, final Point2D point, final PlotState plotState,
             final PlotRenderingInfo plotRenderingInfo)
     {
         // TODO: Point2D point not in use yet -- look up meaning

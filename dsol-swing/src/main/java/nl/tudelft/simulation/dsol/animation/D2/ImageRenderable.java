@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 
 import nl.tudelft.simulation.dsol.animation.LocatableInterface;
@@ -81,8 +82,11 @@ public abstract class ImageRenderable extends Renderable2D
      * @param source the source to be animated.
      * @param simulator the simulator to be used.
      * @param images the image urls.
+     * @throws NamingException
+     * @throws RemoteException
      */
-    public ImageRenderable(final LocatableInterface source, final SimulatorInterface simulator, final URL[] images)
+    public ImageRenderable(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator,
+            final URL[] images) throws RemoteException, NamingException
     {
         super(source, simulator);
         this.setOrientation(ImageRenderable.CC);
@@ -91,22 +95,22 @@ public abstract class ImageRenderable extends Renderable2D
 
     /**
      * reads and caches the images
-     * @param images the images
+     * @param _images the images
      */
-    private void readImages(final URL[] images)
+    private void readImages(final URL[] _images)
     {
-        this.images = images;
-        this.imageIcons = new ImageIcon[images.length];
-        for (int i = 0; i < images.length; i++)
+        this.images = _images;
+        this.imageIcons = new ImageIcon[_images.length];
+        for (int i = 0; i < _images.length; i++)
         {
-            if (ImageRenderable.cache.containsKey(images[i]))
+            if (ImageRenderable.cache.containsKey(_images[i]))
             {
-                this.imageIcons[i] = ImageRenderable.cache.get(images[i]);
+                this.imageIcons[i] = ImageRenderable.cache.get(_images[i]);
             }
             else
             {
-                this.imageIcons[i] = new ImageIcon(images[i]);
-                ImageRenderable.cache.put(images[i], this.imageIcons[i]);
+                this.imageIcons[i] = new ImageIcon(_images[i]);
+                ImageRenderable.cache.put(_images[i], this.imageIcons[i]);
             }
         }
     }
@@ -117,9 +121,11 @@ public abstract class ImageRenderable extends Renderable2D
      * @param size the size of the imageIcons in world coordinates.
      * @param simulator the simulator to be used
      * @param images the imageIcons to display.
+     * @throws NamingException
+     * @throws RemoteException
      */
     public ImageRenderable(final DirectedPoint staticLocation, final Dimension size,
-            final SimulatorInterface simulator, final URL[] images)
+            final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
         this(new StaticLocation(staticLocation, new BoundingBox(size.getWidth(), size.getHeight(), 0.0)), simulator,
                 images);
@@ -131,9 +137,11 @@ public abstract class ImageRenderable extends Renderable2D
      * @param size the size of the imageIcons in world coordinates.
      * @param simulator the simulator to be used
      * @param images the imageIcons to display.
+     * @throws NamingException
+     * @throws RemoteException
      */
-    public ImageRenderable(final Point2D staticLocation, final Dimension size, final SimulatorInterface simulator,
-            final URL[] images)
+    public ImageRenderable(final Point2D staticLocation, final Dimension size, final SimulatorInterface<?, ?, ?> simulator,
+            final URL[] images) throws RemoteException, NamingException
     {
         this(new StaticLocation(new DirectedPoint(staticLocation), new BoundingBox(size.getWidth(), size.getHeight(),
                 0.0)), simulator, images);
@@ -186,14 +194,14 @@ public abstract class ImageRenderable extends Renderable2D
 
     /**
      * resolves the origin of the image
-     * @param orientation the orientation (CC,..)
+     * @param _orientation the orientation (CC,..)
      * @return Point2D the location
      * @param size the size of the image.
      */
-    protected Point2D resolveOrigin(final short orientation, final Dimension size)
+    protected Point2D resolveOrigin(final short _orientation, final Dimension size)
     {
         Point2D imageOrigin = new Point2D.Double(0.0, 0.0);
-        switch (orientation)
+        switch (_orientation)
         {
             case ImageRenderable.LB:
                 imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY() - size.getHeight());

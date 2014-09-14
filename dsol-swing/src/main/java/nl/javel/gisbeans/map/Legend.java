@@ -33,82 +33,114 @@ public class Legend implements LegendInterface
 
     private Font font = new Font("arial", Font.TRUETYPE_FONT, 10);
 
-    /** {@inheritDoc} */ @Override public  Color getBackgroundColor()
+    /** {@inheritDoc} */
+    @Override
+    public Color getBackgroundColor()
     {
         return this.backgroundColor;
     }
 
-    /** {@inheritDoc} */ @Override public  void setBackgroundColor(Color backgroundColor)
+    /** {@inheritDoc} */
+    @Override
+    public void setBackgroundColor(Color backgroundColor)
     {
         this.backgroundColor = backgroundColor;
     }
 
-    /** {@inheritDoc} */ @Override public  Color getOutlineColor()
+    /** {@inheritDoc} */
+    @Override
+    public Color getOutlineColor()
     {
         return this.outlineColor;
     }
 
-    /** {@inheritDoc} */ @Override public  void setOutlineColor(Color outlineColor)
+    /** {@inheritDoc} */
+    @Override
+    public void setOutlineColor(Color outlineColor)
     {
         this.outlineColor = outlineColor;
     }
 
-    /** {@inheritDoc} */ @Override public  Color getFontColor()
+    /** {@inheritDoc} */
+    @Override
+    public Color getFontColor()
     {
         return this.fontColor;
     }
 
-    /** {@inheritDoc} */ @Override public  void setFontColor(Color fontColor)
+    /** {@inheritDoc} */
+    @Override
+    public void setFontColor(Color fontColor)
     {
         this.fontColor = fontColor;
     }
 
-    /** {@inheritDoc} */ @Override public  void setFont(Font font)
+    /** {@inheritDoc} */
+    @Override
+    public void setFont(Font font)
     {
         this.font = font;
     }
 
-    /** {@inheritDoc} */ @Override public  Font getFont()
+    /** {@inheritDoc} */
+    @Override
+    public Font getFont()
     {
         return this.font;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean isEmbed()
+    /** {@inheritDoc} */
+    @Override
+    public boolean isEmbed()
     {
         return this.embed;
     }
 
-    /** {@inheritDoc} */ @Override public  void setEmbed(boolean embed)
+    /** {@inheritDoc} */
+    @Override
+    public void setEmbed(boolean embed)
     {
         this.embed = embed;
     }
 
-    /** {@inheritDoc} */ @Override public  int getPosition()
+    /** {@inheritDoc} */
+    @Override
+    public int getPosition()
     {
         return this.position;
     }
 
-    /** {@inheritDoc} */ @Override public  void setPosition(int position)
+    /** {@inheritDoc} */
+    @Override
+    public void setPosition(int position)
     {
         this.position = position;
     }
 
-    /** {@inheritDoc} */ @Override public  Dimension getSize()
+    /** {@inheritDoc} */
+    @Override
+    public Dimension getSize()
     {
         return this.size;
     }
 
-    /** {@inheritDoc} */ @Override public  void setSize(Dimension size)
+    /** {@inheritDoc} */
+    @Override
+    public void setSize(Dimension size)
     {
         this.size = size;
     }
 
-    /** {@inheritDoc} */ @Override public  boolean isStatus()
+    /** {@inheritDoc} */
+    @Override
+    public boolean isStatus()
     {
         return this.status;
     }
 
-    /** {@inheritDoc} */ @Override public  void setStatus(boolean status)
+    /** {@inheritDoc} */
+    @Override
+    public void setStatus(boolean status)
     {
         this.status = status;
     }

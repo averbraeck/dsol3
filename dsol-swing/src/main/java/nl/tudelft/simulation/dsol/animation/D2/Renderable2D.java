@@ -8,6 +8,7 @@ import java.awt.image.ImageObserver;
 import java.rmi.RemoteException;
 
 import javax.naming.Context;
+import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.animation.LocatableInterface;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
@@ -32,44 +33,47 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 public abstract class Renderable2D implements Renderable2DInterface
 {
     /**
-     * whether to rotate the renderable
+     * Storage of the boolean flags, to prevent each flag from taking 32 bits... The initial value is binary 1011 = 0B:
+     * rotate = true, flip = false, scale = true, translate = true.
      */
-    protected boolean rotate = true;
+    protected byte flags = 0x0B;
 
     /**
-     * whether to flip the renderable after rotating 180 degrees
+     * whether to rotate the renderable. Flag is 1000
      */
-    protected boolean flip = false;
+    private static final byte ROTATE_FLAG = 0x08;
 
     /**
-     * whether to scale the renderable when zooming in or out
+     * whether to flip the renderable after rotating 180 degrees. Flag is 0100
      */
-    protected boolean scale = true;
+    private static final byte FLIP_FLAG = 0x04;
 
     /**
-     * whether to translate the renderable when panning
+     * whether to scale the renderable when zooming in or out. Flag is 0010
      */
-    protected boolean translate = true;
+    private static final byte SCALE_FLAG = 0x02;
 
     /**
-     * simulator
+     * whether to translate the renderable when panning. Flag is 0001
      */
-    protected SimulatorInterface simulator = null;
+    private static final byte TRANSLATE_FLAG = 0x01;
 
     /**
      * the source of the renderable
      */
-    protected LocatableInterface source = null;
+    protected final LocatableInterface source;
 
     /**
      * constructs a new Renderable2D.
      * @param source the source
      * @param simulator the simulator
+     * @throws NamingException
+     * @throws RemoteException
      */
-    public Renderable2D(final LocatableInterface source, final SimulatorInterface simulator)
+    public Renderable2D(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator)
+            throws NamingException, RemoteException
     {
         this.source = source;
-        this.simulator = simulator;
         if (!(simulator instanceof AnimatorInterface))
         {
             // We are currently running without animation
@@ -84,17 +88,10 @@ public abstract class Renderable2D implements Renderable2DInterface
      * such binding must be overwritten.
      * @param simulator the simulator used for binding the object.
      */
-    protected void bind2Context(final SimulatorInterface simulator)
+    protected void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
     {
-        try
-        {
-            Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/2D");
-            ContextUtil.bind(context, this);
-        }
-        catch (RemoteException exception)
-        {
-            Logger.warning(this, "<init>", exception);
-        }
+        Context context = ContextUtil.lookup(simulator.getContext(), "/animation/2D");
+        ContextUtil.bind(context, this);
     }
 
     /**
@@ -102,7 +99,7 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     public boolean isFlip()
     {
-        return this.flip;
+        return (this.flags & FLIP_FLAG) != 0;
     }
 
     /**
@@ -110,7 +107,10 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     public void setFlip(final boolean flip)
     {
-        this.flip = flip;
+        if (flip)
+            this.flags |= FLIP_FLAG;
+        else
+            this.flags &= (~FLIP_FLAG);
     }
 
     /**
@@ -118,7 +118,7 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     public boolean isRotate()
     {
-        return this.rotate;
+        return (this.flags & ROTATE_FLAG) != 0;
     }
 
     /**
@@ -126,7 +126,10 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     public void setRotate(final boolean rotate)
     {
-        this.rotate = rotate;
+        if (rotate)
+            this.flags |= ROTATE_FLAG;
+        else
+            this.flags &= (~ROTATE_FLAG);
     }
 
     /**
@@ -134,7 +137,7 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     public boolean isScale()
     {
-        return this.scale;
+        return (this.flags & SCALE_FLAG) != 0;
     }
 
     /**
@@ -142,12 +145,10 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     public void setScale(final boolean scale)
     {
-        this.scale = scale;
-    }
-
-    /** {@inheritDoc} */ @Override public  LocatableInterface getSource()
-    {
-        return this.source;
+        if (scale)
+            this.flags |= SCALE_FLAG;
+        else
+            this.flags &= (~SCALE_FLAG);
     }
 
     /**
@@ -155,7 +156,7 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     public boolean isTranslate()
     {
-        return this.translate;
+        return (this.flags & TRANSLATE_FLAG) != 0;
     }
 
     /**
@@ -163,10 +164,22 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     public void setTranslate(final boolean translate)
     {
-        this.translate = translate;
+        if (translate)
+            this.flags |= TRANSLATE_FLAG;
+        else
+            this.flags &= (~TRANSLATE_FLAG);
     }
 
-    /** {@inheritDoc} */ @Override public  synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
+    /** {@inheritDoc} */
+    @Override
+    public LocatableInterface getSource()
+    {
+        return this.source;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer)
     {
         try
@@ -174,43 +187,43 @@ public abstract class Renderable2D implements Renderable2DInterface
             DirectedPoint location = this.source.getLocation();
             Rectangle2D rectangle =
                     BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(), location.z);
-            if (!Shape.overlaps(extent, rectangle) && this.translate)
+            if (!Shape.overlaps(extent, rectangle) && isTranslate())
             {
                 return;
             }
             Point2D screenCoordinates =
                     Renderable2DInterface.Util.getScreenCoordinates(this.source.getLocation().to2D(), extent, screen);
             // Let's transform
-            if (this.translate)
+            if (isTranslate())
             {
                 graphics.translate(screenCoordinates.getX(), screenCoordinates.getY());
             }
-            double scale = Renderable2DInterface.Util.getScale(extent, screen);
-            if (this.scale)
+            double scaleFactor = Renderable2DInterface.Util.getScale(extent, screen);
+            if (isScale())
             {
-                graphics.scale(1.0 / scale, 1.0 / scale);
+                graphics.scale(1.0 / scaleFactor, 1.0 / scaleFactor);
             }
             double angle = -location.getRotZ();
-            if (this.flip && angle > Math.PI)
+            if (isFlip() && angle > Math.PI)
             {
                 angle = angle - Math.PI;
             }
-            if (this.rotate && angle != 0.0)
+            if (isRotate() && angle != 0.0)
             {
                 graphics.rotate(angle);
             }
             // Now we paint
             this.paint(graphics, observer);
             // Let's untransform
-            if (this.rotate && angle != 0.0)
+            if (isRotate() && angle != 0.0)
             {
                 graphics.rotate(-angle);
             }
-            if (this.scale)
+            if (isScale())
             {
-                graphics.scale(scale, scale);
+                graphics.scale(scaleFactor, scaleFactor);
             }
-            if (this.translate)
+            if (isTranslate())
             {
                 graphics.translate(-screenCoordinates.getX(), -screenCoordinates.getY());
             }
@@ -221,7 +234,9 @@ public abstract class Renderable2D implements Renderable2DInterface
         }
     }
 
-    /** {@inheritDoc} */ @Override public  boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
+    /** {@inheritDoc} */
+    @Override
+    public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
     {
         try
         {
@@ -242,9 +257,8 @@ public abstract class Renderable2D implements Renderable2DInterface
         }
     }
 
-    /**
-     * destroys an RenderableObject by unsubscribing it from the context.
-     */
+    /** {@inheritDoc} */
+    @Override
     public void destroy()
     {
         try
