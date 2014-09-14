@@ -138,22 +138,30 @@ public class ShapeFile implements DataSourceInterface
         this.dbfReader.setCache(cache);
     }
 
-    /** {@inheritDoc} */ @Override public  String[] getColumnNames()
+    /** {@inheritDoc} */
+    @Override
+    public String[] getColumnNames()
     {
         return this.dbfReader.getColumnNames();
     }
 
-    /** {@inheritDoc} */ @Override public  String[][] getAttributes() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public String[][] getAttributes() throws IOException
     {
         return this.dbfReader.getRows();
     }
 
-    /** {@inheritDoc} */ @Override public  URL getDataSource()
+    /** {@inheritDoc} */
+    @Override
+    public URL getDataSource()
     {
         return this.shpFile;
     }
 
-    /** {@inheritDoc} */ @Override public  int getNumShapes()
+    /** {@inheritDoc} */
+    @Override
+    public int getNumShapes()
     {
         return this.numShapes;
     }

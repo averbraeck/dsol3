@@ -1,4 +1,3 @@
-
 package nl.tudelft.simulation.jstats.charts.histogram;
 
 import java.awt.Color;

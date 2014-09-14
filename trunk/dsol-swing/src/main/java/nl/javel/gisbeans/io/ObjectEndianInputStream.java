@@ -43,7 +43,9 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         this.dataInputStream = new DataInputStream(inputStream);
     }
 
-    /** {@inheritDoc} */ @Override public  final short readShort() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final short readShort() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -53,7 +55,9 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return (short) ((this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff));
     }
 
-    /** {@inheritDoc} */ @Override public  final int readUnsignedShort() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final int readUnsignedShort() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -63,7 +67,9 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return ((this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff));
     }
 
-    /** {@inheritDoc} */ @Override public  final char readChar() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final char readChar() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -73,7 +79,9 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return (char) ((this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff));
     }
 
-    /** {@inheritDoc} */ @Override public  final int readInt() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final int readInt() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -84,7 +92,9 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
                 | (this.buffer[0] & 0xff);
     }
 
-    /** {@inheritDoc} */ @Override public  final long readLong() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final long readLong() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -110,7 +120,9 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return Float.intBitsToFloat(readInt());
     }
 
-    /** {@inheritDoc} */ @Override public  final double readDouble() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final double readDouble() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
         {
@@ -143,42 +155,58 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         return this.inputStream.read(b, off, len);
     }
 
-    /** {@inheritDoc} */ @Override public  final void readFully(final byte[] b) throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final void readFully(final byte[] b) throws IOException
     {
         this.dataInputStream.readFully(b, 0, b.length);
     }
 
-    /** {@inheritDoc} */ @Override public  final void readFully(final byte[] b, final int off, final int len) throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final void readFully(final byte[] b, final int off, final int len) throws IOException
     {
         this.dataInputStream.readFully(b, off, len);
     }
 
-    /** {@inheritDoc} */ @Override public  final int skipBytes(final int n) throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final int skipBytes(final int n) throws IOException
     {
         return this.dataInputStream.skipBytes(n);
     }
 
-    /** {@inheritDoc} */ @Override public  final boolean readBoolean() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final boolean readBoolean() throws IOException
     {
         return this.dataInputStream.readBoolean();
     }
 
-    /** {@inheritDoc} */ @Override public  final byte readByte() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final byte readByte() throws IOException
     {
         return this.dataInputStream.readByte();
     }
 
-    /** {@inheritDoc} */ @Override public  final int readUnsignedByte() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final int readUnsignedByte() throws IOException
     {
         return this.dataInputStream.readUnsignedByte();
     }
 
-    /** {@inheritDoc} */ @Override public  final String readUTF() throws IOException
+    /** {@inheritDoc} */
+    @Override
+    public final String readUTF() throws IOException
     {
         return this.dataInputStream.readUTF();
     }
 
-    /** {@inheritDoc} */ @Override public  final String readLine()
+    /** {@inheritDoc} */
+    @Override
+    public final String readLine()
     {
         return null; // This method is deprecated because it does not work
         // OK..
@@ -203,12 +231,16 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
         this.dataInputStream.close();
     }
 
-    /** {@inheritDoc} */ @Override public  void setEncode(final int encode)
+    /** {@inheritDoc} */
+    @Override
+    public void setEncode(final int encode)
     {
         this.encode = encode;
     }
 
-    /** {@inheritDoc} */ @Override public  int getEncode()
+    /** {@inheritDoc} */
+    @Override
+    public int getEncode()
     {
         return this.encode;
     }

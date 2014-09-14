@@ -44,61 +44,87 @@ public abstract class AbstractAttribute implements AttributeInterface
         this.layer = layer;
     }
 
-    /** {@inheritDoc} */ @Override public  void setFont(Font font)
+    /** {@inheritDoc} */
+    @Override
+    public void setFont(Font font)
     {
         this.font = font;
     }
 
-    /** {@inheritDoc} */ @Override public  Font getFont()
+    /** {@inheritDoc} */
+    @Override
+    public Font getFont()
     {
         return this.font;
     }
 
-    /** {@inheritDoc} */ @Override public  Color getFontColor()
+    /** {@inheritDoc} */
+    @Override
+    public Color getFontColor()
     {
         return this.fontColor;
     }
 
-    /** {@inheritDoc} */ @Override public  void setFontColor(Color fontColor)
+    /** {@inheritDoc} */
+    @Override
+    public void setFontColor(Color fontColor)
     {
         this.fontColor = fontColor;
     }
 
-    /** {@inheritDoc} */ @Override public  abstract String getValue(int shapeIndex);
+    /** {@inheritDoc} */
+    @Override
+    public abstract String getValue(int shapeIndex);
 
-    /** {@inheritDoc} */ @Override public  abstract double getAngle(int shapeIndex);
+    /** {@inheritDoc} */
+    @Override
+    public abstract double getAngle(int shapeIndex);
 
-    /** {@inheritDoc} */ @Override public  int getPosition()
+    /** {@inheritDoc} */
+    @Override
+    public int getPosition()
     {
         return this.position;
     }
 
-    /** {@inheritDoc} */ @Override public  void setPosition(int position)
+    /** {@inheritDoc} */
+    @Override
+    public void setPosition(int position)
     {
         this.position = position;
     }
 
-    /** {@inheritDoc} */ @Override public  LayerInterface getLayer()
+    /** {@inheritDoc} */
+    @Override
+    public LayerInterface getLayer()
     {
         return this.layer;
     }
 
-    /** {@inheritDoc} */ @Override public  double getMaxScale()
+    /** {@inheritDoc} */
+    @Override
+    public double getMaxScale()
     {
         return this.maxScale;
     }
 
-    /** {@inheritDoc} */ @Override public  double getMinScale()
+    /** {@inheritDoc} */
+    @Override
+    public double getMinScale()
     {
         return this.minScale;
     }
 
-    /** {@inheritDoc} */ @Override public  void setMaxScale(double maxScale)
+    /** {@inheritDoc} */
+    @Override
+    public void setMaxScale(double maxScale)
     {
         this.maxScale = maxScale;
     }
 
-    /** {@inheritDoc} */ @Override public  void setMinScale(double minScale)
+    /** {@inheritDoc} */
+    @Override
+    public void setMinScale(double minScale)
     {
         this.minScale = minScale;
     }

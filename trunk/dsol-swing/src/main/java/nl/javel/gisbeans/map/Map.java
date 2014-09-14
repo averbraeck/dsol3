@@ -50,12 +50,16 @@ public class Map implements MapInterface
         super();
     }
 
-    /** {@inheritDoc} */ @Override public  void addLayer(LayerInterface layer)
+    /** {@inheritDoc} */
+    @Override
+    public void addLayer(LayerInterface layer)
     {
         this.layers.add(layer);
     }
 
-    /** {@inheritDoc} */ @Override public  Graphics2D drawLegend(final Graphics2D graphics)
+    /** {@inheritDoc} */
+    @Override
+    public Graphics2D drawLegend(final Graphics2D graphics)
     {
         if (this.getImage().getLegend().isStatus())
         {
@@ -103,7 +107,9 @@ public class Map implements MapInterface
         return graphics;
     }
 
-    /** {@inheritDoc} */ @Override public  Graphics2D drawMap(Graphics2D graphics) throws GraphicsException
+    /** {@inheritDoc} */
+    @Override
+    public Graphics2D drawMap(Graphics2D graphics) throws GraphicsException
     {
         // We fill the background. */
         graphics.setColor(this.getImage().getBackgroundColor());
@@ -278,12 +284,16 @@ public class Map implements MapInterface
         return graphics;
     }
 
-    /** {@inheritDoc} */ @Override public  Graphics2D drawReferenceMap(Graphics2D graphics)
+    /** {@inheritDoc} */
+    @Override
+    public Graphics2D drawReferenceMap(Graphics2D graphics)
     {
         return graphics;
     }
 
-    /** {@inheritDoc} */ @Override public  Graphics2D drawScalebar(Graphics2D graphics)
+    /** {@inheritDoc} */
+    @Override
+    public Graphics2D drawScalebar(Graphics2D graphics)
     {
         if (this.getImage().getScalebar().isStatus())
         {
@@ -366,32 +376,44 @@ public class Map implements MapInterface
         return graphics;
     }
 
-    /** {@inheritDoc} */ @Override public  SerializableRectangle2D getExtent()
+    /** {@inheritDoc} */
+    @Override
+    public SerializableRectangle2D getExtent()
     {
         return this.extent;
     }
 
-    /** {@inheritDoc} */ @Override public  ImageInterface getImage()
+    /** {@inheritDoc} */
+    @Override
+    public ImageInterface getImage()
     {
         return this.image;
     }
 
-    /** {@inheritDoc} */ @Override public  List getLayers()
+    /** {@inheritDoc} */
+    @Override
+    public List getLayers()
     {
         return this.layers;
     }
 
-    /** {@inheritDoc} */ @Override public  String getName()
+    /** {@inheritDoc} */
+    @Override
+    public String getName()
     {
         return this.name;
     }
 
-    /** {@inheritDoc} */ @Override public  double getScale()
+    /** {@inheritDoc} */
+    @Override
+    public double getScale()
     {
         return (this.getImage().getSize().getWidth() / (2.54 * this.RESOLUTION)) * this.extent.getWidth();
     }
 
-    /** {@inheritDoc} */ @Override public  ReferenceMapInterface getReferenceMap()
+    /** {@inheritDoc} */
+    @Override
+    public ReferenceMapInterface getReferenceMap()
     {
         return this.referenceMap;
     }
@@ -406,49 +428,67 @@ public class Map implements MapInterface
                 / this.image.getSize().getHeight());
     }
 
-    /** {@inheritDoc} */ @Override public  int getUnits()
+    /** {@inheritDoc} */
+    @Override
+    public int getUnits()
     {
         return this.units;
     }
 
-    /** {@inheritDoc} */ @Override public  void setExtent(final Rectangle2D extent)
+    /** {@inheritDoc} */
+    @Override
+    public void setExtent(final Rectangle2D extent)
     {
         this.extent =
                 new SerializableRectangle2D.Double(extent.getMinX(), extent.getMinY(), extent.getWidth(),
                         extent.getHeight());
     }
 
-    /** {@inheritDoc} */ @Override public  void setImage(ImageInterface image)
+    /** {@inheritDoc} */
+    @Override
+    public void setImage(ImageInterface image)
     {
         this.image = image;
     }
 
-    /** {@inheritDoc} */ @Override public  void setLayers(List layers)
+    /** {@inheritDoc} */
+    @Override
+    public void setLayers(List layers)
     {
         this.layers = layers;
     }
 
-    /** {@inheritDoc} */ @Override public  void setLayer(int index, LayerInterface layer)
+    /** {@inheritDoc} */
+    @Override
+    public void setLayer(int index, LayerInterface layer)
     {
         this.layers.set(index, layer);
     }
 
-    /** {@inheritDoc} */ @Override public  void setName(String name)
+    /** {@inheritDoc} */
+    @Override
+    public void setName(String name)
     {
         this.name = name;
     }
 
-    /** {@inheritDoc} */ @Override public  void setReferenceMap(ReferenceMapInterface referenceMap)
+    /** {@inheritDoc} */
+    @Override
+    public void setReferenceMap(ReferenceMapInterface referenceMap)
     {
         this.referenceMap = referenceMap;
     }
 
-    /** {@inheritDoc} */ @Override public  void setUnits(int units)
+    /** {@inheritDoc} */
+    @Override
+    public void setUnits(int units)
     {
         this.units = units;
     }
 
-    /** {@inheritDoc} */ @Override public  void zoom(double zoomFactor)
+    /** {@inheritDoc} */
+    @Override
+    public void zoom(double zoomFactor)
     {
         if (zoomFactor == 0)
         {
@@ -467,7 +507,9 @@ public class Map implements MapInterface
         this.extent = new SerializableRectangle2D.Double(centerX - 0.5 * width, centerY - 0.5 * height, width, height);
     }
 
-    /** {@inheritDoc} */ @Override public  void zoomPoint(Point2D pixelPosition, double zoomFactor)
+    /** {@inheritDoc} */
+    @Override
+    public void zoomPoint(Point2D pixelPosition, double zoomFactor)
     {
         if (zoomFactor == 0)
             zoomFactor = 1;
@@ -487,7 +529,9 @@ public class Map implements MapInterface
         this.extent = new SerializableRectangle2D.Double(centerX - 0.5 * width, centerY - 0.5 * height, width, height);
     }
 
-    /** {@inheritDoc} */ @Override public  void zoomRectangle(SerializableRectangle2D rectangle)
+    /** {@inheritDoc} */
+    @Override
+    public void zoomRectangle(SerializableRectangle2D rectangle)
     {
 
         double maxX = (getUnitImageRatio() * this.getImage().getSize().getWidth()) + this.extent.getMinX();

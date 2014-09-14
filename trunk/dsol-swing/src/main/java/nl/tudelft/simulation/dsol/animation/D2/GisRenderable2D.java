@@ -64,7 +64,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
      * @param simulator the simulator.
      * @param mapFile the mapfile to use.
      */
-    public GisRenderable2D(final SimulatorInterface simulator, final URL mapFile)
+    public GisRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile)
     {
         super();
         if (!(simulator instanceof AnimatorInterface))
@@ -94,7 +94,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
      * such binding must be overwritten.
      * @param simulator the simulator used for binding the object.
      */
-    protected void bind2Context(final SimulatorInterface simulator)
+    protected void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
     {
         try
         {
@@ -107,7 +107,9 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /** {@inheritDoc} */ @Override public  void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
+    /** {@inheritDoc} */
+    @Override
+    public void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer)
     {
         try
@@ -129,17 +131,23 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /** {@inheritDoc} */ @Override public  LocatableInterface getSource()
+    /** {@inheritDoc} */
+    @Override
+    public LocatableInterface getSource()
     {
         return this;
     }
 
-    /** {@inheritDoc} */ @Override public  Bounds getBounds()
+    /** {@inheritDoc} */
+    @Override
+    public Bounds getBounds()
     {
         return this.bounds;
     }
 
-    /** {@inheritDoc} */ @Override public  DirectedPoint getLocation()
+    /** {@inheritDoc} */
+    @Override
+    public DirectedPoint getLocation()
     {
         return this.location;
     }
@@ -179,7 +187,9 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
     }
 
-    /** {@inheritDoc} */ @Override public  boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
+    /** {@inheritDoc} */
+    @Override
+    public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
     {
         return false;
     }

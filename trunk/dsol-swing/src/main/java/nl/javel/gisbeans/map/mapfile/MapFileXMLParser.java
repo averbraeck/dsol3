@@ -1,4 +1,3 @@
-
 package nl.javel.gisbeans.map.mapfile;
 
 import java.awt.Color;
@@ -579,12 +578,16 @@ public final class MapFileXMLParser
                     + exception.getColumnNumber();
         }
 
-        /** {@inheritDoc} */ @Override public  void error(SAXParseException e) throws SAXException
+        /** {@inheritDoc} */
+        @Override
+        public void error(SAXParseException e) throws SAXException
         {
             throw new SAXException(formatError(e));
         }
 
-        /** {@inheritDoc} */ @Override public  void fatalError(SAXParseException e) throws SAXException
+        /** {@inheritDoc} */
+        @Override
+        public void fatalError(SAXParseException e) throws SAXException
         {
             throw new SAXException(formatError(e));
         }
