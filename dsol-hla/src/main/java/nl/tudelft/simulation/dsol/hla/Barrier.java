@@ -5,11 +5,11 @@ public final class Barrier
     /** is the barrier lowered ? */
     private boolean lowered;
 
-    /** the purpose of the barrier */
+    /** the purpose of the barrier. */
     private String purpose = "";
 
     /**
-     * constructs a new Barrier
+     * constructs a new Barrier.
      */
     public Barrier()
     {

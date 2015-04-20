@@ -45,7 +45,7 @@ public class ZoomInAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.zoom(GridPanel.IN, 0.6);
+        this.target.zoom(GridPanel.IN, 0.8);
         this.target.requestFocus();
     }
 }

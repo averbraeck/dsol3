@@ -10,14 +10,14 @@ package nl.tudelft.simulation.dsol.hla.manager;
  */
 public class FederateCounter implements PopulateReadinessController
 {
-    /** the number of to be discovered federates */
+    /** the number of to be discovered federates. */
     private int goal = 0;
 
-    /** the number of discovered federates */
+    /** the number of discovered federates. */
     private int discovered = 0;
 
     /**
-     * constructs a new FederateCounter
+     * constructs a new FederateCounter.
      */
     public FederateCounter(final int goal)
     {

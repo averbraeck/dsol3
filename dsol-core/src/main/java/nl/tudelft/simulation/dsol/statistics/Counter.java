@@ -61,7 +61,7 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
             Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/statistics");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }

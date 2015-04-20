@@ -7,6 +7,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.rmi.RemoteException;
 
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.animation.LocatableInterface;
 
 /**
@@ -51,8 +53,9 @@ public interface Renderable2DInterface
     /**
      * destroys this editable. How to do this must be implemented by the modeler
      * @throws RemoteException RemoteException
+     * @throws NamingException 
      */
-    void destroy() throws RemoteException;
+    void destroy() throws RemoteException, NamingException;
 
     /**
      * A Util <br>

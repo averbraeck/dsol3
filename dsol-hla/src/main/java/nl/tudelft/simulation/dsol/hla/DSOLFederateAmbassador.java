@@ -1,9 +1,3 @@
-/*
- * @(#) DSOLFederateAmbassador.java Feb 8, 2005 Copyright (c) 2004 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology The code is published under the General Public License
- */
 package nl.tudelft.simulation.dsol.hla;
 
 import hla.rti.AttributeAcquisitionWasNotCanceled;
@@ -76,11 +70,11 @@ public class DSOLFederateAmbassador extends EventProducer implements
     public static final EventType TIME_REGULATION_ENABLED_EVENT = new EventType(
             "TIME_REGULATION_ENABLED_EVENT");
 
-    /** Published on interaction reception. Value: HLAInteractionEvent */
+    /** Published on interaction reception. Value: HLAInteractionEvent. */
     public static final EventType INTERACTION_REC_EVENT = new EventType(
             "INTERACTION_REC_EVENT");
 
-    /** the READY_TO_POPULATE */
+    /** the READY_TO_POPULATe. */
     public static final String READY_TO_POPULATE = "READY_TO_POPULATE";
 
     /** the READY_TO_RUN */
@@ -89,13 +83,13 @@ public class DSOLFederateAmbassador extends EventProducer implements
     /** the READY_TO_RESIGN */
     public static final String READY_TO_RESIGN = "READY_TO_RESIGN";
 
-    /** the context to use for object sharing */
+    /** the context to use for object sharing. */
     protected Context context = null;
 
-    /** to be set after a federation has been joined by this federate */
+    /** to be set after a federation has been joined by this federate. */
     protected int federateHandle = -1;
 
-    /** a list of premature synchronization points */
+    /** a list of premature synchronization points. */
     protected List synchronizationPoints = new ArrayList();
 
     /**
@@ -165,21 +159,14 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     }
 
-    /**
-     * @see hla.rti.FederateAmbassador#announceSynchronizationPoint(java.lang.String,
-     *      byte[])
-     */
-    public void announceSynchronizationPoint(String synchronizationPointLabel,
+    /** {@inheritDoc} */ @Override public  void announceSynchronizationPoint(String synchronizationPointLabel,
             byte[] userSuppliedTag) throws FederateInternalError
     {
         Logger.info(this, "announceSynchronizationPoint",
                 synchronizationPointLabel);
     }
 
-    /**
-     * @see hla.rti.FederateAmbassador#synchronizationPointRegistrationSucceeded(java.lang.String)
-     */
-    public void synchronizationPointRegistrationSucceeded(
+    /** {@inheritDoc} */ @Override public  void synchronizationPointRegistrationSucceeded(
             String synchronizationPointLabel)
     {
         Logger.info(this, "synchronizationPointRegistrationSucceeded",
@@ -197,10 +184,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     }
 
-    /**
-     * @see hla.rti.FederateAmbassador#federationSynchronized(java.lang.String)
-     */
-    public void federationSynchronized(String synchronizationPointLabel)
+    /** {@inheritDoc} */ @Override public  void federationSynchronized(String synchronizationPointLabel)
     {
         Logger.info(this, "federationSynchronized", synchronizationPointLabel);
     }
@@ -217,12 +201,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     }
 
-    /**
-     * 
-     * @see hla.rti.FederateAmbassador#receiveInteraction(int,
-     *      hla.rti.ReceivedInteraction, byte[])
-     */
-    public void receiveInteraction(int interactionClass,
+    /** {@inheritDoc} */ @Override public  void receiveInteraction(int interactionClass,
             ReceivedInteraction theInteraction, byte[] userSuppliedTag)
     {
         Logger.warning(this,"receiveInteraction","Receiving interaction at NO time");
@@ -230,13 +209,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
                 interactionClass, theInteraction,null));
     }
 
-    /**
-     * 
-     * @see hla.rti.FederateAmbassador#receiveInteraction(int,
-     *      hla.rti.ReceivedInteraction, byte[], hla.rti.LogicalTime,
-     *      hla.rti.EventRetractionHandle)
-     */
-    public void receiveInteraction(int interactionClass,
+    /** {@inheritDoc} */ @Override public  void receiveInteraction(int interactionClass,
             ReceivedInteraction theInteraction, byte[] userSuppliedTag,
             LogicalTime theTime, EventRetractionHandle eventRetractionHandle)
     {
@@ -245,12 +218,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
                 interactionClass, theInteraction, theTime));
     }
 
-    /**
-     * 
-     * @see hla.rti.FederateAmbassador#requestAttributeOwnershipAssumption(int,
-     *      hla.rti.AttributeHandleSet, byte[])
-     */
-    public void requestAttributeOwnershipAssumption(int theObject,
+    /** {@inheritDoc} */ @Override public  void requestAttributeOwnershipAssumption(int theObject,
             AttributeHandleSet offeredAttributes, byte[] userSuppliedTag)
             throws ObjectNotKnown, AttributeNotKnown, AttributeAlreadyOwned,
             AttributeNotPublished, FederateInternalError
@@ -258,12 +226,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
         // TODO Auto-generated method stub
     }
 
-    /**
-     * 
-     * @see hla.rti.FederateAmbassador#confirmAttributeOwnershipAcquisitionCancellation(int,
-     *      hla.rti.AttributeHandleSet)
-     */
-    public void confirmAttributeOwnershipAcquisitionCancellation(int theObject,
+    /** {@inheritDoc} */ @Override public  void confirmAttributeOwnershipAcquisitionCancellation(int theObject,
             AttributeHandleSet theAttributes) throws ObjectNotKnown,
             AttributeNotKnown, AttributeAlreadyOwned,
             AttributeAcquisitionWasNotCanceled, FederateInternalError
@@ -310,11 +273,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     }
 
-    /**
-     * 
-     * @see hla.rti.FederateAmbassador#timeAdvanceGrant(hla.rti.LogicalTime)
-     */
-    public void timeAdvanceGrant(LogicalTime theTime)
+    /** {@inheritDoc} */ @Override public  void timeAdvanceGrant(LogicalTime theTime)
     {
        Logger.info(this,"timeAdvanceGrant",theTime.toString());
        super.fireEvent(DSOLFederateAmbassador.TIME_ADVANCE_GRANT_EVENT,((LogicalTimeDouble)theTime).getValue());
@@ -413,11 +372,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
         // TODO Auto-generated method stub
     }
 
-    /**
-     * @see hla.rti.FederateAmbassador#discoverObjectInstance(int, int,
-     *      java.lang.String)
-     */
-    public void discoverObjectInstance(int theObject, int theObjectClass,
+    /** {@inheritDoc} */ @Override public  void discoverObjectInstance(int theObject, int theObjectClass,
             String objectName)
     {
         Logger.info(this, "discoverObjectInstance", "object=" + theObject

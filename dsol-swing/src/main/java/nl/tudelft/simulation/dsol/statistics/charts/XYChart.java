@@ -3,6 +3,7 @@ package nl.tudelft.simulation.dsol.statistics.charts;
 import java.rmi.RemoteException;
 
 import javax.naming.Context;
+import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.logger.Logger;
@@ -58,7 +59,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -78,7 +79,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -99,7 +100,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -120,7 +121,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -141,7 +142,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -162,7 +163,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -185,7 +186,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -208,7 +209,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }

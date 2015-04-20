@@ -1,9 +1,3 @@
-/*
- * @(#)HLADEVSSimulator.java Aug 18, 2003 Copyright (c) 2002-2005 Delft
- * University of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All
- * rights reserved. This software is proprietary information of Delft University
- * of Technology The code is published under the Lesser General Public License
- */
 package nl.tudelft.simulation.dsol.hla.simulators;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -41,29 +35,29 @@ import se.pitch.prti.LogicalTimeIntervalDouble;
 public class HLADEVSSimulator extends DEVSSimulator implements
                 DEVSSimulatorInterface, EventListenerInterface
 {
-    /** RUNNING IS REQUESTED */
+    /** RUNNING IS REQUESTEd. */
     private static final short START_REQUEST = 1;
 
-    /** STEPPING IS REQUESTED */
+    /** STEPPING IS REQUESTEd. */
     private static final short STEP_REQUEST = 2;
 
-    /** the timeAdvanceMode */
+    /** the timeAdvanceMode. */
     protected short timeAdvanceMode = HLASimulatorInterface.EVENT_BASED_TIME_ADVANCE_FUNCTION;
 
-    /** the request state of this simulator */
+    /** the request state of this simulator. */
     protected short requestState = START_REQUEST;
 
-    /** the rtiAmbassador */
+    /** the rtiAmbassador. */
     protected RTIAmbassador rtiAmbassador = null;
 
-    /** time until which is granted */
+    /** time until which is granted. */
     protected double grant = Double.NaN;
 
-    /** the barrier to use */
+    /** the barrier to use. */
     protected Barrier barrier = new Barrier();
 
     /**
-     * constructs a new HLADEVSSimulator
+     * constructs a new HLADEVSSimulator.
      * 
      * @param rtiAmbassador
      *            the RTIAmbassador to use
@@ -78,7 +72,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
     }
 
     /**
-     * constructs a new HLADEVSSimulator
+     * constructs a new HLADEVSSimulator.
      * 
      * @param rtiAmbassador
      *            the RTIAmbassador to use
@@ -98,10 +92,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                         DSOLFederateAmbassador.INTERACTION_REC_EVENT);
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.simulators.SimulatorInterface#step()
-     */
-    public void step() throws SimRuntimeException
+    /** {@inheritDoc} */ @Override public  void step() throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
@@ -331,10 +322,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
         return grant;
     }
     
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface#notify(nl.tudelft.simulation.event.EventInterface)
-     */
-    public void notify(final EventInterface event)
+    /** {@inheritDoc} */ @Override public  void notify(final EventInterface event)
     {
         Logger.info(this, "notify", "Handling incoming DSOL event: " + event);
         if (event.getType()

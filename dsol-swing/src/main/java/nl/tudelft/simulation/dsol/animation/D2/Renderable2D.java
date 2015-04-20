@@ -59,7 +59,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     private static final byte TRANSLATE_FLAG = 0x01;
 
     /**
-     * the source of the renderable
+     * the source of the renderable. TODO: Make weak reference and destroy renderable when source ceases to exist
      */
     protected final LocatableInterface source;
 
@@ -259,16 +259,9 @@ public abstract class Renderable2D implements Renderable2DInterface
 
     /** {@inheritDoc} */
     @Override
-    public void destroy()
+    public void destroy() throws NamingException
     {
-        try
-        {
-            nl.tudelft.simulation.naming.context.ContextUtil.unbindFromContext(this);
-        }
-        catch (Throwable throwable)
-        {
-            Logger.warning(this, "finalize", throwable);
-        }
+        nl.tudelft.simulation.naming.context.ContextUtil.unbindFromContext(this);
     }
 
     /** {@inheritDoc} */

@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
+import java.util.Timer;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -49,18 +50,18 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     }
 
     /** AnimationDelay refers to the delay in milliseconds between timeSteps. */
-    protected long animationDelay = 100L;
+    private long animationDelay = AnimatorInterface.DEFAULT_ANIMATION_DELAY;
 
     /** {@inheritDoc} */
     @Override
-    public long getAnimationDelay()
+    public final long getAnimationDelay()
     {
         return this.animationDelay;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setAnimationDelay(final long animationDelay)
+    public final void setAnimationDelay(final long animationDelay)
     {
         this.animationDelay = animationDelay;
         this.fireEvent(ANIMATION_DELAY_CHANGED_EVENT, animationDelay);
@@ -68,26 +69,22 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
 
     /** {@inheritDoc} */
     @Override
+    public final void updateAnimation()
+    {
+        this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
+        AnimationThread animationThread = new AnimationThread(this);
+        animationThread.start();
         while (this.isRunning() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
         {
-            try
-            {
-                if (this.animationDelay > 0)
-                {
-                    Thread.sleep(this.animationDelay);
-                }
-            }
-            catch (Exception exception)
-            {
-                exception = null;
-                // Let's neglect this sleep..
-            }
-            // T runUntil = this.simulatorTime.plus(this.timeStep);
             while (!this.eventList.isEmpty() && this.running)
-            // && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
                 synchronized (super.semaphore)
                 {
@@ -100,17 +97,18 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
                     }
                     catch (Exception exception)
                     {
-                        Logger.severe(this, "run", exception);
+                        exception.printStackTrace();
+                        if (this.isPauseOnError())
+                        {
+                            this.stop();
+                        }
                     }
                 }
             }
-            if (this.running)
-            {
-                // this.simulatorTime = runUntil;
-            }
             this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
-            this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
         }
+        updateAnimation();
+        animationThread.stopAnimation();
     }
 
     /***********************************************************************************************************/

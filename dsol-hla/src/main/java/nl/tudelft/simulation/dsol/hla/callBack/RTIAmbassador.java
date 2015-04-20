@@ -84,15 +84,15 @@ import nl.tudelft.simulation.event.util.EventProducingList;
  */
 public class RTIAmbassador
 {
-    /** the RTI ambassador wrapper */
+    /** the RTI ambassador wrapper. */
     private RTIambassador target = null;
 
-    /** the callback list */
+    /** the callback list. */
     protected EventProducingList callbackList = new EventProducingList(
                     Collections.synchronizedList(new ArrayList()));
 
     /**
-     * constructs a new RTIAmbassador
+     * constructs a new RTIAmbassador.
      */
     public RTIAmbassador(final RTIambassador target)
     {
@@ -289,10 +289,7 @@ public class RTIAmbassador
         return this.target.getAttributeHandle(arg0, arg1);
     }
 
-    /**
-     * @see hla.rti.RTIambassador#getInteractionClassHandle(java.lang.String)
-     */
-    public int getInteractionClassHandle(String arg0) throws NameNotFound,
+    /** {@inheritDoc} */ @Override public  int getInteractionClassHandle(String arg0) throws NameNotFound,
                     FederateNotExecutionMember, RTIinternalError
     {
         return this.target.getInteractionClassHandle(arg0);
@@ -323,11 +320,7 @@ public class RTIAmbassador
         return 0;
     }
 
-    /**
-     * @see hla.rti.RTIambassador#createFederationExecution(java.lang.String,
-     *      java.net.URL)
-     */
-    public void createFederationExecution(String federationExecutionName,
+    /** {@inheritDoc} */ @Override public  void createFederationExecution(String federationExecutionName,
                     URL fdd, boolean callBack)
                     throws FederationExecutionAlreadyExists, CouldNotOpenFED,
                     ErrorReadingFED, RTIinternalError,
@@ -423,11 +416,7 @@ public class RTIAmbassador
         return null;
     }
 
-    /**
-     * @see hla.rti.RTIambassador#registerFederationSynchronizationPoint(java.lang.String,
-     *      byte[])
-     */
-    public void registerFederationSynchronizationPoint(
+    /** {@inheritDoc} */ @Override public  void registerFederationSynchronizationPoint(
                     String synchronizationPointLabel, byte[] userSuppliedTag,
                     boolean callBack) throws FederateNotExecutionMember,
                     SaveInProgress, RestoreInProgress, RTIinternalError,
@@ -1223,10 +1212,7 @@ public class RTIAmbassador
 
     }
 
-    /**
-     * @see hla.rti.RTIambassador#synchronizationPointAchieved(java.lang.String)
-     */
-    public void synchronizationPointAchieved(
+    /** {@inheritDoc} */ @Override public  void synchronizationPointAchieved(
                     final String synchronizationPointLabel, boolean callBack)
                     throws SynchronizationLabelNotAnnounced,
                     FederateNotExecutionMember, SaveInProgress,
@@ -1244,10 +1230,7 @@ public class RTIAmbassador
         }
     }
 
-    /**
-     * @see hla.rti.RTIambassador#federateRestoreNotComplete()
-     */
-    public void federateRestoreNotComplete() throws RestoreNotRequested,
+    /** {@inheritDoc} */ @Override public  void federateRestoreNotComplete() throws RestoreNotRequested,
                     FederateNotExecutionMember, SaveInProgress,
                     RTIinternalError, ConcurrentAccessAttempted
     {
@@ -1255,10 +1238,7 @@ public class RTIAmbassador
 
     }
 
-    /**
-     * @see hla.rti.RTIambassador#subscribeInteractionClassPassively(int)
-     */
-    public void subscribeInteractionClassPassively(int arg0)
+    /** {@inheritDoc} */ @Override public  void subscribeInteractionClassPassively(int arg0)
                     throws InteractionClassNotDefined,
                     FederateNotExecutionMember, FederateLoggingServiceCalls,
                     SaveInProgress, RestoreInProgress, RTIinternalError,
@@ -1313,11 +1293,7 @@ public class RTIAmbassador
         return null;
     }
 
-    /**
-     * 
-     * @see hla.rti.RTIambassador#getInteractionClassName(int)
-     */
-    public String getInteractionClassName(int arg0)
+    /** {@inheritDoc} */ @Override public  String getInteractionClassName(int arg0)
                     throws InteractionClassNotDefined,
                     FederateNotExecutionMember, RTIinternalError
     {
@@ -1413,10 +1389,7 @@ public class RTIAmbassador
 
     }
 
-    /**
-     * @see hla.rti.RTIambassador#getObjectClassHandle(java.lang.String)
-     */
-    public int getObjectClassHandle(String arg0) throws NameNotFound,
+    /** {@inheritDoc} */ @Override public  int getObjectClassHandle(String arg0) throws NameNotFound,
                     FederateNotExecutionMember, RTIinternalError
     {
         return this.target.getObjectClassHandle(arg0);
@@ -1446,11 +1419,7 @@ public class RTIAmbassador
         return 0;
     }
 
-    /**
-     * @see hla.rti.RTIambassador#joinFederationExecution(java.lang.String,
-     *      java.lang.String, hla.rti.FederateAmbassador)
-     */
-    public int joinFederationExecution(String arg0, String arg1,
+    /** {@inheritDoc} */ @Override public  int joinFederationExecution(String arg0, String arg1,
                     FederateAmbassador arg2)
                     throws FederateAlreadyExecutionMember,
                     FederationExecutionDoesNotExist, SaveInProgress,
@@ -1460,12 +1429,7 @@ public class RTIAmbassador
         return this.target.joinFederationExecution(arg0, arg1, arg2);
     }
 
-    /**
-     * @see hla.rti.RTIambassador#joinFederationExecution(java.lang.String,
-     *      java.lang.String, hla.rti.FederateAmbassador,
-     *      hla.rti.MobileFederateServices)
-     */
-    public int joinFederationExecution(String arg0, String arg1,
+    /** {@inheritDoc} */ @Override public  int joinFederationExecution(String arg0, String arg1,
                     FederateAmbassador arg2, MobileFederateServices arg3)
                     throws FederateAlreadyExecutionMember,
                     FederationExecutionDoesNotExist, SaveInProgress,

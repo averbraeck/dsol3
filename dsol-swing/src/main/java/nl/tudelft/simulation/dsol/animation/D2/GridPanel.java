@@ -17,7 +17,6 @@ import javax.swing.JPanel;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * 
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:37:49 $
  * @author <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>, <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -67,7 +66,6 @@ public class GridPanel extends JPanel
 
     /**
      * constructs a new GridPanel
-     * 
      * @param extent the extent to show.
      */
     public GridPanel(final Rectangle2D extent)
@@ -77,7 +75,6 @@ public class GridPanel extends JPanel
 
     /**
      * constructs a new GridPanel
-     * 
      * @param extent the initial extent
      * @param size the size of the panel in pixels.
      */
@@ -93,7 +90,6 @@ public class GridPanel extends JPanel
 
     /**
      * returns the extent of this panel
-     * 
      * @return Rectangle2D
      */
     public Rectangle2D getExtent()
@@ -121,7 +117,6 @@ public class GridPanel extends JPanel
 
     /**
      * show the grid?
-     * 
      * @param bool true/false
      */
     public synchronized void showGrid(final boolean bool)
@@ -132,7 +127,6 @@ public class GridPanel extends JPanel
 
     /**
      * pans the panel in a specified direction
-     * 
      * @param direction the direction
      * @param percentage the percentage
      */
@@ -144,24 +138,26 @@ public class GridPanel extends JPanel
         }
         switch (direction)
         {
-        case LEFT:
-            this.extent.setRect(this.extent.getMinX() - percentage * this.extent.getWidth(), this.extent.getMinY(), this.extent.getWidth(),
-                    this.extent.getHeight());
-            break;
-        case RIGHT:
-            this.extent.setRect(this.extent.getMinX() + percentage * this.extent.getWidth(), this.extent.getMinY(), this.extent.getWidth(),
-                    this.extent.getHeight());
-            break;
-        case UP:
-            this.extent.setRect(this.extent.getMinX(), this.extent.getMinY() + percentage * this.extent.getHeight(), this.extent.getWidth(),
-                    this.extent.getHeight());
-            break;
-        case DOWN:
-            this.extent.setRect(this.extent.getMinX(), this.extent.getMinY() - percentage * this.extent.getHeight(), this.extent.getWidth(),
-                    this.extent.getHeight());
-            break;
-        default:
-            throw new IllegalArgumentException("direction unkown");
+            case LEFT:
+                this.extent.setRect(this.extent.getMinX() - percentage * this.extent.getWidth(), this.extent.getMinY(),
+                        this.extent.getWidth(), this.extent.getHeight());
+                break;
+            case RIGHT:
+                this.extent.setRect(this.extent.getMinX() + percentage * this.extent.getWidth(), this.extent.getMinY(),
+                        this.extent.getWidth(), this.extent.getHeight());
+                break;
+            case UP:
+                this.extent.setRect(this.extent.getMinX(),
+                        this.extent.getMinY() + percentage * this.extent.getHeight(), this.extent.getWidth(),
+                        this.extent.getHeight());
+                break;
+            case DOWN:
+                this.extent.setRect(this.extent.getMinX(),
+                        this.extent.getMinY() - percentage * this.extent.getHeight(), this.extent.getWidth(),
+                        this.extent.getHeight());
+                break;
+            default:
+                throw new IllegalArgumentException("direction unkown");
         }
         this.repaint();
     }
@@ -193,7 +189,6 @@ public class GridPanel extends JPanel
 
     /**
      * zooms in/out
-     * 
      * @param direction the zoom direction
      * @param factor The Factor
      */
@@ -202,17 +197,17 @@ public class GridPanel extends JPanel
         double newScale = Renderable2DInterface.Util.getScale(this.extent, this.getSize());
         switch (direction)
         {
-        case IN:
-            newScale = newScale * factor;
-            break;
-        case OUT:
-            newScale = newScale / factor;
-            break;
-        default:
-            throw new IllegalArgumentException("zoom direction unknown");
+            case IN:
+                newScale = newScale * factor;
+                break;
+            case OUT:
+                newScale = newScale / factor;
+                break;
+            default:
+                throw new IllegalArgumentException("zoom direction unknown");
         }
-        this.extent.setRect(this.extent.getCenterX() - 0.5 * newScale * this.getWidth(), this.extent.getCenterY() - 0.5 * newScale * this.getHeight(), newScale
-                * this.getWidth(), newScale * this.getHeight());
+        this.extent.setRect(this.extent.getCenterX() - 0.5 * newScale * this.getWidth(), this.extent.getCenterY() - 0.5
+                * newScale * this.getHeight(), newScale * this.getWidth(), newScale * this.getHeight());
         this.repaint();
     }
 
@@ -220,7 +215,6 @@ public class GridPanel extends JPanel
     /**
      * Added to make sure the recursive render-call calls THIS render method instead of a potential super-class defined
      * 'paintComponent' render method.
-     * 
      * @param g the graphics object
      */
     protected synchronized void drawGrid(final Graphics g)
@@ -252,7 +246,9 @@ public class GridPanel extends JPanel
         int x = (int) -Math.round(mod / scale);
         while (x < this.getWidth())
         {
-            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent, this.getSize());
+            Point2D point =
+                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent,
+                            this.getSize());
             if (point != null)
             {
                 String label = this.formatter.format(Math.round(point.getX() / this.gridSize) * this.gridSize);
@@ -270,7 +266,9 @@ public class GridPanel extends JPanel
         int y = (int) Math.round(this.getSize().getHeight() - (mod / scale));
         while (y > 15)
         {
-            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent, this.getSize());
+            Point2D point =
+                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent,
+                            this.getSize());
             if (point != null)
             {
                 String label = this.formatter.format(Math.round(point.getY() / this.gridSize) * this.gridSize);

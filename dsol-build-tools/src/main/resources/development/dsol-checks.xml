@@ -93,6 +93,9 @@
 	<!-- <property name="fileExtensions" value="java"/> -->
 	<!-- </module> -->
 
+	<!-- AV: added to allow @SuppressWarnings("checkstyle:xxx") for a method or class. -->
+	<module name="SuppressWarningsFilter" />
+
 	<module name="TreeWalker">
 
 		<property name="tabWidth" value="4" />
@@ -247,6 +250,7 @@
 
 		<!-- Checks for common coding problems -->
 		<!-- See http://checkstyle.sf.net/config_coding.html -->
+		<!-- AV: inline conditionals are ok. -->
 		<module name="AvoidInlineConditionals">
 			<property name="severity" value="ignore" />
 		</module>
@@ -316,6 +320,9 @@
 		<module name="UpperEll">
 			<property name="severity" value="warning" />
 		</module>
+
+		<!-- AV: added to allow @SuppressWarnings("checkstyle:xxx") for a method or class. -->
+		<module name="SuppressWarningsHolder" />
 
 	</module>
 
