@@ -1,9 +1,3 @@
-/*
- * @(#)CallbackTask.java Feb 1, 2003 Copyright (c) 2002-2005 Delft University of
- * Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * This software is proprietary information of Delft University of Technology
- * The code is published under the Lesser General Public License
- */
 package nl.tudelft.simulation.dsol.hla.callBack;
 
 import java.lang.reflect.Constructor;
@@ -79,10 +73,7 @@ public class CallbackTask
         this.args = args;
     }
 
-    /**
-     * @see SimEventInterface#execute()
-     */
-    public synchronized void execute() throws SimRuntimeException
+    /** {@inheritDoc} */ @Override public  synchronized void execute() throws SimRuntimeException
     {
         try
         {
@@ -152,10 +143,7 @@ public class CallbackTask
         return this.target;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
-    public String toString()
+    /** {@inheritDoc} */ @Override public  String toString()
     {
         return "CallbackTask[source=" + this.source + "; target=" + this.target
                 + "; method=" + this.method + "; args=" + this.args + "]";

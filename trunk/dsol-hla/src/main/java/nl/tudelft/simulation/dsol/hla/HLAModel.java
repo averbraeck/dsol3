@@ -31,17 +31,17 @@ import se.pitch.prti.RTI;
  */
 public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
 {
-    /** the RTI Ambassador to use */
+    /** the RTI Ambassador to use. */
     protected RTIAmbassador rtiAmbassador = null;
 
-    /** the barrier we wait for */
+    /** the barrier we wait for. */
     protected Barrier barrier = new Barrier();
 
-    /** the targetModel to use */
+    /** the targetModel to use. */
     protected ModelInterface targetModel = null;
 
     /**
-     * constructs a new HLAModel
+     * constructs a new HLAModel.
      * 
      * @param targetModel the targetModel
      * @param rtIAmbassador the rtIAmbassador
@@ -73,11 +73,7 @@ public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.ModelInterface
-     *      #constructModel(nl.tudelft.simulation.dsol.simulators.SimulatorInterface)
-     */
-    public void constructModel(final SimulatorInterface arg0)
+    /** {@inheritDoc} */ @Override public  void constructModel(final SimulatorInterface arg0)
             throws SimRuntimeException
     {
         try
@@ -89,7 +85,7 @@ public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
                 this.barrier.raise(READY_TO_POPULATE);
             }
 
-            // We are ready to populate, let's do so..
+            // We are ready to populate, let's do so.
             Logger.info(this,"constructModel","SynchronizationPointAchieved Populate");
             this.rtiAmbassador.synchronizationPointAchieved(READY_TO_POPULATE,
                     false);
@@ -115,7 +111,7 @@ public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
             Logger.info(this,"constructModel","Wait for others to run");
             this.barrier.raise(READY_TO_RUN);
 
-            // Let's do the trick..
+            // Let's do the trick.
             Logger.info(this,"constructModel","Let's rock & roll");
         } catch (Exception exception)
         {
@@ -124,11 +120,7 @@ public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.hla.DSOLFederateAmbassador#announceSynchronizationPoint(java.lang.String,
-     *      byte[])
-     */
-    public void announceSynchronizationPoint(String synchronizationPointLabel,
+    /** {@inheritDoc} */ @Override public  void announceSynchronizationPoint(String synchronizationPointLabel,
             byte[] userSuppliedTag) throws FederateInternalError
     {
         super.announceSynchronizationPoint(synchronizationPointLabel,
@@ -145,19 +137,13 @@ public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
         }
     }
 
-    /**
-     * @see hla.rti1516.FederateAmbassador#federationSynchronized(java.lang.String)
-     */
-    public void federationSynchronized(final String arg0)
+    /** {@inheritDoc} */ @Override public  void federationSynchronized(final String arg0)
     {
         super.federationSynchronized(arg0);
         this.barrier.lower();
     }
 
-    /**
-     * @see hla.rti.FederateAmbassador#timeConstrainedEnabled(hla.rti.LogicalTime)
-     */
-    public void timeConstrainedEnabled(LogicalTime theFederateTime)
+    /** {@inheritDoc} */ @Override public  void timeConstrainedEnabled(LogicalTime theFederateTime)
             throws InvalidFederationTime, EnableTimeConstrainedWasNotPending,
             FederateInternalError
     {
@@ -165,10 +151,7 @@ public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
         this.barrier.lower();
     }
     
-    /**
-     * @see hla.rti.FederateAmbassador#timeRegulationEnabled(hla.rti.LogicalTime)
-     */
-    public void timeRegulationEnabled(LogicalTime theFederateTime)
+    /** {@inheritDoc} */ @Override public  void timeRegulationEnabled(LogicalTime theFederateTime)
             throws InvalidFederationTime, EnableTimeRegulationWasNotPending,
             FederateInternalError
     {

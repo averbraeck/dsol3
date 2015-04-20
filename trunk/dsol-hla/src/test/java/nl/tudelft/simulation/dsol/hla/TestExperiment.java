@@ -1,9 +1,3 @@
-/*
- * @(#) TestExperiment.java Sep 4, 2003 Copyright (c) 2002-2005 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology The code is published under the Lesser General Public License
- */
 package nl.tudelft.simulation.dsol.hla;
 
 import java.util.HashMap;
@@ -38,23 +32,23 @@ public final class TestExperiment extends Experiment
      */
     public static final long STARTTIME = 0;
 
-    /** TIMEUNIT refers to the time units of the experiment */
+    /** TIMEUNIT refers to the time units of the experiment. */
     public static final TimeUnitInterface TIMEUNIT = TimeUnitInterface.UNIT;
 
-    /** RUNLENGTH is the runLength for this experiment */
+    /** RUNLENGTH is the runLength for this experiment. */
     public static final double RUNLENGTH = 10;
 
-    /** WARMUP period defines the warmup period for the experiment */
+    /** WARMUP period defines the warmup period for the experiment. */
     public static final double WARMUP = 10;
 
-    /** SEED is the seed value for the DEFAULT stream */
+    /** SEED is the seed value for the DEFAULT stream. */
     public static final long SEED = 42;
 
-    /** TIMESTEP is the timeStep to be used for the DESS formalism */
+    /** TIMESTEP is the timeStep to be used for the DESS formalism. */
     public static final double TIMESTEP = 0.01;
 
     /**
-     * constructs a new TestExperiment
+     * constructs a new TestExperiment.
      */
     private TestExperiment()
     {

@@ -20,13 +20,13 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  */
 public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializable
 {
-    /** MAX_PRIORITY is a constant reflecting the maximum priority */
+    /** MAX_PRIORITY is a constant reflecting the maximum priority. */
     short MAX_PRIORITY = 10;
 
-    /** NORMAL_PRIORITY is a constant reflecting the normal priority */
+    /** NORMAL_PRIORITY is a constant reflecting the normal priority. */
     short NORMAL_PRIORITY = 5;
 
-    /** MIN_PRIORITY is a constant reflecting the minimal priority */
+    /** MIN_PRIORITY is a constant reflecting the minimal priority. */
     short MIN_PRIORITY = 1;
 
     /**
@@ -42,7 +42,7 @@ public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializa
 
     /**
      * @return The priority of a simulation event. The priorities are programmed according to the Java thread priority.
-     *         Use 10 (MAX_PRIORITY), -9, .. , 5 (NORMAL_PRIORITY), 1(MIN_PRIORITY)
+     *         Use 10 (MAX_PRIORITY), 9, .. , 5 (NORMAL_PRIORITY), 1(MIN_PRIORITY)
      */
     short getPriority();
 }

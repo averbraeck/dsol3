@@ -62,7 +62,7 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
             Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/statistics");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }

@@ -1,9 +1,3 @@
-/*
- * @(#) CreateFederation.java Feb 11, 2005 Copyright (c) 2004 Delft University
- * of Technology Jaffalaan 5, 2628 BX Delft, the Netherlands All rights
- * reserved. This software is proprietary information of Delft University of
- * Technology The code is published under the General Public License
- */
 package nl.tudelft.simulation.dsol.hla;
 
 import hla.rti.RTIambassador;
@@ -30,7 +24,7 @@ public class CreateFederation
     public final static String DEFAULT_FED = "http://www.simulation.tudelft.nl/dsol-hla/fed/RPCFederation.fed";
 
     /**
-     * constructs a new CreateFederation
+     * constructs a new CreateFederation.
      */
     private CreateFederation()
     {

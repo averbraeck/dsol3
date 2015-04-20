@@ -6,9 +6,9 @@ package nl.tudelft.simulation.event.ref;
  * reference. Strong references are not created to be cleaned by the garbage collector. Since they represent normal
  * pointer relations, they are the only ones which might be serialized. This class therefore implements
  * <code>java.io.Serializable</code>
- * <p />
- * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
- * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * <p>
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5

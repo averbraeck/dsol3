@@ -52,6 +52,9 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** eventList represents the future event list. */
     protected EventListInterface<T> eventList = new RedBlackTree<T>();
+    
+    /** Does the simulation pause on error when executing an event? */
+    private boolean pauseOnError = false;
 
     /** {@inheritDoc} */
     @Override
@@ -213,7 +216,11 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                 }
                 catch (Exception exception)
                 {
-                    Logger.severe(this, "run", exception);
+                    exception.printStackTrace();
+                    if (this.isPauseOnError())
+                    {
+                        this.stop();
+                    }
                 }
             }
         }
@@ -232,6 +239,20 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         {
             this.fireEvent(SimulatorInterface.END_OF_REPLICATION_EVENT);
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final boolean isPauseOnError()
+    {
+        return this.pauseOnError;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void setPauseOnError(final boolean pauseOnError)
+    {
+        this.pauseOnError = pauseOnError;
     }
 
     /***********************************************************************************************************/

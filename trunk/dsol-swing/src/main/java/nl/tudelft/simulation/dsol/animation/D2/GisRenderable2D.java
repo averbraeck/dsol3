@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 
 import javax.media.j3d.Bounds;
 import javax.naming.Context;
+import javax.naming.NamingException;
 
 import nl.javel.gisbeans.map.MapInterface;
 import nl.javel.gisbeans.map.mapfile.MapFileXMLParser;
@@ -101,7 +102,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }

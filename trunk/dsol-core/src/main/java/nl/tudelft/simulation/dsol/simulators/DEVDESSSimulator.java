@@ -94,7 +94,11 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
                     }
                     catch (Exception exception)
                     {
-                        Logger.severe(this, "run", exception);
+                        exception.printStackTrace();
+                        if (this.isPauseOnError())
+                        {
+                            this.stop();
+                        }
                     }
                 }
                 if (this.running)

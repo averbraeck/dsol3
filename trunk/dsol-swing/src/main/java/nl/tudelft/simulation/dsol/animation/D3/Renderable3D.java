@@ -10,6 +10,7 @@ import javax.media.j3d.Node;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.vecmath.AxisAngle4d;
 import javax.vecmath.Vector3d;
 
@@ -133,7 +134,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
             Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/3");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }
@@ -181,7 +182,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
             Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/3");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }

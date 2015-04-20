@@ -16,6 +16,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
+import nl.tudelft.simulation.dsol.simulators.AnimatorInterface.AnimationThread;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
@@ -68,8 +69,17 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
     /** {@inheritDoc} */
     @Override
+    public final void updateAnimation()
+    {
+        this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public void run()
     {
+        AnimationThread animationThread = new AnimationThread(this);
+        animationThread.start();
         while (this.isRunning() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
         {
@@ -109,8 +119,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
                 this.simulatorTime = runUntil;
             }
             this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
-            this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
         }
+        updateAnimation();
+        animationThread.stopAnimation();
     }
 
     /***********************************************************************************************************/

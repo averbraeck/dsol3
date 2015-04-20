@@ -12,9 +12,9 @@ import nl.tudelft.simulation.language.primitives.Primitive;
  * The IFEQ operation as defined in <a
  * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc6.html">
  * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc6.html </a>.
- * <p />
- * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
- * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * <p>
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */

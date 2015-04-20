@@ -18,9 +18,9 @@ import java.util.Arrays;
  * top two values of the operand stack, pushed there by previous instructions. Both of the int values are popped from
  * the operand stack. They are added, and their sum is pushed back onto the operand stack. Subcomputations may be nested
  * on the operand stack, resulting in values that can be used by the encompassing computation.
- * <p />
- * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
- * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+ * <p>
+ * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5

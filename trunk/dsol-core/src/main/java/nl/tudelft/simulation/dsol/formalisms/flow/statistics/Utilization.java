@@ -55,7 +55,7 @@ public class Utilization extends Persistent
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/statistics");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException exception)
+        catch (RemoteException | NamingException exception)
         {
             Logger.warning(this, "<init>", exception);
         }

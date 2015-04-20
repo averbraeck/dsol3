@@ -18,11 +18,11 @@ import nl.tudelft.simulation.event.util.EventProducingList;
  */
 public class CallbackManager implements Runnable, EventListenerInterface
 {
-    /** the callBackQueue */
+    /** the callBackQueue. */
     private EventProducingList callBackQueue = null;
 
     /**
-     * constructs a new CallbackManageger
+     * constructs a new CallbackManageger.
      * 
      * @param callBackQueue the callBackQueue
      */
@@ -50,10 +50,7 @@ public class CallbackManager implements Runnable, EventListenerInterface
         }
     }
 
-    /**
-     * @see java.lang.Runnable#run()
-     */
-    public void run()
+    /** {@inheritDoc} */ @Override public  void run()
     {
         while (true)
         {
@@ -76,10 +73,7 @@ public class CallbackManager implements Runnable, EventListenerInterface
         }
     }
 
-    /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface#notify(nl.tudelft.simulation.event.EventInterface)
-     */
-    public synchronized void notify(final EventInterface arg0)
+    /** {@inheritDoc} */ @Override public  synchronized void notify(final EventInterface arg0)
     {
         this.notifyAll();
     }

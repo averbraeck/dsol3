@@ -105,7 +105,7 @@ public final class TestExperiment
      * @param context the context
      * @return ExperimentalFrame
      */
-    public static Experiment createExperiment(final Context context)
+    public static Experiment createExperiment(final Context context) throws NamingException
     {
         Experiment experiment = new Experiment(context);
         experiment.setTreatment(TestExperiment.createTreatment(context, experiment));
@@ -131,7 +131,7 @@ public final class TestExperiment
      * @param context the context of the experiment
      * @return a list of replications
      */
-    public static List<Replication> createReplications(Context context, final Experiment experiment)
+    public static List<Replication> createReplications(Context context, final Experiment experiment) throws NamingException
     {
         List<Replication> replications = new ArrayList<Replication>();
 

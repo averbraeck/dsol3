@@ -21,8 +21,8 @@ import nl.tudelft.simulation.event.EventType;
  */
 public interface AnimatorInterface
 {
-    /** DEFAULT_ANIMATION_DELAY of 0 miliseconds used in the animator. */
-    long DEFAULT_ANIMATION_DELAY = 0L;
+    /** DEFAULT_ANIMATION_DELAY of 100 milliseconds used in the animator. */
+    long DEFAULT_ANIMATION_DELAY = 100L;
 
     /** UPDATE_ANIMATION_EVENT is fired to wake up animatable components. */
     EventType UPDATE_ANIMATION_EVENT = new EventType("UPDATE_ANIMATION_EVENT");
@@ -31,24 +31,85 @@ public interface AnimatorInterface
     EventType ANIMATION_DELAY_CHANGED_EVENT = new EventType("ANIMATION_DELAY_CHANGED_EVENT");
 
     /**
-     * returns the animation delay between each consequtive timestep
-     * @return the animaiton delay in milliseconds wallclock
+     * returns the animation delay between each consequtive animation update.
+     * @return the animation delay in milliseconds of wallclock time
      * @throws RemoteException on network failure
      */
     long getAnimationDelay() throws RemoteException;
 
     /**
-     * sets the animationDelay
+     * sets the animationDelay.
      * @param miliseconds the animation delay
      * @throws RemoteException on network failure
      */
     void setAnimationDelay(long miliseconds) throws RemoteException;
 
     /**
+     * UpdateAnimation takes care of firing the UPDATE_ANIMATION_EVENT.
+     */
+    void updateAnimation();
+
+    /**
      * This contract has been added, because sometimes the simulator is cast as an AnimatorInterface. In that case we
-     * can also guarantee that a contect is present.
+     * can also guarantee that a context is present.
      * @return the context specific to the animator
-     * @throws NamingException
+     * @throws NamingException in case the context could not be found
      */
     Context getContext() throws NamingException;
+
+    /**
+     * <p />
+     * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
+     * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     * @version Feb 1, 2015
+     */
+    public class AnimationThread extends Thread
+    {
+        /** is the animator running? */
+        private boolean running = true;
+
+        /** the animator. */
+        private final AnimatorInterface animator;
+
+        /**
+         * @param animator the animator.
+         */
+        public AnimationThread(final AnimatorInterface animator)
+        {
+            super();
+            this.animator = animator;
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public final void run()
+        {
+            while (this.running)
+            {
+                try
+                {
+                    sleep(this.animator.getAnimationDelay());
+                    this.animator.updateAnimation();
+                }
+                catch (InterruptedException exception)
+                {
+                    // if interrupted by stopAnimation, this.running is false and the animation stops.
+                }
+                catch (RemoteException exception)
+                {
+                    this.running = false;
+                }
+            }
+        }
+
+        /**
+         * Stop the animation.
+         */
+        public final void stopAnimation()
+        {
+            this.running = false;
+            interrupt();
+        }
+    }
 }

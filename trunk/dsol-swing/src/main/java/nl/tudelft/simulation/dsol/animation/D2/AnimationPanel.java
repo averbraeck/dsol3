@@ -86,9 +86,6 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         {
             exception.printStackTrace();
         }
-
-        // update with 25 frames per second if possible, and if animation is in view
-        new UpdateThread().start();
     }
 
     /**
@@ -126,7 +123,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void notify(final EventInterface event) throws RemoteException
     {
-        if (event.getSource() instanceof AnimatorInterface && event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT))
+        if (event.getSource() instanceof AnimatorInterface && event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT)
+                && this.isShowing())
         {
             if (this.getWidth() > 0 || this.getHeight() > 0)
             {
@@ -247,50 +245,4 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         this.dragLineEnabled = dragLineEnabled;
     }
 
-    /**
-     * <br>
-     * Copyright (c) 2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved.
-     * 
-     * The MEDLABS project (Modeling Epidemic Disease with Large-scale Agent-Based Simulation) is aimed at providing
-     * policy analysis tools to predict and help contain the spread of epidemics. It makes use of the DSOL simulation
-     * engine and the agent-based modeling formalism. See for project information <a
-     * href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>. The project is a co-operation between TU
-     * Delft, Systems Engineering and Simulation Department (Netherlands) and NUDT, Simulation Engineering Department
-     * (China).
-     * 
-     * This software is licensed under the BSD license. See license.txt in the main project.
-     * 
-     * @version Jun 2, 2014 <br>
-     * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
-     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck </a>
-     */
-    protected class UpdateThread extends Thread
-    {
-
-        /**
-         * @see java.lang.Thread#run()
-         */
-        @Override
-        public void run()
-        {
-            while (true)
-            {
-                if (AnimationPanel.this.isShowing())
-                {
-                    if (AnimationPanel.this.getWidth() > 0 || AnimationPanel.this.getHeight() > 0)
-                    {
-                        AnimationPanel.this.repaint();
-                    }
-                    try
-                    {
-                        Thread.sleep(1000 / 25); // 25 fps
-                    } catch (InterruptedException e)
-                    {
-                        // do nothing
-                    }
-                }
-            }
-        }
-    }
 }

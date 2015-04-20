@@ -23,29 +23,29 @@ import se.pitch.prti.RTI;
  */
 public class FederationManager extends DSOLFederateAmbassador
 {
-    /** The MOM_FEDERATE */
+    /** The MOM_FEDERATe. */
     public static final String FEDERATE_CLASS_NAME = "objectRoot.manager.federate";
 
-    /** The attributes to subscribe to */
+    /** The attributes to subscribe to. */
     protected static final String FEDERATE_TYPE_ATTRIBUTE = "federateType";
 
-    /** the FEDERATE_HANDLE_ATTRIBUTE */
+    /** the FEDERATE_HANDLE_ATTRIBUTe. */
     protected static final String FEDERATE_HOST_ATTRIBUTE = "federateHost";
 
-    /** FEDERATE_HANDLE_ATTRIBUTE attribute */
+    /** FEDERATE_HANDLE_ATTRIBUTE attribute. */
     protected static final String FEDERATE_HANDLE_ATTRIBUTE = "federateHandle";
 
-    /** the rtiAmbassador */
+    /** the rtiAmbassador. */
     protected RTIAmbassador rtiAmbassador = null;
 
-    /** the barrier */
+    /** the barrier. */
     protected Barrier barrier = new Barrier();
 
-    /** the populateReadinessController */
+    /** the populateReadinessController. */
     protected PopulateReadinessController populuateReadinessController = null;
 
     /**
-     * constructs a new FederationManager()
+     * constructs a new FederationManager().
      * 
      * @param federationName the federate to join
      * @param populateReadinessController the populateReadinessController to use
@@ -57,7 +57,7 @@ public class FederationManager extends DSOLFederateAmbassador
     }
 
     /**
-     * constructs a new FederationManager()
+     * constructs a new FederationManager().
      * 
      * @param federationName the federate to join
      * @param populateReadinessController the populateReadinessController to use
@@ -78,7 +78,7 @@ public class FederationManager extends DSOLFederateAmbassador
                     "rti.federation.type").toString(), environment.get(
                     "rti.federation.name").toString(), this);
 
-            // Now we subscribe ourself to changes in the managerFederate..
+            // Now we subscribe ourself to changes in the managerFederate.
             int managerFederate = this.rtiAmbassador
                     .getObjectClassHandle(FederationManager.FEDERATE_CLASS_NAME);
             int handleAttribute = this.rtiAmbassador.getAttributeHandle(
@@ -96,7 +96,7 @@ public class FederationManager extends DSOLFederateAmbassador
             this.rtiAmbassador.subscribeObjectClassAttributes(managerFederate,
                     attributeHandleSet, false);
 
-            // Now we create the synchronization points..
+            // Now we create the synchronization points.
             // First we will have to wait for the ReadyToPopulate
             // synchronization
             this.rtiAmbassador.registerFederationSynchronizationPoint(
@@ -132,10 +132,7 @@ public class FederationManager extends DSOLFederateAmbassador
         }
     }
 
-    /**
-     * @see hla.rti1516.FederateAmbassador#federationSynchronized(java.lang.String)
-     */
-    public void federationSynchronized(String arg0)
+    /** {@inheritDoc} */ @Override public  void federationSynchronized(String arg0)
     {
         super.federationSynchronized(arg0);
         try
@@ -150,19 +147,12 @@ public class FederationManager extends DSOLFederateAmbassador
         }
     }
 
-    /**
-     * @see hla.rti1516.FederateAmbassador#synchronizationPointRegistrationSucceeded(java.lang.String)
-     */
-    public void synchronizationPointRegistrationSucceeded(final String arg0)
+    /** {@inheritDoc} */ @Override public  void synchronizationPointRegistrationSucceeded(final String arg0)
     {
         super.synchronizationPointRegistrationSucceeded(arg0);
     }
 
-    /**
-     * @see hla.rti1516.FederateAmbassador#discoverObjectInstance(hla.rti1516.ObjectInstanceHandle,
-     *      hla.rti1516.ObjectClassHandle, java.lang.String)
-     */
-    public void discoverObjectInstance(int theObject, int theObjectClass,
+    /** {@inheritDoc} */ @Override public  void discoverObjectInstance(int theObject, int theObjectClass,
             String objectName)
     {
         super.discoverObjectInstance(theObject, theObjectClass, objectName);
@@ -223,10 +213,7 @@ public class FederationManager extends DSOLFederateAmbassador
             exception.printStackTrace();
         }
     }
-    /**
-     * @see hla.rti.FederateAmbassador#announceSynchronizationPoint(java.lang.String, byte[])
-     */
-    public void announceSynchronizationPoint(String synchronizationPointLabel,
+    /** {@inheritDoc} */ @Override public  void announceSynchronizationPoint(String synchronizationPointLabel,
             byte[] userSuppliedTag) throws FederateInternalError
     {
         super.announceSynchronizationPoint(synchronizationPointLabel,

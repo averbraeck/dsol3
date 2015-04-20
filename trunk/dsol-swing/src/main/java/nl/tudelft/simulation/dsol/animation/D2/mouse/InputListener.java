@@ -156,11 +156,11 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
             extent.setRect((extent.getMinX() + dx * scale), (extent.getMinY() + dy * scale), 
                 extent.getWidth(), extent.getHeight()); 
              */
-            this.panel.zoom(GridPanel.IN, 0.95 * amount);
+            this.panel.zoom(GridPanel.OUT, 0.8);
         }
         else if (amount < 0)
         {
-            this.panel.zoom(GridPanel.OUT, 0.95 * -amount);
+            this.panel.zoom(GridPanel.IN, 0.8);
         }
     }
 

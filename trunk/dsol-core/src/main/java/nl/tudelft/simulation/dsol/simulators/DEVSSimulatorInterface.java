@@ -184,62 +184,69 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      */
     void setEventList(EventListInterface<T> eventList) throws RemoteException, SimRuntimeException;
 
+    /** @return pauseOnError whether we pause on an error or not. */
+    boolean isPauseOnError();
+
+    /**
+     * Set the boolean whether we pause on an error or not.
+     * @param pauseOnError set true or false.
+     */
+    void setPauseOnError(boolean pauseOnError);
+
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
     /** Easy access interface DEVSSimulatorInterface.Double. */
-    public static interface Double extends DEVSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
+    public interface Double extends DEVSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.Float. */
-    public static interface Float extends DEVSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
+    public interface Float extends DEVSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.Long. */
-    public static interface Long extends DEVSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
+    public interface Long extends DEVSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.DoubleUnit. */
-    public static interface DoubleUnit extends
-            DEVSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public interface DoubleUnit extends DEVSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.FloatUnit. */
-    public static interface FloatUnit extends DEVSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public interface FloatUnit extends DEVSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.LongUnit. */
-    public static interface LongUnit extends DEVSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    public interface LongUnit extends DEVSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarDouble. */
-    public static interface CalendarDouble extends
-            DEVSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public interface CalendarDouble extends DEVSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarFloat. */
-    public static interface CalendarFloat extends DEVSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public interface CalendarFloat extends DEVSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarLong. */
-    public static interface CalendarLong extends DEVSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public interface CalendarLong extends DEVSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         // typed extension
     }

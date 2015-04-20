@@ -9,8 +9,6 @@ import javax.naming.Name;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.logger.Logger;
-
 /**
  * ContextUtility class
  * <p>
@@ -85,18 +83,11 @@ public class ContextUtil
      * unbinds an object from the context
      * @param object the object to be removed.
      */
-    public static void unbindFromContext(Object object)
+    public static void unbindFromContext(Object object) throws NamingException
     {
-        try
-        {
-            InitialContext context = new InitialContext();
-            String key = ContextUtil.resolveKey(object, context, "/");
-            context.unbind(key);
-        }
-        catch (NamingException namingException)
-        {
-            Logger.warning(ContextUtil.class, "unbindFromContext", namingException);
-        }
+        InitialContext context = new InitialContext();
+        String key = ContextUtil.resolveKey(object, context, "/");
+        context.unbind(key);
     }
 
     /**
@@ -104,16 +95,9 @@ public class ContextUtil
      * @param context the context
      * @param object the object
      */
-    public static void bind(final Context context, final Object object)
+    public static void bind(final Context context, final Object object) throws NamingException
     {
-        try
-        {
-            context.bind(object.toString(), object);
-        }
-        catch (NamingException namingException)
-        {
-            Logger.warning(ContextUtil.class, "bind", namingException);
-        }
+        context.bind(object.toString(), object);
     }
 
     /**
@@ -122,7 +106,7 @@ public class ContextUtil
      * @param element the element to add
      * @return the new root
      */
-    private static Context createSubContext(final Context root, final String element)
+    private static Context createSubContext(final Context root, final String element) throws NamingException
     {
         try
         {
@@ -130,15 +114,7 @@ public class ContextUtil
         }
         catch (Exception exception)
         {
-            try
-            {
-                return root.createSubcontext(element);
-            }
-            catch (NamingException namingException)
-            {
-                Logger.warning(ContextUtil.class, "createSubContext", namingException);
-            }
-            return root;
+            return root.createSubcontext(element);
         }
     }
 
@@ -148,29 +124,21 @@ public class ContextUtil
      * @param name the name
      * @return the context
      */
-    public static Context lookup(Context root, final String name)
+    public static Context lookup(Context root, final String name) throws NamingException
     {
-        try
+        Name parsedName = root.getNameParser(name).parse(name);
+
+        // We take the first one and see if we can build this one.
+        Enumeration<String> elements = parsedName.getAll();
+
+        while (elements.hasMoreElements())
         {
-            Name parsedName = root.getNameParser(name).parse(name);
-
-            // We take the first one and see if we can build this one.
-            Enumeration<String> elements = parsedName.getAll();
-
-            while (elements.hasMoreElements())
+            String element = elements.nextElement();
+            if (element.length() > 0)
             {
-                String element = elements.nextElement();
-                if (element.length() > 0)
-                {
-                    root = ContextUtil.createSubContext(root, element);
-                }
+                root = ContextUtil.createSubContext(root, element);
             }
-            return root;
         }
-        catch (NamingException namingException)
-        {
-            Logger.warning(ContextUtil.class, "unbindFromContext", namingException);
-            return null;
-        }
+        return root;
     }
 }
