@@ -31,7 +31,7 @@ public class AnimationFrame extends JFrame
     /** */
     private static final long serialVersionUID = 1L;
 
-    // TODO: different! Just a quick hack!
+    // TODO different! Just a quick hack!
     static
     {
         double x = 4.0;
@@ -52,7 +52,7 @@ public class AnimationFrame extends JFrame
         super(name);
         this.getContentPane().setLayout(new BorderLayout());
         Rectangle2D extent = null;
-        // TODO: different!
+        // TODO different!
         String extentString = System.getProperties().getProperty("animation.panel.extent");
         if (extentString != null)
         {
@@ -69,7 +69,7 @@ public class AnimationFrame extends JFrame
         {
             extent = new Rectangle2D.Double(-100, -100, 200, 200);
         }
-        // TODO: different!
+        // TODO different!
         String sizeString = System.getProperties().getProperty("animation.panel.size");
         Dimension size = new Dimension(1024, 768);
         if (sizeString != null)

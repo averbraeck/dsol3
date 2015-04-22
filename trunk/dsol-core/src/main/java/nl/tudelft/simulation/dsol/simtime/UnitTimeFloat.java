@@ -34,8 +34,8 @@ public class UnitTimeFloat extends UnitTime<Float, UnitTimeFloat>
     private static final long serialVersionUID = 20140802L;
 
     /**
-     * @param time
-     * @param unit
+     * @param time the initial time.
+     * @param unit the unit of the initial time.
      */
     public UnitTimeFloat(final Float time, final TimeUnit unit)
     {
@@ -44,21 +44,21 @@ public class UnitTimeFloat extends UnitTime<Float, UnitTimeFloat>
 
     /** {@inheritDoc} */
     @Override
-    public int compareTo(final UnitTimeFloat unitTime)
+    public final int compareTo(final UnitTimeFloat unitTime)
     {
         return Double.compare(this.timeMsec, unitTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    protected Float convertToMsec(final Float time, final TimeUnit timeUnit)
+    protected final Float convertToMsec(final Float time, final TimeUnit timeUnit)
     {
         return (float) (time * (timeUnit.getFactor() / TimeUnit.MILLISECOND.getFactor()));
     }
 
     /** {@inheritDoc} */
     @Override
-    public Float getTime()
+    public final Float getTime()
     {
         return (float) convert(this.unit);
     }

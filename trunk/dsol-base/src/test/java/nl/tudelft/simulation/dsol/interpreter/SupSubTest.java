@@ -43,7 +43,7 @@ public class SupSubTest
         assertEquals("Sup.iPl123 (i)",
                 (int) Interpreter.invoke(sup, "iPl123", new Object[]{new Integer(0)}, new Class<?>[]{int.class}), 6);
 
-        // TODO: strings still contains an error
+        // TODO strings still contains an error
         /*-
         assertEquals("Sub.sSubABC (e)", sub.sSubABC(), "ABC");
         assertEquals("Sup.sSubABC (e)", sup.sSubABC(), "ABC");

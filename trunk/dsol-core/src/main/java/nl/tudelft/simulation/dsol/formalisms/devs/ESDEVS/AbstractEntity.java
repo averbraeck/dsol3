@@ -45,7 +45,7 @@ public class AbstractEntity extends AbstractDEVSModel
      * @param simulator the simulator for this model.
      * @param parentModel the parent model we are part of (can be null for highest level model).
      */
-    public AbstractEntity(final String modelName, final DEVSSimulatorInterface.Double simulator,
+    public AbstractEntity(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator,
             final CoupledModel parentModel)
     {
         super(modelName, simulator, parentModel);

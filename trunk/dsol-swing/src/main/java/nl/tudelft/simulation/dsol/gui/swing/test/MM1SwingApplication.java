@@ -60,8 +60,8 @@ public class MM1SwingApplication extends DSOLApplication
      */
     public static void main(String[] args) throws SimRuntimeException, RemoteException
     {
-        ModelInterface.Double model = new MM1Model();
-        DEVSSimulator.Double simulator = new DEVSSimulator.Double();
+        ModelInterface.TimeDouble model = new MM1Model();
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
                 new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);

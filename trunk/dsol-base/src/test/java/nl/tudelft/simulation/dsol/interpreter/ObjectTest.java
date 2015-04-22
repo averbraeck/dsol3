@@ -61,7 +61,7 @@ public class ObjectTest
         Interpreter.invoke(i4, "set", new Object[]{null}, new Class<?>[]{Object.class});
         assertTrue("Object null (i)", i4.get() == null);
 
-        // TODO: strings still contains an error
+        // TODO strings still contains an error
         /*-
         String se1 = ObjectMethods.concat5(e1, e2, e2, e3, e3);
         String se2 = ObjectMethods.concatN(e1, e2, e2, e3, e3);

@@ -46,6 +46,7 @@ import nl.tudelft.simulation.event.EventType;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
+@SuppressWarnings("checkstyle:linelength")
 public abstract interface SimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Remote, Serializable, EventProducerInterface
 {
@@ -102,7 +103,7 @@ public abstract interface SimulatorInterface<A extends Comparable<A>, R extends 
     boolean isRunning() throws RemoteException;
 
     /**
-     * starts the simulator
+     * starts the simulator.
      * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      */
@@ -124,64 +125,64 @@ public abstract interface SimulatorInterface<A extends Comparable<A>, R extends 
 
     /**
      * @return the context specific to the simulator
-     * @throws NamingException
+     * @throws NamingException when context cannot be found.
      */
     Context getContext() throws NamingException;
-    
+
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
     /** Easy access interface SimulatorInterface.Double. */
-    public static interface Double extends SimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
+    public interface TimeDouble extends SimulatorInterface<Double, Double, SimTimeDouble>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.Float. */
-    public static interface Float extends SimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
+    public interface TimeFloat extends SimulatorInterface<Float, Float, SimTimeFloat>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.Long. */
-    public static interface Long extends SimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
+    public interface TimeLong extends SimulatorInterface<Long, Long, SimTimeLong>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.DoubleUnit. */
-    public static interface DoubleUnit extends SimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public interface TimeDoubleUnit extends SimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.FloatUnit. */
-    public static interface FloatUnit extends SimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public interface TimeFloatUnit extends SimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.LongUnit. */
-    public static interface LongUnit extends SimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    public interface TimeLongUnit extends SimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.CalendarDouble. */
-    public static interface CalendarDouble extends SimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public interface CalendarDouble extends SimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.CalendarFloat. */
-    public static interface CalendarFloat extends SimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public interface CalendarFloat extends SimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.CalendarLong. */
-    public static interface CalendarLong extends SimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public interface CalendarLong extends SimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         // typed extension
     }

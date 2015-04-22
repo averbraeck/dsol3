@@ -95,6 +95,7 @@ public interface AnimatorInterface
                 catch (InterruptedException exception)
                 {
                     // if interrupted by stopAnimation, this.running is false and the animation stops.
+                    this.running = false;
                 }
                 catch (RemoteException exception)
                 {

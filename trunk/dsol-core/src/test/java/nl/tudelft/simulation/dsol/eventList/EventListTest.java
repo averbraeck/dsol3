@@ -117,7 +117,7 @@ public class EventListTest extends TestCase
             // Let's check the empty eventList
             Assert.assertTrue(this.eventList.isEmpty());
             Assert.assertNull(this.eventList.first());
-            // TODO: this gives an error
+            // TODO this gives an error
             // Assert.assertFalse(this.eventList.remove(null));
             Assert.assertFalse(this.eventList.remove(new SimEvent(new SimTimeDouble(200 * Math.random()), this,
                     new String(), "trim", null)));

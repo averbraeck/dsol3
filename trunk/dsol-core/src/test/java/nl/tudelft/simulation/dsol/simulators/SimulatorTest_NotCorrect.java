@@ -81,7 +81,7 @@ public class SimulatorTest_NotCorrect extends TestCase
         try
         {
             Assert.assertNull(this.simulator.getReplication());
-            // TODO: Assert.assertTrue(new Double(this.simulator.getSimulatorTime()).isNaN());
+            // TODO Assert.assertTrue(new Double(this.simulator.getSimulatorTime()).isNaN());
         }
         catch (Exception exception)
         {

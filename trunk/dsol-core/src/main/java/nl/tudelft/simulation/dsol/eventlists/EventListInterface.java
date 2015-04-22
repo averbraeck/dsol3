@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.eventlists;
 
-import java.util.NoSuchElementException;
 import java.util.SortedSet;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
@@ -25,14 +24,12 @@ public interface EventListInterface<T extends SimTime<?, ?, T>> extends SortedSe
     /**
      * Returns the first (lowest) element currently in this sorted set.
      * @return the first (lowest) element currently in this sorted set.
-     * @throws NoSuchElementException sorted set is empty.
      */
     SimEventInterface<T> removeFirst();
 
     /**
      * Returns the last (highest) element currently in this sorted set.
      * @return the last (highest) element currently in this sorted set.
-     * @throws NoSuchElementException sorted set is empty.
      */
     SimEventInterface<T> removeLast();
 }

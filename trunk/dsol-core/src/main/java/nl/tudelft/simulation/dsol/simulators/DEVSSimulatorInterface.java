@@ -197,56 +197,63 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
-    /** Easy access interface DEVSSimulatorInterface.Double. */
-    public interface Double extends DEVSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
+    /** Easy access interface DEVSSimulatorInterface.TimeDouble. */
+    public interface TimeDouble extends DEVSSimulatorInterface<Double, Double, SimTimeDouble>,
+            SimulatorInterface.TimeDouble
     {
         // typed extension
     }
 
-    /** Easy access interface DEVSSimulatorInterface.Float. */
-    public interface Float extends DEVSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
+    /** Easy access interface DEVSSimulatorInterface.TimeFloat. */
+    public interface TimeFloat extends DEVSSimulatorInterface<Float, Float, SimTimeFloat>, SimulatorInterface.TimeFloat
     {
         // typed extension
     }
 
-    /** Easy access interface DEVSSimulatorInterface.Long. */
-    public interface Long extends DEVSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
+    /** Easy access interface DEVSSimulatorInterface.TimeLong. */
+    public interface TimeLong extends DEVSSimulatorInterface<Long, Long, SimTimeLong>, SimulatorInterface.TimeLong
     {
         // typed extension
     }
 
-    /** Easy access interface DEVSSimulatorInterface.DoubleUnit. */
-    public interface DoubleUnit extends DEVSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    /** Easy access interface DEVSSimulatorInterface.TimeDoubleUnit. */
+    public interface TimeDoubleUnit extends DEVSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>,
+            SimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
-    /** Easy access interface DEVSSimulatorInterface.FloatUnit. */
-    public interface FloatUnit extends DEVSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    /** Easy access interface DEVSSimulatorInterface.TimeFloatUnit. */
+    public interface TimeFloatUnit extends DEVSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>,
+            SimulatorInterface.TimeFloatUnit
     {
         // typed extension
     }
 
-    /** Easy access interface DEVSSimulatorInterface.LongUnit. */
-    public interface LongUnit extends DEVSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    /** Easy access interface DEVSSimulatorInterface.TimeLongUnit. */
+    public interface TimeLongUnit extends DEVSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>,
+            SimulatorInterface.TimeLongUnit
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble extends DEVSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public interface CalendarDouble extends DEVSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>,
+            SimulatorInterface.CalendarDouble
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends DEVSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public interface CalendarFloat extends DEVSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>,
+            SimulatorInterface.CalendarFloat
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarLong. */
-    public interface CalendarLong extends DEVSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public interface CalendarLong extends DEVSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>,
+            SimulatorInterface.CalendarLong
     {
         // typed extension
     }

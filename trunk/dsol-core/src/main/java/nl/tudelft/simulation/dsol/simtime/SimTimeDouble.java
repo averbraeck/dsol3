@@ -37,7 +37,7 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
     private double time;
 
     /**
-     * @param time
+     * @param time the initial time.
      */
     public SimTimeDouble(final double time)
     {
@@ -46,42 +46,42 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
 
     /** {@inheritDoc} */
     @Override
-    public void add(final Double relativeTime)
+    public final void add(final Double relativeTime)
     {
         this.time += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final Double relativeTime)
+    public final void subtract(final Double relativeTime)
     {
         this.time -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double minus(final SimTimeDouble simTime)
+    public final Double minus(final SimTimeDouble simTime)
     {
         return this.time - simTime.time;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final Double absoluteTime)
+    public final void set(final Double absoluteTime)
     {
         this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Double get()
+    public final Double get()
     {
         return this.time;
     }
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeDouble setZero()
+    public final SimTimeDouble setZero()
     {
         this.time = 0.0d;
         return this;
@@ -89,7 +89,7 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeDouble copy()
+    public final SimTimeDouble copy()
     {
         return new SimTimeDouble(this.time);
     }

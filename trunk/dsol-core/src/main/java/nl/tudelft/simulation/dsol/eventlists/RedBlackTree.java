@@ -26,7 +26,7 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructs a new <code>RedBlackTree</code>
+     * Constructs a new <code>RedBlackTree</code>.
      */
     public RedBlackTree()
     {
@@ -35,6 +35,7 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public synchronized SimEventInterface<T> removeFirst()
     {
         SimEventInterface<T> first = this.first();
@@ -44,6 +45,7 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public synchronized SimEventInterface<T> removeLast()
     {
         SimEventInterface<T> last = this.last();
@@ -52,10 +54,12 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
     }
 
     /**
-     * we re-implemented the first method. Instead of throwing exceptions if the tree is emty, we return a null value
+     * we re-implemented the first method. Instead of throwing exceptions if the tree is empty, we return a null value.
      * @see java.util.TreeSet#first()
+     * @return the first SimEvent in the tree.
      */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public SimEventInterface<T> first()
     {
         try
@@ -69,10 +73,12 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
     }
 
     /**
-     * we re-implemented the last method. Instead of throwing exceptions if the
+     * we re-implemented the last method. Instead of throwing exceptions if the tree is empty, we return a null value.
      * @see java.util.TreeSet#last()
+     * @return the last SimEvent in the tree.
      */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public SimEventInterface<T> last()
     {
         try

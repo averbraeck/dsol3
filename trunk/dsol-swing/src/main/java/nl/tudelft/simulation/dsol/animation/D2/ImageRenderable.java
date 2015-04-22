@@ -140,8 +140,8 @@ public abstract class ImageRenderable extends Renderable2D
      * @throws NamingException
      * @throws RemoteException
      */
-    public ImageRenderable(final Point2D staticLocation, final Dimension size, final SimulatorInterface<?, ?, ?> simulator,
-            final URL[] images) throws RemoteException, NamingException
+    public ImageRenderable(final Point2D staticLocation, final Dimension size,
+            final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
         this(new StaticLocation(new DirectedPoint(staticLocation), new BoundingBox(size.getWidth(), size.getHeight(),
                 0.0)), simulator, images);

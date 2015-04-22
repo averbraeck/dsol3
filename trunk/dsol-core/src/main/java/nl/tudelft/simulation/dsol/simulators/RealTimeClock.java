@@ -48,9 +48,6 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
     /** the backLog of the clock. */
     private long backlog = 0L;
 
-    /** the starttime of the clock. */
-    private long startTime = 0L;
-
     /**
      * constructs a new RealTimeClock.
      * @param initialTimeStep the initial time step to use in the integration.
@@ -62,18 +59,17 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
         super.worker.setPriority(Thread.MAX_PRIORITY);
-        this.startTime = System.currentTimeMillis();
         int count = 0;
-        long animationFactor = Math.round(this.animationDelay); // TODO: / this.timeStep.doubleValue());
+        long animationFactor = Math.round(this.animationDelay); // TODO / this.timeStep.doubleValue());
         while (this.isRunning() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
         {
-            long now = System.currentTimeMillis();
-            T runUntil = this.simulatorTime.plus(this.timeStep); // TODO: (now - this.startTime) +
-                                                                 // this.timeStep.longValue();
+            T runUntil = this.simulatorTime.plus(this.timeStep); 
+            // TODO (now - this.startTime) + this.timeStep.longValue();
             while (!this.eventList.isEmpty() && this.running
                     && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
@@ -103,8 +99,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
             count++;
             try
             {
-                long used = System.currentTimeMillis() - now;
-                long delay = 0L; // TODO: Math.round(this.timeStep.doubleValue() - used);
+                long delay = 0L; // TODO Math.round(this.timeStep.doubleValue() - used);
                 if (delay >= 0)
                 {
                     long catchUp = Math.min(this.backlog, delay);
@@ -126,115 +121,101 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public long getAnimationDelay()
-    {
-        return this.animationDelay;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setAnimationDelay(final long animationDelay)
-    {
-        this.animationDelay = animationDelay;
-    }
-
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class RealTimeClock.Double. */
-    public class Double extends RealTimeClock<java.lang.Double, java.lang.Double, SimTimeDouble> implements
-            DEVDESSSimulatorInterface.Double
+    /** Easy access class RealTimeClock.TimeDouble. */
+    public class TimeDouble extends RealTimeClock<Double, Double, SimTimeDouble> implements
+            DEVDESSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public Double(final java.lang.Double initialTimeStep)
+        public TimeDouble(final Double initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class RealTimeClock.Float. */
-    public class Float extends RealTimeClock<java.lang.Float, java.lang.Float, SimTimeFloat> implements
-            DEVDESSSimulatorInterface.Float
+    /** Easy access class RealTimeClock.TimeFloat. */
+    public class TimeFloat extends RealTimeClock<Float, Float, SimTimeFloat> implements
+            DEVDESSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public Float(final java.lang.Float initialTimeStep)
+        public TimeFloat(final Float initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class RealTimeClock.Long. */
-    public class Long extends RealTimeClock<java.lang.Long, java.lang.Long, SimTimeLong> implements
-            DEVDESSSimulatorInterface.Long
+    /** Easy access class RealTimeClock.TimeLong. */
+    public class TimeLong extends RealTimeClock<Long, Long, SimTimeLong> implements
+            DEVDESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public Long(final java.lang.Long initialTimeStep)
+        public TimeLong(final Long initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class RealTimeClock.DoubleUnit. */
-    public class DoubleUnit extends RealTimeClock<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
-            DEVDESSSimulatorInterface.DoubleUnit
+    /** Easy access class RealTimeClock.TimeDoubleUnit. */
+    public class TimeDoubleUnit extends RealTimeClock<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
+            DEVDESSSimulatorInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public DoubleUnit(final UnitTimeDouble initialTimeStep)
+        public TimeDoubleUnit(final UnitTimeDouble initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class RealTimeClock.FloatUnit. */
-    public class FloatUnit extends RealTimeClock<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DEVDESSSimulatorInterface.FloatUnit
+    /** Easy access class RealTimeClock.TimeFloatUnit. */
+    public class TimeFloatUnit extends RealTimeClock<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
+            DEVDESSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public FloatUnit(final UnitTimeFloat initialTimeStep)
+        public TimeFloatUnit(final UnitTimeFloat initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class RealTimeClock.LongUnit. */
-    public class LongUnit extends RealTimeClock<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DEVDESSSimulatorInterface.LongUnit
+    /** Easy access class RealTimeClock.TimeLongUnit. */
+    public class TimeLongUnit extends RealTimeClock<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            DEVDESSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public LongUnit(final UnitTimeLong initialTimeStep)
+        public TimeLongUnit(final UnitTimeLong initialTimeStep)
         {
             super(initialTimeStep);
         }
@@ -248,7 +229,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
         public CalendarDouble(final UnitTimeDouble initialTimeStep)
         {
@@ -264,7 +245,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
         public CalendarFloat(final UnitTimeFloat initialTimeStep)
         {
@@ -280,7 +261,7 @@ public class RealTimeClock<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
         public CalendarLong(final UnitTimeLong initialTimeStep)
         {

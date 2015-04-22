@@ -28,29 +28,30 @@ package nl.tudelft.simulation.dsol.simtime;
  * @version Jul 25, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public enum TimeUnit {
+public enum TimeUnit 
+{
     /** UNIT reflects the non actual time related unit. */
     UNIT(1.0, "units", "u"),
 
-    /** MILLISECOND reflects the MILLISECONDS */
+    /** MILLISECOND reflects the MILLISECONDS. */
     MILLISECOND(1.0, "milliseconds", "ms"),
 
-    /** SECOND reflects the SECONd. */
+    /** SECOND reflects the SECOND. */
     SECOND(1000.0, "seconds", "s"),
 
-    /** MINUTE reflects the MINUTe. */
+    /** MINUTE reflects the MINUTE. */
     MINUTE(60000.0, "minutes", "m"),
 
-    /** HOUR reflects the HOUR */
+    /** HOUR reflects the HOUR. */
     HOUR(60000.0 * 60.0, "hours", "h"),
 
-    /** DAY reflects the DAY */
+    /** DAY reflects the DAY. */
     DAY(24.0 * 60000.0 * 60.0, "days", "d"),
 
-    /** WEEK reflects the WEEK */
+    /** WEEK reflects the WEEK. */
     WEEK(7.0 * 24.0 * 60000.0 * 60.0, "weeks", "w"),
 
-    /** YEAR reflects the YEAR */
+    /** YEAR reflects the YEAR. */
     YEAR(365.0 * 24.0 * 60000.0 * 60.0, "years", "y");
 
     /** conversion factor to msec. */
@@ -63,9 +64,9 @@ public enum TimeUnit {
     private final String abbreviation;
 
     /**
-     * @param factor
-     * @param name
-     * @param abbreviation
+     * @param factor the conversion factor to msec.
+     * @param name the name of the time unit.
+     * @param abbreviation the abbreviation of the time unit.
      */
     private TimeUnit(final double factor, final String name, final String abbreviation)
     {

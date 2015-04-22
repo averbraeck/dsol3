@@ -200,7 +200,7 @@ public class SimulatorControlPanel extends JPanel
                 }
                 if (actionName.equals("fastForwardButton"))
                 {
-                    // TODO: ((AnimatorInterface) this.target).setFastForward(true);
+                    // TODO ((AnimatorInterface) this.target).setFastForward(true);
                 }
                 if (actionName.equals("pauseButton"))
                 {

@@ -55,7 +55,7 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
      * @param simulator the simulator to schedule the events on.
      * @param parentModel the parent model we are part of.
      */
-    public AbstractDEVSPortModel(final String modelName, final DEVSSimulatorInterface.Double simulator,
+    public AbstractDEVSPortModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator,
             final CoupledModel parentModel)
     {
         super(modelName, simulator, parentModel);

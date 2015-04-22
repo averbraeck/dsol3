@@ -45,14 +45,14 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     EventType TIME_STEP_CHANGED_EVENT = new EventType("TIME_STEP_CHANGED_EVENT");
 
     /**
-     * returns the time step of the DESS simulator
+     * returns the time step of the DESS simulator.
      * @return the timeStep
      * @throws RemoteException on network failure
      */
     R getTimeStep() throws RemoteException;
 
     /**
-     * Method setTimeStep sets the time step of the simulator
+     * Method setTimeStep sets the time step of the simulator.
      * @param timeStep the new timeStep. Its value should be >0.0
      * @throws SimRuntimeException when timestep <= 0, NaN, or Infinity
      * @throws RemoteException on network failure
@@ -63,58 +63,63 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
-    /** Easy access interface DESSSimulatorInterface.Double. */
-    public static interface Double extends DESSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
+    /** Easy access interface DESSSimulatorInterface.TimeDouble. */
+    public interface TimeDouble extends DESSSimulatorInterface<Double, Double, SimTimeDouble>,
+            SimulatorInterface.TimeDouble
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.Float. */
-    public static interface Float extends DESSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
+    /** Easy access interface DESSSimulatorInterface.TimeFloat. */
+    public interface TimeFloat extends DESSSimulatorInterface<Float, Float, SimTimeFloat>, SimulatorInterface.TimeFloat
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.Long. */
-    public static interface Long extends DESSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
+    /** Easy access interface DESSSimulatorInterface.TimeLong. */
+    public interface TimeLong extends DESSSimulatorInterface<Long, Long, SimTimeLong>, SimulatorInterface.TimeLong
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.DoubleUnit. */
-    public static interface DoubleUnit extends
-            DESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    /** Easy access interface DESSSimulatorInterface.TimeDoubleUnit. */
+    public interface TimeDoubleUnit extends DESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>,
+            SimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.FloatUnit. */
-    public static interface FloatUnit extends DESSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    /** Easy access interface DESSSimulatorInterface.TimeFloatUnit. */
+    public interface TimeFloatUnit extends DESSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>,
+            SimulatorInterface.TimeFloatUnit
     {
         // typed extension
     }
 
-    /** Easy access interface DESSSimulatorInterface.LongUnit. */
-    public static interface LongUnit extends DESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    /** Easy access interface DESSSimulatorInterface.TimeLongUnit. */
+    public interface TimeLongUnit extends DESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>,
+            SimulatorInterface.TimeLongUnit
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.CalendarDouble. */
-    public static interface CalendarDouble extends
-            DESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public interface CalendarDouble extends DESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>,
+            SimulatorInterface.CalendarDouble
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.CalendarFloat. */
-    public static interface CalendarFloat extends DESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public interface CalendarFloat extends DESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>,
+            SimulatorInterface.CalendarFloat
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.CalendarLong. */
-    public static interface CalendarLong extends DESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public interface CalendarLong extends DESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>,
+            SimulatorInterface.CalendarLong
     {
         // typed extension
     }

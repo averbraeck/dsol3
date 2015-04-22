@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,18 @@ import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.ModelInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -60,26 +73,18 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * constructs a stand-alone Replication and make a treatment and experiment as well.
-     * @param id
-     * @param startTime
-     * @param warmupPeriod
-     * @param runLength
-     * @param model
+     * @param id the id of the replication.
+     * @param startTime the start time as a time object.
+     * @param warmupPeriod the warmup period, included in the runlength (!)
+     * @param runLength the total length of the run, including the warm-up period.
+     * @param model the model for which this is the replication
+     * @throws NamingException in case a context for the replication cannot be created
      */
     public Replication(final String id, final T startTime, final R warmupPeriod, final R runLength,
-            final ModelInterface<A, R, T> model)
+            final ModelInterface<A, R, T> model) throws NamingException
     {
         super();
-        this.context = null;
-        try
-        {
-            this.context = new InitialContext();
-        }
-        catch (NamingException namingException)
-        {
-            // TODO exception
-            namingException.printStackTrace();
-        }
+        this.context = new InitialContext();
         this.experiment = new Experiment<A, R, T>(this.context);
         this.experiment.setModel(model);
         Treatment<A, R, T> treatment =
@@ -88,36 +93,35 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     }
 
     /**
-     * gets the description of this replication
      * @return String the description of this replication
      */
-    public String getDescription()
+    public final String getDescription()
     {
         return this.description;
     }
 
     /**
-     * returns the streams
      * @return Map the streams of this replication
      */
-    public Map<String, StreamInterface> getStreams()
+    public final Map<String, StreamInterface> getStreams()
     {
         return this.streams;
     }
 
     /**
-     * returns a specific stream
+     * returns a specific stream.
      * @param name the name of the stream
      * @return StreamInterface the stream
      */
-    public StreamInterface getStream(final String name)
+    public final StreamInterface getStream(final String name)
     {
         return this.streams.get(name);
     }
 
     /**
-     * resets the RunControl
+     * resets the streams.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     public synchronized void reset()
     {
         for (StreamInterface stream : this.streams.values())
@@ -127,19 +131,19 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     }
 
     /**
-     * Sets the description of this replication
+     * Sets the description of this replication.
      * @param description the description of this replication
      */
-    public void setDescription(final String description)
+    public final void setDescription(final String description)
     {
         this.description = description;
     }
 
     /**
-     * sets the stream for this replication
+     * sets the stream for this replication.
      * @param streams the map of stream,name tuples
      */
-    public void setStreams(final Map<String, StreamInterface> streams)
+    public final void setStreams(final Map<String, StreamInterface> streams)
     {
         this.streams = streams;
     }
@@ -147,7 +151,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     /**
      * @return Returns the experiment.
      */
-    public Experiment<A, R, T> getExperiment()
+    public final Experiment<A, R, T> getExperiment()
     {
         return this.experiment;
     }
@@ -156,7 +160,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
      * @return Returns the treatment. This is a convenience method to avoid the getExperiment().getTreatment() many
      *         times.
      */
-    public Treatment<A, R, T> getTreatment()
+    public final Treatment<A, R, T> getTreatment()
     {
         return this.experiment.getTreatment();
     }
@@ -164,13 +168,14 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     /**
      * @return Returns the context.
      */
-    public Context getContext()
+    public final Context getContext()
     {
         return this.context;
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         String result = super.toString() + " ; " + this.getDescription() + " ; streams=[";
@@ -180,5 +185,300 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
         }
         result = result.substring(0, result.length() - 2) + "]";
         return result;
+    }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class Treatment.TimeDouble. */
+    public static class TimeDouble extends Replication<Double, Double, SimTimeDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.TimeDouble.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public TimeDouble(final Context context, final Experiment.TimeDouble experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.TimeDouble and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeDouble(final String id, final SimTimeDouble startTime, final Double warmupPeriod,
+                final Double runLength, final ModelInterface.TimeDouble model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
+    }
+
+    /** Easy access class Treatment.TimeFloat. */
+    public static class TimeFloat extends Replication<Float, Float, SimTimeFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.TimeFloat.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public TimeFloat(final Context context, final Experiment.TimeFloat experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.TimeFloat and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeFloat(final String id, final SimTimeFloat startTime, final Float warmupPeriod,
+                final Float runLength, final ModelInterface.TimeFloat model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
+    }
+
+    /** Easy access class Treatment.TimeLong. */
+    public static class TimeLong extends Replication<Long, Long, SimTimeLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.TimeLong.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public TimeLong(final Context context, final Experiment.TimeLong experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.TimeLong and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeLong(final String id, final SimTimeLong startTime, final Long warmupPeriod, final Long runLength,
+                final ModelInterface.TimeLong model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
+    }
+
+    /** Easy access class Treatment.TimeDoubleUnit. */
+    public static class TimeDoubleUnit extends Replication<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.TimeDoubleUnit.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public TimeDoubleUnit(final Context context, final Experiment.TimeDoubleUnit experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.TimeDoubleUnit and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeDoubleUnit(final String id, final SimTimeDoubleUnit startTime, final UnitTimeDouble warmupPeriod,
+                final UnitTimeDouble runLength, final ModelInterface.TimeDoubleUnit model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
+    }
+
+    /** Easy access class Treatment.TimeDoubleUnit. */
+    public static class TimeFloatUnit extends Replication<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.TimeFloatUnit.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public TimeFloatUnit(final Context context, final Experiment.TimeFloatUnit experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.TimeFloatUnit and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeFloatUnit(final String id, final SimTimeFloatUnit startTime, final UnitTimeFloat warmupPeriod,
+                final UnitTimeFloat runLength, final ModelInterface.TimeFloatUnit model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
+    }
+
+    /** Easy access class Treatment.TimeLongUnit. */
+    public static class TimeLongUnit extends Replication<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.TimeLongUnit.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public TimeLongUnit(final Context context, final Experiment.TimeLongUnit experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.TimeLongUnit and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeLongUnit(final String id, final SimTimeLongUnit startTime, final UnitTimeLong warmupPeriod,
+                final UnitTimeLong runLength, final ModelInterface.TimeLongUnit model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
+    }
+
+    /** Easy access class Treatment.CalendarDouble. */
+    public static class CalendarDouble extends Replication<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.CalendarDouble.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public CalendarDouble(final Context context, final Experiment.CalendarDouble experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.CalendarDouble and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public CalendarDouble(final String id, final SimTimeCalendarDouble startTime,
+                final UnitTimeDouble warmupPeriod, final UnitTimeDouble runLength,
+                final ModelInterface.CalendarDouble model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
+    }
+
+    /** Easy access class Treatment.CalendarFloat. */
+    public static class CalendarFloat extends Replication<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.CalendarFloat.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public CalendarFloat(final Context context, final Experiment.CalendarFloat experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.CalendarFloat and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public CalendarFloat(final String id, final SimTimeCalendarFloat startTime,
+                final UnitTimeFloat warmupPeriod, final UnitTimeFloat runLength,
+                final ModelInterface.CalendarFloat model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
+    }
+
+    /** Easy access class Treatment.CalendarLong. */
+    public static class CalendarLong extends Replication<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Replication.CalendarLong.
+         * @param context the name under which this replication can be found in the nameSpace
+         * @param experiment the experiment to which this replication belongs
+         */
+        public CalendarLong(final Context context, final Experiment.CalendarLong experiment)
+        {
+            super(context, experiment);
+        }
+
+        /**
+         * constructs a stand-alone Replication.CalendarLong and make a treatment and experiment as well.
+         * @param id the id of the replication.
+         * @param startTime the start time as a time object.
+         * @param warmupPeriod the warmup period, included in the runlength (!)
+         * @param runLength the total length of the run, including the warm-up period.
+         * @param model the model for which this is the replication
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public CalendarLong(final String id, final SimTimeCalendarLong startTime,
+                final UnitTimeLong warmupPeriod, final UnitTimeLong runLength,
+                final ModelInterface.CalendarLong model) throws NamingException
+        {
+            super(id, startTime, warmupPeriod, runLength, model);
+        }
     }
 }

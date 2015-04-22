@@ -44,6 +44,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     private static final long serialVersionUID = 20140805L;
 
     /** timeStep represents the timestep of the DESS simulator. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected R timeStep;
 
     /**
@@ -59,6 +60,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
             throws RemoteException, SimRuntimeException
     {
@@ -68,21 +70,23 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
-    public R getTimeStep()
+    public final R getTimeStep()
     {
         return this.timeStep;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setTimeStep(final R timeStep) throws SimRuntimeException
+    public final void setTimeStep(final R timeStep) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
-            if (timeStep.doubleValue() <= 0 || java.lang.Double.isNaN(timeStep.doubleValue())
-                    || java.lang.Double.isInfinite(timeStep.doubleValue()))
+            if (timeStep.doubleValue() <= 0 || Double.isNaN(timeStep.doubleValue())
+                    || Double.isInfinite(timeStep.doubleValue()))
+            {
                 throw new SimRuntimeException(
                         "DESSSimulator.setTimeStep: timeStep <= 0, NaN, or Infinity. Value provided = : " + timeStep);
+            }
             this.timeStep = timeStep;
             this.fireEvent(TIME_STEP_CHANGED_EVENT, timeStep);
         }
@@ -90,6 +94,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
         while (this.simulatorTime.lt(this.replication.getTreatment().getEndTime()) && isRunning())
@@ -111,103 +116,103 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class DESSSimulator.Double. */
-    public static class Double extends DESSSimulator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
-            DESSSimulatorInterface.Double
+    /** Easy access class DESSSimulator.TimeDouble. */
+    public static class TimeDouble extends DESSSimulator<Double, Double, SimTimeDouble> implements
+            DESSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
-        public Double(final java.lang.Double initialTimeStep) throws SimRuntimeException
+        public TimeDouble(final Double initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class DESSSimulator.Float. */
-    public static class Float extends DESSSimulator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
-            DESSSimulatorInterface.Float
+    /** Easy access class DESSSimulator.TimeFloat. */
+    public static class TimeFloat extends DESSSimulator<Float, Float, SimTimeFloat> implements
+            DESSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
-        public Float(final java.lang.Float initialTimeStep) throws SimRuntimeException
+        public TimeFloat(final Float initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class DESSSimulator.Long. */
-    public static class Long extends DESSSimulator<java.lang.Long, java.lang.Long, SimTimeLong> implements
-            DESSSimulatorInterface.Long
+    /** Easy access class DESSSimulator.TimeLong. */
+    public static class TimeLong extends DESSSimulator<Long, Long, SimTimeLong> implements
+            DESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
-        public Long(final java.lang.Long initialTimeStep) throws SimRuntimeException
+        public TimeLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class DESSSimulator.DoubleUnit. */
-    public static class DoubleUnit extends DESSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
-            DESSSimulatorInterface.DoubleUnit
+    /** Easy access class DESSSimulator.TimeDoubleUnit. */
+    public static class TimeDoubleUnit extends DESSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
+            DESSSimulatorInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
-        public DoubleUnit(final UnitTimeDouble initialTimeStep) throws SimRuntimeException
+        public TimeDoubleUnit(final UnitTimeDouble initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class DESSSimulator.FloatUnit. */
-    public static class FloatUnit extends DESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DESSSimulatorInterface.FloatUnit
+    /** Easy access class DESSSimulator.TimeFloatUnit. */
+    public static class TimeFloatUnit extends DESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
+            DESSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
-        public FloatUnit(final UnitTimeFloat initialTimeStep) throws SimRuntimeException
+        public TimeFloatUnit(final UnitTimeFloat initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class DESSSimulator.LongUnit. */
-    public static class LongUnit extends DESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DESSSimulatorInterface.LongUnit
+    /** Easy access class DESSSimulator.TimeLongUnit. */
+    public static class TimeLongUnit extends DESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            DESSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
-        public LongUnit(final UnitTimeLong initialTimeStep) throws SimRuntimeException
+        public TimeLongUnit(final UnitTimeLong initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
@@ -221,7 +226,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
         public CalendarDouble(final UnitTimeDouble initialTimeStep) throws SimRuntimeException
@@ -238,7 +243,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
         public CalendarFloat(final UnitTimeFloat initialTimeStep) throws SimRuntimeException
@@ -255,7 +260,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
          */
         public CalendarLong(final UnitTimeLong initialTimeStep) throws SimRuntimeException

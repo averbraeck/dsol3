@@ -35,6 +35,7 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
+@SuppressWarnings("linelength")
 public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends DEVSSimulatorInterface<A, R, T>, DESSSimulatorInterface<A, R, T>
 {
@@ -44,59 +45,66 @@ public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Nu
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
-    /** Easy access interface DEVDESSSimulatorInterface.Double. */
-    public static interface Double extends DEVDESSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
+    /** Easy access interface DEVDESSSimulatorInterface.TimeDouble. */
+    public interface TimeDouble extends DEVDESSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>,
+            DEVSSimulatorInterface.TimeDouble, DESSSimulatorInterface.TimeDouble
     {
         // typed extension
     }
 
-    /** Easy access interface DEVDESSSimulatorInterface.Float. */
-    public static interface Float extends DEVDESSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
+    /** Easy access interface DEVDESSSimulatorInterface.TimeFloat. */
+    public interface TimeFloat extends DEVDESSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>,
+            DEVSSimulatorInterface.TimeFloat, DESSSimulatorInterface.TimeFloat
     {
         // typed extension
     }
 
-    /** Easy access interface DEVDESSSimulatorInterface.Long. */
-    public static interface Long extends DEVDESSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>
+    /** Easy access interface DEVDESSSimulatorInterface.TimeLong. */
+    public interface TimeLong extends DEVDESSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>,
+            DEVSSimulatorInterface.TimeLong, DESSSimulatorInterface.TimeLong
     {
         // typed extension
     }
 
-    /** Easy access interface DEVDESSSimulatorInterface.DoubleUnit. */
-    public static interface DoubleUnit extends
-            DEVDESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    /** Easy access interface DEVDESSSimulatorInterface.TimeDoubleUnit. */
+    public interface TimeDoubleUnit extends
+            DEVDESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>,
+            DEVSSimulatorInterface.TimeDoubleUnit, DESSSimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
-    /** Easy access interface DEVDESSSimulatorInterface.FloatUnit. */
-    public static interface FloatUnit extends DEVDESSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    /** Easy access interface DEVDESSSimulatorInterface.TimeFloatUnit. */
+    public interface TimeFloatUnit extends DEVDESSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>,
+            DEVSSimulatorInterface.TimeFloatUnit, DESSSimulatorInterface.TimeFloatUnit
     {
         // typed extension
     }
 
-    /** Easy access interface DEVDESSSimulatorInterface.LongUnit. */
-    public static interface LongUnit extends DEVDESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    /** Easy access interface DEVDESSSimulatorInterface.TimeLongUnit. */
+    public interface TimeLongUnit extends DEVDESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>,
+            DEVSSimulatorInterface.TimeLongUnit, DESSSimulatorInterface.TimeLongUnit
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.CalendarDouble. */
-    public static interface CalendarDouble extends
-            DEVDESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public interface CalendarDouble extends DEVDESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>,
+            DEVSSimulatorInterface.CalendarDouble, DESSSimulatorInterface.CalendarDouble
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.CalendarFloat. */
-    public static interface CalendarFloat extends
-            DEVDESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public interface CalendarFloat extends DEVDESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>,
+            DEVSSimulatorInterface.CalendarFloat, DESSSimulatorInterface.CalendarFloat
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.CalendarLong. */
-    public static interface CalendarLong extends DEVDESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public interface CalendarLong extends DEVDESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>,
+            DEVSSimulatorInterface.CalendarLong, DESSSimulatorInterface.CalendarLong
     {
         // typed extension
     }

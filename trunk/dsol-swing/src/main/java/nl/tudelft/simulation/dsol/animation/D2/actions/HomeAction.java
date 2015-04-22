@@ -16,20 +16,20 @@ public class HomeAction extends AbstractAction
 {
     /** */
     private static final long serialVersionUID = 20140909L;
-    
+
     /** target of the gridpanel */
     private GridPanel target = null;
 
     /**
      * constructs a new ZoomIn
-     * 
      * @param target the target
      */
     public HomeAction(final GridPanel target)
     {
         super("Home");
         this.target = target;
-        this.putValue(Action.SMALL_ICON, new ImageIcon(URLResource.getResource("/toolbarButtonGraphics/navigation/Home16.gif")));
+        this.putValue(Action.SMALL_ICON,
+                new ImageIcon(URLResource.getResource("/toolbarButtonGraphics/navigation/Home16.gif")));
         this.setEnabled(true);
     }
 

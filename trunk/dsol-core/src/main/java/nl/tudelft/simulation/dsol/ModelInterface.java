@@ -41,7 +41,7 @@ public interface ModelInterface<A extends Comparable<A>, R extends Number & Comp
         extends Serializable
 {
     /**
-     * construct a model on a simulator
+     * construct a model on a simulator.
      * @param simulator is the simulator
      * @throws SimRuntimeException on model failure
      * @throws RemoteException on network failure
@@ -58,58 +58,57 @@ public interface ModelInterface<A extends Comparable<A>, R extends Number & Comp
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
-    /** Easy access interface ModelInterface.Double. */
-    public static interface Double extends ModelInterface<java.lang.Double, java.lang.Double, SimTimeDouble>
+    /** Easy access interface ModelInterface.TimeDouble. */
+    public interface TimeDouble extends ModelInterface<Double, Double, SimTimeDouble>
     {
         // typed extension
     }
 
-    /** Easy access interface ModelInterface.Float. */
-    public static interface Float extends ModelInterface<java.lang.Float, java.lang.Float, SimTimeFloat>
+    /** Easy access interface ModelInterface.TimeFloat. */
+    public interface TimeFloat extends ModelInterface<Float, Float, SimTimeFloat>
     {
         // typed extension
     }
 
-    /** Easy access interface ModelInterface.Long. */
-    public static interface Long extends ModelInterface<java.lang.Long, java.lang.Long, SimTimeLong>
+    /** Easy access interface ModelInterface.TimeLong. */
+    public interface TimeLong extends ModelInterface<Long, Long, SimTimeLong>
     {
         // typed extension
     }
 
-    /** Easy access interface ModelInterface.DoubleUnit. */
-    public static interface DoubleUnit extends ModelInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    /** Easy access interface ModelInterface.TimeDoubleUnit. */
+    public interface TimeDoubleUnit extends ModelInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface ModelInterface.FloatUnit. */
-    public static interface FloatUnit extends ModelInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    /** Easy access interface ModelInterface.TimeFloatUnit. */
+    public interface TimeFloatUnit extends ModelInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface ModelInterface.LongUnit. */
-    public static interface LongUnit extends ModelInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    /** Easy access interface ModelInterface.TimeLongUnit. */
+    public interface TimeLongUnit extends ModelInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         // typed extension
     }
 
-    /** Easy access interface ModelInterface.CalendarDouble. */
-    public static interface CalendarDouble extends ModelInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    /** Easy access interface ModelInterface.TimeCalendarDouble. */
+    public interface CalendarDouble extends ModelInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
-    /** Easy access interface ModelInterface.CalendarFloat. */
-    public static interface CalendarFloat extends ModelInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    /** Easy access interface ModelInterface.TimeCalendarFloat. */
+    public interface CalendarFloat extends ModelInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         // typed extension
     }
 
-    /** Easy access interface ModelInterface.CalendarLong. */
-    public static interface CalendarLong extends ModelInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    /** Easy access interface ModelInterface.TimeCalendarLong. */
+    public interface CalendarLong extends ModelInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         // typed extension
     }
-
 }

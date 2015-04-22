@@ -43,15 +43,15 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @version Aug 15, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Model implements ModelInterface.Double
+public class MM1Model implements ModelInterface.TimeDouble
 {
     /** */
     private static final long serialVersionUID = 1L;
 
     /** the simulator. */
-    private DEVSSimulatorInterface.Double simulator;
+    private DEVSSimulatorInterface.TimeDouble simulator;
 
-    /** resource capacity */
+    /** resource capacity. */
     private int capacity = 1;
 
     /** busy units. */
@@ -61,12 +61,12 @@ public class MM1Model implements ModelInterface.Double
     private StreamInterface stream = new MersenneTwister();
 
     /** interarrival time. */
-    private DistContinuousTime.Double interarrivalTime = new DistContinuousTime.Double(new DistExponential(this.stream,
-            1.0));
+    private DistContinuousTime.TimeDouble interarrivalTime = new DistContinuousTime.TimeDouble(new DistExponential(
+            this.stream, 1.0));
 
     /** processing time. */
-    private DistContinuousTime.Double processingTime = new DistContinuousTime.Double(new DistTriangular(this.stream,
-            0.8, 0.9, 1.1));
+    private DistContinuousTime.TimeDouble processingTime = new DistContinuousTime.TimeDouble(new DistTriangular(
+            this.stream, 0.8, 0.9, 1.1));
 
     /** queue of waiting entities. */
     private List<QueueEntry<Entity>> queue = new ArrayList<QueueEntry<Entity>>();
@@ -76,10 +76,10 @@ public class MM1Model implements ModelInterface.Double
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(SimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble> _simulator)
+    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> _simulator)
             throws SimRuntimeException, RemoteException
     {
-        this.simulator = (DEVSSimulatorInterface.Double) _simulator;
+        this.simulator = (DEVSSimulatorInterface.TimeDouble) _simulator;
         generate();
     }
 
@@ -142,7 +142,7 @@ public class MM1Model implements ModelInterface.Double
 
     /** {@inheritDoc} */
     @Override
-    public DEVSSimulatorInterface.Double getSimulator() throws RemoteException
+    public DEVSSimulatorInterface.TimeDouble getSimulator() throws RemoteException
     {
         return this.simulator;
     }

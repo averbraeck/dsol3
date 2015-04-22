@@ -37,7 +37,7 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
     private float time;
 
     /**
-     * @param time
+     * @param time the initial time.
      */
     public SimTimeFloat(final float time)
     {
@@ -46,42 +46,42 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
 
     /** {@inheritDoc} */
     @Override
-    public void add(final Float relativeTime)
+    public final void add(final Float relativeTime)
     {
         this.time += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final Float relativeTime)
+    public final void subtract(final Float relativeTime)
     {
         this.time -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Float minus(final SimTimeFloat simTime)
+    public final Float minus(final SimTimeFloat simTime)
     {
         return this.get().floatValue() - simTime.get().floatValue();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final Float absoluteValue)
+    public final void set(final Float absoluteValue)
     {
         this.time = absoluteValue;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Float get()
+    public final Float get()
     {
         return this.time;
     }
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeFloat setZero()
+    public final SimTimeFloat setZero()
     {
         this.time = 0.0f;
         return this;
@@ -89,7 +89,7 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeFloat copy()
+    public final SimTimeFloat copy()
     {
         return new SimTimeFloat(this.time);
     }

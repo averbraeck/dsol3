@@ -39,14 +39,13 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  */
 public class MM1Application
 {
-
     /**
      * 
      */
-    public MM1Application() throws SimRuntimeException, RemoteException
+    protected MM1Application() throws SimRuntimeException, RemoteException
     {
-        ModelInterface.Double model = new MM1Model();
-        DEVSSimulator.Double simulator = new DEVSSimulator.Double();
+        ModelInterface.TimeDouble model = new MM1Model();
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
                 new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
@@ -56,7 +55,7 @@ public class MM1Application
     /**
      * @param args
      */
-    public static void main(String[] args) throws SimRuntimeException, RemoteException
+    public static void main(final String[] args) throws SimRuntimeException, RemoteException
     {
         new MM1Application();
     }

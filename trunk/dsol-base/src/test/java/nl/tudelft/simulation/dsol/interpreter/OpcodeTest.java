@@ -121,7 +121,7 @@ public class OpcodeTest
                             {
                                 Assert.fail("OpcodeTest constructor for opcode " + code + ": illegal access exception");
                             }
-                            int tabBL = 5; // TODO: SEEMS INCORRECT
+                            int tabBL = 5; // TODO SEEMS INCORRECT
                             int calcBL = operation.getByteLength();
                             Assert.assertEquals("Operation " + code + ": byte length=" + calcBL + ", tab byte length="
                                     + tabBL, calcBL, tabBL);
@@ -154,9 +154,9 @@ public class OpcodeTest
                             }
                             int tabBL = 1;
                             if (code.equals("JSR"))
-                                tabBL = 3; // TODO: SEEMS INCORRECT
+                                tabBL = 3; // TODO SEEMS INCORRECT
                             else if (code.equals("JSR_W"))
-                                tabBL = 5; // TODO: SEEMS INCORRECT
+                                tabBL = 5; // TODO SEEMS INCORRECT
                             else if (args.equals("lookupswitch"))
                                 tabBL = 10;
                             else if (args.equals("tableswitch"))

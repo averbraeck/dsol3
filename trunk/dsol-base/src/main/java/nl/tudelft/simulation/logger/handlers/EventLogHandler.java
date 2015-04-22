@@ -87,7 +87,7 @@ public class EventLogHandler extends Handler implements EventProducerInterface
     }
 
     /**
-     * @return the event types. Not a method of EventProducerInterface anymore. TODO: see if the method can be removed.
+     * @return the event types. Not a method of EventProducerInterface anymore. TODO see if the method can be removed.
      */
     public EventType[] getEventTypes()
     {

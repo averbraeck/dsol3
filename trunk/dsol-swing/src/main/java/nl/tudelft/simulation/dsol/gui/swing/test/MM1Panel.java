@@ -47,7 +47,7 @@ public class MM1Panel extends DSOLPanel<Double, Double, SimTimeDouble>
      * @param model
      * @param simulator
      */
-    public MM1Panel(ModelInterface.Double model, DEVSSimulatorInterface.Double simulator)
+    public MM1Panel(ModelInterface.TimeDouble model, DEVSSimulatorInterface.TimeDouble simulator)
     {
         super(model, simulator);
         addTabs();

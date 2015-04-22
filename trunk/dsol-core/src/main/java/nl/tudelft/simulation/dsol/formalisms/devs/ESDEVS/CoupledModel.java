@@ -96,7 +96,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param modelName the name of this component
      * @param simulator the simulator to schedule events on.
      */
-    public CoupledModel(final String modelName, final DEVSSimulatorInterface.Double simulator)
+    public CoupledModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator)
     {
         super(modelName, simulator, null);
 

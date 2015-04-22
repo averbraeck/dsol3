@@ -37,7 +37,7 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
     private long time;
 
     /**
-     * @param time
+     * @param time the initial time.
      */
     public SimTimeLong(final long time)
     {
@@ -46,42 +46,42 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
 
     /** {@inheritDoc} */
     @Override
-    public void add(final Long relativeTime)
+    public final void add(final Long relativeTime)
     {
         this.time += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final Long relativeTime)
+    public final void subtract(final Long relativeTime)
     {
         this.time -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Long minus(final SimTimeLong simTime)
+    public final Long minus(final SimTimeLong simTime)
     {
         return this.get().longValue() - simTime.get().longValue();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final Long absoluteTime)
+    public final void set(final Long absoluteTime)
     {
         this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Long get()
+    public final Long get()
     {
         return this.time;
     }
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeLong setZero()
+    public final SimTimeLong setZero()
     {
         this.time = 0L;
         return this;
@@ -89,7 +89,7 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeLong copy()
+    public final SimTimeLong copy()
     {
         return new SimTimeLong(this.time);
     }
