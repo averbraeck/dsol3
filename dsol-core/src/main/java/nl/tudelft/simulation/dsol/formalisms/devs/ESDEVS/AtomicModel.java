@@ -90,7 +90,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param e initial elapsed time
      * @param initphase the initial phase of the model
      */
-    public AtomicModel(final String modelName, final DEVSSimulatorInterface.Double simulator, final double e,
+    public AtomicModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator, final double e,
             final Phase initphase)
     {
         this(modelName, simulator, e, initphase, AtomicModel.INTERNAL_FIRST);
@@ -121,7 +121,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param modelName the name of this component
      * @param simulator the simulator to schedule on
      */
-    public AtomicModel(final String modelName, final DEVSSimulatorInterface.Double simulator)
+    public AtomicModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator)
     {
         this(modelName, simulator, 0, new Phase(""), AtomicModel.INTERNAL_FIRST);
     }
@@ -135,7 +135,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param conflictStrategy the conflict strategy to use when internal and external events take place at the same
      *            time
      */
-    public AtomicModel(final String modelName, final DEVSSimulatorInterface.Double simulator, final double e,
+    public AtomicModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator, final double e,
             final Phase initphase, final boolean conflictStrategy)
     {
         super(modelName, simulator, null);

@@ -24,7 +24,7 @@ public class OwnProcess extends Process
     /**
      * @param simulator
      */
-    public OwnProcess(DEVSSimulatorInterface.Double simulator)
+    public OwnProcess(DEVSSimulatorInterface.TimeDouble simulator)
     {
         super(simulator);
     }
@@ -42,7 +42,7 @@ public class OwnProcess extends Process
             super.hold(10.0);
             SimTime newTime = super.simulator.getSimulatorTime();
             System.out.println(this + " finished @ " + newTime);
-            // TODO: Assert.assertTrue((newTime.minus(time)).doubleValue() == 10.0);
+            // TODO Assert.assertTrue((newTime.minus(time)).doubleValue() == 10.0);
         }
         catch (Exception e)
         {

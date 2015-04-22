@@ -54,31 +54,31 @@ public abstract class Editable extends EventProducer implements LocatableInterfa
         }
     }
 
-    /** LOCATION_CHANGED_EVENT the LOCATION_CHANGED_EVENT */
+    /** LOCATION_CHANGED_EVENT the LOCATION_CHANGED_EVENT. */
     public static final EventType LOCATION_CHANGED_EVENT = new EventType("LOCATION_CHANGED_EVENT");
 
     /**
-     * the simulator to use
+     * the simulator to use.
      */
     protected SimulatorInterface simulator = null;
 
     /**
-     * the location of the editable
+     * the location of the editable.
      */
     protected DirectedPoint location = null;
 
     /**
-     * the location of the bounds
+     * the location of the bounds.
      */
     protected Bounds bounds = new BoundingSphere();
 
     /**
-     * the vertices
+     * the vertices.
      */
     protected CartesianPoint[] vertices = new CartesianPoint[0];
 
     /**
-     * returns the editables as a list of name=class
+     * returns the editables as a list of name=class.
      * @return the map
      */
     public static Map<Object, Object> listEditables()
@@ -99,7 +99,7 @@ public abstract class Editable extends EventProducer implements LocatableInterfa
     }
 
     /**
-     * @return the vertices of the CartesianPoint
+     * @return the vertices of the CartesianPoint.
      */
     public CartesianPoint[] getVertices()
     {

@@ -32,10 +32,11 @@ public abstract class EditableRenderable2D extends Renderable2D implements Edita
      * constructs a new EditableRenderable2D.
      * @param source the source and target
      * @param simulator the simulator
-     * @throws NamingException 
-     * @throws RemoteException 
+     * @throws NamingException
+     * @throws RemoteException
      */
-    public EditableRenderable2D(final Editable source, final SimulatorInterface<?, ?, ?> simulator) throws RemoteException, NamingException
+    public EditableRenderable2D(final Editable source, final SimulatorInterface<?, ?, ?> simulator)
+            throws RemoteException, NamingException
     {
         super(source, simulator);
         this.source = source;

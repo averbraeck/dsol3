@@ -52,21 +52,26 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     private static final long serialVersionUID = 20140805L;
 
     /** simulatorTime represents the simulationTime. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected T simulatorTime;
 
     /** running represents the binary state of the simulator. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected transient boolean running = false;
 
     /** replication represents the currently active replication. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Replication<A, R, T> replication = null;
 
-    /** the cached context that can be used for animation and statistics for this simulator */
+    /** the cached context that can be used for animation and statistics for this simulator. */
     private Context cachedContext = null;
 
     /** a worker. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected transient WorkerThread worker = null;
 
     /** the simulatorSemaphore. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected transient Object semaphore = new Object();
 
     /**
@@ -80,20 +85,21 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
-    public T getSimulatorTime()
+    public final T getSimulatorTime()
     {
         return this.simulatorTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Replication<A, R, T> getReplication()
+    public final Replication<A, R, T> getReplication()
     {
         return this.replication;
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
             throws RemoteException, SimRuntimeException
     {
@@ -117,7 +123,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
-    public boolean isRunning()
+    public final boolean isRunning()
     {
         return this.running;
     }
@@ -132,6 +138,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void start() throws SimRuntimeException
     {
         if (this.isRunning())
@@ -164,6 +171,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void step() throws SimRuntimeException
     {
         if (this.isRunning())
@@ -183,6 +191,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void stop()
     {
         if (this.isRunning())
@@ -196,18 +205,19 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         }
     }
 
-
     /** {@inheritDoc} */
     @Override
-    public Context getContext() throws NamingException
+    public final Context getContext() throws NamingException
     {
         if (this.cachedContext == null)
+        {
             this.cachedContext = (new InitialContext()).createSubcontext(String.valueOf(this.hashCode()));
+        }
         return this.cachedContext;
     }
-    
+
     /**
-     * writes a serializable method to stream
+     * writes a serializable method to stream.
      * @param out the outputstream
      * @throws IOException on IOException
      */
@@ -218,7 +228,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /**
-     * reads a serializable method from stream
+     * reads a serializable method from stream.
      * @param in the inputstream
      * @throws IOException on IOException
      */
@@ -243,56 +253,56 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class Simulator.Double. */
-    public static abstract class Double extends Simulator<java.lang.Double, java.lang.Double, SimTimeDouble> implements
-            SimulatorInterface.Double
+    /** Easy access class Simulator.TimeDouble. */
+    public abstract static class TimeDouble extends Simulator<Double, Double, SimTimeDouble> implements
+            SimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.Float. */
-    public static abstract class Float extends Simulator<java.lang.Float, java.lang.Float, SimTimeFloat> implements
-            SimulatorInterface.Float
+    /** Easy access class Simulator.TimeFloat. */
+    public abstract static class TimeFloat extends Simulator<Float, Float, SimTimeFloat> implements
+            SimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.Long. */
-    public static abstract class Long extends Simulator<java.lang.Long, java.lang.Long, SimTimeLong> implements
-            SimulatorInterface.Long
+    /** Easy access class Simulator.TimeLong. */
+    public abstract static class TimeLong extends Simulator<Long, Long, SimTimeLong> implements
+            SimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.DoubleUnit. */
-    public static abstract class DoubleUnit extends Simulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
-            implements SimulatorInterface.DoubleUnit
+    /** Easy access class Simulator.TimeDoubleUnit. */
+    public abstract static class TimeDoubleUnit extends Simulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+            implements SimulatorInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.FloatUnit. */
-    public static abstract class FloatUnit extends Simulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            SimulatorInterface.FloatUnit
+    /** Easy access class Simulator.TimeFloatUnit. */
+    public abstract static class TimeFloatUnit extends Simulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+            implements SimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.LongUnit. */
-    public static abstract class LongUnit extends Simulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            SimulatorInterface.LongUnit
+    /** Easy access class Simulator.TimeLongUnit. */
+    public abstract static class TimeLongUnit extends Simulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            SimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Simulator.CalendarDouble. */
-    public static abstract class CalendarDouble extends Simulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public abstract static class CalendarDouble extends Simulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
             implements SimulatorInterface.CalendarDouble
     {
         /** */
@@ -300,7 +310,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.CalendarFloat. */
-    public static abstract class CalendarFloat extends Simulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public abstract static class CalendarFloat extends Simulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
             implements SimulatorInterface.CalendarFloat
     {
         /** */
@@ -308,7 +318,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.CalendarLong. */
-    public static abstract class CalendarLong extends Simulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
+    public abstract static class CalendarLong extends Simulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
             SimulatorInterface.CalendarLong
     {
         /** */

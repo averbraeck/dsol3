@@ -45,7 +45,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param time
+     * @param time initial time.
      */
     public SimTime(final A time)
     {
@@ -71,16 +71,19 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @return the sum of the absolute time and the relative times.
      */
     @SuppressWarnings("unchecked")
-    public T sum(final T absTime, final R... relativeTimes)
+    public final T sum(final T absTime, final R... relativeTimes)
     {
         T ret = absTime.copy();
         for (R relTime : relativeTimes)
+        {
             ret.add(relTime);
+        }
         return ret;
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public int compareTo(final T simTime)
     {
         return get().compareTo(simTime.get());
@@ -113,7 +116,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param relativeTime the time to add.
      * @return a copy of the time with the relative time added.
      */
-    public T plus(final R relativeTime)
+    public final T plus(final R relativeTime)
     {
         T ret = copy();
         ret.add(relativeTime);
@@ -125,7 +128,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param relativeTime the time to subtract.
      * @return a copy of the time with the relative time subtracted.
      */
-    public T minus(final R relativeTime)
+    public final T minus(final R relativeTime)
     {
         T ret = copy();
         ret.subtract(relativeTime);
@@ -143,7 +146,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param simTime the time to compare to
      * @return true if greater than simTime
      */
-    public boolean gt(final T simTime)
+    public final boolean gt(final T simTime)
     {
         return this.compareTo(simTime) > 0;
     }
@@ -152,7 +155,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param simTime the time to compare to
      * @return true if greater than or equal to simTime
      */
-    public boolean ge(final T simTime)
+    public final boolean ge(final T simTime)
     {
         return this.compareTo(simTime) >= 0;
     }
@@ -161,7 +164,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param simTime the time to compare to
      * @return true if less than simTime
      */
-    public boolean lt(final T simTime)
+    public final boolean lt(final T simTime)
     {
         return this.compareTo(simTime) < 0;
     }
@@ -170,7 +173,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param simTime the time to compare to
      * @return true if less than or equal to simTime
      */
-    public boolean le(final T simTime)
+    public final boolean le(final T simTime)
     {
         return this.compareTo(simTime) <= 0;
     }
@@ -179,7 +182,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param simTime the time to compare to
      * @return true if contents equal to simTime's contents
      */
-    public boolean eq(final T simTime)
+    public final boolean eq(final T simTime)
     {
         return this.compareTo(simTime) == 0;
     }
@@ -188,7 +191,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param simTime the time to compare to
      * @return true if contents not equal to simTime's contents
      */
-    public boolean ne(final T simTime)
+    public final boolean ne(final T simTime)
     {
         return this.compareTo(simTime) != 0;
     }
@@ -196,7 +199,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     /**
      * @return whether this simTime equals the zero SimTime.
      */
-    public boolean eq0()
+    public final boolean eq0()
     {
         return eq(this.copy().setZero());
     }
@@ -204,7 +207,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public boolean ne0()
+    public final boolean ne0()
     {
         return ne(this.copy().setZero());
     }
@@ -212,7 +215,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public boolean lt0()
+    public final boolean lt0()
     {
         return lt(this.copy().setZero());
     }
@@ -220,7 +223,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public boolean le0()
+    public final boolean le0()
     {
         return le(this.copy().setZero());
     }
@@ -228,7 +231,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public boolean gt0()
+    public final boolean gt0()
     {
         return gt(this.copy().setZero());
     }
@@ -236,13 +239,14 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public boolean ge0()
+    public final boolean ge0()
     {
         return ge(this.copy().setZero());
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "" + get();

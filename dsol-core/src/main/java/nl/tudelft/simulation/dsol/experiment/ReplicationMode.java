@@ -28,7 +28,8 @@ package nl.tudelft.simulation.dsol.experiment;
  * @version Aug 4, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public enum ReplicationMode {
+public enum ReplicationMode
+{
     /** the TERMINATING replication mode. */
     TERMINATING,
 

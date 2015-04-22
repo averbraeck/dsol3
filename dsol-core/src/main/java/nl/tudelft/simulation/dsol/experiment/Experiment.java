@@ -2,12 +2,25 @@ package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.naming.Context;
 
 import nl.tudelft.simulation.dsol.ModelInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
@@ -56,7 +69,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     private SimulatorInterface<A, R, T> simulator;
 
     /** model reflects the model. */
-    private ModelInterface model;
+    private ModelInterface<A, R, T> model;
 
     /** the context. */
     private Context context = null;
@@ -70,7 +83,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /** the current replication. */
     private int currentReplication = -1;
 
-    /** are we already subscribed to the END_OF_REPLICATION_EVENT */
+    /** are we already subscribed to the END_OF_REPLICATION_EVENT. */
     private boolean subscribed = false;
 
     /**
@@ -91,7 +104,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
      * @param model the model to experiment with
      */
     public Experiment(final Context context, final Treatment<A, R, T> treatment,
-            final SimulatorInterface<A, R, T> simulator, final ModelInterface model)
+            final SimulatorInterface<A, R, T> simulator, final ModelInterface<A, R, T> model)
     {
         this(context);
         this.setSimulator(simulator);
@@ -102,35 +115,35 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /**
      * @return Returns the context.
      */
-    public Context getContext()
+    public final Context getContext()
     {
         return this.context;
     }
 
     /**
-     * sets the simulator
+     * sets the simulator.
      * @param simulator the simulator
      */
-    public synchronized void setSimulator(final SimulatorInterface<A, R, T> simulator)
+    public final synchronized void setSimulator(final SimulatorInterface<A, R, T> simulator)
     {
         this.simulator = simulator;
         this.fireEvent(SIMULATOR_CHANGED_EVENT, simulator);
     }
 
     /**
-     * returns the simulator
+     * returns the simulator.
      * @return SimulatorInterface
      */
-    public SimulatorInterface<A, R, T> getSimulator()
+    public final SimulatorInterface<A, R, T> getSimulator()
     {
         return this.simulator;
     }
 
     /**
-     * returns the model
+     * returns the model.
      * @return ModelInterface the model
      */
-    public ModelInterface getModel()
+    public final ModelInterface<A, R, T> getModel()
     {
         return this.model;
     }
@@ -138,7 +151,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /**
      * @return Returns the replications.
      */
-    public List<Replication<A, R, T>> getReplications()
+    public final List<Replication<A, R, T>> getReplications()
     {
         return this.replications;
     }
@@ -146,14 +159,15 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /**
      * @param replications The replications to set.
      */
-    public void setReplications(final List<Replication<A, R, T>> replications)
+    public final void setReplications(final List<Replication<A, R, T>> replications)
     {
         this.replications = replications;
     }
 
     /**
-     * starts the experiment on a simulator
+     * starts the experiment on a simulator.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     public synchronized void start()
     {
         try
@@ -168,6 +182,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void notify(final EventInterface event) throws RemoteException
     {
         if (!this.subscribed)
@@ -202,35 +217,35 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     }
 
     /**
-     * sets the model on the experiment
-     * @param model the simulatormodel
+     * sets the model on the experiment.
+     * @param model the simulator model
      */
-    public synchronized void setModel(final ModelInterface model)
+    public final synchronized void setModel(final ModelInterface<A, R, T> model)
     {
         this.model = model;
         this.fireEvent(MODEL_CHANGED_EVENT, model);
     }
 
     /**
-     * Returns the treatment of this experiment
      * @return the treatment of this experiment
      */
-    public Treatment<A, R, T> getTreatment()
+    public final Treatment<A, R, T> getTreatment()
     {
         return this.treatment;
     }
 
     /**
-     * sets the treatment of an experiment
+     * sets the treatment of an experiment.
      * @param treatment the treatment
      */
-    public void setTreatment(final Treatment<A, R, T> treatment)
+    public final void setTreatment(final Treatment<A, R, T> treatment)
     {
         this.treatment = treatment;
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         String result =
@@ -240,17 +255,18 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     }
 
     /**
-     * resets the experiment
+     * resets the experiment.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     public void reset()
     {
         this.currentReplication = -1;
     }
 
     /**
-     * @return Returns the description.
+     * @return Returns the experiment description.
      */
-    public String getDescription()
+    public final String getDescription()
     {
         return this.description;
     }
@@ -258,24 +274,290 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /**
      * @param description The description to set.
      */
-    public void setDescription(String description)
+    public final void setDescription(final String description)
     {
         this.description = description;
     }
 
     /**
-     * @return the analyst
+     * @return the analyst.
      */
-    public String getAnalyst()
+    public final String getAnalyst()
     {
         return this.analyst;
     }
 
     /**
-     * @param analyst the analyst to set
+     * @param analyst the analyst to set.
      */
-    public void setAnalyst(String analyst)
+    public final void setAnalyst(final String analyst)
     {
         this.analyst = analyst;
     }
+    
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class Experiment.TimeDouble. */
+    public static class TimeDouble extends Experiment<Double, Double, SimTimeDouble> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.TimeDouble.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public TimeDouble(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.TomeDouble.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public TimeDouble(final Context context, final Treatment.TimeDouble treatment,
+                final SimulatorInterface.TimeDouble simulator, final ModelInterface.TimeDouble model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
+    /** Easy access class Experiment.TimeFloat. */
+    public static class TimeFloat extends Experiment<Float, Float, SimTimeFloat> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.TimeFloat.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public TimeFloat(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.TimeFloat.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public TimeFloat(final Context context, final Treatment.TimeFloat treatment,
+                final SimulatorInterface.TimeFloat simulator, final ModelInterface.TimeFloat model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
+    /** Easy access class Experiment.TimeLong. */
+    public static class TimeLong extends Experiment<Long, Long, SimTimeLong> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.TimeLong.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public TimeLong(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.TimeLong.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public TimeLong(final Context context, final Treatment.TimeLong treatment,
+                final SimulatorInterface.TimeLong simulator, final ModelInterface.TimeLong model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
+    /** Easy access class Experiment.TimeDoubleUnit. */
+    public static class TimeDoubleUnit extends Experiment<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.TimeDoubleUnit.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public TimeDoubleUnit(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.TimeDoubleUnit.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public TimeDoubleUnit(final Context context, final Treatment.TimeDoubleUnit treatment,
+                final SimulatorInterface.TimeDoubleUnit simulator, final ModelInterface.TimeDoubleUnit model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
+    /** Easy access class Experiment.TimeFloatUnit. */
+    public static class TimeFloatUnit extends Experiment<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.TimeFloatUnit.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public TimeFloatUnit(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.TimeFloatUnit.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public TimeFloatUnit(final Context context, final Treatment.TimeFloatUnit treatment,
+                final SimulatorInterface.TimeFloatUnit simulator, final ModelInterface.TimeFloatUnit model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
+    /** Easy access class Experiment.TimeLongUnit. */
+    public static class TimeLongUnit extends Experiment<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.TimeLongUnit.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public TimeLongUnit(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.TimeLongUnit.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public TimeLongUnit(final Context context, final Treatment.TimeLongUnit treatment,
+                final SimulatorInterface.TimeLongUnit simulator, final ModelInterface.TimeLongUnit model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
+    /** Easy access class Experiment.CalendarDouble. */
+    public static class CalendarDouble extends Experiment<Calendar, UnitTimeDouble, SimTimeCalendarDouble> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.CalendarDouble.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public CalendarDouble(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.CalendarDouble.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public CalendarDouble(final Context context, final Treatment.CalendarDouble treatment,
+                final SimulatorInterface.CalendarDouble simulator, final ModelInterface.CalendarDouble model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
+    /** Easy access class Experiment.CalendarFloat. */
+    public static class CalendarFloat extends Experiment<Calendar, UnitTimeFloat, SimTimeCalendarFloat> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.CalendarFloat.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public CalendarFloat(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.CalendarFloat.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public CalendarFloat(final Context context, final Treatment.CalendarFloat treatment,
+                final SimulatorInterface.CalendarFloat simulator, final ModelInterface.CalendarFloat model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
+    /** Easy access class Experiment.CalendarLong. */
+    public static class CalendarLong extends Experiment<Calendar, UnitTimeLong, SimTimeCalendarLong> 
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Experiment.CalendarLong.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         */
+        public CalendarLong(final Context context)
+        {
+            super(context);
+        }
+
+        /**
+         * constructs a new Experiment.CalendarLong.
+         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
+         * @param treatment the treatment for this experiment
+         * @param simulator the simulator
+         * @param model the model to experiment with
+         */
+        public CalendarLong(final Context context, final Treatment.CalendarLong treatment,
+                final SimulatorInterface.CalendarLong simulator, final ModelInterface.CalendarLong model)
+        {
+            super(context, treatment, simulator, model);
+        }
+    }
+
 }

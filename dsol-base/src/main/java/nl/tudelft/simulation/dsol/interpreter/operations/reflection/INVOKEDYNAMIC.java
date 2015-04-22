@@ -13,7 +13,7 @@ import nl.tudelft.simulation.language.primitives.Primitive;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
 import nl.tudelft.simulation.language.reflection.MethodSignature;
 
-//TODO: Was missing in DSOL1 and DSOL2. Check if correct. INVOKEDYNAMIC has been copied from INVOKESTATIC and that is 100% sure not correct.
+//TODO Was missing in DSOL1 and DSOL2. Check if correct. INVOKEDYNAMIC has been copied from INVOKESTATIC and that is 100% sure not correct.
 
 /**
  * INVOKEDYNAMIC.

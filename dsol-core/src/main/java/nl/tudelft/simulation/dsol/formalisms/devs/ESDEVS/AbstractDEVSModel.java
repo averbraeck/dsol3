@@ -54,7 +54,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     protected CoupledModel parentModel;
 
     /** the simulator this model or component will schedule its events on. */
-    protected DEVSSimulatorInterface.Double simulator;
+    protected DEVSSimulatorInterface.TimeDouble simulator;
 
     /** all DEVS models are named - this is the component name. */
     protected String modelName;
@@ -102,7 +102,7 @@ public abstract class AbstractDEVSModel extends EventProducer
      * @param simulator the simulator to schedule the events on.
      * @param parentModel the parent model we are part of.
      */
-    public AbstractDEVSModel(final String modelName, final DEVSSimulatorInterface.Double simulator,
+    public AbstractDEVSModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator,
             final CoupledModel parentModel)
     {
         this.modelName = modelName;
@@ -123,7 +123,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @return the simulator this model schedules its events on.
      */
-    public DEVSSimulatorInterface.Double getSimulator()
+    public DEVSSimulatorInterface.TimeDouble getSimulator()
     {
         return this.simulator;
     }
@@ -131,7 +131,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @param simulator the simulator to use from now on
      */
-    public void setSimulator(final DEVSSimulatorInterface.Double simulator)
+    public void setSimulator(final DEVSSimulatorInterface.TimeDouble simulator)
     {
         this.simulator = simulator;
     }

@@ -34,7 +34,7 @@ public class RealTimeClockTest_Failed extends TestCase
             clock.setTimeStep(10);
 
             ExperimentalFrame experiment = TestExperiment.createExperimentalFrame(clock, new TestModel());
-            // TODO: experiment.getExperiments().get(0).getTreatment().setRunLength(100000);
+            // TODO experiment.getExperiments().get(0).getTreatment().setRunLength(100000);
             experiment.start();
         }
         catch (Exception e)

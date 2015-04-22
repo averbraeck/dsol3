@@ -39,9 +39,11 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
     private static final long serialVersionUID = 20140802L;
 
     /** value represents the value in milliseconds. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected N timeMsec;
 
     /** original unit. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final TimeUnit unit;
 
     /**
@@ -57,7 +59,7 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
     /**
      * @return the time in milliseconds
      */
-    public N getTimeMsec()
+    public final N getTimeMsec()
     {
         return this.timeMsec;
     }
@@ -65,7 +67,7 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
     /**
      * @param value the new time in milliseconds.
      */
-    public void setTimeMsec(final N value)
+    public final void setTimeMsec(final N value)
     {
         this.timeMsec = value;
     }
@@ -85,45 +87,45 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
     /**
      * @return the unit
      */
-    public TimeUnit getUnit()
+    public final TimeUnit getUnit()
     {
         return this.unit;
     }
 
     /** {@inheritDoc} */
     @Override
-    public int intValue()
+    public final int intValue()
     {
         return this.timeMsec.intValue();
     }
 
     /** {@inheritDoc} */
     @Override
-    public long longValue()
+    public final long longValue()
     {
         return this.timeMsec.longValue();
     }
 
     /** {@inheritDoc} */
     @Override
-    public float floatValue()
+    public final float floatValue()
     {
         return this.timeMsec.floatValue();
     }
 
     /** {@inheritDoc} */
     @Override
-    public double doubleValue()
+    public final double doubleValue()
     {
         return this.timeMsec.doubleValue();
     }
 
     /**
-     * converts this unit-time to the target units
+     * converts this unit-time to the target units.
      * @param targetUnits the units to convert to
      * @return the amount in target units
      */
-    public double convert(final TimeUnit targetUnits)
+    public final double convert(final TimeUnit targetUnits)
     {
         return this.timeMsec.doubleValue() * this.unit.getFactor() / targetUnits.getFactor();
     }
@@ -132,7 +134,7 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
      * @param simTime
      * @return HH:MM:SS
      */
-    public String formatHMS()
+    public final String formatHMS()
     {
         double hours = getHours();
         int days = (int) Math.floor(hours / 24.0);
@@ -147,7 +149,7 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
      * @param simTime
      * @return HHH:MM:SS
      */
-    public String formatHHHMS()
+    public final String formatHHHMS()
     {
         double hours = getHours();
         int h = (int) Math.floor(hours);
@@ -159,13 +161,14 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
     /**
      * @return number of hours in SimTime
      */
-    public double getHours()
+    public final double getHours()
     {
         return convert(TimeUnit.HOUR);
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return convert(this.unit) + this.unit.getAbbreviation();

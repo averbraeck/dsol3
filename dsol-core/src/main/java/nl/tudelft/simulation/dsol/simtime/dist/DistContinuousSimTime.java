@@ -57,10 +57,11 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
     private static final long serialVersionUID = 20140805L;
 
     /** the wrapped distribution. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final DistContinuous wrappedDistribution;
 
     /**
-     * constructs a new continuous distribution
+     * constructs a new continuous distribution.
      * @param wrappedDistribution the wrapped continuous distribution
      */
     public DistContinuousSimTime(final DistContinuous wrappedDistribution)
@@ -76,11 +77,11 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
     public abstract T draw();
 
     /**
-     * returns the probability density value of an observation
+     * returns the probability density value of an observation.
      * @param observation the observation.
      * @return double the probability density.
      */
-    public double probDensity(final double observation)
+    public final double probDensity(final double observation)
     {
         return this.wrappedDistribution.probDensity(observation);
     }
@@ -90,7 +91,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
     /***********************************************************************************************************/
 
     /** Easy access class DistContinuousSimTime.Double. */
-    public static class Double extends DistContinuousSimTime<java.lang.Double, java.lang.Double, SimTimeDouble>
+    public static class TimeDouble extends DistContinuousSimTime<java.lang.Double, java.lang.Double, SimTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -98,21 +99,21 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         /**
          * @param wrappedDistribution the wrapped continuous distribution
          */
-        public Double(final DistContinuous wrappedDistribution)
+        public TimeDouble(final DistContinuous wrappedDistribution)
         {
             super(wrappedDistribution);
         }
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeDouble draw()
+        public final SimTimeDouble draw()
         {
             return new SimTimeDouble(super.wrappedDistribution.draw());
         }
     }
 
     /** Easy access class DistContinuousSimTime.Float. */
-    public static class Float extends DistContinuousSimTime<java.lang.Float, java.lang.Float, SimTimeFloat>
+    public static class TimeFloat extends DistContinuousSimTime<java.lang.Float, java.lang.Float, SimTimeFloat>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -120,21 +121,21 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         /**
          * @param wrappedDistribution the wrapped continuous distribution
          */
-        public Float(final DistContinuous wrappedDistribution)
+        public TimeFloat(final DistContinuous wrappedDistribution)
         {
             super(wrappedDistribution);
         }
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeFloat draw()
+        public final SimTimeFloat draw()
         {
             return new SimTimeFloat((float) super.wrappedDistribution.draw());
         }
     }
 
     /** Easy access class DistContinuousSimTime.Long. */
-    public static class Long extends DistContinuousSimTime<java.lang.Long, java.lang.Long, SimTimeLong>
+    public static class TimeLong extends DistContinuousSimTime<java.lang.Long, java.lang.Long, SimTimeLong>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -142,21 +143,21 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
         /**
          * @param wrappedDistribution the wrapped continuous distribution
          */
-        public Long(final DistContinuous wrappedDistribution)
+        public TimeLong(final DistContinuous wrappedDistribution)
         {
             super(wrappedDistribution);
         }
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeLong draw()
+        public final SimTimeLong draw()
         {
             return new SimTimeLong((long) super.wrappedDistribution.draw());
         }
     }
 
     /** Easy access class DistContinuousSimTime.DoubleUnit. */
-    public static class DoubleUnit extends DistContinuousSimTime<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends DistContinuousSimTime<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -168,7 +169,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
          * @param wrappedDistribution the wrapped continuous distribution
          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
-        public DoubleUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
+        public TimeDoubleUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
         {
             super(wrappedDistribution);
             this.unit = unit;
@@ -176,14 +177,14 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeDoubleUnit draw()
+        public final SimTimeDoubleUnit draw()
         {
             return new SimTimeDoubleUnit(new UnitTimeDouble(super.wrappedDistribution.draw(), this.unit));
         }
     }
 
     /** Easy access class DistContinuousSimTime.FloatUnit. */
-    public static class FloatUnit extends DistContinuousSimTime<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends DistContinuousSimTime<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -195,7 +196,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
          * @param wrappedDistribution the wrapped continuous distribution
          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
-        public FloatUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
+        public TimeFloatUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
         {
             super(wrappedDistribution);
             this.unit = unit;
@@ -203,14 +204,14 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeFloatUnit draw()
+        public final SimTimeFloatUnit draw()
         {
             return new SimTimeFloatUnit(new UnitTimeFloat((float) super.wrappedDistribution.draw(), this.unit));
         }
     }
 
     /** Easy access class DistContinuousSimTime.LongUnit. */
-    public static class LongUnit extends DistContinuousSimTime<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    public static class TimeLongUnit extends DistContinuousSimTime<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -222,7 +223,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
          * @param wrappedDistribution the wrapped continuous distribution
          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
-        public LongUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
+        public TimeLongUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
         {
             super(wrappedDistribution);
             this.unit = unit;
@@ -230,7 +231,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeLongUnit draw()
+        public final SimTimeLongUnit draw()
         {
             return new SimTimeLongUnit(new UnitTimeLong((long) super.wrappedDistribution.draw(), this.unit));
         }
@@ -257,7 +258,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeCalendarDouble draw()
+        public final SimTimeCalendarDouble draw()
         {
             double ms = new UnitTimeDouble(super.wrappedDistribution.draw(), this.unit).getTimeMsec().doubleValue();
             return new SimTimeCalendarDouble(ms);
@@ -285,7 +286,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeCalendarFloat draw()
+        public final SimTimeCalendarFloat draw()
         {
             float ms =
                     new UnitTimeFloat((float) super.wrappedDistribution.draw(), this.unit).getTimeMsec().floatValue();
@@ -314,7 +315,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends N
 
         /** {@inheritDoc} */
         @Override
-        public SimTimeCalendarLong draw()
+        public final SimTimeCalendarLong draw()
         {
             long ms = new UnitTimeLong((long) super.wrappedDistribution.draw(), this.unit).getTimeMsec().longValue();
             return new SimTimeCalendarLong(ms);

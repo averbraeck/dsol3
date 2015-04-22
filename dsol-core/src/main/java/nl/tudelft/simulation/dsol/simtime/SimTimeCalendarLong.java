@@ -60,21 +60,21 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public void add(final UnitTimeLong relativeTime)
+    public final void add(final UnitTimeLong relativeTime)
     {
         this.timeMsec += relativeTime.getTimeMsec();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final UnitTimeLong relativeTime)
+    public final void subtract(final UnitTimeLong relativeTime)
     {
         this.timeMsec -= relativeTime.getTimeMsec();
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeLong minus(final SimTimeCalendarLong simTime)
+    public final UnitTimeLong minus(final SimTimeCalendarLong simTime)
     {
         UnitTimeLong ret = new UnitTimeLong(this.timeMsec, TimeUnit.MILLISECOND);
         ret.setTimeMsec(ret.getTimeMsec() - simTime.timeMsec);
@@ -83,14 +83,14 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public int compareTo(final SimTimeCalendarLong simTime)
+    public final int compareTo(final SimTimeCalendarLong simTime)
     {
         return Long.compare(this.timeMsec, simTime.timeMsec);
     }
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeCalendarLong setZero()
+    public final SimTimeCalendarLong setZero()
     {
         this.timeMsec = 0L;
         return this;
@@ -98,21 +98,21 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeCalendarLong copy()
+    public final SimTimeCalendarLong copy()
     {
         return new SimTimeCalendarLong(get());
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final Calendar absoluteTime)
+    public final void set(final Calendar absoluteTime)
     {
         this.timeMsec = absoluteTime.getTimeInMillis();
     }
 
     /** {@inheritDoc} */
     @Override
-    public Calendar get()
+    public final Calendar get()
     {
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(this.timeMsec);
@@ -122,7 +122,7 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
     /**
      * @return timeMsec
      */
-    public long getTimeMsec()
+    public final long getTimeMsec()
     {
         return this.timeMsec;
     }

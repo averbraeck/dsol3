@@ -37,7 +37,7 @@ public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, S
     private UnitTimeDouble time;
 
     /**
-     * @param time
+     * @param time the initial time.
      */
     public SimTimeDoubleUnit(final UnitTimeDouble time)
     {
@@ -46,21 +46,21 @@ public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, S
 
     /** {@inheritDoc} */
     @Override
-    public void add(final UnitTimeDouble relativeTime)
+    public final void add(final UnitTimeDouble relativeTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() + relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final UnitTimeDouble relativeTime)
+    public final void subtract(final UnitTimeDouble relativeTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() - relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeDouble minus(final SimTimeDoubleUnit simTime)
+    public final UnitTimeDouble minus(final SimTimeDoubleUnit simTime)
     {
         UnitTimeDouble ret = new UnitTimeDouble(this.time.getTime(), this.time.getUnit());
         ret.setTimeMsec(ret.getTimeMsec() - simTime.get().getTimeMsec());
@@ -69,7 +69,7 @@ public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, S
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeDoubleUnit setZero()
+    public final SimTimeDoubleUnit setZero()
     {
         this.time.setTimeMsec(0.0d);
         return this;
@@ -77,21 +77,21 @@ public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, S
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeDoubleUnit copy()
+    public final SimTimeDoubleUnit copy()
     {
         return new SimTimeDoubleUnit(new UnitTimeDouble(this.time.getTime(), this.time.getUnit()));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final UnitTimeDouble absoluteTime)
+    public final void set(final UnitTimeDouble absoluteTime)
     {
         this.time = new UnitTimeDouble(absoluteTime.getTime(), absoluteTime.getUnit());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeDouble get()
+    public final UnitTimeDouble get()
     {
         return this.time;
     }

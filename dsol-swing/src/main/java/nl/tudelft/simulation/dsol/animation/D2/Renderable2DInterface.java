@@ -53,7 +53,7 @@ public interface Renderable2DInterface
     /**
      * destroys this editable. How to do this must be implemented by the modeler
      * @throws RemoteException RemoteException
-     * @throws NamingException 
+     * @throws NamingException
      */
     void destroy() throws RemoteException, NamingException;
 

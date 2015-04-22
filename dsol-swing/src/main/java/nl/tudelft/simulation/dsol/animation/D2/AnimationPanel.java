@@ -33,7 +33,6 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * 
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:37:49 $
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
@@ -43,11 +42,12 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     private static final long serialVersionUID = 1L;
 
     /** the elements of this panel */
-    private SortedSet<Renderable2DInterface> elements = Collections.synchronizedSortedSet(new TreeSet<Renderable2DInterface>(new Renderable2DComparator()));
+    private SortedSet<Renderable2DInterface> elements = Collections
+            .synchronizedSortedSet(new TreeSet<Renderable2DInterface>(new Renderable2DComparator()));
 
     /** the simulator */
     private SimulatorInterface<?, ?, ?> simulator;
-    
+
     /** the eventContext */
     private EventContext context = null;
 
@@ -63,7 +63,6 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /**
      * constructs a new AnimationPanel
-     * 
      * @param extent the extent of the panel
      * @param size the size of the panel.
      * @param simulator the simulator of which we want to know the events for animation
@@ -82,7 +81,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         {
             simulator.addListener(this, AnimatorInterface.UPDATE_ANIMATION_EVENT);
             simulator.addListener(this, SimulatorInterface.START_REPLICATION_EVENT);
-        } catch (RemoteException exception)
+        }
+        catch (RemoteException exception)
         {
             exception.printStackTrace();
         }
@@ -123,8 +123,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void notify(final EventInterface event) throws RemoteException
     {
-        if (event.getSource() instanceof AnimatorInterface && event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT)
-                && this.isShowing())
+        if (event.getSource() instanceof AnimatorInterface
+                && event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT) && this.isShowing())
         {
             if (this.getWidth() > 0 || this.getHeight() > 0)
             {
@@ -133,7 +133,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
             return;
         }
 
-        if (event.getSource() instanceof AnimatorInterface && event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
+        if (event.getSource() instanceof AnimatorInterface
+                && event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
         {
             this.elements.clear();
             try
@@ -152,7 +153,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
                     this.objectAdded(new NamingEvent(this.context, -1, binding, binding, null));
                 }
                 this.repaint();
-            } catch (Exception exception)
+            }
+            catch (Exception exception)
             {
                 Logger.warning(this, "notify", exception);
             }

@@ -87,7 +87,7 @@ public class ArrayInterpreterTest
         Assert.assertEquals("Long array1[3] == array2[3]", longValue1, longValue2);
 
         /*-
-         *  TODO: FAILS on SASHORT
+         *  TODO FAILS on SASHORT
         // short
         short[] short1 = shortArrayContent();
         short[] short2 = (short[]) Interpreter.invoke(this, "shortArrayContent", new Object[]{}, new Class<?>[]{});

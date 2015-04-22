@@ -30,20 +30,16 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** The EVENTLIST_CHANGED_EVENT */
+    /** The EVENTLIST_CHANGED_EVENT. */
     public static final EventType EVENTLIST_CHANCED_EVENT = null;
 
     /** The tableHeader. */
     public static final String[] HEADER = {"Time", "Source", "Target", "Method"};
 
-    /**
-     * the tableModel
-     */
+    /** the tableModel. */
     private DefaultTableModel tableModel = new DefaultTableModel(HEADER, 0);
 
-    /**
-     * show the package information in the tableModel
-     */
+    /** show the package information in the tableModel. */
     private boolean showPackage = false;
 
     /**
@@ -55,34 +51,34 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
         super();
         synchronized (origin)
         {
-            // TODO: make a copy of all the events for this event list?
+            // TODO make a copy of all the events for this event list?
             this.addAll(origin);
         }
     }
 
     /**
-     * returns the TreeMapEventList
+     * returns the TreeMapEventList.
      * @return EventListenerInterface
      */
-    public synchronized EventListInterface<T> getOrigin()
+    public final synchronized EventListInterface<T> getOrigin()
     {
         RedBlackTree<T> result = new RedBlackTree<T>();
-        // TODO: make a copy first?
+        // TODO make a copy first?
         result.addAll(this);
         return result;
     }
 
     /**
-     * returns the tableModel
-     * @return TableModel resutl
+     * returns the tableModel.
+     * @return TableModel result
      */
-    public TableModel getTableModel()
+    public final TableModel getTableModel()
     {
         return this.tableModel;
     }
 
     /**
-     * update the tableModel
+     * update the tableModel.
      */
     private void updateTableModel()
     {
@@ -111,7 +107,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
     }
 
     /**
-     * formats a label representing an object
+     * formats a label representing an object.
      * @param label the label to format.
      * @return String the label
      */
@@ -129,17 +125,17 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
     }
 
     /**
-     * sets the showPackage
+     * sets the showPackage.
      * @param showPackage The showPackage to set.
      */
-    public void setShowPackage(final boolean showPackage)
+    public final void setShowPackage(final boolean showPackage)
     {
         this.showPackage = showPackage;
     }
 
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean addAll(final Collection<? extends SimEventInterface<T>> collection)
+    public final synchronized boolean addAll(final Collection<? extends SimEventInterface<T>> collection)
     {
         synchronized (this.tableModel)
         {
@@ -151,7 +147,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void clear()
+    public final synchronized void clear()
     {
         synchronized (this.tableModel)
         {
@@ -162,7 +158,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** {@inheritDoc} */
     @Override
-    public synchronized boolean removeAll(final Collection<?> collection)
+    public final synchronized boolean removeAll(final Collection<?> collection)
     {
         synchronized (this.tableModel)
         {
@@ -174,7 +170,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** {@inheritDoc} */
     @Override
-    public synchronized SimEventInterface<T> removeFirst()
+    public final synchronized SimEventInterface<T> removeFirst()
     {
         synchronized (this.tableModel)
         {
@@ -186,7 +182,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** {@inheritDoc} */
     @Override
-    public synchronized SimEventInterface<T> removeLast()
+    public final synchronized SimEventInterface<T> removeLast()
     {
         synchronized (this.tableModel)
         {

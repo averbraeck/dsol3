@@ -230,7 +230,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     public void draw(final Graphics2D g2, final Rectangle2D rectangle, final Point2D point, final PlotState plotState,
             final PlotRenderingInfo plotRenderingInfo)
     {
-        // TODO: Point2D point not in use yet -- look up meaning
+        // TODO Point2D point not in use yet -- look up meaning
         g2.setBackground(Color.WHITE);
         double height = Math.min(rectangle.getHeight() / this.tallies.length * 1.0, rectangle.getHeight());
         double[] extent = BoxAndWhiskerPlot.extent(this.tallies);

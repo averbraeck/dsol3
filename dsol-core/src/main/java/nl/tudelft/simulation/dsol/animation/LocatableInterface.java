@@ -21,7 +21,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 public interface LocatableInterface
 {
     /**
-     * returns the location of an object
+     * returns the location of an object.
      * @return DirectedPoint the location
      * @throws RemoteException on network failure
      */

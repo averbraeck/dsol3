@@ -96,7 +96,7 @@ public class Persistent extends Tally
             throw new IllegalArgumentException("event != TimedEvent || event.source != Double ("
                     + event.getContent().getClass().toString() + ")");
         }
-        // TODO: what if this is not a Double?
+        // TODO what if this is not a Double?
         TimedEvent<Double> timedEvent = (TimedEvent<Double>) event;
         double value = 0.0;
         if (event.getContent() instanceof Number)

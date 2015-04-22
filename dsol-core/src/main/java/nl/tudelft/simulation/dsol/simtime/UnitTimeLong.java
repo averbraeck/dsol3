@@ -34,8 +34,8 @@ public class UnitTimeLong extends UnitTime<Long, UnitTimeLong>
     private static final long serialVersionUID = 20140802L;
 
     /**
-     * @param time
-     * @param unit
+     * @param time the initial time.
+     * @param unit the unit of the initial time.
      */
     public UnitTimeLong(final Long time, final TimeUnit unit)
     {
@@ -44,21 +44,21 @@ public class UnitTimeLong extends UnitTime<Long, UnitTimeLong>
 
     /** {@inheritDoc} */
     @Override
-    public int compareTo(final UnitTimeLong unitTime)
+    public final int compareTo(final UnitTimeLong unitTime)
     {
         return Double.compare(this.timeMsec, unitTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    protected Long convertToMsec(final Long time, final TimeUnit timeUnit)
+    protected final Long convertToMsec(final Long time, final TimeUnit timeUnit)
     {
         return (long) (time * (timeUnit.getFactor() / TimeUnit.MILLISECOND.getFactor()));
     }
 
     /** {@inheritDoc} */
     @Override
-    public Long getTime()
+    public final Long getTime()
     {
         return (long) convert(this.unit);
     }

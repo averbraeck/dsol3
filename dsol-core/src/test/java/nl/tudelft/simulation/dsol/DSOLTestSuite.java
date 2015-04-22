@@ -44,7 +44,7 @@ public final class DSOLTestSuite
         // suite.addTest(new DESSSimulatorTest());
         // suite.addTest(new DEVSSimulatorTest());
         // suite.addTest(new RealTimeClockTest_Failed());
-        // TODO: suite.addTest(new SimulatorTest());
+        // TODO suite.addTest(new SimulatorTest());
         return suite;
     }
 }

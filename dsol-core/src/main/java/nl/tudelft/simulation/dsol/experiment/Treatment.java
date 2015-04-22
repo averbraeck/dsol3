@@ -1,9 +1,22 @@
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Properties;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 
 /**
  * The treatment is comprises the specification of input data, the runControl and the specification of output data.
@@ -45,7 +58,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /** the end time of the simulation. */
     private final T endTime;
 
-    /** the warmup time of the simulation (included in the total run length) */
+    /** the warmup time of the simulation (included in the total run length). */
     private final T warmupTime;
 
     /** the properties of this treatment. */
@@ -59,7 +72,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param experiment reflects the experiment
      * @param id an id to recognize the treatment
      * @param startTime the absolute start time of a run (can be zero)
-     * @param warmupPeriod the relative warmup time of a run (can be zero), <u>included</u> in the runLength
+     * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
      * @param runLength the run length of a run (relative to the start time)
      * @param replicationMode the replication mode of this treatment
      */
@@ -84,7 +97,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param experiment reflects the experiment
      * @param id an id to recognize the treatment
      * @param startTime the absolute start time of a run (can be zero)
-     * @param warmupPeriod the relative warmup time of a run (can be zero), <u>included</u> in the runLength
+     * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
      * @param runLength the run length of a run (relative to the start time)
      */
     public Treatment(final Experiment<A, R, T> experiment, final String id, final T startTime, final R warmupPeriod,
@@ -94,28 +107,26 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     }
 
     /**
-     * Returns the experiment
      * @return the experiment
      */
-    public Experiment<A, R, T> getExperiment()
+    public final Experiment<A, R, T> getExperiment()
     {
         return this.experiment;
     }
 
     /**
-     * returns the properties for this treatment
-     * @return Properties
+     * @return Properties for this treatment
      */
-    public Properties getProperties()
+    public final Properties getProperties()
     {
         return this.properties;
     }
 
     /**
-     * sets the properties
+     * sets the properties.
      * @param properties the properties
      */
-    public void setProperties(final Properties properties)
+    public final void setProperties(final Properties properties)
     {
         this.properties = properties;
     }
@@ -123,7 +134,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return the replication mode of this treatment.
      */
-    public ReplicationMode getReplicationMode()
+    public final ReplicationMode getReplicationMode()
     {
         return this.replicationMode;
     }
@@ -131,7 +142,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return Returns the runLength.
      */
-    public R getRunLength()
+    public final R getRunLength()
     {
         return this.runLength;
     }
@@ -139,7 +150,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return Returns the warmupPeriod.
      */
-    public R getWarmupPeriod()
+    public final R getWarmupPeriod()
     {
         return this.warmupPeriod;
     }
@@ -147,7 +158,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return the absolute end time of the simulation that can be compared with the simulator time.
      */
-    public T getEndTime()
+    public final T getEndTime()
     {
         return this.endTime;
     }
@@ -155,7 +166,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return startTime
      */
-    public T getStartTime()
+    public final T getStartTime()
     {
         return this.startTime;
     }
@@ -163,7 +174,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return warmupTime
      */
-    public T getWarmupTime()
+    public final T getWarmupTime()
     {
         return this.warmupTime;
     }
@@ -171,16 +182,352 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return id
      */
-    public String getId()
+    public final String getId()
     {
         return this.id;
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         String result = "[Treatment; warmup=" + this.warmupPeriod + " ; runLength=" + this.runLength + "]";
         return result;
+    }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class Treatment.TimeDouble. */
+    public static class TimeDouble extends Treatment<Double, Double, SimTimeDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.TimeDouble.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public TimeDouble(final Experiment.TimeDouble experiment, final String id,
+                final SimTimeDouble startTime, final Double warmupPeriod, final Double runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.TimeDouble.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public TimeDouble(final Experiment.TimeDouble experiment, final String id,
+                final SimTimeDouble startTime, final Double warmupPeriod, final Double runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
+    }
+
+    /** Easy access class Treatment.TimeFloat. */
+    public static class TimeFloat extends Treatment<Float, Float, SimTimeFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.TimeFloat.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public TimeFloat(final Experiment.TimeFloat experiment, final String id,
+                final SimTimeFloat startTime, final Float warmupPeriod, final Float runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.TimeFloat.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public TimeFloat(final Experiment.TimeFloat experiment, final String id,
+                final SimTimeFloat startTime, final Float warmupPeriod, final Float runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
+    }
+    /** Easy access class Treatment.TimeLong. */
+    public static class TimeLong extends Treatment<Long, Long, SimTimeLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.TimeLong.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public TimeLong(final Experiment.TimeLong experiment, final String id,
+                final SimTimeLong startTime, final Long warmupPeriod, final Long runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.TimeLong.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public TimeLong(final Experiment.TimeLong experiment, final String id,
+                final SimTimeLong startTime, final Long warmupPeriod, final Long runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
+    }
+
+    /** Easy access class Treatment.TimeDoubleUnit. */
+    public static class TimeDoubleUnit extends Treatment<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.TimeDoubleUnit.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment, final String id,
+                final SimTimeDoubleUnit startTime, final UnitTimeDouble warmupPeriod, final UnitTimeDouble runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.TimeDoubleUnit.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment, final String id,
+                final SimTimeDoubleUnit startTime, final UnitTimeDouble warmupPeriod, final UnitTimeDouble runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
+    }
+
+    /** Easy access class Treatment.TimeFloatUnit. */
+    public static class TimeFloatUnit extends Treatment<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.TimeFloatUnit.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public TimeFloatUnit(final Experiment.TimeFloatUnit experiment, final String id,
+                final SimTimeFloatUnit startTime, final UnitTimeFloat warmupPeriod, final UnitTimeFloat runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.TimeFloatUnit.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public TimeFloatUnit(final Experiment.TimeFloatUnit experiment, final String id,
+                final SimTimeFloatUnit startTime, final UnitTimeFloat warmupPeriod, final UnitTimeFloat runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
+    }
+    /** Easy access class Treatment.TimeLongUnit. */
+    public static class TimeLongUnit extends Treatment<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.TimeLongUnit.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public TimeLongUnit(final Experiment.TimeLongUnit experiment, final String id,
+                final SimTimeLongUnit startTime, final UnitTimeLong warmupPeriod, final UnitTimeLong runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.TimeLongUnit.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public TimeLongUnit(final Experiment.TimeLongUnit experiment, final String id,
+                final SimTimeLongUnit startTime, final UnitTimeLong warmupPeriod, final UnitTimeLong runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
+    }
+    
+    /** Easy access class Treatment.CalendarDouble. */
+    public static class CalendarDouble extends Treatment<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.CalendarDouble.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public CalendarDouble(final Experiment.CalendarDouble experiment, final String id,
+                final SimTimeCalendarDouble startTime, final UnitTimeDouble warmupPeriod, final UnitTimeDouble runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.CalendarDouble.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public CalendarDouble(final Experiment.CalendarDouble experiment, final String id,
+                final SimTimeCalendarDouble startTime, final UnitTimeDouble warmupPeriod, final UnitTimeDouble runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
+    }
+
+    /** Easy access class Treatment.CalendarFloat. */
+    public static class CalendarFloat extends Treatment<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.CalendarFloat.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public CalendarFloat(final Experiment.CalendarFloat experiment, final String id,
+                final SimTimeCalendarFloat startTime, final UnitTimeFloat warmupPeriod, final UnitTimeFloat runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.CalendarFloat.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public CalendarFloat(final Experiment.CalendarFloat experiment, final String id,
+                final SimTimeCalendarFloat startTime, final UnitTimeFloat warmupPeriod, final UnitTimeFloat runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
+    }
+
+    /** Easy access class Treatment.CalendarLong. */
+    public static class CalendarLong extends Treatment<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a Treatment.CalendarLong.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         * @param replicationMode the replication mode of this treatment
+         */
+        public CalendarLong(final Experiment.CalendarLong experiment, final String id,
+                final SimTimeCalendarLong startTime, final UnitTimeLong warmupPeriod, final UnitTimeLong runLength,
+                final ReplicationMode replicationMode)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength, replicationMode);
+        }
+
+        /**
+         * constructs a Treatment.CalendarLong.
+         * @param experiment reflects the experiment
+         * @param id an id to recognize the treatment
+         * @param startTime the absolute start time of a run (can be zero)
+         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
+         * @param runLength the run length of a run (relative to the start time)
+         */
+        public CalendarLong(final Experiment.CalendarLong experiment, final String id,
+                final SimTimeCalendarLong startTime, final UnitTimeLong warmupPeriod, final UnitTimeLong runLength)
+        {
+            super(experiment, id, startTime, warmupPeriod, runLength);
+        }
     }
 }

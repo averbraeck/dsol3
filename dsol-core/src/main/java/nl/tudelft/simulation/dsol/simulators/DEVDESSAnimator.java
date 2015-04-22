@@ -16,7 +16,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
-import nl.tudelft.simulation.dsol.simulators.AnimatorInterface.AnimationThread;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
@@ -42,7 +41,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     private static final long serialVersionUID = 20140804L;
 
     /**
-     * @param initialTimeStep
+     * @param initialTimeStep the initial time step to use in the integration.
      */
     public DEVDESSAnimator(final R initialTimeStep)
     {
@@ -50,18 +49,19 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** AnimationDelay refers to the delay in milliseconds between timeSteps. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected long animationDelay = 100L;
 
     /** {@inheritDoc} */
     @Override
-    public long getAnimationDelay()
+    public final long getAnimationDelay()
     {
         return this.animationDelay;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setAnimationDelay(final long animationDelay)
+    public final void setAnimationDelay(final long animationDelay)
     {
         this.animationDelay = animationDelay;
         this.fireEvent(ANIMATION_DELAY_CHANGED_EVENT, animationDelay);
@@ -76,6 +76,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
         AnimationThread animationThread = new AnimationThread(this);
@@ -128,59 +129,63 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class Animator.Double. */
-    public static class Double extends DEVDESSAnimator<java.lang.Double, java.lang.Double, SimTimeDouble>
+    /** Easy access class Animator.TimeDouble. */
+    public static class TimeDouble extends DEVDESSAnimator<Double, Double, SimTimeDouble> implements
+            DEVDESSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public Double(final java.lang.Double initialTimeStep)
+        public TimeDouble(final Double initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class Animator.Float. */
-    public static class Float extends DEVDESSAnimator<java.lang.Float, java.lang.Float, SimTimeFloat>
+    /** Easy access class Animator.TimeFloat. */
+    public static class TimeFloat extends DEVDESSAnimator<Float, Float, SimTimeFloat> implements
+            DEVDESSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public Float(final java.lang.Float initialTimeStep)
+        public TimeFloat(final Float initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class Animator.Long. */
-    public static class Long extends DEVDESSAnimator<java.lang.Long, java.lang.Long, SimTimeLong>
+    /** Easy access class Animator.TimeLong. */
+    public static class TimeLong extends DEVDESSAnimator<Long, Long, SimTimeLong> implements
+            DEVDESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public Long(final java.lang.Long initialTimeStep)
+        public TimeLong(final Long initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class Animator.DoubleUnit. */
-    public static class DoubleUnit extends DEVDESSAnimator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class DoubleUnit extends DEVDESSAnimator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
+            DEVDESSSimulatorInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
         public DoubleUnit(final UnitTimeDouble initialTimeStep)
         {
@@ -188,31 +193,33 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         }
     }
 
-    /** Easy access class Animator.FloatUnit. */
-    public static class FloatUnit extends DEVDESSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    /** Easy access class Animator.TimeFloatUnit. */
+    public static class TimeFloatUnit extends DEVDESSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
+            DEVDESSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public FloatUnit(final UnitTimeFloat initialTimeStep)
+        public TimeFloatUnit(final UnitTimeFloat initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
-    /** Easy access class Animator.LongUnit. */
-    public static class LongUnit extends DEVDESSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    /** Easy access class Animator.TimeLongUnit. */
+    public static class TimeLongUnit extends DEVDESSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
+            DEVDESSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
-        public LongUnit(final UnitTimeLong initialTimeStep)
+        public TimeLongUnit(final UnitTimeLong initialTimeStep)
         {
             super(initialTimeStep);
         }
@@ -220,12 +227,13 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
     /** Easy access class Animator.CalendarDouble. */
     public static class CalendarDouble extends DEVDESSAnimator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+            implements DEVDESSSimulatorInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
         public CalendarDouble(final UnitTimeDouble initialTimeStep)
         {
@@ -234,13 +242,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.CalendarFloat. */
-    public static class CalendarFloat extends DEVDESSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends DEVDESSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
+            DEVDESSSimulatorInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
         public CalendarFloat(final UnitTimeFloat initialTimeStep)
         {
@@ -249,13 +258,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.CalendarLong. */
-    public static class CalendarLong extends DEVDESSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends DEVDESSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
+            DEVDESSSimulatorInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep
+         * @param initialTimeStep the initial time step to use in the integration.
          */
         public CalendarLong(final UnitTimeLong initialTimeStep)
         {

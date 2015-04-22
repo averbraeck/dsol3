@@ -13,7 +13,6 @@ import nl.tudelft.simulation.introspection.gui.IntroSpectionDialog;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * 
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:37:48 $
  * @since 1.5
@@ -22,13 +21,12 @@ public class IntrospectionAction extends AbstractAction
 {
     /** */
     private static final long serialVersionUID = 20140909L;
-    
+
     /** the target to introspect */
     private Object target = null;
 
     /**
      * constructs a new IntrospectionAction
-     * 
      * @param target the target to introspect
      */
     public IntrospectionAction(final Object target)

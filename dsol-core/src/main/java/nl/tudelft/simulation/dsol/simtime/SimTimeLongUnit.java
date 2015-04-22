@@ -37,7 +37,7 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
     private UnitTimeLong time;
 
     /**
-     * @param time
+     * @param time the initial time.
      */
     public SimTimeLongUnit(final UnitTimeLong time)
     {
@@ -46,21 +46,21 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public void add(final UnitTimeLong relativeTime)
+    public final void add(final UnitTimeLong relativeTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() + relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final UnitTimeLong relativeTime)
+    public final void subtract(final UnitTimeLong relativeTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() - relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeLong minus(final SimTimeLongUnit simTime)
+    public final UnitTimeLong minus(final SimTimeLongUnit simTime)
     {
         UnitTimeLong ret = new UnitTimeLong(this.time.getTime(), this.time.getUnit());
         ret.setTimeMsec(ret.getTimeMsec() - simTime.get().getTimeMsec());
@@ -69,7 +69,7 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeLongUnit setZero()
+    public final SimTimeLongUnit setZero()
     {
         this.time.setTimeMsec(0L);
         return this;
@@ -77,21 +77,21 @@ public class SimTimeLongUnit extends SimTime<UnitTimeLong, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeLongUnit copy()
+    public final SimTimeLongUnit copy()
     {
         return new SimTimeLongUnit(new UnitTimeLong(this.time.getTime(), this.time.getUnit()));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final UnitTimeLong absoluteTime)
+    public final void set(final UnitTimeLong absoluteTime)
     {
         this.time = new UnitTimeLong(absoluteTime.getTime(), absoluteTime.getUnit());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeLong get()
+    public final UnitTimeLong get()
     {
         return this.time;
     }

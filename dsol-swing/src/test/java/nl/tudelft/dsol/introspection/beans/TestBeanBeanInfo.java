@@ -108,15 +108,15 @@ public class TestBeanBeanInfo extends SimpleBeanInfo
 
     private static java.awt.Image iconMono32 = null; // GEN-END:IconsDef
 
-    private static String iconNameC16 = null;// GEN-BEGIN:Icons
+    private static String iconNameC16 = null; // GEN-BEGIN:Icons
 
     private static String iconNameC32 = null;
 
     private static String iconNameM16 = null;
 
-    private static String iconNameM32 = null;// GEN-END:Icons
+    private static String iconNameM32 = null; // GEN-END:Icons
 
-    private static int defaultPropertyIndex = -1;// GEN-BEGIN:Idx
+    private static int defaultPropertyIndex = -1; // GEN-BEGIN:Idx
 
     /**
      * Gets the bean's <code>PropertyDescriptor</code>s.

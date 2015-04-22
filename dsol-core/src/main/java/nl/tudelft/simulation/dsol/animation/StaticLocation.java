@@ -22,7 +22,7 @@ public class StaticLocation extends DirectedPoint implements LocatableInterface
     private static final long serialVersionUID = 1L;
 
     /**
-     * the bounds
+     * the bounds.
      */
     protected Bounds bounds = null;
 
@@ -68,14 +68,14 @@ public class StaticLocation extends DirectedPoint implements LocatableInterface
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint getLocation()
+    public final DirectedPoint getLocation()
     {
         return this;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Bounds getBounds()
+    public final Bounds getBounds()
     {
         return this.bounds;
     }

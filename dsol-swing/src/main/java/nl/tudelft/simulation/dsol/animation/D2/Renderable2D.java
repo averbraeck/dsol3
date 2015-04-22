@@ -59,7 +59,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     private static final byte TRANSLATE_FLAG = 0x01;
 
     /**
-     * the source of the renderable. TODO: Make weak reference and destroy renderable when source ceases to exist
+     * the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist
      */
     protected final LocatableInterface source;
 

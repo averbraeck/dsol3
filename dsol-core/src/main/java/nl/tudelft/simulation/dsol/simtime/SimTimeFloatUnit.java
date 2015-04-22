@@ -37,7 +37,7 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
     private UnitTimeFloat time;
 
     /**
-     * @param time
+     * @param time the initial time.
      */
     public SimTimeFloatUnit(final UnitTimeFloat time)
     {
@@ -46,21 +46,21 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
 
     /** {@inheritDoc} */
     @Override
-    public void add(final UnitTimeFloat relativeTime)
+    public final void add(final UnitTimeFloat relativeTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() + relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public void subtract(final UnitTimeFloat relativeTime)
+    public final void subtract(final UnitTimeFloat relativeTime)
     {
         this.time.setTimeMsec(this.time.getTimeMsec() - relativeTime.getTimeMsec());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeFloat minus(final SimTimeFloatUnit simTime)
+    public final UnitTimeFloat minus(final SimTimeFloatUnit simTime)
     {
         UnitTimeFloat ret = new UnitTimeFloat(this.time.getTime(), this.time.getUnit());
         ret.setTimeMsec(ret.getTimeMsec() - simTime.get().getTimeMsec());
@@ -69,7 +69,7 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeFloatUnit setZero()
+    public final SimTimeFloatUnit setZero()
     {
         this.time.setTimeMsec(0.0f);
         return this;
@@ -77,21 +77,21 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
 
     /** {@inheritDoc} */
     @Override
-    public SimTimeFloatUnit copy()
+    public final SimTimeFloatUnit copy()
     {
         return new SimTimeFloatUnit(new UnitTimeFloat(this.time.getTime(), this.time.getUnit()));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void set(final UnitTimeFloat absoluteTime)
+    public final void set(final UnitTimeFloat absoluteTime)
     {
         this.time = new UnitTimeFloat(absoluteTime.getTime(), absoluteTime.getUnit());
     }
 
     /** {@inheritDoc} */
     @Override
-    public UnitTimeFloat get()
+    public final UnitTimeFloat get()
     {
         return this.time;
     }

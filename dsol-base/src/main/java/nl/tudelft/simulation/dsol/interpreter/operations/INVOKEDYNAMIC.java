@@ -9,7 +9,7 @@ import nl.tudelft.simulation.dsol.interpreter.Frame;
 import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.language.concurrent.Monitor;
 
-// TODO: check if correct. INVOKEDYNAMIC has been copied from INVOKESTATIC and that is 100% sure not correct.
+// TODO check if correct. INVOKEDYNAMIC has been copied from INVOKESTATIC and that is 100% sure not correct.
 
 /**
  * The INVOKEDYNAMIC operation as defined in <a
