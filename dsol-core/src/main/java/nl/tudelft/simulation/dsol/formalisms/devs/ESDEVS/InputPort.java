@@ -51,7 +51,7 @@ public class InputPort<T> implements InputPortInterface<T>
     private boolean atomic;
 
     /**
-     * Constructor for the input port where the model is a coupled model,
+     * Constructor for the input port where the model is a coupled model.
      * @param coupledModel the coupled model to which the port is added.
      */
     public InputPort(final CoupledModel coupledModel)
@@ -61,8 +61,8 @@ public class InputPort<T> implements InputPortInterface<T>
     }
 
     /**
-     * Constructor for the input port where the model is an atomic model,
-     * @param atomicModel the atomic model to which the port is added
+     * Constructor for the input port where the model is an atomic model.
+     * @param atomicModel the atomic model to which the port is added.
      */
     public InputPort(final AtomicModel atomicModel)
     {
@@ -74,7 +74,8 @@ public class InputPort<T> implements InputPortInterface<T>
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
-    public synchronized void receive(final T value, final double time) throws RemoteException, SimRuntimeException
+    @Override
+    public final synchronized void receive(final T value, final double time) throws RemoteException, SimRuntimeException
     {
         if (this.atomic)
         {
@@ -175,7 +176,8 @@ public class InputPort<T> implements InputPortInterface<T>
     /**
      * {@inheritDoc}
      */
-    public AbstractDEVSModel getModel()
+    @Override
+    public final AbstractDEVSModel getModel()
     {
         return this.model;
     }

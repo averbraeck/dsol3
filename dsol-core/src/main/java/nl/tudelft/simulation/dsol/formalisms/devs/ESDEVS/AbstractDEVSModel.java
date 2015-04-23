@@ -51,15 +51,19 @@ public abstract class AbstractDEVSModel extends EventProducer
     private static final long serialVersionUID = 1L;
 
     /** the parent model we are part of. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected CoupledModel parentModel;
 
     /** the simulator this model or component will schedule its events on. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected DEVSSimulatorInterface.TimeDouble simulator;
 
     /** all DEVS models are named - this is the component name. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected String modelName;
 
     /** all DEVS models are named - this is the full name with dot notation. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected String fullName;
 
     /** event for listeners about state update. */
@@ -77,7 +81,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /** the fields of the CoupledModel. */
     private static Set<Field> coupledFields = new HashSet<Field>();
 
-    /** the fields of the AbstractEntity */
+    /** the fields of the AbstractEntity. */
     private static Set<Field> entityFields = new HashSet<Field>();
 
     /** the fields of the AbstractDEVSMOdel. */
@@ -123,7 +127,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @return the simulator this model schedules its events on.
      */
-    public DEVSSimulatorInterface.TimeDouble getSimulator()
+    public final DEVSSimulatorInterface.TimeDouble getSimulator()
     {
         return this.simulator;
     }
@@ -131,7 +135,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @param simulator the simulator to use from now on
      */
-    public void setSimulator(final DEVSSimulatorInterface.TimeDouble simulator)
+    public final void setSimulator(final DEVSSimulatorInterface.TimeDouble simulator)
     {
         this.simulator = simulator;
     }
@@ -139,7 +143,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @return the parent model we are part of.
      */
-    public CoupledModel getParentModel()
+    public final CoupledModel getParentModel()
     {
         return this.parentModel;
     }
@@ -147,7 +151,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @return the name of the model.
      */
-    public String getModelName()
+    public final String getModelName()
     {
         return this.modelName;
     }
@@ -155,12 +159,13 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @return the full name of the model in dot notation.
      */
-    public String getFullName()
+    public final String getFullName()
     {
         return this.fullName;
     }
 
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return this.fullName;
@@ -216,6 +221,7 @@ public abstract class AbstractDEVSModel extends EventProducer
      * expensive than firing the state change of all state variables. The intelligence to detect real state changes then
      * has to be built in at the receiver's side.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void fireUpdatedState()
     {
         for (Field field : this.stateFieldSet)
@@ -297,7 +303,7 @@ public abstract class AbstractDEVSModel extends EventProducer
         /**
          * @return the modelName
          */
-        public String getModel()
+        public final String getModel()
         {
             return this.model;
         }
@@ -305,7 +311,7 @@ public abstract class AbstractDEVSModel extends EventProducer
         /**
          * @return the variableName
          */
-        public String getVariable()
+        public final String getVariable()
         {
             return this.variable;
         }
@@ -313,7 +319,7 @@ public abstract class AbstractDEVSModel extends EventProducer
         /**
          * @return the value
          */
-        public Object getValue()
+        public final Object getValue()
         {
             return this.value;
         }

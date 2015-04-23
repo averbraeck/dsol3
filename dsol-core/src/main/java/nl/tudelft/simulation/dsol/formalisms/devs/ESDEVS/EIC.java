@@ -60,7 +60,7 @@ public class EIC<T>
     /**
      * @return the output port of the sending component.
      */
-    public InputPortInterface<T> getFromPort()
+    public final InputPortInterface<T> getFromPort()
     {
         return this.fromPort;
     }
@@ -68,7 +68,7 @@ public class EIC<T>
     /**
      * @return the input port of the receiving component.
      */
-    public InputPortInterface<T> getToPort()
+    public final InputPortInterface<T> getToPort()
     {
         return this.toPort;
     }

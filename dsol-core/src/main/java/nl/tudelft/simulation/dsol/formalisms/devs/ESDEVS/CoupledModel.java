@@ -48,20 +48,24 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
 
-    /** the internal couplings (from internal models to internal models) */
+    /** the internal couplings (from internal models to internal models). */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Set<IC<?>> internalCouplingSet = new HashSet<IC<?>>();
 
     /**
-     * the couplings from the internal models to the output of this coupled model
+     * the couplings from the internal models to the output of this coupled model.
      */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Set<EOC<?>> externalOutputCouplingSet = new HashSet<EOC<?>>();
 
     /**
-     * the couplings from the outside world to the internal models of this coupled model
+     * the couplings from the outside world to the internal models of this coupled model.
      */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Set<EIC<?>> externalInputCouplingSet = new HashSet<EIC<?>>();
 
     /** the models within this coupled model. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Set<AbstractDEVSModel> modelComponents = new HashSet<AbstractDEVSModel>();
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -109,7 +113,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param et the event type.
      * @return success or failure of adding the listener to all submodels.
      */
-    public boolean addHierarchicalListener(final EventListenerInterface eli, final EventType et)
+    public final boolean addHierarchicalListener(final EventListenerInterface eli, final EventType et)
     {
         boolean returnBoolean = true;
         returnBoolean &= super.addListener(eli, et);
@@ -135,7 +139,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @throws SimRuntimeException simulation run time exception
      */
     @SuppressWarnings("unchecked")
-    protected <T> void transfer(final OutputPortInterface<T> x, final T y) throws RemoteException, SimRuntimeException
+    protected final <T> void transfer(final OutputPortInterface<T> x, final T y) throws RemoteException, SimRuntimeException
     {
         for (IC<?> o : this.internalCouplingSet)
         {
@@ -164,7 +168,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the input port of an internal component that receives a message / event from the other componet
      *            (end of the coupling)
      */
-    public <T> void addInternalCoupling(final OutputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
+    public final <T> void addInternalCoupling(final OutputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
     {
         try
         {
@@ -184,7 +188,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the input port of an internal component that receives a message / event from the other componet
      *            (end of the coupling)
      */
-    public <T> void removeInternalCoupling(final OutputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
+    public final <T> void removeInternalCoupling(final OutputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
     {
         for (IC<?> ic : this.internalCouplingSet)
         {
@@ -204,7 +208,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the input port of the internal component that receives a message / event from the overarching
      *            coupled model (end of the coupling)
      */
-    public <T> void addExternalInputCoupling(final InputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
+    public final <T> void addExternalInputCoupling(final InputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
     {
         try
         {
@@ -224,7 +228,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the input port of the internal component that receives a message / event from the overarching
      *            coupled model (end of the coupling)
      */
-    public <T> void removeExternalInputCoupling(final InputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
+    public final <T> void removeExternalInputCoupling(final InputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
     {
         for (EIC<?> eic : this.externalInputCouplingSet)
         {
@@ -243,7 +247,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the output port of this coupled model that transfers the message / event to the outside (end of the
      *            coupling)
      */
-    public <T> void addExternalOutputCoupling(final OutputPortInterface<T> fromPort, final OutputPortInterface<T> toPort)
+    public final <T> void addExternalOutputCoupling(final OutputPortInterface<T> fromPort, final OutputPortInterface<T> toPort)
     {
         try
         {
@@ -263,7 +267,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the output port of this coupled model that transfers the message / event to the outside (end of the
      *            coupling)
      */
-    public <T> void removeExternalOutputCoupling(final OutputPortInterface<T> fromPort,
+    public final <T> void removeExternalOutputCoupling(final OutputPortInterface<T> fromPort,
             final OutputPortInterface<T> toPort)
     {
         for (EOC<?> eoc : this.externalOutputCouplingSet)
@@ -283,7 +287,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * Add a model component to this coupled model.
      * @param model the component to add.
      */
-    public void addModelComponent(final AbstractDEVSModel model)
+    public final void addModelComponent(final AbstractDEVSModel model)
     {
         this.modelComponents.add(model);
 
@@ -305,7 +309,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * out).
      * @param model the component to remove.
      */
-    public void removeModelComponent(final AbstractDEVSModel model)
+    public final void removeModelComponent(final AbstractDEVSModel model)
     {
         for (EOC<?> eoc : this.externalOutputCouplingSet)
         {
@@ -337,8 +341,11 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
         this.modelComponents.remove(model);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected void removeInputPort(final String name) throws PortNotFoundException
+    protected final void removeInputPort(final String name) throws PortNotFoundException
     {
         InputPortInterface<?> inputPort = this.inputPortMap.get(name);
         super.removeInputPort(name); // throws exception in case nonexistent
@@ -360,8 +367,11 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected void removeOutputPort(final String name) throws PortNotFoundException
+    protected final void removeOutputPort(final String name) throws PortNotFoundException
     {
         OutputPortInterface<?> outputPort = this.outputPortMap.get(name);
         super.removeOutputPort(name); // throws exception in case nonexistent
@@ -387,7 +397,11 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     // PRINTING THE MODEL
     // ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void printModel(final String space)
     {
         System.out.println(space + "================");

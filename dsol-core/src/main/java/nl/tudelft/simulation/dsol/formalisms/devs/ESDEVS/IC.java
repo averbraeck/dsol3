@@ -61,7 +61,7 @@ public class IC<T>
     /**
      * @return the output port of the sending component.
      */
-    public OutputPortInterface<T> getFromPort()
+    public final OutputPortInterface<T> getFromPort()
     {
         return this.fromPort;
     }
@@ -69,7 +69,7 @@ public class IC<T>
     /**
      * @return the input port of the receiving component.
      */
-    public InputPortInterface<T> getToPort()
+    public final InputPortInterface<T> getToPort()
     {
         return this.toPort;
     }
