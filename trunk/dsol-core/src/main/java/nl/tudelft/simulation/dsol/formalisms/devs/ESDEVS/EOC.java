@@ -60,7 +60,7 @@ public class EOC<T>
     /**
      * @return the output port of the sending component.
      */
-    public OutputPortInterface<T> getFromPort()
+    public final OutputPortInterface<T> getFromPort()
     {
         return this.fromPort;
     }
@@ -68,7 +68,7 @@ public class EOC<T>
     /**
      * @return the input port of the receiving component.
      */
-    public OutputPortInterface<T> getToPort()
+    public final OutputPortInterface<T> getToPort()
     {
         return this.toPort;
     }

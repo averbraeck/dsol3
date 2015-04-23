@@ -61,8 +61,9 @@ public class Phase implements Serializable
         this.name = new String(name);
     }
 
-    @Override
     /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         String result;
@@ -81,7 +82,7 @@ public class Phase implements Serializable
      * Sets the lifetime of the phase.
      * @param lifeTime the lifetime of the phase
      */
-    public void setLifeTime(final double lifeTime)
+    public final void setLifeTime(final double lifeTime)
     {
         this.lifeTime = lifeTime;
     }
@@ -89,7 +90,7 @@ public class Phase implements Serializable
     /**
      * @return the lifetime of the phase.
      */
-    public double getLifeTime()
+    public final double getLifeTime()
     {
         return this.lifeTime;
     }

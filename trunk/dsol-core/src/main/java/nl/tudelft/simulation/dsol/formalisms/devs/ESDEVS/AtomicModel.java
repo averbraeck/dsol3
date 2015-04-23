@@ -47,21 +47,27 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     private SimEvent<SimTimeDouble> nextEvent;
 
     /** remaining TimeAdvance. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double sigma;
 
-    /** the current phase (if applicable) */
+    /** the current phase (if applicable). */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Phase phase = new Phase("");
 
     /** the time of the previous event in this component. */
-    private double timeLastEvent;
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected double timeLastEvent;
 
     /** the time of the next scheduled event in this component. */
-    private double timeNextEvent;
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected double timeNextEvent;
 
     /** the time span since the last event. */
-    private double elapsedTime;
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected double elapsedTime;
 
-    /** the active input port that is currently processed in Parallel DEVS */
+    /** the active input port that is currently processed in Parallel DEVS. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected InputPort<?> activePort = null;
 
     /** conflict handling static: first the internal event. */
@@ -77,6 +83,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * conflict means that both an external event and an internal event happen at the same time; the strategy applied
      * indicates what to do when this happens.
      */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected boolean conflict = false;
 
     // ///////////////////////////////////////////////////////////////////////////
@@ -171,6 +178,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * for the definition of 'e'.
      * @param e elapsed time since the last state transition
      */
+    @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final double e)
     {
         if (this.timeAdvance() != Double.POSITIVE_INFINITY)
@@ -201,7 +209,8 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @return the elapsed time (e) since the last event.
      * @throws RemoteException a remote exception occurred
      */
-    double elapsedTime(final double eventTime) throws RemoteException
+    @SuppressWarnings("checkstyle:designforextension")
+    protected double elapsedTime(final double eventTime) throws RemoteException
     {
         return (eventTime - this.timeLastEvent);
     }
@@ -244,6 +253,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param e the elapsed time since the last state transition
      * @param value the value that is passed through the port, which triggered the external event
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void deltaExternalEventHandler(final double e, final Object value)
     {
         this.deltaExternal(e, value);
@@ -255,6 +265,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param e the elapsed time since the last state transition
      * @param value the value that is passed through the port, which triggered the external event
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void deltaConfluent(final double e, final Object value)
     {
         Logger.fine(this, "deltaConfluent", "CONFLUENT");
@@ -276,6 +287,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * This method handles an internal event. As part of its function, it calls the deltaInternal method that is defined
      * in an extension of this class.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void deltaInternalEventHandler()
     {
         this.lambda();
@@ -284,7 +296,11 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
         this.fireUpdatedState();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void printModel(final String space)
     {
         System.out.println(space + "Atomicmodel: " + this.getClass().getName());
@@ -297,7 +313,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     /**
      * @return the next simulation event for this atomic model.
      */
-    public SimEvent<SimTimeDouble> getNextEvent()
+    public final SimEvent<SimTimeDouble> getNextEvent()
     {
         return this.nextEvent;
     }
@@ -305,7 +321,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     /**
      * @return the timestamp of the last executed simulation event.
      */
-    public double getTimeLastEvent()
+    public final double getTimeLastEvent()
     {
         return this.timeLastEvent;
     }
@@ -313,7 +329,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     /**
      * @return the timestamp of the simulation event to execute next.
      */
-    public double getTimeNextEvent()
+    public final double getTimeNextEvent()
     {
         return this.timeNextEvent;
     }
@@ -321,7 +337,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     /**
      * @return if there is a conflict between an intenal event and an external event that take place at the same time.
      */
-    protected boolean isConflict()
+    protected final boolean isConflict()
     {
         return this.conflict;
     }
@@ -330,7 +346,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param conflict indicate whether there is a conflict between an intenal event and an external event that take
      *            place at the same time.
      */
-    protected void setConflict(final boolean conflict)
+    protected final void setConflict(final boolean conflict)
     {
         this.conflict = conflict;
     }

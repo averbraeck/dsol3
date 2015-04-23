@@ -43,9 +43,11 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
     private static final long serialVersionUID = 1L;
 
     /** the set of input ports. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Map<String, InputPortInterface<?>> inputPortMap = new HashMap<String, InputPortInterface<?>>();
 
     /** the set of output ports. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Map<String, OutputPortInterface<?>> outputPortMap = new HashMap<String, OutputPortInterface<?>>();
 
     /**
@@ -68,6 +70,7 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
      * @param inputPort the input port to add
      * @throws PortAlreadyDefinedException in case the port name already exist for the model
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected <T> void addInputPort(final String name, final InputPortInterface<T> inputPort)
             throws PortAlreadyDefinedException
     {
@@ -86,6 +89,7 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
      * @param outputPort the output port to add
      * @throws PortAlreadyDefinedException in case the port name already exist for the model
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected <T> void addOutputPort(final String name, final OutputPortInterface<T> outputPort)
             throws PortAlreadyDefinedException
     {
@@ -103,6 +107,7 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
      * @param name the name of the input port to be removed
      * @throws PortNotFoundException in case the port name does not exist for the model
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void removeInputPort(final String name) throws PortNotFoundException
     {
         if (!this.inputPortMap.containsKey(name))
@@ -119,6 +124,7 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
      * @param name the name of the output port to be removed
      * @throws PortNotFoundException in case the port name does not exist for the model
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void removeOutputPort(final String name) throws PortNotFoundException
     {
         if (!this.outputPortMap.containsKey(name))

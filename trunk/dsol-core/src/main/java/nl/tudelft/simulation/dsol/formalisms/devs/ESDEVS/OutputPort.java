@@ -44,7 +44,7 @@ public class OutputPort<T> implements OutputPortInterface<T>
     private AbstractDEVSModel model;
 
     /**
-     * Constructor for the output port where the model is a coupled model,
+     * Constructor for the output port where the model is a coupled model.
      * @param coupledModel the coupled model.
      */
     public OutputPort(final CoupledModel coupledModel)
@@ -53,7 +53,7 @@ public class OutputPort<T> implements OutputPortInterface<T>
     }
 
     /**
-     * Constructor for the output port where the model is an atomic model,
+     * Constructor for the output port where the model is an atomic model.
      * @param atomicModel the atomic model.
      */
     public OutputPort(final AtomicModel atomicModel)
@@ -64,7 +64,8 @@ public class OutputPort<T> implements OutputPortInterface<T>
     /**
      * {@inheritDoc}
      */
-    public void send(final T value)
+    @Override
+    public final void send(final T value)
     {
         if (this.model.parentModel != null)
         {
@@ -88,7 +89,8 @@ public class OutputPort<T> implements OutputPortInterface<T>
     /**
      * {@inheritDoc}
      */
-    public AbstractDEVSModel getModel()
+    @Override
+    public final AbstractDEVSModel getModel()
     {
         return this.model;
     }
