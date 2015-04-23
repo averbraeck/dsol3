@@ -2,6 +2,8 @@ package nl.tudelft.simulation.dsol.gui.swing.test;
 
 import java.rmi.RemoteException;
 
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.ModelInterface;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -57,8 +59,9 @@ public class MM1SwingApplication extends DSOLApplication
      * @param args
      * @throws SimRuntimeException
      * @throws RemoteException
+     * @throws NamingException 
      */
-    public static void main(String[] args) throws SimRuntimeException, RemoteException
+    public static void main(String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
         ModelInterface.TimeDouble model = new MM1Model();
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
