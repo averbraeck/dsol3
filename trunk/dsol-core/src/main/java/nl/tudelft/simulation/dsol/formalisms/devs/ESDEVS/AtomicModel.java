@@ -77,7 +77,8 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     public static final boolean EXTERNAL_FIRST = false;
 
     /** applied conflict handling strategy in this component. */
-    private boolean conflictStrategy = AtomicModel.INTERNAL_FIRST;
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected boolean conflictStrategy = AtomicModel.INTERNAL_FIRST;
 
     /**
      * conflict means that both an external event and an internal event happen at the same time; the strategy applied
@@ -313,7 +314,8 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     /**
      * @return the next simulation event for this atomic model.
      */
-    public final SimEvent<SimTimeDouble> getNextEvent()
+    @SuppressWarnings("checkstyle:designforextension")
+    public SimEvent<SimTimeDouble> getNextEvent()
     {
         return this.nextEvent;
     }
