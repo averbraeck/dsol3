@@ -75,19 +75,33 @@ public interface StreamInterface extends Serializable
     long nextLong();
 
     /**
-     * returns the seed of the generator
+     * returns the seed of the generator.
      * @return long the seed
      */
     long getSeed();
 
     /**
-     * sets the seed of the generator
+     * sets the seed of the generator.
      * @param seed the new seed
      */
     void setSeed(final long seed);
 
     /**
-     * resets the stream
+     * resets the stream.
      */
     void reset();
+    
+    /**
+     * save the state of the RNG into an object, e.g. to roll it back to this state.
+     * @return the state as an object specific to the RNG.
+     * @throws StreamException when getting the state fails.
+     */
+    Object saveState() throws StreamException;
+    
+    /**
+     * restore the state to an earlier saved state object.
+     * @param state the earlier saved state to which the RNG rolls back.
+     * @throws StreamException when resetting the state fails.
+     */
+    void restoreState(Object state) throws StreamException;
 }

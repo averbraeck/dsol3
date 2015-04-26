@@ -15,10 +15,13 @@ package nl.tudelft.simulation.jstats.streams;
  */
 public class DX120Generator extends RandomNumberGenerator
 {
+    /** */
+    private static final long serialVersionUID = 20150426L;
+
     /** the k value of the DX-120 Generator. */
     private static final int K = 120;
 
-    /** the mask value 2^31-1 (or 1 < < 31)-1 */
+    /** the mask value 2^31-1 (or 1 < < 31)-1. */
     private static final int MASK = Integer.MAX_VALUE;
 
     /** the LCG multiplier. */
@@ -55,7 +58,7 @@ public class DX120Generator extends RandomNumberGenerator
     }
 
     /**
-     * initializes the generator
+     * initializes the generator.
      */
     private void initialize()
     {
@@ -82,7 +85,7 @@ public class DX120Generator extends RandomNumberGenerator
 
     /** {@inheritDoc} */
     @Override
-    protected synchronized long next(final int bits)
+    protected final synchronized long next(final int bits)
     {
         if (bits < 0 || bits > 64)
         {
@@ -113,7 +116,7 @@ public class DX120Generator extends RandomNumberGenerator
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void setSeed(final long seed)
+    public final synchronized void setSeed(final long seed)
     {
         this.seed = seed;
         this.initialize();

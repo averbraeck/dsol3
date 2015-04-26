@@ -24,10 +24,13 @@ package nl.tudelft.simulation.jstats.streams;
  */
 public class MersenneTwister extends RandomNumberGenerator
 {
-    /** Period parameter N */
+    /** */
+    private static final long serialVersionUID = 20150426L;
+
+    /** Period parameter N. */
     private static final int N = 624;
 
-    /** Period parameter M */
+    /** Period parameter M. */
     private static final int M = 397;
 
     /** constant vector a. */
@@ -54,7 +57,7 @@ public class MersenneTwister extends RandomNumberGenerator
     /** The counter mti==N+1 means mt[N] is not initialized. */
     private int mti;
 
-    /** magic01 */
+    /** magic01. */
     private int[] mag01;
 
     /**
@@ -75,7 +78,7 @@ public class MersenneTwister extends RandomNumberGenerator
     }
 
     /**
-     * initalizes the MersenneTwister
+     * initalizes the MersenneTwister.
      */
     private void initialize()
     {
@@ -101,7 +104,7 @@ public class MersenneTwister extends RandomNumberGenerator
 
     /** {@inheritDoc} */
     @Override
-    protected synchronized long next(final int bits)
+    protected final synchronized long next(final int bits)
     {
         if (bits < 0 || bits > 64)
         {
@@ -139,7 +142,7 @@ public class MersenneTwister extends RandomNumberGenerator
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void setSeed(final long seed)
+    public final synchronized void setSeed(final long seed)
     {
         super.seed = seed;
         this.initialize();

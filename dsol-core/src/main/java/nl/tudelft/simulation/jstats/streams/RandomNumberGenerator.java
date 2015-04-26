@@ -1,5 +1,8 @@
 package nl.tudelft.simulation.jstats.streams;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.XStreamException;
+
 /**
  * The RandomNumberGenerator class provides an abstract for all pseudo random number generators.
  * <p>
@@ -13,7 +16,11 @@ package nl.tudelft.simulation.jstats.streams;
  */
 public abstract class RandomNumberGenerator implements StreamInterface
 {
+    /** */
+    private static final long serialVersionUID = 20150426L;
+
     /** the seed of the generator. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected long seed = -1;
 
     /**
@@ -40,7 +47,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public void reset()
+    public final void reset()
     {
         this.setSeed(this.seed);
     }
@@ -71,7 +78,8 @@ public abstract class RandomNumberGenerator implements StreamInterface
      *         generator's sequence.
      * @since 1.5
      */
-    public boolean nextBoolean()
+    @Override
+    public final boolean nextBoolean()
     {
         return next(1) != 0;
     }
@@ -82,13 +90,13 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * <p>
      * The general contract of <tt>nextDouble</tt> is that one <tt>double</tt> value, chosen (approximately) uniformly
      * from the range <tt>0.0d</tt> (inclusive) to <tt>1.0d</tt> (exclusive), is pseudorandomly generated and returned.
-     * All 2 <font size="-1"> <sup>64 </sup> </font> possible <tt>float</tt> values of the form <i>m&nbsp;x&nbsp; </i>2
-     * <font size="-1"> <sup>-64 </sup> </font>, where <i>m </i> is a positive integer less than 2 <font size="-1">
-     * <sup>64 </sup> </font>, are produced with (approximately) equal probability.
+     * All 2 <sup>64 </sup> possible <tt>float</tt> values of the form <i>m&nbsp;x&nbsp; </i>2 <sup>-64 </sup>, where
+     * <i>m </i> is a positive integer less than 2 <sup>64 </sup>, are produced with (approximately) equal probability.
      * @return the next pseudorandom, uniformly distributed <code>double</code> value between <code>0.0</code> and
      *         <code>1.0</code> from this random number generator's sequence.
      */
-    public double nextDouble()
+    @Override
+    public final double nextDouble()
     {
         long l = ((next(26)) << 27) + next(27);
         return l / (double) (1L << 53);
@@ -100,34 +108,14 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * <p>
      * The general contract of <tt>nextFloat</tt> is that one <tt>float</tt> value, chosen (approximately) uniformly
      * from the range <tt>0.0f</tt> (inclusive) to <tt>1.0f</tt> (exclusive), is pseudorandomly generated and returned.
-     * All 2 <font size="-1"> <sup>24 </sup> </font> possible <tt>float</tt> values of the form <i>m&nbsp;x&nbsp </i>2
-     * <font size="-1"> <sup>-24 </sup> </font>, where <i>m </i> is a positive integer less than 2 <font size="-1">
-     * <sup>24 </sup> </font>, are produced with (approximately) equal probability. The method <tt>nextFloat</tt> is
-     * implemented by class <tt>Random</tt> as follows: <blockquote>
+     * All 2 <sup>24 </sup> possible <tt>float</tt> values of the form <i>m&nbsp;x&nbsp </i>2 <sup>-24 </sup>, where
+     * <i>m </i> is a positive integer less than 2 <sup>24 </sup>, are produced with (approximately) equal probability.
+     * The method <tt>nextFloat</tt> is implemented by class <tt>Random</tt> as follows: <blockquote>
      * 
      * <pre>
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
      *            public float nextFloat() {
      *            return next(24) / ((float)(1 &lt; &lt; 24));
      *            }
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
      * </pre>
      * 
      * </blockquote> The hedge "approximately" is used in the foregoing description only because the next method is only
@@ -137,7 +125,8 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * @return the next pseudorandom, uniformly distributed <code>float</code> value between <code>0.0</code> and
      *         <code>1.0</code> from this random number generator's sequence.
      */
-    public float nextFloat()
+    @Override
+    public final float nextFloat()
     {
         int i = (int) this.next(24);
         return i / ((float) (1 << 24));
@@ -146,9 +135,8 @@ public abstract class RandomNumberGenerator implements StreamInterface
     /**
      * Returns the next pseudorandom, uniformly distributed <code>int</code> value from this random number generator's
      * sequence. The general contract of <tt>nextInt</tt> is that one <tt>int</tt> value is pseudorandomly generated and
-     * returned. All 2 <font size="-1"> <sup>32 </sup> </font> possible <tt>int</tt> values are produced with
-     * (approximately) equal probability. The method <tt>nextInt</tt> is implemented by class <tt>Random</tt> as
-     * follows: <blockquote>
+     * returned. All 2 <sup>32 </sup> possible <tt>int</tt> values are produced with (approximately) equal probability.
+     * The method <tt>nextInt</tt> is implemented by class <tt>Random</tt> as follows: <blockquote>
      * 
      * <pre>
      * public int nextInt()
@@ -161,7 +149,8 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * @return the next pseudorandom, uniformly distributed <code>int</code> value from this random number generator's
      *         sequence.
      */
-    public int nextInt()
+    @Override
+    public final int nextInt()
     {
         return (int) this.next(32);
     }
@@ -175,7 +164,8 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * @param j the higher value
      * @return the result
      */
-    public synchronized int nextInt(final int i, final int j)
+    @Override
+    public final synchronized int nextInt(final int i, final int j)
     {
         if (i < 0 || j <= 0 || i >= j)
         {
@@ -199,40 +189,21 @@ public abstract class RandomNumberGenerator implements StreamInterface
     /**
      * Returns the next pseudorandom, uniformly distributed <code>long</code> value from this random number generator's
      * sequence. The general contract of <tt>nextLong</tt> is that one long value is pseudorandomly generated and
-     * returned. All 2 <font size="-1"> <sup>64 </sup> </font> possible <tt>long</tt> values are produced with
-     * (approximately) equal probability. The method <tt>nextLong</tt> is implemented by class <tt>Random</tt> as
-     * follows: <blockquote>
+     * returned. All 2 <sup>64 </sup> possible <tt>long</tt> values are produced with (approximately) equal probability.
+     * The method <tt>nextLong</tt> is implemented by class <tt>Random</tt> as follows: <blockquote>
      * 
      * <pre>
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
      *            public long nextLong() {
      *            return ((long)next(32) &lt; &lt; 32) + next(32);
      *            }
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
      * </pre>
      * 
      * </blockquote>
      * @return the next pseudorandom, uniformly distributed <code>long</code> value from this random number generator's
      *         sequence.
      */
-    public long nextLong()
+    @Override
+    public final long nextLong()
     {
         return ((next(32)) << 32) + next(32);
     }
@@ -243,15 +214,46 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public long getSeed()
+    public final long getSeed()
     {
         return this.seed;
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return this.getClass().toString() + "[" + this.seed + "]";
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final Object saveState() throws StreamException
+    {
+        XStream xstream = new XStream();
+        try
+        {
+            return xstream.toXML(this);
+        }
+        catch (XStreamException exception)
+        {
+            throw new StreamException(exception);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void restoreState(final Object state) throws StreamException
+    {
+        XStream xstream = new XStream();
+        try
+        {
+            xstream.fromXML((String) state, this);
+        }
+        catch (XStreamException exception)
+        {
+            throw new StreamException(exception);
+        }
     }
 }

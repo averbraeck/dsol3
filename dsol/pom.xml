@@ -4,7 +4,7 @@
 
 	<groupId>dsol</groupId>
 	<artifactId>dsol</artifactId>
-	<version>3.00.05</version>
+	<version>3.00.06</version>
 	<packaging>pom</packaging>
 
 	<name>DSOL version 3</name>
@@ -58,6 +58,7 @@
 		<colt.version>1.2.0</colt.version>
 		<xerces.version>2.11.0</xerces.version>
 		<jdom.version>2.0.5</jdom.version>
+		<xstream.version>1.4.8</xstream.version>
 
 		<maven.compiler.version>3.1</maven.compiler.version>
 		<maven.site.version>3.4</maven.site.version>
@@ -144,35 +145,35 @@
 				<version>${maven.deploy.version}</version>
 			</plugin>
 
-			<!-- copy files starting with a period in the jacoco folder to the right 
-				site location. Normally, files starting with tilde, period or underscore 
-				are not copied. These files are also not taken into account when trying to 
-				the pages in a subfolder of a Drupal sile, as files and folders starting 
-				with a period are filtered with a rewrite rule: RewriteRule "(^|/)\." - [F] 
-				To undo this rewrite rule, add a .htaccess file in the site folder with as 
-				content: RewriteRule "(^|/)\." - [L] Potentially, there is also a line with 
-				Options +Indexes in the .htaccess file. 
-			<plugin>
+			<!-- copy files starting with a period in the jacoco folder to the right
+				site location. Normally, files starting with tilde, period or underscore
+				are not copied. These files are also not taken into account when trying to
+				the pages in a subfolder of a Drupal sile, as files and folders starting
+				with a period are filtered with a rewrite rule: RewriteRule "(^|/)\." - [F]
+				To undo this rewrite rule, add a .htaccess file in the site folder with as
+				content: RewriteRule "(^|/)\." - [L] Potentially, there is also a line with
+				Options +Indexes in the .htaccess file.
+				<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>wagon-maven-plugin</artifactId>
 				<version>${wagon.maven.version}</version>
 				<executions>
-					<execution>
-						<id>upload-jacoco-dot-files</id>
-						<phase>site-deploy</phase>
-						<goals>
-							<goal>upload</goal>
-						</goals>
-						<configuration>
-							<fromDir>${basedir}/target/site/jacoco-ut</fromDir>
-							<includes>.*, .resources/*</includes>
-							<url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/3.0/${project.artifactId}</url>
-							<toDir>jacoco-ut</toDir>
-							<serverId>dsol-deployment</serverId>
-						</configuration>
-					</execution>
+				<execution>
+				<id>upload-jacoco-dot-files</id>
+				<phase>site-deploy</phase>
+				<goals>
+				<goal>upload</goal>
+				</goals>
+				<configuration>
+				<fromDir>${basedir}/target/site/jacoco-ut</fromDir>
+				<includes>.*, .resources/*</includes>
+				<url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/3.0/${project.artifactId}</url>
+				<toDir>jacoco-ut</toDir>
+				<serverId>dsol-deployment</serverId>
+				</configuration>
+				</execution>
 				</executions>
-			</plugin> -->
+				</plugin> -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -264,7 +265,7 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${maven.failsafe.version}</version>
 				<executions>
-					<!-- Ensures that both integration-test and verify goals of the Failsafe 
+					<!-- Ensures that both integration-test and verify goals of the Failsafe
 						Maven plugin are executed. -->
 					<execution>
 						<id>integration-tests</id>
@@ -275,7 +276,7 @@
 						<configuration>
 							<!-- Sets the VM argument line used when integration tests are run. -->
 							<argLine>${failsafeArgLine}</argLine>
-							<!-- Skips integration tests if the value of skip.integration.tests 
+							<!-- Skips integration tests if the value of skip.integration.tests
 								property is true -->
 							<skipTests>${skip.integration.tests}</skipTests>
 						</configuration>
@@ -299,13 +300,13 @@
 						-Xmx4096m</argLine>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${maven.jacoco.version}</version>
 				<executions>
-					<!-- Prepares the property pointing to the JaCoCo runtime agent which 
+					<!-- Prepares the property pointing to the JaCoCo runtime agent which
 						is passed as VM argument when Maven the Surefire plugin is executed. -->
 					<execution>
 						<id>pre-unit-test</id>
@@ -316,12 +317,12 @@
 						<configuration>
 							<!-- Sets the path to the file which contains the execution data. -->
 							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-							<!-- Sets the name of the property containing the settings for JaCoCo 
+							<!-- Sets the name of the property containing the settings for JaCoCo
 								runtime agent. -->
 							<propertyName>surefireArgLine</propertyName>
 						</configuration>
 					</execution>
-					<!-- Ensures that the code coverage report for unit tests is created 
+					<!-- Ensures that the code coverage report for unit tests is created
 						after unit tests have been run. -->
 					<execution>
 						<id>post-unit-test</id>
@@ -345,7 +346,7 @@
 				<version>${maven.jacoco.version}</version>
 				<executions>
 					<!-- The Executions required by unit tests are omitted. -->
-					<!-- Prepares the property pointing to the JaCoCo runtime agent which 
+					<!-- Prepares the property pointing to the JaCoCo runtime agent which
 						is passed as VM argument when Maven the Failsafe plugin is executed. -->
 					<execution>
 						<id>pre-integration-test</id>
@@ -356,12 +357,12 @@
 						<configuration>
 							<!-- Sets the path to the file which contains the execution data. -->
 							<destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
-							<!-- Sets the name of the property containing the settings for JaCoCo 
+							<!-- Sets the name of the property containing the settings for JaCoCo
 								runtime agent. -->
 							<propertyName>failsafeArgLine</propertyName>
 						</configuration>
 					</execution>
-					<!-- Ensures that the code coverage report for integration tests after 
+					<!-- Ensures that the code coverage report for integration tests after
 						integration tests have been run. -->
 					<execution>
 						<id>post-integration-test</id>
@@ -483,7 +484,7 @@
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>${maven.cobertura.version}</version>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -499,7 +500,7 @@
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
 						</configuration>
 					</reportSet>
-					<!-- Turn this on when JaCoCo Integration tests are run. Otherwise, 
+					<!-- Turn this on when JaCoCo Integration tests are run. Otherwise,
 						the unit test report is also not generated. -->
 					<!-- reportSet -->
 					<!-- inherited>true</inherited -->
@@ -678,6 +679,11 @@
 				<version>20020517</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.thoughtworks.xstream</groupId>
+				<artifactId>xstream</artifactId>
+				<version>${xstream.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

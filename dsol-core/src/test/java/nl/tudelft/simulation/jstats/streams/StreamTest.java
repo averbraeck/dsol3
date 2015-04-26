@@ -1,7 +1,8 @@
 package nl.tudelft.simulation.jstats.streams;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
+
+import org.junit.Assert;
 
 /**
  * The test script for the Stream class.
@@ -21,7 +22,7 @@ public class StreamTest extends TestCase
     public static final String TEST_METHOD = "test";
 
     /**
-     * constructs a new EventIteratorTest.
+     * constructs a new StreamTest.
      */
     public StreamTest()
     {
@@ -40,7 +41,7 @@ public class StreamTest extends TestCase
     /**
      * tests the classes in the reference class.
      */
-    public void test()
+    public final void test()
     {
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (int i = 0; i < 1000000; i++)
