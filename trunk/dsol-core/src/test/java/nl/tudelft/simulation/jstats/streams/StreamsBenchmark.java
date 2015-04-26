@@ -24,7 +24,7 @@ public final class StreamsBenchmark
     }
 
     /**
-     * benchmarks a stream by drawing 1000000 double values
+     * benchmarks a stream by drawing 1000000 double values.
      * @param stream the stream to test
      * @return the execution time in milliseconds
      */

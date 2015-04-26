@@ -2,6 +2,9 @@ package nl.tudelft.simulation.jstats.streams;
 
 import java.util.Random;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.XStreamException;
+
 /**
  * The Java2Random is an extention of the <code>java.util.Random</code> class which implements the StreamInterface.
  * <p>
@@ -22,7 +25,7 @@ public class Java2Random extends Random implements StreamInterface
      * seed is a link to the seed value. The reason to store the seed in this variable is that there is no getSeed() on
      * the Java2Random
      */
-    protected long seed;
+    private long seed;
 
     /**
      * creates a new Java2Random and in initializes with System.currentTimeMillis constructs a new Java2Random.
@@ -44,21 +47,21 @@ public class Java2Random extends Random implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public void reset()
+    public final void reset()
     {
         this.setSeed(this.seed);
     }
 
     /** {@inheritDoc} */
     @Override
-    public int nextInt(final int i, final int j)
+    public final int nextInt(final int i, final int j)
     {
         return i + (int) Math.floor((j - i + 1) * this.nextDouble());
     }
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void setSeed(final long seed)
+    public final synchronized void setSeed(final long seed)
     {
         this.seed = seed;
         super.setSeed(seed);
@@ -66,9 +69,39 @@ public class Java2Random extends Random implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public long getSeed()
+    public final long getSeed()
     {
         return this.seed;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final Object saveState() throws StreamException
+    {
+        XStream xstream = new XStream();
+        try
+        {
+            return xstream.toXML(this);
+        }
+        catch (XStreamException exception)
+        {
+            throw new StreamException(exception);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void restoreState(final Object state) throws StreamException
+    {
+        XStream xstream = new XStream();
+        try
+        {
+            xstream.fromXML((String) state, this);
+        }
+        catch (XStreamException exception)
+        {
+            throw new StreamException(exception);
+        }
     }
 
 }
