@@ -1,14 +1,10 @@
 package nl.tudelft.simulation.dsol;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import nl.tudelft.simulation.dsol.eventList.EventListTest;
 import nl.tudelft.simulation.dsol.experiment.TimeUnitTest;
 import nl.tudelft.simulation.dsol.serialize.SerializeTest;
-import nl.tudelft.simulation.dsol.simulators.DESSSimulatorTest_Failed;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorTest_Failed;
-import nl.tudelft.simulation.dsol.simulators.RealTimeClockTest_Failed;
-import nl.tudelft.simulation.dsol.simulators.SimulatorTest_NotCorrect;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * The DSOL TestSuite defines the JUnit Test Suite which tests all DSOL classes. <br>
