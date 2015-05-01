@@ -42,7 +42,7 @@ public class Phase implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** the identifier of the phase. */
-    private String name;
+    private final String name;
 
     /**
      * The lifetime of the phase, which is the time the component or model is expected to spend in the current phase.
@@ -93,5 +93,13 @@ public class Phase implements Serializable
     public final double getLifeTime()
     {
         return this.lifeTime;
+    }
+
+    /**
+     * @return name; the identifier of the phase
+     */
+    public final String getName()
+    {
+        return this.name;
     }
 }

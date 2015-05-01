@@ -52,15 +52,11 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Set<IC<?>> internalCouplingSet = new HashSet<IC<?>>();
 
-    /**
-     * the couplings from the internal models to the output of this coupled model.
-     */
+    /** the couplings from the internal models to the output of this coupled model. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Set<EOC<?>> externalOutputCouplingSet = new HashSet<EOC<?>>();
 
-    /**
-     * the couplings from the outside world to the internal models of this coupled model.
-     */
+    /** the couplings from the outside world to the internal models of this coupled model. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Set<EIC<?>> externalInputCouplingSet = new HashSet<EIC<?>>();
 
@@ -139,7 +135,8 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @throws SimRuntimeException simulation run time exception
      */
     @SuppressWarnings("unchecked")
-    protected final <T> void transfer(final OutputPortInterface<T> x, final T y) throws RemoteException, SimRuntimeException
+    protected final <T> void transfer(final OutputPortInterface<T> x, final T y) throws RemoteException,
+            SimRuntimeException
     {
         for (IC<?> o : this.internalCouplingSet)
         {
@@ -188,7 +185,8 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the input port of an internal component that receives a message / event from the other componet
      *            (end of the coupling)
      */
-    public final <T> void removeInternalCoupling(final OutputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
+    public final <T> void removeInternalCoupling(final OutputPortInterface<T> fromPort,
+            final InputPortInterface<T> toPort)
     {
         for (IC<?> ic : this.internalCouplingSet)
         {
@@ -208,7 +206,8 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the input port of the internal component that receives a message / event from the overarching
      *            coupled model (end of the coupling)
      */
-    public final <T> void addExternalInputCoupling(final InputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
+    public final <T> void addExternalInputCoupling(final InputPortInterface<T> fromPort,
+            final InputPortInterface<T> toPort)
     {
         try
         {
@@ -228,7 +227,8 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the input port of the internal component that receives a message / event from the overarching
      *            coupled model (end of the coupling)
      */
-    public final <T> void removeExternalInputCoupling(final InputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
+    public final <T> void removeExternalInputCoupling(final InputPortInterface<T> fromPort,
+            final InputPortInterface<T> toPort)
     {
         for (EIC<?> eic : this.externalInputCouplingSet)
         {
@@ -247,7 +247,8 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param toPort the output port of this coupled model that transfers the message / event to the outside (end of the
      *            coupling)
      */
-    public final <T> void addExternalOutputCoupling(final OutputPortInterface<T> fromPort, final OutputPortInterface<T> toPort)
+    public final <T> void addExternalOutputCoupling(final OutputPortInterface<T> fromPort,
+            final OutputPortInterface<T> toPort)
     {
         try
         {
@@ -391,6 +392,43 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
                 this.externalInputCouplingSet.remove(ic);
             }
         }
+    }
+
+    // ///////////////////////////////////////////////////////////////////////////
+    // GETTERS FOR THE STRUCTURE
+    // ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return internalCouplingSet; the internal couplings (from internal models to internal models)
+     */
+    public final Set<IC<?>> getInternalCouplingSet()
+    {
+        return this.internalCouplingSet;
+    }
+
+    /**
+     * @return externalOutputCouplingSet; the couplings from the internal models to the output of this coupled model
+     */
+    public final Set<EOC<?>> getExternalOutputCouplingSet()
+    {
+        return this.externalOutputCouplingSet;
+    }
+
+    /**
+     * @return externalInputCouplingSet; the couplings from the outside world to the internal models of this coupled
+     *         model
+     */
+    public final Set<EIC<?>> getExternalInputCouplingSet()
+    {
+        return this.externalInputCouplingSet;
+    }
+
+    /**
+     * @return modelComponents; the models within the coupled model
+     */
+    public final Set<AbstractDEVSModel> getModelComponents()
+    {
+        return this.modelComponents;
     }
 
     // ///////////////////////////////////////////////////////////////////////////
