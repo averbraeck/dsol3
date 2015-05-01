@@ -27,25 +27,29 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /** */
     private static final long serialVersionUID = 20140804L;
 
-    /** source reflects the source that created the simevent. */
+    /** source the source that created the simevent. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Object source = null;
 
-    /** target reflects the target on which a state change is scheduled. */
+    /** target the target on which a state change is scheduled. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Object target = null;
 
     /** method is the method which embodies the state change. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected String methodName = null;
 
-    /** args are the arguments which are used to invoke the method with. */
+    /** args are the arguments that are used to invoke the method with. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Object[] args = null;
 
     /**
-     * The constructor of the event stores the time the event must be executed and the object and method to invoke
-     * @param executionTime reflects the time the event has to be executed.
-     * @param source reflects the source that created the method
-     * @param target reflects the object on which the method must be invoked.
-     * @param method reflects the method to invoke
-     * @param args reflects the argumenst the method to invoke with
+     * The constructor of the event stores the time the event must be executed and the object and method to invoke.
+     * @param executionTime the absolute time the event has to be executed.
+     * @param source the source that created the method
+     * @param target the object on which the method must be invoked.
+     * @param method the method to invoke
+     * @param args the arguments the method to invoke with
      */
     public SimEvent(final T executionTime, final Object source, final Object target, final String method,
             final Object[] args)
@@ -54,13 +58,13 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     }
 
     /**
-     * The constructor of the event stores the time the event must be executed and the object and method to invoke
-     * @param executionTime reflects the time the event has to be executed.
-     * @param priority reflects the priority of the event
-     * @param source reflects the source that created the method
-     * @param target reflects the object on which the method must be invoked.
-     * @param method reflects the method to invoke
-     * @param args reflects the argumenst the method to invoke with
+     * The constructor of the event stores the time the event must be executed and the object and method to invoke.
+     * @param executionTime the time the event has to be executed.
+     * @param priority the priority of the event
+     * @param source the source that created the method
+     * @param target the object on which the method must be invoked.
+     * @param method the method to invoke
+     * @param args the arguments the method to invoke with
      */
     public SimEvent(final T executionTime, final short priority, final Object source, final Object target,
             final String method, final Object[] args)
@@ -78,6 +82,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public synchronized void execute() throws SimRuntimeException
     {
         try
@@ -118,7 +123,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /**
      * @return Returns the args.
      */
-    public Object[] getArgs()
+    public final Object[] getArgs()
     {
         return this.args;
     }
@@ -126,7 +131,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /**
      * @return Returns the method.
      */
-    public String getMethod()
+    public final String getMethod()
     {
         return this.methodName;
     }
@@ -134,7 +139,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /**
      * @return Returns the source.
      */
-    public Object getSource()
+    public final Object getSource()
     {
         return this.source;
     }
@@ -142,13 +147,14 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /**
      * @return Returns the target.
      */
-    public Object getTarget()
+    public final Object getTarget()
     {
         return this.target;
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; source="

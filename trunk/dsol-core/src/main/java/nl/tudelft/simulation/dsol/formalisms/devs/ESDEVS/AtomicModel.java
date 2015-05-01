@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
+import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -184,20 +185,24 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     {
         if (this.timeAdvance() != Double.POSITIVE_INFINITY)
         {
-            this.nextEvent =
-                    new SimEvent<SimTimeDouble>(new SimTimeDouble(this.timeAdvance() - e), this, this,
-                            "deltaInternalEventHandler", null);
-            this.timeLastEvent = 0;
             try
             {
+                this.nextEvent =
+                        new SimEvent<SimTimeDouble>(
+                                this.getSimulator().getSimulatorTime().plus(this.timeAdvance() - e), this, this,
+                                "deltaInternalEventHandler", null);
+                this.timeLastEvent = this.getSimulator().getSimulatorTime().get();
                 this.simulator.scheduleEvent(this.nextEvent);
             }
-            catch (Exception exception)
+            catch (RemoteException | SimRuntimeException exception)
             {
                 Logger.severe(this, "initialize", exception);
             }
         }
-
+        else
+        {
+            this.nextEvent = null;
+        }
     }
 
     // ///////////////////////////////////////////////////////////////////////////
