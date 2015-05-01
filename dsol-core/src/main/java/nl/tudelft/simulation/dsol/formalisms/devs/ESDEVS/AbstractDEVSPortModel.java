@@ -42,11 +42,11 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
     /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
 
-    /** the set of input ports. */
+    /** the map of input port names to input ports. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Map<String, InputPortInterface<?>> inputPortMap = new HashMap<String, InputPortInterface<?>>();
 
-    /** the set of output ports. */
+    /** the map of output port names to output ports. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Map<String, OutputPortInterface<?>> outputPortMap = new HashMap<String, OutputPortInterface<?>>();
 
@@ -135,4 +135,19 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
         this.outputPortMap.remove(name);
     }
 
+    /**
+     * @return inputPortMap; the map of input port names to input ports.
+     */
+    public final Map<String, InputPortInterface<?>> getInputPortMap()
+    {
+        return this.inputPortMap;
+    }
+
+    /**
+     * @return outputPortMap; the map of output port names to output ports
+     */
+    public final Map<String, OutputPortInterface<?>> getOutputPortMap()
+    {
+        return this.outputPortMap;
+    }
 }
