@@ -245,6 +245,32 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public void runUpTo(final A when) throws SimRuntimeException, RemoteException
+    {
+        scheduleEventAbs(when, SimEventInterface.MAX_PRIORITY, this, this, "autoPauseSimulator", null);
+        if (!isRunning())
+        {
+            start();
+        }
+    }
+
+    /**
+     * Pause the simulator.
+     */
+    @SuppressWarnings("checkstyle:designforextension")
+    protected void autoPauseSimulator()
+    {
+        if (isRunning())
+        {
+            stop();
+        }
+    }
+
     /** {@inheritDoc} */
     @Override
     public final boolean isPauseOnError()

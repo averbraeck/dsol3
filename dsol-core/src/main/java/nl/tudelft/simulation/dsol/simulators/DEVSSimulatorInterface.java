@@ -184,6 +184,14 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      */
     void setEventList(EventListInterface<T> eventList) throws RemoteException, SimRuntimeException;
 
+    /**
+     * Runs the simulator up to a certain time; events at that time will not yet be executed.
+     * @param when the absolute time till when we want to run the simulation
+     * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
+     * @throws RemoteException on network failure
+     */
+    void runUpTo(final A when) throws SimRuntimeException, RemoteException;
+
     /** @return pauseOnError whether we pause on an error or not. */
     boolean isPauseOnError();
 
