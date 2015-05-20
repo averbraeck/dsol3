@@ -20,52 +20,58 @@ import javax.swing.JPanel;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:37:49 $
  * @author <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>, <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
-public class GridPanel extends JPanel
+public class GridPanel extends BorderPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** the UP directions for moving/zooming */
+    /** the UP directions for moving/zooming. */
     public static final int UP = 1;
 
-    /** the DOWN directions for moving/zooming */
+    /** the DOWN directions for moving/zooming. */
     public static final int DOWN = 2;
 
-    /** the LEFT directions for moving/zooming */
+    /** the LEFT directions for moving/zooming. */
     public static final int LEFT = 3;
 
-    /** the RIGHT directions for moving/zooming */
+    /** the RIGHT directions for moving/zooming. */
     public static final int RIGHT = 4;
 
-    /** the ZOOM_IN directions for moving/zooming */
+    /** the ZOOM_IN directions for moving/zooming. */
     public static final int IN = 5;
 
-    /** the ZOOM_OUT directions for moving/zooming */
+    /** the ZOOM_OUT directions for moving/zooming. */
     public static final int OUT = 6;
 
-    /** gridColor */
+    /** gridColor. */
     protected static final Color GRIDCOLOR = Color.BLACK;
 
-    /** the extent of this panel */
+    /** the extent of this panel. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Rectangle2D extent = null;
 
-    /** the extent of this panel */
+    /** the extent of this panel. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Rectangle2D homeExtent = null;
 
-    /** show the grid */
+    /** show the grid. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected boolean showGrid = true;
 
-    /** the gridSize in world Units */
+    /** the gridSize in world Units. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double gridSize = 100.0;
 
-    /** the formatter to use */
+    /** the formatter to use. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected NumberFormat formatter = NumberFormat.getInstance();
 
-    /** the last computed Dimension */
+    /** the last computed Dimension. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Dimension lastDimension = null;
 
     /**
-     * constructs a new GridPanel
+     * constructs a new GridPanel.
      * @param extent the extent to show.
      */
     public GridPanel(final Rectangle2D extent)
@@ -74,13 +80,13 @@ public class GridPanel extends JPanel
     }
 
     /**
-     * constructs a new GridPanel
-     * @param extent the initial extent
+     * constructs a new GridPanel.
+     * @param extent the initial extent.
      * @param size the size of the panel in pixels.
      */
     public GridPanel(final Rectangle2D extent, final Dimension size)
     {
-        super(true);
+        super();
         this.extent = extent;
         this.homeExtent = (Rectangle2D) extent.clone();
         this.setBackground(Color.WHITE);
@@ -89,17 +95,15 @@ public class GridPanel extends JPanel
     }
 
     /**
-     * returns the extent of this panel
+     * returns the extent of this panel.
      * @return Rectangle2D
      */
-    public Rectangle2D getExtent()
+    public final Rectangle2D getExtent()
     {
         return this.extent;
     }
 
-    /**
-     * @see javax.swing.JComponent #paintComponent(java.awt.Graphics)
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized void paintComponent(final Graphics g)
     {
