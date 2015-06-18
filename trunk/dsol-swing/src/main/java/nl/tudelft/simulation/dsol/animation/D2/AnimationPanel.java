@@ -41,28 +41,28 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** the elements of this panel */
+    /** the elements of this panel. */
     private SortedSet<Renderable2DInterface> elements = Collections
             .synchronizedSortedSet(new TreeSet<Renderable2DInterface>(new Renderable2DComparator()));
 
-    /** the simulator */
+    /** the simulator. */
     private SimulatorInterface<?, ?, ?> simulator;
 
-    /** the eventContext */
+    /** the eventContext. */
     private EventContext context = null;
 
     /** the grid must be drawn after all other elements. Therefore we must override the gridPanel.paintGrid. */
     @SuppressWarnings("hiding")
     private boolean showGrid = true;
 
-    /** a line that helps the user to see where he is dragging */
+    /** a line that helps the user to see where he is dragging. */
     private Point4i dragLine = new Point4i();
 
-    /** enable drag line */
+    /** enable drag line. */
     private boolean dragLineEnabled = false;
 
     /**
-     * constructs a new AnimationPanel
+     * constructs a new AnimationPanel.
      * @param extent the extent of the panel
      * @param size the size of the panel.
      * @param simulator the simulator of which we want to know the events for animation
@@ -89,7 +89,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     }
 
     /**
-     * @see javax.swing.JComponent #paintComponent(java.awt.Graphics)
+     * {@inheritDoc}
      */
     @Override
     public synchronized void paintComponent(final Graphics g)
@@ -118,7 +118,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     }
 
     /**
-     * @see nl.tudelft.simulation.event.EventListenerInterface #notify(nl.tudelft.simulation.event.EventInterface)
+     * {@inheritDoc}
      */
     @Override
     public void notify(final EventInterface event) throws RemoteException
@@ -161,61 +161,53 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         }
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener #objectAdded(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
+    @Override
     public void objectAdded(final NamingEvent namingEvent)
     {
         Renderable2DInterface element = (Renderable2DInterface) namingEvent.getNewBinding().getObject();
         this.elements.add(element);
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener #objectRemoved(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
+    @Override
     public void objectRemoved(final NamingEvent namingEvent)
     {
         Renderable2DInterface element = (Renderable2DInterface) namingEvent.getOldBinding().getObject();
         this.elements.remove(element);
     }
 
-    /**
-     * @see javax.naming.event.NamespaceChangeListener #objectRenamed(javax.naming.event.NamingEvent)
-     */
+    /** {@inheritDoc} */
+    @Override
     public void objectRenamed(final NamingEvent namingEvent)
     {
         this.objectRemoved(namingEvent);
         this.objectAdded(namingEvent);
     }
 
-    /**
-     * @see javax.naming.event.NamingListener #namingExceptionThrown(javax.naming.event.NamingExceptionEvent)
-     */
+    /** {@inheritDoc} */
+    @Override
     public void namingExceptionThrown(final NamingExceptionEvent namingEvent)
     {
         Logger.warning(this, "namingExceptionThrown", namingEvent.getException());
     }
 
-    /**
-     * @return Returns the elements.
+    /** 
+     * @return the set of animation elements.
      */
-    public SortedSet<Renderable2DInterface> getElements()
+    public final SortedSet<Renderable2DInterface> getElements()
     {
         return this.elements;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.gui.animation2D.GridPanel#isShowGrid()
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean isShowGrid()
     {
         return this.showGrid;
     }
 
-    /**
-     * @see nl.tudelft.simulation.dsol.gui.animation2D.GridPanel#showGrid(boolean)
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized void showGrid(final boolean bool)
     {
@@ -226,7 +218,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * @return returns the dragLine.
      */
-    public Point4i getDragLine()
+    public final Point4i getDragLine()
     {
         return this.dragLine;
     }
@@ -234,7 +226,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * @return returns the dragLineEnabled.
      */
-    public boolean isDragLineEnabled()
+    public final boolean isDragLineEnabled()
     {
         return this.dragLineEnabled;
     }
@@ -242,7 +234,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * @param dragLineEnabled the dragLineEnabled to set.
      */
-    public void setDragLineEnabled(final boolean dragLineEnabled)
+    public final void setDragLineEnabled(final boolean dragLineEnabled)
     {
         this.dragLineEnabled = dragLineEnabled;
     }
