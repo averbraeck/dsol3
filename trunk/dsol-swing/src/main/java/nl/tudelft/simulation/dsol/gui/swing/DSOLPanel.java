@@ -38,7 +38,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     private static final long serialVersionUID = 1L;
 
     /** the simulator. */
-    public SimulatorInterface<A, R, T> simulator;
+    protected SimulatorInterface<A, R, T> simulator;
 
     /** */
     protected Console console = new Console();
@@ -47,7 +47,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     private ModelInterface<A, R, T> model;
 
     /** */
-    protected Logger logger = Logger.getLogger("nl.tudelft.simulation.gui.swing");
+    protected Logger logger = Logger.getLogger("nl.tudelft.simulation.dsol.gui.swing");
 
     /** */
     protected SimulatorControlPanel simulatorControlPanel;
@@ -83,7 +83,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     }
 
     /**
-     * initialize the panel and the simulator
+     * initialize the panel and the simulator.
      * @throws RemoteException
      * @throws SimRuntimeException
      */
