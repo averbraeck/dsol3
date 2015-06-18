@@ -51,10 +51,6 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /** the eventContext. */
     private EventContext context = null;
 
-    /** the grid must be drawn after all other elements. Therefore we must override the gridPanel.paintGrid. */
-    @SuppressWarnings("hiding")
-    private boolean showGrid = true;
-
     /** a line that helps the user to see where he is dragging. */
     private Point4i dragLine = new Point4i();
 
@@ -70,7 +66,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     public AnimationPanel(final Rectangle2D extent, final Dimension size, final SimulatorInterface<?, ?, ?> simulator)
     {
         super(extent, size);
-        super.showGrid = false;
+        super.showGrid = true;
         InputListener listener = new InputListener(this);
         this.simulator = simulator;
         this.addMouseListener(listener);
@@ -94,8 +90,12 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public synchronized void paintComponent(final Graphics g)
     {
-        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        
+        // draw the grid.
+        super.paintComponent(g2);
+        
+        // draw the animation elements.
         synchronized (this.elements)
         {
             for (Renderable2DInterface element : this.elements)
@@ -103,12 +103,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
                 element.paint(g2, this.getExtent(), this.getSize(), this);
             }
         }
-        if (this.showGrid)
-        {
-            this.drawGrid(g);
-        }
 
-        // Draw dragline
+        // draw drag line if enabled.
         if (this.dragLineEnabled)
         {
             g.setColor(Color.BLACK);
@@ -192,27 +188,12 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         Logger.warning(this, "namingExceptionThrown", namingEvent.getException());
     }
 
-    /** 
+    /**
      * @return the set of animation elements.
      */
     public final SortedSet<Renderable2DInterface> getElements()
     {
         return this.elements;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public boolean isShowGrid()
-    {
-        return this.showGrid;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public synchronized void showGrid(final boolean bool)
-    {
-        this.showGrid = bool;
-        this.repaint();
     }
 
     /**

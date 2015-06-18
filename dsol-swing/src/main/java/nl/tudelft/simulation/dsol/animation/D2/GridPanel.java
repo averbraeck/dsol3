@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:37:49 $
  * @author <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>, <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
-public class GridPanel extends BorderPanel
+public class GridPanel extends JPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -123,18 +123,18 @@ public class GridPanel extends BorderPanel
      * show the grid?
      * @param bool true/false
      */
-    public synchronized void showGrid(final boolean bool)
+    public final synchronized void showGrid(final boolean bool)
     {
         this.showGrid = bool;
         this.repaint();
     }
 
     /**
-     * pans the panel in a specified direction
+     * pans the panel in a specified direction.
      * @param direction the direction
      * @param percentage the percentage
      */
-    public synchronized void pan(final int direction, final double percentage)
+    public final synchronized void pan(final int direction, final double percentage)
     {
         if (percentage <= 0 || percentage > 1.0)
         {
@@ -167,9 +167,9 @@ public class GridPanel extends BorderPanel
     }
 
     /**
-     * resets the panel to its original extent
+     * resets the panel to its original extent.
      */
-    public synchronized void home()
+    public final synchronized void home()
     {
         this.extent = Renderable2DInterface.Util.computeVisibleExtent(this.homeExtent, this.getSize());
         this.repaint();
@@ -178,7 +178,7 @@ public class GridPanel extends BorderPanel
     /**
      * @return Returns the showGrid.
      */
-    public boolean isShowGrid()
+    public final boolean isShowGrid()
     {
         return this.showGrid;
     }
@@ -186,17 +186,17 @@ public class GridPanel extends BorderPanel
     /**
      * @param showGrid The showGrid to set.
      */
-    public void setShowGrid(final boolean showGrid)
+    public final void setShowGrid(final boolean showGrid)
     {
         this.showGrid = showGrid;
     }
 
     /**
-     * zooms in/out
+     * zooms in/out.
      * @param direction the zoom direction
      * @param factor The Factor
      */
-    public synchronized void zoom(final int direction, final double factor)
+    public final synchronized void zoom(final int direction, final double factor)
     {
         double newScale = Renderable2DInterface.Util.getScale(this.extent, this.getSize());
         switch (direction)
