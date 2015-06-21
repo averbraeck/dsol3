@@ -140,7 +140,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
                     this.context.removeNamingListener(this);
                 }
 
-                this.context = (EventContext) ContextUtil.lookup(this.simulator.getContext(), "/animation/2D");
+                this.context = (EventContext) ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/2D");
                 this.context.addNamingListener("", EventContext.SUBTREE_SCOPE, this);
                 NamingEnumeration<Binding> list = this.context.listBindings("");
                 while (list.hasMore())

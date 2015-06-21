@@ -41,6 +41,9 @@ public class StatusBar extends JPanel
     protected Calendar simulationCalendar;
 
     /** */
+    private Timer timer;
+
+    /** */
     protected JTextField timeField = new JTextField(DateFormat.getDateTimeInstance().format(this.time.getTime()));
 
     /** */
@@ -73,14 +76,26 @@ public class StatusBar extends JPanel
         this.timeField.setEditable(false);
         this.timeField.setBorder(BorderFactory.createEmptyBorder());
         this.timeField.setToolTipText("displays the current time");
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimeUpdateTask(this.PERIOD), 0, this.PERIOD);
+        this.timer = new Timer();
+        this.timer.scheduleAtFixedRate(new TimeUpdateTask(this.PERIOD), 0, this.PERIOD);
         this.add(this.timeField, "0,0,L,B");
 
         this.simulatorTimeField.setEditable(false);
         this.simulatorTimeField.setToolTipText("displays the simulator time");
         this.simulatorTimeField.setBorder(BorderFactory.createEmptyBorder());
         this.add(this.simulatorTimeField, "1,0,L,B");
+    }
+
+    /**
+     * cancel the timer.
+     */
+    public final void cancelTimer()
+    {
+        if (this.timer != null)
+        {
+            this.timer.cancel();
+            this.timer = null;
+        }
     }
 
     /**

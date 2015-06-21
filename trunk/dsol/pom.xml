@@ -4,7 +4,7 @@
 
 	<groupId>dsol</groupId>
 	<artifactId>dsol</artifactId>
-	<version>3.00.11</version>
+	<version>3.00.12</version>
 	<packaging>pom</packaging>
 
 	<name>DSOL version 3</name>
@@ -707,18 +707,18 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-			<id>mvnrepository</id>
-			<name>mvnrepository</name>
-			<url>http://mvnrepository.com/artifact</url>
+			<id>apache</id>
+			<name>apache</name>
+			<url>http://repo.maven.apache.org/maven2</url>
 		</repository>
 
 		<repository>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-			<id>apache</id>
-			<name>apache</name>
-			<url>http://repo.maven.apache.org/maven2</url>
+			<id>ibiblio</id>
+			<name>ibiblio</name>
+			<url>http://mirrors.ibiblio.org/maven2</url>
 		</repository>
 
 	</repositories>

@@ -64,6 +64,11 @@ public abstract class Renderable2D implements Renderable2DInterface
     protected final LocatableInterface source;
 
     /**
+     * the context for (un)binding.
+     */
+    protected Context context;
+
+    /**
      * constructs a new Renderable2D.
      * @param source the source
      * @param simulator the simulator
@@ -90,8 +95,8 @@ public abstract class Renderable2D implements Renderable2DInterface
      */
     protected void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
     {
-        Context context = ContextUtil.lookup(simulator.getContext(), "/animation/2D");
-        ContextUtil.bind(context, this);
+        this.context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
+        ContextUtil.bind(this.context, this);
     }
 
     /**
@@ -261,7 +266,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     @Override
     public void destroy() throws NamingException
     {
-        nl.tudelft.simulation.naming.context.ContextUtil.unbindFromContext(this);
+        ContextUtil.unbind(this.context, this);
     }
 
     /** {@inheritDoc} */

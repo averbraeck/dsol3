@@ -83,6 +83,7 @@ public class Tally<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jst
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void notify(final EventInterface event)
     {
         if (this.stopped)
@@ -119,8 +120,9 @@ public class Tally<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jst
     }
 
     /**
-     * endOfReplication is invoked to store the final results
+     * endOfReplication is invoked to store the final results.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void endOfReplication()
     {
         try

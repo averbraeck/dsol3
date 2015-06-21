@@ -85,6 +85,7 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void notify(final EventInterface event)
     {
         if (this.stopped)
@@ -122,8 +123,9 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
     }
 
     /**
-     * endOfReplication is invoked to store the final results
+     * endOfReplication is invoked to store the final results.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void endOfReplication()
     {
         try

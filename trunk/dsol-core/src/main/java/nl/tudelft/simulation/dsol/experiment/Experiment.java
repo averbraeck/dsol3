@@ -3,9 +3,11 @@ package nl.tudelft.simulation.dsol.experiment;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.Context;
+import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.ModelInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -28,6 +30,7 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
+import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * The Experiment specifies the parameters for a simulation experiment <br>
@@ -71,9 +74,6 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /** model reflects the model. */
     private ModelInterface<A, R, T> model;
 
-    /** the context. */
-    private Context context = null;
-
     /** the description of this experiment. */
     private String description = null;
 
@@ -88,36 +88,24 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
 
     /**
      * constructs a new Experiment.
-     * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
      */
-    public Experiment(final Context context)
+    public Experiment()
     {
         super();
-        this.context = context;
     }
 
     /**
      * constructs a new Experiment.
-     * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
      * @param treatment the treatment for this experiment
      * @param simulator the simulator
      * @param model the model to experiment with
      */
-    public Experiment(final Context context, final Treatment<A, R, T> treatment,
-            final SimulatorInterface<A, R, T> simulator, final ModelInterface<A, R, T> model)
+    public Experiment(final Treatment<A, R, T> treatment, final SimulatorInterface<A, R, T> simulator,
+            final ModelInterface<A, R, T> model)
     {
-        this(context);
         this.setSimulator(simulator);
         this.setTreatment(treatment);
         this.setModel(model);
-    }
-
-    /**
-     * @return Returns the context.
-     */
-    public final Context getContext()
-    {
-        return this.context;
     }
 
     /**
@@ -294,269 +282,197 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     {
         this.analyst = analyst;
     }
+
+    /**
+     * @return the context of the experiment, based on the hashCode.
+     * @throws NamingException if context could not be found or created.
+     */
+    public final Context getContext() throws NamingException
+    {
+        return ContextUtil.lookup(String.valueOf(hashCode()));
+    }
+
+    /**
+     * remove the entire experiment tree from the context.
+     * @throws NamingException if context could not be found or removed.
+     */
+    public final void removeFromContext() throws NamingException
+    {
+        ContextUtil.destroySubContext(String.valueOf(hashCode()));
+    }
     
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
     /** Easy access class Experiment.TimeDouble. */
-    public static class TimeDouble extends Experiment<Double, Double, SimTimeDouble> 
+    public static class TimeDouble extends Experiment<Double, Double, SimTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
-         * constructs a new Experiment.TimeDouble.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public TimeDouble(final Context context)
-        {
-            super(context);
-        }
-
-        /**
          * constructs a new Experiment.TomeDouble.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public TimeDouble(final Context context, final Treatment.TimeDouble treatment,
-                final SimulatorInterface.TimeDouble simulator, final ModelInterface.TimeDouble model)
+        public TimeDouble(final Treatment.TimeDouble treatment, final SimulatorInterface.TimeDouble simulator,
+                final ModelInterface.TimeDouble model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 
     /** Easy access class Experiment.TimeFloat. */
-    public static class TimeFloat extends Experiment<Float, Float, SimTimeFloat> 
+    public static class TimeFloat extends Experiment<Float, Float, SimTimeFloat>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
          * constructs a new Experiment.TimeFloat.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public TimeFloat(final Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * constructs a new Experiment.TimeFloat.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public TimeFloat(final Context context, final Treatment.TimeFloat treatment,
-                final SimulatorInterface.TimeFloat simulator, final ModelInterface.TimeFloat model)
+        public TimeFloat(final Treatment.TimeFloat treatment, final SimulatorInterface.TimeFloat simulator,
+                final ModelInterface.TimeFloat model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 
     /** Easy access class Experiment.TimeLong. */
-    public static class TimeLong extends Experiment<Long, Long, SimTimeLong> 
+    public static class TimeLong extends Experiment<Long, Long, SimTimeLong>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
          * constructs a new Experiment.TimeLong.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public TimeLong(final Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * constructs a new Experiment.TimeLong.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public TimeLong(final Context context, final Treatment.TimeLong treatment,
-                final SimulatorInterface.TimeLong simulator, final ModelInterface.TimeLong model)
+        public TimeLong(final Treatment.TimeLong treatment, final SimulatorInterface.TimeLong simulator,
+                final ModelInterface.TimeLong model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 
     /** Easy access class Experiment.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends Experiment<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> 
+    public static class TimeDoubleUnit extends Experiment<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
          * constructs a new Experiment.TimeDoubleUnit.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public TimeDoubleUnit(final Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * constructs a new Experiment.TimeDoubleUnit.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public TimeDoubleUnit(final Context context, final Treatment.TimeDoubleUnit treatment,
+        public TimeDoubleUnit(final Treatment.TimeDoubleUnit treatment,
                 final SimulatorInterface.TimeDoubleUnit simulator, final ModelInterface.TimeDoubleUnit model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 
     /** Easy access class Experiment.TimeFloatUnit. */
-    public static class TimeFloatUnit extends Experiment<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> 
+    public static class TimeFloatUnit extends Experiment<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
          * constructs a new Experiment.TimeFloatUnit.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public TimeFloatUnit(final Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * constructs a new Experiment.TimeFloatUnit.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public TimeFloatUnit(final Context context, final Treatment.TimeFloatUnit treatment,
-                final SimulatorInterface.TimeFloatUnit simulator, final ModelInterface.TimeFloatUnit model)
+        public TimeFloatUnit(final Treatment.TimeFloatUnit treatment, final SimulatorInterface.TimeFloatUnit simulator,
+                final ModelInterface.TimeFloatUnit model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 
     /** Easy access class Experiment.TimeLongUnit. */
-    public static class TimeLongUnit extends Experiment<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> 
+    public static class TimeLongUnit extends Experiment<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
          * constructs a new Experiment.TimeLongUnit.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public TimeLongUnit(final Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * constructs a new Experiment.TimeLongUnit.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public TimeLongUnit(final Context context, final Treatment.TimeLongUnit treatment,
-                final SimulatorInterface.TimeLongUnit simulator, final ModelInterface.TimeLongUnit model)
+        public TimeLongUnit(final Treatment.TimeLongUnit treatment, final SimulatorInterface.TimeLongUnit simulator,
+                final ModelInterface.TimeLongUnit model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 
     /** Easy access class Experiment.CalendarDouble. */
-    public static class CalendarDouble extends Experiment<Calendar, UnitTimeDouble, SimTimeCalendarDouble> 
+    public static class CalendarDouble extends Experiment<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
          * constructs a new Experiment.CalendarDouble.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public CalendarDouble(final Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * constructs a new Experiment.CalendarDouble.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public CalendarDouble(final Context context, final Treatment.CalendarDouble treatment,
+        public CalendarDouble(final Treatment.CalendarDouble treatment,
                 final SimulatorInterface.CalendarDouble simulator, final ModelInterface.CalendarDouble model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 
     /** Easy access class Experiment.CalendarFloat. */
-    public static class CalendarFloat extends Experiment<Calendar, UnitTimeFloat, SimTimeCalendarFloat> 
+    public static class CalendarFloat extends Experiment<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
          * constructs a new Experiment.CalendarFloat.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public CalendarFloat(final Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * constructs a new Experiment.CalendarFloat.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public CalendarFloat(final Context context, final Treatment.CalendarFloat treatment,
-                final SimulatorInterface.CalendarFloat simulator, final ModelInterface.CalendarFloat model)
+        public CalendarFloat(final Treatment.CalendarFloat treatment, final SimulatorInterface.CalendarFloat simulator,
+                final ModelInterface.CalendarFloat model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 
     /** Easy access class Experiment.CalendarLong. */
-    public static class CalendarLong extends Experiment<Calendar, UnitTimeLong, SimTimeCalendarLong> 
+    public static class CalendarLong extends Experiment<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
 
         /**
          * constructs a new Experiment.CalendarLong.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
-         */
-        public CalendarLong(final Context context)
-        {
-            super(context);
-        }
-
-        /**
-         * constructs a new Experiment.CalendarLong.
-         * @param context the context for this experiment. This is probably experimentalFrame.contextRoot/experimentNumber
          * @param treatment the treatment for this experiment
          * @param simulator the simulator
          * @param model the model to experiment with
          */
-        public CalendarLong(final Context context, final Treatment.CalendarLong treatment,
-                final SimulatorInterface.CalendarLong simulator, final ModelInterface.CalendarLong model)
+        public CalendarLong(final Treatment.CalendarLong treatment, final SimulatorInterface.CalendarLong simulator,
+                final ModelInterface.CalendarLong model)
         {
-            super(context, treatment, simulator, model);
+            super(treatment, simulator, model);
         }
     }
 

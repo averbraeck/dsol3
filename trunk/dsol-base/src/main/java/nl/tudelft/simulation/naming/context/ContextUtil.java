@@ -21,18 +21,18 @@ import javax.naming.NamingException;
  * @version 1.2 2004-03-24
  * @since 1.5
  */
-public class ContextUtil
+public final class ContextUtil
 {
     /**
-     * constructs a new ContextUtil.
+     * prevent construction of a ContextUtil.
      */
-    protected ContextUtil()
+    private ContextUtil()
     {
         super();
     }
 
     /**
-     * resolves the name of an object under which it is accessible in the context
+     * resolves the name of an object under which it is accessible in the initial context.
      * @param object the object
      * @return String
      * @throws NamingException whenever the object cannot be found
@@ -48,7 +48,7 @@ public class ContextUtil
     }
 
     /**
-     * resolves the key under which an object is stored in the context.
+     * resolves the key under which an object is stored in the given context.
      * @param object the object which key to resolve.
      * @param context the context.
      * @param name the name of the parent.
@@ -80,20 +80,10 @@ public class ContextUtil
     }
 
     /**
-     * unbinds an object from the context
-     * @param object the object to be removed.
-     */
-    public static void unbindFromContext(Object object) throws NamingException
-    {
-        InitialContext context = new InitialContext();
-        String key = ContextUtil.resolveKey(object, context, "/");
-        context.unbind(key);
-    }
-
-    /**
-     * binds an object to the context based on its toString() method.
+     * binds an object to the given context based on its toString() method.
      * @param context the context
      * @param object the object
+     * @throws NamingException on context failure
      */
     public static void bind(final Context context, final Object object) throws NamingException
     {
@@ -101,32 +91,134 @@ public class ContextUtil
     }
 
     /**
-     * creates a subContext
+     * binds an object to the initial context based on its toString() method.
+     * @param object the object
+     * @throws NamingException on context failure
+     */
+    public static void bind(final Object object) throws NamingException
+    {
+        bind(new InitialContext(), object);
+    }
+
+    /**
+     * unbinds an object from the given context.
+     * @param context the context
+     * @param object the object to be removed.
+     * @throws NamingException on context failure
+     */
+    public static void unbind(final Context context, final Object object) throws NamingException
+    {
+        String key = ContextUtil.resolveKey(object, context, "/");
+        context.unbind(key);
+    }
+
+    /**
+     * unbinds an object from the initial context.
+     * @param object the object to be removed.
+     * @throws NamingException on context failure
+     */
+    public static void unbind(final Object object) throws NamingException
+    {
+        unbind(new InitialContext(), object);
+    }
+
+    /**
+     * creates a subContext to the given context.
      * @param root the root of the context
      * @param element the element to add
      * @return the new root
+     * @throws NamingException on context failure
      */
-    private static Context createSubContext(final Context root, final String element) throws NamingException
+    public static Context createSubContext(final Context root, final String element) throws NamingException
     {
         try
         {
             return (Context) root.lookup(element);
         }
-        catch (Exception exception)
+        catch (NamingException exception)
         {
             return root.createSubcontext(element);
         }
     }
 
     /**
-     * resolves the context with relative name on root. If the context does not exist it is created.
+     * creates a subContext to the initial context.
+     * @param element the element to add
+     * @return the new root
+     * @throws NamingException on context failure
+     */
+    public static Context createSubContext(final String element) throws NamingException
+    {
+        return createSubContext(new InitialContext(), element);
+    }
+
+    /**
+     * removes a subContext from the given context.
+     * @param root the root of the context
+     * @param element the element to remove
+     * @throws NamingException on context failure
+     */
+    public static void removeSubContext(final Context root, final String element) throws NamingException
+    {
+        root.destroySubcontext(element);
+    }
+
+    /**
+     * removes a subContext from the initial context.
+     * @param element the element to remove
+     * @throws NamingException on context failure
+     */
+    public static void removeSubContext(final String element) throws NamingException
+    {
+        removeSubContext(new InitialContext(), element);
+    }
+
+    /**
+     * recursively removes a subContext from the initial context and unbinds all its elements.
+     * @param name the name to remove, relative to the root of the initial context
+     * @throws NamingException on context failure
+     */
+    public static void destroySubContext(final String name) throws NamingException
+    {
+        destroySubContext(new InitialContext(), name);
+    }
+
+    /**
+     * recursively removes a subContext from the given context and unbinds all its elements.
+     * @param root the root of the context
+     * @param name the name to remove, relative to the given context, e.g. "/animation/2D"
+     * @throws NamingException on context failure
+     */
+    public static void destroySubContext(final Context root, final String name) throws NamingException
+    {
+        Context subcontext = lookup(root, name);
+        NamingEnumeration<Binding> list = subcontext.listBindings("");
+        while (list.hasMore())
+        {
+            Binding binding = list.next();
+            if (binding.getObject() instanceof Context)
+            {
+                destroySubContext(subcontext, binding.getName());
+            }
+            else
+            {
+                unbind(subcontext, binding.getObject());
+            }
+        }
+        removeSubContext(root, name);
+    }
+
+    /**
+     * resolves the context with relative name on the given root context. If the context does not exist it is created.
      * @param root the root context
      * @param name the name
      * @return the context
+     * @throws NamingException on context failure
      */
-    public static Context lookup(Context root, final String name) throws NamingException
+    public static Context lookup(final Context root, final String name) throws NamingException
     {
-        Name parsedName = root.getNameParser(name).parse(name);
+        Context context = root;
+        Name parsedName = context.getNameParser(name).parse(name);
 
         // We take the first one and see if we can build this one.
         Enumeration<String> elements = parsedName.getAll();
@@ -136,9 +228,21 @@ public class ContextUtil
             String element = elements.nextElement();
             if (element.length() > 0)
             {
-                root = ContextUtil.createSubContext(root, element);
+                context = ContextUtil.createSubContext(context, element);
             }
         }
-        return root;
+        return context;
     }
+
+    /**
+     * resolves the context with relative name on initial context. If the context does not exist it is created.
+     * @param name the name
+     * @return the context
+     * @throws NamingException on context failure
+     */
+    public static Context lookup(final String name) throws NamingException
+    {
+        return lookup(new InitialContext(), name);
+    }
+
 }
