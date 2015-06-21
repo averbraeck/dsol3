@@ -5,14 +5,9 @@ import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -63,9 +58,6 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /** replication represents the currently active replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Replication<A, R, T> replication = null;
-
-    /** the cached context that can be used for animation and statistics for this simulator. */
-    private Context cachedContext = null;
 
     /** a worker. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -206,15 +198,21 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         }
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public final Context getContext() throws NamingException
+    /**
+     * Clean up the simulator. Remove the worker thread.
+     */
+    public final void cleanUp()
     {
-        if (this.cachedContext == null)
+        this.running = false;
+        if (this.listeners != null)
         {
-            this.cachedContext = (new InitialContext()).createSubcontext(String.valueOf(this.hashCode()));
+            this.removeAllListeners();
         }
-        return this.cachedContext;
+        if (this.worker != null)
+        {
+            this.worker.cleanUp();
+        }
+        this.worker = null;
     }
 
     /**

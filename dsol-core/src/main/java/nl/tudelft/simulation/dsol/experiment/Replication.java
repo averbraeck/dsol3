@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.ModelInterface;
@@ -24,6 +23,7 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
+import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * The replication of a runcontrol.
@@ -61,14 +61,14 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * constructs a new Replication.
-     * @param context the name under which this replication can be found in the nameSpace
      * @param experiment the experiment to which this replication belongs
+     * @throws NamingException in case a context for the replication cannot be created
      */
-    public Replication(final Context context, final Experiment<A, R, T> experiment)
+    public Replication(final Experiment<A, R, T> experiment) throws NamingException
     {
         super();
         this.experiment = experiment;
-        this.context = context;
+        setContext(String.valueOf(hashCode()));
     }
 
     /**
@@ -84,12 +84,22 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             final ModelInterface<A, R, T> model) throws NamingException
     {
         super();
-        this.context = new InitialContext();
-        this.experiment = new Experiment<A, R, T>(this.context);
+        this.experiment = new Experiment<A, R, T>();
         this.experiment.setModel(model);
         Treatment<A, R, T> treatment =
                 new Treatment<A, R, T>(this.experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
         this.experiment.setTreatment(treatment);
+        setContext(id);
+    }
+
+    /**
+     * set the context for this replication.
+     * @param id the id of the replication.
+     * @throws NamingException in case a context for the experiment or replication cannot be created
+     */
+    private void setContext(final String id) throws NamingException
+    {
+        this.context = ContextUtil.lookup(this.experiment.getContext(), String.valueOf(id));
     }
 
     /**
@@ -199,12 +209,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeDouble.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDouble(final Context context, final Experiment.TimeDouble experiment)
+        public TimeDouble(final Experiment.TimeDouble experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -231,12 +241,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeFloat.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloat(final Context context, final Experiment.TimeFloat experiment)
+        public TimeFloat(final Experiment.TimeFloat experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -263,12 +273,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeLong.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeLong(final Context context, final Experiment.TimeLong experiment)
+        public TimeLong(final Experiment.TimeLong experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -295,12 +305,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeDoubleUnit.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDoubleUnit(final Context context, final Experiment.TimeDoubleUnit experiment)
+        public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -327,12 +337,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeFloatUnit.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloatUnit(final Context context, final Experiment.TimeFloatUnit experiment)
+        public TimeFloatUnit(final Experiment.TimeFloatUnit experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -359,12 +369,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeLongUnit.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeLongUnit(final Context context, final Experiment.TimeLongUnit experiment)
+        public TimeLongUnit(final Experiment.TimeLongUnit experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -391,12 +401,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarDouble.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarDouble(final Context context, final Experiment.CalendarDouble experiment)
+        public CalendarDouble(final Experiment.CalendarDouble experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -424,12 +434,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarFloat.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarFloat(final Context context, final Experiment.CalendarFloat experiment)
+        public CalendarFloat(final Experiment.CalendarFloat experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -441,9 +451,8 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param model the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarFloat(final String id, final SimTimeCalendarFloat startTime,
-                final UnitTimeFloat warmupPeriod, final UnitTimeFloat runLength,
-                final ModelInterface.CalendarFloat model) throws NamingException
+        public CalendarFloat(final String id, final SimTimeCalendarFloat startTime, final UnitTimeFloat warmupPeriod,
+                final UnitTimeFloat runLength, final ModelInterface.CalendarFloat model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -457,12 +466,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarLong.
-         * @param context the name under which this replication can be found in the nameSpace
          * @param experiment the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarLong(final Context context, final Experiment.CalendarLong experiment)
+        public CalendarLong(final Experiment.CalendarLong experiment) throws NamingException
         {
-            super(context, experiment);
+            super(experiment);
         }
 
         /**
@@ -474,9 +483,8 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param model the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarLong(final String id, final SimTimeCalendarLong startTime,
-                final UnitTimeLong warmupPeriod, final UnitTimeLong runLength,
-                final ModelInterface.CalendarLong model) throws NamingException
+        public CalendarLong(final String id, final SimTimeCalendarLong startTime, final UnitTimeLong warmupPeriod,
+                final UnitTimeLong runLength, final ModelInterface.CalendarLong model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }

@@ -123,12 +123,6 @@ public abstract interface SimulatorInterface<A extends Comparable<A>, R extends 
      */
     void stop() throws RemoteException, SimRuntimeException;
 
-    /**
-     * @return the context specific to the simulator
-     * @throws NamingException when context cannot be found.
-     */
-    Context getContext() throws NamingException;
-
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/

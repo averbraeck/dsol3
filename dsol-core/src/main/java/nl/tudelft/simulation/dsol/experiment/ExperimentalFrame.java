@@ -5,8 +5,6 @@ import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.naming.Context;
-
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
@@ -47,32 +45,24 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     /** the current experiment. */
     protected int currentExperiment = -1;
 
-    /**
-     * the context of this experimentalFrame. This context is used as the root in the context
-     */
-    private Context context = null;
-
     /** the URL where we can find this experimentalFrame. */
     private URL url = null;
 
     /**
      * constructs a new ExperimentalFrame.
-     * @param context the contet to use
      */
-    public ExperimentalFrame(final Context context)
+    public ExperimentalFrame()
     {
-        this(context, null);
+        this(null);
     }
 
     /**
      * constructs a new Experimental frame.
-     * @param context the name in the nameSpace
      * @param url the url of the experimental frame
      */
-    public ExperimentalFrame(final Context context, final URL url)
+    public ExperimentalFrame(final URL url)
     {
         super();
-        this.context = context;
         this.url = url;
     }
 
@@ -155,14 +145,6 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
                 this.fireEvent(ExperimentalFrame.END_OF_EXPERIMENTALFRAME_EVENT, true);
             }
         }
-    }
-
-    /**
-     * @return Returns the context.
-     */
-    public Context getContext()
-    {
-        return this.context;
     }
 
     /**

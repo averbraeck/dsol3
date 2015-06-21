@@ -22,7 +22,6 @@ import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.InitialEventContext;
-import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * A TestExperimentalFrame <br>
@@ -38,7 +37,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 public final class TestExperimentalFrame
 {
     /**
-     * STARTTIME defines the starting time for the experiment in millisec since 1970
+     * STARTTIME defines the starting time for the experiment in millisec since 1970.
      */
     public static final long STARTTIME = 0;
 
@@ -58,7 +57,7 @@ public final class TestExperimentalFrame
     public static final double TIMESTEP = 0.01;
 
     /**
-     * constructs a new TestExperimentalFrame
+     * constructs a new TestExperimentalFrame.
      */
     private TestExperimentalFrame()
     {
@@ -67,26 +66,22 @@ public final class TestExperimentalFrame
     }
 
     /**
-     * creates an experimental frame
+     * creates an experimental frame.
      * @param model the model
      * @param simulator the simulator
      * @return an experimental Frame
      */
-    public static ExperimentalFrame createExperimentalFrame(SimulatorInterface simulator, ModelInterface model)
+    public static ExperimentalFrame createExperimentalFrame(final SimulatorInterface simulator,
+            final ModelInterface model)
     {
         try
         {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            String name = DateFormat.getDateTimeInstance().format(calendar.getTime());
-            Context root = new InitialEventContext().createSubcontext(name);
-            ExperimentalFrame experimentalFrame = new ExperimentalFrame(root);
+            ExperimentalFrame experimentalFrame = new ExperimentalFrame();
 
             List<Experiment> experiments = new ArrayList<Experiment>();
             for (int i = 0; i < 3; i++)
             {
-                Context context = ContextUtil.lookup(root, "/experiment[" + i + "]");
-                Experiment experiment = TestExperimentalFrame.createExperiment(context);
+                Experiment experiment = TestExperimentalFrame.createExperiment();
                 experiment.setSimulator(simulator);
                 experiment.setModel(model);
                 experiments.add(experiment);
@@ -101,44 +96,40 @@ public final class TestExperimentalFrame
     }
 
     /**
-     * creates a new TestExperimentalFrame
-     * @param context the context
+     * creates a new TestExperimentalFrame.
      * @return ExperimentalFrame
      */
-    public static Experiment createExperiment(final Context context) throws NamingException
+    public static Experiment createExperiment() throws NamingException
     {
-        Experiment experiment = new Experiment(context);
-        experiment.setTreatment(TestExperimentalFrame.createTreatment(context, experiment));
-        experiment.setReplications(TestExperimentalFrame.createReplications(context, experiment));
+        Experiment experiment = new Experiment();
+        experiment.setTreatment(TestExperimentalFrame.createTreatment(experiment));
+        experiment.setReplications(TestExperimentalFrame.createReplications(experiment));
         return experiment;
     }
 
     /**
-     * creates the Treatment for this experiment
-     * @param context the context to use
+     * creates the Treatment for this experiment.
      * @param experiment the parent
      * @return Treatment[] the result
      */
-    public static Treatment createTreatment(final Context context, final Experiment experiment)
+    public static Treatment createTreatment(final Experiment experiment)
     {
         Treatment treatment = new Treatment(experiment, "1", new SimTimeDouble(System.currentTimeMillis()), 0.0, 100.0);
         return treatment;
     }
 
     /**
-     * creates the replications for the test experiment
+     * creates the replications for the test experiment.
      * @param experiment the simulation experiment
-     * @param context the context of the experiment
      * @return a list of replications
      */
-    public static List<Replication> createReplications(Context context, final Experiment experiment) throws NamingException
+    public static List<Replication> createReplications(final Experiment experiment) throws NamingException
     {
         List<Replication> replications = new ArrayList<Replication>();
 
         for (int i = 0; i < 3; i++)
         {
-            Context subContext = ContextUtil.lookup(context, "/" + i);
-            Replication replication = new Replication(subContext, experiment);
+            Replication replication = new Replication(experiment);
             Map<String, StreamInterface> streams = new HashMap<String, StreamInterface>();
             streams.put("DEFAULT", new Java2Random(SEED));
             replication.setStreams(streams);

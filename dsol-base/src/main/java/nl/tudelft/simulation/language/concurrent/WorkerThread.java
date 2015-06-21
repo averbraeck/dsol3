@@ -56,20 +56,18 @@ public class WorkerThread extends Thread
         this.start();
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public final synchronized void finalize()
+    /** 
+     * Clean up the worker thread.
+     * synchronized method, otherwise it does not own the Monitor on the wait. 
+     */
+    public final synchronized void cleanUp()
     {
         this.finalized = true;
-        try
+        if (!this.isInterrupted())
         {
-            super.finalize();
+            this.notify(); // in case it is in the 'wait' state
         }
-        catch (Throwable exception)
-        {
-            Logger.getLogger("nl.tudelft.simulation.language.concurrent").warning(exception.getMessage());
-            exception.printStackTrace();
-        }
+        this.job = null;
     }
 
     /** {@inheritDoc} */
@@ -84,17 +82,20 @@ public class WorkerThread extends Thread
             }
             catch (InterruptedException interruptedException)
             {
-                this.interrupt(); // set the status to interrupted
-                try
+                if (!this.finalized)
                 {
-                    this.job.run();
+                    this.interrupt(); // set the status to interrupted
+                    try
+                    {
+                        this.job.run();
+                    }
+                    catch (Exception exception)
+                    {
+                        Logger.getLogger("nl.tudelft.simulation.language.concurrent").severe(exception.getMessage());
+                        exception.printStackTrace();
+                    }
+                    Thread.interrupted();
                 }
-                catch (Exception exception)
-                {
-                    Logger.getLogger("nl.tudelft.simulation.language.concurrent").severe(exception.getMessage());
-                    exception.printStackTrace();
-                }
-                Thread.interrupted();
             }
         }
     }

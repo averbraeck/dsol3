@@ -131,7 +131,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         this.update();
         try
         {
-            Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/3");
+            Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/3D");
             ContextUtil.bind(context, this);
         }
         catch (RemoteException | NamingException exception)
@@ -162,7 +162,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * Initialize
+     * Initialize.
      */
     private void initialize()
     {
@@ -179,7 +179,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         this.update();
         try
         {
-            Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/3");
+            Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/3D");
             ContextUtil.bind(context, this);
         }
         catch (RemoteException | NamingException exception)
@@ -189,7 +189,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * Initialize TransformGroups
+     * Initialize TransformGroups.
      */
     private void initializeTransformGroups()
     {

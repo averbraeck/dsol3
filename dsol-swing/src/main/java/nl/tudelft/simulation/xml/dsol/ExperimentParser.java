@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import nl.tudelft.simulation.dsol.ModelInterface;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
@@ -72,30 +68,11 @@ public class ExperimentParser
 
     /**
      * parses an experimentalFrame xml-file.
-     * @param input the inputstream
+     * @param input the url of the xmlfile
      * @return ExperimentalFrame the experimentalFrame
      * @throws IOException whenever parsing fails
      */
     public static ExperimentalFrame parseExperimentalFrame(final URL input) throws IOException
-    {
-        try
-        {
-            return ExperimentParser.parseExperimentalFrame(new InitialContext(), input);
-        }
-        catch (NamingException exception)
-        {
-            throw new IOException(exception.getMessage());
-        }
-    }
-
-    /**
-     * parses an experimentalFrame xml-file.
-     * @param input the url of the xmlfile
-     * @param context the root context for the experimentalFrame
-     * @return ExperimentalFrame the experimentalFrame
-     * @throws IOException whenever parsing fails
-     */
-    public static ExperimentalFrame parseExperimentalFrame(final Context context, final URL input) throws IOException
     {
         if (input == null)
         {
@@ -106,7 +83,6 @@ public class ExperimentParser
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             String name = DateFormat.getDateTimeInstance().format(calendar.getTime());
-            Context root = context.createSubcontext(name);
 
             Element rootElement = builder.build(input).getRootElement();
             List<Experiment> experiments = new ArrayList<Experiment>();
@@ -116,13 +92,12 @@ public class ExperimentParser
 
             for (Element element : experimentElements)
             {
-                Context experimentContext = root.createSubcontext("experiment[" + number + "]");
-                Experiment experiment = ExperimentParser.parseExperiment(experimentContext, element, input);
+                Experiment experiment = ExperimentParser.parseExperiment(element, input);
                 experiment.setDescription("experiment " + number);
                 experiments.add(experiment);
                 number++;
             }
-            ExperimentalFrame frame = new ExperimentalFrame(root, input);
+            ExperimentalFrame frame = new ExperimentalFrame(input);
             frame.setExperiments(experiments);
             return frame;
         }
@@ -135,20 +110,19 @@ public class ExperimentParser
 
     /**
      * parses an experiment xml-file.
-     * @param context the context for this experiment
      * @param url the url of the experimentfile
      * @param rootElement the element representing the experiment
      * @return ExperimentalFrame the experiment
      * @throws IOException whenever parsing fails
      */
-    public static Experiment parseExperiment(final Context context, final Element rootElement, final URL url)
+    public static Experiment parseExperiment(final Element rootElement, final URL url)
             throws IOException
     {
         try
         {
             // resolve the MODEL element
             ClassLoader loader = ExperimentParser.resolveClassLoader(url);
-            Experiment experiment = new Experiment(context);
+            Experiment experiment = new Experiment();
             Element modelElement = rootElement.getChild("model");
             String modelClassName = ExperimentParser.cleanName(modelElement.getChildText("model-class"));
 
@@ -213,7 +187,7 @@ public class ExperimentParser
             int number = 1;
             for (Iterator<Element> i = replicationElements.iterator(); i.hasNext();)
             {
-                replicationArray.add(ExperimentParser.parseReplication(i.next(), experiment, context));
+                replicationArray.add(ExperimentParser.parseReplication(i.next(), experiment));
                 number++;
             }
             experiment.setReplications(replicationArray);
@@ -364,14 +338,13 @@ public class ExperimentParser
      * parses a replication
      * @param element the JDOM element
      * @param parent the experiment
-     * @param number the number
      * @return the replication
      * @throws Exception on failure
      */
-    private static Replication parseReplication(final Element element, final Experiment parent, final Context context)
+    private static Replication parseReplication(final Element element, final Experiment parent)
             throws Exception
     {
-        Replication replication = new Replication(context, parent);
+        Replication replication = new Replication(parent);
         if (element.getAttribute("description") != null)
         {
             replication.setDescription(element.getAttribute("description").getValue());

@@ -84,6 +84,7 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void notify(final EventInterface event)
     {
         if (this.stopped)
@@ -120,8 +121,9 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
     }
 
     /**
-     * endOfReplication is invoked to store the final results
+     * endOfReplication is invoked to store the final results.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected void endOfReplication()
     {
         try

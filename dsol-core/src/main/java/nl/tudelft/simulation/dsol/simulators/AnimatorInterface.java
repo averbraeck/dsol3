@@ -50,14 +50,6 @@ public interface AnimatorInterface
     void updateAnimation();
 
     /**
-     * This contract has been added, because sometimes the simulator is cast as an AnimatorInterface. In that case we
-     * can also guarantee that a context is present.
-     * @return the context specific to the animator
-     * @throws NamingException in case the context could not be found
-     */
-    Context getContext() throws NamingException;
-
-    /**
      * <p />
      * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
      * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />

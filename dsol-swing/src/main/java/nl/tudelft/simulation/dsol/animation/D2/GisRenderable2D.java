@@ -61,6 +61,11 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
     protected Bounds bounds = null;
 
     /**
+     * the context for (un)binding.
+     */
+    protected Context context;
+
+    /**
      * constructs a new GisRenderable2D.
      * @param simulator the simulator.
      * @param mapFile the mapfile to use.
@@ -99,8 +104,8 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
     {
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
-            ContextUtil.bind(context, this);
+            this.context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
+            ContextUtil.bind(this.context, this);
         }
         catch (RemoteException | NamingException exception)
         {
@@ -180,7 +185,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
     {
         try
         {
-            nl.tudelft.simulation.naming.context.ContextUtil.unbindFromContext(this);
+            ContextUtil.unbind(this.context, this);
         }
         catch (Throwable throwable)
         {
