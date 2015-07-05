@@ -583,6 +583,9 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
         <version>${codehaus.javancss.version}</version>
+        <configuration>
+          <lineThreshold>500</lineThreshold>
+        </configuration>
       </plugin>
 
       <plugin>
