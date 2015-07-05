@@ -31,5 +31,7 @@
       <item name="Developers toolkit" href="developers.html"/>
     </menu>
     
+    ${reports}
+    
   </body>
 </project>
