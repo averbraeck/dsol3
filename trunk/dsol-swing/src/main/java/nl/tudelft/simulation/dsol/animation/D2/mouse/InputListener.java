@@ -45,18 +45,17 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class InputListener implements MouseListener, MouseWheelListener, MouseMotionListener, KeyListener
 {
-    /** the panel to use */
+    /** the panel to use. */
     protected AnimationPanel panel;
 
-    /** the mouseClicked point in screen coordinates */
+    /** the mouseClicked point in screen coordinates. */
     protected Point2D mouseClicked = null;
 
     /** the formatter */
     // private NumberFormat formatter = NumberFormat.getInstance();
 
     /**
-     * constructs a new InputListener
-     * @param application the application
+     * constructs a new InputListener.
      * @param panel the panel
      */
     public InputListener(final AnimationPanel panel)
@@ -65,9 +64,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         this.panel = panel;
     }
 
-    /**
-     * @see java.awt.event.MouseListener #mouseClicked(java.awt.event.MouseEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void mouseClicked(final MouseEvent e)
     {
@@ -83,9 +80,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
     }
 
-    /**
-     * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void mousePressed(final MouseEvent e)
     {
@@ -98,9 +93,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
     }
 
-    /**
-     * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void mouseReleased(final MouseEvent e)
     {
@@ -119,27 +112,21 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
     }
 
-    /**
-     * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void mouseEntered(final MouseEvent e)
     {
         // Nothing to be done.
     }
 
-    /**
-     * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void mouseExited(final MouseEvent e)
     {
         // Nothing to be done
     }
 
-    /**
-     * @see java.awt.event.MouseWheelListener#mouseWheelMoved(java.awt.event.MouseWheelEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void mouseWheelMoved(final MouseWheelEvent e)
     {
@@ -164,9 +151,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
     }
 
-    /**
-     * @see java.awt.event.MouseMotionListener#mouseDragged(java.awt.event.MouseEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void mouseDragged(final MouseEvent e)
     {
@@ -177,9 +162,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         this.panel.repaint();
     }
 
-    /**
-     * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void mouseMoved(final MouseEvent mouseEvent)
     {
@@ -198,9 +181,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
          */
     }
 
-    /**
-     * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void keyPressed(final KeyEvent e)
     {
@@ -228,18 +209,14 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
     }
 
-    /**
-     * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void keyReleased(final KeyEvent e)
     {
         // nothing to be done
     }
 
-    /**
-     * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-     */
+    /** {@inheritDoc} */
     @Override
     public void keyTyped(final KeyEvent e)
     {
@@ -247,7 +224,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     }
 
     /**
-     * What to do if the middle mouse button was released
+     * What to do if the middle mouse button was released.
      * @param mouseClickedPoint the point where the mouse was clicked
      * @param mouseReleasedPoint the point where the mouse was released
      */
@@ -264,7 +241,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     }
 
     /**
-     * returns the list of selected objects at a certain mousePoint
+     * returns the list of selected objects at a certain mousePoint.
      * @param mousePoint the mousePoint
      * @return the selected objects
      */
@@ -292,7 +269,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     }
 
     /**
-     * popsup on a mouseEvent
+     * popsup on a mouseEvent.
      * @param e the mouseEvent
      */
     protected void popup(final MouseEvent e)
@@ -312,7 +289,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     }
 
     /**
-     * edits a selected Renderable2D
+     * edits a selected Renderable2D.
      * @param targets which are selected by the mouse.
      * @return the selected Object (e.g. the one with the highest zValue).
      */
@@ -340,7 +317,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     }
 
     /**
-     * set the drag line: a line that shows where the user is dragging
+     * set the drag line: a line that shows where the user is dragging.
      * @param mousePosition the position of the mouse pointer
      */
     private void setDragLine(final Point2D mousePosition)

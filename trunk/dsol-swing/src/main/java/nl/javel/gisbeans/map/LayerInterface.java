@@ -38,7 +38,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Getter for property attribute
-     * @param index
+     * @param index the index
      * @return AttributeInterface.
      */
     public AttributeInterface getAttribute(int index);
@@ -87,7 +87,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Setter for property attributes
-     * @param attributes
+     * @param attributes the attributes to set
      */
     public void setAttributes(List attributes);
 

@@ -46,17 +46,17 @@ public interface AttributeInterface extends Serializable
     public String getValue(int shapeIndex);
 
     /**
-     * @param font
+     * @param font the font to set
      */
     public void setFont(Font font);
 
     /**
-     * @param fontColor
+     * @param fontColor the font color to set
      */
     public void setFontColor(Color fontColor);
 
     /**
-     * @param position
+     * @param position the position to set
      */
     public void setPosition(int position);
 
@@ -78,13 +78,13 @@ public interface AttributeInterface extends Serializable
 
     /**
      * sets the minScale of the attribute
-     * @param minScale
+     * @param minScale the minscale to set
      */
     public void setMinScale(double minScale);
 
     /**
      * sets the maxScale of the attribute
-     * @param maxScale
+     * @param maxScale the maxscale to set
      */
     public void setMaxScale(double maxScale);
 }

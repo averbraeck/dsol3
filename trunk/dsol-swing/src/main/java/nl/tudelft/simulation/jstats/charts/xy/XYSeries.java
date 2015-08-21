@@ -43,7 +43,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     /** the entries of the serie. */
     protected List<double[]> entries = new ArrayList<double[]>();
 
-    /** the axisType (default, logarithmic) */
+    /** the axisType (default, logarithmic). */
     private short axisType = XYChart.XLINEAR_YLINEAR;
 
     /** the filters of this dataset. */
@@ -55,7 +55,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     /**
      * constructs a new XYSeries.
      * @param name the name of the series.
-     * @param axisType whether this serie is logarithmic (x=0 & y=0 are neglected)
+     * @param axisType whether this serie is logarithmic (x=0 and y=0 are neglected)
      * @param period the period of this series.
      */
     public XYSeries(final String name, final short axisType, final double period)

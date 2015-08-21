@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.Frame;
-import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 
@@ -25,11 +24,10 @@ public class DSOLApplication extends JFrame
 
     /**
      * Constructor for DSOLApplication.
-     * @param title
-     * @param panel
-     * @throws HeadlessException
+     * @param title the title in the top bar
+     * @param panel the panel to put in the frame
      */
-    public DSOLApplication(String title, DSOLPanel panel)
+    public DSOLApplication(final String title, final DSOLPanel panel)
     {
         super(title);
         this.setContentPane(panel);

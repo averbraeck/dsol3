@@ -41,7 +41,7 @@ public class Console extends JTextArea
 
     /**
      * Method addLogger.
-     * @param logger
+     * @param logger the logger to add
      */
     public void addLogger(Logger logger)
     {

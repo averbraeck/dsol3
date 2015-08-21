@@ -29,8 +29,8 @@ public class SingleImageRenderable extends ImageRenderable
      * @param source the moving source
      * @param simulator the simulator
      * @param image the image to animate
-     * @throws NamingException
-     * @throws RemoteException
+     * @throws NamingException when animation context cannot be created or retrieved
+     * @throws RemoteException when remote context cannot be found
      */
     public SingleImageRenderable(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator,
             final URL image) throws RemoteException, NamingException
@@ -44,8 +44,8 @@ public class SingleImageRenderable extends ImageRenderable
      * @param size the size
      * @param simulator the simulator
      * @param image the image
-     * @throws NamingException
-     * @throws RemoteException
+     * @throws NamingException when animation context cannot be created or retrieved
+     * @throws RemoteException when remote context cannot be found
      */
     public SingleImageRenderable(final Point2D staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL image) throws RemoteException, NamingException
@@ -59,8 +59,8 @@ public class SingleImageRenderable extends ImageRenderable
      * @param size the size of the image
      * @param simulator the simulator
      * @param image the image
-     * @throws NamingException
-     * @throws RemoteException
+     * @throws NamingException when animation context cannot be created or retrieved
+     * @throws RemoteException when remote context cannot be found
      */
     public SingleImageRenderable(final DirectedPoint staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL image) throws RemoteException, NamingException
