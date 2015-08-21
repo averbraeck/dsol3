@@ -109,8 +109,8 @@ public class DbfReader implements Serializable
      * returns the row
      * @param rowNumber the rowNumber
      * @return String[] the attributes of the row
-     * @throws IOException
-     * @throws IndexOutOfBoundsException whenever the rowNumber > numRecords
+     * @throws IOException on read failure
+     * @throws IndexOutOfBoundsException whenever the rowNumber &gt; numRecords
      */
     public String[] getRow(int rowNumber) throws IOException, IndexOutOfBoundsException
     {
@@ -183,7 +183,7 @@ public class DbfReader implements Serializable
      * @param attribute the attribute value
      * @param columnName the name of the column
      * @return int[] the array of shape numbers.
-     * @throws IOException
+     * @throws IOException on read failure
      */
     public int[] getRowNumbers(String attribute, String columnName) throws IOException
     {

@@ -132,13 +132,13 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * curves to
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @param x3
-     * @param y3
+     * curves to.
+     * @param x1 x1
+     * @param y1 y1
+     * @param x2 x2
+     * @param y2 y2
+     * @param x3 x3
+     * @param y3 y3
      */
     public void curveTo(final float x1, final float y1, final float x2, final float y2, final float x3, final float y3)
     {
@@ -205,8 +205,8 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param x
-     * @param y
+     * @param x x
+     * @param y y
      */
     public void lineTo(final float x, final float y)
     {
@@ -214,8 +214,8 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param x
-     * @param y
+     * @param x x
+     * @param y y
      */
     public void moveTo(final float x, final float y)
     {
@@ -223,10 +223,10 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
+     * @param x1 x1
+     * @param y1 y1
+     * @param x2 x2
+     * @param y2 y2
      */
     public void quadTo(final float x1, final float y1, final float x2, final float y2)
     {
@@ -242,7 +242,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param rule
+     * @param rule rule
      */
     public void setWindingRule(final int rule)
     {
@@ -250,7 +250,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param at
+     * @param at affinity transform
      */
     public void transform(final java.awt.geom.AffineTransform at)
     {

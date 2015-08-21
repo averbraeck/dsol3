@@ -84,8 +84,8 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * initialize the panel and the simulator.
-     * @throws RemoteException
-     * @throws SimRuntimeException
+     * @throws RemoteException when simulator cannot be found
+     * @throws SimRuntimeException when model cannot be constructed
      */
     public void initialize() throws RemoteException, SimRuntimeException
     {

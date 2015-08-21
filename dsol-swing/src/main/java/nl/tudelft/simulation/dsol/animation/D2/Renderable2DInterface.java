@@ -53,7 +53,7 @@ public interface Renderable2DInterface
     /**
      * destroys this editable. How to do this must be implemented by the modeler
      * @throws RemoteException RemoteException
-     * @throws NamingException
+     * @throws NamingException NamingException
      */
     void destroy() throws RemoteException, NamingException;
 
@@ -81,8 +81,8 @@ public interface Renderable2DInterface
         /**
          * returns the scale of a screen compared to an extent. The scale can only be computed if the xScale and yScale
          * are equal. If this is not the case, Double.NaN is returned. In order to overcome estimation errors, this
-         * equality is computed with Math.abs(yScale-xScale) <0.005xScale. If the height or the width of the screen are
-         * <0 Double.NaN is returned.
+         * equality is computed with Math.abs(yScale-xScale) &lt; 0.005 * xScale. If the height or the width of the
+         * screen are &lt; 0 Double.NaN is returned.
          * @param extent the extent
          * @param screen the screen
          * @return double the scale. Can return Double.NaN
@@ -97,10 +97,10 @@ public interface Renderable2DInterface
         }
 
         /**
-         * computes the visible extent
+         * computes the visible extent.
          * @param extent the extent
          * @param screen the screen
-         * @return a new extent or null if parameters are null or screen is invalid ( <0)
+         * @return a new extent or null if parameters are null or screen is invalid (&lt; 0)
          */
         public static Rectangle2D computeVisibleExtent(final Rectangle2D extent, final Dimension screen)
         {
@@ -126,7 +126,7 @@ public interface Renderable2DInterface
 
         /**
          * returns the frame xy-coordinates of a point in world coordinates. If parameters are invalid (i.e. screen.size
-         * <0) a null value is returned. If parameter combinations (i.e !extent.contains(point)) are invalid a null
+         * &lt; 0) a null value is returned. If parameter combinations (i.e !extent.contains(point)) are invalid a null
          * value is returned.
          * @param worldCoordinates the world coordinates
          * @param extent the extent of this
@@ -144,8 +144,8 @@ public interface Renderable2DInterface
 
         /**
          * returns the frame xy-coordinates of a point in screen coordinates. If parameters are invalid (i.e.
-         * screen.size <0) a null value is returned. If parameter combinations (i.e !screen.contains(point)) are invalid
-         * a null value is returned.
+         * screen.size &lt; 0) a null value is returned. If parameter combinations (i.e !screen.contains(point)) are
+         * invalid a null value is returned.
          * @param screenCoordinates the screen coordinates
          * @param extent the extent of this
          * @param screen the screen

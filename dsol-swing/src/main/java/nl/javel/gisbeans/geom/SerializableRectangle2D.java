@@ -19,7 +19,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
         java.awt.Shape, java.lang.Cloneable
 {
     /**
-     * constructs a new nl.javel.gisbeans.geom.SerializableRectangle2D
+     * constructs a new nl.javel.gisbeans.geom.SerializableRectangle2D.
      */
     protected SerializableRectangle2D()
     {
@@ -41,7 +41,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
         private Rectangle2D rectangle;
 
         /**
-         * constructs a new nl.javel.gisbeans.geom.SerializableRectangle2D.Double
+         * constructs a new nl.javel.gisbeans.geom.SerializableRectangle2D.Double.
          */
         public Double()
         {
@@ -50,10 +50,10 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
 
         /**
          * constructs a new Double.
-         * @param x
-         * @param y
-         * @param w
-         * @param h
+         * @param x x
+         * @param y y
+         * @param w w
+         * @param h h
          */
         public Double(final double x, final double y, final double w, final double h)
         {
@@ -145,7 +145,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
         }
 
         /**
-         * Now the private serialization methods
+         * Now the private serialization methods.
          * @param out the outputstream
          * @throws java.io.IOException on exception
          */
@@ -158,7 +158,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
         }
 
         /**
-         * we read the stream
+         * we read the stream.
          * @param in the input
          * @throws java.io.IOException on exception
          */

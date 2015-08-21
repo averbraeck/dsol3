@@ -36,44 +36,36 @@ public abstract class Renderable2D implements Renderable2DInterface
      * Storage of the boolean flags, to prevent each flag from taking 32 bits... The initial value is binary 1011 = 0B:
      * rotate = true, flip = false, scale = true, translate = true.
      */
-    protected byte flags = 0x0B;
+    private byte flags = 0x0B;
 
-    /**
-     * whether to rotate the renderable. Flag is 1000
-     */
+    /** whether to rotate the renderable. Flag is 1000 */
     private static final byte ROTATE_FLAG = 0x08;
 
-    /**
-     * whether to flip the renderable after rotating 180 degrees. Flag is 0100
-     */
+    /** whether to flip the renderable after rotating 180 degrees. Flag is 0100 */
     private static final byte FLIP_FLAG = 0x04;
 
-    /**
-     * whether to scale the renderable when zooming in or out. Flag is 0010
-     */
+    /** whether to scale the renderable when zooming in or out. Flag is 0010 */
     private static final byte SCALE_FLAG = 0x02;
 
-    /**
-     * whether to translate the renderable when panning. Flag is 0001
-     */
+    /** whether to translate the renderable when panning. Flag is 0001 */
     private static final byte TRANSLATE_FLAG = 0x01;
 
     /**
      * the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist
      */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final LocatableInterface source;
 
-    /**
-     * the context for (un)binding.
-     */
+    /** the context for (un)binding. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Context context;
 
     /**
      * constructs a new Renderable2D.
      * @param source the source
      * @param simulator the simulator
-     * @throws NamingException
-     * @throws RemoteException
+     * @throws NamingException when animation context cannot be created or retrieved
+     * @throws RemoteException when remote context cannot be found
      */
     public Renderable2D(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator)
             throws NamingException, RemoteException
@@ -92,8 +84,11 @@ public abstract class Renderable2D implements Renderable2DInterface
      * the code in the constructor is related to the RFE submitted by van Houten that in specific distributed context,
      * such binding must be overwritten.
      * @param simulator the simulator used for binding the object.
+     * @throws NamingException when animation context cannot be created or retrieved
+     * @throws RemoteException when remote context cannot be found
      */
-    protected void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
+    protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException,
+            RemoteException
     {
         this.context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
         ContextUtil.bind(this.context, this);
@@ -102,7 +97,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     /**
      * @return Returns the flip.
      */
-    public boolean isFlip()
+    public final boolean isFlip()
     {
         return (this.flags & FLIP_FLAG) != 0;
     }
@@ -110,7 +105,8 @@ public abstract class Renderable2D implements Renderable2DInterface
     /**
      * @param flip The flip to set.
      */
-    public void setFlip(final boolean flip)
+    @SuppressWarnings("checkstyle:needbraces")
+    public final void setFlip(final boolean flip)
     {
         if (flip)
             this.flags |= FLIP_FLAG;
@@ -121,7 +117,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     /**
      * @return Returns the rotate.
      */
-    public boolean isRotate()
+    public final boolean isRotate()
     {
         return (this.flags & ROTATE_FLAG) != 0;
     }
@@ -129,7 +125,8 @@ public abstract class Renderable2D implements Renderable2DInterface
     /**
      * @param rotate The rotate to set.
      */
-    public void setRotate(final boolean rotate)
+    @SuppressWarnings("checkstyle:needbraces")
+    public final void setRotate(final boolean rotate)
     {
         if (rotate)
             this.flags |= ROTATE_FLAG;
@@ -140,7 +137,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     /**
      * @return Returns the scale.
      */
-    public boolean isScale()
+    public final boolean isScale()
     {
         return (this.flags & SCALE_FLAG) != 0;
     }
@@ -148,7 +145,8 @@ public abstract class Renderable2D implements Renderable2DInterface
     /**
      * @param scale The scale to set.
      */
-    public void setScale(final boolean scale)
+    @SuppressWarnings("checkstyle:needbraces")
+    public final void setScale(final boolean scale)
     {
         if (scale)
             this.flags |= SCALE_FLAG;
@@ -159,7 +157,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     /**
      * @return Returns the translate.
      */
-    public boolean isTranslate()
+    public final boolean isTranslate()
     {
         return (this.flags & TRANSLATE_FLAG) != 0;
     }
@@ -167,7 +165,8 @@ public abstract class Renderable2D implements Renderable2DInterface
     /**
      * @param translate The translate to set.
      */
-    public void setTranslate(final boolean translate)
+    @SuppressWarnings("checkstyle:needbraces")
+    public final void setTranslate(final boolean translate)
     {
         if (translate)
             this.flags |= TRANSLATE_FLAG;
@@ -177,14 +176,14 @@ public abstract class Renderable2D implements Renderable2DInterface
 
     /** {@inheritDoc} */
     @Override
-    public LocatableInterface getSource()
+    public final LocatableInterface getSource()
     {
         return this.source;
     }
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
+    public final synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer)
     {
         try
@@ -241,7 +240,7 @@ public abstract class Renderable2D implements Renderable2DInterface
 
     /** {@inheritDoc} */
     @Override
-    public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
+    public final boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
     {
         try
         {
@@ -251,7 +250,8 @@ public abstract class Renderable2D implements Renderable2DInterface
             if (intersect == null)
             {
                 throw new NullPointerException(
-                        "empty intersect!: location.z is not in bounds. This is probably due to a modeling error. See the javadoc off LocatableInterface.");
+                        "empty intersect!: location.z is not in bounds. This is probably due to a modeling error. "
+                                + "See the javadoc off LocatableInterface.");
             }
             return intersect.contains(pointWorldCoordinates);
         }
@@ -264,27 +264,58 @@ public abstract class Renderable2D implements Renderable2DInterface
 
     /** {@inheritDoc} */
     @Override
-    public void destroy() throws NamingException
+    public final void destroy() throws NamingException
     {
         ContextUtil.unbind(this.context, this);
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        if (this != this.source)
-        {
-            return super.toString() + "-OF-" + this.source.toString();
-        }
-        return super.toString() + "-OF-" + super.toString();
+        return "" + hashCode();
     }
 
     /**
-     * draws an animation on a worldcoordinates around [x,y=0,0]
+     * draws an animation on a world coordinates around [x,y=0,0].
      * @param graphics the graphics object
      * @param observer the observer
      * @throws RemoteException on network exception
      */
     public abstract void paint(final Graphics2D graphics, final ImageObserver observer) throws RemoteException;
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.source == null) ? 0 : this.source.hashCode());
+        return result;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Renderable2D other = (Renderable2D) obj;
+        if (this.source == null)
+        {
+            if (other.source != null)
+                return false;
+        }
+        else if (!this.source.equals(other.source))
+            return false;
+        return true;
+    }
+
 }

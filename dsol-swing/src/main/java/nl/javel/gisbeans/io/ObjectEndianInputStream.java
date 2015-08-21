@@ -107,10 +107,8 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
                 | (long) (this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff);
     }
 
-    /**
-     * reads a float from the stream
-     * @see java.io.DataInput#readFloat()
-     */
+    /** {@inheritDoc} */
+    @Override
     public final float readFloat() throws IOException
     {
         if (this.encode == EndianInterface.BIG_ENDIAN)
@@ -132,8 +130,8 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
     }
 
     /**
-     * reads b from the stream
-     * @param b
+     * reads b from the stream.
+     * @param b byte
      * @return in the value
      * @throws IOException on failure
      */
@@ -143,10 +141,10 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
     }
 
     /**
-     * reads b from the stream
-     * @param b
-     * @param off
-     * @param len
+     * reads b from the stream.
+     * @param b byte
+     * @param off offset
+     * @param len length
      * @return in the value
      * @throws IOException on failure
      */
@@ -208,15 +206,14 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
     @Override
     public final String readLine()
     {
-        return null; // This method is deprecated because it does not work
-        // OK..
+        return null; // This method is deprecated because it does not work OK..
     }
 
     /**
-     * reads UTF from the stream
-     * @param dataInput
+     * reads UTF from the stream.
+     * @param dataInput data input
      * @return String the value
-     * @throws IOException
+     * @throws IOException on read failure
      */
     public static final String readUTF(final DataInput dataInput) throws IOException
     {
@@ -224,7 +221,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
     }
 
     /**
-     * @throws IOException
+     * @throws IOException on close failure
      */
     public final void close() throws IOException
     {

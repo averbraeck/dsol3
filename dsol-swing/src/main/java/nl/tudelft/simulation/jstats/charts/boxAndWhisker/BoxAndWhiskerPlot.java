@@ -28,8 +28,8 @@ import org.jfree.chart.plot.PlotState;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:06 $
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a>
  */
 public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
 {

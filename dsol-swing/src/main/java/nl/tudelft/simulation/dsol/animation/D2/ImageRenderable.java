@@ -37,7 +37,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 public abstract class ImageRenderable extends Renderable2D
 {
     /** the cache of imageIcons. */
-    private transient static Map<URL, ImageIcon> cache = new HashMap<URL, ImageIcon>();
+    private static transient Map<URL, ImageIcon> cache = new HashMap<URL, ImageIcon>();
 
     /** LEFT-BOTTOM location. */
     public static final short LB = -4;
@@ -72,9 +72,7 @@ public abstract class ImageRenderable extends Renderable2D
     /** the imageIcons to be used. */
     protected transient ImageIcon[] imageIcons = null;
 
-    /**
-     * the origin of the image
-     */
+    /** the origin of the image. */
     protected short orientation = ImageRenderable.CC;
 
     /**
@@ -82,8 +80,8 @@ public abstract class ImageRenderable extends Renderable2D
      * @param source the source to be animated.
      * @param simulator the simulator to be used.
      * @param images the image urls.
-     * @throws NamingException
-     * @throws RemoteException
+     * @throws NamingException when animation context cannot be created or retrieved
+     * @throws RemoteException when remote context cannot be found
      */
     public ImageRenderable(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator,
             final URL[] images) throws RemoteException, NamingException
@@ -94,7 +92,7 @@ public abstract class ImageRenderable extends Renderable2D
     }
 
     /**
-     * reads and caches the images
+     * reads and caches the images.
      * @param _images the images
      */
     private void readImages(final URL[] _images)
@@ -121,8 +119,8 @@ public abstract class ImageRenderable extends Renderable2D
      * @param size the size of the imageIcons in world coordinates.
      * @param simulator the simulator to be used
      * @param images the imageIcons to display.
-     * @throws NamingException
-     * @throws RemoteException
+     * @throws NamingException when animation context cannot be created or retrieved
+     * @throws RemoteException when remote context cannot be found
      */
     public ImageRenderable(final DirectedPoint staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
@@ -137,8 +135,8 @@ public abstract class ImageRenderable extends Renderable2D
      * @param size the size of the imageIcons in world coordinates.
      * @param simulator the simulator to be used
      * @param images the imageIcons to display.
-     * @throws NamingException
-     * @throws RemoteException
+     * @throws NamingException when animation context cannot be created or retrieved
+     * @throws RemoteException when remote context cannot be found
      */
     public ImageRenderable(final Point2D staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
@@ -250,7 +248,7 @@ public abstract class ImageRenderable extends Renderable2D
     }
 
     /**
-     * writes a serializable object to stream
+     * writes a serializable object to stream.
      * @param out the outputstream
      * @throws IOException on IOException
      */
@@ -260,7 +258,7 @@ public abstract class ImageRenderable extends Renderable2D
     }
 
     /**
-     * reads a serializable object from stream
+     * reads a serializable object from stream.
      * @param in the inputstream
      * @throws IOException on IOException
      */
