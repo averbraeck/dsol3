@@ -12,8 +12,7 @@ import cern.jet.stat.Gamma;
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
+ * @author Alexander Verbraeck, Peter Jacobs
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
  * @since 1.5
  */
@@ -29,8 +28,8 @@ public class DistGamma extends DistContinuous
      * constructs a new gamma distribution. The gamma distribution represents the time to complete some task, e.g.
      * customer service or machine repair
      * @param stream the numberstream
-     * @param alpha is the shape parameter alpha>0
-     * @param beta is the scale parameter beta>0
+     * @param alpha is the shape parameter alpha &gt; 0
+     * @param beta is the scale parameter beta &gt; 0
      */
     public DistGamma(final StreamInterface stream, final double alpha, final double beta)
     {

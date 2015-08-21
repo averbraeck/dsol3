@@ -3,7 +3,6 @@ package nl.tudelft.simulation.dsol.experiment;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.Context;
@@ -40,8 +39,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @author Peter Jacobs, Alexander Verbraeck
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.

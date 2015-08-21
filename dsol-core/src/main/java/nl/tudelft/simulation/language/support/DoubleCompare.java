@@ -47,7 +47,7 @@ public final class DoubleCompare
      * that they are equal.
      * @param d1 the first double to compare
      * @param d2 the seond double to compare
-     * @return 0 if (almost) equal, -1 of d1 < d2, and 1 if d1 > d2.
+     * @return 0 if (almost) equal, -1 of d1 &lt; d2, and 1 if d1 &gt; d2.
      */
     public static int compare(final double d1, final double d2)
     {

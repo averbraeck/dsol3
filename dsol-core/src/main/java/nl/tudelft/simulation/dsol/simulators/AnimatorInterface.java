@@ -2,9 +2,6 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
 
-import javax.naming.Context;
-import javax.naming.NamingException;
-
 import nl.tudelft.simulation.event.EventType;
 
 /**
@@ -50,9 +47,8 @@ public interface AnimatorInterface
     void updateAnimation();
 
     /**
-     * <p />
-     * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br />
-     * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br />
+     * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
+     * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
      * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      * @version Feb 1, 2015
      */

@@ -40,7 +40,7 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     private static final long serialVersionUID = 20140804L;
 
     /**
-     * @param initialTimeStep
+     * Create a new DEVSAnimator.
      */
     public DEVSAnimator()
     {
@@ -120,9 +120,7 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
         /** */
         private static final long serialVersionUID = 20140805L;
 
-        /**
-         * @param initialTimeStep
-         */
+        /** */
         public TimeDouble()
         {
             super();
@@ -135,14 +133,6 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep
-         */
-        public TimeFloat()
-        {
-            super();
-        }
     }
 
     /** Easy access class Animator.TimeLong. */
@@ -151,14 +141,6 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep
-         */
-        public TimeLong()
-        {
-            super();
-        }
     }
 
     /** Easy access class Animator.TimeDoubleUnit. */
@@ -167,14 +149,6 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep
-         */
-        public TimeDoubleUnit()
-        {
-            super();
-        }
     }
 
     /** Easy access class Animator.TimeFloatUnit. */
@@ -183,14 +157,6 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep
-         */
-        public TimeFloatUnit()
-        {
-            super();
-        }
     }
 
     /** Easy access class Animator.TimeLongUnit. */
@@ -199,14 +165,6 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep
-         */
-        public TimeLongUnit()
-        {
-            super();
-        }
     }
 
     /** Easy access class Animator.CalendarDouble. */
@@ -215,14 +173,6 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep
-         */
-        public CalendarDouble()
-        {
-            super();
-        }
     }
 
     /** Easy access class Animator.CalendarFloat. */
@@ -231,14 +181,6 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep
-         */
-        public CalendarFloat()
-        {
-            super();
-        }
     }
 
     /** Easy access class Animator.CalendarLong. */
@@ -247,14 +189,6 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep
-         */
-        public CalendarLong()
-        {
-            super();
-        }
     }
 
 }

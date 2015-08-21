@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.SortedMap;
 
 /**
- * The histogram specifies a histogram chart for the DSOL framework. <O>(c) copyright 2004 <a
+ * The histogram specifies a histogram chart for the DSOL framework. (c) copyright 2004 <a
  * href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
@@ -364,7 +364,7 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * The Observation class holds one observation, cummulative probability entry. <O>(c) copyright 2004 <a
+     * The Observation class holds one observation, cummulative probability entry. (c) copyright 2004 <a
      * href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
      * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
      * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>

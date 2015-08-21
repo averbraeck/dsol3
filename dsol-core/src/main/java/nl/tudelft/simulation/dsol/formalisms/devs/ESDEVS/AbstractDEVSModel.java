@@ -45,6 +45,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
  */
+// TODO public abstract class AbstractDEVSModel<A, R, T> extends EventProducer
 public abstract class AbstractDEVSModel extends EventProducer
 {
     /** the default serial version UId. */
@@ -324,4 +325,6 @@ public abstract class AbstractDEVSModel extends EventProducer
             return this.value;
         }
     }
+    
+    // TODO public static class TimeDouble
 }

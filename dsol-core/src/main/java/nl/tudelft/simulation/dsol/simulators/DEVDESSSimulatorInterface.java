@@ -19,7 +19,7 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 /**
  * The DEVSDESS simulator embodies both the continuous and the discrete formalism. This simulator takes pre-defined time
  * steps in between it loops over its eventlist. A better name for this formalism would therefore be the DEVSinDESS
- * formalism. More information on Modeling & Simulation can be found in Theory of Modeling and Simulation by Bernard
+ * formalism. More information on Modeling and Simulation can be found in Theory of Modeling and Simulation by Bernard
  * Zeigler et. al.
  * <p>
  * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the

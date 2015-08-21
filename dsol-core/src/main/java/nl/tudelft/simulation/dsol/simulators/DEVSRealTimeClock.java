@@ -45,7 +45,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     /** the backlog event. */
     public static final EventType BACKLOG_EVENT = new EventType("BACKLOG_EVENT");
 
-    /** the speed factor compared to real time clock. <1 is slower, >1 is faster, 1 is real time speed. */
+    /** the speed factor compared to real time clock. &lt;1 is slower, &gt;1 is faster, 1 is real time speed. */
     private double speedFactor = 1.0;
 
     /** catch up or not catch up after running behind. */
