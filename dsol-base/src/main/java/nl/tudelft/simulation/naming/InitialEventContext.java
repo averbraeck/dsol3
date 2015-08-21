@@ -45,7 +45,7 @@ import com.sun.naming.internal.ResourceManager;
 public class InitialEventContext implements EventContext
 {
     /** the properties of the initialEventContext. */
-    protected Hashtable<Object, Object> myProps = null;
+    protected Hashtable myProps = null;
 
     /**
      * Field holding the result of calling NamingManager.getInitialContext(). It is set by getDefaultInitCtx() the first

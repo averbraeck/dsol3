@@ -24,8 +24,7 @@ import nl.tudelft.simulation.event.EventType;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:39:18 $
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
+ * @author Peter Jacobs, Niels Lang, Alexander Verbraeck
  */
 public class EventLogHandler extends Handler implements EventProducerInterface
 {

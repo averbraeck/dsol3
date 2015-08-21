@@ -35,9 +35,7 @@ import java.util.List;
  * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:nlang@fbk.eur.nl">Niels Lang </a><a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck
- *         </a>
+ * @author Peter Jacobs, Niels Lang, Alexander Verbraeck
  * @version $Revision: 1.2 $ $Date: 2009/10/21 07:32:43 $
  * @since 1.5
  */

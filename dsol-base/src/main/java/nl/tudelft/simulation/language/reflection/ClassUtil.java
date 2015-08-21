@@ -42,9 +42,7 @@ import nl.tudelft.simulation.language.primitives.Primitive;
  * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:nlang@fbk.eur.nl">Niels Lang </a><a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck
- *         </a>
+ * @author Peter Jacobs, Niels Lang, Alexander Verbraeck
  * @version $Revision: 1.3 $ $Date: 2010/08/10 11:39:11 $
  * @since 1.5
  */
@@ -444,7 +442,7 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
+     * Determines &amp; returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
      * Language Specification ???15.12.
      * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
      *         incompatible, e.g. have different names or a different number of parameters.
@@ -470,7 +468,7 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
+     * Determines &amp; returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
      * Language Specification ???15.12.
      * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
      *         incompatible, e.g. have different names or a different number of parameters.
@@ -490,7 +488,7 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
+     * Determines &amp; returns whether constructor 'a' is more specific than constructor 'b', as defined in the Java
      * Language Specification ???15.12.
      * @return true if 'a' is more specific than b, false otherwise. 'false' is also returned when constructors are
      *         incompatible, e.g. have different names or a different number of parameters.
@@ -615,8 +613,9 @@ public final class ClassUtil
      * Filters an array methods for signatures that are compatible with a given signature.
      * @param constructors which are constructors to be filtered.
      * @param argTypes are the constructor's argument types
-     * @return Constructor<?>[] An unordered Constructor-array consisting of the elements of 'constructors' that match
-     *         with the given signature. An array with 0 elements is returned when no matching Method objects are found.
+     * @return Constructor&lt;?&gt;[] An unordered Constructor-array consisting of the elements of 'constructors' that
+     *         match with the given signature. An array with 0 elements is returned when no matching Method objects are
+     *         found.
      */
     public static Constructor<?>[] matchSignature(final Constructor<?>[] constructors, final Class<?>[] argTypes)
     {
@@ -632,9 +631,9 @@ public final class ClassUtil
     }
 
     /**
-     * converts an array of objects to their corresponding classes
+     * converts an array of objects to their corresponding classes.
      * @param array the array to invoke
-     * @return Class<?>[] the result;
+     * @return Class&lt;?&gt;[] the result;
      */
     public static Class<?>[] getClass(final Object[] array)
     {
@@ -658,8 +657,9 @@ public final class ClassUtil
     }
 
     /** ************** PRIVATE METHODS ********* */
+    
     /**
-     * checks the input of an array
+     * checks the input of an array.
      * @param array the array
      * @param myClass the class of the result
      * @return Returns array if array!=null else returns myClass[0]
@@ -674,7 +674,7 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns the most specific constructor as defined in the Java Language Specification ???15.12. The
+     * Determines & returns the most specific constructor as defined in the Java Language Specification par 15.12. The
      * current algorithm is simple and reliable, but probably slow.
      * @param methods are the constructors to be searched. They are assumed to have the same name and number of
      *            parameters, as determined by the constructor matchSignature.
@@ -720,7 +720,7 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns the most specific method as defined in the Java Language Specification ???15.12. The current
+     * Determines & returns the most specific method as defined in the Java Language Specification par 15.12. The current
      * algorithm is simple and reliable, but probably slow.
      * @param methods which are the methods to be searched. They are assumed to have the same name and number of
      *            parameters, as determined by the method matchSignature.
@@ -767,7 +767,7 @@ public final class ClassUtil
     }
 
     /**
-     * returns the constructor
+     * returns the constructor.
      * @param clazz the class to start with
      * @param parameterTypes the parameterTypes
      * @return Method
@@ -776,9 +776,9 @@ public final class ClassUtil
     private static Constructor<?> resolveConstructorSuper(final Class<?> clazz, final Class<?>[] parameterTypes)
             throws NoSuchMethodException
     {
+        String key = "CONSTRUCTOR:" + clazz + "@" + FieldSignature.toDescriptor(parameterTypes);
         try
         {
-            String key = "CONSTRUCTOR:" + clazz + "@" + FieldSignature.toDescriptor(parameterTypes);
             if (CACHE.containsKey(key))
             {
                 return (Constructor<?>) CACHE.get(key);
@@ -791,26 +791,28 @@ public final class ClassUtil
         {
             if (clazz.getSuperclass() != null)
             {
-                return ClassUtil.resolveConstructorSuper(clazz.getSuperclass(), parameterTypes);
+                Constructor<?> constructor = ClassUtil.resolveConstructorSuper(clazz.getSuperclass(), parameterTypes);
+                CACHE.put(key, constructor);
+                return constructor;
             }
             throw new NoSuchMethodException(exception.getMessage());
         }
     }
 
     /**
-     * returns the interface method
+     * returns the interface method.
      * @param clazz the class to start with
      * @param name the name of the method
      * @param parameterTypes the parameterTypes
      * @return Method
      * @throws NoSuchMethodException on lookup failure
      */
-    private static <T> Method resolveMethodSuper(final Class<T> clazz, final String name,
+    private static Method resolveMethodSuper(final Class<?> clazz, final String name,
             final Class<?>[] parameterTypes) throws NoSuchMethodException
     {
+        String key = "METHOD:" + clazz + "@" + name + "@" + FieldSignature.toDescriptor(parameterTypes);
         try
         {
-            String key = "METHOD:" + clazz + "@" + name + "@" + FieldSignature.toDescriptor(parameterTypes);
             if (CACHE.containsKey(key))
             {
                 return (Method) CACHE.get(key);
@@ -823,39 +825,44 @@ public final class ClassUtil
         {
             if (clazz.getSuperclass() != null)
             {
-                return ClassUtil.resolveMethodSuper(clazz.getSuperclass(), name, parameterTypes);
+                Method method = ClassUtil.resolveMethodSuper(clazz.getSuperclass(), name, parameterTypes);
+                CACHE.put(key, method);
+                return method;
             }
             throw new NoSuchMethodException(exception.getMessage());
         }
     }
 
     /**
-     * resolves the field for a class, taking into account superclasses
+     * resolves the field for a class, taking into account superclasses.
      * @param clazz the class for which superclasses will be probed
      * @param fieldName the name of the field to resolve
      * @return the field (if found)
      * @throws NoSuchFieldException if the field cannot be resolved
      */
-    private static <T> Field resolveFieldSuper(final Class<T> clazz, final String fieldName)
+    private static Field resolveFieldSuper(final Class<?> clazz, final String fieldName)
             throws NoSuchFieldException
     {
+        String key = "FIELD:" + clazz + "@" + fieldName;
         try
         {
-            if (CACHE.containsKey("FIELD:" + clazz + "@" + fieldName))
+            if (CACHE.containsKey(key))
             {
-                return (Field) CACHE.get("FIELD:" + clazz + "@" + fieldName);
+                return (Field) CACHE.get(key);
             }
             Field result = clazz.getDeclaredField(fieldName);
-            CACHE.put("FIELD:" + clazz + "@" + fieldName, result);
+            CACHE.put(key, result);
             return result;
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
             if (clazz.getSuperclass() != null)
             {
-                return ClassUtil.resolveFieldSuper(clazz.getSuperclass(), fieldName);
+                Field result = ClassUtil.resolveFieldSuper(clazz.getSuperclass(), fieldName);
+                CACHE.put(key, result);
+                return result;
             }
-            throw new NoSuchFieldException("class " + clazz + " does not contain field " + fieldName);
+            throw new NoSuchFieldException(exception.getMessage());
         }
     }
 }
