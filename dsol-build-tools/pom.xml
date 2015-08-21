@@ -3,7 +3,8 @@
   <parent>
     <groupId>dsol</groupId>
     <artifactId>dsol</artifactId>
-    <version>3.00.13</version>
+    <version>3.00.14</version>
+    <relativePath>../dsol/pom.xml</relativePath>
   </parent>
   <artifactId>dsol-build-tools</artifactId>
   <name>DSOL build tools</name>
