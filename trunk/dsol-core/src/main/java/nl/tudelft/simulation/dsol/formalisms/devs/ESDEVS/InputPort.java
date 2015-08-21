@@ -42,6 +42,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
  * @param <T> The type of messages the input port accepts.
  */
+// TODO public class InputPort<A, R, T, TYPE> implements InputPortInterface<T>
 public class InputPort<T> implements InputPortInterface<T>
 {
     /** The model to which the port links. */

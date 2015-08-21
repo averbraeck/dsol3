@@ -10,7 +10,7 @@ import nl.tudelft.simulation.jstats.distributions.empirical.ObservationsInterfac
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The discrete empirical distribution as defined on page 326 of Law&Kelton.
+ * The discrete empirical distribution as defined on page 326 of Law &amp; Kelton.
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>

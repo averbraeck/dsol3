@@ -22,7 +22,7 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 
 /**
  * The DESS defines the interface of the DESS simulator. DESS stands for the Differential Equation System Specification.
- * More information on Modeling & Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.
+ * More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.
  * al. <br>
  * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
@@ -30,8 +30,7 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @author Peter Jacobs, Alexander Verbraeck
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
@@ -50,7 +49,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /**
      * Construct a DESSSimulator with an initial time step for the integration process.
      * @param initialTimeStep the initial time step to use in the integration.
-     * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+     * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
      */
     public DESSSimulator(final R initialTimeStep) throws SimRuntimeException
     {
@@ -125,7 +124,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeDouble(final Double initialTimeStep) throws SimRuntimeException
         {
@@ -142,7 +141,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeFloat(final Float initialTimeStep) throws SimRuntimeException
         {
@@ -159,7 +158,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeLong(final Long initialTimeStep) throws SimRuntimeException
         {
@@ -176,7 +175,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeDoubleUnit(final UnitTimeDouble initialTimeStep) throws SimRuntimeException
         {
@@ -193,7 +192,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeFloatUnit(final UnitTimeFloat initialTimeStep) throws SimRuntimeException
         {
@@ -210,7 +209,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeLongUnit(final UnitTimeLong initialTimeStep) throws SimRuntimeException
         {
@@ -227,7 +226,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public CalendarDouble(final UnitTimeDouble initialTimeStep) throws SimRuntimeException
         {
@@ -244,7 +243,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public CalendarFloat(final UnitTimeFloat initialTimeStep) throws SimRuntimeException
         {
@@ -261,7 +260,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep <=0, NaN, or Infinity
+         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public CalendarLong(final UnitTimeLong initialTimeStep) throws SimRuntimeException
         {

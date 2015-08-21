@@ -108,7 +108,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * <p>
      * The general contract of <tt>nextFloat</tt> is that one <tt>float</tt> value, chosen (approximately) uniformly
      * from the range <tt>0.0f</tt> (inclusive) to <tt>1.0f</tt> (exclusive), is pseudorandomly generated and returned.
-     * All 2 <sup>24 </sup> possible <tt>float</tt> values of the form <i>m&nbsp;x&nbsp </i>2 <sup>-24 </sup>, where
+     * All 2<sup>24</sup> possible <tt>float</tt> values of the form <i>m&nbsp;x&nbsp;</i>2<sup>-24</sup>, where
      * <i>m </i> is a positive integer less than 2 <sup>24 </sup>, are produced with (approximately) equal probability.
      * The method <tt>nextFloat</tt> is implemented by class <tt>Random</tt> as follows: <blockquote>
      * 

@@ -131,7 +131,6 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
     }
 
     /**
-     * @param simTime
      * @return HH:MM:SS
      */
     public final String formatHMS()
@@ -146,7 +145,6 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
     }
 
     /**
-     * @param simTime
      * @return HHH:MM:SS
      */
     public final String formatHHHMS()

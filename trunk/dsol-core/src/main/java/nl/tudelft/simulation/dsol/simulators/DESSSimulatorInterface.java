@@ -21,8 +21,8 @@ import nl.tudelft.simulation.event.EventType;
 
 /**
  * The DESS defines the interface of the DESS simulator. DESS stands for the Differential Equation System Specification.
- * More information on Modeling & Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.
- * al.
+ * More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler
+ * et. al.
  * <p>
  * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
@@ -53,8 +53,8 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * Method setTimeStep sets the time step of the simulator.
-     * @param timeStep the new timeStep. Its value should be >0.0
-     * @throws SimRuntimeException when timestep <= 0, NaN, or Infinity
+     * @param timeStep the new timeStep. Its value should be &gt; 0.0
+     * @throws SimRuntimeException when timestep &lt;= 0, NaN, or Infinity
      * @throws RemoteException on network failure
      */
     void setTimeStep(R timeStep) throws SimRuntimeException, RemoteException;

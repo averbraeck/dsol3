@@ -33,14 +33,14 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
  * of this software, even if advised of the possibility of such damage.
  * @version Oct 17, 2009 <br>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
- * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
- * @param <T> The type of messages the input port accepts.
+ * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @param <T> The type of message the input port accepts
  */
 public interface InputPortInterface<T>
 {
     /**
      * Receive and handle an event on the port.
-     * @param value the value that is received of type <T>
+     * @param value the value that is received of type &lt;T&gt;
      * @param time the time on which the value is received
      * @throws RemoteException a remote exception occurred
      * @throws SimRuntimeException a simulation run time exception occurred

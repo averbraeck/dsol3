@@ -8,8 +8,7 @@
  * The following table illustrates the streams implemented in the JSTATS package. The speed is computed on a
  * 32-bit Intel based Pentium processor on JDK1.4.2_04 by drawing 10<sup>7</sup> double values from the particular
  * stream.
- * <p>
- * <table cellspacing="2" cellpadding="2" border="1">
+ * <table cellspacing="2" cellpadding="2" border="1" summary="speeds of the streams">
  * <tr>
  * <td></td>
  * <td>SPEED (milliseconds)</td>
@@ -36,7 +35,6 @@
  * <td>1 x 10<sup>6001.6</sup></td>
  * </tr>
  * </table>
- * </p>
  */
 package nl.tudelft.simulation.jstats.streams;
 

@@ -42,9 +42,9 @@ public class DistBernoulli extends DistDiscrete
     }
 
     /**
-     * draws the next value from the Bernoulli distribution. More information on this distribution can be found at < a
-     * href="http://mathworld.wolfram.com/BernoulliDistribution.html">
-     * http://mathworld.wolfram.com/BernoulliDistribution.html </a>.
+     * draws the next value from the Bernoulli distribution. More information on this distribution can be found at <br>
+     * <a href="http://mathworld.wolfram.com/BernoulliDistribution.html">http://mathworld.wolfram.com/
+     * BernoulliDistribution.html</a>.
      * @return the next value {0,1}.
      */
     @Override

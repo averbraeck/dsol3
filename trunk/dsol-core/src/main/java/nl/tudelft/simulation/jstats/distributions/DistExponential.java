@@ -26,7 +26,7 @@ public class DistExponential extends DistContinuous
      * constructs a new exponential function. The exponential distribution describes the interarrival times of
      * "cutomers" to a system that occur at a constant rate.
      * @param stream the numberstream
-     * @param mean the mean (mean>0)
+     * @param mean the mean (mean &gt; 0)
      */
     public DistExponential(final StreamInterface stream, final double mean)
     {

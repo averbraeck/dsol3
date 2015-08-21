@@ -3,7 +3,7 @@ package nl.tudelft.simulation.jstats.filters;
 import nl.tudelft.simulation.language.filters.AbstractFilter;
 
 /**
- * The MaxDiffFilter accepts entries if their value> percentage of the last received Value.
+ * The MaxDiffFilter accepts entries if their value is larger than the percentage of the last received Value.
  * <p>
  * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
  * Netherlands.
