@@ -2,10 +2,25 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.00.13" date="2015-07-05" description="Changes updated, jdepend and javancss code metric tools added">
+    <release version="3.00.14" date="2015-07-05" description="Changes updated, jdepend and javancss code metric tools added">
       <action dev="averbraeck" type="update">
         Changes file is kept the same for all projects, as all projects increase
         version numbers at once.
+      </action>
+      <action dev="averbraeck" type="update">
+        ClassUtil: cache the super constructors, methods, fields as well at the super constructors, methods, fields
+        to avoid repetitive lookup of super constructors, methods, and fields, which can take a lot of time.  
+      </action>
+      <action dev="averbraeck" type="update">
+        Renderable2D: use the hashCode to store the renderable in the context tree. Guarantee a reproducible hashCode
+        and equals. The toString() also gives the hashCode() as this can be used to identify the Renderable2D
+        in the context tree.  
+      </action>
+    </release>
+
+
+    <release version="3.00.13" date="2015-07-05" description="Changes updated, jdepend and javancss code metric tools added">
+      <action dev="averbraeck" type="update">
       </action>
       <action dev="averbraeck" type="add">
         Two code metrics tools are added to the project reports: JDepend and
