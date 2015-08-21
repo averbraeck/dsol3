@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @see java.lang.ref.Reference
  * @since 1.5
- * @param <T>
+ * @param <T> the type of the reference
  */
 public abstract class Reference<T> implements Serializable
 {
