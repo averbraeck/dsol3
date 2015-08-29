@@ -61,6 +61,7 @@
     <xerces.version>2.11.0</xerces.version>
     <jdom.version>2.0.5</jdom.version>
     <xstream.version>1.4.8</xstream.version>
+    <djunits.version>1.00.01</djunits.version>
 
     <maven.compiler.version>3.1</maven.compiler.version>
     <maven.site.version>3.4</maven.site.version>
@@ -149,35 +150,64 @@
         <version>${maven.deploy.version}</version>
       </plugin>
 
-      <!-- copy files starting with a period in the jacoco folder to the right
-        site location. Normally, files starting with tilde, period or underscore
-        are not copied. These files are also not taken into account when trying to
-        the pages in a subfolder of a Drupal sile, as files and folders starting
-        with a period are filtered with a rewrite rule: RewriteRule "(^|/)\." - [F]
-        To undo this rewrite rule, add a .htaccess file in the site folder with as
-        content: RewriteRule "(^|/)\." - [L] Potentially, there is also a line with
-        Options +Indexes in the .htaccess file.
-        <plugin>
+      <!-- copy files starting with a period in the jacoco folder to the right site location. Normally, files starting with 
+        tilde, period or underscore are not copied. These files are also not taken into account when trying to the pages in a subfolder 
+        of a Drupal sile, as files and folders starting with a period are filtered with a rewrite rule: RewriteRule "(^|/)\." - [F] 
+        To undo this rewrite rule, add a .htaccess file in the site folder with as content: RewriteRule "(^|/)\." - [L] Potentially, 
+        there is also a line with Options +Indexes in the .htaccess file. -->
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>wagon-maven-plugin</artifactId>
         <version>${wagon.maven.version}</version>
         <executions>
-        <execution>
-        <id>upload-jacoco-dot-files</id>
-        <phase>site-deploy</phase>
-        <goals>
-        <goal>upload</goal>
-        </goals>
-        <configuration>
-        <fromDir>${basedir}/target/site/jacoco-ut</fromDir>
-        <includes>.*, .resources/*</includes>
-        <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/3.0/${project.artifactId}</url>
-        <toDir>jacoco-ut</toDir>
-        <serverId>dsol-deployment</serverId>
-        </configuration>
-        </execution>
+        
+          <execution>
+            <id>upload-jacoco-dot-files</id>
+            <phase>site-deploy</phase>
+            <goals>
+              <goal>upload</goal>
+            </goals>
+            <configuration>
+              <fromDir>${basedir}/target/site/jacoco-ut</fromDir>
+              <includes>.*, .resources/*</includes>
+              <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}</url>
+              <toDir>jacoco-ut</toDir>
+              <serverId>dsol-deployment</serverId>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>upload-license</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>upload</goal>
+            </goals>
+            <configuration>
+              <fromDir>${basedir}/src/main/resources</fromDir>
+              <includes>license.html</includes>
+              <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html</url>
+              <toDir>dsol</toDir>
+              <serverId>dsol-deployment</serverId>
+            </configuration>
+          </execution>
+          
+          <execution>
+            <id>upload-last-site</id>
+            <phase>site-deploy</phase>
+            <goals>
+              <goal>upload</goal>
+            </goals>
+            <configuration>
+              <fromDir>${basedir}/target/site</fromDir>
+              <includes>**/**</includes>
+              <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol</url>
+              <toDir>3.0/${project.artifactId}</toDir>
+              <serverId>dsol-deployment</serverId>
+            </configuration>
+          </execution>
         </executions>
-        </plugin> -->
+      </plugin>
+
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -865,7 +895,7 @@
     <site>
       <id>dsol-deployment</id>
       <name>dsol language website</name>
-      <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/3.0</url>
+      <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}</url>
     </site>
   </distributionManagement>
 
