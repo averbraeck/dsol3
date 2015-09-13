@@ -107,7 +107,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final void scheduleEventRel(final R relativeDelay, final short priority, final Object source,
-            final Object target, final String method, final Object[] args) throws RemoteException, SimRuntimeException
+            final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
         T absEventTime = this.simulatorTime.copy();
         absEventTime.add(relativeDelay);
@@ -117,7 +117,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final void scheduleEventRel(final R relativeDelay, final Object source, final Object target,
-            final String method, final Object[] args) throws RemoteException, SimRuntimeException
+            final String method, final Object[] args) throws SimRuntimeException
     {
         scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
@@ -125,7 +125,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final void scheduleEventAbs(final T absoluteTime, final short priority, final Object source,
-            final Object target, final String method, final Object[] args) throws RemoteException, SimRuntimeException
+            final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
         scheduleEvent(new SimEvent<T>(absoluteTime, priority, source, target, method, args));
     }
@@ -133,7 +133,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final void scheduleEventAbs(final T absoluteTime, final Object source, final Object target,
-            final String method, final Object[] args) throws RemoteException, SimRuntimeException
+            final String method, final Object[] args) throws SimRuntimeException
     {
         scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
@@ -141,7 +141,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final void scheduleEventAbs(final A absoluteTime, final short priority, final Object source,
-            final Object target, final String method, final Object[] args) throws RemoteException, SimRuntimeException
+            final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
         T absTime = this.simulatorTime.copy();
         absTime.set(absoluteTime);
@@ -151,7 +151,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final void scheduleEventAbs(final A absoluteTime, final Object source, final Object target,
-            final String method, final Object[] args) throws RemoteException, SimRuntimeException
+            final String method, final Object[] args) throws SimRuntimeException
     {
         scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
@@ -159,7 +159,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final void scheduleEventNow(final short priority, final Object source, final Object target,
-            final String method, final Object[] args) throws RemoteException, SimRuntimeException
+            final String method, final Object[] args) throws SimRuntimeException
     {
         T absEventTime = this.simulatorTime.copy();
         scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
@@ -168,7 +168,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final void scheduleEventNow(final Object source, final Object target, final String method,
-            final Object[] args) throws RemoteException, SimRuntimeException
+            final Object[] args) throws SimRuntimeException
     {
         scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
@@ -250,7 +250,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
      */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void runUpTo(final A when) throws SimRuntimeException, RemoteException
+    public void runUpTo(final A when) throws SimRuntimeException
     {
         scheduleEventAbs(when, SimEventInterface.MAX_PRIORITY, this, this, "autoPauseSimulator", null);
         if (!isRunning())
