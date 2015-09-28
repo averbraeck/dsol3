@@ -2,7 +2,20 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.00.14" date="2015-07-05" description="Changes updated, jdepend and javancss code metric tools added">
+    <release version="3.00.15" date="2015-09-27" description="Improved website for docs">
+      <action dev="averbraeck" type="update">
+        Site generation has been updated. All DSOL projects now have a site with an adapted Velocity template and
+        CSS updates. The Apache Velocity template has been based on theMaven Stylus Skin, version 1.5. A possibility
+        to link to a site in a target="_blank" window has been added to the site.vm file. In addition, several of the menus 
+        have been updated, streamlined, and brought up-to-date with the latest changes in the Maven site standards. 
+      </action>
+      <action dev="averbraeck" type="update">      
+        Simulator class does not throw RemoteExceptions anymore on most common scheduling methods, as this was not needed.
+      </action> 
+    </release>
+
+
+    <release version="3.00.14" date="2015-07-05" description="ClassUtil and Renderable2D repaired">
       <action dev="averbraeck" type="update">
         Changes file is kept the same for all projects, as all projects increase
         version numbers at once.
@@ -19,9 +32,7 @@
     </release>
 
 
-    <release version="3.00.13" date="2015-07-05" description="Changes updated, jdepend and javancss code metric tools added">
-      <action dev="averbraeck" type="update">
-      </action>
+    <release version="3.00.13" date="2015-07-05" description="jdepend and javancss code metric tools added">
       <action dev="averbraeck" type="add">
         Two code metrics tools are added to the project reports: JDepend and
         JavaNCSS. They provide information on cyclometric complexity, fan in, fan out, etc.
