@@ -40,7 +40,8 @@
         <!-- examples and tutorial -->
         <module>../dsol-demo</module>
 
-        <!-- hla -->
+        <!-- hla and distribution -->
+        <module>../dsol-akka</module>
         <module>../dsol-hla</module>
       </modules>
     </profile>
@@ -142,6 +143,12 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>${maven.site.version}</version>
+        <configuration>
+          <inputEncoding>UTF-8</inputEncoding>
+          <outputEncoding>UTF-8</outputEncoding>
+          <templateDirectory>src/site</templateDirectory>
+          <template>site.vm</template>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -483,6 +490,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
         <version>${maven.jxr.version}</version>
+        <configuration>
+          <skipEmptyReport>false</skipEmptyReport>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -591,6 +601,7 @@
         <version>${maven.pmd.version}</version>
         <configuration>
           <targetJdk>${jdk.version}</targetJdk>
+          <skipEmptyReport>false</skipEmptyReport>
         </configuration>
       </plugin>
 
