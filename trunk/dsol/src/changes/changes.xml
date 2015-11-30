@@ -2,6 +2,24 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.00.17" date="2015-11-30" description="ESRI user-defined transformation">
+      <action dev="averbraeck" type="add">
+        ESRI shape files can be parsed with a user-defined transformation.
+        The old constructors have been kept, so they can also be parsed as before.
+      </action>
+    </release>
+    
+    
+    <release version="3.00.16" date="2015-11-30" description="Added dsol-akka project, javadoc cleanup">
+      <action dev="averbraeck" type="add">
+        Added the dsol-akka project. Still empty, just as a reference for future developments.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Cleaned up a lot of the outdated javadoc.
+      </action>
+    </release>
+    
+    
     <release version="3.00.15" date="2015-09-27" description="Improved website for docs">
       <action dev="averbraeck" type="update">
         Site generation has been updated. All DSOL projects now have a site with an adapted Velocity template and
