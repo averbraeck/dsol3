@@ -4,7 +4,7 @@
 
   <groupId>dsol</groupId>
   <artifactId>dsol</artifactId>
-  <version>3.00.15</version>
+  <version>3.00.17</version>
   <packaging>pom</packaging>
 
   <name>DSOL version 3</name>
@@ -12,7 +12,7 @@
   <url>http://www.simulation.tudelft.nl</url>
 
   <organization>
-    <name>Delft University of Technology, Systems and Simulation Section</name>
+    <name>Delft University of Technology, Policy Analysis Section</name>
     <url>http://www.simulation.tudelft.nl</url>
   </organization>
 

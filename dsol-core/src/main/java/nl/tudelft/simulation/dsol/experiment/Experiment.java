@@ -195,9 +195,10 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
             }
             else
             {
-                this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
                 // There is no experiment to run anymore
-                this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT, true);
+                // XXX Concurrent Modification Exception
+                // this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT, true);
+                // XXX this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
             }
         }
     }

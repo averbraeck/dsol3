@@ -92,14 +92,19 @@ public class ShapeFile implements DataSourceInterface
 
     /** the cachedContent. */
     private ArrayList cachedContent = null;
+    
+    /** an optional transformation of the lat/lon (or other) coordinates. */
+    private final CoordinateTransform coordinateTransform;
 
     /**
      * constructs a new ESRI ShapeFile.
      * @param url URL may or may not end with their extension.
+     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
      * @throws IOException throws an IOException if the shxFile is not accessable
      */
-    public ShapeFile(final java.net.URL url) throws IOException
+    public ShapeFile(final java.net.URL url, final CoordinateTransform coordinateTransform) throws IOException
     {
+        this.coordinateTransform = coordinateTransform;
         String fileName = url.toString();
         if (fileName.endsWith(".shp") || fileName.endsWith(".shx") || fileName.endsWith(".dbf"))
         {
@@ -120,7 +125,7 @@ public class ShapeFile implements DataSourceInterface
             throw new IOException("Can't read " + this.shxFile.toString());
         }
     }
-
+    
     /**
      * @return Returns the cache.
      */
@@ -167,7 +172,7 @@ public class ShapeFile implements DataSourceInterface
     }
 
     /**
-     * getter for a specific shape at a certain index point in shapefile
+     * getter for a specific shape at a certain index point in shapefile.
      * @param index the index of the shape
      * @return Object shape
      * @throws IOException on IOfailure
@@ -197,7 +202,7 @@ public class ShapeFile implements DataSourceInterface
     }
 
     /**
-     * getter for all shapes in a shapefile
+     * getter for all shapes in a shapefile.
      * @return HashMap (Object shape)
      * @throws IOException on IOfailure
      */
@@ -284,10 +289,12 @@ public class ShapeFile implements DataSourceInterface
             int type = shapeInput.readInt();
             if (type != 0 && type != 1 && type != 11 && type != 21)
             {
-                double minX = shapeInput.readDouble();
-                double minY = shapeInput.readDouble();
-                double width = shapeInput.readDouble() - minX;
-                double height = shapeInput.readDouble() - minY;
+                double[] min = this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
+                double[] max = this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
+                double minX = Math.min(min[0], max[0]);
+                double minY = Math.min(min[1], max[1]);
+                double width = Math.max(min[0], max[0]) - minX;
+                double height = Math.max(min[1], max[1]) - minY;
                 SerializableRectangle2D bounds = new SerializableRectangle2D.Double(minX, minY, width, height);
                 if (Shape.overlaps(extent, bounds))
                 {
@@ -431,7 +438,8 @@ public class ShapeFile implements DataSourceInterface
     {
         this.type = MapInterface.POINT;
         input.setEncode(EndianInterface.LITTLE_ENDIAN);
-        return new Point2D.Double(input.readDouble(), input.readDouble());
+        double[] point = this.coordinateTransform.doubleTransform(input.readDouble(), input.readDouble());
+        return new Point2D.Double(point[0], point[1]);
     }
 
     /**
@@ -461,10 +469,12 @@ public class ShapeFile implements DataSourceInterface
         SerializableGeneralPath result = new SerializableGeneralPath(GeneralPath.WIND_NON_ZERO, numPoints);
         for (int i = 0; i < numParts; i++)
         {
-            result.moveTo((float) input.readDouble(), (float) input.readDouble());
+            float[] mf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+            result.moveTo(mf[0], mf[1]);
             for (int ii = (partBegin[i] + 1); ii < partBegin[i + 1]; ii++)
             {
-                result.lineTo((float) input.readDouble(), (float) input.readDouble());
+                float[] lf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+                result.lineTo(lf[0], lf[1]);
             }
         }
         return result;
@@ -496,10 +506,12 @@ public class ShapeFile implements DataSourceInterface
         SerializableGeneralPath result = new SerializableGeneralPath(GeneralPath.WIND_NON_ZERO, numPoints);
         for (int i = 0; i < numParts; i++)
         {
-            result.moveTo((float) input.readDouble(), (float) input.readDouble());
+            float[] mf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+            result.moveTo(mf[0], mf[1]);
             for (int ii = (partBegin[i] + 1); ii < partBegin[i + 1]; ii++)
             {
-                result.lineTo((float) input.readDouble(), (float) input.readDouble());
+                float[] lf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+                result.lineTo(lf[0], lf[1]);
             }
         }
 
@@ -574,11 +586,13 @@ public class ShapeFile implements DataSourceInterface
         SerializableGeneralPath result = new SerializableGeneralPath(GeneralPath.WIND_NON_ZERO, numPoints);
         for (int i = 0; i < numParts; i++)
         {
-            result.moveTo((float) input.readDouble(), (float) input.readDouble());
+            float[] mf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+            result.moveTo(mf[0], mf[1]);
             byteCounter += 16;
             for (int ii = (partBegin[i] + 1); ii < partBegin[i + 1]; ii++)
             {
-                result.lineTo((float) input.readDouble(), (float) input.readDouble());
+                float[] lf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+                result.lineTo(lf[0], lf[1]);
                 byteCounter += 16;
             }
         }
@@ -616,11 +630,13 @@ public class ShapeFile implements DataSourceInterface
         SerializableGeneralPath result = new SerializableGeneralPath(GeneralPath.WIND_NON_ZERO, numPoints);
         for (int i = 0; i < numParts; i++)
         {
-            result.moveTo((float) input.readDouble(), (float) input.readDouble());
+            float[] mf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+            result.moveTo(mf[0], mf[1]);
             byteCounter += 16;
             for (int ii = (partBegin[i] + 1); ii < partBegin[i + 1]; ii++)
             {
-                result.lineTo((float) input.readDouble(), (float) input.readDouble());
+                float[] lf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+                result.lineTo(lf[0], lf[1]);
                 byteCounter += 16;
             }
         }
@@ -702,11 +718,13 @@ public class ShapeFile implements DataSourceInterface
         SerializableGeneralPath result = new SerializableGeneralPath(GeneralPath.WIND_NON_ZERO, numPoints);
         for (int i = 0; i < numParts; i++)
         {
-            result.moveTo((float) input.readDouble(), (float) input.readDouble());
+            float[] mf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+            result.moveTo(mf[0], mf[1]);
             byteCounter += 16;
             for (int ii = (partBegin[i] + 1); ii < partBegin[i + 1]; ii++)
             {
-                result.lineTo((float) input.readDouble(), (float) input.readDouble());
+                float[] lf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+                result.lineTo(lf[0], lf[1]);
                 byteCounter += 16;
             }
         }
@@ -744,11 +762,13 @@ public class ShapeFile implements DataSourceInterface
         SerializableGeneralPath result = new SerializableGeneralPath(GeneralPath.WIND_NON_ZERO, numPoints);
         for (int i = 0; i < numParts; i++)
         {
-            result.moveTo((float) input.readDouble(), (float) input.readDouble());
+            float[] mf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+            result.moveTo(mf[0], mf[1]);
             byteCounter += 16;
             for (int ii = (partBegin[i] + 1); ii < partBegin[i + 1]; ii++)
             {
-                result.lineTo((float) input.readDouble(), (float) input.readDouble());
+                float[] lf = this.coordinateTransform.floatTransform(input.readDouble(), input.readDouble());
+                result.lineTo(lf[0], lf[1]);
                 byteCounter += 16;
             }
         }

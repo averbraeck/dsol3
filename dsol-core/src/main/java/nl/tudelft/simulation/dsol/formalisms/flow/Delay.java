@@ -1,8 +1,21 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.logger.Logger;
@@ -30,10 +43,8 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /**
-     * delayDistribution which is the distribution defining the delay
-     */
-    protected DistContinuousTime<R> delayDistribution;
+    /** delayDistribution which is the distribution defining the delay. */
+    private DistContinuousTime<R> delayDistribution;
 
     /**
      * Constructor for Delay.
@@ -48,7 +59,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void receiveObject(final Object object) throws RemoteException
+    public final synchronized void receiveObject(final Object object) throws RemoteException
     {
         super.receiveObject(object);
         try
@@ -59,6 +70,172 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         catch (Exception exception)
         {
             Logger.warning(this, "receiveObject", exception);
+        }
+    }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class Delay.TimeDouble. */
+    public static class TimeDouble extends Delay<Double, Double, SimTimeDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for TimeDouble Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
+                final DistContinuousTime.TimeDouble delayDistribution)
+        {
+            super(simulator, delayDistribution);
+        }
+    }
+
+    /** Easy access class Delay.TimeFloat. */
+    public static class TimeFloat extends Delay<Float, Float, SimTimeFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for TimeFloat Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
+                final DistContinuousTime.TimeFloat delayDistribution)
+        {
+            super(simulator, delayDistribution);
+        }
+    }
+
+    /** Easy access class Delay.TimeLong. */
+    public static class TimeLong extends Delay<Long, Long, SimTimeLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for TimeLong Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
+                final DistContinuousTime.TimeLong delayDistribution)
+        {
+            super(simulator, delayDistribution);
+        }
+    }
+
+    /** Easy access class Delay.TimeDoubleUnit. */
+    public static class TimeDoubleUnit extends Delay<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for TimeDoubleUnit Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
+                final DistContinuousTime.TimeDoubleUnit delayDistribution)
+        {
+            super(simulator, delayDistribution);
+        }
+    }
+
+    /** Easy access class Delay.TimeFloatUnit. */
+    public static class TimeFloatUnit extends Delay<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for TimeFloatUnit Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
+                final DistContinuousTime.TimeFloatUnit delayDistribution)
+        {
+            super(simulator, delayDistribution);
+        }
+    }
+
+    /** Easy access class Delay.TimeLongUnit. */
+    public static class TimeLongUnit extends Delay<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for TimeLongUnit Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public TimeLongUnit(final DEVSSimulatorInterface.TimeLongUnit simulator,
+                final DistContinuousTime.TimeLongUnit delayDistribution)
+        {
+            super(simulator, delayDistribution);
+        }
+    }
+
+    /** Easy access class Delay.CalendarDouble. */
+    public static class CalendarDouble extends Delay<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for CalendarDouble Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
+                final DistContinuousTime.CalendarDouble delayDistribution)
+        {
+            super(simulator, delayDistribution);
+        }
+    }
+
+    /** Easy access class Delay.CalendarFloat. */
+    public static class CalendarFloat extends Delay<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for CalendarFloat Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
+                final DistContinuousTime.CalendarFloat delayDistribution)
+        {
+            super(simulator, delayDistribution);
+        }
+    }
+
+    /** Easy access class Delay.CalendarLong. */
+    public static class CalendarLong extends Delay<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Constructor for CalendarLong Delay.
+         * @param simulator is the simulator
+         * @param delayDistribution is the delayDistribution
+         */
+        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
+                final DistContinuousTime.CalendarLong delayDistribution)
+        {
+            super(simulator, delayDistribution);
         }
     }
 }

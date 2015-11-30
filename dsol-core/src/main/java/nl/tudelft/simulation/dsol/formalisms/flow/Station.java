@@ -1,8 +1,21 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 
@@ -29,9 +42,11 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     private static final long serialVersionUID = 20140805L;
 
     /** simulator is the simulator on which behavior is scheduled. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected DEVSSimulatorInterface<A, R, T> simulator;
 
     /** destination refers to the next station in the process-model chain. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected StationInterface destination;
 
     /**
@@ -46,6 +61,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void receiveObject(final Object object) throws RemoteException
     {
         this.fireTimedEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime());
@@ -53,17 +69,17 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** {@inheritDoc} */
     @Override
-    public void setDestination(final StationInterface destination)
+    public final void setDestination(final StationInterface destination)
     {
         this.destination = destination;
     }
 
     /**
-     * releases an object
+     * releases an object.
      * @param object is the entity
      * @throws RemoteException on network failure
      */
-    protected synchronized void releaseObject(final Object object) throws RemoteException
+    protected final synchronized void releaseObject(final Object object) throws RemoteException
     {
         this.fireTimedEvent(StationInterface.RELEASE_EVENT, 0.0, this.simulator.getSimulatorTime());
         if (this.destination != null)
@@ -74,9 +90,157 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** {@inheritDoc} */
     @Override
-    public StationInterface getDestination()
+    public final StationInterface getDestination()
     {
         return this.destination;
+    }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class Station.TimeDouble. */
+    public static class TimeDouble extends Station<Double, Double, SimTimeDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.TimeDouble.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator)
+        {
+            super(simulator);
+        }
+    }
+
+    /** Easy access class Station.TimeFloat. */
+    public static class TimeFloat extends Station<Float, Float, SimTimeFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.TimeFloat.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator)
+        {
+            super(simulator);
+        }
+    }
+
+    /** Easy access class Station.TimeLong. */
+    public static class TimeLong extends Station<Long, Long, SimTimeLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.TimeLong.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator)
+        {
+            super(simulator);
+        }
+    }
+
+    /** Easy access class Station.TimeDoubleUnit. */
+    public static class TimeDoubleUnit extends Station<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.TimeDoubleUnit.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator)
+        {
+            super(simulator);
+        }
+    }
+
+    /** Easy access class Station.TimeFloatUnit. */
+    public static class TimeFloatUnit extends Station<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.TimeFloatUnit.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator)
+        {
+            super(simulator);
+        }
+    }
+
+    /** Easy access class Station.TimeLongUnit. */
+    public static class TimeLongUnit extends Station<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.TimeLongUnit.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public TimeLongUnit(final DEVSSimulatorInterface.TimeLongUnit simulator)
+        {
+            super(simulator);
+        }
+    }
+
+    /** Easy access class Station.CalendarDouble. */
+    public static class CalendarDouble extends Station<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.CalendarDouble.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator)
+        {
+            super(simulator);
+        }
+    }
+
+    /** Easy access class Station.CalendarFloat. */
+    public static class CalendarFloat extends Station<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.CalendarFloat.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator)
+        {
+            super(simulator);
+        }
+    }
+
+    /** Easy access class Station.CalendarLong. */
+    public static class CalendarLong extends Station<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * constructs a new Station.CalendarLong.
+         * @param simulator is the simulator on which behavior is scheduled
+         */
+        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator)
+        {
+            super(simulator);
+        }
     }
 
 }

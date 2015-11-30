@@ -186,8 +186,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
                     {
                         if (listener != null)
                         {
-                            // The garbage collection has not cleaned the
-                            // referent
+                            // The garbage collection has not cleaned the referent
                             this.fireEvent(listener, event);
                         }
                         else

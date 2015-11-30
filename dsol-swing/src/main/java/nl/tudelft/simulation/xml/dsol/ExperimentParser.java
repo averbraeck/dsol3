@@ -18,9 +18,8 @@ import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.TimeUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSAnimator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
@@ -72,7 +71,18 @@ public class ExperimentParser
      * @return ExperimentalFrame the experimentalFrame
      * @throws IOException whenever parsing fails
      */
-    public static ExperimentalFrame parseExperimentalFrame(final URL input) throws IOException
+    public static ExperimentalFrame<?, ?, ?> parseExperimentalFrame(final URL input) throws IOException
+    {
+        return parseExperimentalFrameTimeDouble(input);
+    }
+
+    /**
+     * parses an experimentalFrame xml-file.
+     * @param input the url of the xmlfile
+     * @return ExperimentalFrame the experimentalFrame
+     * @throws IOException whenever parsing fails
+     */
+    public static ExperimentalFrame.TimeDouble parseExperimentalFrameTimeDouble(final URL input) throws IOException
     {
         if (input == null)
         {
@@ -85,19 +95,18 @@ public class ExperimentParser
             String name = DateFormat.getDateTimeInstance().format(calendar.getTime());
 
             Element rootElement = builder.build(input).getRootElement();
-            List<Experiment> experiments = new ArrayList<Experiment>();
-            @SuppressWarnings("unchecked")
+            List<Experiment<Double, Double, SimTimeDouble>> experiments = new ArrayList<>();
             List<Element> experimentElements = rootElement.getChildren("experiment");
             int number = 0;
 
             for (Element element : experimentElements)
             {
-                Experiment experiment = ExperimentParser.parseExperiment(element, input);
+                Experiment.TimeDouble experiment = ExperimentParser.parseExperimentTimeDouble(element, input);
                 experiment.setDescription("experiment " + number);
                 experiments.add(experiment);
                 number++;
             }
-            ExperimentalFrame frame = new ExperimentalFrame(input);
+            ExperimentalFrame.TimeDouble frame = new ExperimentalFrame.TimeDouble(input);
             frame.setExperiments(experiments);
             return frame;
         }
@@ -115,14 +124,25 @@ public class ExperimentParser
      * @return ExperimentalFrame the experiment
      * @throws IOException whenever parsing fails
      */
-    public static Experiment parseExperiment(final Element rootElement, final URL url)
+    public static Experiment<?, ?, ?> parseExperiment(final Element rootElement, final URL url) throws IOException
+    {
+        return parseExperimentTimeDouble(rootElement, url);
+    }
+
+    /**
+     * parses an experiment xml-file.
+     * @param url the url of the experimentfile
+     * @param rootElement the element representing the experiment
+     * @return ExperimentalFrame the experiment
+     * @throws IOException whenever parsing fails
+     */
+    public static Experiment.TimeDouble parseExperimentTimeDouble(final Element rootElement, final URL url)
             throws IOException
     {
         try
         {
             // resolve the MODEL element
             ClassLoader loader = ExperimentParser.resolveClassLoader(url);
-            Experiment experiment = new Experiment();
             Element modelElement = rootElement.getChild("model");
             String modelClassName = ExperimentParser.cleanName(modelElement.getChildText("model-class"));
 
@@ -154,8 +174,30 @@ public class ExperimentParser
             // XXX: END TO REMOVE
 
             Class<?> modelClass = Class.forName(modelClassName, true, loader);
-            ModelInterface model = (ModelInterface) ClassUtil.resolveConstructor(modelClass, null).newInstance();
-            experiment.setModel(model);
+            ModelInterface.TimeDouble model =
+                    (ModelInterface.TimeDouble) ClassUtil.resolveConstructor(modelClass, null).newInstance();
+
+            // resolve the SIMULATOR-CLASS element
+            SimulatorInterface.TimeDouble simulator = null;
+            if (modelElement.getChild("simulator-class") == null)
+            {
+                simulator = new DEVSAnimator.TimeDouble();
+            }
+            else
+            {
+                Class<?> simulatorClass = Class.forName(rootElement.getChildText("simulator-class"), true, loader);
+                simulator =
+                        (SimulatorInterface.TimeDouble) ClassUtil.resolveConstructor(simulatorClass, null)
+                                .newInstance();
+            }
+
+            // Define the experiment
+            Experiment.TimeDouble experiment = new Experiment.TimeDouble(null, simulator, model);
+
+            // resolve the TREATMENT element
+            Treatment.TimeDouble treatment =
+                    ExperimentParser.parseTreatment(rootElement.getChild("treatment"), experiment);
+            experiment.setTreatment(treatment);
 
             // resolve the ANALYST element
             String analyst = "";
@@ -166,44 +208,25 @@ public class ExperimentParser
             experiment.setAnalyst(analyst);
 
             // resolve the name element
-            String name = "";
+            String name = null;
             if (rootElement.getChild("name") != null)
             {
                 name = rootElement.getChild("name").getText();
                 experiment.setDescription(name);
             }
-            // no "else" because experiment already has a default description
-            // provided in parseExperimentalFrame
-
-            // resolve the TREATMENT element
-            Treatment treatment = ExperimentParser.parseTreatment(rootElement.getChild("treatment"), experiment);
-            experiment.setTreatment(treatment);
+            // no "else" because experiment already has a default description provided in parseExperimentalFrame
 
             // resolve the REPLICATIONS element
             Element replicationsElement = rootElement.getChild("replications");
             @SuppressWarnings("unchecked")
             List<Element> replicationElements = replicationsElement.getChildren("replication");
-            List<Replication> replicationArray = new ArrayList<Replication>();
-            int number = 1;
+            List<Replication<Double, Double, SimTimeDouble>> replicationArray = new ArrayList<>();
             for (Iterator<Element> i = replicationElements.iterator(); i.hasNext();)
             {
                 replicationArray.add(ExperimentParser.parseReplication(i.next(), experiment));
-                number++;
             }
             experiment.setReplications(replicationArray);
 
-            // resolve the SIMULATOR-CLASS element
-            SimulatorInterface simulator = null;
-            if (modelElement.getChild("simulator-class") == null)
-            {
-                simulator = new DEVSAnimator();
-            }
-            else
-            {
-                Class<?> simulatorClass = Class.forName(rootElement.getChildText("simulator-class"), true, loader);
-                simulator = (SimulatorInterface) ClassUtil.resolveConstructor(simulatorClass, null).newInstance();
-            }
-            experiment.setSimulator(simulator);
             return experiment;
         }
         catch (Exception exception)
@@ -217,7 +240,7 @@ public class ExperimentParser
     private static String legalChars = ".@$_-abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /**
-     * clean the name of a class
+     * clean the name of a class.
      */
     private static String cleanName(final String string)
     {
@@ -335,16 +358,16 @@ public class ExperimentParser
     }
 
     /**
-     * parses a replication
+     * parses a replication.
      * @param element the JDOM element
      * @param parent the experiment
      * @return the replication
      * @throws Exception on failure
      */
-    private static Replication parseReplication(final Element element, final Experiment parent)
+    private static Replication.TimeDouble parseReplication(final Element element, final Experiment.TimeDouble parent)
             throws Exception
     {
-        Replication replication = new Replication(parent);
+        Replication.TimeDouble replication = new Replication.TimeDouble(parent);
         if (element.getAttribute("description") != null)
         {
             replication.setDescription(element.getAttribute("description").getValue());
@@ -363,7 +386,7 @@ public class ExperimentParser
     }
 
     /**
-     * parses proprties to treatments
+     * parses properties to treatments.
      * @param element the element
      * @return Properties
      */
@@ -422,14 +445,14 @@ public class ExperimentParser
     }
 
     /**
-     * parses the treatment
+     * parses the treatment.
      * @param element the xml-element
      * @param parent parent
-     * @param number the number
      * @return Treatment
      * @throws Exception on failure
      */
-    private static Treatment parseTreatment(final Element element, final Experiment parent) throws Exception
+    private static Treatment.TimeDouble parseTreatment(final Element element, final Experiment.TimeDouble parent)
+            throws Exception
     {
         TimeUnit tu = ExperimentParser.parseTimeUnit(element.getChildText("timeUnit"));
         long startTime = 0L;
@@ -447,9 +470,8 @@ public class ExperimentParser
         {
             runLength = ExperimentParser.parsePeriod(element.getChild("runLength"), tu);
         }
-        Treatment treatment =
-                new Treatment(parent, "tr", new SimTimeDoubleUnit(new UnitTimeDouble(1.0 * startTime, tu)),
-                        warmupPeriod, runLength);
+        Treatment.TimeDouble treatment =
+                new Treatment.TimeDouble(parent, "tr", new SimTimeDouble(1.0 * startTime), warmupPeriod, runLength);
 
         if (element.getChild("properties") != null)
         {

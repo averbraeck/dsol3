@@ -8,6 +8,8 @@ import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
 import nl.tudelft.simulation.dsol.eventlists.RedBlackTree;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.formalisms.eventscheduling.Executable;
+import nl.tudelft.simulation.dsol.formalisms.eventscheduling.LambdaSimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -171,6 +173,74 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
             final Object[] args) throws SimRuntimeException
     {
         scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void scheduleEventRel(final R relativeDelay, final short priority, final Executable executable)
+            throws RemoteException, SimRuntimeException
+    {
+        T absEventTime = this.simulatorTime.copy();
+        absEventTime.add(relativeDelay);
+        scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void scheduleEventRel(final R relativeDelay, final Executable executable) throws RemoteException,
+            SimRuntimeException
+    {
+        scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, executable);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void scheduleEventAbs(final A absoluteTime, final short priority, final Executable executable)
+            throws RemoteException, SimRuntimeException
+    {
+        T absTime = this.simulatorTime.copy();
+        absTime.set(absoluteTime);
+        scheduleEvent(new LambdaSimEvent<T>(absTime, priority, executable));
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void scheduleEventAbs(final A absoluteTime, final Executable executable) throws RemoteException,
+            SimRuntimeException
+    {
+        scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void scheduleEventAbs(final T absoluteTime, final short priority, final Executable executable)
+            throws RemoteException, SimRuntimeException
+    {
+        scheduleEvent(new LambdaSimEvent<T>(absoluteTime, priority, executable));
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void scheduleEventAbs(final T absoluteTime, final Executable executable) throws RemoteException,
+            SimRuntimeException
+    {
+        scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void scheduleEventNow(final short priority, final Executable executable) throws RemoteException,
+            SimRuntimeException
+    {
+        T absEventTime = this.simulatorTime.copy();
+        scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void scheduleEventNow(final Executable executable) throws RemoteException, SimRuntimeException
+    {
+        scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */

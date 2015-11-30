@@ -6,6 +6,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 
@@ -13,6 +14,7 @@ import javax.media.j3d.Bounds;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
+import nl.javel.gisbeans.io.esri.CoordinateTransform;
 import nl.javel.gisbeans.map.MapInterface;
 import nl.javel.gisbeans.map.mapfile.MapFileXMLParser;
 import nl.tudelft.simulation.dsol.animation.LocatableInterface;
@@ -50,14 +52,10 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
     /** the cached screenSize. */
     protected Dimension screenSize = new Dimension();
 
-    /**
-     * the location of the image
-     */
+    /** the location of the image. */
     protected DirectedPoint location = null;
 
-    /**
-     * the bounds of the image
-     */
+    /** the bounds of the image. */
     protected Bounds bounds = null;
 
     /**
@@ -72,6 +70,18 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
      */
     public GisRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile)
     {
+        this(simulator, mapFile, new CoordinateTransform.NoTransform());
+    }
+
+    /**
+     * constructs a new GisRenderable2D.
+     * @param simulator the simulator.
+     * @param mapFile the mapfile to use.
+     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
+     */
+    public GisRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile,
+            final CoordinateTransform coordinateTransform)
+    {
         super();
         if (!(simulator instanceof AnimatorInterface))
         {
@@ -79,7 +89,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
         }
         try
         {
-            this.map = MapFileXMLParser.parseMapFile(mapFile);
+            this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
             this.location =
                     new DirectedPoint(new CartesianPoint(this.extent.getCenterX(), this.extent.getCenterY(),
                             -Double.MIN_VALUE));

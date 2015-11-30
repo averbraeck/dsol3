@@ -68,7 +68,7 @@ public enum TimeUnit
      * @param name the name of the time unit.
      * @param abbreviation the abbreviation of the time unit.
      */
-    private TimeUnit(final double factor, final String name, final String abbreviation)
+    TimeUnit(final double factor, final String name, final String abbreviation)
     {
         this.factor = factor;
         this.name = name;

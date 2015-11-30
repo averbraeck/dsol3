@@ -29,16 +29,19 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements Si
     private static long constructorCounter = 0L;
 
     /** absoluteExecutionTime reflects the time at which the event is scheduled. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected T absoluteExecutionTime;
 
     /** priority reflects the priority of the event. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected short priority = SimEventInterface.NORMAL_PRIORITY;
 
     /** the id used in compare statements. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected long id = 0L;
 
     /**
-     * The constuctor of the event stores the time the event must be executed and the object and method to invoke
+     * The constructor of the event stores the time the event must be executed and the object and method to invoke.
      * @param executionTime reflects the time the event has to be executed.
      */
     public AbstractSimEvent(final T executionTime)
@@ -47,7 +50,7 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements Si
     }
 
     /**
-     * The constuctor of the event stores the time the event must be executed and the object and method to invoke
+     * The constructor of the event stores the time the event must be executed and the object and method to invoke.
      * @param executionTime reflects the time the event has to be executed.
      * @param priority reflects the priority of the event
      */
@@ -66,7 +69,7 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements Si
 
     /** {@inheritDoc} */
     @Override
-    public int compareTo(final AbstractSimEvent<T> simEvent)
+    public final int compareTo(final AbstractSimEvent<T> simEvent)
     {
         if (this.equals(simEvent))
         {
@@ -99,25 +102,20 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>> implements Si
         throw new IllegalStateException("This may never occur! " + this + " !=" + simEvent + ". Almost returned 0");
     }
 
-    /**
-     * executes the simEvent
-     * @throws SimRuntimeException on execution failure
-     */
+    /** {@inheritDoc} */
+    @Override
     public abstract void execute() throws SimRuntimeException;
 
-    /**
-     * @return The execution time of a simulation event
-     */
-    public T getAbsoluteExecutionTime()
+    /** {@inheritDoc} */
+    @Override
+    public final T getAbsoluteExecutionTime()
     {
         return this.absoluteExecutionTime;
     }
 
-    /**
-     * @return The priority of a simulation event. The priorities are programmed according to the Java thread priority.
-     *         Use 10 (MAX_PRIORITY), -9, .. , 5 (NORMAL_PRIORITY), 1(MIN_PRIORITY)
-     */
-    public short getPriority()
+    /** {@inheritDoc} */
+    @Override
+    public final short getPriority()
     {
         return this.priority;
     }
