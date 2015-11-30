@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import nl.javel.gisbeans.geom.SerializableRectangle2D;
+import nl.javel.gisbeans.io.esri.CoordinateTransform;
 import nl.javel.gisbeans.io.esri.ShapeFile;
 import nl.javel.gisbeans.map.AbstractAttribute;
 import nl.javel.gisbeans.map.Attribute;
@@ -59,10 +60,12 @@ public final class MapFileXMLParser
     /**
      * parses a Mapfile URL to a mapFile.
      * @param url the mapfile url.
+     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
      * @return MapInterface the parsed mapfile.
      * @throws IOException on failure.
      */
-    public static MapInterface parseMapFile(final URL url) throws IOException
+    public static MapInterface parseMapFile(final URL url, final CoordinateTransform coordinateTransform)
+            throws IOException
     {
         try
         {
@@ -86,14 +89,16 @@ public final class MapFileXMLParser
                 map.setUnits(parseUnits(element));
             }
             double[] extent = new double[4];
-            extent[MapInterface.MINX] =
-                    new Double(xmlMapFileElement.getChild("extent").getChildText("minX")).doubleValue();
-            extent[MapInterface.MINY] =
-                    new Double(xmlMapFileElement.getChild("extent").getChildText("minY")).doubleValue();
-            extent[MapInterface.MAXX] =
-                    new Double(xmlMapFileElement.getChild("extent").getChildText("maxX")).doubleValue();
-            extent[MapInterface.MAXY] =
-                    new Double(xmlMapFileElement.getChild("extent").getChildText("maxY")).doubleValue();
+            double minx = new Double(xmlMapFileElement.getChild("extent").getChildText("minX")).doubleValue();
+            double miny = new Double(xmlMapFileElement.getChild("extent").getChildText("minY")).doubleValue();
+            double maxx = new Double(xmlMapFileElement.getChild("extent").getChildText("maxX")).doubleValue();
+            double maxy = new Double(xmlMapFileElement.getChild("extent").getChildText("maxY")).doubleValue();
+            double[] p = coordinateTransform.doubleTransform(minx, miny);
+            double[] q = coordinateTransform.doubleTransform(maxx, maxy);
+            extent[MapInterface.MINX] = Math.min(p[0], q[0]);
+            extent[MapInterface.MINY] = Math.min(p[1], q[1]);
+            extent[MapInterface.MAXX] = Math.max(p[0], q[0]);
+            extent[MapInterface.MAXY] = Math.max(p[1], q[1]);
             map.setExtent(new SerializableRectangle2D.Double(extent[0], extent[1], (extent[2] - extent[0]),
                     (extent[3] - extent[1])));
             if ((element = xmlMapFileElement.getChild("image", nameSpace)) != null)
@@ -102,14 +107,14 @@ public final class MapFileXMLParser
             }
             if ((element = xmlMapFileElement.getChild("referenceMap", nameSpace)) != null)
             {
-                map.setReferenceMap(parseReferenceMap(element));
+                map.setReferenceMap(parseReferenceMap(element, coordinateTransform));
             }
             java.util.List layerElements = xmlMapFileElement.getChildren("layer", nameSpace);
             ArrayList layers = new ArrayList();
             for (Iterator iterator = layerElements.iterator(); iterator.hasNext();)
             {
                 Element layerElement = (Element) iterator.next();
-                layers.add(parseLayer(layerElement));
+                layers.add(parseLayer(layerElement, coordinateTransform));
             }
             map.setLayers(layers);
             return map;
@@ -280,15 +285,21 @@ public final class MapFileXMLParser
      * @return Value of extent
      * @throws IOException
      */
-    private static double[] parseExtent(Element element) throws IOException
+    private static double[] parseExtent(Element element, CoordinateTransform coordinateTransform) throws IOException
     {
         try
         {
             double[] result = new double[4];
-            result[MapInterface.MINX] = new Double(element.getChildText("minX")).doubleValue();
-            result[MapInterface.MINY] = new Double(element.getChildText("minY")).doubleValue();
-            result[MapInterface.MAXY] = new Double(element.getChildText("maxX")).doubleValue();
-            result[MapInterface.MAXY] = new Double(element.getChildText("maxY")).doubleValue();
+            double minx = new Double(element.getChildText("minX")).doubleValue();
+            double miny = new Double(element.getChildText("minY")).doubleValue();
+            double maxx = new Double(element.getChildText("maxX")).doubleValue();
+            double maxy = new Double(element.getChildText("maxY")).doubleValue();
+            double[] p = coordinateTransform.doubleTransform(minx, miny);
+            double[] q = coordinateTransform.doubleTransform(maxx, maxy);
+            result[MapInterface.MINX] = Math.min(p[0], q[0]);
+            result[MapInterface.MINY] = Math.min(p[1], q[1]);
+            result[MapInterface.MAXY] = Math.max(p[0], q[0]);
+            result[MapInterface.MAXY] = Math.max(p[1], q[1]);
             return result;
         }
         catch (Exception exception)
@@ -348,10 +359,12 @@ public final class MapFileXMLParser
     /**
      * parses a xml-element representing a Layer
      * @param element The j-dom element
+     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
      * @return Layer of element
      * @throws IOException
      */
-    private static LayerInterface parseLayer(Element element) throws IOException
+    private static LayerInterface parseLayer(Element element, final CoordinateTransform coordinateTransform)
+            throws IOException
     {
         LayerInterface result = new Layer();
         try
@@ -366,7 +379,7 @@ public final class MapFileXMLParser
                 {
                     throw new IOException("Cannot locate shapeFile: " + resourceName);
                 }
-                ShapeFile dataSource = new ShapeFile(resource);
+                ShapeFile dataSource = new ShapeFile(resource, coordinateTransform);
                 if (element.getAttribute("cache") != null && element.getAttribute("cache").getValue().equals("false"))
                 {
                     dataSource.setCache(false);
@@ -478,13 +491,14 @@ public final class MapFileXMLParser
      * @return ReferenceMap of element
      * @throws IOException
      */
-    private static ReferenceMapInterface parseReferenceMap(org.jdom2.Element element) throws IOException
+    private static ReferenceMapInterface parseReferenceMap(org.jdom2.Element element,
+            final CoordinateTransform coordinateTransform) throws IOException
     {
         ReferenceMapInterface result = new ReferenceMap();
         try
         {
             result.setImage(new java.net.URL(element.getChildText("image")));
-            result.setExtent(parseExtent(element.getChild("extent")));
+            result.setExtent(parseExtent(element.getChild("extent"), coordinateTransform));
             if (element.getChild("outlineColor") != null)
                 result.setOutlineColor(parseColor(element.getChild("outlineColor")));
             if (element.getChild("size") != null)

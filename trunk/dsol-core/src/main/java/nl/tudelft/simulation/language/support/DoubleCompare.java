@@ -31,9 +31,6 @@ package nl.tudelft.simulation.language.support;
  */
 public final class DoubleCompare
 {
-    /** masks out last 2 bits. */
-    private static final long MASK_2 = 0x000ffffffffffffcL;
-
     /**
      * Constructor that should not be used.
      */
@@ -43,26 +40,33 @@ public final class DoubleCompare
     }
 
     /**
-     * Fuzzy compare of two double variables. When they only differ in the last two bits of the mantissa, report bakc
-     * that they are equal.
+     * Fuzzy compare of two double variables. When they differ less than 4 ulps, that they are equal.
      * @param d1 the first double to compare
-     * @param d2 the seond double to compare
+     * @param d2 the second double to compare
      * @return 0 if (almost) equal, -1 of d1 &lt; d2, and 1 if d1 &gt; d2.
      */
+    @SuppressWarnings("checkstyle:needbraces")
     public static int compare(final double d1, final double d2)
     {
         double diff = d1 - d2;
-        if (diff == 0)
-        {
+        if (Math.abs(diff) == 0.0) // catches -0.0 and 0.0
             return 0;
-        }
-        // keep everything except the last two bits of the mantissa
-        double dd1 = Double.longBitsToDouble(Double.doubleToLongBits(d1) & DoubleCompare.MASK_2);
-        double dd2 = Double.longBitsToDouble(Double.doubleToLongBits(d2) & DoubleCompare.MASK_2);
-        if (dd1 - dd2 == 0)
-        {
-            return 0;
-        }
+
+        // From 
+        // long thisBits = Double.doubleToLongBits(d1); long anotherBits = Double.doubleToLongBits(d2);
+        // thisBits == anotherBits => 0 : Values are equal
+        // thisBits < anotherBits => -1 : (-0.0, 0.0) or (!NaN, NaN)
+        // thisBits < anotherBits => +1 : (0.0, -0.0) or (NaN, !NaN)
+
+        if (Double.isNaN(d1))
+            return Double.isNaN(d2) ? 0 : 1;
+        if (Double.isNaN(d2))
+            return -1;
+        if (Double.isInfinite(d1))
+            return Double.isInfinite(d2) ? 0 : d1 > 0 ? -1 : 1;
+        if (Double.isInfinite(d2))
+            return d2 > 0 ? 1 : -1;
+
         if (diff > 0)
         {
             return 1;
@@ -71,6 +75,25 @@ public final class DoubleCompare
         {
             return -1;
         }
+    }
+
+    public static void main(final String[] args)
+    {
+        cmp(1.0, 1.0);
+        cmp(-1.0, 1.0);
+        cmp(1.0, -1.0);
+        cmp(0.0, 0.0);
+        cmp(1.0, 2.0);
+        cmp(2.0, 1.0);
+        cmp(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        cmp(Double.NEGATIVE_INFINITY, Double.NaN);
+        cmp(Double.NaN, Double.NaN);
+        cmp(Double.NaN, 2.0);
+    }
+
+    private static void cmp(double a, double b)
+    {
+        System.out.println("compare(" + a + ", " + b + ") => " + compare(a, b));
     }
 
 }

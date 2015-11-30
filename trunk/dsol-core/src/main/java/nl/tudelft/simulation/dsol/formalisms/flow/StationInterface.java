@@ -34,14 +34,14 @@ public interface StationInterface extends EventProducerInterface
     StationInterface getDestination() throws RemoteException;
 
     /**
-     * receives an object is invoked whenever an entity arrives
+     * receives an object is invoked whenever an entity arrives.
      * @param object is the entity
      * @throws RemoteException on network failure
      */
     void receiveObject(final Object object) throws RemoteException;
 
     /**
-     * sets the destination of this object
+     * sets the destination of this object.
      * @param destination defines the next station in the model
      * @throws RemoteException on network failure
      */

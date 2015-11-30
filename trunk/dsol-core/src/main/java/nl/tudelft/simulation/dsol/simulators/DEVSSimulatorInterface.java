@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
+import nl.tudelft.simulation.dsol.formalisms.eventscheduling.Executable;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -175,6 +176,85 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      */
     void scheduleEventNow(Object source, Object target, String method, Object[] args) throws RemoteException,
             SimRuntimeException;
+
+    /**
+     * schedules a lambda expression at a relative duration. The executionTime is thus
+     * simulator.getSimulatorTime()+relativeDuration.
+     * @param relativeDelay the relativeDelay in timeUnits of the simulator.
+     * @param priority the priority compared to other events scheduled at the same time.
+     * @param executable the lambda expression to execute
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventRel(R relativeDelay, short priority, Executable executable) throws RemoteException,
+            SimRuntimeException;
+
+    /**
+     * schedules a lambda expression at a relative duration. The executionTime is thus
+     * simulator.getSimulatorTime()+relativeDuration.
+     * @param relativeDelay the relativeDelay in timeUnits of the simulator.
+     * @param executable the lambda expression to execute
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventRel(R relativeDelay, Executable executable) throws RemoteException, SimRuntimeException;
+
+    /**
+     * schedules a lambda expression at an absolute time.
+     * @param absoluteTime the exact time to schedule the method on the simulator.
+     * @param priority the priority compared to other events scheduled at the same time.
+     * @param executable the lambda expression to execute
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventAbs(T absoluteTime, short priority, Executable executable) throws RemoteException,
+            SimRuntimeException;
+
+    /**
+     * schedules a lambda expression at an absolute time.
+     * @param absoluteTime the exact time to schedule the method on the simulator.
+     * @param executable the lambda expression to execute
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventAbs(A absoluteTime, Executable executable) throws RemoteException, SimRuntimeException;
+
+    /**
+     * schedules a lambda expression at an absolute time.
+     * @param absoluteTime the exact time to schedule the method on the simulator.
+     * @param priority the priority compared to other events scheduled at the same time.
+     * @param executable the lambda expression to execute
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventAbs(A absoluteTime, short priority, Executable executable) throws RemoteException,
+            SimRuntimeException;
+
+    /**
+     * schedules a lambda expression at an absolute time.
+     * @param absoluteTime the exact time to schedule the method on the simulator.
+     * @param executable the lambda expression to execute
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventAbs(T absoluteTime, Executable executable) throws RemoteException, SimRuntimeException;
+
+    /**
+     * schedules a lambda expression immediately.
+     * @param priority the priority compared to other events scheduled at the same time.
+     * @param executable the lambda expression to execute
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventNow(short priority, Executable executable) throws RemoteException, SimRuntimeException;
+
+    /**
+     * schedules a lambda expression immediately.
+     * @param executable the lambda expression to execute
+     * @throws RemoteException on network failure.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void scheduleEventNow(Executable executable) throws RemoteException, SimRuntimeException;
 
     /**
      * Method setEventList sets the eventlist.
