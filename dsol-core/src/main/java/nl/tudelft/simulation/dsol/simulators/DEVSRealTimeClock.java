@@ -84,7 +84,43 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                 r10 = this.relativeMillis(10.0 * factor);
             }
 
-            // peek at the first event and determine the time difference relative to RT speed.
+            // check if we are behind; syncTime is the needed current time on the wall-clock
+            double syncTime = (System.currentTimeMillis() - clockTime0) * msec1 * factor;
+            // delta is the time we might be behind
+            double simTime = this.simulatorTime.minus(simTime0).doubleValue();
+
+            if (syncTime > simTime)
+            {
+                // we are behind
+                if (!this.catchup)
+                {
+                    // if no catch-up: re-baseline.
+                    clockTime0 = System.currentTimeMillis();
+                    simTime0 = this.simulatorTime;
+                }
+                else
+                {
+                    // jump to the required wall-clock related time or to the time of the next event, whichever comes
+                    // first
+                    synchronized (super.semaphore)
+                    {
+                        R delta = relativeMillis((syncTime - simTime) / msec1);
+                        T absSyncTime = this.simulatorTime.plus(delta);
+                        T eventTime = this.eventList.first().getAbsoluteExecutionTime();
+                        if (absSyncTime.lt(eventTime))
+                        {
+                            this.simulatorTime = absSyncTime;
+                        }
+                        else
+                        {
+                            this.simulatorTime = eventTime;
+                        }
+                    }
+                }
+            }
+
+            // peek at the first event and determine the time difference relative to RT speed; that determines 
+            // how long we have to wait.
             SimEventInterface<T> event = this.eventList.first();
             double simTimeDiffMillis =
                     (event.getAbsoluteExecutionTime().minus(simTime0)).doubleValue() / (msec1 * factor);
@@ -94,22 +130,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
              * is the number of milliseconds we have to wait. if speed == 10, we have to wait 1/10 of that. If the speed
              * == 0.1, we have to wait 10 times that amount. We might also be behind.
              */
-            if (simTimeDiffMillis < (System.currentTimeMillis() - clockTime0))
-            {
-                // we are behind.
-                if (!this.catchup)
-                {
-                    // if no catch-up: re-baseline.
-                    clockTime0 = System.currentTimeMillis();
-                    simTime0 = this.simulatorTime;
-                }
-                else
-                {
-                    // if catch-up: indicate we were behind.
-                    this.fireTimedEvent(BACKLOG_EVENT, this.simulatorTime, null);
-                }
-            }
-            else
+            if (simTimeDiffMillis >= (System.currentTimeMillis() - clockTime0))
             {
                 while (simTimeDiffMillis > System.currentTimeMillis() - clockTime0)
                 {
@@ -131,11 +152,24 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                         ie = null;
                     }
 
-                    // make a small time step for the animation during wallclock waiting.
-                    // but never beyond the next event time.
-                    if (this.simulatorTime.plus(r10).lt(event.getAbsoluteExecutionTime()))
+                    // check if an event has been inserted. In a real-time situation this can be dome by other threads
+                    if (!event.equals(this.eventList.first())) // event inserted by a thread...
                     {
-                        this.simulatorTime.add(r10);
+                        event = this.eventList.first();
+                        simTimeDiffMillis =
+                                (event.getAbsoluteExecutionTime().minus(simTime0)).doubleValue() / (msec1 * factor);
+                    }
+                    else
+                    {
+                        // make a small time step for the animation during wallclock waiting.
+                        // but never beyond the next event time.
+                        if (this.simulatorTime.plus(r10).lt(event.getAbsoluteExecutionTime()))
+                        {
+                            synchronized (super.semaphore)
+                            {
+                                this.simulatorTime.add(r10);
+                            }
+                        }
                     }
                 }
             }
@@ -212,11 +246,34 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     /***********************************************************************************************************/
 
     /** Easy access class RealTimeClock.TimeDouble. */
-    public abstract static class TimeDouble extends DEVSRealTimeClock<Double, Double, SimTimeDouble> implements
+    public static class TimeDouble extends DEVSRealTimeClock<Double, Double, SimTimeDouble> implements
             DEVSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * the translation from a millisecond on the wall clock to '1.0' in the simulation time. This means that if the
+         * wall clock runs in seconds, the factor should be 0.001.
+         */
+        private final double msecWallClockToSimTimeUnit;
+
+        /**
+         * @param msecWallClockToSimTimeUnit the translation between a millisecond on the clock and '1.0' in the
+         *            simulation time.
+         */
+        public TimeDouble(final double msecWallClockToSimTimeUnit)
+        {
+            super();
+            this.msecWallClockToSimTimeUnit = msecWallClockToSimTimeUnit;
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected final Double relativeMillis(final double factor)
+        {
+            return this.msecWallClockToSimTimeUnit * factor;
+        }
     }
 
     /** Easy access class RealTimeClock.TimeFloat. */
@@ -236,8 +293,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access class RealTimeClock.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends DEVSRealTimeClock<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
-            DEVSSimulatorInterface.TimeDoubleUnit
+    public static class TimeDoubleUnit extends DEVSRealTimeClock<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+            implements DEVSSimulatorInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -251,8 +308,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access class RealTimeClock.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVSRealTimeClock<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DEVSSimulatorInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends DEVSRealTimeClock<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+            implements DEVSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -281,8 +338,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access class RealTimeClock.CalendarDouble. */
-    public static class CalendarDouble extends DEVSRealTimeClock<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
-            DEVSSimulatorInterface.CalendarDouble
+    public static class CalendarDouble extends DEVSRealTimeClock<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+            implements DEVSSimulatorInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -296,8 +353,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access class RealTimeClock.CalendarFloat. */
-    public static class CalendarFloat extends DEVSRealTimeClock<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
-            DEVSSimulatorInterface.CalendarFloat
+    public static class CalendarFloat extends DEVSRealTimeClock<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+            implements DEVSSimulatorInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;

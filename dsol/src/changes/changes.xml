@@ -2,6 +2,16 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.00.18" date="2015-12-13" description="DEVSRealTimeClock improved thread-safety">
+      <action dev="averbraeck" type="fix">
+        Improved the thread-safety of the DEVSRealTimeClock.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Improved the alignment of the DEVSRealTimeClock with the wall-clock. 
+      </action>
+    </release>
+    
+    
     <release version="3.00.17" date="2015-11-30" description="ESRI user-defined transformation">
       <action dev="averbraeck" type="add">
         ESRI shape files can be parsed with a user-defined transformation.
