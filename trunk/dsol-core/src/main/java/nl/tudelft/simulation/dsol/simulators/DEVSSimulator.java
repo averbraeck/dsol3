@@ -111,9 +111,12 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     public final void scheduleEventRel(final R relativeDelay, final short priority, final Object source,
             final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
-        T absEventTime = this.simulatorTime.copy();
-        absEventTime.add(relativeDelay);
-        scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
+        synchronized (super.semaphore)
+        {
+            T absEventTime = this.simulatorTime.copy();
+            absEventTime.add(relativeDelay);
+            scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
+        }
     }
 
     /** {@inheritDoc} */
@@ -145,9 +148,12 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     public final void scheduleEventAbs(final A absoluteTime, final short priority, final Object source,
             final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
-        T absTime = this.simulatorTime.copy();
-        absTime.set(absoluteTime);
-        scheduleEvent(new SimEvent<T>(absTime, priority, source, target, method, args));
+        synchronized (super.semaphore)
+        {
+            T absTime = this.simulatorTime.copy();
+            absTime.set(absoluteTime);
+            scheduleEvent(new SimEvent<T>(absTime, priority, source, target, method, args));
+        }
     }
 
     /** {@inheritDoc} */
@@ -163,8 +169,11 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     public final void scheduleEventNow(final short priority, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
-        T absEventTime = this.simulatorTime.copy();
-        scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
+        synchronized (super.semaphore)
+        {
+            T absEventTime = this.simulatorTime.copy();
+            scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
+        }
     }
 
     /** {@inheritDoc} */
@@ -180,9 +189,12 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     public final void scheduleEventRel(final R relativeDelay, final short priority, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
-        T absEventTime = this.simulatorTime.copy();
-        absEventTime.add(relativeDelay);
-        scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
+        synchronized (super.semaphore)
+        {
+            T absEventTime = this.simulatorTime.copy();
+            absEventTime.add(relativeDelay);
+            scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
+        }
     }
 
     /** {@inheritDoc} */
@@ -198,9 +210,12 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     public final void scheduleEventAbs(final A absoluteTime, final short priority, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
-        T absTime = this.simulatorTime.copy();
-        absTime.set(absoluteTime);
-        scheduleEvent(new LambdaSimEvent<T>(absTime, priority, executable));
+        synchronized (super.semaphore)
+        {
+            T absTime = this.simulatorTime.copy();
+            absTime.set(absoluteTime);
+            scheduleEvent(new LambdaSimEvent<T>(absTime, priority, executable));
+        }
     }
 
     /** {@inheritDoc} */
@@ -232,8 +247,11 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     public final void scheduleEventNow(final short priority, final Executable executable) throws RemoteException,
             SimRuntimeException
     {
-        T absEventTime = this.simulatorTime.copy();
-        scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
+        synchronized (super.semaphore)
+        {
+            T absEventTime = this.simulatorTime.copy();
+            scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
+        }
     }
 
     /** {@inheritDoc} */

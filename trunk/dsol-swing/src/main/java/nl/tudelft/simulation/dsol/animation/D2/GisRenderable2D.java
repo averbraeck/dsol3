@@ -92,7 +92,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
             this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
             this.location =
                     new DirectedPoint(new CartesianPoint(this.extent.getCenterX(), this.extent.getCenterY(),
-                            -Double.MIN_VALUE));
+                            -Double.MAX_VALUE));
             this.bounds = new BoundingBox(this.extent.getWidth(), this.extent.getHeight(), 0.0);
             simulator.getReplication().getTreatment().getProperties()
                     .put("animationPanel.extent", this.map.getExtent());
