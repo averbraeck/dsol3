@@ -111,7 +111,7 @@ public interface Renderable2DInterface
             double xScale = extent.getWidth() / screen.getWidth();
             double yScale = extent.getHeight() / screen.getHeight();
             Rectangle2D result = (Rectangle2D) extent.clone();
-            if (xScale >= yScale)
+            if (xScale < yScale)
             {
                 result.setRect(result.getCenterX() - 0.5 * yScale * screen.getWidth(), result.getY(),
                         yScale * screen.getWidth(), result.getHeight());

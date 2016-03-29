@@ -23,11 +23,11 @@ public class ZoomOutAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** target of the gridpanel */
+    /** target of the gridpanel. */
     private GridPanel target = null;
 
     /**
-     * constructs a new ZoomIn
+     * constructs a new ZoomIn.
      * @param target the target
      */
     public ZoomOutAction(final GridPanel target)
@@ -45,7 +45,7 @@ public class ZoomOutAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.zoom(GridPanel.OUT, 0.8);
+        this.target.zoom(GridPanel.ZOOMFACTOR);
         this.target.requestFocus();
     }
 }

@@ -37,11 +37,8 @@ public class GridPanel extends JPanel
     /** the RIGHT directions for moving/zooming. */
     public static final int RIGHT = 4;
 
-    /** the ZOOM_IN directions for moving/zooming. */
-    public static final int IN = 5;
-
-    /** the ZOOM_OUT directions for moving/zooming. */
-    public static final int OUT = 6;
+    /** the ZOOM factor. */
+    public static final double ZOOMFACTOR = 1.2;
 
     /** gridColor. */
     protected static final Color GRIDCOLOR = Color.BLACK;
@@ -69,6 +66,14 @@ public class GridPanel extends JPanel
     /** the last computed Dimension. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Dimension lastDimension = null;
+
+    /** the last known world coordinate of the mouse. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected Point2D worldCoordinate = new Point2D.Double();
+
+    /** whether to show a tooltip with the coordinates or not. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected boolean showToolTip = true;
 
     /**
      * constructs a new GridPanel.
@@ -127,6 +132,53 @@ public class GridPanel extends JPanel
     {
         this.showGrid = bool;
         this.repaint();
+    }
+
+    /**
+     * Set the world coordinates based on a mouse move.
+     * @param point the x,y world coordinates
+     */
+    public final synchronized void setWorldCoordinate(final Point2D point)
+    {
+        this.worldCoordinate = point;
+    }
+
+    /**
+     * @return worldCoordinate
+     */
+    public final synchronized Point2D getWorldCoordinate()
+    {
+        return this.worldCoordinate;
+    }
+
+    /**
+     * Display a tooltip with the last known world coordinates of the mouse, in case the tooltip should be displayed.
+     */
+    public final synchronized void displayWorldCoordinateToolTip()
+    {
+        if (this.showToolTip)
+        {
+            String worldPoint =
+                    "(x=" + this.formatter.format(this.worldCoordinate.getX()) + " ; y="
+                            + this.formatter.format(this.worldCoordinate.getY()) + ")";
+            setToolTipText(worldPoint);
+        }
+    }
+
+    /**
+     * @return showToolTip
+     */
+    public final synchronized boolean isShowToolTip()
+    {
+        return this.showToolTip;
+    }
+
+    /**
+     * @param showToolTip set showToolTip
+     */
+    public final synchronized void setShowToolTip(final boolean showToolTip)
+    {
+        this.showToolTip = showToolTip;
     }
 
     /**
@@ -193,34 +245,39 @@ public class GridPanel extends JPanel
 
     /**
      * zooms in/out.
-     * @param direction the zoom direction
-     * @param factor The Factor
+     * @param factor The zoom factor
      */
-    public final synchronized void zoom(final int direction, final double factor)
+    public final synchronized void zoom(final double factor)
     {
-        double newScale = Renderable2DInterface.Util.getScale(this.extent, this.getSize());
-        switch (direction)
-        {
-            case IN:
-                newScale = newScale * factor;
-                break;
-            case OUT:
-                newScale = newScale / factor;
-                break;
-            default:
-                throw new IllegalArgumentException("zoom direction unknown");
-        }
-        this.extent.setRect(this.extent.getCenterX() - 0.5 * newScale * this.getWidth(), this.extent.getCenterY() - 0.5
-                * newScale * this.getHeight(), newScale * this.getWidth(), newScale * this.getHeight());
+        zoom(factor, (int) (this.getWidth() / 2.0), (int) (this.getHeight() / 2.0));
+    }
+
+    /**
+     * zooms in/out.
+     * @param factor The zoom factor
+     * @param mouseX x-position of the mouse around which we zoom
+     * @param mouseY y-position of the mouse around which we zoom
+     */
+    public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
+    {
+        Point2D mwc =
+                Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent,
+                        this.getSize());
+        double minX = mwc.getX() - (mwc.getX() - this.extent.getMinX()) * factor;
+        double minY = mwc.getY() - (mwc.getY() - this.extent.getMinY()) * factor;
+        double w = this.extent.getWidth() * factor;
+        double h = this.extent.getHeight() * factor;
+
+        this.extent.setRect(minX, minY, w, h);
         this.repaint();
     }
 
-    // ------------------------ PRIVATE METHODS ---------------------------/
     /**
      * Added to make sure the recursive render-call calls THIS render method instead of a potential super-class defined
      * 'paintComponent' render method.
      * @param g the graphics object
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected synchronized void drawGrid(final Graphics g)
     {
         // we prepare the graphics object for the grid

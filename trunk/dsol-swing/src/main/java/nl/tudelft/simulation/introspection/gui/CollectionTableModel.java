@@ -79,7 +79,15 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
      */
     public CollectionTableModel(final Property parentProperty, final Introspector introspector)
     {
-        Object values = parentProperty.getValue();
+        Object values;
+        try
+        {
+            values = parentProperty.getValue();
+        }
+        catch (Exception e)
+        {
+            values = new String("-");
+        }
         if (values.getClass().isArray())
         {
             for (int i = 0; i < Array.getLength(values); i++)
@@ -272,7 +280,14 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         @Override
         public Object getValue()
         {
-            return CollectionTableModel.this.instances.get(this.key);
+            try
+            {
+                return CollectionTableModel.this.instances.get(this.key);
+            }
+            catch (Exception e)
+            {
+                return new String("-");
+            }
         }
 
         /** {@inheritDoc} */

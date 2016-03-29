@@ -10,12 +10,14 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.media.j3d.BoundingBox;
 import javax.naming.Binding;
 import javax.naming.NamingEnumeration;
 import javax.naming.event.EventContext;
 import javax.naming.event.NamespaceChangeListener;
 import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingExceptionEvent;
+import javax.vecmath.Point3d;
 import javax.vecmath.Point4i;
 
 import nl.tudelft.simulation.dsol.animation.D2.mouse.InputListener;
@@ -23,6 +25,7 @@ import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
+import nl.tudelft.simulation.language.d3.DirectedPoint;
 import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
@@ -84,17 +87,15 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public synchronized void paintComponent(final Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
-        
+
         // draw the grid.
         super.paintComponent(g2);
-        
+
         // draw the animation elements.
         synchronized (this.elements)
         {
@@ -113,9 +114,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void notify(final EventInterface event) throws RemoteException
     {
@@ -140,7 +139,9 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
                     this.context.removeNamingListener(this);
                 }
 
-                this.context = (EventContext) ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/2D");
+                this.context =
+                        (EventContext) ContextUtil
+                                .lookup(this.simulator.getReplication().getContext(), "/animation/2D");
                 this.context.addNamingListener("", EventContext.SUBTREE_SCOPE, this);
                 NamingEnumeration<Binding> list = this.context.listBindings("");
                 while (list.hasMore())
@@ -186,6 +187,40 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     public void namingExceptionThrown(final NamingExceptionEvent namingEvent)
     {
         Logger.warning(this, "namingExceptionThrown", namingEvent.getException());
+    }
+
+    /**
+     * resets the panel to its an extent that covers all displayed objects.
+     */
+    public final synchronized void zoomAll()
+    {
+        double minX = this.homeExtent.getMinX();
+        double maxX = this.homeExtent.getMaxX();
+        double minY = this.homeExtent.getMinY();
+        double maxY = this.homeExtent.getMaxY();
+        Point3d p3dL = new Point3d();
+        Point3d p3dU = new Point3d();
+        try
+        {
+            for (Renderable2DInterface renderable : this.elements)
+            {
+                DirectedPoint l = renderable.getSource().getLocation();
+                BoundingBox b = new BoundingBox(renderable.getSource().getBounds());
+                b.getLower(p3dL);
+                b.getUpper(p3dU);
+                minX = Math.min(minX, l.x + Math.min(p3dL.x, p3dU.x));
+                minY = Math.min(minY, l.y + Math.min(p3dL.y, p3dU.y));
+                maxX = Math.max(maxX, l.x + Math.max(p3dL.x, p3dU.x));
+                maxY = Math.max(maxY, l.y + Math.max(p3dL.y, p3dU.y));
+            }
+        }
+        catch (Exception e)
+        {
+            // ignore
+        }
+        Rectangle2D newExtent = new Rectangle2D.Double(minX, minY, maxX - minX, maxY - minY);
+        this.extent = Renderable2DInterface.Util.computeVisibleExtent(newExtent, this.getSize());
+        this.repaint();
     }
 
     /**

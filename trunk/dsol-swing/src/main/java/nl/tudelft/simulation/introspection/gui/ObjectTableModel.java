@@ -92,7 +92,15 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         }
         if (columnIndex == 2)
         {
-            return requested.getValue();
+            try
+            {
+                return requested.getValue();
+            } 
+            catch (Exception e)
+            {
+                // something went wrong retrieving this value, e.g. because object was deleted.
+                return new String("-");
+            }
         }
         return null;
     }

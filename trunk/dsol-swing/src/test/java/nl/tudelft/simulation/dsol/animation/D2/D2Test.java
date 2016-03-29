@@ -98,11 +98,11 @@ public class D2Test extends TestCase
          * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(point, extent, size));
          */
         // ********************* COMPUTE VISIBLE EXTENT **************//
-        size.setSize(200, 50);
-        extent.setRect(0, 0, 1000, 1000);
+        size.setSize(1000, 500);
+        extent.setRect(0, -10, 5000, 20);
         extent = Renderable2DInterface.Util.computeVisibleExtent(extent, size);
-        Assert.assertTrue(Renderable2DInterface.Util.getScale(extent, size) == 5.0);
-        Assert.assertTrue(extent.getMinY() == 375.0);
-        Assert.assertTrue(extent.getHeight() == 250.0);
+        Assert.assertEquals(5.0, Renderable2DInterface.Util.getScale(extent, size), 1E-6);
+        Assert.assertEquals(-1250.0, extent.getMinY(), 1E-6);
+        Assert.assertEquals(2500.0, extent.getHeight(), 1E-6);
     }
 }

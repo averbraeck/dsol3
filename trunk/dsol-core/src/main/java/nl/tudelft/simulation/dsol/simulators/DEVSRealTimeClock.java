@@ -48,6 +48,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     /** the speed factor compared to real time clock. &lt;1 is slower, &gt;1 is faster, 1 is real time speed. */
     private double speedFactor = 1.0;
 
+    /**
+     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated
+     * between events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100
+     * Hz between events. When this is too course, set e.g. to 1, which means that the clock will be updated with 1 kHz
+     * between events. The latter can be important in real time simulations. Note that the housekeeping of the
+     * simulation clock takes time as well, so 1 kHz can be too fine grained in some situations.
+     */
+    private int updateMsec = 10;
+
     /** catch up or not catch up after running behind. */
     private boolean catchup = true;
 
@@ -70,7 +79,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         T simTime0 = this.simulatorTime; // ______________________ current zero for the sim clock
         double factor = this.speedFactor; // _____________________ local copy of speed factor to detect change
         double msec1 = relativeMillis(1.0).doubleValue(); // _____ translation factor for 1 msec for sim clock
-        R r10 = this.relativeMillis(10.0 * factor); // ___________ sim clock change for 10 msec wall clock
+        R rSim = this.relativeMillis(this.updateMsec * factor); // sim clock change for 'updateMsec' wall clock
 
         while (this.isRunning() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
@@ -81,7 +90,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                 clockTime0 = System.currentTimeMillis();
                 simTime0 = this.simulatorTime;
                 factor = this.speedFactor;
-                r10 = this.relativeMillis(10.0 * factor);
+                rSim = this.relativeMillis(this.updateMsec * factor);
             }
 
             // check if we are behind; syncTime is the needed current time on the wall-clock
@@ -119,7 +128,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                 }
             }
 
-            // peek at the first event and determine the time difference relative to RT speed; that determines 
+            // peek at the first event and determine the time difference relative to RT speed; that determines
             // how long we have to wait.
             SimEventInterface<T> event = this.eventList.first();
             double simTimeDiffMillis =
@@ -136,7 +145,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                 {
                     try
                     {
-                        Thread.sleep(10);
+                        Thread.sleep(this.updateMsec);
 
                         // check if speedFactor has changed. If yes: break out of this loop and execute event.
                         // this could cause a jump.
@@ -163,11 +172,11 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                     {
                         // make a small time step for the animation during wallclock waiting.
                         // but never beyond the next event time.
-                        if (this.simulatorTime.plus(r10).lt(event.getAbsoluteExecutionTime()))
+                        if (this.simulatorTime.plus(rSim).lt(event.getAbsoluteExecutionTime()))
                         {
                             synchronized (super.semaphore)
                             {
-                                this.simulatorTime.add(r10);
+                                this.simulatorTime.add(rSim);
                             }
                         }
                     }
@@ -239,6 +248,30 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     public final void setCatchup(final boolean catchup)
     {
         this.catchup = catchup;
+    }
+
+    /**
+     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated
+     * between events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100
+     * Hz between events.
+     * @return the relative update delay in milliseconds
+     */
+    public final int getUpdateMsec()
+    {
+        return this.updateMsec;
+    }
+
+    /**
+     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated
+     * between events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100
+     * Hz between events. When this is too course, set e.g. to 1, which means that the clock will be updated with 1 kHz
+     * between events. The latter can be important in real time simulations. Note that the housekeeping of the
+     * simulation clock takes time as well, so 1 kHz can be too fine grained in some situations.
+     * @param updateMsec set the relative update delay in milliseconds
+     */
+    public final void setUpdateMsec(final int updateMsec)
+    {
+        this.updateMsec = updateMsec;
     }
 
     /***********************************************************************************************************/

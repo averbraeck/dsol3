@@ -11,6 +11,7 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -51,8 +52,8 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     /** the mouseClicked point in screen coordinates. */
     protected Point2D mouseClicked = null;
 
-    /** the formatter */
-    // private NumberFormat formatter = NumberFormat.getInstance();
+    /** the formatter. */
+    private NumberFormat formatter = NumberFormat.getInstance();
 
     /**
      * constructs a new InputListener.
@@ -143,11 +144,11 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
             extent.setRect((extent.getMinX() + dx * scale), (extent.getMinY() + dy * scale), 
                 extent.getWidth(), extent.getHeight()); 
              */
-            this.panel.zoom(GridPanel.OUT, 0.8);
+            this.panel.zoom(GridPanel.ZOOMFACTOR, e.getX(), e.getY());
         }
         else if (amount < 0)
         {
-            this.panel.zoom(GridPanel.IN, 0.8);
+            this.panel.zoom(1.0 / GridPanel.ZOOMFACTOR, e.getX(), e.getY());
         }
     }
 
@@ -166,19 +167,10 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     @Override
     public void mouseMoved(final MouseEvent mouseEvent)
     {
-        /*-
         Point2D point = Renderable2DInterface.Util.getWorldCoordinates(mouseEvent.getPoint(), 
             this.panel.getExtent(), this.panel.getSize());
-        String worldPoint = "null";
-        if (point != null)
-        {
-            worldPoint = "world(x=" + this.formatter.format(point.getX()) + " ; y="
-                + this.formatter.format(point.getY()) + ")";
-        }
-        String mousePoint = "screen(x=" + this.formatter.format(mouseEvent.getPoint().getX()) + " ; y=" 
-            + this.formatter.format(mouseEvent.getPoint().getY()) + ")";
-        this.panel.setToolTipText(worldPoint + "  " + mousePoint);
-         */
+        this.panel.setWorldCoordinate(point);
+        this.panel.displayWorldCoordinateToolTip();
     }
 
     /** {@inheritDoc} */
@@ -200,10 +192,10 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
                 new PanDownAction(this.panel).actionPerformed(new ActionEvent(this, 0, "DOWN"));
                 break;
             case KeyEvent.VK_MINUS:
-                new ZoomOutAction(this.panel).actionPerformed(new ActionEvent(this, 0, "OUT"));
+                this.panel.zoom(GridPanel.ZOOMFACTOR, this.panel.getWidth() / 2, this.panel.getHeight() / 2);
                 break;
             case KeyEvent.VK_EQUALS:
-                new ZoomInAction(this.panel).actionPerformed(new ActionEvent(this, 0, "IN"));
+                this.panel.zoom(1.0 / GridPanel.ZOOMFACTOR, this.panel.getWidth() / 2, this.panel.getHeight() / 2);
                 break;
             default:
         }
