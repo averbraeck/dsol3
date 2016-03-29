@@ -1,0 +1,317 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+  <body>
+
+    <release version="3.00.18" date="2015-12-13" description="DEVSRealTimeClock improved thread-safety">
+      <action dev="averbraeck" type="fix">
+        Improved the thread-safety of the DEVSRealTimeClock.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Improved the alignment of the DEVSRealTimeClock with the wall-clock. 
+      </action>
+    </release>
+    
+    
+    <release version="3.00.17" date="2015-11-30" description="ESRI user-defined transformation">
+      <action dev="averbraeck" type="add">
+        ESRI shape files can be parsed with a user-defined transformation.
+        The old constructors have been kept, so they can also be parsed as before.
+      </action>
+    </release>
+    
+    
+    <release version="3.00.16" date="2015-11-30" description="Added dsol-akka project, javadoc cleanup">
+      <action dev="averbraeck" type="add">
+        Added the dsol-akka project. Still empty, just as a reference for future developments.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Cleaned up a lot of the outdated javadoc.
+      </action>
+    </release>
+    
+    
+    <release version="3.00.15" date="2015-09-27" description="Improved website for docs">
+      <action dev="averbraeck" type="update">
+        Site generation has been updated. All DSOL projects now have a site with an adapted Velocity template and
+        CSS updates. The Apache Velocity template has been based on theMaven Stylus Skin, version 1.5. A possibility
+        to link to a site in a target="_blank" window has been added to the site.vm file. In addition, several of the menus 
+        have been updated, streamlined, and brought up-to-date with the latest changes in the Maven site standards. 
+      </action>
+      <action dev="averbraeck" type="update">      
+        Simulator class does not throw RemoteExceptions anymore on most common scheduling methods, as this was not needed.
+      </action> 
+    </release>
+
+
+    <release version="3.00.14" date="2015-07-05" description="ClassUtil and Renderable2D repaired">
+      <action dev="averbraeck" type="update">
+        Changes file is kept the same for all projects, as all projects increase
+        version numbers at once.
+      </action>
+      <action dev="averbraeck" type="update">
+        ClassUtil: cache the super constructors, methods, fields as well at the super constructors, methods, fields
+        to avoid repetitive lookup of super constructors, methods, and fields, which can take a lot of time.  
+      </action>
+      <action dev="averbraeck" type="update">
+        Renderable2D: use the hashCode to store the renderable in the context tree. Guarantee a reproducible hashCode
+        and equals. The toString() also gives the hashCode() as this can be used to identify the Renderable2D
+        in the context tree.  
+      </action>
+    </release>
+
+
+    <release version="3.00.13" date="2015-07-05" description="jdepend and javancss code metric tools added">
+      <action dev="averbraeck" type="add">
+        Two code metrics tools are added to the project reports: JDepend and
+        JavaNCSS. They provide information on cyclometric complexity, fan in, fan out, etc.
+      </action>
+    </release>
+
+
+    <release version="3.00.12" date="2015-06-22" description="Context, Replication, and cleaning up memory">
+      <action dev="averbraeck" type="update">
+        Use of Context rationalized and standardized.
+      <![CDATA[
+<pre>
+Context becomes: 
+/experiment_hash_code/replication_number_or_id/animation/2D/renderables
+/experiment_hash_code/replication_number_or_id/animation/3D/renderables
+/experiment_hash_code/replication_number_or_id/statistics/graphs
+
+Code for binding a statistic:
+  Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/statistics");
+  ContextUtil.bind(context, this);
+
+Code for binding a renderable2D:
+  Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
+  ContextUtil.bind(context, this);
+
+Removing the entire tree of an experiment:
+  experiment.removeFromContext();
+or if you just have a simulator:
+  simulator.getReplication().getExperiment().removeFromContext();
+</pre>
+]]>
+      </action>
+      <action dev="averbraeck" type="add">
+        ContextUtil: extended methods to be symmetrical (bind-unbind) and
+        (initial-given) contexts.
+      </action>
+      <action dev="averbraeck" type="update">
+        The Replication caches the context.
+      </action>
+      <action dev="averbraeck" type="remove">
+        Caching a context is removed from the Simulator.
+      </action>
+      <action dev="averbraeck" type="add">
+        ContextUtil.destroySubContext method added to recursively remove subcontexts
+        and bindings.
+      </action>
+      <action dev="averbraeck" type="add">
+        Added a cleanUp() method to the Simulator to explicitly kill the worker
+        thread that takes care of execution.
+      </action>
+      <action dev="averbraeck" type="add">
+        Added a cleanUp() method to the WorkerThread to explicitly kill the worker
+        thread.
+      </action>
+      <action dev="averbraeck" type="add">
+        StatusBar got a cancelTimer() method to dispose of the timer so the StatusBar
+        can be garbage collected.
+      </action>
+    </release>
+
+
+    <release version="3.00.11" date="2015-06-18" description="DSOLPanel, GridPanel changed">
+      <action dev="averbraeck" type="update">
+        Hierarchy for AnimationPanel and GridPanel changed.
+      </action>
+      <action dev="averbraeck" type="update">
+        Several changes in DSOLPanel.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Fixed the jittergrid.
+      </action>
+    </release>
+
+
+    <release version="3.00.10" date="2015-05-20" description="Cobertura added, runUpTo method, GridPanel changed">
+      <action dev="averbraeck" type="add">
+        Cobertura 2.7 used for Java 8.
+      </action>
+      <action dev="averbraeck" type="add">
+        DEVSSimulator has a runUpTo(absoluteTime) method.
+      </action>
+      <action dev="averbraeck" type="add">
+        GridPanel extends a BorderPanel, so panels can be placed N, S, E and W of the
+        animation, e.g. to provide buttons or a legend.
+      </action>
+    </release>
+
+
+    <release version="3.00.09" date="2015-05-01" description="ESDEVS package extended">
+      <action dev="averbraeck" type="add">
+        Several extensions were made in the ESDEVS package:
+        AbstractDEVSPortModel got two new methods:
+<![CDATA[
+<pre>
+    public final Map<String, InputPortInterface<?>> getInputPortMap()
+    public final Map<String, OutputPortInterface<?>> getOutputPortMap()
+</pre>
+]]>
+      </action>
+      <action dev="averbraeck" type="add">
+        CoupledModel got four extra methods:
+<![CDATA[
+<pre>
+    public final Set<IC<?>> getInternalCouplingSet()
+    public final Set<EOC<?>> getExternalOutputCouplingSet()
+    public final Set<EIC<?>> getExternalInputCouplingSet()
+    public final Set<AbstractDEVSModel> getModelComponents()
+</pre>
+]]>
+      </action>
+      <action dev="averbraeck" type="add">
+        Phase got one new method:
+<![CDATA[
+<pre>
+    public final String getName()
+</pre>
+]]>
+      </action>
+    </release>
+
+
+    <release version="3.00.08" date="2015-05-01" description="AtomicModel.initialize() method allows re-initialization">
+      <action dev="averbraeck" type="add">
+        The AtomicModel.initialize() method in ESDEVS has been changed to allow for re-initialization, e.g. after
+        rollback. The method now looks as follows:
+<![CDATA[
+<pre>
+  public void initialize(final double e)
+  {
+    if (this.timeAdvance() != Double.POSITIVE_INFINITY)
+    {
+      try
+      {
+        this.nextEvent = new SimEvent<SimTimeDouble>(
+            this.getSimulator().getSimulatorTime().plus(this.timeAdvance() - e), this, this,
+            "deltaInternalEventHandler", null);
+        this.timeLastEvent = this.getSimulator().getSimulatorTime().get();
+        this.simulator.scheduleEvent(this.nextEvent);
+      }
+      catch (RemoteException | SimRuntimeException exception)
+      {
+        Logger.severe(this, "initialize", exception);
+      }
+    }
+    else
+    {
+      this.nextEvent = null;
+    }
+  }
+</pre>
+]]>
+      </action>
+    </release>
+
+
+    <release version="3.00.07" date="2015-04-29" description="DEVSRealTimeClock added">
+      <action dev="averbraeck" type="add">
+        DEVSRealTimeClock has been added.
+      </action>
+      <action dev="averbraeck" type="add">
+        old RealTimeClock has been removed.
+      </action>
+      <action dev="averbraeck" type="add">
+        DEVSRealTimeClock has been given a speed factor.
+      </action>
+    </release>
+
+
+    <release version="3.00.06" date="2015-04-26" description="Rollbackable random stream">
+      <action dev="averbraeck" type="add">
+        Made it possible to save and restore a state of a RandomStream, e.g. to make
+        a model to rollback to an earlier state.
+      </action>
+      <action dev="averbraeck" type="add">
+        Two methods have been added: saveState() : Object and restoreState(Object o).
+      </action>
+    </release>
+
+
+    <release version="3.00.05" date="2015-04-23" description="ESDEVS additions">
+      <action dev="averbraeck" type="add">
+        ESDEVS formalism files in DSOL-CORE upgraded with comments, final modifiers, and appropriate visibility
+        for
+        modifiers. In addition, the following variables in AtomicModel have changed visibility:
+      <![CDATA[
+      <ol>
+        <li>In AtomicModel.java file, changed private double timeLastEvent; to protected double timeLastEvent</li>
+        <li>In the same file, changed private double timeNextEvent; to protected double timeNextEvent</li>
+        <li>In the same file, changed private double elapsedTime; elapsedTime</li>
+        <li>protected boolean conflictStrategy = AtomicModel.INTERNAL_FIRST; instead of private in AtomicModel</li>
+        <li>non-final public SimEvent<SimTimeDouble> getNextEvent() in AtomicModel</li>
+      </ol>
+      ]]>
+      </action>
+    </release>
+
+
+    <release version="3.00.04" date="2015-04-22" description="Easy access classes updated and extended">
+      <action dev="averbraeck" type="add">
+        Extended Replication, Experiment and Treatement with easy access classes.
+      </action>
+      <action dev="averbraeck" type="add">
+        Repaired a number of dependencies in the easy access classes of Simulators.
+      </action>
+      <action dev="averbraeck" type="update">
+        Comments in dsol-core updated.
+      </action>
+    </release>
+
+
+    <release version="3.00.03" date="2014-09-14" description="Textual changes, small bugs, omissions">
+      <action dev="averbraeck" type="fix">
+        Changes for version 3.00.03. A lot of them are textual, a few to solve minor
+        bugs and omissions.
+      </action>
+    </release>
+
+
+    <release version="3.00.02" date="2014-09-05" description="valueOf() method replaces new Integer()">
+      <action dev="averbraeck" type="update">
+        valueOf() methods instead of new Integer() etc.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Small change in SimTime to satisfy Resource.
+      </action>
+    </release>
+
+    <release version="3.00.01" date="2014-08-12" description="SimTime and Animator classes">
+      <action dev="averbraeck" type="update">
+        Split the Animator into a DEVSAnimator and a DEVDESSAnimator class.
+      </action>
+      <action dev="averbraeck" type="update">
+        SimTime relative number has to extend Number to get values for e.g., graphs.
+      </action>
+      <action dev="averbraeck" type="update">
+        Comments.
+        Final methods.
+        Final fields.
+        Checkstyle conventions.
+      </action>
+    </release>
+
+
+    <release version="3.00.00" date="2014-08-09" description="New version 3.00 release of DSOL">
+      <action dev="averbraeck" type="add">
+        Complete project restructuring compared to DSOL 2.0. See website
+        <![CDATA[<a href="http://simulation.tudelft.nl/simulation/index.php/dsol/dsol-3-java-7">
+        http://simulation.tudelft.nl/simulation/index.php/dsol/dsol-3-java-7</a>]]>
+        for more information.
+      </action>
+    </release>
+
+  </body>
+</document>
