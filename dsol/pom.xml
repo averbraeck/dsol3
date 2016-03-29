@@ -16,37 +16,6 @@
     <url>http://www.simulation.tudelft.nl</url>
   </organization>
 
-  <profiles>
-    <!-- select profiles with -P option, e.g. "mvn install -P all" -->
-    <profile>
-      <id>all</id>
-      <activation>
-        <property>
-          <name>all</name>
-        </property>
-      </activation>
-      <modules>
-        <!-- generic base package -->
-        <module>../dsol-base</module>
-
-        <!-- dsol core package -->
-        <module>../dsol-core</module>
-
-        <!-- user interface, animation and statistics display -->
-        <module>../dsol-swing</module>
-        <module>../dsol-fx</module>
-        <module>../dsol-web</module>
-
-        <!-- examples and tutorial -->
-        <module>../dsol-demo</module>
-
-        <!-- hla and distribution -->
-        <module>../dsol-akka</module>
-        <module>../dsol-hla</module>
-      </modules>
-    </profile>
-  </profiles>
-
   <properties>
     <jdk.version>1.7</jdk.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -177,7 +146,7 @@
             <configuration>
               <fromDir>${basedir}/target/site/jacoco-ut</fromDir>
               <includes>.*, .resources/*</includes>
-              <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}</url>
+              <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}</url>
               <toDir>jacoco-ut</toDir>
               <serverId>dsol-deployment</serverId>
             </configuration>
@@ -192,24 +161,26 @@
             <configuration>
               <fromDir>${basedir}/src/main/resources</fromDir>
               <includes>license.html</includes>
-              <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html</url>
+              <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html</url>
               <toDir>dsol</toDir>
               <serverId>dsol-deployment</serverId>
             </configuration>
           </execution>
-          
+                   
           <execution>
             <id>upload-last-site</id>
             <phase>site-deploy</phase>
             <goals>
-              <goal>upload</goal>
+              <goal>sshexec</goal>
             </goals>
             <configuration>
-              <fromDir>${basedir}/target/site</fromDir>
-              <includes>**/**</includes>
-              <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol</url>
-              <toDir>3.0/${project.artifactId}</toDir>
+              <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol</url>
               <serverId>dsol-deployment</serverId>
+              <commands>
+                <command>rm -r -f /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
+                <command>mkdir -p /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
+                <command>cp -r -f /home/web/simulation.tudelft.nl/html/dsol/${project.version}/. /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
+              </commands>
             </configuration>
           </execution>
         </executions>
@@ -249,7 +220,6 @@
             <link>http://junit.sourceforge.net/javadoc/</link>
             <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
             <link>http://www.jdom.org/docs/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol/apidocs/</link>
             <link>http://simulation.tudelft.nl/dsol/3.0/dsol-base/apidocs/</link>
             <link>http://simulation.tudelft.nl/dsol/3.0/dsol-swing/apidocs/</link>
             <link>http://simulation.tudelft.nl/dsol/3.0/dsol-fx/apidocs/</link>
@@ -893,20 +863,20 @@
       <uniqueVersion>false</uniqueVersion>
       <id>dsol-deployment</id>
       <name>dsol repository</name>
-      <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/maven</url>
+      <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/maven</url>
       <layout>default</layout>
     </repository>
     <snapshotRepository>
       <uniqueVersion>true</uniqueVersion>
       <id>dsol-deployment</id>
-      <name>dsol language snapshots</name>
-      <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/maven</url>
+      <name>dsol snapshots</name>
+      <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/maven</url>
       <layout>default</layout>
     </snapshotRepository>
     <site>
       <id>dsol-deployment</id>
-      <name>dsol language website</name>
-      <url>sftp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}</url>
+      <name>dsol website</name>
+      <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/${project.version}</url>
     </site>
   </distributionManagement>
 

@@ -11,7 +11,7 @@
   <body>
 
     <menu name="DSOL 3.0 MODULES">
-      <item name="dsol" href="http://simulation.tudelft.nl/dsol/3.0/dsol/index.html" />
+      <item name="dsol" href="http://simulation.tudelft.nl/dsol/3.0/index.html" />
       <item name="dsol-base" href="http://simulation.tudelft.nl/dsol/3.0/dsol-base/index.html" />
       <item name="dsol-core" href="http://simulation.tudelft.nl/dsol/3.0/dsol-core/index.html" />
       <item name="dsol-swing" href="http://simulation.tudelft.nl/dsol/3.0/dsol-swing/index.html" />
