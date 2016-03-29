@@ -348,6 +348,20 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public void runUpToAndIncluding(final A when) throws SimRuntimeException
+    {
+        scheduleEventAbs(when, SimEventInterface.MIN_PRIORITY, this, this, "autoPauseSimulator", null);
+        if (!isRunning())
+        {
+            start();
+        }
+    }
+
+    /**
      * Pause the simulator.
      */
     @SuppressWarnings("checkstyle:designforextension")

@@ -127,7 +127,7 @@ public class IntroSpectionDialog extends JDialog
     }
 
     /**
-     * initializes the dialog
+     * initializes the dialog.
      * @param title the title of the dialog
      * @param newTable the table to display
      */
@@ -159,7 +159,7 @@ public class IntroSpectionDialog extends JDialog
     /**
      * Reformats this dialog to reflect changes in the table displayed.
      */
-    protected void formatDialog()
+    protected final void formatDialog()
     {
         // NB PropertyChanges of height are not broadcasted by the dialog!
         // Therefore, a static check is used instead.
@@ -176,7 +176,7 @@ public class IntroSpectionDialog extends JDialog
     /**
      * Initializes the location of this dialog relative to its parent window if any.
      */
-    protected void setRelativeLocation()
+    protected final void setRelativeLocation()
     {
         setLocationRelativeTo(this.parent);
     }
@@ -223,7 +223,7 @@ public class IntroSpectionDialog extends JDialog
             addButton.addActionListener(new ActionListener()
             {
                 @Override
-                public void actionPerformed(ActionEvent e)
+                public void actionPerformed(final ActionEvent e)
                 {
                     ButtonPanel.this.addRow();
                     formatDialog();
@@ -232,7 +232,7 @@ public class IntroSpectionDialog extends JDialog
             delButton.addActionListener(new ActionListener()
             {
                 @Override
-                public void actionPerformed(ActionEvent e)
+                public void actionPerformed(final ActionEvent e)
                 {
                     ButtonPanel.this.delRows();
                     formatDialog();
@@ -241,7 +241,7 @@ public class IntroSpectionDialog extends JDialog
         }
 
         /**
-         * Adds a row
+         * Adds a row.
          */
         protected void addRow()
         {

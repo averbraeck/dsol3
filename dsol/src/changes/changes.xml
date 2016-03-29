@@ -2,6 +2,38 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.00.19" date="2016-03-28" description="Extra method in DEVSSimulator, zooming and (x,y) in swing">
+      <action dev="averbraeck" type="add">
+        Added the method 'runUpToAndIncluding' in the DEVSSimulatorInterface and implemented the method in
+        all classes that implement this interface.
+      </action>
+      <action dev="averbraeck" type="fix">
+        In the dsol-swing project, changed the zoom with the scroll wheel to scroll around the cursor. The zoom
+        with the plus and minus keys still zoom around the center position of the window.
+      </action>
+      <action dev="averbraeck" type="add">
+        x and y positions of the mouse in world coordinates are shown with a tooltip. The tooltip can be switched 
+        on and off.
+      </action>
+      <action dev="averbraeck" type="add">
+        x and y positions of the mouse in world coordinates can be requested with a method to show elsewhere on the 
+        control panel of a simulation.
+      </action>
+      <action dev="averbraeck" type="fix">
+        In the dsol-swing project, ensured in the introspection package that no errors will be given when the source 
+        has been deleted.
+      </action>
+      <action dev="averbraeck" type="add">
+        In the dsol-swing project, created a method to zoom to the entire animation, and a public callable method to
+        zoom to the whole extent as well as to set the default extent.
+      </action>
+      <action dev="averbraeck" type="fix">
+        In the dsol-swing project, fixed a small error in computeVisibleExtent(...) that caused extent zoom actions
+        to be off sometimes.
+      </action>
+    </release>
+    
+    
     <release version="3.00.18" date="2015-12-13" description="DEVSRealTimeClock improved thread-safety">
       <action dev="averbraeck" type="fix">
         Improved the thread-safety of the DEVSRealTimeClock.
