@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.serialize;
 import java.rmi.MarshalledObject;
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.formalisms.process.TestExperimentalFrame;
@@ -25,7 +25,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @version 1.0 Dec 7, 2004
  * @since 1.5
  */
-public class Model implements ModelInterface
+public class Model implements DSOLModel
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;

@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.logger.Logger;
@@ -18,7 +18,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
  *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
-public class TestModel implements ModelInterface, EventListenerInterface
+public class TestModel implements DSOLModel, EventListenerInterface
 {
 
     /** the startTime. */

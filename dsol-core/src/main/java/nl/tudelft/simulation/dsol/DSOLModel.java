@@ -37,7 +37,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public interface ModelInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public interface DSOLModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Serializable
 {
     /**
@@ -59,55 +59,55 @@ public interface ModelInterface<A extends Comparable<A>, R extends Number & Comp
     /***********************************************************************************************************/
 
     /** Easy access interface ModelInterface.TimeDouble. */
-    public interface TimeDouble extends ModelInterface<Double, Double, SimTimeDouble>
+    public interface TimeDouble extends DSOLModel<Double, Double, SimTimeDouble>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeFloat. */
-    public interface TimeFloat extends ModelInterface<Float, Float, SimTimeFloat>
+    public interface TimeFloat extends DSOLModel<Float, Float, SimTimeFloat>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeLong. */
-    public interface TimeLong extends ModelInterface<Long, Long, SimTimeLong>
+    public interface TimeLong extends DSOLModel<Long, Long, SimTimeLong>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit extends ModelInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public interface TimeDoubleUnit extends DSOLModel<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeFloatUnit. */
-    public interface TimeFloatUnit extends ModelInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public interface TimeFloatUnit extends DSOLModel<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeLongUnit. */
-    public interface TimeLongUnit extends ModelInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    public interface TimeLongUnit extends DSOLModel<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeCalendarDouble. */
-    public interface CalendarDouble extends ModelInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public interface CalendarDouble extends DSOLModel<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeCalendarFloat. */
-    public interface CalendarFloat extends ModelInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public interface CalendarFloat extends DSOLModel<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeCalendarLong. */
-    public interface CalendarLong extends ModelInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public interface CalendarLong extends DSOLModel<Calendar, UnitTimeLong, SimTimeCalendarLong>
     {
         // typed extension
     }

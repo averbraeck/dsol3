@@ -7,7 +7,7 @@ import javax.media.j3d.Bounds;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
- * The locatable interface enforces knownledge on position.
+ * The locatable interface enforces knowledge on position.
  * <p>
  * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
@@ -17,8 +17,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-
-public interface LocatableInterface
+public interface Locatable
 {
     /**
      * returns the location of an object.
@@ -33,5 +32,4 @@ public interface LocatableInterface
      * @throws RemoteException on network failure
      */
     Bounds getBounds() throws RemoteException;
-
 }
