@@ -8,7 +8,7 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -70,7 +70,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     private SimulatorInterface<A, R, T> simulator;
 
     /** model reflects the model. */
-    private ModelInterface<A, R, T> model;
+    private DSOLModel<A, R, T> model;
 
     /** the description of this experiment. */
     private String description = null;
@@ -99,7 +99,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
      * @param model the model to experiment with
      */
     public Experiment(final Treatment<A, R, T> treatment, final SimulatorInterface<A, R, T> simulator,
-            final ModelInterface<A, R, T> model)
+            final DSOLModel<A, R, T> model)
     {
         this.setSimulator(simulator);
         this.setTreatment(treatment);
@@ -129,7 +129,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
      * returns the model.
      * @return ModelInterface the model
      */
-    public final ModelInterface<A, R, T> getModel()
+    public final DSOLModel<A, R, T> getModel()
     {
         return this.model;
     }
@@ -207,7 +207,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
      * sets the model on the experiment.
      * @param model the simulator model
      */
-    public final synchronized void setModel(final ModelInterface<A, R, T> model)
+    public final synchronized void setModel(final DSOLModel<A, R, T> model)
     {
         this.model = model;
         this.fireEvent(MODEL_CHANGED_EVENT, model);
@@ -317,7 +317,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public TimeDouble(final Treatment.TimeDouble treatment, final SimulatorInterface.TimeDouble simulator,
-                final ModelInterface.TimeDouble model)
+                final DSOLModel.TimeDouble model)
         {
             super(treatment, simulator, model);
         }
@@ -336,7 +336,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public TimeFloat(final Treatment.TimeFloat treatment, final SimulatorInterface.TimeFloat simulator,
-                final ModelInterface.TimeFloat model)
+                final DSOLModel.TimeFloat model)
         {
             super(treatment, simulator, model);
         }
@@ -355,7 +355,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public TimeLong(final Treatment.TimeLong treatment, final SimulatorInterface.TimeLong simulator,
-                final ModelInterface.TimeLong model)
+                final DSOLModel.TimeLong model)
         {
             super(treatment, simulator, model);
         }
@@ -374,7 +374,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public TimeDoubleUnit(final Treatment.TimeDoubleUnit treatment,
-                final SimulatorInterface.TimeDoubleUnit simulator, final ModelInterface.TimeDoubleUnit model)
+                final SimulatorInterface.TimeDoubleUnit simulator, final DSOLModel.TimeDoubleUnit model)
         {
             super(treatment, simulator, model);
         }
@@ -393,7 +393,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public TimeFloatUnit(final Treatment.TimeFloatUnit treatment, final SimulatorInterface.TimeFloatUnit simulator,
-                final ModelInterface.TimeFloatUnit model)
+                final DSOLModel.TimeFloatUnit model)
         {
             super(treatment, simulator, model);
         }
@@ -412,7 +412,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public TimeLongUnit(final Treatment.TimeLongUnit treatment, final SimulatorInterface.TimeLongUnit simulator,
-                final ModelInterface.TimeLongUnit model)
+                final DSOLModel.TimeLongUnit model)
         {
             super(treatment, simulator, model);
         }
@@ -431,7 +431,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public CalendarDouble(final Treatment.CalendarDouble treatment,
-                final SimulatorInterface.CalendarDouble simulator, final ModelInterface.CalendarDouble model)
+                final SimulatorInterface.CalendarDouble simulator, final DSOLModel.CalendarDouble model)
         {
             super(treatment, simulator, model);
         }
@@ -450,7 +450,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public CalendarFloat(final Treatment.CalendarFloat treatment, final SimulatorInterface.CalendarFloat simulator,
-                final ModelInterface.CalendarFloat model)
+                final DSOLModel.CalendarFloat model)
         {
             super(treatment, simulator, model);
         }
@@ -469,7 +469,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
          * @param model the model to experiment with
          */
         public CalendarLong(final Treatment.CalendarLong treatment, final SimulatorInterface.CalendarLong simulator,
-                final ModelInterface.CalendarLong model)
+                final DSOLModel.CalendarLong model)
         {
             super(treatment, simulator, model);
         }

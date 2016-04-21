@@ -29,7 +29,7 @@ import nl.tudelft.simulation.logger.Logger;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
  * @since 1.5
  */
-public abstract class Editable extends EventProducer implements LocatableInterface
+public abstract class Editable extends EventProducer implements Locatable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;

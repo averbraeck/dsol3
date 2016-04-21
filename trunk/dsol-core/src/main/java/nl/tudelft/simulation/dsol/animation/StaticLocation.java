@@ -16,15 +16,13 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class StaticLocation extends DirectedPoint implements LocatableInterface
+public class StaticLocation extends DirectedPoint implements Locatable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * the bounds.
-     */
-    protected Bounds bounds = null;
+    /** the bounds. */
+    private Bounds bounds = null;
 
     /**
      * constructs a new StaticLocation.

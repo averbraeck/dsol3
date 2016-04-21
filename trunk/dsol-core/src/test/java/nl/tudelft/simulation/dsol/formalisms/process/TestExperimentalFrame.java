@@ -10,7 +10,7 @@ import java.util.Map;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -72,7 +72,7 @@ public final class TestExperimentalFrame
      * @return an experimental Frame
      */
     public static ExperimentalFrame createExperimentalFrame(final SimulatorInterface simulator,
-            final ModelInterface model)
+            final DSOLModel model)
     {
         try
         {

@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -81,7 +81,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
      * @throws NamingException in case a context for the replication cannot be created
      */
     public Replication(final String id, final T startTime, final R warmupPeriod, final R runLength,
-            final ModelInterface<A, R, T> model) throws NamingException
+            final DSOLModel<A, R, T> model) throws NamingException
     {
         super();
         this.experiment = new Experiment<A, R, T>();
@@ -227,7 +227,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeDouble(final String id, final SimTimeDouble startTime, final Double warmupPeriod,
-                final Double runLength, final ModelInterface.TimeDouble model) throws NamingException
+                final Double runLength, final DSOLModel.TimeDouble model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -259,7 +259,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeFloat(final String id, final SimTimeFloat startTime, final Float warmupPeriod,
-                final Float runLength, final ModelInterface.TimeFloat model) throws NamingException
+                final Float runLength, final DSOLModel.TimeFloat model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -291,7 +291,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeLong(final String id, final SimTimeLong startTime, final Long warmupPeriod, final Long runLength,
-                final ModelInterface.TimeLong model) throws NamingException
+                final DSOLModel.TimeLong model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -323,7 +323,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeDoubleUnit(final String id, final SimTimeDoubleUnit startTime, final UnitTimeDouble warmupPeriod,
-                final UnitTimeDouble runLength, final ModelInterface.TimeDoubleUnit model) throws NamingException
+                final UnitTimeDouble runLength, final DSOLModel.TimeDoubleUnit model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -355,7 +355,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeFloatUnit(final String id, final SimTimeFloatUnit startTime, final UnitTimeFloat warmupPeriod,
-                final UnitTimeFloat runLength, final ModelInterface.TimeFloatUnit model) throws NamingException
+                final UnitTimeFloat runLength, final DSOLModel.TimeFloatUnit model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -387,7 +387,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeLongUnit(final String id, final SimTimeLongUnit startTime, final UnitTimeLong warmupPeriod,
-                final UnitTimeLong runLength, final ModelInterface.TimeLongUnit model) throws NamingException
+                final UnitTimeLong runLength, final DSOLModel.TimeLongUnit model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -420,7 +420,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          */
         public CalendarDouble(final String id, final SimTimeCalendarDouble startTime,
                 final UnitTimeDouble warmupPeriod, final UnitTimeDouble runLength,
-                final ModelInterface.CalendarDouble model) throws NamingException
+                final DSOLModel.CalendarDouble model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -452,7 +452,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @throws NamingException in case a context for the replication cannot be created
          */
         public CalendarFloat(final String id, final SimTimeCalendarFloat startTime, final UnitTimeFloat warmupPeriod,
-                final UnitTimeFloat runLength, final ModelInterface.CalendarFloat model) throws NamingException
+                final UnitTimeFloat runLength, final DSOLModel.CalendarFloat model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -484,7 +484,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @throws NamingException in case a context for the replication cannot be created
          */
         public CalendarLong(final String id, final SimTimeCalendarLong startTime, final UnitTimeLong warmupPeriod,
-                final UnitTimeLong runLength, final ModelInterface.CalendarLong model) throws NamingException
+                final UnitTimeLong runLength, final DSOLModel.CalendarLong model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }

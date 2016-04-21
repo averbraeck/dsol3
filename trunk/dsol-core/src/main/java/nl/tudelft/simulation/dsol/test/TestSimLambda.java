@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -87,7 +87,7 @@ public class TestSimLambda
     }
 
     /** */
-    public class Model implements ModelInterface.TimeDouble
+    public class Model implements DSOLModel.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 1L;
