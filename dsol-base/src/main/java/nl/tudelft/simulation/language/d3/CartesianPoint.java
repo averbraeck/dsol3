@@ -148,4 +148,13 @@ public class CartesianPoint extends javax.vecmath.Point3d
         }
         return new SphericalPoint(phi, rho, theta);
     }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public String toString()
+    {
+        return "CartesianPoint [x=" + this.x + ", y=" + this.y + ", z=" + this.z + "]";
+    }
+    
 }

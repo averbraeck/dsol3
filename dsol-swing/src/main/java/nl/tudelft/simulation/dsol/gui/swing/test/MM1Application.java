@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -46,7 +46,7 @@ public class MM1Application
      */
     protected MM1Application() throws SimRuntimeException, RemoteException, NamingException
     {
-        ModelInterface.TimeDouble model = new MM1Model();
+        DSOLModel.TimeDouble model = new MM1Model();
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
                 new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, model);

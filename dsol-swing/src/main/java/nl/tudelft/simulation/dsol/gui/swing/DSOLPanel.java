@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -44,7 +44,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     protected Console console = new Console();
 
     /** the model. */
-    private ModelInterface<A, R, T> model;
+    private DSOLModel<A, R, T> model;
 
     /** */
     protected Logger logger = Logger.getLogger("nl.tudelft.simulation.dsol.gui.swing");
@@ -62,7 +62,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param model the model to run in this panel
      * @param simulator the simulator to use for the model
      */
-    public DSOLPanel(final ModelInterface<A, R, T> model, final SimulatorInterface<A, R, T> simulator)
+    public DSOLPanel(final DSOLModel<A, R, T> model, final SimulatorInterface<A, R, T> simulator)
     {
         this.model = model;
         this.simulator = simulator;

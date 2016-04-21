@@ -59,7 +59,7 @@ public class SphericalPoint
     /**
      * @return phi
      */
-    public double getPhi()
+    public final double getPhi()
     {
         return this.phi;
     }
@@ -67,7 +67,7 @@ public class SphericalPoint
     /**
      * @return radius
      */
-    public double getRadius()
+    public final double getRadius()
     {
         return this.radius;
     }
@@ -75,7 +75,7 @@ public class SphericalPoint
     /**
      * @return theta
      */
-    public double getTheta()
+    public final double getTheta()
     {
         return this.theta;
     }
@@ -84,7 +84,7 @@ public class SphericalPoint
      * converts a sphericalpoint to a cartesian point.
      * @return the cartesian point
      */
-    public CartesianPoint toCartesianPoint()
+    public final CartesianPoint toCartesianPoint()
     {
         return SphericalPoint.toCartesianPoint(this);
     }
@@ -101,4 +101,51 @@ public class SphericalPoint
         double z = point.radius * Math.cos(point.phi);
         return new CartesianPoint(x, y, z);
     }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(this.phi);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(this.radius);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(this.theta);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SphericalPoint other = (SphericalPoint) obj;
+        if (Double.doubleToLongBits(this.phi) != Double.doubleToLongBits(other.phi))
+            return false;
+        if (Double.doubleToLongBits(this.radius) != Double.doubleToLongBits(other.radius))
+            return false;
+        if (Double.doubleToLongBits(this.theta) != Double.doubleToLongBits(other.theta))
+            return false;
+        return true;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public String toString()
+    {
+        return "SphericalPoint [radius=" + this.radius + ", phi=" + this.phi + ", theta=" + this.theta + "]";
+    }
+
 }

@@ -20,7 +20,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.vecmath.Point4i;
 
-import nl.tudelft.simulation.dsol.animation.LocatableInterface;
+import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.AnimationPanel;
 import nl.tudelft.simulation.dsol.animation.D2.GridPanel;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
@@ -237,9 +237,9 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
      * @param mousePoint the mousePoint
      * @return the selected objects
      */
-    protected List<LocatableInterface> getSelectedObjects(final Point2D mousePoint)
+    protected List<Locatable> getSelectedObjects(final Point2D mousePoint)
     {
-        List<LocatableInterface> targets = new ArrayList<LocatableInterface>();
+        List<Locatable> targets = new ArrayList<Locatable>();
         try
         {
             Point2D point =
@@ -266,13 +266,13 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
      */
     protected void popup(final MouseEvent e)
     {
-        List<LocatableInterface> targets = this.getSelectedObjects(e.getPoint());
+        List<Locatable> targets = this.getSelectedObjects(e.getPoint());
         if (targets.size() > 0)
         {
             JPopupMenu popupMenu = new JPopupMenu();
             popupMenu.add("Introspect");
             popupMenu.add(new JSeparator());
-            for (Iterator<LocatableInterface> i = targets.iterator(); i.hasNext();)
+            for (Iterator<Locatable> i = targets.iterator(); i.hasNext();)
             {
                 popupMenu.add(new IntrospectionAction(i.next()));
             }
@@ -285,13 +285,13 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
      * @param targets which are selected by the mouse.
      * @return the selected Object (e.g. the one with the highest zValue).
      */
-    protected Object getSelectedObject(final List<LocatableInterface> targets)
+    protected Object getSelectedObject(final List<Locatable> targets)
     {
         Object selectedObject = null;
         try
         {
             double zValue = -Double.MAX_VALUE;
-            for (LocatableInterface next : targets)
+            for (Locatable next : targets)
             {
                 double z = next.getLocation().z;
                 if (z > zValue)

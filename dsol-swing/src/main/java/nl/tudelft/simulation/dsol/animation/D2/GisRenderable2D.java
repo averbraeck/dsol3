@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 
@@ -17,7 +16,7 @@ import javax.naming.NamingException;
 import nl.javel.gisbeans.io.esri.CoordinateTransform;
 import nl.javel.gisbeans.map.MapInterface;
 import nl.javel.gisbeans.map.mapfile.MapFileXMLParser;
-import nl.tudelft.simulation.dsol.animation.LocatableInterface;
+import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.BoundingBox;
@@ -38,7 +37,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:20 $
  * @since 1.5
  */
-public class GisRenderable2D implements Renderable2DInterface, LocatableInterface
+public class GisRenderable2D implements Renderable2DInterface, Locatable
 {
     /** the map to display */
     protected MapInterface map = null;
@@ -149,7 +148,7 @@ public class GisRenderable2D implements Renderable2DInterface, LocatableInterfac
 
     /** {@inheritDoc} */
     @Override
-    public LocatableInterface getSource()
+    public Locatable getSource()
     {
         return this;
     }

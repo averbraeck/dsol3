@@ -15,7 +15,7 @@ import java.util.Map;
 import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 
-import nl.tudelft.simulation.dsol.animation.LocatableInterface;
+import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.BoundingBox;
@@ -83,7 +83,7 @@ public abstract class ImageRenderable extends Renderable2D
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public ImageRenderable(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator,
+    public ImageRenderable(final Locatable source, final SimulatorInterface<?, ?, ?> simulator,
             final URL[] images) throws RemoteException, NamingException
     {
         super(source, simulator);
