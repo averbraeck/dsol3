@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
@@ -43,7 +43,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @version Aug 15, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Model implements ModelInterface.TimeDouble
+public class MM1Model implements DSOLModel.TimeDouble
 {
     /** */
     private static final long serialVersionUID = 1L;

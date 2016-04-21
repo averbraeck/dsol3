@@ -177,7 +177,7 @@ public class DirectedPoint extends CartesianPoint
      * returns ther rotY-value.
      * @return double
      */
-    public double getRotY()
+    public final double getRotY()
     {
         return this.rotY;
     }
@@ -186,7 +186,7 @@ public class DirectedPoint extends CartesianPoint
      * sets the rotY.
      * @param rotY the rotY-value
      */
-    public void setRotY(final double rotY)
+    public final void setRotY(final double rotY)
     {
         this.rotY = rotY;
     }
@@ -195,7 +195,7 @@ public class DirectedPoint extends CartesianPoint
      * returns the rotZ value.
      * @return double
      */
-    public double getRotZ()
+    public final double getRotZ()
     {
         return this.rotZ;
     }
@@ -204,7 +204,7 @@ public class DirectedPoint extends CartesianPoint
      * sets the rotZ value.
      * @param rotZ the rotZ-value
      */
-    public void setRotZ(final double rotZ)
+    public final void setRotZ(final double rotZ)
     {
         this.rotZ = rotZ;
     }
@@ -213,7 +213,7 @@ public class DirectedPoint extends CartesianPoint
      * returns the rotX value.
      * @return double
      */
-    public double getRotX()
+    public final double getRotX()
     {
         return this.rotX;
     }
@@ -222,49 +222,63 @@ public class DirectedPoint extends CartesianPoint
      * sets the rotX.
      * @param rotX rotX-value
      */
-    public void setRotX(final double rotX)
+    public final void setRotX(final double rotX)
     {
         this.rotX = rotX;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final String toString()
-    {
-        return "[position=" + super.toString() + ";RotX=" + this.rotX + ";RotY=" + this.rotY + ";RotZ=" + this.rotZ
-                + "]";
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Object clone()
+    public final Object clone()
     {
         return new DirectedPoint(this.x, this.y, this.z, this.rotX, this.rotY, this.rotZ);
     }
 
     /** {@inheritDoc} */
     @Override
-    public boolean equals(final Object arg0)
-    {
-        if (!(arg0 instanceof DirectedPoint))
-        {
-            return false;
-        }
-        DirectedPoint loc = (DirectedPoint) arg0;
-        return (super.equals(arg0) && loc.rotX == this.rotX && loc.rotY == this.rotY && loc.rotZ == this.rotZ);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public boolean equals(final Tuple3d arg0)
-    {
-        return this.equals((Object) arg0);
-    }
-
-    /** {@inheritDoc} */
-    @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public int hashCode()
     {
-        return super.hashCode();
+        final int prime = 31;
+        int result = super.hashCode();
+        long temp;
+        temp = Double.doubleToLongBits(this.rotX);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(this.rotY);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(this.rotZ);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DirectedPoint other = (DirectedPoint) obj;
+        if (Double.doubleToLongBits(this.rotX) != Double.doubleToLongBits(other.rotX))
+            return false;
+        if (Double.doubleToLongBits(this.rotY) != Double.doubleToLongBits(other.rotY))
+            return false;
+        if (Double.doubleToLongBits(this.rotZ) != Double.doubleToLongBits(other.rotZ))
+            return false;
+        return true;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public final String toString()
+    {
+        return "[position=" + super.toString() + ";RotX=" + this.rotX + ";RotY=" + this.rotY + ";RotZ=" + this.rotZ
+                + "]";
+    }
+
 }

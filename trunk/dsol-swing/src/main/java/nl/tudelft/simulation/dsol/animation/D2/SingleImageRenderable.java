@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.animation.LocatableInterface;
+import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
@@ -32,7 +32,7 @@ public class SingleImageRenderable extends ImageRenderable
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public SingleImageRenderable(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator,
+    public SingleImageRenderable(final Locatable source, final SimulatorInterface<?, ?, ?> simulator,
             final URL image) throws RemoteException, NamingException
     {
         super(source, simulator, new URL[]{image});

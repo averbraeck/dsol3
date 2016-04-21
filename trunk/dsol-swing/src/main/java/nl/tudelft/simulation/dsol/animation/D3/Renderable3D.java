@@ -14,7 +14,7 @@ import javax.naming.NamingException;
 import javax.vecmath.AxisAngle4d;
 import javax.vecmath.Vector3d;
 
-import nl.tudelft.simulation.dsol.animation.LocatableInterface;
+import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
@@ -36,7 +36,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     /**
      * the source of this animatableObject
      */
-    protected LocatableInterface source = null;
+    protected Locatable source = null;
 
     /**
      * the simulator
@@ -90,11 +90,11 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
      */
     public Renderable3D(final SimulatorInterface simulator)
     {
-        if (!LocatableInterface.class.isAssignableFrom(this.getClass()))
+        if (!Locatable.class.isAssignableFrom(this.getClass()))
         {
             throw new IllegalArgumentException("this class should implement Locatable interface");
         }
-        this.source = (LocatableInterface) this;
+        this.source = (Locatable) this;
         this.simulator = simulator;
         this.initialize();
     }
@@ -153,7 +153,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
      * @param source LocatableInterface
      * @param simulator SimulatorInterface
      */
-    public Renderable3D(final LocatableInterface source, final SimulatorInterface simulator)
+    public Renderable3D(final Locatable source, final SimulatorInterface simulator)
     {
         super();
         this.source = source;
@@ -268,7 +268,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     /**
      * @return LocatableInterface
      */
-    public LocatableInterface getSource()
+    public Locatable getSource()
     {
         return this.source;
     }

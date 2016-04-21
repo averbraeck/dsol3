@@ -2,6 +2,24 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.00.20" date="2016-04-21" description="Animation classes updated, interface names simplified">
+      <action dev="averbraeck" type="fix">
+        GisRenderable2D uses a self-generated unique id to identify itself in the Context. This avoids problems with
+        Locatable objects that don't have a unique toString() result and therefore could not be distinguished.
+      </action>
+      <action dev="averbraeck" type="update">
+        Renamed LocatableInterface to Locatable. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Renamed ModelInterface to DSOLModel. 
+      </action>
+      <action dev="averbraeck" type="add">
+        Added a Identifiable&lt;T&gt; to identify instances with a getId() method. Subclasses Long and String have been
+        created as well. 
+      </action>
+    </release>
+
+
     <release version="3.00.19" date="2016-03-28" description="Extra method in DEVSSimulator, zooming and (x,y) in swing">
       <action dev="averbraeck" type="add">
         Added the method 'runUpToAndIncluding' in the DEVSSimulatorInterface and implemented the method in

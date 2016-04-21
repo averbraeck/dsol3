@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -174,8 +174,8 @@ public class ExperimentParser
             // XXX: END TO REMOVE
 
             Class<?> modelClass = Class.forName(modelClassName, true, loader);
-            ModelInterface.TimeDouble model =
-                    (ModelInterface.TimeDouble) ClassUtil.resolveConstructor(modelClass, null).newInstance();
+            DSOLModel.TimeDouble model =
+                    (DSOLModel.TimeDouble) ClassUtil.resolveConstructor(modelClass, null).newInstance();
 
             // resolve the SIMULATOR-CLASS element
             SimulatorInterface.TimeDouble simulator = null;

@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.animation.LocatableInterface;
+import nl.tudelft.simulation.dsol.animation.Locatable;
 
 /**
  * The Renderable2D interface defines the basic interface for 2d animation. This is a hard-to-use interface. It is
@@ -22,11 +22,10 @@ import nl.tudelft.simulation.dsol.animation.LocatableInterface;
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:21 $
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-
 public interface Renderable2DInterface
 {
     /**
-     * paints the object on a 2D graphics object
+     * paints the object on a 2D graphics object.
      * @param graphics the graphics object
      * @param extent the extent of the panel
      * @param screen the screen of the panel
@@ -35,13 +34,13 @@ public interface Renderable2DInterface
     void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen, final ImageObserver observer);
 
     /**
-     * gets the source of this renderable
+     * gets the source of this renderable.
      * @return Locatable the source
      */
-    LocatableInterface getSource();
+    Locatable getSource();
 
     /**
-     * does the shape contain the point
+     * does the shape contain the point?
      * @param pointWorldCoordinates the point in world coordinates. Default implementation is to intersect the 3D bounds
      *            on location.z and to return the bounds2D of this intersect.
      * @param extent the extent of the panel.
@@ -51,14 +50,14 @@ public interface Renderable2DInterface
     boolean contains(Point2D pointWorldCoordinates, final Rectangle2D extent, Dimension screen);
 
     /**
-     * destroys this editable. How to do this must be implemented by the modeler
+     * destroys this editable. How to do this must be implemented by the modeler.
      * @throws RemoteException RemoteException
      * @throws NamingException NamingException
      */
     void destroy() throws RemoteException, NamingException;
 
     /**
-     * A Util <br>
+     * A Utility helper class for transforming between screen coordinates and world coordinates. <br>
      * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
      * Netherlands. <br>
      * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
@@ -67,7 +66,7 @@ public interface Renderable2DInterface
      * @version 1.0 Mar 1, 2004 <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
      */
-    static class Util
+    class Util
     {
 
         /**

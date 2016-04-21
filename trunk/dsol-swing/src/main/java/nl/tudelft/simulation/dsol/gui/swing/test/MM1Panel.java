@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.gui.swing.test;
 
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.gui.swing.TablePanel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -47,7 +47,7 @@ public class MM1Panel extends DSOLPanel<Double, Double, SimTimeDouble>
      * @param model
      * @param simulator
      */
-    public MM1Panel(ModelInterface.TimeDouble model, DEVSSimulatorInterface.TimeDouble simulator)
+    public MM1Panel(DSOLModel.TimeDouble model, DEVSSimulatorInterface.TimeDouble simulator)
     {
         super(model, simulator);
         addTabs();

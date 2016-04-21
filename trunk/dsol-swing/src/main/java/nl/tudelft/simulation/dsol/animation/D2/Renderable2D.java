@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.animation.LocatableInterface;
+import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d2.Shape;
@@ -54,11 +54,16 @@ public abstract class Renderable2D implements Renderable2DInterface
      * the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist
      */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final LocatableInterface source;
+    protected final Locatable source;
+    
+    /** the naming Context in which to store the Renderable with a pointer to the Locatable object. */
+    private final Context context;
 
-    /** the context for (un)binding. */
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Context context;
+    /** the unique id. */
+    private final long id;
+    
+    /** the generator for the unique id. TODO Static for now, should be replaced by a context dependent one. */
+    private static long lastGeneratedId = 0;
 
     /**
      * constructs a new Renderable2D.
@@ -67,10 +72,12 @@ public abstract class Renderable2D implements Renderable2DInterface
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public Renderable2D(final LocatableInterface source, final SimulatorInterface<?, ?, ?> simulator)
+    public Renderable2D(final Locatable source, final SimulatorInterface<?, ?, ?> simulator)
             throws NamingException, RemoteException
     {
+        this.id = ++lastGeneratedId;
         this.source = source;
+        this.context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
         if (!(simulator instanceof AnimatorInterface))
         {
             // We are currently running without animation
@@ -90,8 +97,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException,
             RemoteException
     {
-        this.context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
-        ContextUtil.bind(this.context, this);
+        this.context.bind(Long.toString(this.id), this);
     }
 
     /**
@@ -176,7 +182,7 @@ public abstract class Renderable2D implements Renderable2DInterface
 
     /** {@inheritDoc} */
     @Override
-    public final LocatableInterface getSource()
+    public final Locatable getSource()
     {
         return this.source;
     }
@@ -266,7 +272,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     @Override
     public final void destroy() throws NamingException
     {
-        ContextUtil.unbind(this.context, this);
+        this.context.unbind(Long.toString(this.id));
     }
 
     /** {@inheritDoc} */
@@ -274,7 +280,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        return "" + hashCode();
+        return "Renderable2D [id=" + this.id + ", source=" + this.source + "]";
     }
 
     /**
@@ -292,6 +298,7 @@ public abstract class Renderable2D implements Renderable2DInterface
     {
         final int prime = 31;
         int result = 1;
+        result = prime * result + (int) (this.id ^ (this.id >>> 32));
         result = prime * result + ((this.source == null) ? 0 : this.source.hashCode());
         return result;
     }
@@ -308,6 +315,8 @@ public abstract class Renderable2D implements Renderable2DInterface
         if (getClass() != obj.getClass())
             return false;
         Renderable2D other = (Renderable2D) obj;
+        if (this.id != other.id)
+            return false;
         if (this.source == null)
         {
             if (other.source != null)

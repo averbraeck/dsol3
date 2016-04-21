@@ -2,7 +2,7 @@ package nl.tudelft.simulation.xml;
 
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
@@ -17,7 +17,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * @version 1.2 Sep 28, 2004
  * @since 1.5
  */
-public class DummyModel implements ModelInterface
+public class DummyModel implements DSOLModel
 {
     /**
      * constructs a new DummyModel.

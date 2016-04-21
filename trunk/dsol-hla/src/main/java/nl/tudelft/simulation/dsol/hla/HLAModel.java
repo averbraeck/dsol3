@@ -13,7 +13,7 @@ import hla.rti.LogicalTime;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import nl.tudelft.simulation.dsol.ModelInterface;
+import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.hla.callBack.RTIAmbassador;
@@ -29,7 +29,7 @@ import se.pitch.prti.RTI;
  * @author peter TODO To change the template for this generated type comment go
  *         to Window - Preferences - Java - Code Style - Code Templates
  */
-public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
+public class HLAModel extends DSOLFederateAmbassador implements DSOLModel
 {
     /** the RTI Ambassador to use. */
     protected RTIAmbassador rtiAmbassador = null;
@@ -38,7 +38,7 @@ public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
     protected Barrier barrier = new Barrier();
 
     /** the targetModel to use. */
-    protected ModelInterface targetModel = null;
+    protected DSOLModel targetModel = null;
 
     /**
      * constructs a new HLAModel.
@@ -46,7 +46,7 @@ public class HLAModel extends DSOLFederateAmbassador implements ModelInterface
      * @param targetModel the targetModel
      * @param rtIAmbassador the rtIAmbassador
      */
-    public HLAModel(final ModelInterface targetModel,
+    public HLAModel(final DSOLModel targetModel,
             final RTIAmbassador rtiAmbassador, final Hashtable environment)
     {
         super();
