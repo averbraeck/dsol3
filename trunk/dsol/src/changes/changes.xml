@@ -2,6 +2,21 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+   <release version="3.00.21" date="2016-09-12" description="Simulators with and without firing certain events">
+      <action dev="averbraeck" type="update">
+        DEVSRealTimeClock can fire CHANGE_SPEED_FACTOR_EVENT.
+      </action>
+      <action dev="averbraeck" type="update">
+        Simulator can start() without firing event. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Simulator can stop() without firing event. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Simulator can step() without firing event. 
+      </action>
+    </release>
+
     <release version="3.00.20" date="2016-04-21" description="Animation classes updated, interface names simplified">
       <action dev="averbraeck" type="fix">
         GisRenderable2D uses a self-generated unique id to identify itself in the Context. This avoids problems with
