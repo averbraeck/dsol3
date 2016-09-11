@@ -61,7 +61,7 @@ public class TestSimLambda
     }
 
     /**
-     * @throws RemoteException in case of error
+     * 
      */
     protected final void print()
     {
