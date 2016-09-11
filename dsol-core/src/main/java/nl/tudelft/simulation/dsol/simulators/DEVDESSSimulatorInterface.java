@@ -67,8 +67,8 @@ public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Nu
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit extends
-            DEVDESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>,
+    public interface TimeDoubleUnit
+            extends DEVDESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>,
             DEVSSimulatorInterface.TimeDoubleUnit, DESSSimulatorInterface.TimeDoubleUnit
     {
         // typed extension

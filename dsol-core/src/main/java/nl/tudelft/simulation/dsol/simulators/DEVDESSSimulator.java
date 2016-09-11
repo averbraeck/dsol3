@@ -116,8 +116,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     /***********************************************************************************************************/
 
     /** Easy access class DEVDESSSimulator.TimeDouble. */
-    public static class TimeDouble extends DEVDESSSimulator<Double, Double, SimTimeDouble> implements
-            DEVDESSSimulatorInterface.TimeDouble
+    public static class TimeDouble extends DEVDESSSimulator<Double, Double, SimTimeDouble>
+            implements DEVDESSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -132,8 +132,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class DEVDESSSimulator.TimeFloat. */
-    public static class TimeFloat extends DEVDESSSimulator<Float, Float, SimTimeFloat> implements
-            DEVDESSSimulatorInterface.TimeFloat
+    public static class TimeFloat extends DEVDESSSimulator<Float, Float, SimTimeFloat>
+            implements DEVDESSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -148,8 +148,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class DEVDESSSimulator.TimeLong. */
-    public static class TimeLong extends DEVDESSSimulator<Long, Long, SimTimeLong> implements
-            DEVDESSSimulatorInterface.TimeLong
+    public static class TimeLong extends DEVDESSSimulator<Long, Long, SimTimeLong>
+            implements DEVDESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -180,8 +180,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class DEVDESSSimulator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVDESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DEVDESSSimulatorInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends DEVDESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+            implements DEVDESSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -196,8 +196,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class DEVDESSSimulator.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVDESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DEVDESSSimulatorInterface.TimeLongUnit
+    public static class TimeLongUnit extends DEVDESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+            implements DEVDESSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -228,8 +228,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class DEVDESSSimulator.CalendarFloat. */
-    public static class CalendarFloat extends DEVDESSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
-            DEVDESSSimulatorInterface.CalendarFloat
+    public static class CalendarFloat extends DEVDESSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+            implements DEVDESSSimulatorInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -244,8 +244,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class DEVDESSSimulator.CalendarLong. */
-    public static class CalendarLong extends DEVDESSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            DEVDESSSimulatorInterface.CalendarLong
+    public static class CalendarLong extends DEVDESSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+            implements DEVDESSSimulatorInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

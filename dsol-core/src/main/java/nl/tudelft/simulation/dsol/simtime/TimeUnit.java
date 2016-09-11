@@ -28,7 +28,7 @@ package nl.tudelft.simulation.dsol.simtime;
  * @version Jul 25, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public enum TimeUnit 
+public enum TimeUnit
 {
     /** UNIT reflects the non actual time related unit. */
     UNIT(1.0, "units", "u"),

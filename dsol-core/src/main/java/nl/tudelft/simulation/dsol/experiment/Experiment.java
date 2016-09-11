@@ -45,8 +45,8 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        EventProducer implements EventListenerInterface, Serializable
+public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends EventProducer implements EventListenerInterface, Serializable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -235,9 +235,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        String result =
-                "[" + super.toString() + " ; " + " \n treatment=" + this.treatment.toString() + "\n" + "simulator="
-                        + this.simulator;
+        String result = "[" + super.toString() + " ; " + " \n treatment=" + this.treatment.toString() + "\n"
+                + "simulator=" + this.simulator;
         return result;
     }
 
@@ -299,7 +298,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     {
         ContextUtil.destroySubContext(String.valueOf(hashCode()));
     }
-    
+
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/

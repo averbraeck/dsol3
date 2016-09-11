@@ -3,8 +3,8 @@ package nl.tudelft.simulation.jstats.distributions;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The Geometric distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/GeometricDistribution.html">
+ * The Geometric distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/GeometricDistribution.html">
  * http://mathworld.wolfram.com/GeometricDistribution.html </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the

@@ -174,8 +174,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    void scheduleEventNow(Object source, Object target, String method, Object[] args) throws RemoteException,
-            SimRuntimeException;
+    void scheduleEventNow(Object source, Object target, String method, Object[] args)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a lambda expression at a relative duration. The executionTime is thus
@@ -186,8 +186,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    void scheduleEventRel(R relativeDelay, short priority, Executable executable) throws RemoteException,
-            SimRuntimeException;
+    void scheduleEventRel(R relativeDelay, short priority, Executable executable)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a lambda expression at a relative duration. The executionTime is thus
@@ -207,8 +207,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    void scheduleEventAbs(T absoluteTime, short priority, Executable executable) throws RemoteException,
-            SimRuntimeException;
+    void scheduleEventAbs(T absoluteTime, short priority, Executable executable)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
@@ -227,8 +227,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    void scheduleEventAbs(A absoluteTime, short priority, Executable executable) throws RemoteException,
-            SimRuntimeException;
+    void scheduleEventAbs(A absoluteTime, short priority, Executable executable)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
@@ -294,8 +294,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /***********************************************************************************************************/
 
     /** Easy access interface DEVSSimulatorInterface.TimeDouble. */
-    public interface TimeDouble extends DEVSSimulatorInterface<Double, Double, SimTimeDouble>,
-            SimulatorInterface.TimeDouble
+    public interface TimeDouble
+            extends DEVSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
     {
         // typed extension
     }
@@ -327,8 +327,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DEVSSimulatorInterface.TimeLongUnit. */
-    public interface TimeLongUnit extends DEVSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>,
-            SimulatorInterface.TimeLongUnit
+    public interface TimeLongUnit
+            extends DEVSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>, SimulatorInterface.TimeLongUnit
     {
         // typed extension
     }
@@ -348,8 +348,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarLong. */
-    public interface CalendarLong extends DEVSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>,
-            SimulatorInterface.CalendarLong
+    public interface CalendarLong
+            extends DEVSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>, SimulatorInterface.CalendarLong
     {
         // typed extension
     }

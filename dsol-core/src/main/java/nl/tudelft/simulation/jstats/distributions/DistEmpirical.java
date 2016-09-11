@@ -12,7 +12,8 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * <p>
  * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
  * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
+ * <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:53 $
@@ -96,10 +97,9 @@ public class DistEmpirical extends DistContinuous
         int j = this.observations.getIndex(p);
         ObservationsInterface.Entry q = this.observations.get(j + 1);
         double result = p.getObservation().doubleValue();
-        result =
-                result + (u - p.getCumProbability().doubleValue())
-                        * (q.getObservation().doubleValue() - p.getObservation().doubleValue())
-                        / (q.getCumProbability().doubleValue() - p.getCumProbability().doubleValue());
+        result = result + (u - p.getCumProbability().doubleValue())
+                * (q.getObservation().doubleValue() - p.getObservation().doubleValue())
+                / (q.getCumProbability().doubleValue() - p.getCumProbability().doubleValue());
         return result;
     }
 
@@ -168,8 +168,7 @@ public class DistEmpirical extends DistContinuous
         int i = this.observations.getIndex(p) + 1;
         ObservationsInterface.Entry q = this.observations.get(i);
         return ((i - 1) / ((double) (this.observations.size() - 1)))
-                + ((observation - p.getObservation().doubleValue()))
-                / ((this.observations.size() - 1) * (q.getObservation().doubleValue() - p.getObservation()
-                        .doubleValue()));
+                + ((observation - p.getObservation().doubleValue())) / ((this.observations.size() - 1)
+                        * (q.getObservation().doubleValue() - p.getObservation().doubleValue()));
     }
 }

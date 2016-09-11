@@ -42,8 +42,8 @@ import nl.tudelft.simulation.logger.Logger;
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        Station<A, R, T>
+public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends Station<A, R, T>
 {
     /** */
     public static final long serialVersionUID = 20140805L;
@@ -137,9 +137,8 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
                     this.fireEvent(Generator.CREATE_EVENT, 1);
                     this.releaseObject(object);
                 }
-                this.nextEvent =
-                        new SimEvent<T>(this.simulator.getSimulatorTime().plus(this.interval.draw()), this, this,
-                                "generate", null);
+                this.nextEvent = new SimEvent<T>(this.simulator.getSimulatorTime().plus(this.interval.draw()), this,
+                        this, "generate", null);
                 this.simulator.scheduleEvent(this.nextEvent);
             }
         }

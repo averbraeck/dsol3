@@ -258,8 +258,8 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param model the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloat(final String id, final SimTimeFloat startTime, final Float warmupPeriod,
-                final Float runLength, final DSOLModel.TimeFloat model) throws NamingException
+        public TimeFloat(final String id, final SimTimeFloat startTime, final Float warmupPeriod, final Float runLength,
+                final DSOLModel.TimeFloat model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }
@@ -418,9 +418,8 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param model the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarDouble(final String id, final SimTimeCalendarDouble startTime,
-                final UnitTimeDouble warmupPeriod, final UnitTimeDouble runLength,
-                final DSOLModel.CalendarDouble model) throws NamingException
+        public CalendarDouble(final String id, final SimTimeCalendarDouble startTime, final UnitTimeDouble warmupPeriod,
+                final UnitTimeDouble runLength, final DSOLModel.CalendarDouble model) throws NamingException
         {
             super(id, startTime, warmupPeriod, runLength, model);
         }

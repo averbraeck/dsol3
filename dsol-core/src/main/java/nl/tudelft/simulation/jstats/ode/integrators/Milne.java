@@ -51,18 +51,11 @@ public class Milne extends CachingNumericalIntegrator
         double[] dy0 = super.getDY(0);
 
         // Let's evaluate the predictor
-        double[] p =
-                super.add(
-                        y3,
-                        super.multiply(4 * this.timeStep / 3.0, super.add(super.multiply(2.0, dy0),
-                                super.multiply(-1.0, dy1), super.multiply(2.0, dy2))));
+        double[] p = super.add(y3, super.multiply(4 * this.timeStep / 3.0,
+                super.add(super.multiply(2.0, dy0), super.multiply(-1.0, dy1), super.multiply(2.0, dy2))));
 
         // Now we compute the corrector
-        return super.add(
-                y1,
-                super.multiply(
-                        this.timeStep / 3.0,
-                        super.add(super.multiply(1.0, dy1), super.multiply(4.0, dy0),
-                                this.equation.dy(x + this.timeStep, p))));
+        return super.add(y1, super.multiply(this.timeStep / 3.0,
+                super.add(super.multiply(1.0, dy1), super.multiply(4.0, dy0), this.equation.dy(x + this.timeStep, p))));
     }
 }

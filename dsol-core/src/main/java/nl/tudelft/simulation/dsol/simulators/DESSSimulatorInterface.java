@@ -64,8 +64,8 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /***********************************************************************************************************/
 
     /** Easy access interface DESSSimulatorInterface.TimeDouble. */
-    public interface TimeDouble extends DESSSimulatorInterface<Double, Double, SimTimeDouble>,
-            SimulatorInterface.TimeDouble
+    public interface TimeDouble
+            extends DESSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
     {
         // typed extension
     }
@@ -97,8 +97,8 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DESSSimulatorInterface.TimeLongUnit. */
-    public interface TimeLongUnit extends DESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>,
-            SimulatorInterface.TimeLongUnit
+    public interface TimeLongUnit
+            extends DESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>, SimulatorInterface.TimeLongUnit
     {
         // typed extension
     }
@@ -118,8 +118,8 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DESSSimulatorInterface.CalendarLong. */
-    public interface CalendarLong extends DESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>,
-            SimulatorInterface.CalendarLong
+    public interface CalendarLong
+            extends DESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>, SimulatorInterface.CalendarLong
     {
         // typed extension
     }

@@ -28,8 +28,8 @@ import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.logger.Logger;
 
 /**
- * The Experimental frame specifies the set of experiments to run. (c) copyright 2002-2005 <a
- * href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * The Experimental frame specifies the set of experiments to run. (c) copyright 2002-2005
+ * <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -202,7 +202,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
         }
         this.currentExperiment = -1;
     }
-    
+
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/

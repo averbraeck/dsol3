@@ -5,7 +5,8 @@ import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
 /**
  * The RungeKuttaCashCarp.java numerical integrator.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -19,17 +20,17 @@ public class RungeKuttaCashCarp extends NumericalIntegrator
     protected static double[] a = new double[]{0d, 1d / 5d, 3d / 10d, 3d / 5d, 1d, 7d / 8d};
 
     /** the parameters for b_ij, in f(., y_n + b_p1 k1 + bp2 k2 + ...) */
-    protected static double[][] b = new double[][]{{0d, 0d, 0d, 0d, 0d},
-            {1d / 5d, 3d / 40d, 3d / 10d, -11d / 54d, 1631d / 55296d}, {0d, 9d / 40d, -9d / 10d, 5d / 2d, 175d / 212d},
-            {0d, 0d, 6d / 5d, -70d / 27d, 575d / 13824d}, {0d, 0d, 0d, 35 / 27d, 44275d / 110592d},
-            {0d, 0d, 0d, 0d, 253d / 4096d}};
+    protected static double[][] b =
+            new double[][]{{0d, 0d, 0d, 0d, 0d}, {1d / 5d, 3d / 40d, 3d / 10d, -11d / 54d, 1631d / 55296d},
+                    {0d, 9d / 40d, -9d / 10d, 5d / 2d, 175d / 212d}, {0d, 0d, 6d / 5d, -70d / 27d, 575d / 13824d},
+                    {0d, 0d, 0d, 35 / 27d, 44275d / 110592d}, {0d, 0d, 0d, 0d, 253d / 4096d}};
 
     /** the parameters for c_i, in y_n+1 = y_n + c_1 k_1 + c_2 k_2 + ... */
     protected static double[] c = new double[]{37d / 378d, 0d, 250d / 621d, 125d / 594d, 0d, 512d / 1771d};
 
     /** the parameters for c4_i, in y_n+1 = y_n + c4_1 k_1 + c4_2 k_2 + ... */
-    protected static double[] c4 = new double[]{2825d / 27648d, 0d, 18575d / 48384d, 13525d / 55296d, 277d / 14336d,
-            1d / 4d};
+    protected static double[] c4 =
+            new double[]{2825d / 27648d, 0d, 18575d / 48384d, 13525d / 55296d, 277d / 14336d, 1d / 4d};
 
     /** the numer of k-s in the method. */
     protected static int nk = 6;

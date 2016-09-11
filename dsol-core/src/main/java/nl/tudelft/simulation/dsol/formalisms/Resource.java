@@ -58,8 +58,8 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
     protected double claimedCapacity = 0.0;
 
     /** request defines the list of requestors for this resource. */
-    protected SortedSet<Request<T>> requests = Collections.synchronizedSortedSet(new TreeSet<Request<T>>(
-            new RequestComparator()));
+    protected SortedSet<Request<T>> requests =
+            Collections.synchronizedSortedSet(new TreeSet<Request<T>>(new RequestComparator()));
 
     /** simulator defines the simulator on which is scheduled. */
     protected DEVSSimulatorInterface<?, ?, T> simulator;
@@ -188,8 +188,8 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
         if ((this.claimedCapacity + amount) <= this.capacity)
         {
             this.alterClaimedCapacity(amount);
-            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource", new Object[]{
-                    new Double(amount), this});
+            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource",
+                    new Object[]{new Double(amount), this});
         }
         else
         {

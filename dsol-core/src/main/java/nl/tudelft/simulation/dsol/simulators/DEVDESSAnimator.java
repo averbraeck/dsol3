@@ -130,8 +130,8 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     /***********************************************************************************************************/
 
     /** Easy access class Animator.TimeDouble. */
-    public static class TimeDouble extends DEVDESSAnimator<Double, Double, SimTimeDouble> implements
-            DEVDESSSimulatorInterface.TimeDouble
+    public static class TimeDouble extends DEVDESSAnimator<Double, Double, SimTimeDouble>
+            implements DEVDESSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -146,8 +146,8 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.TimeFloat. */
-    public static class TimeFloat extends DEVDESSAnimator<Float, Float, SimTimeFloat> implements
-            DEVDESSSimulatorInterface.TimeFloat
+    public static class TimeFloat extends DEVDESSAnimator<Float, Float, SimTimeFloat>
+            implements DEVDESSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -162,8 +162,8 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.TimeLong. */
-    public static class TimeLong extends DEVDESSAnimator<Long, Long, SimTimeLong> implements
-            DEVDESSSimulatorInterface.TimeLong
+    public static class TimeLong extends DEVDESSAnimator<Long, Long, SimTimeLong>
+            implements DEVDESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -178,8 +178,8 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.DoubleUnit. */
-    public static class DoubleUnit extends DEVDESSAnimator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
-            DEVDESSSimulatorInterface.TimeDoubleUnit
+    public static class DoubleUnit extends DEVDESSAnimator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+            implements DEVDESSSimulatorInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -194,8 +194,8 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVDESSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DEVDESSSimulatorInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends DEVDESSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+            implements DEVDESSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -210,8 +210,8 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVDESSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DEVDESSSimulatorInterface.TimeLongUnit
+    public static class TimeLongUnit extends DEVDESSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+            implements DEVDESSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -242,8 +242,8 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.CalendarFloat. */
-    public static class CalendarFloat extends DEVDESSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
-            DEVDESSSimulatorInterface.CalendarFloat
+    public static class CalendarFloat extends DEVDESSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+            implements DEVDESSSimulatorInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -258,8 +258,8 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
     }
 
     /** Easy access class Animator.CalendarLong. */
-    public static class CalendarLong extends DEVDESSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            DEVDESSSimulatorInterface.CalendarLong
+    public static class CalendarLong extends DEVDESSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+            implements DEVDESSSimulatorInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

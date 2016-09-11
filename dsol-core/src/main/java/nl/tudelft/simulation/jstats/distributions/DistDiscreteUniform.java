@@ -3,9 +3,9 @@ package nl.tudelft.simulation.jstats.distributions;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The discrete Uniform distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/UnifomrDistribution.html"> http://mathworld.wolfram.com/UniformDistribution.html
- * </a>
+ * The discrete Uniform distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/UnifomrDistribution.html">
+ * http://mathworld.wolfram.com/UniformDistribution.html </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>

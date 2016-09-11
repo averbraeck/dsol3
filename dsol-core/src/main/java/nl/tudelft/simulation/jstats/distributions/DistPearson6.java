@@ -4,9 +4,9 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import cern.jet.stat.Gamma;
 
 /**
- * The Pearson6 distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/Pearson6Distribution.html"> http://mathworld.wolfram.com/Pearson6Distribution.html
- * </a>
+ * The Pearson6 distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/Pearson6Distribution.html">
+ * http://mathworld.wolfram.com/Pearson6Distribution.html </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
@@ -75,8 +75,8 @@ public class DistPearson6 extends DistContinuous
         if (observation > 0)
         {
             return Math.pow(observation / this.beta, this.alpha1 - 1)
-                    / (this.beta * Gamma.beta(this.alpha1, this.alpha2) * Math.pow(1 + (observation / this.beta),
-                            (this.alpha1 + this.alpha2)));
+                    / (this.beta * Gamma.beta(this.alpha1, this.alpha2)
+                            * Math.pow(1 + (observation / this.beta), (this.alpha1 + this.alpha2)));
         }
         return 0;
     }

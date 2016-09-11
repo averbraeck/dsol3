@@ -49,7 +49,8 @@ public class TestSimLambda
 
         for (int i = 0; i < 10; i++)
         {
-            this.devsSimulator.scheduleEventAbs(1.0d * i, new Executable() {
+            this.devsSimulator.scheduleEventAbs(1.0d * i, new Executable()
+            {
                 @Override
                 public void execute()
                 {

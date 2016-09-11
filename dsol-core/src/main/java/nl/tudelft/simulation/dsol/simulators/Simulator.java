@@ -172,7 +172,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         start(true);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
@@ -286,24 +286,24 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /***********************************************************************************************************/
 
     /** Easy access class Simulator.TimeDouble. */
-    public abstract static class TimeDouble extends Simulator<Double, Double, SimTimeDouble> implements
-            SimulatorInterface.TimeDouble
+    public abstract static class TimeDouble extends Simulator<Double, Double, SimTimeDouble>
+            implements SimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Simulator.TimeFloat. */
-    public abstract static class TimeFloat extends Simulator<Float, Float, SimTimeFloat> implements
-            SimulatorInterface.TimeFloat
+    public abstract static class TimeFloat extends Simulator<Float, Float, SimTimeFloat>
+            implements SimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Simulator.TimeLong. */
-    public abstract static class TimeLong extends Simulator<Long, Long, SimTimeLong> implements
-            SimulatorInterface.TimeLong
+    public abstract static class TimeLong extends Simulator<Long, Long, SimTimeLong>
+            implements SimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -326,8 +326,8 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.TimeLongUnit. */
-    public abstract static class TimeLongUnit extends Simulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            SimulatorInterface.TimeLongUnit
+    public abstract static class TimeLongUnit extends Simulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+            implements SimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -350,8 +350,8 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.CalendarLong. */
-    public abstract static class CalendarLong extends Simulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            SimulatorInterface.CalendarLong
+    public abstract static class CalendarLong extends Simulator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+            implements SimulatorInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

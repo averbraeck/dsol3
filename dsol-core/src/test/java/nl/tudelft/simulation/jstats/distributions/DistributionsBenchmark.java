@@ -63,10 +63,10 @@ public final class DistributionsBenchmark
         System.out.println("DistBeta : " + DistributionsBenchmark.benchmark(new DistBeta(stream, 1.0, 2.0)));
         System.out.println("DistBinomial : " + DistributionsBenchmark.benchmark(new DistBinomial(stream, 3L, 0.23)));
         System.out.println("DistConstant : " + DistributionsBenchmark.benchmark(new DistConstant(stream, 0.23)));
-        System.out.println("DistDiscreteConstant : "
-                + DistributionsBenchmark.benchmark(new DistDiscreteConstant(stream, 14)));
-        System.out.println("DistDiscreteUniform : "
-                + DistributionsBenchmark.benchmark(new DistDiscreteUniform(stream, 0, 1)));
+        System.out.println(
+                "DistDiscreteConstant : " + DistributionsBenchmark.benchmark(new DistDiscreteConstant(stream, 14)));
+        System.out.println(
+                "DistDiscreteUniform : " + DistributionsBenchmark.benchmark(new DistDiscreteUniform(stream, 0, 1)));
         System.out.println("DistErlang : " + DistributionsBenchmark.benchmark(new DistErlang(stream, 1, 0.1)));
         System.out.println("DistExponential : " + DistributionsBenchmark.benchmark(new DistExponential(stream, 0.1)));
         System.out.println("DistGamma : " + DistributionsBenchmark.benchmark(new DistGamma(stream, 0.1, 0.5)));

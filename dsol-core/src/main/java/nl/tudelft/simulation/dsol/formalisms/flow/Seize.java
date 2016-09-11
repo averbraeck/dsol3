@@ -41,8 +41,8 @@ import nl.tudelft.simulation.logger.Logger;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        Station<A, R, T> implements ResourceRequestorInterface<T>
+public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends Station<A, R, T> implements ResourceRequestorInterface<T>
 {
     /** */
     private static final long serialVersionUID = 20140911L;
@@ -109,7 +109,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         }
         try
         {
-            this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
+            this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(),
+                    this.simulator.getSimulatorTime());
             this.resource.requestCapacity(_requestedCapacity, this);
         }
         catch (Exception exception)

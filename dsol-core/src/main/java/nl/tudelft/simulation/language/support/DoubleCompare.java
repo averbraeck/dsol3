@@ -52,7 +52,7 @@ public final class DoubleCompare
         if (Math.abs(diff) == 0.0) // catches -0.0 and 0.0
             return 0;
 
-        // From 
+        // From
         // long thisBits = Double.doubleToLongBits(d1); long anotherBits = Double.doubleToLongBits(d2);
         // thisBits == anotherBits => 0 : Values are equal
         // thisBits < anotherBits => -1 : (-0.0, 0.0) or (!NaN, NaN)

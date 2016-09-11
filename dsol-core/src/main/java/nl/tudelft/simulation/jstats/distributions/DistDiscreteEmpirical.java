@@ -110,9 +110,8 @@ public class DistDiscreteEmpirical extends DistDiscrete
     {
         if (this.observations.contains(new Long(observation), ObservationsInterface.OBSERVATION))
         {
-            int index =
-                    this.observations.getIndex(this.observations.getEntry(new Long(observation),
-                            ObservationsInterface.OBSERVATION));
+            int index = this.observations
+                    .getIndex(this.observations.getEntry(new Long(observation), ObservationsInterface.OBSERVATION));
             if (index > 0)
             {
                 return this.observations.get(index).getCumProbability().doubleValue()

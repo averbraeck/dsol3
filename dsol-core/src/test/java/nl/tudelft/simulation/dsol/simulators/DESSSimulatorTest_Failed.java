@@ -11,14 +11,14 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 2.0 21.09.2003 <br>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
+ *         <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class DESSSimulatorTest_Failed extends SimulatorTest_NotCorrect
 {
     /**
      * constructs a new DEVSSimulatorTest.
-     * @throws SimRuntimeException 
+     * @throws SimRuntimeException
      */
     public DESSSimulatorTest_Failed() throws SimRuntimeException
     {
@@ -40,7 +40,7 @@ public class DESSSimulatorTest_Failed extends SimulatorTest_NotCorrect
     /**
      * Executes a DESSSimulatorTest
      * @param args the arguments given on the command line
-     * @throws SimRuntimeException 
+     * @throws SimRuntimeException
      */
     public static void main(final String[] args) throws SimRuntimeException
     {

@@ -4,8 +4,8 @@ import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The Erlang distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/ErlangDistribution.html"> http://mathworld.wolfram.com/ErlangDistribution.html
+ * The Erlang distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/ErlangDistribution.html"> http://mathworld.wolfram.com/ErlangDistribution.html
  * </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
@@ -90,9 +90,8 @@ public class DistErlang extends DistContinuous
         {
             return 0;
         }
-        return this.beta
-                * Math.exp(-this.beta * observation
-                        * (Math.pow(this.beta * observation, this.k - 1) / ProbMath.faculty(this.k - 1)));
+        return this.beta * Math.exp(-this.beta * observation
+                * (Math.pow(this.beta * observation, this.k - 1) / ProbMath.faculty(this.k - 1)));
     }
 
     /** {@inheritDoc} */

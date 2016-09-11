@@ -93,8 +93,8 @@ public class Persistent extends Tally
     {
         if (!(event instanceof TimedEvent<?>) || !(event.getContent() instanceof Number))
         {
-            throw new IllegalArgumentException("event != TimedEvent || event.source != Double ("
-                    + event.getContent().getClass().toString() + ")");
+            throw new IllegalArgumentException(
+                    "event != TimedEvent || event.source != Double (" + event.getContent().getClass().toString() + ")");
         }
         // TODO what if this is not a Double?
         TimedEvent<Double> timedEvent = (TimedEvent<Double>) event;
@@ -134,9 +134,8 @@ public class Persistent extends Tally
                 this.deltaTime = timedEvent.getTimeStamp() - (this.elapsedTime + this.startTime);
                 if (this.deltaTime > 0.0)
                 {
-                    double newAverage =
-                            ((super.sampleMean * (this.elapsedTime)) + (this.lastValue * this.deltaTime))
-                                    / (this.elapsedTime + this.deltaTime);
+                    double newAverage = ((super.sampleMean * (this.elapsedTime)) + (this.lastValue * this.deltaTime))
+                            / (this.elapsedTime + this.deltaTime);
                     super.varianceSum +=
                             (this.lastValue - super.sampleMean) * (this.lastValue - newAverage) * this.deltaTime;
                     super.setSampleMean(newAverage);

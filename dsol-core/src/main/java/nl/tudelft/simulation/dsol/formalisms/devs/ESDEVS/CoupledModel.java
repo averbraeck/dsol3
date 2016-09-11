@@ -135,8 +135,8 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @throws SimRuntimeException simulation run time exception
      */
     @SuppressWarnings("unchecked")
-    protected final <T> void transfer(final OutputPortInterface<T> x, final T y) throws RemoteException,
-            SimRuntimeException
+    protected final <T> void transfer(final OutputPortInterface<T> x, final T y)
+            throws RemoteException, SimRuntimeException
     {
         for (IC<?> o : this.internalCouplingSet)
         {

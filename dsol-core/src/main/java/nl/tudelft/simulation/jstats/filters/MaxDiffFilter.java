@@ -13,8 +13,8 @@ import nl.tudelft.simulation.language.filters.AbstractFilter;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty
  * <p>
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang
+ *         </a><a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:41 $
  * @since 1.5
  */

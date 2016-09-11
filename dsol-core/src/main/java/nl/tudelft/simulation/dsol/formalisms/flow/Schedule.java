@@ -30,8 +30,8 @@ import nl.tudelft.simulation.logger.Logger;
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        Generator<A, R, T>
+public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends Generator<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -39,8 +39,8 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
     /**
      * schedule is a time sorted map of distributions
      */
-    private SortedMap<T, DistContinuousTime<R>> schedule = Collections
-            .synchronizedSortedMap(new TreeMap<T, DistContinuousTime<R>>());
+    private SortedMap<T, DistContinuousTime<R>> schedule =
+            Collections.synchronizedSortedMap(new TreeMap<T, DistContinuousTime<R>>());
 
     /**
      * constructs a new Schedule.
@@ -87,8 +87,8 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
                 this.simulator.cancelEvent(super.nextEvent);
                 this.interval = this.schedule.values().iterator().next();
                 this.schedule.remove(this.schedule.firstKey());
-                this.simulator.scheduleEvent(new SimEvent<T>(this.schedule.firstKey(), this, this,
-                        "changeIntervalTime", null));
+                this.simulator.scheduleEvent(
+                        new SimEvent<T>(this.schedule.firstKey(), this, this, "changeIntervalTime", null));
                 this.generate(this.constructorArguments);
                 Logger.finest(this, "changeIntervalTime", "set the intervalTime to " + this.interval);
             }

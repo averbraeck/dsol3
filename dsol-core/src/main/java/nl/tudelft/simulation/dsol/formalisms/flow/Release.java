@@ -34,8 +34,8 @@ import nl.tudelft.simulation.logger.Logger;
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends
-        Station<A, R, T>
+public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends Station<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20151028L;
