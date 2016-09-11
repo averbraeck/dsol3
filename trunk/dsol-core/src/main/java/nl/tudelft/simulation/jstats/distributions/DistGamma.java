@@ -4,8 +4,9 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import cern.jet.stat.Gamma;
 
 /**
- * The Gamma distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/GammaDistribution.html"> http://mathworld.wolfram.com/GammaDistribution.html </a>
+ * The Gamma distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/GammaDistribution.html"> http://mathworld.wolfram.com/GammaDistribution.html
+ * </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
@@ -133,9 +134,8 @@ public class DistGamma extends DistContinuous
         {
             return 0.0;
         }
-        return (Math.pow(this.beta, -this.alpha) * Math.pow(observation, this.alpha - 1) * Math.exp(-1 * observation
-                / this.beta))
-                / Gamma.gamma(this.alpha);
+        return (Math.pow(this.beta, -this.alpha) * Math.pow(observation, this.alpha - 1)
+                * Math.exp(-1 * observation / this.beta)) / Gamma.gamma(this.alpha);
     }
 
     /** {@inheritDoc} */

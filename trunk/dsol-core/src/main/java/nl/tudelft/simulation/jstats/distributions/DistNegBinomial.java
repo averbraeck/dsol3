@@ -4,8 +4,8 @@ import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The NegBinomial distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/NegativeBinomialDistribution.html">
+ * The NegBinomial distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/NegativeBinomialDistribution.html">
  * http://mathworld.wolfram.com/NegativeBinomialDistribution.html </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the

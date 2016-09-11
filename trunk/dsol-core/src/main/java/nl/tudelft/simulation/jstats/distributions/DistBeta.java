@@ -4,8 +4,8 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import cern.jet.stat.Gamma;
 
 /**
- * The Beta distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/BetaDistribution.html"> http://mathworld.wolfram.com/BetaDistribution.html </a>
+ * The Beta distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/BetaDistribution.html"> http://mathworld.wolfram.com/BetaDistribution.html </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>

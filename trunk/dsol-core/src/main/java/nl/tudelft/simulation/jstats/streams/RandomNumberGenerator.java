@@ -6,7 +6,8 @@ import com.thoughtworks.xstream.XStreamException;
 /**
  * The RandomNumberGenerator class provides an abstract for all pseudo random number generators.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -108,9 +109,9 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * <p>
      * The general contract of <tt>nextFloat</tt> is that one <tt>float</tt> value, chosen (approximately) uniformly
      * from the range <tt>0.0f</tt> (inclusive) to <tt>1.0f</tt> (exclusive), is pseudorandomly generated and returned.
-     * All 2<sup>24</sup> possible <tt>float</tt> values of the form <i>m&nbsp;x&nbsp;</i>2<sup>-24</sup>, where
-     * <i>m </i> is a positive integer less than 2 <sup>24 </sup>, are produced with (approximately) equal probability.
-     * The method <tt>nextFloat</tt> is implemented by class <tt>Random</tt> as follows: <blockquote>
+     * All 2<sup>24</sup> possible <tt>float</tt> values of the form <i>m&nbsp;x&nbsp;</i>2<sup>-24</sup>, where <i>m
+     * </i> is a positive integer less than 2 <sup>24 </sup>, are produced with (approximately) equal probability. The
+     * method <tt>nextFloat</tt> is implemented by class <tt>Random</tt> as follows: <blockquote>
      * 
      * <pre>
      *            public float nextFloat() {

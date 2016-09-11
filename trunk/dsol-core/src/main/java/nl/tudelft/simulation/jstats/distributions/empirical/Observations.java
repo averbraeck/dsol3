@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.SortedMap;
 
 /**
- * The histogram specifies a histogram chart for the DSOL framework. (c) copyright 2004 <a
- * href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
+ * The histogram specifies a histogram chart for the DSOL framework. (c) copyright 2004
+ * <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
+ * <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:55 $
@@ -364,10 +365,12 @@ public class Observations implements ObservationsInterface
     }
 
     /**
-     * The Observation class holds one observation, cummulative probability entry. (c) copyright 2004 <a
-     * href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
-     * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
-     * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
+     * The Observation class holds one observation, cummulative probability entry. (c) copyright 2004
+     * <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
+     * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
+     * <br>
+     * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty
+     * <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
      * @version 1.0 Nov 2, 2004
      * @since 1.5

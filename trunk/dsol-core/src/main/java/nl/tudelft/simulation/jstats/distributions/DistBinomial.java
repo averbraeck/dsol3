@@ -4,9 +4,9 @@ import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The Binomial distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/BinomialDistribution.html"> http://mathworld.wolfram.com/BinomialDistribution.html
- * </a>
+ * The Binomial distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/BinomialDistribution.html">
+ * http://mathworld.wolfram.com/BinomialDistribution.html </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>

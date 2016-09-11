@@ -32,8 +32,8 @@ import java.io.Serializable;
  * @param <N> the number type to use to indicate time, such as Double, Float or Long.
  * @param <T> the class itself to force implementation of 'Comparable'.
  */
-public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> extends Number implements Comparable<T>,
-        Serializable
+public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> extends Number
+        implements Comparable<T>, Serializable
 {
     /** */
     private static final long serialVersionUID = 20140802L;

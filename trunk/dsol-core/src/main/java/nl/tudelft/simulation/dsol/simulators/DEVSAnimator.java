@@ -114,8 +114,8 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     /***********************************************************************************************************/
 
     /** Easy access class Animator.TimeDouble. */
-    public static class TimeDouble extends DEVSAnimator<Double, Double, SimTimeDouble> implements
-            DEVSSimulatorInterface.TimeDouble
+    public static class TimeDouble extends DEVSAnimator<Double, Double, SimTimeDouble>
+            implements DEVSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -128,16 +128,16 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     }
 
     /** Easy access class Animator.TimeFloat. */
-    public static class TimeFloat extends DEVSAnimator<Float, Float, SimTimeFloat> implements
-            DEVSSimulatorInterface.TimeFloat
+    public static class TimeFloat extends DEVSAnimator<Float, Float, SimTimeFloat>
+            implements DEVSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Animator.TimeLong. */
-    public static class TimeLong extends DEVSAnimator<Long, Long, SimTimeLong> implements
-            DEVSSimulatorInterface.TimeLong
+    public static class TimeLong extends DEVSAnimator<Long, Long, SimTimeLong>
+            implements DEVSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -152,40 +152,40 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     }
 
     /** Easy access class Animator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DEVSSimulatorInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends DEVSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+            implements DEVSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Animator.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DEVSSimulatorInterface.TimeLongUnit
+    public static class TimeLongUnit extends DEVSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+            implements DEVSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Animator.CalendarDouble. */
-    public static class CalendarDouble extends DEVSAnimator<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
-            DEVSSimulatorInterface.CalendarDouble
+    public static class CalendarDouble extends DEVSAnimator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+            implements DEVSSimulatorInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Animator.CalendarFloat. */
-    public static class CalendarFloat extends DEVSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
-            DEVSSimulatorInterface.CalendarFloat
+    public static class CalendarFloat extends DEVSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+            implements DEVSSimulatorInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Animator.CalendarLong. */
-    public static class CalendarLong extends DEVSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            DEVSSimulatorInterface.CalendarLong
+    public static class CalendarLong extends DEVSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+            implements DEVSSimulatorInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

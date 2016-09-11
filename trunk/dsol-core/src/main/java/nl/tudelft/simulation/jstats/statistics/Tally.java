@@ -249,9 +249,8 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     public TableModel getTable()
     {
         String[] columnNames = {"field", "value"};
-        EventType[] eventTypes =
-                {null, Tally.N_EVENT, Tally.MIN_EVENT, Tally.MAX_EVENT, Tally.SAMPLE_MEAN_EVENT,
-                        Tally.SAMPLE_VARIANCE_EVENT, Tally.STANDARD_DEVIATION_EVENT, Tally.SUM_EVENT};
+        EventType[] eventTypes = {null, Tally.N_EVENT, Tally.MIN_EVENT, Tally.MAX_EVENT, Tally.SAMPLE_MEAN_EVENT,
+                Tally.SAMPLE_VARIANCE_EVENT, Tally.STANDARD_DEVIATION_EVENT, Tally.SUM_EVENT};
         StatisticsTableModel result = new StatisticsTableModel(columnNames, eventTypes, 8);
         this.addListener(result, Tally.N_EVENT, true);
         this.addListener(result, Tally.MAX_EVENT, true);

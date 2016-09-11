@@ -39,14 +39,10 @@ public class Gill extends NumericalIntegrator
     {
         double[] k1 = this.equation.dy(x, y);
         double[] k2 = this.equation.dy(x + 0.5d * this.timeStep, super.add(y, super.multiply(0.5d, k1)));
-        double[] k3 =
-                this.equation.dy(
-                        x + 0.5d * this.timeStep,
-                        super.add(y, super.multiply((-0.5d + Gill.SQRT2D2), k1),
-                                super.multiply((1.0d - Gill.SQRT2D2), k2)));
-        double[] k4 =
-                this.equation.dy(x + this.timeStep,
-                        super.add(y, super.multiply((-Gill.SQRT2D2), k2), super.multiply((1.0d + Gill.SQRT2D2), k3)));
+        double[] k3 = this.equation.dy(x + 0.5d * this.timeStep,
+                super.add(y, super.multiply((-0.5d + Gill.SQRT2D2), k1), super.multiply((1.0d - Gill.SQRT2D2), k2)));
+        double[] k4 = this.equation.dy(x + this.timeStep,
+                super.add(y, super.multiply((-Gill.SQRT2D2), k2), super.multiply((1.0d + Gill.SQRT2D2), k3)));
         double[] sum =
                 super.add(k1, super.multiply((2.0d - Gill.SQRT2), k2), super.multiply((2.0d + Gill.SQRT2), k3), k4);
         return super.add(y, super.multiply(this.timeStep / 6.0d, sum));

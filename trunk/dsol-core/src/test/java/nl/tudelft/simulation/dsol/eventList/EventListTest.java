@@ -16,8 +16,8 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 2.0 21.09.2003 <br>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
+ *         <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public class EventListTest extends TestCase
 {
@@ -119,8 +119,8 @@ public class EventListTest extends TestCase
             Assert.assertNull(this.eventList.first());
             // TODO this gives an error
             // Assert.assertFalse(this.eventList.remove(null));
-            Assert.assertFalse(this.eventList.remove(new SimEvent(new SimTimeDouble(200 * Math.random()), this,
-                    new String(), "trim", null)));
+            Assert.assertFalse(this.eventList
+                    .remove(new SimEvent(new SimTimeDouble(200 * Math.random()), this, new String(), "trim", null)));
             this.eventList.clear();
 
             // Let's cancel an event

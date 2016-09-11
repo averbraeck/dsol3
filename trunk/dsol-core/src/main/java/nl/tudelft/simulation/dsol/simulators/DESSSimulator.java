@@ -22,8 +22,8 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 
 /**
  * The DESS defines the interface of the DESS simulator. DESS stands for the Differential Equation System Specification.
- * More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.
- * al. <br>
+ * More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler
+ * et. al. <br>
  * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
@@ -116,8 +116,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /***********************************************************************************************************/
 
     /** Easy access class DESSSimulator.TimeDouble. */
-    public static class TimeDouble extends DESSSimulator<Double, Double, SimTimeDouble> implements
-            DESSSimulatorInterface.TimeDouble
+    public static class TimeDouble extends DESSSimulator<Double, Double, SimTimeDouble>
+            implements DESSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -133,8 +133,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.TimeFloat. */
-    public static class TimeFloat extends DESSSimulator<Float, Float, SimTimeFloat> implements
-            DESSSimulatorInterface.TimeFloat
+    public static class TimeFloat extends DESSSimulator<Float, Float, SimTimeFloat>
+            implements DESSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -150,8 +150,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.TimeLong. */
-    public static class TimeLong extends DESSSimulator<Long, Long, SimTimeLong> implements
-            DESSSimulatorInterface.TimeLong
+    public static class TimeLong extends DESSSimulator<Long, Long, SimTimeLong>
+            implements DESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -167,8 +167,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends DESSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> implements
-            DESSSimulatorInterface.TimeDoubleUnit
+    public static class TimeDoubleUnit extends DESSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+            implements DESSSimulatorInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -184,8 +184,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DESSSimulatorInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends DESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+            implements DESSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -201,8 +201,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.TimeLongUnit. */
-    public static class TimeLongUnit extends DESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DESSSimulatorInterface.TimeLongUnit
+    public static class TimeLongUnit extends DESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+            implements DESSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -218,8 +218,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.CalendarDouble. */
-    public static class CalendarDouble extends DESSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
-            DESSSimulatorInterface.CalendarDouble
+    public static class CalendarDouble extends DESSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+            implements DESSSimulatorInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -235,8 +235,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.CalendarFloat. */
-    public static class CalendarFloat extends DESSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
-            DESSSimulatorInterface.CalendarFloat
+    public static class CalendarFloat extends DESSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+            implements DESSSimulatorInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -252,8 +252,8 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.CalendarLong. */
-    public static class CalendarLong extends DESSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            DESSSimulatorInterface.CalendarLong
+    public static class CalendarLong extends DESSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+            implements DESSSimulatorInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

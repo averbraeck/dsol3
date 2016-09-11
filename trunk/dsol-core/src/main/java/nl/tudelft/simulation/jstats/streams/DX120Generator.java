@@ -1,11 +1,12 @@
 package nl.tudelft.simulation.jstats.streams;
 
 /**
- * The DX-120-4 pseudo random number generator. This generator is described in <a
- * href="http://www.cs.memphis.edu/~dengl/dx-rng/dengxu2002.pdf"> A System of High-dimensional, Efficient, Long-cycle
+ * The DX-120-4 pseudo random number generator. This generator is described in
+ * <a href="http://www.cs.memphis.edu/~dengl/dx-rng/dengxu2002.pdf"> A System of High-dimensional, Efficient, Long-cycle
  * and Portable Uniform Random Number Generators </a>.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -104,9 +105,9 @@ public class DX120Generator extends RandomNumberGenerator
         {
             this.k23 = 0; /* wrap around running k23 */
         }
-        this.buffer[this.index] =
-                (521673 * (this.buffer[this.index] + this.buffer[this.k13] + this.buffer[this.k23] + this.buffer[tempIndex]))
-                        & MASK;
+        this.buffer[this.index] = (521673
+                * (this.buffer[this.index] + this.buffer[this.k13] + this.buffer[this.k23] + this.buffer[tempIndex]))
+                & MASK;
         if (bits <= 32)
         {
             return (this.buffer[this.index]) >>> (32 - bits);

@@ -235,8 +235,8 @@ public abstract class AbstractDEVSModel extends EventProducer
             }
             catch (IllegalAccessException exception)
             {
-                Logger.severe(this, "fireUpdateState", "Tried to fire update for variable " + field.getName()
-                        + " but got an exception.");
+                Logger.severe(this, "fireUpdateState",
+                        "Tried to fire update for variable " + field.getName() + " but got an exception.");
                 System.err.println(this.getModelName() + " - fireUpdateState: Tried to fire update for variable "
                         + field.getName() + " but got an exception.");
             }
@@ -325,6 +325,6 @@ public abstract class AbstractDEVSModel extends EventProducer
             return this.value;
         }
     }
-    
+
     // TODO public static class TimeDouble
 }

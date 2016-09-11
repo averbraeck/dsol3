@@ -71,8 +71,8 @@ public class Duplicate extends Station
             }
             else
             {
-                throw new Exception("cannot duplicate object: " + object.getClass()
-                        + " does not implement java.io.Serializable");
+                throw new Exception(
+                        "cannot duplicate object: " + object.getClass() + " does not implement java.io.Serializable");
             }
         }
         catch (Exception exception)

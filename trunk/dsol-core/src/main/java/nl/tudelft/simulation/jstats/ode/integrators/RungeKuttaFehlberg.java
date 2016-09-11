@@ -5,7 +5,8 @@ import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
 /**
  * The RungeKuttaFehlberg.java numerical integrator.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -19,10 +20,10 @@ public class RungeKuttaFehlberg extends NumericalIntegrator
     protected static double[] a = new double[]{0d, 1d / 4d, 3d / 8d, 12d / 13d, 1d, 1d / 2d};
 
     /** the parameters for b_ij, in f(., y_n + b_p1 k1 + bp2 k2 + ...) */
-    protected static double[][] b = new double[][]{{0d, 0d, 0d, 0d, 0d},
-            {1d / 4d, 3d / 32d, 1932d / 2197d, 439d / 216d, -8d / 27d}, {0d, 9d / 32d, -7200d / 2197d, -8d, 2d},
-            {0d, 0d, 7296d / 2197d, 3680d / 513d, -3544d / 2565d}, {0d, 0d, 0d, -845d / 4104d, 1859d / 4104d},
-            {0d, 0d, 0d, 0d, -11d / 40d}};
+    protected static double[][] b =
+            new double[][]{{0d, 0d, 0d, 0d, 0d}, {1d / 4d, 3d / 32d, 1932d / 2197d, 439d / 216d, -8d / 27d},
+                    {0d, 9d / 32d, -7200d / 2197d, -8d, 2d}, {0d, 0d, 7296d / 2197d, 3680d / 513d, -3544d / 2565d},
+                    {0d, 0d, 0d, -845d / 4104d, 1859d / 4104d}, {0d, 0d, 0d, 0d, -11d / 40d}};
 
     /** the parameters for c_i, in y_n+1 = y_n + c_1 k_1 + c_2 k_2 + ... */
     protected static double[] c = new double[]{16d / 135d, 0d, 6656d / 12825d, 28561d / 56430d, -9d / 50d, 2d / 55d};

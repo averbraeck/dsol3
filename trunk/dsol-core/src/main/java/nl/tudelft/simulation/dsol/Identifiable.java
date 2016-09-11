@@ -1,8 +1,7 @@
 package nl.tudelft.simulation.dsol;
 
 /**
- * Interface for an identifiable class, which can return an id. Preferably the id is unique in a certain context.
- * <br>
+ * Interface for an identifiable class, which can return an id. Preferably the id is unique in a certain context. <br>
  * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
@@ -16,10 +15,9 @@ public interface Identifiable<T>
      * @return the Id, which is preferably unique in a certain context
      */
     T getId();
-    
+
     /**
-     * String interface for an identifiable class.
-     * <br>
+     * String interface for an identifiable class. <br>
      * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
      * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
@@ -33,8 +31,7 @@ public interface Identifiable<T>
     }
 
     /**
-     * Long interface for an identifiable class.
-     * <br>
+     * Long interface for an identifiable class. <br>
      * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
      * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>

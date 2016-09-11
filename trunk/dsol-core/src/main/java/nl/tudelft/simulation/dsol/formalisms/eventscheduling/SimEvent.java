@@ -157,7 +157,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; source="
-                + this.source + "; target=" + this.target + "; method=" + this.methodName + "; args=" + this.args + "]";
+        return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; source=" + this.source
+                + "; target=" + this.target + "; method=" + this.methodName + "; args=" + this.args + "]";
     }
 }

@@ -188,9 +188,8 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
             try
             {
                 this.nextEvent =
-                        new SimEvent<SimTimeDouble>(
-                                this.getSimulator().getSimulatorTime().plus(this.timeAdvance() - e), this, this,
-                                "deltaInternalEventHandler", null);
+                        new SimEvent<SimTimeDouble>(this.getSimulator().getSimulatorTime().plus(this.timeAdvance() - e),
+                                this, this, "deltaInternalEventHandler", null);
                 this.timeLastEvent = this.getSimulator().getSimulatorTime().get();
                 this.simulator.scheduleEvent(this.nextEvent);
             }
@@ -233,9 +232,9 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
             {
                 if (this.timeAdvance() != Double.POSITIVE_INFINITY)
                 {
-                    this.nextEvent =
-                            new SimEvent<SimTimeDouble>((this.simulator.getSimulatorTime().plus(this.timeAdvance()
-                                    - this.elapsedTime)), this, this, "deltaInternalEventHandler", null);
+                    this.nextEvent = new SimEvent<SimTimeDouble>(
+                            (this.simulator.getSimulatorTime().plus(this.timeAdvance() - this.elapsedTime)), this, this,
+                            "deltaInternalEventHandler", null);
                     this.timeLastEvent = this.simulator.getSimulatorTime().get();
                     Logger.finest(this, "schedule", this.nextEvent.toString());
                     this.simulator.scheduleEvent(this.nextEvent);

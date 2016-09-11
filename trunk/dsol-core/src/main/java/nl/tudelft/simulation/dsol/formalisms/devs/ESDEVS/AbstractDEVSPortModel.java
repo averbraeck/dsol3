@@ -76,8 +76,8 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
     {
         if (this.inputPortMap.containsKey(name))
         {
-            throw new PortAlreadyDefinedException("Adding port " + name + " for model " + this.toString()
-                    + ", but it already exists.");
+            throw new PortAlreadyDefinedException(
+                    "Adding port " + name + " for model " + this.toString() + ", but it already exists.");
         }
         this.inputPortMap.put(name, inputPort);
     }
@@ -95,8 +95,8 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
     {
         if (this.outputPortMap.containsKey(name))
         {
-            throw new PortAlreadyDefinedException("Adding port " + name + " for model " + this.toString()
-                    + ", but it already exists.");
+            throw new PortAlreadyDefinedException(
+                    "Adding port " + name + " for model " + this.toString() + ", but it already exists.");
         }
         this.outputPortMap.put(name, outputPort);
     }
@@ -112,8 +112,8 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
     {
         if (!this.inputPortMap.containsKey(name))
         {
-            throw new PortNotFoundException("Removing port " + name + " for model " + this.toString()
-                    + ", but it does not exist.");
+            throw new PortNotFoundException(
+                    "Removing port " + name + " for model " + this.toString() + ", but it does not exist.");
         }
         this.inputPortMap.remove(name);
     }
@@ -129,8 +129,8 @@ public abstract class AbstractDEVSPortModel extends AbstractDEVSModel
     {
         if (!this.outputPortMap.containsKey(name))
         {
-            throw new PortNotFoundException("Removing port " + name + " for model " + this.toString()
-                    + ", but it does not exist.");
+            throw new PortNotFoundException(
+                    "Removing port " + name + " for model " + this.toString() + ", but it does not exist.");
         }
         this.outputPortMap.remove(name);
     }

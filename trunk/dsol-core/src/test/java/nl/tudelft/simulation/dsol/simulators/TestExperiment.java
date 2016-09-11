@@ -26,8 +26,8 @@ import nl.tudelft.simulation.logger.Logger;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version 2.0 21.09.2003 <br>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>, <a
- *         href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
+ *         <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public final class TestExperiment
 {
@@ -108,7 +108,8 @@ public final class TestExperiment
      */
     public static Treatment createTreatment(final Experiment experiment)
     {
-        Treatment treatment = new Treatment(experiment, "tr1", new SimTimeDouble(System.currentTimeMillis()), 0.0, 100.0);
+        Treatment treatment =
+                new Treatment(experiment, "tr1", new SimTimeDouble(System.currentTimeMillis()), 0.0, 100.0);
         return treatment;
     }
 

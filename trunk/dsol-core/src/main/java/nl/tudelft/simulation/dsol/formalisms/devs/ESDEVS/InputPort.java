@@ -140,8 +140,8 @@ public class InputPort<T> implements InputPortInterface<T>
                 }
                 else
                 {
-                    atomicModel.deltaExternalEventHandler(this.model.getSimulator().getSimulatorTime().get()
-                            - atomicModel.getTimeLastEvent(), value);
+                    atomicModel.deltaExternalEventHandler(
+                            this.model.getSimulator().getSimulatorTime().get() - atomicModel.getTimeLastEvent(), value);
                 }
                 if (!passivity)
                 {

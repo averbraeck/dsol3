@@ -28,8 +28,8 @@ import nl.tudelft.simulation.logger.Logger;
  * @since 1.5
  */
 public abstract class DifferentialEquation<A extends Number & Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends nl.tudelft.simulation.jstats.ode.DifferentialEquation implements DifferentialEquationInterface,
-        EventListenerInterface
+        extends nl.tudelft.simulation.jstats.ode.DifferentialEquation
+        implements DifferentialEquationInterface, EventListenerInterface
 {
     /** */
     private static final long serialVersionUID = 20140804L;

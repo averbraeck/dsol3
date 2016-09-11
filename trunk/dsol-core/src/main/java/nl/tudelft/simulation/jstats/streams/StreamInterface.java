@@ -90,14 +90,14 @@ public interface StreamInterface extends Serializable
      * resets the stream.
      */
     void reset();
-    
+
     /**
      * save the state of the RNG into an object, e.g. to roll it back to this state.
      * @return the state as an object specific to the RNG.
      * @throws StreamException when getting the state fails.
      */
     Object saveState() throws StreamException;
-    
+
     /**
      * restore the state to an earlier saved state object.
      * @param state the earlier saved state to which the RNG rolls back.

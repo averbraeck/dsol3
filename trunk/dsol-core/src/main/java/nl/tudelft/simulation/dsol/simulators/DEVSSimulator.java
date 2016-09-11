@@ -199,8 +199,8 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventRel(final R relativeDelay, final Executable executable) throws RemoteException,
-            SimRuntimeException
+    public final void scheduleEventRel(final R relativeDelay, final Executable executable)
+            throws RemoteException, SimRuntimeException
     {
         scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, executable);
     }
@@ -220,8 +220,8 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final A absoluteTime, final Executable executable) throws RemoteException,
-            SimRuntimeException
+    public final void scheduleEventAbs(final A absoluteTime, final Executable executable)
+            throws RemoteException, SimRuntimeException
     {
         scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
     }
@@ -236,16 +236,16 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final T absoluteTime, final Executable executable) throws RemoteException,
-            SimRuntimeException
+    public final void scheduleEventAbs(final T absoluteTime, final Executable executable)
+            throws RemoteException, SimRuntimeException
     {
         scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventNow(final short priority, final Executable executable) throws RemoteException,
-            SimRuntimeException
+    public final void scheduleEventNow(final short priority, final Executable executable)
+            throws RemoteException, SimRuntimeException
     {
         synchronized (super.semaphore)
         {
@@ -392,24 +392,24 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /***********************************************************************************************************/
 
     /** Easy access class DEVSSimulator.TimeDouble. */
-    public static class TimeDouble extends DEVSSimulator<Double, Double, SimTimeDouble> implements
-            DEVSSimulatorInterface.TimeDouble
+    public static class TimeDouble extends DEVSSimulator<Double, Double, SimTimeDouble>
+            implements DEVSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class DEVSSimulator.TimeFloat. */
-    public static class TimeFloat extends DEVSSimulator<Float, Float, SimTimeFloat> implements
-            DEVSSimulatorInterface.TimeFloat
+    public static class TimeFloat extends DEVSSimulator<Float, Float, SimTimeFloat>
+            implements DEVSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class DEVSSimulator.TimeLong. */
-    public static class TimeLong extends DEVSSimulator<Long, Long, SimTimeLong> implements
-            DEVSSimulatorInterface.TimeLong
+    public static class TimeLong extends DEVSSimulator<Long, Long, SimTimeLong>
+            implements DEVSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -424,40 +424,40 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DEVSSimulator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> implements
-            DEVSSimulatorInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends DEVSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+            implements DEVSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class DEVSSimulator.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DEVSSimulatorInterface.TimeLongUnit
+    public static class TimeLongUnit extends DEVSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+            implements DEVSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class DEVSSimulator.CalendarDouble. */
-    public static class CalendarDouble extends DEVSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble> implements
-            DEVSSimulatorInterface.CalendarDouble
+    public static class CalendarDouble extends DEVSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+            implements DEVSSimulatorInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class DEVSSimulator.CalendarFloat. */
-    public static class CalendarFloat extends DEVSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat> implements
-            DEVSSimulatorInterface.CalendarFloat
+    public static class CalendarFloat extends DEVSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+            implements DEVSSimulatorInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class DEVSSimulator.CalendarLong. */
-    public static class CalendarLong extends DEVSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            DEVSSimulatorInterface.CalendarLong
+    public static class CalendarLong extends DEVSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+            implements DEVSSimulatorInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

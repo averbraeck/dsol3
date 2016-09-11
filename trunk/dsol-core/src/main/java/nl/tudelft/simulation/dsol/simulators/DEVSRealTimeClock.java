@@ -24,7 +24,8 @@ import nl.tudelft.simulation.event.EventType;
  * realTime. If the executionTime exceeds the timeStep, a catchup mechanism can be triggered to make up lost time in
  * consecutive steps.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -232,7 +233,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     /**
      * Set the speedFactor, and send a CHANGE_SPEED_FACTOR event.
      * @param newSpeedFactor the new speed factor to set
-     * @param fireChangeSpeedFactorEvent whether to fire a CHANGE_SPEED_FACTOR event or not 
+     * @param fireChangeSpeedFactorEvent whether to fire a CHANGE_SPEED_FACTOR event or not
      */
     public final void setSpeedFactor(final double newSpeedFactor, final boolean fireChangeSpeedFactorEvent)
     {
@@ -297,8 +298,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     /***********************************************************************************************************/
 
     /** Easy access class RealTimeClock.TimeDouble. */
-    public static class TimeDouble extends DEVSRealTimeClock<Double, Double, SimTimeDouble> implements
-            DEVSSimulatorInterface.TimeDouble
+    public static class TimeDouble extends DEVSRealTimeClock<Double, Double, SimTimeDouble>
+            implements DEVSSimulatorInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -328,16 +329,16 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access class RealTimeClock.TimeFloat. */
-    public abstract static class TimeFloat extends DEVSRealTimeClock<Float, Float, SimTimeFloat> implements
-            DEVSSimulatorInterface.TimeFloat
+    public abstract static class TimeFloat extends DEVSRealTimeClock<Float, Float, SimTimeFloat>
+            implements DEVSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class RealTimeClock.TimeLong. */
-    public abstract static class TimeLong extends DEVSRealTimeClock<Long, Long, SimTimeLong> implements
-            DEVSSimulatorInterface.TimeLong
+    public abstract static class TimeLong extends DEVSRealTimeClock<Long, Long, SimTimeLong>
+            implements DEVSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -374,8 +375,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access class RealTimeClock.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVSRealTimeClock<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> implements
-            DEVSSimulatorInterface.TimeLongUnit
+    public static class TimeLongUnit extends DEVSRealTimeClock<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+            implements DEVSSimulatorInterface.TimeLongUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -419,8 +420,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access class RealTimeClock.CalendarLong. */
-    public static class CalendarLong extends DEVSRealTimeClock<Calendar, UnitTimeLong, SimTimeCalendarLong> implements
-            DEVSSimulatorInterface.CalendarLong
+    public static class CalendarLong extends DEVSRealTimeClock<Calendar, UnitTimeLong, SimTimeCalendarLong>
+            implements DEVSSimulatorInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

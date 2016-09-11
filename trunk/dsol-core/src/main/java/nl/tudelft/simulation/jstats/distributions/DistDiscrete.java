@@ -3,9 +3,9 @@ package nl.tudelft.simulation.jstats.distributions;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The discrete distribution. For more information on this distribution see <a
- * href="http://mathworld.wolfram.com/DiscreteDistribution.html"> http://mathworld.wolfram.com/DiscreteDistribution.html
- * </a>
+ * The discrete distribution. For more information on this distribution see
+ * <a href="http://mathworld.wolfram.com/DiscreteDistribution.html">
+ * http://mathworld.wolfram.com/DiscreteDistribution.html </a>
  * <p>
  * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
