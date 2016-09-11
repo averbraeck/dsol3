@@ -121,6 +121,7 @@ public class InitialEventContext implements EventContext
     @SuppressWarnings("unchecked")
     protected void init(final Hashtable<?, ?> environment) throws NamingException
     {
+        // TODO ResourceManager.getInitialEnvironment(environment) is an internal API that is forbidden to access?
         this.myProps = ResourceManager.getInitialEnvironment(environment);
         if (this.myProps.get(Context.INITIAL_CONTEXT_FACTORY) != null)
         {
