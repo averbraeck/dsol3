@@ -52,7 +52,7 @@
     <maven.pmd.version>3.2</maven.pmd.version>
     <maven.changes.version>2.10</maven.changes.version>
     <wagon.maven.version>1.0</wagon.maven.version>
-    <wagon.ssh.version>2.8</wagon.ssh.version>
+    <wagon.ssh.version>2.10</wagon.ssh.version>
     <wagon.ftp.version>2.8</wagon.ftp.version>
     <maven.cobertura.version>2.7</maven.cobertura.version>
     <codehaus.javancss.version>2.1</codehaus.javancss.version>
