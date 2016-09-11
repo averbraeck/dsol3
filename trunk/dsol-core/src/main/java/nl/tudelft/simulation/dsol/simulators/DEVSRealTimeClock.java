@@ -45,6 +45,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     /** the backlog event. */
     public static final EventType BACKLOG_EVENT = new EventType("BACKLOG_EVENT");
 
+    /** the speed factor event. */
+    public static final EventType CHANGE_SPEED_FACTOR_EVENT = new EventType("CHANGE_SPEED_FACTOR_EVENT");
+
     /** the speed factor compared to real time clock. &lt;1 is slower, &gt;1 is faster, 1 is real time speed. */
     private double speedFactor = 1.0;
 
@@ -227,11 +230,26 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /**
-     * @param speedFactor set speedFactor
+     * Set the speedFactor, and send a CHANGE_SPEED_FACTOR event.
+     * @param newSpeedFactor the new speed factor to set
+     * @param fireChangeSpeedFactorEvent whether to fire a CHANGE_SPEED_FACTOR event or not 
      */
-    public final void setSpeedFactor(final double speedFactor)
+    public final void setSpeedFactor(final double newSpeedFactor, final boolean fireChangeSpeedFactorEvent)
     {
-        this.speedFactor = speedFactor;
+        this.speedFactor = newSpeedFactor;
+        if (fireChangeSpeedFactorEvent)
+        {
+            this.fireTimedEvent(CHANGE_SPEED_FACTOR_EVENT, newSpeedFactor, this.simulatorTime);
+        }
+    }
+
+    /**
+     * Set the speedFactor, and send a CHANGE_SPEED_FACTOR event.
+     * @param newSpeedFactor set speedFactor
+     */
+    public final void setSpeedFactorNoEvent(final double newSpeedFactor)
+    {
+        setSpeedFactor(newSpeedFactor, true);
     }
 
     /**
