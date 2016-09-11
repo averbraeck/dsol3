@@ -132,7 +132,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void start() throws SimRuntimeException
+    public void start(final boolean fireStartEvent) throws SimRuntimeException
     {
         if (this.isRunning())
         {
@@ -149,7 +149,10 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         synchronized (this.semaphore)
         {
             this.running = true;
-            this.fireEvent(START_EVENT);
+            if (fireStartEvent)
+            {
+                this.fireEvent(START_EVENT);
+            }
             this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
             if (!Thread.currentThread().getName().equals(this.worker.getName()))
             {
@@ -165,7 +168,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void step() throws SimRuntimeException
+    public final void start() throws SimRuntimeException
+    {
+        start(true);
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public void step(final boolean fireStepEvent) throws SimRuntimeException
     {
         if (this.isRunning())
         {
@@ -179,13 +190,24 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         {
             throw new SimRuntimeException("Cannot step simulator: " + "SimulatorTime = runControl.runLength");
         }
-        this.fireEvent(SimulatorInterface.STEP_EVENT);
+        if (fireStepEvent)
+        {
+            this.fireEvent(SimulatorInterface.STEP_EVENT);
+        }
     }
 
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void stop()
+    public final void step() throws SimRuntimeException
+    {
+        step(true);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public void stop(final boolean fireStopEvent)
     {
         if (this.isRunning())
         {
@@ -194,8 +216,19 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             {
                 this.fireTimedEvent(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime);
             }
-            this.fireEvent(SimulatorInterface.STOP_EVENT);
+            if (fireStopEvent)
+            {
+                this.fireEvent(SimulatorInterface.STOP_EVENT);
+            }
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public final void stop()
+    {
+        stop(true);
     }
 
     /**

@@ -5,9 +5,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
-import javax.naming.Context;
-import javax.naming.NamingException;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -47,7 +44,7 @@ import nl.tudelft.simulation.event.EventType;
  * @since 1.5
  */
 @SuppressWarnings("checkstyle:linelength")
-public abstract interface SimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public interface SimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Remote, Serializable, EventProducerInterface
 {
     /** END_OF_REPLICATION_EVENT is fired when a replication is finished. */
@@ -92,8 +89,8 @@ public abstract interface SimulatorInterface<A extends Comparable<A>, R extends 
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on simulator failure (simulator is running)
      */
-    void initialize(Replication<A, R, T> replication, ReplicationMode replicationMode) throws RemoteException,
-            SimRuntimeException;
+    void initialize(Replication<A, R, T> replication, ReplicationMode replicationMode)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * is the simulator running.
@@ -103,25 +100,49 @@ public abstract interface SimulatorInterface<A extends Comparable<A>, R extends 
     boolean isRunning() throws RemoteException;
 
     /**
-     * starts the simulator.
+     * starts the simulator, and fire a START event that the simulator was started.
      * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      */
     void start() throws RemoteException, SimRuntimeException;
 
     /**
-     * steps the simulator.
+     * starts the simulator.
+     * @param fireStartEvent boolean; determine whether to fire a START event that the simulator was started
+     * @throws RemoteException on network failure
+     * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
+     */
+    void start(boolean fireStartEvent) throws RemoteException, SimRuntimeException;
+
+    /**
+     * steps the simulator, and fire a STEP event to indicate the simulator made a step.
      * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever stepping fails. Possible occasions include stepping a stopped simulator
      */
     void step() throws RemoteException, SimRuntimeException;
 
     /**
-     * stops the simulator.
+     * steps the simulator.
+     * @param fireStepEvent boolean; determine whether to fire a STEP event that the simulator was stepped
+     * @throws RemoteException on network failure
+     * @throws SimRuntimeException whenever stepping fails. Possible occasions include starting a started simulator
+     */
+    void step(boolean fireStepEvent) throws RemoteException, SimRuntimeException;
+
+    /**
+     * stops the simulator, and fire a STOP event that the simulator was stopped.
      * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever stopping fails. Possible occasions include stopping a stopped simulator
      */
     void stop() throws RemoteException, SimRuntimeException;
+
+    /**
+     * stops the simulator.
+     * @param fireStopEvent boolean; determine whether to fire a STOP event that the simulator was stopped
+     * @throws RemoteException on network failure
+     * @throws SimRuntimeException whenever stopping fails. Possible occasions include starting a started simulator
+     */
+    void stop(boolean fireStopEvent) throws RemoteException, SimRuntimeException;
 
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/

@@ -272,11 +272,11 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void step() throws SimRuntimeException
+    public void step(final boolean fireStepEvent) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
-            super.step();
+            super.step(fireStepEvent);
             if (!this.eventList.isEmpty())
             {
                 this.running = true;
@@ -320,9 +320,9 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void stop()
+    public void stop(final boolean fireStopEvent)
     {
-        super.stop();
+        super.stop(fireStopEvent);
         if (this.getReplication() != null && this.simulatorTime.ge(this.getReplication().getTreatment().getEndTime()))
         {
             this.eventList.clear();
