@@ -27,7 +27,7 @@ public interface CoordinateTransform
     double[] doubleTransform(double x, double y);
     
     /**
-     * The identical transformation (x,y) => (x,y).
+     * The identical transformation (x,y) =&gt; (x,y).
      * <br>
      * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
      * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
