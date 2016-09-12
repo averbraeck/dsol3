@@ -27,7 +27,9 @@ public class DummyModel implements DSOLModel
         super();
     }
 
-    /** {@inheritDoc} */ @Override public  void constructModel(final SimulatorInterface simulator)
+    /** {@inheritDoc} */
+    @Override
+    public void constructModel(final SimulatorInterface simulator)
     {
         // We have constructed a model.
     }

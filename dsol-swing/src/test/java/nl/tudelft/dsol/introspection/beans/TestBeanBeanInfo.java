@@ -13,8 +13,8 @@ import java.beans.SimpleBeanInfo;
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang
+ *         </a><a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
@@ -59,7 +59,7 @@ public class TestBeanBeanInfo extends SimpleBeanInfo
         catch (IntrospectionException e)
         {
             e.printStackTrace();
-        }// GEN-HEADEREND:Properties
+        } // GEN-HEADEREND:Properties
 
         // Here you can add code for customizing the properties array.
 
@@ -87,14 +87,14 @@ public class TestBeanBeanInfo extends SimpleBeanInfo
         try
         {
             methods[METHOD_toString0] =
-                    new MethodDescriptor(Class.forName("junit.nl.tudelft.dsol.introspection.beans.TestBean").getMethod(
-                            "toString", new Class[]{}));
+                    new MethodDescriptor(Class.forName("junit.nl.tudelft.dsol.introspection.beans.TestBean")
+                            .getMethod("toString", new Class[]{}));
             methods[METHOD_toString0].setDisplayName("");
         }
         catch (Exception e)
         {
             e.printStackTrace();
-        }// GEN-HEADEREND:Methods
+        } // GEN-HEADEREND:Methods
 
         // Here you can add code for customizing the methods array.
 
@@ -120,8 +120,8 @@ public class TestBeanBeanInfo extends SimpleBeanInfo
 
     /**
      * Gets the bean's <code>PropertyDescriptor</code>s.
-     * @return An array of PropertyDescriptors describing the editable properties supported by this bean. May return null
-     *         if the information should be obtained by automatic analysis.
+     * @return An array of PropertyDescriptors describing the editable properties supported by this bean. May return
+     *         null if the information should be obtained by automatic analysis.
      *         <p>
      *         If a property is indexed, then its entry in the result array will belong to the IndexedPropertyDescriptor
      *         subclass of PropertyDescriptor. A client of getPropertyDescriptors can use "instanceof" to check if a
