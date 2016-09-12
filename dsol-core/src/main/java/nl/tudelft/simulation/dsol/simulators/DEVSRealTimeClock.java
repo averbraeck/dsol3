@@ -248,7 +248,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
      * Set the speedFactor, and send a CHANGE_SPEED_FACTOR event.
      * @param newSpeedFactor set speedFactor
      */
-    public final void setSpeedFactorNoEvent(final double newSpeedFactor)
+    public final void setSpeedFactor(final double newSpeedFactor)
     {
         setSpeedFactor(newSpeedFactor, true);
     }
