@@ -2,7 +2,8 @@ package nl.tudelft.simulation.dsol.animation.D2;
 
 import java.util.Comparator;
 
-import nl.tudelft.simulation.logger.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * <p>
@@ -16,7 +17,9 @@ import nl.tudelft.simulation.logger.Logger;
  * @since 1.5
  */
 public class Renderable2DComparator implements Comparator<Renderable2DInterface>
-{
+{    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Renderable2DComparator.class);
 
     /**
      * constructs a new Renderable2DComparator
@@ -47,7 +50,7 @@ public class Renderable2DComparator implements Comparator<Renderable2DInterface>
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "compare", exception);
+            logger.warn("compare", exception);
         }
         return new Integer(r1.hashCode()).compareTo(new Integer(r2.hashCode()));
     }

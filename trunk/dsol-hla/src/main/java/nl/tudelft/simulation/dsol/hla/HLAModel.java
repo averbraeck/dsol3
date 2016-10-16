@@ -69,7 +69,7 @@ public class HLAModel extends DSOLFederateAmbassador implements DSOLModel
             Logger.info(this,"<init>","Ready intialize");
         } catch (Exception exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 

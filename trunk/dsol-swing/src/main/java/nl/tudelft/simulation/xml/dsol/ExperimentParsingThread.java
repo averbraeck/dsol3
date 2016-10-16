@@ -3,11 +3,13 @@ package nl.tudelft.simulation.xml.dsol;
 import java.io.IOException;
 import java.net.URL;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A ExperimentParsingThread <br>
@@ -29,6 +31,9 @@ public class ExperimentParsingThread extends Thread
 
     /** the experiment. */
     protected URL experiment = null;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(ExperimentParsingThread.class);
 
     /**
      * constructs a new ExperimentParsingThread
@@ -53,7 +58,7 @@ public class ExperimentParsingThread extends Thread
         }
         catch (IOException exception)
         {
-            Logger.warning(this, "run", exception);
+            logger.warn("run", exception);
         }
     }
 }

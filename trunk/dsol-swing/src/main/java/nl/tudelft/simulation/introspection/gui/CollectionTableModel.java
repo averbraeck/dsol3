@@ -13,12 +13,14 @@ import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.introspection.AbstractProperty;
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
 import nl.tudelft.simulation.introspection.table.DynamicTableModel;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A tablemodel used to manage and present the instances of a composite property.
@@ -62,6 +64,9 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
 
     /** The highest key currently allocated. */
     private int maxKey = 0;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(CollectionTableModel.class);
 
     /**
      * constructs a new CollectionTableModel.
@@ -335,7 +340,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
         catch (Exception e)
         {
-            Logger.warning(this, "createRow", "Could not instantiate new instance: " + e.getMessage());
+            logger.warn("createRow: Could not instantiate new instance: ", e);
         }
     }
 

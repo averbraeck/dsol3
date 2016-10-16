@@ -10,13 +10,15 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d2.Shape;
 import nl.tudelft.simulation.language.d3.BoundsUtil;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -49,6 +51,9 @@ public abstract class Renderable2D implements Renderable2DInterface
 
     /** whether to translate the renderable when panning. Flag is 0001 */
     private static final byte TRANSLATE_FLAG = 0x01;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Renderable2D.class);
 
     /**
      * the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist
@@ -240,7 +245,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "paint", exception);
+            logger.warn("paint", exception);
         }
     }
 
@@ -263,7 +268,7 @@ public abstract class Renderable2D implements Renderable2DInterface
         }
         catch (RemoteException exception)
         {
-            Logger.warning(this, "contains", exception);
+            logger.warn("contains", exception);
             return false;
         }
     }

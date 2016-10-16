@@ -7,8 +7,10 @@ import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.introspection.gui.ExpandButton;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * Implements the pop-up behaviour of the {see nl.tudelft.simulation.introspection.gui.ExpandButton}.
@@ -21,7 +23,10 @@ import nl.tudelft.simulation.logger.Logger;
  * @since 1.5
  */
 public class ExpandButtonEditor extends AbstractCellEditor implements TableCellEditor
-{
+{    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(ExpandButtonEditor.class);
+
     /** */
     private static final long serialVersionUID = 20140831L;
 
@@ -39,7 +44,7 @@ public class ExpandButtonEditor extends AbstractCellEditor implements TableCellE
         }
         else
         {
-            Logger.warning(this, "getTableCellEditorComponent", "Expected value to be an ExpandButton, but found: "
+            logger.warn("getTableCellEditorComponent: Expected value to be an ExpandButton, but found: "
                     + value);
         }
         return (Component) value;

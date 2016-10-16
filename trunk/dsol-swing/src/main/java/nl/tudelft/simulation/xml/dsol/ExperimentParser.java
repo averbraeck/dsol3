@@ -13,6 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
@@ -26,11 +32,6 @@ import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.language.io.URLResource;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
-import nl.tudelft.simulation.logger.Logger;
-
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
 
 /**
  * The ExperimentParser parses xml-based experiments into their java objects <br>
@@ -46,6 +47,10 @@ public class ExperimentParser
 {
     /** builder the xerces parser with validation turned on. */
     private static SAXBuilder builder = new SAXBuilder("org.apache.xerces.parsers.SAXParser", true);
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(ExperimentParser.class);
+
     static
     {
         // turns on Schema Validation with Xerces
@@ -112,7 +117,7 @@ public class ExperimentParser
         }
         catch (Exception exception)
         {
-            Logger.warning(ExperimentParser.class, "parseExperimentalFrame", exception);
+            logger.warn("parseExperimentalFrame", exception);
             return null;
         }
     }
@@ -231,7 +236,7 @@ public class ExperimentParser
         }
         catch (Exception exception)
         {
-            Logger.warning(ExperimentParser.class, "parseExperiment", exception);
+            logger.warn("parseExperiment", exception);
             throw new IOException(exception.getMessage());
         }
     }

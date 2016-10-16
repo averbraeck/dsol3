@@ -1,7 +1,9 @@
 package nl.tudelft.simulation.dsol.animation.D2;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * <br>
@@ -17,7 +19,9 @@ import nl.tudelft.simulation.logger.Logger;
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck </a>
  */
 public class Animation
-{
+{    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Animation.class);
 
     /**
      * @param frameName the name to use for the frame
@@ -49,7 +53,7 @@ public class Animation
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "actionPerformed", exception);
+            logger.warn("actionPerformed", exception);
         }
     }
 

@@ -14,11 +14,13 @@ import javax.naming.NamingException;
 import javax.vecmath.AxisAngle4d;
 import javax.vecmath.Vector3d;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -33,24 +35,16 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  */
 public abstract class Renderable3D extends BranchGroup implements Renderable3DInterface
 {
-    /**
-     * the source of this animatableObject
-     */
+    /** the source of this animatableObject. */
     protected Locatable source = null;
 
-    /**
-     * the simulator
-     */
+    /** the simulator. */
     protected SimulatorInterface simulator = null;
 
-    /**
-     * Rotation group
-     */
+    /** Rotation group. */
     protected TransformGroup locationGroup = null;
 
-    /**
-     * Type of renderable (world, static or simulated
-     */
+    /** Type of renderable (world, static or simulated. */
     protected int type = Renderable3DInterface.DYNAMIC_OBJECT;
 
     /**
@@ -60,30 +54,23 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
      */
     protected double scale = 1.0d;
 
-    /**
-     * translation Used in update; put here to prevent garbage
-     */
+    /** translation Used in update; put here to prevent garbage. */
     private Transform3D translate = new Transform3D();
 
-    /**
-     * combined rotation angle Used in update; put here to prevent garbage
-     */
+    /** combined rotation angle Used in update; put here to prevent garbage. */
     private Transform3D rotate = new Transform3D();
 
-    /**
-     * yaw angle Used in update; put here to prevent garbage
-     */
+    /** yaw angle Used in update; put here to prevent garbage. */
     private Transform3D yaw = new Transform3D();
 
-    /**
-     * pitch angle Used in update; put here to prevent garbage
-     */
+    /** pitch angle Used in update; put here to prevent garbage. */
     private Transform3D pitch = new Transform3D();
 
-    /**
-     * roll angle Used in update; put here to prevent garbage
-     */
+    /** roll angle Used in update; put here to prevent garbage. */
     private Transform3D roll = new Transform3D();
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Renderable3D.class);
 
     /**
      * @param simulator SimulatorInterface
@@ -136,7 +123,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 
@@ -184,7 +171,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 
@@ -255,7 +242,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         catch (RemoteException exception)
         {
             this.rotate.set(new Vector3d(0, 0, 0));
-            Logger.warning(this, "update", exception);
+            logger.warn("update", exception);
         }
     }
 

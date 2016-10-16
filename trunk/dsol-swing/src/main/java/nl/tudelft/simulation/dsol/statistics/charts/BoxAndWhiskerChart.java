@@ -5,8 +5,10 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -20,7 +22,10 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class BoxAndWhiskerChart extends nl.tudelft.simulation.jstats.charts.boxAndWhisker.BoxAndWhiskerChart
-{
+{    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(BoxAndWhiskerChart.class);
+
     /**
      * constructs a new BoxAndWhiskerChart.
      * @param simulator the simulator
@@ -36,7 +41,7 @@ public class BoxAndWhiskerChart extends nl.tudelft.simulation.jstats.charts.boxA
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 

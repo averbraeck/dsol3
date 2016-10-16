@@ -111,7 +111,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                 throw new SimRuntimeException("Cannot step simulator: "
                                 + "SimulatorTime = runControl.runLength");
             }
-            Logger.finer(this, "step", "OK");
+            logger.debugr(this, "step", "OK");
             this.fireEvent(SimulatorInterface.STEP_EVENT, null);
             if (!this.eventList.isEmpty() && this.grant >= super.simulatorTime)
             {
@@ -168,7 +168,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
             {
                 this.stop();
             }
-            Logger.finer(this, "timeAdvanceRequest", "requested time until "
+            logger.debugr(this, "timeAdvanceRequest", "requested time until "
                             + time);
             switch (this.timeAdvanceMode)
             {
@@ -191,7 +191,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
             }
         } catch (Exception exception)
         {
-            Logger.severe(this, "timeAdvanceRequest", exception);
+            logger.error("timeAdvanceRequest", exception);
         }
     }
 
@@ -211,7 +211,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
             return lookahead;
         } catch (Exception e)
         {
-            Logger.severe(this, "Failed to retrieve lookahead: " + e, e);
+            logger.error("Failed to retrieve lookahead: " + e, e);
             return -1;
         }
     }
@@ -230,7 +230,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                             lookAheadTime));
         } catch (Exception exception)
         {
-            Logger.warning(this, "setLookAheadTime", exception);
+            logger.warn("setLookAheadTime", exception);
         }
     }
 
@@ -242,7 +242,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
      */
     public synchronized void run()
     {
-        Logger.finest(this, "run", "Commenced run");
+        logger.trace(this, "run", "Commenced run");
         while (isRunning()
                         && (this.grant >= this.eventList.first()
                                         .getAbsoluteExecutionTime()))
@@ -258,7 +258,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                     event.execute();
                 } catch (Exception exception)
                 {
-                    Logger.severe(this, "run", exception);
+                    logger.error("run", exception);
                 }
             }
         }
@@ -297,18 +297,18 @@ public class HLADEVSSimulator extends DEVSSimulator implements
         {
             if (this.requestState == START_REQUEST)
             {
-                Logger.finest(this, "", "GRANTED to " + arg0
+                logger.trace(this, "", "GRANTED to " + arg0
                                 + ": starting. Thread name: "
                                 + Thread.currentThread().getName());
                 this.start();
             } else
             {
-                Logger.finest(this, "", "GRANTED to " + arg0 + ": stepping");
+                logger.trace(this, "", "GRANTED to " + arg0 + ": stepping");
                 this.step();
             }
         } catch (SimRuntimeException exception)
         {
-            Logger.severe(this, "timeAdvanceGrant", exception);
+            logger.error("timeAdvanceGrant", exception);
         }
     }
     
@@ -328,7 +328,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
         if (event.getType()
                         .equals(DSOLFederateAmbassador.INTERACTION_REC_EVENT))
         {
-            Logger.fine(this, "notify", "Received Interaction Received Event");
+            logger.debug(this, "notify", "Received Interaction Received Event");
             // Schedule interaction processing: detach from RTI thread
             HLAInteractionEvent content = (HLAInteractionEvent) event
                             .getContent();
@@ -370,7 +370,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
      */
     protected void processInteractionEvent(HLAInteractionEvent evt)
     {
-        Logger.fine(this, "", "Processing received interaction event: " + evt
+        logger.debug(this, "", "Processing received interaction event: " + evt
                         + " @ " + getSimulatorTime());
         // In this class, no work is done. Check sub-classes for the handling of
         // specific interactions.

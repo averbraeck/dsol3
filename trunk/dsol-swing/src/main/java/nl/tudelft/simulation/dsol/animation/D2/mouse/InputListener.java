@@ -11,7 +11,6 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +18,9 @@ import java.util.List;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.vecmath.Point4i;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.AnimationPanel;
@@ -29,10 +31,7 @@ import nl.tudelft.simulation.dsol.animation.D2.actions.PanDownAction;
 import nl.tudelft.simulation.dsol.animation.D2.actions.PanLeftAction;
 import nl.tudelft.simulation.dsol.animation.D2.actions.PanRightAction;
 import nl.tudelft.simulation.dsol.animation.D2.actions.PanUpAction;
-import nl.tudelft.simulation.dsol.animation.D2.actions.ZoomInAction;
-import nl.tudelft.simulation.dsol.animation.D2.actions.ZoomOutAction;
 import nl.tudelft.simulation.introspection.gui.IntroSpectionDialog;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A InputListener <br>
@@ -51,9 +50,9 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /** the mouseClicked point in screen coordinates. */
     protected Point2D mouseClicked = null;
-
-    /** the formatter. */
-    private NumberFormat formatter = NumberFormat.getInstance();
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(InputListener.class);
 
     /**
      * constructs a new InputListener.
@@ -255,7 +254,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "getSelectedObjects", exception);
+            logger.warn("getSelectedObjects", exception);
         }
         return targets;
     }
@@ -303,7 +302,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
         catch (RemoteException exception)
         {
-            Logger.warning(this, "edit", exception);
+            logger.warn("edit", exception);
         }
         return selectedObject;
     }

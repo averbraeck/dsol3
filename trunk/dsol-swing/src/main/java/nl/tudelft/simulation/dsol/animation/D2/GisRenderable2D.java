@@ -13,6 +13,9 @@ import javax.media.j3d.Bounds;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.javel.gisbeans.io.esri.CoordinateTransform;
 import nl.javel.gisbeans.map.MapInterface;
 import nl.javel.gisbeans.map.mapfile.MapFileXMLParser;
@@ -22,7 +25,6 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.BoundingBox;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -56,6 +58,9 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
 
     /** the bounds of the image. */
     protected Bounds bounds = null;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(GisRenderable2D.class);
 
     /**
      * the context for (un)binding.
@@ -99,7 +104,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 
@@ -118,7 +123,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 
@@ -142,7 +147,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "paint", exception);
+            logger.warn("paint", exception);
         }
     }
 
@@ -198,7 +203,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Throwable throwable)
         {
-            Logger.warning(this, "finalize", throwable);
+            logger.warn("finalize", throwable);
         }
     }
 

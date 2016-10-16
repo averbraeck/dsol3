@@ -143,7 +143,7 @@ public class FederationManager extends DSOLFederateAmbassador
             }
         } catch (Exception exception)
         {
-            Logger.warning(this, "federationSynchronized", exception);
+            logger.warn("federationSynchronized", exception);
         }
     }
 
@@ -166,7 +166,7 @@ public class FederationManager extends DSOLFederateAmbassador
             }
         } catch (Exception exception)
         {
-            Logger.warning(this, "discoverObjectInstance", exception);
+            logger.warn("discoverObjectInstance", exception);
         }
     }
 
