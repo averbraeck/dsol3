@@ -26,10 +26,13 @@ import nl.tudelft.simulation.event.EventType;
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
+ * @param <A> the absolute time type to use in timed events
+ * @param <R> the relative time type
  * @param <T> the simulation time type to use.
  * @since 1.5
  */
-public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
+public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends EventProducer
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -60,11 +63,11 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
     protected double claimedCapacity = 0.0;
 
     /** request defines the list of requestors for this resource. */
-    protected SortedSet<Request<T>> requests =
-            Collections.synchronizedSortedSet(new TreeSet<Request<T>>(new RequestComparator()));
+    protected SortedSet<Request<A, R, T>> requests =
+            Collections.synchronizedSortedSet(new TreeSet<Request<A, R, T>>(new RequestComparator()));
 
     /** simulator defines the simulator on which is scheduled. */
-    protected DEVSSimulatorInterface<?, ?, T> simulator;
+    protected DEVSSimulatorInterface<A, R, T> simulator;
 
     /** the description of the resource. */
     protected String description = "resource";
@@ -78,7 +81,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
      * @param description the description of this resource
      * @param capacity of the resource
      */
-    public Resource(final DEVSSimulatorInterface<?, ?, T> simulator, final String description, final double capacity)
+    public Resource(final DEVSSimulatorInterface<A, R, T> simulator, final String description, final double capacity)
     {
         super();
         this.description = description;
@@ -91,7 +94,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
      * @param simulator on which is scheduled
      * @param capacity of the resource
      */
-    public Resource(final DEVSSimulatorInterface<?, ?, T> simulator, final double capacity)
+    public Resource(final DEVSSimulatorInterface<A, R, T> simulator, final double capacity)
     {
         this(simulator, "resource", capacity);
     }
@@ -169,8 +172,8 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on other failures
      */
-    public final synchronized void requestCapacity(final double amount, final ResourceRequestorInterface<T> requestor)
-            throws RemoteException, SimRuntimeException
+    public final synchronized void requestCapacity(final double amount,
+            final ResourceRequestorInterface<A, R, T> requestor) throws RemoteException, SimRuntimeException
     {
         this.requestCapacity(amount, requestor, Resource.DEFAULT_REQUEST_PRIORITY);
     }
@@ -183,8 +186,9 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on other failures
      */
-    public final synchronized void requestCapacity(final double amount, final ResourceRequestorInterface<T> requestor,
-            final int priority) throws RemoteException, SimRuntimeException
+    public final synchronized void requestCapacity(final double amount,
+            final ResourceRequestorInterface<A, R, T> requestor, final int priority)
+            throws RemoteException, SimRuntimeException
     {
         if (amount < 0.0)
         {
@@ -200,7 +204,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
         {
             synchronized (this.requests)
             {
-                this.requests.add(new Request<T>(requestor, amount, priority));
+                this.requests.add(new Request<A, R, T>(requestor, amount, priority));
             }
             this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
                     this.simulator.getSimulatorTime().get());
@@ -224,9 +228,9 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
         }
         synchronized (this.requests)
         {
-            for (Iterator<Request<T>> i = this.requests.iterator(); i.hasNext();)
+            for (Iterator<Request<A, R, T>> i = this.requests.iterator(); i.hasNext();)
             {
-                Request<T> request = i.next();
+                Request<A, R, T> request = i.next();
                 if ((this.capacity - this.claimedCapacity) >= request.getAmount())
                 {
                     this.alterClaimedCapacity(request.getAmount());
@@ -256,11 +260,11 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
     /**
      * the RequestComparator. This comparator first checks on priority, then on ID.
      */
-    protected class RequestComparator implements Comparator<Request<T>>
+    protected class RequestComparator implements Comparator<Request<A, R, T>>
     {
         /** {@inheritDoc} */
         @Override
-        public final int compare(final Request<T> arg0, final Request<T> arg1)
+        public final int compare(final Request<A, R, T> arg0, final Request<A, R, T> arg1)
         {
             if (arg0.getPriority() > arg1.getPriority())
             {
@@ -284,9 +288,11 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
 
     /**
      * A Request.
+     * @param <A> the absolute time type to use in timed events
+     * @param <R> the relative time type
      * @param <T> the simulation time type to use.
      */
-    public static class Request<T extends SimTime<?, ?, T>>
+    public static class Request<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
     {
         /** the priority of the request. */
         private int priority = 5;
@@ -295,7 +301,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
         private long id = -1;
 
         /** requestor the resourceRequestor. */
-        private ResourceRequestorInterface<T> requestor;
+        private ResourceRequestorInterface<A, R, T> requestor;
 
         /** amount is the amount requested by the resource. */
         private double amount;
@@ -306,7 +312,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
          * @param amount the requested amount
          * @param priority the priority of the request
          */
-        public Request(final ResourceRequestorInterface<T> requestor, final double amount, final int priority)
+        public Request(final ResourceRequestorInterface<A, R, T> requestor, final double amount, final int priority)
         {
             this.requestor = requestor;
             this.amount = amount;
@@ -328,7 +334,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
          * gets the requestor.
          * @return the Requestor.
          */
-        public final ResourceRequestorInterface<T> getRequestor()
+        public final ResourceRequestorInterface<A, R, T> getRequestor()
         {
             return this.requestor;
         }

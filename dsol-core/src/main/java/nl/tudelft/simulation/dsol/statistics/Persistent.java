@@ -25,15 +25,18 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @param <T> the absolute simulation time to use in the warmup event.
+ * @param <A> the absolute time type to use in timed events
+ * @param <R> the relative time type
+ * @param <T> the absolute simulation time to use in the warmup event
  */
-public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jstats.statistics.Persistent
+public class Persistent<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends nl.tudelft.simulation.jstats.statistics.Persistent
 {
     /** */
     private static final long serialVersionUID = 20140804L;
 
     /** simulator. */
-    private SimulatorInterface<?, ?, T> simulator = null;
+    private SimulatorInterface<A, R, T> simulator = null;
 
     /** Am I stopped ? */
     private boolean stopped = false;
@@ -58,7 +61,7 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
 
     /** SUM_EVENT is fired whenever the sum is updated. */
     public static final EventType TIMED_SUM_EVENT = new EventType("TIMED_SUM_EVENT");
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(Persistent.class);
 
@@ -68,7 +71,7 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
      * @param simulator the simulator
      * @throws RemoteException on network failure
      */
-    public Persistent(final String description, final SimulatorInterface<?, ?, T> simulator) throws RemoteException
+    public Persistent(final String description, final SimulatorInterface<A, R, T> simulator) throws RemoteException
     {
         super(description);
         this.simulator = simulator;
@@ -111,7 +114,7 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
      * @param field the field which is counted
      * @throws RemoteException on network failure
      */
-    public Persistent(final String description, final SimulatorInterface<?, ?, T> simulator,
+    public Persistent(final String description, final SimulatorInterface<A, R, T> simulator,
             final EventProducerInterface target, final EventType field) throws RemoteException
     {
         this(description, simulator);
@@ -152,12 +155,14 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
             }
             if (event.getType().equals(SAMPLE_VARIANCE_EVENT))
             {
-                fireTimedEvent(TIMED_SAMPLE_VARIANCE_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                fireTimedEvent(TIMED_SAMPLE_VARIANCE_EVENT, event.getContent(),
+                        this.simulator.getSimulatorTime().get());
                 return;
             }
             if (event.getType().equals(STANDARD_DEVIATION_EVENT))
             {
-                fireTimedEvent(TIMED_STANDARD_DEVIATION_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                fireTimedEvent(TIMED_STANDARD_DEVIATION_EVENT, event.getContent(),
+                        this.simulator.getSimulatorTime().get());
                 return;
             }
             if (event.getType().equals(SUM_EVENT))
@@ -165,7 +170,7 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
                 fireTimedEvent(TIMED_SUM_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
                 return;
             }
-            
+
             if (event.getSource().equals(this.simulator))
             {
                 if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))

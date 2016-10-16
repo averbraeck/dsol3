@@ -99,9 +99,10 @@ public class MM1Queue implements DSOLModel.TimeDouble
         server.setDestination(release);
 
         // Statistics
-        new Counter<SimTimeDouble>("counting the generator", pSimulator, generator, Generator.CREATE_EVENT);
-        Persistent<SimTimeDouble> persistent = new Persistent<SimTimeDouble>("persistent on service time", pSimulator,
-                release, Release.SERVICE_TIME_EVENT);
+        new Counter<Double, Double, SimTimeDouble>("counting the generator", pSimulator, generator,
+                Generator.CREATE_EVENT);
+        Persistent<Double, Double, SimTimeDouble> persistent =
+                new Persistent<>("persistent on service time", pSimulator, release, Release.SERVICE_TIME_EVENT);
 
         Histogram histogram = new Histogram(pSimulator, "histogram on service time", new double[]{0, 10}, 30);
         histogram.add("histogram on service time", persistent, Tally.SAMPLE_MEAN_EVENT);

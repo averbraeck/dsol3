@@ -15,10 +15,12 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
+ * @param <A> the absolute time type to use in timed events
+ * @param <R> the relative time type
  * @param <T> the simulation time type.
  * @since 1.5
  */
-public interface ResourceRequestorInterface<T extends SimTime<?, ?, T>>
+public interface ResourceRequestorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
 {
     /**
      * receive the requested resource.
@@ -26,5 +28,5 @@ public interface ResourceRequestorInterface<T extends SimTime<?, ?, T>>
      * @param resource the requested resource.
      * @throws RemoteException on network failure.
      */
-    void receiveRequestedResource(final double requestedCapacity, final Resource<T> resource) throws RemoteException;
+    void receiveRequestedResource(final double requestedCapacity, final Resource<A, R, T> resource) throws RemoteException;
 }

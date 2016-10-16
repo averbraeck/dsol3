@@ -8,7 +8,6 @@ import javax.naming.NamingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import nl.tudelft.simulation.dsol.formalisms.process.Process;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
@@ -26,15 +25,18 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @param <T> the absolute simulation time to use in the warmup event.
+ * @param <A> the absolute time type to use in timed events
+ * @param <R> the relative time type
+ * @param <T> the absolute simulation time to use in the warmup event
  */
-public class Tally<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jstats.statistics.Tally
+public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> 
+    extends nl.tudelft.simulation.jstats.statistics.Tally
 {
     /** */
     private static final long serialVersionUID = 20140804L;
 
     /** the simulator. */
-    private SimulatorInterface<?, ?, T> simulator = null;
+    private SimulatorInterface<A, R, T> simulator = null;
 
     /** after the END_OF_REPLICATION we stop. */
     private boolean stopped = false;
@@ -69,7 +71,7 @@ public class Tally<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jst
      * @param simulator the simulator to schedule on.
      * @throws RemoteException on network failure.
      */
-    public Tally(final String description, final SimulatorInterface<?, ?, T> simulator) throws RemoteException
+    public Tally(final String description, final SimulatorInterface<A, R, T> simulator) throws RemoteException
     {
         super(description);
         this.simulator = simulator;
@@ -110,7 +112,7 @@ public class Tally<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.jst
      * @param field the field which is counted
      * @throws RemoteException on network failure.
      */
-    public Tally(final String description, final SimulatorInterface<?, ?, T> simulator,
+    public Tally(final String description, final SimulatorInterface<A, R, T> simulator,
             final EventProducerInterface target, final EventType field) throws RemoteException
     {
         this(description, simulator);
