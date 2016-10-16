@@ -8,6 +8,9 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -28,7 +31,6 @@ import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -83,6 +85,9 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
 
     /** are we already subscribed to the END_OF_REPLICATION_EVENT. */
     private boolean subscribed = false;
+
+    /** the logger./ */
+    private static Logger logger = LogManager.getLogger(Experiment.class);
 
     /**
      * constructs a new Experiment.
@@ -162,7 +167,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         }
         catch (RemoteException remoteException)
         {
-            Logger.warning(this, "notify", remoteException);
+            logger.warn("notify", remoteException);
         }
     }
 

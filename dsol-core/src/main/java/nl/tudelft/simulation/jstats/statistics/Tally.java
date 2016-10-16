@@ -29,7 +29,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     public static final EventType SAMPLE_MEAN_EVENT = new EventType("SAMPLE_MEAN_EVENT");
 
     /**
-     * SAMPLE_VARIANCE_EVENT is fired whenever the sample variance is updated
+     * SAMPLE_VARIANCE_EVENT is fired whenever the sample variance is updated.
      */
     public static final EventType SAMPLE_VARIANCE_EVENT = new EventType("SAMPLE_VARIANCE_EVENT");
 
@@ -57,39 +57,39 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     /** RIGTH_SIDE_CONFIDENCE refers to the right side confidence. */
     public static final short RIGTH_SIDE_CONFIDENCE = 1;
 
-    /** sum refers to the sum of the tally */
+    /** sum refers to the sum of the tally. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double sum = Double.NaN;
 
-    /** min refers to the min of the tally */
+    /** min refers to the min of the tally. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double min = Double.NaN;
 
-    /** maxrefers to the max of the tally */
+    /** max refers to the max of the tally. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double max = Double.NaN;
 
-    /**
-     * sampleMean refers to the mean of the tally
-     */
+    /** sampleMean refers to the mean of the tally. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double sampleMean = Double.NaN;
 
-    /** varianceSum refers to the varianceSum of the tally */
+    /** varianceSum refers to the varianceSum of the tally. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double varianceSum = Double.NaN;
 
-    /**
-     * n refers to the number of measurements
-     */
+    /** n refers to the number of measurements. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected long n = Long.MIN_VALUE;
 
-    /**
-     * description refers to the description of this tally
-     */
+    /** description refers to the description of this tally. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected String description;
 
-    /**
-     * the confidenceDistribution
-     */
+    /** the confidenceDistribution. */
     private DistNormal confidenceDistribution = new DistNormal(new MersenneTwister());
 
     /** the semaphore. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Object semaphore = new Object();
 
     /**
@@ -103,33 +103,33 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * Returns the sampleMean of all oberservations since the initialization
+     * Returns the sampleMean of all observations since the initialization.
      * @return double the sampleMean
      */
-    public double getSampleMean()
+    public final double getSampleMean()
     {
         return this.sampleMean;
     }
 
     /**
-     * returns the confidence interval on either side of the mean
+     * returns the confidence interval on either side of the mean.
      * @param alpha Alpha is the significance level used to compute the confidence level. The confidence level equals
      *            100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
      * @return double[] the confidence interval of this tally
      */
-    public double[] getConfidenceInterval(final double alpha)
+    public final double[] getConfidenceInterval(final double alpha)
     {
         return this.getConfidenceInterval(alpha, Tally.BOTH_SIDE_CONFIDENCE);
     }
 
     /**
-     * returns the confidence interval based of the mean
+     * returns the confidence interval based of the mean.
      * @param alpha Alpha is the significance level used to compute the confidence level. The confidence level equals
      *            100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
      * @param side the side of the confidence interval with respect to the mean
      * @return double[] the confidence interval of this tally
      */
-    public double[] getConfidenceInterval(final double alpha, final short side)
+    public final double[] getConfidenceInterval(final double alpha, final short side)
     {
         if (!(side == LEFT_SIDE_CONFIDENCE || side == BOTH_SIDE_CONFIDENCE || side == RIGTH_SIDE_CONFIDENCE))
         {
@@ -168,10 +168,10 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * returns the description of this tally
+     * returns the description of this tally.
      * @return Sting description
      */
-    public String getDescription()
+    public final String getDescription()
     {
         return this.description;
     }
@@ -180,7 +180,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
      * Returns the max.
      * @return double
      */
-    public double getMax()
+    public final double getMax()
     {
         return this.max;
     }
@@ -189,24 +189,25 @@ public class Tally extends StatisticsObject implements EventListenerInterface
      * Returns the min.
      * @return double
      */
-    public double getMin()
+    public final double getMin()
     {
         return this.min;
     }
 
     /**
-     * Returns the number of observations
+     * Returns the number of observations.
      * @return long n
      */
-    public long getN()
+    public final long getN()
     {
         return this.n;
     }
 
     /**
-     * Returns the current tally standard deviation
+     * Returns the current tally standard deviation.
      * @return double the standard deviation
      */
+    @SuppressWarnings("checkstyle:designforextension")
     public double getStdDev()
     {
         synchronized (this.semaphore)
@@ -220,18 +221,19 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * returns the sum of the values of the observations
+     * returns the sum of the values of the observations.
      * @return double sum
      */
-    public double getSum()
+    public final double getSum()
     {
         return this.sum;
     }
 
     /**
-     * Returns the current tally variance
+     * Returns the current tally variance.
      * @return double samplevariance
      */
+    @SuppressWarnings("checkstyle:designforextension")
     public double getSampleVariance()
     {
         synchronized (this.semaphore)
@@ -246,7 +248,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /** {@inheritDoc} */
     @Override
-    public TableModel getTable()
+    public final TableModel getTable()
     {
         String[] columnNames = {"field", "value"};
         EventType[] eventTypes = {null, Tally.N_EVENT, Tally.MIN_EVENT, Tally.MAX_EVENT, Tally.SAMPLE_MEAN_EVENT,
@@ -285,6 +287,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     /**
      * initializes the Tally. This methods sets the max, min, n, sum and variance values to their initial values.
      */
+    @SuppressWarnings("checkstyle:designforextension")
     public void initialize()
     {
         synchronized (this.semaphore)
@@ -301,13 +304,14 @@ public class Tally extends StatisticsObject implements EventListenerInterface
      * is this tally initialized?
      * @return true whenever this.initialize is invoked.
      */
-    public boolean isInitialized()
+    public final boolean isInitialized()
     {
         return !Double.isNaN(this.max);
     }
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public void notify(final EventInterface event)
     {
         if (!(event.getContent() instanceof Number))
@@ -347,17 +351,20 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return this.description;
     }
 
     // ***************** PROTECTED METHODS **************/
+    
     /**
-     * sets sampleMean
+     * sets sampleMean.
      * @param sampleMean the new mean
      * @return double sampleMean
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected double setSampleMean(final double sampleMean)
     {
         this.sampleMean = sampleMean;
@@ -366,10 +373,11 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * sets min
+     * sets min.
      * @param min the new minimum value
      * @return double the input
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected double setMin(final double min)
     {
         this.min = min;
@@ -378,10 +386,11 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * sets max
+     * sets max.
      * @param max the new maximum value
      * @return double the input
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected double setMax(final double max)
     {
         this.max = max;
@@ -390,10 +399,11 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * sets n
+     * sets n.
      * @param n the new n
      * @return double the input
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected long setN(final long n)
     {
         this.n = n;
@@ -402,10 +412,11 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * sets the count
+     * sets the count.
      * @param sum the new sum
      * @return double the input
      */
+    @SuppressWarnings("checkstyle:designforextension")
     protected double setSum(final double sum)
     {
         this.sum = sum;

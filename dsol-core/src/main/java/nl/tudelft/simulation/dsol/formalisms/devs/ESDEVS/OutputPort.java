@@ -2,8 +2,10 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * OutputPort class. The output port transfers the event (message) to the next receiver. In case there is no next
@@ -43,6 +45,9 @@ public class OutputPort<T> implements OutputPortInterface<T>
     /** The model to which the port links. */
     private AbstractDEVSModel model;
 
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(OutputPort.class);
+
     /**
      * Constructor for the output port where the model is a coupled model.
      * @param coupledModel the coupled model.
@@ -71,7 +76,7 @@ public class OutputPort<T> implements OutputPortInterface<T>
         {
             try
             {
-                Logger.fine(this, "send", "TIME IS " + this.model.getSimulator().getSimulatorTime());
+                logger.debug("send: TIME IS " + this.model.getSimulator().getSimulatorTime());
                 this.model.parentModel.transfer(this, value);
             }
             catch (RemoteException e)

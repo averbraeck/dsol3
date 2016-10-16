@@ -5,11 +5,13 @@ import java.util.Collection;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A TableModel implementation of an eventlist is an extionsion of the eventlist which upholds its own TableModel. This
@@ -41,6 +43,9 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** show the package information in the tableModel. */
     private boolean showPackage = false;
+
+    /** the logger./ */
+    private static Logger logger = LogManager.getLogger(TableModelEventList.class);
 
     /**
      * constructs a new TableModelEventList.
@@ -102,7 +107,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "updateTableModel", exception);
+            logger.warn("updateTableModel", exception);
         }
     }
 

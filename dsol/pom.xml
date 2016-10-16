@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>dsol</groupId>
   <artifactId>dsol</artifactId>
-  <version>3.00.21</version>
+  <version>3.01.00</version>
   <packaging>pom</packaging>
 
   <name>DSOL version 3</name>
@@ -21,9 +20,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <sonar.scm.disabled>true</sonar.scm.disabled>
-    
+
     <dsol-version>${project.version}</dsol-version>
     <junit.version>4.11</junit.version>
+    <log4j.version>2.7</log4j.version>
     <java3d.version>1.5.1</java3d.version>
     <jcommon.version>1.0.21</jcommon.version>
     <jfreechart.version>1.0.17</jfreechart.version>
@@ -126,17 +126,17 @@
         <version>${maven.deploy.version}</version>
       </plugin>
 
-      <!-- copy files starting with a period in the jacoco folder to the right site location. Normally, files starting with 
-        tilde, period or underscore are not copied. These files are also not taken into account when trying to the pages in a subfolder 
-        of a Drupal sile, as files and folders starting with a period are filtered with a rewrite rule: RewriteRule "(^|/)\." - [F] 
-        To undo this rewrite rule, add a .htaccess file in the site folder with as content: RewriteRule "(^|/)\." - [L] Potentially, 
+      <!-- copy files starting with a period in the jacoco folder to the right site location. Normally, files starting with
+        tilde, period or underscore are not copied. These files are also not taken into account when trying to the pages
+        in a subfolder of a Drupal sile, as files and folders starting with a period are filtered with a rewrite rule: RewriteRule "(^|/)\." - [F]
+        To undo this rewrite rule, add a .htaccess file in the site folder with as content: RewriteRule "(^|/)\." - [L] Potentially,
         there is also a line with Options +Indexes in the .htaccess file. -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>wagon-maven-plugin</artifactId>
         <version>${wagon.maven.version}</version>
         <executions>
-        
+
           <execution>
             <id>upload-jacoco-dot-files</id>
             <phase>site-deploy</phase>
@@ -166,7 +166,7 @@
               <serverId>dsol-deployment</serverId>
             </configuration>
           </execution>
-                   
+
           <execution>
             <id>upload-last-site</id>
             <phase>site-deploy</phase>
@@ -624,6 +624,12 @@
       </dependency>
 
       <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.7</version>
+      </dependency>
+
+      <dependency>
         <groupId>java3d</groupId>
         <artifactId>vecmath</artifactId>
         <version>${java3d.version}</version>
@@ -667,13 +673,37 @@
 
       <dependency>
         <groupId>dsol</groupId>
-        <artifactId>dsol-core</artifactId>
+        <artifactId>dsol-base</artifactId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
         <groupId>dsol</groupId>
-        <artifactId>dsol-base</artifactId>
+        <artifactId>dsol-event</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>dsol</groupId>
+        <artifactId>dsol-naming</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>dsol</groupId>
+        <artifactId>dsol-interpreter</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>dsol</groupId>
+        <artifactId>dsol-introspection</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>dsol</groupId>
+        <artifactId>dsol-core</artifactId>
         <version>${project.version}</version>
       </dependency>
 

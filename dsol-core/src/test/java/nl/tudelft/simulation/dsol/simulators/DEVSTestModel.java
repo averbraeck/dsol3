@@ -2,9 +2,11 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The DEVSSimulatorTestmodel specifies the model <br>
@@ -19,10 +21,11 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class DEVSTestModel extends TestModel
 {
-    /**
-     * simulator refers to the target
-     */
+    /** simulator refers to the target. */
     protected DEVSSimulatorInterface simulator;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(DEVSTestModel.class);
 
     /**
      * constructs a new DEVSTestModel.
@@ -47,7 +50,7 @@ public class DEVSTestModel extends TestModel
             }
             catch (Exception exception)
             {
-                Logger.warning(this, "constructModel", exception);
+                logger.warn("constructModel", exception);
             }
         }
     }

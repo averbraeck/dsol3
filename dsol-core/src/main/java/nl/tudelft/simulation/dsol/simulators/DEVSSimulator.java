@@ -93,7 +93,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEvent(final SimEventInterface<T> event) throws SimRuntimeException
+    public final SimEventInterface<T> scheduleEvent(final SimEventInterface<T> event) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
@@ -103,162 +103,163 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                         + this.simulatorTime + ">" + event.getAbsoluteExecutionTime());
             }
             this.eventList.add(event);
+            return event;
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventRel(final R relativeDelay, final short priority, final Object source,
+    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final short priority, final Object source,
             final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
             T absEventTime = this.simulatorTime.copy();
             absEventTime.add(relativeDelay);
-            scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
+            return scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventRel(final R relativeDelay, final Object source, final Object target,
+    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
-        scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
+        return scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final T absoluteTime, final short priority, final Object source,
+    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final short priority, final Object source,
             final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
-        scheduleEvent(new SimEvent<T>(absoluteTime, priority, source, target, method, args));
+        return scheduleEvent(new SimEvent<T>(absoluteTime, priority, source, target, method, args));
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final T absoluteTime, final Object source, final Object target,
+    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
-        scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
+        return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final A absoluteTime, final short priority, final Object source,
+    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final short priority, final Object source,
             final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
             T absTime = this.simulatorTime.copy();
             absTime.set(absoluteTime);
-            scheduleEvent(new SimEvent<T>(absTime, priority, source, target, method, args));
+            return scheduleEvent(new SimEvent<T>(absTime, priority, source, target, method, args));
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final A absoluteTime, final Object source, final Object target,
+    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
-        scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
+        return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventNow(final short priority, final Object source, final Object target,
+    public final SimEventInterface<T> scheduleEventNow(final short priority, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
             T absEventTime = this.simulatorTime.copy();
-            scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
+            return scheduleEvent(new SimEvent<T>(absEventTime, priority, source, target, method, args));
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventNow(final Object source, final Object target, final String method,
+    public final SimEventInterface<T> scheduleEventNow(final Object source, final Object target, final String method,
             final Object[] args) throws SimRuntimeException
     {
-        scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
+        return scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventRel(final R relativeDelay, final short priority, final Executable executable)
+    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final short priority, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
         synchronized (super.semaphore)
         {
             T absEventTime = this.simulatorTime.copy();
             absEventTime.add(relativeDelay);
-            scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
+            return scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventRel(final R relativeDelay, final Executable executable)
+    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
-        scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, executable);
+        return scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final A absoluteTime, final short priority, final Executable executable)
+    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final short priority, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
         synchronized (super.semaphore)
         {
             T absTime = this.simulatorTime.copy();
             absTime.set(absoluteTime);
-            scheduleEvent(new LambdaSimEvent<T>(absTime, priority, executable));
+            return scheduleEvent(new LambdaSimEvent<T>(absTime, priority, executable));
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final A absoluteTime, final Executable executable)
+    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
-        scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
+        return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final T absoluteTime, final short priority, final Executable executable)
+    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final short priority, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
-        scheduleEvent(new LambdaSimEvent<T>(absoluteTime, priority, executable));
+        return scheduleEvent(new LambdaSimEvent<T>(absoluteTime, priority, executable));
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventAbs(final T absoluteTime, final Executable executable)
+    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
-        scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
+        return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventNow(final short priority, final Executable executable)
+    public final SimEventInterface<T> scheduleEventNow(final short priority, final Executable executable)
             throws RemoteException, SimRuntimeException
     {
         synchronized (super.semaphore)
         {
             T absEventTime = this.simulatorTime.copy();
-            scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
+            return scheduleEvent(new LambdaSimEvent<T>(absEventTime, priority, executable));
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void scheduleEventNow(final Executable executable) throws RemoteException, SimRuntimeException
+    public final SimEventInterface<T> scheduleEventNow(final Executable executable) throws RemoteException, SimRuntimeException
     {
-        scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, executable);
+        return scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
@@ -282,7 +283,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                 this.running = true;
                 SimEventInterface<T> event = this.eventList.removeFirst();
                 this.simulatorTime = event.getAbsoluteExecutionTime();
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
                 event.execute();
                 this.running = false;
             }
@@ -300,7 +301,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
             {
                 SimEventInterface<T> event = this.eventList.removeFirst();
                 super.simulatorTime = event.getAbsoluteExecutionTime();
-                super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, super.simulatorTime, super.simulatorTime);
+                super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, super.simulatorTime, super.simulatorTime.get());
                 try
                 {
                     event.execute();

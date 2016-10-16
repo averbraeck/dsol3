@@ -190,7 +190,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
             synchronized (super.semaphore)
             {
                 this.simulatorTime = event.getAbsoluteExecutionTime();
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
 
                 // carry out all events scheduled on this simulation time, as long as we are still running.
                 while (this.isRunning() && !this.eventList.isEmpty()
@@ -217,7 +217,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                 }
             }
         }
-        this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+        this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
         updateAnimation();
         animationThread.stopAnimation();
     }
@@ -240,7 +240,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         this.speedFactor = newSpeedFactor;
         if (fireChangeSpeedFactorEvent)
         {
-            this.fireTimedEvent(CHANGE_SPEED_FACTOR_EVENT, newSpeedFactor, this.simulatorTime);
+            this.fireTimedEvent(CHANGE_SPEED_FACTOR_EVENT, newSpeedFactor, this.simulatorTime.get());
         }
     }
 

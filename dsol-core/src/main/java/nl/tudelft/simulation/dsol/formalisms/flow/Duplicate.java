@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.rmi.MarshalledObject;
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A duplicate station duplicates incoming objects and sends them to their alternative destination. <br>
@@ -19,9 +21,11 @@ import nl.tudelft.simulation.logger.Logger;
  */
 public class Duplicate extends Station
 {
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Duplicate.class);
 
     /**
-     * duplicateDestination which is the duplicate definition
+     * duplicateDestination which is the duplicate definition.
      */
     private StationInterface duplicateDestination;
 
@@ -77,7 +81,7 @@ public class Duplicate extends Station
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "receiveMethod", exception);
+            logger.warn("receiveMethod", exception);
         }
     }
 }

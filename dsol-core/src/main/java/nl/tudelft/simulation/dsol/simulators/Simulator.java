@@ -109,8 +109,8 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             this.removeAllListeners(StatisticsObject.class);
             this.replication = initReplication;
             this.simulatorTime = initReplication.getTreatment().getStartTime().copy();
-            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime);
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime.get());
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
         }
     }
 
@@ -153,7 +153,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             {
                 this.fireEvent(START_EVENT);
             }
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
             if (!Thread.currentThread().getName().equals(this.worker.getName()))
             {
                 this.worker.interrupt();
@@ -214,7 +214,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             this.running = false;
             if (this.simulatorTime.ge(this.getReplication().getTreatment().getEndTime()))
             {
-                this.fireTimedEvent(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime);
+                this.fireTimedEvent(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime.get());
             }
             if (fireStopEvent)
             {

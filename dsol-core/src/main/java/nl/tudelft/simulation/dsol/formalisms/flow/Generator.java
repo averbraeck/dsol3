@@ -4,6 +4,9 @@ import java.lang.reflect.Constructor;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -26,7 +29,6 @@ import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
 import nl.tudelft.simulation.language.reflection.SerializableConstructor;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * This class defines a generator <br>
@@ -81,6 +83,9 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected SimEvent<T> nextEvent = null;
 
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Generator.class);
+
     /**
      * constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
      * Generator when a destination has been indicated with the setDestination method. This constructor has a maximum
@@ -132,7 +137,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
                 for (int i = 0; i < this.batchSize.draw(); i++)
                 {
                     Object object = this.constructor.deSerialize().newInstance(specialConstructorArguments);
-                    Logger.finest(this, "generate", "created " + this.number + "th instance of "
+                    logger.trace("generate created " + this.number + "th instance of "
                             + this.constructor.deSerialize().getDeclaringClass());
                     this.fireEvent(Generator.CREATE_EVENT, 1);
                     this.releaseObject(object);
@@ -158,7 +163,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
         }
         catch (RemoteException remoteException)
         {
-            Logger.warning(this, "receiveObject", remoteException);
+            logger.warn("receiveObject", remoteException);
         }
     }
 
@@ -243,7 +248,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "setStartTime", exception);
+            logger.warn("setStartTime", exception);
         }
     }
 

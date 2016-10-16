@@ -1,7 +1,7 @@
                    -----------------------
                    DSOL-BASE
                    -----------------------
-                   September, 2015
+                   October, 2016
                    -----------------------
     
 DSOL - Distributed Simulation Object Library
@@ -35,20 +35,12 @@ Implemented  formalisms
 DSOL-BASE module
 
     DSOL-BASE is the module that contains generic non-simulation specific classes that all DSOL modules can benefit from:
-    
-    * Event management
-    
-    * Logging
-    
-    * Naming services
+
+    * Helper classes for exception management
     
     * 2-D and 3-D primitives for animation
     
     * Reflection helper classes
-    
-    * Introspection of objects in the simulation
-    
-    * Interpretation of bytecode for super-reflection and process interaction
     
     []
     

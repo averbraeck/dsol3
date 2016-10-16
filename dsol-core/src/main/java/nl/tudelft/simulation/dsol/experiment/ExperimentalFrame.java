@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -25,7 +28,6 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventProducerInterface;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The Experimental frame specifies the set of experiments to run. (c) copyright 2002-2005
@@ -57,6 +59,9 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
 
     /** the URL where we can find this experimentalFrame. */
     private URL url = null;
+
+    /** the logger./ */
+    private static Logger logger = LogManager.getLogger(ExperimentalFrame.class);
 
     /**
      * constructs a new ExperimentalFrame.
@@ -133,7 +138,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
         }
         catch (RemoteException remoteException)
         {
-            Logger.warning(this, "start", remoteException);
+            logger.warn("start", remoteException);
         }
     }
 

@@ -88,7 +88,7 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
-                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
                     try
                     {
                         event.execute();
@@ -103,7 +103,7 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
                     }
                 }
             }
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
         }
         updateAnimation();
         animationThread.stopAnimation();

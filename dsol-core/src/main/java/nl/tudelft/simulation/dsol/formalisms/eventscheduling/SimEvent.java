@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -115,7 +116,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            System.err.println(exception.toString() + " calling " + this.target + "." + this.methodName
+                    + " with arguments " + Arrays.toString(this.getArgs()));
             throw new SimRuntimeException(exception);
         }
     }

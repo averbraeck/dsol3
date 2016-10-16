@@ -2,6 +2,9 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -16,7 +19,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The reference implementation of the animator.
@@ -39,6 +41,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 {
     /** */
     private static final long serialVersionUID = 20140804L;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(DEVDESSAnimator.class);
 
     /**
      * @param initialTimeStep the initial time step to use in the integration.
@@ -104,14 +109,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
-                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
                     try
                     {
                         event.execute();
                     }
                     catch (Exception exception)
                     {
-                        Logger.severe(this, "run", exception);
+                        logger.error("run", exception);
                     }
                 }
             }
@@ -119,7 +124,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
             {
                 this.simulatorTime = runUntil;
             }
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
         }
         updateAnimation();
         animationThread.stopAnimation();
