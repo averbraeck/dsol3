@@ -7,12 +7,14 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A resource defines a shared and limited amount.
@@ -66,6 +68,9 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
 
     /** the description of the resource. */
     protected String description = "resource";
+
+    /** the logger./ */
+    private static Logger logger = LogManager.getLogger(Resource.class);
 
     /**
      * Method Resource.
@@ -136,7 +141,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
     private synchronized void alterClaimedCapacity(final double amount) throws RemoteException
     {
         this.claimedCapacity += amount;
-        this.fireTimedEvent(Resource.UTILIZATION_EVENT, this.claimedCapacity, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(Resource.UTILIZATION_EVENT, this.claimedCapacity, this.simulator.getSimulatorTime().get());
     }
 
     /**
@@ -153,7 +158,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
         catch (RemoteException remoteException)
         {
             // This exception cannot occur.
-            Logger.warning(this, "setCapacity", remoteException);
+            logger.warn("setCapacity", remoteException);
         }
     }
 
@@ -198,7 +203,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
                 this.requests.add(new Request<T>(requestor, amount, priority));
             }
             this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
-                    this.simulator.getSimulatorTime());
+                    this.simulator.getSimulatorTime().get());
         }
     }
 
@@ -231,7 +236,7 @@ public class Resource<T extends SimTime<?, ?, T>> extends EventProducer
                         i.remove();
                     }
                     this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
-                            this.simulator.getSimulatorTime());
+                            this.simulator.getSimulatorTime().get());
                 }
                 else
                 {

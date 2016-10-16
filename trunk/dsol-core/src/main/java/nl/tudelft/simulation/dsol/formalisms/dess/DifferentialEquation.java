@@ -2,6 +2,9 @@ package nl.tudelft.simulation.dsol.formalisms.dess;
 
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -9,7 +12,6 @@ import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The Differential equation provides a reference implementation of the differential equation.
@@ -52,6 +54,9 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     /** the previousY */
     protected double[] previousY = null;
 
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(DifferentialEquation.class);
+
     /**
      * constructs a new stateful DifferentialEquation with Euleras numerical integration method.
      * @param simulator the simulator
@@ -89,7 +94,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
         }
         catch (RemoteException exception)
         {
-            Logger.warning(this, "DifferentialEquation", exception);
+            logger.warn("DifferentialEquation", exception);
         }
     }
 
@@ -110,7 +115,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
         }
         catch (RemoteException exception)
         {
-            Logger.warning(this, "DifferentialEquation", exception);
+            logger.warn("DifferentialEquation", exception);
         }
     }
 
@@ -131,7 +136,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
             for (int i = 0; i < super.y0.length; i++)
             {
                 this.fireTimedEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i],
-                        this.simulator.getSimulatorTime());
+                        this.simulator.getSimulatorTime().get());
             }
             this.previousX = this.simulator.getSimulatorTime().get().doubleValue();
         }

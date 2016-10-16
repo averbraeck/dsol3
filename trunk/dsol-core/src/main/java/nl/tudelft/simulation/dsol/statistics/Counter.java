@@ -6,13 +6,16 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import nl.tudelft.simulation.dsol.formalisms.process.Process;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventProducerInterface;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -36,6 +39,9 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
 
     /** we stopped the counter. */
     private boolean stopped = false;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Process.class);
 
     /**
      * constructs a new Counter.
@@ -63,7 +69,7 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 
@@ -116,7 +122,7 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
         }
         catch (RemoteException remoteException)
         {
-            Logger.warning(this, "notify", remoteException);
+            logger.warn("notify", remoteException);
         }
     }
 
@@ -153,7 +159,7 @@ public class Counter<T extends SimTime<?, ?, T>> extends nl.tudelft.simulation.j
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "endOfReplication", exception);
+            logger.warn("endOfReplication", exception);
         }
     }
 }

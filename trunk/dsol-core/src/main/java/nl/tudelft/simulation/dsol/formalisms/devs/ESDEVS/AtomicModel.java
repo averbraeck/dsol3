@@ -2,11 +2,13 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * AtomicModel class. Implements the Classic Parallel DEVS Atomic Model with Ports cf Zeigler et al (2000), section
@@ -80,6 +82,9 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     /** applied conflict handling strategy in this component. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected boolean conflictStrategy = AtomicModel.INTERNAL_FIRST;
+
+    /** the logger./ */
+    private static Logger logger = LogManager.getLogger(AtomicModel.class);
 
     /**
      * conflict means that both an external event and an internal event happen at the same time; the strategy applied
@@ -195,7 +200,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
             }
             catch (RemoteException | SimRuntimeException exception)
             {
-                Logger.severe(this, "initialize", exception);
+                logger.error("initialize", exception);
             }
         }
         else
@@ -236,7 +241,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
                             (this.simulator.getSimulatorTime().plus(this.timeAdvance() - this.elapsedTime)), this, this,
                             "deltaInternalEventHandler", null);
                     this.timeLastEvent = this.simulator.getSimulatorTime().get();
-                    Logger.finest(this, "schedule", this.nextEvent.toString());
+                    logger.trace("schedule " + this.nextEvent.toString());
                     this.simulator.scheduleEvent(this.nextEvent);
                     // this.simulator.setAuthorization(false);
                 }
@@ -273,7 +278,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     @SuppressWarnings("checkstyle:designforextension")
     protected void deltaConfluent(final double e, final Object value)
     {
-        Logger.fine(this, "deltaConfluent", "CONFLUENT");
+        logger.debug("deltaConfluent: CONFLUENT");
         if (this.conflictStrategy == AtomicModel.INTERNAL_FIRST)
         {
             this.deltaInternalEventHandler();

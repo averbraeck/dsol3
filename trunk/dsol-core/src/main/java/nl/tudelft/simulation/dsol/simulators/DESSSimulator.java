@@ -106,7 +106,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                     this.simulatorTime = this.replication.getTreatment().getEndTime().copy();
                     this.stop();
                 }
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime);
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
             }
         }
     }

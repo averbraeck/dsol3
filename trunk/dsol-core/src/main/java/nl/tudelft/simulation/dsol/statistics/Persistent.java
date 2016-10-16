@@ -5,13 +5,15 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventProducerInterface;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -35,6 +37,30 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
 
     /** Am I stopped ? */
     private boolean stopped = false;
+
+    /** SAMPLE_MEAN_EVENT is fired whenever the sample mean is updated. */
+    public static final EventType TIMED_SAMPLE_MEAN_EVENT = new EventType("TIMED_SAMPLE_MEAN_EVENT");
+
+    /** SAMPLE_VARIANCE_EVENT is fired whenever the sample variance is updated. */
+    public static final EventType TIMED_SAMPLE_VARIANCE_EVENT = new EventType("TIMED_SAMPLE_VARIANCE_EVENT");
+
+    /** MIN_EVENT is fired whenever a new minimum value has reached. */
+    public static final EventType TIMED_MIN_EVENT = new EventType("TIMED_MIN_EVENT");
+
+    /** MAX_EVENT is fired whenever a new maximum value has reached. */
+    public static final EventType TIMED_MAX_EVENT = new EventType("TIMED_MAX_EVENT");
+
+    /** N_EVENT is fired whenever on a change in measurements. */
+    public static final EventType TIMED_N_EVENT = new EventType("TIMED_N_EVENT");
+
+    /** STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is updated. */
+    public static final EventType TIMED_STANDARD_DEVIATION_EVENT = new EventType("TIMED_STANDARD_DEVIATION_EVENT");
+
+    /** SUM_EVENT is fired whenever the sum is updated. */
+    public static final EventType TIMED_SUM_EVENT = new EventType("TIMED_SUM_EVENT");
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Persistent.class);
 
     /**
      * constructs a new Persistent.
@@ -64,8 +90,17 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
+
+        // subscribe to the events from the super Persistent to send timed events by this simulator aware tally
+        super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.MAX_EVENT, true);
+        super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.MIN_EVENT, true);
+        super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.N_EVENT, true);
+        super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.SAMPLE_MEAN_EVENT, true);
+        super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.SAMPLE_VARIANCE_EVENT, true);
+        super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.STANDARD_DEVIATION_EVENT, true);
+        super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.SUM_EVENT, true);
     }
 
     /**
@@ -95,6 +130,42 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
         }
         try
         {
+            if (event.getType().equals(MAX_EVENT))
+            {
+                fireTimedEvent(TIMED_MAX_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                return;
+            }
+            if (event.getType().equals(MIN_EVENT))
+            {
+                fireTimedEvent(TIMED_MIN_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                return;
+            }
+            if (event.getType().equals(N_EVENT))
+            {
+                fireTimedEvent(TIMED_N_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                return;
+            }
+            if (event.getType().equals(SAMPLE_MEAN_EVENT))
+            {
+                fireTimedEvent(TIMED_SAMPLE_MEAN_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                return;
+            }
+            if (event.getType().equals(SAMPLE_VARIANCE_EVENT))
+            {
+                fireTimedEvent(TIMED_SAMPLE_VARIANCE_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                return;
+            }
+            if (event.getType().equals(STANDARD_DEVIATION_EVENT))
+            {
+                fireTimedEvent(TIMED_STANDARD_DEVIATION_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                return;
+            }
+            if (event.getType().equals(SUM_EVENT))
+            {
+                fireTimedEvent(TIMED_SUM_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
+                return;
+            }
+            
             if (event.getSource().equals(this.simulator))
             {
                 if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
@@ -118,7 +189,7 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
         }
         catch (RemoteException remoteException)
         {
-            Logger.warning(this, "notify", remoteException);
+            logger.warn("notify", remoteException);
         }
     }
 
@@ -148,7 +219,7 @@ public class Persistent<T extends SimTime<?, ?, T>> extends nl.tudelft.simulatio
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "endOfReplication", exception);
+            logger.warn("endOfReplication", exception);
         }
     }
 }

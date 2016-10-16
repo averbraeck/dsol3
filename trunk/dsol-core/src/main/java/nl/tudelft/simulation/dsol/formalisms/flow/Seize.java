@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -23,7 +26,6 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The Seize requests a resource and releases an entity whenever this resource is actually claimed.
@@ -59,10 +61,11 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /** requestedCapacity is the amount of resource requested on the resource. */
     private double requestedCapacity = Double.NaN;
 
-    /**
-     * resource on which the capacity is requested.
-     */
+    /** resource on which the capacity is requested. */
     private Resource<T> resource;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Seize.class);
 
     /**
      * Constructor for Seize.
@@ -110,18 +113,19 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         try
         {
             this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(),
-                    this.simulator.getSimulatorTime());
+                    this.simulator.getSimulatorTime().get());
             this.resource.requestCapacity(_requestedCapacity, this);
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "receiveObject", exception);
+            logger.warn("receiveObject", exception);
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void receiveObject(final Object object) throws RemoteException
+    @SuppressWarnings("checkstyle:designforextension")
+    public void receiveObject(final Object object) throws RemoteException
     {
         this.receiveObject(object, this.requestedCapacity);
     }
@@ -159,9 +163,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
                     this.queue.remove(request);
                 }
                 this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(),
-                        this.simulator.getSimulatorTime());
+                        this.simulator.getSimulatorTime().get());
                 R delay = this.simulator.getSimulatorTime().minus(request.getCreationTime());
-                this.fireTimedEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime());
+                this.fireTimedEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime().get());
                 this.releaseObject(request.getEntity());
                 return;
             }

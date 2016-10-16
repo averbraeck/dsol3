@@ -64,7 +64,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     @SuppressWarnings("checkstyle:designforextension")
     public void receiveObject(final Object object) throws RemoteException
     {
-        this.fireTimedEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime().get());
     }
 
     /** {@inheritDoc} */
@@ -79,9 +79,10 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
      * @param object is the entity
      * @throws RemoteException on network failure
      */
-    protected final synchronized void releaseObject(final Object object) throws RemoteException
+    @SuppressWarnings("checkstyle:designforextension")
+    protected synchronized void releaseObject(final Object object) throws RemoteException
     {
-        this.fireTimedEvent(StationInterface.RELEASE_EVENT, 0.0, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(StationInterface.RELEASE_EVENT, 0.0, this.simulator.getSimulatorTime().get());
         if (this.destination != null)
         {
             this.destination.receiveObject(object);

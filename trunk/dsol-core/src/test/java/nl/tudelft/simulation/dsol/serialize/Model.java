@@ -3,6 +3,9 @@ package nl.tudelft.simulation.dsol.serialize;
 import java.rmi.MarshalledObject;
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
@@ -11,7 +14,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The histogram specifies a histogram chart for the DSOL framework.
@@ -30,9 +32,12 @@ public class Model implements DSOLModel
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Model.class);
 
     /**
-     * the simulator to use
+     * the simulator to use.
      */
     private SimulatorInterface simulator = null;
 
@@ -77,7 +82,7 @@ public class Model implements DSOLModel
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "pause", exception);
+            logger.warn("pause", exception);
         }
     }
 

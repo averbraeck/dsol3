@@ -1,14 +1,14 @@
 package nl.tudelft.simulation.dsol.formalisms.process;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
@@ -20,8 +20,6 @@ import nl.tudelft.simulation.dsol.simtime.TimeUnit;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
-import nl.tudelft.simulation.logger.Logger;
-import nl.tudelft.simulation.naming.InitialEventContext;
 
 /**
  * A TestExperimentalFrame <br>
@@ -55,6 +53,9 @@ public final class TestExperimentalFrame
 
     /** TIMESTEP is the timeStep to be used for the DESS formalism. */
     public static final double TIMESTEP = 0.01;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(TestExperimentalFrame.class);
 
     /**
      * constructs a new TestExperimentalFrame.
@@ -89,7 +90,7 @@ public final class TestExperimentalFrame
         }
         catch (NamingException e)
         {
-            Logger.warning(TestExperimentalFrame.class, "createExperimentalFrame", e);
+            logger.warn("createExperimentalFrame", e);
         }
         return null;
     }

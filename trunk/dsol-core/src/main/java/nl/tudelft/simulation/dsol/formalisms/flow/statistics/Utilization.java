@@ -6,12 +6,15 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.statistics.Persistent;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.jstats.statistics.Persistent;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -26,13 +29,17 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  */
 public class Utilization extends Persistent
 {
-    /** initialzed the tally */
+    /** */
+    private static final long serialVersionUID = 1L;
+
+    /** initialzed the tally. */
     private boolean initialized = false;
 
-    /**
-     * simulator
-     */
+    /**the simulator. */
     private SimulatorInterface simulator = null;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(DifferentialEquation.class);
 
     /**
      * constructs a new Utilization.
@@ -44,7 +51,7 @@ public class Utilization extends Persistent
     public Utilization(final String description, final SimulatorInterface simulator, final StationInterface target)
             throws RemoteException
     {
-        super(description);
+        super(description, simulator);
         this.simulator = simulator;
         target.addListener(this, StationInterface.RECEIVE_EVENT, false);
         target.addListener(this, StationInterface.RELEASE_EVENT, false);
@@ -57,7 +64,7 @@ public class Utilization extends Persistent
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 
@@ -90,7 +97,7 @@ public class Utilization extends Persistent
         }
         catch (RemoteException remoteException)
         {
-            Logger.warning(this, "notify", remoteException);
+            logger.warn("notify", remoteException);
         }
     }
 
@@ -126,7 +133,7 @@ public class Utilization extends Persistent
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "endOfReplication", exception);
+            logger.warn("endOfReplication", exception);
         }
     }
 }

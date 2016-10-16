@@ -2,6 +2,26 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+   <release version="3.01.00" date="2016-10-16" description="dsol-base project split, log4j instead of logger">
+      <action dev="averbraeck" type="update">
+        The dsol-base project is split into dsol-base, dsol-interpreter, dsol-introspection, dsol-event and dsol-naming.
+      </action>
+      <action dev="averbraeck" type="update">
+        The internal dsol logger is retired and replaced by the log4j version 2 logger. 
+      </action>
+      <action dev="averbraeck" type="add">
+        The DEVSSimulatorInterface.scheduleXXX methods now return the event that they have scheduled. This enables
+        the user to easily store the event for later cancellation. 
+      </action>
+      <action dev="averbraeck" type="fix">
+         Timed events report the time as the absolute time rather than as the time wrapper.  
+      </action>
+      <action dev="averbraeck" type="fix">
+         Statistical events sent by Persistent made different from those by Tally. The events within dsol-core are now 
+         timed events.
+      </action>
+    </release>
+
    <release version="3.00.21" date="2016-09-12" description="Simulators with and without firing certain events">
       <action dev="averbraeck" type="update">
         DEVSRealTimeClock can fire CHANGE_SPEED_FACTOR_EVENT.

@@ -7,13 +7,15 @@ import java.util.Properties;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.Bounds;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * An Editable object is a simulation object that can be edited by the user. That means that the user is capable of
@@ -37,6 +39,9 @@ public abstract class Editable extends EventProducer implements Locatable
     /** the static map of editables. */
     private static Map<Object, Object> editables = new HashMap<Object, Object>();
 
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Editable.class);
+
     // We read editables from a file called editable.properties
     // Editables read from this file will be made available to the user
     // for instantiation (e.g. in the Editor2D of the DSOL-GUI).
@@ -50,7 +55,7 @@ public abstract class Editable extends EventProducer implements Locatable
         }
         catch (Exception exception)
         {
-            Logger.severe(Editable.class, "<clinit>", exception);
+            logger.error("<clinit>", exception);
         }
     }
 

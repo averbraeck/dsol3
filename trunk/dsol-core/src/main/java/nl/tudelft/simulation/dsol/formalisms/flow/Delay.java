@@ -3,6 +3,9 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -18,7 +21,6 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The Delay object is a station which delays an entity by some time units. When an entity arrives at a delay object,
@@ -45,6 +47,9 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /** delayDistribution which is the distribution defining the delay. */
     private DistContinuousTime<R> delayDistribution;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Delay.class);
 
     /**
      * Constructor for Delay.
@@ -69,7 +74,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "receiveObject", exception);
+            logger.warn("receiveObject", exception);
         }
     }
 

@@ -2,10 +2,12 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The TestModel <br>
@@ -26,6 +28,9 @@ public class TestModel implements DSOLModel, EventListenerInterface
 
     /** the simulator. */
     private SimulatorInterface simulator;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(TestModel.class);
 
     /**
      * constructs a new TestModel.
@@ -75,7 +80,7 @@ public class TestModel implements DSOLModel, EventListenerInterface
             }
             catch (RemoteException exception)
             {
-                Logger.warning(this, "notify", exception);
+                logger.warn("notify", exception);
             }
         }
     }

@@ -2,6 +2,9 @@ package nl.tudelft.simulation.dsol.formalisms.process;
 
 import java.rmi.RemoteException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
@@ -10,7 +13,6 @@ import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A Process <br>
@@ -33,7 +35,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
     private static final long serialVersionUID = 20140805L;
 
     /**
-     * the simulator to schedule on
+     * the simulator to schedule on.
      */
     protected DEVSSimulatorInterface<A, R, T> simulator = null;
 
@@ -41,9 +43,12 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
      * the simEvent which is used to schedule the resume.
      */
     private SimEventInterface<T> simEvent = null;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Process.class);
 
     /**
-     * constructs a new Process and IMMEDIATELY STARTS ITS PROCESS METHOD
+     * constructs a new Process and IMMEDIATELY STARTS ITS PROCESS METHOD.
      * @param simulator the simulator to schedule on
      */
     public Process(final DEVSSimulatorInterface<A, R, T> simulator)
@@ -70,7 +75,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
             }
             catch (Exception exception)
             {
-                Logger.severe(this, "<init>", exception);
+                logger.error("<init>", exception);
             }
         }
     }
@@ -111,7 +116,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
             }
             catch (Exception exception)
             {
-                Logger.warning(this, "cancel", exception);
+                logger.warn("cancel", exception);
             }
         }
     }

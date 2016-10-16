@@ -3,6 +3,9 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -18,7 +21,6 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The release station releases a given quantity of a claimed resource. <br>
@@ -45,6 +47,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
     /** amount defines the amount to be released. */
     private double amount = 1.0;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Release.class);
 
     /**
      * Constructor for Release.
@@ -81,7 +86,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "receiveObject", exception);
+            logger.warn("receiveObject", exception);
         }
     }
 
