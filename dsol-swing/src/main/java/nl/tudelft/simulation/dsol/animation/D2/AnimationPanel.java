@@ -20,13 +20,15 @@ import javax.naming.event.NamingExceptionEvent;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point4i;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.animation.D2.mouse.InputListener;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -59,6 +61,9 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /** enable drag line. */
     private boolean dragLineEnabled = false;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(AnimationPanel.class);
 
     /**
      * constructs a new AnimationPanel.
@@ -153,7 +158,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
             }
             catch (Exception exception)
             {
-                Logger.warning(this, "notify", exception);
+                logger.warn("notify", exception);
             }
         }
     }
@@ -186,7 +191,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void namingExceptionThrown(final NamingExceptionEvent namingEvent)
     {
-        Logger.warning(this, "namingExceptionThrown", namingEvent.getException());
+        logger.warn("namingExceptionThrown", namingEvent.getException());
     }
 
     /**

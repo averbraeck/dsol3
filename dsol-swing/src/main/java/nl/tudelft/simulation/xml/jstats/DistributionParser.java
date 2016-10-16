@@ -3,6 +3,11 @@ package nl.tudelft.simulation.xml.jstats;
 import java.io.IOException;
 import java.net.URL;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.Dist;
 import nl.tudelft.simulation.jstats.distributions.DistBernoulli;
@@ -16,10 +21,6 @@ import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.distributions.DistTriangular;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
-import nl.tudelft.simulation.logger.Logger;
-
-import org.jdom2.Element;
-import org.jdom2.Namespace;
 
 /**
  * <br>
@@ -35,6 +36,9 @@ public final class DistributionParser
 {
     /** the default schema file. */
     public static final URL DISTRIBUTIONFILE_SCHEMA = DistributionParser.class.getResource("/xsd/distribution.xsd");
+
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(DistributionParser.class);
 
     /**
      * constructs a new DistributionParser.
@@ -64,8 +68,7 @@ public final class DistributionParser
             }
             catch (Exception e)
             {
-                Logger.warning(DistributionParser.class, "parseDistribution", "stream " + stream + " not found"
-                        + "\nDefault stream used instead.");
+                logger.warn("parseDistribution: stream " + stream + " not found" + "\nDefault stream used instead.");
             }
             Namespace xsi = Namespace.getNamespace("http://www.w3.org/2001/XMLSchema-instance");
             String distributionType = element.getAttributeValue("type", xsi);

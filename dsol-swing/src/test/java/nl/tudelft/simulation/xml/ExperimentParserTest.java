@@ -2,11 +2,13 @@ package nl.tudelft.simulation.xml;
 
 import java.net.URL;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.xml.dsol.ExperimentParser;
 
 /**
@@ -20,13 +22,15 @@ import nl.tudelft.simulation.xml.dsol.ExperimentParser;
  * @version 1.2 Sep 28, 2004
  * @since 1.5
  */
-public class ExperimentParserT extends TestCase
+public class ExperimentParserTest extends TestCase
 {
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(ExperimentParserTest.class);
 
     /**
      * constructs a new ExperimentParserT.
      */
-    public ExperimentParserT()
+    public ExperimentParserTest()
     {
         this("test");
     }
@@ -35,7 +39,7 @@ public class ExperimentParserT extends TestCase
      * constructs a new ExperimentParserT.
      * @param arg0
      */
-    public ExperimentParserT(String arg0)
+    public ExperimentParserTest(String arg0)
     {
         super(arg0);
     }
@@ -54,7 +58,7 @@ public class ExperimentParserT extends TestCase
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "test", exception);
+            logger.warn("test", exception);
             Assert.fail(exception.getMessage());
         }
     }

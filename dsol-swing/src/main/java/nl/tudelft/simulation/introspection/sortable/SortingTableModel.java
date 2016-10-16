@@ -12,7 +12,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import nl.tudelft.simulation.logger.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The SortingTableModel.
@@ -40,6 +41,9 @@ public class SortingTableModel implements TableModel, Sortable
 
     /** the definitions. */
     private List<Definition> definitions = Collections.synchronizedList(new ArrayList<Definition>());
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(SortingTableModel.class);
 
     /**
      * constructs a new SortingTableModel.
@@ -198,8 +202,8 @@ public class SortingTableModel implements TableModel, Sortable
                         }
                         catch (ClassCastException exception)
                         {
-                            Logger.info(this, "sortSubList", " Could not compare " + current + " and " + resultValue
-                                    + ": " + exception);
+                            logger.info("sortSubList: " + " Could not compare " + current + " and " + resultValue, 
+                                    exception);
                         }
                     }
                 }
@@ -281,7 +285,7 @@ public class SortingTableModel implements TableModel, Sortable
         }
         if (rowIndex > this.expandedIndex.length)
         {
-            Logger.warning(this, "getValueAt", " could not retrieve row " + rowIndex
+            logger.warn("getValueAt could not retrieve row " + rowIndex
                     + " from sorted list. Returning default instead.");
             return this.source.getValueAt(rowIndex, columnIndex);
         }
@@ -310,7 +314,7 @@ public class SortingTableModel implements TableModel, Sortable
     {
         if (rowIndex > this.expandedIndex.length)
         {
-            Logger.warning(this, "setValueAt", " could not retrieve row " + rowIndex
+            logger.warn("setValueAt could not retrieve row " + rowIndex
                     + " from sorted list. Ignoring 'setValue' command.");
             return;
         }

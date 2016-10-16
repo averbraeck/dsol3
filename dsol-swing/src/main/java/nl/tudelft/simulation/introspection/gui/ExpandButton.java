@@ -10,11 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration;
 import nl.tudelft.simulation.introspection.mapping.DefaultConfiguration;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A table-element that spawns an introspection dialog for a property. In the new dialog, the property has become the
@@ -40,6 +42,9 @@ public class ExpandButton extends JButton
 
     /** the model. */
     private final IntrospectingTableModelInterface MODEL;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(ExpandButton.class);
 
     /**
      * constructs a new ExpandButton.
@@ -121,8 +126,7 @@ public class ExpandButton extends JButton
         }
         catch (Exception exception)
         {
-            Logger.warning(this, "instantiate", " could not instantiate parent tablemodel, using default. Exception:"
-                    + exception.getMessage());
+            logger.warn("instantiate: could not instantiate parent tablemodel, using default", exception);
             if (this.PROPERTY.isCollection())
             {
                 newModel = new CollectionTableModel(this.PROPERTY);

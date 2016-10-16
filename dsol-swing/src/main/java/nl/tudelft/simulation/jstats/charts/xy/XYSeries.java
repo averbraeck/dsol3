@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jfree.data.general.AbstractDataset;
+
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.event.TimedEvent;
 import nl.tudelft.simulation.language.filters.FilterInterface;
 import nl.tudelft.simulation.language.filters.ZeroFilter;
-import nl.tudelft.simulation.logger.Logger;
-
-import org.jfree.data.general.AbstractDataset;
 
 /**
  * The xySerie specifies an xySerie for XY Plots in DSOL.
@@ -51,6 +52,9 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
 
     /** the period of this set. */
     private final double PERIOD;
+    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(XYSeries.class);
 
     /**
      * constructs a new XYSeries.
@@ -79,7 +83,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         {
             if (timeStamp.doubleValue() <= 0.0)
             {
-                Logger.warning(this, "notify", "refusing xvalue of " + event + " on logrithmic chart");
+                logger.warn("notify: refusing xvalue of " + event + " on logrithmic chart");
                 return;
             }
         }
@@ -87,7 +91,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         {
             if (((Number) timedEvent.getContent()).doubleValue() <= 0.0)
             {
-                Logger.warning(this, "notify", "refusing yValue of " + event + " on logrithmic chart");
+                logger.warn("notify: refusing yValue of " + event + " on logrithmic chart");
                 return;
             }
         }
@@ -148,7 +152,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     }
 
     /**
-     * returns the name of this serie
+     * returns the name of this series
      * @return String name
      */
     public String getSeriesName()

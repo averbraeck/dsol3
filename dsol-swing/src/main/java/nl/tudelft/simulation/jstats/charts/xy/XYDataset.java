@@ -136,9 +136,9 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
 
     /** {@inheritDoc} */
     @Override
-    public Comparable getSeriesKey(int arg0)
+    public Comparable<?> getSeriesKey(final int seriesNumber)
     {
-        return "Series " + arg0;
+        return this.series[seriesNumber].getSeriesName();
     }
 
 }

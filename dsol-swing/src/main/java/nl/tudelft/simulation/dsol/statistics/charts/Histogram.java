@@ -5,8 +5,10 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -20,7 +22,9 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.Histogram
-{
+{    
+    /** the logger. */
+    private static Logger logger = LogManager.getLogger(Histogram.class);
 
     /**
      * constructs a new Histogram.
@@ -41,7 +45,7 @@ public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.His
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 
@@ -63,7 +67,7 @@ public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.His
         }
         catch (RemoteException | NamingException exception)
         {
-            Logger.warning(this, "<init>", exception);
+            logger.warn("<init>", exception);
         }
     }
 
