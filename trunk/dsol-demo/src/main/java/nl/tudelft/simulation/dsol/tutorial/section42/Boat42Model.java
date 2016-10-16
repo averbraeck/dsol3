@@ -35,15 +35,15 @@ public class Boat42Model implements DSOLModel.TimeDouble
 
     /** ordering costs statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    Tally<SimTimeDouble> orderingCosts;
+    Tally<Double, Double, SimTimeDouble> orderingCosts;
     
     /** inventory statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    Persistent<SimTimeDouble> inventory;
+    Persistent<Double, Double, SimTimeDouble> inventory;
     
     /** backlog statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    Persistent<SimTimeDouble> backlog;
+    Persistent<Double, Double, SimTimeDouble> backlog;
     
     /**
      * constructs a new BoatModel.
