@@ -15,6 +15,9 @@
       <action dev="averbraeck" type="update">
         The AnimationPanel supports showing and hiding of layers, based on the class of the Locatable object.
       </action>
+      <action dev="averbraeck" type="update">
+        DSOL is now compiled with Java version 1.8.
+      </action>      
     </release>
 
     <release version="3.01.01" date="2016-10-23" description="Throw class extended">
