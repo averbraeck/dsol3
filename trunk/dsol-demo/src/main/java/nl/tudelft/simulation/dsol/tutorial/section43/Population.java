@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.Properties;
 
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 
 /**
@@ -18,8 +19,11 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
  * @version 1.2 Apr 22, 2004
  * @since 1.5
  */
-public class Population extends DifferentialEquation
+public class Population extends DifferentialEquation<Double, Double, SimTimeDouble>
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** Lotka-Volterra parameters. */
     private double a;
 
@@ -34,11 +38,11 @@ public class Population extends DifferentialEquation
 
     /**
      * constructs a new Population.
-     * @param simulator
-     * @param timeStep
+     * @param simulator the simulator
+     * @param timeStep the time step
      * @throws RemoteException on network exception
      */
-    public Population(DESSSimulatorInterface.TimeDouble simulator, double timeStep) throws RemoteException
+    public Population(final DESSSimulatorInterface.TimeDouble simulator, final double timeStep) throws RemoteException
     {
         super(simulator, timeStep);
         Properties properties = simulator.getReplication().getTreatment().getProperties();
@@ -54,7 +58,7 @@ public class Population extends DifferentialEquation
 
     /** {@inheritDoc} */
     @Override
-    public double[] dy(double time, double[] y)
+    public final double[] dy(final double time, final double[] y)
     {
         double[] dy = new double[2];
         dy[0] = -this.a * y[0] + this.b * y[0] * y[1];

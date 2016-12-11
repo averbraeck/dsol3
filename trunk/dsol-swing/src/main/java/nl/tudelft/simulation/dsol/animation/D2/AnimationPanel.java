@@ -7,6 +7,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -23,6 +27,7 @@ import javax.vecmath.Point4i;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.mouse.InputListener;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -32,8 +37,9 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
- * The AnimationPanel <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * The AnimationPanel to display animated (Locatable) objects. Added the possibility to witch layers on and off. By
+ * default all layers will be drawn, so no changes to existing software need to be made.<br>
+ * (c) copyright 2002-2016 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
@@ -47,8 +53,17 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     private static final long serialVersionUID = 1L;
 
     /** the elements of this panel. */
-    private SortedSet<Renderable2DInterface> elements = Collections
-            .synchronizedSortedSet(new TreeSet<Renderable2DInterface>(new Renderable2DComparator()));
+    private SortedSet<Renderable2DInterface> elements =
+            Collections.synchronizedSortedSet(new TreeSet<Renderable2DInterface>(new Renderable2DComparator()));
+
+    /** filter for types to be shown or not. */
+    private Map<Class<? extends Locatable>, Boolean> visibilityMap = new HashMap<>();
+
+    /** cache of the classes that are hidden. */
+    private Set<Class<? extends Locatable>> hiddenClasses = new HashSet<>();
+
+    /** cache of the classes that are shown. */
+    private Set<Class<? extends Locatable>> shownClasses = new HashSet<>();
 
     /** the simulator. */
     private SimulatorInterface<?, ?, ?> simulator;
@@ -61,7 +76,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /** enable drag line. */
     private boolean dragLineEnabled = false;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(AnimationPanel.class);
 
@@ -94,7 +109,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void paintComponent(final Graphics g)
+    public final synchronized void paintComponent(final Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
 
@@ -106,7 +121,37 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         {
             for (Renderable2DInterface element : this.elements)
             {
-                element.paint(g2, this.getExtent(), this.getSize(), this);
+                Class<? extends Locatable> locatableClass = element.getSource().getClass();
+                if (!this.hiddenClasses.contains(locatableClass))
+                {
+                    boolean show = true;
+                    if (!this.shownClasses.contains(locatableClass))
+                    {
+                        for (Class<? extends Locatable> lc : this.visibilityMap.keySet())
+                        {
+                            if (lc.isAssignableFrom(locatableClass))
+                            {
+                                if (!this.visibilityMap.get(lc))
+                                {
+                                    show = false;
+                                }
+                            }
+                        }
+                        // add to the right cache
+                        if (show)
+                        {
+                            this.shownClasses.add(locatableClass);
+                        }
+                        else
+                        {
+                            this.hiddenClasses.add(locatableClass);
+                        }
+                    }
+                    if (show)
+                    {
+                        element.paint(g2, this.getExtent(), this.getSize(), this);
+                    }
+                }
             }
         }
 
@@ -144,9 +189,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
                     this.context.removeNamingListener(this);
                 }
 
-                this.context =
-                        (EventContext) ContextUtil
-                                .lookup(this.simulator.getReplication().getContext(), "/animation/2D");
+                this.context = (EventContext) ContextUtil.lookup(this.simulator.getReplication().getContext(),
+                        "/animation/2D");
                 this.context.addNamingListener("", EventContext.SUBTREE_SCOPE, this);
                 NamingEnumeration<Binding> list = this.context.listBindings("");
                 while (list.hasMore())
@@ -195,14 +239,15 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     }
 
     /**
-     * resets the panel to its an extent that covers all displayed objects.
+     * Calculate the full extent based on the current positions of the objects.
+     * @return the full extent of the animation.
      */
-    public final synchronized void zoomAll()
+    public final synchronized Rectangle2D fullExtent()
     {
-        double minX = this.homeExtent.getMinX();
-        double maxX = this.homeExtent.getMaxX();
-        double minY = this.homeExtent.getMinY();
-        double maxY = this.homeExtent.getMaxY();
+        double minX = Double.MAX_VALUE;
+        double maxX = -Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxY = -Double.MAX_VALUE;
         Point3d p3dL = new Point3d();
         Point3d p3dU = new Point3d();
         try
@@ -223,8 +268,61 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         {
             // ignore
         }
-        Rectangle2D newExtent = new Rectangle2D.Double(minX, minY, maxX - minX, maxY - minY);
-        this.extent = Renderable2DInterface.Util.computeVisibleExtent(newExtent, this.getSize());
+
+        minX = minX - 0.05 * Math.abs(minX);
+        minY = minY - 0.05 * Math.abs(minY);
+        maxX = maxX + 0.05 * Math.abs(maxX);
+        maxY = maxY + 0.05 * Math.abs(maxY);
+
+        return new Rectangle2D.Double(minX, minY, maxX - minX, maxY - minY);
+    }
+
+    /**
+     * resets the panel to its an extent that covers all displayed objects.
+     */
+    public final synchronized void zoomAll()
+    {
+        this.extent = Renderable2DInterface.Util.computeVisibleExtent(fullExtent(), this.getSize());
+        this.repaint();
+    }
+
+    /**
+     * Set a class to be shown in the animation to true.
+     * @param locatableClass the class for which the animation has to be shown.
+     */
+    public final void showClass(final Class<? extends Locatable> locatableClass)
+    {
+        this.visibilityMap.put(locatableClass, true);
+        this.shownClasses.clear();
+        this.hiddenClasses.clear();
+        this.repaint();
+    }
+
+    /**
+     * Set a class to be hidden in the animation to true.
+     * @param locatableClass the class for which the animation has to be hidden.
+     */
+    public final void hideClass(final Class<? extends Locatable> locatableClass)
+    {
+        this.visibilityMap.put(locatableClass, false);
+        this.shownClasses.clear();
+        this.hiddenClasses.clear();
+        this.repaint();
+    }
+
+    /**
+     * Toggle a class to be displayed in the animation to its reverse value.
+     * @param locatableClass the class for which a visible animation has to be turned off or vice versa.
+     */
+    public final void toggleClass(final Class<? extends Locatable> locatableClass)
+    {
+        if (!this.visibilityMap.containsKey(locatableClass))
+        {
+            showClass(locatableClass);
+        }
+        this.visibilityMap.put(locatableClass, !this.visibilityMap.get(locatableClass));
+        this.shownClasses.clear();
+        this.hiddenClasses.clear();
         this.repaint();
     }
 
@@ -259,5 +357,4 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     {
         this.dragLineEnabled = dragLineEnabled;
     }
-
 }
