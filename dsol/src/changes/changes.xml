@@ -8,7 +8,7 @@
       </action>
     </release>
 
-    <release version="3.01.02" date="2016-XX-XX" description="Immutable collections, Toggling of layers in AnimationPanel">
+    <release version="3.01.02" date="2016-12-11" description="Immutable collections, Toggling of layers in AnimationPanel">
       <action dev="averbraeck" type="add">
         The ImmutableCollections from opentrafficsim have been added to dsol-base.
       </action>
