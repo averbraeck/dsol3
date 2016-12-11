@@ -2,7 +2,33 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-   <release version="3.01.00" date="2016-10-16" description="dsol-base project split, log4j instead of logger">
+    <release version="3.01.03 - In Progress" date="2016-XX-XX" description="dsol-demo repaired and added to project">
+      <action dev="averbraeck" type="add">
+        The dsol-demo project has been repaired and is from now on again a formal part of the dsol framework. 
+      </action>
+    </release>
+
+    <release version="3.01.02" date="2016-XX-XX" description="Immutable collections, Toggling of layers in AnimationPanel">
+      <action dev="averbraeck" type="add">
+        The ImmutableCollections from opentrafficsim have been added to dsol-base.
+      </action>
+      <action dev="averbraeck" type="update">
+        The AnimationPanel supports showing and hiding of layers, based on the class of the Locatable object.
+      </action>
+    </release>
+
+    <release version="3.01.01" date="2016-10-23" description="Throw class extended">
+      <action dev="averbraeck" type="update">
+        The Throw class now also is able to return an object (its first parameter) to allow for its use in a 
+        super(...) call. 
+      </action>
+    </release>
+
+    <release version="3.01.00" date="2016-10-16" description="dsol-base project split, log4j instead of logger">
+      <action dev="averbraeck" type="add">
+        A Throw class with Throw.throw(condition, ...) and Throw.whenNull(object, ...) has been added to dsol-base to 
+        easily check pre- and post-conditions in constructors and methods.
+      </action>
       <action dev="averbraeck" type="update">
         The dsol-base project is split into dsol-base, dsol-interpreter, dsol-introspection, dsol-event and dsol-naming.
       </action>

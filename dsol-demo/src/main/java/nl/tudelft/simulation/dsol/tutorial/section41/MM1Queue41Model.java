@@ -70,7 +70,7 @@ public class MM1Queue41Model implements DSOLModel.TimeDouble
         generator.setMaxNumber(1000);
 
         // The queue, the resource and the release
-        Resource<SimTimeDouble> resource = new Resource<>(this.devsSimulator, 1.0);
+        Resource<Double, Double, SimTimeDouble> resource = new Resource<>(this.devsSimulator, 1.0);
 
         // created a resource
         StationInterface queue = new Seize.TimeDouble(this.devsSimulator, resource);

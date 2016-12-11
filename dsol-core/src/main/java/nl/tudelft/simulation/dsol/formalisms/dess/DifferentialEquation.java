@@ -48,10 +48,10 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     /** simulator. */
     protected DESSSimulatorInterface<A, R, T> simulator = null;
 
-    /** the previousX */
+    /** the previousX. */
     protected double previousX;
 
-    /** the previousY */
+    /** the previousY. */
     protected double[] previousY = null;
 
     /** the logger. */
