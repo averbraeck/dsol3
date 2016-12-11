@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsol:experiment 
+	xmlns:dsol="http://www.simulation.tudelft.nl"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <name>Time Shared Computer Model</name>
+  <analyst>Peter H.M. Jacobs</analyst>
+  <model>
+  	<jar-file>http://www.simulation.tudelft.nl/dsol/examples/150/examples.jar</jar-file>
+	<model-class>nl.tudelft.simulation.examples.dsol.timesharedcomputer.Computer</model-class>
+   </model>
+  <treatment>  
+    <startTime>1981-12-01T14:25:58</startTime>
+    <timeUnit>MINUTE</timeUnit> 
+    <runControl>  	    
+	   <warmupPeriod  unit="MINUTE">0</warmupPeriod>    
+	   <runLength unit="HOUR">300</runLength>
+	   <replication description="replication 0">
+     	   	<stream name="default" seed="12"/>
+     	   	<stream name="generator" seed="1"/>     	   	
+	   </replication>
+	   <replication description="replication 1">
+     	   	<stream name="default" seed="563"/>
+     	   	<stream name="generator" seed="1"/>     	   	     	   	
+	   </replication>
+	   <replication description="replication 2">
+     	   	<stream name="default" seed="37"/>
+     	   	<stream name="generator" seed="1"/>     	   	     	   	
+	   </replication>
+	   <replication description="replication 2">
+     	   	<stream name="default" seed="37"/>
+     	   	<stream name="generator" seed="1"/>     	   	     	   	
+	   </replication>
+   </runControl>
+ </treatment>
+</dsol:experiment>	  

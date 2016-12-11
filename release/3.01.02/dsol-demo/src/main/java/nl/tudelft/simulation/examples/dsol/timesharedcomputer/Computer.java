@@ -1,0 +1,129 @@
+package nl.tudelft.simulation.examples.dsol.timesharedcomputer;
+
+import java.rmi.RemoteException;
+
+import nl.tudelft.simulation.dsol.DSOLModel;
+import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.statistics.Counter;
+import nl.tudelft.simulation.dsol.statistics.Persistent;
+import nl.tudelft.simulation.event.EventInterface;
+import nl.tudelft.simulation.jstats.distributions.DistContinuous;
+import nl.tudelft.simulation.jstats.distributions.DistExponential;
+import nl.tudelft.simulation.jstats.streams.StreamInterface;
+import nl.tudelft.simulation.logger.Logger;
+
+/**
+ * The Computer example as published in Simulation Modeling and Analysis by A.M. Law & W.D. Kelton section 1.4 and 2.4. <br>
+ * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
+ * @version 1.1 02.04.2003 <br>
+ * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
+ */
+public class Computer implements DSOLModel
+{
+    /** The default serial version UID for serializable classes. */
+    private static final long serialVersionUID = 1L;
+
+    /** the simulator. */
+    private SimulatorInterface.TimeDouble simulator;
+
+    /** the number of jobs. */
+    public static final long NUMBER_OF_JOBS = 1000;
+
+    /** the number of terminals. */
+    public static final long NUMBER_OF_TERMINALS = 80;
+
+    /**
+     * constructs a new Computer.
+     */
+    public Computer()
+    {
+        super();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void constructModel(final SimulatorInterface.TimeDouble simulator) throws RemoteException
+    {
+        this.simulator = simulator;
+        DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface) simulator;
+        StreamInterface stream = simulator.getReplication().getStream("default");
+
+        CPU cpu = new CPU(devsSimulator);
+        DistContinuous thinkDelay = new DistExponential(stream, 25);
+        DistContinuous processDelay = new DistExponential(stream, 0.8);
+
+        // First the statistics
+        Persistent persistent = new Persistent("service time", devsSimulator);
+        ExitCounter exitCounter = new ExitCounter("counter", simulator);
+
+        // Now the charts
+        Histogram histogram = new Histogram(simulator, "service time", new double[]{0, 200}, 200);
+        histogram.add("serviceTime", persistent, nl.tudelft.simulation.jstats.statistics.Persistent.VALUE_EVENT);
+
+        BoxAndWhiskerChart boxAndWhisker = new BoxAndWhiskerChart(simulator, "serviceTime");
+        boxAndWhisker.add(persistent);
+
+        // Now we start the action
+        for (int i = 0; i < NUMBER_OF_TERMINALS; i++)
+        {
+            Terminal terminal = new Terminal(devsSimulator, cpu, thinkDelay, processDelay);
+            terminal.addListener(exitCounter, StationInterface.RELEASE_EVENT);
+            terminal.addListener(persistent, Terminal.SERVICE_TIME);
+        }
+    }
+
+    /**
+     * A counter which stops after a predifined number of jobs
+     */
+    public class ExitCounter extends Counter
+    {
+        /** simulator refers to the simulator. */
+        private SimulatorInterface.TimeDouble simulator = null;
+
+        /**
+         * constructs a new ExitCounter.
+         * @param description the description of the counter
+         * @param simulator the simulator
+         * @throws RemoteException on network failure
+         */
+        public ExitCounter(final String description, final SimulatorInterface.TimeDouble simulator) throws RemoteException
+        {
+            super(description, simulator);
+            this.simulator = simulator;
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void notify(final EventInterface event)
+        {
+            super.notify(event);
+            if (this.count >= NUMBER_OF_JOBS)
+            {
+                try
+                {
+                    this.simulator.getReplication().getTreatment().setRunLength(this.simulator.getSimulatorTime());
+                    if (this.simulator.isRunning())
+                    {
+                        this.simulator.stop();
+                    }
+                }
+                catch (Exception exception)
+                {
+                    logger.warn("notify", exception);
+                }
+            }
+        }
+    }
+
+    /**
+     * @return the simulator
+     */
+    public SimulatorInterface.TimeDouble getSimulator()
+    {
+        return this.simulator;
+    }
+}
