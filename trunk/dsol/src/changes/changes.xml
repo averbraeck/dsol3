@@ -2,10 +2,19 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.01.03 - In Progress" date="2016-XX-XX" description="dsol-demo repaired and added to project">
+    <release version="3.01.04 - In Progress" date="2016-XX-XX" description="dsol-demo repaired and added to project">
       <action dev="averbraeck" type="add">
         The dsol-demo project has been repaired and is from now on again a formal part of the dsol framework. 
       </action>
+    </release>
+
+    <release version="3.01.03" date="2016-01-14" description="Renderable2D">
+      <action dev="averbraeck" type="update">
+        Renderable2D.destroy() has been made non-final so it can be overridden.
+      </action>
+      <action dev="averbraeck" type="update">
+        A Renderable2D can now be destroyed from within the paint() method without a ConcurrentModificationException.
+      </action>      
     </release>
 
     <release version="3.01.02" date="2016-12-11" description="Immutable collections, Toggling of layers in AnimationPanel">

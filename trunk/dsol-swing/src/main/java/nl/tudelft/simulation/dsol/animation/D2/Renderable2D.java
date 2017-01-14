@@ -275,7 +275,8 @@ public abstract class Renderable2D implements Renderable2DInterface
 
     /** {@inheritDoc} */
     @Override
-    public final void destroy() throws NamingException
+    @SuppressWarnings("checkstyle:designforextension")
+    public void destroy() throws NamingException
     {
         this.context.unbind(Long.toString(this.id));
     }
