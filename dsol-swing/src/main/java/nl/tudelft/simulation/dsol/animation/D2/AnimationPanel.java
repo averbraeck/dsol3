@@ -77,6 +77,15 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /** enable drag line. */
     private boolean dragLineEnabled = false;
 
+    /** are we drawing? */
+    private boolean drawing;
+
+    /** cache of objects to be removed, when the paintComponent() method is busy and an object is removed. */
+    private Set<Renderable2DInterface> removeSet = new HashSet<>();
+
+    /** cache of objects to be added, when the paintComponent() method is busy and an object is added. */
+    private Set<Renderable2DInterface> addSet = new HashSet<>();
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(AnimationPanel.class);
 
@@ -119,6 +128,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         // draw the animation elements.
         synchronized (this.elements)
         {
+            this.drawing = true;
             for (Renderable2DInterface element : this.elements)
             {
                 Class<? extends Locatable> locatableClass = element.getSource().getClass();
@@ -153,6 +163,27 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
                     }
                 }
             }
+
+            // handle the deletions that took place during drawing
+            synchronized (this.removeSet)
+            {
+                for (Renderable2DInterface element : this.removeSet)
+                {
+                    this.elements.remove(element);
+                }
+                this.removeSet.clear();
+            }
+
+            synchronized (this.addSet)
+            {
+                for (Renderable2DInterface element : this.addSet)
+                {
+                    this.elements.add(element);
+                }
+                this.addSet.clear();
+            }
+
+            this.drawing = false;
         }
 
         // draw drag line if enabled.
@@ -211,24 +242,53 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void objectAdded(final NamingEvent namingEvent)
     {
-        Renderable2DInterface element = (Renderable2DInterface) namingEvent.getNewBinding().getObject();
-        this.elements.add(element);
+        synchronized (this.elements)
+        {
+            Renderable2DInterface element = (Renderable2DInterface) namingEvent.getNewBinding().getObject();
+            if (this.drawing)
+            {
+                synchronized (this.addSet)
+                {
+                    this.addSet.add(element);
+                }
+            }
+            else
+            {
+                this.elements.add(element);
+            }
+        }
     }
 
     /** {@inheritDoc} */
     @Override
     public void objectRemoved(final NamingEvent namingEvent)
     {
-        Renderable2DInterface element = (Renderable2DInterface) namingEvent.getOldBinding().getObject();
-        this.elements.remove(element);
+        synchronized (this.elements)
+        {
+            Renderable2DInterface element = (Renderable2DInterface) namingEvent.getOldBinding().getObject();
+            if (this.drawing)
+            {
+                synchronized (this.removeSet)
+                {
+                    this.removeSet.remove(element);
+                }
+            }
+            else
+            {
+                this.elements.remove(element);
+            }
+        }
     }
 
     /** {@inheritDoc} */
     @Override
     public void objectRenamed(final NamingEvent namingEvent)
     {
-        this.objectRemoved(namingEvent);
-        this.objectAdded(namingEvent);
+        synchronized (this.elements)
+        {
+            this.objectRemoved(namingEvent);
+            this.objectAdded(namingEvent);
+        }
     }
 
     /** {@inheritDoc} */
