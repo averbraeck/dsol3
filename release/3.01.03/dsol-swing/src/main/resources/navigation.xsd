@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/2001/XMLSchema 
+                        http://www.w3.org/2001/XMLSchema.xsd"
+    xmlns:dsol="http://www.simulation.tudelft.nl/dsol"
+    targetNamespace="http://www.simulation.tudelft.nl/dsol">
+
+    <!-- ###############################    TYPE DEFINITION     ############################# -->
+
+	<xsd:element name="navigation">
+		<xsd:complexType mixed="false">
+			<xsd:sequence>
+				<xsd:element maxOccurs="unbounded" minOccurs="1" name="menu" type="dsol:menu"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>		   
+		        
+    <!-- Menu definition -->
+    <xsd:complexType name="menu" mixed="false">
+  	  <xsd:sequence>
+		<xsd:choice maxOccurs="unbounded" minOccurs="0">
+     		<xsd:element maxOccurs="unbounded" minOccurs="0" name="action" type="dsol:action"/>
+     		<xsd:element maxOccurs="unbounded" minOccurs="0" name="menu" type="dsol:menu"/>
+     		<xsd:element maxOccurs="unbounded" minOccurs="0" name="separator" type="dsol:separator"/>
+		</xsd:choice>
+	</xsd:sequence>
+	 <xsd:attribute name="name" type="xsd:string" use="required"/>
+    </xsd:complexType>
+    
+    <xsd:complexType name="action">
+    		<xsd:sequence>
+				<xsd:element maxOccurs="unbounded" minOccurs="0" name="argument" type="xsd:string"/>
+			</xsd:sequence>
+	  <xsd:attribute name="className" type="xsd:string" use="required"/>
+    
+	</xsd:complexType>    
+    
+    <xsd:complexType name="separator"/>
+</xsd:schema>
