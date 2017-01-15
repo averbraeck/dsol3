@@ -118,7 +118,6 @@ public class InitialEventContext implements EventContext
      * @throws NamingException if a naming exception is encountered
      * @since 1.5
      */
-    @SuppressWarnings("unchecked")
     protected void init(final Hashtable<?, ?> environment) throws NamingException
     {
         // TODO ResourceManager.getInitialEnvironment(environment) is an internal API that is forbidden to access?
@@ -225,6 +224,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#lookup(java.lang.String)
      */
+    @Override
     public Object lookup(final String name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).lookup(name);
@@ -234,6 +234,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#lookup(javax.naming.Name)
      */
+    @Override
     public Object lookup(final Name name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).lookup(name);
@@ -243,6 +244,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#bind(java.lang.String, java.lang.Object)
      */
+    @Override
     public void bind(final String name, final Object obj) throws NamingException
     {
         getURLOrDefaultInitCtx(name).bind(name, obj);
@@ -252,6 +254,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#bind(javax.naming.Name, java.lang.Object)
      */
+    @Override
     public void bind(final Name name, final Object obj) throws NamingException
     {
         getURLOrDefaultInitCtx(name).bind(name, obj);
@@ -261,6 +264,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#rebind(java.lang.String, java.lang.Object)
      */
+    @Override
     public void rebind(final String name, final Object obj) throws NamingException
     {
         getURLOrDefaultInitCtx(name).rebind(name, obj);
@@ -270,6 +274,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#rebind(javax.naming.Name, java.lang.Object)
      */
+    @Override
     public void rebind(final Name name, final Object obj) throws NamingException
     {
         getURLOrDefaultInitCtx(name).rebind(name, obj);
@@ -279,6 +284,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#unbind(java.lang.String)
      */
+    @Override
     public void unbind(final String name) throws NamingException
     {
         getURLOrDefaultInitCtx(name).unbind(name);
@@ -288,6 +294,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#unbind(javax.naming.Name)
      */
+    @Override
     public void unbind(final Name name) throws NamingException
     {
         getURLOrDefaultInitCtx(name).unbind(name);
@@ -297,6 +304,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#rename(java.lang.String, java.lang.String)
      */
+    @Override
     public void rename(final String oldName, final String newName) throws NamingException
     {
         getURLOrDefaultInitCtx(oldName).rename(oldName, newName);
@@ -306,6 +314,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#rename(javax.naming.Name, javax.naming.Name)
      */
+    @Override
     public void rename(final Name oldName, final Name newName) throws NamingException
     {
         getURLOrDefaultInitCtx(oldName).rename(oldName, newName);
@@ -315,6 +324,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#list(java.lang.String)
      */
+    @Override
     public NamingEnumeration<NameClassPair> list(final String name) throws NamingException
     {
         return (getURLOrDefaultInitCtx(name).list(name));
@@ -324,6 +334,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#list(javax.naming.Name)
      */
+    @Override
     public NamingEnumeration<NameClassPair> list(final Name name) throws NamingException
     {
         return (getURLOrDefaultInitCtx(name).list(name));
@@ -333,6 +344,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#listBindings(java.lang.String)
      */
+    @Override
     public NamingEnumeration<Binding> listBindings(final String name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).listBindings(name);
@@ -342,6 +354,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#listBindings(javax.naming.Name)
      */
+    @Override
     public NamingEnumeration<Binding> listBindings(final Name name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).listBindings(name);
@@ -351,6 +364,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#destroySubcontext(java.lang.String)
      */
+    @Override
     public void destroySubcontext(final String name) throws NamingException
     {
         getURLOrDefaultInitCtx(name).destroySubcontext(name);
@@ -360,6 +374,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#destroySubcontext(javax.naming.Name)
      */
+    @Override
     public void destroySubcontext(final Name name) throws NamingException
     {
         getURLOrDefaultInitCtx(name).destroySubcontext(name);
@@ -369,6 +384,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#createSubcontext(java.lang.String)
      */
+    @Override
     public Context createSubcontext(final String name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).createSubcontext(name);
@@ -378,6 +394,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#createSubcontext(javax.naming.Name)
      */
+    @Override
     public Context createSubcontext(final Name name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).createSubcontext(name);
@@ -387,6 +404,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#lookupLink(java.lang.String)
      */
+    @Override
     public Object lookupLink(final String name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).lookupLink(name);
@@ -396,6 +414,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#lookupLink(javax.naming.Name)
      */
+    @Override
     public Object lookupLink(final Name name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).lookupLink(name);
@@ -405,6 +424,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#getNameParser(java.lang.String)
      */
+    @Override
     public NameParser getNameParser(final String name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).getNameParser(name);
@@ -414,6 +434,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#getNameParser(javax.naming.Name)
      */
+    @Override
     public NameParser getNameParser(final Name name) throws NamingException
     {
         return getURLOrDefaultInitCtx(name).getNameParser(name);
@@ -428,6 +449,7 @@ public class InitialEventContext implements EventContext
      * @return String
      * @throws NamingException on exception
      */
+    @Override
     public String composeName(final String name, final String prefix) throws NamingException
     {
         throw new NamingException("composeName " + name + ", " + prefix + " is not supported.");
@@ -442,6 +464,7 @@ public class InitialEventContext implements EventContext
      * @return Name
      * @throws NamingException on exception
      */
+    @Override
     public Name composeName(final Name name, final Name prefix) throws NamingException
     {
         throw new NamingException("composeName " + name + ", " + prefix + " is not supported.");
@@ -451,6 +474,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context #addToEnvironment(java.lang.String, java.lang.Object)
      */
+    @Override
     public Object addToEnvironment(final String propName, final Object propVal) throws NamingException
     {
         this.myProps.put(propName, propVal);
@@ -461,6 +485,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#removeFromEnvironment(java.lang.String)
      */
+    @Override
     public Object removeFromEnvironment(final String propName) throws NamingException
     {
         this.myProps.remove(propName);
@@ -471,6 +496,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#getEnvironment()
      */
+    @Override
     public Hashtable<?, ?> getEnvironment() throws NamingException
     {
         return getDefaultInitCtx().getEnvironment();
@@ -480,6 +506,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#close()
      */
+    @Override
     public void close() throws NamingException
     {
         this.myProps = null;
@@ -495,6 +522,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context#getNameInNamespace()
      */
+    @Override
     public String getNameInNamespace() throws NamingException
     {
         return getDefaultInitCtx().getNameInNamespace();
@@ -504,6 +532,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.event.EventContext #addNamingListener(javax.naming.Name, int, NamingListener)
      */
+    @Override
     public void addNamingListener(final Name target, final int scope, final NamingListener l) throws NamingException
     {
         this.getDefaultInitCtx().addNamingListener(target, scope, l);
@@ -513,6 +542,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.event.EventContext #addNamingListener(java.lang.String, int, NamingListener)
      */
+    @Override
     public void addNamingListener(final String target, final int scope, final NamingListener l) throws NamingException
     {
         this.getDefaultInitCtx().addNamingListener(target, scope, l);
@@ -522,6 +552,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.event.EventContext #removeNamingListener(javax.naming.event.NamingListener)
      */
+    @Override
     public void removeNamingListener(final NamingListener l) throws NamingException
     {
         this.getDefaultInitCtx().removeNamingListener(l);
@@ -531,6 +562,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.event.EventContext#targetMustExist()
      */
+    @Override
     public boolean targetMustExist() throws NamingException
     {
         return this.getDefaultInitCtx().targetMustExist();

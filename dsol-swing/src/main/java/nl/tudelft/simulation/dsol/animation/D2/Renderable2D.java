@@ -202,7 +202,7 @@ public abstract class Renderable2D implements Renderable2DInterface
             DirectedPoint location = this.source.getLocation();
             Rectangle2D rectangle =
                     BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(), location.z);
-            if (!Shape.overlaps(extent, rectangle) && isTranslate())
+            if (rectangle == null || (!Shape.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
             }
@@ -262,7 +262,7 @@ public abstract class Renderable2D implements Renderable2DInterface
             {
                 throw new NullPointerException(
                         "empty intersect!: location.z is not in bounds. This is probably due to a modeling error. "
-                                + "See the javadoc off LocatableInterface.");
+                                + "See the javadoc of LocatableInterface.");
             }
             return intersect.contains(pointWorldCoordinates);
         }
@@ -305,7 +305,6 @@ public abstract class Renderable2D implements Renderable2DInterface
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (this.id ^ (this.id >>> 32));
-        result = prime * result + ((this.source == null) ? 0 : this.source.hashCode());
         return result;
     }
 
@@ -322,13 +321,6 @@ public abstract class Renderable2D implements Renderable2DInterface
             return false;
         Renderable2D other = (Renderable2D) obj;
         if (this.id != other.id)
-            return false;
-        if (this.source == null)
-        {
-            if (other.source != null)
-                return false;
-        }
-        else if (!this.source.equals(other.source))
             return false;
         return true;
     }

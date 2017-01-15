@@ -6,9 +6,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -54,7 +55,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /** the elements of this panel. */
     private SortedSet<Renderable2DInterface> elements =
-            Collections.synchronizedSortedSet(new TreeSet<Renderable2DInterface>(new Renderable2DComparator()));
+            new TreeSet<Renderable2DInterface>(new Renderable2DComparator());
 
     /** filter for types to be shown or not. */
     private Map<Class<? extends Locatable>, Boolean> visibilityMap = new HashMap<>();
@@ -77,14 +78,11 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /** enable drag line. */
     private boolean dragLineEnabled = false;
 
-    /** are we drawing? */
-    private boolean drawing;
+    /** List of drawable objects. */
+    private List<Renderable2DInterface> elementList = new ArrayList<>();
 
-    /** cache of objects to be removed, when the paintComponent() method is busy and an object is removed. */
-    private Set<Renderable2DInterface> removeSet = new HashSet<>();
-
-    /** cache of objects to be added, when the paintComponent() method is busy and an object is added. */
-    private Set<Renderable2DInterface> addSet = new HashSet<>();
+    /** dirty flag for the list. */
+    private boolean dirty = false;
 
     /** the logger. */
     private static Logger logger = LogManager.getLogger(AnimationPanel.class);
@@ -118,72 +116,58 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void paintComponent(final Graphics g)
+    public final void paintComponent(final Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
 
         // draw the grid.
         super.paintComponent(g2);
 
-        // draw the animation elements.
-        synchronized (this.elements)
+        // update drawable elements when necessary
+        if (this.dirty)
         {
-            this.drawing = true;
-            for (Renderable2DInterface element : this.elements)
+            synchronized (this.elementList)
             {
-                Class<? extends Locatable> locatableClass = element.getSource().getClass();
-                if (!this.hiddenClasses.contains(locatableClass))
+                this.elementList.clear();
+                this.elementList.addAll(this.elements);
+                this.dirty = false;
+            }
+        }
+
+        // draw the animation elements.
+        for (Renderable2DInterface element : this.elementList)
+        {
+            Class<? extends Locatable> locatableClass = element.getSource().getClass();
+            if (!this.hiddenClasses.contains(locatableClass))
+            {
+                boolean show = true;
+                if (!this.shownClasses.contains(locatableClass))
                 {
-                    boolean show = true;
-                    if (!this.shownClasses.contains(locatableClass))
+                    for (Class<? extends Locatable> lc : this.visibilityMap.keySet())
                     {
-                        for (Class<? extends Locatable> lc : this.visibilityMap.keySet())
+                        if (lc.isAssignableFrom(locatableClass))
                         {
-                            if (lc.isAssignableFrom(locatableClass))
+                            if (!this.visibilityMap.get(lc))
                             {
-                                if (!this.visibilityMap.get(lc))
-                                {
-                                    show = false;
-                                }
+                                show = false;
                             }
                         }
-                        // add to the right cache
-                        if (show)
-                        {
-                            this.shownClasses.add(locatableClass);
-                        }
-                        else
-                        {
-                            this.hiddenClasses.add(locatableClass);
-                        }
                     }
+                    // add to the right cache
                     if (show)
                     {
-                        element.paint(g2, this.getExtent(), this.getSize(), this);
+                        this.shownClasses.add(locatableClass);
+                    }
+                    else
+                    {
+                        this.hiddenClasses.add(locatableClass);
                     }
                 }
-            }
-
-            // handle the deletions that took place during drawing
-            synchronized (this.removeSet)
-            {
-                for (Renderable2DInterface element : this.removeSet)
+                if (show)
                 {
-                    this.elements.remove(element);
+                    element.paint(g2, this.getExtent(), this.getSize(), this);
                 }
-                this.removeSet.clear();
             }
-
-            synchronized (this.addSet)
-            {
-                for (Renderable2DInterface element : this.addSet)
-                {
-                    this.elements.add(element);
-                }
-                this.addSet.clear();
-            }
-
-            this.drawing = false;
         }
 
         // draw drag line if enabled.
@@ -212,28 +196,31 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         if (event.getSource() instanceof AnimatorInterface
                 && event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
         {
-            this.elements.clear();
-            try
+            synchronized (this.elementList)
             {
-                if (this.context != null)
+                this.elements.clear();
+                try
                 {
-                    this.context.removeNamingListener(this);
-                }
+                    if (this.context != null)
+                    {
+                        this.context.removeNamingListener(this);
+                    }
 
-                this.context = (EventContext) ContextUtil.lookup(this.simulator.getReplication().getContext(),
-                        "/animation/2D");
-                this.context.addNamingListener("", EventContext.SUBTREE_SCOPE, this);
-                NamingEnumeration<Binding> list = this.context.listBindings("");
-                while (list.hasMore())
-                {
-                    Binding binding = list.next();
-                    this.objectAdded(new NamingEvent(this.context, -1, binding, binding, null));
+                    this.context = (EventContext) ContextUtil.lookup(this.simulator.getReplication().getContext(),
+                            "/animation/2D");
+                    this.context.addNamingListener("", EventContext.SUBTREE_SCOPE, this);
+                    NamingEnumeration<Binding> list = this.context.listBindings("");
+                    while (list.hasMore())
+                    {
+                        Binding binding = list.next();
+                        this.objectAdded(new NamingEvent(this.context, -1, binding, binding, null));
+                    }
+                    this.repaint();
                 }
-                this.repaint();
-            }
-            catch (Exception exception)
-            {
-                logger.warn("notify", exception);
+                catch (Exception exception)
+                {
+                    logger.warn("notify", exception);
+                }
             }
         }
     }
@@ -242,20 +229,11 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void objectAdded(final NamingEvent namingEvent)
     {
-        synchronized (this.elements)
+        Renderable2DInterface element = (Renderable2DInterface) namingEvent.getNewBinding().getObject();
+        synchronized (this.elementList)
         {
-            Renderable2DInterface element = (Renderable2DInterface) namingEvent.getNewBinding().getObject();
-            if (this.drawing)
-            {
-                synchronized (this.addSet)
-                {
-                    this.addSet.add(element);
-                }
-            }
-            else
-            {
-                this.elements.add(element);
-            }
+            this.elements.add(element);
+            this.dirty = true;
         }
     }
 
@@ -263,20 +241,11 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void objectRemoved(final NamingEvent namingEvent)
     {
-        synchronized (this.elements)
+        Renderable2DInterface element = (Renderable2DInterface) namingEvent.getOldBinding().getObject();
+        synchronized (this.elementList)
         {
-            Renderable2DInterface element = (Renderable2DInterface) namingEvent.getOldBinding().getObject();
-            if (this.drawing)
-            {
-                synchronized (this.removeSet)
-                {
-                    this.removeSet.remove(element);
-                }
-            }
-            else
-            {
-                this.elements.remove(element);
-            }
+            this.elements.remove(element);
+            this.dirty = true;
         }
     }
 
@@ -284,11 +253,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void objectRenamed(final NamingEvent namingEvent)
     {
-        synchronized (this.elements)
-        {
-            this.objectRemoved(namingEvent);
-            this.objectAdded(namingEvent);
-        }
+        this.objectRemoved(namingEvent);
+        this.objectAdded(namingEvent);
     }
 
     /** {@inheritDoc} */
@@ -312,7 +278,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         Point3d p3dU = new Point3d();
         try
         {
-            for (Renderable2DInterface renderable : this.elements)
+            for (Renderable2DInterface renderable : this.elementList)
             {
                 DirectedPoint l = renderable.getSource().getLocation();
                 BoundingBox b = new BoundingBox(renderable.getSource().getBounds());

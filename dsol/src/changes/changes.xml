@@ -13,11 +13,15 @@
         Renderable2D.destroy() has been made non-final so it can be overridden.
       </action>
       <action dev="averbraeck" type="update">
-        A Renderable2D can now be destroyed from within the paint() method without a ConcurrentModificationException.
+        A Renderable2D can be added or removed from within the paint() method. This is, however, not really
+        advisable, as this will only be done when the object is visible on the screen.
       </action>      
+      <action dev="averbraeck" type="add">
+        Default log4j-2 configuration file added to dsol-base.
+      </action>
     </release>
 
-    <release version="3.01.02" date="2016-12-11" description="Immutable collections, Toggling of layers in AnimationPanel">
+    <release version="3.01.02" date="2016-12-11" description="Immutable collections, toggling of layers in AnimationPanel">
       <action dev="averbraeck" type="add">
         The ImmutableCollections from opentrafficsim have been added to dsol-base.
       </action>
