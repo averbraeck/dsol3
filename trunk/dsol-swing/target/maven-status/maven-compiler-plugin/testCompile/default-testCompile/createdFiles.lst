@@ -1,0 +1,17 @@
+nl\tudelft\dsol\introspection\beans\GUIBean.class
+nl\tudelft\dsol\introspection\beans\SubTestBean.class
+nl\tudelft\simulation\dsol\animation\D2\D2Test.class
+nl\tudelft\dsol\introspection\beans\TestBean.class
+nl\tudelft\dsol\introspection\beans\SubTestBean2.class
+nl\tudelft\dsol\introspection\PTestSorter.class
+nl\tudelft\simulation\dsol\animation\AnimationTest.class
+nl\tudelft\dsol\introspection\PTestGUI.class
+nl\tudelft\dsol\introspection\beans\SubTestBeanBeanInfo.class
+nl\tudelft\dsol\introspection\beans\IndexedPropertyBeanBeanInfo.class
+nl\tudelft\dsol\introspection\beans\SubTestBean2BeanInfo.class
+nl\tudelft\dsol\introspection\beans\SubTestBean2InterfaceBeanInfo.class
+nl\tudelft\dsol\introspection\beans\IndexedPropertyBean.class
+nl\tudelft\dsol\introspection\beans\TestBeanBeanInfo.class
+nl\tudelft\simulation\xml\DummyModel.class
+nl\tudelft\simulation\jstats\distributions\DistributionsGUIInspector.class
+nl\tudelft\dsol\introspection\beans\SubTestBean2Interface.class

@@ -2,9 +2,6 @@ package nl.tudelft.simulation.dsol.animation.D2;
 
 import java.util.Comparator;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 /**
  * <p>
  * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
@@ -18,9 +15,6 @@ import org.apache.logging.log4j.Logger;
  */
 public class Renderable2DComparator implements Comparator<Renderable2DInterface>
 {    
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Renderable2DComparator.class);
-
     /**
      * constructs a new Renderable2DComparator
      */
@@ -37,7 +31,6 @@ public class Renderable2DComparator implements Comparator<Renderable2DInterface>
     {
         try
         {
-
             if (r1.getSource().getLocation().z > r2.getSource().getLocation().z)
             {
                 return 1;
@@ -46,11 +39,11 @@ public class Renderable2DComparator implements Comparator<Renderable2DInterface>
             {
                 return -1;
             }
-
         }
         catch (Exception exception)
         {
-            logger.warn("compare", exception);
+            // ignore as this can happen when the source is in the process of deletion
+            // and therefore it cannot return a proper location.
         }
         return new Integer(r1.hashCode()).compareTo(new Integer(r2.hashCode()));
     }

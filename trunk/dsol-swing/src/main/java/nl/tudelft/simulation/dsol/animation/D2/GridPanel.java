@@ -110,7 +110,7 @@ public class GridPanel extends JPanel
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void paintComponent(final Graphics g)
+    public void paintComponent(final Graphics g)
     {
         super.paintComponent(g);
         if (!this.getSize().equals(this.lastDimension))
