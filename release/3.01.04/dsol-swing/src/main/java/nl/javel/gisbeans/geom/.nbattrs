@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<attributes version="1.0">
+   <fileobject name="SerializableGeneralPath.java">
+      <attr name="class_dependency_java.lang.Cloneable" stringvalue="SerializableGeneralPath"/>
+      <attr name="class_dependency_java.awt.Shape" stringvalue="SerializableGeneralPath"/>
+      <attr name="class_dependency_java.io.Serializable" stringvalue="SerializableGeneralPath"/>
+      <attr name="class_dependency_java.awt.geom.GeneralPath" stringvalue="SerializableGeneralPath"/>
+   </fileobject>
+</attributes>
