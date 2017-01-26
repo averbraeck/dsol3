@@ -10,6 +10,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -37,10 +38,10 @@ public class Map implements MapInterface
     private java.util.Map<String, LayerInterface> layerMap = new HashMap<>();
 
     /** the total list of layers of the map. */
-    private List<LayerInterface> allLayers;
+    private List<LayerInterface> allLayers = new ArrayList<>();
 
     /** the visible layers of the map. */
-    private List<LayerInterface> visibleLayers;
+    private List<LayerInterface> visibleLayers = new ArrayList<>();
 
     /** the mapfileImage. */
     private ImageInterface image;
