@@ -44,8 +44,8 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 public class MM1SwingApplication extends DSOLApplication
 {
     /**
-     * @param title
-     * @param panel
+     * @param title the title on top of she screen
+     * @param panel the DSOLPanel to use
      */
     public MM1SwingApplication(String title, DSOLPanel<Double, Double, SimTimeDouble> panel)
     {
@@ -56,10 +56,10 @@ public class MM1SwingApplication extends DSOLApplication
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param args
-     * @throws SimRuntimeException
-     * @throws RemoteException
-     * @throws NamingException 
+     * @param args the arguments for the program (should be empty) 
+     * @throws SimRuntimeException on simulation error 
+     * @throws RemoteException on remote error
+     * @throws NamingException on naming/animation error
      */
     public static void main(String[] args) throws SimRuntimeException, RemoteException, NamingException
     {

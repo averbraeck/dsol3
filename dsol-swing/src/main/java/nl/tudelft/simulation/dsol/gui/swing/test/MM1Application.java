@@ -42,7 +42,10 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 public class MM1Application
 {
     /**
-     * 
+     * M/M/1 queueing application
+     * @throws SimRuntimeException on simulation error 
+     * @throws RemoteException on remote error
+     * @throws NamingException on naming/animation error
      */
     protected MM1Application() throws SimRuntimeException, RemoteException, NamingException
     {
@@ -55,7 +58,10 @@ public class MM1Application
     }
 
     /**
-     * @param args
+     * @param args the arguments (not used, should be empty)
+     * @throws SimRuntimeException on simulation error 
+     * @throws RemoteException on remote error
+     * @throws NamingException on naming/animation error
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {

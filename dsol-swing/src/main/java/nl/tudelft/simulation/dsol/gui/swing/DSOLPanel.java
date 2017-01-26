@@ -95,6 +95,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * Method createContentPane.
+     * @throws RemoteException on error
      */
     protected void createContentPane() throws RemoteException
     {

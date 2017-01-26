@@ -35,8 +35,8 @@ public class TablePanel extends JPanel
 
     /**
      * Constructor for TablePanel.
-     * @param columns
-     * @param rows
+     * @param columns number of columns
+     * @param rows number of rows
      */
     public TablePanel(int columns, int rows)
     {
@@ -50,9 +50,9 @@ public class TablePanel extends JPanel
 
     /**
      * Method setCell.
-     * @param container
-     * @param row
-     * @param column
+     * @param container the component to set
+     * @param row the row number
+     * @param column the column number
      */
     public void setCell(Component container, int column, int row)
     {
@@ -61,8 +61,8 @@ public class TablePanel extends JPanel
 
     /**
      * Method refractor.
-     * @param value
-     * @return double[]
+     * @param value the number of cells to be used
+     * @return double[] the double factors corresponding to 1/value 
      */
     private double[] refractor(int value)
     {
@@ -78,7 +78,7 @@ public class TablePanel extends JPanel
 
     /**
      * tests the TablePanel
-     * @param args
+     * @param args arguments
      */
     public static void main(String[] args)
     {

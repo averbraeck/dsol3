@@ -63,7 +63,7 @@ public class StatusBar extends JPanel
             "Saturday", "Sunday"};
 
     /**
-     * @param simulator
+     * @param simulator the simulator
      */
     public StatusBar(SimulatorInterface<?, ?, ?> simulator)
     {

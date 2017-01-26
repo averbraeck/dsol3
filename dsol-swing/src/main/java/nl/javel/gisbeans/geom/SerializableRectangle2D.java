@@ -266,10 +266,10 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D 
         }
 
         /**
-         * @param x
-         * @param y
-         * @param w
-         * @param h
+         * @param x the x
+         * @param y the y
+         * @param w the width
+         * @param h the height
          */
         public void setRect(final float x, final float y, final float w, final float h)
         {

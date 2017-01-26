@@ -41,7 +41,7 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
 
     /** {@inheritDoc} */
     @Override
-    public void write(final byte[] buffer, final int off, final int len) throws IOException
+    public void write(final byte[] _buffer, final int off, final int len) throws IOException
     {
         this.dataOutputStream.write(this.buffer, off, len);
     }
@@ -187,7 +187,7 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
 
     /** {@inheritDoc} */
     @Override
-    public void write(final byte[] buffer) throws IOException
+    public void write(final byte[] _buffer) throws IOException
     {
         this.dataOutputStream.write(this.buffer, 0, this.buffer.length);
     }
@@ -225,7 +225,7 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
 
     /**
      * closes the stream
-     * @throws IOException
+     * @throws IOException on io error
      */
     public void close() throws IOException
     {

@@ -64,8 +64,8 @@ public class HTMLPanel extends JEditorPane
 
     /**
      * Method main.
-     * @param args
-     * @throws Exception
+     * @param args arguments for main
+     * @throws Exception on error
      */
     public static void main(String[] args) throws Exception
     {

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import nl.tudelft.simulation.language.filters.FilterInterface;
-
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.AbstractSeriesDataset;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
+
+import nl.tudelft.simulation.language.filters.FilterInterface;
 
 /**
  * The xyDataset specifies the xyDataset in DSOL
@@ -100,8 +100,8 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
     }
 
     /**
-     * @param serie
-     * @return name
+     * @param serie the series to retrieve the name for
+     * @return name the name of the series
      */
     public String getSeriesName(final int serie)
     {
