@@ -12,6 +12,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import nl.javel.gisbeans.geom.SerializableRectangle2D;
+import nl.tudelft.simulation.immutablecollections.ImmutableList;
+import nl.tudelft.simulation.immutablecollections.ImmutableMap;
 
 /**
  * This interface defines the map.
@@ -171,11 +173,25 @@ public interface MapInterface extends java.io.Serializable
     public ImageInterface getImage() throws RemoteException;
 
     /**
-     * Getter for property layers
+     * Getter for the map of layer names to property layers 
      * @return List the value of property layers.
      * @throws RemoteException on network exception
      */
-    public List getLayers() throws RemoteException;
+    public ImmutableMap<String, LayerInterface> getLayerMap() throws RemoteException;
+
+    /**
+     * Getter for all the property layers
+     * @return List the value of property layers.
+     * @throws RemoteException on network exception
+     */
+    public ImmutableList<LayerInterface> getAllLayers() throws RemoteException;
+
+    /**
+     * Getter for all the visible property layers
+     * @return List the value of property layers.
+     * @throws RemoteException on network exception
+     */
+    public ImmutableList<LayerInterface> getVisibleLayers() throws RemoteException;
 
     /**
      * Getter for property name
@@ -231,7 +247,7 @@ public interface MapInterface extends java.io.Serializable
      * @param layers New value of property layers.
      * @throws RemoteException on network exception
      */
-    public void setLayers(List layers) throws RemoteException;
+    public void setLayers(List<LayerInterface> layers) throws RemoteException;
 
     /**
      * Setter for property layers.
@@ -247,6 +263,34 @@ public interface MapInterface extends java.io.Serializable
      * @throws RemoteException on network exception
      */
     public void addLayer(LayerInterface layer) throws RemoteException;
+
+    /**
+     * Hide a layer.
+     * @param layer the layer to hide
+     * @throws RemoteException on network exception
+     */
+    public void hideLayer(LayerInterface layer) throws RemoteException;
+
+    /**
+     * Show a layer.
+     * @param layer the layer to show
+     * @throws RemoteException on network exception
+     */
+    public void showLayer(LayerInterface layer) throws RemoteException;
+
+    /**
+     * Hide a layer.
+     * @param layerName the name of the layer to hide
+     * @throws RemoteException on network exception
+     */
+    public void hideLayer(String layerName) throws RemoteException;
+
+    /**
+     * Show a layer.
+     * @param layerName the name of the layer to show
+     * @throws RemoteException on network exception
+     */
+    public void showLayer(String layerName) throws RemoteException;
 
     /**
      * Setter for property name.

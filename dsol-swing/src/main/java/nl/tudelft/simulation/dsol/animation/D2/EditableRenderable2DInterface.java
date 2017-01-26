@@ -2,6 +2,8 @@ package nl.tudelft.simulation.dsol.animation.D2;
 
 import java.rmi.RemoteException;
 
+import nl.tudelft.simulation.dsol.animation.Locatable;
+
 /**
  * This interface provides the functionality that editable animation objects must implement.
  * <p>
@@ -13,8 +15,9 @@ import java.rmi.RemoteException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:20 $
  * @since 1.5
+ * @param <T> the type of Locatable.
  */
-public interface EditableRenderable2DInterface extends Renderable2DInterface
+public interface EditableRenderable2DInterface<T extends Locatable> extends Renderable2DInterface<T>
 {
     /**
      * Returns whether this shape is closed or open. For example an area is a closed shape while a trajectory is open

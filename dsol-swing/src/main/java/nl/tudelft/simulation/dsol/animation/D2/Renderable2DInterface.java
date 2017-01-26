@@ -21,8 +21,9 @@ import nl.tudelft.simulation.dsol.animation.Locatable;
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:21 $
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @param <T> the Locatable class of the source that indicates the location of the Renderable on the screen
  */
-public interface Renderable2DInterface
+public interface Renderable2DInterface<T extends Locatable>
 {
     /**
      * paints the object on a 2D graphics object.
@@ -37,7 +38,7 @@ public interface Renderable2DInterface
      * gets the source of this renderable.
      * @return Locatable the source
      */
-    Locatable getSource();
+    T getSource();
 
     /**
      * does the shape contain the point?
