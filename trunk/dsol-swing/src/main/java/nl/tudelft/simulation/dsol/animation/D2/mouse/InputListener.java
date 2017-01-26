@@ -50,7 +50,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /** the mouseClicked point in screen coordinates. */
     protected Point2D mouseClicked = null;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(InputListener.class);
 
@@ -166,8 +166,8 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     @Override
     public void mouseMoved(final MouseEvent mouseEvent)
     {
-        Point2D point = Renderable2DInterface.Util.getWorldCoordinates(mouseEvent.getPoint(), 
-            this.panel.getExtent(), this.panel.getSize());
+        Point2D point = Renderable2DInterface.Util.getWorldCoordinates(mouseEvent.getPoint(), this.panel.getExtent(),
+                this.panel.getSize());
         this.panel.setWorldCoordinate(point);
         this.panel.displayWorldCoordinateToolTip();
     }
@@ -241,12 +241,12 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         List<Locatable> targets = new ArrayList<Locatable>();
         try
         {
-            Point2D point =
-                    Renderable2DInterface.Util.getWorldCoordinates(mousePoint, this.panel.getExtent(),
-                            this.panel.getSize());
-            for (Renderable2DInterface renderable : this.panel.getElements())
+            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(mousePoint, this.panel.getExtent(),
+                    this.panel.getSize());
+            for (Renderable2DInterface<?> renderable : this.panel.getElements())
             {
-                if (renderable.contains(point, this.panel.getExtent(), this.panel.getSize()))
+                if (this.panel.isShowElement(renderable)
+                        && renderable.contains(point, this.panel.getExtent(), this.panel.getSize()))
                 {
                     targets.add(renderable.getSource());
                 }

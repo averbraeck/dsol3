@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.animation.Editable;
+import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
@@ -19,10 +20,10 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:20 $
  * @since 1.5
+ * @param <T> the type of Locatable.
  */
 public abstract class EditableRenderable2D extends Renderable2D implements EditableRenderable2DInterface
 {
-
     /**
      * the source of this renderable.
      */

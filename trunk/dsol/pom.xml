@@ -762,27 +762,9 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
-      <id>central</id>
-      <name>Maven Repository Switchboard</name>
-      <url>http://repo1.maven.org/maven2</url>
-    </repository>
-
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
       <id>apache</id>
       <name>apache</name>
       <url>http://repo.maven.apache.org/maven2</url>
-    </repository>
-
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>ibiblio</id>
-      <name>ibiblio</name>
-      <url>http://mirrors.ibiblio.org/maven2</url>
     </repository>
 
   </repositories>

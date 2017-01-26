@@ -31,8 +31,9 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:20 $
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @param <T> the Locatable class of the source that indicates the location of the Renderable on the screen
  */
-public abstract class Renderable2D implements Renderable2DInterface
+public abstract class Renderable2D<T extends Locatable> implements Renderable2DInterface<T>
 {
     /**
      * Storage of the boolean flags, to prevent each flag from taking 32 bits... The initial value is binary 1011 = 0B:
@@ -59,7 +60,7 @@ public abstract class Renderable2D implements Renderable2DInterface
      * the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist
      */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final Locatable source;
+    protected final T source;
     
     /** the naming Context in which to store the Renderable with a pointer to the Locatable object. */
     private final Context context;
@@ -77,7 +78,7 @@ public abstract class Renderable2D implements Renderable2DInterface
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public Renderable2D(final Locatable source, final SimulatorInterface<?, ?, ?> simulator)
+    public Renderable2D(final T source, final SimulatorInterface<?, ?, ?> simulator)
             throws NamingException, RemoteException
     {
         this.id = ++lastGeneratedId;
@@ -187,7 +188,7 @@ public abstract class Renderable2D implements Renderable2DInterface
 
     /** {@inheritDoc} */
     @Override
-    public final Locatable getSource()
+    public final T getSource()
     {
         return this.source;
     }

@@ -173,6 +173,14 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
     }
 
     /**
+     * @return map the Shapefile map
+     */
+    public final MapInterface getMap()
+    {
+        return this.map;
+    }
+
+    /**
      * caches the GIS map by creating an image. This prevents continuous rendering.
      * @throws Exception on graphicsProblems and network connection failures.
      */

@@ -13,7 +13,7 @@ import java.util.Comparator;
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:37:49 $
  * @since 1.5
  */
-public class Renderable2DComparator implements Comparator<Renderable2DInterface>
+public class Renderable2DComparator implements Comparator<Renderable2DInterface<?>>
 {    
     /**
      * constructs a new Renderable2DComparator
@@ -23,11 +23,9 @@ public class Renderable2DComparator implements Comparator<Renderable2DInterface>
         super();
     }
 
-    /**
-     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-     */
+    /** {@inheritDoc} */
     @Override
-    public int compare(final Renderable2DInterface r1, final Renderable2DInterface r2)
+    public int compare(final Renderable2DInterface<?> r1, final Renderable2DInterface<?> r2)
     {
         try
         {

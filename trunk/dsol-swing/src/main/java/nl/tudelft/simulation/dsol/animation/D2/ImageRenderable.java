@@ -33,8 +33,9 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:21 $
  * @since 1.5
+ * @param <T> the Locatable class of the source that indicates the location of the Renderable on the screen
  */
-public abstract class ImageRenderable extends Renderable2D
+public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<T>
 {
     /** the cache of imageIcons. */
     private static transient Map<URL, ImageIcon> cache = new HashMap<URL, ImageIcon>();
@@ -83,7 +84,7 @@ public abstract class ImageRenderable extends Renderable2D
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public ImageRenderable(final Locatable source, final SimulatorInterface<?, ?, ?> simulator,
+    public ImageRenderable(final T source, final SimulatorInterface<?, ?, ?> simulator,
             final URL[] images) throws RemoteException, NamingException
     {
         super(source, simulator);
@@ -122,10 +123,11 @@ public abstract class ImageRenderable extends Renderable2D
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
+    @SuppressWarnings("unchecked")
     public ImageRenderable(final DirectedPoint staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
-        this(new StaticLocation(staticLocation, new BoundingBox(size.getWidth(), size.getHeight(), 0.0)), simulator,
+        this((T) new StaticLocation(staticLocation, new BoundingBox(size.getWidth(), size.getHeight(), 0.0)), simulator,
                 images);
     }
 
@@ -138,10 +140,11 @@ public abstract class ImageRenderable extends Renderable2D
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
+    @SuppressWarnings("unchecked")
     public ImageRenderable(final Point2D staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
-        this(new StaticLocation(new DirectedPoint(staticLocation), new BoundingBox(size.getWidth(), size.getHeight(),
+        this((T) new StaticLocation(new DirectedPoint(staticLocation), new BoundingBox(size.getWidth(), size.getHeight(),
                 0.0)), simulator, images);
     }
 

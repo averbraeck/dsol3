@@ -8,24 +8,39 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.rmi.RemoteException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import nl.javel.gisbeans.geom.GisObject;
 import nl.javel.gisbeans.geom.SerializableGeneralPath;
 import nl.javel.gisbeans.geom.SerializableRectangle2D;
+import nl.tudelft.simulation.immutablecollections.ImmutableArrayList;
+import nl.tudelft.simulation.immutablecollections.ImmutableHashMap;
+import nl.tudelft.simulation.immutablecollections.ImmutableList;
+import nl.tudelft.simulation.immutablecollections.ImmutableMap;
 
 /**
  * Provides the implementation of a Map.
  */
 public class Map implements MapInterface
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** the extent of the map. */
     private SerializableRectangle2D extent;
 
-    /** the layers of the map. */
-    private List layers;
+    /** the map of layer names to layers. */
+    private java.util.Map<String, LayerInterface> layerMap = new HashMap<>();
+
+    /** the total list of layers of the map. */
+    private List<LayerInterface> allLayers;
+
+    /** the visible layers of the map. */
+    private List<LayerInterface> visibleLayers;
 
     /** the mapfileImage. */
     private ImageInterface image;
@@ -52,9 +67,45 @@ public class Map implements MapInterface
 
     /** {@inheritDoc} */
     @Override
-    public void addLayer(LayerInterface layer)
+    public void addLayer(final LayerInterface layer)
     {
-        this.layers.add(layer);
+        this.visibleLayers.add(layer);
+        this.allLayers.add(layer);
+        this.layerMap.put(layer.getName(), layer);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void showLayer(final LayerInterface layer)
+    {
+        this.visibleLayers.add(layer);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void hideLayer(final LayerInterface layer)
+    {
+        this.visibleLayers.remove(layer);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void hideLayer(final String layerName) throws RemoteException
+    {
+        if (this.layerMap.keySet().contains(layerName))
+        {
+            hideLayer(this.layerMap.get(layerName));
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void showLayer(final String layerName) throws RemoteException
+    {
+        if (this.layerMap.keySet().contains(layerName))
+        {
+            showLayer(this.layerMap.get(layerName));
+        }
     }
 
     /** {@inheritDoc} */
@@ -75,9 +126,9 @@ public class Map implements MapInterface
             int position = space;
             int dPosition =
                     (int) Math.floor((this.getImage().getLegend().getSize().getHeight() - 2 * space)
-                            / (1 + this.getLayers().size()));
+                            / (1 + this.allLayers.size()));
             int nr = 0;
-            for (Iterator i = this.getLayers().iterator(); i.hasNext();)
+            for (Iterator<LayerInterface> i = this.allLayers.iterator(); i.hasNext();)
             {
                 Layer layer = (Layer) i.next();
                 graphics.setColor(layer.getColor());
@@ -101,7 +152,7 @@ public class Map implements MapInterface
 
                 graphics.setColor(this.getImage().getLegend().getFontColor());
                 graphics.drawString(layer.getName(), 4 + dPosition, dPosition + position - 4);
-                position = nr++ * (int) (this.getImage().getLegend().getSize().getHeight() / (this.getLayers().size()));
+                position = nr++ * (int) (this.getImage().getLegend().getSize().getHeight() / (this.allLayers.size()));
             }
         }
         return graphics;
@@ -138,7 +189,7 @@ public class Map implements MapInterface
         graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         // We loop over the layers
-        for (Iterator i = this.getLayers().iterator(); i.hasNext();)
+        for (Iterator<LayerInterface> i = this.visibleLayers.iterator(); i.hasNext();)
         {
             Layer layer = (Layer) i.next();
             try
@@ -392,9 +443,23 @@ public class Map implements MapInterface
 
     /** {@inheritDoc} */
     @Override
-    public List getLayers()
+    public ImmutableList<LayerInterface> getAllLayers()
     {
-        return this.layers;
+        return new ImmutableArrayList<>(this.allLayers);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ImmutableList<LayerInterface> getVisibleLayers()
+    {
+        return new ImmutableArrayList<>(this.visibleLayers);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ImmutableMap<String, LayerInterface> getLayerMap() throws RemoteException
+    {
+        return new ImmutableHashMap<>(this.layerMap);
     }
 
     /** {@inheritDoc} */
@@ -453,16 +518,16 @@ public class Map implements MapInterface
 
     /** {@inheritDoc} */
     @Override
-    public void setLayers(List layers)
+    public void setLayers(List<LayerInterface> layers)
     {
-        this.layers = layers;
+        this.allLayers = layers;
     }
 
     /** {@inheritDoc} */
     @Override
     public void setLayer(int index, LayerInterface layer)
     {
-        this.layers.set(index, layer);
+        this.allLayers.set(index, layer);
     }
 
     /** {@inheritDoc} */

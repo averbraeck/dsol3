@@ -54,8 +54,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     private static final long serialVersionUID = 1L;
 
     /** the elements of this panel. */
-    private SortedSet<Renderable2DInterface> elements =
-            new TreeSet<Renderable2DInterface>(new Renderable2DComparator());
+    private SortedSet<Renderable2DInterface<? extends Locatable>> elements =
+            new TreeSet<Renderable2DInterface<? extends Locatable>>(new Renderable2DComparator());
 
     /** filter for types to be shown or not. */
     private Map<Class<? extends Locatable>, Boolean> visibilityMap = new HashMap<>();
@@ -79,7 +79,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     private boolean dragLineEnabled = false;
 
     /** List of drawable objects. */
-    private List<Renderable2DInterface> elementList = new ArrayList<>();
+    private List<Renderable2DInterface<? extends Locatable>> elementList = new ArrayList<>();
 
     /** dirty flag for the list. */
     private boolean dirty = false;
@@ -135,38 +135,11 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         }
 
         // draw the animation elements.
-        for (Renderable2DInterface element : this.elementList)
+        for (Renderable2DInterface<? extends Locatable> element : this.elementList)
         {
-            Class<? extends Locatable> locatableClass = element.getSource().getClass();
-            if (!this.hiddenClasses.contains(locatableClass))
+            if (isShowElement(element))
             {
-                boolean show = true;
-                if (!this.shownClasses.contains(locatableClass))
-                {
-                    for (Class<? extends Locatable> lc : this.visibilityMap.keySet())
-                    {
-                        if (lc.isAssignableFrom(locatableClass))
-                        {
-                            if (!this.visibilityMap.get(lc))
-                            {
-                                show = false;
-                            }
-                        }
-                    }
-                    // add to the right cache
-                    if (show)
-                    {
-                        this.shownClasses.add(locatableClass);
-                    }
-                    else
-                    {
-                        this.hiddenClasses.add(locatableClass);
-                    }
-                }
-                if (show)
-                {
-                    element.paint(g2, this.getExtent(), this.getSize(), this);
-                }
+                element.paint(g2, this.getExtent(), this.getSize(), this);
             }
         }
 
@@ -176,6 +149,47 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
             g.setColor(Color.BLACK);
             g.drawLine(this.dragLine.w, this.dragLine.x, this.dragLine.y, this.dragLine.z);
             this.dragLineEnabled = false;
+        }
+    }
+
+    /**
+     * Test whether the element needs to be shown on the screen or not.
+     * @param element the renderable element to test
+     * @return whether the element needs to be shown or not
+     */
+    public boolean isShowElement(final Renderable2DInterface<? extends Locatable> element)
+    {
+        Class<? extends Locatable> locatableClass = element.getSource().getClass();
+        if (this.hiddenClasses.contains(locatableClass))
+        {
+            return false;
+        }
+        else
+        {
+            boolean show = true;
+            if (!this.shownClasses.contains(locatableClass))
+            {
+                for (Class<? extends Locatable> lc : this.visibilityMap.keySet())
+                {
+                    if (lc.isAssignableFrom(locatableClass))
+                    {
+                        if (!this.visibilityMap.get(lc))
+                        {
+                            show = false;
+                        }
+                    }
+                }
+                // add to the right cache
+                if (show)
+                {
+                    this.shownClasses.add(locatableClass);
+                }
+                else
+                {
+                    this.hiddenClasses.add(locatableClass);
+                }
+            }
+            return show;
         }
     }
 
@@ -229,7 +243,9 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void objectAdded(final NamingEvent namingEvent)
     {
-        Renderable2DInterface element = (Renderable2DInterface) namingEvent.getNewBinding().getObject();
+        @SuppressWarnings("unchecked")
+        Renderable2DInterface<? extends Locatable> element =
+                (Renderable2DInterface<? extends Locatable>) namingEvent.getNewBinding().getObject();
         synchronized (this.elementList)
         {
             this.elements.add(element);
@@ -241,7 +257,9 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void objectRemoved(final NamingEvent namingEvent)
     {
-        Renderable2DInterface element = (Renderable2DInterface) namingEvent.getOldBinding().getObject();
+        @SuppressWarnings("unchecked")
+        Renderable2DInterface<? extends Locatable> element =
+                (Renderable2DInterface<? extends Locatable>) namingEvent.getOldBinding().getObject();
         synchronized (this.elementList)
         {
             this.elements.remove(element);
@@ -278,7 +296,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         Point3d p3dU = new Point3d();
         try
         {
-            for (Renderable2DInterface renderable : this.elementList)
+            for (Renderable2DInterface<? extends Locatable> renderable : this.elementList)
             {
                 DirectedPoint l = renderable.getSource().getLocation();
                 BoundingBox b = new BoundingBox(renderable.getSource().getBounds());
@@ -355,7 +373,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * @return the set of animation elements.
      */
-    public final SortedSet<Renderable2DInterface> getElements()
+    public final SortedSet<Renderable2DInterface<? extends Locatable>> getElements()
     {
         return this.elements;
     }
