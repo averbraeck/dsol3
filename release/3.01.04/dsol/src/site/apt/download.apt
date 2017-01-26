@@ -1,0 +1,20 @@
+Run DSOL online
+
+	DSOL can be started online both as an applet and as a Java Webstart version (both versions require a 7MB download).
+
+*-----------------------------------------------*
+|START DSOL AS APPLET							|
+*-----------------------------------------------*
+|START DSOL AS JAVA WEB-START APPLICATION		|
+*-----------------------------------------------*
+
+
+Releases
+
+	Releases can be downloaded using Maven from {{http://www.simulation.tudelft.nl/maven}}. Source files and javadocs are also 
+	available here.
+
+
+SVN access
+
+	The sources of the latest release can be downloaded through SVN at {{http://svn.tbm.tudelft.nl/DSOL3/trunk}}.
