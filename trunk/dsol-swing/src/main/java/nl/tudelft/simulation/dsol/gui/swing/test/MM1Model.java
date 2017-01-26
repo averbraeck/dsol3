@@ -84,7 +84,9 @@ public class MM1Model implements DSOLModel.TimeDouble
     }
 
     /**
-     * Generate new items. Reschedules iteself.
+     * Generate new items. Reschedules itself.
+     * @throws SimRuntimeException on simulation error 
+     * @throws RemoteException on remote error
      */
     protected void generate() throws RemoteException, SimRuntimeException
     {
@@ -109,8 +111,8 @@ public class MM1Model implements DSOLModel.TimeDouble
 
     /**
      * @param entity
-     * @throws RemoteException
-     * @throws SimRuntimeException
+     * @throws SimRuntimeException on simulation error 
+     * @throws RemoteException on remote error
      */
     protected void startProcess(Entity entity) throws RemoteException, SimRuntimeException
     {
@@ -124,8 +126,8 @@ public class MM1Model implements DSOLModel.TimeDouble
 
     /**
      * @param entity
-     * @throws RemoteException
-     * @throws SimRuntimeException
+     * @throws SimRuntimeException on simulation error 
+     * @throws RemoteException on remote error
      */
     protected void endProcess(Entity entity) throws RemoteException, SimRuntimeException
     {
@@ -201,8 +203,8 @@ public class MM1Model implements DSOLModel.TimeDouble
         final E object;
 
         /**
-         * @param object
-         * @param queueInTime
+         * @param object the object to insert in the queue
+         * @param queueInTime the time it gets into the queue
          */
         public QueueEntry(E object, SimTimeDouble queueInTime)
         {

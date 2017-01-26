@@ -31,7 +31,7 @@ public class Attribute extends AbstractAttribute
 
     /**
      * constructs a new Attribute.
-     * @param layer
+     * @param layer the layer to add the attribute to
      * @param mode the mode (degrees or radians)
      * @param angleColumn the angleColumn
      * @param valueColumn the valueColumn

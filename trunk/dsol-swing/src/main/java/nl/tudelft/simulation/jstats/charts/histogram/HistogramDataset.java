@@ -38,6 +38,7 @@ public class HistogramDataset extends SimpleHistogramDataset implements Interval
 
     /**
      * constructs a new HistogramDataset.
+     * @param key the key for the dataset
      * @param domain the domain of the set.
      * @param range the range of the set.
      * @param numberOfBins the number of bins
@@ -142,8 +143,8 @@ public class HistogramDataset extends SimpleHistogramDataset implements Interval
     }
 
     /**
-     * @param serieNr
-     * @return
+     * @param serieNr the series number to retrieve the name for
+     * @return the series name
      */
     public String getSeriesName(final int serieNr)
     {

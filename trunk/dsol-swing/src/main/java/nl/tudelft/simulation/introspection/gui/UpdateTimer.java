@@ -9,9 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * provides a timed update mechanism for components.
- * <p>
- * <p>
+ * provides a timed update mechanism for components. <br>
  * (c) copyright 2002-2014 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
