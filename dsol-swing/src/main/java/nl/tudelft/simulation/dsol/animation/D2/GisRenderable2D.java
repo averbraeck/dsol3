@@ -135,7 +135,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         try
         {
             // is the extent or the screensize still the same
-            if (extent.equals(this.extent) && screen.equals(this.screenSize))
+            if (extent.equals(this.extent) && screen.equals(this.screenSize) && this.map.isSame())
             {
                 graphics.drawImage(this.image, 0, 0, null);
                 return;

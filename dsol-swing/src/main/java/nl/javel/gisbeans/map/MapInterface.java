@@ -194,6 +194,13 @@ public interface MapInterface extends java.io.Serializable
     public ImmutableList<LayerInterface> getVisibleLayers() throws RemoteException;
 
     /**
+     * Return whether the map has not been changed, and reset the same parameter to true.
+     * @return whether the map has not been changed, and reset the same parameter to true
+     * @throws RemoteException on network exception
+     */
+    public boolean isSame() throws RemoteException;
+    
+    /**
      * Getter for property name
      * @return String the value of property extent.
      * @throws RemoteException on network exception

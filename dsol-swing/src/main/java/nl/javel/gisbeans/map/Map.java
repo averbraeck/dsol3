@@ -42,6 +42,9 @@ public class Map implements MapInterface
 
     /** the visible layers of the map. */
     private List<LayerInterface> visibleLayers = new ArrayList<>();
+    
+    /** same set to false after layer change. */
+    private boolean same = false;
 
     /** the mapfileImage. */
     private ImageInterface image;
@@ -73,6 +76,7 @@ public class Map implements MapInterface
         this.visibleLayers.add(layer);
         this.allLayers.add(layer);
         this.layerMap.put(layer.getName(), layer);
+        this.same = false;
     }
 
     /** {@inheritDoc} */
@@ -80,6 +84,7 @@ public class Map implements MapInterface
     public void hideLayer(final LayerInterface layer)
     {
         this.visibleLayers.remove(layer);
+        this.same = false;
     }
 
     /** {@inheritDoc} */
@@ -90,6 +95,7 @@ public class Map implements MapInterface
         {
             hideLayer(this.layerMap.get(layerName));
         }
+        this.same = false;
     }
 
     /** {@inheritDoc} */
@@ -97,6 +103,7 @@ public class Map implements MapInterface
     public void showLayer(final LayerInterface layer)
     {
         this.visibleLayers.add(layer);
+        this.same = false;
     }
 
     /** {@inheritDoc} */
@@ -107,6 +114,17 @@ public class Map implements MapInterface
         {
             showLayer(this.layerMap.get(layerName));
         }
+        this.same = false;
+    }
+
+    
+    /** {@inheritDoc} */
+    @Override
+    public boolean isSame() throws RemoteException
+    {
+        boolean ret = this.same;
+        this.same = true;
+        return ret;
     }
 
     /** {@inheritDoc} */
@@ -529,6 +547,7 @@ public class Map implements MapInterface
         {
             this.layerMap.put(layer.getName(), layer);
         }
+        this.same = false;
     }
 
     /** {@inheritDoc} */
@@ -545,6 +564,7 @@ public class Map implements MapInterface
             this.visibleLayers.add(layer);
         }
         this.layerMap.put(layer.getName(), layer);
+        this.same = false;
     }
 
     /** {@inheritDoc} */
