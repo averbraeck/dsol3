@@ -77,14 +77,6 @@ public class Map implements MapInterface
         this.visibleLayers.add(layer);
         this.allLayers.add(layer);
         this.layerMap.put(layer.getName(), layer);
-        try
-        {
-            layer.getDataSource().getShapes(); // force to cache the shapes.
-        }
-        catch (IOException exception)
-        {
-            exception.printStackTrace();
-        }
         this.same = false;
     }
 
@@ -98,14 +90,7 @@ public class Map implements MapInterface
         for (LayerInterface layer : layers)
         {
             this.layerMap.put(layer.getName(), layer);
-            try
-            {
-                layer.getDataSource().getShapes(); // force to cache the shapes.
-            }
-            catch (IOException exception)
-            {
-                exception.printStackTrace();
-            }        }
+        }
         this.same = false;
     }
 
@@ -123,14 +108,6 @@ public class Map implements MapInterface
             this.visibleLayers.add(layer);
         }
         this.layerMap.put(layer.getName(), layer);
-        try
-        {
-            layer.getDataSource().getShapes(); // force to cache the shapes.
-        }
-        catch (IOException exception)
-        {
-            exception.printStackTrace();
-        }
         this.same = false;
     }
 

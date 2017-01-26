@@ -242,7 +242,7 @@ public class ShapeFile implements DataSourceInterface
     public synchronized List getShapes(SerializableRectangle2D extent) throws IOException
     {
         // May we use the cache?
-        if (!this.cache)
+        if (this.cache)
         {
             if (this.cachedContent == null)
             {
