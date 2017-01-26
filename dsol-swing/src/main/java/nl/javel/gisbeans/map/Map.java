@@ -77,13 +77,6 @@ public class Map implements MapInterface
 
     /** {@inheritDoc} */
     @Override
-    public void showLayer(final LayerInterface layer)
-    {
-        this.visibleLayers.add(layer);
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public void hideLayer(final LayerInterface layer)
     {
         this.visibleLayers.remove(layer);
@@ -97,6 +90,13 @@ public class Map implements MapInterface
         {
             hideLayer(this.layerMap.get(layerName));
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void showLayer(final LayerInterface layer)
+    {
+        this.visibleLayers.add(layer);
     }
 
     /** {@inheritDoc} */
@@ -362,29 +362,29 @@ public class Map implements MapInterface
             graphics.setFont(this.getImage().getScalebar().getFont());
             graphics.setColor(this.getImage().getScalebar().getFontColor());
 
-            String units = new String();
+            String unitString = new String();
             switch (this.getImage().getScalebar().getUnits())
             {
                 case FEET:
-                    units = " ft.";
+                    unitString = " ft.";
                     break;
                 case INCHES:
-                    units = " in.";
+                    unitString = " in.";
                     break;
                 case KILOMETERS:
-                    units = " km.";
+                    unitString = " km.";
                     break;
                 case METERS:
-                    units = " m.";
+                    unitString = " m.";
                     break;
                 case MILES:
-                    units = " mi.";
+                    unitString = " mi.";
                     break;
                 case DD:
-                    units = " dd.";
+                    unitString = " dd.";
                     break;
                 default:
-                    units = " m.";
+                    unitString = " m.";
                     break;
             }
 
@@ -395,12 +395,12 @@ public class Map implements MapInterface
                     formatter.format(((this.getImage().getScalebar().getSize().getWidth() / this.getImage().getSize()
                             .getWidth()) * this.getExtent().getWidth())
                             * (factor[this.getUnits()] / factor[this.getImage().getScalebar().getUnits()]))
-                            + units;
+                            + unitString;
 
             FontMetrics fm = graphics.getFontMetrics(this.getImage().getScalebar().getFont());
-            while (fm.getStringBounds((formatter.format(this.getUnitImageRatio()) + units), graphics).getWidth() > this
+            while (fm.getStringBounds((formatter.format(this.getUnitImageRatio()) + unitString), graphics).getWidth() > this
                     .getImage().getScalebar().getSize().getWidth()
-                    || fm.getStringBounds((formatter.format(this.getUnitImageRatio()) + units), graphics).getHeight() > this
+                    || fm.getStringBounds((formatter.format(this.getUnitImageRatio()) + unitString), graphics).getHeight() > this
                             .getImage().getScalebar().getSize().getHeight() / 2)
             {
                 graphics.setFont(new Font(this.getImage().getScalebar().getFont().getFontName(), Font.TRUETYPE_FONT,
@@ -488,6 +488,7 @@ public class Map implements MapInterface
      * returns the scale of the Image
      * @return double the unitPerPixel
      */
+    @Override
     public double getUnitImageRatio()
     {
         return Math.min(this.extent.getWidth() / this.image.getSize().getWidth(), this.extent.getHeight()
@@ -519,9 +520,15 @@ public class Map implements MapInterface
 
     /** {@inheritDoc} */
     @Override
-    public void setLayers(List<LayerInterface> layers)
+    public void setLayers(final List<LayerInterface> layers)
     {
-        this.allLayers = layers;
+        this.allLayers = new ArrayList<>(layers);
+        this.visibleLayers = new ArrayList<>(layers);
+        this.layerMap.clear();
+        for (LayerInterface layer : layers)
+        {
+            this.layerMap.put(layer.getName(), layer);
+        }
     }
 
     /** {@inheritDoc} */
@@ -529,6 +536,15 @@ public class Map implements MapInterface
     public void setLayer(int index, LayerInterface layer)
     {
         this.allLayers.set(index, layer);
+        if (this.allLayers.size() == this.visibleLayers.size())
+        {
+            this.visibleLayers.add(index, layer);
+        }
+        else
+        {
+            this.visibleLayers.add(layer);
+        }
+        this.layerMap.put(layer.getName(), layer);
     }
 
     /** {@inheritDoc} */
