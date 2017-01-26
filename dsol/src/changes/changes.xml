@@ -8,7 +8,7 @@
       </action>
     </release>
 
-    <release version="3.01.04" date="2017-01-26" description="Renderable2D, Map Layers">
+    <release version="3.01.04" date="2017-01-26" description="dsol-swing: Renderable2D, map layers">
       <action dev="averbraeck" type="update">
         Renderable2D and derived classes can now specify &lt;T&gt; as their source.
       </action>
@@ -20,6 +20,9 @@
       </action>
       <action dev="averbraeck" type="add">
         The layers in the ESRI Map can be toggled on or off with the showLayer and the hideLayer methods.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Repaired bug for caching of shape-file content for an extent.
       </action>
     </release>
 
