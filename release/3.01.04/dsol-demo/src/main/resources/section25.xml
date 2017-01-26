@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsol:experimentalFrame xmlns:dsol="http://www.simulation.tudelft.nl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <experiment>
+    <model>
+      <model-class>nl.tudelft.simulation.dsol.tutorial.section25.Model</model-class>
+    </model>
+    <simulator-class>nl.tudelft.simulation.dsol.simulators.DEVSSimulator.TimeDouble</simulator-class>
+    <replications>
+      <replication description="replication 0">
+        <stream name="default" seed="1" />
+      </replication>
+      <replication description="replication 1">
+        <stream name="default" seed="2" />
+      </replication>
+      <replication description="replication 2">
+        <stream name="default" seed="3" />
+      </replication>
+    </replications>
+    <treatment>
+      <timeUnit>MINUTE</timeUnit>
+      <warmupPeriod unit="MINUTE">0</warmupPeriod>
+      <runLength unit="MINUTE">10</runLength>
+    </treatment>
+  </experiment>
+</dsol:experimentalFrame>
