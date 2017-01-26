@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -76,6 +77,60 @@ public class Map implements MapInterface
         this.visibleLayers.add(layer);
         this.allLayers.add(layer);
         this.layerMap.put(layer.getName(), layer);
+        try
+        {
+            layer.getDataSource().getShapes(); // force to cache the shapes.
+        }
+        catch (IOException exception)
+        {
+            exception.printStackTrace();
+        }
+        this.same = false;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setLayers(final List<LayerInterface> layers)
+    {
+        this.allLayers = new ArrayList<>(layers);
+        this.visibleLayers = new ArrayList<>(layers);
+        this.layerMap.clear();
+        for (LayerInterface layer : layers)
+        {
+            this.layerMap.put(layer.getName(), layer);
+            try
+            {
+                layer.getDataSource().getShapes(); // force to cache the shapes.
+            }
+            catch (IOException exception)
+            {
+                exception.printStackTrace();
+            }        }
+        this.same = false;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setLayer(int index, LayerInterface layer)
+    {
+        this.allLayers.set(index, layer);
+        if (this.allLayers.size() == this.visibleLayers.size())
+        {
+            this.visibleLayers.add(index, layer);
+        }
+        else
+        {
+            this.visibleLayers.add(layer);
+        }
+        this.layerMap.put(layer.getName(), layer);
+        try
+        {
+            layer.getDataSource().getShapes(); // force to cache the shapes.
+        }
+        catch (IOException exception)
+        {
+            exception.printStackTrace();
+        }
         this.same = false;
     }
 
@@ -534,37 +589,6 @@ public class Map implements MapInterface
     public void setImage(ImageInterface image)
     {
         this.image = image;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setLayers(final List<LayerInterface> layers)
-    {
-        this.allLayers = new ArrayList<>(layers);
-        this.visibleLayers = new ArrayList<>(layers);
-        this.layerMap.clear();
-        for (LayerInterface layer : layers)
-        {
-            this.layerMap.put(layer.getName(), layer);
-        }
-        this.same = false;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setLayer(int index, LayerInterface layer)
-    {
-        this.allLayers.set(index, layer);
-        if (this.allLayers.size() == this.visibleLayers.size())
-        {
-            this.visibleLayers.add(index, layer);
-        }
-        else
-        {
-            this.visibleLayers.add(layer);
-        }
-        this.layerMap.put(layer.getName(), layer);
-        this.same = false;
     }
 
     /** {@inheritDoc} */
