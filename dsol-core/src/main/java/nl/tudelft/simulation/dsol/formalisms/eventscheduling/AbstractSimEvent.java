@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicLong;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -26,7 +27,7 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>>
     private static final long serialVersionUID = 20140804L;
 
     /** a counter counting the number of constructed simEvents. */
-    private static long constructorCounter = 0L;
+    private static AtomicLong constructorCounter = new AtomicLong();
 
     /** absoluteExecutionTime reflects the time at which the event is scheduled. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -63,8 +64,8 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>>
                     + SimEventInterface.MAX_PRIORITY + "]");
         }
         this.priority = priority;
-        AbstractSimEvent.constructorCounter++;
-        this.id = AbstractSimEvent.constructorCounter;
+        
+        this.id = AbstractSimEvent.constructorCounter.incrementAndGet();
     }
 
     /** {@inheritDoc} */

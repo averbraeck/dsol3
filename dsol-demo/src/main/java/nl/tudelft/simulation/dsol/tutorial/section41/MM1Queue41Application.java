@@ -41,6 +41,12 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  */
 public class MM1Queue41Application
 {
+    /** */
+    private DEVSSimulator.TimeDouble simulator;
+    
+    /** */
+    private MM1Queue41Model model;
+    
     /**
      * Construct a console application.
      * @throws SimRuntimeException on error
@@ -49,14 +55,24 @@ public class MM1Queue41Application
      */
     protected MM1Queue41Application() throws SimRuntimeException, RemoteException, NamingException
     {
-        DSOLModel.TimeDouble model = new MM1Queue41Model();
-        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
+        this.model = new MM1Queue41Model();
+        this.simulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
-                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
-        simulator.start();
+                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, this.model);
+        this.simulator.initialize(replication, ReplicationMode.TERMINATING);
+        this.simulator.scheduleEventAbs(100.0, this, this, "terminate", null);
+        this.simulator.start();
     }
 
+    /** stop the simulation. */
+    protected final void terminate()
+    {
+        System.out.println("average queue length = " + this.model.qN.getSampleMean());
+        System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
+        System.out.println("average utilization  = " + this.model.uN.getSampleMean());
+        System.exit(0);
+    }
+    
     /**
      * @param args can be left empty
      * @throws SimRuntimeException on error
