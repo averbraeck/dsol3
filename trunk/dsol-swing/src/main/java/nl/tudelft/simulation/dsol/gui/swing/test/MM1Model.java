@@ -110,7 +110,7 @@ public class MM1Model implements DSOLModel.TimeDouble
     }
 
     /**
-     * @param entity
+     * @param entity entity to process
      * @throws SimRuntimeException on simulation error 
      * @throws RemoteException on remote error
      */
@@ -125,7 +125,7 @@ public class MM1Model implements DSOLModel.TimeDouble
     }
 
     /**
-     * @param entity
+     * @param entity entity to stop processing
      * @throws SimRuntimeException on simulation error 
      * @throws RemoteException on remote error
      */
@@ -159,8 +159,8 @@ public class MM1Model implements DSOLModel.TimeDouble
         private final int id;
 
         /**
-         * @param id
-         * @param createTime
+         * @param id entity id number
+         * @param createTime time of creation for statistics
          */
         public Entity(int id, SimTimeDouble createTime)
         {
@@ -170,7 +170,7 @@ public class MM1Model implements DSOLModel.TimeDouble
         }
 
         /**
-         * @return createTime
+         * @return time of creation for statistics
          */
         public SimTimeDouble getCreateTime()
         {
@@ -178,7 +178,7 @@ public class MM1Model implements DSOLModel.TimeDouble
         }
 
         /**
-         * @return id
+         * @return entity id number
          */
         public int getId()
         {

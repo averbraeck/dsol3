@@ -216,7 +216,7 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
 
     /**
      * flushes the stream
-     * @throws IOException
+     * @throws IOException on i/o error
      */
     public void flush() throws IOException
     {
@@ -225,7 +225,7 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
 
     /**
      * closes the stream
-     * @throws IOException on io error
+     * @throws IOException on i/o error
      */
     public void close() throws IOException
     {

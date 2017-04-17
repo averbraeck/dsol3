@@ -2,15 +2,22 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.01.05 - In Progress" date="2017-XX-XX" description="dsol-demo repaired and added to project">
+    <release version="3.01.06 - In Progress" date="2017-XX-XX" description="dsol-demo repaired and added to project">
       <action dev="averbraeck" type="add">
         The dsol-demo project has been repaired and is from now on again a formal part of the dsol framework. 
       </action>
     </release>
 
+    <release version="3.01.05" date="2017-04-17" description="Unique id of AbstractSimEvent repaired">
+      <action dev="averbraeck" type="fix">
+        When parallel threads constructed a SimEvent, the uniqueness of the id was not guaranteed. 
+        An AtomicLong solves this problem. 
+      </action>
+    </release>
+
     <release version="3.01.04" date="2017-01-26" description="dsol-swing: Renderable2D, map layers">
       <action dev="averbraeck" type="update">
-        Renderable2D and derived classes can now specify &lt;T&gt; as their source.
+        Renderable2D and derived classes can now specify the Locatable as their source.
       </action>
       <action dev="averbraeck" type="update">
         Data that is shown on the screen is not clickable for viewing or displaying.
