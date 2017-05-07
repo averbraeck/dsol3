@@ -29,7 +29,7 @@ public class Release extends nl.tudelft.simulation.dsol.formalisms.flow.Release.
      * @param simulator the simulator on which to schedule
      * @param resource the resource to be released
      */
-    public Release(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<SimTimeDouble> resource)
+    public Release(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<Double, Double, SimTimeDouble> resource)
     {
         super(simulator, resource);
     }
@@ -40,7 +40,7 @@ public class Release extends nl.tudelft.simulation.dsol.formalisms.flow.Release.
      * @param resource the resource to be released
      * @param amount the amount to be released
      */
-    public Release(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<SimTimeDouble> resource,
+    public Release(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<Double, Double, SimTimeDouble> resource,
             final double amount)
     {
         super(simulator, resource, amount);

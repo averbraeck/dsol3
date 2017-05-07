@@ -29,7 +29,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
 public abstract class Process<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends InterpretableProcess implements ResourceRequestorInterface
+        extends InterpretableProcess implements ResourceRequestorInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -45,7 +45,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
     private SimEventInterface<T> simEvent = null;
     
     /** the logger. */
-    private static Logger logger = LogManager.getLogger(Process.class);
+    protected static Logger logger = LogManager.getLogger(Process.class);
 
     /**
      * constructs a new Process and IMMEDIATELY STARTS ITS PROCESS METHOD.

@@ -36,15 +36,15 @@ public class Boat42Model implements DSOLModel.TimeDouble
     /** ordering costs statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     Tally<Double, Double, SimTimeDouble> orderingCosts;
-    
+
     /** inventory statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     Persistent<Double, Double, SimTimeDouble> inventory;
-    
+
     /** backlog statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     Persistent<Double, Double, SimTimeDouble> backlog;
-    
+
     /**
      * constructs a new BoatModel.
      */
@@ -67,11 +67,11 @@ public class Boat42Model implements DSOLModel.TimeDouble
         properties.put("retailer.costs.setup", "30");
         properties.put("policy.lowerBound", "8");
         properties.put("policy.upperBound", "80");
-        
+
         Map<String, StreamInterface> streams = new HashMap<>();
         streams.put("default", new MersenneTwister());
         this.simulator.getReplication().setStreams(streams);
-        
+
         SellerInterface warehouse = new Warehouse(this.simulator);
         Retailer retailer = new Retailer(this.simulator, warehouse);
         new Customer(this.simulator, retailer);

@@ -2,9 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.01.06 - In Progress" date="2017-XX-XX" description="dsol-demo repaired and added to project">
+    <release version="3.01.06" date="2017-04-30" description="dsol-demo repaired and added to project">
       <action dev="averbraeck" type="add">
         The dsol-demo project has been repaired and is from now on again a formal part of the dsol framework. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Renderable2D.contains() method is made non-final to allow returning false for non-clickable animation items. 
       </action>
     </release>
 

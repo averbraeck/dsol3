@@ -45,15 +45,15 @@ public class MM1Queue41Model implements DSOLModel.TimeDouble
     /** tally dN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     Tally<Double, Double, SimTimeDouble> dN;
-    
+
     /** tally qN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     Tally<Double, Double, SimTimeDouble> qN;
-    
+
     /** utilization uN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     Utilization uN;
-    
+
     /** {@inheritDoc} */
     @Override
     public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> simulator)

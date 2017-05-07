@@ -4,9 +4,7 @@ import java.util.Enumeration;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.Material;
-import javax.media.j3d.Node;
 import javax.media.j3d.TransformGroup;
-import javax.swing.Box;
 import javax.vecmath.Color3f;
 
 import nl.tudelft.simulation.dsol.animation.D3.Renderable3D;
@@ -15,7 +13,8 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * World, a simple world for the ball model in 3D <br>
- * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 1.0 10.05.2004 <br>
@@ -25,7 +24,7 @@ public class World extends Renderable3D
 {
 
     /**
-     * Construct the world
+     * Construct the world.
      * @param staticLocation Static location
      * @param simulator Simulator
      */
@@ -52,17 +51,19 @@ public class World extends Renderable3D
         // Set material
         app.setMaterial(new Material(ambientColor, emissiveColor, diffuseColor, specularColor, shininess));
         // Create a ball
-        Node model = new Box(100f * (float) this.scale, 100f * (float) this.scale, 1f * (float) this.scale, app);
+        // TODO: Node model = new Box(100f * (float) this.scale, 100f * (float) this.scale, 1f * (float) this.scale,
+        // app);
 
         // Node model = new ColorCube(0.4);
 
         // ---------------
         // Put it together
-        locationGroup.addChild(model);
+        // TODO: locationGroup.addChild(model);
     }
 
     /** {@inheritDoc} */
-    protected void update(Enumeration children)
+    @Override
+    protected void update(final Enumeration children)
     {
         // Do nothing
     }

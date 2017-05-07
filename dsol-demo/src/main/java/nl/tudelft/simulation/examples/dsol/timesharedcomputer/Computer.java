@@ -4,25 +4,29 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.Counter;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
+import nl.tudelft.simulation.dsol.statistics.charts.BoxAndWhiskerChart;
+import nl.tudelft.simulation.dsol.statistics.charts.Histogram;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
- * The Computer example as published in Simulation Modeling and Analysis by A.M. Law & W.D. Kelton section 1.4 and 2.4. <br>
- * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * The Computer example as published in Simulation Modeling and Analysis by A.M. Law & W.D. Kelton section 1.4 and 2.4.
+ * <br>
+ * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 1.1 02.04.2003 <br>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  */
-public class Computer implements DSOLModel
+public class Computer implements DSOLModel<Double, Double, SimTimeDouble>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -46,10 +50,10 @@ public class Computer implements DSOLModel
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface.TimeDouble simulator) throws RemoteException
+    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> simulator) throws RemoteException
     {
-        this.simulator = simulator;
-        DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface) simulator;
+        this.simulator = (SimulatorInterface.TimeDouble) simulator;
+        DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface.TimeDouble) simulator;
         StreamInterface stream = simulator.getReplication().getStream("default");
 
         CPU cpu = new CPU(devsSimulator);
@@ -58,7 +62,7 @@ public class Computer implements DSOLModel
 
         // First the statistics
         Persistent persistent = new Persistent("service time", devsSimulator);
-        ExitCounter exitCounter = new ExitCounter("counter", simulator);
+        ExitCounter exitCounter = new ExitCounter("counter", devsSimulator);
 
         // Now the charts
         Histogram histogram = new Histogram(simulator, "service time", new double[]{0, 200}, 200);
@@ -77,10 +81,13 @@ public class Computer implements DSOLModel
     }
 
     /**
-     * A counter which stops after a predifined number of jobs
+     * A counter which stops after a predifined number of jobs.
      */
-    public class ExitCounter extends Counter
+    public class ExitCounter extends Counter<Double, Double, SimTimeDouble>
     {
+        /** */
+        private static final long serialVersionUID = 1L;
+
         /** simulator refers to the simulator. */
         private SimulatorInterface.TimeDouble simulator = null;
 
@@ -90,7 +97,8 @@ public class Computer implements DSOLModel
          * @param simulator the simulator
          * @throws RemoteException on network failure
          */
-        public ExitCounter(final String description, final SimulatorInterface.TimeDouble simulator) throws RemoteException
+        public ExitCounter(final String description, final SimulatorInterface.TimeDouble simulator)
+                throws RemoteException
         {
             super(description, simulator);
             this.simulator = simulator;
@@ -105,7 +113,6 @@ public class Computer implements DSOLModel
             {
                 try
                 {
-                    this.simulator.getReplication().getTreatment().setRunLength(this.simulator.getSimulatorTime());
                     if (this.simulator.isRunning())
                     {
                         this.simulator.stop();
@@ -113,7 +120,7 @@ public class Computer implements DSOLModel
                 }
                 catch (Exception exception)
                 {
-                    logger.warn("notify", exception);
+                    exception.printStackTrace();
                 }
             }
         }

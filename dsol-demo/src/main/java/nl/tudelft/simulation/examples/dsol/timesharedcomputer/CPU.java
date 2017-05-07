@@ -9,24 +9,24 @@ import javax.media.j3d.Bounds;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.flow.Station;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.language.d3.BoundingBox;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * The CPU example as published in Simulation Modeling and Analysis by A.M. Law & W.D. Kelton section 1.4 and 2.4. <br>
- * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 2.0 21.09.2003 <br>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  */
-public class CPU extends Station implements Locatable
+public class CPU extends Station<Double, Double, SimTimeDouble> implements Locatable
 {
 
     /** UTILIZATION_EVENT are fired on utilization. */
@@ -35,7 +35,7 @@ public class CPU extends Station implements Locatable
     /** QUEUE_LENGTH_EVENT is fired on changes in the Queue length. */
     public static final EventType QUEUE_LENGTH_EVENT = new EventType("QUEUE_LENGTH_EVENT");
 
-    /** QUANTUM is the QUANTUM of the CPU */
+    /** QUANTUM is the QUANTUM of the CPU. */
     public static final double QUANTUM = 0.1;
 
     /** SWAP is the swap of this cpu. */
@@ -47,7 +47,7 @@ public class CPU extends Station implements Locatable
     /** BUSY defines the BUSY state. */
     public static final boolean BUSY = false;
 
-    /** status of the CPU */
+    /** status of the CPU. */
     private boolean status = IDLE;
 
     /** queue is the queue of waiting jobs. */
@@ -64,11 +64,11 @@ public class CPU extends Station implements Locatable
     public CPU(final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
         super(simulator);
-        this.fireEvent(UTILIZATION_EVENT, 0.0, simulator.getSimulatorTime());
+        this.fireTimedEvent(UTILIZATION_EVENT, 0.0, simulator.getSimulatorTime().get());
     }
 
     /**
-     * returns the queue
+     * returns the queue.
      * @return List the queue
      */
     public List getQueue()
@@ -83,7 +83,7 @@ public class CPU extends Station implements Locatable
         try
         {
             this.queue.add(object);
-            this.fireEvent(QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime());
+            this.fireTimedEvent(QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime());
             if (this.status == IDLE)
             {
                 try
@@ -92,13 +92,13 @@ public class CPU extends Station implements Locatable
                 }
                 catch (SimRuntimeException exception)
                 {
-                    logger.warn("receiveObject", exception);
+                    exception.printStackTrace();
                 }
             }
         }
         catch (RemoteException remoteException)
         {
-            logger.warn("receiveObject", remoteException);
+            remoteException.printStackTrace();
         }
     }
 
@@ -106,7 +106,7 @@ public class CPU extends Station implements Locatable
     protected void releaseObject(final Object object) throws RemoteException
     {
         this.status = IDLE;
-        this.fireEvent(UTILIZATION_EVENT, 0.0, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(UTILIZATION_EVENT, 0.0, this.simulator.getSimulatorTime());
         ((Job) object).getOwner().receiveObject(object);
         try
         {
@@ -114,12 +114,12 @@ public class CPU extends Station implements Locatable
         }
         catch (SimRuntimeException exception)
         {
-            logger.warn("receiveObject", exception);
+            exception.printStackTrace();
         }
     }
 
     /**
-     * services the next job
+     * services the next job.
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on simulation failure
      */
@@ -128,29 +128,29 @@ public class CPU extends Station implements Locatable
         if (this.queue.size() > 0)
         {
             this.status = BUSY;
-            this.fireEvent(UTILIZATION_EVENT, 1.0, this.simulator.getSimulatorTime());
+            this.fireTimedEvent(UTILIZATION_EVENT, 1.0, this.simulator.getSimulatorTime().get());
             Job job = (Job) this.queue.remove(0);
-            this.fireEvent(QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime());
+            this.fireTimedEvent(QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime().get());
             if (job.getServiceTime() > QUANTUM)
             {
                 job.setServiceTime(job.getServiceTime() - QUANTUM);
                 Object[] args = {job};
-                this.simulator.scheduleEvent(new SimEvent(this.simulator.getSimulatorTime() + QUANTUM + SWAP, this,
-                        this, "receiveObject", args));
-                this.simulator.scheduleEvent(new SimEvent(this.simulator.getSimulatorTime() + QUANTUM + SWAP, this,
-                        this, "next", null));
+                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime().get() + QUANTUM + SWAP, this, this,
+                        "receiveObject", args);
+                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime().get() + QUANTUM + SWAP, this, this,
+                        "next", null);
             }
             else
             {
                 Object[] args = {job};
-                this.simulator.scheduleEvent(new SimEvent(this.simulator.getSimulatorTime() + job.getServiceTime()
-                        + SWAP, this, this, "releaseObject", args));
+                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime().get() + job.getServiceTime() + SWAP,
+                        this, this, "releaseObject", args);
             }
         }
         else
         {
             this.status = IDLE;
-            this.fireEvent(UTILIZATION_EVENT, 0.0, this.simulator.getSimulatorTime());
+            this.fireTimedEvent(UTILIZATION_EVENT, 0.0, this.simulator.getSimulatorTime());
         }
     }
 

@@ -4,7 +4,6 @@ import java.util.Enumeration;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.Material;
-import javax.media.j3d.Node;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 
@@ -14,7 +13,8 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * BallAnimation3D, animation of a ball in 3D <br>
- * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2003 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 1.0 10.05.2004 <br>
@@ -33,10 +33,7 @@ public class BallAnimation3D extends Renderable3D
         super(source, simulator);
     }
 
-    /**
-     * provides the model for the animationObject
-     * @param locationGroup
-     */
+    @Override
     public void provideModel(final TransformGroup locationGroup)
     {
         this.setScale(0.1d);
@@ -54,20 +51,17 @@ public class BallAnimation3D extends Renderable3D
         // Set material
         app.setMaterial(new Material(ambientColor, emissiveColor, diffuseColor, specularColor, shininess));
         // Create a ball
-        Node model = new Sphere(5f * (float) this.scale, app);
+        // TODO: Node model = new Sphere(5f * (float) this.scale, app);
 
         // Node model = new ColorCube(0.4);
 
         // ---------------
         // Put it together
-        locationGroup.addChild(model);
+        // TODO: locationGroup.addChild(model);
     }
 
-    /**
-     * updates the animation of this object
-     * @param children the children to update
-     */
-    protected void update(Enumeration children)
+    @Override
+    protected void update(final Enumeration children)
     {
         // Do nothing
     }

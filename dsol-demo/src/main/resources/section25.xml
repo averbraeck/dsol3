@@ -2,7 +2,7 @@
 <dsol:experimentalFrame xmlns:dsol="http://www.simulation.tudelft.nl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <experiment>
     <model>
-      <model-class>nl.tudelft.simulation.dsol.tutorial.section25.Model</model-class>
+      <model-class>nl.tudelft.simulation.dsol.tutorial.section25.Model25</model-class>
     </model>
     <simulator-class>nl.tudelft.simulation.dsol.simulators.DEVSSimulator.TimeDouble</simulator-class>
     <replications>

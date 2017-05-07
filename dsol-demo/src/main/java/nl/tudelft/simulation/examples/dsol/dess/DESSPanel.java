@@ -1,11 +1,15 @@
-package nl.tudelft.simulation.examples.dsol.animation;
+package nl.tudelft.simulation.examples.dsol.dess;
 
-import nl.tudelft.simulation.dsol.gui.ExampleDSOLApplication;
+import java.rmi.RemoteException;
+
+import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
+import nl.tudelft.simulation.dsol.gui.swing.TablePanel;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 
 /**
- * BallApplication class.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
@@ -28,30 +32,28 @@ import nl.tudelft.simulation.dsol.gui.ExampleDSOLApplication;
  * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
- * @version Oct 17, 2009 <br>
- * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
- * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
+ * @version Aug 15, 2014 <br>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class BallApplication extends ExampleDSOLApplication
+public class DESSPanel extends DSOLPanel<Double, Double, SimTimeDouble>
 {
-
     /** */
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param navigation
+     * @param model the model
+     * @param simulator the simulator
+     * @throws RemoteException on error
      */
-    public BallApplication()
+    public DESSPanel(final DESSModel model, final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
-        super();
-    }
+        super(model, simulator);
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args)
-    {
-        new BallApplication();
+        // add a chart for the demo.
+        TablePanel charts = new TablePanel(2, 1);
+        super.tabbedPane.addTab("statistics", charts);
+        super.tabbedPane.setSelectedIndex(1);
+        charts.setCell(model.getDistanceChart().getSwingPanel(), 0, 0);
+        charts.setCell(model.getDistancePersistent().getSwingPanel(), 1, 0);
     }
-
 }

@@ -67,8 +67,9 @@ public final class Test
         {
             dist.draw();
         }
-        System.out.println("1000000x DistNormal() with DX120 takes " + (System.currentTimeMillis() - timeMs) + " msec.");
-        
+        System.out
+                .println("1000000x DistNormal() with DX120 takes " + (System.currentTimeMillis() - timeMs) + " msec.");
+
         timeMs = System.currentTimeMillis();
         double z = 0.0;
         for (double a = 0; a < 1000000; a += 1)
@@ -76,7 +77,7 @@ public final class Test
             z += Math.exp(a);
         }
         System.out.println("1000000x Math.exp(a) takes " + (System.currentTimeMillis() - timeMs) + " msec.");
-        
+
         timeMs = System.currentTimeMillis();
         z = 0.0;
         for (double a = 0; a < 1000000; a += 1)
@@ -84,7 +85,7 @@ public final class Test
             z += Math.sqrt(a);
         }
         System.out.println("1000000x Math.sqrt(a) takes " + (System.currentTimeMillis() - timeMs) + " msec.");
-        
+
     }
 
 }

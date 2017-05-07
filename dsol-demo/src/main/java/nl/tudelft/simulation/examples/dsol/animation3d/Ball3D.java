@@ -2,11 +2,12 @@ package nl.tudelft.simulation.examples.dsol.animation3d;
 
 import java.rmi.RemoteException;
 
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * An extension of Ball
@@ -33,8 +34,9 @@ public class Ball3D extends Ball
      * constructs a new Ball.
      * @param simulator the simulator
      * @throws RemoteException on network exception
+     * @throws NamingException on error
      */
-    public Ball3D(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
+    public Ball3D(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException, NamingException
     {
         super();
         this.simulator = simulator;
@@ -47,7 +49,7 @@ public class Ball3D extends Ball
         }
         catch (RemoteException exception)
         {
-            logger.warn("Ball", exception);
+            exception.printStackTrace();
         }
     }
 
@@ -55,8 +57,8 @@ public class Ball3D extends Ball
     @Override
     public DirectedPoint getLocation() throws RemoteException
     {
-        double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[0] + this.origin.x;
-        double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[0] + this.origin.y;
+        double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime().get())[0] + this.origin.x;
+        double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime().get())[0] + this.origin.y;
         if (Math.abs(x - this.origin.x) > Math.abs(this.destination.x - this.origin.x)
                 || Math.abs(y - this.origin.y) > Math.abs(this.destination.y - this.origin.y))
         {
@@ -66,7 +68,7 @@ public class Ball3D extends Ball
     }
 
     /**
-     * next move
+     * next move.
      * @throws RemoteException on network failure
      */
     public void next() throws RemoteException

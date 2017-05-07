@@ -4,11 +4,12 @@ import java.awt.geom.Point2D;
 import java.net.URL;
 import java.rmi.RemoteException;
 
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.SingleImageRenderable;
 import nl.tudelft.simulation.dsol.animation.interpolation.InterpolationInterface;
 import nl.tudelft.simulation.dsol.animation.interpolation.LinearInterpolation;
-import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -37,8 +38,10 @@ public class DiscreteBall extends Ball
      * @param simulator the simulator
      * @throws RemoteException on remote failure
      * @throws SimRuntimeException on schedule failure
+     * @throws NamingException on animation error
      */
-    public DiscreteBall(final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException, SimRuntimeException
+    public DiscreteBall(final DEVSSimulatorInterface.TimeDouble simulator)
+            throws RemoteException, SimRuntimeException, NamingException
     {
         super();
         this.simulator = simulator;
@@ -48,7 +51,7 @@ public class DiscreteBall extends Ball
     }
 
     /**
-     * next movement
+     * next movement.
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on simulation failure
      */
@@ -57,13 +60,12 @@ public class DiscreteBall extends Ball
         StreamInterface stream = this.simulator.getReplication().getStream("default");
         this.origin = this.destination;
         this.rotZ = 2 * Math.PI * Math.random();
-        this.destination =
-                new DirectedPoint(new Point2D.Double(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200)),
-                        this.rotZ);
-        this.startTime = this.simulator.getSimulatorTime();
+        this.destination = new DirectedPoint(
+                new Point2D.Double(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200)), this.rotZ);
+        this.startTime = this.simulator.getSimulatorTime().get();
         this.stopTime = this.startTime + Math.abs(new DistNormal(stream, 9, 1.8).draw());
         this.interpolator = new LinearInterpolation(this.startTime, this.stopTime, this.origin, this.destination);
-        this.simulator.scheduleEvent(new SimEvent(this.stopTime, this, this, "next", null));
+        this.simulator.scheduleEventAbs(this.stopTime, this, this, "next", null);
     }
 
     /** {@inheritDoc} */
@@ -72,7 +74,7 @@ public class DiscreteBall extends Ball
     {
         if (this.interpolator != null)
         {
-            return this.interpolator.getLocation(this.simulator.getSimulatorTime());
+            return this.interpolator.getLocation(this.simulator.getSimulatorTime().get());
         }
         return this.origin;
     }

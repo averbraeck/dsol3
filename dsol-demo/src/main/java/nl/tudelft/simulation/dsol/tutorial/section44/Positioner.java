@@ -3,8 +3,8 @@ package nl.tudelft.simulation.dsol.tutorial.section44;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A Positioner <br>
@@ -16,8 +16,11 @@ import nl.tudelft.simulation.logger.Logger;
  * @version 1.0 Mar 3, 2004 <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class Positioner extends DifferentialEquation
+public class Positioner extends DifferentialEquation<Double, Double, SimTimeDouble>
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /**
      * constructs a new Positioner.
      * @param simulator the simulator
@@ -30,18 +33,18 @@ public class Positioner extends DifferentialEquation
     }
 
     /**
-     * sets the value
+     * sets the value.
      * @param value the new value
      */
     public void setValue(final double value)
     {
         try
         {
-            super.initialize(this.simulator.getSimulatorTime(), new double[]{value, 0.0});
+            super.initialize(this.simulator.getSimulatorTime().get(), new double[]{value, 0.0});
         }
         catch (RemoteException exception)
         {
-            logger.warn("setValue", exception);
+           exception.printStackTrace();
         }
     }
 

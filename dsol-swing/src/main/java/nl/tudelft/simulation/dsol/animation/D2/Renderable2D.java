@@ -252,7 +252,8 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
 
     /** {@inheritDoc} */
     @Override
-    public final boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
+    @SuppressWarnings("checkstyle:designforextension")
+    public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screen)
     {
         try
         {

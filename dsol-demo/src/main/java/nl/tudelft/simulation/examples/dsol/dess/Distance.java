@@ -3,13 +3,17 @@ package nl.tudelft.simulation.examples.dsol.dess;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 
 /**
  * @author peter
  */
-public class Distance extends DifferentialEquation
+public class Distance extends DifferentialEquation<Double, Double, SimTimeDouble>
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** the speed. */
     private Speed speed = null;
 
@@ -28,7 +32,7 @@ public class Distance extends DifferentialEquation
 
     /** {@inheritDoc} */
     @Override
-    public double[] dy(double x, double[] y)
+    public double[] dy(final double x, final double[] y)
     {
         return this.speed.y(x);
     }

@@ -2,12 +2,13 @@ package nl.tudelft.simulation.examples.dsol.animation.continuous;
 
 import java.rmi.RemoteException;
 
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.examples.dsol.animation.BallAnimation;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * @author peter
@@ -33,8 +34,9 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
      * constructs a new Ball.
      * @param simulator the simulator
      * @throws RemoteException on network exception
+     * @throws NamingException on animation error
      */
-    public Ball(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
+    public Ball(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException, NamingException
     {
         super();
         this.simulator = simulator;
@@ -46,7 +48,7 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
         }
         catch (RemoteException exception)
         {
-            logger.warn("Ball", exception);
+            exception.printStackTrace();
         }
     }
 
@@ -54,8 +56,8 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
     @Override
     public DirectedPoint getLocation() throws RemoteException
     {
-        double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[1] + this.origin.x;
-        double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[1] + this.origin.y;
+        double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime().get())[1] + this.origin.x;
+        double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime().get())[1] + this.origin.y;
         if (Math.abs(x - this.origin.x) > Math.abs(this.destination.x - this.origin.x)
                 || Math.abs(y - this.origin.y) > Math.abs(this.destination.y - this.origin.y))
         {
@@ -65,7 +67,7 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
     }
 
     /**
-     * next move
+     * next move.
      * @throws RemoteException on network failure
      */
     public void next() throws RemoteException
