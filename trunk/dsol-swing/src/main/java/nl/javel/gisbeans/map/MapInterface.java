@@ -342,4 +342,16 @@ public interface MapInterface extends java.io.Serializable
      */
     public void zoomRectangle(SerializableRectangle2D rectangle) throws RemoteException;
 
+    /**
+     * return whether background is drawn or not.
+     * @return drawBackground
+     */
+    public boolean isDrawBackground();
+
+    /**
+     * set whether background is drawn or not.
+     * @param drawBackground set drawBackground
+     */
+    public void setDrawBackground(final boolean drawBackground);
+    
 }

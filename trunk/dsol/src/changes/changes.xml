@@ -9,6 +9,12 @@
       <action dev="averbraeck" type="update">
         Renderable2D.contains() method is made non-final to allow returning false for non-clickable animation items. 
       </action>
+      <action dev="averbraeck" type="add">
+        Added GISRenderable2D constructor with a z-value. 
+      </action>
+      <action dev="averbraeck" type="add">
+        Added setBackground(boolean) method in GIS Map.  
+      </action>
     </release>
 
     <release version="3.01.05" date="2017-04-17" description="Unique id of AbstractSimEvent repaired">

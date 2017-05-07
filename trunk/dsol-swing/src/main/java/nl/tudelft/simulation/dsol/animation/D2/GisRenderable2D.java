@@ -58,7 +58,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
 
     /** the bounds of the image. */
     protected Bounds bounds = null;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(GisRenderable2D.class);
 
@@ -86,6 +86,19 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
     public GisRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile,
             final CoordinateTransform coordinateTransform)
     {
+        this(simulator, mapFile, coordinateTransform, -Double.MAX_VALUE);
+    }
+
+    /**
+     * constructs a new GisRenderable2D.
+     * @param simulator the simulator.
+     * @param mapFile the mapfile to use.
+     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
+     * @param z the z-value to use
+     */
+    public GisRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile,
+            final CoordinateTransform coordinateTransform, final double z)
+    {
         super();
         if (!(simulator instanceof AnimatorInterface))
         {
@@ -95,11 +108,10 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         {
             this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
             this.location =
-                    new DirectedPoint(new CartesianPoint(this.extent.getCenterX(), this.extent.getCenterY(),
-                            -Double.MAX_VALUE));
+                    new DirectedPoint(new CartesianPoint(this.extent.getCenterX(), this.extent.getCenterY(), z));
             this.bounds = new BoundingBox(this.extent.getWidth(), this.extent.getHeight(), 0.0);
-            simulator.getReplication().getTreatment().getProperties()
-                    .put("animationPanel.extent", this.map.getExtent());
+            simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
+                    this.map.getExtent());
             this.bind2Context(simulator);
         }
         catch (Exception exception)
@@ -186,17 +198,15 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
      */
     private void cacheImage() throws Exception
     {
-        this.image =
-                new BufferedImage((int) this.map.getImage().getSize().getWidth(), (int) this.map.getImage().getSize()
-                        .getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+        this.image = new BufferedImage((int) this.map.getImage().getSize().getWidth(),
+                (int) this.map.getImage().getSize().getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D bg = this.image.createGraphics();
         this.map.drawMap(bg);
         bg.dispose();
         this.screenSize = (Dimension) this.map.getImage().getSize().clone();
         this.extent = this.map.getExtent();
-        this.location =
-                new DirectedPoint(new CartesianPoint(this.extent.getCenterX(), this.extent.getCenterY(),
-                        -Double.MIN_VALUE));
+        this.location = new DirectedPoint(
+                new CartesianPoint(this.extent.getCenterX(), this.extent.getCenterY(), -Double.MIN_VALUE));
         this.bounds = new BoundingBox(this.extent.getWidth(), this.extent.getHeight(), 0.0);
     }
 
