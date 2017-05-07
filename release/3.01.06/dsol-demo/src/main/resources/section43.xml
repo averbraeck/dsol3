@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsol:experimentalFrame xmlns:dsol="http://www.simulation.tudelft.nl"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<experiment>
+		<model>
+			<model-class>nl.tudelft.simulation.dsol.tutorial.section43.Life
+			</model-class>
+			<class-path>
+				<jar-file>/tmp/tutorial.jar</jar-file>
+			</class-path>
+		</model>
+		<simulator-class>nl.tudelft.simulation.dsol.simulators.DESSSimulator
+		</simulator-class>
+		<replications>
+			<replication description="replication 0">
+				<stream name="default" seed="555" />
+			</replication>
+		</replications>
+		<treatment>
+			<startTime>2003-12-01T14:30:00</startTime>
+			<timeUnit>WEEK</timeUnit>
+			<warmupPeriod unit="WEEK">0</warmupPeriod>
+			<runLength unit="WEEK">200</runLength>
+			<properties>
+				<!-- The Lotka-Volterra properties -->
+				<property key="a" value="1" />
+				<property key="b" value="0.1" />
+				<property key="c" value="1" />
+				<property key="d" value="0.2" />
+				<!-- The initial values-->
+				<property key="prey.initialValue" value="40" />
+				<property key="predator.initialValue" value="5" />
+			</properties>
+		</treatment>
+	</experiment>
+</dsol:experimentalFrame>

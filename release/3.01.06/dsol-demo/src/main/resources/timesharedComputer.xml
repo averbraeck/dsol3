@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsol:experimentalFrame xmlns:dsol="http://www.simulation.tudelft.nl"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<experiment>
+		<model>
+			<model-class>
+				nl.tudelft.simulation.examples.dsol.timesharedcomputer.Computer
+			</model-class>
+		</model>
+		<simulator-class>nl.tudelft.simulation.dsol.simulators.DEVSSimulator
+		</simulator-class>
+		<replications>
+			<replication description="replication 0">
+				<stream name="default" seed="12" />
+				<stream name="generator" seed="1" />
+			</replication>
+			<replication description="replication 1">
+				<stream name="default" seed="563" />
+				<stream name="generator" seed="1" />
+			</replication>
+			<replication description="replication 2">
+				<stream name="default" seed="37" />
+				<stream name="generator" seed="1" />
+			</replication>
+		</replications>
+		<treatment>
+			<startTime>1981-12-01T14:25:58</startTime>
+			<timeUnit>MINUTE</timeUnit>
+			<warmupPeriod unit="MINUTE">0</warmupPeriod>
+			<runLength unit="HOUR">300</runLength>
+		</treatment>
+	</experiment>
+</dsol:experimentalFrame>
