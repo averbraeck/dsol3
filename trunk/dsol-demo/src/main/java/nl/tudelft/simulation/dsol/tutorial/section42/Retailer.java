@@ -64,7 +64,7 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
 
     /** the costs. */
     private double setupCosts;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(Retailer.class);
 

@@ -6,6 +6,7 @@ import java.util.Enumeration;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.Material;
 import javax.media.j3d.Node;
+import javax.media.j3d.Shape3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 
@@ -36,7 +37,7 @@ public class BallAnimation3D extends Renderable3D
     }
 
     /**
-     * provides the model for the animationObject
+     * provides the model for the animationObject.
      * @param locationGroup
      */
     @Override
@@ -57,24 +58,26 @@ public class BallAnimation3D extends Renderable3D
 
         // Define shininess
         float shininess = 10.0f;
+        
         // Set material
         app.setMaterial(new Material(ambientColor, emissiveColor, diffuseColor, specularColor, shininess));
+        
         // Create a ball
-        Node model = new Sphere(5f * (float) this.scale, app);
+        // TODO: Node model = new Sphere(5f * (float) this.scale, app);
 
         // Node model = new ColorCube(0.4);
 
         // ---------------
         // Put it together
-        locationGroup.addChild(model);
+        // TODO: locationGroup.addChild(model);
     }
 
     /**
-     * updates the animation of this object
+     * updates the animation of this object.
      * @param children the children to update
      */
     @Override
-    protected void update(Enumeration children)
+    protected void update(final Enumeration children)
     {
         // Do nothing
     }

@@ -1,4 +1,4 @@
-package nl.tudelft.simulation.dsol.tutorial.section41;
+package nl.tudelft.simulation.examples.dsol.dess;
 
 import java.rmi.RemoteException;
 
@@ -7,8 +7,10 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
+import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
 
 /**
  * <p>
@@ -38,49 +40,34 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  * @version Aug 15, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Queue41Application
+public class DESSSwingApplication extends DSOLApplication
 {
-    /** */
-    private DEVSSimulator.TimeDouble simulator;
-
-    /** */
-    private MM1Queue41Model model;
-
     /**
-     * Construct a console application.
-     * @throws SimRuntimeException on error
-     * @throws RemoteException on error
-     * @throws NamingException on error
+     * @param title the title
+     * @param panel the panel
      */
-    protected MM1Queue41Application() throws SimRuntimeException, RemoteException, NamingException
+    public DESSSwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
     {
-        this.model = new MM1Queue41Model();
-        this.simulator = new DEVSSimulator.TimeDouble();
-        Replication<Double, Double, SimTimeDouble> replication =
-                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, this.model);
-        this.simulator.initialize(replication, ReplicationMode.TERMINATING);
-        this.simulator.scheduleEventAbs(100.0, this, this, "terminate", null);
-        this.simulator.start();
+        super(title, panel);
     }
 
-    /** stop the simulation. */
-    protected final void terminate()
-    {
-        System.out.println("average queue length = " + this.model.qN.getSampleMean());
-        System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
-        System.out.println("average utilization  = " + this.model.uN.getSampleMean());
-        System.exit(0);
-    }
+    /** */
+    private static final long serialVersionUID = 1L;
 
     /**
-     * @param args can be left empty
+     * @param args arguments, expected to be empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        new MM1Queue41Application();
+        DESSModel model = new DESSModel();
+        DESSSimulator.TimeDouble simulator = new DESSSimulator.TimeDouble(0.1);
+        Replication<Double, Double, SimTimeDouble> replication =
+                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, model);
+        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        new DESSSwingApplication("DESS model", new DESSPanel(model, simulator));
     }
 
 }

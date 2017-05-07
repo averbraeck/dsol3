@@ -1,14 +1,19 @@
-package nl.tudelft.simulation.dsol.tutorial.section41;
+package nl.tudelft.simulation.examples.dsol.animation;
 
+import java.awt.Dimension;
+import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.animation.D2.AnimationPanel;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
+import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
 
 /**
  * <p>
@@ -38,49 +43,38 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  * @version Aug 15, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Queue41Application
+public class BallSwingApplication extends DSOLApplication
 {
-    /** */
-    private DEVSSimulator.TimeDouble simulator;
-
-    /** */
-    private MM1Queue41Model model;
-
     /**
-     * Construct a console application.
-     * @throws SimRuntimeException on error
-     * @throws RemoteException on error
-     * @throws NamingException on error
+     * @param title the title
+     * @param panel the panel
      */
-    protected MM1Queue41Application() throws SimRuntimeException, RemoteException, NamingException
+    public BallSwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
     {
-        this.model = new MM1Queue41Model();
-        this.simulator = new DEVSSimulator.TimeDouble();
-        Replication<Double, Double, SimTimeDouble> replication =
-                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, this.model);
-        this.simulator.initialize(replication, ReplicationMode.TERMINATING);
-        this.simulator.scheduleEventAbs(100.0, this, this, "terminate", null);
-        this.simulator.start();
+        super(title, panel);
     }
 
-    /** stop the simulation. */
-    protected final void terminate()
-    {
-        System.out.println("average queue length = " + this.model.qN.getSampleMean());
-        System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
-        System.out.println("average utilization  = " + this.model.uN.getSampleMean());
-        System.exit(0);
-    }
+    /** */
+    private static final long serialVersionUID = 1L;
 
     /**
-     * @param args can be left empty
+     * @param args arguments, expected to be empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        new MM1Queue41Application();
+        BallModel model = new BallModel();
+        DEVSRealTimeClock.TimeDouble simulator = new DEVSRealTimeClock.TimeDouble(0.01);
+        Replication<Double, Double, SimTimeDouble> replication =
+                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 1000000.0, model);
+        DSOLPanel<Double, Double, SimTimeDouble> panel = new DSOLPanel<>(model, simulator);
+        panel.getTabbedPane().add("animation",
+                new AnimationPanel(new Rectangle2D.Double(-100, -100, 200, 200), new Dimension(200, 200), simulator));
+        panel.getTabbedPane().setSelectedIndex(1);
+        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        new BallSwingApplication("MM1 Queue model", panel);
     }
 
 }

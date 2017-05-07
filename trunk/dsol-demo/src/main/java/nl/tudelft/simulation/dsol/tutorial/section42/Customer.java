@@ -38,7 +38,7 @@ public class Customer implements BuyerInterface
 
     /** the orderBatchSize of an order. */
     private DistDiscrete orderBatchSize = null;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(Customer.class);
 

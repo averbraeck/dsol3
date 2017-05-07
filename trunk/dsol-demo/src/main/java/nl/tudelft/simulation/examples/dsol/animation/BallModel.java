@@ -4,21 +4,20 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.examples.dsol.animation.discrete.Ball;
 
 /**
  * @author peter
  */
-public class BallModel implements DSOLModel
+public class BallModel implements DSOLModel.TimeDouble
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /** the simulator. */
-    private SimulatorInterface.TimeDouble simulator;
+    private DEVSSimulatorInterface.TimeDouble simulator;
 
     /**
      * constructs a new BallModel.
@@ -30,19 +29,18 @@ public class BallModel implements DSOLModel
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface.TimeDouble sim) throws SimRuntimeException, RemoteException
+    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> sim)
+            throws SimRuntimeException, RemoteException
     {
-        this.simulator = sim;
+        this.simulator = (DEVSSimulatorInterface.TimeDouble) sim;
         for (int i = 0; i < 10; i++)
         {
-            new Ball((DEVSSimulatorInterface) sim);
-            new nl.tudelft.simulation.examples.dsol.animation.continuous.Ball((DESSSimulatorInterface) sim);
+            new DiscreteBall(this.simulator);
         }
     }
 
-    /**
-     * @return the simulator
-     */
+    /** {@inheritDoc} */
+    @Override
     public SimulatorInterface.TimeDouble getSimulator()
     {
         return this.simulator;

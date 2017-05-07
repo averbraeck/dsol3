@@ -1,9 +1,8 @@
 package nl.tudelft.simulation.dsol.tutorial.section45;
 
-import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
 import nl.tudelft.simulation.dsol.formalisms.process.Process;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
  * A Boat as presented in Birtwistle, 1979, page 12
@@ -16,13 +15,13 @@ import nl.tudelft.simulation.logger.Logger;
  * @version 1.0 Jan 19, 2004 <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class Boat extends Process implements ResourceRequestorInterface
+public class Boat extends Process<Double, Double, SimTimeDouble>
 {
     /** a reference to protect boats from being garbage collection. */
     protected Boat mySelf = null;
 
     /**
-     * the port to enter
+     * the port to enter.
      */
     private Port port = null;
 
@@ -37,7 +36,7 @@ public class Boat extends Process implements ResourceRequestorInterface
      * @param simulator the simulator to schedule on
      * @param port the port to sail to
      */
-    public Boat(final DEVSSimulator simulator, final Port port)
+    public Boat(final DEVSSimulator<Double, Double, SimTimeDouble> simulator, final Port port)
     {
         super(simulator);
         this.mySelf = this;
@@ -51,7 +50,7 @@ public class Boat extends Process implements ResourceRequestorInterface
     {
         try
         {
-            double startTime = this.simulator.getSimulatorTime();
+            double startTime = this.simulator.getSimulatorTime().get();
             // We seize one jetty
             this.port.getJetties().requestCapacity(1.0, this);
             this.suspendProcess();
@@ -63,7 +62,7 @@ public class Boat extends Process implements ResourceRequestorInterface
             // We may now release two tugs
             this.port.getTugs().releaseCapacity(2.0);
             // Now we unload
-            this.hold(14);
+            this.hold(14.0);
             // Now we claim a tug again
             this.port.getTugs().requestCapacity(1.0, this);
             this.suspendProcess();
@@ -78,7 +77,7 @@ public class Boat extends Process implements ResourceRequestorInterface
             System.out.println(this + " am alive @" + super.simulator.getSimulatorTime());
             System.out.println(this.toString() + "arrived at time=" + startTime + " and left at time="
                     + this.simulator.getSimulatorTime() + ". ProcessTime = "
-                    + (super.simulator.getSimulatorTime() - startTime));
+                    + (super.simulator.getSimulatorTime().get() - startTime));
         }
         catch (Exception exception)
         {

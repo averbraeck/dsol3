@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.tutorial.appendix;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
@@ -18,14 +19,14 @@ public class Port
 {
 
     /**
-     * the jetties working in the harbor
+     * the jetties working in the harbor.
      */
-    private Resource<SimTimeDouble> jetties = null;
+    private Resource<Double, Double, SimTimeDouble> jetties = null;
 
     /**
-     * the tugs working in the port
+     * the tugs working in the port.
      */
-    private Resource<SimTimeDouble> tugs = null;
+    private Resource<Double, Double, SimTimeDouble> tugs = null;
 
     /**
      * constructs a new Port.
@@ -34,14 +35,14 @@ public class Port
     public Port(final DEVSSimulatorInterface.TimeDouble simulator)
     {
         super();
-        this.jetties = new Resource(simulator, "Jetties", 2.0);
-        this.tugs = new Resource(simulator, "Tugs", 3.0);
+        this.jetties = new Resource<>(simulator, "Jetties", 2.0);
+        this.tugs = new Resource<>(simulator, "Tugs", 3.0);
     }
 
     /**
      * @return Returns the jetties.
      */
-    public Resource<SimTimeDouble> getJetties()
+    public Resource<Double, Double, SimTimeDouble> getJetties()
     {
         return this.jetties;
     }
@@ -49,7 +50,7 @@ public class Port
     /**
      * @return Returns the tugs.
      */
-    public Resource<SimTimeDouble> getTugs()
+    public Resource<Double, Double, SimTimeDouble> getTugs()
     {
         return this.tugs;
     }

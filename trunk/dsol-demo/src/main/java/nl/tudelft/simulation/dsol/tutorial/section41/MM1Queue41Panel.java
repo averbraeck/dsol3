@@ -91,7 +91,7 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
             BoxAndWhiskerChart bwqN = new BoxAndWhiskerChart(this.simulator, "q(n) chart");
             bwqN.add(model.qN);
             charts.setCell(bwqN.getSwingPanel(), 1, 1);
-            
+
             charts.setCell(model.dN.getSwingPanel(), 0, 2);
             charts.setCell(model.qN.getSwingPanel(), 1, 2);
             charts.setCell(model.uN.getSwingPanel(), 2, 2);

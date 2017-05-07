@@ -3,13 +3,14 @@ package nl.tudelft.simulation.dsol.tutorial.section44;
 import java.awt.geom.Point2D;
 import java.rmi.RemoteException;
 
+import javax.naming.NamingException;
+
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.logger.Logger;
 
 /**
- * An extension of Ball
+ * An extension of Ball.
  * @author peter
  */
 public class ContinuousBall extends Ball
@@ -25,8 +26,9 @@ public class ContinuousBall extends Ball
      * constructs a new Ball.
      * @param simulator the simulator
      * @throws RemoteException on network exception
+     * @throws NamingException on animation error
      */
-    public ContinuousBall(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
+    public ContinuousBall(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException, NamingException
     {
         super();
         this.simulator = simulator;
@@ -39,7 +41,7 @@ public class ContinuousBall extends Ball
         }
         catch (RemoteException exception)
         {
-            logger.warn("Ball", exception);
+            exception.printStackTrace();
         }
     }
 
@@ -47,7 +49,7 @@ public class ContinuousBall extends Ball
     @Override
     public DirectedPoint getLocation() throws RemoteException
     {
-        double distance = this.positioner.y(this.simulator.getSimulatorTime())[0];
+        double distance = this.positioner.y(this.simulator.getSimulatorTime().get())[0];
         double x = Math.cos(this.rotZ) * distance + this.origin.x;
         double y = Math.sin(this.rotZ) * distance + this.origin.y;
         if (Math.abs(x - this.origin.x) > Math.abs(this.destination.x - this.origin.x)

@@ -29,7 +29,7 @@ public class Warehouse implements SellerInterface
 
     /** the delivery or leadTime. */
     private DistContinuous leadTime = null;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(Warehouse.class);
 

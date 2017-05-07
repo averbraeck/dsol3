@@ -82,7 +82,7 @@ public class MM1Queue implements DSOLModel.TimeDouble
 
         // The queue, the resource and the release
         double capacity = new Double(properties.getProperty("resource.capacity")).doubleValue();
-        Resource<SimTimeDouble> resource = new Resource<SimTimeDouble>(devsSimulator, capacity);
+        Resource<Double, Double, SimTimeDouble> resource = new Resource<>(devsSimulator, capacity);
 
         // created a resource
         StationInterface queue = new Seize(devsSimulator, resource);

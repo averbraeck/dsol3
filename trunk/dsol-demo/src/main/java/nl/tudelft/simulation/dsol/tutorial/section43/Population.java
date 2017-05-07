@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.tutorial.section43;
 
 import java.rmi.RemoteException;
-import java.util.Properties;
 
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -39,21 +38,18 @@ public class Population extends DifferentialEquation<Double, Double, SimTimeDoub
     /**
      * constructs a new Population.
      * @param simulator the simulator
-     * @param timeStep the time step
      * @throws RemoteException on network exception
      */
-    public Population(final DESSSimulatorInterface.TimeDouble simulator, final double timeStep) throws RemoteException
+    public Population(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
-        super(simulator, timeStep);
-        Properties properties = simulator.getReplication().getTreatment().getProperties();
-
-        double predator = new Double(properties.getProperty("predator.initialValue")).doubleValue();
-        double prey = new Double(properties.getProperty("prey.initialValue")).doubleValue();
+        super(simulator, simulator.getTimeStep());
+        double predator = 10;
+        double prey = 20;
         this.initialize(0.0, new double[]{predator, prey});
-        this.a = new Double(properties.getProperty("a")).doubleValue();
-        this.b = new Double(properties.getProperty("b")).doubleValue();
-        this.c = new Double(properties.getProperty("c")).doubleValue();
-        this.d = new Double(properties.getProperty("d")).doubleValue();
+        this.a = 1;
+        this.b = 0.1;
+        this.c = 1;
+        this.d = 0.2;
     }
 
     /** {@inheritDoc} */

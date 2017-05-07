@@ -28,6 +28,9 @@ public class PredatorPrey implements DSOLModel.TimeDouble
     /** the simulator. */
     private SimulatorInterface.TimeDouble simulator;
 
+    /** the chart. */
+    private XYChart chart;
+
     /**
      * constructs a new Life.
      */
@@ -38,25 +41,26 @@ public class PredatorPrey implements DSOLModel.TimeDouble
 
     /** {@inheritDoc} */
     @Override
-    public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator) throws RemoteException
+    public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
+            throws RemoteException
     {
         this.simulator = (SimulatorInterface.TimeDouble) pSimulator;
         DESSSimulatorInterface.TimeDouble dessSimulator = (DESSSimulatorInterface.TimeDouble) pSimulator;
 
         // Prey and Predator definitions
-        Population population = new Population(dessSimulator, 0.1);
+        Population population = new Population(dessSimulator);
 
-        Persistent<Double, Double, SimTimeDouble> preyPopulation =
-                new Persistent<>("prey population", dessSimulator, population,
-                        DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
+        Persistent<Double, Double, SimTimeDouble> preyPopulation = new Persistent<>("prey population", dessSimulator,
+                population, DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
+        preyPopulation.initialize();
 
-        Persistent<Double, Double, SimTimeDouble> predatorPopulation =
-                new Persistent<>("predator population", dessSimulator, population,
-                        DifferentialEquationInterface.VALUE_CHANGED_EVENT[1]);
+        Persistent<Double, Double, SimTimeDouble> predatorPopulation = new Persistent<>("predator population",
+                dessSimulator, population, DifferentialEquationInterface.VALUE_CHANGED_EVENT[1]);
+        predatorPopulation.initialize();
 
-        XYChart chart = new XYChart(dessSimulator, "population");
-        chart.add(preyPopulation);
-        chart.add(predatorPopulation);
+        this.chart = new XYChart(dessSimulator, "population");
+        this.chart.add(preyPopulation);
+        this.chart.add(predatorPopulation);
     }
 
     /** {@inheritDoc} */
@@ -65,4 +69,13 @@ public class PredatorPrey implements DSOLModel.TimeDouble
     {
         return this.simulator;
     }
+
+    /**
+     * @return chart
+     */
+    public final XYChart getChart()
+    {
+        return this.chart;
+    }
+
 }

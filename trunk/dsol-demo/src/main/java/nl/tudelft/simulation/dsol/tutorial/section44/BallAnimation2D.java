@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
+import java.rmi.RemoteException;
+
+import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2D;
@@ -21,7 +24,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * @version 1.2 Apr 16, 2004
  * @since 1.5
  */
-public class BallAnimation2D extends Renderable2D
+public class BallAnimation2D extends Renderable2D<Locatable>
 {
     /** the color of the ballAnimation. */
     private Color color = Color.ORANGE;
@@ -30,8 +33,11 @@ public class BallAnimation2D extends Renderable2D
      * constructs a new BallAnimation2D.
      * @param source the source
      * @param simulator the simulator
+     * @throws NamingException on animation error
+     * @throws RemoteException on animation error
      */
     public BallAnimation2D(final Locatable source, final SimulatorInterface.TimeDouble simulator)
+            throws RemoteException, NamingException
     {
         super(source, simulator);
     }
