@@ -121,6 +121,37 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
     }
 
     /**
+     * constructs a new GisRenderable2D based on an existing Map.
+     * @param simulator the simulator.
+     * @param map the map to use.
+     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
+     * @param z the z-value to use
+     */
+    public GisRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final MapInterface map,
+            final CoordinateTransform coordinateTransform, final double z)
+    {
+        super();
+        if (!(simulator instanceof AnimatorInterface))
+        {
+            return;
+        }
+        try
+        {
+            this.map = map;
+            this.location =
+                    new DirectedPoint(new CartesianPoint(this.extent.getCenterX(), this.extent.getCenterY(), z));
+            this.bounds = new BoundingBox(this.extent.getWidth(), this.extent.getHeight(), 0.0);
+            simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
+                    this.map.getExtent());
+            this.bind2Context(simulator);
+        }
+        catch (Exception exception)
+        {
+            logger.warn("<init>", exception);
+        }
+    }
+
+    /**
      * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding
      * the code in the constructor is related to the RFE submitted by van Houten that in specific distributed context,
      * such binding must be overwritten.
