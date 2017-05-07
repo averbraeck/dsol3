@@ -38,7 +38,7 @@ public class BallAnimation3D extends Renderable3D
 
     /**
      * provides the model for the animationObject.
-     * @param locationGroup
+     * @param locationGroup the location group
      */
     @Override
     public void provideModel(final TransformGroup locationGroup)
