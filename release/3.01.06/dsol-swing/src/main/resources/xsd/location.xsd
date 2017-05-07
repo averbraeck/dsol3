@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/2001/XMLSchema 
+                        file:/nl/tudelft/simulation/xml/XMLSchema.xsd"
+    xmlns:location="http://www.simulation.tudelft.nl/location"
+    targetNamespace="http://www.simulation.tudelft.nl/location">
+
+    <!-- ###############################    TYPE DEFINITION     ############################# -->
+		
+    <!-- Location definition -->
+    <xsd:complexType name="location" mixed="false">
+        <xsd:attribute name="x" type="xsd:double" use="required"/>
+        <xsd:attribute name="y" type="xsd:double" use="required"/>
+        <xsd:attribute name="z" type="xsd:double"/>
+		<xsd:attribute name="phi" type="xsd:double"/>
+		<xsd:attribute name="rho" type="xsd:double"/>
+		<xsd:attribute name="theta" type="xsd:double"/>
+    </xsd:complexType>
+
+    <!-- the collection definition -->
+    <xsd:complexType name="locationsType" mixed="false">
+        <xsd:sequence>
+            <xsd:element name="location" maxOccurs="unbounded" 
+                minOccurs="0" type="location:location"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <!-- the root element -->
+     <xsd:element name="locations" type="location:locationsType"/>
+
+</xsd:schema>
