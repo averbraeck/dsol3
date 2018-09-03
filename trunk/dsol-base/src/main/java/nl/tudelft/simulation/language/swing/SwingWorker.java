@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
  * http://java.sun.com/docs/books/tutorial/uiswing/misc/threads.html Note that the API changed slightly in the 3rd
  * version: You must now invoke start() on the SwingWorker after creating it.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

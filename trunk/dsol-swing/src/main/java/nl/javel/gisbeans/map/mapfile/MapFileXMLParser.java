@@ -43,7 +43,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Validation is set with the system property nl.javel.gisbeans.map.mapfile.validate =[true|false] and the xmlschema is
  * set with the systemproperty nl.javel.gisbeans.map.mapfile.schema = [file]
  * <p>
- * (c) copyright 2002-2004 <a href="http://www.javel.nl">Javel b.v. </a>, the Netherlands.
+ * copyright (c) 2002-2018  <a href="http://www.javel.nl">Javel b.v. </a>, the Netherlands.
  * <p>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.

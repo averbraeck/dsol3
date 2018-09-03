@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 /**
  * Tests the ModulusFilter.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands.
  * <p>
  * See for project information <a

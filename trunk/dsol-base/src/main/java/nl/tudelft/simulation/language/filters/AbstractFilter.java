@@ -4,7 +4,7 @@ package nl.tudelft.simulation.language.filters;
  * The abstract filter forms the abstract class for all filters. The filter method should be implemented by all
  * subclasses. This filter method should have the same semantics as the accept(inverted=false) method.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

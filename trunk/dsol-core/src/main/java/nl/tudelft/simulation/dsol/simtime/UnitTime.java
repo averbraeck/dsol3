@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Copyright (c) 2002-2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
@@ -77,7 +77,7 @@ public abstract class UnitTime<N extends Number, T extends UnitTime<N, T>> exten
      * @param timeUnit the unit, e.g. HOUR.
      * @return the equivalent of this time in milliseconds, using the required umber type.
      */
-    protected abstract N convertToMsec(final N time, final TimeUnit timeUnit);
+    protected abstract N convertToMsec(N time, TimeUnit timeUnit);
 
     /**
      * @return the time in units.

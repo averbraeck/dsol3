@@ -21,7 +21,7 @@ import se.pitch.prti.LogicalTimeIntervalDouble;
  * Discrete Event Simulation can be found in "Theory of Modeling and Simulation"
  * by Bernard Zeigler et. al.
  * <p>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft
  * University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">
  * www.simulation.tudelft.nl </a> <br>

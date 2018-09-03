@@ -11,7 +11,14 @@ import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
- * @author peter
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved.
+ * <p>
+ * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
+ * <p>
+ * @version Aug 15, 2014 <br>
+ * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
 {

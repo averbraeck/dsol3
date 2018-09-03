@@ -7,7 +7,7 @@ import se.pitch.prti.RTI;
 /**
  * The specifies
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft
+ * copyright (c) 2004-2018 <a href="http://www.simulation.tudelft.nl/dsol/">Delft
  * University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl/dsol/">
  * www.simulation.tudelft.nl/dsol </a> <br>

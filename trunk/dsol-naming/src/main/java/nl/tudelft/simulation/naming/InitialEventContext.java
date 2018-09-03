@@ -17,10 +17,11 @@ import javax.naming.spi.NamingManager;
 import com.sun.naming.internal.ResourceManager;
 
 /**
- * InitialEventContext class. This class is the starting context for performing naming operations. Copyright (c) 2009
- * Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See for project
- * information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>. Redistribution and use in
- * source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * InitialEventContext class. This class is the starting context for performing naming operations. <br>
+ * Copyright (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ * following conditions are met:
  * <ul>
  * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
  * disclaimer.</li>

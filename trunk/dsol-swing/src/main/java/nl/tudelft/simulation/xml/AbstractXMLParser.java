@@ -23,7 +23,7 @@ import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * <br>
- * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * (c) 2002-2018-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
@@ -117,7 +117,7 @@ public abstract class AbstractXMLParser
      * The ValidHandler ErrorHandler gives a more extensive explanation about errors that occur during parsing. If
      * needed, this inner class can be overridden to provide other forms of error handling. <br>
      * <br>
-     * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+     * (c) 2002-2018-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
      * Netherlands. <br>
      * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
      * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
@@ -166,7 +166,7 @@ public abstract class AbstractXMLParser
      * The relative path resolver takes care of resolving xsd-files or xml-files, that are in the current classpath.
      * Example use is the <code>include</code> tag in the schema file, that can now point to a relative path. <br>
      * <br>
-     * (c) copyright 2002-2005-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+     * (c) 2002-2018-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
      * Netherlands. <br>
      * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
      * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no

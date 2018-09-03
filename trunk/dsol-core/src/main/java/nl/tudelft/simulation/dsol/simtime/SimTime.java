@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Copyright (c) 2002-2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
@@ -56,13 +56,13 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * add a relative time to this simtime.
      * @param relativeTime the time to add.
      */
-    public abstract void add(final R relativeTime);
+    public abstract void add(R relativeTime);
 
     /**
      * subtract a simtime from this simtime.
      * @param relativeTime the simtime to subtract.
      */
-    public abstract void subtract(final R relativeTime);
+    public abstract void subtract(R relativeTime);
 
     /**
      * add a number of simtimes.
@@ -104,7 +104,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * set the value of the SimTime.
      * @param absoluteTime the value to set the SimTime to.
      */
-    public abstract void set(final A absoluteTime);
+    public abstract void set(A absoluteTime);
 
     /**
      * @return the value of the SimTime.
@@ -140,7 +140,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * @param simTime the time to subtract.
      * @return the relative time difference between this SimTime object and the provided absoluteTime argument.
      */
-    public abstract R minus(final T simTime);
+    public abstract R minus(T simTime);
 
     /**
      * @param simTime the time to compare to

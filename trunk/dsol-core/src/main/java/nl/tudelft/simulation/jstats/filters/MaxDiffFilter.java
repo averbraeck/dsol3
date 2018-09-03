@@ -5,7 +5,7 @@ import nl.tudelft.simulation.language.filters.AbstractFilter;
 /**
  * The MaxDiffFilter accepts entries if their value is larger than the percentage of the last received Value.
  * <p>
- * (c) copyright 2004 <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
+ * copyright (c) 2004-2018 <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
  * Netherlands.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
