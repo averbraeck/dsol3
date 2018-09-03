@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 /**
  * AtomicModelInterface determines the contract that an AtomicModel has to the outside world.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

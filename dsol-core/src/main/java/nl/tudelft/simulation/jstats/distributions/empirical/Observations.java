@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.SortedMap;
 
 /**
- * The histogram specifies a histogram chart for the DSOL framework. (c) copyright 2004
+ * The histogram specifies a histogram chart for the DSOL framework. Copyright (c) 2004-2018
  * <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
  * <br>

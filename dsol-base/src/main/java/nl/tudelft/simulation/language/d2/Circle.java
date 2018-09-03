@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
  * The Circle class presents a number of mathematical utility functions for circles. For now, the class only implements
  * static helper methods. No instances of the class should be made.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

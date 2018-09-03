@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
  * A directional line with normal vector. Based on the BSPLine-example from the book Developing games in Java from David
  * Brackeen. DirectionalLine.java
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

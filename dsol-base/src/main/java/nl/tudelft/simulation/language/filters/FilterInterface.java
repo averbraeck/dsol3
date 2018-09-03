@@ -6,7 +6,7 @@ import java.io.Serializable;
  * The FilterInterface is a general interface for all filters in DSOL. Filters can be based on xY combinations, class
  * information ,etc. etc. The API of implementing filters will explain what it expects as input.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

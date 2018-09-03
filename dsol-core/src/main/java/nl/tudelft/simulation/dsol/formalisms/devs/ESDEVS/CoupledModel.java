@@ -16,7 +16,7 @@ import nl.tudelft.simulation.event.ref.Reference;
  * CoupledModel class. This class implements the classic parallel DEVS coupled model with ports conform Zeigler et al.
  * (2000), section 4.3.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

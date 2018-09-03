@@ -11,7 +11,7 @@ import nl.tudelft.simulation.jstats.streams.Java2Random;
 
 /**
  * A TestExperiment <br>
- * (c) copyright 2002-2005 <a href="http://www.simulation.tudelft.nl">Delft
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft
  * University of Technology </a>, the Netherlands. <br>
  * See for project information <a
  * href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>

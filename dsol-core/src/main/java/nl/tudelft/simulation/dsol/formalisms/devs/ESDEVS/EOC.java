@@ -4,7 +4,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
  * EOC class. EOC stands for External Output Coupling, which is a coupling between a component within a coupled model
  * towards the outside of that coupled model. The definition can be found in Zeigler et al. (2000), p. 86-87.
  * <p>
- * Copyright (c) 2002-2009 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

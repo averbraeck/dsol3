@@ -35,7 +35,7 @@ import nl.tudelft.simulation.language.reflection.ClassUtil;
  * message only occurs if the exception condition is met. All methods have a version where the first parameter is
  * returned. Thereby, the Throw can be used as part of a <b>super</b>(...) call in a constructor.
  * <p>
- * Copyright (c) 2013-2016 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights
+ * Copyright (c) 2013-2018  Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights
  * reserved. <br>
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>.
  * </p>

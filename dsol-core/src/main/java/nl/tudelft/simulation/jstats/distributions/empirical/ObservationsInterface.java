@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * The observations interface is an interface for empirical observations to be used in JStats.
  * <p>
- * (c) copyright 2002-2004 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * copyright (c) 2002-2018  <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
@@ -19,13 +19,13 @@ public interface ObservationsInterface
 {
     /**
      * the OBSERVATION attribute used to define whether operations should be applied on the OBSERVATION or on the
-     * CUMPROBABILITY
+     * CUMPROBABILITY.
      */
     byte OBSERVATION = 0;
 
     /**
      * the CUMPROBABILITY attribute used to define whether operations should be applied on the OBSERVATION or on the
-     * CUMPROBABILITY
+     * CUMPROBABILITY.
      */
     byte CUMPROBABILITY = 1;
 
