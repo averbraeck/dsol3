@@ -60,7 +60,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     /** the URL where we can find this experimentalFrame. */
     private URL url = null;
 
-    /** the logger./ */
+    /** the logger. */
     private static Logger logger = LogManager.getLogger(ExperimentalFrame.class);
 
     /**
