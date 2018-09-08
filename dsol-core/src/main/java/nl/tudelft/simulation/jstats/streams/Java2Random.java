@@ -2,8 +2,8 @@ package nl.tudelft.simulation.jstats.streams;
 
 import java.util.Random;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.XStreamException;
+import nl.tudelft.simulation.language.DSOLException;
+import nl.tudelft.simulation.language.reflection.StateSaver;
 
 /**
  * The Java2Random is an extention of the <code>java.util.Random</code> class which implements the StreamInterface.
@@ -79,12 +79,11 @@ public class Java2Random extends Random implements StreamInterface
     @Override
     public final Object saveState() throws StreamException
     {
-        XStream xstream = new XStream();
         try
         {
-            return xstream.toXML(this);
+            return StateSaver.saveState(this);
         }
-        catch (XStreamException exception)
+        catch (DSOLException exception)
         {
             throw new StreamException(exception);
         }
@@ -94,12 +93,11 @@ public class Java2Random extends Random implements StreamInterface
     @Override
     public final void restoreState(final Object state) throws StreamException
     {
-        XStream xstream = new XStream();
         try
         {
-            xstream.fromXML((String) state, this);
+            StateSaver.restoreState(this, state);
         }
-        catch (XStreamException exception)
+        catch (DSOLException exception)
         {
             throw new StreamException(exception);
         }
