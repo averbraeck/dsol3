@@ -86,7 +86,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /** are we already subscribed to the END_OF_REPLICATION_EVENT. */
     private boolean subscribed = false;
 
-    /** the logger./ */
+    /** the logger. */
     private static Logger logger = LogManager.getLogger(Experiment.class);
 
     /**

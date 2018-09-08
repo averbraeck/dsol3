@@ -27,8 +27,7 @@ import nl.tudelft.simulation.event.EventType;
  * information on Discrete Event Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.
  * al.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -83,8 +82,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventRel(R relativeDelay, short priority, Object source, Object target, String method, Object[] args)
-            throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventRel(R relativeDelay, short priority, Object source, Object target, String method,
+            Object[] args) throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a methodCall at a relative duration. The executionTime is thus
@@ -113,8 +112,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventAbs(T absoluteTime, short priority, Object source, Object target, String method, Object[] args)
-            throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventAbs(T absoluteTime, short priority, Object source, Object target, String method,
+            Object[] args) throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a methodCall at an absolute time.
@@ -142,8 +141,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventAbs(A absoluteTime, short priority, Object source, Object target, String method, Object[] args)
-            throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventAbs(A absoluteTime, short priority, Object source, Object target, String method,
+            Object[] args) throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a methodCall at an absolute time.
@@ -208,7 +207,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventRel(R relativeDelay, Executable executable) throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventRel(R relativeDelay, Executable executable)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
@@ -230,7 +230,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventAbs(A absoluteTime, Executable executable) throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventAbs(A absoluteTime, Executable executable)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
@@ -252,7 +253,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventAbs(T absoluteTime, Executable executable) throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventAbs(T absoluteTime, Executable executable)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a lambda expression immediately.
@@ -262,7 +264,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventNow(short priority, Executable executable) throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventNow(short priority, Executable executable)
+            throws RemoteException, SimRuntimeException;
 
     /**
      * schedules a lambda expression immediately.
@@ -287,7 +290,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      * @throws RemoteException on network failure
      */
-    void runUpTo(final A when) throws SimRuntimeException, RemoteException;
+    void runUpTo(A when) throws SimRuntimeException, RemoteException;
 
     /**
      * Runs the simulator up to a certain time; events at that time will not yet be executed.
@@ -295,7 +298,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      * @throws RemoteException on network failure
      */
-    void runUpToAndIncluding(final A when) throws SimRuntimeException, RemoteException;
+    void runUpToAndIncluding(A when) throws SimRuntimeException, RemoteException;
 
     /** @return pauseOnError whether we pause on an error or not. */
     boolean isPauseOnError();
