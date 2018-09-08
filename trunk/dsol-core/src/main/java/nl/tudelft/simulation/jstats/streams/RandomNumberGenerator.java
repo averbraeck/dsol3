@@ -1,13 +1,13 @@
 package nl.tudelft.simulation.jstats.streams;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.XStreamException;
+import nl.tudelft.simulation.language.DSOLException;
+import nl.tudelft.simulation.language.reflection.StateSaver;
 
 /**
  * The RandomNumberGenerator class provides an abstract for all pseudo random number generators.
  * <p>
- * copyright (c) 2004-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * copyright (c) 2004-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -58,7 +58,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * @param bits the number of bits used
      * @return the next value.
      */
-    protected abstract long next(final int bits);
+    protected abstract long next(int bits);
 
     /**
      * Returns the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number
@@ -232,12 +232,11 @@ public abstract class RandomNumberGenerator implements StreamInterface
     @Override
     public final Object saveState() throws StreamException
     {
-        XStream xstream = new XStream();
         try
         {
-            return xstream.toXML(this);
+            return StateSaver.saveState(this);
         }
-        catch (XStreamException exception)
+        catch (DSOLException exception)
         {
             throw new StreamException(exception);
         }
@@ -247,14 +246,14 @@ public abstract class RandomNumberGenerator implements StreamInterface
     @Override
     public final void restoreState(final Object state) throws StreamException
     {
-        XStream xstream = new XStream();
         try
         {
-            xstream.fromXML((String) state, this);
+            StateSaver.restoreState(this, state);
         }
-        catch (XStreamException exception)
+        catch (DSOLException exception)
         {
             throw new StreamException(exception);
         }
     }
+
 }
