@@ -215,7 +215,6 @@
     </module>
     <module name="LeftCurly">
       <property name="option" value="nl" />
-      <property name="maxLineLength" value="128" />
       <property name="severity" value="warning" />
     </module>
     <module name="NeedBraces">
@@ -255,9 +254,6 @@
       <property name="severity" value="ignore" />
     </module>
     <module name="MissingSwitchDefault">
-      <property name="severity" value="warning" />
-    </module>
-    <module name="RedundantThrows">
       <property name="severity" value="warning" />
     </module>
     <module name="SimplifyBooleanExpression">
