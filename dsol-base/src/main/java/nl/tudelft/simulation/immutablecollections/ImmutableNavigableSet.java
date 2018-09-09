@@ -26,6 +26,7 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
      * Returns a modifiable copy of this immutable set.
      * @return a modifiable copy of this immutable set.
      */
+    @Override
     NavigableSet<E> toSet();
 
     /**
@@ -145,12 +146,14 @@ public interface ImmutableNavigableSet<E> extends ImmutableSortedSet<E>
      * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
-    boolean equals(final Object obj);
+    @Override
+    boolean equals(Object obj);
 
     /**
      * Force to redefine hashCode for the implementations of immutable collection classes. 
      * @return the calculated hashCode
      */
+    @Override
     int hashCode();
 
 }

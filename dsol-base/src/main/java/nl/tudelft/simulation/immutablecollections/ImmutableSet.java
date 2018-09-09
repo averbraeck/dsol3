@@ -28,11 +28,13 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
      * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
-    boolean equals(final Object obj);
+    @Override
+    boolean equals(Object obj);
 
     /**
      * Force to redefine hashCode for the implementations of immutable collection classes. 
      * @return the calculated hashCode
      */
+    @Override
     int hashCode();
 }

@@ -25,6 +25,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Returns a modifiable copy of this immutable map.
      * @return a modifiable copy of this immutable map.
      */
+    @Override
     SortedMap<K, V> toMap();
 
     /**
@@ -113,6 +114,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * Return an ImmutableSortedSet view of the keys contained in this immutable map.
      * @return an ImmutableSortedSet view of the keys contained in this immutable map
      */
+    @Override
     ImmutableSortedSet<K> keySet();
     
     /**
@@ -120,12 +122,14 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
-    boolean equals(final Object obj);
+    @Override
+    boolean equals(Object obj);
 
     /**
      * Force to redefine hashCode for the implementations of immutable collection classes. 
      * @return the calculated hashCode
      */
+    @Override
     int hashCode();
 
 }

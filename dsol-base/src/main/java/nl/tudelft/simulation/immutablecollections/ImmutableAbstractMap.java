@@ -7,11 +7,12 @@ import nl.tudelft.simulation.language.Throw;
 /**
  * An abstract base class for an immutable wrapper for a Map.
  * <p>
- * Copyright (c) 2013-2018  Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2013-2018 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights
+ * reserved. <br>
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>.
  * </p>
- * $LastChangedDate: 2015-07-24 02:58:59 +0200 (Fri, 24 Jul 2015) $, @version $Revision: 1147 $, by $Author: averbraeck $,
- * initial version May 7, 2016 <br>
+ * $LastChangedDate: 2015-07-24 02:58:59 +0200 (Fri, 24 Jul 2015) $, @version $Revision: 1147 $, by $Author: averbraeck
+ * $, initial version May 7, 2016 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  * @author <a href="http://www.transport.citg.tudelft.nl">Wouter Schakel</a>
@@ -27,18 +28,20 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
     private final Map<K, V> map;
 
     /** COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection. */
-    private final Immutable copyOrWrap;
+    protected final Immutable copyOrWrap;
 
     /**
      * Construct an abstract immutable map. Make sure that the argument is a safe copy of the map of the right type!
-     * @param map a safe copy of the map to use as the immutable map
-     * @param copy indicate whether the immutable is a copy or a wrap
+     * Copying does not take place in the Abstract class!
+     * @param map a safe copy of the map to use for the immutable map
+     * @param copyOrWrap indicate whether the immutable is a copy or a wrap
      */
-    protected ImmutableAbstractMap(final Map<K, V> map, final boolean copy)
+    protected ImmutableAbstractMap(final Map<K, V> map, final Immutable copyOrWrap)
     {
+        Throw.whenNull(copyOrWrap, "the copyOrWrap argument should be Immutable.COPY or Immutable.WRAP");
+        this.copyOrWrap = copyOrWrap;
         Throw.whenNull(map, "the map argument cannot be null");
         this.map = map;
-        this.copyOrWrap = copy ? Immutable.COPY : Immutable.WRAP;
     }
 
     /**
@@ -51,6 +54,7 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
      *     return (HashMap&lt;E&gt;) super.getMap();
      * }
      * </pre>
+     * 
      * @return the map of the right type for use a subclass
      */
     @SuppressWarnings("checkstyle:designforextension")
@@ -105,7 +109,7 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
     @Override
     public final boolean isWrap()
     {
-        return this.copyOrWrap == Immutable.WRAP;
+        return this.copyOrWrap.isWrap();
     }
 
     /** {@inheritDoc} */
@@ -121,7 +125,7 @@ public abstract class ImmutableAbstractMap<K, V> implements ImmutableMap<K, V>
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings({ "checkstyle:designforextension", "checkstyle:needbraces" })
+    @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
     public boolean equals(final Object obj)
     {
         if (this == obj)

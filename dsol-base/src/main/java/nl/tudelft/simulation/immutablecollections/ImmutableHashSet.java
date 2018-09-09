@@ -4,16 +4,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import nl.tudelft.simulation.language.Throw;
-
 /**
  * An immutable wrapper for a HashSet.
  * <p>
- * Copyright (c) 2013-2018  Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2013-2018 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights
+ * reserved. <br>
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>.
  * </p>
- * $LastChangedDate: 2015-07-24 02:58:59 +0200 (Fri, 24 Jul 2015) $, @version $Revision: 1147 $, by $Author: averbraeck $,
- * initial version May 7, 2016 <br>
+ * $LastChangedDate: 2015-07-24 02:58:59 +0200 (Fri, 24 Jul 2015) $, @version $Revision: 1147 $, by $Author: averbraeck
+ * $, initial version May 7, 2016 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  * @author <a href="http://www.transport.citg.tudelft.nl">Wouter Schakel</a>
@@ -25,61 +24,53 @@ public class ImmutableHashSet<E> extends ImmutableAbstractSet<E>
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param collection the collection to use as the immutable set.
+     * @param collection the collection to use for the immutable set.
      */
-    public ImmutableHashSet(final Collection<E> collection)
+    public ImmutableHashSet(final Collection<? extends E> collection)
     {
-        this(collection, Immutable.COPY);
+        super(new HashSet<E>(collection), Immutable.COPY);
     }
 
     /**
-     * @param collection the collection to use as the immutable set.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param set the set to use for the immutable set.
+     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
+     *            collection
      */
-    public ImmutableHashSet(final Collection<E> collection, final Immutable copyOrWrap)
+    public ImmutableHashSet(final Set<E> set, final Immutable copyOrWrap)
     {
-        super(copyOrWrap == Immutable.COPY ? new HashSet<E>(collection) : collection, copyOrWrap == Immutable.COPY);
-        Throw.whenNull(copyOrWrap, "the copyOrWrap argument should be Immutable.COPY or Immutable.WRAP");
+        super(copyOrWrap == Immutable.COPY ? new HashSet<E>(set) : set, copyOrWrap);
     }
 
     /**
-     * @param collection the collection to use as the immutable set.
-     * @param copy boolean; indicates whether the immutable is a copy or a wrap
+     * @param collection the collection to use for the immutable set.
      */
-    protected ImmutableHashSet(final Collection<E> collection, final boolean copy)
+    public ImmutableHashSet(final ImmutableAbstractCollection<? extends E> collection)
     {
-        super(collection, copy);
+        super(new HashSet<E>(collection.getCollection()), Immutable.COPY);
     }
 
     /**
-     * @param collection the collection to use as the immutable set.
+     * @param set the set to use for the immutable set.
+     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
+     *            collection
      */
-    public ImmutableHashSet(final ImmutableCollection<E> collection)
+    public ImmutableHashSet(final ImmutableAbstractSet<E> set, final Immutable copyOrWrap)
     {
-        this(collection, Immutable.COPY);
-    }
-
-    /**
-     * @param collection the collection to use as the immutable set.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
-     */
-    public ImmutableHashSet(final ImmutableCollection<E> collection, final Immutable copyOrWrap)
-    {
-        this(collection.toCollection(), copyOrWrap);
+        super(copyOrWrap == Immutable.COPY ? new HashSet<E>(set.getCollection()) : set.getCollection(), copyOrWrap);
     }
 
     /** {@inheritDoc} */
     @Override
-    protected final HashSet<E> getSet()
+    protected Set<E> getCollection()
     {
-        return (HashSet<E>) super.getSet();
+        return super.getCollection();
     }
 
     /** {@inheritDoc} */
     @Override
     public final Set<E> toSet()
     {
-        return new HashSet<E>(getSet());
+        return new HashSet<E>(getCollection());
     }
 
     /** {@inheritDoc} */
@@ -87,7 +78,7 @@ public class ImmutableHashSet<E> extends ImmutableAbstractSet<E>
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        Set<E> set = getSet();
+        Set<E> set = getCollection();
         if (null == set)
         {
             return "ImmutableHashSet []";

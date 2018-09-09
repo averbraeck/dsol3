@@ -22,41 +22,37 @@
     <sonar.scm.disabled>true</sonar.scm.disabled>
 
     <dsol-version>${project.version}</dsol-version>
-    <junit.version>4.11</junit.version>
-    <log4j.version>2.7</log4j.version>
+    <junit.version>4.12</junit.version>
+    <log4j.version>2.11.1</log4j.version>
     <java3d.version>1.5.1</java3d.version>
-    <jcommon.version>1.0.21</jcommon.version>
-    <jfreechart.version>1.0.17</jfreechart.version>
+    <jcommon.version>1.0.24</jcommon.version>
+    <jfreechart.version>1.5.0</jfreechart.version>
     <colt.version>1.2.0</colt.version>
-    <xerces.version>2.11.0</xerces.version>
-    <jdom.version>2.0.5</jdom.version>
-    <xstream.version>1.4.8</xstream.version>
-    <djunits.version>1.00.01</djunits.version>
+    <xerces.version>2.12.0</xerces.version>
+    <jdom.version>2.0.6</jdom.version>
+    <xstream.version>1.4.10</xstream.version>
+    <djunits.version>3.00.07</djunits.version>
 
-    <maven.compiler.version>3.1</maven.compiler.version>
-    <maven.site.version>3.4</maven.site.version>
-    <maven.deploy.version>2.8.1</maven.deploy.version>
-    <maven.install.version>2.5.1</maven.install.version>
-    <maven.source.version>2.2.1</maven.source.version>
-    <maven.javadoc.version>2.9.1</maven.javadoc.version>
-    <maven.checkstyle.version>2.15</maven.checkstyle.version>
-    <maven.surefire.version>2.17</maven.surefire.version>
-    <maven.surefire-report.version>2.17</maven.surefire-report.version>
-    <maven.failsafe.version>2.17</maven.failsafe.version>
-    <maven.jacoco.version>0.7.1.201405082137</maven.jacoco.version>
-    <maven.findbugs.version>2.5.4</maven.findbugs.version>
-    <maven.project-info-reports.version>2.7</maven.project-info-reports.version>
-    <maven.jxr.version>2.4</maven.jxr.version>
+    <maven.compiler.version>3.8.0</maven.compiler.version>
+    <maven.site.version>3.7.1</maven.site.version>
+    <maven.deploy.version>2.8.2</maven.deploy.version>
+    <maven.install.version>2.5.2</maven.install.version>
+    <maven.source.version>3.0.1</maven.source.version>
+    <maven.javadoc.version>3.0.1</maven.javadoc.version>
+    <maven.checkstyle.version>3.0.0</maven.checkstyle.version>
+    <maven.surefire.version>2.22.0</maven.surefire.version>
+    <maven.surefire-report.version>2.22.0</maven.surefire-report.version>
+    <maven.failsafe.version>2.22.0</maven.failsafe.version>
+    <maven.jacoco.version>0.8.2</maven.jacoco.version>
+    <maven.project-info-reports.version>3.0.0</maven.project-info-reports.version>
+    <maven.jxr.version>2.5</maven.jxr.version>
     <maven.taglist.version>2.4</maven.taglist.version>
-    <maven.findbugs.version>3.0.1</maven.findbugs.version>
-    <maven.pmd.version>3.2</maven.pmd.version>
-    <maven.changes.version>2.10</maven.changes.version>
-    <wagon.maven.version>1.0</wagon.maven.version>
-    <wagon.ssh.version>2.10</wagon.ssh.version>
-    <wagon.ftp.version>2.8</wagon.ftp.version>
-    <maven.cobertura.version>2.7</maven.cobertura.version>
-    <!-- codehaus.javancss.version>2.1</codehaus.javancss.version -->
-    <codehaus.jdepend.version>2.0</codehaus.jdepend.version>
+    <maven.findbugs.version>3.0.5</maven.findbugs.version>
+    <maven.pmd.version>3.10.0</maven.pmd.version>
+    <maven.changes.version>2.12.1</maven.changes.version>
+    <wagon.maven.version>2.0.0</wagon.maven.version>
+    <wagon.ssh.version>3.1.0</wagon.ssh.version>
+    <wagon.ftp.version>3.1.0</wagon.ftp.version>
   </properties>
 
 
@@ -221,11 +217,15 @@
             <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
             <link>http://www.jdom.org/docs/apidocs/</link>
             <link>http://simulation.tudelft.nl/dsol/3.0/dsol-base/apidocs/</link>
+            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-naming/apidocs/</link>
+            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-event/apidocs/</link>
+            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-interpreter/apidocs/</link>
+            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-introspection/apidocs/</link>
+            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-core/apidocs/</link>
             <link>http://simulation.tudelft.nl/dsol/3.0/dsol-swing/apidocs/</link>
             <link>http://simulation.tudelft.nl/dsol/3.0/dsol-fx/apidocs/</link>
             <link>http://simulation.tudelft.nl/dsol/3.0/dsol-web/apidocs/</link>
             <link>http://simulation.tudelft.nl/dsol/3.0/dsol-demo/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-hla/apidocs/</link>
           </links>
           <additionalJOption>-J-Xmx1024m</additionalJOption>
           <detectJavaApiLink>true</detectJavaApiLink>
@@ -293,23 +293,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>${maven.cobertura.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>instrument</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <argLine>-XX:MaxPermSize=4096m
-            -Xmx4096m</argLine>
-        </configuration>
       </plugin>
 
       <plugin>
@@ -592,21 +575,6 @@
         </reportSets>
       </plugin>
 
-      <!--  plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>javancss-maven-plugin</artifactId>
-        <version>${codehaus.javancss.version}</version>
-        <configuration>
-          <lineThreshold>500</lineThreshold>
-        </configuration>
-      </plugin -->
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jdepend-maven-plugin</artifactId>
-        <version>${codehaus.jdepend.version}</version>
-      </plugin>
-
     </plugins>
   </reporting>
 
@@ -748,6 +716,13 @@
         <artifactId>xstream</artifactId>
         <version>${xstream.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.djunits</groupId>
+        <artifactId>djunits</artifactId>
+        <version>${djunits.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 

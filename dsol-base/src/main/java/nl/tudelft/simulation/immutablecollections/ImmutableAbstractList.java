@@ -12,17 +12,19 @@ import nl.tudelft.simulation.language.Throw;
 /**
  * An abstract base class for an immutable wrapper for a List.
  * <p>
- * Copyright (c) 2013-2018  Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2013-2018 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights
+ * reserved. <br>
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>.
  * </p>
- * $LastChangedDate: 2015-07-24 02:58:59 +0200 (Fri, 24 Jul 2015) $, @version $Revision: 1147 $, by $Author: averbraeck $,
- * initial version May 7, 2016 <br>
+ * $LastChangedDate: 2015-07-24 02:58:59 +0200 (Fri, 24 Jul 2015) $, @version $Revision: 1147 $, by $Author: averbraeck
+ * $, initial version May 7, 2016 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  * @author <a href="http://www.transport.citg.tudelft.nl">Wouter Schakel</a>
  * @param <E> the type of content of this List
  */
-public abstract class ImmutableAbstractList<E> implements ImmutableList<E>, RandomAccess
+public abstract class ImmutableAbstractList<E> extends ImmutableAbstractCollection<E>
+        implements ImmutableList<E>, RandomAccess
 {
     /** */
     private static final long serialVersionUID = 20160507L;
@@ -30,39 +32,17 @@ public abstract class ImmutableAbstractList<E> implements ImmutableList<E>, Rand
     /** the list that is wrapped, without giving access to methods that can change it. */
     private final List<E> list;
 
-    /** COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection. */
-    private final Immutable copyOrWrap;
-
     /**
-     * Construct an abstract immutable list. Make sure that the argument is a safe copy of the list or pointer to the list of
-     * the right type!
-     * @param list a safe copy of the list, or pointer to the list to use as the immutable list
-     * @param copy indicate whether the immutable is a copy or a wrap
+     * Construct an abstract immutable list. Make sure that the argument is a safe copy of the list or pointer to the
+     * list of the right type! Copying does not take place in the Abstract class!
+     * @param list a safe copy of the list, or pointer to the list to use for the immutable list
+     * @param copyOrWrap indicate whether the immutable is a copy or a wrap
      */
-    protected ImmutableAbstractList(final List<E> list, final boolean copy)
+    protected ImmutableAbstractList(final List<E> list, final Immutable copyOrWrap)
     {
+        super(copyOrWrap);
         Throw.whenNull(list, "the list argument cannot be null");
         this.list = list;
-        this.copyOrWrap = copy ? Immutable.COPY : Immutable.WRAP;
-    }
-
-    /**
-     * Prepare the list of the right type for use a subclass. Implement e.g. as follows:
-     * 
-     * <pre>
-     * {@literal @}Override
-     * protected ArrayList&lt;E&gt; getList()
-     * {
-     *     return (ArrayList&lt;E&gt;) super.getList();
-     * }
-     * </pre>
-     * 
-     * @return the list of the right type for use a subclass
-     */
-    @SuppressWarnings("checkstyle:designforextension")
-    protected List<E> getList()
-    {
-        return this.list;
     }
 
     /** {@inheritDoc} */
@@ -70,6 +50,13 @@ public abstract class ImmutableAbstractList<E> implements ImmutableList<E>, Rand
     public final Collection<E> toCollection()
     {
         return toList();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    protected List<E> getCollection()
+    {
+        return this.list;
     }
 
     /** {@inheritDoc} */
@@ -181,7 +168,7 @@ public abstract class ImmutableAbstractList<E> implements ImmutableList<E>, Rand
     @Override
     public final boolean isWrap()
     {
-        return this.copyOrWrap == Immutable.WRAP;
+        return this.copyOrWrap.isWrap();
     }
 
     /** {@inheritDoc} */
@@ -197,7 +184,7 @@ public abstract class ImmutableAbstractList<E> implements ImmutableList<E>, Rand
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings({ "checkstyle:designforextension", "checkstyle:needbraces" })
+    @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
     public boolean equals(final Object obj)
     {
         if (this == obj)

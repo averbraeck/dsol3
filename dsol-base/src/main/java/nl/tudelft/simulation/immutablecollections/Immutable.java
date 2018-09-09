@@ -28,4 +28,21 @@ public enum Immutable
      * holding a pointer to the original collection that is wrapped.
      */
     WRAP;
+
+    /**
+     * @return whether the immutable is a COPY
+     */
+    public boolean isCopy()
+    {
+        return this.equals(COPY);
+    }
+    
+    /**
+     * @return whether the immutable is a WRAP
+     */
+    public boolean isWrap()
+    {
+        return this.equals(WRAP);
+    }
+
 }
