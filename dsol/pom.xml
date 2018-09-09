@@ -8,11 +8,11 @@
 
   <name>DSOL version 3</name>
   <description>Distributed Simulation Object Library version 3</description>
-  <url>https://www.simulation.tudelft.nl</url>
+  <url>https://simulation.tudelft.nl</url>
 
   <organization>
     <name>Delft University of Technology, Policy Analysis Section</name>
-    <url>https://www.simulation.tudelft.nl</url>
+    <url>https://simulation.tudelft.nl</url>
   </organization>
 
   <properties>
@@ -788,7 +788,7 @@
   <licenses>
     <license>
       <name>BSD-style license</name>
-      <url>https://www.simulation.tudelft.nl/dsol/3.0/dsol-license.html</url>
+      <url>https://simulation.tudelft.nl/dsol/3.0/dsol-license.html</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -812,7 +812,7 @@
       <email>a.verbraeck@tudelft.nl</email>
       <url>https://www.tbm.tudelft.nl/averbraeck</url>
       <organization>Delft University of Technology, the Netherlands</organization>
-      <organizationUrl>https://www.simulation.tudelft.nl</organizationUrl>
+      <organizationUrl>https://simulation.tudelft.nl</organizationUrl>
       <timezone>1</timezone>
       <roles>
         <role>architect</role>

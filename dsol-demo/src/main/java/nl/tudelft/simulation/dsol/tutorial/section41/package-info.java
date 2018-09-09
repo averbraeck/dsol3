@@ -14,8 +14,8 @@
  * the service time, the output variables <i>d(n), q(n)</i> and <i>u(n)</i> will be random and, therefore, expected to
  * be variable.
  * </p>
- * copyright (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @version Oct 10, 2016

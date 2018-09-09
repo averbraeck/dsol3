@@ -5,10 +5,10 @@ import nl.tudelft.simulation.language.filters.AbstractFilter;
 /**
  * The MaxDiffFilter accepts entries if their value is larger than the percentage of the last received Value.
  * <p>
- * copyright (c) 2004-2018 <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
+ * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
  * Netherlands.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
+ * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
  * <p>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty

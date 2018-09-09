@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dsol:navigation 
-	xmlns:dsol="http://www.simulation.tudelft.nl/dsol"
+	xmlns:dsol="https://simulation.tudelft.nl/dsol"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<menu name="File">
 		<action className="nl.tudelft.simulation.dsol.gui.menu.actions.OpenFileAction" />

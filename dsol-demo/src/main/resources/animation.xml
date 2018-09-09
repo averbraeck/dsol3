@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dsol:experimentalFrame xmlns:dsol="http://www.simulation.tudelft.nl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<dsol:experimentalFrame xmlns:dsol="https://simulation.tudelft.nl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <experiment>
     <name>Animation example</name> <!-- the name of the experiment -->
     <analyst>Peter H.M. Jacobs</analyst> <!-- the name of the analyst -->
