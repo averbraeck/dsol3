@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.simulators;
 
-import java.rmi.RemoteException;
 import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
@@ -50,7 +49,6 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * cancels an event from the event list.
      * @param event a simulation event to be canceled.
      * @return boolean the succes of the operation.
-     * @throws RemoteException on network failure.
      */
     boolean cancelEvent(SimEventInterface<T> event);
 

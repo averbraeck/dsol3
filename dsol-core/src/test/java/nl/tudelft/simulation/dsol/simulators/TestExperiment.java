@@ -93,6 +93,7 @@ public final class TestExperiment
     /**
      * creates a new TestExperimentalFrame.
      * @return ExperimentalFrame
+     * @throws NamingException on error
      */
     public static Experiment createExperiment() throws NamingException
     {
@@ -118,6 +119,7 @@ public final class TestExperiment
      * creates the replications for the test experiment.
      * @param experiment the simulation experiment
      * @return a list of replications
+     * @throws NamingException on error
      */
     public static List<Replication> createReplications(final Experiment experiment) throws NamingException
     {
