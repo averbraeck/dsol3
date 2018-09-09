@@ -209,13 +209,11 @@
         <version>${maven.javadoc.version}</version>
         <configuration>
           <links>
-            <link>https://download.oracle.com/javase/7/docs/api/</link>
-            <link>https://download.java.net/media/java3d/javadoc/1.5.0/</link>
-            <link>https://www.jfree.org/jcommon/api/</link>
-            <link>https://www.jfree.org/jfreechart/api/javadoc/</link>
-            <link>https://junit.sourceforge.net/javadoc/</link>
+            <link>https://docs.oracle.com/javase/8/docs/api/</link>
+            <!-- link>https://download.java.net/media/java3d/javadoc/1.5.1/</link (No package-list) -->
+            <link>http://www.jfree.org/jcommon/api/</link>
+            <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
             <link>https://xerces.apache.org/xerces2-j/javadocs/api/</link>
-            <link>https://www.jdom.org/docs/apidocs/</link>
             <link>https://simulation.tudelft.nl/dsol/3.0/dsol-base/apidocs/</link>
             <link>https://simulation.tudelft.nl/dsol/3.0/dsol-naming/apidocs/</link>
             <link>https://simulation.tudelft.nl/dsol/3.0/dsol-event/apidocs/</link>
@@ -226,6 +224,11 @@
             <link>https://simulation.tudelft.nl/dsol/3.0/dsol-fx/apidocs/</link>
             <link>https://simulation.tudelft.nl/dsol/3.0/dsol-web/apidocs/</link>
             <link>https://simulation.tudelft.nl/dsol/3.0/dsol-demo/apidocs/</link>
+            <link>https://x-stream.github.io/javadoc/</link>
+            <link>https://djunits.org/docs/current/apidocs/</link>
+            <link>https://logging.apache.org/log4j/2.x/log4j-api/apidocs/</link>
+            <link>http://www.jdom.org/docs/apidocs/</link>
+            <link>https://dst.lbl.gov/ACSSoftware/colt/api/</link>
           </links>
           <additionalJOption>-J-Xmx1024m</additionalJOption>
           <detectJavaApiLink>true</detectJavaApiLink>
@@ -334,43 +337,43 @@
         </executions>
       </plugin>
 
-      <plugin>
+     <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${maven.jacoco.version}</version>
         <executions>
-          <!-- The Executions required by unit tests are omitted. -->
-          <!-- Prepares the property pointing to the JaCoCo runtime agent which
-            is passed as VM argument when Maven the Failsafe plugin is executed. -->
+
+          <!-- Prepares the property pointing to the JaCoCo runtime agent which is passed as VM argument when Maven the Surefire 
+            plugin is executed. -->
           <execution>
-            <id>pre-integration-test</id>
-            <phase>pre-integration-test</phase>
+            <id>pre-unit-test</id>
+            <!-- phase>pre-integration-test</phase -->
             <goals>
               <goal>prepare-agent</goal>
             </goals>
             <configuration>
               <!-- Sets the path to the file which contains the execution data. -->
-              <destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
-              <!-- Sets the name of the property containing the settings for JaCoCo
-                runtime agent. -->
-              <propertyName>failsafeArgLine</propertyName>
+              <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+              <!-- Sets the name of the property containing the settings for JaCoCo runtime agent. -->
+              <propertyName>surefireArgLine</propertyName>
             </configuration>
           </execution>
-          <!-- Ensures that the code coverage report for integration tests after
-            integration tests have been run. -->
+
+          <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run. -->
           <execution>
-            <id>post-integration-test</id>
-            <phase>post-integration-test</phase>
+            <id>post-unit-test</id>
+            <phase>test</phase>
             <goals>
               <goal>report</goal>
             </goals>
             <configuration>
               <!-- Sets the path to the file which contains the execution data. -->
-              <dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
+              <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
               <!-- Sets the output directory for the code coverage report. -->
-              <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+              <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
             </configuration>
           </execution>
+
         </executions>
       </plugin>
 
@@ -390,6 +393,30 @@
         </configuration>
       </plugin>
 
+      <plugin> <!-- to avoid BCEL compatibility issue with Java 1.8... -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>${maven.project-info-reports.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-shared-jar</artifactId>
+            <version>1.1</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.apache.bcel</groupId>
+                <artifactId>bcel</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+          <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>bcel-findbugs</artifactId>
+            <version>6.0</version>
+          </dependency>
+        </dependencies>
+      </plugin> <!-- end avoid BCEL compatibility issue with Java 1.8... -->
+
     </plugins>
 
   </build>
@@ -401,15 +428,19 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>${maven.project-info-reports.version}</version>
+        <configuration>
+          <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+          <dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+        </configuration>
         <reportSets>
           <reportSet>
             <reports>
               <report>index</report>
               <report>summary</report>
               <report>dependencies</report>
-              <report>project-team</report>
-              <report>mailing-list</report>
-              <report>license</report>
+              <report>team</report>
+              <report>mailing-lists</report>
+              <report>licenses</report>
               <report>scm</report>
             </reports>
           </reportSet>
@@ -421,8 +452,34 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven.javadoc.version}</version>
         <configuration>
+          <links>
+            <link>https://docs.oracle.com/javase/8/docs/api/</link>
+            <!-- link>https://download.java.net/media/java3d/javadoc/1.5.1/</link (No package-list) -->
+            <link>http://www.jfree.org/jcommon/api/</link>
+            <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
+            <link>https://xerces.apache.org/xerces2-j/javadocs/api/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-base/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-naming/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-event/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-interpreter/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-introspection/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-core/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-swing/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-fx/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-web/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-demo/apidocs/</link>
+            <link>https://x-stream.github.io/javadoc/</link>
+            <link>https://djunits.org/docs/current/apidocs/</link>
+            <link>https://logging.apache.org/log4j/2.x/log4j-api/apidocs/</link>
+            <link>http://www.jdom.org/docs/apidocs/</link>
+            <link>https://dst.lbl.gov/ACSSoftware/colt/api/</link>
+          </links>
+          <additionalJOption>-J-Xmx1024m</additionalJOption>
+          <detectJavaApiLink>true</detectJavaApiLink>
           <detectLinks>false</detectLinks>
           <detectOfflineLinks>true</detectOfflineLinks>
+          <show>package</show>
+          <stylesheetfile>${basedir}/src/main/resources/development/javadoc/stylesheet.css</stylesheetfile>
         </configuration>
         <reportSets>
           <reportSet>
@@ -486,6 +543,9 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${maven.jacoco.version}</version>
+        <configuration>
+          <skipEmptyReport>false</skipEmptyReport>
+        </configuration>
         <reportSets>
           <reportSet>
             <inherited>true</inherited>
@@ -746,6 +806,15 @@
       <id>apache</id>
       <name>apache</name>
       <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>mvnrepository</id>
+      <name>MVN Repository</name>
+      <url>https://mvnrepository.com/artifact</url>
     </repository>
 
   </repositories>
