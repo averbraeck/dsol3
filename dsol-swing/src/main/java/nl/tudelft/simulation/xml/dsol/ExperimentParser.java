@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.djunits.unit.DurationUnit;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -25,7 +26,6 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.TimeUnit;
 import nl.tudelft.simulation.dsol.simulators.DEVSAnimator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
@@ -35,8 +35,7 @@ import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
  * The ExperimentParser parses xml-based experiments into their java objects <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -47,7 +46,7 @@ public class ExperimentParser
 {
     /** builder the xerces parser with validation turned on. */
     private static SAXBuilder builder = new SAXBuilder("org.apache.xerces.parsers.SAXParser", true);
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(ExperimentParser.class);
 
@@ -191,9 +190,8 @@ public class ExperimentParser
             else
             {
                 Class<?> simulatorClass = Class.forName(rootElement.getChildText("simulator-class"), true, loader);
-                simulator =
-                        (SimulatorInterface.TimeDouble) ClassUtil.resolveConstructor(simulatorClass, null)
-                                .newInstance();
+                simulator = (SimulatorInterface.TimeDouble) ClassUtil.resolveConstructor(simulatorClass, null)
+                        .newInstance();
             }
 
             // Define the experiment
@@ -339,13 +337,13 @@ public class ExperimentParser
     /**
      * parses a period
      * @param element the xml-element representing the period
-     * @param treatmentTimeUnit the timeUnit of the treatment
+     * @param treatmentDurationUnit the timeUnit of the treatment
      * @return double the value in units defined by the treatment
      * @throws Exception whenever the period.
      */
-    private static double parsePeriod(final Element element, final TimeUnit treatmentTimeUnit) throws Exception
+    private static double parsePeriod(final Element element, final DurationUnit treatmentDurationUnit) throws Exception
     {
-        TimeUnit timeUnit = ExperimentParser.parseTimeUnit(element.getAttribute("unit").getValue());
+        DurationUnit timeUnit = ExperimentParser.parseDurationUnit(element.getAttribute("unit").getValue());
         double value = -1;
         if (element.getText().equals("INF"))
         {
@@ -359,7 +357,7 @@ public class ExperimentParser
         {
             throw new JDOMException("parsePeriod: value = " + value + " <0. simulator cannot schedule in past");
         }
-        return timeUnit.getFactor() * value / treatmentTimeUnit.getFactor();
+        return timeUnit.getScaleFactor() * value / treatmentDurationUnit.getScaleFactor();
     }
 
     /**
@@ -413,40 +411,40 @@ public class ExperimentParser
     /**
      * parses a timeUnit
      * @param name the name
-     * @return TimeUnitInterface result
+     * @return DurationUnitInterface result
      * @throws Exception on failure
      */
-    private static TimeUnit parseTimeUnit(final String name) throws Exception
+    private static DurationUnit parseDurationUnit(final String name) throws Exception
     {
         if (name.equals("DAY"))
         {
-            return TimeUnit.DAY;
+            return DurationUnit.DAY;
         }
         if (name.equals("HOUR"))
         {
-            return TimeUnit.HOUR;
+            return DurationUnit.HOUR;
         }
         if (name.equals("MILLISECOND"))
         {
-            return TimeUnit.MILLISECOND;
+            return DurationUnit.MILLISECOND;
         }
         if (name.equals("MINUTE"))
         {
-            return TimeUnit.MINUTE;
+            return DurationUnit.MINUTE;
         }
         if (name.equals("SECOND"))
         {
-            return TimeUnit.SECOND;
+            return DurationUnit.SECOND;
         }
         if (name.equals("WEEK"))
         {
-            return TimeUnit.WEEK;
+            return DurationUnit.WEEK;
         }
         if (name.equals("UNIT"))
         {
-            return TimeUnit.UNIT;
+            return DurationUnit.SI;
         }
-        throw new Exception("parseTimeUnit.. unknown argument: " + name);
+        throw new Exception("parseDurationUnit.. unknown argument: " + name);
     }
 
     /**
@@ -459,8 +457,8 @@ public class ExperimentParser
     private static Treatment.TimeDouble parseTreatment(final Element element, final Experiment.TimeDouble parent)
             throws Exception
     {
-        TimeUnit tu = ExperimentParser.parseTimeUnit(element.getChildText("timeUnit"));
-        long startTime = 0L;
+        DurationUnit tu = ExperimentParser.parseDurationUnit(element.getChildText("timeUnit"));
+        double startTime = 0;
         if (element.getChild("startTime") != null)
         {
             startTime = ExperimentParser.parseDateTime(element.getChildText("startTime"));
@@ -475,8 +473,7 @@ public class ExperimentParser
         {
             runLength = ExperimentParser.parsePeriod(element.getChild("runLength"), tu);
         }
-        Treatment.TimeDouble treatment =
-                new Treatment.TimeDouble(parent, "tr", new SimTimeDouble(1.0 * startTime), warmupPeriod, runLength);
+        Treatment.TimeDouble treatment = new Treatment.TimeDouble(parent, "tr", startTime, warmupPeriod, runLength);
 
         if (element.getChild("properties") != null)
         {

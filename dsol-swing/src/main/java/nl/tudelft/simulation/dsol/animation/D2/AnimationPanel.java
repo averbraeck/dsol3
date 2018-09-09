@@ -92,8 +92,10 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      * @param extent the extent of the panel
      * @param size the size of the panel.
      * @param simulator the simulator of which we want to know the events for animation
+     * @throws RemoteException on network error for one of the listeners
      */
     public AnimationPanel(final Rectangle2D extent, final Dimension size, final SimulatorInterface<?, ?, ?> simulator)
+            throws RemoteException
     {
         super(extent, size);
         super.showGrid = true;
@@ -103,15 +105,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         this.addMouseMotionListener(listener);
         this.addMouseWheelListener(listener);
         this.addKeyListener(listener);
-        try
-        {
-            simulator.addListener(this, AnimatorInterface.UPDATE_ANIMATION_EVENT);
-            simulator.addListener(this, SimulatorInterface.START_REPLICATION_EVENT);
-        }
-        catch (RemoteException exception)
-        {
-            exception.printStackTrace();
-        }
+        simulator.addListener(this, AnimatorInterface.UPDATE_ANIMATION_EVENT);
+        simulator.addListener(this, SimulatorInterface.START_REPLICATION_EVENT);
     }
 
     /** {@inheritDoc} */

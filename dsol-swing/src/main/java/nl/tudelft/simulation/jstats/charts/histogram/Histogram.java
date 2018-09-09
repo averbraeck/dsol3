@@ -21,7 +21,7 @@ import nl.tudelft.simulation.jstats.statistics.Counter;
 /**
  * The histogram specifies a histogram chart for the DSOL framework.
  * <p>
- * copyright (c) 2002-2018  <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * copyright (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
@@ -44,7 +44,7 @@ public class Histogram implements Swingable
 
     /** dataset refers to the dataset. */
     protected HistogramDataset dataset = null;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(Histogram.class);
 
@@ -71,9 +71,8 @@ public class Histogram implements Swingable
         super();
         this.dataset = new HistogramDataset(title, domain, range, numberofBins);
 
-        this.chart =
-                ChartFactory.createHistogram(title, LABEL_X_AXIS, LABEL_Y_AXIS, this.dataset, PlotOrientation.VERTICAL,
-                        true, true, true);
+        this.chart = ChartFactory.createHistogram(title, LABEL_X_AXIS, LABEL_Y_AXIS, this.dataset,
+                PlotOrientation.VERTICAL, true, true, true);
         this.chart.setBackgroundPaint(new GradientPaint(0.0F, 0.0F, Color.white, 1000F, 0.0F, Color.blue));
 
         this.chart.getXYPlot().setRangeAxis(new NumberAxis(Histogram.LABEL_Y_AXIS));
@@ -100,19 +99,13 @@ public class Histogram implements Swingable
      * @param description the description of the eventProducer
      * @param source the eventproducer which functions as source for this histogram.
      * @param eventType the eventType.
+     * @throws RemoteException on network error for the (possibly remote) event listener
      */
     public synchronized void add(final String description, final EventProducerInterface source,
-            final EventType eventType)
+            final EventType eventType) throws RemoteException
     {
         HistogramSeries set = this.getDataset().addSeries(description);
-        try
-        {
-            source.addListener(set, eventType, false);
-        }
-        catch (RemoteException exception)
-        {
-            logger.warn("add", exception);
-        }
+        source.addListener(set, eventType, false);
     }
 
     /**

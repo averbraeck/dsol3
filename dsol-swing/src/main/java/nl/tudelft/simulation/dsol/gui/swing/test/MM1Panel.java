@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.dsol.gui.swing.test;
 
-import java.rmi.RemoteException;
-
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.gui.swing.TablePanel;
@@ -61,15 +59,8 @@ public class MM1Panel extends DSOLPanel<Double, Double, SimTimeDouble>
         TablePanel charts = new TablePanel(3, 2);
         super.tabbedPane.addTab("statistics", charts);
 
-        try
-        {
-            XYChart xy = new XYChart(this.simulator, "XY");
-            charts.setCell(xy.getSwingPanel(), 0, 0);
-        }
-        catch (RemoteException exception)
-        {
-            exception.printStackTrace();
-        }
+        XYChart xy = new XYChart(this.simulator, "XY");
+        charts.setCell(xy.getSwingPanel(), 0, 0);
 
         Histogram hist = new Histogram(this.simulator, "Histogram", new double[]{0.0, 10.0}, 10);
         charts.setCell(hist.getSwingPanel(), 0, 1);
