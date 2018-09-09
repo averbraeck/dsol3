@@ -1,7 +1,7 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.02.01" date="2018-09-08" description="Solved NPE in animation; documentation updated">
+    <release version="3.02.01" date="2018-09-09" description="Solved NPE in animation; documentation updated">
       <action dev="averbraeck" type="fix">
         The ImageRenderable in dsol-swing gave a NullPointerException when loading the image. An extra check
         has been built in.
@@ -58,10 +58,9 @@
         when the copyOrWrap is Immutable.WRAP. The size() of the original List and the ImmutableSet
         were different in case of duplicates in the List, which was terribly confusing. Therefore, accepting
         a Collection should always lead to a COPY, whereas a 'compatible' Collection can use the WRAP.
-        In addition, wrapping has become a lot
-        more strict. An ImmutableArrayList wraps only an ArrayList,
-        whereas an ImmutableVector only wraps a Vector. Originally, they could wrap each other, leading to
-        incompatibilities. The same holds for Sets and Maps.
+        In addition, wrapping has become a lot more strict. An ImmutableSortedMap wraps only a SortedMap,
+        whereas an ImmutableHashMap wraps a Map. Originally, they could wrap each other, leading to
+        incompatibilities. The same holds for Lists and Sets.
       </action>
       <action dev="averbraeck" type="update">
         Updated all maven dependencies and libraries to their latest version in the dsol pom-file.
