@@ -3,7 +3,7 @@
 
   <groupId>dsol</groupId>
   <artifactId>dsol</artifactId>
-  <version>3.01.07-SNAPSHOT</version>
+  <version>3.02.00</version>
   <packaging>pom</packaging>
 
   <name>DSOL version 3</name>
