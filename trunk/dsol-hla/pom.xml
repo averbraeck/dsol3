@@ -9,6 +9,7 @@
 
   <artifactId>dsol-hla</artifactId>
   <name>DSOL 3.0 HLA project</name>
+  <url>https://simulation.tudelft.nl/dsol/3.0/dsol-hla</url>
 
   <dependencies>
   	<dependency>

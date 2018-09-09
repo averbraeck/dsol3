@@ -11,6 +11,7 @@
   <artifactId>dsol-zmq</artifactId>
   <name>DSOL ZeroMQ message bus linkage</name>
   <description>DSOL ZeroMQ message bus linkage using JeroMQ</description>
+  <url>https://simulation.tudelft.nl/dsol/3.0/dsol-zmq</url>
 
   <dependencies>
 

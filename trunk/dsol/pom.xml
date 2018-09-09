@@ -8,7 +8,7 @@
 
   <name>DSOL version 3</name>
   <description>Distributed Simulation Object Library version 3</description>
-  <url>https://simulation.tudelft.nl</url>
+  <url>https://simulation.tudelft.nl/dsol/3.0/dsol</url>
 
   <organization>
     <name>Delft University of Technology, Policy Analysis Section</name>
@@ -109,11 +109,20 @@
         <artifactId>maven-site-plugin</artifactId>
         <version>${maven.site.version}</version>
         <configuration>
+          <chmod>true</chmod>
           <inputEncoding>UTF-8</inputEncoding>
           <outputEncoding>UTF-8</outputEncoding>
           <templateDirectory>src/site</templateDirectory>
           <template>site.vm</template>
         </configuration>
+        <executions>
+          <execution>
+            <id>attach-descriptor</id>
+            <goals>
+              <goal>attach-descriptor</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>

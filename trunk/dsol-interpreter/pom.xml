@@ -11,6 +11,7 @@
   <artifactId>dsol-interpreter</artifactId>
   <name>DSOL version 3, interpreter classes</name>
   <description>Interpreter classes for Distributed Simulation Object Library version 3</description>
+  <url>https://simulation.tudelft.nl/dsol/3.0/dsol-interpreter</url>
 
   <dependencies>
     <dependency>
