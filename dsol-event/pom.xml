@@ -11,8 +11,9 @@
   <artifactId>dsol-event</artifactId>
   <name>DSOL event project</name>
   <description>Publish/subscribe mechanisms for DSOL</description>
-  
-    <dependencies>
+  <url>https://simulation.tudelft.nl/dsol/3.0/dsol-event</url>
+
+  <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -25,5 +26,5 @@
     </dependency>
 
   </dependencies>
-  
+
 </project>
