@@ -3,7 +3,6 @@ package nl.tudelft.simulation.dsol;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import nl.tudelft.simulation.dsol.eventList.EventListTest;
-import nl.tudelft.simulation.dsol.experiment.TimeUnitTest;
 import nl.tudelft.simulation.dsol.serialize.SerializeTest;
 
 /**
@@ -35,7 +34,6 @@ public final class DSOLTestSuite
     {
         TestSuite suite = new TestSuite("DSOL Test Suite");
         suite.addTest(new EventListTest());
-        suite.addTest(new TimeUnitTest());
         suite.addTest(new SerializeTest("SerializeTest"));
         // suite.addTest(new DESSSimulatorTest());
         // suite.addTest(new DEVSSimulatorTest());
