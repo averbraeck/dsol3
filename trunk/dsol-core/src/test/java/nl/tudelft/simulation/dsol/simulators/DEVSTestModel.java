@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.dsol.simulators;
 
-import java.rmi.RemoteException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,8 +8,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 
 /**
  * The DEVSSimulatorTestmodel specifies the model <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -23,7 +20,7 @@ public class DEVSTestModel extends TestModel
 {
     /** simulator refers to the target. */
     protected DEVSSimulatorInterface simulator;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(DEVSTestModel.class);
 
@@ -37,7 +34,7 @@ public class DEVSTestModel extends TestModel
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface simulator) throws RemoteException
+    public void constructModel(final SimulatorInterface simulator)
     {
         super.constructModel(simulator);
         this.simulator = (DEVSSimulator) simulator;

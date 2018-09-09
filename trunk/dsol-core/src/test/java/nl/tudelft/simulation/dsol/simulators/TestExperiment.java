@@ -16,7 +16,6 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.TimeUnit;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -37,9 +36,6 @@ public final class TestExperiment
      * STARTTIME defines the starting time for the experiment in millisec since 1970.
      */
     public static final long STARTTIME = 0;
-
-    /** TIMEUNIT refers to the time units of the experiment. */
-    public static final TimeUnit TIMEUNIT = TimeUnit.UNIT;
 
     /** RUNLENGTH is the runLength for this experiment. */
     public static final double RUNLENGTH = 100;
