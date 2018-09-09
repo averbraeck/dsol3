@@ -1,12 +1,9 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import java.rmi.RemoteException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistUniform;
@@ -36,9 +33,8 @@ public class Warehouse implements SellerInterface
     /**
      * constructs a new Warehouse.
      * @param simulator the simulator to schedule on
-     * @throws RemoteException on network failure
      */
-    public Warehouse(final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException
+    public Warehouse(final DEVSSimulatorInterface.TimeDouble simulator)
     {
         super();
         this.simulator = simulator;
@@ -53,9 +49,9 @@ public class Warehouse implements SellerInterface
     {
         try
         {
-            this.simulator.scheduleEvent(
-                    new SimEvent<SimTimeDouble>(this.simulator.getSimulatorTime().plus(this.leadTime.draw()), this,
-                            buyer, "receiveProduct", new Long[]{new Long(amount)}));
+            this.simulator
+                    .scheduleEvent(new SimEvent.TimeDouble(this.simulator.getSimulatorTime() + this.leadTime.draw(),
+                            this, buyer, "receiveProduct", new Long[]{new Long(amount)}));
         }
         catch (Exception exception)
         {

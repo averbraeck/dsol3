@@ -38,7 +38,7 @@ public class Population extends DifferentialEquation<Double, Double, SimTimeDoub
     /**
      * constructs a new Population.
      * @param simulator the simulator
-     * @throws RemoteException on network exception
+     * @throws RemoteException  on networn error for the listeners
      */
     public Population(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {

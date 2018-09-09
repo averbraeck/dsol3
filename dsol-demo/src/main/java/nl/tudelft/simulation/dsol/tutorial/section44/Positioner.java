@@ -38,14 +38,7 @@ public class Positioner extends DifferentialEquation<Double, Double, SimTimeDoub
      */
     public void setValue(final double value)
     {
-        try
-        {
-            super.initialize(this.simulator.getSimulatorTime().get(), new double[]{value, 0.0});
-        }
-        catch (RemoteException exception)
-        {
-           exception.printStackTrace();
-        }
+        super.initialize(this.simulator.getSimulatorTime(), new double[]{value, 0.0});
     }
 
     /** {@inheritDoc} */

@@ -3,7 +3,6 @@ package nl.tudelft.simulation.examples.dsol.terminal;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
@@ -32,10 +31,10 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
 
     /** the ship. */
     private final Ship ship;
-    
+
     /** phase. */
     private int phase = 0;
-    
+
     /**
      * @param simulator the simulator
      * @param containerNumber the container number
@@ -57,7 +56,7 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
             {
                 if (Terminal.DEBUG)
                 {
-                    System.out.println("T = " + this.simulator.getSimulatorTime().get() + ", Claim AGV for container "
+                    System.out.println("T = " + this.simulator.getSimulatorTime() + ", Claim AGV for container "
                             + this.containerNumber);
                 }
                 this.simulator.scheduleEventAbs(39.0 * 60.0, this, this, "checkPhase", null);
@@ -88,14 +87,14 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
             {
                 if (Terminal.DEBUG)
                 {
-                    System.out.println("T = " + this.simulator.getSimulatorTime().get() + ", Claim QC for container "
+                    System.out.println("T = " + this.simulator.getSimulatorTime() + ", Claim QC for container "
                             + this.containerNumber);
                 }
                 this.phase++;
                 this.simulator.scheduleEventRel(this.qc.drawDelay(), this, this, "qcReady", null);
             }
         }
-        catch (SimRuntimeException | RemoteException e)
+        catch (SimRuntimeException e)
         {
             e.printStackTrace();
         }
@@ -109,7 +108,7 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
             this.phase++;
             if (Terminal.DEBUG)
             {
-                System.out.println("T = " + this.simulator.getSimulatorTime().get() + ", AGV ready for container "
+                System.out.println("T = " + this.simulator.getSimulatorTime() + ", AGV ready for container "
                         + this.containerNumber);
             }
             this.agv.releaseCapacity(1);
@@ -128,7 +127,7 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
         {
             if (Terminal.DEBUG)
             {
-                System.out.println("T = " + this.simulator.getSimulatorTime().get() + ", QC ready for container "
+                System.out.println("T = " + this.simulator.getSimulatorTime() + ", QC ready for container "
                         + this.containerNumber);
             }
             this.qc.releaseCapacity(1);
@@ -140,7 +139,7 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
             e.printStackTrace();
         }
     }
-    
+
     /** */
     protected void checkPhase()
     {

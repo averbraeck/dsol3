@@ -40,7 +40,7 @@ public class EventPerformance implements DSOLModel.TimeDouble
     /** {@inheritDoc} */
     @Override
     public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
-            throws SimRuntimeException, RemoteException
+            throws SimRuntimeException
     {
         this.simulator = pSimulator;
         DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface.TimeDouble) pSimulator;

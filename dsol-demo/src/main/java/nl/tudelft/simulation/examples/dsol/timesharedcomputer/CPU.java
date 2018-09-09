@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.examples.dsol.timesharedcomputer;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,9 +17,10 @@ import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
- * The CPU example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. <br>
- * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * The CPU example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4.
  * <br>
+ * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 2.0 21.09.2003 <br>
@@ -28,6 +28,8 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  */
 public class CPU extends Station<Double, Double, SimTimeDouble> implements Locatable
 {
+    /** */
+    private static final long serialVersionUID = 1L;
 
     /** UTILIZATION_EVENT are fired on utilization. */
     public static final EventType UTILIZATION_EVENT = new EventType("UTILIZATION_EVENT");
@@ -51,7 +53,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
     private boolean status = IDLE;
 
     /** queue is the queue of waiting jobs. */
-    private List queue = Collections.synchronizedList(new ArrayList());
+    private List<Object> queue = Collections.synchronizedList(new ArrayList<Object>());
 
     /** the location. */
     private DirectedPoint location = new DirectedPoint(new CartesianPoint(-90, 0, 0));
@@ -59,19 +61,18 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
     /**
      * constructs a new CPU.
      * @param simulator a devs simulator
-     * @throws RemoteException on network failure
      */
-    public CPU(final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException
+    public CPU(final DEVSSimulatorInterface.TimeDouble simulator)
     {
         super(simulator);
-        this.fireTimedEvent(UTILIZATION_EVENT, 0.0, simulator.getSimulatorTime().get());
+        this.fireTimedEvent(UTILIZATION_EVENT, 0.0, simulator.getSimulatorTime());
     }
 
     /**
      * returns the queue.
      * @return List the queue
      */
-    public List getQueue()
+    public List<Object> getQueue()
     {
         return this.queue;
     }
@@ -80,30 +81,24 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
     @Override
     public void receiveObject(final Object object)
     {
-        try
+        this.queue.add(object);
+        this.fireTimedEvent(QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime());
+        if (this.status == IDLE)
         {
-            this.queue.add(object);
-            this.fireTimedEvent(QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime());
-            if (this.status == IDLE)
+            try
             {
-                try
-                {
-                    this.next();
-                }
-                catch (SimRuntimeException exception)
-                {
-                    exception.printStackTrace();
-                }
+                this.next();
             }
-        }
-        catch (RemoteException remoteException)
-        {
-            remoteException.printStackTrace();
+            catch (SimRuntimeException exception)
+            {
+                exception.printStackTrace();
+            }
         }
     }
 
     /** {@inheritDoc} */
-    protected void releaseObject(final Object object) throws RemoteException
+    @Override
+    protected synchronized void releaseObject(final Object object)
     {
         this.status = IDLE;
         this.fireTimedEvent(UTILIZATION_EVENT, 0.0, this.simulator.getSimulatorTime());
@@ -120,30 +115,29 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
 
     /**
      * services the next job.
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException on simulation failure
      */
-    private void next() throws RemoteException, SimRuntimeException
+    private void next() throws SimRuntimeException
     {
         if (this.queue.size() > 0)
         {
             this.status = BUSY;
-            this.fireTimedEvent(UTILIZATION_EVENT, 1.0, this.simulator.getSimulatorTime().get());
+            this.fireTimedEvent(UTILIZATION_EVENT, 1.0, this.simulator.getSimulatorTime());
             Job job = (Job) this.queue.remove(0);
-            this.fireTimedEvent(QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime().get());
+            this.fireTimedEvent(QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime());
             if (job.getServiceTime() > QUANTUM)
             {
                 job.setServiceTime(job.getServiceTime() - QUANTUM);
                 Object[] args = {job};
-                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime().get() + QUANTUM + SWAP, this, this,
+                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + QUANTUM + SWAP, this, this,
                         "receiveObject", args);
-                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime().get() + QUANTUM + SWAP, this, this,
+                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + QUANTUM + SWAP, this, this,
                         "next", null);
             }
             else
             {
                 Object[] args = {job};
-                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime().get() + job.getServiceTime() + SWAP,
+                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + job.getServiceTime() + SWAP,
                         this, this, "releaseObject", args);
             }
         }

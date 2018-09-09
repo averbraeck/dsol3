@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import java.rmi.RemoteException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,10 +45,8 @@ public class Customer implements BuyerInterface
      * @param simulator the simulator to schedule on
      * @param retailer the retailer to buy at. In more advanced examples, we would look up this retailer at a yellow
      *            page.
-     * @throws RemoteException on network failure
      */
     public Customer(final DEVSSimulatorInterface.TimeDouble simulator, final SellerInterface retailer)
-            throws RemoteException
     {
         super();
         this.simulator = simulator;
@@ -79,7 +75,7 @@ public class Customer implements BuyerInterface
         try
         {
             this.simulator.scheduleEvent(new SimEvent<SimTimeDouble>(
-                    this.simulator.getSimulatorTime().plus(this.intervalTime.draw()), this, this, "createOrder", null));
+                    this.simulator.getSimTime().plus(this.intervalTime.draw()), this, this, "createOrder", null));
         }
         catch (Exception exception)
         {

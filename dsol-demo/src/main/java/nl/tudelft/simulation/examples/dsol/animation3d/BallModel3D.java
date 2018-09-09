@@ -12,8 +12,8 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * BallModel3D, the ball example in 3D <br>
- * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 1.0 10.05.2004 <br>
@@ -37,7 +37,7 @@ public class BallModel3D implements DSOLModel<Double, Double, SimTimeDouble>
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator) throws RemoteException
+    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
     {
         this.simulator = (SimulatorInterface.TimeDouble) pSimulator;
         System.out.println("*** Ball 3D Model ***");
@@ -47,7 +47,7 @@ public class BallModel3D implements DSOLModel<Double, Double, SimTimeDouble>
             {
                 new Ball3D((DESSSimulatorInterface.TimeDouble) pSimulator);
             }
-            catch (NamingException exception)
+            catch (NamingException | RemoteException exception)
             {
                 exception.printStackTrace();
             }

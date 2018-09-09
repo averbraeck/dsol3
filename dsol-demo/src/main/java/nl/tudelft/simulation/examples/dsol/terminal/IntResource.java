@@ -145,7 +145,7 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
     private synchronized void alterClaimedCapacity(final long amount) throws RemoteException
     {
         this.claimedCapacity += amount;
-        this.fireTimedEvent(IntResource.UTILIZATION_EVENT, this.claimedCapacity, this.simulator.getSimulatorTime().get());
+        this.fireTimedEvent(IntResource.UTILIZATION_EVENT, this.claimedCapacity, this.simulator.getSimulatorTime());
     }
 
     /**
@@ -208,7 +208,7 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
                 this.requests.add(new Request<A, R, T>(requestor, amount, priority));
             }
             this.fireTimedEvent(IntResource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
-                    this.simulator.getSimulatorTime().get());
+                    this.simulator.getSimulatorTime());
         }
     }
 
@@ -241,7 +241,7 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
                         i.remove();
                     }
                     this.fireTimedEvent(IntResource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
-                            this.simulator.getSimulatorTime().get());
+                            this.simulator.getSimulatorTime());
                 }
                 else
                 {

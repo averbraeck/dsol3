@@ -40,7 +40,7 @@ public class BoatModel implements DSOLModel<Double, Double, SimTimeDouble>
     /** {@inheritDoc} */
     @Override
     public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
-            throws SimRuntimeException, RemoteException
+            throws SimRuntimeException
     {
         this.simulator = (SimulatorInterface.TimeDouble) pSimulator;
         DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface.TimeDouble) pSimulator;
@@ -61,7 +61,7 @@ public class BoatModel implements DSOLModel<Double, Double, SimTimeDouble>
      * @throws SimRuntimeException on simulation exception
      */
     private void scheduleBoatArrival(final double time, final DEVSSimulatorInterface.TimeDouble pSimulator,
-            final Port port) throws RemoteException, SimRuntimeException
+            final Port port) throws SimRuntimeException
     {
         pSimulator.scheduleEventAbs(time, this, Boat.class, "<init>", new Object[]{pSimulator, port});
     }
@@ -83,8 +83,8 @@ public class BoatModel implements DSOLModel<Double, Double, SimTimeDouble>
     {
         try
         {
-            ExperimentalFrame experimentalFrame =
-                    ExperimentParser.parseExperimentalFrame(URLResource.getResource("/section45.xml"));
+            ExperimentalFrame.TimeDouble experimentalFrame = (ExperimentalFrame.TimeDouble) ExperimentParser
+                    .parseExperimentalFrame(URLResource.getResource("/section45.xml"));
             experimentalFrame.start();
         }
         catch (Exception exception)

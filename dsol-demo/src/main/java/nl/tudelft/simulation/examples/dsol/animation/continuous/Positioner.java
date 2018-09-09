@@ -8,8 +8,8 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 
 /**
  * A Positioner <br>
- * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 1.0 Mar 3, 2004 <br>
@@ -37,14 +37,7 @@ public class Positioner extends DifferentialEquation<Double, Double, SimTimeDoub
      */
     public void setValue(final double value)
     {
-        try
-        {
-            super.initialize(this.simulator.getSimulatorTime().get(), new double[]{0.0, value});
-        }
-        catch (RemoteException exception)
-        {
-            exception.printStackTrace();
-        }
+        super.initialize(this.simulator.getSimulatorTime(), new double[]{0.0, value});
     }
 
     /** {@inheritDoc} */

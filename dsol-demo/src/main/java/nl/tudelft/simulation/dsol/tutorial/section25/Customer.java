@@ -42,7 +42,7 @@ public class Customer
 
             // Now we schedule the next action at time = time + 2.0
             SimEventInterface<SimTimeDouble> simEvent = new SimEvent<SimTimeDouble>(
-                    this.simulator.getSimulatorTime().plus(2.0), this, this, "generateOrder", null);
+                    this.simulator.getSimTime().plus(2.0), this, this, "generateOrder", null);
             this.simulator.scheduleEvent(simEvent);
         }
         catch (Exception exception)

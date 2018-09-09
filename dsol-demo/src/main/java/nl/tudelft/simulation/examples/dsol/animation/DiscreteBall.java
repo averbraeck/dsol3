@@ -74,7 +74,7 @@ public class DiscreteBall extends Ball
     {
         this.origin = this.destination;
         this.destination = new CartesianPoint(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200), 0);
-        this.startTime = this.simulator.getSimulatorTime().get();
+        this.startTime = this.simulator.getSimulatorTime();
         this.stopTime = this.startTime + Math.abs(new DistNormal(stream, 9, 1.8).draw());
         this.simulator.scheduleEventAbs(this.stopTime, this, this, "next", null);
     }
@@ -83,7 +83,7 @@ public class DiscreteBall extends Ball
     @Override
     public DirectedPoint getLocation() throws RemoteException
     {
-        double fraction = (this.simulator.getSimulatorTime().get() - this.startTime) / (this.stopTime - this.startTime);
+        double fraction = (this.simulator.getSimulatorTime() - this.startTime) / (this.stopTime - this.startTime);
         double x = this.origin.x + (this.destination.x - this.origin.x) * fraction;
         double y = this.origin.y + (this.destination.y - this.origin.y) * fraction;
         return new DirectedPoint(x, y, 0, 0.0, 0.0, this.theta);

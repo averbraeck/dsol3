@@ -1,13 +1,11 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import java.rmi.RemoteException;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.tutorial.section42.policies.OrderingPolicy;
 import nl.tudelft.simulation.dsol.tutorial.section42.policies.StationaryPolicy;
@@ -72,10 +70,8 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
      * constructs a new Retailer.
      * @param simulator the simulator on which we can schedule
      * @param warehouse the warehouse to buy at
-     * @throws RemoteException on failure
      */
     public Retailer(final DEVSSimulatorInterface.TimeDouble simulator, final SellerInterface warehouse)
-            throws RemoteException
     {
         super();
         this.simulator = simulator;
@@ -96,15 +92,8 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         long served = this.backLog - Math.max(0, this.backLog - amount);
         this.backLog = Math.max(0, this.backLog - amount);
         this.inventory = this.inventory + Math.max(0, amount - served);
-        try
-        {
-            this.fireTimedEvent(INVENTORY_LEVEL_EVENT, this.inventory, this.simulator.getSimulatorTime().get());
-            this.fireTimedEvent(BACKLOG_LEVEL, this.backLog, this.simulator.getSimulatorTime().get());
-        }
-        catch (RemoteException exception)
-        {
-            logger.warn("receiveProduct", exception);
-        }
+        this.fireTimedEvent(INVENTORY_LEVEL_EVENT, this.inventory, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(BACKLOG_LEVEL, this.backLog, this.simulator.getSimulatorTime());
     }
 
     /**
@@ -122,8 +111,8 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         }
         try
         {
-            this.simulator.scheduleEvent(new SimEvent<SimTimeDouble>(this.simulator.getSimulatorTime().plus(1.0), this,
-                    this, "reviewInventory", null));
+            this.simulator.scheduleEvent(new SimEvent.TimeDouble(this.simulator.getSimulatorTime() + 1.0, this, this,
+                    "reviewInventory", null));
         }
         catch (Exception exception)
         {
@@ -141,15 +130,8 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         {
             this.backLog = this.backLog + (amount - actualOrderSize);
         }
-        try
-        {
-            this.fireTimedEvent(INVENTORY_LEVEL_EVENT, this.inventory, this.simulator.getSimulatorTime().get());
-            this.fireTimedEvent(BACKLOG_LEVEL, this.backLog, this.simulator.getSimulatorTime().get());
-        }
-        catch (RemoteException exception)
-        {
-            logger.warn("receiveProduct", exception);
-        }
+        this.fireTimedEvent(INVENTORY_LEVEL_EVENT, this.inventory, this.simulator.getSimulatorTime());
+        this.fireTimedEvent(BACKLOG_LEVEL, this.backLog, this.simulator.getSimulatorTime());
         buyer.receiveProduct(actualOrderSize);
     }
 

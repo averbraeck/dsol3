@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.tutorial.section42.policies;
 
-import java.rmi.RemoteException;
 import java.util.Properties;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -26,9 +25,8 @@ public class StationaryPolicy implements OrderingPolicy
     /**
      * constructs a new StationaryPolicy.
      * @param simulator the simulator which is executing the experiment
-     * @throws RemoteException on network failure
      */
-    public StationaryPolicy(final SimulatorInterface.TimeDouble simulator) throws RemoteException
+    public StationaryPolicy(final SimulatorInterface.TimeDouble simulator)
     {
         super();
         Properties properties = simulator.getReplication().getTreatment().getProperties();

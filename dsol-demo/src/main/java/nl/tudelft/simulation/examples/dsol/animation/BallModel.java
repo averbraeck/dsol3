@@ -30,12 +30,19 @@ public class BallModel implements DSOLModel.TimeDouble
     /** {@inheritDoc} */
     @Override
     public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> sim)
-            throws SimRuntimeException, RemoteException
+            throws SimRuntimeException
     {
         this.simulator = (DEVSSimulatorInterface.TimeDouble) sim;
         for (int i = 0; i < 10; i++)
         {
-            new DiscreteBall(this.simulator);
+            try
+            {
+                new DiscreteBall(this.simulator);
+            }
+            catch (RemoteException exception)
+            {
+                exception.printStackTrace();
+            }
         }
     }
 

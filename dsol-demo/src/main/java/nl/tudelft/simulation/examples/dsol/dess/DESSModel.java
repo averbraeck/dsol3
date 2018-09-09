@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.examples.dsol.dess;
 
-import java.rmi.RemoteException;
-
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquationInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -45,13 +43,20 @@ public class DESSModel implements DSOLModel.TimeDouble
     /** {@inheritDoc} */
     @Override
     public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
-            throws RemoteException
     {
         this.simulator = (SimulatorInterface.TimeDouble) pSimulator;
-        Distance distance = new Distance((DESSSimulatorInterface.TimeDouble) pSimulator);
+        try
+        {
+            Distance distance = new Distance((DESSSimulatorInterface.TimeDouble) pSimulator);
 
-        this.distancePersistent = new Persistent<>("persistent on distance", pSimulator, distance,
-                DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
+            this.distancePersistent = new Persistent<>("persistent on distance", pSimulator, distance,
+                    DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+        }
+
         this.distancePersistent.initialize();
         this.distanceChart = new XYChart(pSimulator, "xyplot of distance");
         this.distanceChart.add(this.distancePersistent);
