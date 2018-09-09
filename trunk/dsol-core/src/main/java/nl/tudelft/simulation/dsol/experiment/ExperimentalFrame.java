@@ -8,6 +8,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -18,10 +22,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
@@ -37,9 +37,9 @@ import nl.tudelft.simulation.event.EventType;
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author Peter Jacobs, Alexander Verbraeck
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, such as
- *            Double or UnitTimeLong, the absolute and relative types are the same.
+ *            Double or Long, the absolute and relative types are the same.
  * @param <T> the simulation time type based on the absolute and relative time.
  */
 public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
@@ -270,7 +270,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /** Easy access class ExperimentalFrame.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends ExperimentalFrame<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends ExperimentalFrame<Time, Duration, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -278,15 +278,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /** Easy access class ExperimentalFrame.TimeFloatUnit. */
-    public static class TimeFloatUnit extends ExperimentalFrame<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-    }
-
-    /** Easy access class ExperimentalFrame.TimeLongUnit. */
-    public static class TimeLongUnit extends ExperimentalFrame<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    public static class TimeFloatUnit extends ExperimentalFrame<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -294,7 +286,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /** Easy access class ExperimentalFrame.CalendarDouble. */
-    public static class CalendarDouble extends ExperimentalFrame<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends ExperimentalFrame<Calendar, Duration, SimTimeCalendarDouble>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -302,7 +294,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /** Easy access class ExperimentalFrame.CalendarFloat. */
-    public static class CalendarFloat extends ExperimentalFrame<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends ExperimentalFrame<Calendar, FloatDuration, SimTimeCalendarFloat>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -310,7 +302,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /** Easy access class ExperimentalFrame.CalendarLong. */
-    public static class CalendarLong extends ExperimentalFrame<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends ExperimentalFrame<Calendar, Long, SimTimeCalendarLong>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
