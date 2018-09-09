@@ -20,7 +20,7 @@ public class Process extends nl.tudelft.simulation.dsol.formalisms.process.Proce
 
     /**
      * constructs a new Process.
-     * @param simulator
+     * @param simulator the simulator
      */
     public Process(DEVSSimulatorInterface simulator)
     {

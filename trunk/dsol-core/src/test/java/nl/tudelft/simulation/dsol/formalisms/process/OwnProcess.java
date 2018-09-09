@@ -22,7 +22,7 @@ public class OwnProcess extends Process
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param simulator
+     * @param simulator the simulator
      */
     public OwnProcess(DEVSSimulatorInterface.TimeDouble simulator)
     {
@@ -30,7 +30,7 @@ public class OwnProcess extends Process
     }
 
     /**
-     * processes the process
+     * processes the process.
      */
     @Override
     public void process()

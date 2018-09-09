@@ -18,7 +18,7 @@ public class DESSSimulatorTest_Failed extends SimulatorTest_NotCorrect
 {
     /**
      * constructs a new DEVSSimulatorTest.
-     * @throws SimRuntimeException
+     * @throws SimRuntimeException on error
      */
     public DESSSimulatorTest_Failed() throws SimRuntimeException
     {
@@ -40,7 +40,7 @@ public class DESSSimulatorTest_Failed extends SimulatorTest_NotCorrect
     /**
      * Executes a DESSSimulatorTest
      * @param args the arguments given on the command line
-     * @throws SimRuntimeException
+     * @throws SimRuntimeException on error
      */
     public static void main(final String[] args) throws SimRuntimeException
     {

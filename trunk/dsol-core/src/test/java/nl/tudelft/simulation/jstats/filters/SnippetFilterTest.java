@@ -29,7 +29,7 @@ public class SnippetFilterTest extends TestCase
 
     /**
      * constructs a new ZeroFilterTest.
-     * @param arg0
+     * @param arg0 arg0
      */
     public SnippetFilterTest(String arg0)
     {

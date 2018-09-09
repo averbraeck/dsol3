@@ -23,8 +23,8 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
 
     /**
      * constructs a new DifferentialEquation.
-     * @param simulator
-     * @throws RemoteException
+     * @param simulator the simulator
+     * @throws RemoteException on network error
      */
     public DifferentialEquation(DESSSimulatorInterface simulator) throws RemoteException
     {
@@ -33,9 +33,9 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
 
     /**
      * constructs a new DifferentialEquation.
-     * @param simulator
-     * @param timeStep
-     * @throws RemoteException 
+     * @param simulator the simulator
+     * @param timeStep the time step
+     * @throws RemoteException on network error
      */
     public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep) throws RemoteException
     {
@@ -44,10 +44,10 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
 
     /**
      * constructs a new DifferentialEquation.
-     * @param simulator
-     * @param timeStep
-     * @param numericalMethod
-     * @throws RemoteException 
+     * @param simulator the simulator
+     * @param timeStep the time step
+     * @param numericalMethod the integration method
+     * @throws RemoteException on network error
      */
     public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, short numericalMethod) throws RemoteException
     {
@@ -56,10 +56,10 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
 
     /**
      * constructs a new DifferentialEquation.
-     * @param simulator
-     * @param timeStep
-     * @param numericalIntegrator
-     * @throws RemoteException 
+     * @param simulator the simulator
+     * @param timeStep the time step
+     * @param numericalIntegrator the integration method
+     * @throws RemoteException on network error
      */
     public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep,
             NumericalIntegrator numericalIntegrator) throws RemoteException
