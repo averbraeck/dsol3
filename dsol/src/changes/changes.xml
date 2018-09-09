@@ -2,12 +2,49 @@
   <body>
 
     <release version="3.02.00" date="2018-09-08" description="DJUNITS time units for the Simulator classes">
+      <action dev="averbraeck" type="add">
+        The SimEvent got easy access classes. So you can now, e.g., construct a SimEvent.TimeDouble that
+        takes a double as the execution time. 
+      </action>
+      <action dev="averbraeck" type="update">
+        The "easy access" constructors of Treatment and Replication now take parameters in absolute and 
+        relative time units rather than SimTime. So a new Treatment.TimeDoubleUnit takes as parameters:
+        (Time startTime, Duration warmupPeriod, Duration runLength). This is a lot more clear than
+        using SimTime wrappers. The general Treatment and Replication constructors still needs a SimTime.
+        Extra methods getStartSimTime(), getWarmupSimTime() and getEndSimTime() have been added to the
+        Treatment in case the wrapper object are needed, e.g., for comparison or adding/subtracting
+        durations. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Simulator.getSimulatorTime() returns the absolute time A rather than the SimTime T. This makes
+        coding a lot easier, as the wrapper T is only used to implement the internals of adding and 
+        subtracting absolute and relative simulation times, but should actually never be exposed to the
+        user, unless the user is really interested in the wrapper. For this, the method 
+        Simulator.getSimTime() has been implemented, which returns a SimTime object.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Utilization in dsol-core now uses generics for time.
+      </action>
+      <action dev="averbraeck" type="update">
+        The Simulator classes do not use the internal TimeUnit classes anymore. Instead, the Time and
+        Duration from DJUNITS have been used. This holds for the TimeDoubleUnit, TimeFloatUnit,
+        CalendarDouble and CalendarFloat. TimeLongUnit has been removed, as it did not really make
+        sense how it was implemented. CalendarLong uses a relative Long to indicate time in milliseconds.
+      </action>
+      <action dev="averbraeck" type="update">
+        Most of the Model and Simulator methods and constructors do not throw RemoteExceptions anymore.
+        RemoteExceptions are only thrown for the Listeners and Context (for the animation), as both of these
+        are expected to be Remote sometimes. This means that statistics like Tally, Persistent, and Counter
+        throw RemoteExceptions on construction and adding series, as these are dependent on (possibly remote)
+        events.
+      </action>
       <action dev="averbraeck" type="fix">
         The ImmutableCollections have been updated to avoid accepting a List in the constructor of an ImmutableSet
         when the copyOrWrap is Immutable.WRAP. The size() of the original List and the ImmutableSet
         were different in case of duplicates in the List, which was terribly confusing. Therefore, accepting
         a Collection should always lead to a COPY, whereas a 'compatible' Collection can use the WRAP.
-        In addition, wrapping has become a lot more strict. An ImmutableArrayList wraps only an ArrayList,
+        In addition, wrapping has become a lot
+        more strict. An ImmutableArrayList wraps only an ArrayList,
         whereas an ImmutableVector only wraps a Vector. Originally, they could wrap each other, leading to
         incompatibilities. The same holds for Sets and Maps.
       </action>

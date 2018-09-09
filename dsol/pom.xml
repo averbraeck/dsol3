@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>dsol</groupId>
@@ -8,11 +8,11 @@
 
   <name>DSOL version 3</name>
   <description>Distributed Simulation Object Library version 3</description>
-  <url>http://www.simulation.tudelft.nl</url>
+  <url>https://www.simulation.tudelft.nl</url>
 
   <organization>
     <name>Delft University of Technology, Policy Analysis Section</name>
-    <url>http://www.simulation.tudelft.nl</url>
+    <url>https://www.simulation.tudelft.nl</url>
   </organization>
 
   <properties>
@@ -209,23 +209,23 @@
         <version>${maven.javadoc.version}</version>
         <configuration>
           <links>
-            <link>http://download.oracle.com/javase/7/docs/api/</link>
-            <link>http://download.java.net/media/java3d/javadoc/1.5.0/</link>
-            <link>http://www.jfree.org/jcommon/api/</link>
-            <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
-            <link>http://junit.sourceforge.net/javadoc/</link>
-            <link>http://xerces.apache.org/xerces2-j/javadocs/api/</link>
-            <link>http://www.jdom.org/docs/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-base/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-naming/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-event/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-interpreter/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-introspection/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-core/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-swing/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-fx/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-web/apidocs/</link>
-            <link>http://simulation.tudelft.nl/dsol/3.0/dsol-demo/apidocs/</link>
+            <link>https://download.oracle.com/javase/7/docs/api/</link>
+            <link>https://download.java.net/media/java3d/javadoc/1.5.0/</link>
+            <link>https://www.jfree.org/jcommon/api/</link>
+            <link>https://www.jfree.org/jfreechart/api/javadoc/</link>
+            <link>https://junit.sourceforge.net/javadoc/</link>
+            <link>https://xerces.apache.org/xerces2-j/javadocs/api/</link>
+            <link>https://www.jdom.org/docs/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-base/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-naming/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-event/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-interpreter/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-introspection/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-core/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-swing/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-fx/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-web/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/3.0/dsol-demo/apidocs/</link>
           </links>
           <additionalJOption>-J-Xmx1024m</additionalJOption>
           <detectJavaApiLink>true</detectJavaApiLink>
@@ -730,7 +730,13 @@
     <repository>
       <name>DSOL Public Repository</name>
       <id>dsol</id>
-      <url>http://simulation.tudelft.nl/maven</url>
+      <url>https://simulation.tudelft.nl/maven</url>
+    </repository>
+
+    <repository>
+      <name>DJUNITS Public Repository</name>
+      <id>djunits</id>
+      <url>https://djunits.org/maven</url>
     </repository>
 
     <repository>
@@ -739,7 +745,7 @@
       </snapshots>
       <id>apache</id>
       <name>apache</name>
-      <url>http://repo.maven.apache.org/maven2</url>
+      <url>https://repo.maven.apache.org/maven2</url>
     </repository>
 
   </repositories>
@@ -752,7 +758,7 @@
   <licenses>
     <license>
       <name>BSD-style license</name>
-      <url>http://www.simulation.tudelft.nl/dsol/3.0/dsol-license.html</url>
+      <url>https://www.simulation.tudelft.nl/dsol/3.0/dsol-license.html</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -763,7 +769,7 @@
       <name>Peter H.M. Jacobs</name>
       <email>phmjacobs@hotmail.com</email>
       <organization>Delft University of Technology, the Netherlands</organization>
-      <organizationUrl>http://www.tudelft.nl</organizationUrl>
+      <organizationUrl>https://www.tudelft.nl</organizationUrl>
       <timezone>1</timezone>
       <roles>
         <role>architect</role>
@@ -774,9 +780,9 @@
       <id>averbraeck</id>
       <name>Alexander Verbraeck</name>
       <email>a.verbraeck@tudelft.nl</email>
-      <url>http://www.tbm.tudelft.nl/averbraeck</url>
+      <url>https://www.tbm.tudelft.nl/averbraeck</url>
       <organization>Delft University of Technology, the Netherlands</organization>
-      <organizationUrl>http://www.simulation.tudelft.nl</organizationUrl>
+      <organizationUrl>https://www.simulation.tudelft.nl</organizationUrl>
       <timezone>1</timezone>
       <roles>
         <role>architect</role>
@@ -790,7 +796,7 @@
     <contributor>
       <name>Niels Lang</name>
       <organization>Erasmus University Rotterdam, the Netherlands</organization>
-      <organizationUrl>http://www.rsm.eur.nl</organizationUrl>
+      <organizationUrl>https://www.rsm.eur.nl</organizationUrl>
       <roles>
         <role>developer</role>
       </roles>
@@ -799,7 +805,7 @@
     <contributor>
       <name>Stijn-Pieter van Houten</name>
       <organization>Delft University of Technology, the Netherlands</organization>
-      <organizationUrl>http://www.tudelft.nl</organizationUrl>
+      <organizationUrl>https://www.tudelft.nl</organizationUrl>
       <roles>
         <role>developer</role>
       </roles>
@@ -808,7 +814,7 @@
     <contributor>
       <name>Roy Chin</name>
       <organization>Delft University of Technology, the Netherlands</organization>
-      <organizationUrl>http://www.tudelft.nl</organizationUrl>
+      <organizationUrl>https://www.tudelft.nl</organizationUrl>
       <roles>
         <role>developer</role>
       </roles>
@@ -817,7 +823,7 @@
     <contributor>
       <name>Mamadou Seck</name>
       <organization>Old Dominion University, USA</organization>
-      <organizationUrl>http://www.odu.edu</organizationUrl>
+      <organizationUrl>https://www.odu.edu</organizationUrl>
       <roles>
         <role>developer</role>
       </roles>
@@ -829,7 +835,7 @@
 
   <scm>
     <connection>scm:svn:https://svn.tbm.tudelft.nl/DSOL300/</connection>
-    <url>http://svn.tbm.tudelft.nl/</url>
+    <url>https://svn.tbm.tudelft.nl/</url>
     <developerConnection>scm:svn:https://svn.tbm.tudelft.nl/DSOL300/</developerConnection>
   </scm>
 
@@ -845,7 +851,7 @@
   -->
 
   <distributionManagement>
-    <downloadUrl>http://simulation.tudelft.nl/maven</downloadUrl>
+    <downloadUrl>https://simulation.tudelft.nl/maven</downloadUrl>
     <repository>
       <uniqueVersion>false</uniqueVersion>
       <id>dsol-deployment</id>
