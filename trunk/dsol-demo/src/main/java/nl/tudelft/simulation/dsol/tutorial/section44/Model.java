@@ -8,7 +8,6 @@ import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVDESSSimulatorInterface;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
@@ -41,7 +40,7 @@ public class Model implements DSOLModel<Double, Double, SimTimeDouble>
     /** {@inheritDoc} */
     @Override
     public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
-            throws RemoteException, SimRuntimeException
+            throws SimRuntimeException
     {
         this.simulator = (DEVDESSSimulatorInterface.TimeDouble) pSimulator;
         new World(new DirectedPoint(0, 0, -5.5), this.simulator);
@@ -52,7 +51,7 @@ public class Model implements DSOLModel<Double, Double, SimTimeDouble>
                 new DiscreteBall(this.simulator);
                 new ContinuousBall(this.simulator);
             }
-            catch (NamingException exception)
+            catch (NamingException | RemoteException exception)
             {
                 exception.printStackTrace();
             }

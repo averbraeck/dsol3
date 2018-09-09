@@ -1,8 +1,7 @@
 package nl.tudelft.simulation.dsol.tutorial.section43;
 
-import java.rmi.RemoteException;
-
 import nl.tudelft.simulation.dsol.DSOLModel;
+import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquationInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
@@ -42,25 +41,32 @@ public class PredatorPrey implements DSOLModel.TimeDouble
     /** {@inheritDoc} */
     @Override
     public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
-            throws RemoteException
+            throws SimRuntimeException
     {
         this.simulator = (SimulatorInterface.TimeDouble) pSimulator;
         DESSSimulatorInterface.TimeDouble dessSimulator = (DESSSimulatorInterface.TimeDouble) pSimulator;
 
-        // Prey and Predator definitions
-        Population population = new Population(dessSimulator);
+        try
+        {
+            // Prey and Predator definitions
+            Population population = new Population(dessSimulator);
 
-        Persistent<Double, Double, SimTimeDouble> preyPopulation = new Persistent<>("prey population", dessSimulator,
-                population, DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
-        preyPopulation.initialize();
+            Persistent<Double, Double, SimTimeDouble> preyPopulation = new Persistent<>("prey population",
+                    dessSimulator, population, DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
+            preyPopulation.initialize();
 
-        Persistent<Double, Double, SimTimeDouble> predatorPopulation = new Persistent<>("predator population",
-                dessSimulator, population, DifferentialEquationInterface.VALUE_CHANGED_EVENT[1]);
-        predatorPopulation.initialize();
+            Persistent<Double, Double, SimTimeDouble> predatorPopulation = new Persistent<>("predator population",
+                    dessSimulator, population, DifferentialEquationInterface.VALUE_CHANGED_EVENT[1]);
+            predatorPopulation.initialize();
 
-        this.chart = new XYChart(dessSimulator, "population");
-        this.chart.add(preyPopulation);
-        this.chart.add(predatorPopulation);
+            this.chart = new XYChart(dessSimulator, "population");
+            this.chart.add(preyPopulation);
+            this.chart.add(predatorPopulation);
+        }
+        catch (Exception exception)
+        {
+            throw new SimRuntimeException(exception);
+        }
     }
 
     /** {@inheritDoc} */

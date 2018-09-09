@@ -49,7 +49,7 @@ public class ContinuousBall extends Ball
     @Override
     public DirectedPoint getLocation() throws RemoteException
     {
-        double distance = this.positioner.y(this.simulator.getSimulatorTime().get())[0];
+        double distance = this.positioner.y(this.simulator.getSimulatorTime())[0];
         double x = Math.cos(this.rotZ) * distance + this.origin.x;
         double y = Math.sin(this.rotZ) * distance + this.origin.y;
         if (Math.abs(x - this.origin.x) > Math.abs(this.destination.x - this.origin.x)

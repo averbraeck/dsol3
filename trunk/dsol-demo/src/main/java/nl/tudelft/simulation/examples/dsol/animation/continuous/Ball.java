@@ -63,8 +63,8 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
     @Override
     public DirectedPoint getLocation() throws RemoteException
     {
-        double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime().get())[1] + this.origin.x;
-        double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime().get())[1] + this.origin.y;
+        double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[1] + this.origin.x;
+        double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[1] + this.origin.y;
         if (Math.abs(x - this.origin.x) > Math.abs(this.destination.x - this.origin.x)
                 || Math.abs(y - this.origin.y) > Math.abs(this.destination.y - this.origin.y))
         {

@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.dsol.tutorial.section41;
 
-import java.rmi.RemoteException;
-
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.Resource;
@@ -52,12 +50,12 @@ public class MM1Queue41Model implements DSOLModel.TimeDouble
 
     /** utilization uN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    Utilization uN;
+    Utilization<Double, Double, SimTimeDouble> uN;
 
     /** {@inheritDoc} */
     @Override
     public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> simulator)
-            throws SimRuntimeException, RemoteException
+            throws SimRuntimeException
     {
         this.devsSimulator = (DEVSSimulatorInterface.TimeDouble) simulator;
         StreamInterface defaultStream = new MersenneTwister();
@@ -87,9 +85,16 @@ public class MM1Queue41Model implements DSOLModel.TimeDouble
         server.setDestination(release);
 
         // Statistics
-        this.dN = new Tally<>("d(n)", this.devsSimulator, queue, Seize.DELAY_TIME);
-        this.qN = new Tally<>("q(n)", this.devsSimulator, queue, Seize.QUEUE_LENGTH_EVENT);
-        this.uN = new Utilization("u(n)", this.devsSimulator, server);
+        try
+        {
+            this.dN = new Tally<>("d(n)", this.devsSimulator, queue, Seize.DELAY_TIME);
+            this.qN = new Tally<>("q(n)", this.devsSimulator, queue, Seize.QUEUE_LENGTH_EVENT);
+            this.uN = new Utilization<>("u(n)", this.devsSimulator, server);
+        }
+        catch (Exception exception)
+        {
+            throw new SimRuntimeException(exception);
+        }
     }
 
     /** {@inheritDoc} */

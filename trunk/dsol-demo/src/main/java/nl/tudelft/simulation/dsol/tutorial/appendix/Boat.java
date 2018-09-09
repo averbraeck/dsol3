@@ -53,7 +53,7 @@ public class Boat extends Process<Double, Double, SimTimeDouble>
     {
         try
         {
-            double startTime = this.simulator.getSimulatorTime().get();
+            double startTime = this.simulator.getSimulatorTime();
             // We seize one jetty
             this.port.getJetties().requestCapacity(1.0, this);
             this.suspendProcess();
@@ -76,7 +76,7 @@ public class Boat extends Process<Double, Double, SimTimeDouble>
             this.port.getJetties().releaseCapacity(1.0);
             System.out.println(this.toString() + "arrived at time=" + startTime + " and left at time="
                     + this.simulator.getSimulatorTime() + ". ProcessTime = "
-                    + (super.simulator.getSimulatorTime().get() - startTime));
+                    + (super.simulator.getSimulatorTime() - startTime));
         }
         catch (Exception exception)
         {

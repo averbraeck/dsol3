@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -25,7 +24,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @version 1.0 Dec 8, 2003 <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class Boat42Model implements DSOLModel.TimeDouble
+public class Warehouse42Model implements DSOLModel.TimeDouble
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -48,7 +47,7 @@ public class Boat42Model implements DSOLModel.TimeDouble
     /**
      * constructs a new BoatModel.
      */
-    public Boat42Model()
+    public Warehouse42Model()
     {
         super();
     }
@@ -56,7 +55,7 @@ public class Boat42Model implements DSOLModel.TimeDouble
     /** {@inheritDoc} */
     @Override
     public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> devsSimulator)
-            throws SimRuntimeException, RemoteException
+            throws SimRuntimeException
     {
         this.simulator = (DEVSSimulatorInterface.TimeDouble) devsSimulator;
 
@@ -76,9 +75,18 @@ public class Boat42Model implements DSOLModel.TimeDouble
         Retailer retailer = new Retailer(this.simulator, warehouse);
         new Customer(this.simulator, retailer);
 
-        this.orderingCosts = new Tally<>("orderingCosts", devsSimulator, retailer, Retailer.TOTAL_ORDERING_COST_EVENT);
-        this.inventory = new Persistent<>("inventory level", devsSimulator, retailer, Retailer.INVENTORY_LEVEL_EVENT);
-        this.backlog = new Persistent<>("backlog level", devsSimulator, retailer, Retailer.BACKLOG_LEVEL);
+        try
+        {
+            this.orderingCosts =
+                    new Tally<>("orderingCosts", devsSimulator, retailer, Retailer.TOTAL_ORDERING_COST_EVENT);
+            this.inventory =
+                    new Persistent<>("inventory level", devsSimulator, retailer, Retailer.INVENTORY_LEVEL_EVENT);
+            this.backlog = new Persistent<>("backlog level", devsSimulator, retailer, Retailer.BACKLOG_LEVEL);
+        }
+        catch (Exception exception)
+        {
+            throw new SimRuntimeException(exception);
+        }
     }
 
     /** {@inheritDoc} */

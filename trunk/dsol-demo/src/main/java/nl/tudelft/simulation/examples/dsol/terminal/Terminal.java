@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.examples.dsol.terminal;
 
-import java.rmi.RemoteException;
 import java.util.Properties;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
@@ -41,7 +40,7 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
 
     /** AGVs. */
     private int numAGV = 25;
-    
+
     /** replication nr. */
     private final int rep;
 
@@ -64,7 +63,7 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
     /** {@inheritDoc} */
     @Override
     public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
-            throws SimRuntimeException, RemoteException
+            throws SimRuntimeException
     {
         this.simulator = (DEVSSimulatorInterface.TimeDouble) pSimulator;
         DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface.TimeDouble) pSimulator;
@@ -90,7 +89,7 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
 
     /** {@inheritDoc} */
     @Override
-    public final SimulatorInterface<Double, Double, SimTimeDouble> getSimulator() throws RemoteException
+    public final SimulatorInterface<Double, Double, SimTimeDouble> getSimulator()
     {
         return this.simulator;
     }
@@ -105,14 +104,14 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
 
     /** {@inheritDoc} */
     @Override
-    public void notify(final EventInterface event) throws RemoteException
+    public void notify(final EventInterface event)
     {
         if (event.getType().equals(Ship.SHIP_FULL_EVENT))
         {
             try
             {
                 this.simulator.stop();
-                double ready = this.simulator.getSimulatorTime().get() / 60.0;
+                double ready = this.simulator.getSimulatorTime() / 60.0;
                 double delayHours = Math.max(0.0, Math.ceil(ready) - 20.0);
                 if (DEBUG)
                 {

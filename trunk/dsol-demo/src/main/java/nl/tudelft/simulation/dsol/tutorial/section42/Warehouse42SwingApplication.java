@@ -43,13 +43,13 @@ import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
  * @version Aug 15, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class Boat42SwingApplication extends DSOLApplication
+public class Warehouse42SwingApplication extends DSOLApplication
 {
     /**
      * @param title the title
      * @param panel the panel
      */
-    public Boat42SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
+    public Warehouse42SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
     {
         super(title, panel);
     }
@@ -65,12 +65,12 @@ public class Boat42SwingApplication extends DSOLApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        Boat42Model model = new Boat42Model();
+        Warehouse42Model model = new Warehouse42Model();
         DEVSSimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
                 new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 5 * 24.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
-        new Boat42SwingApplication("MM1 Queue model", new Boat42Panel(model, simulator));
+        new Warehouse42SwingApplication("MM1 Queue model", new Boat42Panel(model, simulator));
     }
 
     /**
@@ -89,7 +89,7 @@ public class Boat42SwingApplication extends DSOLApplication
          * @param model the model
          * @param simulator the simulator
          */
-        Boat42Panel(final Boat42Model model, final DEVSSimulatorInterface.TimeDouble simulator)
+        Boat42Panel(final Warehouse42Model model, final DEVSSimulatorInterface.TimeDouble simulator)
         {
             super(model, simulator);
             addTabs(model);
@@ -99,7 +99,7 @@ public class Boat42SwingApplication extends DSOLApplication
          * add a number of charts for the demo.
          * @param model the model from which to take the statistics
          */
-        protected final void addTabs(final Boat42Model model)
+        protected final void addTabs(final Warehouse42Model model)
         {
             TablePanel charts = new TablePanel(2, 1);
             super.tabbedPane.addTab("statistics", charts);

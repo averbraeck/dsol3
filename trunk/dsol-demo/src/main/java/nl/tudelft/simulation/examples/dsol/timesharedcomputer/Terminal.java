@@ -1,8 +1,6 @@
 package nl.tudelft.simulation.examples.dsol.timesharedcomputer;
 
-import java.rmi.RemoteException;
-
-import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.flow.Station;
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -12,8 +10,8 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 
 /**
  * The Terminal as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. <br>
- * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 1.1 02.04.2003 <br>
@@ -21,6 +19,9 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  */
 public class Terminal extends Station<Double, Double, SimTimeDouble>
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** SERVICE_TIME is fired on job completion. */
     public static final EventType SERVICE_TIME = new EventType("SERVICE_TIME");
 
@@ -36,10 +37,9 @@ public class Terminal extends Station<Double, Double, SimTimeDouble>
      * @param cpu the destination
      * @param thinkDelay the delay
      * @param jobSize in time
-     * @throws RemoteException on network failure
      */
     public Terminal(final DEVSSimulatorInterface.TimeDouble simulator, final StationInterface cpu,
-            final DistContinuous thinkDelay, final DistContinuous jobSize) throws RemoteException
+            final DistContinuous thinkDelay, final DistContinuous jobSize)
     {
         super(simulator);
         this.thinkDelay = thinkDelay;
@@ -52,22 +52,15 @@ public class Terminal extends Station<Double, Double, SimTimeDouble>
     @Override
     public void receiveObject(final Object object)
     {
-        try
-        {
-            this.fireTimedEvent(SERVICE_TIME, this.simulator.getSimulatorTime().get() - ((Job) object).getCreationTime(),
-                    this.simulator.getSimulatorTime());
-        }
-        catch (RemoteException exception)
-        {
-            exception.printStackTrace();
-        }
+        this.fireTimedEvent(SERVICE_TIME, this.simulator.getSimulatorTime() - ((Job) object).getCreationTime(),
+                this.simulator.getSimulatorTime());
         try
         {
             Object[] args = {object};
-            this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime().get() + this.thinkDelay.draw(), this,
+            this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + this.thinkDelay.draw(), this,
                     this, "releaseObject", args);
         }
-        catch (Exception exception)
+        catch (SimRuntimeException exception)
         {
             exception.printStackTrace();
         }
@@ -75,9 +68,9 @@ public class Terminal extends Station<Double, Double, SimTimeDouble>
 
     /** {@inheritDoc} */
     @Override
-    public void releaseObject(final Object object) throws RemoteException
+    public synchronized void releaseObject(final Object object)
     {
-        Job job = new Job(this.jobSize, this, this.simulator.getSimulatorTime().get());
+        Job job = new Job(this.jobSize, this, this.simulator.getSimulatorTime());
         this.fireEvent(StationInterface.RELEASE_EVENT, 1);
         super.destination.receiveObject(job);
     }

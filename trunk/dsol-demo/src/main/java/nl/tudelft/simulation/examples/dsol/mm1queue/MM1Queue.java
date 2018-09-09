@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.examples.dsol.mm1queue;
 
-import java.rmi.RemoteException;
 import java.util.Properties;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
@@ -29,8 +28,8 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The M/M/1 example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4.
  * <br>
- * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * Copyright (c) 2003-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 2.0 21.09.2003 <br>
@@ -55,7 +54,7 @@ public class MM1Queue implements DSOLModel.TimeDouble
     /** {@inheritDoc} */
     @Override
     public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
-            throws SimRuntimeException, RemoteException
+            throws SimRuntimeException
     {
         this.simulator = (DEVSSimulatorInterface.TimeDouble) pSimulator;
         DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface.TimeDouble) pSimulator;
@@ -99,25 +98,32 @@ public class MM1Queue implements DSOLModel.TimeDouble
         server.setDestination(release);
 
         // Statistics
-        new Counter<Double, Double, SimTimeDouble>("counting the generator", pSimulator, generator,
-                Generator.CREATE_EVENT);
-        Persistent<Double, Double, SimTimeDouble> persistent =
-                new Persistent<>("persistent on service time", pSimulator, release, Release.SERVICE_TIME_EVENT);
+        try
+        {
+            new Counter<Double, Double, SimTimeDouble>("counting the generator", pSimulator, generator,
+                    Generator.CREATE_EVENT);
+            Persistent<Double, Double, SimTimeDouble> persistent =
+                    new Persistent<>("persistent on service time", pSimulator, release, Release.SERVICE_TIME_EVENT);
 
-        Histogram histogram = new Histogram(pSimulator, "histogram on service time", new double[]{0, 10}, 30);
-        histogram.add("histogram on service time", persistent, Tally.SAMPLE_MEAN_EVENT);
+            Histogram histogram = new Histogram(pSimulator, "histogram on service time", new double[]{0, 10}, 30);
+            histogram.add("histogram on service time", persistent, Tally.SAMPLE_MEAN_EVENT);
 
-        XYChart xyChart = new XYChart(pSimulator, "XY chart of service time",
-                new double[]{0, pSimulator.getReplication().getTreatment().getRunLength()}, new double[]{-2, 30});
-        xyChart.add(persistent);
+            XYChart xyChart = new XYChart(pSimulator, "XY chart of service time",
+                    new double[]{0, pSimulator.getReplication().getTreatment().getRunLength()}, new double[]{-2, 30});
+            xyChart.add(persistent);
 
-        BoxAndWhiskerChart bwChart = new BoxAndWhiskerChart(pSimulator, "BoxAndWhisker on serviceTime");
-        bwChart.add(persistent);
+            BoxAndWhiskerChart bwChart = new BoxAndWhiskerChart(pSimulator, "BoxAndWhisker on serviceTime");
+            bwChart.add(persistent);
+        }
+        catch (Exception exception)
+        {
+            throw new SimRuntimeException(exception);
+        }
     }
 
     /** {@inheritDoc} */
     @Override
-    public final SimulatorInterface<Double, Double, SimTimeDouble> getSimulator() throws RemoteException
+    public final SimulatorInterface<Double, Double, SimTimeDouble> getSimulator()
     {
         return this.simulator;
     }
