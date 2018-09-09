@@ -18,8 +18,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * The Tally extends the tally and links this it to the dsol framework <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -29,8 +28,8 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @param <R> the relative time type
  * @param <T> the absolute simulation time to use in the warmup event
  */
-public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> 
-    extends nl.tudelft.simulation.jstats.statistics.Tally
+public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends nl.tudelft.simulation.jstats.statistics.Tally
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -61,7 +60,7 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /** SUM_EVENT is fired whenever the sum is updated. */
     public static final EventType TIMED_SUM_EVENT = new EventType("TIMED_SUM_EVENT");
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(Process.class);
 
@@ -69,13 +68,13 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
      * constructs a new Tally.
      * @param description refers to the description of this Tally.
      * @param simulator the simulator to schedule on.
-     * @throws RemoteException on network failure.
+     * @throws RemoteException on network error for one of the listeners
      */
     public Tally(final String description, final SimulatorInterface<A, R, T> simulator) throws RemoteException
     {
         super(description);
         this.simulator = simulator;
-        if (this.simulator.getSimulatorTime().gt(this.simulator.getReplication().getTreatment().getWarmupTime()))
+        if (this.simulator.getSimTime().gt(this.simulator.getReplication().getTreatment().getWarmupSimTime()))
         {
             this.initialize();
         }
@@ -89,11 +88,11 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
             Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/statistics");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException | NamingException exception)
+        catch (NamingException exception)
         {
             logger.warn("<init>", exception);
         }
-        
+
         // subscribe to the events from the super Tally to send timed events by this simulator aware tally
         super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.MAX_EVENT, true);
         super.addListener(this, nl.tudelft.simulation.jstats.statistics.Tally.MIN_EVENT, true);
@@ -110,7 +109,7 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
      * @param simulator the simulator to schedule on.
      * @param target the target on which to subscribe.
      * @param field the field which is counted
-     * @throws RemoteException on network failure.
+     * @throws RemoteException on network error for one of the listeners
      */
     public Tally(final String description, final SimulatorInterface<A, R, T> simulator,
             final EventProducerInterface target, final EventType field) throws RemoteException
@@ -128,68 +127,75 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         {
             return;
         }
-        try
+        if (event.getType().equals(MAX_EVENT))
         {
-            if (event.getType().equals(MAX_EVENT))
-            {
-                fireTimedEvent(TIMED_MAX_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
-                return;
-            }
-            if (event.getType().equals(MIN_EVENT))
-            {
-                fireTimedEvent(TIMED_MIN_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
-                return;
-            }
-            if (event.getType().equals(N_EVENT))
-            {
-                fireTimedEvent(TIMED_N_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
-                return;
-            }
-            if (event.getType().equals(SAMPLE_MEAN_EVENT))
-            {
-                fireTimedEvent(TIMED_SAMPLE_MEAN_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
-                return;
-            }
-            if (event.getType().equals(SAMPLE_VARIANCE_EVENT))
-            {
-                fireTimedEvent(TIMED_SAMPLE_VARIANCE_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
-                return;
-            }
-            if (event.getType().equals(STANDARD_DEVIATION_EVENT))
-            {
-                fireTimedEvent(TIMED_STANDARD_DEVIATION_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
-                return;
-            }
-            if (event.getType().equals(SUM_EVENT))
-            {
-                fireTimedEvent(TIMED_SUM_EVENT, event.getContent(), this.simulator.getSimulatorTime().get());
-                return;
-            }
+            fireTimedEvent(TIMED_MAX_EVENT, event.getContent(), this.simulator.getSimulatorTime());
+            return;
+        }
+        if (event.getType().equals(MIN_EVENT))
+        {
+            fireTimedEvent(TIMED_MIN_EVENT, event.getContent(), this.simulator.getSimulatorTime());
+            return;
+        }
+        if (event.getType().equals(N_EVENT))
+        {
+            fireTimedEvent(TIMED_N_EVENT, event.getContent(), this.simulator.getSimulatorTime());
+            return;
+        }
+        if (event.getType().equals(SAMPLE_MEAN_EVENT))
+        {
+            fireTimedEvent(TIMED_SAMPLE_MEAN_EVENT, event.getContent(), this.simulator.getSimulatorTime());
+            return;
+        }
+        if (event.getType().equals(SAMPLE_VARIANCE_EVENT))
+        {
+            fireTimedEvent(TIMED_SAMPLE_VARIANCE_EVENT, event.getContent(), this.simulator.getSimulatorTime());
+            return;
+        }
+        if (event.getType().equals(STANDARD_DEVIATION_EVENT))
+        {
+            fireTimedEvent(TIMED_STANDARD_DEVIATION_EVENT, event.getContent(), this.simulator.getSimulatorTime());
+            return;
+        }
+        if (event.getType().equals(SUM_EVENT))
+        {
+            fireTimedEvent(TIMED_SUM_EVENT, event.getContent(), this.simulator.getSimulatorTime());
+            return;
+        }
 
-            if (event.getSource().equals(this.simulator))
+        if (event.getSource().equals(this.simulator))
+        {
+            if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
             {
-                if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
+                try
                 {
                     this.simulator.removeListener(this, SimulatorInterface.WARMUP_EVENT);
-                    super.initialize();
-                    return;
                 }
-                if (event.getType().equals(SimulatorInterface.END_OF_REPLICATION_EVENT))
+                catch (RemoteException exception)
                 {
-                    this.stopped = true;
-                    this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
-                    this.endOfReplication();
-                    return;
+                    logger.warn("problen removing Listener for SimulatorIterface.WARMUP_EVENT", exception);
                 }
+                super.initialize();
+                return;
             }
-            else if (this.isInitialized())
+            if (event.getType().equals(SimulatorInterface.END_OF_REPLICATION_EVENT))
             {
-                super.notify(event);
+                this.stopped = true;
+                try
+                {
+                    this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
+                }
+                catch (RemoteException exception)
+                {
+                    logger.warn("problen removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT", exception);
+                }
+                this.endOfReplication();
+                return;
             }
         }
-        catch (RemoteException remoteException)
+        else if (this.isInitialized())
         {
-            logger.warn("notify", remoteException);
+            super.notify(event);
         }
     }
 

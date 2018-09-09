@@ -3,6 +3,9 @@ package nl.tudelft.simulation.dsol.simtime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import org.djunits.unit.DurationUnit;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+
 /**
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -31,7 +34,7 @@ import java.util.GregorianCalendar;
  * @version Jul 25, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class SimTimeCalendarFloat extends SimTime<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+public class SimTimeCalendarFloat extends SimTime<Calendar, FloatDuration, SimTimeCalendarFloat>
 {
     /** */
     private static final long serialVersionUID = 20140803L;
@@ -60,25 +63,23 @@ public class SimTimeCalendarFloat extends SimTime<Calendar, UnitTimeFloat, SimTi
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final UnitTimeFloat relativeTime)
+    public final void add(final FloatDuration relativeTime)
     {
-        this.timeMsec += relativeTime.getTimeMsec();
+        this.timeMsec += 1000.0f * relativeTime.si;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final UnitTimeFloat relativeTime)
+    public final void subtract(final FloatDuration relativeTime)
     {
-        this.timeMsec -= relativeTime.getTimeMsec();
+        this.timeMsec -= 1000.0f * relativeTime.si;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final UnitTimeFloat minus(final SimTimeCalendarFloat simTime)
+    public final FloatDuration minus(final SimTimeCalendarFloat simTime)
     {
-        UnitTimeFloat ret = new UnitTimeFloat(this.timeMsec, TimeUnit.MILLISECOND);
-        ret.setTimeMsec(ret.getTimeMsec() - simTime.timeMsec);
-        return ret;
+        return new FloatDuration(this.timeMsec - simTime.timeMsec, DurationUnit.MILLISECOND);
     }
 
     /** {@inheritDoc} */

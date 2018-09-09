@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.io.Serializable;
 import java.rmi.MarshalledObject;
-import java.rmi.RemoteException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,8 +10,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
  * A duplicate station duplicates incoming objects and sends them to their alternative destination. <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -58,7 +56,7 @@ public class Duplicate extends Station
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void receiveObject(final Object object) throws RemoteException
+    public synchronized void receiveObject(final Object object)
     {
         super.receiveObject(object);
         try

@@ -2,6 +2,11 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
 
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -12,22 +17,17 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 
 /**
  * The reference implementation of the DEVDESS simulator.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -78,7 +78,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     public void run()
     {
         while (this.isRunning() && !this.eventList.isEmpty()
-                && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
+                && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             synchronized (super.semaphore)
             {
@@ -88,7 +88,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
-                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                            this.simulatorTime.get());
                     try
                     {
                         event.execute();
@@ -106,7 +107,8 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
                 {
                     this.simulatorTime = runUntil;
                 }
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                        this.simulatorTime.get());
             }
         }
     }
@@ -164,7 +166,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class DEVDESSSimulator.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends DEVDESSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends DEVDESSSimulator<Time, Duration, SimTimeDoubleUnit>
             implements DEVDESSSimulatorInterface.TimeDoubleUnit
     {
         /** */
@@ -173,14 +175,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         /**
          * @param initialTimeStep the initial time step to use in the integration.
          */
-        public TimeDoubleUnit(final UnitTimeDouble initialTimeStep)
+        public TimeDoubleUnit(final Duration initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class DEVDESSSimulator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVDESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends DEVDESSSimulator<FloatTime, FloatDuration, SimTimeFloatUnit>
             implements DEVDESSSimulatorInterface.TimeFloatUnit
     {
         /** */
@@ -189,30 +191,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         /**
          * @param initialTimeStep the initial time step to use in the integration.
          */
-        public TimeFloatUnit(final UnitTimeFloat initialTimeStep)
-        {
-            super(initialTimeStep);
-        }
-    }
-
-    /** Easy access class DEVDESSSimulator.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVDESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-            implements DEVDESSSimulatorInterface.TimeLongUnit
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep the initial time step to use in the integration.
-         */
-        public TimeLongUnit(final UnitTimeLong initialTimeStep)
+        public TimeFloatUnit(final FloatDuration initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class DEVDESSSimulator.CalendarDouble. */
-    public static class CalendarDouble extends DEVDESSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends DEVDESSSimulator<Calendar, Duration, SimTimeCalendarDouble>
             implements DEVDESSSimulatorInterface.CalendarDouble
     {
         /** */
@@ -221,14 +207,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         /**
          * @param initialTimeStep the initial time step to use in the integration.
          */
-        public CalendarDouble(final UnitTimeDouble initialTimeStep)
+        public CalendarDouble(final Duration initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class DEVDESSSimulator.CalendarFloat. */
-    public static class CalendarFloat extends DEVDESSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends DEVDESSSimulator<Calendar, FloatDuration, SimTimeCalendarFloat>
             implements DEVDESSSimulatorInterface.CalendarFloat
     {
         /** */
@@ -237,14 +223,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         /**
          * @param initialTimeStep the initial time step to use in the integration.
          */
-        public CalendarFloat(final UnitTimeFloat initialTimeStep)
+        public CalendarFloat(final FloatDuration initialTimeStep)
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class DEVDESSSimulator.CalendarLong. */
-    public static class CalendarLong extends DEVDESSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends DEVDESSSimulator<Calendar, Long, SimTimeCalendarLong>
             implements DEVDESSSimulatorInterface.CalendarLong
     {
         /** */
@@ -253,7 +239,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         /**
          * @param initialTimeStep the initial time step to use in the integration.
          */
-        public CalendarLong(final UnitTimeLong initialTimeStep)
+        public CalendarLong(final Long initialTimeStep)
         {
             super(initialTimeStep);
         }

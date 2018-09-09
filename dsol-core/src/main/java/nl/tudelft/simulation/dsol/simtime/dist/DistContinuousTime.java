@@ -1,9 +1,9 @@
 package nl.tudelft.simulation.dsol.simtime.dist;
 
-import nl.tudelft.simulation.dsol.simtime.TimeUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
+import org.djunits.unit.DurationUnit;
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+
 import nl.tudelft.simulation.jstats.distributions.Dist;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 
@@ -142,19 +142,19 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.DoubleUnit. */
-    public static class TimeDoubleUnit extends DistContinuousTime<UnitTimeDouble>
+    public static class TimeDoubleUnit extends DistContinuousTime<Duration>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /** the time unit. */
-        private final TimeUnit unit;
+        private final DurationUnit unit;
 
         /**
          * @param wrappedDistribution the wrapped continuous distribution
          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
-        public TimeDoubleUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
+        public TimeDoubleUnit(final DistContinuous wrappedDistribution, final DurationUnit unit)
         {
             super(wrappedDistribution);
             this.unit = unit;
@@ -162,26 +162,26 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
 
         /** {@inheritDoc} */
         @Override
-        public final UnitTimeDouble draw()
+        public final Duration draw()
         {
-            return new UnitTimeDouble(super.wrappedDistribution.draw(), this.unit);
+            return new Duration(super.wrappedDistribution.draw(), this.unit);
         }
     }
 
     /** Easy access class DistContinuousTime.FloatUnit. */
-    public static class TimeFloatUnit extends DistContinuousTime<UnitTimeFloat>
+    public static class TimeFloatUnit extends DistContinuousTime<FloatDuration>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /** the time unit. */
-        private final TimeUnit unit;
+        private final DurationUnit unit;
 
         /**
          * @param wrappedDistribution the wrapped continuous distribution
          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
-        public TimeFloatUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
+        public TimeFloatUnit(final DistContinuous wrappedDistribution, final DurationUnit unit)
         {
             super(wrappedDistribution);
             this.unit = unit;
@@ -189,53 +189,26 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
 
         /** {@inheritDoc} */
         @Override
-        public final UnitTimeFloat draw()
+        public final FloatDuration draw()
         {
-            return new UnitTimeFloat((float) super.wrappedDistribution.draw(), this.unit);
-        }
-    }
-
-    /** Easy access class DistContinuousTime.LongUnit. */
-    public static class TimeLongUnit extends DistContinuousTime<UnitTimeLong>
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /** the time unit. */
-        private final TimeUnit unit;
-
-        /**
-         * @param wrappedDistribution the wrapped continuous distribution
-         * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
-         */
-        public TimeLongUnit(final DistContinuous wrappedDistribution, final TimeUnit unit)
-        {
-            super(wrappedDistribution);
-            this.unit = unit;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final UnitTimeLong draw()
-        {
-            return new UnitTimeLong((long) super.wrappedDistribution.draw(), this.unit);
+            return new FloatDuration((float) super.wrappedDistribution.draw(), this.unit);
         }
     }
 
     /** Easy access class DistContinuousTime.CalendarDouble. */
-    public static class CalendarDouble extends DistContinuousTime<UnitTimeDouble>
+    public static class CalendarDouble extends DistContinuousTime<Duration>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /** the time unit. */
-        private final TimeUnit unit;
+        private final DurationUnit unit;
 
         /**
          * @param wrappedDistribution the wrapped continuous distribution
          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
-        public CalendarDouble(final DistContinuous wrappedDistribution, final TimeUnit unit)
+        public CalendarDouble(final DistContinuous wrappedDistribution, final DurationUnit unit)
         {
             super(wrappedDistribution);
             this.unit = unit;
@@ -243,26 +216,26 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
 
         /** {@inheritDoc} */
         @Override
-        public final UnitTimeDouble draw()
+        public final Duration draw()
         {
-            return new UnitTimeDouble(super.wrappedDistribution.draw(), this.unit);
+            return new Duration(super.wrappedDistribution.draw(), this.unit);
         }
     }
 
     /** Easy access class DistContinuousTime.CalendarFloat. */
-    public static class CalendarFloat extends DistContinuousTime<UnitTimeFloat>
+    public static class CalendarFloat extends DistContinuousTime<FloatDuration>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
 
         /** the time unit. */
-        private final TimeUnit unit;
+        private final DurationUnit unit;
 
         /**
          * @param wrappedDistribution the wrapped continuous distribution
          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
-        public CalendarFloat(final DistContinuous wrappedDistribution, final TimeUnit unit)
+        public CalendarFloat(final DistContinuous wrappedDistribution, final DurationUnit unit)
         {
             super(wrappedDistribution);
             this.unit = unit;
@@ -270,36 +243,32 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
 
         /** {@inheritDoc} */
         @Override
-        public final UnitTimeFloat draw()
+        public final FloatDuration draw()
         {
-            return new UnitTimeFloat((float) super.wrappedDistribution.draw(), this.unit);
+            return new FloatDuration((float) super.wrappedDistribution.draw(), this.unit);
         }
     }
 
     /** Easy access class DistContinuousTime.CalendarLong. */
-    public static class CalendarLong extends DistContinuousTime<UnitTimeLong>
+    public static class CalendarLong extends DistContinuousTime<Long>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
-
-        /** the time unit. */
-        private final TimeUnit unit;
 
         /**
          * @param wrappedDistribution the wrapped continuous distribution
          * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
-        public CalendarLong(final DistContinuous wrappedDistribution, final TimeUnit unit)
+        public CalendarLong(final DistContinuous wrappedDistribution)
         {
             super(wrappedDistribution);
-            this.unit = unit;
         }
 
         /** {@inheritDoc} */
         @Override
-        public final UnitTimeLong draw()
+        public final Long draw()
         {
-            return new UnitTimeLong((long) super.wrappedDistribution.draw(), this.unit);
+            return (long) super.wrappedDistribution.draw();
         }
     }
 

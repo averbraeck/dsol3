@@ -2,6 +2,11 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
 
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
+
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -11,10 +16,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 
 /**
  * The DEVSDESS simulator embodies both the continuous and the discrete formalism. This simulator takes pre-defined time
@@ -22,14 +23,13 @@ import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
  * formalism. More information on Modeling and Simulation can be found in Theory of Modeling and Simulation by Bernard
  * Zeigler et. al.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -67,43 +67,35 @@ public interface DEVDESSSimulatorInterface<A extends Comparable<A>, R extends Nu
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit
-            extends DEVDESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>,
+    public interface TimeDoubleUnit extends DEVDESSSimulatorInterface<Time, Duration, SimTimeDoubleUnit>,
             DEVSSimulatorInterface.TimeDoubleUnit, DESSSimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.TimeFloatUnit. */
-    public interface TimeFloatUnit extends DEVDESSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>,
+    public interface TimeFloatUnit extends DEVDESSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>,
             DEVSSimulatorInterface.TimeFloatUnit, DESSSimulatorInterface.TimeFloatUnit
     {
         // typed extension
     }
 
-    /** Easy access interface DEVDESSSimulatorInterface.TimeLongUnit. */
-    public interface TimeLongUnit extends DEVDESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>,
-            DEVSSimulatorInterface.TimeLongUnit, DESSSimulatorInterface.TimeLongUnit
-    {
-        // typed extension
-    }
-
     /** Easy access interface DEVDESSSimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble extends DEVDESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>,
+    public interface CalendarDouble extends DEVDESSSimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>,
             DEVSSimulatorInterface.CalendarDouble, DESSSimulatorInterface.CalendarDouble
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends DEVDESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>,
+    public interface CalendarFloat extends DEVDESSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>,
             DEVSSimulatorInterface.CalendarFloat, DESSSimulatorInterface.CalendarFloat
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.CalendarLong. */
-    public interface CalendarLong extends DEVDESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>,
+    public interface CalendarLong extends DEVDESSSimulatorInterface<Calendar, Long, SimTimeCalendarLong>,
             DEVSSimulatorInterface.CalendarLong, DESSSimulatorInterface.CalendarLong
     {
         // typed extension

@@ -19,8 +19,7 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * A resource defines a shared and limited amount.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -144,7 +143,7 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
     private synchronized void alterClaimedCapacity(final double amount) throws RemoteException
     {
         this.claimedCapacity += amount;
-        this.fireTimedEvent(Resource.UTILIZATION_EVENT, this.claimedCapacity, this.simulator.getSimulatorTime().get());
+        this.fireTimedEvent(Resource.UTILIZATION_EVENT, this.claimedCapacity, this.simulator.getSimulatorTime());
     }
 
     /**
@@ -207,7 +206,7 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
                 this.requests.add(new Request<A, R, T>(requestor, amount, priority));
             }
             this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
-                    this.simulator.getSimulatorTime().get());
+                    this.simulator.getSimulatorTime());
         }
     }
 
@@ -240,7 +239,7 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
                         i.remove();
                     }
                     this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
-                            this.simulator.getSimulatorTime().get());
+                            this.simulator.getSimulatorTime());
                 }
                 else
                 {

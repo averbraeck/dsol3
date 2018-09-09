@@ -141,12 +141,12 @@ public class InputPort<T> implements InputPortInterface<T>
                 if (atomicModel.isConflict())
                 {
                     atomicModel.deltaConfluent(
-                            this.model.getSimulator().getSimulatorTime().get() - atomicModel.getTimeLastEvent(), value);
+                            this.model.getSimulator().getSimulatorTime() - atomicModel.getTimeLastEvent(), value);
                 }
                 else
                 {
                     atomicModel.deltaExternalEventHandler(
-                            this.model.getSimulator().getSimulatorTime().get() - atomicModel.getTimeLastEvent(), value);
+                            this.model.getSimulator().getSimulatorTime() - atomicModel.getTimeLastEvent(), value);
                 }
                 if (!passivity)
                 {

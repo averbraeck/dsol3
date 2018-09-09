@@ -1,5 +1,8 @@
 package nl.tudelft.simulation.dsol.simtime;
 
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
+
 /**
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -28,50 +31,48 @@ package nl.tudelft.simulation.dsol.simtime;
  * @version Jul 25, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+public class SimTimeFloatUnit extends SimTime<FloatTime, FloatDuration, SimTimeFloatUnit>
 {
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** value represents the value in milliseconds. */
-    private UnitTimeFloat time;
+    /** time as a DJUNITS object. */
+    private FloatTime time;
 
     /**
      * @param time the initial time.
      */
-    public SimTimeFloatUnit(final UnitTimeFloat time)
+    public SimTimeFloatUnit(final FloatTime time)
     {
-        super(new UnitTimeFloat(time.getTime(), time.getUnit()));
+        super(time);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final UnitTimeFloat relativeTime)
+    public final void add(final FloatDuration relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() + relativeTime.getTimeMsec());
+        this.time = this.time.plus(relativeTime);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final UnitTimeFloat relativeTime)
+    public final void subtract(final FloatDuration relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() - relativeTime.getTimeMsec());
+        this.time = this.time.minus(relativeTime);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final UnitTimeFloat minus(final SimTimeFloatUnit simTime)
+    public FloatDuration minus(final SimTimeFloatUnit simTime)
     {
-        UnitTimeFloat ret = new UnitTimeFloat(this.time.getTime(), this.time.getUnit());
-        ret.setTimeMsec(ret.getTimeMsec() - simTime.get().getTimeMsec());
-        return ret;
+        return this.time.minus(simTime.get());
     }
 
     /** {@inheritDoc} */
     @Override
     public final SimTimeFloatUnit setZero()
     {
-        this.time.setTimeMsec(0.0f);
+        this.time = FloatTime.ZERO;
         return this;
     }
 
@@ -79,19 +80,19 @@ public class SimTimeFloatUnit extends SimTime<UnitTimeFloat, UnitTimeFloat, SimT
     @Override
     public final SimTimeFloatUnit copy()
     {
-        return new SimTimeFloatUnit(new UnitTimeFloat(this.time.getTime(), this.time.getUnit()));
+        return new SimTimeFloatUnit(this.time);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void set(final UnitTimeFloat absoluteTime)
+    public final void set(final FloatTime absoluteTime)
     {
-        this.time = new UnitTimeFloat(absoluteTime.getTime(), absoluteTime.getUnit());
+        this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final UnitTimeFloat get()
+    public final FloatTime get()
     {
         return this.time;
     }

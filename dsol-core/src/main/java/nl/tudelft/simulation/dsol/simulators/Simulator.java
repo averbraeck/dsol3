@@ -2,8 +2,12 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.rmi.RemoteException;
 import java.util.Calendar;
+
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -17,10 +21,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.jstats.statistics.StatisticsObject;
 import nl.tudelft.simulation.language.concurrent.WorkerThread;
@@ -28,14 +28,13 @@ import nl.tudelft.simulation.language.concurrent.WorkerThread;
 /**
  * The Simulator class is an abstract implementation of the SimulatorInterface.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -78,7 +77,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
-    public final T getSimulatorTime()
+    public final A getSimulatorTime()
+    {
+        return this.simulatorTime == null ? null : this.simulatorTime.get();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public T getSimTime()
     {
         return this.simulatorTime;
     }
@@ -94,7 +100,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     @Override
     @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
-            throws RemoteException, SimRuntimeException
+            throws SimRuntimeException
     {
         if (initReplication == null)
         {
@@ -108,8 +114,9 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         {
             this.removeAllListeners(StatisticsObject.class);
             this.replication = initReplication;
-            this.simulatorTime = initReplication.getTreatment().getStartTime().copy();
-            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime.get());
+            this.simulatorTime = initReplication.getTreatment().getStartSimTime().copy();
+            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime,
+                    this.simulatorTime.get());
             this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
         }
     }
@@ -142,7 +149,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         {
             throw new SimRuntimeException("Cannot start a simulator" + " without replication details");
         }
-        if (this.simulatorTime.ge(this.replication.getTreatment().getEndTime()))
+        if (this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()))
         {
             throw new SimRuntimeException("Cannot start simulator : " + "simulatorTime = runLength");
         }
@@ -186,7 +193,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         {
             throw new SimRuntimeException("Cannot step a simulator " + "without replication details");
         }
-        if (this.simulatorTime.ge(this.replication.getTreatment().getEndTime()))
+        if (this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()))
         {
             throw new SimRuntimeException("Cannot step simulator: " + "SimulatorTime = runControl.runLength");
         }
@@ -212,7 +219,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         if (this.isRunning())
         {
             this.running = false;
-            if (this.simulatorTime.ge(this.getReplication().getTreatment().getEndTime()))
+            if (this.simulatorTime.ge(this.getReplication().getTreatment().getEndSimTime()))
             {
                 this.fireTimedEvent(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime.get());
             }
@@ -310,7 +317,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.TimeDoubleUnit. */
-    public abstract static class TimeDoubleUnit extends Simulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public abstract static class TimeDoubleUnit extends Simulator<Time, Duration, SimTimeDoubleUnit>
             implements SimulatorInterface.TimeDoubleUnit
     {
         /** */
@@ -318,23 +325,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.TimeFloatUnit. */
-    public abstract static class TimeFloatUnit extends Simulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public abstract static class TimeFloatUnit extends Simulator<FloatTime, FloatDuration, SimTimeFloatUnit>
             implements SimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Simulator.TimeLongUnit. */
-    public abstract static class TimeLongUnit extends Simulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-            implements SimulatorInterface.TimeLongUnit
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-    }
-
     /** Easy access class Simulator.CalendarDouble. */
-    public abstract static class CalendarDouble extends Simulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public abstract static class CalendarDouble extends Simulator<Calendar, Duration, SimTimeCalendarDouble>
             implements SimulatorInterface.CalendarDouble
     {
         /** */
@@ -342,7 +341,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.CalendarFloat. */
-    public abstract static class CalendarFloat extends Simulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public abstract static class CalendarFloat extends Simulator<Calendar, FloatDuration, SimTimeCalendarFloat>
             implements SimulatorInterface.CalendarFloat
     {
         /** */
@@ -350,7 +349,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.CalendarLong. */
-    public abstract static class CalendarLong extends Simulator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public abstract static class CalendarLong extends Simulator<Calendar, Long, SimTimeCalendarLong>
             implements SimulatorInterface.CalendarLong
     {
         /** */

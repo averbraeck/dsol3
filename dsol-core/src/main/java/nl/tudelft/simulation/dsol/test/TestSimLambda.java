@@ -44,7 +44,7 @@ public class TestSimLambda
     {
         this.devsSimulator = new DEVSSimulator.TimeDouble();
         Model model = new Model(this.devsSimulator);
-        Replication.TimeDouble rep = new Replication.TimeDouble("rep1", new SimTimeDouble(0.0), 0.0, 100.0, model);
+        Replication.TimeDouble rep = new Replication.TimeDouble("rep1", 0.0, 0.0, 100.0, model);
         this.devsSimulator.initialize(rep, ReplicationMode.TERMINATING);
 
         for (int i = 0; i < 10; i++)
@@ -66,14 +66,7 @@ public class TestSimLambda
      */
     protected final void print()
     {
-        try
-        {
-            System.out.println("print scheduled at t=" + this.devsSimulator.getSimulatorTime().get().doubleValue());
-        }
-        catch (RemoteException exception)
-        {
-            exception.printStackTrace();
-        }
+        System.out.println("print scheduled at t=" + this.devsSimulator.getSimulatorTime().doubleValue());
     }
 
     /**
@@ -107,7 +100,7 @@ public class TestSimLambda
 
         /** {@inheritDoc} */
         @Override
-        public final SimulatorInterface.TimeDouble getSimulator() throws RemoteException
+        public final SimulatorInterface.TimeDouble getSimulator()
         {
             return this.modelSimulator;
         }
@@ -115,7 +108,7 @@ public class TestSimLambda
         /** {@inheritDoc} */
         @Override
         public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> simulator)
-                throws SimRuntimeException, RemoteException
+                throws SimRuntimeException
         {
             //
         }

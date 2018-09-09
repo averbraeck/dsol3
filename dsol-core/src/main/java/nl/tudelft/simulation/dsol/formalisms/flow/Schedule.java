@@ -27,7 +27,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author Peter Jacobs, Alexander Verbraeck
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.

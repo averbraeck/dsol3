@@ -142,7 +142,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
         {
             if (o.getFromPort() == x)
             {
-                ((IC<T>) o).getToPort().receive(y, this.simulator.getSimulatorTime().get());
+                ((IC<T>) o).getToPort().receive(y, this.simulator.getSimulatorTime());
             }
         }
         for (EOC<?> o : this.externalOutputCouplingSet)

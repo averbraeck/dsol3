@@ -2,8 +2,12 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.Serializable;
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.util.Calendar;
+
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -17,10 +21,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.EventProducerInterface;
 import nl.tudelft.simulation.event.EventType;
 
@@ -29,7 +29,7 @@ import nl.tudelft.simulation.event.EventType;
  * computational object capable of executing the model. The simulator is therefore an object which must can be stopped,
  * paused, started, reset, etc.
  * <p>
- * copyright (c) 2002-2018  <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * copyright (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
@@ -37,7 +37,7 @@ import nl.tudelft.simulation.event.EventType;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -69,80 +69,75 @@ public interface SimulatorInterface<A extends Comparable<A>, R extends Number & 
     EventType WARMUP_EVENT = new EventType("WARMUP_EVENT");
 
     /**
-     * returns the actual simulator time.
+     * returns the absolute simulator time.
      * @return the simulator time.
-     * @throws RemoteException on network failure.
      */
-    T getSimulatorTime() throws RemoteException;
+    A getSimulatorTime();
+
+    /**
+     * returns the wrapper SimTime object for the simulator time.
+     * @return the simulator time.
+     */
+    T getSimTime();
 
     /**
      * returns the currently executed replication.
      * @return the current replication
-     * @throws RemoteException on network failure
      */
-    Replication<A, R, T> getReplication() throws RemoteException;
+    Replication<A, R, T> getReplication();
 
     /**
      * initializes the simulator with a specified replication.
      * @param replication the replication
      * @param replicationMode the replication mode, i.e. steady state or terminating
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException on simulator failure (simulator is running)
      */
-    void initialize(Replication<A, R, T> replication, ReplicationMode replicationMode)
-            throws RemoteException, SimRuntimeException;
+    void initialize(Replication<A, R, T> replication, ReplicationMode replicationMode) throws SimRuntimeException;
 
     /**
      * is the simulator running.
      * @return boolean
-     * @throws RemoteException on network failure
      */
-    boolean isRunning() throws RemoteException;
+    boolean isRunning();
 
     /**
      * starts the simulator, and fire a START event that the simulator was started.
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      */
-    void start() throws RemoteException, SimRuntimeException;
+    void start() throws SimRuntimeException;
 
     /**
      * starts the simulator.
      * @param fireStartEvent boolean; determine whether to fire a START event that the simulator was started
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      */
-    void start(boolean fireStartEvent) throws RemoteException, SimRuntimeException;
+    void start(boolean fireStartEvent) throws SimRuntimeException;
 
     /**
      * steps the simulator, and fire a STEP event to indicate the simulator made a step.
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever stepping fails. Possible occasions include stepping a stopped simulator
      */
-    void step() throws RemoteException, SimRuntimeException;
+    void step() throws SimRuntimeException;
 
     /**
      * steps the simulator.
      * @param fireStepEvent boolean; determine whether to fire a STEP event that the simulator was stepped
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever stepping fails. Possible occasions include starting a started simulator
      */
-    void step(boolean fireStepEvent) throws RemoteException, SimRuntimeException;
+    void step(boolean fireStepEvent) throws SimRuntimeException;
 
     /**
      * stops the simulator, and fire a STOP event that the simulator was stopped.
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever stopping fails. Possible occasions include stopping a stopped simulator
      */
-    void stop() throws RemoteException, SimRuntimeException;
+    void stop() throws SimRuntimeException;
 
     /**
      * stops the simulator.
      * @param fireStopEvent boolean; determine whether to fire a STOP event that the simulator was stopped
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever stopping fails. Possible occasions include starting a started simulator
      */
-    void stop(boolean fireStopEvent) throws RemoteException, SimRuntimeException;
+    void stop(boolean fireStopEvent) throws SimRuntimeException;
 
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
@@ -167,37 +162,31 @@ public interface SimulatorInterface<A extends Comparable<A>, R extends Number & 
     }
 
     /** Easy access interface SimulatorInterface.DoubleUnit. */
-    public interface TimeDoubleUnit extends SimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public interface TimeDoubleUnit extends SimulatorInterface<Time, Duration, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.FloatUnit. */
-    public interface TimeFloatUnit extends SimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
-    {
-        // typed extension
-    }
-
-    /** Easy access interface SimulatorInterface.LongUnit. */
-    public interface TimeLongUnit extends SimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    public interface TimeFloatUnit extends SimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble extends SimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public interface CalendarDouble extends SimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends SimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public interface CalendarFloat extends SimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.CalendarLong. */
-    public interface CalendarLong extends SimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public interface CalendarLong extends SimulatorInterface<Calendar, Long, SimTimeCalendarLong>
     {
         // typed extension
     }

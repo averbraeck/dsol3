@@ -1,7 +1,11 @@
 package nl.tudelft.simulation.dsol.simulators;
 
-import java.rmi.RemoteException;
 import java.util.Calendar;
+
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -13,10 +17,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.EventType;
 
 /**
@@ -24,14 +24,13 @@ import nl.tudelft.simulation.event.EventType;
  * More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler
  * et. al.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -47,17 +46,15 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /**
      * returns the time step of the DESS simulator.
      * @return the timeStep
-     * @throws RemoteException on network failure
      */
-    R getTimeStep() throws RemoteException;
+    R getTimeStep();
 
     /**
      * Method setTimeStep sets the time step of the simulator.
      * @param timeStep the new timeStep. Its value should be &gt; 0.0
      * @throws SimRuntimeException when timestep &lt;= 0, NaN, or Infinity
-     * @throws RemoteException on network failure
      */
-    void setTimeStep(R timeStep) throws SimRuntimeException, RemoteException;
+    void setTimeStep(R timeStep) throws SimRuntimeException;
 
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
@@ -83,35 +80,28 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DESSSimulatorInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit extends DESSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>,
-            SimulatorInterface.TimeDoubleUnit
+    public interface TimeDoubleUnit
+            extends DESSSimulatorInterface<Time, Duration, SimTimeDoubleUnit>, SimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.TimeFloatUnit. */
-    public interface TimeFloatUnit extends DESSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>,
-            SimulatorInterface.TimeFloatUnit
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DESSSimulatorInterface.TimeLongUnit. */
-    public interface TimeLongUnit
-            extends DESSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>, SimulatorInterface.TimeLongUnit
+    public interface TimeFloatUnit
+            extends DESSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>, SimulatorInterface.TimeFloatUnit
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble extends DESSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>,
-            SimulatorInterface.CalendarDouble
+    public interface CalendarDouble
+            extends DESSSimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>, SimulatorInterface.CalendarDouble
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends DESSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>,
+    public interface CalendarFloat extends DESSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>,
             SimulatorInterface.CalendarFloat
     {
         // typed extension
@@ -119,7 +109,7 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /** Easy access interface DESSSimulatorInterface.CalendarLong. */
     public interface CalendarLong
-            extends DESSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>, SimulatorInterface.CalendarLong
+            extends DESSSimulatorInterface<Calendar, Long, SimTimeCalendarLong>, SimulatorInterface.CalendarLong
     {
         // typed extension
     }
