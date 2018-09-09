@@ -13,7 +13,7 @@ import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
- * See for project information <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
+ * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
  * <p>
  * @version Aug 15, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dsol:experiment 
-	xmlns:dsol="http://www.simulation.tudelft.nl"
+	xmlns:dsol="https://simulation.tudelft.nl"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <name>DSOL tutorial example section 2.5</name>
   <analyst>Peter H.M. Jacobs</analyst>

@@ -5,9 +5,9 @@ package nl.tudelft.simulation.jstats.streams;
  * <a href="http://www.cs.memphis.edu/~dengl/dx-rng/dengxu2002.pdf"> A System of High-dimensional, Efficient, Long-cycle
  * and Portable Uniform Random Number Generators </a>.
  * <p>
- * copyright (c) 2004-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
  * <br>
- * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>

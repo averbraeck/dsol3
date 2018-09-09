@@ -7,8 +7,8 @@ import java.util.SortedMap;
 
 /**
  * The histogram specifies a histogram chart for the DSOL framework. Copyright (c) 2004-2018
- * <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
+ * <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
+ * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
  * <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
@@ -366,8 +366,8 @@ public class Observations implements ObservationsInterface
 
     /**
      * The Observation class holds one observation, cummulative probability entry. (c) copyright 2004
-     * <a href="http://www.simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
-     * See for project information <a href="http://www.simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
+     * <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
+     * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
      * <br>
      * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty
      * <br>

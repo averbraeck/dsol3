@@ -14,9 +14,9 @@ import nl.tudelft.simulation.dsol.animation.Locatable;
 /**
  * The Renderable2D interface defines the basic interface for 2d animation. This is a hard-to-use interface. It is
  * implemented by the easy-to-use Renderable2D class <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl"> Delft University of Technology </a>, the
+ * (c) 2002-2018 <a href="https://simulation.tudelft.nl"> Delft University of Technology </a>, the
  * Netherlands. <br>
- * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
+ * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:21 $
@@ -59,9 +59,9 @@ public interface Renderable2DInterface<T extends Locatable>
 
     /**
      * A Utility helper class for transforming between screen coordinates and world coordinates. <br>
-     * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+     * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
      * Netherlands. <br>
-     * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+     * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
      * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
      * warranty.
      * @version 1.0 Mar 1, 2004 <br>

@@ -18,7 +18,7 @@ import com.sun.naming.internal.ResourceManager;
 
 /**
  * InitialEventContext class. This class is the starting context for performing naming operations. <br>
- * Copyright (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
  * Netherlands. <br>
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
  * following conditions are met:

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dsol:experiment 
-	xmlns:dsol="http://www.simulation.tudelft.nl"
+	xmlns:dsol="https://simulation.tudelft.nl"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <name>Time Shared Computer Model</name>
   <analyst>Peter H.M. Jacobs</analyst>
   <model>
-  	<jar-file>http://www.simulation.tudelft.nl/dsol/examples/150/examples.jar</jar-file>
+  	<jar-file>https://simulation.tudelft.nl/dsol/examples/150/examples.jar</jar-file>
 	<model-class>nl.tudelft.simulation.examples.dsol.timesharedcomputer.Computer</model-class>
    </model>
   <treatment>  

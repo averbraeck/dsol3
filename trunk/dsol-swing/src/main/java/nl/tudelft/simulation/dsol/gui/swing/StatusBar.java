@@ -19,7 +19,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * Copyright (c) 2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * The MEDLABS project (Modeling Epidemic Disease with Large-scale Agent-Based Simulation) is aimed at providing policy
  * analysis tools to predict and help contain the spread of epidemics. It makes use of the DSOL simulation engine and
- * the agent-based modeling formalism. See for project information <a href="http://www.simulation.tudelft.nl/">
+ * the agent-based modeling formalism. See for project information <a href="https://simulation.tudelft.nl/">
  * www.simulation.tudelft.nl</a>. The project is a co-operation between TU Delft, Systems Engineering and Simulation
  * Department (Netherlands) and NUDT, Simulation Engineering Department (China). This software is licensed under the BSD
  * license. See license.txt in the main project.
@@ -103,7 +103,7 @@ public class StatusBar extends JPanel
      * reserved. The MEDLABS project (Modeling Epidemic Disease with Large-scale Agent-Based Simulation) is aimed at
      * providing policy analysis tools to predict and help contain the spread of epidemics. It makes use of the DSOL
      * simulation engine and the agent-based modeling formalism. See for project information
-     * <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>. The project is a co-operation between
+     * <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>. The project is a co-operation between
      * TU Delft, Systems Engineering and Simulation Department (Netherlands) and NUDT, Simulation Engineering Department
      * (China). This software is licensed under the BSD license. See license.txt in the main project.
      * @version May 4, 2014 <br>
