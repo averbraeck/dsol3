@@ -2,6 +2,12 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
 
+import org.djunits.unit.DurationUnit;
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -12,11 +18,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.TimeUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.EventType;
 
 /**
@@ -24,14 +25,14 @@ import nl.tudelft.simulation.event.EventType;
  * realTime. If the executionTime exceeds the timeStep, a catchup mechanism can be triggered to make up lost time in
  * consecutive steps.
  * <p>
- * copyright (c) 2004-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * copyright (c) 2004-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
+ * Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -86,7 +87,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         R rSim = this.relativeMillis(this.updateMsec * factor); // sim clock change for 'updateMsec' wall clock
 
         while (this.isRunning() && !this.eventList.isEmpty()
-                && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
+                && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             // check if speedFactor has changed. If yes: re-baseline.
             if (factor != this.speedFactor)
@@ -190,7 +191,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
             synchronized (super.semaphore)
             {
                 this.simulatorTime = event.getAbsoluteExecutionTime();
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                        this.simulatorTime.get());
 
                 // carry out all events scheduled on this simulation time, as long as we are still running.
                 while (this.isRunning() && !this.eventList.isEmpty()
@@ -345,7 +347,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access class RealTimeClock.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends DEVSRealTimeClock<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends DEVSRealTimeClock<Time, Duration, SimTimeDoubleUnit>
             implements DEVSSimulatorInterface.TimeDoubleUnit
     {
         /** */
@@ -353,14 +355,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final UnitTimeDouble relativeMillis(final double factor)
+        protected final Duration relativeMillis(final double factor)
         {
-            return new UnitTimeDouble(factor, TimeUnit.MILLISECOND);
+            return new Duration(factor, DurationUnit.MILLISECOND);
         }
     }
 
     /** Easy access class RealTimeClock.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVSRealTimeClock<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends DEVSRealTimeClock<FloatTime, FloatDuration, SimTimeFloatUnit>
             implements DEVSSimulatorInterface.TimeFloatUnit
     {
         /** */
@@ -368,29 +370,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final UnitTimeFloat relativeMillis(final double factor)
+        protected final FloatDuration relativeMillis(final double factor)
         {
-            return new UnitTimeFloat((float) factor, TimeUnit.MILLISECOND);
-        }
-    }
-
-    /** Easy access class RealTimeClock.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVSRealTimeClock<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-            implements DEVSSimulatorInterface.TimeLongUnit
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /** {@inheritDoc} */
-        @Override
-        protected final UnitTimeLong relativeMillis(final double factor)
-        {
-            return new UnitTimeLong((long) factor, TimeUnit.MILLISECOND);
+            return new FloatDuration((float) factor, DurationUnit.MILLISECOND);
         }
     }
 
     /** Easy access class RealTimeClock.CalendarDouble. */
-    public static class CalendarDouble extends DEVSRealTimeClock<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends DEVSRealTimeClock<Calendar, Duration, SimTimeCalendarDouble>
             implements DEVSSimulatorInterface.CalendarDouble
     {
         /** */
@@ -398,14 +385,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final UnitTimeDouble relativeMillis(final double factor)
+        protected final Duration relativeMillis(final double factor)
         {
-            return new UnitTimeDouble(factor, TimeUnit.MILLISECOND);
+            return new Duration(factor, DurationUnit.MILLISECOND);
         }
     }
 
     /** Easy access class RealTimeClock.CalendarFloat. */
-    public static class CalendarFloat extends DEVSRealTimeClock<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends DEVSRealTimeClock<Calendar, FloatDuration, SimTimeCalendarFloat>
             implements DEVSSimulatorInterface.CalendarFloat
     {
         /** */
@@ -413,14 +400,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final UnitTimeFloat relativeMillis(final double factor)
+        protected final FloatDuration relativeMillis(final double factor)
         {
-            return new UnitTimeFloat((float) factor, TimeUnit.MILLISECOND);
+            return new FloatDuration((float) factor, DurationUnit.MILLISECOND);
         }
     }
 
     /** Easy access class RealTimeClock.CalendarLong. */
-    public static class CalendarLong extends DEVSRealTimeClock<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends DEVSRealTimeClock<Calendar, Long, SimTimeCalendarLong>
             implements DEVSSimulatorInterface.CalendarLong
     {
         /** */
@@ -428,9 +415,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final UnitTimeLong relativeMillis(final double factor)
+        protected final Long relativeMillis(final double factor)
         {
-            return new UnitTimeLong((long) factor, TimeUnit.MILLISECOND);
+            return (long) factor;
         }
     }
 

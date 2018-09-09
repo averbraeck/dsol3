@@ -1,7 +1,11 @@
 package nl.tudelft.simulation.dsol.simulators;
 
-import java.rmi.RemoteException;
 import java.util.Calendar;
+
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
@@ -21,10 +25,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.Event;
 
 /**
@@ -32,16 +32,15 @@ import nl.tudelft.simulation.event.Event;
  * information on Discrete Event Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.
  * al.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, such as
- *            Double or UnitTimeLong, the absolute and relative types are the same.
+ *            Double or Long, the absolute and relative types are the same.
  * @param <T> the simulation time type based on the absolute and relative time.
  * @since 1.5
  */
@@ -76,17 +75,17 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     @Override
     @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
-            throws RemoteException, SimRuntimeException
+            throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
             super.initialize(initReplication, replicationMode);
             this.eventList.clear();
             this.replication.getTreatment().getExperiment().getModel().constructModel(this);
-            this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getEndTime(),
+            this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getEndSimTime(),
                     (short) (SimEventInterface.MIN_PRIORITY - 1), this, this, "stop", null));
             Object[] args = {new Event(SimulatorInterface.WARMUP_EVENT, this, null)};
-            this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getWarmupTime(),
+            this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getWarmupSimTime(),
                     (short) (SimEventInterface.MAX_PRIORITY + 1), this, this, "fireEvent", args));
         }
     }
@@ -187,8 +186,8 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final short priority, final Executable executable)
-            throws RemoteException, SimRuntimeException
+    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final short priority,
+            final Executable executable) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
@@ -201,15 +200,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Executable executable)
-            throws RemoteException, SimRuntimeException
+            throws SimRuntimeException
     {
         return scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final short priority, final Executable executable)
-            throws RemoteException, SimRuntimeException
+    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final short priority,
+            final Executable executable) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
@@ -222,15 +221,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Executable executable)
-            throws RemoteException, SimRuntimeException
+            throws SimRuntimeException
     {
         return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final short priority, final Executable executable)
-            throws RemoteException, SimRuntimeException
+    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final short priority,
+            final Executable executable) throws SimRuntimeException
     {
         return scheduleEvent(new LambdaSimEvent<T>(absoluteTime, priority, executable));
     }
@@ -238,7 +237,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Executable executable)
-            throws RemoteException, SimRuntimeException
+            throws SimRuntimeException
     {
         return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
     }
@@ -246,7 +245,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     public final SimEventInterface<T> scheduleEventNow(final short priority, final Executable executable)
-            throws RemoteException, SimRuntimeException
+            throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
@@ -257,7 +256,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventNow(final Executable executable) throws RemoteException, SimRuntimeException
+    public final SimEventInterface<T> scheduleEventNow(final Executable executable) throws SimRuntimeException
     {
         return scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, executable);
     }
@@ -283,7 +282,8 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                 this.running = true;
                 SimEventInterface<T> event = this.eventList.removeFirst();
                 this.simulatorTime = event.getAbsoluteExecutionTime();
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                        this.simulatorTime.get());
                 event.execute();
                 this.running = false;
             }
@@ -301,7 +301,8 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
             {
                 SimEventInterface<T> event = this.eventList.removeFirst();
                 super.simulatorTime = event.getAbsoluteExecutionTime();
-                super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, super.simulatorTime, super.simulatorTime.get());
+                super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, super.simulatorTime,
+                        super.simulatorTime.get());
                 try
                 {
                     event.execute();
@@ -324,7 +325,8 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     public void stop(final boolean fireStopEvent)
     {
         super.stop(fireStopEvent);
-        if (this.getReplication() != null && this.simulatorTime.ge(this.getReplication().getTreatment().getEndTime()))
+        if (this.getReplication() != null
+                && this.simulatorTime.ge(this.getReplication().getTreatment().getEndSimTime()))
         {
             this.eventList.clear();
         }
@@ -417,7 +419,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DEVSSimulator.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends DEVSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends DEVSSimulator<Time, Duration, SimTimeDoubleUnit>
             implements DEVSSimulatorInterface.TimeDoubleUnit
     {
         /** */
@@ -425,23 +427,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DEVSSimulator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends DEVSSimulator<FloatTime, FloatDuration, SimTimeFloatUnit>
             implements DEVSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class DEVSSimulator.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-            implements DEVSSimulatorInterface.TimeLongUnit
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-    }
-
     /** Easy access class DEVSSimulator.CalendarDouble. */
-    public static class CalendarDouble extends DEVSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends DEVSSimulator<Calendar, Duration, SimTimeCalendarDouble>
             implements DEVSSimulatorInterface.CalendarDouble
     {
         /** */
@@ -449,7 +443,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DEVSSimulator.CalendarFloat. */
-    public static class CalendarFloat extends DEVSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends DEVSSimulator<Calendar, FloatDuration, SimTimeCalendarFloat>
             implements DEVSSimulatorInterface.CalendarFloat
     {
         /** */
@@ -457,7 +451,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DEVSSimulator.CalendarLong. */
-    public static class CalendarLong extends DEVSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends DEVSSimulator<Calendar, Long, SimTimeCalendarLong>
             implements DEVSSimulatorInterface.CalendarLong
     {
         /** */

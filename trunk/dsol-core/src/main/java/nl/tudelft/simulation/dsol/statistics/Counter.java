@@ -20,8 +20,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * The counter extends the counter and links this it to the dsol framework <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -50,13 +49,13 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
      * constructs a new Counter.
      * @param description refers to the description of this counter
      * @param simulator the simulator
-     * @throws RemoteException on network failure
+     * @throws RemoteException  on network error for one of the listeners
      */
     public Counter(final String description, final SimulatorInterface<A, R, T> simulator) throws RemoteException
     {
         super(description);
         this.simulator = simulator;
-        if (this.simulator.getSimulatorTime().gt(this.simulator.getReplication().getTreatment().getWarmupTime()))
+        if (this.simulator.getSimTime().gt(this.simulator.getReplication().getTreatment().getWarmupSimTime()))
         {
             this.initialize();
         }
@@ -70,7 +69,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
             Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/statistics");
             ContextUtil.bind(context, this);
         }
-        catch (RemoteException | NamingException exception)
+        catch (NamingException exception)
         {
             logger.warn("<init>", exception);
         }
@@ -82,7 +81,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
      * @param simulator the simulator of this model
      * @param target the target on which to count
      * @param field the field which is counted
-     * @throws RemoteException on network failure
+     * @throws RemoteException  on network error for one of the listeners
      */
     public Counter(final String description, final SimulatorInterface<A, R, T> simulator,
             final EventProducerInterface target, final EventType field) throws RemoteException
@@ -100,32 +99,39 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
         {
             return;
         }
-        try
+        if (event.getSource().equals(this.simulator))
         {
-            if (event.getSource().equals(this.simulator))
+            if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
             {
-                if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
+                try
                 {
                     this.simulator.removeListener(this, SimulatorInterface.WARMUP_EVENT);
-                    super.initialize();
-                    return;
                 }
-                if (event.getType().equals(SimulatorInterface.END_OF_REPLICATION_EVENT))
+                catch (RemoteException exception)
                 {
-                    this.stopped = true;
-                    this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
-                    this.endOfReplication();
-                    return;
+                    logger.warn("problen removing Listener for SimulatorIterface.WARMUP_EVENT", exception);
                 }
+                super.initialize();
+                return;
             }
-            else if (this.isInitialized())
+            if (event.getType().equals(SimulatorInterface.END_OF_REPLICATION_EVENT))
             {
-                super.notify(event);
+                this.stopped = true;
+                try
+                {
+                    this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
+                }
+                catch (RemoteException exception)
+                {
+                    logger.warn("problen removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT", exception);
+                }
+                this.endOfReplication();
+                return;
             }
         }
-        catch (RemoteException remoteException)
+        else if (this.isInitialized())
         {
-            logger.warn("notify", remoteException);
+            super.notify(event);
         }
     }
 

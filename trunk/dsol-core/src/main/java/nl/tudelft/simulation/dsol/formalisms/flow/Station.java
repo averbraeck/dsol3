@@ -1,7 +1,11 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
-import java.rmi.RemoteException;
 import java.util.Calendar;
+
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -12,24 +16,19 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 
 /**
  * A station is an object which can accept other objects.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -62,9 +61,9 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void receiveObject(final Object object) throws RemoteException
+    public void receiveObject(final Object object)
     {
-        this.fireTimedEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime().get());
+        this.fireTimedEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime());
     }
 
     /** {@inheritDoc} */
@@ -77,12 +76,11 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     /**
      * releases an object.
      * @param object is the entity
-     * @throws RemoteException on network failure
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected synchronized void releaseObject(final Object object) throws RemoteException
+    protected synchronized void releaseObject(final Object object)
     {
-        this.fireTimedEvent(StationInterface.RELEASE_EVENT, 0.0, this.simulator.getSimulatorTime().get());
+        this.fireTimedEvent(StationInterface.RELEASE_EVENT, 0.0, this.simulator.getSimulatorTime());
         if (this.destination != null)
         {
             this.destination.receiveObject(object);
@@ -149,7 +147,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class Station.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends Station<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends Station<Time, Duration, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -165,7 +163,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class Station.TimeFloatUnit. */
-    public static class TimeFloatUnit extends Station<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends Station<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -180,24 +178,8 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
         }
     }
 
-    /** Easy access class Station.TimeLongUnit. */
-    public static class TimeLongUnit extends Station<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new Station.TimeLongUnit.
-         * @param simulator is the simulator on which behavior is scheduled
-         */
-        public TimeLongUnit(final DEVSSimulatorInterface.TimeLongUnit simulator)
-        {
-            super(simulator);
-        }
-    }
-
     /** Easy access class Station.CalendarDouble. */
-    public static class CalendarDouble extends Station<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends Station<Calendar, Duration, SimTimeCalendarDouble>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -213,7 +195,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class Station.CalendarFloat. */
-    public static class CalendarFloat extends Station<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends Station<Calendar, FloatDuration, SimTimeCalendarFloat>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -229,7 +211,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class Station.CalendarLong. */
-    public static class CalendarLong extends Station<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends Station<Calendar, Long, SimTimeCalendarLong>
     {
         /** */
         private static final long serialVersionUID = 20150422L;

@@ -1,7 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
-import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import cern.jet.stat.Gamma;
+import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Pearson6 distribution. For more information on this distribution see

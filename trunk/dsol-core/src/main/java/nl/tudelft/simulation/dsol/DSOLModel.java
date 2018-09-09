@@ -1,8 +1,12 @@
 package nl.tudelft.simulation.dsol;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.util.Calendar;
+
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -13,10 +17,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
@@ -24,14 +24,13 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * and can return it to anyone interested. Through the Simulator, the Replication can be requested and through that the
  * Experiment and the Treatment under which the simulation is running.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:43 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -44,15 +43,13 @@ public interface DSOLModel<A extends Comparable<A>, R extends Number & Comparabl
      * construct a model on a simulator.
      * @param simulator is the simulator
      * @throws SimRuntimeException on model failure
-     * @throws RemoteException on network failure
      */
-    void constructModel(SimulatorInterface<A, R, T> simulator) throws SimRuntimeException, RemoteException;
+    void constructModel(SimulatorInterface<A, R, T> simulator) throws SimRuntimeException;
 
     /**
      * @return the simulator for the model
-     * @throws RemoteException on network failure
      */
-    SimulatorInterface<A, R, T> getSimulator() throws RemoteException;
+    SimulatorInterface<A, R, T> getSimulator();
 
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
@@ -77,37 +74,31 @@ public interface DSOLModel<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access interface ModelInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit extends DSOLModel<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public interface TimeDoubleUnit extends DSOLModel<Time, Duration, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeFloatUnit. */
-    public interface TimeFloatUnit extends DSOLModel<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
-    {
-        // typed extension
-    }
-
-    /** Easy access interface ModelInterface.TimeLongUnit. */
-    public interface TimeLongUnit extends DSOLModel<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
+    public interface TimeFloatUnit extends DSOLModel<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeCalendarDouble. */
-    public interface CalendarDouble extends DSOLModel<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public interface CalendarDouble extends DSOLModel<Calendar, Duration, SimTimeCalendarDouble>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeCalendarFloat. */
-    public interface CalendarFloat extends DSOLModel<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public interface CalendarFloat extends DSOLModel<Calendar, FloatDuration, SimTimeCalendarFloat>
     {
         // typed extension
     }
 
     /** Easy access interface ModelInterface.TimeCalendarLong. */
-    public interface CalendarLong extends DSOLModel<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public interface CalendarLong extends DSOLModel<Calendar, Long, SimTimeCalendarLong>
     {
         // typed extension
     }

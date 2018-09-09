@@ -3,6 +3,9 @@ package nl.tudelft.simulation.dsol.simtime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import org.djunits.unit.DurationUnit;
+import org.djunits.value.vdouble.scalar.Duration;
+
 /**
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -31,7 +34,7 @@ import java.util.GregorianCalendar;
  * @version Jul 25, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class SimTimeCalendarDouble extends SimTime<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+public class SimTimeCalendarDouble extends SimTime<Calendar, Duration, SimTimeCalendarDouble>
 {
     /** */
     private static final long serialVersionUID = 20140803L;
@@ -60,25 +63,23 @@ public class SimTimeCalendarDouble extends SimTime<Calendar, UnitTimeDouble, Sim
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final UnitTimeDouble relativeTime)
+    public final void add(final Duration relativeTime)
     {
-        this.timeMsec += relativeTime.getTimeMsec();
+        this.timeMsec += 1000.0 * relativeTime.si;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final UnitTimeDouble relativeTime)
+    public final void subtract(final Duration relativeTime)
     {
-        this.timeMsec -= relativeTime.getTimeMsec();
+        this.timeMsec -= 1000 * relativeTime.si;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final UnitTimeDouble minus(final SimTimeCalendarDouble simTime)
+    public final Duration minus(final SimTimeCalendarDouble simTime)
     {
-        UnitTimeDouble ret = new UnitTimeDouble(this.timeMsec, TimeUnit.MILLISECOND);
-        ret.setTimeMsec(ret.getTimeMsec() - simTime.timeMsec);
-        return ret;
+        return new Duration(this.timeMsec - simTime.timeMsec, DurationUnit.MILLISECOND);
     }
 
     /** {@inheritDoc} */

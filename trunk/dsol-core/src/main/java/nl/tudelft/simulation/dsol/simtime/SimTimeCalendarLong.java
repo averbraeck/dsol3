@@ -31,7 +31,7 @@ import java.util.GregorianCalendar;
  * @version Jul 25, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTimeCalendarLong>
+public class SimTimeCalendarLong extends SimTime<Calendar, Long, SimTimeCalendarLong>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -60,25 +60,23 @@ public class SimTimeCalendarLong extends SimTime<Calendar, UnitTimeLong, SimTime
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final UnitTimeLong relativeTime)
+    public final void add(final Long relativeTime)
     {
-        this.timeMsec += relativeTime.getTimeMsec();
+        this.timeMsec += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final UnitTimeLong relativeTime)
+    public final void subtract(final Long relativeTime)
     {
-        this.timeMsec -= relativeTime.getTimeMsec();
+        this.timeMsec -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final UnitTimeLong minus(final SimTimeCalendarLong simTime)
+    public final Long minus(final SimTimeCalendarLong simTime)
     {
-        UnitTimeLong ret = new UnitTimeLong(this.timeMsec, TimeUnit.MILLISECOND);
-        ret.setTimeMsec(ret.getTimeMsec() - simTime.timeMsec);
-        return ret;
+        return this.timeMsec - simTime.timeMsec;
     }
 
     /** {@inheritDoc} */

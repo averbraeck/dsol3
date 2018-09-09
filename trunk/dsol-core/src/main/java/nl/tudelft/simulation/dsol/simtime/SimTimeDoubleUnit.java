@@ -1,5 +1,8 @@
 package nl.tudelft.simulation.dsol.simtime;
 
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+
 /**
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -28,50 +31,48 @@ package nl.tudelft.simulation.dsol.simtime;
  * @version Jul 25, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+public class SimTimeDoubleUnit extends SimTime<Time, Duration, SimTimeDoubleUnit>
 {
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** value represents the value in milliseconds. */
-    private UnitTimeDouble time;
+    /** time as a DJUNITS object. */
+    private Time time;
 
     /**
      * @param time the initial time.
      */
-    public SimTimeDoubleUnit(final UnitTimeDouble time)
+    public SimTimeDoubleUnit(final Time time)
     {
-        super(new UnitTimeDouble(time.getTime(), time.getUnit()));
+        super(time);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final UnitTimeDouble relativeTime)
+    public final void add(final Duration relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() + relativeTime.getTimeMsec());
+        this.time = this.time.plus(relativeTime);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final UnitTimeDouble relativeTime)
+    public final void subtract(final Duration relativeTime)
     {
-        this.time.setTimeMsec(this.time.getTimeMsec() - relativeTime.getTimeMsec());
+        this.time = this.time.minus(relativeTime);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final UnitTimeDouble minus(final SimTimeDoubleUnit simTime)
+    public Duration minus(final SimTimeDoubleUnit simTime)
     {
-        UnitTimeDouble ret = new UnitTimeDouble(this.time.getTime(), this.time.getUnit());
-        ret.setTimeMsec(ret.getTimeMsec() - simTime.get().getTimeMsec());
-        return ret;
+        return this.time.minus(simTime.get());
     }
 
     /** {@inheritDoc} */
     @Override
     public final SimTimeDoubleUnit setZero()
     {
-        this.time.setTimeMsec(0.0d);
+        this.time = Time.ZERO;
         return this;
     }
 
@@ -79,19 +80,19 @@ public class SimTimeDoubleUnit extends SimTime<UnitTimeDouble, UnitTimeDouble, S
     @Override
     public final SimTimeDoubleUnit copy()
     {
-        return new SimTimeDoubleUnit(new UnitTimeDouble(this.time.getTime(), this.time.getUnit()));
+        return new SimTimeDoubleUnit(this.time);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void set(final UnitTimeDouble absoluteTime)
+    public final void set(final Time absoluteTime)
     {
-        this.time = new UnitTimeDouble(absoluteTime.getTime(), absoluteTime.getUnit());
+        this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final UnitTimeDouble get()
+    public final Time get()
     {
         return this.time;
     }

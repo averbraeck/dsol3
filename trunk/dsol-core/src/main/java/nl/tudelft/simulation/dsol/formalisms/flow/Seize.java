@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -8,6 +7,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
@@ -20,24 +23,19 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventType;
 
 /**
  * The Seize requests a resource and releases an entity whenever this resource is actually claimed.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -99,13 +97,12 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
      * receives an object which request an amount.
      * @param object the object
      * @param pRequestedCapacity the requested capacity
-     * @throws RemoteException on network failures
      */
     public final synchronized void receiveObject(final Object object, final double pRequestedCapacity)
-            throws RemoteException
+
     {
         super.receiveObject(object);
-        Request<A, R, T> request = new Request<A, R, T>(object, pRequestedCapacity, this.simulator.getSimulatorTime());
+        Request<A, R, T> request = new Request<A, R, T>(object, pRequestedCapacity, this.simulator.getSimTime());
         synchronized (this.queue)
         {
             this.queue.add(request);
@@ -113,7 +110,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         try
         {
             this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(),
-                    this.simulator.getSimulatorTime().get());
+                    this.simulator.getSimulatorTime());
             this.resource.requestCapacity(pRequestedCapacity, this);
         }
         catch (Exception exception)
@@ -125,7 +122,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void receiveObject(final Object object) throws RemoteException
+    public void receiveObject(final Object object)
     {
         this.receiveObject(object, this.requestedCapacity);
     }
@@ -152,7 +149,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /** {@inheritDoc} */
     @Override
     public final void receiveRequestedResource(final double pRequestedCapacity, final Resource<A, R, T> pResource)
-            throws RemoteException
+
     {
         for (Request<A, R, T> request : this.queue)
         {
@@ -163,9 +160,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
                     this.queue.remove(request);
                 }
                 this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(),
-                        this.simulator.getSimulatorTime().get());
-                R delay = this.simulator.getSimulatorTime().minus(request.getCreationTime());
-                this.fireTimedEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime().get());
+                        this.simulator.getSimulatorTime());
+                R delay = this.simulator.getSimTime().minus(request.getCreationTime());
+                this.fireTimedEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime());
                 this.releaseObject(request.getEntity());
                 return;
             }
@@ -174,7 +171,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /**
      * The private RequestClass defines the requests for resource.
-     * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+     * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
      * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the
      *            absolute and relative types are the same.
      * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -327,7 +324,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Seize.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends Seize<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends Seize<Time, Duration, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -338,7 +335,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param resource which is claimed
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
-                final Resource<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> resource)
+                final Resource<Time, Duration, SimTimeDoubleUnit> resource)
         {
             super(simulator, resource);
         }
@@ -350,15 +347,14 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param requestedCapacity is the amount which is claimed by the seize
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
-                final Resource<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> resource,
-                final double requestedCapacity)
+                final Resource<Time, Duration, SimTimeDoubleUnit> resource, final double requestedCapacity)
         {
             super(simulator, resource, requestedCapacity);
         }
     }
 
     /** Easy access class Seize.TimeFloatUnit. */
-    public static class TimeFloatUnit extends Seize<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends Seize<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -369,7 +365,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param resource which is claimed
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
-                final Resource<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> resource)
+                final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource)
         {
             super(simulator, resource);
         }
@@ -381,44 +377,14 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param requestedCapacity is the amount which is claimed by the seize
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
-                final Resource<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> resource, final double requestedCapacity)
-        {
-            super(simulator, resource, requestedCapacity);
-        }
-    }
-
-    /** Easy access class Seize.TimeLongUnit. */
-    public static class TimeLongUnit extends Seize<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         */
-        public TimeLongUnit(final DEVSSimulatorInterface.TimeLongUnit simulator,
-                final Resource<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> resource)
-        {
-            super(simulator, resource);
-        }
-
-        /**
-         * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
-         */
-        public TimeLongUnit(final DEVSSimulatorInterface.TimeLongUnit simulator,
-                final Resource<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> resource, final double requestedCapacity)
+                final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource, final double requestedCapacity)
         {
             super(simulator, resource, requestedCapacity);
         }
     }
 
     /** Easy access class Seize.CalendarDouble. */
-    public static class CalendarDouble extends Seize<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends Seize<Calendar, Duration, SimTimeCalendarDouble>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -429,7 +395,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param resource which is claimed
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Resource<Calendar, UnitTimeDouble, SimTimeCalendarDouble> resource)
+                final Resource<Calendar, Duration, SimTimeCalendarDouble> resource)
         {
             super(simulator, resource);
         }
@@ -441,15 +407,14 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param requestedCapacity is the amount which is claimed by the seize
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Resource<Calendar, UnitTimeDouble, SimTimeCalendarDouble> resource,
-                final double requestedCapacity)
+                final Resource<Calendar, Duration, SimTimeCalendarDouble> resource, final double requestedCapacity)
         {
             super(simulator, resource, requestedCapacity);
         }
     }
 
     /** Easy access class Seize.CalendarFloat. */
-    public static class CalendarFloat extends Seize<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends Seize<Calendar, FloatDuration, SimTimeCalendarFloat>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -460,7 +425,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param resource which is claimed
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Resource<Calendar, UnitTimeFloat, SimTimeCalendarFloat> resource)
+                final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource)
         {
             super(simulator, resource);
         }
@@ -472,14 +437,14 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param requestedCapacity is the amount which is claimed by the seize
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Resource<Calendar, UnitTimeFloat, SimTimeCalendarFloat> resource, final double requestedCapacity)
+                final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource, final double requestedCapacity)
         {
             super(simulator, resource, requestedCapacity);
         }
     }
 
     /** Easy access class Seize.CalendarLong. */
-    public static class CalendarLong extends Seize<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends Seize<Calendar, Long, SimTimeCalendarLong>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -490,7 +455,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param resource which is claimed
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
-                final Resource<Calendar, UnitTimeLong, SimTimeCalendarLong> resource)
+                final Resource<Calendar, Long, SimTimeCalendarLong> resource)
         {
             super(simulator, resource);
         }
@@ -502,7 +467,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
          * @param requestedCapacity is the amount which is claimed by the seize
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
-                final Resource<Calendar, UnitTimeLong, SimTimeCalendarLong> resource, final double requestedCapacity)
+                final Resource<Calendar, Long, SimTimeCalendarLong> resource, final double requestedCapacity)
         {
             super(simulator, resource, requestedCapacity);
         }

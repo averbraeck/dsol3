@@ -3,6 +3,11 @@ package nl.tudelft.simulation.dsol.simulators;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.Executable;
@@ -16,10 +21,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.event.EventType;
 
 /**
@@ -33,7 +34,7 @@ import nl.tudelft.simulation.event.EventType;
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -51,23 +52,21 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @return boolean the succes of the operation.
      * @throws RemoteException on network failure.
      */
-    boolean cancelEvent(SimEventInterface<T> event) throws RemoteException;
+    boolean cancelEvent(SimEventInterface<T> event);
 
     /**
      * returns the eventlist of the simulator.
      * @return the eventlist.
-     * @throws RemoteException on network failure
      */
-    EventListInterface<T> getEventList() throws RemoteException;
+    EventListInterface<T> getEventList();
 
     /**
      * Method scheduleEvent schedules an event on the eventlist.
      * @param event a simulation event
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever event is scheduled in past.
      */
-    SimEventInterface<T> scheduleEvent(SimEventInterface<T> event) throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEvent(SimEventInterface<T> event) throws SimRuntimeException;
 
     /**
      * schedules a methodCall at a relative duration. The executionTime is thus
@@ -79,11 +78,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param method the method
      * @param args the arguments.
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventRel(R relativeDelay, short priority, Object source, Object target, String method,
-            Object[] args) throws RemoteException, SimRuntimeException;
+            Object[] args) throws SimRuntimeException;
 
     /**
      * schedules a methodCall at a relative duration. The executionTime is thus
@@ -94,11 +92,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param method the method
      * @param args the arguments.
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventRel(R relativeDelay, Object source, Object target, String method, Object[] args)
-            throws RemoteException, SimRuntimeException;
+            throws SimRuntimeException;
 
     /**
      * schedules a methodCall at an absolute time.
@@ -109,11 +106,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param method the method
      * @param args the arguments.
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventAbs(T absoluteTime, short priority, Object source, Object target, String method,
-            Object[] args) throws RemoteException, SimRuntimeException;
+            Object[] args) throws SimRuntimeException;
 
     /**
      * schedules a methodCall at an absolute time.
@@ -123,11 +119,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param method the method
      * @param args the arguments.
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventAbs(A absoluteTime, Object source, Object target, String method, Object[] args)
-            throws RemoteException, SimRuntimeException;
+            throws SimRuntimeException;
 
     /**
      * schedules a methodCall at an absolute time.
@@ -138,11 +133,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param method the method
      * @param args the arguments.
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventAbs(A absoluteTime, short priority, Object source, Object target, String method,
-            Object[] args) throws RemoteException, SimRuntimeException;
+            Object[] args) throws SimRuntimeException;
 
     /**
      * schedules a methodCall at an absolute time.
@@ -152,11 +146,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param method the method
      * @param args the arguments.
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventAbs(T absoluteTime, Object source, Object target, String method, Object[] args)
-            throws RemoteException, SimRuntimeException;
+            throws SimRuntimeException;
 
     /**
      * schedules a methodCall immediately.
@@ -166,11 +159,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param method the method
      * @param args the arguments.
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventNow(short priority, Object source, Object target, String method, Object[] args)
-            throws RemoteException, SimRuntimeException;
+            throws SimRuntimeException;
 
     /**
      * schedules a methodCall immediately.
@@ -179,11 +171,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param method the method
      * @param args the arguments.
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventNow(Object source, Object target, String method, Object[] args)
-            throws RemoteException, SimRuntimeException;
+            throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at a relative duration. The executionTime is thus
@@ -192,11 +183,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param priority the priority compared to other events scheduled at the same time.
      * @param executable the lambda expression to execute
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventRel(R relativeDelay, short priority, Executable executable)
-            throws RemoteException, SimRuntimeException;
+            throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at a relative duration. The executionTime is thus
@@ -204,11 +194,9 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param relativeDelay the relativeDelay in timeUnits of the simulator.
      * @param executable the lambda expression to execute
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventRel(R relativeDelay, Executable executable)
-            throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventRel(R relativeDelay, Executable executable) throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
@@ -216,22 +204,19 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param priority the priority compared to other events scheduled at the same time.
      * @param executable the lambda expression to execute
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventAbs(T absoluteTime, short priority, Executable executable)
-            throws RemoteException, SimRuntimeException;
+            throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
      * @param absoluteTime the exact time to schedule the method on the simulator.
      * @param executable the lambda expression to execute
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventAbs(A absoluteTime, Executable executable)
-            throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventAbs(A absoluteTime, Executable executable) throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
@@ -239,66 +224,57 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @param priority the priority compared to other events scheduled at the same time.
      * @param executable the lambda expression to execute
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
     SimEventInterface<T> scheduleEventAbs(A absoluteTime, short priority, Executable executable)
-            throws RemoteException, SimRuntimeException;
+            throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
      * @param absoluteTime the exact time to schedule the method on the simulator.
      * @param executable the lambda expression to execute
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventAbs(T absoluteTime, Executable executable)
-            throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventAbs(T absoluteTime, Executable executable) throws SimRuntimeException;
 
     /**
      * schedules a lambda expression immediately.
      * @param priority the priority compared to other events scheduled at the same time.
      * @param executable the lambda expression to execute
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventNow(short priority, Executable executable)
-            throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventNow(short priority, Executable executable) throws SimRuntimeException;
 
     /**
      * schedules a lambda expression immediately.
      * @param executable the lambda expression to execute
      * @return the simulation event so it can be cancelled later
-     * @throws RemoteException on network failure.
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventNow(Executable executable) throws RemoteException, SimRuntimeException;
+    SimEventInterface<T> scheduleEventNow(Executable executable) throws SimRuntimeException;
 
     /**
      * Method setEventList sets the eventlist.
      * @param eventList the eventList for the simulator.
-     * @throws RemoteException on network failure
      * @throws SimRuntimeException whenever simulator.isRunning()==true
      */
-    void setEventList(EventListInterface<T> eventList) throws RemoteException, SimRuntimeException;
+    void setEventList(EventListInterface<T> eventList) throws SimRuntimeException;
 
     /**
      * Runs the simulator up to a certain time; events at that time will not yet be executed.
      * @param when the absolute time till when we want to run the simulation
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
-     * @throws RemoteException on network failure
      */
-    void runUpTo(A when) throws SimRuntimeException, RemoteException;
+    void runUpTo(A when) throws SimRuntimeException;
 
     /**
      * Runs the simulator up to a certain time; events at that time will not yet be executed.
      * @param when the absolute time till when we want to run the simulation
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
-     * @throws RemoteException on network failure
      */
-    void runUpToAndIncluding(A when) throws SimRuntimeException, RemoteException;
+    void runUpToAndIncluding(A when) throws SimRuntimeException;
 
     /** @return pauseOnError whether we pause on an error or not. */
     boolean isPauseOnError();
@@ -333,35 +309,28 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DEVSSimulatorInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit extends DEVSSimulatorInterface<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>,
-            SimulatorInterface.TimeDoubleUnit
+    public interface TimeDoubleUnit
+            extends DEVSSimulatorInterface<Time, Duration, SimTimeDoubleUnit>, SimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.TimeFloatUnit. */
-    public interface TimeFloatUnit extends DEVSSimulatorInterface<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>,
-            SimulatorInterface.TimeFloatUnit
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DEVSSimulatorInterface.TimeLongUnit. */
-    public interface TimeLongUnit
-            extends DEVSSimulatorInterface<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>, SimulatorInterface.TimeLongUnit
+    public interface TimeFloatUnit
+            extends DEVSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>, SimulatorInterface.TimeFloatUnit
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble extends DEVSSimulatorInterface<Calendar, UnitTimeDouble, SimTimeCalendarDouble>,
-            SimulatorInterface.CalendarDouble
+    public interface CalendarDouble
+            extends DEVSSimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>, SimulatorInterface.CalendarDouble
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends DEVSSimulatorInterface<Calendar, UnitTimeFloat, SimTimeCalendarFloat>,
+    public interface CalendarFloat extends DEVSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>,
             SimulatorInterface.CalendarFloat
     {
         // typed extension
@@ -369,7 +338,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /** Easy access interface DEVSSimulatorInterface.CalendarLong. */
     public interface CalendarLong
-            extends DEVSSimulatorInterface<Calendar, UnitTimeLong, SimTimeCalendarLong>, SimulatorInterface.CalendarLong
+            extends DEVSSimulatorInterface<Calendar, Long, SimTimeCalendarLong>, SimulatorInterface.CalendarLong
     {
         // typed extension
     }

@@ -28,7 +28,6 @@
  * <li>SimTimeFloat: a simulation time based on a float</li>
  * <li>SimTimeFloatUnit: a simulation time based on a float, with a time unit</li>
  * <li>SimTimeLong: a simulation time based on a long</li>
- * <li>SimTimeLongUnit: a simulation time based on a long, with a time unit</li>
  * </ul>
  */
 package nl.tudelft.simulation.dsol.simtime;

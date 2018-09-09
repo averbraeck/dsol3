@@ -1,10 +1,13 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
-import java.rmi.RemoteException;
 import java.util.Calendar;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -16,22 +19,17 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
  * The release station releases a given quantity of a claimed resource. <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author Peter Jacobs, Alexander Verbraeck
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -77,7 +75,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void receiveObject(final Object object) throws RemoteException
+    public final synchronized void receiveObject(final Object object)
     {
         super.receiveObject(object);
         try
@@ -186,7 +184,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
     }
 
     /** Easy access class Release.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends Release<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends Release<Time, Duration, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -197,7 +195,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param resource which is released
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
-                final Resource<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> resource)
+                final Resource<Time, Duration, SimTimeDoubleUnit> resource)
         {
             super(simulator, resource);
         }
@@ -209,14 +207,14 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param amount of resource which is released
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
-                final Resource<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit> resource, final double amount)
+                final Resource<Time, Duration, SimTimeDoubleUnit> resource, final double amount)
         {
             super(simulator, resource, amount);
         }
     }
 
     /** Easy access class Release.TimeFloatUnit. */
-    public static class TimeFloatUnit extends Release<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends Release<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -227,7 +225,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param resource which is released
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
-                final Resource<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> resource)
+                final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource)
         {
             super(simulator, resource);
         }
@@ -239,44 +237,14 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param amount of resource which is released
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
-                final Resource<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit> resource, final double amount)
-        {
-            super(simulator, resource, amount);
-        }
-    }
-
-    /** Easy access class Release.TimeLongUnit. */
-    public static class TimeLongUnit extends Release<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         */
-        public TimeLongUnit(final DEVSSimulatorInterface.TimeLongUnit simulator,
-                final Resource<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> resource)
-        {
-            super(simulator, resource);
-        }
-
-        /**
-         * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
-         */
-        public TimeLongUnit(final DEVSSimulatorInterface.TimeLongUnit simulator,
-                final Resource<UnitTimeLong, UnitTimeLong, SimTimeLongUnit> resource, final double amount)
+                final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource, final double amount)
         {
             super(simulator, resource, amount);
         }
     }
 
     /** Easy access class Release.CalendarDouble. */
-    public static class CalendarDouble extends Release<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends Release<Calendar, Duration, SimTimeCalendarDouble>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -287,7 +255,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param resource which is released
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Resource<Calendar, UnitTimeDouble, SimTimeCalendarDouble> resource)
+                final Resource<Calendar, Duration, SimTimeCalendarDouble> resource)
         {
             super(simulator, resource);
         }
@@ -299,14 +267,14 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param amount of resource which is released
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Resource<Calendar, UnitTimeDouble, SimTimeCalendarDouble> resource, final double amount)
+                final Resource<Calendar, Duration, SimTimeCalendarDouble> resource, final double amount)
         {
             super(simulator, resource, amount);
         }
     }
 
     /** Easy access class Release.CalendarFloat. */
-    public static class CalendarFloat extends Release<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends Release<Calendar, FloatDuration, SimTimeCalendarFloat>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -317,7 +285,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param resource which is released
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Resource<Calendar, UnitTimeFloat, SimTimeCalendarFloat> resource)
+                final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource)
         {
             super(simulator, resource);
         }
@@ -329,14 +297,14 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param amount of resource which is released
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Resource<Calendar, UnitTimeFloat, SimTimeCalendarFloat> resource, final double amount)
+                final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource, final double amount)
         {
             super(simulator, resource, amount);
         }
     }
 
     /** Easy access class Release.CalendarLong. */
-    public static class CalendarLong extends Release<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends Release<Calendar, Long, SimTimeCalendarLong>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -347,7 +315,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param resource which is released
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
-                final Resource<Calendar, UnitTimeLong, SimTimeCalendarLong> resource)
+                final Resource<Calendar, Long, SimTimeCalendarLong> resource)
         {
             super(simulator, resource);
         }
@@ -359,7 +327,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param amount of resource which is released
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
-                final Resource<Calendar, UnitTimeLong, SimTimeCalendarLong> resource, final double amount)
+                final Resource<Calendar, Long, SimTimeCalendarLong> resource, final double amount)
         {
             super(simulator, resource, amount);
         }

@@ -2,6 +2,11 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
 
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -12,22 +17,17 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 
 /**
  * The reference implementation of the animator.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -80,7 +80,7 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
         AnimationThread animationThread = new AnimationThread(this);
         animationThread.start();
         while (this.isRunning() && !this.eventList.isEmpty()
-                && this.simulatorTime.le(this.replication.getTreatment().getEndTime()))
+                && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             while (!this.eventList.isEmpty() && this.running)
             {
@@ -88,7 +88,8 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     this.simulatorTime = event.getAbsoluteExecutionTime();
-                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                            this.simulatorTime.get());
                     try
                     {
                         event.execute();
@@ -144,7 +145,7 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     }
 
     /** Easy access class Animator.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends DEVSAnimator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends DEVSAnimator<Time, Duration, SimTimeDoubleUnit>
             implements DEVSSimulatorInterface.TimeDoubleUnit
     {
         /** */
@@ -152,23 +153,15 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     }
 
     /** Easy access class Animator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVSAnimator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends DEVSAnimator<FloatTime, FloatDuration, SimTimeFloatUnit>
             implements DEVSSimulatorInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
-    /** Easy access class Animator.TimeLongUnit. */
-    public static class TimeLongUnit extends DEVSAnimator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-            implements DEVSSimulatorInterface.TimeLongUnit
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-    }
-
     /** Easy access class Animator.CalendarDouble. */
-    public static class CalendarDouble extends DEVSAnimator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends DEVSAnimator<Calendar, Duration, SimTimeCalendarDouble>
             implements DEVSSimulatorInterface.CalendarDouble
     {
         /** */
@@ -176,7 +169,7 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     }
 
     /** Easy access class Animator.CalendarFloat. */
-    public static class CalendarFloat extends DEVSAnimator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends DEVSAnimator<Calendar, FloatDuration, SimTimeCalendarFloat>
             implements DEVSSimulatorInterface.CalendarFloat
     {
         /** */
@@ -184,7 +177,7 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
     }
 
     /** Easy access class Animator.CalendarLong. */
-    public static class CalendarLong extends DEVSAnimator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends DEVSAnimator<Calendar, Long, SimTimeCalendarLong>
             implements DEVSSimulatorInterface.CalendarLong
     {
         /** */

@@ -1,7 +1,11 @@
 package nl.tudelft.simulation.dsol.simulators;
 
-import java.rmi.RemoteException;
 import java.util.Calendar;
+
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -15,23 +19,18 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLongUnit;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.UnitTimeLong;
 
 /**
  * The DESS defines the interface of the DESS simulator. DESS stands for the Differential Equation System Specification.
  * More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler
  * et. al. <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @author Peter Jacobs, Alexander Verbraeck
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
@@ -61,7 +60,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     @Override
     @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
-            throws RemoteException, SimRuntimeException
+            throws SimRuntimeException
     {
         super.initialize(initReplication, replicationMode);
         this.replication.getTreatment().getExperiment().getModel().constructModel(this);
@@ -96,17 +95,18 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        while (this.simulatorTime.lt(this.replication.getTreatment().getEndTime()) && isRunning())
+        while (this.simulatorTime.lt(this.replication.getTreatment().getEndSimTime()) && isRunning())
         {
             synchronized (super.semaphore)
             {
                 this.simulatorTime = this.simulatorTime.plus(this.timeStep);
-                if (this.simulatorTime.gt(this.replication.getTreatment().getEndTime()))
+                if (this.simulatorTime.gt(this.replication.getTreatment().getEndSimTime()))
                 {
-                    this.simulatorTime = this.replication.getTreatment().getEndTime().copy();
+                    this.simulatorTime = this.replication.getTreatment().getEndSimTime().copy();
                     this.stop();
                 }
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                        this.simulatorTime.get());
             }
         }
     }
@@ -167,7 +167,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends DESSSimulator<UnitTimeDouble, UnitTimeDouble, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends DESSSimulator<Time, Duration, SimTimeDoubleUnit>
             implements DESSSimulatorInterface.TimeDoubleUnit
     {
         /** */
@@ -177,14 +177,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
          * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
-        public TimeDoubleUnit(final UnitTimeDouble initialTimeStep) throws SimRuntimeException
+        public TimeDoubleUnit(final Duration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class DESSSimulator.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DESSSimulator<UnitTimeFloat, UnitTimeFloat, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends DESSSimulator<FloatTime, FloatDuration, SimTimeFloatUnit>
             implements DESSSimulatorInterface.TimeFloatUnit
     {
         /** */
@@ -194,31 +194,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
          * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
-        public TimeFloatUnit(final UnitTimeFloat initialTimeStep) throws SimRuntimeException
-        {
-            super(initialTimeStep);
-        }
-    }
-
-    /** Easy access class DESSSimulator.TimeLongUnit. */
-    public static class TimeLongUnit extends DESSSimulator<UnitTimeLong, UnitTimeLong, SimTimeLongUnit>
-            implements DESSSimulatorInterface.TimeLongUnit
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep the initial time step to use in the integration.
-         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
-         */
-        public TimeLongUnit(final UnitTimeLong initialTimeStep) throws SimRuntimeException
+        public TimeFloatUnit(final FloatDuration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class DESSSimulator.CalendarDouble. */
-    public static class CalendarDouble extends DESSSimulator<Calendar, UnitTimeDouble, SimTimeCalendarDouble>
+    public static class CalendarDouble extends DESSSimulator<Calendar, Duration, SimTimeCalendarDouble>
             implements DESSSimulatorInterface.CalendarDouble
     {
         /** */
@@ -228,14 +211,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
          * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
-        public CalendarDouble(final UnitTimeDouble initialTimeStep) throws SimRuntimeException
+        public CalendarDouble(final Duration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class DESSSimulator.CalendarFloat. */
-    public static class CalendarFloat extends DESSSimulator<Calendar, UnitTimeFloat, SimTimeCalendarFloat>
+    public static class CalendarFloat extends DESSSimulator<Calendar, FloatDuration, SimTimeCalendarFloat>
             implements DESSSimulatorInterface.CalendarFloat
     {
         /** */
@@ -245,14 +228,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
          * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
-        public CalendarFloat(final UnitTimeFloat initialTimeStep) throws SimRuntimeException
+        public CalendarFloat(final FloatDuration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
     }
 
     /** Easy access class DESSSimulator.CalendarLong. */
-    public static class CalendarLong extends DESSSimulator<Calendar, UnitTimeLong, SimTimeCalendarLong>
+    public static class CalendarLong extends DESSSimulator<Calendar, Long, SimTimeCalendarLong>
             implements DESSSimulatorInterface.CalendarLong
     {
         /** */
@@ -262,7 +245,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
          * @param initialTimeStep the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
-        public CalendarLong(final UnitTimeLong initialTimeStep) throws SimRuntimeException
+        public CalendarLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
