@@ -510,7 +510,9 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven.checkstyle.version}</version>
         <configuration>
-          <configLocation>development/dsol-checks.xml</configLocation>
+          <configLocation>/src/main/resources/development/dsol-checks.xml</configLocation>
+          <suppressionsLocation>/src/main/resources/development/checkstyle_suppressions.xml</suppressionsLocation>
+          <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
         </configuration>
         <reportSets>
           <reportSet>
