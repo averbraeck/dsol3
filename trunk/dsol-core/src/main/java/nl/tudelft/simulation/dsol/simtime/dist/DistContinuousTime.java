@@ -257,7 +257,6 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
 
         /**
          * @param wrappedDistribution the wrapped continuous distribution
-         * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
          */
         public CalendarLong(final DistContinuous wrappedDistribution)
         {
