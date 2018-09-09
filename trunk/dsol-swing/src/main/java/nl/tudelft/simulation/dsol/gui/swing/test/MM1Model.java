@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.gui.swing.test;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,12 +60,12 @@ public class MM1Model implements DSOLModel.TimeDouble
     private StreamInterface stream = new MersenneTwister();
 
     /** interarrival time. */
-    private DistContinuousTime.TimeDouble interarrivalTime = new DistContinuousTime.TimeDouble(new DistExponential(
-            this.stream, 1.0));
+    private DistContinuousTime.TimeDouble interarrivalTime =
+            new DistContinuousTime.TimeDouble(new DistExponential(this.stream, 1.0));
 
     /** processing time. */
-    private DistContinuousTime.TimeDouble processingTime = new DistContinuousTime.TimeDouble(new DistTriangular(
-            this.stream, 0.8, 0.9, 1.1));
+    private DistContinuousTime.TimeDouble processingTime =
+            new DistContinuousTime.TimeDouble(new DistTriangular(this.stream, 0.8, 0.9, 1.1));
 
     /** queue of waiting entities. */
     private List<QueueEntry<Entity>> queue = new ArrayList<QueueEntry<Entity>>();
@@ -77,7 +76,7 @@ public class MM1Model implements DSOLModel.TimeDouble
     /** {@inheritDoc} */
     @Override
     public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> _simulator)
-            throws SimRuntimeException, RemoteException
+            throws SimRuntimeException
     {
         this.simulator = (DEVSSimulatorInterface.TimeDouble) _simulator;
         generate();
@@ -85,12 +84,11 @@ public class MM1Model implements DSOLModel.TimeDouble
 
     /**
      * Generate new items. Reschedules itself.
-     * @throws SimRuntimeException on simulation error 
-     * @throws RemoteException on remote error
+     * @throws SimRuntimeException on simulation error
      */
-    protected void generate() throws RemoteException, SimRuntimeException
+    protected void generate() throws SimRuntimeException
     {
-        Entity entity = new Entity(this.entityCounter++, this.simulator.getSimulatorTime());
+        Entity entity = new Entity(this.entityCounter++, this.simulator.getSimTime());
         System.out.println("Generated: " + entity);
         synchronized (this.queue)
         {
@@ -102,7 +100,7 @@ public class MM1Model implements DSOLModel.TimeDouble
             else
             {
                 // queue
-                this.queue.add(new QueueEntry<Entity>(entity, this.simulator.getSimulatorTime()));
+                this.queue.add(new QueueEntry<Entity>(entity, this.simulator.getSimTime()));
                 System.out.println("In Queue: " + entity);
             }
         }
@@ -111,10 +109,9 @@ public class MM1Model implements DSOLModel.TimeDouble
 
     /**
      * @param entity entity to process
-     * @throws SimRuntimeException on simulation error 
-     * @throws RemoteException on remote error
+     * @throws SimRuntimeException on simulation error
      */
-    protected void startProcess(Entity entity) throws RemoteException, SimRuntimeException
+    protected void startProcess(Entity entity) throws SimRuntimeException
     {
         synchronized (this.queue)
         {
@@ -126,10 +123,9 @@ public class MM1Model implements DSOLModel.TimeDouble
 
     /**
      * @param entity entity to stop processing
-     * @throws SimRuntimeException on simulation error 
-     * @throws RemoteException on remote error
+     * @throws SimRuntimeException on simulation error
      */
-    protected void endProcess(Entity entity) throws RemoteException, SimRuntimeException
+    protected void endProcess(Entity entity) throws SimRuntimeException
     {
         System.out.println("End Process: " + entity);
         synchronized (this.queue)
@@ -144,7 +140,7 @@ public class MM1Model implements DSOLModel.TimeDouble
 
     /** {@inheritDoc} */
     @Override
-    public DEVSSimulatorInterface.TimeDouble getSimulator() throws RemoteException
+    public DEVSSimulatorInterface.TimeDouble getSimulator()
     {
         return this.simulator;
     }

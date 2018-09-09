@@ -34,7 +34,7 @@ public class DummyModel implements DSOLModel
         // We have constructed a model.
     }
 
-    public SimulatorInterface getSimulator() throws RemoteException
+    public SimulatorInterface getSimulator()
     {
         return null;
     }

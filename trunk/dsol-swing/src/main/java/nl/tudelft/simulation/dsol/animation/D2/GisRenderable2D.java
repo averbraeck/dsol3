@@ -164,7 +164,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
             this.context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
             ContextUtil.bind(this.context, this);
         }
-        catch (RemoteException | NamingException exception)
+        catch (NamingException exception)
         {
             logger.warn("<init>", exception);
         }

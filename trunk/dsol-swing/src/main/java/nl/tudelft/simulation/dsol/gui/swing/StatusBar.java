@@ -1,9 +1,5 @@
 package nl.tudelft.simulation.dsol.gui.swing;
 
-import info.clearthought.layout.TableLayout;
-import info.clearthought.layout.TableLayoutConstants;
-
-import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Timer;
@@ -14,6 +10,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import info.clearthought.layout.TableLayout;
+import info.clearthought.layout.TableLayoutConstants;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
@@ -47,7 +45,7 @@ public class StatusBar extends JPanel
     protected JTextField timeField = new JTextField(DateFormat.getDateTimeInstance().format(this.time.getTime()));
 
     /** */
-    protected JTextField simulatorTimeField = new JTextField("simulator.time:Double.NaN");
+    protected JTextField simulatorTimeField;
 
     /** */
     protected SimulatorInterface<?, ?, ?> simulator;
@@ -59,8 +57,8 @@ public class StatusBar extends JPanel
     protected final long PERIOD = 1000;
 
     /** */
-    protected static String[] WEEKDAY = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-            "Saturday", "Sunday"};
+    protected static String[] WEEKDAY =
+            new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     /**
      * @param simulator the simulator
@@ -76,6 +74,7 @@ public class StatusBar extends JPanel
         this.timeField.setEditable(false);
         this.timeField.setBorder(BorderFactory.createEmptyBorder());
         this.timeField.setToolTipText("displays the current time");
+        this.simulatorTimeField = new JTextField("simulator.time:Double.NaN");
         this.timer = new Timer();
         this.timer.scheduleAtFixedRate(new TimeUpdateTask(this.PERIOD), 0, this.PERIOD);
         this.add(this.timeField, "0,0,L,B");
@@ -103,9 +102,9 @@ public class StatusBar extends JPanel
      * Copyright (c) 2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
      * reserved. The MEDLABS project (Modeling Epidemic Disease with Large-scale Agent-Based Simulation) is aimed at
      * providing policy analysis tools to predict and help contain the spread of epidemics. It makes use of the DSOL
-     * simulation engine and the agent-based modeling formalism. See for project information <a
-     * href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>. The project is a co-operation between TU
-     * Delft, Systems Engineering and Simulation Department (Netherlands) and NUDT, Simulation Engineering Department
+     * simulation engine and the agent-based modeling formalism. See for project information
+     * <a href="http://www.simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>. The project is a co-operation between
+     * TU Delft, Systems Engineering and Simulation Department (Netherlands) and NUDT, Simulation Engineering Department
      * (China). This software is licensed under the BSD license. See license.txt in the main project.
      * @version May 4, 2014 <br>
      * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
@@ -130,16 +129,7 @@ public class StatusBar extends JPanel
         {
             StatusBar.this.time.setTimeInMillis(StatusBar.this.time.getTimeInMillis() + this.period);
             StatusBar.this.timeField.setText(DateFormat.getDateTimeInstance().format(StatusBar.this.time.getTime()));
-            try
-            {
-                StatusBar.this.simulatorTimeField.setText(StatusBar.this.simulator.getSimulatorTime().toString()
-                        + "     ");
-            }
-            catch (RemoteException exception)
-            {
-                // XXX: throw exception? separate run method. how?
-                exception.printStackTrace();
-            }
+            StatusBar.this.simulatorTimeField.setText("" + StatusBar.this.simulator.getSimulatorTime() + "     ");
             StatusBar.this.repaint();
         }
     }

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.geom.Rectangle2D;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -46,8 +47,9 @@ public class AnimationFrame extends JFrame
      * Constructor for AnimationFrame.
      * @param name the name of the frame
      * @param simulator the simulator
+     * @throws RemoteException on network error for one of the listeners
      */
-    public AnimationFrame(final String name, final SimulatorInterface<?, ?, ?> simulator)
+    public AnimationFrame(final String name, final SimulatorInterface<?, ?, ?> simulator) throws RemoteException
     {
         super(name);
         this.getContentPane().setLayout(new BorderLayout());
