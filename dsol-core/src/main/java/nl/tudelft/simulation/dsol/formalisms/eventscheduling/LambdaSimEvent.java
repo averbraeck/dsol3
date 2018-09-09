@@ -101,7 +101,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param executable the lambda method to invoke
          */
@@ -111,7 +110,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
         }
 
         /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param priority the priority of the event
@@ -131,7 +129,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param executable the lambda method to invoke
          */
@@ -141,7 +138,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
         }
 
         /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param priority the priority of the event
@@ -161,7 +157,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param executable the lambda method to invoke
          */
@@ -171,7 +166,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
         }
 
         /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param priority the priority of the event
@@ -192,7 +186,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param executable the lambda method to invoke
          */
@@ -203,11 +196,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param priority the priority of the event
          * @param executable the lambda method to invoke
-         * @param args the arguments the method to invoke with
          */
         public TimeDoubleUnit(final Time executionTime, final short priority, final Executable executable)
         {
@@ -224,7 +215,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param executable the lambda method to invoke
          */
@@ -234,7 +224,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
         }
 
         /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param priority the priority of the event
@@ -255,7 +244,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param executable the lambda method to invoke
          */
@@ -265,7 +253,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
         }
 
         /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param priority the priority of the event
@@ -286,7 +273,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param executable the lambda method to invoke
          */
@@ -296,7 +282,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
         }
 
         /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param priority the priority of the event
@@ -317,7 +302,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param executable the lambda method to invoke
          */
@@ -327,7 +311,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
         }
 
         /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
          * @param executionTime the time the event has to be executed.
          * @param priority the priority of the event
