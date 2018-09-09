@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsol:experimentalFrame xmlns:dsol="https://simulation.tudelft.nl"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<experiment>
+		<model>
+			<model-class>nl.tudelft.simulation.dsol.tutorial.section42.Model
+			</model-class>
+			<class-path>
+				<jar-file>/tmp/tutorial.jar</jar-file>
+			</class-path>
+		</model>
+		<simulator-class>nl.tudelft.simulation.dsol.simulators.DEVSSimulator
+		</simulator-class>
+		<replications>
+			<replication description="replication 0">
+				<stream name="default" seed="555" />
+			</replication>
+			<replication description="replication 1">
+				<stream name="default" seed="100" />
+			</replication>
+			<replication description="replication 2">
+				<stream name="default" seed="29" />
+			</replication>
+		</replications>
+		<treatment>
+			<startTime>2003-12-01T14:30:00</startTime>
+			<timeUnit>WEEK</timeUnit>
+			<warmupPeriod unit="WEEK">0</warmupPeriod>
+			<runLength unit="WEEK">120</runLength>
+			<properties>
+				<!-- The cost properties -->
+				<property key="retailer.costs.backlog" value="1" />
+				<property key="retailer.costs.holding" value="1" />
+				<property key="retailer.costs.marginal" value="3" />
+				<property key="retailer.costs.setup" value="30" />
+				<!-- The ordering policy properties -->
+				<property key="policy.lowerBound" value="8" />
+				<property key="policy.upperBound" value="80" />
+			</properties>
+		</treatment>
+	</experiment>
+	<experiment>
+		<model>
+			<model-class>nl.tudelft.simulation.dsol.tutorial.section42.Model
+			</model-class>
+			<class-path>
+				<jar-file>/tmp/tutorial.jar</jar-file>
+			</class-path>
+		</model>
+		<simulator-class>nl.tudelft.simulation.dsol.simulators.DEVSSimulator
+		</simulator-class>
+		<replications>
+			<replication description="replication 0">
+				<stream name="default" seed="555" />
+			</replication>
+			<replication description="replication 1">
+				<stream name="default" seed="100" />
+			</replication>
+			<replication description="replication 2">
+				<stream name="default" seed="29" />
+			</replication>
+		</replications>
+		<treatment>
+			<startTime>2003-12-01T14:30:00</startTime>
+			<timeUnit>WEEK</timeUnit>
+			<warmupPeriod unit="WEEK">0</warmupPeriod>
+			<runLength unit="WEEK">120</runLength>
+			<properties>
+				<!-- The cost properties -->
+				<property key="retailer.costs.backlog" value="1" />
+				<property key="retailer.costs.holding" value="1" />
+				<property key="retailer.costs.marginal" value="3" />
+				<property key="retailer.costs.setup" value="30" />
+				<!-- The ordering policy properties -->
+				<property key="policy.lowerBound" value="30" />
+				<property key="policy.upperBound" value="55" />
+			</properties>
+		</treatment>
+	</experiment>
+</dsol:experimentalFrame>
