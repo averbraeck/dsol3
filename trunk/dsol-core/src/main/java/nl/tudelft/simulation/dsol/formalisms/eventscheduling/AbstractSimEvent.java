@@ -10,8 +10,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * The AbstractSimEvent forms the basement for SimEvents and defines a compare method by which eventLists can compare
  * priority of the event.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -64,7 +63,7 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>>
                     + SimEventInterface.MAX_PRIORITY + "]");
         }
         this.priority = priority;
-        
+
         this.id = AbstractSimEvent.constructorCounter.incrementAndGet();
     }
 
@@ -120,4 +119,5 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>>
     {
         return this.priority;
     }
+
 }

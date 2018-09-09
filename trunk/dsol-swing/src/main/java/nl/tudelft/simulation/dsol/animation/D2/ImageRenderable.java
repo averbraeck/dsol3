@@ -25,8 +25,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 /**
  * An abstract class for state-dependent image renderables.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -84,8 +83,8 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public ImageRenderable(final T source, final SimulatorInterface<?, ?, ?> simulator,
-            final URL[] images) throws RemoteException, NamingException
+    public ImageRenderable(final T source, final SimulatorInterface<?, ?, ?> simulator, final URL[] images)
+            throws RemoteException, NamingException
     {
         super(source, simulator);
         this.setOrientation(ImageRenderable.CC);
@@ -144,8 +143,8 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     public ImageRenderable(final Point2D staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
-        this((T) new StaticLocation(new DirectedPoint(staticLocation), new BoundingBox(size.getWidth(), size.getHeight(),
-                0.0)), simulator, images);
+        this((T) new StaticLocation(new DirectedPoint(staticLocation),
+                new BoundingBox(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
     }
 
     /** {@inheritDoc} */
@@ -153,13 +152,13 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     public void paint(final Graphics2D graphics, final ImageObserver observer) throws RemoteException
     {
         int image = this.selectImage();
-        if (this.imageIcons[image].getImageLoadStatus() != MediaTracker.COMPLETE)
+        if (this.imageIcons == null || this.imageIcons[image] == null
+                || this.imageIcons[image].getImageLoadStatus() != MediaTracker.COMPLETE)
         {
             return;
         }
         Dimension size =
-                BoundsUtil
-                        .getIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getLocation().z)
+                BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getLocation().z)
                         .getBounds().getSize();
         Point2D origin = this.resolveOrigin(this.orientation, size);
         graphics.translate(origin.getX(), origin.getY());
