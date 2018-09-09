@@ -4,12 +4,19 @@ import java.io.Serializable;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 
 /**
  * A SimEventInterface embodies the envelope in which the scheduled method invocation information is stored.
  * <p>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -45,4 +52,56 @@ public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializa
      *         Use 10 (MAX_PRIORITY), 9, .. , 5 (NORMAL_PRIORITY), 1(MIN_PRIORITY)
      */
     short getPriority();
+
+    /***********************************************************************************************************/
+    /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class SimEvent.TimeDouble. */
+    public interface TimeDouble extends SimEventInterface<SimTimeDouble>
+    {
+        // no extra methods
+    }
+
+    /** Easy access class SimEvent.TimeFloat. */
+    public interface TimeFloat extends SimEventInterface<SimTimeFloat>
+    {
+        // no extra methods
+    }
+
+    /** Easy access class SimEvent.TimeLong. */
+    public interface TimeLong extends SimEventInterface<SimTimeLong>
+    {
+        // no extra methods
+    }
+
+    /** Easy access class SimEvent.TimeDoubleUnit. */
+    public interface TimeDoubleUnit extends SimEventInterface<SimTimeDoubleUnit>
+    {
+        // no extra methods
+    }
+
+    /** Easy access class SimEvent.TimeFloatUnit. */
+    public interface TimeFloatUnit extends SimEventInterface<SimTimeFloatUnit>
+    {
+        // no extra methods
+    }
+
+    /** Easy access class SimEvent.CalendarDouble. */
+    public interface CalendarDouble extends SimEventInterface<SimTimeCalendarDouble>
+    {
+        // no extra methods
+    }
+
+    /** Easy access class SimEvent.CalendarFloat. */
+    public interface CalendarFloat extends SimEventInterface<SimTimeCalendarFloat>
+    {
+        // no extra methods
+    }
+
+    /** Easy access class SimEvent.CalendarLong. */
+    public interface CalendarLong extends SimEventInterface<SimTimeCalendarLong>
+    {
+        // no extra methods
+    }
 }

@@ -179,7 +179,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /***********************************************************************************************************/
 
     /** Easy access class SimEvent.TimeDouble. */
-    public static class TimeDouble extends SimEvent<SimTimeDouble>
+    public static class TimeDouble extends SimEvent<SimTimeDouble> implements SimEventInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -215,7 +215,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     }
 
     /** Easy access class SimEvent.TimeFloat. */
-    public static class TimeFloat extends SimEvent<SimTimeFloat>
+    public static class TimeFloat extends SimEvent<SimTimeFloat> implements SimEventInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -251,7 +251,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     }
 
     /** Easy access class SimEvent.TimeLong. */
-    public static class TimeLong extends SimEvent<SimTimeLong>
+    public static class TimeLong extends SimEvent<SimTimeLong> implements SimEventInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -287,7 +287,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     }
 
     /** Easy access class SimEvent.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends SimEvent<SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends SimEvent<SimTimeDoubleUnit> implements SimEventInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -323,7 +323,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     }
 
     /** Easy access class SimEvent.TimeFloatUnit. */
-    public static class TimeFloatUnit extends SimEvent<SimTimeFloatUnit>
+    public static class TimeFloatUnit extends SimEvent<SimTimeFloatUnit> implements SimEventInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -360,6 +360,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
 
     /** Easy access class SimEvent.CalendarDouble. */
     public static class CalendarDouble extends SimEvent<SimTimeCalendarDouble>
+            implements SimEventInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -395,7 +396,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     }
 
     /** Easy access class SimEvent.CalendarFloat. */
-    public static class CalendarFloat extends SimEvent<SimTimeCalendarFloat>
+    public static class CalendarFloat extends SimEvent<SimTimeCalendarFloat> implements SimEventInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -431,7 +432,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     }
 
     /** Easy access class SimEvent.CalendarLong. */
-    public static class CalendarLong extends SimEvent<SimTimeCalendarLong>
+    public static class CalendarLong extends SimEvent<SimTimeCalendarLong> implements SimEventInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;

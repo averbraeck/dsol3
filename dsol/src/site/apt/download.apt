@@ -1,9 +1,10 @@
 Releases
 
-	Releases can be downloaded using Maven from {{https://www.simulation.tudelft.nl/maven}}. 
+	Releases can be downloaded using Maven from {{https://simulation.tudelft.nl/maven/}}. 
 	
 
 Source files and javadocs 
+
 	The site {{https://simulation.tudelft.nl/dsol/3.0/index.html}} provides javadocs, info and sources.
 
 

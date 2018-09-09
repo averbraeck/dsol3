@@ -1,25 +1,39 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.02.01" date="2018-09-08" description="Solved NPE in animation; documentation updated">
+      <action dev="averbraeck" type="fix">
+        The ImageRenderable in dsol-swing gave a NullPointerException when loading the image. An extra check
+        has been built in.
+      </action>
+      <action dev="averbraeck" type="fix">
+        The documentation has been repaired. Several links were not working. The site.xml now uses 
+        menu inheritance from site.xml in the dsol (pom) project.
+      </action>
+      <action dev="averbraeck" type="add">
+        SimEventInterface and LambdaSimEvent got easy access classes for the different types of clocks.
+      </action>
+    </release>
+
     <release version="3.02.00" date="2018-09-08" description="DJUNITS time units for the Simulator classes">
       <action dev="averbraeck" type="add">
         The SimEvent got easy access classes. So you can now, e.g., construct a SimEvent.TimeDouble that
-        takes a double as the execution time. 
+        takes a double as the execution time.
       </action>
       <action dev="averbraeck" type="update">
-        The "easy access" constructors of Treatment and Replication now take parameters in absolute and 
+        The "easy access" constructors of Treatment and Replication now take parameters in absolute and
         relative time units rather than SimTime. So a new Treatment.TimeDoubleUnit takes as parameters:
         (Time startTime, Duration warmupPeriod, Duration runLength). This is a lot more clear than
         using SimTime wrappers. The general Treatment and Replication constructors still needs a SimTime.
         Extra methods getStartSimTime(), getWarmupSimTime() and getEndSimTime() have been added to the
         Treatment in case the wrapper object are needed, e.g., for comparison or adding/subtracting
-        durations. 
+        durations.
       </action>
       <action dev="averbraeck" type="update">
         Simulator.getSimulatorTime() returns the absolute time A rather than the SimTime T. This makes
-        coding a lot easier, as the wrapper T is only used to implement the internals of adding and 
+        coding a lot easier, as the wrapper T is only used to implement the internals of adding and
         subtracting absolute and relative simulation times, but should actually never be exposed to the
-        user, unless the user is really interested in the wrapper. For this, the method 
+        user, unless the user is really interested in the wrapper. For this, the method
         Simulator.getSimTime() has been implemented, which returns a SimTime object.
       </action>
       <action dev="averbraeck" type="fix">
@@ -28,7 +42,8 @@
       <action dev="averbraeck" type="update">
         The Simulator classes do not use the internal TimeUnit classes anymore. Instead, the Time and
         Duration from DJUNITS have been used. This holds for the TimeDoubleUnit, TimeFloatUnit,
-        CalendarDouble and CalendarFloat. TimeLongUnit has been removed, as it did not really make
+        CalendarDouble
+        and CalendarFloat. TimeLongUnit has been removed, as it did not really make
         sense how it was implemented. CalendarLong uses a relative Long to indicate time in milliseconds.
       </action>
       <action dev="averbraeck" type="update">
