@@ -1,21 +1,19 @@
 package nl.tudelft.simulation.immutablecollections;
 
 import java.util.Comparator;
+import java.util.Map;
 import java.util.NavigableMap;
-import java.util.SortedMap;
-import java.util.SortedSet;
 import java.util.TreeMap;
-
-import nl.tudelft.simulation.language.Throw;
 
 /**
  * An immutable wrapper for a TreeMap.
  * <p>
- * Copyright (c) 2013-2018  Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2013-2018 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights
+ * reserved. <br>
  * BSD-style license. See <a href="http://www.simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>.
  * </p>
- * $LastChangedDate: 2015-07-24 02:58:59 +0200 (Fri, 24 Jul 2015) $, @version $Revision: 1147 $, by $Author: averbraeck $,
- * initial version May 7, 2016 <br>
+ * $LastChangedDate: 2015-07-24 02:58:59 +0200 (Fri, 24 Jul 2015) $, @version $Revision: 1147 $, by $Author: averbraeck
+ * $, initial version May 7, 2016 <br>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  * @author <a href="http://www.transport.citg.tudelft.nl">Wouter Schakel</a>
@@ -28,38 +26,40 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param sortedMap the map to use as the immutable map.
+     * @param sortedMap the map to use for the immutable map.
      */
-    public ImmutableTreeMap(final SortedMap<K, V> sortedMap)
+    public ImmutableTreeMap(final Map<K, V> sortedMap)
     {
-        this(sortedMap, Immutable.COPY);
+        super(new TreeMap<K, V>(sortedMap), Immutable.COPY);
     }
 
     /**
-     * @param map the map to use as the immutable map.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param map the map to use for the immutable map.
+     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
+     *            collection
      */
-    public ImmutableTreeMap(final SortedMap<K, V> map, final Immutable copyOrWrap)
+    public ImmutableTreeMap(final NavigableMap<K, V> map, final Immutable copyOrWrap)
     {
-        super(copyOrWrap == Immutable.COPY ? new TreeMap<K, V>(map) : map, copyOrWrap == Immutable.COPY);
-        Throw.whenNull(copyOrWrap, "the copyOrWrap argument should be Immutable.COPY or Immutable.WRAP");
+        super(copyOrWrap == Immutable.COPY ? new TreeMap<K, V>(map) : map, copyOrWrap);
     }
 
     /**
-     * @param immutableMap the map to use as the immutable map.
+     * @param immutableMap the map to use for the immutable map.
      */
-    public ImmutableTreeMap(final ImmutableTreeMap<K, V> immutableMap)
+    public ImmutableTreeMap(final ImmutableAbstractMap<K, V> immutableMap)
     {
-        this(immutableMap, Immutable.COPY);
+        super(new TreeMap<K, V>(immutableMap.getMap()), Immutable.COPY);
     }
 
     /**
-     * @param immutableTreeMap the map to use as the immutable map.
-     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original collection
+     * @param immutableTreeMap the map to use for the immutable map.
+     * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
+     *            collection
      */
     public ImmutableTreeMap(final ImmutableTreeMap<K, V> immutableTreeMap, final Immutable copyOrWrap)
     {
-        this(immutableTreeMap.getMap(), copyOrWrap);
+        super(copyOrWrap == Immutable.COPY ? new TreeMap<K, V>(immutableTreeMap.getMap()) : immutableTreeMap.getMap(),
+                copyOrWrap);
     }
 
     /** {@inheritDoc} */
@@ -80,7 +80,7 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     @Override
     public final ImmutableSortedSet<K> keySet()
     {
-        return new ImmutableTreeSet<K>((SortedSet<K>) getMap().keySet());
+        return new ImmutableTreeSet<K>(getMap().keySet());
     }
 
     /** {@inheritDoc} */

@@ -27,12 +27,14 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
      * Returns a modifiable copy of this immutable map.
      * @return a modifiable copy of this immutable map.
      */
+    @Override
     NavigableMap<K, V> toMap();
 
     /**
      * Returns a {@link ImmutableSortedSet} view of the keys contained in this map.
      * @return an immutable sorted set of the keys contained in this map
      */
+    @Override
     ImmutableSortedSet<K> keySet();
 
     /**
@@ -141,12 +143,14 @@ public interface ImmutableNavigableMap<K, V> extends ImmutableSortedMap<K, V>
      * @param obj the object to compare this collection with
      * @return whether the objects are equal
      */
-    boolean equals(final Object obj);
+    @Override
+    boolean equals(Object obj);
 
     /**
      * Force to redefine hashCode for the implementations of immutable collection classes. 
      * @return the calculated hashCode
      */
+    @Override
     int hashCode();
 
 }

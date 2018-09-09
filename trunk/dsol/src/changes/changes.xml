@@ -1,26 +1,44 @@
-<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
+
+    <release version="3.02.00" date="2018-09-08" description="DJUNITS time units for the Simulator classes">
+      <action dev="averbraeck" type="fix">
+        The ImmutableCollections have been updated to avoid accepting a List in the constructor of an ImmutableSet
+        when the copyOrWrap is Immutable.WRAP. The size() of the original List and the ImmutableSet
+        were different in case of duplicates in the List, which was terribly confusing. Therefore, accepting
+        a Collection should always lead to a COPY, whereas a 'compatible' Collection can use the WRAP.
+        In addition, wrapping has become a lot more strict. An ImmutableArrayList wraps only an ArrayList,
+        whereas an ImmutableVector only wraps a Vector. Originally, they could wrap each other, leading to
+        incompatibilities. The same holds for Sets and Maps.
+      </action>
+      <action dev="averbraeck" type="update">
+        Updated all maven dependencies and libraries to their latest version in the dsol pom-file.
+      </action>
+      <action dev="averbraeck" type="add">
+        StateSaver class included in dsol-base.
+        dsol-core is now not dependent anymore on xstream to do state-save and state-retrieve for rollback.
+      </action>
+    </release>
 
     <release version="3.01.06" date="2017-04-30" description="dsol-demo repaired and added to project">
       <action dev="averbraeck" type="add">
-        The dsol-demo project has been repaired and is from now on again a formal part of the dsol framework. 
+        The dsol-demo project has been repaired and is from now on again a formal part of the dsol framework.
       </action>
       <action dev="averbraeck" type="update">
-        Renderable2D.contains() method is made non-final to allow returning false for non-clickable animation items. 
+        Renderable2D.contains() method is made non-final to allow returning false for non-clickable animation items.
       </action>
       <action dev="averbraeck" type="add">
-        Added GISRenderable2D constructor with a z-value. 
+        Added GISRenderable2D constructor with a z-value.
       </action>
       <action dev="averbraeck" type="add">
-        Added setBackground(boolean) method in GIS Map.  
+        Added setBackground(boolean) method in GIS Map.
       </action>
     </release>
 
     <release version="3.01.05" date="2017-04-17" description="Unique id of AbstractSimEvent repaired">
       <action dev="averbraeck" type="fix">
-        When parallel threads constructed a SimEvent, the uniqueness of the id was not guaranteed. 
-        An AtomicLong solves this problem. 
+        When parallel threads constructed a SimEvent, the uniqueness of the id was not guaranteed.
+        An AtomicLong solves this problem.
       </action>
     </release>
 
@@ -30,7 +48,7 @@
       </action>
       <action dev="averbraeck" type="update">
         Data that is shown on the screen is not clickable for viewing or displaying.
-      </action>      
+      </action>
       <action dev="averbraeck" type="add">
         The ESRI Map can return the layers as a Map from String (name) to Layer.
       </action>
@@ -49,7 +67,7 @@
       <action dev="averbraeck" type="update">
         A Renderable2D can be added or removed from within the paint() method. This is, however, not really
         advisable, as this will only be done when the object is visible on the screen.
-      </action>      
+      </action>
       <action dev="averbraeck" type="add">
         Default log4j-2 configuration file added to dsol-base.
       </action>
@@ -64,69 +82,70 @@
       </action>
       <action dev="averbraeck" type="update">
         DSOL is now compiled with Java version 1.8.
-      </action>      
+      </action>
     </release>
 
     <release version="3.01.01" date="2016-10-23" description="Throw class extended">
       <action dev="averbraeck" type="update">
-        The Throw class now also is able to return an object (its first parameter) to allow for its use in a 
-        super(...) call. 
+        The Throw class now also is able to return an object (its first parameter) to allow for its use in a
+        super(...) call.
       </action>
     </release>
 
     <release version="3.01.00" date="2016-10-16" description="dsol-base project split, log4j instead of logger">
       <action dev="averbraeck" type="add">
-        A Throw class with Throw.throw(condition, ...) and Throw.whenNull(object, ...) has been added to dsol-base to 
+        A Throw class with Throw.throw(condition, ...) and Throw.whenNull(object, ...) has been added to dsol-base to
         easily check pre- and post-conditions in constructors and methods.
       </action>
       <action dev="averbraeck" type="update">
         The dsol-base project is split into dsol-base, dsol-interpreter, dsol-introspection, dsol-event and dsol-naming.
       </action>
       <action dev="averbraeck" type="update">
-        The internal dsol logger is retired and replaced by the log4j version 2 logger. 
+        The internal dsol logger is retired and replaced by the log4j version 2 logger.
       </action>
       <action dev="averbraeck" type="add">
         The DEVSSimulatorInterface.scheduleXXX methods now return the event that they have scheduled. This enables
-        the user to easily store the event for later cancellation. 
+        the user to easily store the event for later cancellation.
       </action>
       <action dev="averbraeck" type="fix">
-         Timed events report the time as the absolute time rather than as the time wrapper.  
+        Timed events report the time as the absolute time rather than as the time wrapper.
       </action>
       <action dev="averbraeck" type="fix">
-         Statistical events sent by Persistent made different from those by Tally. The events within dsol-core are now 
-         timed events.
+        Statistical events sent by Persistent made different from those by Tally. The events within dsol-core are now
+        timed events.
       </action>
     </release>
 
-   <release version="3.00.21" date="2016-09-12" description="Simulators with and without firing certain events">
+    <release version="3.00.21" date="2016-09-12" description="Simulators with and without firing certain events">
       <action dev="averbraeck" type="update">
         DEVSRealTimeClock can fire CHANGE_SPEED_FACTOR_EVENT.
       </action>
       <action dev="averbraeck" type="update">
-        Simulator can start() without firing event. 
+        Simulator can start() without firing event.
       </action>
       <action dev="averbraeck" type="update">
-        Simulator can stop() without firing event. 
+        Simulator can stop() without firing event.
       </action>
       <action dev="averbraeck" type="update">
-        Simulator can step() without firing event. 
+        Simulator can step() without firing event.
       </action>
     </release>
 
     <release version="3.00.20" date="2016-04-21" description="Animation classes updated, interface names simplified">
       <action dev="averbraeck" type="fix">
         GisRenderable2D uses a self-generated unique id to identify itself in the Context. This avoids problems with
-        Locatable objects that don't have a unique toString() result and therefore could not be distinguished.
+        Locatable objects that don't have a unique toString() result and therefore could not be
+        distinguished.
       </action>
       <action dev="averbraeck" type="update">
-        Renamed LocatableInterface to Locatable. 
+        Renamed LocatableInterface to Locatable.
       </action>
       <action dev="averbraeck" type="update">
-        Renamed ModelInterface to DSOLModel. 
+        Renamed ModelInterface to DSOLModel.
       </action>
       <action dev="averbraeck" type="add">
         Added a Identifiable&lt;T&gt; to identify instances with a getId() method. Subclasses Long and String have been
-        created as well. 
+        created as well.
       </action>
     </release>
 
@@ -141,15 +160,15 @@
         with the plus and minus keys still zoom around the center position of the window.
       </action>
       <action dev="averbraeck" type="add">
-        x and y positions of the mouse in world coordinates are shown with a tooltip. The tooltip can be switched 
+        x and y positions of the mouse in world coordinates are shown with a tooltip. The tooltip can be switched
         on and off.
       </action>
       <action dev="averbraeck" type="add">
-        x and y positions of the mouse in world coordinates can be requested with a method to show elsewhere on the 
+        x and y positions of the mouse in world coordinates can be requested with a method to show elsewhere on the
         control panel of a simulation.
       </action>
       <action dev="averbraeck" type="fix">
-        In the dsol-swing project, ensured in the introspection package that no errors will be given when the source 
+        In the dsol-swing project, ensured in the introspection package that no errors will be given when the source
         has been deleted.
       </action>
       <action dev="averbraeck" type="add">
@@ -161,26 +180,26 @@
         to be off sometimes.
       </action>
     </release>
-    
-    
+
+
     <release version="3.00.18" date="2015-12-13" description="DEVSRealTimeClock improved thread-safety">
       <action dev="averbraeck" type="fix">
         Improved the thread-safety of the DEVSRealTimeClock.
       </action>
       <action dev="averbraeck" type="fix">
-        Improved the alignment of the DEVSRealTimeClock with the wall-clock. 
+        Improved the alignment of the DEVSRealTimeClock with the wall-clock.
       </action>
     </release>
-    
-    
+
+
     <release version="3.00.17" date="2015-11-30" description="ESRI user-defined transformation">
       <action dev="averbraeck" type="add">
         ESRI shape files can be parsed with a user-defined transformation.
         The old constructors have been kept, so they can also be parsed as before.
       </action>
     </release>
-    
-    
+
+
     <release version="3.00.16" date="2015-11-30" description="Added dsol-akka project, javadoc cleanup">
       <action dev="averbraeck" type="add">
         Added the dsol-akka project. Still empty, just as a reference for future developments.
@@ -189,18 +208,20 @@
         Cleaned up a lot of the outdated javadoc.
       </action>
     </release>
-    
-    
+
+
     <release version="3.00.15" date="2015-09-27" description="Improved website for docs">
       <action dev="averbraeck" type="update">
         Site generation has been updated. All DSOL projects now have a site with an adapted Velocity template and
-        CSS updates. The Apache Velocity template has been based on theMaven Stylus Skin, version 1.5. A possibility
-        to link to a site in a target="_blank" window has been added to the site.vm file. In addition, several of the menus 
-        have been updated, streamlined, and brought up-to-date with the latest changes in the Maven site standards. 
+        CSS updates. The Apache Velocity template has been based on theMaven Stylus Skin, version
+        1.5. A possibility
+        to link to a site in a target="_blank" window has been added to the site.vm file. In addition, several of the menus
+        have been updated, streamlined, and brought up-to-date with the latest changes in the Maven site
+        standards.
       </action>
-      <action dev="averbraeck" type="update">      
+      <action dev="averbraeck" type="update">
         Simulator class does not throw RemoteExceptions anymore on most common scheduling methods, as this was not needed.
-      </action> 
+      </action>
     </release>
 
 
@@ -211,12 +232,14 @@
       </action>
       <action dev="averbraeck" type="update">
         ClassUtil: cache the super constructors, methods, fields as well at the super constructors, methods, fields
-        to avoid repetitive lookup of super constructors, methods, and fields, which can take a lot of time.  
+        to avoid repetitive lookup of super constructors, methods, and fields, which can take a
+        lot of time.
       </action>
       <action dev="averbraeck" type="update">
         Renderable2D: use the hashCode to store the renderable in the context tree. Guarantee a reproducible hashCode
-        and equals. The toString() also gives the hashCode() as this can be used to identify the Renderable2D
-        in the context tree.  
+        and equals. The toString() also gives the hashCode() as this can be used to identify the
+        Renderable2D
+        in the context tree.
       </action>
     </release>
 
