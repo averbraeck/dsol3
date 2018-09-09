@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.dsol.simulators;
 
-import java.rmi.RemoteException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,8 +9,7 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 
 /**
  * The TestModel <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -28,7 +25,7 @@ public class TestModel implements DSOLModel, EventListenerInterface
 
     /** the simulator. */
     private SimulatorInterface simulator;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(TestModel.class);
 
@@ -42,15 +39,22 @@ public class TestModel implements DSOLModel, EventListenerInterface
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface simulator) throws RemoteException
+    public void constructModel(final SimulatorInterface simulator)
     {
         this.simulator = simulator;
-        simulator.addListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT, false);
-        simulator.addListener(this, SimulatorInterface.START_REPLICATION_EVENT, false);
-        simulator.addListener(this, SimulatorInterface.START_EVENT, false);
-        simulator.addListener(this, SimulatorInterface.STOP_EVENT, false);
-        simulator.addListener(this, SimulatorInterface.STEP_EVENT, false);
-        simulator.addListener(this, SimulatorInterface.TIME_CHANGED_EVENT, false);
+        try
+        {
+            simulator.addListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT, false);
+            simulator.addListener(this, SimulatorInterface.START_REPLICATION_EVENT, false);
+            simulator.addListener(this, SimulatorInterface.START_EVENT, false);
+            simulator.addListener(this, SimulatorInterface.STOP_EVENT, false);
+            simulator.addListener(this, SimulatorInterface.STEP_EVENT, false);
+            simulator.addListener(this, SimulatorInterface.TIME_CHANGED_EVENT, false);
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace();
+        }
     }
 
     /**
@@ -73,15 +77,8 @@ public class TestModel implements DSOLModel, EventListenerInterface
         if (event.getType().equals(SimulatorInterface.STOP_EVENT))
         {
             long runLength = System.currentTimeMillis() - this.startTime;
-            try
-            {
-                System.out.println("runlength=" + runLength + " time="
-                        + ((SimulatorInterface) event.getSource()).getSimulatorTime());
-            }
-            catch (RemoteException exception)
-            {
-                logger.warn("notify", exception);
-            }
+            System.out.println(
+                    "runlength=" + runLength + " time=" + ((SimulatorInterface) event.getSource()).getSimulatorTime());
         }
     }
 }

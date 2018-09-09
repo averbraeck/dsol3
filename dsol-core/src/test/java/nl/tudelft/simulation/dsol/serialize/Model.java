@@ -51,7 +51,7 @@ public class Model implements DSOLModel
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface simulator) throws SimRuntimeException, RemoteException
+    public void constructModel(final SimulatorInterface simulator) throws SimRuntimeException
     {
         this.simulator = simulator;
         DEVSSimulatorInterface devsSimulator = (DEVSSimulatorInterface.TimeDouble) simulator;

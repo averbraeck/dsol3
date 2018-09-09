@@ -37,10 +37,10 @@ public class OwnProcess extends Process
     {
         try
         {
-            SimTime time = super.simulator.getSimulatorTime();
+            SimTime time = super.simulator.getSimTime();
             System.out.println(this + " started @ " + time);
             super.hold(10.0);
-            SimTime newTime = super.simulator.getSimulatorTime();
+            SimTime newTime = super.simulator.getSimTime();
             System.out.println(this + " finished @ " + newTime);
             // TODO Assert.assertTrue((newTime.minus(time)).doubleValue() == 10.0);
         }

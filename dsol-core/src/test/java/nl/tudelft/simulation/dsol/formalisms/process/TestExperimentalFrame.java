@@ -16,15 +16,13 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.TimeUnit;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * A TestExperimentalFrame <br>
- * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -39,9 +37,6 @@ public final class TestExperimentalFrame
      */
     public static final long STARTTIME = 0;
 
-    /** TIMEUNIT refers to the time units of the experiment. */
-    public static final TimeUnit TIMEUNIT = TimeUnit.UNIT;
-
     /** RUNLENGTH is the runLength for this experiment. */
     public static final double RUNLENGTH = 100;
 
@@ -53,7 +48,7 @@ public final class TestExperimentalFrame
 
     /** TIMESTEP is the timeStep to be used for the DESS formalism. */
     public static final double TIMESTEP = 0.01;
-    
+
     /** the logger. */
     private static Logger logger = LogManager.getLogger(TestExperimentalFrame.class);
 

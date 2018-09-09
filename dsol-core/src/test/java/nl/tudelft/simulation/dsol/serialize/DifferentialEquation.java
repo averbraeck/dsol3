@@ -35,8 +35,9 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
      * constructs a new DifferentialEquation.
      * @param simulator
      * @param timeStep
+     * @throws RemoteException 
      */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep)
+    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep) throws RemoteException
     {
         super(simulator, timeStep);
     }
@@ -46,8 +47,9 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
      * @param simulator
      * @param timeStep
      * @param numericalMethod
+     * @throws RemoteException 
      */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, short numericalMethod)
+    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, short numericalMethod) throws RemoteException
     {
         super(simulator, timeStep, numericalMethod);
     }
@@ -57,9 +59,10 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
      * @param simulator
      * @param timeStep
      * @param numericalIntegrator
+     * @throws RemoteException 
      */
     public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep,
-            NumericalIntegrator numericalIntegrator)
+            NumericalIntegrator numericalIntegrator) throws RemoteException
     {
         super(simulator, timeStep, numericalIntegrator);
     }
