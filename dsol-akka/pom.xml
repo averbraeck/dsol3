@@ -12,7 +12,7 @@
   <artifactId>dsol-akka</artifactId>
   <name>DSOL Akka binding</name>
   <description>DSOL Akka distributed simulation</description>
-  <url>https://simulation.tudelft.nl/dsol/3.0/dsol-akka</url>
+  <url>https://simulation.tudelft.nl/dsol/doc/3.0/dsol-akka</url>
 
   <dependencies>
     <dependency>
