@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="${artifactId} ${version}" xmlns="http://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.6.0 http://maven.apache.org/xsd/decoration-1.6.0.xsd">
+<project name="${artifactId} ${version}" xmlns="http://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.6.0 http://maven.apache.org/xsd/decoration-1.6.0.xsd">
 
   <publishDate position="left" format="dd-MM-yyyy hh:mm" />
 
@@ -9,6 +8,23 @@
   </bannerRight>
 
   <body>
+
+    <menu name="DSOL 3.0 MODULES">
+      <item name="dsol" href="https://simulation.tudelft.nl/dsol/${version}/index.html" />
+      <item name="dsol-base" href="https://simulation.tudelft.nl/dsol/${version}/dsol-base/index.html" />
+      <item name="dsol-event" href="https://simulation.tudelft.nl/dsol/${version}/dsol-event/index.html" />
+      <item name="dsol-naming" href="https://simulation.tudelft.nl/dsol/${version}/dsol-naming/index.html" />
+      <item name="dsol-interpreter" href="https://simulation.tudelft.nl/dsol/${version}/dsol-interpreter/index.html" />
+      <item name="dsol-introspection" href="https://simulation.tudelft.nl/dsol/${version}/dsol-introspection/index.html" />
+      <item name="dsol-core" href="https://simulation.tudelft.nl/dsol/${version}/dsol-core/index.html" />
+      <item name="dsol-swing" href="https://simulation.tudelft.nl/dsol/${version}/dsol-swing/index.html" />
+      <item name="dsol-fx" href="https://simulation.tudelft.nl/dsol/${version}/dsol-fx/index.html" />
+      <item name="dsol-web" href="https://simulation.tudelft.nl/dsol/${version}/dsol-web/index.html" />
+      <item name="dsol-demo" href="https://simulation.tudelft.nl/dsol/${version}/dsol-demo/index.html" />
+      <item name="dsol-akka" href="https://simulation.tudelft.nl/dsol/${version}/dsol-akka/index.html" />
+      <!-- item name="dsol-hla" href="https://simulation.tudelft.nl/dsol/${version}/dsol-hla/index.html" / -->
+      <!-- item name="dsol-zmq" href="https://simulation.tudelft.nl/dsol/${version}/dsol-zmq/index.html" / -->
+    </menu>
 
     <menu name="API">
       <item name="JavaDocs" href="apidocs/index.html" target="_blank" />
