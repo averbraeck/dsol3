@@ -3,12 +3,14 @@
 
     <release version="3.02.01" date="2018-09-09" description="Solved NPE in animation; documentation updated">
       <action dev="averbraeck" type="fix">
-        The ImageRenderable in dsol-swing gave a NullPointerException when loading the image. An extra check
-        has been built in.
+        The documentation has been repaired. Several links were not working. some inheritance is used
+        in the site.xml file. The site.vm files for Doxia have been updated to the latest version. 
+        Included a relativizeDecorationLinks option set to false in the maven.site section in the pom file
+        to properly render the menus in the site (absolute paths instead of relative ones).
       </action>
       <action dev="averbraeck" type="fix">
-        The documentation has been repaired. Several links were not working. The site.xml now uses 
-        menu inheritance from site.xml in the dsol (pom) project.
+        The ImageRenderable in dsol-swing gave a NullPointerException when loading the image. An extra check
+        has been built in.
       </action>
       <action dev="averbraeck" type="add">
         SimEventInterface and LambdaSimEvent got easy access classes for the different types of clocks.
