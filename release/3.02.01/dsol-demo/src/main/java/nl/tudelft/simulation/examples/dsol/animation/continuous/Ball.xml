@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dsol:test 
-	xmlns:dsol="https://simulation.tudelft.nl"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-<introspection>
-  <field access="R">name</field>
-</introspection> 
-</dsol:test>	  
