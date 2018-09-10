@@ -11,6 +11,6 @@
   <artifactId>dsol-fx</artifactId>
   <name>DSOL gui project for JavaFX</name>
   <description>DSOL charts, animation, user interface for JavaFX</description>
-  <url>https://simulation.tudelft.nl/dsol/3.0/dsol-fx</url>
+  <url>https://simulation.tudelft.nl/dsol/doc/3.0/dsol-fx</url>
 
 </project>
