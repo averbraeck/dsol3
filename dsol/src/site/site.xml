@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="${artifactId} ${version}" xmlns="https://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="https://maven.apache.org/DECORATION/1.6.0 https://maven.apache.org/xsd/decoration-1.6.0.xsd">
+<project name="${artifactId} ${version}" xmlns="https://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/DECORATION/1.6.0 https://maven.apache.org/xsd/decoration-1.6.0.xsd">
 
   <publishDate position="left" format="dd-MM-yyyy hh:mm" />
 
@@ -10,7 +9,7 @@
 
   <body>
 
-    <menu name="DSOL 3.0 MODULES" inherit="top">
+    <menu name="DSOL 3.0 MODULES">
       <item name="dsol" href="https://simulation.tudelft.nl/dsol/${version}/index.html" />
       <item name="dsol-base" href="https://simulation.tudelft.nl/dsol/${version}/dsol-base/index.html" />
       <item name="dsol-event" href="https://simulation.tudelft.nl/dsol/${version}/dsol-event/index.html" />
@@ -23,8 +22,8 @@
       <item name="dsol-web" href="https://simulation.tudelft.nl/dsol/${version}/dsol-web/index.html" />
       <item name="dsol-demo" href="https://simulation.tudelft.nl/dsol/${version}/dsol-demo/index.html" />
       <item name="dsol-akka" href="https://simulation.tudelft.nl/dsol/${version}/dsol-akka/index.html" />
-      <!-- item name="dsol-hla" href="https://simulation.tudelft.nl/dsol/${version}/dsol-hla/index.html" /-->
-      <!-- item name="dsol-zmq" href="https://simulation.tudelft.nl/dsol/${version}/dsol-zmq/index.html" /-->
+      <!-- item name="dsol-hla" href="https://simulation.tudelft.nl/dsol/${version}/dsol-hla/index.html" / -->
+      <!-- item name="dsol-zmq" href="https://simulation.tudelft.nl/dsol/${version}/dsol-zmq/index.html" / -->
     </menu>
 
     <menu name="DSOL FEATURES">

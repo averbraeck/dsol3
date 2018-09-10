@@ -15,6 +15,33 @@
     <url>https://simulation.tudelft.nl</url>
   </organization>
 
+  <profiles>
+    <!-- select profiles with -P option, e.g. "mvn install -P all" -->
+    <profile>
+      <id>all</id>
+      <activation>
+        <property>
+          <name>all</name>
+        </property>
+      </activation>
+      <modules>
+        <module>../dsol</module>
+        <module>../dsol-base</module>
+        <module>../dsol-naming</module>
+        <module>../dsol-event</module>
+        <module>../dsol-interpreter</module>
+        <module>../dsol-core</module>
+        <module>../dsol-introspection</module>
+        <module>../dsol-swing</module>
+        <module>../dsol-web</module>
+        <module>../dsol-fx</module>
+        <module>../dsol-demo</module>
+        <module>../dsol-akka</module>
+        <module>../dsol-zmq</module>
+      </modules>
+    </profile>
+  </profiles>
+
   <properties>
     <jdk.version>1.8</jdk.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
