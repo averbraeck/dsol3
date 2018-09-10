@@ -250,16 +250,16 @@
             <link>http://www.jfree.org/jcommon/api/</link>
             <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
             <link>https://xerces.apache.org/xerces2-j/javadocs/api/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-base/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-naming/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-event/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-interpreter/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-introspection/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-core/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-swing/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-fx/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-web/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-demo/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-base/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-naming/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-event/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-interpreter/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-introspection/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-core/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-swing/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-fx/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-web/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-demo/apidocs/</link>
             <link>https://x-stream.github.io/javadoc/</link>
             <link>https://djunits.org/docs/current/apidocs/</link>
             <link>https://logging.apache.org/log4j/2.x/log4j-api/apidocs/</link>
@@ -458,16 +458,16 @@
             <link>http://www.jfree.org/jcommon/api/</link>
             <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
             <link>https://xerces.apache.org/xerces2-j/javadocs/api/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-base/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-naming/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-event/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-interpreter/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-introspection/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-core/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-swing/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-fx/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-web/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/doc/${version}/dsol-demo/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-base/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-naming/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-event/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-interpreter/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-introspection/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-core/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-swing/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-fx/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-web/apidocs/</link>
+            <link>https://simulation.tudelft.nl/dsol/doc/${project.version}/dsol-demo/apidocs/</link>
             <link>https://x-stream.github.io/javadoc/</link>
             <link>https://djunits.org/docs/current/apidocs/</link>
             <link>https://logging.apache.org/log4j/2.x/log4j-api/apidocs/</link>
