@@ -11,7 +11,7 @@
   <artifactId>dsol-base</artifactId>
   <name>DSOL version 3, base classes</name>
   <description>Base classes for Distributed Simulation Object Library version 3</description>
-  <url>https://simulation.tudelft.nl/dsol/doc/3.0/dsol-base</url>
+  <url>https://simulation.tudelft.nl/dsol/3.0/dsol-base</url>
 
   <dependencies>
     <dependency>

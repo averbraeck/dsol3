@@ -11,7 +11,7 @@
   <artifactId>dsol-introspection</artifactId>
   <name>DSOL introspection of classes</name>
   <description>Ability to introspect classes and get inner content of objects</description>
-  <url>https://simulation.tudelft.nl/dsol/doc/3.0/dsol-introspection</url>
+  <url>https://simulation.tudelft.nl/dsol/3.0/dsol-introspection</url>
 
   <dependencies>
     <dependency>
