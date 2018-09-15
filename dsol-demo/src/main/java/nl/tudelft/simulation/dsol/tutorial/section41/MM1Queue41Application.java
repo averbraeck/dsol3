@@ -4,15 +4,14 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.Level;
-import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.logger.LogLevel;
 
 /**
  * <p>
@@ -61,9 +60,9 @@ public class MM1Queue41Application
         this.model = new MM1Queue41Model();
         this.simulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
-                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 100.0, this.model);
+                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 1000.0, this.model);
         this.simulator.initialize(replication, ReplicationMode.TERMINATING);
-        this.simulator.scheduleEventAbs(100.0, this, this, "terminate", null);
+        this.simulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
         this.simulator.start();
     }
 
@@ -73,6 +72,7 @@ public class MM1Queue41Application
         System.out.println("average queue length = " + this.model.qN.getSampleMean());
         System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
         System.out.println("average utilization  = " + this.model.uN.getSampleMean());
+
         System.exit(0);
     }
 
@@ -84,7 +84,7 @@ public class MM1Queue41Application
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        Configurator.defaultConfig().level(Level.INFO).activate();
+        LogLevel.setDefaultLevel(Level.INFO);
         new MM1Queue41Application();
     }
 

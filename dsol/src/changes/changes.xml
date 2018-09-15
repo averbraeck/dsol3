@@ -8,7 +8,14 @@
         statement: Configurator.currentConfig().level(Level.TRACE).activate();
       </action>
       <action dev="averbraeck" type="fix">
-        The Console has been repaired so it captures the log stream again.
+        The Console in dsol-swing has been repaired so it captures the log stream again.
+      </action>
+      <action dev="averbraeck" type="add">
+        The text colors on the Console in dsol-swing are adapted for the Logger.level.
+      </action>
+      <action dev="averbraeck" type="add">
+          Static helper methods LogLevel.setDefaultLevel and LogLevel.setCurrentLevel have been added
+          to easily set or change the logging level for the simulation.  
       </action>
     </release>
 

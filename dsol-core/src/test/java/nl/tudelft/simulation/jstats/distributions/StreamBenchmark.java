@@ -1,4 +1,4 @@
-package nl.tudelft.simulation.dsol.tutorial.section41;
+package nl.tudelft.simulation.jstats.distributions;
 
 import java.util.Random;
 
@@ -17,12 +17,12 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @version Mar 4, 2017
  */
-public final class Test
+public final class StreamBenchmark
 {
     /**
      * 
      */
-    private Test()
+    private StreamBenchmark()
     {
         //
     }
