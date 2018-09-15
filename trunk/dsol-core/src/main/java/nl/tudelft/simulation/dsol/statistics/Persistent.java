@@ -5,8 +5,7 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -61,9 +60,6 @@ public class Persistent<A extends Comparable<A>, R extends Number & Comparable<R
     /** SUM_EVENT is fired whenever the sum is updated. */
     public static final EventType TIMED_SUM_EVENT = new EventType("TIMED_SUM_EVENT");
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Persistent.class);
-
     /**
      * constructs a new Persistent.
      * @param description refers to the description of this Persistent
@@ -92,7 +88,7 @@ public class Persistent<A extends Comparable<A>, R extends Number & Comparable<R
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
 
         // subscribe to the events from the super Persistent to send timed events by this simulator aware tally
@@ -176,7 +172,7 @@ public class Persistent<A extends Comparable<A>, R extends Number & Comparable<R
                 }
                 catch (RemoteException exception)
                 {
-                    logger.warn("problen removing Listener for SimulatorIterface.WARMUP_EVENT", exception);
+                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;
@@ -190,7 +186,7 @@ public class Persistent<A extends Comparable<A>, R extends Number & Comparable<R
                 }
                 catch (RemoteException exception)
                 {
-                    logger.warn("problen removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT", exception);
+                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
                 }
                 this.endOfReplication();
                 return;
@@ -228,7 +224,7 @@ public class Persistent<A extends Comparable<A>, R extends Number & Comparable<R
         }
         catch (Exception exception)
         {
-            logger.warn("endOfReplication", exception);
+            Logger.warn("endOfReplication", exception);
         }
     }
 }

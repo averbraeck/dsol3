@@ -19,8 +19,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.vecmath.Point4i;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.AnimationPanel;
@@ -50,9 +49,6 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /** the mouseClicked point in screen coordinates. */
     protected Point2D mouseClicked = null;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(InputListener.class);
 
     /**
      * constructs a new InputListener.
@@ -254,7 +250,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
         catch (Exception exception)
         {
-            logger.warn("getSelectedObjects", exception);
+            Logger.warn(exception, "getSelectedObjects");
         }
         return targets;
     }
@@ -302,7 +298,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
         catch (RemoteException exception)
         {
-            logger.warn("edit", exception);
+            Logger.warn(exception, "edit");
         }
         return selectedObject;
     }

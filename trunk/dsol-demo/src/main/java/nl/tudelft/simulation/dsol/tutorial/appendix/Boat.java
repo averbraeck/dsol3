@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.tutorial.appendix;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.process.Process;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -31,9 +30,6 @@ public class Boat extends Process<Double, Double, SimTimeDouble>
 
     /** the description of the boat. */
     private String description = "Boat(";
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Boat.class);
 
     /**
      * constructs a new Boat.
@@ -80,7 +76,7 @@ public class Boat extends Process<Double, Double, SimTimeDouble>
         }
         catch (Exception exception)
         {
-            logger.error("process", exception);
+            Logger.error(exception, "process");
         }
     }
 

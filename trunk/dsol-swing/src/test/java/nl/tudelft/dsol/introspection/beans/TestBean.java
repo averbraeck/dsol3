@@ -1,11 +1,8 @@
-/*
- * TestBean.java Created on May 3, 2001, 5:14 PM
- */
-
 package nl.tudelft.dsol.introspection.beans;
 
 import java.awt.Font;
-import java.util.logging.Logger;
+
+import org.pmw.tinylog.Logger;
 
 /**
  * @author (c) 2003 <a href="http://www.tudelft.nl">Delft University of Technology </a>, Delft, the Netherlands <br>
@@ -17,9 +14,6 @@ import java.util.logging.Logger;
  */
 public class TestBean extends java.lang.Object implements java.io.Serializable
 {
-    /** the error logger. */
-    private static Logger logger = Logger.getLogger("nl.tudelft.tbm.sk.introspection");
-
     /** Holds value of property firstProperty. */
     private String firstProperty = "First ;-)";
 
@@ -53,7 +47,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
      */
     public String getFirstProperty()
     {
-        // logger.info(this + this.firstProperty + "requested.");
+        // Logger.info(this + this.firstProperty + "requested.");
         return this.firstProperty;
     }
 
@@ -63,7 +57,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
      */
     public void setFirstProperty(String firstProperty)
     {
-        logger.info(this + firstProperty + "set.");
+        Logger.info(this + firstProperty + "set.");
         this.firstProperty = firstProperty;
     }
 
@@ -73,7 +67,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
      */
     public String getSecondProperty()
     {
-        // logger.info(this + this.secondProperty + "requested.");
+        // Logger.info(this + this.secondProperty + "requested.");
         return this.secondProperty;
     }
 
@@ -83,7 +77,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
      */
     public void setSecondProperty(String secondProperty)
     {
-        logger.info(this + secondProperty + "set.");
+        Logger.info(this + secondProperty + "set.");
         this.secondProperty = secondProperty;
     }
 
@@ -93,7 +87,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
      */
     public int getIntProp()
     {
-        // logger.info(this +"" + this.intProp + "requested");
+        // Logger.info(this +"" + this.intProp + "requested");
         return this.intProp;
     }
 
@@ -103,7 +97,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
      */
     public void setIntProp(int intProp)
     {
-        logger.info(this + "intProp set to " + intProp);
+        Logger.info(this + "intProp set to " + intProp);
         this.intProp = intProp;
     }
 

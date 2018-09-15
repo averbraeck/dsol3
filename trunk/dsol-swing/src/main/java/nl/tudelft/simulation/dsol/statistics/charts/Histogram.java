@@ -3,8 +3,7 @@ package nl.tudelft.simulation.dsol.statistics.charts;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.naming.context.ContextUtil;
@@ -20,9 +19,6 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  */
 public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.Histogram
 {
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Histogram.class);
-
     /**
      * constructs a new Histogram.
      * @param simulator the simulator
@@ -42,7 +38,7 @@ public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.His
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -64,7 +60,7 @@ public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.His
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 

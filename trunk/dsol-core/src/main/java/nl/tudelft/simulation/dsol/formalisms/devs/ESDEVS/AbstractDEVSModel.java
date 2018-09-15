@@ -7,8 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
@@ -89,9 +88,6 @@ public abstract class AbstractDEVSModel extends EventProducer
 
     /** the fields of the AbstractDEVSMOdel. */
     private static Set<Field> abstractDEVSFields = new HashSet<Field>();
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(AbstractDEVSModel.class);
 
     /**
      * Static constructor. Takes care of filling the static constants the first time an extension of the
@@ -240,7 +236,7 @@ public abstract class AbstractDEVSModel extends EventProducer
             }
             catch (IllegalAccessException exception)
             {
-                logger.error("Tried to fire update for variable " + field.getName() + " but got an exception.");
+                Logger.error("Tried to fire update for variable {} but got an exception.", field.getName());
                 System.err.println(this.getModelName() + " - fireUpdateState: Tried to fire update for variable "
                         + field.getName() + " but got an exception.");
             }

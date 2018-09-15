@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -26,9 +25,6 @@ public class Warehouse implements SellerInterface
 
     /** the delivery or leadTime. */
     private DistContinuous leadTime = null;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Warehouse.class);
 
     /**
      * constructs a new Warehouse.
@@ -55,7 +51,7 @@ public class Warehouse implements SellerInterface
         }
         catch (Exception exception)
         {
-            logger.warn("order", exception);
+            Logger.error(exception, "order");
         }
     }
 }

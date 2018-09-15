@@ -3,8 +3,7 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 import java.io.Serializable;
 import java.rmi.MarshalledObject;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
@@ -19,9 +18,6 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  */
 public class Duplicate extends Station
 {
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Duplicate.class);
-
     /**
      * duplicateDestination which is the duplicate definition.
      */
@@ -79,7 +75,7 @@ public class Duplicate extends Station
         }
         catch (Exception exception)
         {
-            logger.warn("receiveMethod", exception);
+            Logger.warn(exception, "receiveMethod");
         }
     }
 }

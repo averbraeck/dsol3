@@ -14,8 +14,7 @@ import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingExceptionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.event.EventType;
 
@@ -50,9 +49,6 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
 
     /** the treeModel. */
     private ContextTreeModel treeModel = null;
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(ContextNode.class);
 
     /**
      * constructs a new ContextNode.
@@ -107,7 +103,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
             }
             catch (NamingException exception)
             {
-                logger.warn("objectAdded", exception);
+                Logger.warn(exception, "objectAdded");
             }
         }
         else if (this.display(item.getObject()))
@@ -162,7 +158,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
     @Override
     public void namingExceptionThrown(final NamingExceptionEvent event)
     {
-        logger.warn("namingExceptionThrown", event.getException());
+        Logger.warn(event.getException(), "namingExceptionThrown");
     }
 
     /**

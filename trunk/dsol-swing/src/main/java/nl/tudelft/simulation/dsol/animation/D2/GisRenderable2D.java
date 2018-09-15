@@ -7,14 +7,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.net.URL;
-import java.rmi.RemoteException;
 
 import javax.media.j3d.Bounds;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.javel.gisbeans.io.esri.CoordinateTransform;
 import nl.javel.gisbeans.map.MapInterface;
@@ -58,9 +56,6 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
 
     /** the bounds of the image. */
     protected Bounds bounds = null;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(GisRenderable2D.class);
 
     /**
      * the context for (un)binding.
@@ -116,7 +111,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Exception exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -147,7 +142,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Exception exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -166,7 +161,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -190,7 +185,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Exception exception)
         {
-            logger.warn("paint", exception);
+            Logger.warn(exception, "paint");
         }
     }
 
@@ -252,7 +247,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Throwable throwable)
         {
-            logger.warn("finalize", throwable);
+            Logger.warn(throwable, "finalize");
         }
     }
 

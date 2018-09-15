@@ -7,8 +7,7 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -70,9 +69,6 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /** the description of the resource. */
     protected String description = "resource";
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Resource.class);
 
     /**
      * Method Resource.
@@ -160,7 +156,7 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
         catch (RemoteException remoteException)
         {
             // This exception cannot occur.
-            logger.warn("setCapacity", remoteException);
+            Logger.warn(remoteException, "setCapacity");
         }
     }
 

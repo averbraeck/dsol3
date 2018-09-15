@@ -11,7 +11,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.logger.Logger;
+import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.LogicalTimeDouble;
 import se.pitch.prti.LogicalTimeIntervalDouble;
 
@@ -111,7 +111,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                 throw new SimRuntimeException("Cannot step simulator: "
                                 + "SimulatorTime = runControl.runLength");
             }
-            logger.debugr(this, "step", "OK");
+            Logger.debugr(this, "step", "OK");
             this.fireEvent(SimulatorInterface.STEP_EVENT, null);
             if (!this.eventList.isEmpty() && this.grant >= super.simulatorTime)
             {
@@ -168,7 +168,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
             {
                 this.stop();
             }
-            logger.debugr(this, "timeAdvanceRequest", "requested time until "
+            Logger.debugr(this, "timeAdvanceRequest", "requested time until "
                             + time);
             switch (this.timeAdvanceMode)
             {
@@ -191,7 +191,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
             }
         } catch (Exception exception)
         {
-            logger.error("timeAdvanceRequest", exception);
+            Logger.error("timeAdvanceRequest", exception);
         }
     }
 
@@ -211,7 +211,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
             return lookahead;
         } catch (Exception e)
         {
-            logger.error("Failed to retrieve lookahead: " + e, e);
+            Logger.error("Failed to retrieve lookahead: " + e, e);
             return -1;
         }
     }
@@ -230,7 +230,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                             lookAheadTime));
         } catch (Exception exception)
         {
-            logger.warn("setLookAheadTime", exception);
+            Logger.warn("setLookAheadTime", exception);
         }
     }
 
@@ -242,7 +242,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
      */
     public synchronized void run()
     {
-        logger.trace(this, "run", "Commenced run");
+        Logger.trace(this, "run", "Commenced run");
         while (isRunning()
                         && (this.grant >= this.eventList.first()
                                         .getAbsoluteExecutionTime()))
@@ -258,7 +258,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                     event.execute();
                 } catch (Exception exception)
                 {
-                    logger.error("run", exception);
+                    Logger.error("run", exception);
                 }
             }
         }
@@ -297,18 +297,18 @@ public class HLADEVSSimulator extends DEVSSimulator implements
         {
             if (this.requestState == START_REQUEST)
             {
-                logger.trace(this, "", "GRANTED to " + arg0
+                Logger.trace(this, "", "GRANTED to " + arg0
                                 + ": starting. Thread name: "
                                 + Thread.currentThread().getName());
                 this.start();
             } else
             {
-                logger.trace(this, "", "GRANTED to " + arg0 + ": stepping");
+                Logger.trace(this, "", "GRANTED to " + arg0 + ": stepping");
                 this.step();
             }
         } catch (SimRuntimeException exception)
         {
-            logger.error("timeAdvanceGrant", exception);
+            Logger.error("timeAdvanceGrant", exception);
         }
     }
     
@@ -328,7 +328,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
         if (event.getType()
                         .equals(DSOLFederateAmbassador.INTERACTION_REC_EVENT))
         {
-            logger.debug(this, "notify", "Received Interaction Received Event");
+            Logger.debug(this, "notify", "Received Interaction Received Event");
             // Schedule interaction processing: detach from RTI thread
             HLAInteractionEvent content = (HLAInteractionEvent) event
                             .getContent();
@@ -370,7 +370,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
      */
     protected void processInteractionEvent(HLAInteractionEvent evt)
     {
-        logger.debug(this, "", "Processing received interaction event: " + evt
+        Logger.debug(this, "", "Processing received interaction event: " + evt
                         + " @ " + getSimulatorTime());
         // In this class, no work is done. Check sub-classes for the handling of
         // specific interactions.

@@ -10,8 +10,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.spi.InitialContextFactory;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 /**
  * A factory for FileContext instances, automatically invoked by JNDI when the correct jndi.properties file has been
@@ -30,9 +29,6 @@ public class FileContextFactory implements InitialContextFactory
 {
     /** context refers to the static JVMContext. */
     private static FileContext context = null;
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(FileContextFactory.class);
 
     /** {@inheritDoc} */
     @Override
@@ -58,7 +54,7 @@ public class FileContextFactory implements InitialContextFactory
             }
             catch (Exception exception)
             {
-                logger.warn("getInitialContext", exception);
+                Logger.warn(exception, "getInitialContext");
             }
         }
         return context;

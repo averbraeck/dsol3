@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.animation.D2;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
@@ -20,9 +19,6 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  */
 public class Animation
 {    
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Animation.class);
-
     /**
      * @param frameName the name to use for the frame
      * @param simulator the simulator.
@@ -53,7 +49,7 @@ public class Animation
         }
         catch (Exception exception)
         {
-            logger.warn("actionPerformed", exception);
+            Logger.warn(exception, "actionPerformed");
         }
     }
 

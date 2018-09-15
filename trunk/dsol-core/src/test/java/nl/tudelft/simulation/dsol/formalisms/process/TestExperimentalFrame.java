@@ -7,8 +7,7 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
@@ -49,9 +48,6 @@ public final class TestExperimentalFrame
     /** TIMESTEP is the timeStep to be used for the DESS formalism. */
     public static final double TIMESTEP = 0.01;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(TestExperimentalFrame.class);
-
     /**
      * constructs a new TestExperimentalFrame.
      */
@@ -85,7 +81,7 @@ public final class TestExperimentalFrame
         }
         catch (NamingException e)
         {
-            logger.warn("createExperimentalFrame", e);
+            Logger.warn(e, "createExperimentalFrame");
         }
         return null;
     }

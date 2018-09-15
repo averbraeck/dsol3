@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.tutorial.section45;
 
+import org.pmw.tinylog.Logger;
+
 import nl.tudelft.simulation.dsol.formalisms.process.Process;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
@@ -81,7 +83,7 @@ public class Boat extends Process<Double, Double, SimTimeDouble>
         }
         catch (Exception exception)
         {
-            logger.error("process", exception);
+            Logger.error(exception, "process");
         }
     }
 

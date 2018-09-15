@@ -10,8 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
@@ -43,9 +42,6 @@ public class ExpandButton extends JButton
     /** the model. */
     private final IntrospectingTableModelInterface MODEL;
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(ExpandButton.class);
-
     /**
      * constructs a new ExpandButton.
      * @param property the property
@@ -126,7 +122,7 @@ public class ExpandButton extends JButton
         }
         catch (Exception exception)
         {
-            logger.warn("instantiate: could not instantiate parent tablemodel, using default", exception);
+            Logger.warn(exception, "instantiate: could not instantiate parent tablemodel, using default");
             if (this.PROPERTY.isCollection())
             {
                 newModel = new CollectionTableModel(this.PROPERTY);

@@ -1,11 +1,16 @@
 package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.Color;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import java.util.EnumSet;
+import java.util.Set;
 
 import javax.swing.JTextArea;
+
+import org.pmw.tinylog.Configuration;
+import org.pmw.tinylog.Configurator;
+import org.pmw.tinylog.LogEntry;
+import org.pmw.tinylog.writers.LogEntryValue;
+import org.pmw.tinylog.writers.Writer;
 
 /**
  * <br>
@@ -26,7 +31,7 @@ public class Console extends JTextArea
     private static final long serialVersionUID = 1L;
 
     /** */
-    protected Handler logHandler;
+    protected LogWriter logWriter;
 
     /**
      * Constructor for Console.
@@ -36,87 +41,74 @@ public class Console extends JTextArea
         super();
         this.setEditable(false);
         this.setForeground(Color.RED);
-        this.logHandler = new LogHandler(this);
+        this.logWriter = new LogWriter(this);
+        Configurator.currentConfig().writer(this.logWriter).activate();
     }
 
     /**
-     * Method addLogger.
-     * @param logger the logger to add
-     */
-    public void addLogger(Logger logger)
-    {
-        Handler[] handlers = logger.getHandlers();
-        for (int i = 0; i < handlers.length; i++)
-        {
-            logger.removeHandler(handlers[i]);
-        }
-        logger.addHandler(this.getHandler());
-    }
-
-    /**
-     * Method getHandler.
-     * @return Handler
-     */
-    public Handler getHandler()
-    {
-        return this.logHandler;
-    }
-
-    /**
+     * LogWriter takes care of writing the log records to the console. <br>
      * <br>
-     * Copyright (c) 2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved. The MEDLABS project (Modeling Epidemic Disease with Large-scale Agent-Based Simulation) is aimed at
-     * providing policy analysis tools to predict and help contain the spread of epidemics. It makes use of the DSOL
-     * simulation engine and the agent-based modeling formalism. See for project information <a
-     * href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>. The project is a co-operation between TU
-     * Delft, Systems Engineering and Simulation Department (Netherlands) and NUDT, Simulation Engineering Department
-     * (China). This software is licensed under the BSD license. See license.txt in the main project.
-     * @version May 4, 2014 <br>
-     * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
-     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck </a>
+     * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * reserved. See for project information
+     * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
+     * binary code of this software is proprietary information of Delft University of Technology.
+     * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
      */
-    private class LogHandler extends Handler
+    public static class LogWriter implements Writer
     {
         /** */
         private JTextArea textArea;
 
         /**
-         * Method LogHandler.
-         * @param textArea
+         * @param textArea the text area to write the messages to.
          */
-        public LogHandler(JTextArea textArea)
+        public LogWriter(final JTextArea textArea)
         {
             this.textArea = textArea;
         }
 
         /** {@inheritDoc} */
         @Override
-        public void publish(LogRecord record)
+        public Set<LogEntryValue> getRequiredLogEntryValues()
         {
-            if (record.getThrown() != null)
+            return EnumSet.of(LogEntryValue.RENDERED_LOG_ENTRY); // Only the final rendered log entry is required
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void init(Configuration configuration) throws Exception
+        {
+            // nothing to do
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void write(LogEntry logEntry) throws Exception
+        {
+            if (logEntry.getException() != null)
             {
-                this.textArea.append("-" + record.getLevel() + "  " + record.getLoggerName() + "  "
-                        + record.getThrown() + "  " + record.getMessage() + " \n");
+                this.textArea.append("-" + logEntry.getLevel() + "  " + logEntry.getException() + "  "
+                        + logEntry.getMessage() + " \n");
             }
             else
             {
-                this.textArea.append("-" + record.getLevel() + "  " + record.getLoggerName() + "  "
-                        + record.getMessage() + " \n");
+                this.textArea.append("-" + logEntry.getLevel() + "  " + logEntry.getMessage() + " \n");
             }
         }
 
         /** {@inheritDoc} */
         @Override
-        public void close()
+        public void flush() throws Exception
         {
-            //
+            // nothing to do
         }
 
         /** {@inheritDoc} */
         @Override
-        public void flush()
+        public void close() throws Exception
         {
-            //
+            // nothing to do
         }
+
     }
 }

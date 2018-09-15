@@ -8,12 +8,11 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -35,8 +34,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * The Experiment specifies the parameters for a simulation experiment <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -85,9 +83,6 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
 
     /** are we already subscribed to the END_OF_REPLICATION_EVENT. */
     private boolean subscribed = false;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Experiment.class);
 
     /**
      * constructs a new Experiment.
@@ -167,7 +162,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         }
         catch (RemoteException remoteException)
         {
-            logger.warn("notify", remoteException);
+            Logger.warn(remoteException, "notify");
         }
     }
 

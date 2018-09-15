@@ -8,8 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.Serializable;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 /**
  * @author (c) 2003 <a href="http://www.tudelft.nl">Delft University of Technology </a>, Delft, the Netherlands <br>
@@ -39,9 +38,6 @@ public class SubTestBean implements Serializable
     /** Holds value of property font. */
     private Font font;
 
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(SubTestBean.class);
-
     /** Creates new TestBean. */
     public SubTestBean()
     {
@@ -54,7 +50,7 @@ public class SubTestBean implements Serializable
      */
     public String getFirstProperty()
     {
-        logger.info(this.firstProperty + "requested.");
+        Logger.info(this.firstProperty + "requested.");
         return this.firstProperty;
     }
 
@@ -64,7 +60,7 @@ public class SubTestBean implements Serializable
      */
     public void setFirstProperty(final String firstProperty)
     {
-        logger.info(this.firstProperty + "set.");
+        Logger.info(this.firstProperty + "set.");
         this.firstProperty = firstProperty;
     }
 
@@ -74,7 +70,7 @@ public class SubTestBean implements Serializable
      */
     public String getSecondProperty()
     {
-        logger.info(this.secondProperty + "requested.");
+        Logger.info(this.secondProperty + "requested.");
         return this.secondProperty;
     }
 
@@ -84,7 +80,7 @@ public class SubTestBean implements Serializable
      */
     public void setSecondProperty(final String secondProperty)
     {
-        logger.info(this.secondProperty + "set.");
+        Logger.info(this.secondProperty + "set.");
         this.secondProperty = secondProperty;
     }
 
@@ -94,7 +90,7 @@ public class SubTestBean implements Serializable
      */
     public int getIntProp()
     {
-        logger.info(this.intProp + "requested.");
+        Logger.info(this.intProp + "requested.");
         return this.intProp;
     }
 
@@ -104,7 +100,7 @@ public class SubTestBean implements Serializable
      */
     public void setIntProp(final int intProp)
     {
-        logger.info(this.intProp + "set.");
+        Logger.info(this.intProp + "set.");
         this.intProp = intProp;
     }
 

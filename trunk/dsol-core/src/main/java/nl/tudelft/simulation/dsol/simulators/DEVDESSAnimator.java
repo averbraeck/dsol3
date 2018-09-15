@@ -2,12 +2,11 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.util.Calendar;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -40,9 +39,6 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 {
     /** */
     private static final long serialVersionUID = 20140804L;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(DEVDESSAnimator.class);
 
     /**
      * @param initialTimeStep the initial time step to use in the integration.
@@ -116,7 +112,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
                     }
                     catch (Exception exception)
                     {
-                        logger.error("run", exception);
+                        Logger.error(exception, "run");
                     }
                 }
             }

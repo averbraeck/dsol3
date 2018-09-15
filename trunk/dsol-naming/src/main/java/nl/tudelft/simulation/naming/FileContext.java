@@ -13,14 +13,12 @@ import javax.naming.Context;
 import javax.naming.Name;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 /**
  * The FileContext as implementation of the Context interface.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -35,9 +33,6 @@ public class FileContext extends JVMContext implements Serializable
 
     /** file links to the file. */
     private File file = null;
-    
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(FileContext.class);
 
     /**
      * constructs a new FileContext.
@@ -78,7 +73,7 @@ public class FileContext extends JVMContext implements Serializable
         }
         catch (Exception exception)
         {
-            logger.warn("saving in FileContext failed", exception);
+            Logger.warn(exception, "saving in FileContext failed");
             throw new NamingException(exception.getMessage());
         }
     }

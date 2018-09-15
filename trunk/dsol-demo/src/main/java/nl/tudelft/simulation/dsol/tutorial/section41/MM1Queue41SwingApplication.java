@@ -4,6 +4,9 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.pmw.tinylog.Configurator;
+import org.pmw.tinylog.Level;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -62,6 +65,7 @@ public class MM1Queue41SwingApplication extends DSOLApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
+        Configurator.defaultConfig().level(Level.TRACE).activate();
         MM1Queue41Model model = new MM1Queue41Model();
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =

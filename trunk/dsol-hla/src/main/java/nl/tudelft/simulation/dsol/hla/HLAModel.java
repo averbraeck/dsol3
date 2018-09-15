@@ -20,7 +20,7 @@ import nl.tudelft.simulation.dsol.hla.callBack.RTIAmbassador;
 import nl.tudelft.simulation.dsol.hla.simulators.HLADEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.logger.Logger;
+import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.LogicalTimeDouble;
 import se.pitch.prti.LogicalTimeIntervalDouble;
 import se.pitch.prti.RTI;
@@ -69,7 +69,7 @@ public class HLAModel extends DSOLFederateAmbassador implements DSOLModel
             Logger.info(this,"<init>","Ready intialize");
         } catch (Exception exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 

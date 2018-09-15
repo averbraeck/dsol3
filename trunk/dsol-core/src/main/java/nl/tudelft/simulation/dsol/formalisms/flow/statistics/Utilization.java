@@ -6,10 +6,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
-import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -42,9 +40,6 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
     /** the simulator. */
     private SimulatorInterface<A, R, T> simulator = null;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(DifferentialEquation.class);
-
     /**
      * constructs a new Utilization.
      * @param description the description of this utilization
@@ -68,7 +63,7 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -87,7 +82,7 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
                 }
                 catch (RemoteException exception)
                 {
-                    logger.warn("problen removing Listener for SimulatorIterface.WARMUP_EVENT", exception);
+                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;
@@ -100,7 +95,7 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
                 }
                 catch (RemoteException exception)
                 {
-                    logger.warn("problen removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT", exception);
+                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
                 }
                 this.endOfReplication();
                 return;
@@ -143,7 +138,7 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
         }
         catch (Exception exception)
         {
-            logger.warn("endOfReplication", exception);
+            Logger.warn(exception, "endOfReplication");
         }
     }
 }

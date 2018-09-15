@@ -13,12 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.djunits.unit.DurationUnit;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
@@ -46,9 +45,6 @@ public class ExperimentParser
 {
     /** builder the xerces parser with validation turned on. */
     private static SAXBuilder builder = new SAXBuilder("org.apache.xerces.parsers.SAXParser", true);
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(ExperimentParser.class);
 
     static
     {
@@ -116,7 +112,7 @@ public class ExperimentParser
         }
         catch (Exception exception)
         {
-            logger.warn("parseExperimentalFrame", exception);
+            Logger.warn(exception, "parseExperimentalFrame");
             return null;
         }
     }
@@ -234,7 +230,7 @@ public class ExperimentParser
         }
         catch (Exception exception)
         {
-            logger.warn("parseExperiment", exception);
+            Logger.warn(exception, "parseExperiment");
             throw new IOException(exception.getMessage());
         }
     }

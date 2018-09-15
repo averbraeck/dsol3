@@ -5,8 +5,7 @@ import java.util.Collection;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
@@ -43,9 +42,6 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** show the package information in the tableModel. */
     private boolean showPackage = false;
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(TableModelEventList.class);
 
     /**
      * constructs a new TableModelEventList.
@@ -107,7 +103,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
         }
         catch (Exception exception)
         {
-            logger.warn("updateTableModel", exception);
+            Logger.warn(exception, "updateTableModel");
         }
     }
 

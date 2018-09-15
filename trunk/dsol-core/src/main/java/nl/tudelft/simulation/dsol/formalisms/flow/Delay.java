@@ -2,12 +2,11 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.util.Calendar;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -46,9 +45,6 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /** delayDistribution which is the distribution defining the delay. */
     private DistContinuousTime<R> delayDistribution;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Delay.class);
-
     /**
      * Constructor for Delay.
      * @param simulator is the simulator
@@ -72,7 +68,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         }
         catch (Exception exception)
         {
-            logger.warn("receiveObject", exception);
+            Logger.warn(exception, "receiveObject");
         }
     }
 

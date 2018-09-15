@@ -5,12 +5,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
@@ -62,9 +61,6 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /** resource on which the capacity is requested. */
     private Resource<A, R, T> resource;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Seize.class);
-
     /**
      * Constructor for Seize.
      * @param simulator on which behavior is scheduled
@@ -115,7 +111,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         }
         catch (Exception exception)
         {
-            logger.warn("receiveObject", exception);
+            Logger.warn(exception, "receiveObject");
         }
     }
 

@@ -16,12 +16,6 @@
   <dependencies>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>dsol</groupId>
       <artifactId>dsol-base</artifactId>
     </dependency>
@@ -31,6 +25,7 @@
       <artifactId>jeromq</artifactId>
       <version>0.3.6</version>
     </dependency>
+
   </dependencies>
 
 </project>

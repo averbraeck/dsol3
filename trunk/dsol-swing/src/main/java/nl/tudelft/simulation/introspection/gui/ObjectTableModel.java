@@ -2,8 +2,7 @@ package nl.tudelft.simulation.introspection.gui;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
@@ -39,9 +38,6 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
     /** The model manager. */
     private ModelManager manager = new DefaultModelManager();
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(ObjectTableModel.class);
-
     /**
      * Creates an ObjectTableModel utilizing a {see nl.tudelft.simulation.introspection.beans.BeanIntrospector}.
      * @param bean The object to be introspected according to the bean property-paradigm.
@@ -146,7 +142,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         }
         catch (IllegalArgumentException exception)
         {
-            logger.warn("setValueAt", exception);
+            Logger.warn(exception, "setValueAt");
         }
     }
 

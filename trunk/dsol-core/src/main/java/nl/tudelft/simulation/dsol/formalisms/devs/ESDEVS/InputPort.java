@@ -2,8 +2,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
@@ -53,9 +52,6 @@ public class InputPort<T> implements InputPortInterface<T>
     /** Is the model atomic or not? */
     private boolean atomic;
 
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(InputPort.class);
-
     /**
      * Constructor for the input port where the model is a coupled model.
      * @param coupledModel the coupled model to which the port is added.
@@ -89,7 +85,7 @@ public class InputPort<T> implements InputPortInterface<T>
             AtomicModel atomicModel = (AtomicModel) this.model;
             while (atomicModel.activePort != null)
             {
-                logger.trace("receive: Waiting for event treatement // Another input is being processed");
+                Logger.trace("receive: Waiting for event treatement // Another input is being processed");
                 try
                 {
                     Thread.sleep(1); // added because of infinite loop
@@ -105,15 +101,14 @@ public class InputPort<T> implements InputPortInterface<T>
                 atomicModel.activePort = this;
                 boolean passivity = true;
                 SimEvent<SimTimeDouble> nextEventCopy = null;
-                logger.debug("receive: TIME IS " + this.model.getSimulator().getSimulatorTime());
+                Logger.debug("receive: TIME IS {}", this.model.getSimulator().getSimulatorTime());
 
                 // Original: if (elapsedTime(time) - 0.000001 > timeAdvance())
                 int etminta = DoubleCompare.compare(atomicModel.elapsedTime(time), atomicModel.timeAdvance());
                 if (etminta == 1)
                 {
-                    logger.error("receive", atomicModel.elapsedTime(time) + " " + atomicModel.timeAdvance());
-                    logger.error("receive",
-                            "IMPOSSIBLE !!! TIME SYNCHRONIZATION PROBLEM " + atomicModel.toString());
+                    Logger.error("receive: {} - {}", atomicModel.elapsedTime(time), atomicModel.timeAdvance());
+                    Logger.error("receive - IMPOSSIBLE !!! TIME SYNCHRONIZATION PROBLEM {}", atomicModel.toString());
                     System.err.println("IMPOSSIBLE !!! TIME SYNCHRONIZATION PROBLEM " + atomicModel.toString());
                 }
                 else

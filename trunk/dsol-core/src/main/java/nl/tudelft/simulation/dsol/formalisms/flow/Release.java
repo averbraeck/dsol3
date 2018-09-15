@@ -2,12 +2,11 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.util.Calendar;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -46,9 +45,6 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
     /** amount defines the amount to be released. */
     private double amount = 1.0;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Release.class);
-
     /**
      * Constructor for Release.
      * @param simulator on which is scheduled
@@ -85,7 +81,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
         }
         catch (Exception exception)
         {
-            logger.warn("receiveObject", exception);
+            Logger.warn(exception, "receiveObject");
         }
     }
 

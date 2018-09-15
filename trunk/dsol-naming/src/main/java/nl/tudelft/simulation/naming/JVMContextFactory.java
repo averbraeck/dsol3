@@ -5,8 +5,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.spi.InitialContextFactory;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 /**
  * A factory for JVMContext instances, automatically invoked by JNDI when the correct jndi.properties file has been
@@ -26,9 +25,6 @@ public class JVMContextFactory implements InitialContextFactory
     /** context refers to the static JVMContext. */
     private static JVMContext context = null;
 
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(JVMContextFactory.class);
-
     /** {@inheritDoc} */
     @Override
     public synchronized Context getInitialContext(final Hashtable<?, ?> environment)
@@ -38,7 +34,7 @@ public class JVMContextFactory implements InitialContextFactory
             environment.remove("java.naming.factory.initial");
             if (environment.size() != 0)
             {
-                logger.warn("unused environment variables in jndi.properties");
+                Logger.warn("unused environment variables in jndi.properties");
             }
             JVMContextFactory.context = new JVMContext();
         }

@@ -4,6 +4,10 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.pmw.tinylog.Configurator;
+import org.pmw.tinylog.Level;
+import org.pmw.tinylog.Logger;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -80,6 +84,7 @@ public class MM1Queue41Application
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
+        Configurator.defaultConfig().level(Level.INFO).activate();
         new MM1Queue41Application();
     }
 

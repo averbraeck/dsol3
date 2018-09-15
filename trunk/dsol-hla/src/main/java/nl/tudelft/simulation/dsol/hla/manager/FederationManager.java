@@ -14,7 +14,7 @@ import nl.tudelft.simulation.dsol.hla.Barrier;
 import nl.tudelft.simulation.dsol.hla.DSOLFederateAmbassador;
 import nl.tudelft.simulation.dsol.hla.callBack.RTIAmbassador;
 import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.logger.Logger;
+import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.RTI;
 
 /**
@@ -143,7 +143,7 @@ public class FederationManager extends DSOLFederateAmbassador
             }
         } catch (Exception exception)
         {
-            logger.warn("federationSynchronized", exception);
+            Logger.warn("federationSynchronized", exception);
         }
     }
 
@@ -166,7 +166,7 @@ public class FederationManager extends DSOLFederateAmbassador
             }
         } catch (Exception exception)
         {
-            logger.warn("discoverObjectInstance", exception);
+            Logger.warn("discoverObjectInstance", exception);
         }
     }
 

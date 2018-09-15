@@ -14,11 +14,6 @@
   <url>https://simulation.tudelft.nl/dsol/3.0/dsol-naming</url>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
       <groupId>dsol</groupId>

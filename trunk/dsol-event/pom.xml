@@ -15,16 +15,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>dsol</groupId>
       <artifactId>dsol-base</artifactId>
     </dependency>
-
   </dependencies>
 
 </project>

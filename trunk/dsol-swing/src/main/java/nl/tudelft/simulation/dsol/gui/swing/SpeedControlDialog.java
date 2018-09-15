@@ -8,8 +8,6 @@ import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -23,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.Simulator;
@@ -50,9 +50,6 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
 
     /** */
     private Simulator<?, ?, ?> target;
-
-    /** */
-    private Logger logger = Logger.getLogger("nl.tudelft.simulation.dsol");
 
     /** */
     private long animationDelay;
@@ -164,7 +161,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
         catch (Exception exception)
         {
-            this.logger.logp(Level.SEVERE, "SpeedControlDialog", "SpeedControlDialog", "", exception);
+            Logger.error(exception, "SpeedControlDialog - SpeedControlDialog");
         }
     }
 
@@ -208,7 +205,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
         catch (Exception exception)
         {
-            this.logger.logp(Level.SEVERE, "SpeedControlDialog", "stateChanged", "", exception);
+            Logger.error(exception, "SpeedControlDialog - stateChanged");
         }
     }
 

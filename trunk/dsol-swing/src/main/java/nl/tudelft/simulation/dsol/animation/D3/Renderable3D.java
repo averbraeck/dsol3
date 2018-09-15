@@ -14,8 +14,7 @@ import javax.naming.NamingException;
 import javax.vecmath.AxisAngle4d;
 import javax.vecmath.Vector3d;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation;
@@ -69,9 +68,6 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     /** roll angle Used in update; put here to prevent garbage. */
     private Transform3D roll = new Transform3D();
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Renderable3D.class);
-
     /**
      * @param simulator SimulatorInterface
      */
@@ -123,7 +119,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -171,7 +167,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -242,7 +238,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         catch (RemoteException exception)
         {
             this.rotate.set(new Vector3d(0, 0, 0));
-            logger.warn("update", exception);
+            Logger.warn(exception, "update");
         }
     }
 

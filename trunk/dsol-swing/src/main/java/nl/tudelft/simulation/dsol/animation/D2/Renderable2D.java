@@ -10,8 +10,7 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
@@ -53,9 +52,6 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     /** whether to translate the renderable when panning. Flag is 0001 */
     private static final byte TRANSLATE_FLAG = 0x01;
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Renderable2D.class);
-
     /**
      * the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist
      */
@@ -246,7 +242,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         }
         catch (Exception exception)
         {
-            logger.warn("paint", exception);
+            Logger.warn(exception, "paint");
         }
     }
 
@@ -270,7 +266,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         }
         catch (RemoteException exception)
         {
-            logger.warn("contains", exception);
+            Logger.warn(exception, "contains");
             return false;
         }
     }
