@@ -4,8 +4,8 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.Level;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -14,6 +14,7 @@ import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.logger.LogLevel;
 
 /**
  * <p>
@@ -45,13 +46,28 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  */
 public class MM1Queue41SwingApplication extends DSOLApplication
 {
+    /** the model. */
+    private MM1Queue41Model model;
+
     /**
      * @param title the title
      * @param panel the panel
+     * @param model the model
+     * @param devsSimulator the simulator
      */
-    public MM1Queue41SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
+    public MM1Queue41SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel,
+            final MM1Queue41Model model, final DEVSSimulator.TimeDouble devsSimulator)
     {
         super(title, panel);
+        this.model = model;
+        try
+        {
+            devsSimulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
+        }
+        catch (SimRuntimeException exception)
+        {
+            Logger.error(exception, "<init>");
+        }
     }
 
     /** */
@@ -65,13 +81,26 @@ public class MM1Queue41SwingApplication extends DSOLApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        Configurator.defaultConfig().level(Level.TRACE).activate();
+        LogLevel.setDefaultLevel(Level.TRACE);
         MM1Queue41Model model = new MM1Queue41Model();
-        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
+        DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
                 new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 1000.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
-        new MM1Queue41SwingApplication("MM1 Queue model", new MM1Queue41Panel(model, simulator));
+        devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
+        new MM1Queue41SwingApplication("MM1 Queue model", new MM1Queue41Panel(model, devsSimulator), model,
+                devsSimulator);
+    }
+
+    /** stop the simulation. */
+    protected final void terminate()
+    {
+        System.out.println("average queue length = " + this.model.qN.getSampleMean());
+        System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
+        System.out.println("average utilization  = " + this.model.uN.getSampleMean());
+
+        Logger.info("average queue length = " + this.model.qN.getSampleMean());
+        Logger.info("average queue wait   = " + this.model.dN.getSampleMean());
+        Logger.info("average utilization  = " + this.model.uN.getSampleMean());
     }
 
 }

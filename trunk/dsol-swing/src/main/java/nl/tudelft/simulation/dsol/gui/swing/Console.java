@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.util.EnumSet;
 import java.util.Set;
 
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import org.pmw.tinylog.Configuration;
 import org.pmw.tinylog.Configurator;
@@ -25,7 +29,7 @@ import org.pmw.tinylog.writers.Writer;
  * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck </a>
  */
-public class Console extends JTextArea
+public class Console extends JTextPane
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -56,15 +60,23 @@ public class Console extends JTextArea
      */
     public static class LogWriter implements Writer
     {
-        /** */
-        private JTextArea textArea;
+        /** the text pane. */
+        JTextPane textPane;
+
+        /** the document to write to. */
+        StyledDocument doc;
+
+        /** the color style. */
+        Style style;
 
         /**
-         * @param textArea the text area to write the messages to.
+         * @param textPane the text area to write the messages to.
          */
-        public LogWriter(final JTextArea textArea)
+        public LogWriter(final JTextPane textPane)
         {
-            this.textArea = textArea;
+            this.textPane = textPane;
+            this.doc = textPane.getStyledDocument();
+            this.style = textPane.addStyle("colorStyle", null);
         }
 
         /** {@inheritDoc} */
@@ -83,17 +95,62 @@ public class Console extends JTextArea
 
         /** {@inheritDoc} */
         @Override
-        public void write(LogEntry logEntry) throws Exception
+        public synchronized void write(LogEntry logEntry) throws Exception
         {
-            if (logEntry.getException() != null)
+            Runnable runnable = new Runnable()
             {
-                this.textArea.append("-" + logEntry.getLevel() + "  " + logEntry.getException() + "  "
-                        + logEntry.getMessage() + " \n");
-            }
-            else
-            {
-                this.textArea.append("-" + logEntry.getLevel() + "  " + logEntry.getMessage() + " \n");
-            }
+                @Override
+                public void run()
+                {
+                    switch (logEntry.getLevel())
+                    {
+                        case TRACE:
+                            StyleConstants.setForeground(LogWriter.this.style, Color.DARK_GRAY);
+                            break;
+
+                        case DEBUG:
+                            StyleConstants.setForeground(LogWriter.this.style, Color.BLUE);
+                            break;
+
+                        case INFO:
+                            StyleConstants.setForeground(LogWriter.this.style, Color.BLACK);
+                            break;
+
+                        case WARNING:
+                            StyleConstants.setForeground(LogWriter.this.style, Color.MAGENTA);
+                            break;
+
+                        case ERROR:
+                            StyleConstants.setForeground(LogWriter.this.style, Color.RED);
+                            break;
+
+                        default:
+                            break;
+                    }
+                    try
+                    {
+                        if (logEntry.getException() != null)
+                        {
+                            LogWriter.this.doc
+                                    .insertString(
+                                            LogWriter.this.doc.getLength(), logEntry.getLevel() + "  "
+                                                    + logEntry.getException() + "  " + logEntry.getMessage() + " \n",
+                                            LogWriter.this.style);
+                        }
+                        else
+                        {
+                            LogWriter.this.doc.insertString(LogWriter.this.doc.getLength(),
+                                    logEntry.getLevel() + "  " + logEntry.getMessage() + " \n", LogWriter.this.style);
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        System.err.println("was not able to nsert text in the Console");
+                    }
+                    LogWriter.this.textPane.setCaretPosition(LogWriter.this.doc.getLength());
+                }
+            };
+            SwingUtilities.invokeLater(runnable);
         }
 
         /** {@inheritDoc} */
