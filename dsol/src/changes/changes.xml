@@ -4,18 +4,27 @@
     <release version="3.02.02" date="2018-09-15" description="Replaced log4j2 with tinylog">
       <action dev="averbraeck" type="update">
         As log4j2 is quite complicated to configure, it has been replaced by the faster 
-        and smaller tinylog package. Setting the log level to report can be done with the
-        statement: Configurator.currentConfig().level(Level.TRACE).activate();
+        and smaller tinylog package. 
       </action>
       <action dev="averbraeck" type="fix">
-        The Console in dsol-swing has been repaired so it captures the log stream again.
+        The Console in dsol-swing has been repaired so it captures the log stream again. This is done with
+        a second logging Writer that acts in parallel with the system console writer. Levels and message 
+        format strings can be set separately for the system console logger and the swing console logger.  
+        Level and message format can be changed with console.setLogLevel(...) and
+        console.setLogMessageFormat(...).
+      </action>
+      <action dev="averbraeck" type="add">
+        In order to support logging to the console, the DSOLPanel got a getConsole() method.
       </action>
       <action dev="averbraeck" type="add">
         The text colors on the Console in dsol-swing are adapted for the Logger.level.
       </action>
       <action dev="averbraeck" type="add">
-          Static helper methods LogLevel.setDefaultLevel and LogLevel.setCurrentLevel have been added
-          to easily set or change the logging level for the simulation.  
+          Static helper class ConsoleLogger has been added to easily set or change the logging level 
+          and format for the system console logger. Call first with ConsoleLogger.create(), and
+          do this before any other (parallel) loggers have been created, such as the swing logger.
+          Level and message format can be changed with ConsoleLogger.setLevel(...) and
+          ConsoleLogger.setMessageFormat(...).
       </action>
     </release>
 

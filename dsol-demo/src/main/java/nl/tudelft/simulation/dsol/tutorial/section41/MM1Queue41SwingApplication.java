@@ -14,7 +14,7 @@ import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.logger.LogLevel;
+import nl.tudelft.simulation.logger.ConsoleLogger;
 
 /**
  * <p>
@@ -60,6 +60,8 @@ public class MM1Queue41SwingApplication extends DSOLApplication
     {
         super(title, panel);
         this.model = model;
+        panel.getConsole().setLogLevel(Level.TRACE);
+        panel.getConsole().setLogMessageFormat("{message|indent=4}");
         try
         {
             devsSimulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
@@ -81,7 +83,9 @@ public class MM1Queue41SwingApplication extends DSOLApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        LogLevel.setDefaultLevel(Level.TRACE);
+        ConsoleLogger.create();
+        ConsoleLogger.setLevel(Level.TRACE);
+        ConsoleLogger.setMessageFormat("{class_name}.{method}:{line} {message|indent=4}");
         MM1Queue41Model model = new MM1Queue41Model();
         DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
@@ -94,10 +98,6 @@ public class MM1Queue41SwingApplication extends DSOLApplication
     /** stop the simulation. */
     protected final void terminate()
     {
-        System.out.println("average queue length = " + this.model.qN.getSampleMean());
-        System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
-        System.out.println("average utilization  = " + this.model.uN.getSampleMean());
-
         Logger.info("average queue length = " + this.model.qN.getSampleMean());
         Logger.info("average queue wait   = " + this.model.dN.getSampleMean());
         Logger.info("average utilization  = " + this.model.uN.getSampleMean());

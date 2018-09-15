@@ -11,7 +11,7 @@ import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.logger.LogLevel;
+import nl.tudelft.simulation.logger.ConsoleLogger;
 
 /**
  * <p>
@@ -84,7 +84,8 @@ public class MM1Queue41Application
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        LogLevel.setDefaultLevel(Level.INFO);
+        ConsoleLogger.create();
+        ConsoleLogger.setLevel(Level.INFO);
         new MM1Queue41Application();
     }
 

@@ -38,13 +38,13 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     private static final long serialVersionUID = 1L;
 
     /** the simulator. */
-    protected SimulatorInterface<A, R, T> simulator;
+    protected final SimulatorInterface<A, R, T> simulator;
 
     /** */
     protected Console console = new Console();
 
     /** the model. */
-    private DSOLModel<A, R, T> model;
+    private final DSOLModel<A, R, T> model;
 
     /** */
     protected SimulatorControlPanel simulatorControlPanel;
@@ -114,6 +114,22 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     public TabbedContentPane getTabbedPane()
     {
         return this.tabbedPane;
+    }
+
+    /**
+     * @return console
+     */
+    public final Console getConsole()
+    {
+        return this.console;
+    }
+
+    /**
+     * @param console set console
+     */
+    public final void setConsole(Console console)
+    {
+        this.console = console;
     }
 
 }
