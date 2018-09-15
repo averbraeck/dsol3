@@ -12,13 +12,12 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 /**
  * The SortingTableModel.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
@@ -41,9 +40,6 @@ public class SortingTableModel implements TableModel, Sortable
 
     /** the definitions. */
     private List<Definition> definitions = Collections.synchronizedList(new ArrayList<Definition>());
-    
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(SortingTableModel.class);
 
     /**
      * constructs a new SortingTableModel.
@@ -202,8 +198,7 @@ public class SortingTableModel implements TableModel, Sortable
                         }
                         catch (ClassCastException exception)
                         {
-                            logger.info("sortSubList: " + " Could not compare " + current + " and " + resultValue, 
-                                    exception);
+                            Logger.info(exception, "sortSubList - Could not compare {} and {}", current, resultValue);
                         }
                     }
                 }
@@ -285,8 +280,7 @@ public class SortingTableModel implements TableModel, Sortable
         }
         if (rowIndex > this.expandedIndex.length)
         {
-            logger.warn("getValueAt could not retrieve row " + rowIndex
-                    + " from sorted list. Returning default instead.");
+            Logger.warn("getValueAt could not retrieve row {} from sorted list. Returning default instead", rowIndex);
             return this.source.getValueAt(rowIndex, columnIndex);
         }
         return this.source.getValueAt(this.expandedIndex[rowIndex].intValue(), columnIndex);
@@ -314,8 +308,7 @@ public class SortingTableModel implements TableModel, Sortable
     {
         if (rowIndex > this.expandedIndex.length)
         {
-            logger.warn("setValueAt could not retrieve row " + rowIndex
-                    + " from sorted list. Ignoring 'setValue' command.");
+            Logger.warn("setValueAt could not retrieve row {} from sorted list. Ignoring 'setValue' command", rowIndex);
             return;
         }
         this.source.setValueAt(aValue, this.expandedIndex[rowIndex].intValue(), columnIndex);

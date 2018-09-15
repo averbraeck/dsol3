@@ -25,8 +25,7 @@ import javax.naming.event.NamingExceptionEvent;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point4i;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.mouse.InputListener;
@@ -83,9 +82,6 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /** dirty flag for the list. */
     private boolean dirty = false;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(AnimationPanel.class);
 
     /**
      * constructs a new AnimationPanel.
@@ -228,7 +224,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
                 }
                 catch (Exception exception)
                 {
-                    logger.warn("notify", exception);
+                    Logger.warn(exception, "notify");
                 }
             }
         }
@@ -274,7 +270,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void namingExceptionThrown(final NamingExceptionEvent namingEvent)
     {
-        logger.warn("namingExceptionThrown", namingEvent.getException());
+        Logger.warn(namingEvent.getException(), "namingExceptionThrown");
     }
 
     /**

@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.interpreter;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 /**
  * A InterpretationThread <br>
@@ -16,9 +15,6 @@ public final class InterpretationThread extends Thread
 {
     /** the target of this interpretation. */
     private Runnable target = null;
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(InterpretationThread.class);
 
     /**
      * constructs a new InterpretationThread.
@@ -74,7 +70,7 @@ public final class InterpretationThread extends Thread
         }
         catch (Exception exception)
         {
-            logger.warn("run", exception);
+            Logger.warn(exception, "run");
         }
     }
 }

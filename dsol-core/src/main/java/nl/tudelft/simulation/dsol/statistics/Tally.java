@@ -5,8 +5,7 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -61,9 +60,6 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /** SUM_EVENT is fired whenever the sum is updated. */
     public static final EventType TIMED_SUM_EVENT = new EventType("TIMED_SUM_EVENT");
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Process.class);
-
     /**
      * constructs a new Tally.
      * @param description refers to the description of this Tally.
@@ -90,7 +86,7 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
 
         // subscribe to the events from the super Tally to send timed events by this simulator aware tally
@@ -173,7 +169,7 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
                 }
                 catch (RemoteException exception)
                 {
-                    logger.warn("problen removing Listener for SimulatorIterface.WARMUP_EVENT", exception);
+                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;
@@ -187,7 +183,7 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
                 }
                 catch (RemoteException exception)
                 {
-                    logger.warn("problen removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT", exception);
+                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
                 }
                 this.endOfReplication();
                 return;
@@ -225,7 +221,7 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         }
         catch (Exception exception)
         {
-            logger.warn("endOfReplication", exception);
+            Logger.warn(exception, "endOfReplication");
         }
     }
 

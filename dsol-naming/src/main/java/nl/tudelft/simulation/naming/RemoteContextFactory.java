@@ -13,8 +13,7 @@ import javax.naming.Context;
 import javax.naming.event.EventContext;
 import javax.naming.spi.InitialContextFactory;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 /**
  * A factory for RemoteContextClient instances, automatically invoked by JNDI when the correct jndi.properties file has
@@ -33,9 +32,6 @@ public class RemoteContextFactory implements InitialContextFactory
 {
     /** context refers to the static RemoteContextClient. */
     private static RemoteContextClient context = null;
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(RemoteContextFactory.class);
 
     /** {@inheritDoc} */
     @Override
@@ -113,7 +109,7 @@ public class RemoteContextFactory implements InitialContextFactory
         }
         catch (Exception exception)
         {
-            logger.warn("getInitialContext", exception);
+            Logger.warn(exception, "getInitialContext");
             return null;
         }
     }

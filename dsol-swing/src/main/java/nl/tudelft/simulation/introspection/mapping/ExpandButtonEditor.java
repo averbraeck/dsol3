@@ -7,15 +7,14 @@ import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.introspection.gui.ExpandButton;
 
 /**
  * Implements the pop-up behaviour of the {see nl.tudelft.simulation.introspection.gui.ExpandButton}.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
@@ -23,10 +22,7 @@ import nl.tudelft.simulation.introspection.gui.ExpandButton;
  * @since 1.5
  */
 public class ExpandButtonEditor extends AbstractCellEditor implements TableCellEditor
-{    
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(ExpandButtonEditor.class);
-
+{
     /** */
     private static final long serialVersionUID = 20140831L;
 
@@ -44,8 +40,7 @@ public class ExpandButtonEditor extends AbstractCellEditor implements TableCellE
         }
         else
         {
-            logger.warn("getTableCellEditorComponent: Expected value to be an ExpandButton, but found: "
-                    + value);
+            Logger.warn("getTableCellEditorComponent: Expected value to be an ExpandButton, but found: {}", value);
         }
         return (Component) value;
     }

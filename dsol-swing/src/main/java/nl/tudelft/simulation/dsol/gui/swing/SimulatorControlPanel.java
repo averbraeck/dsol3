@@ -4,13 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -44,9 +44,6 @@ public class SimulatorControlPanel extends JPanel
 
     /** */
     protected SimulatorInterface<?, ?, ?> target;
-
-    /** */
-    protected Logger logger = Logger.getLogger("nl.tudelft.simulation.medlabs");
 
     /** */
     protected ActionListener simulatorControlListener;
@@ -213,8 +210,7 @@ public class SimulatorControlPanel extends JPanel
             }
             catch (Exception exception)
             {
-                SimulatorControlPanel.this.logger.logp(Level.SEVERE, "SimulatorControlListener", "actionPerformed", "",
-                        exception);
+                Logger.error(exception, "SimulatorControlListener - actionPerformed");
             }
         }
     }

@@ -2,12 +2,12 @@ package nl.tudelft.simulation.dsol.gui.swing;
 
 import java.awt.BorderLayout;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -47,9 +47,6 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     private DSOLModel<A, R, T> model;
 
     /** */
-    protected Logger logger = Logger.getLogger("nl.tudelft.simulation.dsol.gui.swing");
-
-    /** */
     protected SimulatorControlPanel simulatorControlPanel;
 
     /** */
@@ -67,18 +64,13 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
         this.model = model;
         this.simulator = simulator;
 
-        // we add the loggers
-        this.console.addLogger(this.logger);
-        this.console.addLogger(Logger.getLogger("nl.tudelft.simulation.event"));
-        this.console.addLogger(Logger.getLogger("nl.tudelft.simulation.context"));
-        this.console.addLogger(Logger.getLogger("nl.tudelft.simulation.dsol"));
         try
         {
             this.initialize();
         }
         catch (Exception exception)
         {
-            this.logger.logp(Level.SEVERE, "DSOLPanel", "DSOLPanel", "", exception);
+            Logger.error(exception, "DSOLPanel");
         }
     }
 
@@ -90,7 +82,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     public void initialize() throws RemoteException, SimRuntimeException
     {
         this.createContentPane();
-        // this.model.constructModel(this.simulator);
+        // XXX: needed or not? this.model.constructModel(this.simulator);
     }
 
     /**

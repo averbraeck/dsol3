@@ -2,8 +2,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 
@@ -45,9 +44,6 @@ public class OutputPort<T> implements OutputPortInterface<T>
     /** The model to which the port links. */
     private AbstractDEVSModel model;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(OutputPort.class);
-
     /**
      * Constructor for the output port where the model is a coupled model.
      * @param coupledModel the coupled model.
@@ -76,7 +72,7 @@ public class OutputPort<T> implements OutputPortInterface<T>
         {
             try
             {
-                logger.debug("send: TIME IS " + this.model.getSimulator().getSimulatorTime());
+                Logger.debug("send: TIME IS {}", this.model.getSimulator().getSimulatorTime());
                 this.model.parentModel.transfer(this, value);
             }
             catch (RemoteException e)

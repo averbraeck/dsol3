@@ -5,8 +5,6 @@ import java.awt.Container;
 import java.awt.GradientPaint;
 import java.rmi.RemoteException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -44,9 +42,6 @@ public class Histogram implements Swingable
 
     /** dataset refers to the dataset. */
     protected HistogramDataset dataset = null;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Histogram.class);
 
     /**
      * constructs a new Histogram.

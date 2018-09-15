@@ -2,8 +2,7 @@ package nl.tudelft.simulation.dsol.tutorial.section42;
 
 import java.util.Properties;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -63,9 +62,6 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
     /** the costs. */
     private double setupCosts;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Retailer.class);
-
     /**
      * constructs a new Retailer.
      * @param simulator the simulator on which we can schedule
@@ -116,7 +112,7 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         }
         catch (Exception exception)
         {
-            logger.warn("reviewInventory", exception);
+            Logger.error(exception, "reviewInventory");
         }
     }
 

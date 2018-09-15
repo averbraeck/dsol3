@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jfree.data.general.AbstractDataset;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
@@ -53,9 +52,6 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     /** the period of this set. */
     private final double PERIOD;
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(XYSeries.class);
-
     /**
      * constructs a new XYSeries.
      * @param name the name of the series.
@@ -83,7 +79,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         {
             if (timeStamp.doubleValue() <= 0.0)
             {
-                logger.warn("notify: refusing xvalue of " + event + " on logrithmic chart");
+                Logger.warn("notify: refusing xvalue of {} on logrithmic chart", event);
                 return;
             }
         }
@@ -91,7 +87,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         {
             if (((Number) timedEvent.getContent()).doubleValue() <= 0.0)
             {
-                logger.warn("notify: refusing yValue of " + event + " on logrithmic chart");
+                Logger.warn("notify: refusing yValue of {} on logrithmic chart", event);
                 return;
             }
         }

@@ -13,12 +13,6 @@
   <url>https://simulation.tudelft.nl/dsol/3.0/dsol-swing</url>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-      <optional>true</optional>
-    </dependency>
 
     <dependency>
       <groupId>dsol</groupId>

@@ -1,12 +1,10 @@
 package nl.tudelft.dsol.introspection;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.dsol.introspection.beans.SubTestBean2;
 import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.fields.FieldIntrospector;
-import nl.tudelft.simulation.naming.RemoteContextFactory;
 
 /**
  * A test program for the field introspection implementation.
@@ -19,9 +17,6 @@ import nl.tudelft.simulation.naming.RemoteContextFactory;
  */
 public final class FieldIntrospectionBeansTest
 {
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(RemoteContextFactory.class);
-
     /**
      * constructs a new PTestFieldIntrospector
      */
@@ -39,16 +34,16 @@ public final class FieldIntrospectionBeansTest
     {
         try
         {
-            logger.info("Running field introspector test");
+            Logger.info("Running field introspector test");
             Property[] props = (new FieldIntrospector()).getProperties(new SubTestBean2());
             for (int i = 0; i < props.length; i++)
             {
-                logger.info("Prop name: " + props[i].getName());
-                logger.info("Prop class: " + props[i].getType());
-                logger.info("Prop value: " + props[i].getValue());
-                logger.info("Setting Possible? ");
+                Logger.info("Prop name: {}", props[i].getName());
+                Logger.info("Prop class: {}", props[i].getType());
+                Logger.info("Prop value: {}", props[i].getValue());
+                Logger.info("Setting Possible? ");
                 props[i].setValue("TEST");
-                logger.info("If so, 'TEST' should be retrieved: " + props[i].getValue());
+                Logger.info("If so, 'TEST' should be retrieved: {}", props[i].getValue());
             }
         }
         catch (Throwable throwable)

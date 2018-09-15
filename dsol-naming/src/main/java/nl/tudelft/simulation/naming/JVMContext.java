@@ -23,8 +23,7 @@ import javax.naming.event.EventContext;
 import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingListener;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventProducer;
@@ -86,9 +85,6 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
     /** the nameParser. */
     protected NameParser parser = new MyParser(JVMContext.syntax);
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(JVMContext.class);
 
     /**
      * constructs a new JVMContext.
@@ -318,7 +314,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            logger.info("list: name==null");
+            Logger.info("list: name==null");
         }
         return new NamingList<NameClassPair>(true);
     }
@@ -329,7 +325,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            logger.info("listBindings: name==null");
+            Logger.info("listBindings: name==null");
         }
         return new NamingList<Binding>(false);
     }
@@ -340,7 +336,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            logger.info("listBindings: name==null");
+            Logger.info("listBindings: name==null");
         }
         return new NamingList<Binding>(false);
     }
@@ -401,7 +397,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            logger.info("getNameParser: name==null");
+            Logger.info("getNameParser: name==null");
         }
         return this.parser;
     }
@@ -412,7 +408,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            logger.info("getNameParser: name==null");
+            Logger.info("getNameParser: name==null");
         }
         return this.parser;
     }

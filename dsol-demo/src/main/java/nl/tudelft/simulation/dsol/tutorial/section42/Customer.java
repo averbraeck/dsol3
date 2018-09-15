@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -37,9 +36,6 @@ public class Customer implements BuyerInterface
     /** the orderBatchSize of an order. */
     private DistDiscrete orderBatchSize = null;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Customer.class);
-
     /**
      * constructs a new Customer.
      * @param simulator the simulator to schedule on
@@ -63,7 +59,7 @@ public class Customer implements BuyerInterface
     @Override
     public final void receiveProduct(final long amount)
     {
-        logger.trace("receiveProduct: received " + amount);
+        Logger.trace("receiveProduct: received " + amount);
     }
 
     /**
@@ -79,7 +75,7 @@ public class Customer implements BuyerInterface
         }
         catch (Exception exception)
         {
-            logger.warn("createOrder", exception);
+            Logger.error(exception, "createOrder");
         }
     }
 }

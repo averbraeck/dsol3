@@ -3,12 +3,11 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 import java.lang.reflect.Constructor;
 import java.util.Calendar;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
@@ -81,9 +80,6 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected SimEvent<T> nextEvent = null;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Generator.class);
-
     /**
      * constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
      * Generator when a destination has been indicated with the setDestination method. This constructor has a maximum
@@ -135,8 +131,8 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
                 for (int i = 0; i < this.batchSize.draw(); i++)
                 {
                     Object object = this.constructor.deSerialize().newInstance(specialConstructorArguments);
-                    logger.trace("generate created " + this.number + "th instance of "
-                            + this.constructor.deSerialize().getDeclaringClass());
+                    Logger.trace("generate created {}th instance of {}", this.number 
+                            , this.constructor.deSerialize().getDeclaringClass());
                     this.fireEvent(Generator.CREATE_EVENT, 1);
                     this.releaseObject(object);
                 }
@@ -239,7 +235,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
         }
         catch (Exception exception)
         {
-            logger.warn("setStartTime", exception);
+            Logger.warn(exception, "setStartTime");
         }
     }
 

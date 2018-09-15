@@ -5,8 +5,7 @@ import java.rmi.RemoteException;
 import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingExceptionEvent;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 /**
  * The local wrapper for remoteContextListeners.
@@ -24,9 +23,6 @@ public class RemoteContextListenerClient implements ContextListenerInterface
 {
     /** the target to use. */
     private RemoteContextListenerInterface target = null;
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(RemoteContextListenerClient.class);
 
     /**
      * constructs a new RemoteContextListenerClient
@@ -48,7 +44,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            logger.warn("objectChanged", remoteException);
+            Logger.warn(remoteException, "objectChanged");
         }
     }
 
@@ -62,7 +58,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            logger.warn("objectAdded", remoteException);
+            Logger.warn(remoteException, "objectAdded");
         }
     }
 
@@ -76,7 +72,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            logger.warn("objectRemoved", remoteException);
+            Logger.warn(remoteException, "objectRemoved");
         }
     }
 
@@ -90,7 +86,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            logger.warn("objectRenamed", remoteException);
+            Logger.warn(remoteException, "objectRenamed");
         }
     }
 
@@ -104,7 +100,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            logger.warn("objectChanged", remoteException);
+            Logger.warn(remoteException, "objectChanged");
         }
     }
 }

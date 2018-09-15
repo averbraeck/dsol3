@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.jstats.statistics;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventType;
@@ -39,9 +38,6 @@ public class Persistent extends Tally
     /** lastvalue tracks the last value. */
     private double lastValue = Double.NaN;
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Persistent.class);
-
     /**
      * constructs a new Persistent with a description.
      * @param description the description of this Persistent
@@ -110,7 +106,7 @@ public class Persistent extends Tally
         }
         else
         {
-            logger.warn("notify: " + event.getContent() + "should be a number.");
+            Logger.warn("notify: {} should be a number", event.getContent());
         }
 
         synchronized (this.semaphore)

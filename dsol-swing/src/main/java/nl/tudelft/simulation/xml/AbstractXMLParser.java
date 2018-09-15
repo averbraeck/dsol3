@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.xerces.parsers.DOMParser;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
+import org.pmw.tinylog.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -45,9 +44,6 @@ public abstract class AbstractXMLParser
     /** the namespace of the schema. */
     private String schemaNamespace;
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(AbstractXMLParser.class);
-
     /**
      * Parses an XML file and validates it against a schema XSD. Explicitly call parse() from the extended class, after
      * other initialization tasks have been carried out. The parse() method will, after schema validation and xml-file
@@ -144,7 +140,7 @@ public abstract class AbstractXMLParser
         public void warning(final SAXParseException exception)
         {
             // ignore, but log
-            logger.warn(formatError(exception), exception);
+            Logger.warn(exception, formatError(exception));
         }
 
         /** {@inheritDoc} */

@@ -2,8 +2,7 @@ package nl.tudelft.simulation.dsol.formalisms.process;
 
 import java.rmi.RemoteException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.Resource;
@@ -43,9 +42,6 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
      */
     private SimEventInterface<T> simEvent = null;
 
-    /** the logger. */
-    protected static Logger logger = LogManager.getLogger(Process.class);
-
     /**
      * constructs a new Process and IMMEDIATELY STARTS ITS PROCESS METHOD.
      * @param simulator the simulator to schedule on
@@ -74,7 +70,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
             }
             catch (Exception exception)
             {
-                logger.error("<init>", exception);
+                Logger.error(exception, "<init>");
             }
         }
     }
@@ -115,7 +111,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
             }
             catch (Exception exception)
             {
-                logger.warn("cancel", exception);
+                Logger.warn(exception, "cancel");
             }
         }
     }

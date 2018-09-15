@@ -3,8 +3,7 @@ package nl.tudelft.simulation.dsol.interpreter.operations;
 import java.io.DataInput;
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
 import nl.tudelft.simulation.dsol.interpreter.OperandStack;
@@ -32,9 +31,6 @@ public class LDC extends VoidOperation
 
     /** the index to load. */
     private final int index;
-
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(VoidOperation.class);
 
     /**
      * constructs a new LDC.
@@ -74,7 +70,7 @@ public class LDC extends VoidOperation
             }
             catch (ClassNotFoundException classNotFoundException)
             {
-                logger.warn("execute", classNotFoundException);
+                Logger.warn(classNotFoundException, "execute");
             }
         }
     }

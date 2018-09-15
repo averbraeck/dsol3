@@ -37,7 +37,7 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.hla.simulators.HLAInteractionEvent;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Logger;
+import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.LogicalTimeDouble;
 
 /**
@@ -119,7 +119,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
             }
         } catch (NamingException namingException)
         {
-            logger.error("<init>", namingException);
+            Logger.error("<init>", namingException);
         }
 
     }

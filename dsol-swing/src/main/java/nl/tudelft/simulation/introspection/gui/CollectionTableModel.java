@@ -13,8 +13,7 @@ import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.introspection.AbstractProperty;
 import nl.tudelft.simulation.introspection.Introspector;
@@ -65,9 +64,6 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
     /** The highest key currently allocated. */
     private int maxKey = 0;
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(CollectionTableModel.class);
-
     /**
      * constructs a new CollectionTableModel.
      * @param parentProperty the parentPropert
@@ -340,7 +336,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
         catch (Exception e)
         {
-            logger.warn("createRow: Could not instantiate new instance: ", e);
+            Logger.warn(e, "createRow: Could not instantiate new instance: ");
         }
     }
 

@@ -2,8 +2,7 @@ package nl.tudelft.simulation.dsol.interpreter.process;
 
 import java.util.Stack;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.interpreter.Frame;
 import nl.tudelft.simulation.dsol.interpreter.Interpreter;
@@ -46,9 +45,6 @@ public abstract class InterpretableProcess extends EventProducer
     /** the processStack of this process. */
     private final Stack<Frame> frameStack = new Stack<Frame>();
 
-    /** the logger./ */
-    private static Logger logger = LogManager.getLogger(InterpretableProcess.class);
-
     /**
      * constructs a new Process.
      */
@@ -61,7 +57,7 @@ public abstract class InterpretableProcess extends EventProducer
         }
         catch (Exception exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -88,7 +84,7 @@ public abstract class InterpretableProcess extends EventProducer
         catch (InterpreterException exception)
         {
             exception.printStackTrace();
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 

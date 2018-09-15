@@ -4,8 +4,7 @@ import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
@@ -38,9 +37,6 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
     /** */
     private static final long serialVersionUID = 20140805L;
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Schedule.class);
-
     /**
      * schedule is a time sorted map of distributions.
      */
@@ -95,12 +91,12 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
                 this.simulator.scheduleEvent(
                         new SimEvent<T>(this.schedule.firstKey(), this, this, "changeIntervalTime", null));
                 this.generate(this.constructorArguments);
-                logger.trace("changeIntervalTime: set the intervalTime to " + this.interval);
+                Logger.trace("changeIntervalTime: set the intervalTime to {}", this.interval);
             }
         }
         catch (Exception exception)
         {
-            logger.warn("changeIntervalTime", exception);
+            Logger.warn(exception, "changeIntervalTime");
         }
     }
 }

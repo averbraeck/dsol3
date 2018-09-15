@@ -6,10 +6,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
-import nl.tudelft.simulation.dsol.formalisms.process.Process;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
@@ -42,9 +40,6 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
     /** we stopped the counter. */
     private boolean stopped = false;
 
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Process.class);
-
     /**
      * constructs a new Counter.
      * @param description refers to the description of this counter
@@ -71,7 +66,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
         }
         catch (NamingException exception)
         {
-            logger.warn("<init>", exception);
+            Logger.warn(exception, "<init>");
         }
     }
 
@@ -109,7 +104,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
                 }
                 catch (RemoteException exception)
                 {
-                    logger.warn("problen removing Listener for SimulatorIterface.WARMUP_EVENT", exception);
+                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;
@@ -123,7 +118,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
                 }
                 catch (RemoteException exception)
                 {
-                    logger.warn("problen removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT", exception);
+                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
                 }
                 this.endOfReplication();
                 return;
@@ -168,7 +163,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
         }
         catch (Exception exception)
         {
-            logger.warn("endOfReplication", exception);
+            Logger.warn(exception, "endOfReplication");
         }
     }
 }

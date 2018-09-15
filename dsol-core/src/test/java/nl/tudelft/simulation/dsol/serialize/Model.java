@@ -3,8 +3,7 @@ package nl.tudelft.simulation.dsol.serialize;
 import java.rmi.MarshalledObject;
 import java.rmi.RemoteException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -33,9 +32,6 @@ public class Model implements DSOLModel
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
     
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(Model.class);
-
     /**
      * the simulator to use.
      */
@@ -82,7 +78,7 @@ public class Model implements DSOLModel
         }
         catch (Exception exception)
         {
-            logger.warn("pause", exception);
+            Logger.warn(exception, "pause");
         }
     }
 

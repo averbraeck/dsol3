@@ -6,12 +6,11 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -59,9 +58,6 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
 
     /** the URL where we can find this experimentalFrame. */
     private URL url = null;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(ExperimentalFrame.class);
 
     /**
      * constructs a new ExperimentalFrame.
@@ -138,7 +134,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
         }
         catch (RemoteException remoteException)
         {
-            logger.warn("start", remoteException);
+            Logger.warn(remoteException, "start");
         }
     }
 

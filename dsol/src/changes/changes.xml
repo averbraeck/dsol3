@@ -1,6 +1,17 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.02.02" date="2018-09-15" description="Replaced log4j2 with tinylog">
+      <action dev="averbraeck" type="update">
+        As log4j2 is quite complicated to configure, it has been replaced by the faster 
+        and smaller tinylog package. Setting the log level to report can be done with the
+        statement: Configurator.currentConfig().level(Level.TRACE).activate();
+      </action>
+      <action dev="averbraeck" type="fix">
+        The Console has been repaired so it captures the log stream again.
+      </action>
+    </release>
+
     <release version="3.02.01" date="2018-09-09" description="Solved NPE in animation; documentation updated">
       <action dev="averbraeck" type="fix">
         The documentation has been repaired. Several links were not working. some inheritance is used

@@ -32,9 +32,9 @@ public final class DSOLTestSuite
      */
     public static Test suite()
     {
-        TestSuite suite = new TestSuite("DSOL Test Suite");
+        TestSuite suite = new TestSuite("DSOLTestSuite");
         suite.addTest(new EventListTest());
-        suite.addTest(new SerializeTest("SerializeTest"));
+        suite.addTest(new SerializeTest("test"));
         // suite.addTest(new DESSSimulatorTest());
         // suite.addTest(new DEVSSimulatorTest());
         // suite.addTest(new RealTimeClockTest_Failed());

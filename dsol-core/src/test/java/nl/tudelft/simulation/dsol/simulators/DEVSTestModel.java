@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.simulators;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -20,9 +19,6 @@ public class DEVSTestModel extends TestModel
 {
     /** simulator refers to the target. */
     protected DEVSSimulatorInterface simulator;
-
-    /** the logger. */
-    private static Logger logger = LogManager.getLogger(DEVSTestModel.class);
 
     /**
      * constructs a new DEVSTestModel.
@@ -47,7 +43,7 @@ public class DEVSTestModel extends TestModel
             }
             catch (Exception exception)
             {
-                logger.warn("constructModel", exception);
+                Logger.warn(exception, "constructModel");
             }
         }
     }
