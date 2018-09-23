@@ -3,8 +3,7 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 import java.io.Serializable;
 import java.rmi.MarshalledObject;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
@@ -75,7 +74,7 @@ public class Duplicate extends Station
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "receiveMethod");
+            SimLogger.always().warn(exception, "receiveMethod");
         }
     }
 }

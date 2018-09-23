@@ -28,11 +28,12 @@ import nl.tudelft.simulation.dsol.interpreter.operations.WIDE;
 import nl.tudelft.simulation.dsol.interpreter.operations.custom.InterpreterOracleInterface;
 import nl.tudelft.simulation.language.io.URLResource;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The Java interpreter.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>.
  * <p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
@@ -60,12 +61,10 @@ public final class Interpreter
             Class<?> factoryClass = Class.forName(properties.getProperty("interpreter.operation.factory"));
             if (properties.getProperty("interpreter.operation.oracle") != null)
             {
-                InterpreterOracleInterface oracle =
-                        (InterpreterOracleInterface) Class.forName(
-                                properties.getProperty("interpreter.operation.oracle")).newInstance();
-                factory =
-                        (FactoryInterface) factoryClass.getConstructor(new Class[]{InterpreterOracleInterface.class})
-                                .newInstance(new Object[]{oracle});
+                InterpreterOracleInterface oracle = (InterpreterOracleInterface) Class
+                        .forName(properties.getProperty("interpreter.operation.oracle")).newInstance();
+                factory = (FactoryInterface) factoryClass.getConstructor(new Class[]{InterpreterOracleInterface.class})
+                        .newInstance(new Object[]{oracle});
             }
             else
             {
@@ -75,7 +74,7 @@ public final class Interpreter
         catch (Exception exception)
         {
             // we default
-            exception.printStackTrace();
+            CategoryLogger.always().error(exception);
         }
         Interpreter.setFactory(factory);
     }
@@ -141,9 +140,8 @@ public final class Interpreter
             MethodDescriptor methodDescriptor = classDescriptor.getMethod(method);
             OperandStack operandStack = new OperandStack(methodDescriptor.getMaxStack());
             LocalVariable[] localVariables = LocalVariable.newInstance(methodDescriptor.getLocalVariableTable());
-            frame =
-                    new Frame(classDescriptor.getConstantPool(), localVariables, methodDescriptor.getOperations(),
-                            operandStack, methodDescriptor);
+            frame = new Frame(classDescriptor.getConstantPool(), localVariables, methodDescriptor.getOperations(),
+                    operandStack, methodDescriptor);
             Interpreter.CACHE.put(method, frame);
         }
 
@@ -218,13 +216,13 @@ public final class Interpreter
         // We take the caller and push
         if (frameStack.isEmpty())
         {
-            throw new RuntimeException("\n----------------------\n" + throwable + ": "
-                    + frame.getLocalVariables()[0].getValue() + "." + frame.getMethodDescriptor().getName()
-                    + "\n----------------------");
+            throw new RuntimeException(
+                    "\n----------------------\n" + throwable + ": " + frame.getLocalVariables()[0].getValue() + "."
+                            + frame.getMethodDescriptor().getName() + "\n----------------------");
         }
         Frame newFrame = frameStack.peek();
-        ((ATHROW) operation).setBytePosition(newFrame.getMethodDescriptor().getBytePosition(
-                newFrame.getReturnPosition()));
+        ((ATHROW) operation)
+                .setBytePosition(newFrame.getMethodDescriptor().getBytePosition(newFrame.getReturnPosition()));
         newFrame.getOperandStack().push(throwable);
         return Interpreter.aThrow(operation, newFrame, frameStack);
     }
@@ -272,9 +270,8 @@ public final class Interpreter
                 if (frame.getMethodDescriptor().getMethod() instanceof Method)
                     methodName = ((Method) frame.getMethodDescriptor().getMethod()).getDeclaringClass().getSimpleName();
                 else
-                    methodName =
-                            ((Constructor<?>) frame.getMethodDescriptor().getMethod()).getDeclaringClass()
-                                    .getSimpleName();
+                    methodName = ((Constructor<?>) frame.getMethodDescriptor().getMethod()).getDeclaringClass()
+                            .getSimpleName();
                 System.out.println(operation.getClass().getSimpleName() + " @ " + methodName + "."
                         + frame.getMethodDescriptor().getName() + "(" + line + ")");
             }
@@ -316,9 +313,8 @@ public final class Interpreter
                 catch (Exception exception)
                 {
                     frame.getOperandStack().push(exception);
-                    frame =
-                            Interpreter.aThrow(new ATHROW(methodDescriptor.getBytePosition(operationIndex)), frame,
-                                    frameStack);
+                    frame = Interpreter.aThrow(new ATHROW(methodDescriptor.getBytePosition(operationIndex)), frame,
+                            frameStack);
                     operandStack = frame.getOperandStack();
                     constantPool = frame.getConstantPool();
                     localVariables = frame.getLocalVariables();

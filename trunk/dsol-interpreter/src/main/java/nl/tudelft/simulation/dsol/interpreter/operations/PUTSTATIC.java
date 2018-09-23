@@ -12,11 +12,11 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantFieldref;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
- * The PUTSTATIC operation as defined in <a
- * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc11.html">
+ * The PUTSTATIC operation as defined in
+ * <a href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc11.html">
  * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc11.html </a>.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -54,13 +54,13 @@ public class PUTSTATIC extends VoidOperation
             field.setAccessible(true);
             Object value = stack.pop();
             Object target = null;
-            
+
             if (!field.getType().isPrimitive())
             {
                 field.set(target, value);
                 return;
             }
-            
+
             if (field.getType().equals(boolean.class))
             {
                 field.setBoolean(target, ((int) value) == 1);
@@ -72,37 +72,37 @@ public class PUTSTATIC extends VoidOperation
                 field.setByte(target, ((Integer) value).byteValue());
                 return;
             }
-            
+
             if (field.getType().equals(char.class))
             {
                 field.setChar(target, (char) (((Integer) value).byteValue()));
                 return;
             }
-            
+
             if (field.getType().equals(short.class))
             {
                 field.setShort(target, ((Short) value).shortValue());
                 return;
             }
-            
+
             if (field.getType().equals(int.class))
             {
                 field.setInt(target, ((Integer) value).intValue());
                 return;
             }
-            
+
             if (field.getType().equals(float.class))
             {
                 field.setFloat(target, ((Float) value).floatValue());
                 return;
             }
-            
+
             if (field.getType().equals(long.class))
             {
                 field.setLong(target, ((Long) value).longValue());
                 return;
             }
-            
+
             if (field.getType().equals(double.class))
             {
                 field.setDouble(target, ((Double) value).doubleValue());

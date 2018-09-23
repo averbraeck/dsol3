@@ -19,8 +19,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.vecmath.Point4i;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.AnimationPanel;
 import nl.tudelft.simulation.dsol.animation.D2.GridPanel;
@@ -30,6 +28,7 @@ import nl.tudelft.simulation.dsol.animation.D2.actions.PanDownAction;
 import nl.tudelft.simulation.dsol.animation.D2.actions.PanLeftAction;
 import nl.tudelft.simulation.dsol.animation.D2.actions.PanRightAction;
 import nl.tudelft.simulation.dsol.animation.D2.actions.PanUpAction;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.introspection.gui.IntroSpectionDialog;
 
 /**
@@ -250,7 +249,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "getSelectedObjects");
+            SimLogger.always().warn(exception, "getSelectedObjects");
         }
         return targets;
     }
@@ -298,7 +297,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
         catch (RemoteException exception)
         {
-            Logger.warn(exception, "edit");
+            SimLogger.always().warn(exception, "edit");
         }
         return selectedObject;
     }

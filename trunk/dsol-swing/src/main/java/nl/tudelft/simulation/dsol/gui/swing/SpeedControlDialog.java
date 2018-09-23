@@ -22,8 +22,7 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.Simulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -161,7 +160,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
         catch (Exception exception)
         {
-            Logger.error(exception, "SpeedControlDialog - SpeedControlDialog");
+            SimLogger.always().error(exception, "SpeedControlDialog - SpeedControlDialog");
         }
     }
 
@@ -205,7 +204,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
         catch (Exception exception)
         {
-            Logger.error(exception, "SpeedControlDialog - stateChanged");
+            SimLogger.always().error(exception, "SpeedControlDialog - stateChanged");
         }
     }
 

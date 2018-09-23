@@ -10,11 +10,11 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantDouble;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantLong;
 
 /**
- * The LDC2_W operation as defined in <a
- * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc8.html">
+ * The LDC2_W operation as defined in
+ * <a href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc8.html">
  * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc8.html </a>.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>

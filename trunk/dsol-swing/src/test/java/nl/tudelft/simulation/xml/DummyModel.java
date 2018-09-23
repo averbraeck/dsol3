@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.xml;
 
-import java.rmi.RemoteException;
-
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 

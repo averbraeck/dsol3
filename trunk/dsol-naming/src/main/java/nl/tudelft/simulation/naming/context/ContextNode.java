@@ -14,9 +14,8 @@ import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingExceptionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.event.EventType;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * A node in the context.
@@ -103,7 +102,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
             }
             catch (NamingException exception)
             {
-                Logger.warn(exception, "objectAdded");
+                CategoryLogger.always().warn(exception, "objectAdded");
             }
         }
         else if (this.display(item.getObject()))
@@ -158,7 +157,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
     @Override
     public void namingExceptionThrown(final NamingExceptionEvent event)
     {
-        Logger.warn(event.getException(), "namingExceptionThrown");
+        CategoryLogger.always().warn(event.getException(), "namingExceptionThrown");
     }
 
     /**

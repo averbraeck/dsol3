@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.jstats.statistics;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.event.TimedEvent;
@@ -9,8 +8,7 @@ import nl.tudelft.simulation.event.TimedEvent;
 /**
  * The Persisten class defines a statistics event persistent. A Persistent is a time-averaged tally.
  * <p>
- * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -37,7 +35,7 @@ public class Persistent extends Tally
 
     /** lastvalue tracks the last value. */
     private double lastValue = Double.NaN;
-    
+
     /**
      * constructs a new Persistent with a description.
      * @param description the description of this Persistent
@@ -106,7 +104,7 @@ public class Persistent extends Tally
         }
         else
         {
-            Logger.warn("notify: {} should be a number", event.getContent());
+            SimLogger.always().warn("notify: {} should be a number", event.getContent());
         }
 
         synchronized (this.semaphore)

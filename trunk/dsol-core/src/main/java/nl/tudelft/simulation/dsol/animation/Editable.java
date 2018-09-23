@@ -7,8 +7,7 @@ import java.util.Properties;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.Bounds;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
@@ -21,8 +20,7 @@ import nl.tudelft.simulation.language.io.URLResource;
  * instantiating, moving, rotating, and editing the vertices that span up the shape of this object during the
  * simulation.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -51,7 +49,7 @@ public abstract class Editable extends EventProducer implements Locatable
         }
         catch (Exception exception)
         {
-            Logger.error(exception, "<clinit>");
+            SimLogger.always().error(exception, "<clinit>");
         }
     }
 

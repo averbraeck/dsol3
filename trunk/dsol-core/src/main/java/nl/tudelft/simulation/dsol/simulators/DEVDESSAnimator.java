@@ -6,9 +6,9 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -112,7 +112,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
                     }
                     catch (Exception exception)
                     {
-                        Logger.error(exception, "run");
+                        SimLogger.always().error(exception, "run");
                     }
                 }
             }

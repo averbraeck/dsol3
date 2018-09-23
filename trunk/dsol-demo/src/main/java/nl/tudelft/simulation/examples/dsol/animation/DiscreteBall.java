@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
@@ -60,7 +61,7 @@ public class DiscreteBall extends Ball
         }
         catch (NamingException exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
         }
         this.next();
     }

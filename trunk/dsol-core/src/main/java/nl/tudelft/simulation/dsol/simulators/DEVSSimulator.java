@@ -16,6 +16,7 @@ import nl.tudelft.simulation.dsol.formalisms.eventscheduling.Executable;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.LambdaSimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -309,7 +310,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                 }
                 catch (Exception exception)
                 {
-                    exception.printStackTrace();
+                    SimLogger.always().error(exception);
                     if (this.isPauseOnError())
                     {
                         this.stop();

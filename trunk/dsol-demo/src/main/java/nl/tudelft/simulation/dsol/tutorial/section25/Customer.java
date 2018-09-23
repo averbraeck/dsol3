@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.tutorial.section25;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
@@ -47,7 +48,7 @@ public class Customer
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
         }
     }
 }

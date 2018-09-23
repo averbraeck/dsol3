@@ -2,9 +2,8 @@ package nl.tudelft.simulation.dsol.tutorial.section42;
 
 import java.util.Properties;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.tutorial.section42.policies.OrderingPolicy;
 import nl.tudelft.simulation.dsol.tutorial.section42.policies.StationaryPolicy;
@@ -13,8 +12,8 @@ import nl.tudelft.simulation.event.EventType;
 
 /**
  * A Retailer <br>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -112,7 +111,7 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         }
         catch (Exception exception)
         {
-            Logger.error(exception, "reviewInventory");
+            SimLogger.always().error(exception, "reviewInventory");
         }
     }
 

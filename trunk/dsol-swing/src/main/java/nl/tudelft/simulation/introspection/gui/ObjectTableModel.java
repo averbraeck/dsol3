@@ -2,8 +2,7 @@ package nl.tudelft.simulation.introspection.gui;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
@@ -142,7 +141,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         }
         catch (IllegalArgumentException exception)
         {
-            Logger.warn(exception, "setValueAt");
+            SimLogger.always().warn(exception, "setValueAt");
         }
     }
 

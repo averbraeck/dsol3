@@ -10,7 +10,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.spi.InitialContextFactory;
 
-import org.pmw.tinylog.Logger;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * A factory for FileContext instances, automatically invoked by JNDI when the correct jndi.properties file has been
@@ -54,7 +54,7 @@ public class FileContextFactory implements InitialContextFactory
             }
             catch (Exception exception)
             {
-                Logger.warn(exception, "getInitialContext");
+                CategoryLogger.always().warn(exception, "getInitialContext");
             }
         }
         return context;

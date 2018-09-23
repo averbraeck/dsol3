@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingExceptionEvent;
 
-import org.pmw.tinylog.Logger;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The local wrapper for remoteContextListeners.
@@ -44,7 +44,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            Logger.warn(remoteException, "objectChanged");
+            CategoryLogger.always().warn(remoteException, "objectChanged");
         }
     }
 
@@ -58,7 +58,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            Logger.warn(remoteException, "objectAdded");
+            CategoryLogger.always().warn(remoteException, "objectAdded");
         }
     }
 
@@ -72,7 +72,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            Logger.warn(remoteException, "objectRemoved");
+            CategoryLogger.always().warn(remoteException, "objectRemoved");
         }
     }
 
@@ -86,7 +86,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            Logger.warn(remoteException, "objectRenamed");
+            CategoryLogger.always().warn(remoteException, "objectRenamed");
         }
     }
 
@@ -100,7 +100,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
         }
         catch (RemoteException remoteException)
         {
-            Logger.warn(remoteException, "objectChanged");
+            CategoryLogger.always().warn(remoteException, "objectChanged");
         }
     }
 }

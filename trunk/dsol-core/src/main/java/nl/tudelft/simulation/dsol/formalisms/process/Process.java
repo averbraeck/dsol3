@@ -2,14 +2,13 @@ package nl.tudelft.simulation.dsol.formalisms.process;
 
 import java.rmi.RemoteException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
@@ -70,7 +69,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
             }
             catch (Exception exception)
             {
-                Logger.error(exception, "<init>");
+                SimLogger.always().error(exception, "<init>");
             }
         }
     }
@@ -111,7 +110,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
             }
             catch (Exception exception)
             {
-                Logger.warn(exception, "cancel");
+                SimLogger.always().warn(exception, "cancel");
             }
         }
     }

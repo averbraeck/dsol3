@@ -8,6 +8,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.apache.xerces.parsers.DOMParser;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.input.DOMBuilder;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
+
 import nl.javel.gisbeans.geom.SerializableRectangle2D;
 import nl.javel.gisbeans.io.esri.CoordinateTransform;
 import nl.javel.gisbeans.io.esri.ShapeFile;
@@ -28,15 +37,6 @@ import nl.javel.gisbeans.map.Scalebar;
 import nl.javel.gisbeans.map.ScalebarInterface;
 import nl.javel.gisbeans.map.StaticAttribute;
 import nl.tudelft.simulation.language.io.URLResource;
-
-import org.apache.xerces.parsers.DOMParser;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
-import org.jdom2.input.DOMBuilder;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * This class parses XML-mapfiles and constructs appropriate map objects. <br>

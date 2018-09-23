@@ -2,12 +2,12 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.language.support.DoubleCompare;
+import nl.tudelft.simulation.logger.Cat;
 
 /**
  * InputPort class. The input port can function as an input port for a Parallel DEVS Atomic Model as well as for a
@@ -15,7 +15,7 @@ import nl.tudelft.simulation.language.support.DoubleCompare;
  * model or a coupled model. For a coupled model, the input message is passed on to the external input couplings (EIC),
  * for an atomic model, the external event handler is called (or the confluent event handler in case of a conflict).
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
@@ -85,7 +85,8 @@ public class InputPort<T> implements InputPortInterface<T>
             AtomicModel atomicModel = (AtomicModel) this.model;
             while (atomicModel.activePort != null)
             {
-                Logger.trace("receive: Waiting for event treatement // Another input is being processed");
+                SimLogger.filter(Cat.DSOL)
+                        .trace("receive: Waiting for event treatement // Another input is being processed");
                 try
                 {
                     Thread.sleep(1); // added because of infinite loop
@@ -101,14 +102,17 @@ public class InputPort<T> implements InputPortInterface<T>
                 atomicModel.activePort = this;
                 boolean passivity = true;
                 SimEvent<SimTimeDouble> nextEventCopy = null;
-                Logger.debug("receive: TIME IS {}", this.model.getSimulator().getSimulatorTime());
+                SimLogger.filter(Cat.DSOL).debug("receive: TIME IS {}",
+                        this.model.getSimulator().getSimulatorTime());
 
                 // Original: if (elapsedTime(time) - 0.000001 > timeAdvance())
                 int etminta = DoubleCompare.compare(atomicModel.elapsedTime(time), atomicModel.timeAdvance());
                 if (etminta == 1)
                 {
-                    Logger.error("receive: {} - {}", atomicModel.elapsedTime(time), atomicModel.timeAdvance());
-                    Logger.error("receive - IMPOSSIBLE !!! TIME SYNCHRONIZATION PROBLEM {}", atomicModel.toString());
+                    SimLogger.always().error("receive: {} - {}", atomicModel.elapsedTime(time),
+                            atomicModel.timeAdvance());
+                    SimLogger.always().error("receive - IMPOSSIBLE !!! TIME SYNCHRONIZATION PROBLEM {}",
+                            atomicModel.toString());
                     System.err.println("IMPOSSIBLE !!! TIME SYNCHRONIZATION PROBLEM " + atomicModel.toString());
                 }
                 else
@@ -166,7 +170,7 @@ public class InputPort<T> implements InputPortInterface<T>
                     }
                     catch (SimRuntimeException e)
                     {
-                        e.printStackTrace();
+                        SimLogger.always().error(e);
                     }
                 }
             }

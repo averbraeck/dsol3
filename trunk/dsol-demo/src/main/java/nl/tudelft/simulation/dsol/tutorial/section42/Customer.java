@@ -1,8 +1,7 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
@@ -11,11 +10,12 @@ import nl.tudelft.simulation.jstats.distributions.DistDiscreteEmpirical;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.distributions.empirical.Observations;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
+import nl.tudelft.simulation.logger.Cat;
 
 /**
  * A Customer <br>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -59,7 +59,7 @@ public class Customer implements BuyerInterface
     @Override
     public final void receiveProduct(final long amount)
     {
-        Logger.trace("receiveProduct: received " + amount);
+        SimLogger.filter(Cat.DSOL).trace("receiveProduct: received " + amount);
     }
 
     /**
@@ -75,7 +75,7 @@ public class Customer implements BuyerInterface
         }
         catch (Exception exception)
         {
-            Logger.error(exception, "createOrder");
+            SimLogger.always().error(exception, "createOrder");
         }
     }
 }

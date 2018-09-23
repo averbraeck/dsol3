@@ -7,21 +7,19 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * A TestExperimentalFrame <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -47,7 +45,7 @@ public final class TestExperiment
 
     /** TIMESTEP is the timeStep to be used for the DESS formalism. */
     public static final double TIMESTEP = 0.01;
-    
+
     /**
      * constructs a new TestExperimentalFrame.
      */
@@ -81,7 +79,7 @@ public final class TestExperiment
         }
         catch (NamingException e)
         {
-            Logger.warn(e, "createExperimentalFrame");
+            SimLogger.always().warn(e, "createExperimentalFrame");
         }
         return null;
     }

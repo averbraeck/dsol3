@@ -5,17 +5,17 @@ import java.awt.Container;
 import java.awt.GradientPaint;
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.event.EventProducerInterface;
-import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.jstats.Swingable;
-import nl.tudelft.simulation.jstats.statistics.Persistent;
-import nl.tudelft.simulation.language.filters.FilterInterface;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.plot.PlotOrientation;
+
+import nl.tudelft.simulation.event.EventProducerInterface;
+import nl.tudelft.simulation.event.EventType;
+import nl.tudelft.simulation.jstats.Swingable;
+import nl.tudelft.simulation.jstats.statistics.Persistent;
+import nl.tudelft.simulation.language.filters.FilterInterface;
 
 /**
  * The xyChart specifies the xyChart in DSOL.

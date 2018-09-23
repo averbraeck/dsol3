@@ -1,4 +1,5 @@
-<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>dsol</groupId>
@@ -219,31 +220,30 @@
         <version>${maven.javadoc.version}</version>
         <configuration>
           <links>
-            <link>https:/s.oracle.com/javase/8s/api/</link>
-            <!-- link>https://download.java.net/media/java3d/javadoc/1.5.1/</link (No package-list) -->
-            <link>http://www.jfree.org/jcommon/api/</link>
-            <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
-            <link>https://xerces.apache.org/xerces2-j/javadocs/api/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-base/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-naming/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-event/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-interpreter/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-introspection/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-core/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-swing/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-fx/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-web/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-demo/apidocs/</link>
-            <link>https://x-stream.github.io/javadoc/</link>
-            <link>https://tinylog.org/javadoc/</link>
-            <link>https://djunits.orgs/current/apidocs/</link>
-            <link>http://www.jdom.orgs/apidocs/</link>
-            <link>https://dst.lbl.gov/ACSSoftware/colt/api/</link>
+            <link>https://download.java.net/media/java3d/javadoc/1.5.1</link>
+            <link>http://www.jfree.org/jcommon/api</link>
+            <link>http://www.jfree.org/jfreechart/api/javadoc</link>
+            <link>http://xerces.apache.org/xerces2-j/javadocs/api</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-base/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-naming/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-event/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-interpreter/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-introspection/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-core/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-swing/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-fx/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-web/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-demo/apidocs</link>
+            <link>https://x-stream.github.io/javadoc</link>
+            <link>https://tinylog.org/javadoc</link>
+            <link>https://djunits.org/docs/current/apidocs</link>
+            <link>http://www.jdom.org/docs/apidocs</link>
+            <link>https://dst.lbl.gov/ACSSoftware/colt/api</link>
           </links>
-          <additionalJOption>-J-Xmx1024m</additionalJOption>
+          <minmemory>256m</minmemory>
+          <maxmemory>1g</maxmemory>
+          <show>package</show>
           <detectJavaApiLink>true</detectJavaApiLink>
-          <detectLinks>false</detectLinks>
-          <detectOfflineLinks>true</detectOfflineLinks>
         </configuration>
         <executions>
           <execution>
@@ -427,33 +427,30 @@
 
         <configuration>
           <links>
-            <link>https:/s.oracle.com/javase/8s/api/</link>
-            <!-- link>https://download.java.net/media/java3d/javadoc/1.5.1/</link (No package-list) -->
-            <link>http://www.jfree.org/jcommon/api/</link>
-            <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
-            <link>https://xerces.apache.org/xerces2-j/javadocs/api/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-base/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-naming/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-event/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-interpreter/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-introspection/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-core/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-swing/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-fx/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-web/apidocs/</link>
-            <link>https://simulation.tudelft.nl/dsol/${project.version}/dsol-demo/apidocs/</link>
-            <link>https://x-stream.github.io/javadoc/</link>
-            <link>https://djunits.orgs/current/apidocs/</link>
-            <link>https://tinylog.org/javadoc/</link>
-            <link>http://www.jdom.orgs/apidocs/</link>
-            <link>https://dst.lbl.gov/ACSSoftware/colt/api/</link>
+            <link>https://download.java.net/media/java3d/javadoc/1.5.1</link>
+            <link>http://www.jfree.org/jcommon/api</link>
+            <link>http://www.jfree.org/jfreechart/api/javadoc</link>
+            <link>http://xerces.apache.org/xerces2-j/javadocs/api</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-base/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-naming/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-event/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-interpreter/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-introspection/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-core/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-swing/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-fx/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-web/apidocs</link>
+            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-demo/apidocs</link>
+            <link>https://x-stream.github.io/javadoc</link>
+            <link>https://tinylog.org/javadoc</link>
+            <link>https://djunits.org/docs/current/apidocs</link>
+            <link>http://www.jdom.org/docs/apidocs</link>
+            <link>https://dst.lbl.gov/ACSSoftware/colt/api</link>
           </links>
-          <additionalJOption>-J-Xmx1024m</additionalJOption>
-          <detectJavaApiLink>true</detectJavaApiLink>
-          <detectLinks>false</detectLinks>
-          <detectOfflineLinks>true</detectOfflineLinks>
+          <minmemory>256m</minmemory>
+          <maxmemory>1g</maxmemory>
           <show>package</show>
-          <!-- stylesheetfile>${basedir}/src/main/resources/development/javadoc/stylesheet.css</stylesheetfile -->
+          <detectJavaApiLink>true</detectJavaApiLink>
         </configuration>
 
         <reportSets>

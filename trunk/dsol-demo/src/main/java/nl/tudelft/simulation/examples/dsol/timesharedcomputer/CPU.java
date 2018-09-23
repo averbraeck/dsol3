@@ -9,6 +9,7 @@ import javax.media.j3d.Bounds;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.formalisms.flow.Station;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventType;
@@ -19,8 +20,8 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 /**
  * The CPU example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4.
  * <br>
- * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 2.0 21.09.2003 <br>
@@ -91,7 +92,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
             }
             catch (SimRuntimeException exception)
             {
-                exception.printStackTrace();
+                SimLogger.always().error(exception);
             }
         }
     }
@@ -109,7 +110,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
         }
         catch (SimRuntimeException exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
         }
     }
 
@@ -131,14 +132,14 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
                 Object[] args = {job};
                 this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + QUANTUM + SWAP, this, this,
                         "receiveObject", args);
-                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + QUANTUM + SWAP, this, this,
-                        "next", null);
+                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + QUANTUM + SWAP, this, this, "next",
+                        null);
             }
             else
             {
                 Object[] args = {job};
-                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + job.getServiceTime() + SWAP,
-                        this, this, "releaseObject", args);
+                this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + job.getServiceTime() + SWAP, this,
+                        this, "releaseObject", args);
             }
         }
         else

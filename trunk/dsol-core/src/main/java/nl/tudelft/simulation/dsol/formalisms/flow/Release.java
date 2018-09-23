@@ -6,9 +6,9 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -81,7 +81,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "receiveObject");
+            SimLogger.always().warn(exception, "receiveObject");
         }
     }
 

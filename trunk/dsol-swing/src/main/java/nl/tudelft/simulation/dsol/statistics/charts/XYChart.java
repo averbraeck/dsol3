@@ -3,8 +3,7 @@ package nl.tudelft.simulation.dsol.statistics.charts;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
@@ -57,7 +56,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -77,7 +76,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -98,7 +97,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -119,7 +118,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -140,7 +139,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -161,7 +160,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -184,7 +183,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -207,7 +206,7 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 

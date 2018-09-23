@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.hla;
 
 import hla.rti.RTIambassador;
+import nl.tudelft.simulation.logger.CategoryLogger;
 import se.pitch.prti.RTI;
 
 /**
@@ -52,7 +53,7 @@ public class KillFederation
                     .destroyFederationExecution(parseFederationName(fedURL));
         } catch (Exception exception)
         {
-            exception.printStackTrace();
+            CategoryLogger.always().error(exception);
         }
     }
 

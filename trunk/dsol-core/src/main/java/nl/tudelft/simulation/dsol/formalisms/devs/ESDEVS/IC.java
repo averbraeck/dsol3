@@ -4,7 +4,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
  * IC class. IC stands for Internal Coupling, which is a coupling between two components within a coupled model. The
  * definition can be found in Zeigler et al. (2000), p. 86-87.
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

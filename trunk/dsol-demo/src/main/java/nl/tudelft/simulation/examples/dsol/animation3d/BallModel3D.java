@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -12,8 +13,8 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * BallModel3D, the ball example in 3D <br>
- * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 1.0 10.05.2004 <br>
@@ -49,7 +50,7 @@ public class BallModel3D implements DSOLModel<Double, Double, SimTimeDouble>
             }
             catch (NamingException | RemoteException exception)
             {
-                exception.printStackTrace();
+                SimLogger.always().error(exception);
             }
         }
         new World(new DirectedPoint(0, 0, -5.5), this.simulator);

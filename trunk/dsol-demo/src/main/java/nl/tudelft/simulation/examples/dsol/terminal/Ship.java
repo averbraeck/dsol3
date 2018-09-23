@@ -4,7 +4,6 @@ import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 
 /**
- * 
  * <p>
  * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
@@ -19,13 +18,13 @@ public class Ship extends EventProducer
 
     /** the number of loaded containers. */
     private int containers = 0;
-    
+
     /** the ship's capacity. */
     private final int capacity;
-    
+
     /** the ship-full event. */
     public static final EventType SHIP_FULL_EVENT = new EventType("SHIP_FULL_EVENT");
-    
+
     /**
      * @param capacity the ship's capacity
      */

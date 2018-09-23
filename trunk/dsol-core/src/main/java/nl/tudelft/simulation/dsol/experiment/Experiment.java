@@ -12,9 +12,9 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -162,7 +162,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         }
         catch (RemoteException remoteException)
         {
-            Logger.warn(remoteException, "notify");
+            SimLogger.always().warn(remoteException, "notify");
         }
     }
 
@@ -190,7 +190,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
                 }
                 catch (Exception exception)
                 {
-                    exception.printStackTrace();
+                    SimLogger.always().error(exception);
                 }
             }
             else

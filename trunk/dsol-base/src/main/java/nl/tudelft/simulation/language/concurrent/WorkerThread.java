@@ -2,6 +2,8 @@ package nl.tudelft.simulation.language.concurrent;
 
 import java.util.logging.Logger;
 
+import nl.tudelft.simulation.logger.CategoryLogger;
+
 /**
  * The WorkerThread is a working thread. The thread sleeps while not interrupted. If interrupted the job.run operation
  * is invoked.
@@ -91,8 +93,7 @@ public class WorkerThread extends Thread
                     }
                     catch (Exception exception)
                     {
-                        Logger.getLogger("nl.tudelft.simulation.language.concurrent").severe(exception.getMessage());
-                        exception.printStackTrace();
+                        CategoryLogger.always().error(exception);
                     }
                     Thread.interrupted();
                 }

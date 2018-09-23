@@ -1,11 +1,11 @@
 package nl.tudelft.simulation.dsol.interpreter;
 
-import org.pmw.tinylog.Logger;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * A InterpretationThread <br>
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -70,7 +70,7 @@ public final class InterpretationThread extends Thread
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "run");
+            CategoryLogger.always().warn(exception, "run");
         }
     }
 }

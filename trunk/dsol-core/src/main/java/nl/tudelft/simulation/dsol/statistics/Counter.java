@@ -6,8 +6,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.Event;
@@ -44,7 +43,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
      * constructs a new Counter.
      * @param description refers to the description of this counter
      * @param simulator the simulator
-     * @throws RemoteException  on network error for one of the listeners
+     * @throws RemoteException on network error for one of the listeners
      */
     public Counter(final String description, final SimulatorInterface<A, R, T> simulator) throws RemoteException
     {
@@ -66,7 +65,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -76,7 +75,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
      * @param simulator the simulator of this model
      * @param target the target on which to count
      * @param field the field which is counted
-     * @throws RemoteException  on network error for one of the listeners
+     * @throws RemoteException on network error for one of the listeners
      */
     public Counter(final String description, final SimulatorInterface<A, R, T> simulator,
             final EventProducerInterface target, final EventType field) throws RemoteException
@@ -104,7 +103,8 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
                 }
                 catch (RemoteException exception)
                 {
-                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
+                    SimLogger.always().warn(exception,
+                            "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;
@@ -118,7 +118,8 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
                 }
                 catch (RemoteException exception)
                 {
-                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
+                    SimLogger.always().warn(exception,
+                            "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
                 }
                 this.endOfReplication();
                 return;
@@ -163,7 +164,7 @@ public class Counter<A extends Comparable<A>, R extends Number & Comparable<R>, 
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "endOfReplication");
+            SimLogger.always().warn(exception, "endOfReplication");
         }
     }
 }

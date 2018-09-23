@@ -7,6 +7,7 @@ import java.util.Set;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS.exceptions.PortNotFoundException;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
@@ -16,7 +17,7 @@ import nl.tudelft.simulation.event.ref.Reference;
  * CoupledModel class. This class implements the classic parallel DEVS coupled model with ports conform Zeigler et al.
  * (2000), section 4.3.
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
@@ -173,7 +174,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            SimLogger.always().error(e);
         }
 
     }
@@ -215,7 +216,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            SimLogger.always().error(e);
         }
     }
 
@@ -256,7 +257,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            SimLogger.always().error(e);
         }
     }
 

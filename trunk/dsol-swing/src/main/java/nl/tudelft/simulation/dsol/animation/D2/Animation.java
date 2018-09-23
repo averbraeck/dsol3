@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.animation.D2;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
@@ -49,7 +48,7 @@ public class Animation
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "actionPerformed");
+            SimLogger.always().warn(exception, "actionPerformed");
         }
     }
 

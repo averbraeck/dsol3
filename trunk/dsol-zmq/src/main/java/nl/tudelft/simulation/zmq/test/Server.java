@@ -2,6 +2,8 @@ package nl.tudelft.simulation.zmq.test;
 
 import org.zeromq.ZMQ;
 
+import nl.tudelft.simulation.logger.CategoryLogger;
+
 /**
  * Server example for JeroMQ / ZeroMQ.
  * <p>
@@ -36,7 +38,7 @@ public class Server
             }
             catch (InterruptedException exception)
             {
-                exception.printStackTrace();
+                CategoryLogger.always().error(exception);
             }
 
             // Send reply back to client

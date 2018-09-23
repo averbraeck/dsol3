@@ -9,11 +9,12 @@ import nl.tudelft.simulation.dsol.interpreter.operations.custom.CustomFactory;
 import nl.tudelft.simulation.dsol.interpreter.operations.custom.InterpreterOracleInterface;
 import nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKESPECIAL;
 import nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKEVIRTUAL;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * An InterpreterFactory for processes that can be suspended without threads.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -31,7 +32,7 @@ public class ProcessFactory extends CustomFactory
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            CategoryLogger.always().error(exception);
         }
     }
 

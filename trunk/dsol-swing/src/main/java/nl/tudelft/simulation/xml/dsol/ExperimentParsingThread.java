@@ -3,9 +3,8 @@ package nl.tudelft.simulation.xml.dsol;
 import java.io.IOException;
 import java.net.URL;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
@@ -54,7 +53,7 @@ public class ExperimentParsingThread extends Thread
         }
         catch (IOException exception)
         {
-            Logger.warn(exception, "run");
+            SimLogger.always().warn(exception, "run");
         }
     }
 }

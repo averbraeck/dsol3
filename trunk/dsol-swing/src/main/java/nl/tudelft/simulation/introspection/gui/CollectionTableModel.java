@@ -13,8 +13,7 @@ import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.introspection.AbstractProperty;
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
@@ -336,7 +335,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
         catch (Exception e)
         {
-            Logger.warn(e, "createRow: Could not instantiate new instance: ");
+            SimLogger.always().warn(e, "createRow: Could not instantiate new instance: ");
         }
     }
 

@@ -10,8 +10,8 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.pmw.tinylog.Logger;
 
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -134,7 +134,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
         }
         catch (RemoteException remoteException)
         {
-            Logger.warn(remoteException, "start");
+            SimLogger.always().warn(remoteException, "start");
         }
     }
 

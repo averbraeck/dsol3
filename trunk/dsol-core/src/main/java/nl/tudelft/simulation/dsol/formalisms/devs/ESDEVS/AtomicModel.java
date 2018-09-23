@@ -2,12 +2,12 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.logger.Cat;
 
 /**
  * AtomicModel class. Implements the Classic Parallel DEVS Atomic Model with Ports cf Zeigler et al (2000), section
@@ -196,7 +196,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
             }
             catch (SimRuntimeException exception)
             {
-                Logger.error(exception, "initialize");
+                SimLogger.always().error(exception, "initialize");
             }
         }
         else
@@ -237,14 +237,14 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
                             (this.simulator.getSimTime().plus(this.timeAdvance() - this.elapsedTime)), this, this,
                             "deltaInternalEventHandler", null);
                     this.timeLastEvent = this.simulator.getSimulatorTime();
-                    Logger.trace("schedule {}", this.nextEvent.toString());
+                    SimLogger.filter(Cat.DSOL).trace("schedule {}", this.nextEvent.toString());
                     this.simulator.scheduleEvent(this.nextEvent);
                     // this.simulator.setAuthorization(false);
                 }
             }
             catch (Exception e1)
             {
-                e1.printStackTrace();
+                SimLogger.always().error(e1);
             }
         }
         else
@@ -274,7 +274,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     @SuppressWarnings("checkstyle:designforextension")
     protected void deltaConfluent(final double e, final Object value)
     {
-        Logger.debug("deltaConfluent: CONFLUENT");
+        SimLogger.filter(Cat.DSOL).debug("deltaConfluent: CONFLUENT");
         if (this.conflictStrategy == AtomicModel.INTERNAL_FIRST)
         {
             this.deltaInternalEventHandler();

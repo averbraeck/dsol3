@@ -10,9 +10,8 @@ import java.rmi.RemoteException;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.animation.Locatable;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d2.Shape;
@@ -242,7 +241,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "paint");
+            SimLogger.always().warn(exception, "paint");
         }
     }
 
@@ -266,7 +265,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         }
         catch (RemoteException exception)
         {
-            Logger.warn(exception, "contains");
+            SimLogger.always().warn(exception, "contains");
             return false;
         }
     }

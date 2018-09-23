@@ -7,7 +7,6 @@ import java.net.URL;
 import org.apache.xerces.parsers.DOMParser;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
-import org.pmw.tinylog.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -18,6 +17,7 @@ import org.xml.sax.ext.DefaultHandler2;
 import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.language.io.URLResource;
 
 /**
@@ -140,7 +140,7 @@ public abstract class AbstractXMLParser
         public void warning(final SAXParseException exception)
         {
             // ignore, but log
-            Logger.warn(exception, formatError(exception));
+            SimLogger.always().warn(exception, formatError(exception));
         }
 
         /** {@inheritDoc} */
