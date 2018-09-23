@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * A ClassDescriptor.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -66,8 +66,8 @@ public final class ClassDescriptor
         {
             classLoader = ClassLoader.getSystemClassLoader();
         }
-        this.readClass(new DataInputStream(classLoader.getResourceAsStream(javaClass.getName().replace('.', '/')
-                + ".class")));
+        this.readClass(
+                new DataInputStream(classLoader.getResourceAsStream(javaClass.getName().replace('.', '/') + ".class")));
     }
 
     /**
@@ -142,9 +142,8 @@ public final class ClassDescriptor
         for (int i = 0; i < methodCount; i++)
         {
             MethodDescriptor methodDescriptor = new MethodDescriptor(dataInput, this.constantPool);
-            AccessibleObject method =
-                    this.parseMethod(methodDescriptor.getName(), methodDescriptor.getMethodSignature()
-                            .getParameterTypes());
+            AccessibleObject method = this.parseMethod(methodDescriptor.getName(),
+                    methodDescriptor.getMethodSignature().getParameterTypes());
             methodDescriptor.setMethod(method);
             this.methods.put(method, methodDescriptor);
         }

@@ -9,9 +9,9 @@ import org.pmw.tinylog.Level;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.logger.ConsoleLogger;
 
 /**
  * <p>
@@ -84,8 +84,7 @@ public class MM1Queue41Application
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        ConsoleLogger.create();
-        ConsoleLogger.setLevel(Level.INFO);
+        SimLogger.setAllLogLevel(Level.TRACE);
         new MM1Queue41Application();
     }
 

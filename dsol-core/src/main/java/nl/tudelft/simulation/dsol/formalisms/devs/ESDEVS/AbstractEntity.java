@@ -6,7 +6,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * AbstractEntity class. The AbstractEntity takes care of modeling components without behaviour but with state within
  * coupled models.
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

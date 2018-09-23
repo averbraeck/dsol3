@@ -10,6 +10,7 @@ import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.gui.swing.TablePanel;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -75,7 +76,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
 
     /**
      * <p>
-     * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+     * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
      * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
      * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      * @version Oct 10, 2016
@@ -116,7 +117,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
             }
             catch (RemoteException exception)
             {
-                exception.printStackTrace();
+                SimLogger.always().error(exception);
             }
         }
     }

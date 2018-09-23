@@ -2,16 +2,16 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.logger.Cat;
 
 /**
  * OutputPort class. The output port transfers the event (message) to the next receiver. In case there is no next
  * receiver (e.g. in case of the model being the highest coupled model in the simulation, the event is currently not
  * transferred.
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
@@ -72,16 +72,16 @@ public class OutputPort<T> implements OutputPortInterface<T>
         {
             try
             {
-                Logger.debug("send: TIME IS {}", this.model.getSimulator().getSimulatorTime());
+                SimLogger.filter(Cat.DSOL).debug("send: TIME IS {}", this.model.getSimulator().getSimulatorTime());
                 this.model.parentModel.transfer(this, value);
             }
             catch (RemoteException e)
             {
-                e.printStackTrace();
+                SimLogger.always().error(e);
             }
             catch (SimRuntimeException e)
             {
-                e.printStackTrace();
+                SimLogger.always().error(e);
             }
         }
 

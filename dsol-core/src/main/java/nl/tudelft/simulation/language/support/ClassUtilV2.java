@@ -8,7 +8,7 @@ import java.util.Set;
  * ClassUtilV2 class. Inclused a couple of reflection methods that are added in dsol 2.1. This class can be removed as
  * soon as dsol-devs is part of dsol 2.1.
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

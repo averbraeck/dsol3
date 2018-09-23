@@ -119,7 +119,7 @@ public class DSOLFederateAmbassador extends EventProducer implements
             }
         } catch (NamingException namingException)
         {
-            Logger.error("<init>", namingException);
+            CategoryLogger.always().error("<init>", namingException);
         }
 
     }

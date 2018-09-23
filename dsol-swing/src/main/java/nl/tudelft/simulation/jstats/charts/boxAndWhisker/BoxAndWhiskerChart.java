@@ -6,12 +6,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GradientPaint;
 
-import nl.tudelft.simulation.jstats.Swingable;
-import nl.tudelft.simulation.jstats.statistics.Tally;
-
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
+
+import nl.tudelft.simulation.jstats.Swingable;
+import nl.tudelft.simulation.jstats.statistics.Tally;
 
 /**
  * The summaryuChart specifies a summaryChart. <br>

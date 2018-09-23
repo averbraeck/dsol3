@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.animation.Editable;
-import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**

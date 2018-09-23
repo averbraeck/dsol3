@@ -17,13 +17,13 @@ import org.djunits.unit.DurationUnit;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
-import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSAnimator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -112,7 +112,7 @@ public class ExperimentParser
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "parseExperimentalFrame");
+            SimLogger.always().warn(exception, "parseExperimentalFrame");
             return null;
         }
     }
@@ -230,7 +230,7 @@ public class ExperimentParser
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "parseExperiment");
+            SimLogger.always().warn(exception, "parseExperiment");
             throw new IOException(exception.getMessage());
         }
     }

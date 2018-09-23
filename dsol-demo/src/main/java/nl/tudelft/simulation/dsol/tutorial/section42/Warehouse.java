@@ -1,8 +1,7 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistUniform;
@@ -10,8 +9,8 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * A Warehouse <br>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -51,7 +50,7 @@ public class Warehouse implements SellerInterface
         }
         catch (Exception exception)
         {
-            Logger.error(exception, "order");
+            SimLogger.always().error(exception, "order");
         }
     }
 }

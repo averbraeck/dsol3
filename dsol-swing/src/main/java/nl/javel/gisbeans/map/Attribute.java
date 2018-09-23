@@ -1,5 +1,7 @@
 package nl.javel.gisbeans.map;
 
+import nl.tudelft.simulation.dsol.logger.SimLogger;
+
 /**
  * An attribute.
  * <p>
@@ -63,7 +65,7 @@ public class Attribute extends AbstractAttribute
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
             return 0.0;
         }
     }
@@ -78,7 +80,7 @@ public class Attribute extends AbstractAttribute
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
             return "";
         }
     }

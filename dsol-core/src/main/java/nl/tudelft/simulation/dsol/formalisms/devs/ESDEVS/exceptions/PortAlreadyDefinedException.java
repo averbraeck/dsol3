@@ -4,7 +4,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS.exceptions;
  * PortAlreadyDefinedException class. An input or output port with the given name has already been defined for the
  * model.
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

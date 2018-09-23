@@ -5,8 +5,8 @@ import java.net.URL;
 
 import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.pmw.tinylog.Logger;
 
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.Dist;
 import nl.tudelft.simulation.jstats.distributions.DistBernoulli;
@@ -64,7 +64,7 @@ public final class DistributionParser
             }
             catch (Exception e)
             {
-                Logger.warn("parseDistribution: stream {} not found \nDefault stream used instead", stream);
+                SimLogger.always().warn("parseDistribution: stream {} not found \nDefault stream used instead", stream);
             }
             Namespace xsi = Namespace.getNamespace("http://www.w3.org/2001/XMLSchema-instance");
             String distributionType = element.getAttributeValue("type", xsi);

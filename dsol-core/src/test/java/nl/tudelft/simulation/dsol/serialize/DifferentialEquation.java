@@ -10,8 +10,7 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
  * <p>
  * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
  * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
- * <br>
+ * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
@@ -49,7 +48,8 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
      * @param numericalMethod the integration method
      * @throws RemoteException on network error
      */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, short numericalMethod) throws RemoteException
+    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, short numericalMethod)
+            throws RemoteException
     {
         super(simulator, timeStep, numericalMethod);
     }

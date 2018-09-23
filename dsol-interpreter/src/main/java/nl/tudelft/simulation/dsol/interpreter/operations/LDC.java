@@ -3,8 +3,6 @@ package nl.tudelft.simulation.dsol.interpreter.operations;
 import java.io.DataInput;
 import java.io.IOException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
 import nl.tudelft.simulation.dsol.interpreter.OperandStack;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
@@ -13,13 +11,14 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantFloat;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantInteger;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantString;
 import nl.tudelft.simulation.language.reflection.FieldSignature;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
- * The LDC operation as defined in <a
- * href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc8.html">
+ * The LDC operation as defined in
+ * <a href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc8.html">
  * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc8.html </a>.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -70,7 +69,7 @@ public class LDC extends VoidOperation
             }
             catch (ClassNotFoundException classNotFoundException)
             {
-                Logger.warn(classNotFoundException, "execute");
+                CategoryLogger.always().warn(classNotFoundException, "execute");
             }
         }
     }

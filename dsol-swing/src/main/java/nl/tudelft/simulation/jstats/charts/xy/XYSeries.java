@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jfree.data.general.AbstractDataset;
-import org.pmw.tinylog.Logger;
 
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
@@ -79,7 +79,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         {
             if (timeStamp.doubleValue() <= 0.0)
             {
-                Logger.warn("notify: refusing xvalue of {} on logrithmic chart", event);
+                SimLogger.always().warn("notify: refusing xvalue of {} on logrithmic chart", event);
                 return;
             }
         }
@@ -87,7 +87,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         {
             if (((Number) timedEvent.getContent()).doubleValue() <= 0.0)
             {
-                Logger.warn("notify: refusing yValue of {} on logrithmic chart", event);
+                SimLogger.always().warn("notify: refusing yValue of {} on logrithmic chart", event);
                 return;
             }
         }

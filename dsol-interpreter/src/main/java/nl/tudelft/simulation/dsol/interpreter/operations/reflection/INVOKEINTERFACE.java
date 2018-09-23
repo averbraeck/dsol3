@@ -16,7 +16,7 @@ import nl.tudelft.simulation.language.reflection.MethodSignature;
 /**
  * INVOKEINTERFACE.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -62,9 +62,8 @@ public class INVOKEINTERFACE extends InvokeOperation
                 // We get the objectRef
                 Object objectRef = frame.getOperandStack().peek(parameterTypes.length);
 
-                method =
-                        ClassUtil.resolveMethod(objectRef, constantInterfaceMethodref.getConstantNameAndType()
-                                .getName(), parameterTypes);
+                method = ClassUtil.resolveMethod(objectRef,
+                        constantInterfaceMethodref.getConstantNameAndType().getName(), parameterTypes);
                 // We construct all parameters
                 Object[] arguments = new Object[parameterTypes.length];
                 for (int i = arguments.length - 1; i > -1; i--)
@@ -96,7 +95,7 @@ public class INVOKEINTERFACE extends InvokeOperation
         {
             System.out.println("  invoke " + objectRef.getClass().getSimpleName() + "." + method.getName());
         }
-        
+
         method.setAccessible(true);
         Object result = null;
         try

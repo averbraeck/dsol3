@@ -6,7 +6,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
  * Represents a Java virtual machine instruction. An operation is id-ed with a short opcode and has a predefined
  * bytelength.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -54,9 +54,8 @@ public abstract class Operation
         String result = "";
         for (int i = 0; i < operations.length; i++)
         {
-            result =
-                    result + i + ": " + " (" + methodDescriptor.getBytePosition(i) + ")" + operations[i].toString()
-                            + "\n";
+            result = result + i + ": " + " (" + methodDescriptor.getBytePosition(i) + ")" + operations[i].toString()
+                    + "\n";
         }
         return result;
     }

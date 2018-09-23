@@ -2,19 +2,18 @@ package nl.tudelft.simulation.dsol.interpreter.process;
 
 import java.util.Stack;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.interpreter.Frame;
 import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The Process class is an abstract Process which can be suspended and resumed.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -57,7 +56,7 @@ public abstract class InterpretableProcess extends EventProducer
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "<init>");
+            CategoryLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -83,8 +82,7 @@ public abstract class InterpretableProcess extends EventProducer
         }
         catch (InterpreterException exception)
         {
-            exception.printStackTrace();
-            Logger.warn(exception, "<init>");
+            CategoryLogger.always().error(exception);
         }
     }
 

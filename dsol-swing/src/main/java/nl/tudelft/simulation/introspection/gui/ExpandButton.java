@@ -10,8 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration;
@@ -122,7 +121,7 @@ public class ExpandButton extends JButton
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "instantiate: could not instantiate parent tablemodel, using default");
+            SimLogger.always().warn(exception, "instantiate: could not instantiate parent tablemodel, using default");
             if (this.PROPERTY.isCollection())
             {
                 newModel = new CollectionTableModel(this.PROPERTY);

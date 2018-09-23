@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.spi.InitialContextFactory;
 
-import org.pmw.tinylog.Logger;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * A factory for JVMContext instances, automatically invoked by JNDI when the correct jndi.properties file has been
@@ -34,7 +34,7 @@ public class JVMContextFactory implements InitialContextFactory
             environment.remove("java.naming.factory.initial");
             if (environment.size() != 0)
             {
-                Logger.warn("unused environment variables in jndi.properties");
+                CategoryLogger.always().warn("unused environment variables in jndi.properties");
             }
             JVMContextFactory.context = new JVMContext();
         }

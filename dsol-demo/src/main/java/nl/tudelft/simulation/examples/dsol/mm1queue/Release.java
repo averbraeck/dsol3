@@ -7,8 +7,8 @@ import nl.tudelft.simulation.event.EventType;
 
 /**
  * The Seize is an extended Seize block which computes the servicetime. <br>
- * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 2.0 21.09.2003 <br>

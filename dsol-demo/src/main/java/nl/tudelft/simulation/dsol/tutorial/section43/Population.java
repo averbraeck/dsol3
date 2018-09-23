@@ -9,8 +9,8 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 /**
  * The population differential equation.
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -38,7 +38,7 @@ public class Population extends DifferentialEquation<Double, Double, SimTimeDoub
     /**
      * constructs a new Population.
      * @param simulator the simulator
-     * @throws RemoteException  on networn error for the listeners
+     * @throws RemoteException on networn error for the listeners
      */
     public Population(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {

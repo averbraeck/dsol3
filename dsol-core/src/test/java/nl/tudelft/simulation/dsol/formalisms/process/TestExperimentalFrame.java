@@ -7,13 +7,12 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
@@ -81,7 +80,7 @@ public final class TestExperimentalFrame
         }
         catch (NamingException e)
         {
-            Logger.warn(e, "createExperimentalFrame");
+            SimLogger.always().warn(e, "createExperimentalFrame");
         }
         return null;
     }

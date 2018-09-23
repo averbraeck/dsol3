@@ -5,8 +5,6 @@ import java.util.Enumeration;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.Material;
-import javax.media.j3d.Node;
-import javax.media.j3d.Shape3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 
@@ -16,8 +14,8 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * BallAnimation3D, animation of a ball in 3D <br>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -58,10 +56,10 @@ public class BallAnimation3D extends Renderable3D
 
         // Define shininess
         float shininess = 10.0f;
-        
+
         // Set material
         app.setMaterial(new Material(ambientColor, emissiveColor, diffuseColor, specularColor, shininess));
-        
+
         // Create a ball
         // TODO: Node model = new Sphere(5f * (float) this.scale, app);
 

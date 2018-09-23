@@ -1,8 +1,7 @@
 package nl.tudelft.simulation.dsol.simulators;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 
 /**
@@ -43,7 +42,7 @@ public class DEVSTestModel extends TestModel
             }
             catch (Exception exception)
             {
-                Logger.warn(exception, "constructModel");
+                SimLogger.always().warn(exception, "constructModel");
             }
         }
     }

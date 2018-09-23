@@ -5,16 +5,18 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import org.pmw.tinylog.Level;
-import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.logger.SimTimeFormatter;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.logger.ConsoleLogger;
+import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.logger.Cat;
 
 /**
  * <p>
@@ -61,14 +63,14 @@ public class MM1Queue41SwingApplication extends DSOLApplication
         super(title, panel);
         this.model = model;
         panel.getConsole().setLogLevel(Level.TRACE);
-        panel.getConsole().setLogMessageFormat("{message|indent=4}");
+        // panel.getConsole().setLogMessageFormat("{message|indent=4}");
         try
         {
             devsSimulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
         }
         catch (SimRuntimeException exception)
         {
-            Logger.error(exception, "<init>");
+            SimLogger.always().error(exception, "<init>");
         }
     }
 
@@ -83,24 +85,42 @@ public class MM1Queue41SwingApplication extends DSOLApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        ConsoleLogger.create();
-        ConsoleLogger.setLevel(Level.TRACE);
-        ConsoleLogger.setMessageFormat("{class_name}.{method}:{line} {message|indent=4}");
+        SimLogger.setAllLogLevel(Level.TRACE);
         MM1Queue41Model model = new MM1Queue41Model();
         DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
                 new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 1000.0, model);
         devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
-        new MM1Queue41SwingApplication("MM1 Queue model", new MM1Queue41Panel(model, devsSimulator), model,
-                devsSimulator);
+        SimLogger.setSimulator(devsSimulator);
+        SimTimeFormatter simTimeFormatter = new SimTimeFormatter()
+        {
+            private SimulatorInterface<?, ?, ?> simulator;
+
+            @Override
+            public void setSimulator(final SimulatorInterface<?, ?, ?> simulator)
+            {
+                this.simulator = simulator;
+            }
+
+            @Override
+            public String format(final String message)
+            {
+                return "Message: [" + message + "] at time: [" + this.simulator.getSimulatorTime() + "]";
+            }
+        };
+        simTimeFormatter.setSimulator(devsSimulator);
+        SimLogger.setSimTimeFormatter(simTimeFormatter);
+        MM1Queue41Panel panel = new MM1Queue41Panel(model, devsSimulator);
+        panel.getConsole().setMaxLines(10);
+        new MM1Queue41SwingApplication("MM1 Queue model", panel, model, devsSimulator);
     }
 
     /** stop the simulation. */
     protected final void terminate()
     {
-        Logger.info("average queue length = " + this.model.qN.getSampleMean());
-        Logger.info("average queue wait   = " + this.model.dN.getSampleMean());
-        Logger.info("average utilization  = " + this.model.uN.getSampleMean());
+        SimLogger.always().debug("average queue length = " + this.model.qN.getSampleMean());
+        SimLogger.always().warn("average queue wait   = " + this.model.dN.getSampleMean());
+        SimLogger.always().error("average utilization  = " + this.model.uN.getSampleMean());
     }
 
 }

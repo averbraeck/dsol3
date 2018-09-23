@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -104,7 +105,7 @@ public class EventPerformance implements DSOLModel.TimeDouble
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
         }
     }
 }

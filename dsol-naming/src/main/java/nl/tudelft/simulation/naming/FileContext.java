@@ -13,7 +13,7 @@ import javax.naming.Context;
 import javax.naming.Name;
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Logger;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The FileContext as implementation of the Context interface.
@@ -73,7 +73,7 @@ public class FileContext extends JVMContext implements Serializable
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "saving in FileContext failed");
+            CategoryLogger.always().warn(exception, "saving in FileContext failed");
             throw new NamingException(exception.getMessage());
         }
     }

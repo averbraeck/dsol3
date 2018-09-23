@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -29,8 +30,7 @@ public class BallModel implements DSOLModel.TimeDouble
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> sim)
-            throws SimRuntimeException
+    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> sim) throws SimRuntimeException
     {
         this.simulator = (DEVSSimulatorInterface.TimeDouble) sim;
         for (int i = 0; i < 10; i++)
@@ -41,7 +41,7 @@ public class BallModel implements DSOLModel.TimeDouble
             }
             catch (RemoteException exception)
             {
-                exception.printStackTrace();
+                SimLogger.always().error(exception);
             }
         }
     }

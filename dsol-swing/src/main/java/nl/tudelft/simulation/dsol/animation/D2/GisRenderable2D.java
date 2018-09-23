@@ -12,12 +12,11 @@ import javax.media.j3d.Bounds;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.javel.gisbeans.io.esri.CoordinateTransform;
 import nl.javel.gisbeans.map.MapInterface;
 import nl.javel.gisbeans.map.mapfile.MapFileXMLParser;
 import nl.tudelft.simulation.dsol.animation.Locatable;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.BoundingBox;
@@ -111,7 +110,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -142,7 +141,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -161,7 +160,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -185,7 +184,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "paint");
+            SimLogger.always().warn(exception, "paint");
         }
     }
 
@@ -247,7 +246,7 @@ public class GisRenderable2D implements Renderable2DInterface, Locatable
         }
         catch (Throwable throwable)
         {
-            Logger.warn(throwable, "finalize");
+            SimLogger.always().warn(throwable, "finalize");
         }
     }
 

@@ -3,6 +3,7 @@ package nl.tudelft.simulation.examples.dsol.timesharedcomputer;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.flow.Station;
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventType;
@@ -10,8 +11,8 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 
 /**
  * The Terminal as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. <br>
- * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 1.1 02.04.2003 <br>
@@ -57,12 +58,12 @@ public class Terminal extends Station<Double, Double, SimTimeDouble>
         try
         {
             Object[] args = {object};
-            this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + this.thinkDelay.draw(), this,
-                    this, "releaseObject", args);
+            this.simulator.scheduleEventAbs(this.simulator.getSimulatorTime() + this.thinkDelay.draw(), this, this,
+                    "releaseObject", args);
         }
         catch (SimRuntimeException exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
         }
     }
 

@@ -15,6 +15,7 @@ import java.util.Map;
 import nl.tudelft.simulation.event.ref.Reference;
 import nl.tudelft.simulation.event.ref.StrongReference;
 import nl.tudelft.simulation.event.ref.WeakReference;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The EventProducer forms the reference implementation of the EventProducerInterface. Objects extending this class are
@@ -444,7 +445,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
                 }
                 catch (Exception exception)
                 {
-                    exception.printStackTrace();
+                    CategoryLogger.always().error(exception);
                 }
             }
         }

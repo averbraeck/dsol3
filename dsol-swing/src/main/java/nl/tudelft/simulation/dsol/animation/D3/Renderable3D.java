@@ -14,10 +14,9 @@ import javax.naming.NamingException;
 import javax.vecmath.AxisAngle4d;
 import javax.vecmath.Vector3d;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 import nl.tudelft.simulation.naming.context.ContextUtil;
@@ -119,7 +118,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -167,7 +166,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -238,7 +237,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         catch (RemoteException exception)
         {
             this.rotate.set(new Vector3d(0, 0, 0));
-            Logger.warn(exception, "update");
+            SimLogger.always().warn(exception, "update");
         }
     }
 

@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.examples.dsol.animation.BallAnimation;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -55,7 +56,7 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
         }
         catch (RemoteException exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
         }
     }
 

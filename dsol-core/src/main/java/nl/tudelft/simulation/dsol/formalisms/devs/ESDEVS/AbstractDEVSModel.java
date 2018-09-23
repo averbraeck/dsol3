@@ -7,8 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
@@ -19,7 +18,7 @@ import nl.tudelft.simulation.language.support.ClassUtilV2;
  * AbstractEntity are derived. The DEVSModel provides basic functionality for reporting its state changes through the
  * publish/subscribe mechanism.
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
@@ -236,7 +235,8 @@ public abstract class AbstractDEVSModel extends EventProducer
             }
             catch (IllegalAccessException exception)
             {
-                Logger.error("Tried to fire update for variable {} but got an exception.", field.getName());
+                SimLogger.always().error("Tried to fire update for variable {} but got an exception.",
+                        field.getName());
                 System.err.println(this.getModelName() + " - fireUpdateState: Tried to fire update for variable "
                         + field.getName() + " but got an exception.");
             }
@@ -246,7 +246,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * StateUpdate class. Reports a state update. Right now, it is a modelname - variable name - value tuple.
      * <p>
-     * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
      * reserved.
      * <p>
      * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

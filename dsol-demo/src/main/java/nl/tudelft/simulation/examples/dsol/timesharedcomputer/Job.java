@@ -4,7 +4,8 @@ import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 
 /**
- * The Computer job as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. <br>
+ * The Computer job as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4.
+ * <br>
  * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
  * <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>

@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.hla;
 
 import hla.rti.RTIambassador;
 import nl.tudelft.simulation.language.io.URLResource;
+import nl.tudelft.simulation.logger.CategoryLogger;
 import se.pitch.prti.RTI;
 
 /**
@@ -56,7 +57,7 @@ public class CreateFederation
                             .getResource(fedURL));
         } catch (Exception exception)
         {
-            exception.printStackTrace();
+            CategoryLogger.always().error(exception);
         }
     }
 

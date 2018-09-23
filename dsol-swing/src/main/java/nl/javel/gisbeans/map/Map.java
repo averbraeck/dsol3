@@ -18,6 +18,7 @@ import java.util.List;
 import nl.javel.gisbeans.geom.GisObject;
 import nl.javel.gisbeans.geom.SerializableGeneralPath;
 import nl.javel.gisbeans.geom.SerializableRectangle2D;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.immutablecollections.ImmutableArrayList;
 import nl.tudelft.simulation.immutablecollections.ImmutableHashMap;
 import nl.tudelft.simulation.immutablecollections.ImmutableList;
@@ -232,7 +233,7 @@ public class Map implements MapInterface
         }
         catch (NoninvertibleTransformException e)
         {
-            e.printStackTrace();
+            SimLogger.always().error(e);
         }
 
         // we cache the scale
@@ -369,7 +370,7 @@ public class Map implements MapInterface
             }
             catch (Exception exception)
             {
-                exception.printStackTrace();
+                SimLogger.always().error(exception);
                 throw new GraphicsException(exception.getMessage());
             }
         }

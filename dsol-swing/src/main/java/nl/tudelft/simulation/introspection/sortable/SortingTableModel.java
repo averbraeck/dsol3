@@ -12,7 +12,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.pmw.tinylog.Logger;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.logger.Cat;
 
 /**
  * The SortingTableModel.
@@ -198,7 +199,8 @@ public class SortingTableModel implements TableModel, Sortable
                         }
                         catch (ClassCastException exception)
                         {
-                            Logger.info(exception, "sortSubList - Could not compare {} and {}", current, resultValue);
+                            SimLogger.filter(Cat.SWING).info(exception,
+                                    "sortSubList - Could not compare {} and {}", current, resultValue);
                         }
                     }
                 }
@@ -280,7 +282,8 @@ public class SortingTableModel implements TableModel, Sortable
         }
         if (rowIndex > this.expandedIndex.length)
         {
-            Logger.warn("getValueAt could not retrieve row {} from sorted list. Returning default instead", rowIndex);
+            SimLogger.always()
+                    .warn("getValueAt could not retrieve row {} from sorted list. Returning default instead", rowIndex);
             return this.source.getValueAt(rowIndex, columnIndex);
         }
         return this.source.getValueAt(this.expandedIndex[rowIndex].intValue(), columnIndex);
@@ -308,7 +311,8 @@ public class SortingTableModel implements TableModel, Sortable
     {
         if (rowIndex > this.expandedIndex.length)
         {
-            Logger.warn("setValueAt could not retrieve row {} from sorted list. Ignoring 'setValue' command", rowIndex);
+            SimLogger.always().warn(
+                    "setValueAt could not retrieve row {} from sorted list. Ignoring 'setValue' command", rowIndex);
             return;
         }
         this.source.setValueAt(aValue, this.expandedIndex[rowIndex].intValue(), columnIndex);

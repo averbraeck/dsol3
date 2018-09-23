@@ -9,6 +9,7 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -25,8 +26,8 @@ import nl.tudelft.simulation.event.EventType;
  * realTime. If the executionTime exceeds the timeStep, a catchup mechanism can be triggered to make up lost time in
  * consecutive steps.
  * <p>
- * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+ * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -205,7 +206,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                     }
                     catch (Exception exception)
                     {
-                        exception.printStackTrace();
+                        SimLogger.always().error(exception);
                         if (this.isPauseOnError())
                         {
                             this.stop();

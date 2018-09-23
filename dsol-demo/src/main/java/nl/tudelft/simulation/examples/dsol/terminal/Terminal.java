@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -17,8 +18,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * A simple model of a container terminal. <br>
- * (c) copyright 2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * (c) copyright 2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @version 2.0 21.09.2003 <br>
@@ -129,7 +129,7 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
             }
             catch (SimRuntimeException exception)
             {
-                exception.printStackTrace();
+                SimLogger.always().error(exception);
             }
         }
     }

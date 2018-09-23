@@ -6,9 +6,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
@@ -63,7 +62,7 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
         }
         catch (NamingException exception)
         {
-            Logger.warn(exception, "<init>");
+            SimLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -82,7 +81,8 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
                 }
                 catch (RemoteException exception)
                 {
-                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
+                    SimLogger.always().warn(exception,
+                            "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;
@@ -95,7 +95,8 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
                 }
                 catch (RemoteException exception)
                 {
-                    Logger.warn(exception, "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
+                    SimLogger.always().warn(exception,
+                            "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
                 }
                 this.endOfReplication();
                 return;
@@ -138,7 +139,7 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "endOfReplication");
+            SimLogger.always().warn(exception, "endOfReplication");
         }
     }
 }

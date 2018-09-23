@@ -23,12 +23,12 @@ import javax.naming.event.EventContext;
 import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingListener;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventProducerInterface;
 import nl.tudelft.simulation.event.EventType;
+import nl.tudelft.simulation.logger.Cat;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The JVMContext as implementation of the Context interface. The JVM context is an in-memory context implementation
@@ -314,7 +314,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            Logger.info("list: name==null");
+            CategoryLogger.filter(Cat.NAMING).info("list: name==null");
         }
         return new NamingList<NameClassPair>(true);
     }
@@ -325,7 +325,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            Logger.info("listBindings: name==null");
+            CategoryLogger.filter(Cat.NAMING).info("listBindings: name==null");
         }
         return new NamingList<Binding>(false);
     }
@@ -336,7 +336,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            Logger.info("listBindings: name==null");
+            CategoryLogger.filter(Cat.NAMING).info("listBindings: name==null");
         }
         return new NamingList<Binding>(false);
     }
@@ -397,7 +397,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            Logger.info("getNameParser: name==null");
+            CategoryLogger.filter(Cat.NAMING).info("getNameParser: name==null");
         }
         return this.parser;
     }
@@ -408,7 +408,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     {
         if (name == null)
         {
-            Logger.info("getNameParser: name==null");
+            CategoryLogger.filter(Cat.NAMING).info("getNameParser: name==null");
         }
         return this.parser;
     }

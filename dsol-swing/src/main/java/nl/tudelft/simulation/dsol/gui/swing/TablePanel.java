@@ -1,13 +1,13 @@
 package nl.tudelft.simulation.dsol.gui.swing;
 
-import info.clearthought.layout.TableLayout;
-import info.clearthought.layout.TableLayoutConstants;
-
 import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import info.clearthought.layout.TableLayout;
+import info.clearthought.layout.TableLayoutConstants;
 
 /**
  * <br>

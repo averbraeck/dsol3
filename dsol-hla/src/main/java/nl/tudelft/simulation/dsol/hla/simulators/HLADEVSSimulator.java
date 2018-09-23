@@ -11,6 +11,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
+import nl.tudelft.simulation.logger.CategoryLogger;
 import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.LogicalTimeDouble;
 import se.pitch.prti.LogicalTimeIntervalDouble;
@@ -191,7 +192,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
             }
         } catch (Exception exception)
         {
-            Logger.error("timeAdvanceRequest", exception);
+            CategoryLogger.always().error("timeAdvanceRequest", exception);
         }
     }
 
@@ -211,7 +212,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
             return lookahead;
         } catch (Exception e)
         {
-            Logger.error("Failed to retrieve lookahead: " + e, e);
+            CategoryLogger.always().error("Failed to retrieve lookahead: " + e, e);
             return -1;
         }
     }
@@ -230,7 +231,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                             lookAheadTime));
         } catch (Exception exception)
         {
-            Logger.warn("setLookAheadTime", exception);
+            CategoryLogger.always().warn("setLookAheadTime", exception);
         }
     }
 
@@ -242,7 +243,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
      */
     public synchronized void run()
     {
-        Logger.trace(this, "run", "Commenced run");
+        CategoryLogger.filter(Cat.DSOL).trace(this, "run", "Commenced run");
         while (isRunning()
                         && (this.grant >= this.eventList.first()
                                         .getAbsoluteExecutionTime()))
@@ -258,7 +259,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                     event.execute();
                 } catch (Exception exception)
                 {
-                    Logger.error("run", exception);
+                    CategoryLogger.always().error("run", exception);
                 }
             }
         }
@@ -297,18 +298,18 @@ public class HLADEVSSimulator extends DEVSSimulator implements
         {
             if (this.requestState == START_REQUEST)
             {
-                Logger.trace(this, "", "GRANTED to " + arg0
+                CategoryLogger.filter(Cat.DSOL).trace(this, "", "GRANTED to " + arg0
                                 + ": starting. Thread name: "
                                 + Thread.currentThread().getName());
                 this.start();
             } else
             {
-                Logger.trace(this, "", "GRANTED to " + arg0 + ": stepping");
+                CategoryLogger.filter(Cat.DSOL).trace(this, "", "GRANTED to " + arg0 + ": stepping");
                 this.step();
             }
         } catch (SimRuntimeException exception)
         {
-            Logger.error("timeAdvanceGrant", exception);
+            CategoryLogger.always().error("timeAdvanceGrant", exception);
         }
     }
     
@@ -347,7 +348,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements
                 Logger.severe(this,
                                 "FAILURE during internal interaction processing scheduling:"
                                                 + e, e);
-                e.printStackTrace();
+                CategoryLogger.always().error(exception);
             }
             return;
         }

@@ -7,10 +7,10 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -27,6 +27,7 @@ import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
 import nl.tudelft.simulation.language.reflection.SerializableConstructor;
+import nl.tudelft.simulation.logger.Cat;
 
 /**
  * This class defines a generator <br>
@@ -131,8 +132,8 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
                 for (int i = 0; i < this.batchSize.draw(); i++)
                 {
                     Object object = this.constructor.deSerialize().newInstance(specialConstructorArguments);
-                    Logger.trace("generate created {}th instance of {}", this.number 
-                            , this.constructor.deSerialize().getDeclaringClass());
+                    SimLogger.filter(Cat.DSOL).trace("generate created {}th instance of {}", this.number,
+                            this.constructor.deSerialize().getDeclaringClass());
                     this.fireEvent(Generator.CREATE_EVENT, 1);
                     this.releaseObject(object);
                 }
@@ -235,7 +236,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "setStartTime");
+            SimLogger.always().warn(exception, "setStartTime");
         }
     }
 

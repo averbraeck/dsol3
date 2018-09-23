@@ -10,7 +10,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * AbstractDEVSPortModel class. Adds named ports to the abstract DEVS model.
  * <p>
- * Copyright (c) 2002-2018  Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.

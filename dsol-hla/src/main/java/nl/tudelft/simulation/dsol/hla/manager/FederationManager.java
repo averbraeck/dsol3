@@ -14,6 +14,7 @@ import nl.tudelft.simulation.dsol.hla.Barrier;
 import nl.tudelft.simulation.dsol.hla.DSOLFederateAmbassador;
 import nl.tudelft.simulation.dsol.hla.callBack.RTIAmbassador;
 import nl.tudelft.simulation.language.io.URLResource;
+import nl.tudelft.simulation.logger.CategoryLogger;
 import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.RTI;
 
@@ -128,7 +129,7 @@ public class FederationManager extends DSOLFederateAmbassador
 
         } catch (Exception exception)
         {
-            exception.printStackTrace();
+            CategoryLogger.always().error(exception);
         }
     }
 
@@ -143,7 +144,7 @@ public class FederationManager extends DSOLFederateAmbassador
             }
         } catch (Exception exception)
         {
-            Logger.warn("federationSynchronized", exception);
+            CategoryLogger.always().warn("federationSynchronized", exception);
         }
     }
 
@@ -166,7 +167,7 @@ public class FederationManager extends DSOLFederateAmbassador
             }
         } catch (Exception exception)
         {
-            Logger.warn("discoverObjectInstance", exception);
+            CategoryLogger.always().warn("discoverObjectInstance", exception);
         }
     }
 
@@ -210,7 +211,7 @@ public class FederationManager extends DSOLFederateAmbassador
             new FederationManager(properties, numberOfFeds);
         } catch (Throwable exception)
         {
-            exception.printStackTrace();
+            CategoryLogger.always().error(exception);
         }
     }
     /** {@inheritDoc} */ @Override public  void announceSynchronizationPoint(String synchronizationPointLabel,

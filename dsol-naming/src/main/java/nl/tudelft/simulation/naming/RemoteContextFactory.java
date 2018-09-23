@@ -13,7 +13,7 @@ import javax.naming.Context;
 import javax.naming.event.EventContext;
 import javax.naming.spi.InitialContextFactory;
 
-import org.pmw.tinylog.Logger;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * A factory for RemoteContextClient instances, automatically invoked by JNDI when the correct jndi.properties file has
@@ -109,7 +109,7 @@ public class RemoteContextFactory implements InitialContextFactory
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "getInitialContext");
+            CategoryLogger.always().warn(exception, "getInitialContext");
             return null;
         }
     }

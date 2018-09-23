@@ -7,8 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
-import org.pmw.tinylog.Logger;
-
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.introspection.gui.ExpandButton;
 
 /**
@@ -40,7 +39,7 @@ public class ExpandButtonEditor extends AbstractCellEditor implements TableCellE
         }
         else
         {
-            Logger.warn("getTableCellEditorComponent: Expected value to be an ExpandButton, but found: {}", value);
+            SimLogger.always().warn("getTableCellEditorComponent: Expected value to be an ExpandButton, but found: {}", value);
         }
         return (Component) value;
     }

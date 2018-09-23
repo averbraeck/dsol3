@@ -1,9 +1,9 @@
 package nl.tudelft.simulation.jstats.charts.histogram;
 
+import org.jfree.data.general.AbstractDataset;
+
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
-
-import org.jfree.data.general.AbstractDataset;
 
 /**
  * The serie defines a histogram series containing the entries of a set.

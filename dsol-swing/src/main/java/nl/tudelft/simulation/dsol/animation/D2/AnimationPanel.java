@@ -25,10 +25,9 @@ import javax.naming.event.NamingExceptionEvent;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point4i;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.mouse.InputListener;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
@@ -224,7 +223,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
                 }
                 catch (Exception exception)
                 {
-                    Logger.warn(exception, "notify");
+                    SimLogger.always().warn(exception, "notify");
                 }
             }
         }
@@ -270,7 +269,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     @Override
     public void namingExceptionThrown(final NamingExceptionEvent namingEvent)
     {
-        Logger.warn(namingEvent.getException(), "namingExceptionThrown");
+        SimLogger.always().warn(namingEvent.getException(), "namingExceptionThrown");
     }
 
     /**

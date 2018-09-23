@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.logger.Cat;
 
 /**
  * The schedule is an extension to the generate which accepts a schedule of interarrival times. Instead of generating
@@ -19,8 +19,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * use to draw the interarrival times. If no values have to be generated in a certain interval, use a large interarrival
  * time value in the distribution function, or use DistConstant(stream, 1E20) to indicate that the next drawing will
  * take place <i>after </i> the end of the interval. <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -36,7 +35,7 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
 {
     /** */
     private static final long serialVersionUID = 20140805L;
-    
+
     /**
      * schedule is a time sorted map of distributions.
      */
@@ -91,12 +90,12 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
                 this.simulator.scheduleEvent(
                         new SimEvent<T>(this.schedule.firstKey(), this, this, "changeIntervalTime", null));
                 this.generate(this.constructorArguments);
-                Logger.trace("changeIntervalTime: set the intervalTime to {}", this.interval);
+                SimLogger.filter(Cat.DSOL).trace("changeIntervalTime: set the intervalTime to {}", this.interval);
             }
         }
         catch (Exception exception)
         {
-            Logger.warn(exception, "changeIntervalTime");
+            SimLogger.always().warn(exception, "changeIntervalTime");
         }
     }
 }

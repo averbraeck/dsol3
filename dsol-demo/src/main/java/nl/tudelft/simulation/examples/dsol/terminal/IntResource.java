@@ -8,9 +8,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.pmw.tinylog.Logger;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
@@ -19,8 +18,7 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * A resource defines a shared and limited amount.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -158,7 +156,7 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
         catch (RemoteException remoteException)
         {
             // This exception cannot occur.
-            Logger.error(remoteException, "setCapacity");
+            SimLogger.always().error(remoteException, "setCapacity");
         }
     }
 

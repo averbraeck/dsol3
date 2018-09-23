@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.gui.swing.TablePanel;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
@@ -98,7 +99,7 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
         }
         catch (RemoteException exception)
         {
-            exception.printStackTrace();
+            SimLogger.always().error(exception);
         }
     }
 

@@ -20,6 +20,7 @@ import nl.tudelft.simulation.dsol.hla.callBack.RTIAmbassador;
 import nl.tudelft.simulation.dsol.hla.simulators.HLADEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.io.URLResource;
+import nl.tudelft.simulation.logger.CategoryLogger;
 import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.LogicalTimeDouble;
 import se.pitch.prti.LogicalTimeIntervalDouble;
@@ -69,7 +70,7 @@ public class HLAModel extends DSOLFederateAmbassador implements DSOLModel
             Logger.info(this,"<init>","Ready intialize");
         } catch (Exception exception)
         {
-            Logger.warn(exception, "<init>");
+            CategoryLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -115,7 +116,7 @@ public class HLAModel extends DSOLFederateAmbassador implements DSOLModel
             Logger.info(this,"constructModel","Let's rock & roll");
         } catch (Exception exception)
         {
-            exception.printStackTrace();
+            CategoryLogger.always().error(exception);
             throw new SimRuntimeException(exception);
         }
     }
@@ -192,7 +193,7 @@ public class HLAModel extends DSOLFederateAmbassador implements DSOLModel
             experiment.start();
         } catch (Exception exception)
         {
-            exception.printStackTrace();
+            CategoryLogger.always().error(exception);
         }
     }
 }

@@ -5,8 +5,7 @@ import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
 /**
  * The CachingNumericalIntegrator is the basis for an integrator that needs access to previously calculated values of
  * y', e.g. y'_(k-1), y'_(k-2), etc. <br>
- * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.

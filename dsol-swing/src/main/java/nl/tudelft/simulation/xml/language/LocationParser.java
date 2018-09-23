@@ -3,9 +3,9 @@ package nl.tudelft.simulation.xml.language;
 import java.io.IOException;
 import java.net.URL;
 
-import nl.tudelft.simulation.language.d3.DirectedPoint;
-
 import org.jdom2.Element;
+
+import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * <br>
