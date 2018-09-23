@@ -12,11 +12,8 @@ import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
 import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.logger.SimTimeFormatter;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.logger.Cat;
 
 /**
  * <p>
@@ -92,35 +89,16 @@ public class MM1Queue41SwingApplication extends DSOLApplication
                 new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 1000.0, model);
         devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
         SimLogger.setSimulator(devsSimulator);
-        SimTimeFormatter simTimeFormatter = new SimTimeFormatter()
-        {
-            private SimulatorInterface<?, ?, ?> simulator;
-
-            @Override
-            public void setSimulator(final SimulatorInterface<?, ?, ?> simulator)
-            {
-                this.simulator = simulator;
-            }
-
-            @Override
-            public String format(final String message)
-            {
-                return "Message: [" + message + "] at time: [" + this.simulator.getSimulatorTime() + "]";
-            }
-        };
-        simTimeFormatter.setSimulator(devsSimulator);
-        SimLogger.setSimTimeFormatter(simTimeFormatter);
         MM1Queue41Panel panel = new MM1Queue41Panel(model, devsSimulator);
-        panel.getConsole().setMaxLines(10);
         new MM1Queue41SwingApplication("MM1 Queue model", panel, model, devsSimulator);
     }
 
     /** stop the simulation. */
     protected final void terminate()
     {
-        SimLogger.always().debug("average queue length = " + this.model.qN.getSampleMean());
-        SimLogger.always().warn("average queue wait   = " + this.model.dN.getSampleMean());
-        SimLogger.always().error("average utilization  = " + this.model.uN.getSampleMean());
+        SimLogger.always().info("average queue length = " + this.model.qN.getSampleMean());
+        SimLogger.always().info("average queue wait   = " + this.model.dN.getSampleMean());
+        SimLogger.always().info("average utilization  = " + this.model.uN.getSampleMean());
     }
 
 }
