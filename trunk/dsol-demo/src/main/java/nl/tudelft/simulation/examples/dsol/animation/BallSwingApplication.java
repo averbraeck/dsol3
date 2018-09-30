@@ -41,7 +41,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
  * @version Aug 15, 2014 <br>
- * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class BallSwingApplication extends DSOLApplication
 {

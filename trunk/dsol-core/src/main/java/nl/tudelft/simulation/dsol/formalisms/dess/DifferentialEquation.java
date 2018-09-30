@@ -13,12 +13,12 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
 /**
  * The Differential equation provides a reference implementation of the differential equation.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:46 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.

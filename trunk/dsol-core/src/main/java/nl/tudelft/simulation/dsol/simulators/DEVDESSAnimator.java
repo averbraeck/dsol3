@@ -7,6 +7,7 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
+import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -22,12 +23,13 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * The reference implementation of the animator.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
@@ -42,8 +44,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
     /**
      * @param initialTimeStep the initial time step to use in the integration.
+     * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
      */
-    public DEVDESSAnimator(final R initialTimeStep)
+    public DEVDESSAnimator(final R initialTimeStep) throws SimRuntimeException
     {
         super(initialTimeStep);
     }
@@ -103,9 +106,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
                 synchronized (super.semaphore)
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
+                    if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
+                    {
+                        super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                                event.getAbsoluteExecutionTime().get());
+                    }
                     this.simulatorTime = event.getAbsoluteExecutionTime();
-                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                            this.simulatorTime.get());
                     try
                     {
                         event.execute();
@@ -139,8 +145,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
+         * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public TimeDouble(final Double initialTimeStep)
+        public TimeDouble(final Double initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
@@ -155,8 +162,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
+         * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public TimeFloat(final Float initialTimeStep)
+        public TimeFloat(final Float initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
@@ -171,8 +179,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
+         * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public TimeLong(final Long initialTimeStep)
+        public TimeLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
@@ -187,8 +196,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
+         * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public DoubleUnit(final Duration initialTimeStep)
+        public DoubleUnit(final Duration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
@@ -203,8 +213,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
+         * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public TimeFloatUnit(final FloatDuration initialTimeStep)
+        public TimeFloatUnit(final FloatDuration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
@@ -219,8 +230,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
+         * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public CalendarDouble(final Duration initialTimeStep)
+        public CalendarDouble(final Duration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
@@ -235,8 +247,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
+         * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public CalendarFloat(final FloatDuration initialTimeStep)
+        public CalendarFloat(final FloatDuration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }
@@ -251,8 +264,9 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep the initial time step to use in the integration.
+         * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public CalendarLong(final Long initialTimeStep)
+        public CalendarLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
         }

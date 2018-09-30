@@ -30,15 +30,17 @@ import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
+import nl.tudelft.simulation.logger.Cat;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
- * The Experiment specifies the parameters for a simulation experiment <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * The Experiment specifies the parameters for a simulation experiment.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author Peter Jacobs, Alexander Verbraeck
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -158,7 +160,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     {
         try
         {
-            this.notify(new Event(SimulatorInterface.END_OF_REPLICATION_EVENT, this.simulator, Boolean.TRUE));
+            this.notify(new Event(SimulatorInterface.END_REPLICATION_EVENT, this.simulator, Boolean.TRUE));
         }
         catch (RemoteException remoteException)
         {
@@ -173,10 +175,10 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     {
         if (!this.subscribed)
         {
-            this.simulator.addListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT, false);
+            this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, false);
             this.subscribed = true;
         }
-        if (event.getType().equals(SimulatorInterface.END_OF_REPLICATION_EVENT))
+        if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
         {
             if (this.currentReplication < (this.getReplications().size() - 1))
             {
@@ -195,6 +197,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
             }
             else
             {
+                SimLogger.filter(Cat.DSOL).debug("Last replication carried out");
                 // There is no experiment to run anymore
                 // XXX Concurrent Modification Exception
                 // this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT, true);

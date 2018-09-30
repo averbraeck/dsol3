@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.logger.Cat;
 
 /**
@@ -11,44 +12,30 @@ import nl.tudelft.simulation.logger.Cat;
  * receiver (e.g. in case of the model being the highest coupled model in the simulation, the event is currently not
  * transferred.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
- * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
- * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
- * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
- * of this software, even if advised of the possibility of such damage.
- * @version Oct 17, 2009 <br>
+ * Copyright (c) 2009-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
- * @param <T> The type of messages the port produces.
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
+ * @param <TYPE> The type of messages the port produces.
  */
-public class OutputPort<T> implements OutputPortInterface<T>
+public class OutputPort<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>, TYPE>
+        implements OutputPortInterface<A, R, T, TYPE>
 {
     /** The model to which the port links. */
-    private AbstractDEVSModel model;
+    private AbstractDEVSModel<A, R, T> model;
 
     /**
      * Constructor for the output port where the model is a coupled model.
      * @param coupledModel the coupled model.
      */
-    public OutputPort(final CoupledModel coupledModel)
+    public OutputPort(final CoupledModel<A, R, T> coupledModel)
     {
         this.model = coupledModel;
     }
@@ -57,7 +44,7 @@ public class OutputPort<T> implements OutputPortInterface<T>
      * Constructor for the output port where the model is an atomic model.
      * @param atomicModel the atomic model.
      */
-    public OutputPort(final AtomicModel atomicModel)
+    public OutputPort(final AtomicModel<A, R, T> atomicModel)
     {
         this.model = atomicModel;
     }
@@ -66,7 +53,7 @@ public class OutputPort<T> implements OutputPortInterface<T>
      * {@inheritDoc}
      */
     @Override
-    public final void send(final T value)
+    public final void send(final TYPE value)
     {
         if (this.model.parentModel != null)
         {
@@ -75,11 +62,7 @@ public class OutputPort<T> implements OutputPortInterface<T>
                 SimLogger.filter(Cat.DSOL).debug("send: TIME IS {}", this.model.getSimulator().getSimulatorTime());
                 this.model.parentModel.transfer(this, value);
             }
-            catch (RemoteException e)
-            {
-                SimLogger.always().error(e);
-            }
-            catch (SimRuntimeException e)
+            catch (RemoteException | SimRuntimeException e)
             {
                 SimLogger.always().error(e);
             }
@@ -91,7 +74,7 @@ public class OutputPort<T> implements OutputPortInterface<T>
      * {@inheritDoc}
      */
     @Override
-    public final AbstractDEVSModel getModel()
+    public final AbstractDEVSModel<A, R, T> getModel()
     {
         return this.model;
     }

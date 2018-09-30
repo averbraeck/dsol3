@@ -10,13 +10,13 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * The Counter class defines a statistics event counter.
  * <p>
- * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
- * @since 1.5
  */
 public class Counter extends StatisticsObject implements EventListenerInterface
 {
@@ -30,12 +30,15 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     public static final EventType N_EVENT = new EventType("N_EVENT");
 
     /** count represents the value of the counter. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected long count = Long.MIN_VALUE;
 
     /** n represents the number of measurements. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected long n = Long.MIN_VALUE;
 
     /** description refers to the title of this counter. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected String description;
 
     /** the semaphore. */
@@ -52,7 +55,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * Returns the current counter value
+     * Returns the current counter value.
      * @return long the counter value
      */
     public long getCount()
@@ -61,7 +64,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * Returns the current number of observations
+     * Returns the current number of observations.
      * @return long the number of observations
      */
     public long getN()
@@ -99,7 +102,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * initializes the counter
+     * initializes the counter.
      */
     public void initialize()
     {
@@ -120,7 +123,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * sets the count
+     * sets the count.
      * @param count the value
      */
     private void setCount(final long count)
@@ -130,8 +133,8 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * sets n
-     * @param n the number of measurements
+     * sets n.
+     * @param n the number of measurements.
      */
     private void setN(final long n)
     {
@@ -140,7 +143,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     }
 
     /**
-     * returns the description of the counter
+     * returns the description of the counter.
      * @return String the description
      */
     public String getDescription()

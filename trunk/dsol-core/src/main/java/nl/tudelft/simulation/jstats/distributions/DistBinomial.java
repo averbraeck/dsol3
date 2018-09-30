@@ -8,18 +8,19 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * <a href="http://mathworld.wolfram.com/BinomialDistribution.html">
  * http://mathworld.wolfram.com/BinomialDistribution.html </a>
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
- * @since 1.5
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class DistBinomial extends DistDiscrete
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** n is the n-parameter of the Binomial distribution. */
     private long n;
 
@@ -29,7 +30,7 @@ public class DistBinomial extends DistDiscrete
     /**
      * constructs a Binomial distribution. Number of successes in t independent Bernoulli trials with probability p of
      * sucess on each trial.
-     * @param stream the numberstream
+     * @param stream the random number stream
      * @param n is the n-parameter of the Binomial distribution
      * @param p is the p-parameter of the Binomial distribution
      */

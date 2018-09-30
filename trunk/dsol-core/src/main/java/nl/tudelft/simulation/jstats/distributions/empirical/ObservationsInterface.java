@@ -5,15 +5,13 @@ import java.util.List;
 /**
  * The observations interface is an interface for empirical observations to be used in JStats.
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:41 $
- * @since 1.5
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public interface ObservationsInterface
 {
@@ -64,13 +62,13 @@ public interface ObservationsInterface
     boolean contains(Number object, byte type);
 
     /**
-     * Returns the observations
+     * Returns the observations.
      * @return the list of observations
      */
     List<Number> getObservations();
 
     /**
-     * Returns the observations
+     * Returns the observations.
      * @return the list of observations
      */
     List<Double> getCumProbabilities();
@@ -78,7 +76,7 @@ public interface ObservationsInterface
     /**
      * Returns the entry to which the structure maps the specific object. Returns <tt>null</tt> if the structure
      * contains no entry for the object. The object might either refer to an observation or to a probability. If
-     * multiple entries match the search, there is no garantuee which entry is returned.
+     * multiple entries match the search, there is no guarantee which entry is returned.
      * @param object entry whose associated entry is to be returned.
      * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @return the entries which comply.
@@ -89,7 +87,7 @@ public interface ObservationsInterface
      * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not
      * exists, returns the entry for the greatest object less than the specified object; if no such entry exists (i.e.,
      * the least object in the Tree is greater than the specified object), returns <tt>null</tt>. If multiple entries
-     * match the search, there is no garantuee which entry is returned.
+     * match the search, there is no guarantee which entry is returned.
      * @param object object whose next object associated value is to be returned.
      * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive if inclusive and structure contains object object is returned
@@ -102,7 +100,7 @@ public interface ObservationsInterface
      * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not
      * exists, returns the entry for the least object greater than the specified object; if no such entry exists (i.e.,
      * the greatest object in the Tree is less than the specified object), returns <tt>null</tt>. If multiple entries
-     * match the search, there is no garantuee which entry is returned.
+     * match the search, there is no guarantee which entry is returned.
      * @param object object whose associated value is to be returned.
      * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive if inclusive and structure contains object object is returned
@@ -119,8 +117,7 @@ public interface ObservationsInterface
     ObservationsInterface.Entry get(int index);
 
     /**
-     * A structure entry (observation-cummulative probability pair).
-     * @since 1.5
+     * A structure entry (observation-cumulative probability pair).
      */
     interface Entry
     {
@@ -131,8 +128,8 @@ public interface ObservationsInterface
         Number getObservation();
 
         /**
-         * Returns the cummulative probability corresponding to this entry.
-         * @return the cummulative probability corresponding to this entry.
+         * Returns the cumulative probability corresponding to this entry.
+         * @return the cumulative probability corresponding to this entry.
          */
         Double getCumProbability();
     }

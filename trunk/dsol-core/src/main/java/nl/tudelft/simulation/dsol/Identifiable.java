@@ -1,12 +1,15 @@
 package nl.tudelft.simulation.dsol;
 
 /**
- * Interface for an identifiable class, which can return an id. Preferably the id is unique in a certain context. <br>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+ * Interface for an identifiable class, which can return an id. Preferably the id is unique in a certain context. 
+ * <p>
+ * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
- * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @version Apr 21, 2016
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <T> the type of Id that is returned by an Identifiable, e.g. String
  */
 public interface Identifiable<T>
@@ -21,7 +24,7 @@ public interface Identifiable<T>
      * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
      * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
-     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      * @version Apr 21, 2016
      */
     public interface String extends Identifiable<String>
@@ -35,7 +38,7 @@ public interface Identifiable<T>
      * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
      * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
-     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      * @version Apr 21, 2016
      */
     public interface Long extends Identifiable<Long>

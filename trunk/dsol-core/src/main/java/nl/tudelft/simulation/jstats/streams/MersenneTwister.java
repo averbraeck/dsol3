@@ -2,26 +2,26 @@ package nl.tudelft.simulation.jstats.streams;
 
 /**
  * A java implementation of the Mersenne Twister pseudo random number generator.
- * <P>
+ * <p>
  * This is a Java version of the C-program for MT19937: Integer version. genrand() generates one pseudorandom unsigned
  * integer (32bit) which is uniformly distributed among 0 to 2^32-1 for each call. sgenrand(seed) set initial values to
  * the working area of 624 words. (seed is any 32-bit integer except for 0).
+ * </p>
  * <p>
  * Orignally Coded by Takuji Nishimura, considering the suggestions by Topher Cooper and Marc Rieffel in July-Aug. 1997.
- * More information can be found at <A HREF="http://www.math.keio.ac.jp/matumoto/emt.html">
- * http://www.math.keio.ac.jp/matumoto/emt.html </A>.
- * <P>
- * Makoto Matsumoto and Takuji Nishimura, the original authors ask "When you use this, send an email to:
- * matumoto@math.keio.ac.jp with an appropriate reference to your work" You might also point out this was a translation.
+ * More information can be found at <a href="http://www.math.keio.ac.jp/matumoto/emt.html">
+ * http://www.math.keio.ac.jp/matumoto/emt.html</a>. Makoto Matsumoto and Takuji Nishimura, the original authors ask
+ * "When you use this, send an email to: matumoto@math.keio.ac.jp with an appropriate reference to your work" You might
+ * also point out this was a translation.
+ * </p>
  * <p>
- * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:54 $
- * @since 1.5
  */
 public class MersenneTwister extends RandomNumberGenerator
 {

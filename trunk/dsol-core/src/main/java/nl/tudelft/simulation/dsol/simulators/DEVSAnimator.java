@@ -7,6 +7,7 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
+import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -22,12 +23,13 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * The reference implementation of the animator.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
@@ -88,9 +90,12 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
                 synchronized (super.semaphore)
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
+                    if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
+                    {
+                        super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                                event.getAbsoluteExecutionTime().get());
+                    }
                     this.simulatorTime = event.getAbsoluteExecutionTime();
-                    this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                            this.simulatorTime.get());
                     try
                     {
                         event.execute();
@@ -100,7 +105,14 @@ public class DEVSAnimator<A extends Comparable<A>, R extends Number & Comparable
                         SimLogger.always().error(exception);
                         if (this.isPauseOnError())
                         {
-                            this.stop();
+                            try
+                            {
+                                this.stop();
+                            }
+                            catch (SimRuntimeException stopException)
+                            {
+                                SimLogger.always().error(stopException);
+                            }
                         }
                     }
                 }

@@ -1,5 +1,5 @@
 /**
- * DSOL; A DISTRIBUTED JAVA BASED DISCRETE EVENT SIMULATION ARCHITECTURE.
+ * <H1>DSOL; A DISTRIBUTED JAVA BASED DISCRETE EVENT SIMULATION ARCHITECTURE</H1>
  * <p>
  * Peter H.M. Jacobs <BR>
  * Niels A. Lang <BR>
@@ -305,7 +305,7 @@
  * created it. In this way active user-system interaction can be implemented.
  * </p>
  * <H3>OBTAINING THE SOFTWARE</H3> The latest version of the software including its code, can be downloaded from the web
- * at <a href="https://simulation.tudelft.nl/dsol/dsol/index.html">https://simulation.tudelft.nl/dsol/dsol/
- * index.html</a>. License information, tutorials and examples can be downloaded and reactions are welcome.
+ * at <a href="https://simulation.tudelft.nl/dsol/3.0/index.html">https://simulation.tudelft.nl/dsol/3.0/index.html</a>.
+ * License information, tutorials and examples can be downloaded and reactions are welcome.
  */
 package nl.tudelft.simulation.dsol;

@@ -4,31 +4,34 @@ import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
 
 /**
- * The DifferentialEquation is the abstract basis for
+ * The DifferentialEquation is the abstract basis for the DESS formalism.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:41 $
- * @since 1.5
  */
 public abstract class DifferentialEquation extends EventProducer implements DifferentialEquationInterface
 {
+    /** */
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * the integrator
-     */
+    /** the numerical integrator for the differential equations. */
     private NumericalIntegrator integrator = null;
 
-    /** the initial value array */
+    /** the initial value array. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double[] y0 = null;
 
-    /** a timeStep. */
+    /** the timeStep. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double timeStep = Double.NaN;
 
     /** the first x value to start integration. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double x0 = Double.NaN;
 
     /**
@@ -90,13 +93,14 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     }
 
     /**
-     * integrates Y
+     * integrates Y.
      * @param x the x-value
-     * @param initialX the initial X value
-     * @param initialY the initial Y value
+     * @param initialX the initial X value, non-final (will be updated)
+     * @param initialY the initial Y value, non-final (will be updated)
      * @return the new Y value
      */
-    protected double[] integrateY(final double x, double initialX, double[] initialY)
+    @SuppressWarnings("checkstyle:finalparameters")
+    protected double[] integrateY(final double x, /* non-final */ double initialX, /* non-final */ double[] initialY)
     {
         // we request the new value from the integrator.
         while (x > initialX + this.timeStep)

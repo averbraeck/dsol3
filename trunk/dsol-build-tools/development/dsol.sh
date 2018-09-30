@@ -14,8 +14,8 @@ SVNCOMMENT=$4
 
 cd /cygdrive/e/java/dsol300/workspace
 
-MODULES="dsol-build-tools dsol dsol-base dsol-event dsol-naming dsol-interpreter dsol-core dsol-introspection dsol-swing dsol-web dsol-fx dsol-akka dsol-demo"
-# dsol-hla dsol-zmq
+MODULES="dsol-build-tools dsol dsol-base dsol-event dsol-naming dsol-interpreter dsol-core dsol-introspection dsol-swing dsol-web dsol-demo"
+# dsol-hla dsol-zmq dsol-akka
 
 
 # check preconditions
@@ -120,7 +120,8 @@ svn delete https://svn.tbm.tudelft.nl/DSOL3/release/$DEPLOYVERSION -m "delete in
 svn mkdir https://svn.tbm.tudelft.nl/DSOL3/release/$DEPLOYVERSION -m "$SVNCOMMENT"
 
 
-# copy dsol-hla and dsol-zmq projects (not recompiled or committed yet)
+# copy dsol-akka, dsol-hla and dsol-zmq projects (not recompiled or committed yet)
+svn copy -rHEAD https://svn.tbm.tudelft.nl/DSOL3/trunk/dsol-akka https://svn.tbm.tudelft.nl/DSOL3/release/$DEPLOYVERSION -m "$SVNCOMMENT"
 svn copy -rHEAD https://svn.tbm.tudelft.nl/DSOL3/trunk/dsol-hla https://svn.tbm.tudelft.nl/DSOL3/release/$DEPLOYVERSION -m "$SVNCOMMENT"
 svn copy -rHEAD https://svn.tbm.tudelft.nl/DSOL3/trunk/dsol-zmq https://svn.tbm.tudelft.nl/DSOL3/release/$DEPLOYVERSION -m "$SVNCOMMENT"
 

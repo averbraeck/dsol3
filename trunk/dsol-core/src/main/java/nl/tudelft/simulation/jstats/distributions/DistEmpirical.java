@@ -8,18 +8,21 @@ import nl.tudelft.simulation.jstats.distributions.empirical.ObservationsInterfac
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The histogram specifies a histogram chart for the DSOL framework.
+ * The empirical distribution is a distribution based on a sorted list of observations.
  * <p>
- * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
- * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:53 $
- * @since 1.5
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class DistEmpirical extends DistContinuous
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** is the distribution grouped? */
     private ObservationsInterface observations = null;
 
@@ -63,13 +66,13 @@ public class DistEmpirical extends DistContinuous
      * @param stream the stream to use
      * @param observations the observations underlying this empirical distribution. The observations do not need to be
      *            sorted. Double observations are allowed and are used.
-     * @param cummulative are the probabilities cummulative?
+     * @param cumulative are the probabilities cumulative?
      */
     public DistEmpirical(final StreamInterface stream, final SortedMap<Number, Double> observations,
-            final boolean cummulative)
+            final boolean cumulative)
     {
         super(stream);
-        this.observations = new Observations(observations, cummulative);
+        this.observations = new Observations(observations, cumulative);
     }
 
     /** {@inheritDoc} */
@@ -139,8 +142,8 @@ public class DistEmpirical extends DistContinuous
      * returns the probability density of the observation. This method is based on the underlying empirical distribution
      * and considers the underlying observations as grouped. The formula used reflects Law and Kelton, Simulation
      * Modeling and Analysis, page 327 of grouped data.
-     * @param observation the observation whose cummulative probability is returned.
-     * @return the cummulative probability of observation
+     * @param observation the observation whose cumulative probability is returned.
+     * @return the cumulative probability of observation
      */
     private double probDensityGrouped(final double observation)
     {
@@ -157,8 +160,8 @@ public class DistEmpirical extends DistContinuous
      * returns the probability density of the observation. This method is based on the underlying empirical distribution
      * and considers the underlying observations as grouped. The formula used reflects Law and Kelton, Simulation
      * Modeling and Analysis, page 327 of grouped data.
-     * @param observation the observation whose cummulative probability is returned.
-     * @return the cummulative probability of observation
+     * @param observation the observation whose cumulative probability is returned.
+     * @return the cumulative probability of observation
      */
     private double probDensityNonGrouped(final double observation)
     {

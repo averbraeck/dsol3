@@ -2,62 +2,63 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
+
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.language.support.ClassUtilV2;
+import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
  * AbstractDEVSModel class. The basic model or component from which the AtomicModel, the CoupledModel, and the
  * AbstractEntity are derived. The DEVSModel provides basic functionality for reporting its state changes through the
  * publish/subscribe mechanism.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
- * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
- * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
- * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
- * of this software, even if advised of the possibility of such damage.
- * @version Oct 17, 2009 <br>
+ * Copyright (c) 2009-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
+ * @since 1.5
  */
-// TODO public abstract class AbstractDEVSModel<A, R, T> extends EventProducer
-public abstract class AbstractDEVSModel extends EventProducer
+public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends EventProducer
 {
     /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
 
     /** the parent model we are part of. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected CoupledModel parentModel;
+    protected CoupledModel<A, R, T> parentModel;
 
     /** the simulator this model or component will schedule its events on. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected DEVSSimulatorInterface.TimeDouble simulator;
+    protected DEVSSimulatorInterface<A, R, T> simulator;
 
     /** all DEVS models are named - this is the component name. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -94,10 +95,10 @@ public abstract class AbstractDEVSModel extends EventProducer
      */
     static
     {
-        AbstractDEVSModel.atomicFields = ClassUtilV2.getAllFields(AtomicModel.class);
-        AbstractDEVSModel.coupledFields = ClassUtilV2.getAllFields(CoupledModel.class);
-        AbstractDEVSModel.entityFields = ClassUtilV2.getAllFields(AbstractEntity.class);
-        AbstractDEVSModel.abstractDEVSFields = ClassUtilV2.getAllFields(AbstractDEVSModel.class);
+        AbstractDEVSModel.atomicFields = ClassUtil.getAllFields(AtomicModel.class);
+        AbstractDEVSModel.coupledFields = ClassUtil.getAllFields(CoupledModel.class);
+        AbstractDEVSModel.entityFields = ClassUtil.getAllFields(AbstractEntity.class);
+        AbstractDEVSModel.abstractDEVSFields = ClassUtil.getAllFields(AbstractDEVSModel.class);
     }
 
     /**
@@ -107,8 +108,8 @@ public abstract class AbstractDEVSModel extends EventProducer
      * @param simulator the simulator to schedule the events on.
      * @param parentModel the parent model we are part of.
      */
-    public AbstractDEVSModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator,
-            final CoupledModel parentModel)
+    public AbstractDEVSModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator,
+            final CoupledModel<A, R, T> parentModel)
     {
         this.modelName = modelName;
         if (parentModel != null)
@@ -128,7 +129,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @return the simulator this model schedules its events on.
      */
-    public final DEVSSimulatorInterface.TimeDouble getSimulator()
+    public final DEVSSimulatorInterface<A, R, T> getSimulator()
     {
         return this.simulator;
     }
@@ -136,7 +137,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @param simulator the simulator to use from now on
      */
-    public final void setSimulator(final DEVSSimulatorInterface.TimeDouble simulator)
+    public final void setSimulator(final DEVSSimulatorInterface<A, R, T> simulator)
     {
         this.simulator = simulator;
     }
@@ -144,7 +145,7 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * @return the parent model we are part of.
      */
-    public final CoupledModel getParentModel()
+    public final CoupledModel<A, R, T> getParentModel()
     {
         return this.parentModel;
     }
@@ -189,7 +190,7 @@ public abstract class AbstractDEVSModel extends EventProducer
      */
     private void createStateFieldSet()
     {
-        Set<Field> fieldSet = ClassUtilV2.getAllFields(this.getClass());
+        Set<Field> fieldSet = ClassUtil.getAllFields(this.getClass());
 
         if (this instanceof AtomicModel)
         {
@@ -235,8 +236,7 @@ public abstract class AbstractDEVSModel extends EventProducer
             }
             catch (IllegalAccessException exception)
             {
-                SimLogger.always().error("Tried to fire update for variable {} but got an exception.",
-                        field.getName());
+                SimLogger.always().error("Tried to fire update for variable {} but got an exception.", field.getName());
                 System.err.println(this.getModelName() + " - fireUpdateState: Tried to fire update for variable "
                         + field.getName() + " but got an exception.");
             }
@@ -246,30 +246,11 @@ public abstract class AbstractDEVSModel extends EventProducer
     /**
      * StateUpdate class. Reports a state update. Right now, it is a modelname - variable name - value tuple.
      * <p>
-     * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved.
-     * <p>
-     * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
-     * <p>
-     * The DSOL project is distributed under the following BSD-style license:<br>
-     * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
-     * following conditions are met:
-     * <ul>
-     * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the
-     * following disclaimer.</li>
-     * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
-     * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
-     * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse
-     * or promote products derived from this software without specific prior written permission.</li>
-     * </ul>
-     * This software is provided by the copyright holders and contributors "as is" and any express or implied
-     * warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular
-     * purpose are disclaimed. In no event shall the copyright holder or contributors be liable for any direct,
-     * indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of
-     * substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any
-     * theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising
-     * in any way out of the use of this software, even if advised of the possibility of such damage.
-     * @version Oct 17, 2009 <br>
+     * Copyright (c) 2009-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>.
+     * The DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+     * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+     * </p>
      * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
      * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
      */
@@ -326,5 +307,167 @@ public abstract class AbstractDEVSModel extends EventProducer
         }
     }
 
-    // TODO public static class TimeDouble
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class AbstractDEVSModel.TimeDouble. */
+    public abstract static class TimeDouble extends AbstractDEVSModel<Double, Double, SimTimeDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+         * parent model we are part of. A parent model of null means that we are the top model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule the events on.
+         * @param parentModel the parent model we are part of.
+         */
+        public TimeDouble(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator,
+                final CoupledModel.TimeDouble parentModel)
+        {
+            super(modelName, simulator, parentModel);
+        }
+    }
+
+    /** Easy access class AbstractDEVSModel.TimeFloat. */
+    public abstract static class TimeFloat extends AbstractDEVSModel<Float, Float, SimTimeFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+         * parent model we are part of. A parent model of null means that we are the top model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule the events on.
+         * @param parentModel the parent model we are part of.
+         */
+        public TimeFloat(final String modelName, final DEVSSimulatorInterface.TimeFloat simulator,
+                final CoupledModel.TimeFloat parentModel)
+        {
+            super(modelName, simulator, parentModel);
+        }
+    }
+
+    /** Easy access class AbstractDEVSModel.TimeLong. */
+    public abstract static class TimeLong extends AbstractDEVSModel<Long, Long, SimTimeLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+         * parent model we are part of. A parent model of null means that we are the top model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule the events on.
+         * @param parentModel the parent model we are part of.
+         */
+        public TimeLong(final String modelName, final DEVSSimulatorInterface.TimeLong simulator,
+                final CoupledModel.TimeLong parentModel)
+        {
+            super(modelName, simulator, parentModel);
+        }
+    }
+
+    /** Easy access class AbstractDEVSModel.TimeDoubleUnit. */
+    public abstract static class TimeDoubleUnit extends AbstractDEVSModel<Time, Duration, SimTimeDoubleUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+         * parent model we are part of. A parent model of null means that we are the top model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule the events on.
+         * @param parentModel the parent model we are part of.
+         */
+        public TimeDoubleUnit(final String modelName, final DEVSSimulatorInterface.TimeDoubleUnit simulator,
+                final CoupledModel.TimeDoubleUnit parentModel)
+        {
+            super(modelName, simulator, parentModel);
+        }
+    }
+
+    /** Easy access class AbstractDEVSModel.TimeFloatUnit. */
+    public abstract static class TimeFloatUnit extends AbstractDEVSModel<FloatTime, FloatDuration, SimTimeFloatUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+         * parent model we are part of. A parent model of null means that we are the top model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule the events on.
+         * @param parentModel the parent model we are part of.
+         */
+        public TimeFloatUnit(final String modelName, final DEVSSimulatorInterface.TimeFloatUnit simulator,
+                final CoupledModel.TimeFloatUnit parentModel)
+        {
+            super(modelName, simulator, parentModel);
+        }
+    }
+
+    /** Easy access class AbstractDEVSModel.CalendarDouble. */
+    public abstract static class CalendarDouble extends AbstractDEVSModel<Calendar, Duration, SimTimeCalendarDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+         * parent model we are part of. A parent model of null means that we are the top model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule the events on.
+         * @param parentModel the parent model we are part of.
+         */
+        public CalendarDouble(final String modelName, final DEVSSimulatorInterface.CalendarDouble simulator,
+                final CoupledModel.CalendarDouble parentModel)
+        {
+            super(modelName, simulator, parentModel);
+        }
+    }
+
+    /** Easy access class AbstractDEVSModel.CalendarFloat. */
+    public abstract static class CalendarFloat extends AbstractDEVSModel<Calendar, FloatDuration, SimTimeCalendarFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+         * parent model we are part of. A parent model of null means that we are the top model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule the events on.
+         * @param parentModel the parent model we are part of.
+         */
+        public CalendarFloat(final String modelName, final DEVSSimulatorInterface.CalendarFloat simulator,
+                final CoupledModel.CalendarFloat parentModel)
+        {
+            super(modelName, simulator, parentModel);
+        }
+    }
+
+    /** Easy access class AbstractDEVSModel.CalendarLong. */
+    public abstract static class CalendarLong extends AbstractDEVSModel<Calendar, Long, SimTimeCalendarLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
+         * parent model we are part of. A parent model of null means that we are the top model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule the events on.
+         * @param parentModel the parent model we are part of.
+         */
+        public CalendarLong(final String modelName, final DEVSSimulatorInterface.CalendarLong simulator,
+                final CoupledModel.CalendarLong parentModel)
+        {
+            super(modelName, simulator, parentModel);
+        }
+    }
 }

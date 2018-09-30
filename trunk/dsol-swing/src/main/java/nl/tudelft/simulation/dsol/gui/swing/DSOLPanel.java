@@ -24,7 +24,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * license. See license.txt in the main project.
  * @version May 4, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
- * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.

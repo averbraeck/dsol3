@@ -7,35 +7,39 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * <a href="http://mathworld.wolfram.com/NormalDistribution.html"> http://mathworld.wolfram.com/NormalDistribution.html
  * </a>
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
- * @since 1.5
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class DistNormal extends DistContinuous
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** mu refers to the mean of the normal distribution. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double mu;
 
     /** mu refers to the mean of the normal distribution. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double sigma;
 
     /** nextNextGaussian is a helper attribute. */
     private double nextNextGaussian;
 
     /** haveNextNextGaussian is a helper attribute. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected boolean haveNextNextGaussian;
 
     /**
      * constructs a normal distribution with mu=0 and sigma=1. Errors of various types, e.g., in the impact point of a
-     * bomb; quantities that are the sum of a large number of other quantities by the vitue of the central limit
+     * bomb; quantities that are the sum of a large number of other quantities by the virtue of the central limit
      * theorem.
-     * @param stream the numberstream
+     * @param stream the random number stream
      */
     public DistNormal(final StreamInterface stream)
     {
@@ -45,8 +49,8 @@ public class DistNormal extends DistContinuous
     }
 
     /**
-     * constructs a normal distribution with mu=0 and sigma=1
-     * @param stream the numberstream
+     * constructs a normal distribution with mu=0 and sigma=1.
+     * @param stream the random number stream
      * @param mu the medium
      * @param sigma the standard deviation
      */
@@ -86,9 +90,9 @@ public class DistNormal extends DistContinuous
         }
         if (z >= 0)
         {
-            return DistNormal.CUMULATIVE_NORMAL_PROPABILITIES[absZ];
+            return DistNormal.CUMULATIVE_NORMAL_PROBABILITIES[absZ];
         }
-        return 1 - DistNormal.CUMULATIVE_NORMAL_PROPABILITIES[absZ];
+        return 1 - DistNormal.CUMULATIVE_NORMAL_PROBABILITIES[absZ];
     }
 
     /**
@@ -111,8 +115,8 @@ public class DistNormal extends DistContinuous
         int i = 0;
         while (!located)
         {
-            if (DistNormal.CUMULATIVE_NORMAL_PROPABILITIES[i] < prob
-                    && DistNormal.CUMULATIVE_NORMAL_PROPABILITIES[i + 1] > prob)
+            if (DistNormal.CUMULATIVE_NORMAL_PROBABILITIES[i] < prob
+                    && DistNormal.CUMULATIVE_NORMAL_PROBABILITIES[i + 1] > prob)
             {
                 located = true;
             }
@@ -169,10 +173,10 @@ public class DistNormal extends DistContinuous
     }
 
     /**
-     * CUMULATIVE_NORMAL_PROPABILITIES represents the NORMAL DISTRIBUTION FUNCTION TABLE. In order to keep this table as
-     * fast as possible no x values are stored. The range of the tabel is {0.00,0.01,0.02,...,10.00}
+     * CUMULATIVE_NORMAL_PROBABILITIES represents the NORMAL DISTRIBUTION FUNCTION TABLE. In order to keep this table as
+     * fast as possible no x values are stored. The range of the table is {0.00,0.01,0.02,...,10.00}
      */
-    public static final double[] CUMULATIVE_NORMAL_PROPABILITIES = {0.5000000000000000, 0.5039873616189113,
+    public static final double[] CUMULATIVE_NORMAL_PROBABILITIES = {0.5000000000000000, 0.5039873616189113,
             0.5079763193203305, 0.5119644795160448, 0.5159514436524734, 0.5199368135347197, 0.5239201914458871,
             0.5279011802661332, 0.5318793835914418, 0.5358544058520341, 0.5398258524303582, 0.5437933297786074,
             0.5477564455357087, 0.5517148086437129, 0.5556680294635363, 0.5596157198900099, 0.5635574934661438,

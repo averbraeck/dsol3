@@ -13,12 +13,13 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
- * A Process <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version 1.0 Jan 19, 2004 <br>
+ * The Process for the process interaction formalism with hold(), suspend(), resume() and cancel() methods.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
@@ -31,9 +32,8 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
     /** */
     private static final long serialVersionUID = 20140805L;
 
-    /**
-     * the simulator to schedule on.
-     */
+    /** The simulator to schedule on. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected DEVSSimulatorInterface<A, R, T> simulator = null;
 
     /**
@@ -82,7 +82,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
     public abstract void process() throws RemoteException, SimRuntimeException;
 
     /**
-     * holds the process for a duration
+     * holds the process for a duration.
      * @param duration the duration
      * @throws SimRuntimeException on negative duration
      * @throws RemoteException on network failure
@@ -134,7 +134,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
 
     /** {@inheritDoc} */
     @Override
-    public void receiveRequestedResource(final double requestedCapacity, final Resource resource)
+    public void receiveRequestedResource(final double requestedCapacity, final Resource<A, R, T> resource)
     {
         this.resume();
     }

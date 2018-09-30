@@ -23,13 +23,15 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * The DESS defines the interface of the DESS simulator. DESS stands for the Differential Equation System Specification.
  * More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler
- * et. al. <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author Peter Jacobs, Alexander Verbraeck
+ * et.al.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
@@ -103,7 +105,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                 if (this.simulatorTime.gt(this.replication.getTreatment().getEndSimTime()))
                 {
                     this.simulatorTime = this.replication.getTreatment().getEndSimTime().copy();
-                    this.stop();
+                    this.endReplication();
                 }
                 this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
                         this.simulatorTime.get());

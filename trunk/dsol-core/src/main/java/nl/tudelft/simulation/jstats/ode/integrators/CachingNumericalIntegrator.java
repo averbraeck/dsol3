@@ -4,17 +4,21 @@ import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
 
 /**
  * The CachingNumericalIntegrator is the basis for an integrator that needs access to previously calculated values of
- * y', e.g. y'_(k-1), y'_(k-2), etc. <br>
- * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
- * @author <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+ * y', e.g. y'_(k-1), y'_(k-2), etc. 
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
 public abstract class CachingNumericalIntegrator extends NumericalIntegrator
 {
-    /** the number of cachePlaces to store, e.g for k-1, k-2 set it to 2 */
+    /** */
+    private static final long serialVersionUID = 1L;
+
+    /** the number of cachePlaces to store, e.g for k-1, k-2 set it to 2. */
     private int cachePlaces = 0;
 
     /** the cache for y(k-1), y(k-2), etc. */
@@ -26,12 +30,12 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
     /** the number of cache places filled = the last cache place used. */
     private int lastCachePlace = -1;
 
-    /**
-     * the primer integrator
-     */
+    /** The primer integrator. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected NumericalIntegrator startingIntegrator = null;
 
     /** the substeps to use when starting the integrator. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected int startingSubSteps = 10;
 
     /**
@@ -92,7 +96,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
     }
 
     /**
-     * get a cached Y-value,
+     * get a cached Y-value.
      * @param numberDown the number of the previous value we want
      * @return the corresponding Y-value
      */
@@ -110,7 +114,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
     }
 
     /**
-     * get a cached dY-value,
+     * get a cached dY-value.
      * @param numberDown the number of the previous value we want
      * @return the corresponding dY-value
      */
@@ -133,5 +137,5 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
      * @param x the x-value to use in the calculation
      * @return the value of y(x+timeStep)
      */
-    public abstract double[] next(final double x);
+    public abstract double[] next(double x);
 }

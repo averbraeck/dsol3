@@ -5,21 +5,19 @@ import nl.tudelft.simulation.language.filters.AbstractFilter;
 /**
  * The MaxDiffFilter accepts entries if their value is larger than the percentage of the last received Value.
  * <p>
- * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
- * Netherlands.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
- * <p>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty
- * <p>
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang
- *         </a><a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:41 $
- * @since 1.5
+ * Copyright (c) 2004-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class MaxDiffFilter extends AbstractFilter
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** the snippet representing the xRange for this filter. */
     private double acceptedDifferencePercentage = Double.NaN;
 
@@ -65,7 +63,7 @@ public class MaxDiffFilter extends AbstractFilter
 
     /** {@inheritDoc} */
     @Override
-    public String getCriterium()
+    public String getCriterion()
     {
         return "accepts entries if their value>" + this.acceptedDifferencePercentage + "% of the last received Value";
     }
