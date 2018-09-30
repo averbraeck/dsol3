@@ -43,7 +43,7 @@
         The paint() method in Renderable2D in dsol-swing has been declared as non-final.
       </action>
       <action dev="averbraeck" type="update">
-        The InoutListener in the animation.D2.mouse package in dsol-swing does not select an object when
+        The InputListener in the animation.D2.mouse package in dsol-swing does not select an object when
         the CTRL-key is pressed during a click on the object.
       </action>
     </release>
