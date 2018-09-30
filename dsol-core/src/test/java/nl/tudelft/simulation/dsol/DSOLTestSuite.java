@@ -26,7 +26,7 @@ public final class DSOLTestSuite
     }
 
     /**
-     * constructs the test suite
+     * constructs the test suite.
      * @return Test the main DSOL Test Suite
      */
     public static Test suite()

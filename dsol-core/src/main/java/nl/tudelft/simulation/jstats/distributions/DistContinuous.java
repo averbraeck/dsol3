@@ -7,15 +7,13 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * <a href="http://mathworld.wolfram.com/ContinuousDistribution.html">
  * http://mathworld.wolfram.com/ContinuousDistribution.html </a>
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
- *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
- * @since 1.5
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public abstract class DistContinuous extends Dist
 {
@@ -23,7 +21,7 @@ public abstract class DistContinuous extends Dist
     private static final long serialVersionUID = 20140805L;
 
     /**
-     * constructs a new continuous distribution
+     * constructs a new continuous distribution.
      * @param stream the stream
      */
     public DistContinuous(final StreamInterface stream)
@@ -38,9 +36,9 @@ public abstract class DistContinuous extends Dist
     public abstract double draw();
 
     /**
-     * returns the probability density value of an observation
+     * returns the probability density value of an observation.
      * @param observation the observation.
      * @return double the probability density.
      */
-    public abstract double probDensity(final double observation);
+    public abstract double probDensity(double observation);
 }

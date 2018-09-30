@@ -16,6 +16,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 
 /**
+ * M/M/1 queuing model with animation and graphs.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
@@ -41,7 +42,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
  * @version Aug 15, 2014 <br>
- * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class MM1Queue41SwingApplication extends DSOLApplication
 {
@@ -60,7 +61,6 @@ public class MM1Queue41SwingApplication extends DSOLApplication
         super(title, panel);
         this.model = model;
         panel.getConsole().setLogLevel(Level.TRACE);
-        // panel.getConsole().setLogMessageFormat("{message|indent=4}");
         try
         {
             devsSimulator.scheduleEventAbs(1000.0, this, this, "terminate", null);

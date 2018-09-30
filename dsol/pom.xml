@@ -231,7 +231,6 @@
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-introspection/apidocs</link>
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-core/apidocs</link>
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-swing/apidocs</link>
-            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-fx/apidocs</link>
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-web/apidocs</link>
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-demo/apidocs</link>
             <link>https://x-stream.github.io/javadoc</link>
@@ -438,7 +437,6 @@
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-introspection/apidocs</link>
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-core/apidocs</link>
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-swing/apidocs</link>
-            <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-fx/apidocs</link>
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-web/apidocs</link>
             <link>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-demo/apidocs</link>
             <link>https://x-stream.github.io/javadoc</link>
@@ -710,12 +708,6 @@
       <dependency>
         <groupId>dsol</groupId>
         <artifactId>dsol-swing</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>dsol</groupId>
-        <artifactId>dsol-fx</artifactId>
         <version>${project.version}</version>
       </dependency>
 

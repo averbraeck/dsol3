@@ -1,6 +1,39 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.02.04" date="2018-09-29" description="Simulator events more logical; more non-final methods">
+      <action dev="averbraeck" type="fix">
+        The END_REPLICATION_EVENT was fired twice. Therefore, a special endReplication() method has 
+        been implemented that just takes care of the end of the replication.
+      </action>
+      <action dev="averbraeck" type="fix">
+        The TIME_CHANGED_EVENT of the DEVSSimulator fired at each event, and acted more as a 
+        state changed event. Now, the TIME_CHANGED_EVENT only fires when the time did actually change. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Deleted the dsol-fx project; animation with be done with dsol-swing and dsol-web.
+      </action>
+      <action dev="averbraeck" type="update">
+        dsol-base and dsol-core were updated with the correct copyright notice and package-info.java files
+        for each of the packages.
+      </action>
+      <action dev="averbraeck" type="add">
+        The SimTime classes got two extra methods: A getAbsoluteZero() and R getRelativeZero(). 
+        Method diff(A) has been added. T.diff(A) returns R.
+      </action>
+      <action dev="averbraeck" type="update">
+        The methods T.minus(A):R and T.minus(T):R have been renamed to T.diff(A):R and T.diff(T):R, because
+        the erasure of T.minus(A) and T.minus(R) is the same for the SimTimeDouble, SimTimeFloat and
+        SimTimeLong classes.
+      </action>
+      <action dev="averbraeck" type="update">
+        The DEVS classes in dsol-core have been expanded with generics with respect to SimTime.
+      </action>
+      <action dev="averbraeck" type="update">
+        The flow classes in dsol-core have been expanded with generics with respect to SimTime.
+      </action>
+    </release>
+      
     <release version="3.02.03" date="2018-09-23" description="Added CategoryLogger and SimLogger">
       <action dev="averbraeck" type="add">
         A CategoryLogger has been added to the logger package in dsol-base. For the CategoryLogger it is

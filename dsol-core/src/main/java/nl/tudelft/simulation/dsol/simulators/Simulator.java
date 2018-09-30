@@ -8,6 +8,7 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -28,12 +29,13 @@ import nl.tudelft.simulation.language.concurrent.WorkerThread;
 /**
  * The Simulator class is an abstract implementation of the SimulatorInterface.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
@@ -91,7 +93,8 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
-    public final Replication<A, R, T> getReplication()
+    @SuppressWarnings("checkstyle:designforextension")
+    public Replication<A, R, T> getReplication()
     {
         return this.replication;
     }
@@ -123,6 +126,24 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public void endReplication()
+    {
+        this.running = false;
+        this.fireEvent(SimulatorInterface.STOP_EVENT);
+        this.fireTimedEvent(SimulatorInterface.END_REPLICATION_EVENT, this, this.simulatorTime.get());
+
+        if (this.simulatorTime.lt(this.getReplication().getTreatment().getEndSimTime()))
+        {
+            Logger.warn("The simulator executes the endReplication method, but the simulation time "
+                    + this.simulatorTime.get() + " is earlier than the replication length "
+                    + this.getReplication().getTreatment().getEndSimTime());
+            this.simulatorTime = this.getReplication().getTreatment().getEndSimTime().copy();
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public final boolean isRunning()
     {
         return this.running;
@@ -130,7 +151,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /**
      * The run method defines the actual time step mechanism of the simulator. The implementation of this method depends
-     * on the formalism. Where discrete event formalisms loop over an eventlist continuous simulators take pre-defined
+     * on the formalism. Where discrete event formalisms loop over an eventlist, continuous simulators take predefined
      * time steps.
      */
     @Override
@@ -147,18 +168,18 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         }
         if (this.replication == null)
         {
-            throw new SimRuntimeException("Cannot start a simulator" + " without replication details");
+            throw new SimRuntimeException("Cannot start a simulator without replication details");
         }
         if (this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()))
         {
-            throw new SimRuntimeException("Cannot start simulator : " + "simulatorTime = runLength");
+            throw new SimRuntimeException("Cannot start simulator : simulatorTime = runLength");
         }
         synchronized (this.semaphore)
         {
             this.running = true;
             if (fireStartEvent)
             {
-                this.fireEvent(START_EVENT);
+                this.fireEvent(SimulatorInterface.START_EVENT);
             }
             this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
             if (!Thread.currentThread().getName().equals(this.worker.getName()))
@@ -191,11 +212,11 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         }
         if (this.replication == null)
         {
-            throw new SimRuntimeException("Cannot step a simulator " + "without replication details");
+            throw new SimRuntimeException("Cannot step a simulator without replication details");
         }
         if (this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()))
         {
-            throw new SimRuntimeException("Cannot step simulator: " + "SimulatorTime = runControl.runLength");
+            throw new SimRuntimeException("Cannot step simulator: SimulatorTime = runControl.runLength");
         }
         if (fireStepEvent)
         {
@@ -214,26 +235,23 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void stop(final boolean fireStopEvent)
+    public void stop(final boolean fireStopEvent) throws SimRuntimeException
     {
-        if (this.isRunning())
+        if (!this.isRunning())
         {
-            this.running = false;
-            if (this.simulatorTime.ge(this.getReplication().getTreatment().getEndSimTime()))
-            {
-                this.fireTimedEvent(SimulatorInterface.END_OF_REPLICATION_EVENT, this, this.simulatorTime.get());
-            }
-            if (fireStopEvent)
-            {
-                this.fireEvent(SimulatorInterface.STOP_EVENT);
-            }
+            throw new SimRuntimeException("Cannot stop an already stopped simulator");
+        }
+        this.running = false;
+        if (fireStopEvent)
+        {
+            this.fireEvent(SimulatorInterface.STOP_EVENT);
         }
     }
 
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public final void stop()
+    public final void stop() throws SimRuntimeException
     {
         stop(true);
     }

@@ -30,15 +30,15 @@ import nl.tudelft.simulation.event.Event;
 
 /**
  * The DEVS defines the interface of the DEVS simulator. DEVS stands for the Discrete Event System Specification. More
- * information on Discrete Event Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.
- * al.
+ * information on Discrete Event Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.al.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, such as
  *            Double or Long, the absolute and relative types are the same.
@@ -84,7 +84,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
             this.eventList.clear();
             this.replication.getTreatment().getExperiment().getModel().constructModel(this);
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getEndSimTime(),
-                    (short) (SimEventInterface.MIN_PRIORITY - 1), this, this, "stop", null));
+                    (short) (SimEventInterface.MIN_PRIORITY - 1), this, this, "endReplication", null));
             Object[] args = {new Event(SimulatorInterface.WARMUP_EVENT, this, null)};
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getWarmupSimTime(),
                     (short) (SimEventInterface.MAX_PRIORITY + 1), this, this, "fireEvent", args));
@@ -97,7 +97,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         synchronized (super.semaphore)
         {
-            if (event.getAbsoluteExecutionTime().lt(super.simulatorTime)) // TODO can the time be NaN? If so, exclude!
+            if (event.getAbsoluteExecutionTime().lt(super.simulatorTime))
             {
                 throw new SimRuntimeException("cannot schedule event " + event.toString() + " in past "
                         + this.simulatorTime + ">" + event.getAbsoluteExecutionTime());
@@ -301,9 +301,12 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
             synchronized (super.semaphore)
             {
                 SimEventInterface<T> event = this.eventList.removeFirst();
+                if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
+                {
+                    super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                            event.getAbsoluteExecutionTime().get());
+                }
                 super.simulatorTime = event.getAbsoluteExecutionTime();
-                super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, super.simulatorTime,
-                        super.simulatorTime.get());
                 try
                 {
                     event.execute();
@@ -313,7 +316,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                     SimLogger.always().error(exception);
                     if (this.isPauseOnError())
                     {
-                        this.stop();
+                        try
+                        {
+                            this.stop();
+                        }
+                        catch (SimRuntimeException stopException)
+                        {
+                            SimLogger.always().error(stopException);
+                        }
                     }
                 }
             }
@@ -323,18 +333,10 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void stop(final boolean fireStopEvent)
+    public void endReplication()
     {
-        super.stop(fireStopEvent);
-        if (this.getReplication() != null
-                && this.simulatorTime.ge(this.getReplication().getTreatment().getEndSimTime()))
-        {
-            this.eventList.clear();
-        }
-        if (this.eventList.isEmpty())
-        {
-            this.fireEvent(SimulatorInterface.END_OF_REPLICATION_EVENT);
-        }
+        super.endReplication();
+        this.eventList.clear();
     }
 
     /**
@@ -373,7 +375,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         if (isRunning())
         {
-            stop();
+            try
+            {
+                this.stop();
+            }
+            catch (SimRuntimeException stopException)
+            {
+                SimLogger.always().error(stopException);
+            }
         }
     }
 

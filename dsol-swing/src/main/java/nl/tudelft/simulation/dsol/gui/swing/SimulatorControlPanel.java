@@ -25,7 +25,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * license. See license.txt in the main project.
  * @version May 4, 2014 <br>
  * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
- * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck </a>
  */
 public class SimulatorControlPanel extends JPanel
 {
@@ -159,7 +159,7 @@ public class SimulatorControlPanel extends JPanel
      * (China). This software is licensed under the BSD license. See license.txt in the main project.
      * @version May 4, 2014 <br>
      * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
-     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck </a>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck </a>
      */
     private class SimulatorControlListener implements ActionListener
     {

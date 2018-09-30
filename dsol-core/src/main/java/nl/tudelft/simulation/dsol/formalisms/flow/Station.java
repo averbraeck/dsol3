@@ -26,8 +26,8 @@ import nl.tudelft.simulation.event.EventProducer;
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
@@ -35,7 +35,7 @@ import nl.tudelft.simulation.event.EventProducer;
  * @since 1.5
  */
 public abstract class Station<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends EventProducer implements StationInterface
+        extends EventProducer implements StationInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -46,7 +46,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** destination refers to the next station in the process-model chain. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected StationInterface destination;
+    protected StationInterface<A, R, T> destination;
 
     /**
      * constructs a new Station.
@@ -68,7 +68,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** {@inheritDoc} */
     @Override
-    public final void setDestination(final StationInterface destination)
+    public final void setDestination(final StationInterface<A, R, T> destination)
     {
         this.destination = destination;
     }
@@ -89,7 +89,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** {@inheritDoc} */
     @Override
-    public final StationInterface getDestination()
+    public final StationInterface<A, R, T> getDestination()
     {
         return this.destination;
     }
@@ -99,7 +99,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     /***********************************************************************************************************/
 
     /** Easy access class Station.TimeDouble. */
-    public static class TimeDouble extends Station<Double, Double, SimTimeDouble>
+    public static class TimeDouble extends Station<Double, Double, SimTimeDouble> implements StationInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -115,7 +115,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class Station.TimeFloat. */
-    public static class TimeFloat extends Station<Float, Float, SimTimeFloat>
+    public static class TimeFloat extends Station<Float, Float, SimTimeFloat> implements StationInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -131,7 +131,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class Station.TimeLong. */
-    public static class TimeLong extends Station<Long, Long, SimTimeLong>
+    public static class TimeLong extends Station<Long, Long, SimTimeLong> implements StationInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -148,6 +148,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** Easy access class Station.TimeDoubleUnit. */
     public static class TimeDoubleUnit extends Station<Time, Duration, SimTimeDoubleUnit>
+            implements StationInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -164,6 +165,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** Easy access class Station.TimeFloatUnit. */
     public static class TimeFloatUnit extends Station<FloatTime, FloatDuration, SimTimeFloatUnit>
+            implements StationInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -180,6 +182,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** Easy access class Station.CalendarDouble. */
     public static class CalendarDouble extends Station<Calendar, Duration, SimTimeCalendarDouble>
+            implements StationInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -196,6 +199,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** Easy access class Station.CalendarFloat. */
     public static class CalendarFloat extends Station<Calendar, FloatDuration, SimTimeCalendarFloat>
+            implements StationInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -212,6 +216,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /** Easy access class Station.CalendarLong. */
     public static class CalendarLong extends Station<Calendar, Long, SimTimeCalendarLong>
+            implements StationInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;

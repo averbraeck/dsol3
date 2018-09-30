@@ -30,17 +30,19 @@ import nl.tudelft.simulation.language.reflection.SerializableConstructor;
 import nl.tudelft.simulation.logger.Cat;
 
 /**
- * This class defines a generator <br>
+ * This class defines a generator.
+ * <p>
  * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
+ * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
- * @author Peter Jacobs, Alexander Verbraeck
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
+ * @since 1.5
  */
 public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Station<A, R, T>
@@ -246,6 +248,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /** Easy access class Generator.TimeDouble. */
     public static class TimeDouble extends Generator<Double, Double, SimTimeDouble>
+            implements StationInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -302,7 +305,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
     }
 
     /** Easy access class Generator.TimeFloat. */
-    public static class TimeFloat extends Generator<Float, Float, SimTimeFloat>
+    public static class TimeFloat extends Generator<Float, Float, SimTimeFloat> implements StationInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -359,7 +362,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
     }
 
     /** Easy access class Generator.TimeLong. */
-    public static class TimeLong extends Generator<Long, Long, SimTimeLong>
+    public static class TimeLong extends Generator<Long, Long, SimTimeLong> implements StationInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -417,6 +420,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /** Easy access class Generator.TimeDoubleUnit. */
     public static class TimeDoubleUnit extends Generator<Time, Duration, SimTimeDoubleUnit>
+            implements StationInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -474,6 +478,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /** Easy access class Generator.TimeDoubleUnitUnit. */
     public static class TimeFloatUnit extends Generator<FloatTime, FloatDuration, SimTimeFloatUnit>
+            implements StationInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -531,6 +536,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /** Easy access class Generator.CalendarDouble. */
     public static class CalendarDouble extends Generator<Calendar, Duration, SimTimeCalendarDouble>
+            implements StationInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -588,6 +594,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /** Easy access class Generator.CalendarFloat. */
     public static class CalendarFloat extends Generator<Calendar, FloatDuration, SimTimeCalendarFloat>
+            implements StationInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -645,6 +652,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /** Easy access class Generator.CalendarLong. */
     public static class CalendarLong extends Generator<Calendar, Long, SimTimeCalendarLong>
+            implements StationInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;

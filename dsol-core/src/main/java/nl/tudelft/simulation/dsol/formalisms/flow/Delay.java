@@ -24,12 +24,12 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * The Delay object is a station which delays an entity by some time units. When an entity arrives at a delay object,
  * dsol delays the entity by the resulting time period. During the time delay, the entity is held in the delay object.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
  * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
  *            and relative types are the same.
@@ -77,7 +77,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /***********************************************************************************************************/
 
     /** Easy access class Delay.TimeDouble. */
-    public static class TimeDouble extends Delay<Double, Double, SimTimeDouble>
+    public static class TimeDouble extends Delay<Double, Double, SimTimeDouble> implements StationInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -95,7 +95,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Delay.TimeFloat. */
-    public static class TimeFloat extends Delay<Float, Float, SimTimeFloat>
+    public static class TimeFloat extends Delay<Float, Float, SimTimeFloat> implements StationInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -113,7 +113,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Delay.TimeLong. */
-    public static class TimeLong extends Delay<Long, Long, SimTimeLong>
+    public static class TimeLong extends Delay<Long, Long, SimTimeLong> implements StationInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -132,6 +132,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /** Easy access class Delay.TimeDoubleUnit. */
     public static class TimeDoubleUnit extends Delay<Time, Duration, SimTimeDoubleUnit>
+            implements StationInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -150,6 +151,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /** Easy access class Delay.TimeFloatUnit. */
     public static class TimeFloatUnit extends Delay<FloatTime, FloatDuration, SimTimeFloatUnit>
+            implements StationInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -168,6 +170,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /** Easy access class Delay.CalendarDouble. */
     public static class CalendarDouble extends Delay<Calendar, Duration, SimTimeCalendarDouble>
+            implements StationInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -186,6 +189,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /** Easy access class Delay.CalendarFloat. */
     public static class CalendarFloat extends Delay<Calendar, FloatDuration, SimTimeCalendarFloat>
+            implements StationInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -204,6 +208,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /** Easy access class Delay.CalendarLong. */
     public static class CalendarLong extends Delay<Calendar, Long, SimTimeCalendarLong>
+            implements StationInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;

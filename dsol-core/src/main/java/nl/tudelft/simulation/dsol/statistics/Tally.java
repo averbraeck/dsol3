@@ -15,12 +15,13 @@ import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
- * The Tally extends the tally and links this it to the dsol framework <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:45 $
+ * The time-aware Tally extends the generic tally and links it to the dsol framework.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute time type to use in timed events
  * @param <R> the relative time type
@@ -77,7 +78,7 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         {
             this.simulator.addListener(this, SimulatorInterface.WARMUP_EVENT, false);
         }
-        this.simulator.addListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT, false);
+        this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, false);
         try
         {
             Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/statistics");
@@ -174,12 +175,12 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
                 super.initialize();
                 return;
             }
-            if (event.getType().equals(SimulatorInterface.END_OF_REPLICATION_EVENT))
+            if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
             {
                 this.stopped = true;
                 try
                 {
-                    this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
+                    this.simulator.removeListener(this, SimulatorInterface.END_REPLICATION_EVENT);
                 }
                 catch (RemoteException exception)
                 {

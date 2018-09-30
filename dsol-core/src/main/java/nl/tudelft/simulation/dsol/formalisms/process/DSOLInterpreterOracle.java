@@ -5,36 +5,28 @@ import java.lang.reflect.Method;
 import nl.tudelft.simulation.dsol.interpreter.operations.custom.InterpreterOracleInterface;
 
 /**
- * The specifies
+ * See if a super-reflected method is the
  * <p>
- * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
- * @version $Revision: 1.1 $ $Date: 2007/01/07 04:55:53 $
  * @since 1.5
  */
 public class DSOLInterpreterOracle implements InterpreterOracleInterface
 {
     /**
-     * constructs a new DSOLInterpreterOracle
+     * constructs a new DSOLInterpreterOracle.
      */
     public DSOLInterpreterOracle()
     {
         super();
     }
 
-    /**
-     * should this method be interpreted?
-     * @param method whether this method should be interpreted
-     * @return <code>
-     *       if (ProcessInterface.class.isAssignableFrom(method.getDeclaringClass()))
-     {
-     return true;
-     }
-     </code>
-     */
+    /** {@inheritDoc} */
+    @Override
     public boolean shouldBeInterpreted(final Method method)
     {
         if (method.getDeclaringClass().equals(Process.class) && method.getName().equals("resume"))

@@ -3,32 +3,14 @@ package nl.tudelft.simulation.dsol.simtime;
 import java.io.Serializable;
 
 /**
+ * The abstract SimTime class that implements the majority of the operators on a SimTime.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
- * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
- * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
- * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
- * of this software, even if advised of the possibility of such damage.
- * @version Jul 25, 2014 <br>
- * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * Copyright (c) 2016-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type, e.g. Calendar for the absolute time to ensure type safety. This is the
  *            <i>absolute</i> number, e.g., a Calendar for a simulation time. For simple calendar types such as a double
  *            for simulation time, the internal (relative) and external (absolute) storage types are the same.
@@ -136,11 +118,36 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * The minus function of two absolute times returns a relative time.
+     * The minus function of two absolute times returns a relative time, which is the difference between the two
+     * absolute times.
      * @param simTime the time to subtract.
      * @return the relative time difference between this SimTime object and the provided absoluteTime argument.
      */
-    public abstract R minus(T simTime);
+    public final R diff(final T simTime)
+    {
+        return diff(simTime.get());
+    }
+
+    /**
+     * The minus function of two absolute times returns a relative time, which is the difference between the two
+     * absolute times. Note that the function was called diff because the erasure of minus(A) is the same as the erasure
+     * of minus(R) in case of SimTimeDOuble, SimTimeFloat and SimTimeLong.
+     * @param absoluteTime the time to subtract.
+     * @return the relative time based, which is the difference between the two absolute times.
+     */
+    public abstract R diff(A absoluteTime);
+
+    /**
+     * Return absolute zero.
+     * @return absolute zero.
+     */
+    public abstract A getAbsoluteZero();
+
+    /**
+     * Return relative zero.
+     * @return relative zero.
+     */
+    public abstract R getRelativeZero();
 
     /**
      * @param simTime the time to compare to

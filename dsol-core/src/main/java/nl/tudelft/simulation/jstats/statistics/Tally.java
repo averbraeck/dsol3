@@ -11,13 +11,13 @@ import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 /**
  * The Tally class defines a statistics event tally.
  * <p>
- * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
- * @since 1.5
  */
 public class Tally extends StatisticsObject implements EventListenerInterface
 {
@@ -360,66 +360,66 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets sampleMean.
-     * @param sampleMean the new mean
+     * @param newSampleMean the new mean
      * @return double sampleMean
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected double setSampleMean(final double sampleMean)
+    protected double setSampleMean(final double newSampleMean)
     {
-        this.sampleMean = sampleMean;
-        this.fireEvent(Tally.SAMPLE_MEAN_EVENT, sampleMean);
+        this.sampleMean = newSampleMean;
+        this.fireEvent(Tally.SAMPLE_MEAN_EVENT, newSampleMean);
         return this.sampleMean;
     }
 
     /**
      * sets min.
-     * @param min the new minimum value
+     * @param newMin the new minimum value
      * @return double the input
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected double setMin(final double min)
+    protected double setMin(final double newMin)
     {
-        this.min = min;
-        this.fireEvent(Tally.MIN_EVENT, min);
+        this.min = newMin;
+        this.fireEvent(Tally.MIN_EVENT, newMin);
         return this.min;
     }
 
     /**
      * sets max.
-     * @param max the new maximum value
+     * @param newMax the new maximum value
      * @return double the input
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected double setMax(final double max)
+    protected double setMax(final double newMax)
     {
-        this.max = max;
-        this.fireEvent(Tally.MAX_EVENT, max);
+        this.max = newMax;
+        this.fireEvent(Tally.MAX_EVENT, newMax);
         return this.max;
     }
 
     /**
      * sets n.
-     * @param n the new n
+     * @param newN the new n
      * @return double the input
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected long setN(final long n)
+    protected long setN(final long newN)
     {
-        this.n = n;
-        this.fireEvent(Tally.N_EVENT, n);
+        this.n = newN;
+        this.fireEvent(Tally.N_EVENT, newN);
         return this.n;
     }
 
     /**
      * sets the count.
-     * @param sum the new sum
+     * @param newSum the new sum
      * @return double the input
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected double setSum(final double sum)
+    protected double setSum(final double newSum)
     {
-        this.sum = sum;
-        this.fireEvent(Tally.SUM_EVENT, sum);
+        this.sum = newSum;
+        this.fireEvent(Tally.SUM_EVENT, newSum);
         return this.sum;
     }
 }

@@ -42,7 +42,7 @@ import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
  * @version Aug 15, 2014 <br>
- * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class Warehouse42SwingApplication extends DSOLApplication
 {
@@ -78,7 +78,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
      * <p>
      * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
      * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
-     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      * @version Oct 10, 2016
      */
     protected static class Boat42Panel extends DSOLPanel<Double, Double, SimTimeDouble>

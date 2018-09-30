@@ -12,17 +12,18 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The discrete empirical distribution as defined on page 326 of Law &amp; Kelton.
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:39 $
- * @since 1.5
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class DistDiscreteEmpirical extends DistDiscrete
 {
+    /** */
+    private static final long serialVersionUID = 1L;
     /** the observations. */
     private ObservationsInterface observations = null;
 
@@ -86,13 +87,13 @@ public class DistDiscreteEmpirical extends DistDiscrete
      * @param observations the observations feeding the distributions. This sortedmap should be filled with observation
      *            probability values. The probability may either reflect the number of times this observation is
      *            observed or may contain a relative probability.
-     * @param cummulative reflects whether the probabilities are cummulative
+     * @param cumulative reflects whether the probabilities are cumulative
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final SortedMap<Number, Double> observations,
-            final boolean cummulative)
+            final boolean cumulative)
     {
         super(stream);
-        this.observations = new Observations(observations, cummulative);
+        this.observations = new Observations(observations, cumulative);
     }
 
     /** {@inheritDoc} */
@@ -126,7 +127,7 @@ public class DistDiscreteEmpirical extends DistDiscrete
      * constructs a grouped map since we do not have the draw and probability specification for the non-grouped discrete
      * empirical distribution.
      * @param observations the non grouped empirical distribution
-     * @return a new SortedMap which is not normalized and not cummulative.
+     * @return a new SortedMap which is not normalized and not cumulative.
      */
     private static SortedMap<Number, Double> constructGroupedMap(final List<? extends Number> observations)
     {

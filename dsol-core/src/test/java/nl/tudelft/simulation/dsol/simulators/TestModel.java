@@ -38,7 +38,7 @@ public class TestModel implements DSOLModel, EventListenerInterface
         this.simulator = simulator;
         try
         {
-            simulator.addListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT, false);
+            simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, false);
             simulator.addListener(this, SimulatorInterface.START_REPLICATION_EVENT, false);
             simulator.addListener(this, SimulatorInterface.START_EVENT, false);
             simulator.addListener(this, SimulatorInterface.STOP_EVENT, false);

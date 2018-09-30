@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.logger.Cat;
 
@@ -13,44 +13,30 @@ import nl.tudelft.simulation.logger.Cat;
  * AtomicModel class. Implements the Classic Parallel DEVS Atomic Model with Ports cf Zeigler et al (2000), section
  * 4.2.2. and section 4.3 (pp. 84 ff). The algorithms for parallel DEVS are explained in Chapters 6 and 7.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
- * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
- * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
- * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
- * of this software, even if advised of the possibility of such damage.
- * @version Oct 17, 2009 <br>
+ * Copyright (c) 2009-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public abstract class AtomicModel extends AbstractDEVSPortModel
+public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends AbstractDEVSPortModel<A, R, T>
 {
     /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
 
     /** future Execution of the Internal Transition. */
-    private SimEvent<SimTimeDouble> nextEvent;
+    private SimEvent<T> nextEvent;
 
     /** remaining TimeAdvance. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double sigma;
+    protected R sigma;
 
     /** the current phase (if applicable). */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -58,19 +44,19 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
 
     /** the time of the previous event in this component. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double timeLastEvent;
+    protected T timeLastEvent;
 
     /** the time of the next scheduled event in this component. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double timeNextEvent;
+    protected T timeNextEvent;
 
     /** the time span since the last event. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double elapsedTime;
+    protected R elapsedTime;
 
     /** the active input port that is currently processed in Parallel DEVS. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected InputPort<?> activePort = null;
+    protected InputPort<A, R, T, ?> activePort = null;
 
     /** conflict handling static: first the internal event. */
     public static final boolean INTERNAL_FIRST = true;
@@ -100,7 +86,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param e initial elapsed time
      * @param initphase the initial phase of the model
      */
-    public AtomicModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator, final double e,
+    public AtomicModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator, final R e,
             final Phase initphase)
     {
         this(modelName, simulator, e, initphase, AtomicModel.INTERNAL_FIRST);
@@ -113,7 +99,8 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param e initial elapsed time
      * @param initphase the initial phase of the model
      */
-    public AtomicModel(final String modelName, final CoupledModel parentModel, final double e, final Phase initphase)
+    public AtomicModel(final String modelName, final CoupledModel<A, R, T> parentModel, final R e,
+            final Phase initphase)
     {
         this(modelName, parentModel, e, initphase, AtomicModel.INTERNAL_FIRST);
     }
@@ -122,18 +109,19 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param modelName the name of this component
      * @param parentModel the coupled model this atomic model is part of
      */
-    public AtomicModel(final String modelName, final CoupledModel parentModel)
+    public AtomicModel(final String modelName, final CoupledModel<A, R, T> parentModel)
     {
-        this(modelName, parentModel, 0, new Phase(""), AtomicModel.INTERNAL_FIRST);
+        this(modelName, parentModel, parentModel.getSimulator().getSimTime().getRelativeZero(), new Phase(""),
+                AtomicModel.INTERNAL_FIRST);
     }
 
     /**
      * @param modelName the name of this component
      * @param simulator the simulator to schedule on
      */
-    public AtomicModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator)
+    public AtomicModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator)
     {
-        this(modelName, simulator, 0, new Phase(""), AtomicModel.INTERNAL_FIRST);
+        this(modelName, simulator, simulator.getSimTime().getRelativeZero(), new Phase(""), AtomicModel.INTERNAL_FIRST);
     }
 
     /**
@@ -145,12 +133,12 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param conflictStrategy the conflict strategy to use when internal and external events take place at the same
      *            time
      */
-    public AtomicModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator, final double e,
+    public AtomicModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator, final R e,
             final Phase initphase, final boolean conflictStrategy)
     {
         super(modelName, simulator, null);
         this.elapsedTime = e;
-        this.timeLastEvent = 0;
+        this.timeLastEvent = simulator.getSimTime().copy();
         this.phase = initphase;
         this.conflictStrategy = conflictStrategy;
     }
@@ -164,13 +152,13 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param conflictStrategy the conflict strategy to use when internal and external events take place at the same
      *            time
      */
-    public AtomicModel(final String modelName, final CoupledModel parentModel, final double e, final Phase initphase,
-            final boolean conflictStrategy)
+    public AtomicModel(final String modelName, final CoupledModel<A, R, T> parentModel, final R e,
+            final Phase initphase, final boolean conflictStrategy)
     {
         super(modelName, parentModel.getSimulator(), parentModel);
         this.elapsedTime = e;
         this.phase = initphase;
-        this.timeLastEvent = 0;
+        this.timeLastEvent = parentModel.getSimulator().getSimTime().copy();
         this.conflictStrategy = conflictStrategy;
         // adding to the parent model's components' list
         this.parentModel.addModelComponent(this);
@@ -182,16 +170,15 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param e elapsed time since the last state transition
      */
     @SuppressWarnings("checkstyle:designforextension")
-    public void initialize(final double e)
+    public void initialize(final R e)
     {
-        if (this.timeAdvance() != Double.POSITIVE_INFINITY)
+        if (this.timeAdvance().doubleValue() != Double.POSITIVE_INFINITY)
         {
             try
             {
-                this.nextEvent =
-                        new SimEvent<SimTimeDouble>(this.getSimulator().getSimTime().plus(this.timeAdvance() - e), this,
-                                this, "deltaInternalEventHandler", null);
-                this.timeLastEvent = this.getSimulator().getSimulatorTime();
+                this.nextEvent = new SimEvent<T>(this.getSimulator().getSimTime().plus(this.timeAdvance()).minus(e),
+                        this, this, "deltaInternalEventHandler", null);
+                this.timeLastEvent = this.getSimulator().getSimTime();
                 this.simulator.scheduleEvent(this.nextEvent);
             }
             catch (SimRuntimeException exception)
@@ -216,9 +203,9 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @throws RemoteException a remote exception occurred
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected double elapsedTime(final double eventTime) throws RemoteException
+    protected R elapsedTime(final T eventTime) throws RemoteException
     {
-        return (eventTime - this.timeLastEvent);
+        return (eventTime.diff(this.timeLastEvent));
     }
 
     /**
@@ -226,17 +213,16 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      */
     private void schedule()
     {
-
-        if (this.timeAdvance() != Double.POSITIVE_INFINITY && !this.conflict)
+        if (this.timeAdvance().doubleValue() != Double.POSITIVE_INFINITY && !this.conflict)
         {
             try
             {
-                if (this.timeAdvance() != Double.POSITIVE_INFINITY)
+                if (this.timeAdvance().doubleValue() != Double.POSITIVE_INFINITY)
                 {
-                    this.nextEvent = new SimEvent<SimTimeDouble>(
-                            (this.simulator.getSimTime().plus(this.timeAdvance() - this.elapsedTime)), this, this,
+                    this.nextEvent = new SimEvent<T>(
+                            (this.simulator.getSimTime().plus(this.timeAdvance()).minus(this.elapsedTime)), this, this,
                             "deltaInternalEventHandler", null);
-                    this.timeLastEvent = this.simulator.getSimulatorTime();
+                    this.timeLastEvent = this.simulator.getSimTime();
                     SimLogger.filter(Cat.DSOL).trace("schedule {}", this.nextEvent.toString());
                     this.simulator.scheduleEvent(this.nextEvent);
                     // this.simulator.setAuthorization(false);
@@ -260,7 +246,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param value the value that is passed through the port, which triggered the external event
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected void deltaExternalEventHandler(final double e, final Object value)
+    protected void deltaExternalEventHandler(final R e, final Object value)
     {
         this.deltaExternal(e, value);
         this.schedule();
@@ -272,14 +258,14 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param value the value that is passed through the port, which triggered the external event
      */
     @SuppressWarnings("checkstyle:designforextension")
-    protected void deltaConfluent(final double e, final Object value)
+    protected void deltaConfluent(final R e, final Object value)
     {
         SimLogger.filter(Cat.DSOL).debug("deltaConfluent: CONFLUENT");
         if (this.conflictStrategy == AtomicModel.INTERNAL_FIRST)
         {
             this.deltaInternalEventHandler();
             this.conflict = false;
-            this.deltaExternalEventHandler(0, value);
+            this.deltaExternalEventHandler(getSimulator().getSimTime().getRelativeZero(), value);
         }
         else
         {
@@ -320,7 +306,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @return the next simulation event for this atomic model.
      */
     @SuppressWarnings("checkstyle:designforextension")
-    public SimEvent<SimTimeDouble> getNextEvent()
+    public SimEvent<T> getNextEvent()
     {
         return this.nextEvent;
     }
@@ -328,7 +314,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     /**
      * @return the timestamp of the last executed simulation event.
      */
-    public final double getTimeLastEvent()
+    public final T getTimeLastEvent()
     {
         return this.timeLastEvent;
     }
@@ -336,7 +322,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
     /**
      * @return the timestamp of the simulation event to execute next.
      */
-    public final double getTimeNextEvent()
+    public final T getTimeNextEvent()
     {
         return this.timeNextEvent;
     }
@@ -372,7 +358,7 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * @param e the elapsed time since the last state transition
      * @param value the value that has been passed through the port
      */
-    protected abstract void deltaExternal(final double e, final Object value);
+    protected abstract void deltaExternal(R e, Object value);
 
     /**
      * the lambda function that should be implemented by the extending class.
@@ -383,5 +369,5 @@ public abstract class AtomicModel extends AbstractDEVSPortModel
      * the time advance function that should be implemented by the extending class.
      * @return the ta, which is the time advance from one state to the next.
      */
-    protected abstract double timeAdvance();
+    protected abstract R timeAdvance();
 }

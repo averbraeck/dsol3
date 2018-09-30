@@ -7,16 +7,19 @@ import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
 /**
  * Provides basic methods for all numerical integration methods. They mostly include matrix computation.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
- * @since 1.5
  */
 public abstract class NumericalIntegrator implements Serializable
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /** Euler's integration. */
     public static final short EULER = 0;
 
@@ -82,12 +85,15 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /** the timeStep to use. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double timeStep = Double.NaN;
 
     /** the calculated error of the last step. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double[] error = null;
 
     /** the equation to integrate. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected DifferentialEquationInterface equation = null;
 
     /**
@@ -102,15 +108,15 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /**
-     * computes the next value
+     * computes the next value.
      * @param x the x value corresponding to the last y-value computed
      * @param y the last y value
      * @return the new value
      */
-    public abstract double[] next(final double x, final double[] y);
+    public abstract double[] next(double x, double[] y);
 
     /**
-     * multiplies a vector with a constant
+     * multiplies a vector with a constant.
      * @param constant the constant
      * @param vector the vector
      * @return the new vector
@@ -126,7 +132,7 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /**
-     * adds two vectors
+     * adds two vectors.
      * @param a vector a
      * @param b vector b
      * @return the new vector
@@ -142,7 +148,7 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /**
-     * adds a number of vectors
+     * adds a number of vectors.
      * @param a vector a
      * @param b vector b
      * @param c vector c
@@ -159,7 +165,7 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /**
-     * adds a number of vectors
+     * adds a number of vectors.
      * @param a vector a
      * @param b vector b
      * @param c vector c
@@ -177,7 +183,7 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /**
-     * adds a number of vectors
+     * adds a number of vectors.
      * @param a vector a
      * @param b vector b
      * @param c vector c
@@ -196,7 +202,7 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /**
-     * adds a number of vectors
+     * adds a number of vectors.
      * @param a vector a
      * @param b vector b
      * @param c vector c

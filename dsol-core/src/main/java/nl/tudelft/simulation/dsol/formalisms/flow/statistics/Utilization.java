@@ -16,12 +16,13 @@ import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
- * A Utilization <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:46 $
+ * A Utilization statistic for the flow components.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute time type to use in timed events
  * @param <R> the relative time type
@@ -47,14 +48,14 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
      * @throws RemoteException on network error for one of the listeners
      */
     public Utilization(final String description, final SimulatorInterface<A, R, T> simulator,
-            final StationInterface target) throws RemoteException
+            final StationInterface<A, R, T> target) throws RemoteException
     {
         super(description, simulator);
         this.simulator = simulator;
         target.addListener(this, StationInterface.RECEIVE_EVENT, false);
         target.addListener(this, StationInterface.RELEASE_EVENT, false);
         this.simulator.addListener(this, SimulatorInterface.WARMUP_EVENT, false);
-        this.simulator.addListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT, false);
+        this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, false);
         try
         {
             Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/statistics");
@@ -87,11 +88,11 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
                 super.initialize();
                 return;
             }
-            if (event.getType().equals(SimulatorInterface.END_OF_REPLICATION_EVENT))
+            if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
             {
                 try
                 {
-                    this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
+                    this.simulator.removeListener(this, SimulatorInterface.END_REPLICATION_EVENT);
                 }
                 catch (RemoteException exception)
                 {

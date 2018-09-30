@@ -4,7 +4,7 @@ DSOL PROJECT LICENSE
  
 The DSOL project is distributed under the following BSD-style license:
 
-Copyright (c) 2002-2014 Delft University of Technology, Jaffalaan 5, 2628 BX
+Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX
 Delft, the Netherlands. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -34,6 +34,6 @@ arising in any way out of the use of this software, even if advised of the
 possibility of such damage.
 
 PROJECT INFORMATION
-See for project information http://www.simulation.tudelft.nl
+See for project information https://www.simulation.tudelft.nl
   
 END OF TERMS AND CONDITIONS 

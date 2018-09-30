@@ -6,15 +6,15 @@ import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.event.TimedEvent;
 
 /**
- * The Persisten class defines a statistics event persistent. A Persistent is a time-averaged tally.
+ * The Persistent class defines a statistics event persistent. A Persistent is a time-averaged tally.
  * <p>
- * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:38:40 $
- * @since 1.5
  */
 public class Persistent extends Tally
 {
@@ -95,58 +95,63 @@ public class Persistent extends Tally
             throw new IllegalArgumentException(
                     "event != TimedEvent || event.source != Double (" + event.getContent().getClass().toString() + ")");
         }
-        // TODO what if this is not a Double?
-        TimedEvent<Double> timedEvent = (TimedEvent<Double>) event;
-        double value = 0.0;
-        if (event.getContent() instanceof Number)
+        if (event instanceof TimedEvent<?>)
         {
-            value = ((Number) event.getContent()).doubleValue();
-        }
-        else
-        {
-            SimLogger.always().warn("notify: {} should be a number", event.getContent());
-        }
-
-        synchronized (this.semaphore)
-        {
-            super.fireTimedEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent.getTimeStamp());
-            super.fireTimedEvent(Persistent.VALUE_EVENT, value, timedEvent.getTimeStamp());
-            super.setN(super.n + 1); // we increase the number of measurements.
-            if (value < super.min)
+            // TODO: When we use e.g. a calendar, time is not a number
+            @SuppressWarnings("unchecked")
+            TimedEvent<Double> timedEvent = (TimedEvent<Double>) event;
+            double value = 0.0;
+            if (event.getContent() instanceof Number)
             {
-                super.setMin(value);
-            }
-            if (value > super.max)
-            {
-                super.setMax(value);
-            }
-            super.setSum(super.sum + value);
-
-            // see Knuth's The Art Of Computer Programming Volume II: Seminumerical Algorithms
-            if (this.n == 1)
-            {
-                super.setSampleMean(value);
-                this.startTime = timedEvent.getTimeStamp();
+                value = ((Number) event.getContent()).doubleValue();
             }
             else
             {
-                this.deltaTime = timedEvent.getTimeStamp() - (this.elapsedTime + this.startTime);
-                if (this.deltaTime > 0.0)
-                {
-                    double newAverage = ((super.sampleMean * (this.elapsedTime)) + (this.lastValue * this.deltaTime))
-                            / (this.elapsedTime + this.deltaTime);
-                    super.varianceSum +=
-                            (this.lastValue - super.sampleMean) * (this.lastValue - newAverage) * this.deltaTime;
-                    super.setSampleMean(newAverage);
-                    this.elapsedTime = this.elapsedTime + this.deltaTime;
-                }
+                SimLogger.always().warn("notify: {} should be a number", event.getContent());
             }
-            if (this.n > 1)
+
+            synchronized (this.semaphore)
             {
-                super.fireEvent(Tally.STANDARD_DEVIATION_EVENT, this.getStdDev());
-                this.fireEvent(Tally.SAMPLE_VARIANCE_EVENT, this.getSampleVariance());
+                super.fireTimedEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent.getTimeStamp());
+                super.fireTimedEvent(Persistent.VALUE_EVENT, value, timedEvent.getTimeStamp());
+                super.setN(super.n + 1); // we increase the number of measurements.
+                if (value < super.min)
+                {
+                    super.setMin(value);
+                }
+                if (value > super.max)
+                {
+                    super.setMax(value);
+                }
+                super.setSum(super.sum + value);
+
+                // see Knuth's The Art Of Computer Programming Volume II: Seminumerical Algorithms
+                if (this.n == 1)
+                {
+                    super.setSampleMean(value);
+                    this.startTime = timedEvent.getTimeStamp();
+                }
+                else
+                {
+                    this.deltaTime = timedEvent.getTimeStamp() - (this.elapsedTime + this.startTime);
+                    if (this.deltaTime > 0.0)
+                    {
+                        double newAverage =
+                                ((super.sampleMean * (this.elapsedTime)) + (this.lastValue * this.deltaTime))
+                                        / (this.elapsedTime + this.deltaTime);
+                        super.varianceSum +=
+                                (this.lastValue - super.sampleMean) * (this.lastValue - newAverage) * this.deltaTime;
+                        super.setSampleMean(newAverage);
+                        this.elapsedTime = this.elapsedTime + this.deltaTime;
+                    }
+                }
+                if (this.n > 1)
+                {
+                    super.fireEvent(Tally.STANDARD_DEVIATION_EVENT, this.getStdDev());
+                    this.fireEvent(Tally.SAMPLE_VARIANCE_EVENT, this.getSampleVariance());
+                }
+                this.lastValue = value;
             }
-            this.lastValue = value;
         }
     }
 }

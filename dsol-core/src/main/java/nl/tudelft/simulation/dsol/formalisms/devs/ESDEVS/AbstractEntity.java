@@ -1,39 +1,26 @@
 package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
+import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
  * AbstractEntity class. The AbstractEntity takes care of modeling components without behaviour but with state within
  * coupled models.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
- * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
- * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
- * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
- * of this software, even if advised of the possibility of such damage.
- * @version Oct 17, 2009 <br>
+ * Copyright (c) 2009-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class AbstractEntity extends AbstractDEVSModel
+public class AbstractEntity<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends AbstractDEVSModel<A, R, T>
 {
     /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
@@ -45,8 +32,8 @@ public class AbstractEntity extends AbstractDEVSModel
      * @param simulator the simulator for this model.
      * @param parentModel the parent model we are part of (can be null for highest level model).
      */
-    public AbstractEntity(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator,
-            final CoupledModel parentModel)
+    public AbstractEntity(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator,
+            final CoupledModel<A, R, T> parentModel)
     {
         super(modelName, simulator, parentModel);
     }

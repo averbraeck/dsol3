@@ -11,8 +11,6 @@
  * with a unit.<br>
  * &lt;T&gt; the extended type itself to be able to implement a comparator, and to ease the use of extension return
  * types.
- * <p>
- * &nbsp;
  * </p>
  * The following SimTime types are available:
  * <ul>
@@ -29,5 +27,11 @@
  * <li>SimTimeFloatUnit: a simulation time based on a float, with a time unit</li>
  * <li>SimTimeLong: a simulation time based on a long</li>
  * </ul>
+ * <p>
+ * Copyright (c) 2016-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  */
 package nl.tudelft.simulation.dsol.simtime;

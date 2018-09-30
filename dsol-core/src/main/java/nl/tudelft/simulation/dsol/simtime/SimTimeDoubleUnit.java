@@ -4,32 +4,15 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 
 /**
+ * The SimTime class with a Time as the absolute time, and a Duration as the relative time. The units are defined in the
+ * djunits package. More information can be found at <a href="https://djunits.org">https://djunits.org</a>.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
- * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
- * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
- * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
- * of this software, even if advised of the possibility of such damage.
- * @version Jul 25, 2014 <br>
- * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * Copyright (c) 2016-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class SimTimeDoubleUnit extends SimTime<Time, Duration, SimTimeDoubleUnit>
 {
@@ -63,9 +46,9 @@ public class SimTimeDoubleUnit extends SimTime<Time, Duration, SimTimeDoubleUnit
 
     /** {@inheritDoc} */
     @Override
-    public Duration minus(final SimTimeDoubleUnit simTime)
+    public Duration diff(final Time simTime)
     {
-        return this.time.minus(simTime.get());
+        return this.time.minus(simTime);
     }
 
     /** {@inheritDoc} */
@@ -95,6 +78,20 @@ public class SimTimeDoubleUnit extends SimTime<Time, Duration, SimTimeDoubleUnit
     public final Time get()
     {
         return this.time;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Time getAbsoluteZero()
+    {
+        return Time.ZERO;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Duration getRelativeZero()
+    {
+        return Duration.ZERO;
     }
 
 }

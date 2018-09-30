@@ -5,14 +5,16 @@ import java.rmi.RemoteException;
 import nl.tudelft.simulation.event.EventType;
 
 /**
- * The AnimatorInterface defines a DEVSDESS simulator with wallclock delay between the consequtive time steps.
+ * The AnimatorInterface defines the methods for a DEVSDESS simulator with wallclock delay between the consecutive time
+ * steps.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:36:44 $
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5
  */
 public interface AnimatorInterface
@@ -46,12 +48,16 @@ public interface AnimatorInterface
     void updateAnimation();
 
     /**
-     * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
-     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
-     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
-     * @version Feb 1, 2015
+     * The separate thread that takes care of the animation.
+     * <p>
+     * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>.
+     * The DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+     * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+     * </p>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      */
-    public class AnimationThread extends Thread
+    class AnimationThread extends Thread
     {
         /** is the animator running? */
         private boolean running = true;

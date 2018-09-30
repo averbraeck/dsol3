@@ -1,13 +1,28 @@
 package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS.exceptions.PortNotFoundException;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
@@ -17,53 +32,40 @@ import nl.tudelft.simulation.event.ref.Reference;
  * CoupledModel class. This class implements the classic parallel DEVS coupled model with ports conform Zeigler et al.
  * (2000), section 4.3.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
- * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
- * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
- * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
- * of this software, even if advised of the possibility of such damage.
- * @version Oct 17, 2009 <br>
+ * Copyright (c) 2009-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
+ * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
+ * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
+ * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
+ *            and relative types are the same.
+ * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
+ * @since 1.5
  */
-public abstract class CoupledModel extends AbstractDEVSPortModel
+public abstract class CoupledModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends AbstractDEVSPortModel<A, R, T>
 {
     /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
 
     /** the internal couplings (from internal models to internal models). */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Set<IC<?>> internalCouplingSet = new HashSet<IC<?>>();
+    protected Set<IC<A, R, T, ?>> internalCouplingSet = new HashSet<IC<A, R, T, ?>>();
 
     /** the couplings from the internal models to the output of this coupled model. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Set<EOC<?>> externalOutputCouplingSet = new HashSet<EOC<?>>();
+    protected Set<EOC<A, R, T, ?>> externalOutputCouplingSet = new HashSet<EOC<A, R, T, ?>>();
 
     /** the couplings from the outside world to the internal models of this coupled model. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Set<EIC<?>> externalInputCouplingSet = new HashSet<EIC<?>>();
+    protected Set<EIC<A, R, T, ?>> externalInputCouplingSet = new HashSet<EIC<A, R, T, ?>>();
 
     /** the models within this coupled model. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Set<AbstractDEVSModel> modelComponents = new HashSet<AbstractDEVSModel>();
+    protected Set<AbstractDEVSModel<A, R, T>> modelComponents = new HashSet<>();
 
     // ///////////////////////////////////////////////////////////////////////////
     // CONSTRUCTORS AND INITIALIZATION
@@ -83,7 +85,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param modelName the name of this component
      * @param parentModel the parent coupled model for this model.
      */
-    public CoupledModel(final String modelName, final CoupledModel parentModel)
+    public CoupledModel(final String modelName, final CoupledModel<A, R, T> parentModel)
     {
         super(modelName, parentModel.getSimulator(), parentModel);
         if (this.parentModel != null)
@@ -97,7 +99,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @param modelName the name of this component
      * @param simulator the simulator to schedule events on.
      */
-    public CoupledModel(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator)
+    public CoupledModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator)
     {
         super(modelName, simulator, null);
 
@@ -115,7 +117,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
         boolean returnBoolean = true;
         returnBoolean &= super.addListener(eli, et);
 
-        for (AbstractDEVSModel devsmodel : this.modelComponents)
+        for (AbstractDEVSModel<A, R, T> devsmodel : this.modelComponents)
         {
             returnBoolean &= devsmodel.addListener(eli, et);
         }
@@ -129,28 +131,28 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
 
     /**
      * The transfer function takes care of transferring a value from this coupled model to the outside world.
-     * @param <T> the type of message / event being transferred
+     * @param <TYPE> the type of message / event being transferred
      * @param x the output port through which the transfer takes place
      * @param y the value being transferred
      * @throws RemoteException remote exception
      * @throws SimRuntimeException simulation run time exception
      */
     @SuppressWarnings("unchecked")
-    protected final <T> void transfer(final OutputPortInterface<T> x, final T y)
+    protected final <TYPE> void transfer(final OutputPortInterface<A, R, T, TYPE> x, final TYPE y)
             throws RemoteException, SimRuntimeException
     {
-        for (IC<?> o : this.internalCouplingSet)
+        for (IC<A, R, T, ?> o : this.internalCouplingSet)
         {
             if (o.getFromPort() == x)
             {
-                ((IC<T>) o).getToPort().receive(y, this.simulator.getSimulatorTime());
+                ((IC<A, R, T, TYPE>) o).getToPort().receive(y, this.simulator.getSimTime());
             }
         }
-        for (EOC<?> o : this.externalOutputCouplingSet)
+        for (EOC<A, R, T, ?> o : this.externalOutputCouplingSet)
         {
             if (o.getFromPort() == x)
             {
-                ((EOC<T>) o).getToPort().send(y);
+                ((EOC<A, R, T, TYPE>) o).getToPort().send(y);
             }
         }
     }
@@ -160,17 +162,18 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     // ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * @param <T> the type of message / event for which the coupling is added.
+     * @param <TYPE> the type of message / event for which the coupling is added.
      * @param fromPort the output port of an internal component that transfers the message / event to another internal
      *            component (start of the coupling)
      * @param toPort the input port of an internal component that receives a message / event from the other componet
      *            (end of the coupling)
      */
-    public final <T> void addInternalCoupling(final OutputPortInterface<T> fromPort, final InputPortInterface<T> toPort)
+    public final <TYPE> void addInternalCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
+            final InputPortInterface<A, R, T, TYPE> toPort)
     {
         try
         {
-            this.internalCouplingSet.add(new IC<T>(fromPort, toPort));
+            this.internalCouplingSet.add(new IC<A, R, T, TYPE>(fromPort, toPort));
         }
         catch (Exception e)
         {
@@ -180,16 +183,16 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     }
 
     /**
-     * @param <T> the type of message / event for which the coupling is removed.
+     * @param <TYPE> the type of message / event for which the coupling is removed.
      * @param fromPort the output port of an internal component that transfers the message / event to another internal
      *            component (start of the coupling)
      * @param toPort the input port of an internal component that receives a message / event from the other componet
      *            (end of the coupling)
      */
-    public final <T> void removeInternalCoupling(final OutputPortInterface<T> fromPort,
-            final InputPortInterface<T> toPort)
+    public final <TYPE> void removeInternalCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
+            final InputPortInterface<A, R, T, TYPE> toPort)
     {
-        for (IC<?> ic : this.internalCouplingSet)
+        for (IC<A, R, T, ?> ic : this.internalCouplingSet)
         {
             if (ic.getFromPort().getModel() == fromPort && ic.getToPort().getModel() == toPort)
             {
@@ -201,18 +204,18 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
 
     /**
      * Add an IOC within this coupled model.
-     * @param <T> the type of message / event for which the coupling is added.
+     * @param <TYPE> the type of message / event for which the coupling is added.
      * @param fromPort the input port of this coupled model that transfers the message / event to the internal component
      *            (start of the coupling)
      * @param toPort the input port of the internal component that receives a message / event from the overarching
      *            coupled model (end of the coupling)
      */
-    public final <T> void addExternalInputCoupling(final InputPortInterface<T> fromPort,
-            final InputPortInterface<T> toPort)
+    public final <TYPE> void addExternalInputCoupling(final InputPortInterface<A, R, T, TYPE> fromPort,
+            final InputPortInterface<A, R, T, TYPE> toPort)
     {
         try
         {
-            this.externalInputCouplingSet.add(new EIC<T>(fromPort, toPort));
+            this.externalInputCouplingSet.add(new EIC<A, R, T, TYPE>(fromPort, toPort));
         }
         catch (Exception e)
         {
@@ -222,16 +225,16 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
 
     /**
      * Remove an IOC within this coupled model.
-     * @param <T> the type of message / event for which the coupling is removed.
+     * @param <TYPE> the type of message / event for which the coupling is removed.
      * @param fromPort the input port of this coupled model that transfers the message / event to the internal component
      *            (start of the coupling)
      * @param toPort the input port of the internal component that receives a message / event from the overarching
      *            coupled model (end of the coupling)
      */
-    public final <T> void removeExternalInputCoupling(final InputPortInterface<T> fromPort,
-            final InputPortInterface<T> toPort)
+    public final <TYPE> void removeExternalInputCoupling(final InputPortInterface<A, R, T, TYPE> fromPort,
+            final InputPortInterface<A, R, T, TYPE> toPort)
     {
-        for (EIC<?> eic : this.externalInputCouplingSet)
+        for (EIC<A, R, T, ?> eic : this.externalInputCouplingSet)
         {
             if (eic.getFromPort() == fromPort && eic.getToPort() == toPort)
             {
@@ -242,18 +245,18 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
 
     /**
      * Add an EOC within this coupled model.
-     * @param <T> the type of message / event for which the coupling is added.
+     * @param <TYPE> the type of message / event for which the coupling is added.
      * @param fromPort the output port of the internal component that produces an event for the outside of the
      *            overarching coupled model (start of the coupling)
      * @param toPort the output port of this coupled model that transfers the message / event to the outside (end of the
      *            coupling)
      */
-    public final <T> void addExternalOutputCoupling(final OutputPortInterface<T> fromPort,
-            final OutputPortInterface<T> toPort)
+    public final <TYPE> void addExternalOutputCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
+            final OutputPortInterface<A, R, T, TYPE> toPort)
     {
         try
         {
-            this.externalOutputCouplingSet.add(new EOC<T>(fromPort, toPort));
+            this.externalOutputCouplingSet.add(new EOC<A, R, T, TYPE>(fromPort, toPort));
         }
         catch (Exception e)
         {
@@ -263,16 +266,16 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
 
     /**
      * Remove an EOC within this coupled model.
-     * @param <T> the type of message / event for which the coupling is removed.
+     * @param <TYPE> the type of message / event for which the coupling is removed.
      * @param fromPort the output port of the internal component that produces an event for the outside of the
      *            overarching coupled model (start of the coupling)
      * @param toPort the output port of this coupled model that transfers the message / event to the outside (end of the
      *            coupling)
      */
-    public final <T> void removeExternalOutputCoupling(final OutputPortInterface<T> fromPort,
-            final OutputPortInterface<T> toPort)
+    public final <TYPE> void removeExternalOutputCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
+            final OutputPortInterface<A, R, T, TYPE> toPort)
     {
-        for (EOC<?> eoc : this.externalOutputCouplingSet)
+        for (EOC<A, R, T, ?> eoc : this.externalOutputCouplingSet)
         {
             if (eoc.getFromPort() == fromPort && eoc.getToPort() == toPort)
             {
@@ -289,7 +292,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * Add a model component to this coupled model.
      * @param model the component to add.
      */
-    public final void addModelComponent(final AbstractDEVSModel model)
+    public final void addModelComponent(final AbstractDEVSModel<A, R, T> model)
     {
         this.modelComponents.add(model);
 
@@ -311,9 +314,9 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * out).
      * @param model the component to remove.
      */
-    public final void removeModelComponent(final AbstractDEVSModel model)
+    public final void removeModelComponent(final AbstractDEVSModel<A, R, T> model)
     {
-        for (EOC<?> eoc : this.externalOutputCouplingSet)
+        for (EOC<A, R, T, ?> eoc : this.externalOutputCouplingSet)
         {
             if (eoc.getFromPort().getModel() == model || eoc.getToPort().getModel() == model)
             {
@@ -321,7 +324,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
             }
         }
 
-        for (EIC<?> eic : this.externalInputCouplingSet)
+        for (EIC<A, R, T, ?> eic : this.externalInputCouplingSet)
         {
             if (eic.getFromPort().getModel() == model || eic.getToPort().getModel() == model)
             {
@@ -329,7 +332,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
             }
         }
 
-        for (IC<?> ic : this.internalCouplingSet)
+        for (IC<A, R, T, ?> ic : this.internalCouplingSet)
         {
             if (ic.getFromPort().getModel() == model || ic.getToPort().getModel() == model)
             {
@@ -349,10 +352,10 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     @Override
     protected final void removeInputPort(final String name) throws PortNotFoundException
     {
-        InputPortInterface<?> inputPort = this.inputPortMap.get(name);
+        InputPortInterface<A, R, T, ?> inputPort = this.inputPortMap.get(name);
         super.removeInputPort(name); // throws exception in case nonexistent
 
-        for (EIC<?> eic : this.externalInputCouplingSet)
+        for (EIC<A, R, T, ?> eic : this.externalInputCouplingSet)
         {
             if (eic.getFromPort() == inputPort || eic.getToPort() == inputPort)
             {
@@ -360,7 +363,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
             }
         }
 
-        for (IC<?> ic : this.internalCouplingSet)
+        for (IC<A, R, T, ?> ic : this.internalCouplingSet)
         {
             if (ic.getToPort() == inputPort)
             {
@@ -375,10 +378,10 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     @Override
     protected final void removeOutputPort(final String name) throws PortNotFoundException
     {
-        OutputPortInterface<?> outputPort = this.outputPortMap.get(name);
+        OutputPortInterface<A, R, T, ?> outputPort = this.outputPortMap.get(name);
         super.removeOutputPort(name); // throws exception in case nonexistent
 
-        for (EOC<?> eoc : this.externalOutputCouplingSet)
+        for (EOC<A, R, T, ?> eoc : this.externalOutputCouplingSet)
         {
             if (eoc.getFromPort() == outputPort || eoc.getToPort() == outputPort)
             {
@@ -386,7 +389,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
             }
         }
 
-        for (IC<?> ic : this.internalCouplingSet)
+        for (IC<A, R, T, ?> ic : this.internalCouplingSet)
         {
             if (ic.getFromPort() == outputPort)
             {
@@ -402,7 +405,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     /**
      * @return internalCouplingSet; the internal couplings (from internal models to internal models)
      */
-    public final Set<IC<?>> getInternalCouplingSet()
+    public final Set<IC<A, R, T, ?>> getInternalCouplingSet()
     {
         return this.internalCouplingSet;
     }
@@ -410,7 +413,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     /**
      * @return externalOutputCouplingSet; the couplings from the internal models to the output of this coupled model
      */
-    public final Set<EOC<?>> getExternalOutputCouplingSet()
+    public final Set<EOC<A, R, T, ?>> getExternalOutputCouplingSet()
     {
         return this.externalOutputCouplingSet;
     }
@@ -419,7 +422,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
      * @return externalInputCouplingSet; the couplings from the outside world to the internal models of this coupled
      *         model
      */
-    public final Set<EIC<?>> getExternalInputCouplingSet()
+    public final Set<EIC<A, R, T, ?>> getExternalInputCouplingSet()
     {
         return this.externalInputCouplingSet;
     }
@@ -427,7 +430,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
     /**
      * @return modelComponents; the models within the coupled model
      */
-    public final Set<AbstractDEVSModel> getModelComponents()
+    public final Set<AbstractDEVSModel<A, R, T>> getModelComponents()
     {
         return this.modelComponents;
     }
@@ -446,7 +449,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
         System.out.println(space + "================");
         System.out.println(space + "coupled model name: " + this.getClass().getName());
         System.out.println(space + "Externaloutputcouplings");
-        for (EOC<?> eoc : this.externalOutputCouplingSet)
+        for (EOC<A, R, T, ?> eoc : this.externalOutputCouplingSet)
         {
             System.out.print(space);
             System.out.print("between ");
@@ -456,7 +459,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
             System.out.println();
         }
         System.out.println(space + "Externalinputcouplings");
-        for (EIC<?> eic : this.externalInputCouplingSet)
+        for (EIC<A, R, T, ?> eic : this.externalInputCouplingSet)
         {
             System.out.print(space);
             System.out.print("between ");
@@ -466,7 +469,7 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
             System.out.println();
         }
         System.out.println(space + "Externaloutputcouplings");
-        for (IC<?> ic : this.internalCouplingSet)
+        for (IC<A, R, T, ?> ic : this.internalCouplingSet)
         {
             System.out.print(space);
             System.out.print("between ");
@@ -476,11 +479,311 @@ public abstract class CoupledModel extends AbstractDEVSPortModel
             System.out.println();
         }
 
-        for (AbstractDEVSModel dm : this.modelComponents)
+        for (AbstractDEVSModel<A, R, T> dm : this.modelComponents)
         {
             dm.printModel(space + "    ");
         }
         System.out.println(space + "================");
+    }
+
+    /***********************************************************************************************************/
+    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
+    /***********************************************************************************************************/
+
+    /** Easy access class AbstractDEVSModel.TimeDouble. */
+    public abstract static class TimeDouble extends CoupledModel<Double, Double, SimTimeDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
+         * @param modelName the name of this component
+         */
+        public TimeDouble(final String modelName)
+        {
+            super(modelName);
+        }
+
+        /**
+         * The constructor of a coupled model within another coupled model.
+         * @param modelName the name of this component
+         * @param parentModel the parent coupled model for this model.
+         */
+        public TimeDouble(final String modelName, final CoupledModel.TimeDouble parentModel)
+        {
+            super(modelName, parentModel);
+        }
+
+        /**
+         * Constructor of a high-level coupled model without a parent model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule events on.
+         */
+        public TimeDouble(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator)
+        {
+            super(modelName, simulator);
+
+        }
+    }
+
+    /** Easy access class CoupledModel.TimeFloat. */
+    public abstract static class TimeFloat extends CoupledModel<Float, Float, SimTimeFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
+         * @param modelName the name of this component
+         */
+        public TimeFloat(final String modelName)
+        {
+            super(modelName);
+        }
+
+        /**
+         * The constructor of a coupled model within another coupled model.
+         * @param modelName the name of this component
+         * @param parentModel the parent coupled model for this model.
+         */
+        public TimeFloat(final String modelName, final CoupledModel.TimeFloat parentModel)
+        {
+            super(modelName, parentModel);
+        }
+
+        /**
+         * Constructor of a high-level coupled model without a parent model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule events on.
+         */
+        public TimeFloat(final String modelName, final DEVSSimulatorInterface.TimeFloat simulator)
+        {
+            super(modelName, simulator);
+
+        }
+    }
+
+    /** Easy access class CoupledModel.TimeLong. */
+    public abstract static class TimeLong extends CoupledModel<Long, Long, SimTimeLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
+         * @param modelName the name of this component
+         */
+        public TimeLong(final String modelName)
+        {
+            super(modelName);
+        }
+
+        /**
+         * The constructor of a coupled model within another coupled model.
+         * @param modelName the name of this component
+         * @param parentModel the parent coupled model for this model.
+         */
+        public TimeLong(final String modelName, final CoupledModel.TimeLong parentModel)
+        {
+            super(modelName, parentModel);
+        }
+
+        /**
+         * Constructor of a high-level coupled model without a parent model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule events on.
+         */
+        public TimeLong(final String modelName, final DEVSSimulatorInterface.TimeLong simulator)
+        {
+            super(modelName, simulator);
+
+        }
+    }
+
+    /** Easy access class CoupledModel.TimeDoubleUnit. */
+    public abstract static class TimeDoubleUnit extends CoupledModel<Time, Duration, SimTimeDoubleUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
+         * @param modelName the name of this component
+         */
+        public TimeDoubleUnit(final String modelName)
+        {
+            super(modelName);
+        }
+
+        /**
+         * The constructor of a coupled model within another coupled model.
+         * @param modelName the name of this component
+         * @param parentModel the parent coupled model for this model.
+         */
+        public TimeDoubleUnit(final String modelName, final CoupledModel.TimeDoubleUnit parentModel)
+        {
+            super(modelName, parentModel);
+        }
+
+        /**
+         * Constructor of a high-level coupled model without a parent model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule events on.
+         */
+        public TimeDoubleUnit(final String modelName, final DEVSSimulatorInterface.TimeDoubleUnit simulator)
+        {
+            super(modelName, simulator);
+
+        }
+    }
+
+    /** Easy access class CoupledModel.TimeFloatUnit. */
+    public abstract static class TimeFloatUnit extends CoupledModel<FloatTime, FloatDuration, SimTimeFloatUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
+         * @param modelName the name of this component
+         */
+        public TimeFloatUnit(final String modelName)
+        {
+            super(modelName);
+        }
+
+        /**
+         * The constructor of a coupled model within another coupled model.
+         * @param modelName the name of this component
+         * @param parentModel the parent coupled model for this model.
+         */
+        public TimeFloatUnit(final String modelName, final CoupledModel.TimeFloatUnit parentModel)
+        {
+            super(modelName, parentModel);
+        }
+
+        /**
+         * Constructor of a high-level coupled model without a parent model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule events on.
+         */
+        public TimeFloatUnit(final String modelName, final DEVSSimulatorInterface.TimeFloatUnit simulator)
+        {
+            super(modelName, simulator);
+
+        }
+    }
+
+    /** Easy access class CoupledModel.CalendarDouble. */
+    public abstract static class CalendarDouble extends CoupledModel<Calendar, Duration, SimTimeCalendarDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
+         * @param modelName the name of this component
+         */
+        public CalendarDouble(final String modelName)
+        {
+            super(modelName);
+        }
+
+        /**
+         * The constructor of a coupled model within another coupled model.
+         * @param modelName the name of this component
+         * @param parentModel the parent coupled model for this model.
+         */
+        public CalendarDouble(final String modelName, final CoupledModel.CalendarDouble parentModel)
+        {
+            super(modelName, parentModel);
+        }
+
+        /**
+         * Constructor of a high-level coupled model without a parent model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule events on.
+         */
+        public CalendarDouble(final String modelName, final DEVSSimulatorInterface.CalendarDouble simulator)
+        {
+            super(modelName, simulator);
+
+        }
+    }
+
+    /** Easy access class CoupledModel.CalendarFloat. */
+    public abstract static class CalendarFloat extends CoupledModel<Calendar, FloatDuration, SimTimeCalendarFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
+         * @param modelName the name of this component
+         */
+        public CalendarFloat(final String modelName)
+        {
+            super(modelName);
+        }
+
+        /**
+         * The constructor of a coupled model within another coupled model.
+         * @param modelName the name of this component
+         * @param parentModel the parent coupled model for this model.
+         */
+        public CalendarFloat(final String modelName, final CoupledModel.CalendarFloat parentModel)
+        {
+            super(modelName, parentModel);
+        }
+
+        /**
+         * Constructor of a high-level coupled model without a parent model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule events on.
+         */
+        public CalendarFloat(final String modelName, final DEVSSimulatorInterface.CalendarFloat simulator)
+        {
+            super(modelName, simulator);
+
+        }
+    }
+
+    /** Easy access class CoupledModel.CalendarLong. */
+    public abstract static class CalendarLong extends CoupledModel<Calendar, Long, SimTimeCalendarLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20180929L;
+
+        /**
+         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
+         * @param modelName the name of this component
+         */
+        public CalendarLong(final String modelName)
+        {
+            super(modelName);
+        }
+
+        /**
+         * The constructor of a coupled model within another coupled model.
+         * @param modelName the name of this component
+         * @param parentModel the parent coupled model for this model.
+         */
+        public CalendarLong(final String modelName, final CoupledModel.CalendarLong parentModel)
+        {
+            super(modelName, parentModel);
+        }
+
+        /**
+         * Constructor of a high-level coupled model without a parent model.
+         * @param modelName the name of this component
+         * @param simulator the simulator to schedule events on.
+         */
+        public CalendarLong(final String modelName, final DEVSSimulatorInterface.CalendarLong simulator)
+        {
+            super(modelName, simulator);
+
+        }
     }
 
 }
