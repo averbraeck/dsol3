@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsol:experimentalFrame xmlns:dsol="https://simulation.tudelft.nl"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <experiment>
+    <model>
+      <model-class>nl.tudelft.simulation.examples.dsol.mm1queue.MM1Queue</model-class>
+    </model>
+    <simulator-class>nl.tudelft.simulation.dsol.simulators.DEVSSimulator</simulator-class>
+    <replications>
+      <replication description="replication 0">
+        <stream name="default" seed="555"/>
+      </replication>
+    </replications>
+    <treatment>
+      <startTime>2003-12-01T14:30:00</startTime>
+      <timeUnit>MINUTE</timeUnit>
+      <warmupPeriod unit="MINUTE">0</warmupPeriod>
+      <runLength unit="MINUTE">INF</runLength>
+      <properties>
+        <property key="generator.startTime" value="0.0"/>
+        <property key="generator.intervalTime" value="1.0"/>
+        <property key="generator.batchSize" value="1"/>
+        <property key="resource.capacity" value="1.0"/>
+        <property key="resource.serviceTime" value="0.6"/>
+      </properties>
+    </treatment>
+  </experiment>
+  
+  <experiment>
+    <model>
+      <model-class>nl.tudelft.simulation.examples.dsol.mm1queue.MM1Queue</model-class>
+    </model>
+    <simulator-class>nl.tudelft.simulation.dsol.simulators.DEVSSimulator</simulator-class>
+    <replications>
+      <replication description="replication 0">
+        <stream name="default" seed="555"/>
+      </replication>
+    </replications>
+    <treatment>
+      <startTime>2003-12-01T14:30:00</startTime>
+      <timeUnit>MINUTE</timeUnit>
+      <warmupPeriod unit="MINUTE">0</warmupPeriod>
+      <runLength unit="MINUTE">INF</runLength>
+      <properties>
+        <property key="generator.startTime" value="0.0"/>
+        <property key="generator.intervalTime" value="1.0"/>
+        <property key="generator.batchSize" value="1"/>
+        <property key="resource.capacity" value="1.0"/>
+        <property key="resource.serviceTime" value="0.99"/>
+      </properties>
+    </treatment>
+  </experiment>
+</dsol:experimentalFrame>
