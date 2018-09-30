@@ -9,7 +9,7 @@
  * Faculty of Technology, Policy and Management <BR>
  * Systems Engineering Group <BR>
  * Jaffalaan 5, 2628 BX, Delft, THE NETHERLANDS
- * <H3>INTRODUCTION</H3>
+ * <H2>INTRODUCTION</H2>
  * <P>
  * Discrete event simulation is used for dynamically modeling complex systems in order to analyze and understand these
  * systems, and in order to (re)design and engineer these systems (Shannon 1975, Banks 1998). Statistical information is
@@ -68,7 +68,7 @@
  * this section screenshots of a distributed supplychain example are included. The final section presents the
  * conclusions and gives some pointers for further research.
  * </p>
- * <H3>EXISTING SIMULATION ENVIRONMENTS</H3> This section gives an overview of current discrete event environments.
+ * <H2>EXISTING SIMULATION ENVIRONMENTS</H2> This section gives an overview of current discrete event environments.
  * Focusing on the distributed goal of simulation environments, three different levels of distribution can be
  * distinguished in these environments. These are:
  * <UL>
@@ -156,7 +156,7 @@
  * </p>
  * <img src="doc-files/iddd-simulation.png" width=564 height=373 alt="Simulation architecture"><br>
  * Figure 2 Simulation architecture
- * <H3>ARCHITECTURE OF A FULLY DISTRIBUTED SIMULATION ENVIRONMENT</H3>
+ * <H2>ARCHITECTURE OF A FULLY DISTRIBUTED SIMULATION ENVIRONMENT</H2>
  * <p>
  * The architecture presented in this paper and illustrated in Figure 1 focuses on two remote network services. The
  * first service is a DES-based remote simulation service which is described in subsection <i>DISCRETE EVENT SIMULATION
@@ -197,7 +197,7 @@
  * schedule their interaction. There are no requirements to objects either scheduling or being scheduled. Helper classes
  * are available to facilitate overloaded methods with primitive and wrapped arguments.
  * </p>
- * <H3>SYSTEM REPRESENTATION IMPLEMENTED AS A REMOTE NETWORK SERVICE</H3> The introductory notes on simulation use for
+ * <H2>SYSTEM REPRESENTATION IMPLEMENTED AS A REMOTE NETWORK SERVICE</H2> The introductory notes on simulation use for
  * complex systems engineering has already revealed minimal requirements for system representation. These can be
  * summarized as follows:
  * <p>
@@ -304,7 +304,7 @@
  * dynamic processes. This controlling part may also be enabled to interact with the original model component that
  * created it. In this way active user-system interaction can be implemented.
  * </p>
- * <H3>OBTAINING THE SOFTWARE</H3> The latest version of the software including its code, can be downloaded from the web
+ * <H2>OBTAINING THE SOFTWARE</H2> The latest version of the software including its code, can be downloaded from the web
  * at <a href="https://simulation.tudelft.nl/dsol/3.0/index.html">https://simulation.tudelft.nl/dsol/3.0/index.html</a>.
  * License information, tutorials and examples can be downloaded and reactions are welcome.
  */
