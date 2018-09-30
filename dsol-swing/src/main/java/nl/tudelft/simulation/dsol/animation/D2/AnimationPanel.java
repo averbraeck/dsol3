@@ -106,7 +106,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /** {@inheritDoc} */
     @Override
-    public final void paintComponent(final Graphics g)
+    public void paintComponent(final Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
 
@@ -149,7 +149,17 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      */
     public boolean isShowElement(final Renderable2DInterface<? extends Locatable> element)
     {
-        Class<? extends Locatable> locatableClass = element.getSource().getClass();
+        return isShowClass(element.getSource().getClass());
+    }
+
+    /**
+     * Test whether a certain class needs to be shown on the screen or not. The class needs to implement Locatable,
+     * otherwise it cannot be shown at all.
+     * @param locatableClass the class to test
+     * @return whether the class needs to be shown or not
+     */
+    public boolean isShowClass(final Class<? extends Locatable> locatableClass)
+    {
         if (this.hiddenClasses.contains(locatableClass))
         {
             return false;
@@ -276,7 +286,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      * Calculate the full extent based on the current positions of the objects.
      * @return the full extent of the animation.
      */
-    public final synchronized Rectangle2D fullExtent()
+    public synchronized Rectangle2D fullExtent()
     {
         double minX = Double.MAX_VALUE;
         double maxX = -Double.MAX_VALUE;
@@ -314,7 +324,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * resets the panel to its an extent that covers all displayed objects.
      */
-    public final synchronized void zoomAll()
+    public synchronized void zoomAll()
     {
         this.extent = Renderable2DInterface.Util.computeVisibleExtent(fullExtent(), this.getSize());
         this.repaint();
@@ -324,7 +334,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      * Set a class to be shown in the animation to true.
      * @param locatableClass the class for which the animation has to be shown.
      */
-    public final void showClass(final Class<? extends Locatable> locatableClass)
+    public void showClass(final Class<? extends Locatable> locatableClass)
     {
         this.visibilityMap.put(locatableClass, true);
         this.shownClasses.clear();
@@ -336,7 +346,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      * Set a class to be hidden in the animation to true.
      * @param locatableClass the class for which the animation has to be hidden.
      */
-    public final void hideClass(final Class<? extends Locatable> locatableClass)
+    public void hideClass(final Class<? extends Locatable> locatableClass)
     {
         this.visibilityMap.put(locatableClass, false);
         this.shownClasses.clear();
@@ -348,7 +358,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      * Toggle a class to be displayed in the animation to its reverse value.
      * @param locatableClass the class for which a visible animation has to be turned off or vice versa.
      */
-    public final void toggleClass(final Class<? extends Locatable> locatableClass)
+    public void toggleClass(final Class<? extends Locatable> locatableClass)
     {
         if (!this.visibilityMap.containsKey(locatableClass))
         {

@@ -69,7 +69,6 @@ public interface Renderable2DInterface<T extends Locatable>
      */
     class Util
     {
-
         /**
          * constructs a new Util.
          */
