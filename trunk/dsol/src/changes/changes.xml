@@ -6,6 +6,10 @@
         dsol-naming, dsol-event, dsol-interpreter, dsol-introspection were updated with the 
         correct copyright notice and package-info.java files for each of the packages.
       </action>
+      <action dev="averbraeck" type="update">
+        The references to java.sun.com in dsol-interpreter have been updated to the SE8 JVM Specification
+        at https://docs.oracle.com/javase/specs/jvms/se8/html/index.html.
+      </action>
     </release>
     
     <release version="3.02.04" date="2018-09-29" description="Simulator events more logical; more non-final methods">

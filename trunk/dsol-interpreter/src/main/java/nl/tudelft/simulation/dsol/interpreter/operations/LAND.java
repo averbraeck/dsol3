@@ -6,8 +6,8 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 
 /**
  * The LAND operation as defined in
- * <a href="http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc8.html">
- * http://java.sun.com/docs/books/vmspec/2nd-edition/html/Instructions2.doc8.html </a>.
+ * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
