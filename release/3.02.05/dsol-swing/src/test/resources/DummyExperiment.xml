@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsol:experimentalFrame
+	xmlns:dsol="https://simulation.tudelft.nl"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<experiment>
+		<model>
+        	<model-class>nl.tudelft.simulation.xml.DummyModel</model-class>
+	    </model>
+	    <simulator-class>nl.tudelft.simulation.dsol.simulators.DEVSSimulator</simulator-class>
+		<treatment>  
+    		<startTime>2004-09-01T00:00:00</startTime>
+		    <timeUnit>MINUTE</timeUnit> 
+	    	<warmupPeriod  unit="MINUTE">0</warmupPeriod>    
+	   		<runLength unit="HOUR">1</runLength>
+	   		<replication description="replication 0">
+     	   		<stream name="default" seed="99"/>
+			</replication>
+		</treatment>
+	</experiment>	  
+</dsol:experimentalFrame>
