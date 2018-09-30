@@ -65,7 +65,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     {
         this.panel.requestFocus();
         this.mouseClicked = e.getPoint();
-        if (!e.isPopupTrigger())
+        if (!e.isPopupTrigger() && !e.isConsumed()) // do not select when ctrl is clicked
         {
             Object selected = this.getSelectedObject(this.getSelectedObjects(e.getPoint()));
             if (selected != null)

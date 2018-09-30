@@ -32,6 +32,20 @@
       <action dev="averbraeck" type="update">
         The flow classes in dsol-core have been expanded with generics with respect to SimTime.
       </action>
+      <action dev="averbraeck" type="add">
+        The AnimationPanel in dsol-swing has an extra method called 
+        isShowClass(final Class&lt;? extends Locatable&gt; locatableClass);
+      </action>
+      <action dev="averbraeck" type="update">
+        Most of the methods in the AnimationPanel class in dsol-swing have been declared as non-final.
+      </action>
+      <action dev="averbraeck" type="update">
+        The paint() method in Renderable2D in dsol-swing has been declared as non-final.
+      </action>
+      <action dev="averbraeck" type="update">
+        The InoutListener in the animation.D2.mouse package in dsol-swing does not select an object when
+        the CTRL-key is pressed during a click on the object.
+      </action>
     </release>
       
     <release version="3.02.03" date="2018-09-23" description="Added CategoryLogger and SimLogger">

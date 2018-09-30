@@ -22,8 +22,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 /**
  * The Renderable2D provides an easy accessible renderable object.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
+ * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
@@ -50,19 +49,17 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
 
     /** whether to translate the renderable when panning. Flag is 0001 */
     private static final byte TRANSLATE_FLAG = 0x01;
-    
-    /**
-     * the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist
-     */
+
+    /** the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final T source;
-    
+
     /** the naming Context in which to store the Renderable with a pointer to the Locatable object. */
     private final Context context;
 
     /** the unique id. */
     private final long id;
-    
+
     /** the generator for the unique id. TODO Static for now, should be replaced by a context dependent one. */
     private static long lastGeneratedId = 0;
 
@@ -95,8 +92,8 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException,
-            RemoteException
+    protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
+            throws NamingException, RemoteException
     {
         this.context.bind(Long.toString(this.id), this);
     }
@@ -190,7 +187,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
+    public synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer)
     {
         try
@@ -252,9 +249,8 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     {
         try
         {
-            Rectangle2D intersect =
-                    BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(),
-                            this.source.getLocation().z);
+            Rectangle2D intersect = BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(),
+                    this.source.getLocation().z);
             if (intersect == null)
             {
                 throw new NullPointerException(
@@ -316,7 +312,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Renderable2D other = (Renderable2D) obj;
+        Renderable2D<?> other = (Renderable2D<?>) obj;
         if (this.id != other.id)
             return false;
         return true;
