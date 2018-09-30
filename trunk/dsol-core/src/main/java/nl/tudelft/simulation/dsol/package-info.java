@@ -105,7 +105,7 @@
  * conflicts with the level of distribution that is sought in this research or share design patterns that focus on the
  * easiness of model construction but conflict with a distributed deployment.
  * </p>
- * <H4>CURRENT JAVA-BASED SIMULATION LANGUAGES BASED ON A PROCESS ORIENTED WORLDVIEW.</H4> The main goal of environments
+ * <H3>CURRENT JAVA-BASED SIMULATION LANGUAGES BASED ON A PROCESS ORIENTED WORLDVIEW.</H3> The main goal of environments
  * like JavaSim, Silk, DESMO-J, etc. is to create (re)usable object-oriented simulation models and components while
  * maintaining a natural process-oriented modeling capability. Since entities in the model are alternately suspended and
  * resumed to coordinate time-ordered sequencing of entity movements in the model (Healy and Kilgore 1998),
@@ -131,7 +131,7 @@
  * <LI>Since threads are fundamentally related to their underlying operating system, entities in the model cannot be
  * streamed over networks.</LI>
  * </UL>
- * <H4>CURRENT JAVA-BASED SIMULATION LANGUAGES BASED ON AN EVENT BASED WORLDVIEW.</H4>
+ * <H3>CURRENT JAVA-BASED SIMULATION LANGUAGES BASED ON AN EVENT BASED WORLDVIEW.</H3>
  * <p>
  * Another worldview adopted by some discrete event languages is DES and its accompanying Future Event List on which
  * object interaction is scheduled. Two of the core notions most Object-Oriented implementations of this worldview share
@@ -179,7 +179,7 @@
  * objects matching the characteristics described in the topic. More information on how objects initially find these
  * lookup services can be found in (Sing 2000).
  * </p>
- * <H4>DISCRETE EVENT SIMULATION IMPLEMENTED AS A REMOTE NETWORK SERVICE</H4> The simulation environment provided in
+ * <H3>DISCRETE EVENT SIMULATION IMPLEMENTED AS A REMOTE NETWORK SERVICE</H3> The simulation environment provided in
  * this paper has fully adopted DES as its underlying worldview. Distribution formed once again the basis for not using
  * current implementations but to design a new architecture.
  * <p>
