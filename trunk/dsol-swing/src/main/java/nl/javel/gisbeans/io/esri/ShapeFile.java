@@ -23,13 +23,13 @@ import nl.javel.gisbeans.io.EndianInterface;
 import nl.javel.gisbeans.io.ObjectEndianInputStream;
 import nl.javel.gisbeans.map.MapInterface;
 import nl.tudelft.simulation.language.d2.Shape;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * This class reads ESRI-shapefiles and returns the shape object
  * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
  *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.2
- * @version 1.0
  */
 public class ShapeFile implements DataSourceInterface
 {
@@ -268,7 +268,7 @@ public class ShapeFile implements DataSourceInterface
                 }
                 else
                 {
-                    Logger.getLogger("nl.javel.gisbeans").severe("unknown shape in cached content " + shape);
+                    CategoryLogger.always().error("unknown shape in cached content " + shape);
                 }
             }
             return result;

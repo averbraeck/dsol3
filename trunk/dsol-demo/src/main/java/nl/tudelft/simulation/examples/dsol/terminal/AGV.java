@@ -15,7 +15,6 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @version Jul 25, 2018
  */
 public class AGV extends IntResource<Double, Double, SimTimeDouble>
 {

@@ -3,11 +3,13 @@ package nl.tudelft.simulation.dsol.gui.swing;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Logger;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+
+import nl.tudelft.simulation.logger.Cat;
+import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * <p>
@@ -56,7 +58,7 @@ public class HTMLPanel extends JEditorPane
         }
         catch (Exception e)
         {
-            Logger.getLogger("nl.tudelft.simulation.dsol").warning(e.getMessage());
+            CategoryLogger.filter(Cat.SWING).warn(e.getMessage());
         }
     }
 

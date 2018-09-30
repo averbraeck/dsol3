@@ -44,13 +44,11 @@ import nl.tudelft.simulation.language.io.URLResource;
  * set with the systemproperty nl.javel.gisbeans.map.mapfile.schema = [file]
  * <p>
  * copyright (c) 2002-2018 <a href="http://www.javel.nl">Javel b.v. </a>, the Netherlands.
- * <p>
+ * </p>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @version 2.0 28.04.04
- *          <p>
- * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs
- *         </a><a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
+ * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs</a>
+ * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  */
 public final class MapFileXMLParser
 {

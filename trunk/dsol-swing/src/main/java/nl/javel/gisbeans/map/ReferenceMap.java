@@ -13,7 +13,6 @@ import java.net.URL;
  * This class implements the ReferenceMap
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public class ReferenceMap implements ReferenceMapInterface
 {

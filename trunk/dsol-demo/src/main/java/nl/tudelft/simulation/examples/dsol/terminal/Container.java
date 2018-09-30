@@ -18,7 +18,6 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @version Jul 25, 2018
  */
 public class Container implements IntResourceRequestorInterface<Double, Double, SimTimeDouble>
 {

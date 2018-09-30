@@ -18,7 +18,6 @@ import nl.javel.gisbeans.io.ObjectEndianInputStream;
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a> <br>
  *         <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a>
  * @since JDK 1
- * @version 1
  */
 public class DbfReader implements Serializable
 {

@@ -13,7 +13,6 @@ import java.awt.Font;
  * This interface defines the image as defined in the mapInterface
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public interface ScalebarInterface extends java.io.Serializable
 {

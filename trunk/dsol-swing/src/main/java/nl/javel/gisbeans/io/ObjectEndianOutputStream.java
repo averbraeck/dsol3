@@ -15,7 +15,6 @@ import java.io.OutputStream;
  * ObjectOutputStream
  * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a><a href="mailto:paul.jacobs@javel.nl">Paul Jacobs
  *         </a>
- * @version 1.0
  * @since JDK 1.0
  */
 public class ObjectEndianOutputStream implements EndianInterface, DataOutput

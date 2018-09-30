@@ -14,7 +14,6 @@ import nl.javel.gisbeans.io.DataSourceInterface;
  * This interface defines the image as defined in the mapInterface
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public class Layer implements LayerInterface
 {

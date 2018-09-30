@@ -18,7 +18,6 @@ public final class Barrier
 
     /**
      * lowers the barrier
-     * 
      * @param returnedValues
      */
     public synchronized void lower()
@@ -31,7 +30,6 @@ public final class Barrier
 
     /**
      * awaits the barrier
-     * 
      * @return returns the returnValues
      */
     public synchronized void raise(final String purpose)
@@ -42,7 +40,8 @@ public final class Barrier
             try
             {
                 this.wait();
-            } catch (InterruptedException e)
+            }
+            catch (InterruptedException e)
             {
                 // noting to do; we may continue
             }
@@ -57,6 +56,7 @@ public final class Barrier
     {
         return this.lowered;
     }
+
     /**
      * @return Returns the purpose.
      */

@@ -10,9 +10,8 @@ import se.pitch.prti.LogicalTimeDouble;
 
 /**
  * Fired by the FedAmb. Allows the simulator to act on interactions.
- * 
- * @author simlab TODO To change the template for this generated type comment go
- *         to Window - Preferences - Java - Code Style - Code Templates
+ * @author simlab TODO To change the template for this generated type comment go to Window - Preferences - Java - Code
+ *         Style - Code Templates
  */
 public class HLAInteractionEvent
 {
@@ -22,8 +21,7 @@ public class HLAInteractionEvent
 
     private final int TYPE;
 
-    public HLAInteractionEvent(int interactionType,
-            ReceivedInteraction interaction, LogicalTime timeReceived)
+    public HLAInteractionEvent(int interactionType, ReceivedInteraction interaction, LogicalTime timeReceived)
     {
         double timeValue = -1;
         if (timeReceived != null)

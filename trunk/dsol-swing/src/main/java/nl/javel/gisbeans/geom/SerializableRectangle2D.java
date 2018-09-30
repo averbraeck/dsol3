@@ -13,7 +13,6 @@ import java.io.IOException;
  * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
  *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.2
- * @version 1.0
  */
 public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
         implements java.io.Serializable, java.awt.Shape, java.lang.Cloneable
@@ -32,8 +31,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
      * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
      *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
      * @since JDK 1.2
-     * @version 1.0
-     */
+         */
     public static class Double extends SerializableRectangle2D
     {
 
@@ -174,8 +172,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
      * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
      *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
      * @since JDK 1.2
-     * @version 1.0
-     */
+         */
     public static class Float extends SerializableRectangle2D
     {
 

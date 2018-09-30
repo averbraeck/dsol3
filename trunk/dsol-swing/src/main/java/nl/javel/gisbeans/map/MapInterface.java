@@ -19,7 +19,6 @@ import nl.tudelft.simulation.immutablecollections.ImmutableMap;
  * This interface defines the map.
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public interface MapInterface extends java.io.Serializable
 {

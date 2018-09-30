@@ -23,20 +23,17 @@ public class CallbackManager implements Runnable, EventListenerInterface
 
     /**
      * constructs a new CallbackManageger.
-     * 
      * @param callBackQueue the callBackQueue
      */
     public CallbackManager(final EventProducingList callBackQueue)
     {
         super();
         this.callBackQueue = callBackQueue;
-        this.callBackQueue.addListener(this,
-                EventProducingList.OBJECT_ADDED_EVENT);
+        this.callBackQueue.addListener(this, EventProducingList.OBJECT_ADDED_EVENT);
     }
 
     /**
      * executed the list
-     * 
      * @param list
      * @throws SimRuntimeException
      */
@@ -50,7 +47,9 @@ public class CallbackManager implements Runnable, EventListenerInterface
         }
     }
 
-    /** {@inheritDoc} */ @Override public  void run()
+    /** {@inheritDoc} */
+    @Override
+    public void run()
     {
         while (true)
         {
@@ -66,14 +65,17 @@ public class CallbackManager implements Runnable, EventListenerInterface
                 {
                     this.wait();
                 }
-            } catch (Exception exception)
+            }
+            catch (Exception exception)
             {
                 // Logger.warning(this,"run",exception);
             }
         }
     }
 
-    /** {@inheritDoc} */ @Override public  synchronized void notify(final EventInterface arg0)
+    /** {@inheritDoc} */
+    @Override
+    public synchronized void notify(final EventInterface arg0)
     {
         this.notifyAll();
     }

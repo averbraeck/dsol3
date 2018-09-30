@@ -2,11 +2,9 @@ package nl.javel.gisbeans.io.esri;
 
 /**
  * Transforms an (x, y) coordinate to a new (x', y') coordinate <br>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
- * License</a>. <br>
+ * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a> <br>
+ *         <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @version Nov 30, 2015
  */
 public interface CoordinateTransform
 {
@@ -28,12 +26,9 @@ public interface CoordinateTransform
 
     /**
      * The identical transformation (x,y) =&gt; (x,y). <br>
-     * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
-     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
-     * License</a>. <br>
-     * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+     * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a> <br>
+     *         <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
-     * @version Nov 30, 2015
      */
     class NoTransform implements CoordinateTransform
     {

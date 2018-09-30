@@ -19,7 +19,6 @@ import java.beans.SimpleBeanInfo;
  * </p>
  * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang
  *         </a><a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.1 Apr 15, 2004
  * @since 1.5
  */
 public class SubTestBeanBeanInfo extends SimpleBeanInfo

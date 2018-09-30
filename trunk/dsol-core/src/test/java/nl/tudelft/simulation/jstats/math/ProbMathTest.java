@@ -13,7 +13,6 @@ import junit.framework.TestCase;
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.0, 2004-03-18
  * @since 1.5
  */
 public class ProbMathTest extends TestCase
