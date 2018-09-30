@@ -17,35 +17,23 @@ import javax.naming.spi.NamingManager;
 import com.sun.naming.internal.ResourceManager;
 
 /**
- * InitialEventContext class. This class is the starting context for performing naming operations. <br>
- * Copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
- * </ul>
- * <br>
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * @version Oct 17, 2009 <br>
- * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
- * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
+ * InitialEventContext class. This class is the starting context for performing naming operations. 
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author <a href="https://tudelft.nl/mseck">Mamadou Seck</a><br>
  */
 @SuppressWarnings("restriction")
 public class InitialEventContext implements EventContext
 {
     /** the properties of the initialEventContext. */
+    @SuppressWarnings("rawtypes")
     protected Hashtable myProps = null;
 
     /**
@@ -121,7 +109,6 @@ public class InitialEventContext implements EventContext
      */
     protected void init(final Hashtable<?, ?> environment) throws NamingException
     {
-        // TODO ResourceManager.getInitialEnvironment(environment) is an internal API that is forbidden to access?
         this.myProps = ResourceManager.getInitialEnvironment(environment);
         if (this.myProps.get(Context.INITIAL_CONTEXT_FACTORY) != null)
         {
@@ -475,6 +462,7 @@ public class InitialEventContext implements EventContext
      * {@inheritDoc}
      * @see javax.naming.Context #addToEnvironment(java.lang.String, java.lang.Object)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Object addToEnvironment(final String propName, final Object propVal) throws NamingException
     {

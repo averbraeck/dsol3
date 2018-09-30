@@ -22,7 +22,6 @@ import nl.tudelft.simulation.language.reflection.ClassUtil;
  * General Public License (LGPL) </a>, no warranty.
  * 
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja">Peter Jacobs </a>
- * @version $Revision: 1.2 $ $Date: 2005/03/16 15:46:34 $
  * @since 1.0
  */
 public class CallbackTask

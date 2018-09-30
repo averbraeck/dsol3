@@ -18,9 +18,10 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * The time-aware Tally extends the generic tally and links it to the dsol framework.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
- * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
- * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute time type to use in timed events
@@ -169,8 +170,7 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
                 }
                 catch (RemoteException exception)
                 {
-                    SimLogger.always().warn(exception,
-                            "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
+                    SimLogger.always().warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;

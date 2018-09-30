@@ -4,9 +4,13 @@ package nl.tudelft.simulation.event.ref;
  * A WeakReference. The WeakReference extends the <code>java.lang.ref.WeakReference</code> and besides implementing the
  * Reference interface no changes are defined.
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5
  * @param <T> the type of the reference

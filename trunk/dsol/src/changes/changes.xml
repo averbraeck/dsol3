@@ -1,6 +1,13 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.02.05" date="2018-09-30" description="Javadoc cleaned up. dsol-web first version">
+      <action dev="averbraeck" type="update">
+        dsol-naming, dsol-event, dsol-interpreter, dsol-introspection were updated with the 
+        correct copyright notice and package-info.java files for each of the packages.
+      </action>
+    </release>
+    
     <release version="3.02.04" date="2018-09-29" description="Simulator events more logical; more non-final methods">
       <action dev="averbraeck" type="fix">
         The END_REPLICATION_EVENT was fired twice. Therefore, a special endReplication() method has 

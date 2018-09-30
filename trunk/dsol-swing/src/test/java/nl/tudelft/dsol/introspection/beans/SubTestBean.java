@@ -34,7 +34,7 @@ public class SubTestBean implements Serializable
 
     /** Holds value of property font. */
     private Font font;
-    
+
     /** Creates new TestBean. */
     public SubTestBean()
     {
@@ -97,7 +97,7 @@ public class SubTestBean implements Serializable
      */
     public void setIntProp(final int intProp)
     {
-        Logger.info("setIntProp: "+ this.intProp + "set.");
+        Logger.info("setIntProp: " + this.intProp + "set.");
         this.intProp = intProp;
     }
 

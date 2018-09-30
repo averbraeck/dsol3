@@ -21,7 +21,7 @@ import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
+ * See for project information <a href="https://simulation.tudelft.nl/" target="_blank">  www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -41,7 +41,6 @@ import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
  * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
- * @version Aug 15, 2014 <br>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class Warehouse42SwingApplication extends DSOLApplication
@@ -77,7 +76,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
     /**
      * <p>
      * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
-     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      * @version Oct 10, 2016
      */

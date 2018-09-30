@@ -8,10 +8,10 @@ import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
 
 /**
- * The ObjectTableModel.
- * <br>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+ * The ObjectTableModel. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
+ * License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
  * @author Niels Lang.
@@ -36,7 +36,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
 
     /** The model manager. */
     private ModelManager manager = new DefaultModelManager();
-    
+
     /**
      * Creates an ObjectTableModel utilizing a {see nl.tudelft.simulation.introspection.beans.BeanIntrospector}.
      * @param bean The object to be introspected according to the bean property-paradigm.
@@ -94,7 +94,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
             try
             {
                 return requested.getValue();
-            } 
+            }
             catch (Exception e)
             {
                 // something went wrong retrieving this value, e.g. because object was deleted.

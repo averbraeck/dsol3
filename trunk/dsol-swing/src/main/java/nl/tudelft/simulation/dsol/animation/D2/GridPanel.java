@@ -11,13 +11,14 @@ import java.text.NumberFormat;
 import javax.swing.JPanel;
 
 /**
- * The GridPanel introduces the gridPanel <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.2 $ $Date: 2010/08/10 11:37:49 $
+ * The GridPanel introduces the gridPanel.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>, <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
 public class GridPanel extends JPanel
@@ -158,9 +159,8 @@ public class GridPanel extends JPanel
     {
         if (this.showToolTip)
         {
-            String worldPoint =
-                    "(x=" + this.formatter.format(this.worldCoordinate.getX()) + " ; y="
-                            + this.formatter.format(this.worldCoordinate.getY()) + ")";
+            String worldPoint = "(x=" + this.formatter.format(this.worldCoordinate.getX()) + " ; y="
+                    + this.formatter.format(this.worldCoordinate.getY()) + ")";
             setToolTipText(worldPoint);
         }
     }
@@ -203,14 +203,12 @@ public class GridPanel extends JPanel
                         this.extent.getWidth(), this.extent.getHeight());
                 break;
             case UP:
-                this.extent.setRect(this.extent.getMinX(),
-                        this.extent.getMinY() + percentage * this.extent.getHeight(), this.extent.getWidth(),
-                        this.extent.getHeight());
+                this.extent.setRect(this.extent.getMinX(), this.extent.getMinY() + percentage * this.extent.getHeight(),
+                        this.extent.getWidth(), this.extent.getHeight());
                 break;
             case DOWN:
-                this.extent.setRect(this.extent.getMinX(),
-                        this.extent.getMinY() - percentage * this.extent.getHeight(), this.extent.getWidth(),
-                        this.extent.getHeight());
+                this.extent.setRect(this.extent.getMinX(), this.extent.getMinY() - percentage * this.extent.getHeight(),
+                        this.extent.getWidth(), this.extent.getHeight());
                 break;
             default:
                 throw new IllegalArgumentException("direction unkown");
@@ -260,9 +258,8 @@ public class GridPanel extends JPanel
      */
     public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
     {
-        Point2D mwc =
-                Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent,
-                        this.getSize());
+        Point2D mwc = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent,
+                this.getSize());
         double minX = mwc.getX() - (mwc.getX() - this.extent.getMinX()) * factor;
         double minY = mwc.getY() - (mwc.getY() - this.extent.getMinY()) * factor;
         double w = this.extent.getWidth() * factor;
@@ -307,9 +304,8 @@ public class GridPanel extends JPanel
         int x = (int) -Math.round(mod / scale);
         while (x < this.getWidth())
         {
-            Point2D point =
-                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent,
-                            this.getSize());
+            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent,
+                    this.getSize());
             if (point != null)
             {
                 String label = this.formatter.format(Math.round(point.getX() / this.gridSize) * this.gridSize);
@@ -327,9 +323,8 @@ public class GridPanel extends JPanel
         int y = (int) Math.round(this.getSize().getHeight() - (mod / scale));
         while (y > 15)
         {
-            Point2D point =
-                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent,
-                            this.getSize());
+            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent,
+                    this.getSize());
             if (point != null)
             {
                 String label = this.formatter.format(Math.round(point.getY() / this.gridSize) * this.gridSize);

@@ -31,17 +31,17 @@ import nl.tudelft.simulation.logger.Cat;
 import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
- * The JVMContext as implementation of the Context interface. The JVM context is an in-memory context implementation
+ * The JVMContext as in-memory context implementation if the Context.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a> <br>
- *         <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
- * @version 1.5 2004-03-24
- * @since 1.5
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>
  */
 public class JVMContext extends EventProducer implements EventContext, EventProducerInterface, Serializable
 {

@@ -19,7 +19,6 @@ import nl.tudelft.simulation.xml.dsol.ExperimentParser;
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
  * warranty.
- * @version 1.0 Jan 19, 2004 <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
 public class EventPerformance implements DSOLModel.TimeDouble

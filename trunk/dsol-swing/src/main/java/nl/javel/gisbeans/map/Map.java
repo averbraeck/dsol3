@@ -58,7 +58,7 @@ public class Map implements MapInterface
 
     /** the map units. */
     private int units;
-    
+
     /** draw the background? */
     private boolean drawBackground = true;
 
@@ -220,7 +220,7 @@ public class Map implements MapInterface
             graphics.fillRect(0, 0, (int) this.getImage().getSize().getWidth(),
                     (int) this.getImage().getSize().getHeight());
         }
-        
+
         // We compute the transform of the map
         AffineTransform transform = new AffineTransform();
         transform.scale(this.getImage().getSize().getWidth() / this.extent.getWidth(),
@@ -656,6 +656,5 @@ public class Map implements MapInterface
     {
         this.drawBackground = drawBackground;
     }
-    
-    
+
 }

@@ -1,10 +1,10 @@
 package nl.javel.gisbeans.io.esri;
 
 /**
- * Transforms an (x, y) coordinate to a new (x', y') coordinate
- * <br>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+ * Transforms an (x, y) coordinate to a new (x', y') coordinate <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
+ * License</a>. <br>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @version Nov 30, 2015
  */
@@ -25,12 +25,12 @@ public interface CoordinateTransform
      * @return the new (x', y') coordinate represented as a double[2]
      */
     double[] doubleTransform(double x, double y);
-    
+
     /**
-     * The identical transformation (x,y) =&gt; (x,y).
-     * <br>
-     * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
-     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+     * The identical transformation (x,y) =&gt; (x,y). <br>
+     * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
+     * License</a>. <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      * @version Nov 30, 2015
@@ -51,6 +51,6 @@ public interface CoordinateTransform
         {
             return new double[]{x, y};
         }
-        
+
     }
 }

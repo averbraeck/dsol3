@@ -17,7 +17,6 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
- * @version 1.0 10.05.2004 <br>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/royc/index.htm">Roy Chin </a>
  */
 public class World extends Renderable3D

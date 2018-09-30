@@ -21,13 +21,14 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.jstats.statistics.Tally;
 
 /**
- * The Summary chart class defines a summary chart. <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:06 $
+ * The Summary chart class defines a summary chart..
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a>
  */
@@ -183,10 +184,9 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         this.fillRectangle(g2, rectangle, Color.WHITE);
         g2.setColor(Color.BLACK);
         g2.setFont(TITLE_FONT);
-        g2.drawString(
-                tally.getDescription(),
-                (int) Math.round(leftBorder + 0.5 * (rectangle.getWidth() - leftBorder - 20) - 0.5
-                        * this.getBounds(tally.getDescription(), g2.getFontRenderContext()).getWidth()),
+        g2.drawString(tally.getDescription(),
+                (int) Math.round(leftBorder + 0.5 * (rectangle.getWidth() - leftBorder - 20)
+                        - 0.5 * this.getBounds(tally.getDescription(), g2.getFontRenderContext()).getWidth()),
                 25 + (int) rectangle.getY());
         g2.setFont(FONT);
         g2.drawRect((int) rectangle.getX() - 1, (int) rectangle.getY() - 1, (int) rectangle.getWidth() + 2,
@@ -239,9 +239,8 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         for (int i = 0; i < this.tallies.length; i++)
         {
             g2.setFont(FONT);
-            Rectangle2D area =
-                    new Rectangle2D.Double(rectangle.getX() + 0.15 * rectangle.getWidth(), rectangle.getY() + i
-                            * height + 3, 0.85 * rectangle.getWidth() - 10, 0.75 * height - 3);
+            Rectangle2D area = new Rectangle2D.Double(rectangle.getX() + 0.15 * rectangle.getWidth(),
+                    rectangle.getY() + i * height + 3, 0.85 * rectangle.getWidth() - 10, 0.75 * height - 3);
             this.paintTally(g2, area, this.tallies[i], extent[0], border[0], scale);
         }
     }

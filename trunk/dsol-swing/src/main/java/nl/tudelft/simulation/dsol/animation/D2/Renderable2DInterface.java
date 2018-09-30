@@ -13,13 +13,14 @@ import nl.tudelft.simulation.dsol.animation.Locatable;
 
 /**
  * The Renderable2D interface defines the basic interface for 2d animation. This is a hard-to-use interface. It is
- * implemented by the easy-to-use Renderable2D class <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl"> Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.1 $ $Date: 2010/08/10 11:37:21 $
+ * implemented by the easy-to-use Renderable2D class.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <T> the Locatable class of the source that indicates the location of the Renderable on the screen
  */
@@ -32,7 +33,8 @@ public interface Renderable2DInterface<T extends Locatable>
      * @param screen the screen of the panel
      * @param observer the observer of the renderableInterface
      */
-    void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen, final ImageObserver observer);
+    void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
+            final ImageObserver observer);
 
     /**
      * gets the source of this renderable.
@@ -59,13 +61,11 @@ public interface Renderable2DInterface<T extends Locatable>
 
     /**
      * A Utility helper class for transforming between screen coordinates and world coordinates. <br>
-     * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
-     * Netherlands. <br>
+     * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
      * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
      * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
      * warranty.
-     * @version 1.0 Mar 1, 2004 <br>
-     * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+         * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
      */
     class Util
     {

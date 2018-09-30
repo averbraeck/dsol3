@@ -15,8 +15,8 @@ import java.io.IOException;
  * @since JDK 1.2
  * @version 1.0
  */
-public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D implements java.io.Serializable,
-        java.awt.Shape, java.lang.Cloneable
+public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
+        implements java.io.Serializable, java.awt.Shape, java.lang.Cloneable
 {
     /**
      * constructs a new nl.javel.gisbeans.geom.SerializableRectangle2D.

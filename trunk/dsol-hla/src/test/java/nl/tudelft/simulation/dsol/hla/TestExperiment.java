@@ -18,7 +18,6 @@ import nl.tudelft.simulation.jstats.streams.Java2Random;
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
  * General Public License (LGPL) </a>, no warranty.
  * 
- * @version 2.0 21.09.2003 <br>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter
  *         Jacobs </a>, <a
  *         href="http://www.tbm.tudelft.nl/webstaf/alexandv/index.htm">Alexander

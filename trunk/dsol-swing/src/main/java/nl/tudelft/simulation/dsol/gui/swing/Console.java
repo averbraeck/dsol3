@@ -26,10 +26,10 @@ import nl.tudelft.simulation.logger.CategoryLogger;
  * The Console for the swing application where the log messages are displayed. <br>
  * <br>
  * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
- * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
+ * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
+ * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of Delft
+ * University of Technology.
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
  */
 public class Console extends JTextPane
 {
@@ -103,10 +103,10 @@ public class Console extends JTextPane
      * LogWriter takes care of writing the log records to the console. <br>
      * <br>
      * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved. See for project information
-     * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
-     * binary code of this software is proprietary information of Delft University of Technology.
-     * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
+     * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
+     * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of
+     * Delft University of Technology.
+     * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
      */
     public static class ConsoleLogWriter implements Writer
     {

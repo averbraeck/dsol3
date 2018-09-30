@@ -22,12 +22,15 @@ import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * <br>
- * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version Jun 27, 2004 <br>
+ * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a>.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
 public abstract class AbstractXMLParser
@@ -43,7 +46,7 @@ public abstract class AbstractXMLParser
 
     /** the namespace of the schema. */
     private String schemaNamespace;
-    
+
     /**
      * Parses an XML file and validates it against a schema XSD. Explicitly call parse() from the extended class, after
      * other initialization tasks have been carried out. The parse() method will, after schema validation and xml-file
@@ -53,7 +56,8 @@ public abstract class AbstractXMLParser
      * @param schemaNamespace the namespace of the schema
      * @param validateSchema whether to validate the schema file.
      */
-    public AbstractXMLParser(final URL url, final URL schema, final String schemaNamespace, final boolean validateSchema)
+    public AbstractXMLParser(final URL url, final URL schema, final String schemaNamespace,
+            final boolean validateSchema)
     {
         this.validateSchema = validateSchema;
         this.url = url;
@@ -88,8 +92,8 @@ public abstract class AbstractXMLParser
         DOMParser domParser = new DOMParser();
         domParser.setFeature("http://xml.org/sax/features/validation", true);
         domParser.setFeature("http://apache.org/xml/features/validation/schema", true);
-        domParser.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation", this.schemaNamespace
-                + " " + this.schema.toExternalForm());
+        domParser.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation",
+                this.schemaNamespace + " " + this.schema.toExternalForm());
         domParser.setEntityResolver(new RelativePathResolver());
         domParser.setErrorHandler(new ValidHandler());
         // System.exit(0);
@@ -113,13 +117,12 @@ public abstract class AbstractXMLParser
      * The ValidHandler ErrorHandler gives a more extensive explanation about errors that occur during parsing. If
      * needed, this inner class can be overridden to provide other forms of error handling. <br>
      * <br>
-     * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
-     * Netherlands. <br>
+     * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+     * <br>
      * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
      * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
      * warranty.
-     * @version Jun 27, 2004 <br>
-     * @author <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+         * @author <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
      */
     private static class ValidHandler implements ErrorHandler
     {
@@ -162,13 +165,12 @@ public abstract class AbstractXMLParser
      * The relative path resolver takes care of resolving xsd-files or xml-files, that are in the current classpath.
      * Example use is the <code>include</code> tag in the schema file, that can now point to a relative path. <br>
      * <br>
-     * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
-     * Netherlands. <br>
+     * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
+     * <br>
      * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
      * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
      * warranty.
-     * @version Jun 27, 2004 <br>
-     * @author <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
+         * @author <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
      */
     private static class RelativePathResolver implements EntityResolver2
     {

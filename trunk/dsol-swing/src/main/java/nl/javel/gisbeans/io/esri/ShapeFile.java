@@ -92,7 +92,7 @@ public class ShapeFile implements DataSourceInterface
 
     /** the cachedContent. */
     private ArrayList cachedContent = null;
-    
+
     /** an optional transformation of the lat/lon (or other) coordinates. */
     private final CoordinateTransform coordinateTransform;
 
@@ -125,7 +125,7 @@ public class ShapeFile implements DataSourceInterface
             throw new IOException("Can't read " + this.shxFile.toString());
         }
     }
-    
+
     /**
      * @return Returns the cache.
      */
@@ -289,8 +289,10 @@ public class ShapeFile implements DataSourceInterface
             int type = shapeInput.readInt();
             if (type != 0 && type != 1 && type != 11 && type != 21)
             {
-                double[] min = this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
-                double[] max = this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
+                double[] min =
+                        this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
+                double[] max =
+                        this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
                 double minX = Math.min(min[0], max[0]);
                 double minY = Math.min(min[1], max[1]);
                 double width = Math.max(min[0], max[0]) - minX;

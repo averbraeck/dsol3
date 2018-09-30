@@ -173,7 +173,7 @@ public interface MapInterface extends java.io.Serializable
     public ImageInterface getImage() throws RemoteException;
 
     /**
-     * Getter for the map of layer names to property layers 
+     * Getter for the map of layer names to property layers
      * @return List the value of property layers.
      * @throws RemoteException on network exception
      */
@@ -199,7 +199,7 @@ public interface MapInterface extends java.io.Serializable
      * @throws RemoteException on network exception
      */
     public boolean isSame() throws RemoteException;
-    
+
     /**
      * Getter for property name
      * @return String the value of property extent.
@@ -353,5 +353,5 @@ public interface MapInterface extends java.io.Serializable
      * @param drawBackground set drawBackground
      */
     public void setDrawBackground(final boolean drawBackground);
-    
+
 }

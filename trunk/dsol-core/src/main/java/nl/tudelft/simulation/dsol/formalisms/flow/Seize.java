@@ -28,10 +28,11 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * The Seize requests a resource and releases an entity whenever this resource is actually claimed.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
@@ -320,7 +321,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Seize.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends Seize<Time, Duration, SimTimeDoubleUnit> implements StationInterface.TimeDoubleUnit
+    public static class TimeDoubleUnit extends Seize<Time, Duration, SimTimeDoubleUnit>
+            implements StationInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -350,7 +352,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Seize.TimeFloatUnit. */
-    public static class TimeFloatUnit extends Seize<FloatTime, FloatDuration, SimTimeFloatUnit> implements StationInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends Seize<FloatTime, FloatDuration, SimTimeFloatUnit>
+            implements StationInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -380,7 +383,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Seize.CalendarDouble. */
-    public static class CalendarDouble extends Seize<Calendar, Duration, SimTimeCalendarDouble> implements StationInterface.CalendarDouble
+    public static class CalendarDouble extends Seize<Calendar, Duration, SimTimeCalendarDouble>
+            implements StationInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -410,7 +414,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Seize.CalendarFloat. */
-    public static class CalendarFloat extends Seize<Calendar, FloatDuration, SimTimeCalendarFloat> implements StationInterface.CalendarFloat
+    public static class CalendarFloat extends Seize<Calendar, FloatDuration, SimTimeCalendarFloat>
+            implements StationInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -440,7 +445,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Seize.CalendarLong. */
-    public static class CalendarLong extends Seize<Calendar, Long, SimTimeCalendarLong> implements StationInterface.CalendarLong
+    public static class CalendarLong extends Seize<Calendar, Long, SimTimeCalendarLong>
+            implements StationInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;

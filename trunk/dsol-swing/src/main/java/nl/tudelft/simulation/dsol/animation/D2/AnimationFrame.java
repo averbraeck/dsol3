@@ -21,10 +21,14 @@ import nl.tudelft.simulation.dsol.animation.D2.actions.ZoomOutAction;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
- * The AnimationFrame <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
- * @version $Revision: 1.1 $ $Date: 2007/01/07 04:56:38 $
+ * The AnimationFrame.
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="http://www.peter-jacobs.com/index.htm">Peter Jacobs </a>
  */
 public class AnimationFrame extends JFrame
