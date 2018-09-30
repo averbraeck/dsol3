@@ -30,7 +30,6 @@ import se.pitch.prti.LogicalTimeIntervalDouble;
  * General Public License (LGPL) </a>, no warranty.
  * 
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja">Peter Jacobs </a>
- * @version $Revision: 1.6 $ $Date: 2005/03/17 17:45:22 $
  * @since 1.0
  */
 public class HLADEVSSimulator extends DEVSSimulator implements

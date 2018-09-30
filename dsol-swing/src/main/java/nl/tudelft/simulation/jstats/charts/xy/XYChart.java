@@ -20,13 +20,13 @@ import nl.tudelft.simulation.language.filters.FilterInterface;
 /**
  * The xyChart specifies the xyChart in DSOL.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the
- * Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version $Revision: 1.1 $ $Date: 2010/08/10 11:39:04 $
  * @since 1.5
  */
 public class XYChart implements Swingable
@@ -166,9 +166,8 @@ public class XYChart implements Swingable
     public XYChart(final String title, final double[] domain, final double[] range, final short axisType)
     {
         super();
-        this.chart =
-                ChartFactory.createXYLineChart(title, LABEL_X_AXIS, LABEL_Y_AXIS, this.dataset,
-                        PlotOrientation.VERTICAL, true, true, true);
+        this.chart = ChartFactory.createXYLineChart(title, LABEL_X_AXIS, LABEL_Y_AXIS, this.dataset,
+                PlotOrientation.VERTICAL, true, true, true);
         this.chart.setBackgroundPaint(new GradientPaint(0.0F, 0.0F, Color.white, 1000F, 0.0F, Color.blue));
         this.axisType = axisType;
         switch (this.axisType)

@@ -18,7 +18,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
+ * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -38,7 +38,6 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
  * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
  * of this software, even if advised of the possibility of such damage.
- * @version Aug 15, 2014 <br>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class MM1SwingApplication extends DSOLApplication
@@ -56,8 +55,8 @@ public class MM1SwingApplication extends DSOLApplication
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param args the arguments for the program (should be empty) 
-     * @throws SimRuntimeException on simulation error 
+     * @param args the arguments for the program (should be empty)
+     * @throws SimRuntimeException on simulation error
      * @throws RemoteException on remote error
      * @throws NamingException on naming/animation error
      */

@@ -18,8 +18,12 @@ import nl.tudelft.simulation.logger.Cat;
 /**
  * The SortingTableModel.
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
  * @author Niels Lang.
@@ -199,8 +203,8 @@ public class SortingTableModel implements TableModel, Sortable
                         }
                         catch (ClassCastException exception)
                         {
-                            SimLogger.filter(Cat.SWING).info(exception,
-                                    "sortSubList - Could not compare {} and {}", current, resultValue);
+                            SimLogger.filter(Cat.SWING).info(exception, "sortSubList - Could not compare {} and {}",
+                                    current, resultValue);
                         }
                     }
                 }
@@ -282,8 +286,8 @@ public class SortingTableModel implements TableModel, Sortable
         }
         if (rowIndex > this.expandedIndex.length)
         {
-            SimLogger.always()
-                    .warn("getValueAt could not retrieve row {} from sorted list. Returning default instead", rowIndex);
+            SimLogger.always().warn("getValueAt could not retrieve row {} from sorted list. Returning default instead",
+                    rowIndex);
             return this.source.getValueAt(rowIndex, columnIndex);
         }
         return this.source.getValueAt(this.expandedIndex[rowIndex].intValue(), columnIndex);

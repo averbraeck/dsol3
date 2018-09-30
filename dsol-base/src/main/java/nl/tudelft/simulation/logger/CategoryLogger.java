@@ -13,30 +13,30 @@ import org.pmw.tinylog.writers.ConsoleWriter;
 import org.pmw.tinylog.writers.Writer;
 
 /**
- * The CategoryLogger can log for specific Categories. The way to call the logger for messages that always need to be logged,
- * such as an error with an exception is:
+ * The CategoryLogger can log for specific Categories. The way to call the logger for messages that always need to be
+ * logged, such as an error with an exception is:
  * 
  * <pre>
  * CategoryLogger.always().error(exception, "Parameter {} did not initialize correctly", param1.toString());
  * </pre>
  * 
- * It is also possible to indicate the category / categories for the message, which will only be logged if at least one of the
- * indicated categories is turned on with addLogCategory() or setLogCategories(), or if one of the added or set LogCategories is
- * LogCategory.ALL:
+ * It is also possible to indicate the category / categories for the message, which will only be logged if at least one
+ * of the indicated categories is turned on with addLogCategory() or setLogCategories(), or if one of the added or set
+ * LogCategories is LogCategory.ALL:
  * 
  * <pre>
  * CategoryLogger.filter(Cat.BASE).debug("Parameter {} initialized correctly", param1.toString());
  * </pre>
- * 
  * <p>
- * Copyright (c) 2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
- * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
- * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * Copyright (c) 2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
- * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
+ * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
  */
-@SuppressWarnings({ "checkstyle:visibilitymodifier", "checkstyle:finalclass", "checkstyle:needbraces" })
+@SuppressWarnings({"checkstyle:visibilitymodifier", "checkstyle:finalclass", "checkstyle:needbraces"})
 public class CategoryLogger
 {
     /** The default message format. */
@@ -81,9 +81,9 @@ public class CategoryLogger
     }
 
     /**
-     * Create a new logger for the system console. Note that this REPLACES current writers. Note that the initial LogCategory is
-     * LogCategory.ALL, so all categories will be logged. This category has to be explicitly removed (or new categories have to
-     * be set) to log a limited set of categories.
+     * Create a new logger for the system console. Note that this REPLACES current writers. Note that the initial
+     * LogCategory is LogCategory.ALL, so all categories will be logged. This category has to be explicitly removed (or
+     * new categories have to be set) to log a limited set of categories.
      */
     protected static void create()
     {
@@ -211,8 +211,8 @@ public class CategoryLogger
     }
 
     /**
-     * Check whether the provided category needs to be logged. Note that when LogCategory.ALL is contained in the categories,
-     * filter will return true.
+     * Check whether the provided category needs to be logged. Note that when LogCategory.ALL is contained in the
+     * categories, filter will return true.
      * @param logCategory the category to check for.
      * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
      */
@@ -264,10 +264,11 @@ public class CategoryLogger
     /**
      * DelegateLogger class that takes care of actually logging the message and/or exception. <br>
      * <br>
-     * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
-     * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>.
-     * The source code and binary code of this software is proprietary information of Delft University of Technology.
-     * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
+     * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
+     * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of
+     * Delft University of Technology.
+     * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
      */
     public static class DelegateLogger
     {

@@ -13,11 +13,11 @@ import java.net.URL;
  * of the file location that was found, or null in case it was not found.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
- * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
- * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * <p>
- * @version May 2, 2014 <br>
  * @author Peter Jacobs
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */

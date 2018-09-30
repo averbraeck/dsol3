@@ -7,9 +7,10 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * component within that coupled model. The definition can be found in Zeigler et al. (2000), p. 86-87.
  * <p>
  * Copyright (c) 2009-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
- * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
- * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
@@ -33,7 +34,8 @@ public class EIC<A extends Comparable<A>, R extends Number & Comparable<R>, T ex
      * @param toPort input port of the receiving component
      * @throws Exception in case of wiring to self
      */
-    public EIC(final InputPortInterface<A, R, T, P> fromPort, final InputPortInterface<A, R, T, P> toPort) throws Exception
+    public EIC(final InputPortInterface<A, R, T, P> fromPort, final InputPortInterface<A, R, T, P> toPort)
+            throws Exception
     {
         this.fromPort = fromPort;
         this.toPort = toPort;

@@ -13,14 +13,20 @@ import java.util.Arrays;
  * to load constants or values from local variables or fields onto the operand stack. Other Java virtual machine
  * instructions take operands from the operand stack, operate on them, and push the result back onto the operand stack.
  * The operand stack is also used to prepare parameters to be passed to methods and to receive method results.
+ * </p>
  * <p>
  * For example, the IADD instruction adds two int values together. It requires that the int values to be added be the
  * top two values of the operand stack, pushed there by previous instructions. Both of the int values are popped from
  * the operand stack. They are added, and their sum is pushed back onto the operand stack. Subcomputations may be nested
  * on the operand stack, resulting in values that can be used by the encompassing computation.
+ * </p>
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5

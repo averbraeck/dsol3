@@ -17,7 +17,6 @@ import se.pitch.prti.RTI;
  * 
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm"> Peter
  *         Jacobs </a>
- * @version $Revision: 1.6 $ $Date: 2005/03/24 18:04:46 $
  * @since 1.2
  */
 public class CreateFederation

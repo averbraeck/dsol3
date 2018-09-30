@@ -11,9 +11,8 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
- * See for project information <a href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>.
+ * See for project information <a href="https://simulation.tudelft.nl/" target="_blank">  www.simulation.tudelft.nl</a>.
  * <p>
- * @version Aug 15, 2014 <br>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class Distance extends DifferentialEquation<Double, Double, SimTimeDouble>

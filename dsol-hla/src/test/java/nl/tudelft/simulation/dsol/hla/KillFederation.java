@@ -16,7 +16,6 @@ import se.pitch.prti.RTI;
  * 
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm"> Peter
  *         Jacobs </a>
- * @version $Revision: 1.3 $ $Date: 2005/03/24 18:04:46 $
  * @since 1.2
  */
 public class KillFederation

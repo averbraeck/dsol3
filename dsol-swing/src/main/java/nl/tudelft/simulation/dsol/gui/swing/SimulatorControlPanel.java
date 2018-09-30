@@ -15,15 +15,13 @@ import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
- * <br>
- * Copyright (c) 2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * The MEDLABS project (Modeling Epidemic Disease with Large-scale Agent-Based Simulation) is aimed at providing policy
- * analysis tools to predict and help contain the spread of epidemics. It makes use of the DSOL simulation engine and
- * the agent-based modeling formalism. See for project information <a href="https://simulation.tudelft.nl/">
- * www.simulation.tudelft.nl</a>. The project is a co-operation between TU Delft, Systems Engineering and Simulation
- * Department (Netherlands) and NUDT, Simulation Engineering Department (China). This software is licensed under the BSD
- * license. See license.txt in the main project.
- * @version May 4, 2014 <br>
+ * <p>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck </a>
  */
@@ -82,25 +80,22 @@ public class SimulatorControlPanel extends JPanel
         control.setLayout(new BoxLayout(control, BoxLayout.X_AXIS));
         this.simulatorControlListener = new SimulatorControlListener(this.target);
 
-        JButton stepButton =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/toolbarButtonGraphics/media/StepForward" + this.size + ".gif")));
+        JButton stepButton = new JButton(new ImageIcon(
+                this.getClass().getResource("/toolbarButtonGraphics/media/StepForward" + this.size + ".gif")));
         stepButton.setName("stepButton");
         stepButton.setToolTipText("steps the simulator");
         stepButton.addActionListener(this.simulatorControlListener);
         control.add(stepButton);
 
-        JButton startButton =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/toolbarButtonGraphics/media/Play" + this.size + ".gif")));
+        JButton startButton = new JButton(
+                new ImageIcon(this.getClass().getResource("/toolbarButtonGraphics/media/Play" + this.size + ".gif")));
         startButton.setName("startButton");
         startButton.setToolTipText("starts the simulator");
         startButton.addActionListener(this.simulatorControlListener);
         control.add(startButton);
 
-        JButton fastForwardButton =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/toolbarButtonGraphics/media/FastForward" + this.size + ".gif")));
+        JButton fastForwardButton = new JButton(new ImageIcon(
+                this.getClass().getResource("/toolbarButtonGraphics/media/FastForward" + this.size + ".gif")));
         fastForwardButton.setName("fastForwardButton");
         fastForwardButton.setToolTipText("fastForwards the simulator");
         fastForwardButton.addActionListener(this.simulatorControlListener);
@@ -109,25 +104,22 @@ public class SimulatorControlPanel extends JPanel
             fastForwardButton.setEnabled(true);
         control.add(fastForwardButton);
 
-        JButton pauseButton =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/toolbarButtonGraphics/media/Pause" + this.size + ".gif")));
+        JButton pauseButton = new JButton(
+                new ImageIcon(this.getClass().getResource("/toolbarButtonGraphics/media/Pause" + this.size + ".gif")));
         pauseButton.setName("pauseButton");
         pauseButton.setToolTipText("pauses the simulator");
         pauseButton.addActionListener(this.simulatorControlListener);
         control.add(pauseButton);
 
-        JButton stopButton =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/toolbarButtonGraphics/media/Stop" + this.size + ".gif")));
+        JButton stopButton = new JButton(
+                new ImageIcon(this.getClass().getResource("/toolbarButtonGraphics/media/Stop" + this.size + ".gif")));
         stopButton.setName("stopButton");
         stopButton.setToolTipText("stops the simulator");
         stopButton.addActionListener(this.simulatorControlListener);
         control.add(stopButton);
 
-        JButton resetButton =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/toolbarButtonGraphics/general/Undo" + this.size + ".gif")));
+        JButton resetButton = new JButton(
+                new ImageIcon(this.getClass().getResource("/toolbarButtonGraphics/general/Undo" + this.size + ".gif")));
         resetButton.setName("resetButton");
         resetButton.setToolTipText("resets the simulator");
         resetButton.addActionListener(this.simulatorControlListener);
@@ -137,9 +129,8 @@ public class SimulatorControlPanel extends JPanel
         JPanel setupPanel = new JPanel();
         setupPanel.setLayout(new BoxLayout(setupPanel, BoxLayout.X_AXIS));
 
-        JButton speedButton =
-                new JButton(new ImageIcon(this.getClass().getResource(
-                        "/nl/tudelft/simulation/dsol/images/clock" + this.size + ".gif")));
+        JButton speedButton = new JButton(new ImageIcon(
+                this.getClass().getResource("/nl/tudelft/simulation/dsol/images/clock" + this.size + ".gif")));
         speedButton.setName("speedButton");
         speedButton.setToolTipText("changes the speed of the animation & simulation");
         speedButton.addActionListener(this.simulatorControlListener);
@@ -153,12 +144,12 @@ public class SimulatorControlPanel extends JPanel
      * Copyright (c) 2014 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
      * reserved. The MEDLABS project (Modeling Epidemic Disease with Large-scale Agent-Based Simulation) is aimed at
      * providing policy analysis tools to predict and help contain the spread of epidemics. It makes use of the DSOL
-     * simulation engine and the agent-based modeling formalism. See for project information <a
-     * href="https://simulation.tudelft.nl/"> www.simulation.tudelft.nl</a>. The project is a co-operation between TU
-     * Delft, Systems Engineering and Simulation Department (Netherlands) and NUDT, Simulation Engineering Department
-     * (China). This software is licensed under the BSD license. See license.txt in the main project.
-     * @version May 4, 2014 <br>
-     * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
+     * simulation engine and the agent-based modeling formalism. See for project information
+     * <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>. The project is a
+     * co-operation between TU Delft, Systems Engineering and Simulation Department (Netherlands) and NUDT, Simulation
+     * Engineering Department (China). This software is licensed under the BSD license. See license.txt in the main
+     * project.
+         * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck </a>
      */
     private class SimulatorControlListener implements ActionListener

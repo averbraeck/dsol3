@@ -10,7 +10,6 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  * <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
- * @version 1.1 02.04.2003 <br>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  */
 public class Job

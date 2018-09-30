@@ -9,8 +9,8 @@ import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 
 /**
- * The Bean introspector provides a simplified JavaBean TM implementation of the introspection interfaces. Its behavior
- * adhers to the following:
+ * The Bean introspector provides a simplified JavaBean implementation of the introspection interfaces. Its behavior
+ * adheres to the following:
  * <ul>
  * <li>Properties are discovered by searching for 'getter' and / or 'setter' methods</li>
  * <li>Property value are manipulated via a property's 'setter' method. If no such method is found, the property cannot
@@ -18,10 +18,14 @@ import nl.tudelft.simulation.introspection.Property;
  * <li>Indexed properties are probably not correctly supported.</li>
  * </ul>
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
- * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author Niels Lang.
  * @since 1.5
  */

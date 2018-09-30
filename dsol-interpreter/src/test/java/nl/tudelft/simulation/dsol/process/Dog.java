@@ -10,7 +10,6 @@ import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
  * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
- * @version $Revision: 1.1 $ $Date: 2007/01/07 05:00:13 $
  * @since 1.5
  */
 class Dog extends InterpretableProcess

@@ -52,7 +52,6 @@ import se.pitch.prti.LogicalTimeDouble;
  * 
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm"> Peter
  *         Jacobs </a>
- * @version $Revision: 1.11 $ $Date: 2005/03/17 16:08:17 $
  * @since 1.2
  */
 public class DSOLFederateAmbassador extends EventProducer implements

@@ -3,18 +3,23 @@ package nl.tudelft.simulation.dsol.interpreter;
 import nl.tudelft.simulation.dsol.interpreter.classfile.LocalVariableDescriptor;
 
 /**
- * Each frame (???3.6) contains an array of variables known as its local variables. The length of the local variable
+ * Each frame (par 3.6) contains an array of variables known as its local variables. The length of the local variable
  * array of a frame is determined at compile time and supplied in the binary representation of a class or interface
- * along with the code for the method associated with the frame (???4.7.3). A single local variable can hold a value of
+ * along with the code for the method associated with the frame (par 4.7.3). A single local variable can hold a value of
  * type boolean, byte, char, short, int, float, reference, or returnAddress. A pair of local variables can hold a value
  * of type long or double.
  * <p>
  * Local variables are addressed by indexing. The index of the first local variable is zero. An integer is be considered
  * to be an index into the local variable array if and only if that integer is between zero and one less than the size
  * of the local variable array.
+ * </p>
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html">DSOL License</a>. <br>
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @since 1.5

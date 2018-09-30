@@ -16,7 +16,6 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * 
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm"> Peter
  *         Jacobs </a>
- * @version $Revision: 1.1 $ $Date: 2005/03/16 13:02:07 $
  * @since 1.2
  */
 public interface HLASimulatorInterface extends SimulatorInterface

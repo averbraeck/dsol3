@@ -20,9 +20,10 @@ import nl.tudelft.simulation.language.primitives.Primitive;
  * ClassUtil is a utility class providing assistance for Java Classes.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/">https://simulation.tudelft.nl</a>. The
- * DSOL project is distributed under a three-clause BSD-style license, which can be found at <a href=
- * "https://simulation.tudelft.nl/dsol/3.0/license.html">https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author Peter Jacobs, Niels Lang, Alexander Verbraeck
  */
@@ -637,7 +638,7 @@ public final class ClassUtil
     }
 
     /** ************** PRIVATE METHODS ********* */
-    
+
     /**
      * checks the input of an array.
      * @param array the array
@@ -700,8 +701,8 @@ public final class ClassUtil
     }
 
     /**
-     * Determines & returns the most specific method as defined in the Java Language Specification par 15.12. The current
-     * algorithm is simple and reliable, but probably slow.
+     * Determines & returns the most specific method as defined in the Java Language Specification par 15.12. The
+     * current algorithm is simple and reliable, but probably slow.
      * @param methods which are the methods to be searched. They are assumed to have the same name and number of
      *            parameters, as determined by the method matchSignature.
      * @return The most specific method.
@@ -787,8 +788,8 @@ public final class ClassUtil
      * @return Method
      * @throws NoSuchMethodException on lookup failure
      */
-    private static Method resolveMethodSuper(final Class<?> clazz, final String name,
-            final Class<?>[] parameterTypes) throws NoSuchMethodException
+    private static Method resolveMethodSuper(final Class<?> clazz, final String name, final Class<?>[] parameterTypes)
+            throws NoSuchMethodException
     {
         String key = "METHOD:" + clazz + "@" + name + "@" + FieldSignature.toDescriptor(parameterTypes);
         try
@@ -820,8 +821,7 @@ public final class ClassUtil
      * @return the field (if found)
      * @throws NoSuchFieldException if the field cannot be resolved
      */
-    private static Field resolveFieldSuper(final Class<?> clazz, final String fieldName)
-            throws NoSuchFieldException
+    private static Field resolveFieldSuper(final Class<?> clazz, final String fieldName) throws NoSuchFieldException
     {
         String key = "FIELD:" + clazz + "@" + fieldName;
         try
