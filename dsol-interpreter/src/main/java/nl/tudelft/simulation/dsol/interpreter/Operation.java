@@ -4,7 +4,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
 
 /**
  * Represents a Java virtual machine instruction. An operation is id-ed with a short opcode and has a predefined
- * byte length.
+ * byte length. 
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">

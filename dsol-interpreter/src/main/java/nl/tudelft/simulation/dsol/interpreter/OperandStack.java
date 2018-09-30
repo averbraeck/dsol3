@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Each frame (par. 3.6) contains a last-in-first-out (LIFO) stack known as its operand stack. The maximum depth of the
- * operand stack of a frame is determined at compile time and is supplied along with the code for the method associated
- * with the frame (par. 4.7.3). Where it is clear by context, we will sometimes refer to the operand stack of the
- * current frame as simply the operand stack.
+ * Each frame (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">par 2.6</a>)
+ * contains a last-in-first-out (LIFO) stack known as its operand stack. The maximum depth of the operand stack of a
+ * frame is determined at compile time and is supplied along with the code for the method associated with the frame
+ * (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3">par. 4.7.3</a>). Where it is
+ * clear by context, we will sometimes refer to the operand stack of the current frame as simply the operand stack.
  * <p>
  * The operand stack is empty when the frame that contains it is created. The Java virtual machine supplies instructions
  * to load constants or values from local variables or fields onto the operand stack. Other Java virtual machine

@@ -4,7 +4,8 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 import nl.tudelft.simulation.dsol.interpreter.classfile.MethodDescriptor;
 
 /**
- * A code Frame.
+ * A code Frame. See <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">
+ * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6 </a> for more information.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
