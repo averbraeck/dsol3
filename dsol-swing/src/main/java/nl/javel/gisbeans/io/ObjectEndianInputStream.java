@@ -15,7 +15,6 @@ import java.io.InputStream;
  * ObjectInputStream
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a><a href="mailto:peter.jacobs@javel.nl">Peter Jacobs
  *         </a>
- * @version 1.0
  * @since JDK 1.0
  */
 public class ObjectEndianInputStream implements EndianInterface, DataInput

@@ -8,19 +8,16 @@ import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
- * The CallbackTask forms the essential scheduling mechanism for D-SOL. Objects
- * do not invoke methods directly on eachother; they bundle the object on which
- * the method is planned to be invoked together with the arguments and the name
- * of the method in a simEvent. The CallbackTask is then stored in the eventList
- * and executed.
+ * The CallbackTask forms the essential scheduling mechanism for D-SOL. Objects do not invoke methods directly on each
+ * other; they bundle the object on which the method is planned to be invoked together with the arguments and the name
+ * of the method in a simEvent. The CallbackTask is then stored in the eventList and executed.
  * <p>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">
- * www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
+ * Copyright (c) 2004-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja">Peter Jacobs </a>
  * @since 1.0
  */
@@ -47,9 +44,7 @@ public class CallbackTask
     protected Object[] args = null;
 
     /**
-     * The constuctor of the event stores the time the event must be executed
-     * and the object and method to invoke
-     * 
+     * The constuctor of the event stores the time the event must be executed and the object and method to invoke
      * @param executionTime reflects the time the event has to be executed.
      * @param priority reflects the priority of the event
      * @param source reflects the source that created the method
@@ -57,14 +52,12 @@ public class CallbackTask
      * @param method reflects the method to invoke
      * @param args reflects the argumenst the method to invoke with
      */
-    public CallbackTask(final Object source, final Object target,
-            final String method, final Object[] args)
+    public CallbackTask(final Object source, final Object target, final String method, final Object[] args)
     {
         super();
         if (source == null || target == null || method == null)
         {
-            throw new IllegalArgumentException(
-                    "either source, target or method==null");
+            throw new IllegalArgumentException("either source, target or method==null");
         }
         this.source = source;
         this.target = target;
@@ -72,7 +65,9 @@ public class CallbackTask
         this.args = args;
     }
 
-    /** {@inheritDoc} */ @Override public  synchronized void execute() throws SimRuntimeException
+    /** {@inheritDoc} */
+    @Override
+    public synchronized void execute() throws SimRuntimeException
     {
         try
         {
@@ -83,28 +78,26 @@ public class CallbackTask
                     throw new SimRuntimeException(
                             "Invoking a constructor implies that target should be instance of Class");
                 }
-                Constructor constructor = ClassUtil.resolveConstructor(
-                        (Class) this.target, this.args);
+                Constructor constructor = ClassUtil.resolveConstructor((Class) this.target, this.args);
                 if (!ClassUtil.isVisible(constructor, this.source.getClass()))
                 {
-                    throw new SimRuntimeException(this.method
-                            + " is not accessible for " + this.source);
+                    throw new SimRuntimeException(this.method + " is not accessible for " + this.source);
                 }
                 constructor.setAccessible(true);
                 constructor.newInstance(this.args);
-            } else
+            }
+            else
             {
-                Method methodRef = ClassUtil.resolveMethod(this.target,
-                        this.method, this.args);
+                Method methodRef = ClassUtil.resolveMethod(this.target, this.method, this.args);
                 if (!ClassUtil.isVisible(methodRef, this.source.getClass()))
                 {
-                    throw new SimRuntimeException(this.method
-                            + " is not accessible for " + this.source);
+                    throw new SimRuntimeException(this.method + " is not accessible for " + this.source);
                 }
                 methodRef.setAccessible(true);
                 methodRef.invoke(this.target, this.args);
             }
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             throw new SimRuntimeException(exception);
         }
@@ -142,9 +135,11 @@ public class CallbackTask
         return this.target;
     }
 
-    /** {@inheritDoc} */ @Override public  String toString()
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
     {
-        return "CallbackTask[source=" + this.source + "; target=" + this.target
-                + "; method=" + this.method + "; args=" + this.args + "]";
+        return "CallbackTask[source=" + this.source + "; target=" + this.target + "; method=" + this.method + "; args="
+                + this.args + "]";
     }
 }

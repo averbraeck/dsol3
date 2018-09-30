@@ -11,23 +11,20 @@ import nl.tudelft.simulation.jstats.streams.Java2Random;
 
 /**
  * A TestExperiment <br>
- * (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a
- * href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser
- * General Public License (LGPL) </a>, no warranty.
- * 
- * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter
- *         Jacobs </a>, <a
- *         href="http://www.tbm.tudelft.nl/webstaf/alexandv/index.htm">Alexander
- *         Verbraeck </a>
+ * <p>
+ * Copyright (c) 2004-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
+ * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * </p>
+ * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>,
+ *         <a href="http://www.tbm.tudelft.nl/webstaf/alexandv/index.htm">Alexander Verbraeck </a>
  */
 public final class TestExperiment extends Experiment
 {
     /**
-     * STARTTIME defines the starting time for the experiment in millisec since
-     * 1970
+     * STARTTIME defines the starting time for the experiment in millisec since 1970
      */
     public static final long STARTTIME = 0;
 
@@ -57,7 +54,6 @@ public final class TestExperiment extends Experiment
 
     /**
      * creates a new TestExperiment
-     * 
      * @return Experiment
      */
     public static Experiment createExperiment()
@@ -70,7 +66,6 @@ public final class TestExperiment extends Experiment
 
     /**
      * creates the Treatments for this experiment
-     * 
      * @param experiment the parent
      * @return Treatment[] the result
      */
@@ -87,7 +82,6 @@ public final class TestExperiment extends Experiment
 
     /**
      * creates a RunControl for the test Excperiment
-     * 
      * @param treatment the treatment
      * @return RunControl the runControl of the TestExperiment
      */
@@ -102,7 +96,6 @@ public final class TestExperiment extends Experiment
 
     /**
      * creates the replications for the test experiment
-     * 
      * @param runControl the parent
      * @return Replication[] result
      */

@@ -14,7 +14,6 @@ import nl.javel.gisbeans.io.DataSourceInterface;
  * This interface defines the layer of the map
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public interface LayerInterface extends java.io.Serializable
 {

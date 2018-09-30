@@ -13,7 +13,6 @@ import java.io.Serializable;
  * This class defines the attribute interface
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public interface AttributeInterface extends Serializable
 {

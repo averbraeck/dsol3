@@ -14,7 +14,6 @@ import nl.tudelft.simulation.logger.CategoryLogger;
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @version Oct 21, 2016
  */
 public class Server
 {

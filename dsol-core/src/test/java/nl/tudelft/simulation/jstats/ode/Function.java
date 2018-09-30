@@ -9,7 +9,6 @@ package nl.tudelft.simulation.jstats.ode;
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @version 1.2 Apr 20, 2004
  * @since 1.5
  */
 public class Function extends DifferentialEquation

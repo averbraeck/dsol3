@@ -12,7 +12,6 @@ import java.awt.Dimension;
  * This class defines the image as defined in the map
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public class Image implements ImageInterface
 {

@@ -23,7 +23,6 @@ import nl.tudelft.simulation.jstats.streams.MersenneTwister;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @version Jul 26, 2018
  */
 public final class ExperimentRunnerTerminal implements EventListenerInterface
 {

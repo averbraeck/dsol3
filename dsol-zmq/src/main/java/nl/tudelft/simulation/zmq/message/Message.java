@@ -16,7 +16,6 @@ import nl.tudelft.simulation.zmq.ZeroMQException;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @version Oct 21, 2016
  */
 public class Message
 {

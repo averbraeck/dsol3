@@ -335,8 +335,7 @@ public class Observations implements ObservationsInterface
      * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty
      * <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
-     * @version 1.0 Nov 2, 2004
-     * @since 1.5
+         * @since 1.5
      */
     public class Observation implements Entry
     {

@@ -11,7 +11,6 @@ import junit.framework.TestCase;
  * License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @version Apr 26, 2015
  */
 public class StreamStateSaveRestoreTest extends TestCase
 {

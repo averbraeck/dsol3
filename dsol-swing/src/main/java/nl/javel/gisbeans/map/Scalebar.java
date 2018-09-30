@@ -13,7 +13,6 @@ import java.awt.Font;
  * This class implements the ScalebarInterface
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public class Scalebar implements ScalebarInterface
 {

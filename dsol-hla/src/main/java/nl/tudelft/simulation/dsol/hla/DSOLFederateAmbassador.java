@@ -43,35 +43,26 @@ import se.pitch.prti.LogicalTimeDouble;
 /**
  * The DSOLFederateAmbassador specifies the IEEE-1516 federate.
  * <p>
- * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl/dsol/">Delft
- * University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl/dsol/">
- * www.simulation.tudelft.nl/dsol </a> <br>
- * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public
- * License (GPL) </a>, no warranty <br>
- * 
- * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm"> Peter
- *         Jacobs </a>
+ * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the
+ * Netherlands. <br>
+ * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
+ * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
+ * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm"> Peter Jacobs </a>
  * @since 1.2
  */
-public class DSOLFederateAmbassador extends EventProducer implements
-        FederateAmbassador
+public class DSOLFederateAmbassador extends EventProducer implements FederateAmbassador
 {
     /** the TIME_ADVANCE_GRANT_EVENT */
-    public static final EventType TIME_ADVANCE_GRANT_EVENT = new EventType(
-            "TIME_ADVANCE_GRANT_EVENT");
+    public static final EventType TIME_ADVANCE_GRANT_EVENT = new EventType("TIME_ADVANCE_GRANT_EVENT");
 
     /** TIME_CONSTRAINED_ENABLED_EVENT */
-    public static final EventType TIME_CONSTRAINED_ENABLED_EVENT = new EventType(
-            "TIME_CONSTRAINED_ENABLED_EVENT");
+    public static final EventType TIME_CONSTRAINED_ENABLED_EVENT = new EventType("TIME_CONSTRAINED_ENABLED_EVENT");
 
     /** TIME_REGULATION_ENABLED_EVENT */
-    public static final EventType TIME_REGULATION_ENABLED_EVENT = new EventType(
-            "TIME_REGULATION_ENABLED_EVENT");
+    public static final EventType TIME_REGULATION_ENABLED_EVENT = new EventType("TIME_REGULATION_ENABLED_EVENT");
 
     /** Published on interaction reception. Value: HLAInteractionEvent. */
-    public static final EventType INTERACTION_REC_EVENT = new EventType(
-            "INTERACTION_REC_EVENT");
+    public static final EventType INTERACTION_REC_EVENT = new EventType("INTERACTION_REC_EVENT");
 
     /** the READY_TO_POPULATe. */
     public static final String READY_TO_POPULATE = "READY_TO_POPULATE";
@@ -101,7 +92,6 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /**
      * constructs a new DSOLFederateAmbassador
-     * 
      * @param environment the environment of the context
      */
     public DSOLFederateAmbassador(final Hashtable environment)
@@ -112,11 +102,13 @@ public class DSOLFederateAmbassador extends EventProducer implements
             if (environment != null)
             {
                 this.context = new InitialContext(environment);
-            } else
+            }
+            else
             {
                 this.context = new InitialContext();
             }
-        } catch (NamingException namingException)
+        }
+        catch (NamingException namingException)
         {
             CategoryLogger.always().error("<init>", namingException);
         }
@@ -133,11 +125,9 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#turnInteractionsOn(int)
      */
-    public void turnInteractionsOn(int theHandle)
-            throws InteractionClassNotPublished, FederateInternalError
+    public void turnInteractionsOn(int theHandle) throws InteractionClassNotPublished, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -145,36 +135,32 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#requestAttributeOwnershipRelease(int,
-     *      hla.rti.AttributeHandleSet, byte[])
+     * @see hla.rti.FederateAmbassador#requestAttributeOwnershipRelease(int, hla.rti.AttributeHandleSet, byte[])
      */
-    public void requestAttributeOwnershipRelease(int theObject,
-            AttributeHandleSet candidateAttributes, byte[] userSuppliedTag)
-            throws ObjectNotKnown, AttributeNotKnown, AttributeNotOwned,
-            FederateInternalError
+    public void requestAttributeOwnershipRelease(int theObject, AttributeHandleSet candidateAttributes,
+            byte[] userSuppliedTag) throws ObjectNotKnown, AttributeNotKnown, AttributeNotOwned, FederateInternalError
     {
         // TODO Auto-generated method stub
 
     }
 
-    /** {@inheritDoc} */ @Override public  void announceSynchronizationPoint(String synchronizationPointLabel,
-            byte[] userSuppliedTag) throws FederateInternalError
+    /** {@inheritDoc} */
+    @Override
+    public void announceSynchronizationPoint(String synchronizationPointLabel, byte[] userSuppliedTag)
+            throws FederateInternalError
     {
-        Logger.info(this, "announceSynchronizationPoint",
-                synchronizationPointLabel);
+        Logger.info(this, "announceSynchronizationPoint", synchronizationPointLabel);
     }
 
-    /** {@inheritDoc} */ @Override public  void synchronizationPointRegistrationSucceeded(
-            String synchronizationPointLabel)
+    /** {@inheritDoc} */
+    @Override
+    public void synchronizationPointRegistrationSucceeded(String synchronizationPointLabel)
     {
-        Logger.info(this, "synchronizationPointRegistrationSucceeded",
-                synchronizationPointLabel);
+        Logger.info(this, "synchronizationPointRegistrationSucceeded", synchronizationPointLabel);
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#attributeIsNotOwned(int, int)
      */
     public void attributeIsNotOwned(int theObject, int theAttribute)
@@ -183,52 +169,54 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     }
 
-    /** {@inheritDoc} */ @Override public  void federationSynchronized(String synchronizationPointLabel)
+    /** {@inheritDoc} */
+    @Override
+    public void federationSynchronized(String synchronizationPointLabel)
     {
         Logger.info(this, "federationSynchronized", synchronizationPointLabel);
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#turnInteractionsOff(int)
      */
-    public void turnInteractionsOff(int theHandle)
-            throws InteractionClassNotPublished, FederateInternalError
+    public void turnInteractionsOff(int theHandle) throws InteractionClassNotPublished, FederateInternalError
     {
         // TODO Auto-generated method stub
 
     }
 
-    /** {@inheritDoc} */ @Override public  void receiveInteraction(int interactionClass,
-            ReceivedInteraction theInteraction, byte[] userSuppliedTag)
+    /** {@inheritDoc} */
+    @Override
+    public void receiveInteraction(int interactionClass, ReceivedInteraction theInteraction, byte[] userSuppliedTag)
     {
-        Logger.warning(this,"receiveInteraction","Receiving interaction at NO time");
-        super.fireEvent(INTERACTION_REC_EVENT, new HLAInteractionEvent(
-                interactionClass, theInteraction,null));
+        Logger.warning(this, "receiveInteraction", "Receiving interaction at NO time");
+        super.fireEvent(INTERACTION_REC_EVENT, new HLAInteractionEvent(interactionClass, theInteraction, null));
     }
 
-    /** {@inheritDoc} */ @Override public  void receiveInteraction(int interactionClass,
-            ReceivedInteraction theInteraction, byte[] userSuppliedTag,
+    /** {@inheritDoc} */
+    @Override
+    public void receiveInteraction(int interactionClass, ReceivedInteraction theInteraction, byte[] userSuppliedTag,
             LogicalTime theTime, EventRetractionHandle eventRetractionHandle)
     {
-        Logger.info(this,"receiveInteraction","Receiving interaction at "+theTime.toString());
-        super.fireEvent(INTERACTION_REC_EVENT, new HLAInteractionEvent(
-                interactionClass, theInteraction, theTime));
+        Logger.info(this, "receiveInteraction", "Receiving interaction at " + theTime.toString());
+        super.fireEvent(INTERACTION_REC_EVENT, new HLAInteractionEvent(interactionClass, theInteraction, theTime));
     }
 
-    /** {@inheritDoc} */ @Override public  void requestAttributeOwnershipAssumption(int theObject,
-            AttributeHandleSet offeredAttributes, byte[] userSuppliedTag)
-            throws ObjectNotKnown, AttributeNotKnown, AttributeAlreadyOwned,
+    /** {@inheritDoc} */
+    @Override
+    public void requestAttributeOwnershipAssumption(int theObject, AttributeHandleSet offeredAttributes,
+            byte[] userSuppliedTag) throws ObjectNotKnown, AttributeNotKnown, AttributeAlreadyOwned,
             AttributeNotPublished, FederateInternalError
     {
         // TODO Auto-generated method stub
     }
 
-    /** {@inheritDoc} */ @Override public  void confirmAttributeOwnershipAcquisitionCancellation(int theObject,
-            AttributeHandleSet theAttributes) throws ObjectNotKnown,
-            AttributeNotKnown, AttributeAlreadyOwned,
-            AttributeAcquisitionWasNotCanceled, FederateInternalError
+    /** {@inheritDoc} */
+    @Override
+    public void confirmAttributeOwnershipAcquisitionCancellation(int theObject, AttributeHandleSet theAttributes)
+            throws ObjectNotKnown, AttributeNotKnown, AttributeAlreadyOwned, AttributeAcquisitionWasNotCanceled,
+            FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -236,13 +224,10 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#provideAttributeValueUpdate(int,
-     *      hla.rti.AttributeHandleSet)
+     * @see hla.rti.FederateAmbassador#provideAttributeValueUpdate(int, hla.rti.AttributeHandleSet)
      */
-    public void provideAttributeValueUpdate(int theObject,
-            AttributeHandleSet theAttributes) throws ObjectNotKnown,
-            AttributeNotKnown, AttributeNotOwned, FederateInternalError
+    public void provideAttributeValueUpdate(int theObject, AttributeHandleSet theAttributes)
+            throws ObjectNotKnown, AttributeNotKnown, AttributeNotOwned, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -250,7 +235,6 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#federationRestored()
      */
     public void federationRestored() throws FederateInternalError
@@ -261,30 +245,28 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#informAttributeOwnership(int, int, int)
      */
-    public void informAttributeOwnership(int theObject, int theAttribute,
-            int theOwner) throws ObjectNotKnown, AttributeNotKnown,
-            FederateInternalError
+    public void informAttributeOwnership(int theObject, int theAttribute, int theOwner)
+            throws ObjectNotKnown, AttributeNotKnown, FederateInternalError
     {
         // TODO Auto-generated method stub
 
     }
 
-    /** {@inheritDoc} */ @Override public  void timeAdvanceGrant(LogicalTime theTime)
+    /** {@inheritDoc} */
+    @Override
+    public void timeAdvanceGrant(LogicalTime theTime)
     {
-       Logger.info(this,"timeAdvanceGrant",theTime.toString());
-       super.fireEvent(DSOLFederateAmbassador.TIME_ADVANCE_GRANT_EVENT,((LogicalTimeDouble)theTime).getValue());
+        Logger.info(this, "timeAdvanceGrant", theTime.toString());
+        super.fireEvent(DSOLFederateAmbassador.TIME_ADVANCE_GRANT_EVENT, ((LogicalTimeDouble) theTime).getValue());
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#initiateFederateSave(java.lang.String)
      */
-    public void initiateFederateSave(String label) throws UnableToPerformSave,
-            FederateInternalError
+    public void initiateFederateSave(String label) throws UnableToPerformSave, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -292,14 +274,10 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#attributeOwnershipUnavailable(int,
-     *      hla.rti.AttributeHandleSet)
+     * @see hla.rti.FederateAmbassador#attributeOwnershipUnavailable(int, hla.rti.AttributeHandleSet)
      */
-    public void attributeOwnershipUnavailable(int theObject,
-            AttributeHandleSet theAttributes) throws ObjectNotKnown,
-            AttributeNotKnown, AttributeAlreadyOwned,
-            AttributeAcquisitionWasNotRequested, FederateInternalError
+    public void attributeOwnershipUnavailable(int theObject, AttributeHandleSet theAttributes) throws ObjectNotKnown,
+            AttributeNotKnown, AttributeAlreadyOwned, AttributeAcquisitionWasNotRequested, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -307,7 +285,6 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#attributeOwnedByRTI(int, int)
      */
     public void attributeOwnedByRTI(int theObject, int theAttribute)
@@ -319,14 +296,10 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#reflectAttributeValues(int,
-     *      hla.rti.ReflectedAttributes, byte[])
+     * @see hla.rti.FederateAmbassador#reflectAttributeValues(int, hla.rti.ReflectedAttributes, byte[])
      */
-    public void reflectAttributeValues(int theObject,
-            ReflectedAttributes theAttributes, byte[] userSuppliedTag)
-            throws ObjectNotKnown, AttributeNotKnown, FederateOwnsAttributes,
-            FederateInternalError
+    public void reflectAttributeValues(int theObject, ReflectedAttributes theAttributes, byte[] userSuppliedTag)
+            throws ObjectNotKnown, AttributeNotKnown, FederateOwnsAttributes, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -334,16 +307,12 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#reflectAttributeValues(int,
-     *      hla.rti.ReflectedAttributes, byte[], hla.rti.LogicalTime,
-     *      hla.rti.EventRetractionHandle)
+     * @see hla.rti.FederateAmbassador#reflectAttributeValues(int, hla.rti.ReflectedAttributes, byte[],
+     * hla.rti.LogicalTime, hla.rti.EventRetractionHandle)
      */
-    public void reflectAttributeValues(int theObject,
-            ReflectedAttributes theAttributes, byte[] userSuppliedTag,
-            LogicalTime theTime, EventRetractionHandle retractionHandle)
-            throws ObjectNotKnown, AttributeNotKnown, FederateOwnsAttributes,
-            InvalidFederationTime, FederateInternalError
+    public void reflectAttributeValues(int theObject, ReflectedAttributes theAttributes, byte[] userSuppliedTag,
+            LogicalTime theTime, EventRetractionHandle retractionHandle) throws ObjectNotKnown, AttributeNotKnown,
+            FederateOwnsAttributes, InvalidFederationTime, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -351,7 +320,6 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#federationRestoreBegun()
      */
     public void federationRestoreBegun() throws FederateInternalError
@@ -362,39 +330,34 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#requestFederationRestoreSucceeded(java.lang.String)
      */
-    public void requestFederationRestoreSucceeded(String label)
-            throws FederateInternalError
+    public void requestFederationRestoreSucceeded(String label) throws FederateInternalError
     {
         // TODO Auto-generated method stub
     }
 
-    /** {@inheritDoc} */ @Override public  void discoverObjectInstance(int theObject, int theObjectClass,
-            String objectName)
+    /** {@inheritDoc} */
+    @Override
+    public void discoverObjectInstance(int theObject, int theObjectClass, String objectName)
     {
-        Logger.info(this, "discoverObjectInstance", "object=" + theObject
-                + "  class=" + theObjectClass + "  name=" + objectName);
+        Logger.info(this, "discoverObjectInstance",
+                "object=" + theObject + "  class=" + theObjectClass + "  name=" + objectName);
     }
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#attributeOwnershipAcquisitionNotification(int,
-     *      hla.rti.AttributeHandleSet)
+     * @see hla.rti.FederateAmbassador#attributeOwnershipAcquisitionNotification(int, hla.rti.AttributeHandleSet)
      */
-    public void attributeOwnershipAcquisitionNotification(int theObject,
-            AttributeHandleSet securedAttributes) throws ObjectNotKnown,
-            AttributeNotKnown, AttributeAcquisitionWasNotRequested,
-            AttributeAlreadyOwned, AttributeNotPublished, FederateInternalError
+    public void attributeOwnershipAcquisitionNotification(int theObject, AttributeHandleSet securedAttributes)
+            throws ObjectNotKnown, AttributeNotKnown, AttributeAcquisitionWasNotRequested, AttributeAlreadyOwned,
+            AttributeNotPublished, FederateInternalError
     {
         // TODO Auto-generated method stub
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#federationNotSaved()
      */
     public void federationNotSaved() throws FederateInternalError
@@ -405,12 +368,9 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#requestFederationRestoreFailed(java.lang.String,
-     *      java.lang.String)
+     * @see hla.rti.FederateAmbassador#requestFederationRestoreFailed(java.lang.String, java.lang.String)
      */
-    public void requestFederationRestoreFailed(String label, String reason)
-            throws FederateInternalError
+    public void requestFederationRestoreFailed(String label, String reason) throws FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -418,38 +378,97 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#timeConstrainedEnabled(hla.rti.LogicalTime)
      */
     public void timeConstrainedEnabled(LogicalTime theFederateTime)
-            throws InvalidFederationTime, EnableTimeConstrainedWasNotPending,
-            FederateInternalError
+            throws InvalidFederationTime, EnableTimeConstrainedWasNotPending, FederateInternalError
     {
-        Logger.info(this,"timeConstrainedEnabled",theFederateTime.toString());
+        Logger.info(this, "timeConstrainedEnabled", theFederateTime.toString());
 
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#synchronizationPointRegistrationFailed(java.lang.String)
      */
-    public void synchronizationPointRegistrationFailed(
-            String synchronizationPointLabel) throws FederateInternalError
+    public void synchronizationPointRegistrationFailed(String synchronizationPointLabel) throws FederateInternalError
     {
-        Logger.info(this, "synchronizationPointRegistrationFailed",
-                synchronizationPointLabel);
+        Logger.info(this, "synchronizationPointRegistrationFailed", synchronizationPointLabel);
 
     }
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#initiateFederateRestore(java.lang.String,
-     *      int)
+     * @see hla.rti.FederateAmbassador#initiateFederateRestore(java.lang.String, int)
      */
     public void initiateFederateRestore(String label, int federateHandle)
-            throws SpecifiedSaveLabelDoesNotExist, CouldNotRestore,
+            throws SpecifiedSaveLabelDoesNotExist, CouldNotRestore, FederateInternalError
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see hla.rti.FederateAmbassador#attributesInScope(int, hla.rti.AttributeHandleSet)
+     */
+    public void attributesInScope(int theObject, AttributeHandleSet theAttributes)
+            throws ObjectNotKnown, AttributeNotKnown, FederateInternalError
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see hla.rti.FederateAmbassador#attributesOutOfScope(int, hla.rti.AttributeHandleSet)
+     */
+    public void attributesOutOfScope(int theObject, AttributeHandleSet theAttributes)
+            throws ObjectNotKnown, AttributeNotKnown, FederateInternalError
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see hla.rti.FederateAmbassador#removeObjectInstance(int, byte[])
+     */
+    public void removeObjectInstance(int theObject, byte[] userSuppliedTag) throws ObjectNotKnown, FederateInternalError
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see hla.rti.FederateAmbassador#removeObjectInstance(int, byte[], hla.rti.LogicalTime,
+     * hla.rti.EventRetractionHandle)
+     */
+    public void removeObjectInstance(int theObject, byte[] userSuppliedTag, LogicalTime theTime,
+            EventRetractionHandle retractionHandle) throws ObjectNotKnown, InvalidFederationTime, FederateInternalError
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see hla.rti.FederateAmbassador#turnUpdatesOffForObjectInstance(int, hla.rti.AttributeHandleSet)
+     */
+    public void turnUpdatesOffForObjectInstance(int theObject, AttributeHandleSet theAttributes)
+            throws ObjectNotKnown, AttributeNotOwned, FederateInternalError
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see hla.rti.FederateAmbassador#attributeOwnershipDivestitureNotification(int, hla.rti.AttributeHandleSet)
+     */
+    public void attributeOwnershipDivestitureNotification(int theObject, AttributeHandleSet releasedAttributes)
+            throws ObjectNotKnown, AttributeNotKnown, AttributeNotOwned, AttributeDivestitureWasNotRequested,
             FederateInternalError
     {
         // TODO Auto-generated method stub
@@ -458,94 +477,9 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#attributesInScope(int,
-     *      hla.rti.AttributeHandleSet)
-     */
-    public void attributesInScope(int theObject,
-            AttributeHandleSet theAttributes) throws ObjectNotKnown,
-            AttributeNotKnown, FederateInternalError
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#attributesOutOfScope(int,
-     *      hla.rti.AttributeHandleSet)
-     */
-    public void attributesOutOfScope(int theObject,
-            AttributeHandleSet theAttributes) throws ObjectNotKnown,
-            AttributeNotKnown, FederateInternalError
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#removeObjectInstance(int, byte[])
-     */
-    public void removeObjectInstance(int theObject, byte[] userSuppliedTag)
-            throws ObjectNotKnown, FederateInternalError
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#removeObjectInstance(int, byte[],
-     *      hla.rti.LogicalTime, hla.rti.EventRetractionHandle)
-     */
-    public void removeObjectInstance(int theObject, byte[] userSuppliedTag,
-            LogicalTime theTime, EventRetractionHandle retractionHandle)
-            throws ObjectNotKnown, InvalidFederationTime, FederateInternalError
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#turnUpdatesOffForObjectInstance(int,
-     *      hla.rti.AttributeHandleSet)
-     */
-    public void turnUpdatesOffForObjectInstance(int theObject,
-            AttributeHandleSet theAttributes) throws ObjectNotKnown,
-            AttributeNotOwned, FederateInternalError
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#attributeOwnershipDivestitureNotification(int,
-     *      hla.rti.AttributeHandleSet)
-     */
-    public void attributeOwnershipDivestitureNotification(int theObject,
-            AttributeHandleSet releasedAttributes) throws ObjectNotKnown,
-            AttributeNotKnown, AttributeNotOwned,
-            AttributeDivestitureWasNotRequested, FederateInternalError
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#requestRetraction(hla.rti.EventRetractionHandle)
      */
-    public void requestRetraction(EventRetractionHandle theHandle)
-            throws EventNotKnown, FederateInternalError
+    public void requestRetraction(EventRetractionHandle theHandle) throws EventNotKnown, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -553,7 +487,6 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#federationSaved()
      */
     public void federationSaved() throws FederateInternalError
@@ -564,7 +497,6 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#federationNotRestored()
      */
     public void federationNotRestored() throws FederateInternalError
@@ -575,24 +507,20 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#timeRegulationEnabled(hla.rti.LogicalTime)
      */
     public void timeRegulationEnabled(LogicalTime theFederateTime)
-            throws InvalidFederationTime, EnableTimeRegulationWasNotPending,
-            FederateInternalError
+            throws InvalidFederationTime, EnableTimeRegulationWasNotPending, FederateInternalError
     {
-        Logger.info(this,"timeRegulationEnabled",theFederateTime.toString());
+        Logger.info(this, "timeRegulationEnabled", theFederateTime.toString());
 
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#startRegistrationForObjectClass(int)
      */
-    public void startRegistrationForObjectClass(int theClass)
-            throws ObjectClassNotPublished, FederateInternalError
+    public void startRegistrationForObjectClass(int theClass) throws ObjectClassNotPublished, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -600,11 +528,9 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
      * @see hla.rti.FederateAmbassador#stopRegistrationForObjectClass(int)
      */
-    public void stopRegistrationForObjectClass(int theClass)
-            throws ObjectClassNotPublished, FederateInternalError
+    public void stopRegistrationForObjectClass(int theClass) throws ObjectClassNotPublished, FederateInternalError
     {
         // TODO Auto-generated method stub
 
@@ -612,13 +538,10 @@ public class DSOLFederateAmbassador extends EventProducer implements
 
     /*
      * (non-Javadoc)
-     * 
-     * @see hla.rti.FederateAmbassador#turnUpdatesOnForObjectInstance(int,
-     *      hla.rti.AttributeHandleSet)
+     * @see hla.rti.FederateAmbassador#turnUpdatesOnForObjectInstance(int, hla.rti.AttributeHandleSet)
      */
-    public void turnUpdatesOnForObjectInstance(int theObject,
-            AttributeHandleSet theAttributes) throws ObjectNotKnown,
-            AttributeNotOwned, FederateInternalError
+    public void turnUpdatesOnForObjectInstance(int theObject, AttributeHandleSet theAttributes)
+            throws ObjectNotKnown, AttributeNotOwned, FederateInternalError
     {
         // TODO Auto-generated method stub
 

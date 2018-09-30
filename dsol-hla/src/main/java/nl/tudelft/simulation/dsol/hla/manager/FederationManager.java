@@ -19,8 +19,8 @@ import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.RTI;
 
 /**
- * @author peter TODO To change the template for this generated type comment go
- *         to Window - Preferences - Java - Code Style - Code Templates
+ * @author peter TODO To change the template for this generated type comment go to Window - Preferences - Java - Code
+ *         Style - Code Templates
  */
 public class FederationManager extends DSOLFederateAmbassador
 {
@@ -47,93 +47,80 @@ public class FederationManager extends DSOLFederateAmbassador
 
     /**
      * constructs a new FederationManager().
-     * 
      * @param federationName the federate to join
      * @param populateReadinessController the populateReadinessController to use
      */
-    public FederationManager(final Hashtable environment,
-            final int amountOfFederatesInFederation)
+    public FederationManager(final Hashtable environment, final int amountOfFederatesInFederation)
     {
         this(environment, new FederateCounter(amountOfFederatesInFederation));
     }
 
     /**
      * constructs a new FederationManager().
-     * 
      * @param federationName the federate to join
      * @param populateReadinessController the populateReadinessController to use
      */
-    public FederationManager(final Hashtable environment,
-            final PopulateReadinessController populateReadinessController)
+    public FederationManager(final Hashtable environment, final PopulateReadinessController populateReadinessController)
     {
         super();
         try
         {
             this.populuateReadinessController = populateReadinessController;
             String host = environment.get("rti.host").toString();
-            int port = Integer.valueOf(environment.get("rti.port").toString())
-                    .intValue();
-            this.rtiAmbassador = new RTIAmbassador(RTI.getRTIambassador(host,
-                    port));
-            this.rtiAmbassador.joinFederationExecution(environment.get(
-                    "rti.federation.type").toString(), environment.get(
-                    "rti.federation.name").toString(), this);
+            int port = Integer.valueOf(environment.get("rti.port").toString()).intValue();
+            this.rtiAmbassador = new RTIAmbassador(RTI.getRTIambassador(host, port));
+            this.rtiAmbassador.joinFederationExecution(environment.get("rti.federation.type").toString(),
+                    environment.get("rti.federation.name").toString(), this);
 
             // Now we subscribe ourself to changes in the managerFederate.
-            int managerFederate = this.rtiAmbassador
-                    .getObjectClassHandle(FederationManager.FEDERATE_CLASS_NAME);
-            int handleAttribute = this.rtiAmbassador.getAttributeHandle(
-                    FederationManager.FEDERATE_HANDLE_ATTRIBUTE,
-                    managerFederate);
-            int typeAttribute = this.rtiAmbassador.getAttributeHandle(
-                    FederationManager.FEDERATE_TYPE_ATTRIBUTE, managerFederate);
-            int hostAttribute = this.rtiAmbassador.getAttributeHandle(
-                    FederationManager.FEDERATE_HOST_ATTRIBUTE, managerFederate);
-            AttributeHandleSet attributeHandleSet = RTI
-                    .attributeHandleSetFactory().create();
+            int managerFederate = this.rtiAmbassador.getObjectClassHandle(FederationManager.FEDERATE_CLASS_NAME);
+            int handleAttribute =
+                    this.rtiAmbassador.getAttributeHandle(FederationManager.FEDERATE_HANDLE_ATTRIBUTE, managerFederate);
+            int typeAttribute =
+                    this.rtiAmbassador.getAttributeHandle(FederationManager.FEDERATE_TYPE_ATTRIBUTE, managerFederate);
+            int hostAttribute =
+                    this.rtiAmbassador.getAttributeHandle(FederationManager.FEDERATE_HOST_ATTRIBUTE, managerFederate);
+            AttributeHandleSet attributeHandleSet = RTI.attributeHandleSetFactory().create();
             attributeHandleSet.add(handleAttribute);
             attributeHandleSet.add(typeAttribute);
             attributeHandleSet.add(hostAttribute);
-            this.rtiAmbassador.subscribeObjectClassAttributes(managerFederate,
-                    attributeHandleSet, false);
+            this.rtiAmbassador.subscribeObjectClassAttributes(managerFederate, attributeHandleSet, false);
 
             // Now we create the synchronization points.
             // First we will have to wait for the ReadyToPopulate
             // synchronization
-            this.rtiAmbassador.registerFederationSynchronizationPoint(
-                    READY_TO_POPULATE, null, false);
+            this.rtiAmbassador.registerFederationSynchronizationPoint(READY_TO_POPULATE, null, false);
             // We wait for the registration to be successfull and the announcement to occur
             this.barrier.raise(READY_TO_POPULATE);
-            
+
             // We wait until everyone shows up
             this.barrier.raise(READY_TO_POPULATE);
 
             // Now we register the READY TO RUN
-            this.rtiAmbassador.registerFederationSynchronizationPoint(
-                    READY_TO_RUN, null, false);
-            
+            this.rtiAmbassador.registerFederationSynchronizationPoint(READY_TO_RUN, null, false);
+
             // We wait for the registration to be successfull and the announcement to occur
             this.barrier.raise(READY_TO_RUN);
-            this.rtiAmbassador.synchronizationPointAchieved(
-                    READY_TO_RUN, false);
+            this.rtiAmbassador.synchronizationPointAchieved(READY_TO_RUN, false);
 
             // Let's register the READY TO RESIGN
             // Now we can register for a Ready to Run and a Ready to Resign
-            this.rtiAmbassador.registerFederationSynchronizationPoint(
-                    READY_TO_RESIGN, null, false);
-            
+            this.rtiAmbassador.registerFederationSynchronizationPoint(READY_TO_RESIGN, null, false);
+
             // We wait for the registration to be successfull and the announcement to occur
             this.barrier.raise(READY_TO_RESIGN);
-            this.rtiAmbassador.synchronizationPointAchieved(
-                    READY_TO_RESIGN, false);
+            this.rtiAmbassador.synchronizationPointAchieved(READY_TO_RESIGN, false);
 
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             CategoryLogger.always().error(exception);
         }
     }
 
-    /** {@inheritDoc} */ @Override public  void federationSynchronized(String arg0)
+    /** {@inheritDoc} */
+    @Override
+    public void federationSynchronized(String arg0)
     {
         super.federationSynchronized(arg0);
         try
@@ -142,30 +129,33 @@ public class FederationManager extends DSOLFederateAmbassador
             {
                 this.barrier.lower();
             }
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             CategoryLogger.always().warn("federationSynchronized", exception);
         }
     }
 
-    /** {@inheritDoc} */ @Override public  void synchronizationPointRegistrationSucceeded(final String arg0)
+    /** {@inheritDoc} */
+    @Override
+    public void synchronizationPointRegistrationSucceeded(final String arg0)
     {
         super.synchronizationPointRegistrationSucceeded(arg0);
     }
 
-    /** {@inheritDoc} */ @Override public  void discoverObjectInstance(int theObject, int theObjectClass,
-            String objectName)
+    /** {@inheritDoc} */
+    @Override
+    public void discoverObjectInstance(int theObject, int theObjectClass, String objectName)
     {
         super.discoverObjectInstance(theObject, theObjectClass, objectName);
         try
         {
-            if (this.populuateReadinessController.discoverObjectInstance(
-                    theObject, theObjectClass, objectName))
+            if (this.populuateReadinessController.discoverObjectInstance(theObject, theObjectClass, objectName))
             {
-                this.rtiAmbassador.synchronizationPointAchieved(
-                        READY_TO_POPULATE, true);
+                this.rtiAmbassador.synchronizationPointAchieved(READY_TO_POPULATE, true);
             }
-        } catch (Exception exception)
+        }
+        catch (Exception exception)
         {
             CategoryLogger.always().warn("discoverObjectInstance", exception);
         }
@@ -180,18 +170,15 @@ public class FederationManager extends DSOLFederateAmbassador
     }
 
     /**
-     * @param populuateReadinessController The populuateReadinessController to
-     *        set.
+     * @param populuateReadinessController The populuateReadinessController to set.
      */
-    public void setPopuluateReadinessController(
-            final PopulateReadinessController populuateReadinessController)
+    public void setPopuluateReadinessController(final PopulateReadinessController populuateReadinessController)
     {
         this.populuateReadinessController = populuateReadinessController;
     }
 
     /**
      * executes the manager
-     * 
      * @param args the command line arguments
      */
     public static void main(String[] args)
@@ -207,18 +194,21 @@ public class FederationManager extends DSOLFederateAmbassador
             properties.load(URLResource.getResourceAsStream(args[0]));
             int numberOfFeds = 3;
             if (args.length == 2)
-            	numberOfFeds = Integer.parseInt(args[1]);
+                numberOfFeds = Integer.parseInt(args[1]);
             new FederationManager(properties, numberOfFeds);
-        } catch (Throwable exception)
+        }
+        catch (Throwable exception)
         {
             CategoryLogger.always().error(exception);
         }
     }
-    /** {@inheritDoc} */ @Override public  void announceSynchronizationPoint(String synchronizationPointLabel,
-            byte[] userSuppliedTag) throws FederateInternalError
+
+    /** {@inheritDoc} */
+    @Override
+    public void announceSynchronizationPoint(String synchronizationPointLabel, byte[] userSuppliedTag)
+            throws FederateInternalError
     {
-        super.announceSynchronizationPoint(synchronizationPointLabel,
-                userSuppliedTag);
+        super.announceSynchronizationPoint(synchronizationPointLabel, userSuppliedTag);
         this.barrier.lower();
     }
 }

@@ -5,8 +5,8 @@
 package nl.tudelft.simulation.dsol.hla.manager;
 
 /**
- * @author peter TODO To change the template for this generated type comment go
- *         to Window - Preferences - Java - Code Style - Code Templates
+ * @author peter TODO To change the template for this generated type comment go to Window - Preferences - Java - Code
+ *         Style - Code Templates
  */
 public class FederateCounter implements PopulateReadinessController
 {
@@ -27,12 +27,10 @@ public class FederateCounter implements PopulateReadinessController
 
     /*
      * (non-Javadoc)
-     * 
-     * @see nl.tudelft.simulation.dsol.hla.manager.PopulateReadinessController#discoverObjectInstance(int,
-     *      int, java.lang.String)
+     * @see nl.tudelft.simulation.dsol.hla.manager.PopulateReadinessController#discoverObjectInstance(int, int,
+     * java.lang.String)
      */
-    public boolean discoverObjectInstance(int theObject, int theObjectClass,
-            String objectName)
+    public boolean discoverObjectInstance(int theObject, int theObjectClass, String objectName)
     {
         this.discovered++;
         if (this.goal == this.discovered)

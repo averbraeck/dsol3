@@ -12,7 +12,6 @@ import java.io.Serializable;
  * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
  *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
- * @version 1.0
  */
 public class GisObject implements Serializable
 {
