@@ -65,8 +65,8 @@ public class TestImmutableArrayList
         List<Integer> to = imList.toList();
         Assert.assertTrue(list.equals(to));
         
-        Integer[] arr = (Integer[]) imList.toArray(new Integer[]{});
-        Integer[] sar = (Integer[]) list.toArray(new Integer[]{});
+        Integer[] arr = imList.toArray(new Integer[]{});
+        Integer[] sar = list.toArray(new Integer[]{});
         Assert.assertArrayEquals(arr, sar);
         
         // modify the underlying data structure
