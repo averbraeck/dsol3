@@ -1,7 +1,22 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.02.05" date="2018-09-30" description="Javadoc cleaned up. dsol-web first version">
+    <release version="3.02.06" date="2018-10-XX" description="dsol-web first version">
+      <action dev="averbraeck" type="fix">
+        The .classpath files have a classpathentry for /src/main/resources after a Maven Update with
+        an entry 'excluding="**" kind="src"'. The exclusion means that the export of a Runnable jar 
+        in Eclipse does not work. Therefore this update on svn ensures that the export of a jar file
+        works. Ensure that after each Maven Update in Eclipse, the "Excludes:" entry for 
+        /src/main/resources in each project's Properties - Build path - Source is set to (None)
+        before committing the sources!
+      </action>
+      <action dev="averbraeck" type="update">
+        Several experiments with server-side events (SSE), WebSockets, Ajax/jQuery in dsol-web to see
+        what the best implementation is for the web-based interaction with DSOL models.
+      </action>
+    </release>
+    
+    <release version="3.02.05" date="2018-09-30" description="Javadoc cleaned up">
       <action dev="averbraeck" type="update">
         dsol-naming, dsol-event, dsol-interpreter, dsol-introspection were updated with the 
         correct copyright notice and package-info.java files for each of the packages.

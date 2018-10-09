@@ -71,13 +71,13 @@ public class WebMM1Queue41Model implements DSOLModel.TimeDouble
         Resource<Double, Double, SimTimeDouble> resource = new Resource<>(this.devsSimulator, 1.0);
 
         // created a resource
-        StationInterface queue = new Seize.TimeDouble(this.devsSimulator, resource);
-        StationInterface release = new Release.TimeDouble(this.devsSimulator, resource, 1.0);
+        StationInterface.TimeDouble queue = new Seize.TimeDouble(this.devsSimulator, resource);
+        StationInterface.TimeDouble release = new Release.TimeDouble(this.devsSimulator, resource, 1.0);
 
         // The server
         DistContinuousTime.TimeDouble serviceTime =
                 new DistContinuousTime.TimeDouble(new DistExponential(defaultStream, 0.5));
-        StationInterface server = new Delay.TimeDouble(this.devsSimulator, serviceTime);
+        StationInterface.TimeDouble server = new Delay.TimeDouble(this.devsSimulator, serviceTime);
 
         // The flow
         generator.setDestination(queue);

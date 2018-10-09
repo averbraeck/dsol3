@@ -76,7 +76,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
+    @SuppressWarnings({"checkstyle:designforextension", "checkstyle:methodlength"})
     public void run()
     {
         AnimationThread animationThread = new AnimationThread(this);
