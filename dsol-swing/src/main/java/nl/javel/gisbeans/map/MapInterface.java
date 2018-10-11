@@ -124,7 +124,7 @@ public interface MapInterface extends java.io.Serializable
     /**
      * draws the legend on a graphics object
      * @return Graphics2D
-     * @param graphics the graphics object
+     * @param graphics Graphics2D; the graphics object
      * @throws GraphicsException on drawing failure
      * @throws RemoteException on network failure
      */
@@ -132,7 +132,7 @@ public interface MapInterface extends java.io.Serializable
 
     /**
      * draws the map on a graphics object
-     * @param graphics the graphics object
+     * @param graphics Graphics2D; the graphics object
      * @return Graphics2D
      * @throws GraphicsException on drawing failure
      * @throws RemoteException on network failure
@@ -141,7 +141,7 @@ public interface MapInterface extends java.io.Serializable
 
     /**
      * draws the reference map on a graphics object
-     * @param graphics the graphics object
+     * @param graphics Graphics2D; the graphics object
      * @return Graphics2D
      * @throws GraphicsException on drawing failure
      * @throws RemoteException on network failure
@@ -150,7 +150,7 @@ public interface MapInterface extends java.io.Serializable
 
     /**
      * draws the scalebar on a graphics object
-     * @param graphics the graphics object
+     * @param graphics Graphics2D; the graphics object
      * @return Graphics2D
      * @throws GraphicsException on drawing failure
      * @throws RemoteException on network failure
@@ -236,107 +236,107 @@ public interface MapInterface extends java.io.Serializable
 
     /**
      * Setter for property extent.
-     * @param extent New value of property extent.
+     * @param extent Rectangle2D; New value of property extent.
      * @throws RemoteException on network exception
      */
     public void setExtent(Rectangle2D extent) throws RemoteException;
 
     /**
      * Setter for property image.
-     * @param image New value of property image.
+     * @param image ImageInterface; New value of property image.
      * @throws RemoteException on network exception
      */
     public void setImage(ImageInterface image) throws RemoteException;
 
     /**
      * Setter for property layers.
-     * @param layers New value of property layers.
+     * @param layers List&lt;LayerInterface&gt;; New value of property layers.
      * @throws RemoteException on network exception
      */
     public void setLayers(List<LayerInterface> layers) throws RemoteException;
 
     /**
      * Setter for property layers.
-     * @param index Index value of layer
-     * @param layer New value of property layers.
+     * @param index int; Index value of layer
+     * @param layer LayerInterface; New value of property layers.
      * @throws RemoteException on network exception
      */
     public void setLayer(int index, LayerInterface layer) throws RemoteException;
 
     /**
      * Setter for property layers.
-     * @param layer New value of property layers.
+     * @param layer LayerInterface; New value of property layers.
      * @throws RemoteException on network exception
      */
     public void addLayer(LayerInterface layer) throws RemoteException;
 
     /**
      * Hide a layer.
-     * @param layer the layer to hide
+     * @param layer LayerInterface; the layer to hide
      * @throws RemoteException on network exception
      */
     public void hideLayer(LayerInterface layer) throws RemoteException;
 
     /**
      * Show a layer.
-     * @param layer the layer to show
+     * @param layer LayerInterface; the layer to show
      * @throws RemoteException on network exception
      */
     public void showLayer(LayerInterface layer) throws RemoteException;
 
     /**
      * Hide a layer.
-     * @param layerName the name of the layer to hide
+     * @param layerName String; the name of the layer to hide
      * @throws RemoteException on network exception
      */
     public void hideLayer(String layerName) throws RemoteException;
 
     /**
      * Show a layer.
-     * @param layerName the name of the layer to show
+     * @param layerName String; the name of the layer to show
      * @throws RemoteException on network exception
      */
     public void showLayer(String layerName) throws RemoteException;
 
     /**
      * Setter for property name.
-     * @param name New value of property name.
+     * @param name String; New value of property name.
      * @throws RemoteException on network exception
      */
     public void setName(String name) throws RemoteException;
 
     /**
      * Setter for property referenceMap.
-     * @param referenceMap New value of property referenceMap.
+     * @param referenceMap ReferenceMapInterface; New value of property referenceMap.
      * @throws RemoteException on network exception
      */
     public void setReferenceMap(ReferenceMapInterface referenceMap) throws RemoteException;
 
     /**
      * Setter for property units.
-     * @param units New value of property units.
+     * @param units int; New value of property units.
      * @throws RemoteException on network exception
      */
     public void setUnits(int units) throws RemoteException;
 
     /**
      * zooms the map with a prticular factor
-     * @param zoomFactor (0=1)
+     * @param zoomFactor double; (0=1)
      * @throws RemoteException on network exception
      */
     public void zoom(double zoomFactor) throws RemoteException;
 
     /**
      * zooms the map based on a given position in the image
-     * @param pixelPosition the position in the image
-     * @param zoomFactor the zoomFactor (0=1)
+     * @param pixelPosition Point2D; the position in the image
+     * @param zoomFactor double; the zoomFactor (0=1)
      * @throws RemoteException on network exception
      */
     public void zoomPoint(Point2D pixelPosition, double zoomFactor) throws RemoteException;
 
     /**
      * zooms the map based on a given rectangle
-     * @param rectangle a rectangle in the map (image units)
+     * @param rectangle SerializableRectangle2D; a rectangle in the map (image units)
      * @throws RemoteException on network exception
      */
     public void zoomRectangle(SerializableRectangle2D rectangle) throws RemoteException;
@@ -349,7 +349,7 @@ public interface MapInterface extends java.io.Serializable
 
     /**
      * set whether background is drawn or not.
-     * @param drawBackground set drawBackground
+     * @param drawBackground boolean; set drawBackground
      */
     public void setDrawBackground(final boolean drawBackground);
 

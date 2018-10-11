@@ -25,7 +25,7 @@ public interface LegendInterface extends Serializable
 
     /**
      * Setter for property backgroundColor.
-     * @param backgroundColor New value of property backgroundColor.
+     * @param backgroundColor Color; New value of property backgroundColor.
      */
     public void setBackgroundColor(Color backgroundColor);
 
@@ -37,7 +37,7 @@ public interface LegendInterface extends Serializable
 
     /**
      * Setter for property outlineColor.
-     * @param outlineColor New value of property outlineColor.
+     * @param outlineColor Color; New value of property outlineColor.
      */
     public void setOutlineColor(Color outlineColor);
 
@@ -49,7 +49,7 @@ public interface LegendInterface extends Serializable
 
     /**
      * Setter for property outlineColor.
-     * @param fontColor New value of property fontColor.
+     * @param fontColor Color; New value of property fontColor.
      */
     public void setFontColor(Color fontColor);
 
@@ -61,7 +61,7 @@ public interface LegendInterface extends Serializable
 
     /**
      * Setter for property embed.
-     * @param embed New value of property embed.
+     * @param embed boolean; New value of property embed.
      */
     public void setEmbed(boolean embed);
 
@@ -73,13 +73,13 @@ public interface LegendInterface extends Serializable
 
     /**
      * Setter for property position.
-     * @param position New value of property position.
+     * @param position int; New value of property position.
      */
     public void setPosition(int position);
 
     /**
      * Setter for property font
-     * @param font the font for the legendInterface
+     * @param font Font; the font for the legendInterface
      */
     public void setFont(Font font);
 
@@ -97,7 +97,7 @@ public interface LegendInterface extends Serializable
 
     /**
      * Setter for property size.
-     * @param size New value of property size.
+     * @param size Dimension; New value of property size.
      */
     public void setSize(Dimension size);
 
@@ -109,7 +109,7 @@ public interface LegendInterface extends Serializable
 
     /**
      * Setter for property status.
-     * @param status New value of property status.
+     * @param status boolean; New value of property status.
      */
     public void setStatus(boolean status);
 }

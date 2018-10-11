@@ -32,7 +32,7 @@ public class IF_ICMPGE extends JumpOperation
 
     /**
      * constructs a new IF_ICMPGE.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public IF_ICMPGE(final DataInput dataInput) throws IOException

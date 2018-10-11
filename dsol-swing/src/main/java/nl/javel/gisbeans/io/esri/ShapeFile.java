@@ -98,8 +98,8 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * constructs a new ESRI ShapeFile.
-     * @param url URL may or may not end with their extension.
-     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
+     * @param url java.net.URL; URL may or may not end with their extension.
+     * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
      * @throws IOException throws an IOException if the shxFile is not accessable
      */
     public ShapeFile(final java.net.URL url, final CoordinateTransform coordinateTransform) throws IOException
@@ -135,7 +135,7 @@ public class ShapeFile implements DataSourceInterface
     }
 
     /**
-     * @param cache The cache to set.
+     * @param cache boolean; The cache to set.
      */
     public void setCache(boolean cache)
     {
@@ -173,7 +173,7 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * getter for a specific shape at a certain index point in shapefile.
-     * @param index the index of the shape
+     * @param index int; the index of the shape
      * @return Object shape
      * @throws IOException on IOfailure
      */
@@ -235,7 +235,7 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * getter for all shapes intersecting with a certain extent
-     * @param extent the extent to get
+     * @param extent SerializableRectangle2D; the extent to get
      * @return HashMap (Object shape)
      * @throws IOException on IOfailure
      */
@@ -324,8 +324,8 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * getter for all shapes intersecting with a certain extent
-     * @param attribute the attribute
-     * @param columnName the name of the dbfColumn
+     * @param attribute String; the attribute
+     * @param columnName String; the name of the dbfColumn
      * @throws IOException on IO exception
      * @return the list of shapes
      */
@@ -351,7 +351,7 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a shape
-     * @param input the inputStream
+     * @param input ObjectEndianInputStream; the inputStream
      * @return the shape
      * @throws IOException on IOException
      */
@@ -361,11 +361,11 @@ public class ShapeFile implements DataSourceInterface
     }
 
     /**
-     * @param input the inputstream
-     * @param shapeNumber the number
-     * @param contentLength the length of the content
-     * @param type
-     * @param skipBox
+     * @param input ObjectEndianInputStream; the inputstream
+     * @param shapeNumber int; the number
+     * @param contentLength int; the length of the content
+     * @param type int;
+     * @param skipBox boolean;
      * @return the shape
      * @throws IOException
      */
@@ -419,7 +419,7 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a nullshape
-     * @param input the inputStream
+     * @param input ObjectEndianInputStream; the inputStream
      * @return a nullobject
      * @throws IOException on IOException
      */
@@ -432,7 +432,7 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a Point
-     * @param input the inputStream
+     * @param input ObjectEndianInputStream; the inputStream
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -446,8 +446,8 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a PolyLine
-     * @param input the inputStream
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -484,8 +484,8 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a Polygon
-     * @param input the inputStream
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -522,8 +522,8 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readMultiPoint
-     * @param input the inputStream
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -544,8 +544,8 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readPointZ
-     * @param input the inputStream
-     * @param contentLength the contentLength
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -560,9 +560,9 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readPolyLineZ
-     * @param input the inputStream
-     * @param contentLength the contentLength
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -605,9 +605,9 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readPolygonZ
-     * @param input the inputStream
-     * @param contentLength the contentLength
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -649,9 +649,9 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readMultiPointZ
-     * @param input the inputStream
-     * @param contentLength the contentLength
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -676,8 +676,8 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readPointM
-     * @param input the inputStream
-     * @param contentLength the contentLength
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -691,9 +691,9 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readPolyLineM
-     * @param input the inputStream
-     * @param contentLength the contentLength
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -736,9 +736,9 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readPolyLineM
-     * @param input the inputStream
-     * @param contentLength the contentLength
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -780,9 +780,9 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readMultiPointM
-     * @param input the inputStream
-     * @param contentLength the contentLength
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */
@@ -807,9 +807,9 @@ public class ShapeFile implements DataSourceInterface
 
     /**
      * reads a readMultiPointM
-     * @param input the inputStream
-     * @param contentLength the contentLength
-     * @param skipBox whether to skip the box
+     * @param input ObjectEndianInputStream; the inputStream
+     * @param contentLength int; the contentLength
+     * @param skipBox boolean; whether to skip the box
      * @return the java2D PointShape
      * @throws IOException on IOException
      */

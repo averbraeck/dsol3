@@ -18,7 +18,7 @@ public abstract class InvokeOperation extends Operation
 {
     /**
      * executes the operation.
-     * @param frame The current frame
+     * @param frame Frame; The current frame
      * @return Frame the newly created frame or null when the invocation already took place
      */
     public abstract Frame execute(final Frame frame);

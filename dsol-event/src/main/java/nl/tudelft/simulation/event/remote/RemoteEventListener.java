@@ -25,13 +25,13 @@ public class RemoteEventListener implements RemoteEventListenerInterface
 
     /**
      * Constructs a new RemoteListener.
-     * @param owner The owner of the listener.
+     * @param owner EventListenerInterface; The owner of the listener.
      * @throws RemoteException in case of network error
      */
     public RemoteEventListener(final EventListenerInterface owner) throws RemoteException
     {
         super();
-        // TODO: UnicastRemoteObject.exportObject(this) is deprecated. 
+        // TODO: UnicastRemoteObject.exportObject(this) is deprecated.
         UnicastRemoteObject.exportObject(this);
         this.owner = owner;
     }

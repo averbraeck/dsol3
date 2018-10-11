@@ -24,7 +24,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property backgroundColor.
-     * @param backgroundColor New value of property backgroundColor.
+     * @param backgroundColor Color; New value of property backgroundColor.
      */
     public void setBackgroundColor(Color backgroundColor);
 
@@ -36,7 +36,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property color.
-     * @param color New value of property color.
+     * @param color Color; New value of property color.
      */
     public void setColor(Color color);
 
@@ -48,7 +48,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property font.
-     * @param font New value of the font.
+     * @param font Font; New value of the font.
      */
     public void setFont(Font font);
 
@@ -60,7 +60,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property fontColor.
-     * @param color New value of property fontColor.
+     * @param color Color; New value of property fontColor.
      */
     public void setFontColor(Color color);
 
@@ -72,7 +72,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property embed.
-     * @param embed New value of property embed.
+     * @param embed boolean; New value of property embed.
      */
     public void setEmbed(boolean embed);
 
@@ -84,7 +84,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property intervals.
-     * @param intervals New value of property intervals.
+     * @param intervals int; New value of property intervals.
      */
     public void setIntervals(int intervals);
 
@@ -96,7 +96,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property position.
-     * @param position New value of property position.
+     * @param position int; New value of property position.
      */
     public void setPosition(int position);
 
@@ -108,7 +108,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property size.
-     * @param size New value of property size.
+     * @param size Dimension; New value of property size.
      */
     public void setSize(Dimension size);
 
@@ -120,7 +120,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property units.
-     * @param units New value of property units.
+     * @param units int; New value of property units.
      */
     public void setUnits(int units);
 
@@ -132,7 +132,7 @@ public interface ScalebarInterface extends java.io.Serializable
 
     /**
      * Setter for property status.
-     * @param status New value of property status.
+     * @param status boolean; New value of property status.
      */
     public void setStatus(boolean status);
 }

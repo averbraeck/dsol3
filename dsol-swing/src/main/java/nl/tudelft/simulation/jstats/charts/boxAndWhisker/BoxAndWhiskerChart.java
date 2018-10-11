@@ -35,7 +35,7 @@ public class BoxAndWhiskerChart implements Swingable
 
     /**
      * constructs a new BoxAndWhiskerChart.
-     * @param title the title of the chart
+     * @param title String; the title of the chart
      */
     public BoxAndWhiskerChart(final String title)
     {
@@ -46,7 +46,7 @@ public class BoxAndWhiskerChart implements Swingable
 
     /**
      * adds a tally to the chart
-     * @param tally the tally to be added
+     * @param tally Tally; the tally to be added
      */
     public void add(final Tally tally)
     {
@@ -85,7 +85,7 @@ public class BoxAndWhiskerChart implements Swingable
 
     /**
      * sets the confidence interval of the plot. The default value = 0.05 (=5%)
-     * @param confidenceInterval the confidence interval
+     * @param confidenceInterval double; the confidence interval
      */
     public void setConfidenceInterval(final double confidenceInterval)
     {

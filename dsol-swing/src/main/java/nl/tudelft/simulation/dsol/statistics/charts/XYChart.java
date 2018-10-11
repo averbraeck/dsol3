@@ -22,8 +22,8 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 {
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
      */
     public XYChart(final SimulatorInterface simulator, final String title)
     {
@@ -32,9 +32,9 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param axisType the axisType to use.
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param axisType short; the axisType to use.
      */
     public XYChart(final SimulatorInterface simulator, final String title, final short axisType)
     {
@@ -44,9 +44,9 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param domain the domain
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param domain double[]; the domain
      */
     public XYChart(final SimulatorInterface simulator, final String title, final double[] domain)
     {
@@ -64,9 +64,9 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param period the period
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param period double; the period
      */
     public XYChart(final SimulatorInterface simulator, final String title, final double period)
     {
@@ -84,10 +84,10 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param domain the domain
-     * @param axisType the axisType to use.
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param domain double[]; the domain
+     * @param axisType short; the axisType to use.
      */
     public XYChart(final SimulatorInterface simulator, final String title, final double[] domain, final short axisType)
     {
@@ -105,10 +105,10 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param period the period
-     * @param axisType the axisType to use.
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param period double; the period
+     * @param axisType short; the axisType to use.
      */
     public XYChart(final SimulatorInterface simulator, final String title, final double period, final short axisType)
     {
@@ -126,10 +126,10 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param domain the domain
-     * @param range the range
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param domain double[]; the domain
+     * @param range double[]; the range
      */
     public XYChart(final SimulatorInterface simulator, final String title, final double[] domain, final double[] range)
     {
@@ -147,10 +147,10 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param period the period
-     * @param range the range
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param period double; the period
+     * @param range double[]; the range
      */
     public XYChart(final SimulatorInterface simulator, final String title, final double period, final double[] range)
     {
@@ -168,11 +168,11 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param domain the domain
-     * @param range the range
-     * @param axisType the XYChart.axisType
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param domain double[]; the domain
+     * @param range double[]; the range
+     * @param axisType short; the XYChart.axisType
      */
     public XYChart(final SimulatorInterface simulator, final String title, final double[] domain, final double[] range,
             final short axisType)
@@ -191,11 +191,11 @@ public class XYChart extends nl.tudelft.simulation.jstats.charts.xy.XYChart
 
     /**
      * constructs a new XYChart.
-     * @param simulator the simulator
-     * @param title the title
-     * @param period the period
-     * @param range the range
-     * @param axisType the XYChart.axisType
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param period double; the period
+     * @param range double[]; the range
+     * @param axisType short; the XYChart.axisType
      */
     public XYChart(final SimulatorInterface simulator, final String title, final double period, final double[] range,
             final short axisType)

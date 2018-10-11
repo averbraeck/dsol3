@@ -18,7 +18,7 @@ public interface InterpreterOracleInterface
 {
     /**
      * whether to interpret methods defined in instances of myClass.
-     * @param method the method to inspect
+     * @param method Method; the method to inspect
      * @return whether to interpret methods defined in instances of myClass
      */
     boolean shouldBeInterpreted(final Method method);

@@ -36,8 +36,8 @@ public class LOOKUPSWITCH extends JumpOperation
 
     /**
      * constructs a new LOOKUPSWITCH.
-     * @param dataInput the dataInput
-     * @param padding the amount of bytes to pad
+     * @param dataInput DataInput; the dataInput
+     * @param padding int; the amount of bytes to pad
      * @throws IOException on IOfailure
      */
     public LOOKUPSWITCH(final DataInput dataInput, final int padding) throws IOException

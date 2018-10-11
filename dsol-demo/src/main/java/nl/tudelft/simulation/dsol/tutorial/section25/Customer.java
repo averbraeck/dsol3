@@ -24,7 +24,7 @@ public class Customer
 
     /**
      * constructs a new Customer.
-     * @param simulator The simulator to use.
+     * @param simulator DEVSSimulatorInterface.TimeDouble; The simulator to use.
      */
     public Customer(final DEVSSimulatorInterface.TimeDouble simulator)
     {

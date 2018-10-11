@@ -21,7 +21,7 @@ public interface EndianInterface extends java.io.Serializable
 
     /**
      * sets the Encode
-     * @param encode the encode which is either BIG_ENDIAN or LITTLE_ENDIAN
+     * @param encode int; the encode which is either BIG_ENDIAN or LITTLE_ENDIAN
      */
     void setEncode(int encode);
 

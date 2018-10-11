@@ -68,7 +68,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
 
     /**
      * Constructor for SpeedControlDialog.
-     * @param target the simulator
+     * @param target SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @throws HeadlessException when there is no graphics monitor attachted
      */
     public SpeedControlDialog(SimulatorInterface<?, ?, ?> target) throws HeadlessException

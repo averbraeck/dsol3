@@ -51,11 +51,11 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
 
     /**
      * constructs a new ContextNode.
-     * @param treeModel the treeModel
-     * @param name the name
-     * @param context the context
-     * @param displayClasses the classes to display
-     * @param displayFields the fields to show
+     * @param treeModel ContextTreeModel; the treeModel
+     * @param name String; the name
+     * @param context EventContext; the context
+     * @param displayClasses Class&lt;?&gt;[]; the classes to display
+     * @param displayFields boolean; the fields to show
      * @throws NamingException on failure
      */
     public ContextNode(final ContextTreeModel treeModel, final String name, final EventContext context,
@@ -79,7 +79,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
 
     /**
      * constructs a new ContextNode.
-     * @param userObject the userObject
+     * @param userObject Object; the userObject
      */
     public ContextNode(final Object userObject)
     {
@@ -126,7 +126,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
 
     /**
      * removes the child from context
-     * @param object the object
+     * @param object Object; the object
      */
     private void remove(final Object object)
     {
@@ -162,7 +162,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
 
     /**
      * display this object.
-     * @param object the object
+     * @param object Object; the object
      * @return boolean
      */
     private boolean display(final Object object)
@@ -172,7 +172,7 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
 
     /**
      * display this class.
-     * @param myClass the class
+     * @param myClass Class&lt;?&gt;; the class
      * @return boolean
      */
     private boolean display(final Class<?> myClass)
@@ -208,8 +208,8 @@ public class ContextNode extends DefaultMutableTreeNode implements NamespaceChan
 
     /**
      * constructs an Object
-     * @param root the root element
-     * @param object the object
+     * @param root DefaultMutableTreeNode; the root element
+     * @param object Object; the object
      * @return root
      */
     private DefaultMutableTreeNode contructObject(final DefaultMutableTreeNode root, final Object object)

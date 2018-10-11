@@ -31,11 +31,11 @@ public class DistDiscreteEmpirical extends DistDiscrete
 
     /**
      * constructs a new DistDiscreteEmpirical distribution.
-     * @param stream the stream to use
-     * @param observations the observations feeding the distributions. These observations should be in one of two
-     *            possible formats. The first accepted format is the X(i);probability format. This results in a map with
-     *            values such as 1=0.33;2=0.167;3=0.167;4=0.33. The second allowed format is the X(i);occurrence
-     *            combination resulting in values such as 1=2;2=1;3=1;4=2.
+     * @param stream StreamInterface; the stream to use
+     * @param observations ObservationsInterface; the observations feeding the distributions. These observations should
+     *            be in one of two possible formats. The first accepted format is the X(i);probability format. This
+     *            results in a map with values such as 1=0.33;2=0.167;3=0.167;4=0.33. The second allowed format is the
+     *            X(i);occurrence combination resulting in values such as 1=2;2=1;3=1;4=2.
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final ObservationsInterface observations)
     {
@@ -53,10 +53,10 @@ public class DistDiscreteEmpirical extends DistDiscrete
 
     /**
      * constructs a new DistDiscreteEmpirical distribution.
-     * @param stream the stream to use
-     * @param observations the observations feeding the distributions. This sortedmap should be filled with observation
-     *            probability values. The probability may either reflect the number of times this observation is
-     *            observed or may contain a relative probability.
+     * @param stream StreamInterface; the stream to use
+     * @param observations Long[]; the observations feeding the distributions. This sortedmap should be filled with
+     *            observation probability values. The probability may either reflect the number of times this
+     *            observation is observed or may contain a relative probability.
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final Long[] observations)
     {
@@ -67,10 +67,10 @@ public class DistDiscreteEmpirical extends DistDiscrete
 
     /**
      * constructs a new DistDiscreteEmpirical distribution.
-     * @param stream the stream to use
-     * @param observations the observations feeding the distributions. This sortedmap should be filled with observation
-     *            probability values. The probability may either reflect the number of times this observation is
-     *            observed or may contain a relative probability.
+     * @param stream StreamInterface; the stream to use
+     * @param observations long[]; the observations feeding the distributions. This sortedmap should be filled with
+     *            observation probability values. The probability may either reflect the number of times this
+     *            observation is observed or may contain a relative probability.
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final long[] observations)
     {
@@ -85,11 +85,11 @@ public class DistDiscreteEmpirical extends DistDiscrete
 
     /**
      * constructs a new DistDiscreteEmpirical distribution.
-     * @param stream the stream to use
-     * @param observations the observations feeding the distributions. This sortedmap should be filled with observation
-     *            probability values. The probability may either reflect the number of times this observation is
-     *            observed or may contain a relative probability.
-     * @param cumulative reflects whether the probabilities are cumulative
+     * @param stream StreamInterface; the stream to use
+     * @param observations SortedMap&lt;Number,Double&gt;; the observations feeding the distributions. This sortedmap
+     *            should be filled with observation probability values. The probability may either reflect the number of
+     *            times this observation is observed or may contain a relative probability.
+     * @param cumulative boolean; reflects whether the probabilities are cumulative
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final SortedMap<Number, Double> observations,
             final boolean cumulative)
@@ -128,7 +128,7 @@ public class DistDiscreteEmpirical extends DistDiscrete
     /**
      * constructs a grouped map since we do not have the draw and probability specification for the non-grouped discrete
      * empirical distribution.
-     * @param observations the non grouped empirical distribution
+     * @param observations List&lt;? extends Number&gt;; the non grouped empirical distribution
      * @return a new SortedMap which is not normalized and not cumulative.
      */
     private static SortedMap<Number, Double> constructGroupedMap(final List<? extends Number> observations)

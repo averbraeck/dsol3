@@ -36,10 +36,10 @@ public class Terminal extends Station<Double, Double, SimTimeDouble>
 
     /**
      * constructs a new Terminal.
-     * @param simulator the simulator
-     * @param cpu the destination
-     * @param thinkDelay the delay
-     * @param jobSize in time
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
+     * @param cpu StationInterface; the destination
+     * @param thinkDelay DistContinuous; the delay
+     * @param jobSize DistContinuous; in time
      */
     public Terminal(final DEVSSimulatorInterface.TimeDouble simulator, final StationInterface cpu,
             final DistContinuous thinkDelay, final DistContinuous jobSize)

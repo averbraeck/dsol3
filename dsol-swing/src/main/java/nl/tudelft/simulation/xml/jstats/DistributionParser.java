@@ -50,8 +50,8 @@ public final class DistributionParser
 
     /**
      * parses a xml-element representing a distribution function
-     * @param element The j-dom element
-     * @param simulator the simulator to use
+     * @param element Element; The j-dom element
+     * @param simulator SimulatorInterface; the simulator to use
      * @return the distribution function
      * @throws IOException on failure
      */
@@ -128,8 +128,8 @@ public final class DistributionParser
 
     /**
      * parses a xml-element representing a distribution function
-     * @param element The j-dom element
-     * @param simulator the simulator to use
+     * @param element Element; The j-dom element
+     * @param simulator SimulatorInterface; the simulator to use
      * @return the distribution function
      * @throws IOException on failure
      */
@@ -141,8 +141,8 @@ public final class DistributionParser
 
     /**
      * parses a xml-element representing a distribution function
-     * @param element The j-dom element
-     * @param simulator the simulator to use
+     * @param element Element; The j-dom element
+     * @param simulator SimulatorInterface; the simulator to use
      * @return the distribution function
      * @throws IOException on failure
      */

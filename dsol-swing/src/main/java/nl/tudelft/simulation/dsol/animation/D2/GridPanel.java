@@ -78,7 +78,7 @@ public class GridPanel extends JPanel
 
     /**
      * constructs a new GridPanel.
-     * @param extent the extent to show.
+     * @param extent Rectangle2D; the extent to show.
      */
     public GridPanel(final Rectangle2D extent)
     {
@@ -87,8 +87,8 @@ public class GridPanel extends JPanel
 
     /**
      * constructs a new GridPanel.
-     * @param extent the initial extent.
-     * @param size the size of the panel in pixels.
+     * @param extent Rectangle2D; the initial extent.
+     * @param size Dimension; the size of the panel in pixels.
      */
     public GridPanel(final Rectangle2D extent, final Dimension size)
     {
@@ -127,7 +127,7 @@ public class GridPanel extends JPanel
 
     /**
      * show the grid?
-     * @param bool true/false
+     * @param bool boolean; true/false
      */
     public final synchronized void showGrid(final boolean bool)
     {
@@ -137,7 +137,7 @@ public class GridPanel extends JPanel
 
     /**
      * Set the world coordinates based on a mouse move.
-     * @param point the x,y world coordinates
+     * @param point Point2D; the x,y world coordinates
      */
     public final synchronized void setWorldCoordinate(final Point2D point)
     {
@@ -174,7 +174,7 @@ public class GridPanel extends JPanel
     }
 
     /**
-     * @param showToolTip set showToolTip
+     * @param showToolTip boolean; set showToolTip
      */
     public final synchronized void setShowToolTip(final boolean showToolTip)
     {
@@ -183,8 +183,8 @@ public class GridPanel extends JPanel
 
     /**
      * pans the panel in a specified direction.
-     * @param direction the direction
-     * @param percentage the percentage
+     * @param direction int; the direction
+     * @param percentage double; the percentage
      */
     public final synchronized void pan(final int direction, final double percentage)
     {
@@ -234,7 +234,7 @@ public class GridPanel extends JPanel
     }
 
     /**
-     * @param showGrid The showGrid to set.
+     * @param showGrid boolean; The showGrid to set.
      */
     public final void setShowGrid(final boolean showGrid)
     {
@@ -243,7 +243,7 @@ public class GridPanel extends JPanel
 
     /**
      * zooms in/out.
-     * @param factor The zoom factor
+     * @param factor double; The zoom factor
      */
     public final synchronized void zoom(final double factor)
     {
@@ -252,9 +252,9 @@ public class GridPanel extends JPanel
 
     /**
      * zooms in/out.
-     * @param factor The zoom factor
-     * @param mouseX x-position of the mouse around which we zoom
-     * @param mouseY y-position of the mouse around which we zoom
+     * @param factor double; The zoom factor
+     * @param mouseX int; x-position of the mouse around which we zoom
+     * @param mouseY int; y-position of the mouse around which we zoom
      */
     public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
     {
@@ -272,7 +272,7 @@ public class GridPanel extends JPanel
     /**
      * Added to make sure the recursive render-call calls THIS render method instead of a potential super-class defined
      * 'paintComponent' render method.
-     * @param g the graphics object
+     * @param g Graphics; the graphics object
      */
     @SuppressWarnings("checkstyle:designforextension")
     protected synchronized void drawGrid(final Graphics g)

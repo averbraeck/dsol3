@@ -117,7 +117,7 @@ public class Message
 
     /**
      * Encode the object array into a message.
-     * @param content the objects to encode
+     * @param content Object[]; the objects to encode
      * @return the zeroMQ message to send as a byte array
      * @throws ZeroMQException on unknown data type
      */
@@ -388,7 +388,7 @@ public class Message
 
     /**
      * Decode the message into an object array.
-     * @param message the ZeroMQ byte array to decode
+     * @param message byte[]; the ZeroMQ byte array to decode
      * @return an array of objects of the right type
      * @throws ZeroMQException on unknown data type
      */
@@ -442,7 +442,7 @@ public class Message
             }
             else if (type == CHAR_16_BIG_ENDIAN)
             {
-                // TODO array[i] = 
+                // TODO array[i] =
                 pointer += 2;
             }
         }
@@ -453,7 +453,7 @@ public class Message
     /**
      * Decode an int.
      * @param content the ZeroMQ byte array to decode
-     * @param pointer the first byte to consider
+     * @param pointer int; the first byte to consider
      * @return the integer value
      * @throws ZeroMQException when data type is not integer
      */
@@ -474,7 +474,7 @@ public class Message
     /**
      * Decode a Big Endian int.
      * @param content the ZeroMQ byte array to decode
-     * @param pointer the first byte to consider
+     * @param pointer int; the first byte to consider
      * @return the integer value
      */
     private static int decodeIntBigEndian(final byte[] message, final int pointer)
@@ -486,7 +486,7 @@ public class Message
     /**
      * Decode a Little Endian int.
      * @param content the ZeroMQ byte array to decode
-     * @param pointer the first byte to consider
+     * @param pointer int; the first byte to consider
      * @return the integer value
      */
     private static int decodeIntLittleEndian(final byte[] message, final int pointer)
@@ -498,7 +498,7 @@ public class Message
     /**
      * Decode a Big Endian long.
      * @param content the ZeroMQ byte array to decode
-     * @param pointer the first byte to consider
+     * @param pointer int; the first byte to consider
      * @return the long value
      */
     private static long decodeLongBigEndian(final byte[] message, final int pointer)
@@ -512,7 +512,7 @@ public class Message
     /**
      * Decode a Little Endian long.
      * @param content the ZeroMQ byte array to decode
-     * @param pointer the first byte to consider
+     * @param pointer int; the first byte to consider
      * @return the long value
      */
     private static long decodeLongLittleEndian(final byte[] message, final int pointer)

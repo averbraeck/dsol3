@@ -33,10 +33,10 @@ public class LinearInterpolation implements InterpolationInterface
 
     /**
      * constructs a new LinearInterpolation.
-     * @param startTime the startingTime
-     * @param endTime the endTime
-     * @param origin the origin
-     * @param destination the destination
+     * @param startTime double; the startingTime
+     * @param endTime double; the endTime
+     * @param origin DirectedPoint; the origin
+     * @param destination DirectedPoint; the destination
      */
     public LinearInterpolation(final double startTime, final double endTime, final DirectedPoint origin,
             final DirectedPoint destination)

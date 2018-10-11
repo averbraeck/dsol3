@@ -64,8 +64,8 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
 
     /**
      * constructs a new Retailer.
-     * @param simulator the simulator on which we can schedule
-     * @param warehouse the warehouse to buy at
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator on which we can schedule
+     * @param warehouse SellerInterface; the warehouse to buy at
      */
     public Retailer(final DEVSSimulatorInterface.TimeDouble simulator, final SellerInterface warehouse)
     {

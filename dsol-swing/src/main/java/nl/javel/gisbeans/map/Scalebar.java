@@ -176,7 +176,7 @@ public class Scalebar implements ScalebarInterface
 
     /**
      * Sets the font.
-     * @param font The font to set
+     * @param font Font; The font to set
      */
     public void setFont(Font font)
     {
@@ -185,7 +185,7 @@ public class Scalebar implements ScalebarInterface
 
     /**
      * Sets the fontColor.
-     * @param fontColor The fontColor to set
+     * @param fontColor Color; The fontColor to set
      */
     public void setFontColor(Color fontColor)
     {

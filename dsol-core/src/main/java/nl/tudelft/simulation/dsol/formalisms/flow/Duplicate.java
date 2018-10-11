@@ -51,8 +51,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * Creates a new Duplicate that makes 1 copy.
-     * @param simulator on which is scheduled
-     * @param duplicateDestination the duplicate destination
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
+     * @param duplicateDestination StationInterface&lt;A,R,T&gt;; the duplicate destination
      */
     public Duplicate(final DEVSSimulatorInterface<A, R, T> simulator,
             final StationInterface<A, R, T> duplicateDestination)
@@ -62,9 +62,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * Create a new Duplicate that makes numberCopies copies.
-     * @param simulator on which is scheduled
-     * @param duplicateDestination which is the duplicate definition
-     * @param numberCopies the number of copies
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
+     * @param duplicateDestination StationInterface&lt;A,R,T&gt;; which is the duplicate definition
+     * @param numberCopies int; the number of copies
      */
     public Duplicate(final DEVSSimulatorInterface<A, R, T> simulator,
             final StationInterface<A, R, T> duplicateDestination, final int numberCopies)
@@ -116,8 +116,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination the duplicate destination
+         * @param simulator DEVSSimulatorInterface.TimeDouble; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeDouble; the duplicate destination
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
                 final StationInterface.TimeDouble duplicateDestination)
@@ -127,9 +127,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination which is the duplicate definition
-         * @param numberCopies the number of copies
+         * @param simulator DEVSSimulatorInterface.TimeDouble; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeDouble; which is the duplicate definition
+         * @param numberCopies int; the number of copies
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
                 final StationInterface.TimeDouble duplicateDestination, final int numberCopies)
@@ -146,8 +146,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination the duplicate destination
+         * @param simulator DEVSSimulatorInterface.TimeFloat; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeFloat; the duplicate destination
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
                 final StationInterface.TimeFloat duplicateDestination)
@@ -157,9 +157,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination which is the duplicate definition
-         * @param numberCopies the number of copies
+         * @param simulator DEVSSimulatorInterface.TimeFloat; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeFloat; which is the duplicate definition
+         * @param numberCopies int; the number of copies
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
                 final StationInterface.TimeFloat duplicateDestination, final int numberCopies)
@@ -176,8 +176,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination the duplicate destination
+         * @param simulator DEVSSimulatorInterface.TimeLong; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeLong; the duplicate destination
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
                 final StationInterface.TimeLong duplicateDestination)
@@ -187,9 +187,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination which is the duplicate definition
-         * @param numberCopies the number of copies
+         * @param simulator DEVSSimulatorInterface.TimeLong; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeLong; which is the duplicate definition
+         * @param numberCopies int; the number of copies
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
                 final StationInterface.TimeLong duplicateDestination, final int numberCopies)
@@ -207,8 +207,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination the duplicate destination
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeDoubleUnit; the duplicate destination
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final StationInterface.TimeDoubleUnit duplicateDestination)
@@ -218,9 +218,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination which is the duplicate definition
-         * @param numberCopies the number of copies
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeDoubleUnit; which is the duplicate definition
+         * @param numberCopies int; the number of copies
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final StationInterface.TimeDoubleUnit duplicateDestination, final int numberCopies)
@@ -238,8 +238,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination the duplicate destination
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeFloatUnit; the duplicate destination
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final StationInterface.TimeFloatUnit duplicateDestination)
@@ -249,9 +249,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination which is the duplicate definition
-         * @param numberCopies the number of copies
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which is scheduled
+         * @param duplicateDestination StationInterface.TimeFloatUnit; which is the duplicate definition
+         * @param numberCopies int; the number of copies
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final StationInterface.TimeFloatUnit duplicateDestination, final int numberCopies)
@@ -269,8 +269,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination the duplicate destination
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
+         * @param duplicateDestination StationInterface.CalendarDouble; the duplicate destination
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
                 final StationInterface.CalendarDouble duplicateDestination)
@@ -280,9 +280,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination which is the duplicate definition
-         * @param numberCopies the number of copies
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
+         * @param duplicateDestination StationInterface.CalendarDouble; which is the duplicate definition
+         * @param numberCopies int; the number of copies
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
                 final StationInterface.CalendarDouble duplicateDestination, final int numberCopies)
@@ -300,8 +300,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination the duplicate destination
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
+         * @param duplicateDestination StationInterface.CalendarFloat; the duplicate destination
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
                 final StationInterface.CalendarFloat duplicateDestination)
@@ -311,9 +311,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination which is the duplicate definition
-         * @param numberCopies the number of copies
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
+         * @param duplicateDestination StationInterface.CalendarFloat; which is the duplicate definition
+         * @param numberCopies int; the number of copies
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
                 final StationInterface.CalendarFloat duplicateDestination, final int numberCopies)
@@ -331,8 +331,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination the duplicate destination
+         * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
+         * @param duplicateDestination StationInterface.CalendarLong; the duplicate destination
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
                 final StationInterface.CalendarLong duplicateDestination)
@@ -342,9 +342,9 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
-         * @param simulator on which is scheduled
-         * @param duplicateDestination which is the duplicate definition
-         * @param numberCopies the number of copies
+         * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
+         * @param duplicateDestination StationInterface.CalendarLong; which is the duplicate definition
+         * @param numberCopies int; the number of copies
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
                 final StationInterface.CalendarLong duplicateDestination, final int numberCopies)

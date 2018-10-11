@@ -20,7 +20,7 @@ public class DefaultSimTimeFormatter implements SimTimeFormatter
 
     /**
      * Create a default simulation time formatter with a simulator.
-     * @param simulator the simulator to use for the formatting
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to use for the formatting
      */
     public DefaultSimTimeFormatter(final SimulatorInterface<?, ?, ?> simulator)
     {

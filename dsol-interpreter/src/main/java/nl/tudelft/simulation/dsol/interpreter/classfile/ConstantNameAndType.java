@@ -25,8 +25,8 @@ public final class ConstantNameAndType extends Constant
 
     /**
      * constructs a new ConstantNameAndType.
-     * @param constantPool the constantPool it is part of
-     * @param inputStream the inputstream to read from
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param inputStream DataInput; the inputstream to read from
      * @throws IOException on failure
      */
     public ConstantNameAndType(final Constant[] constantPool, final DataInput inputStream) throws IOException
@@ -36,9 +36,9 @@ public final class ConstantNameAndType extends Constant
 
     /**
      * constructs a new ConstantNameAndType.
-     * @param constantPool the constantPool it is part of
-     * @param nameIndex the nameIndex
-     * @param descriptorIndex descriptorIndex
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param nameIndex int; the nameIndex
+     * @param descriptorIndex int; descriptorIndex
      */
     public ConstantNameAndType(final Constant[] constantPool, final int nameIndex, final int descriptorIndex)
     {

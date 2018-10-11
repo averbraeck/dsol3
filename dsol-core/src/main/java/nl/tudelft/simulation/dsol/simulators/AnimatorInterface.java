@@ -37,7 +37,7 @@ public interface AnimatorInterface
 
     /**
      * sets the animationDelay.
-     * @param miliseconds the animation delay
+     * @param miliseconds long; the animation delay
      * @throws RemoteException on network failure
      */
     void setAnimationDelay(long miliseconds) throws RemoteException;
@@ -67,7 +67,7 @@ public interface AnimatorInterface
         private final AnimatorInterface animator;
 
         /**
-         * @param animator the animator.
+         * @param animator AnimatorInterface; the animator.
          */
         public AnimationThread(final AnimatorInterface animator)
         {

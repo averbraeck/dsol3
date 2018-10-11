@@ -82,10 +82,10 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
 
     /**
      * Constructor for a stand-alone atomic model with explicit phases.
-     * @param modelName the name of this component
-     * @param simulator the simulator to schedule on
-     * @param e initial elapsed time
-     * @param initphase the initial phase of the model
+     * @param modelName String; the name of this component
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+     * @param e R; initial elapsed time
+     * @param initphase Phase; the initial phase of the model
      */
     public AtomicModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator, final R e,
             final Phase initphase)
@@ -95,10 +95,10 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
 
     /**
      * Constructor for an atomic model within a coupled model with explicit phases.
-     * @param modelName the name of this component
-     * @param parentModel the coupled model this atomic model is part of
-     * @param e initial elapsed time
-     * @param initphase the initial phase of the model
+     * @param modelName String; the name of this component
+     * @param parentModel CoupledModel&lt;A,R,T&gt;; the coupled model this atomic model is part of
+     * @param e R; initial elapsed time
+     * @param initphase Phase; the initial phase of the model
      */
     public AtomicModel(final String modelName, final CoupledModel<A, R, T> parentModel, final R e,
             final Phase initphase)
@@ -107,8 +107,8 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
     }
 
     /**
-     * @param modelName the name of this component
-     * @param parentModel the coupled model this atomic model is part of
+     * @param modelName String; the name of this component
+     * @param parentModel CoupledModel&lt;A,R,T&gt;; the coupled model this atomic model is part of
      */
     public AtomicModel(final String modelName, final CoupledModel<A, R, T> parentModel)
     {
@@ -117,8 +117,8 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
     }
 
     /**
-     * @param modelName the name of this component
-     * @param simulator the simulator to schedule on
+     * @param modelName String; the name of this component
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
      */
     public AtomicModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator)
     {
@@ -127,12 +127,12 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
 
     /**
      * Constructor for a stand-alone atomic model with explicit phases and a conflict strategy.
-     * @param modelName the name of this component
-     * @param simulator the simulator to schedule on
-     * @param e initial elapsed time
-     * @param initphase the initial phase of the model to use for explicit phase models
-     * @param conflictStrategy the conflict strategy to use when internal and external events take place at the same
-     *            time
+     * @param modelName String; the name of this component
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+     * @param e R; initial elapsed time
+     * @param initphase Phase; the initial phase of the model to use for explicit phase models
+     * @param conflictStrategy boolean; the conflict strategy to use when internal and external events take place at the
+     *            same time
      */
     public AtomicModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator, final R e,
             final Phase initphase, final boolean conflictStrategy)
@@ -146,12 +146,12 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
 
     /**
      * Constructor for an atomic model within a coupled model with explicit phases and a conflict strategy.
-     * @param modelName the name of this component
-     * @param parentModel the coupled model this atomic model is part of
-     * @param e initial elapsed time
-     * @param initphase the initial phase of the model to use for explicit phase models
-     * @param conflictStrategy the conflict strategy to use when internal and external events take place at the same
-     *            time
+     * @param modelName String; the name of this component
+     * @param parentModel CoupledModel&lt;A,R,T&gt;; the coupled model this atomic model is part of
+     * @param e R; initial elapsed time
+     * @param initphase Phase; the initial phase of the model to use for explicit phase models
+     * @param conflictStrategy boolean; the conflict strategy to use when internal and external events take place at the
+     *            same time
      */
     public AtomicModel(final String modelName, final CoupledModel<A, R, T> parentModel, final R e,
             final Phase initphase, final boolean conflictStrategy)
@@ -168,7 +168,7 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
     /**
      * Initialize the atomic model. Start the first internal event based on the time 'e'. See Zeigler's model definition
      * for the definition of 'e'.
-     * @param e elapsed time since the last state transition
+     * @param e R; elapsed time since the last state transition
      */
     @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final R e)
@@ -199,7 +199,7 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
 
     /**
      * Return the elapsed time (e) since the last event.
-     * @param eventTime the time of the event for which we want to calculate the elapsed time.
+     * @param eventTime T; the time of the event for which we want to calculate the elapsed time.
      * @return the elapsed time (e) since the last event.
      * @throws RemoteException a remote exception occurred
      */
@@ -243,8 +243,8 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
     /**
      * This method handles an incoming external event. As part of its function, it calls the deltaExternal method that
      * is defined in an extension of this class.
-     * @param e the elapsed time since the last state transition
-     * @param value the value that is passed through the port, which triggered the external event
+     * @param e R; the elapsed time since the last state transition
+     * @param value Object; the value that is passed through the port, which triggered the external event
      */
     @SuppressWarnings("checkstyle:designforextension")
     protected void deltaExternalEventHandler(final R e, final Object value)
@@ -255,8 +255,8 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
     }
 
     /**
-     * @param e the elapsed time since the last state transition
-     * @param value the value that is passed through the port, which triggered the external event
+     * @param e R; the elapsed time since the last state transition
+     * @param value Object; the value that is passed through the port, which triggered the external event
      */
     @SuppressWarnings("checkstyle:designforextension")
     protected void deltaConfluent(final R e, final Object value)
@@ -337,8 +337,8 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
     }
 
     /**
-     * @param conflict indicate whether there is a conflict between an intenal event and an external event that take
-     *            place at the same time.
+     * @param conflict boolean; indicate whether there is a conflict between an intenal event and an external event that
+     *            take place at the same time.
      */
     protected final void setConflict(final boolean conflict)
     {
@@ -356,8 +356,8 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
 
     /**
      * The user defined deltaExternal method that is defined in an extension of this class.
-     * @param e the elapsed time since the last state transition
-     * @param value the value that has been passed through the port
+     * @param e R; the elapsed time since the last state transition
+     * @param value Object; the value that has been passed through the port
      */
     protected abstract void deltaExternal(R e, Object value);
 

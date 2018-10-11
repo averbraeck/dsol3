@@ -29,7 +29,7 @@ public class StrongReference<T> extends Reference<T>
     /**
      * Creates a new strong reference that refers to the given object. The new reference is not registered with any
      * queue.
-     * @param referent object the new strong reference will refer to
+     * @param referent T; object the new strong reference will refer to
      */
     public StrongReference(final T referent)
     {

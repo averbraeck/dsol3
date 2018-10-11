@@ -25,7 +25,7 @@ public abstract class Dist implements java.io.Serializable
 
     /**
      * Constructs a new Distribution.
-     * @param stream the stream for this mathematical distribution.
+     * @param stream StreamInterface; the stream for this mathematical distribution.
      */
     public Dist(final StreamInterface stream)
     {

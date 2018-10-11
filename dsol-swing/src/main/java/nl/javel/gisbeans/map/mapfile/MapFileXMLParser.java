@@ -57,8 +57,8 @@ public final class MapFileXMLParser
 
     /**
      * parses a Mapfile URL to a mapFile.
-     * @param url the mapfile url.
-     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
+     * @param url URL; the mapfile url.
+     * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
      * @return MapInterface the parsed mapfile.
      * @throws IOException on failure.
      */
@@ -125,8 +125,8 @@ public final class MapFileXMLParser
 
     /**
      * returns the columnNumber
-     * @param columnNames the names
-     * @param columnName the name
+     * @param columnNames String[]; the names
+     * @param columnName String; the name
      * @return the number
      */
     private static int getColumnNumber(String[] columnNames, String columnName)
@@ -141,8 +141,8 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing an attribute
-     * @param element The j-dom element
-     * @param layer the layer.
+     * @param element Element; The j-dom element
+     * @param layer LayerInterface; the layer.
      * @return AttributeInterface value
      * @throws IOException
      */
@@ -209,7 +209,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a boolean
-     * @param element The j-dom element
+     * @param element Element; The j-dom element
      * @return Boolean value
      * @throws IOException
      */
@@ -230,7 +230,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a Color
-     * @param element The j-dom element
+     * @param element Element; The j-dom element
      * @return Color of element
      * @throws IOException
      */
@@ -256,7 +256,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a Dimension
-     * @param element The j-dom element
+     * @param element Element; The j-dom element
      * @return Dimension of element
      * @throws IOException
      */
@@ -276,7 +276,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a double[]
-     * @param element The j-dom element
+     * @param element Element; The j-dom element
      * @return Value of extent
      * @throws IOException
      */
@@ -305,7 +305,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a font
-     * @param element The j-dom element
+     * @param element Element; The j-dom element
      * @return the font
      * @throws IOException
      */
@@ -325,8 +325,8 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing the Image
-     * @param element The j-dom element
-     * @param nameSpace The gisbeans namespace
+     * @param element org.jdom2.Element; The j-dom element
+     * @param nameSpace Namespace; The gisbeans namespace
      * @return Value of image
      * @throws IOException
      */
@@ -353,8 +353,8 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a Layer
-     * @param element The j-dom element
-     * @param coordinateTransform the transformation of (x, y) coordinates to (x', y') coordinates.
+     * @param element Element; The j-dom element
+     * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
      * @return Layer of element
      * @throws IOException
      */
@@ -418,7 +418,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a Legend
-     * @param element The j-dom element
+     * @param element Element; The j-dom element
      * @return Legend of element
      * @throws IOException
      */
@@ -454,7 +454,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a Position
-     * @param element The j-dom element
+     * @param element org.jdom2.Element; The j-dom element
      * @return Position of element
      */
     private static int parsePosition(org.jdom2.Element element)
@@ -482,7 +482,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a ReferenceMap
-     * @param element The j-dom element
+     * @param element org.jdom2.Element; The j-dom element
      * @return ReferenceMap of element
      * @throws IOException
      */
@@ -510,7 +510,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a Scalebar
-     * @param element The j-dom element
+     * @param element org.jdom2.Element; The j-dom element
      * @return Scalebar of element
      * @throws IOException
      */
@@ -550,7 +550,7 @@ public final class MapFileXMLParser
 
     /**
      * parses a xml-element representing a Units
-     * @param element The j-dom element
+     * @param element org.jdom2.Element; The j-dom element
      * @return Units of element
      */
     private static int parseUnits(org.jdom2.Element element)
@@ -577,7 +577,7 @@ public final class MapFileXMLParser
     {
         /**
          * format the exception with line number, column number, etc.
-         * @param exception
+         * @param exception SAXParseException;
          * @return the format error
          */
         private String formatError(SAXParseException exception)

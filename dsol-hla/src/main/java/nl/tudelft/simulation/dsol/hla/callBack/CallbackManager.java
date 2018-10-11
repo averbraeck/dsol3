@@ -23,7 +23,7 @@ public class CallbackManager implements Runnable, EventListenerInterface
 
     /**
      * constructs a new CallbackManageger.
-     * @param callBackQueue the callBackQueue
+     * @param callBackQueue EventProducingList; the callBackQueue
      */
     public CallbackManager(final EventProducingList callBackQueue)
     {
@@ -34,7 +34,7 @@ public class CallbackManager implements Runnable, EventListenerInterface
 
     /**
      * executed the list
-     * @param list
+     * @param list List;
      * @throws SimRuntimeException
      */
     protected void execute(List list) throws SimRuntimeException

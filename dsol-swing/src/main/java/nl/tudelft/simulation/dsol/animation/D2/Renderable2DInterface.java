@@ -28,10 +28,10 @@ public interface Renderable2DInterface<T extends Locatable>
 {
     /**
      * paints the object on a 2D graphics object.
-     * @param graphics the graphics object
-     * @param extent the extent of the panel
-     * @param screen the screen of the panel
-     * @param observer the observer of the renderableInterface
+     * @param graphics Graphics2D; the graphics object
+     * @param extent Rectangle2D; the extent of the panel
+     * @param screen Dimension; the screen of the panel
+     * @param observer ImageObserver; the observer of the renderableInterface
      */
     void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
             final ImageObserver observer);
@@ -44,10 +44,10 @@ public interface Renderable2DInterface<T extends Locatable>
 
     /**
      * does the shape contain the point?
-     * @param pointWorldCoordinates the point in world coordinates. Default implementation is to intersect the 3D bounds
-     *            on location.z and to return the bounds2D of this intersect.
-     * @param extent the extent of the panel.
-     * @param screen the screen of the panel.
+     * @param pointWorldCoordinates Point2D; the point in world coordinates. Default implementation is to intersect the
+     *            3D bounds on location.z and to return the bounds2D of this intersect.
+     * @param extent Rectangle2D; the extent of the panel.
+     * @param screen Dimension; the screen of the panel.
      * @return whether the point is in the shape
      */
     boolean contains(Point2D pointWorldCoordinates, final Rectangle2D extent, Dimension screen);
@@ -85,8 +85,8 @@ public interface Renderable2DInterface<T extends Locatable>
          * are equal. If this is not the case, Double.NaN is returned. In order to overcome estimation errors, this
          * equality is computed with Math.abs(yScale-xScale) &lt; 0.005 * xScale. If the height or the width of the
          * screen are &lt; 0 Double.NaN is returned.
-         * @param extent the extent
-         * @param screen the screen
+         * @param extent Rectangle2D; the extent
+         * @param screen Dimension; the screen
          * @return double the scale. Can return Double.NaN
          */
         public static double getScale(final Rectangle2D extent, final Dimension screen)
@@ -100,8 +100,8 @@ public interface Renderable2DInterface<T extends Locatable>
 
         /**
          * computes the visible extent.
-         * @param extent the extent
-         * @param screen the screen
+         * @param extent Rectangle2D; the extent
+         * @param screen Dimension; the screen
          * @return a new extent or null if parameters are null or screen is invalid (&lt; 0)
          */
         public static Rectangle2D computeVisibleExtent(final Rectangle2D extent, final Dimension screen)
@@ -130,9 +130,9 @@ public interface Renderable2DInterface<T extends Locatable>
          * returns the frame xy-coordinates of a point in world coordinates. If parameters are invalid (i.e. screen.size
          * &lt; 0) a null value is returned. If parameter combinations (i.e !extent.contains(point)) are invalid a null
          * value is returned.
-         * @param worldCoordinates the world coordinates
-         * @param extent the extent of this
-         * @param screen the screen
+         * @param worldCoordinates Point2D; the world coordinates
+         * @param extent Rectangle2D; the extent of this
+         * @param screen Dimension; the screen
          * @return Point2D (x,y) on screen. Can be null
          */
         public static Point2D getScreenCoordinates(final Point2D worldCoordinates, final Rectangle2D extent,
@@ -148,9 +148,9 @@ public interface Renderable2DInterface<T extends Locatable>
          * returns the frame xy-coordinates of a point in screen coordinates. If parameters are invalid (i.e.
          * screen.size &lt; 0) a null value is returned. If parameter combinations (i.e !screen.contains(point)) are
          * invalid a null value is returned.
-         * @param screenCoordinates the screen coordinates
-         * @param extent the extent of this
-         * @param screen the screen
+         * @param screenCoordinates Point2D; the screen coordinates
+         * @param extent Rectangle2D; the extent of this
+         * @param screen Dimension; the screen
          * @return Point2D (x,y) on screen
          */
         public static Point2D getWorldCoordinates(final Point2D screenCoordinates, final Rectangle2D extent,

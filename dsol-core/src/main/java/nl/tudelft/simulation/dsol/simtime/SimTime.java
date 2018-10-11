@@ -28,7 +28,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param time initial time.
+     * @param time A; initial time.
      */
     public SimTime(final A time)
     {
@@ -37,20 +37,20 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * add a relative time to this simtime.
-     * @param relativeTime the time to add.
+     * @param relativeTime R; the time to add.
      */
     public abstract void add(R relativeTime);
 
     /**
      * subtract a simtime from this simtime.
-     * @param relativeTime the simtime to subtract.
+     * @param relativeTime R; the simtime to subtract.
      */
     public abstract void subtract(R relativeTime);
 
     /**
      * add a number of simtimes.
-     * @param absTime the absolute time to add the values to.
-     * @param relativeTimes the relative times to add.
+     * @param absTime T; the absolute time to add the values to.
+     * @param relativeTimes R...; the relative times to add.
      * @return the sum of the absolute time and the relative times.
      */
     @SuppressWarnings("unchecked")
@@ -85,7 +85,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * set the value of the SimTime.
-     * @param absoluteTime the value to set the SimTime to.
+     * @param absoluteTime A; the value to set the SimTime to.
      */
     public abstract void set(A absoluteTime);
 
@@ -96,7 +96,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * The plus function makes a copy of the time, adds the relative time, and returns the result.
-     * @param relativeTime the time to add.
+     * @param relativeTime R; the time to add.
      * @return a copy of the time with the relative time added.
      */
     public final T plus(final R relativeTime)
@@ -108,7 +108,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * The minus function makes a copy of the time, subtracts the relative time, and returns the result.
-     * @param relativeTime the time to subtract.
+     * @param relativeTime R; the time to subtract.
      * @return a copy of the time with the relative time subtracted.
      */
     public final T minus(final R relativeTime)
@@ -121,7 +121,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     /**
      * The minus function of two absolute times returns a relative time, which is the difference between the two
      * absolute times.
-     * @param simTime the time to subtract.
+     * @param simTime T; the time to subtract.
      * @return the relative time difference between this SimTime object and the provided absoluteTime argument.
      */
     public final R diff(final T simTime)
@@ -133,7 +133,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
      * The minus function of two absolute times returns a relative time, which is the difference between the two
      * absolute times. Note that the function was called diff because the erasure of minus(A) is the same as the erasure
      * of minus(R) in case of SimTimeDOuble, SimTimeFloat and SimTimeLong.
-     * @param absoluteTime the time to subtract.
+     * @param absoluteTime A; the time to subtract.
      * @return the relative time based, which is the difference between the two absolute times.
      */
     public abstract R diff(A absoluteTime);
@@ -151,7 +151,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     public abstract R getRelativeZero();
 
     /**
-     * @param simTime the time to compare to
+     * @param simTime T; the time to compare to
      * @return true if greater than simTime
      */
     public final boolean gt(final T simTime)
@@ -160,7 +160,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * @param simTime the time to compare to
+     * @param simTime T; the time to compare to
      * @return true if greater than or equal to simTime
      */
     public final boolean ge(final T simTime)
@@ -169,7 +169,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * @param simTime the time to compare to
+     * @param simTime T; the time to compare to
      * @return true if less than simTime
      */
     public final boolean lt(final T simTime)
@@ -178,7 +178,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * @param simTime the time to compare to
+     * @param simTime T; the time to compare to
      * @return true if less than or equal to simTime
      */
     public final boolean le(final T simTime)
@@ -187,7 +187,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * @param simTime the time to compare to
+     * @param simTime T; the time to compare to
      * @return true if contents equal to simTime's contents
      */
     public final boolean eq(final T simTime)
@@ -196,7 +196,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * @param simTime the time to compare to
+     * @param simTime T; the time to compare to
      * @return true if contents not equal to simTime's contents
      */
     public final boolean ne(final T simTime)

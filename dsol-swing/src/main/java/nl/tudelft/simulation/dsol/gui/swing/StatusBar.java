@@ -55,7 +55,7 @@ public class StatusBar extends JPanel
             new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     /**
-     * @param simulator the simulator
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      */
     public StatusBar(SimulatorInterface<?, ?, ?> simulator)
     {
@@ -110,7 +110,7 @@ public class StatusBar extends JPanel
         private long period;
 
         /**
-         * @param period
+         * @param period long;
          */
         public TimeUpdateTask(long period)
         {

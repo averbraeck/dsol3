@@ -25,7 +25,7 @@ public class WeakReference<T> extends Reference<T>
 
     /**
      * Creates a new weak reference that refers to the given object. The new reference is not registered with any queue.
-     * @param referent object the new weak reference will refer to
+     * @param referent T; object the new weak reference will refer to
      */
     public WeakReference(final T referent)
     {

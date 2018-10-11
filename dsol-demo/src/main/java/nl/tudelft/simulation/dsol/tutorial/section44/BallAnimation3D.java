@@ -27,8 +27,8 @@ public class BallAnimation3D extends Renderable3D
 {
     /**
      * constructs a new BallAnimation3D.
-     * @param source the source
-     * @param simulator the simulator
+     * @param source Locatable; the source
+     * @param simulator SimulatorInterface.TimeDouble; the simulator
      */
     public BallAnimation3D(final Locatable source, final SimulatorInterface.TimeDouble simulator)
     {
@@ -37,7 +37,7 @@ public class BallAnimation3D extends Renderable3D
 
     /**
      * provides the model for the animationObject.
-     * @param locationGroup the location group
+     * @param locationGroup TransformGroup; the location group
      */
     @Override
     public void provideModel(final TransformGroup locationGroup)
@@ -73,7 +73,7 @@ public class BallAnimation3D extends Renderable3D
 
     /**
      * updates the animation of this object.
-     * @param children the children to update
+     * @param children Enumeration; the children to update
      */
     @Override
     protected void update(final Enumeration children)

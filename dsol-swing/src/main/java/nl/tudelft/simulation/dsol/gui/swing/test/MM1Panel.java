@@ -41,8 +41,8 @@ public class MM1Panel extends DSOLPanel<Double, Double, SimTimeDouble>
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param model the model
-     * @param simulator the simulator
+     * @param model DSOLModel.TimeDouble; the model
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      */
     public MM1Panel(DSOLModel.TimeDouble model, DEVSSimulatorInterface.TimeDouble simulator)
     {

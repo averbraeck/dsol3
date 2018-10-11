@@ -41,11 +41,11 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
 
     /**
      * constructs a new CachingNumericalIntegrator with a fixed number of cache places.
-     * @param timeStep the timeStep
-     * @param equation the differentialEquation
-     * @param cachePlaces the number of cache places to store
-     * @param integrationMethod the primer integrator to use
-     * @param startingSubSteps the number of substeps per timestep during starting of the integrator
+     * @param timeStep double; the timeStep
+     * @param equation DifferentialEquationInterface; the differentialEquation
+     * @param cachePlaces int; the number of cache places to store
+     * @param integrationMethod short; the primer integrator to use
+     * @param startingSubSteps int; the number of substeps per timestep during starting of the integrator
      */
     public CachingNumericalIntegrator(final double timeStep, final DifferentialEquationInterface equation,
             final int cachePlaces, final short integrationMethod, final int startingSubSteps)
@@ -98,7 +98,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
 
     /**
      * get a cached Y-value.
-     * @param numberDown the number of the previous value we want
+     * @param numberDown int; the number of the previous value we want
      * @return the corresponding Y-value
      */
     public double[] getY(final int numberDown)
@@ -116,7 +116,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
 
     /**
      * get a cached dY-value.
-     * @param numberDown the number of the previous value we want
+     * @param numberDown int; the number of the previous value we want
      * @return the corresponding dY-value
      */
     public double[] getDY(final int numberDown)
@@ -135,7 +135,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
     /**
      * The integrators that extend the CachingNumericalIntegrator calculate the value of y(x+timeStep) just based on the
      * x-value. They retrieve y(x), y(x-timeStep), etc. or y(k), y(k-1) all from the cache.
-     * @param x the x-value to use in the calculation
+     * @param x double; the x-value to use in the calculation
      * @return the value of y(x+timeStep)
      */
     public abstract double[] next(double x);

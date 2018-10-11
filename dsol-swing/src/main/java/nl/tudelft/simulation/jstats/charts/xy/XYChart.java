@@ -63,7 +63,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title the title
+     * @param title String; the title
      */
     public XYChart(final String title)
     {
@@ -72,8 +72,8 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title the title
-     * @param axisType the axisType
+     * @param title String; the title
+     * @param axisType short; the axisType
      */
     public XYChart(final String title, final short axisType)
     {
@@ -82,8 +82,8 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title tht title
-     * @param domain the domain
+     * @param title String; tht title
+     * @param domain double[]; the domain
      */
     public XYChart(final String title, final double[] domain)
     {
@@ -92,8 +92,8 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title tht title
-     * @param period the period to show in the domain
+     * @param title String; tht title
+     * @param period double; the period to show in the domain
      */
     public XYChart(final String title, final double period)
     {
@@ -102,9 +102,9 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title tht title
-     * @param period the period to show in the domain
-     * @param axisType the axisType to use.
+     * @param title String; tht title
+     * @param period double; the period to show in the domain
+     * @param axisType short; the axisType to use.
      */
     public XYChart(final String title, final double period, final short axisType)
     {
@@ -113,9 +113,9 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title tht title
-     * @param domain the domain
-     * @param axisType the axisType to use.
+     * @param title String; tht title
+     * @param domain double[]; the domain
+     * @param axisType short; the axisType to use.
      */
     public XYChart(final String title, final double[] domain, final short axisType)
     {
@@ -124,9 +124,9 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title the title
-     * @param domain the domain
-     * @param range the range
+     * @param title String; the title
+     * @param domain double[]; the domain
+     * @param range double[]; the range
      */
     public XYChart(final String title, final double[] domain, final double[] range)
     {
@@ -135,9 +135,9 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title the title
-     * @param period the period to show in the domain
-     * @param range the range
+     * @param title String; the title
+     * @param period double; the period to show in the domain
+     * @param range double[]; the range
      */
     public XYChart(final String title, final double period, final double[] range)
     {
@@ -146,10 +146,10 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title the title
-     * @param period the period to show in the domain
-     * @param range the range
-     * @param axisType the type of the axsis
+     * @param title String; the title
+     * @param period double; the period to show in the domain
+     * @param range double[]; the range
+     * @param axisType short; the type of the axsis
      */
     public XYChart(final String title, final double period, final double[] range, final short axisType)
     {
@@ -158,10 +158,10 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart.
-     * @param title the title
-     * @param domain the domain
-     * @param range the range
-     * @param axisType the type of the axsis
+     * @param title String; the title
+     * @param domain double[]; the domain
+     * @param range double[]; the range
+     * @param axisType short; the type of the axsis
      */
     public XYChart(final String title, final double[] domain, final double[] range, final short axisType)
     {
@@ -220,7 +220,7 @@ public class XYChart implements Swingable
 
     /**
      * adds a tally to the xyChart
-     * @param persistent the persistent
+     * @param persistent Persistent; the persistent
      */
     public void add(final Persistent persistent)
     {
@@ -231,9 +231,9 @@ public class XYChart implements Swingable
 
     /**
      * adds an eventProducer to the xyChart
-     * @param description the description of the eventProducer
-     * @param source the souce
-     * @param eventType the event
+     * @param description String; the description of the eventProducer
+     * @param source EventProducerInterface; the souce
+     * @param eventType EventType; the event
      * @throws RemoteException on network failure
      */
     public void add(final String description, final EventProducerInterface source, final EventType eventType)
@@ -275,7 +275,7 @@ public class XYChart implements Swingable
 
     /**
      * applies a filter on the chart
-     * @param filter the filter to apply
+     * @param filter FilterInterface; the filter to apply
      */
     public void setFilter(final FilterInterface filter)
     {

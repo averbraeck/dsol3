@@ -44,7 +44,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /**
      * constructs a new TableModelEventList.
-     * @param origin the origin
+     * @param origin EventListInterface&lt;T&gt;; the origin
      */
     public TableModelEventList(final EventListInterface<T> origin)
     {
@@ -108,7 +108,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /**
      * formats a label representing an object.
-     * @param label the label to format.
+     * @param label String; the label to format.
      * @return String the label
      */
     private String formatObject(final String label)
@@ -126,7 +126,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /**
      * sets the showPackage.
-     * @param showPackage The showPackage to set.
+     * @param showPackage boolean; The showPackage to set.
      */
     public final void setShowPackage(final boolean showPackage)
     {

@@ -31,13 +31,13 @@ public interface ModelManager
 
     /**
      * sets the class of the default collection object table model.
-     * @param defaultCollectionObjectTableModel the class
+     * @param defaultCollectionObjectTableModel Class&lt;?&gt;; the class
      */
     void setDefaultCollectionObjectTableModel(Class<?> defaultCollectionObjectTableModel);
 
     /**
      * sets the class of the default object table model.
-     * @param defaultObjectTableModel the class
+     * @param defaultObjectTableModel Class&lt;?&gt;; the class
      */
     void setDefaultObjectTableModel(Class<?> defaultObjectTableModel);
 }

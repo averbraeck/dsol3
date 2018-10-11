@@ -6,8 +6,7 @@ import nl.tudelft.simulation.dsol.interpreter.Frame;
 import nl.tudelft.simulation.language.concurrent.Monitor;
 
 /**
- * The RETURN operation as defined in
- * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * The RETURN operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights

@@ -14,8 +14,8 @@ import java.beans.SimpleBeanInfo;
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
- * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang </a><a
- *         href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
+ * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang
+ *         </a><a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
 public class SubTestBeanBeanInfo extends SimpleBeanInfo
@@ -40,9 +40,8 @@ public class SubTestBeanBeanInfo extends SimpleBeanInfo
         try
         {
             properties[PROPERTY_font] = new PropertyDescriptor("font", SubTestBean.class, "getFont", "setFont");
-            properties[PROPERTY_secondProperty] =
-                    new PropertyDescriptor("secondProperty", SubTestBean.class, "getSecondProperty",
-                            "setSecondProperty");
+            properties[PROPERTY_secondProperty] = new PropertyDescriptor("secondProperty", SubTestBean.class,
+                    "getSecondProperty", "setSecondProperty");
             properties[PROPERTY_firstProperty] =
                     new PropertyDescriptor("firstProperty", SubTestBean.class, "getFirstProperty", "setFirstProperty");
             properties[PROPERTY_color] = new PropertyDescriptor("color", SubTestBean.class, "getColor", "setColor");
@@ -52,7 +51,7 @@ public class SubTestBeanBeanInfo extends SimpleBeanInfo
         catch (IntrospectionException e)
         {
             e.printStackTrace();
-        }// GEN-HEADEREND:Properties
+        } // GEN-HEADEREND:Properties
 
         // Here you can add code for customizing the properties array.
 
@@ -100,8 +99,8 @@ public class SubTestBeanBeanInfo extends SimpleBeanInfo
 
     /**
      * Gets the bean's <code>PropertyDescriptor</code>s.
-     * @return An array of PropertyDescriptors describing the editable properties supported by this bean. May return null
-     *         if the information should be obtained by automatic analysis.
+     * @return An array of PropertyDescriptors describing the editable properties supported by this bean. May return
+     *         null if the information should be obtained by automatic analysis.
      *         <p>
      *         If a property is indexed, then its entry in the result array will belong to the IndexedPropertyDescriptor
      *         subclass of PropertyDescriptor. A client of getPropertyDescriptors can use "instanceof" to check if a

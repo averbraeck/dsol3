@@ -27,7 +27,7 @@ public final class Angle
 
     /**
      * Normalize an angle between 0 and 2*pi.
-     * @param angle the angle to normalize
+     * @param angle double; the angle to normalize
      * @return normalized angle
      */
     public static double normalize2Pi(final double angle)
@@ -40,7 +40,7 @@ public final class Angle
 
     /**
      * Normalize an angle between -pi and +pi.
-     * @param angle the angle to normalize
+     * @param angle double; the angle to normalize
      * @return normalized angle
      */
     public static double normalizePi(final double angle)
@@ -53,8 +53,8 @@ public final class Angle
 
     /**
      * Return the 2-pi normalized angle when making an arc from p0 to p1.
-     * @param p0 first point
-     * @param p1 second point
+     * @param p0 Point2D; first point
+     * @param p1 Point2D; second point
      * @return the normalized angle
      */
     public static double angle(final Point2D p0, final Point2D p1)

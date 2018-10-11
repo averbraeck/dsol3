@@ -44,7 +44,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * constructs a new Process and IMMEDIATELY STARTS ITS PROCESS METHOD.
-     * @param simulator the simulator to schedule on
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
      */
     public Process(final DEVSSimulatorInterface<A, R, T> simulator)
     {
@@ -53,8 +53,8 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * Constructs a new <code>Process</code>.
-     * @param simulator the simulator to schedule on
-     * @param start whether to immediately start this process
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+     * @param start boolean; whether to immediately start this process
      */
     public Process(final DEVSSimulatorInterface<A, R, T> simulator, final boolean start)
     {
@@ -84,7 +84,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * holds the process for a duration.
-     * @param duration the duration
+     * @param duration R; the duration
      * @throws SimRuntimeException on negative duration
      * @throws RemoteException on network failure
      */

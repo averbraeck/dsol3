@@ -25,7 +25,7 @@ public final class LineNumber
 
     /**
      * constructs a new LineNumber.
-     * @param dataInput dataInput to use
+     * @param dataInput DataInput; dataInput to use
      * @throws IOException on failure
      */
     public LineNumber(final DataInput dataInput) throws IOException

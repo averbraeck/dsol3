@@ -56,9 +56,9 @@ public class BoatModel implements DSOLModel<Double, Double, SimTimeDouble>
 
     /**
      * schedules the creation of a boat.
-     * @param time the time when the boat should arrive
-     * @param pSimulator the simulator on which we schedule
-     * @param port the port
+     * @param time double; the time when the boat should arrive
+     * @param pSimulator DEVSSimulatorInterface.TimeDouble; the simulator on which we schedule
+     * @param port Port; the port
      * @throws RemoteException on network failuer
      * @throws SimRuntimeException on simulation exception
      */
@@ -79,7 +79,7 @@ public class BoatModel implements DSOLModel<Double, Double, SimTimeDouble>
 
     /**
      * commandline executes the model.
-     * @param args the arguments to the commandline
+     * @param args String[]; the arguments to the commandline
      */
     public static void main(final String[] args)
     {

@@ -33,7 +33,7 @@ public class ScreenManager
 
     /**
      * Method setFullScreen. Enters full screen mode and changes the display mode.
-     * @param window The window to show full screen.
+     * @param window JFrame; The window to show full screen.
      */
     public void setFullScreen(final JFrame window)
     {

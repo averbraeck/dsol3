@@ -27,7 +27,7 @@ public class SimTimeCalendarFloat extends SimTime<Calendar, FloatDuration, SimTi
 
     /**
      * Constructor. super(time) calls set(time).
-     * @param time the calendar time item.
+     * @param time Calendar; the calendar time item.
      */
     public SimTimeCalendarFloat(final Calendar time)
     {
@@ -36,7 +36,7 @@ public class SimTimeCalendarFloat extends SimTime<Calendar, FloatDuration, SimTi
 
     /**
      * Constructor based on (float) millisecond time.
-     * @param timeMsec the calendar time in milliseconds.
+     * @param timeMsec float; the calendar time in milliseconds.
      */
     public SimTimeCalendarFloat(final float timeMsec)
     {

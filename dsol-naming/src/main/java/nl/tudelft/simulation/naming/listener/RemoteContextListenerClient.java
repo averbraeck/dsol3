@@ -26,7 +26,7 @@ public class RemoteContextListenerClient implements ContextListenerInterface
 
     /**
      * constructs a new RemoteContextListenerClient
-     * @param target the remote target on which method invocation must be tunneled.
+     * @param target RemoteContextListenerInterface; the remote target on which method invocation must be tunneled.
      */
     public RemoteContextListenerClient(final RemoteContextListenerInterface target)
     {

@@ -10,8 +10,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantDouble;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantLong;
 
 /**
- * The LDC2_W operation as defined in
- * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * The LDC2_W operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -33,7 +32,7 @@ public class LDC2_W extends VoidOperation
 
     /**
      * constructs a new LDC_W.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public LDC2_W(final DataInput dataInput) throws IOException

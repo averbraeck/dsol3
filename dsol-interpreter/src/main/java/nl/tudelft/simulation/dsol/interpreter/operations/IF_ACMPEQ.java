@@ -31,7 +31,7 @@ public class IF_ACMPEQ extends JumpOperation
 
     /**
      * constructs a new IF_ACMPEQ.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public IF_ACMPEQ(final DataInput dataInput) throws IOException

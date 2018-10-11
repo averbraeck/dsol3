@@ -29,9 +29,9 @@ public class DistWeibull extends DistContinuous
 
     /**
      * constructs a new Weibull distribution.
-     * @param stream the random number stream
-     * @param alpha (shape)
-     * @param beta (scale)
+     * @param stream StreamInterface; the random number stream
+     * @param alpha double; (shape)
+     * @param beta double; (scale)
      */
     public DistWeibull(final StreamInterface stream, final double alpha, final double beta)
     {

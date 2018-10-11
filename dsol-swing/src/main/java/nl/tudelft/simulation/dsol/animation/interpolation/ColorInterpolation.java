@@ -43,10 +43,10 @@ public class ColorInterpolation
 
     /**
      * constructs a new SimulatedLinearInterpolation
-     * @param originalStartingColor the origin
-     * @param originalDestinationColor the destination
-     * @param startTime the startTime for the interpolation
-     * @param endTime the endTime of the interpolation
+     * @param originalStartingColor Color; the origin
+     * @param originalDestinationColor Color; the destination
+     * @param startTime double; the startTime for the interpolation
+     * @param endTime double; the endTime of the interpolation
      */
     public ColorInterpolation(final Color originalStartingColor, final Color originalDestinationColor,
             final double startTime, final double endTime)
@@ -78,7 +78,7 @@ public class ColorInterpolation
 
     /**
      * returns a color based on the interpolation between the original and end destination
-     * @param time the time
+     * @param time double; the time
      * @return the color to return
      */
     public Color getColor(final double time)

@@ -26,7 +26,7 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param collection the collection to use for the immutable list.
+     * @param collection Collection&lt;? extends E&gt;; the collection to use for the immutable list.
      */
     public ImmutableArrayList(final Collection<? extends E> collection)
     {
@@ -34,7 +34,7 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param list the list to use for the immutable list.
+     * @param list List&lt;E&gt;; the list to use for the immutable list.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */
@@ -44,7 +44,7 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param collection the collection to use for the immutable list.
+     * @param collection ImmutableAbstractCollection&lt;? extends E&gt;; the collection to use for the immutable list.
      */
     public ImmutableArrayList(final ImmutableAbstractCollection<? extends E> collection)
     {
@@ -52,7 +52,7 @@ public class ImmutableArrayList<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param list the list to use for the immutable list.
+     * @param list ImmutableAbstractList&lt;E&gt;; the list to use for the immutable list.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */

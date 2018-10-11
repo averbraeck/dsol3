@@ -92,7 +92,7 @@ public class DSOLFederateAmbassador extends EventProducer implements FederateAmb
 
     /**
      * constructs a new DSOLFederateAmbassador
-     * @param environment the environment of the context
+     * @param environment Hashtable; the environment of the context
      */
     public DSOLFederateAmbassador(final Hashtable environment)
     {

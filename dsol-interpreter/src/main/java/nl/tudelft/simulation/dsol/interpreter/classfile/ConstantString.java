@@ -22,8 +22,8 @@ public final class ConstantString extends Constant
 
     /**
      * constructs a new ConstantString.
-     * @param constantPool the constantPool it is part of
-     * @param inputStream the inputstream to read from
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param inputStream DataInput; the inputstream to read from
      * @throws IOException on failure
      */
     public ConstantString(final Constant[] constantPool, final DataInput inputStream) throws IOException
@@ -33,8 +33,8 @@ public final class ConstantString extends Constant
 
     /**
      * constructs a new ConstantString.
-     * @param constantPool the constantPool it is part of
-     * @param stringIndex the stringIndex
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param stringIndex int; the stringIndex
      */
     public ConstantString(final Constant[] constantPool, final int stringIndex)
     {

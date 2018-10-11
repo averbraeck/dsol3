@@ -6,8 +6,9 @@ import org.junit.Test;
 
 /**
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
+ * License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -15,7 +16,7 @@ public class DoubleInterpreterTest
 {
     /** precision */
     private static final double DELTA = 0.0;
-    
+
     /**
      * Compare a number of methods when executed and when interpreted.
      */
@@ -46,16 +47,20 @@ public class DoubleInterpreterTest
 
         // static methods
         assertEquals("DoubleMethods.plus(2.0d, 3.0d)",
-                ((Double) Interpreter.invoke(DoubleMethods.class, "plus", new Double[]{2.0d, 3.0d}, new Class<?>[]{
-                        double.class, double.class})).doubleValue(), DoubleMethods.plus(2.0d, 3.0d), DELTA);
+                ((Double) Interpreter.invoke(DoubleMethods.class, "plus", new Double[]{2.0d, 3.0d},
+                        new Class<?>[]{double.class, double.class})).doubleValue(),
+                DoubleMethods.plus(2.0d, 3.0d), DELTA);
         assertEquals("DoubleMethods.minus(2.0d, 3.0d)",
-                ((Double) Interpreter.invoke(DoubleMethods.class, "minus", new Double[]{2.0d, 3.0d}, new Class<?>[]{
-                        double.class, double.class})).doubleValue(), DoubleMethods.minus(2.0d, 3.0d), DELTA);
+                ((Double) Interpreter.invoke(DoubleMethods.class, "minus", new Double[]{2.0d, 3.0d},
+                        new Class<?>[]{double.class, double.class})).doubleValue(),
+                DoubleMethods.minus(2.0d, 3.0d), DELTA);
         assertEquals("DoubleMethods.product(2.0d, 3.0d)",
-                ((Double) Interpreter.invoke(DoubleMethods.class, "product", new Double[]{2.0d, 3.0d}, new Class<?>[]{
-                        double.class, double.class})).doubleValue(), DoubleMethods.product(2.0d, 3.0d), DELTA);
+                ((Double) Interpreter.invoke(DoubleMethods.class, "product", new Double[]{2.0d, 3.0d},
+                        new Class<?>[]{double.class, double.class})).doubleValue(),
+                DoubleMethods.product(2.0d, 3.0d), DELTA);
         assertEquals("DoubleMethods.divide(2.0d, 3.0d)",
-                ((Double) Interpreter.invoke(DoubleMethods.class, "divide", new Double[]{2.0d, 3.0d}, new Class<?>[]{
-                        double.class, double.class})).doubleValue(), DoubleMethods.divide(2.0d, 3.0d), DELTA);
+                ((Double) Interpreter.invoke(DoubleMethods.class, "divide", new Double[]{2.0d, 3.0d},
+                        new Class<?>[]{double.class, double.class})).doubleValue(),
+                DoubleMethods.divide(2.0d, 3.0d), DELTA);
     }
 }

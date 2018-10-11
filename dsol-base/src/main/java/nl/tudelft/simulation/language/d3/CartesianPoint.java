@@ -24,9 +24,9 @@ public class CartesianPoint extends javax.vecmath.Point3d
 
     /**
      * constructs a new CartesianPoint.
-     * @param x x
-     * @param y y
-     * @param z z
+     * @param x double; x
+     * @param y double; y
+     * @param z double; z
      */
     public CartesianPoint(final double x, final double y, final double z)
     {
@@ -35,7 +35,7 @@ public class CartesianPoint extends javax.vecmath.Point3d
 
     /**
      * constructs a new CartesianPoint.
-     * @param xyz x,y,z
+     * @param xyz double[]; x,y,z
      */
     public CartesianPoint(final double[] xyz)
     {
@@ -44,7 +44,7 @@ public class CartesianPoint extends javax.vecmath.Point3d
 
     /**
      * constructs a new CartesianPoint.
-     * @param point point3d
+     * @param point javax.vecmath.Point3d; point3d
      */
     public CartesianPoint(final javax.vecmath.Point3d point)
     {
@@ -53,7 +53,7 @@ public class CartesianPoint extends javax.vecmath.Point3d
 
     /**
      * constructs a new CartesianPoint.
-     * @param point point3d
+     * @param point Point3f; point3d
      */
     public CartesianPoint(final Point3f point)
     {
@@ -62,7 +62,7 @@ public class CartesianPoint extends javax.vecmath.Point3d
 
     /**
      * constructs a new CartesianPoint.
-     * @param tuple tuple
+     * @param tuple Tuple3f; tuple
      */
     public CartesianPoint(final Tuple3f tuple)
     {
@@ -71,7 +71,7 @@ public class CartesianPoint extends javax.vecmath.Point3d
 
     /**
      * constructs a new CartesianPoint.
-     * @param tuple point3d
+     * @param tuple Tuple3d; point3d
      */
     public CartesianPoint(final Tuple3d tuple)
     {
@@ -80,7 +80,7 @@ public class CartesianPoint extends javax.vecmath.Point3d
 
     /**
      * constructs a new CartesianPoint.
-     * @param point2D a 2D point
+     * @param point2D Point2D; a 2D point
      */
     public CartesianPoint(final Point2D point2D)
     {
@@ -115,7 +115,7 @@ public class CartesianPoint extends javax.vecmath.Point3d
 
     /**
      * converts a cartesian point to a sperical point.
-     * @param point the cartesian point
+     * @param point CartesianPoint; the cartesian point
      * @return the spherical point
      */
     public static SphericalPoint toSphericalPoint(final CartesianPoint point)

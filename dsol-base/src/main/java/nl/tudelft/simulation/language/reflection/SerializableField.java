@@ -24,7 +24,7 @@ public class SerializableField implements Serializable
 
     /**
      * constructs a new SerializableField.
-     * @param field The field
+     * @param field Field; The field
      */
     public SerializableField(final Field field)
     {
@@ -34,8 +34,8 @@ public class SerializableField implements Serializable
 
     /**
      * constructs a new SerializableField.
-     * @param clazz the clazz this field is instance of
-     * @param fieldName the name of the field
+     * @param clazz Class&lt;?&gt;; the clazz this field is instance of
+     * @param fieldName String; the name of the field
      * @throws NoSuchFieldException whenever the field is not defined in clazz
      */
     public SerializableField(final Class<?> clazz, final String fieldName) throws NoSuchFieldException
@@ -54,7 +54,7 @@ public class SerializableField implements Serializable
 
     /**
      * writes a serializable method to stream
-     * @param out the outputstream
+     * @param out ObjectOutputStream; the outputstream
      * @throws IOException on IOException
      */
     private void writeObject(final ObjectOutputStream out) throws IOException
@@ -72,7 +72,7 @@ public class SerializableField implements Serializable
 
     /**
      * reads a serializable method from stream
-     * @param in the inputstream
+     * @param in java.io.ObjectInputStream; the inputstream
      * @throws IOException on IOException
      */
     private void readObject(final java.io.ObjectInputStream in) throws IOException

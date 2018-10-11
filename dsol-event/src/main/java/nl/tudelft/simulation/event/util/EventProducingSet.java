@@ -39,7 +39,7 @@ public class EventProducingSet<T> extends EventProducer implements Set<T>
 
     /**
      * constructs a new EventProducingList.
-     * @param parent the parent set.
+     * @param parent Set&lt;T&gt;; the parent set.
      */
     public EventProducingSet(final Set<T> parent)
     {

@@ -27,8 +27,8 @@ public class DistBernoulli extends DistDiscrete
     /**
      * constructs a new Bernoulli distribution. Random occurence with two possible outcomes; used to generate other
      * discrete random variates.
-     * @param stream is the stream
-     * @param p the p-value of a Bernoulli distribution
+     * @param stream StreamInterface; is the stream
+     * @param p double; the p-value of a Bernoulli distribution
      */
     public DistBernoulli(final StreamInterface stream, final double p)
     {

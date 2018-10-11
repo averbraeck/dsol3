@@ -39,9 +39,9 @@ public class DistErlang extends DistContinuous
 
     /**
      * constructs a new Erlang distribution.
-     * @param stream the random number stream
-     * @param k is the k-parameter
-     * @param beta is the beta-parameter
+     * @param stream StreamInterface; the random number stream
+     * @param k int; is the k-parameter
+     * @param beta double; is the beta-parameter
      */
     public DistErlang(final StreamInterface stream, final int k, final double beta)
     {

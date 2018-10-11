@@ -18,7 +18,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
- * See for project information <a href="https://simulation.tudelft.nl/" target="_blank">  www.simulation.tudelft.nl</a>.
+ * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -44,7 +44,7 @@ public class DiscreteBall extends Ball
 
     /**
      * constructs a new Ball.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      * @throws RemoteException on remote failure
      * @throws SimRuntimeException on schedule failure
      */

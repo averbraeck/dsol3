@@ -20,7 +20,7 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
     private double time;
 
     /**
-     * @param time the initial time.
+     * @param time double; the initial time.
      */
     public SimTimeDouble(final double time)
     {

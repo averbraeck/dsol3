@@ -43,8 +43,8 @@ public class RungeKuttaFehlberg extends NumericalIntegrator
 
     /**
      * constructs a new RungeKuttaFehlberg.
-     * @param timeStep the timeStep
-     * @param equation the differentialEquation
+     * @param timeStep double; the timeStep
+     * @param equation DifferentialEquationInterface; the differentialEquation
      */
     public RungeKuttaFehlberg(final double timeStep, final DifferentialEquationInterface equation)
     {

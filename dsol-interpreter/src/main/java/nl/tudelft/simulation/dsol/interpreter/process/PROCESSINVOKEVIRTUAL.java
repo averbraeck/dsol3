@@ -27,8 +27,8 @@ public class PROCESSINVOKEVIRTUAL extends CUSTOMINVOKEVIRTUAL
 {
     /**
      * constructs a new PROCESSINVOKEVIRTUAL.
-     * @param interpreterOracle the interpreterOracle
-     * @param dataInput the dataInput
+     * @param interpreterOracle InterpreterOracleInterface; the interpreterOracle
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public PROCESSINVOKEVIRTUAL(final InterpreterOracleInterface interpreterOracle, final DataInput dataInput)
@@ -39,10 +39,10 @@ public class PROCESSINVOKEVIRTUAL extends CUSTOMINVOKEVIRTUAL
 
     /**
      * executes the operation and returns a new Frame.
-     * @param frame the original frame
-     * @param objectRef the object on which to invoke the method
-     * @param arguments the arguments with which to invoke the method
-     * @param method the method to invoke
+     * @param frame Frame; the original frame
+     * @param objectRef Object; the object on which to invoke the method
+     * @param arguments Object[]; the arguments with which to invoke the method
+     * @param method Method; the method to invoke
      * @throws Exception on invocation exception
      * @return a new frame
      */

@@ -24,7 +24,7 @@ public class SimTimeCalendarLong extends SimTime<Calendar, Long, SimTimeCalendar
 
     /**
      * Constructor. super(time) calls set(time).
-     * @param time the calendar time item.
+     * @param time Calendar; the calendar time item.
      */
     public SimTimeCalendarLong(final Calendar time)
     {
@@ -33,7 +33,7 @@ public class SimTimeCalendarLong extends SimTime<Calendar, Long, SimTimeCalendar
 
     /**
      * Constructor based on (long) millisecond time.
-     * @param timeMsec the calendar time in milliseconds.
+     * @param timeMsec long; the calendar time in milliseconds.
      */
     public SimTimeCalendarLong(final long timeMsec)
     {

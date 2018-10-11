@@ -26,7 +26,7 @@ public class ShowGridAction extends AbstractAction
 
     /**
      * constructs a new AddRowAction
-     * @param target the target
+     * @param target GridPanel; the target
      */
     public ShowGridAction(final GridPanel target)
     {

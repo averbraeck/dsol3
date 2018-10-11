@@ -25,9 +25,9 @@ public class SphericalPoint
 
     /**
      * constructs a new SphericalPoint.
-     * @param phi phi
-     * @param radius radius
-     * @param theta theta
+     * @param phi double; phi
+     * @param radius double; radius
+     * @param theta double; theta
      */
     public SphericalPoint(final double radius, final double phi, final double theta)
     {
@@ -72,7 +72,7 @@ public class SphericalPoint
 
     /**
      * converts a sphericalpoint to a cartesian point.
-     * @param point the sphericalpoint
+     * @param point SphericalPoint; the sphericalpoint
      * @return the cartesian point
      */
     public static CartesianPoint toCartesianPoint(final SphericalPoint point)

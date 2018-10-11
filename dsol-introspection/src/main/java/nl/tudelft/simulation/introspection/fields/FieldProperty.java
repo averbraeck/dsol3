@@ -32,9 +32,9 @@ public class FieldProperty extends AbstractProperty implements Property
 
     /**
      * constructs a new FieldProperty.
-     * @param owner its owner
-     * @param descriptor the descriptor
-     * @param editable is the property editable
+     * @param owner Object; its owner
+     * @param descriptor Field; the descriptor
+     * @param editable boolean; is the property editable
      */
     public FieldProperty(final Object owner, final Field descriptor, final boolean editable)
     {
@@ -47,8 +47,8 @@ public class FieldProperty extends AbstractProperty implements Property
 
     /**
      * constructs a new FieldProperty.
-     * @param owner its owner
-     * @param descriptor the descriptor
+     * @param owner Object; its owner
+     * @param descriptor Field; the descriptor
      */
     public FieldProperty(final Object owner, final Field descriptor)
     {

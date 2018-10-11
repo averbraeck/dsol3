@@ -29,9 +29,9 @@ public class DistEmpirical extends DistContinuous
 
     /**
      * constructs a new DistEmpirical.
-     * @param stream the stream to use
-     * @param observations the observations underlying this empirical distribution. The observations do not need to be
-     *            sorted. Double observations are allowed and are used.
+     * @param stream StreamInterface; the stream to use
+     * @param observations ObservationsInterface; the observations underlying this empirical distribution. The
+     *            observations do not need to be sorted. Double observations are allowed and are used.
      */
     public DistEmpirical(final StreamInterface stream, final ObservationsInterface observations)
     {
@@ -41,9 +41,9 @@ public class DistEmpirical extends DistContinuous
 
     /**
      * constructs a new DistEmpirical.
-     * @param stream the stream to use
-     * @param observations the observations underlying this empirical distribution. The observations do not need to be
-     *            sorted. Double observations are allowed and are used.
+     * @param stream StreamInterface; the stream to use
+     * @param observations Double[]; the observations underlying this empirical distribution. The observations do not
+     *            need to be sorted. Double observations are allowed and are used.
      */
     public DistEmpirical(final StreamInterface stream, final Double[] observations)
     {
@@ -53,9 +53,9 @@ public class DistEmpirical extends DistContinuous
 
     /**
      * constructs a new DistEmpirical.
-     * @param stream the stream to use
-     * @param observations the observations underlying this empirical distribution. The observations do not need to be
-     *            sorted. Double observations are allowed and are used.
+     * @param stream StreamInterface; the stream to use
+     * @param observations List&lt;Double&gt;; the observations underlying this empirical distribution. The observations
+     *            do not need to be sorted. Double observations are allowed and are used.
      */
     public DistEmpirical(final StreamInterface stream, final List<Double> observations)
     {
@@ -64,10 +64,10 @@ public class DistEmpirical extends DistContinuous
 
     /**
      * constructs a new DistEmpirical.
-     * @param stream the stream to use
-     * @param observations the observations underlying this empirical distribution. The observations do not need to be
-     *            sorted. Double observations are allowed and are used.
-     * @param cumulative are the probabilities cumulative?
+     * @param stream StreamInterface; the stream to use
+     * @param observations SortedMap&lt;Number,Double&gt;; the observations underlying this empirical distribution. The
+     *            observations do not need to be sorted. Double observations are allowed and are used.
+     * @param cumulative boolean; are the probabilities cumulative?
      */
     public DistEmpirical(final StreamInterface stream, final SortedMap<Number, Double> observations,
             final boolean cumulative)
@@ -143,7 +143,7 @@ public class DistEmpirical extends DistContinuous
      * returns the probability density of the observation. This method is based on the underlying empirical distribution
      * and considers the underlying observations as grouped. The formula used reflects Law and Kelton, Simulation
      * Modeling and Analysis, page 327 of grouped data.
-     * @param observation the observation whose cumulative probability is returned.
+     * @param observation double; the observation whose cumulative probability is returned.
      * @return the cumulative probability of observation
      */
     private double probDensityGrouped(final double observation)
@@ -161,7 +161,7 @@ public class DistEmpirical extends DistContinuous
      * returns the probability density of the observation. This method is based on the underlying empirical distribution
      * and considers the underlying observations as grouped. The formula used reflects Law and Kelton, Simulation
      * Modeling and Analysis, page 327 of grouped data.
-     * @param observation the observation whose cumulative probability is returned.
+     * @param observation double; the observation whose cumulative probability is returned.
      * @return the cumulative probability of observation
      */
     private double probDensityNonGrouped(final double observation)

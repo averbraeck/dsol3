@@ -30,8 +30,8 @@ public class DistPoisson extends DistDiscrete
 
     /**
      * constructs a new Poisson distribution.
-     * @param stream the random number stream
-     * @param lambda the lambda parameter
+     * @param stream StreamInterface; the random number stream
+     * @param lambda double; the lambda parameter
      */
     public DistPoisson(final StreamInterface stream, final double lambda)
     {

@@ -33,7 +33,7 @@ public class CHECKCAST extends VoidOperation
 
     /**
      * constructs a new CHECKCAST.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public CHECKCAST(final DataInput dataInput) throws IOException

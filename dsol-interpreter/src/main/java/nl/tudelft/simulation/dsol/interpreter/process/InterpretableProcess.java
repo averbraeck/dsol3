@@ -119,7 +119,7 @@ public abstract class InterpretableProcess extends EventProducer
 
     /**
      * sets the state of the process.
-     * @param state the new state
+     * @param state short; the new state
      */
     protected final void setState(final short state)
     {

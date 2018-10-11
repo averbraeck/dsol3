@@ -52,7 +52,7 @@ public interface HLASimulatorInterface extends SimulatorInterface
 
     /**
      * sets the look ahead time of the simulator
-     * @param lookAheadTime the look ahead time of the simulator
+     * @param lookAheadTime double; the look ahead time of the simulator
      * @throws RemoteException on remote failure
      */
     public void setLookAheadTime(double lookAheadTime) throws RemoteException;

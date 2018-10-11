@@ -32,8 +32,8 @@ public class Boat extends Process<Double, Double, SimTimeDouble>
 
     /**
      * constructs a new Boat.
-     * @param simulator the simulator to schedule on
-     * @param port the port to sail to
+     * @param simulator DEVSSimulator.TimeDouble; the simulator to schedule on
+     * @param port Port; the port to sail to
      */
     public Boat(final DEVSSimulator.TimeDouble simulator, final Port port)
     {

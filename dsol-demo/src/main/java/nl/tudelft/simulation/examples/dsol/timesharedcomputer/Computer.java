@@ -105,8 +105,8 @@ public class Computer implements DSOLModel<Double, Double, SimTimeDouble>
 
         /**
          * constructs a new ExitCounter.
-         * @param description the description of the counter
-         * @param simulator the simulator
+         * @param description String; the description of the counter
+         * @param simulator SimulatorInterface.TimeDouble; the simulator
          * @throws RemoteException on network failure
          */
         public ExitCounter(final String description, final SimulatorInterface.TimeDouble simulator)

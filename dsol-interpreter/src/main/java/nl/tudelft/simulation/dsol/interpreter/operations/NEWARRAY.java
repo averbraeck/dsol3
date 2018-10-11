@@ -32,7 +32,7 @@ public class NEWARRAY extends VoidOperation
 
     /**
      * constructs a new NEWARRAY.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public NEWARRAY(final DataInput dataInput) throws IOException

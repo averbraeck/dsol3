@@ -6,8 +6,9 @@ import org.junit.Test;
 
 /**
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
+ * License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -42,17 +43,15 @@ public class LongInterpreterTest
         assertEquals("test Value(10).divideBy(3) == 3", e1.getValue(), i1.getValue());
 
         // static methods
-        assertEquals("LongMethods.plus(2, 3)",
-                ((Long) Interpreter.invoke(LongMethods.class, "plus", new Long[]{2L, 3L}, new Class<?>[]{
-                        long.class, long.class})).longValue(), LongMethods.plus(2L, 3L));
-        assertEquals("LongMethods.minus(2, 3)",
-                ((Long) Interpreter.invoke(LongMethods.class, "minus", new Long[]{2L, 3L}, new Class<?>[]{
-                        long.class, long.class})).longValue(), LongMethods.minus(2L, 3L));
-        assertEquals("LongMethods.product(2, 3)",
-                ((Long) Interpreter.invoke(LongMethods.class, "product", new Long[]{2L, 3L}, new Class<?>[]{
-                        long.class, long.class})).longValue(), LongMethods.product(2L, 3L));
-        assertEquals("LongMethods.divide(2, 3)",
-                ((Long) Interpreter.invoke(LongMethods.class, "divide", new Long[]{2L, 3L}, new Class<?>[]{
-                        long.class, long.class})).longValue(), LongMethods.divide(2L, 3L));
+        assertEquals("LongMethods.plus(2, 3)", ((Long) Interpreter.invoke(LongMethods.class, "plus", new Long[]{2L, 3L},
+                new Class<?>[]{long.class, long.class})).longValue(), LongMethods.plus(2L, 3L));
+        assertEquals("LongMethods.minus(2, 3)", ((Long) Interpreter.invoke(LongMethods.class, "minus",
+                new Long[]{2L, 3L}, new Class<?>[]{long.class, long.class})).longValue(), LongMethods.minus(2L, 3L));
+        assertEquals(
+                "LongMethods.product(2, 3)", ((Long) Interpreter.invoke(LongMethods.class, "product",
+                        new Long[]{2L, 3L}, new Class<?>[]{long.class, long.class})).longValue(),
+                LongMethods.product(2L, 3L));
+        assertEquals("LongMethods.divide(2, 3)", ((Long) Interpreter.invoke(LongMethods.class, "divide",
+                new Long[]{2L, 3L}, new Class<?>[]{long.class, long.class})).longValue(), LongMethods.divide(2L, 3L));
     }
 }

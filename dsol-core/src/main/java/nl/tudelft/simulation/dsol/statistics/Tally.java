@@ -63,8 +63,8 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /**
      * constructs a new Tally.
-     * @param description refers to the description of this Tally.
-     * @param simulator the simulator to schedule on.
+     * @param description String; refers to the description of this Tally.
+     * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on.
      * @throws RemoteException on network error for one of the listeners
      */
     public Tally(final String description, final SimulatorInterface<A, R, T> simulator) throws RemoteException
@@ -102,10 +102,10 @@ public class Tally<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /**
      * constructs a new Tally.
-     * @param description the description of this tally.
-     * @param simulator the simulator to schedule on.
-     * @param target the target on which to subscribe.
-     * @param field the field which is counted
+     * @param description String; the description of this tally.
+     * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on.
+     * @param target EventProducerInterface; the target on which to subscribe.
+     * @param field EventType; the field which is counted
      * @throws RemoteException on network error for one of the listeners
      */
     public Tally(final String description, final SimulatorInterface<A, R, T> simulator,

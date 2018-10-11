@@ -9,4 +9,13 @@
   <artifactId>dsol-build-tools</artifactId>
   <name>DSOL build tools</name>
   <description>DSOL build tools such as eclipse settings, checkstyle configuration, and formatters</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.javaparser</groupId>
+      <artifactId>javaparser-core</artifactId>
+      <version>3.6.25</version>
+    </dependency>
+  </dependencies>
+
 </project>

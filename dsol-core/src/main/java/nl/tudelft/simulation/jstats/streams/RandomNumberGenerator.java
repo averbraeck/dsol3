@@ -34,7 +34,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /**
      * constructs a new RandomNumberGenerator.
-     * @param seed the seed of the generator.
+     * @param seed long; the seed of the generator.
      */
     public RandomNumberGenerator(final long seed)
     {
@@ -55,7 +55,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /**
      * returns the next value in the stream.
-     * @param bits the number of bits used
+     * @param bits int; the number of bits used
      * @return the next value.
      */
     protected abstract long next(int bits);
@@ -161,8 +161,8 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * random number generator's sequence. The general contract of <tt>nextInt</tt> is that one <tt>int</tt> value in
      * the specified range is pseudorandomly generated and returned. All <tt>n</tt> possible <tt>int</tt> values are
      * produced with (approximately) equal probability.
-     * @param i the lower value
-     * @param j the higher value
+     * @param i int; the lower value
+     * @param j int; the higher value
      * @return the result
      */
     @Override

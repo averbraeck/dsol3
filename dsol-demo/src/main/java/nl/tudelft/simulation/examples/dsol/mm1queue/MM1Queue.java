@@ -27,7 +27,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The M/M/1 example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4.
- *.
+ * .
  * <p>
  * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">

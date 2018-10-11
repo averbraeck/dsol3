@@ -197,7 +197,7 @@ public class Layer implements LayerInterface
 
     /**
      * Sets the symbols.
-     * @param symbols The symbols to set
+     * @param symbols List; The symbols to set
      */
     public void setSymbols(final List symbols)
     {

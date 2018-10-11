@@ -21,8 +21,8 @@ public class Heun extends NumericalIntegrator
 
     /**
      * constructs a new Heun.
-     * @param timeStep the timeStep
-     * @param equation the equation
+     * @param timeStep double; the timeStep
+     * @param equation DifferentialEquationInterface; the equation
      */
     public Heun(final double timeStep, final DifferentialEquationInterface equation)
     {

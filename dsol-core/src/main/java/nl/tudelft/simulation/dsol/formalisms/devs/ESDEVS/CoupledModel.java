@@ -74,7 +74,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
     /**
      * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-     * @param modelName the name of this component
+     * @param modelName String; the name of this component
      */
     public CoupledModel(final String modelName)
     {
@@ -83,8 +83,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
     /**
      * The constructor of a coupled model within another coupled model.
-     * @param modelName the name of this component
-     * @param parentModel the parent coupled model for this model.
+     * @param modelName String; the name of this component
+     * @param parentModel CoupledModel&lt;A,R,T&gt;; the parent coupled model for this model.
      */
     public CoupledModel(final String modelName, final CoupledModel<A, R, T> parentModel)
     {
@@ -97,8 +97,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
     /**
      * Constructor of a high-level coupled model without a parent model.
-     * @param modelName the name of this component
-     * @param simulator the simulator to schedule events on.
+     * @param modelName String; the name of this component
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule events on.
      */
     public CoupledModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator)
     {
@@ -109,8 +109,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
     /**
      * Add a listener recursively to the model and all its submodels. Delegate it for this coupled model to the embedded
      * event producer.
-     * @param eli the event listener.
-     * @param et the event type.
+     * @param eli EventListenerInterface; the event listener.
+     * @param et EventType; the event type.
      * @return success or failure of adding the listener to all submodels.
      */
     public final boolean addHierarchicalListener(final EventListenerInterface eli, final EventType et)
@@ -133,8 +133,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
     /**
      * The transfer function takes care of transferring a value from this coupled model to the outside world.
      * @param <TYPE> the type of message / event being transferred
-     * @param x the output port through which the transfer takes place
-     * @param y the value being transferred
+     * @param x OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port through which the transfer takes place
+     * @param y TYPE; the value being transferred
      * @throws RemoteException remote exception
      * @throws SimRuntimeException simulation run time exception
      */
@@ -164,10 +164,10 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
     /**
      * @param <TYPE> the type of message / event for which the coupling is added.
-     * @param fromPort the output port of an internal component that transfers the message / event to another internal
-     *            component (start of the coupling)
-     * @param toPort the input port of an internal component that receives a message / event from the other componet
-     *            (end of the coupling)
+     * @param fromPort OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port of an internal component that transfers
+     *            the message / event to another internal component (start of the coupling)
+     * @param toPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of an internal component that receives a
+     *            message / event from the other componet (end of the coupling)
      */
     public final <TYPE> void addInternalCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
             final InputPortInterface<A, R, T, TYPE> toPort)
@@ -185,10 +185,10 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
     /**
      * @param <TYPE> the type of message / event for which the coupling is removed.
-     * @param fromPort the output port of an internal component that transfers the message / event to another internal
-     *            component (start of the coupling)
-     * @param toPort the input port of an internal component that receives a message / event from the other componet
-     *            (end of the coupling)
+     * @param fromPort OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port of an internal component that transfers
+     *            the message / event to another internal component (start of the coupling)
+     * @param toPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of an internal component that receives a
+     *            message / event from the other componet (end of the coupling)
      */
     public final <TYPE> void removeInternalCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
             final InputPortInterface<A, R, T, TYPE> toPort)
@@ -206,10 +206,10 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
     /**
      * Add an IOC within this coupled model.
      * @param <TYPE> the type of message / event for which the coupling is added.
-     * @param fromPort the input port of this coupled model that transfers the message / event to the internal component
-     *            (start of the coupling)
-     * @param toPort the input port of the internal component that receives a message / event from the overarching
-     *            coupled model (end of the coupling)
+     * @param fromPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of this coupled model that transfers the
+     *            message / event to the internal component (start of the coupling)
+     * @param toPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of the internal component that receives a
+     *            message / event from the overarching coupled model (end of the coupling)
      */
     public final <TYPE> void addExternalInputCoupling(final InputPortInterface<A, R, T, TYPE> fromPort,
             final InputPortInterface<A, R, T, TYPE> toPort)
@@ -227,10 +227,10 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
     /**
      * Remove an IOC within this coupled model.
      * @param <TYPE> the type of message / event for which the coupling is removed.
-     * @param fromPort the input port of this coupled model that transfers the message / event to the internal component
-     *            (start of the coupling)
-     * @param toPort the input port of the internal component that receives a message / event from the overarching
-     *            coupled model (end of the coupling)
+     * @param fromPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of this coupled model that transfers the
+     *            message / event to the internal component (start of the coupling)
+     * @param toPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of the internal component that receives a
+     *            message / event from the overarching coupled model (end of the coupling)
      */
     public final <TYPE> void removeExternalInputCoupling(final InputPortInterface<A, R, T, TYPE> fromPort,
             final InputPortInterface<A, R, T, TYPE> toPort)
@@ -247,10 +247,10 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
     /**
      * Add an EOC within this coupled model.
      * @param <TYPE> the type of message / event for which the coupling is added.
-     * @param fromPort the output port of the internal component that produces an event for the outside of the
-     *            overarching coupled model (start of the coupling)
-     * @param toPort the output port of this coupled model that transfers the message / event to the outside (end of the
-     *            coupling)
+     * @param fromPort OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port of the internal component that produces an
+     *            event for the outside of the overarching coupled model (start of the coupling)
+     * @param toPort OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port of this coupled model that transfers the
+     *            message / event to the outside (end of the coupling)
      */
     public final <TYPE> void addExternalOutputCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
             final OutputPortInterface<A, R, T, TYPE> toPort)
@@ -268,10 +268,10 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
     /**
      * Remove an EOC within this coupled model.
      * @param <TYPE> the type of message / event for which the coupling is removed.
-     * @param fromPort the output port of the internal component that produces an event for the outside of the
-     *            overarching coupled model (start of the coupling)
-     * @param toPort the output port of this coupled model that transfers the message / event to the outside (end of the
-     *            coupling)
+     * @param fromPort OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port of the internal component that produces an
+     *            event for the outside of the overarching coupled model (start of the coupling)
+     * @param toPort OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port of this coupled model that transfers the
+     *            message / event to the outside (end of the coupling)
      */
     public final <TYPE> void removeExternalOutputCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
             final OutputPortInterface<A, R, T, TYPE> toPort)
@@ -291,7 +291,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
     /**
      * Add a model component to this coupled model.
-     * @param model the component to add.
+     * @param model AbstractDEVSModel&lt;A,R,T&gt;; the component to add.
      */
     public final void addModelComponent(final AbstractDEVSModel<A, R, T> model)
     {
@@ -313,7 +313,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
     /**
      * Remove a model component from a coupled model, including all its couplings (internal, external in, and external
      * out).
-     * @param model the component to remove.
+     * @param model AbstractDEVSModel&lt;A,R,T&gt;; the component to remove.
      */
     public final void removeModelComponent(final AbstractDEVSModel<A, R, T> model)
     {
@@ -499,7 +499,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName the name of this component
+         * @param modelName String; the name of this component
          */
         public TimeDouble(final String modelName)
         {
@@ -508,8 +508,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of a coupled model within another coupled model.
-         * @param modelName the name of this component
-         * @param parentModel the parent coupled model for this model.
+         * @param modelName String; the name of this component
+         * @param parentModel CoupledModel.TimeDouble; the parent coupled model for this model.
          */
         public TimeDouble(final String modelName, final CoupledModel.TimeDouble parentModel)
         {
@@ -518,8 +518,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * Constructor of a high-level coupled model without a parent model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule events on.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator to schedule events on.
          */
         public TimeDouble(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator)
         {
@@ -536,7 +536,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName the name of this component
+         * @param modelName String; the name of this component
          */
         public TimeFloat(final String modelName)
         {
@@ -545,8 +545,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of a coupled model within another coupled model.
-         * @param modelName the name of this component
-         * @param parentModel the parent coupled model for this model.
+         * @param modelName String; the name of this component
+         * @param parentModel CoupledModel.TimeFloat; the parent coupled model for this model.
          */
         public TimeFloat(final String modelName, final CoupledModel.TimeFloat parentModel)
         {
@@ -555,8 +555,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * Constructor of a high-level coupled model without a parent model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule events on.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeFloat; the simulator to schedule events on.
          */
         public TimeFloat(final String modelName, final DEVSSimulatorInterface.TimeFloat simulator)
         {
@@ -573,7 +573,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName the name of this component
+         * @param modelName String; the name of this component
          */
         public TimeLong(final String modelName)
         {
@@ -582,8 +582,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of a coupled model within another coupled model.
-         * @param modelName the name of this component
-         * @param parentModel the parent coupled model for this model.
+         * @param modelName String; the name of this component
+         * @param parentModel CoupledModel.TimeLong; the parent coupled model for this model.
          */
         public TimeLong(final String modelName, final CoupledModel.TimeLong parentModel)
         {
@@ -592,8 +592,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * Constructor of a high-level coupled model without a parent model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule events on.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeLong; the simulator to schedule events on.
          */
         public TimeLong(final String modelName, final DEVSSimulatorInterface.TimeLong simulator)
         {
@@ -610,7 +610,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName the name of this component
+         * @param modelName String; the name of this component
          */
         public TimeDoubleUnit(final String modelName)
         {
@@ -619,8 +619,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of a coupled model within another coupled model.
-         * @param modelName the name of this component
-         * @param parentModel the parent coupled model for this model.
+         * @param modelName String; the name of this component
+         * @param parentModel CoupledModel.TimeDoubleUnit; the parent coupled model for this model.
          */
         public TimeDoubleUnit(final String modelName, final CoupledModel.TimeDoubleUnit parentModel)
         {
@@ -629,8 +629,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * Constructor of a high-level coupled model without a parent model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule events on.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; the simulator to schedule events on.
          */
         public TimeDoubleUnit(final String modelName, final DEVSSimulatorInterface.TimeDoubleUnit simulator)
         {
@@ -647,7 +647,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName the name of this component
+         * @param modelName String; the name of this component
          */
         public TimeFloatUnit(final String modelName)
         {
@@ -656,8 +656,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of a coupled model within another coupled model.
-         * @param modelName the name of this component
-         * @param parentModel the parent coupled model for this model.
+         * @param modelName String; the name of this component
+         * @param parentModel CoupledModel.TimeFloatUnit; the parent coupled model for this model.
          */
         public TimeFloatUnit(final String modelName, final CoupledModel.TimeFloatUnit parentModel)
         {
@@ -666,8 +666,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * Constructor of a high-level coupled model without a parent model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule events on.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; the simulator to schedule events on.
          */
         public TimeFloatUnit(final String modelName, final DEVSSimulatorInterface.TimeFloatUnit simulator)
         {
@@ -684,7 +684,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName the name of this component
+         * @param modelName String; the name of this component
          */
         public CalendarDouble(final String modelName)
         {
@@ -693,8 +693,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of a coupled model within another coupled model.
-         * @param modelName the name of this component
-         * @param parentModel the parent coupled model for this model.
+         * @param modelName String; the name of this component
+         * @param parentModel CoupledModel.CalendarDouble; the parent coupled model for this model.
          */
         public CalendarDouble(final String modelName, final CoupledModel.CalendarDouble parentModel)
         {
@@ -703,8 +703,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * Constructor of a high-level coupled model without a parent model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule events on.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; the simulator to schedule events on.
          */
         public CalendarDouble(final String modelName, final DEVSSimulatorInterface.CalendarDouble simulator)
         {
@@ -721,7 +721,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName the name of this component
+         * @param modelName String; the name of this component
          */
         public CalendarFloat(final String modelName)
         {
@@ -730,8 +730,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of a coupled model within another coupled model.
-         * @param modelName the name of this component
-         * @param parentModel the parent coupled model for this model.
+         * @param modelName String; the name of this component
+         * @param parentModel CoupledModel.CalendarFloat; the parent coupled model for this model.
          */
         public CalendarFloat(final String modelName, final CoupledModel.CalendarFloat parentModel)
         {
@@ -740,8 +740,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * Constructor of a high-level coupled model without a parent model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule events on.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; the simulator to schedule events on.
          */
         public CalendarFloat(final String modelName, final DEVSSimulatorInterface.CalendarFloat simulator)
         {
@@ -758,7 +758,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName the name of this component
+         * @param modelName String; the name of this component
          */
         public CalendarLong(final String modelName)
         {
@@ -767,8 +767,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * The constructor of a coupled model within another coupled model.
-         * @param modelName the name of this component
-         * @param parentModel the parent coupled model for this model.
+         * @param modelName String; the name of this component
+         * @param parentModel CoupledModel.CalendarLong; the parent coupled model for this model.
          */
         public CalendarLong(final String modelName, final CoupledModel.CalendarLong parentModel)
         {
@@ -777,8 +777,8 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
 
         /**
          * Constructor of a high-level coupled model without a parent model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule events on.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.CalendarLong; the simulator to schedule events on.
          */
         public CalendarLong(final String modelName, final DEVSSimulatorInterface.CalendarLong simulator)
         {

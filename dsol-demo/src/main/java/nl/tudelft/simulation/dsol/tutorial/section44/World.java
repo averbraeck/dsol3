@@ -28,8 +28,8 @@ public class World extends Renderable3D
 
     /**
      * Construct the world.
-     * @param staticLocation Static location
-     * @param simulator Simulator
+     * @param staticLocation DirectedPoint; Static location
+     * @param simulator SimulatorInterface.TimeDouble; Simulator
      */
     public World(final DirectedPoint staticLocation, final SimulatorInterface.TimeDouble simulator)
     {

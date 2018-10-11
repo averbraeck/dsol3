@@ -23,9 +23,9 @@ public class DistLogNormal extends DistNormal
 
     /**
      * constructs a new Lognormal distribution.
-     * @param stream the random number stream
-     * @param mu the medium
-     * @param sigma the standard deviation
+     * @param stream StreamInterface; the random number stream
+     * @param mu double; the medium
+     * @param sigma double; the standard deviation
      */
     public DistLogNormal(final StreamInterface stream, final double mu, final double sigma)
     {

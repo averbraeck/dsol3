@@ -27,7 +27,7 @@ public class Observations implements ObservationsInterface
 
     /**
      * constructs a new Observations.
-     * @param observations the observations
+     * @param observations Number[]; the observations
      */
     public Observations(final Number[] observations)
     {
@@ -45,9 +45,9 @@ public class Observations implements ObservationsInterface
 
     /**
      * constructs a new Observations.
-     * @param observations a sortedMap of observations. The double values in the map either represent actual times of
-     *            observation, or represent a probability
-     * @param cumulative are the probabilities in the map cumulative?
+     * @param observations SortedMap&lt;Number,Double&gt;; a sortedMap of observations. The double values in the map
+     *            either represent actual times of observation, or represent a probability
+     * @param cumulative boolean; are the probabilities in the map cumulative?
      */
     public Observations(final SortedMap<Number, Double> observations, final boolean cumulative)
     {
@@ -70,9 +70,9 @@ public class Observations implements ObservationsInterface
 
     /**
      * constructs a new Observations.
-     * @param observations a sortedMap of observations. The double values in the map either represent actual times of
-     *            observation, or represent a probability
-     * @param cumulative are the probabilities in the map cumulative?
+     * @param observations Number[][]; a sortedMap of observations. The double values in the map either represent actual
+     *            times of observation, or represent a probability
+     * @param cumulative boolean; are the probabilities in the map cumulative?
      */
     public Observations(final Number[][] observations, final boolean cumulative)
     {
@@ -227,8 +227,8 @@ public class Observations implements ObservationsInterface
 
     /**
      * returns the preceding index of the object.
-     * @param object the object
-     * @param type the type
+     * @param object Number; the object
+     * @param type byte; the type
      * @return the index.
      */
     protected int getIndex(final Number object, final byte type)
@@ -238,8 +238,8 @@ public class Observations implements ObservationsInterface
 
     /**
      * returns the preceding index of the object.
-     * @param object the object
-     * @param type the type
+     * @param object Number; the object
+     * @param type byte; the type
      * @return the index.
      */
     protected int getPrecedingIndex(final Number object, final byte type)
@@ -335,7 +335,7 @@ public class Observations implements ObservationsInterface
      * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty
      * <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
-         * @since 1.5
+     * @since 1.5
      */
     public class Observation implements Entry
     {
@@ -347,8 +347,8 @@ public class Observations implements ObservationsInterface
 
         /**
          * constructs a new Observation.
-         * @param observation the observation
-         * @param cumProbability the cumulative probability
+         * @param observation Number; the observation
+         * @param cumProbability Double; the cumulative probability
          */
         public Observation(final Number observation, final Double cumProbability)
         {

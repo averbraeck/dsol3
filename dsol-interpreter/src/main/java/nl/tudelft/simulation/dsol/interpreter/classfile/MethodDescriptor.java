@@ -59,8 +59,8 @@ public final class MethodDescriptor
 
     /**
      * constructs a new MethodDescriptor.
-     * @param dataInput the dataInput
-     * @param constantPool the constantPool
+     * @param dataInput DataInput; the dataInput
+     * @param constantPool Constant[]; the constantPool
      * @throws IOException on ioException
      */
     public MethodDescriptor(final DataInput dataInput, final Constant[] constantPool) throws IOException
@@ -72,7 +72,7 @@ public final class MethodDescriptor
 
     /**
      * returns the bytePosition of the operation.
-     * @param operationIndex the n-th operation
+     * @param operationIndex int; the n-th operation
      * @return the bytePostion
      */
     public int getBytePosition(final int operationIndex)
@@ -152,7 +152,7 @@ public final class MethodDescriptor
 
     /**
      * returns the index number of the operation in the operationtable of the operation starting at bytePosition.
-     * @param bytePosition the bytePosition
+     * @param bytePosition int; the bytePosition
      * @return the number
      */
     public int getOperationIndex(final int bytePosition)
@@ -169,7 +169,7 @@ public final class MethodDescriptor
 
     /**
      * returns the operation at bytePosition.
-     * @param bytePosition the position to start
+     * @param bytePosition int; the position to start
      * @return the operation
      */
     public Operation getOperation(final int bytePosition)
@@ -186,7 +186,7 @@ public final class MethodDescriptor
 
     /**
      * sets the method of this descriptor.
-     * @param method the method
+     * @param method AccessibleObject; the method
      */
     public void setMethod(final AccessibleObject method)
     {
@@ -197,7 +197,7 @@ public final class MethodDescriptor
 
     /**
      * reads the method.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on ioException
      */
     private void readMethod(final DataInput dataInput) throws IOException
@@ -230,7 +230,7 @@ public final class MethodDescriptor
 
     /**
      * reads the codeAttribute and returns the new position.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on failure
      */
     private void readCodeAttribute(final DataInput dataInput) throws IOException
@@ -300,7 +300,7 @@ public final class MethodDescriptor
 
     /**
      * reads the localVariableTable.
-     * @param dataInput the dataInput to read
+     * @param dataInput DataInput; the dataInput to read
      * @throws IOException on failure
      */
     private void readLineNumberTable(final DataInput dataInput) throws IOException
@@ -317,7 +317,7 @@ public final class MethodDescriptor
 
     /**
      * reads the localVariableTable.
-     * @param dataInput the dataInput to read
+     * @param dataInput DataInput; the dataInput to read
      * @throws IOException on failure
      */
     private void readLocalVariableTable(final DataInput dataInput) throws IOException

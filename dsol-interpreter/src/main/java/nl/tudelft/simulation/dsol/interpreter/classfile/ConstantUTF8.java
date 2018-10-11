@@ -22,8 +22,8 @@ public final class ConstantUTF8 extends Constant
 
     /**
      * constructs a new ConstantUTF8.
-     * @param constantPool the constantPool it is part of
-     * @param inputStream the inputstream to read from
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param inputStream DataInput; the inputstream to read from
      * @throws IOException on failure
      */
     public ConstantUTF8(final Constant[] constantPool, final DataInput inputStream) throws IOException
@@ -33,8 +33,8 @@ public final class ConstantUTF8 extends Constant
 
     /**
      * constructs a new ConstantUTF8.
-     * @param constantPool the constantPool it is part of
-     * @param value the content
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param value String; the content
      */
     public ConstantUTF8(final Constant[] constantPool, final String value)
     {

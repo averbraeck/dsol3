@@ -23,7 +23,7 @@ public class SerializableConstructor implements Serializable
 
     /**
      * constructs a new SerializableConstructor
-     * @param constructor The constructor
+     * @param constructor Constructor&lt;?&gt;; The constructor
      */
     public SerializableConstructor(final Constructor<?> constructor)
     {
@@ -33,8 +33,8 @@ public class SerializableConstructor implements Serializable
 
     /**
      * constructs a new SerializableConstructor
-     * @param clazz the clazz this field is instance of
-     * @param parameterTypes the parameterTypes of the constructor
+     * @param clazz Class&lt;?&gt;; the clazz this field is instance of
+     * @param parameterTypes Class&lt;?&gt;[]; the parameterTypes of the constructor
      * @throws NoSuchMethodException whenever the method is not defined in clazz
      */
     public SerializableConstructor(final Class<?> clazz, final Class<?>[] parameterTypes) throws NoSuchMethodException
@@ -53,7 +53,7 @@ public class SerializableConstructor implements Serializable
 
     /**
      * writes a serializable method to stream
-     * @param out the outputstream
+     * @param out ObjectOutputStream; the outputstream
      * @throws IOException on IOException
      */
     private void writeObject(final ObjectOutputStream out) throws IOException
@@ -71,7 +71,7 @@ public class SerializableConstructor implements Serializable
 
     /**
      * reads a serializable method from stream
-     * @param in the inputstream
+     * @param in java.io.ObjectInputStream; the inputstream
      * @throws IOException on IOException
      */
     private void readObject(final java.io.ObjectInputStream in) throws IOException

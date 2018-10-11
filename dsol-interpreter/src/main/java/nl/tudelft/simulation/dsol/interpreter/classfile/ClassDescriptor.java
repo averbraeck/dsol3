@@ -36,7 +36,7 @@ public final class ClassDescriptor
 
     /**
      * returns the classDescriptor of this class.
-     * @param clazz the class the clazz to parse
+     * @param clazz Class&lt;?&gt;; the class the clazz to parse
      * @return ClassDescriptor the descriptor
      * @throws IOException on IO exception
      * @throws ClassNotFoundException if clazz cannot be found
@@ -57,7 +57,7 @@ public final class ClassDescriptor
 
     /**
      * constructs a new ClassDescriptor.
-     * @param javaClass the class to read
+     * @param javaClass Class&lt;?&gt;; the class to read
      * @throws IOException on IO - failure
      * @throws ClassNotFoundException on incomplete classPath
      */
@@ -76,7 +76,7 @@ public final class ClassDescriptor
 
     /**
      * returns the methodDescriptor of the method.
-     * @param method the method to resolve.
+     * @param method AccessibleObject; the method to resolve.
      * @return its descriptor.
      */
     public MethodDescriptor getMethod(final AccessibleObject method)
@@ -106,7 +106,7 @@ public final class ClassDescriptor
 
     /**
      * reads the class.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on failure
      * @throws ClassNotFoundException on incomplete classPath
      */
@@ -155,7 +155,7 @@ public final class ClassDescriptor
 
     /**
      * reads the constantpool from file.
-     * @param dataInput the stream
+     * @param dataInput DataInput; the stream
      * @throws IOException on failure
      */
     private void readConstantPool(final DataInput dataInput) throws IOException
@@ -183,8 +183,8 @@ public final class ClassDescriptor
 
     /**
      * parses a methodName and descriptor to an accessibleObject.
-     * @param methodName the name of the method
-     * @param argumentClasses the argumentClasses
+     * @param methodName String; the name of the method
+     * @param argumentClasses Class&lt;?&gt;[]; the argumentClasses
      * @return the AccessibleObject
      */
     private AccessibleObject parseMethod(final String methodName, final Class<?>[] argumentClasses)

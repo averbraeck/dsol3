@@ -92,8 +92,8 @@ public abstract class Editable extends EventProducer implements Locatable
 
     /**
      * constructs a new Editable.
-     * @param simulator the simulator to schedule on
-     * @param location the initial location
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to schedule on
+     * @param location DirectedPoint; the initial location
      */
     public Editable(final SimulatorInterface<?, ?, ?> simulator, final DirectedPoint location)
     {
@@ -112,7 +112,7 @@ public abstract class Editable extends EventProducer implements Locatable
 
     /**
      * sets the bounds of this editable.
-     * @param bounds the new bounds of this editable.
+     * @param bounds Bounds; the new bounds of this editable.
      */
     public void setBounds(final Bounds bounds)
     {
@@ -121,7 +121,7 @@ public abstract class Editable extends EventProducer implements Locatable
 
     /**
      * sets the location of this editable.
-     * @param location the new location of this editable
+     * @param location DirectedPoint; the new location of this editable
      */
     public void setLocation(final DirectedPoint location)
     {
@@ -130,7 +130,7 @@ public abstract class Editable extends EventProducer implements Locatable
 
     /**
      * sets the vertices of this editable.
-     * @param vertices the new vertices.
+     * @param vertices CartesianPoint[]; the new vertices.
      */
     public void setVertices(final CartesianPoint[] vertices)
     {

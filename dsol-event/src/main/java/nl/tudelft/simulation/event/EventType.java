@@ -28,7 +28,8 @@ public final class EventType implements Serializable
 
     /**
      * constructs a new EventType.
-     * @param name the name of this eventType. Two values are not appreciated : <code>null</code> and <code>""</code>.
+     * @param name String; the name of this eventType. Two values are not appreciated : &lt;code&gt;null&lt;/code&gt;
+     *            and &lt;code&gt;""&lt;/code&gt;.
      */
     public EventType(final String name)
     {

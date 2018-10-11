@@ -69,7 +69,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     private Transform3D roll = new Transform3D();
 
     /**
-     * @param simulator SimulatorInterface
+     * @param simulator SimulatorInterface; SimulatorInterface
      */
     public Renderable3D(final SimulatorInterface simulator)
     {
@@ -83,8 +83,8 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * @param staticLocation Point3d
-     * @param simulator SimulatorInterface
+     * @param staticLocation DirectedPoint; Point3d
+     * @param simulator SimulatorInterface; SimulatorInterface
      */
     public Renderable3D(final DirectedPoint staticLocation, final SimulatorInterface simulator)
     {
@@ -96,9 +96,9 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * @param staticLocation Point3d
-     * @param branchGroup A branchGroup containing (a part of) the model
-     * @param simulator SimulatorInterface
+     * @param staticLocation DirectedPoint; Point3d
+     * @param branchGroup BranchGroup; A branchGroup containing (a part of) the model
+     * @param simulator SimulatorInterface; SimulatorInterface
      */
     public Renderable3D(final DirectedPoint staticLocation, final BranchGroup branchGroup,
             final SimulatorInterface simulator)
@@ -124,8 +124,8 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * @param staticLocation Point2D
-     * @param simulator SimulatorInterface
+     * @param staticLocation Point2D; Point2D
+     * @param simulator SimulatorInterface; SimulatorInterface
      */
     public Renderable3D(final Point2D staticLocation, final SimulatorInterface simulator)
     {
@@ -133,8 +133,8 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * @param source LocatableInterface
-     * @param simulator SimulatorInterface
+     * @param source Locatable; LocatableInterface
+     * @param simulator SimulatorInterface; SimulatorInterface
      */
     public Renderable3D(final Locatable source, final SimulatorInterface simulator)
     {
@@ -207,7 +207,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
 
     /**
      * Provide the 3D model and add it to the locationGroup
-     * @param locationGroup The location of the object
+     * @param locationGroup TransformGroup; The location of the object
      */
     protected abstract void provideModel(final TransformGroup locationGroup);
 
@@ -244,7 +244,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
 
     /**
      * Method update.
-     * @param children the children to update.
+     * @param children Enumeration; the children to update.
      */
     protected abstract void update(final Enumeration children);
 
@@ -274,7 +274,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * @param scale Set the scale of the coordinates
+     * @param scale double; Set the scale of the coordinates
      */
     public void setScale(final double scale)
     {

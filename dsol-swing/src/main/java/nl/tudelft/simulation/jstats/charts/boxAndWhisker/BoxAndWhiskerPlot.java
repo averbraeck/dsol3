@@ -68,7 +68,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
 
     /**
      * adds a tally to the array of targets;
-     * @param tally the tally to be summarized
+     * @param tally Tally; the tally to be summarized
      */
     public synchronized void add(final Tally tally)
     {
@@ -95,7 +95,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     /** ************ PRIVATE METHODS *********************** */
     /**
      * computes the extent of the targets
-     * @param tallies the range of tallies
+     * @param tallies Tally[]; the range of tallies
      * @return double[min,max]
      */
     private static double[] extent(final Tally[] tallies)
@@ -117,9 +117,9 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
 
     /**
      * determines the borders on the left and right side of the tally
-     * @param g2 the graphics object
-     * @param context the context
-     * @param tallyArray tallies
+     * @param g2 Graphics2D; the graphics object
+     * @param context FontRenderContext; the context
+     * @param tallyArray Tally[]; tallies
      * @return double[] the extent
      */
     private double[] borders(final Graphics2D g2, final FontRenderContext context, final Tally[] tallyArray)
@@ -147,8 +147,8 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
 
     /**
      * returns the bounding box
-     * @param word the word
-     * @param context the context
+     * @param word String; the word
+     * @param context FontRenderContext; the context
      * @return Rectangle2D the bounds
      */
     private Rectangle2D getBounds(final String word, final FontRenderContext context)
@@ -158,9 +158,9 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
 
     /**
      * fills a rectangle
-     * @param g2 the graphics object
-     * @param rectangle the area
-     * @param color the color
+     * @param g2 Graphics2D; the graphics object
+     * @param rectangle Rectangle2D; the area
+     * @param color Color; the color
      */
     private void fillRectangle(final Graphics2D g2, final Rectangle2D rectangle, final Color color)
     {
@@ -171,12 +171,12 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
 
     /**
      * paints a tally
-     * @param g2 the graphics object
-     * @param rectangle the rectangle on which to paint
-     * @param tally the tally
-     * @param leftX the lowest real value
-     * @param leftBorder the left border
-     * @param scale the scale
+     * @param g2 Graphics2D; the graphics object
+     * @param rectangle Rectangle2D; the rectangle on which to paint
+     * @param tally Tally; the tally
+     * @param leftX double; the lowest real value
+     * @param leftBorder double; the left border
+     * @param scale double; the scale
      */
     private void paintTally(final Graphics2D g2, final Rectangle2D rectangle, final Tally tally, final double leftX,
             final double leftBorder, final double scale)
@@ -256,7 +256,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
 
     /**
      * sets the confidence interval of the plot. The default value = 0.05 (=5%)
-     * @param confidenceInterval the confidence interval
+     * @param confidenceInterval double; the confidence interval
      */
     public void setConfidenceInterval(final double confidenceInterval)
     {

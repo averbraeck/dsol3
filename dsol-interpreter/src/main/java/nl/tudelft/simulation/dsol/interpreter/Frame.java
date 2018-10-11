@@ -41,11 +41,11 @@ public class Frame implements Cloneable
 
     /**
      * constructs a new Frame.
-     * @param constantPool the constantPool
-     * @param localVariables the localVariables
-     * @param operations the array of operations to execute
-     * @param stack the stack
-     * @param methodDescriptor the methodDescriptor
+     * @param constantPool Constant[]; the constantPool
+     * @param localVariables LocalVariable[]; the localVariables
+     * @param operations Operation[]; the array of operations to execute
+     * @param stack OperandStack; the stack
+     * @param methodDescriptor MethodDescriptor; the methodDescriptor
      */
     public Frame(final Constant[] constantPool, final LocalVariable[] localVariables, final Operation[] operations,
             final OperandStack stack, final MethodDescriptor methodDescriptor)
@@ -91,7 +91,7 @@ public class Frame implements Cloneable
     }
 
     /**
-     * @param returnPosition The returnPosition to set.
+     * @param returnPosition int; The returnPosition to set.
      */
     public final void setReturnPosition(final int returnPosition)
     {
@@ -123,7 +123,7 @@ public class Frame implements Cloneable
     }
 
     /**
-     * @param paused The paused to set.
+     * @param paused boolean; The paused to set.
      */
     public final void setPaused(final boolean paused)
     {

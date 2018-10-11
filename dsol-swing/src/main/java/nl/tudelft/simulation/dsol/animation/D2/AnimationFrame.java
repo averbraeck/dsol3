@@ -49,8 +49,8 @@ public class AnimationFrame extends JFrame
 
     /**
      * Constructor for AnimationFrame.
-     * @param name the name of the frame
-     * @param simulator the simulator
+     * @param name String; the name of the frame
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @throws RemoteException on network error for one of the listeners
      */
     public AnimationFrame(final String name, final SimulatorInterface<?, ?, ?> simulator) throws RemoteException
@@ -102,7 +102,7 @@ public class AnimationFrame extends JFrame
 
         /**
          * constructs a new ButtonPanel
-         * @param target the target to control
+         * @param target GridPanel; the target to control
          */
         public ButtonPanel(final GridPanel target)
         {

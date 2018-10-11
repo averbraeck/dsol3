@@ -22,9 +22,9 @@ public abstract class JumpOperation extends Operation
 {
     /**
      * executes the operation.
-     * @param stack the stack to operate on
-     * @param constantPool the constantpool
-     * @param localvariables the localvariables
+     * @param stack OperandStack; the stack to operate on
+     * @param constantPool Constant[]; the constantpool
+     * @param localvariables LocalVariable[]; the localvariables
      * @return int the offset in bytes relative to the operand byte of this operation
      */
     public abstract int execute(final OperandStack stack, final Constant[] constantPool,

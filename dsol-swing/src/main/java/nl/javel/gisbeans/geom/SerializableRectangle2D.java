@@ -31,7 +31,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
      * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
      *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
      * @since JDK 1.2
-         */
+     */
     public static class Double extends SerializableRectangle2D
     {
 
@@ -48,10 +48,10 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
 
         /**
          * constructs a new Double.
-         * @param x x
-         * @param y y
-         * @param w w
-         * @param h h
+         * @param x double; x
+         * @param y double; y
+         * @param w double; w
+         * @param h double; h
          */
         public Double(final double x, final double y, final double w, final double h)
         {
@@ -144,7 +144,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
 
         /**
          * Now the private serialization methods.
-         * @param out the outputstream
+         * @param out java.io.ObjectOutputStream; the outputstream
          * @throws java.io.IOException on exception
          */
         private void writeObject(final java.io.ObjectOutputStream out) throws java.io.IOException
@@ -157,7 +157,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
 
         /**
          * we read the stream.
-         * @param in the input
+         * @param in java.io.ObjectInputStream; the input
          * @throws java.io.IOException on exception
          */
         private void readObject(final java.io.ObjectInputStream in) throws java.io.IOException
@@ -172,7 +172,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
      * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
      *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
      * @since JDK 1.2
-         */
+     */
     public static class Float extends SerializableRectangle2D
     {
 
@@ -189,10 +189,10 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
 
         /**
          * constructs a new nl.javel.gisbeans.geom.SerializableRectangle2D.Float
-         * @param x the x
-         * @param y the y
-         * @param w the width
-         * @param h the height
+         * @param x float; the x
+         * @param y float; the y
+         * @param w float; the width
+         * @param h float; the height
          */
         public Float(final float x, final float y, final float w, final float h)
         {
@@ -263,10 +263,10 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
         }
 
         /**
-         * @param x the x
-         * @param y the y
-         * @param w the width
-         * @param h the height
+         * @param x float; the x
+         * @param y float; the y
+         * @param w float; the width
+         * @param h float; the height
          */
         public void setRect(final float x, final float y, final float w, final float h)
         {
@@ -296,7 +296,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
 
         /**
          * writes to the stream
-         * @param out the stream
+         * @param out java.io.ObjectOutputStream; the stream
          * @throws IOException on IOException
          */
         private void writeObject(final java.io.ObjectOutputStream out) throws IOException
@@ -309,7 +309,7 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
 
         /**
          * Now the private serialization methods
-         * @param in the stream
+         * @param in java.io.ObjectInputStream; the stream
          * @throws IOException on IOException
          */
         private void readObject(final java.io.ObjectInputStream in) throws IOException

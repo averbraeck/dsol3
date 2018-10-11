@@ -27,7 +27,7 @@ public interface ImmutableSet<E> extends ImmutableCollection<E>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj the object to compare this collection with
+     * @param obj Object; the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override

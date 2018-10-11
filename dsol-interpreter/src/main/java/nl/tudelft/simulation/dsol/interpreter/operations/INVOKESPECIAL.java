@@ -27,7 +27,7 @@ public class INVOKESPECIAL extends nl.tudelft.simulation.dsol.interpreter.operat
 {
     /**
      * constructs a new INVOKESPECIAL.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public INVOKESPECIAL(final DataInput dataInput) throws IOException

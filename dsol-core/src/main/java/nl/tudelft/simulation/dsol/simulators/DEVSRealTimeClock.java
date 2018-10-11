@@ -69,7 +69,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
     /**
      * Calculate the relative time step to do "factor" milliseconds on the simulation clock.
-     * @param factor the factor to multiply the milliseconds with
+     * @param factor double; the factor to multiply the milliseconds with
      * @return the relative time step.
      */
     protected abstract R relativeMillis(double factor);
@@ -246,8 +246,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
     /**
      * Set the speedFactor, and send a CHANGE_SPEED_FACTOR event.
-     * @param newSpeedFactor the new speed factor to set
-     * @param fireChangeSpeedFactorEvent whether to fire a CHANGE_SPEED_FACTOR event or not
+     * @param newSpeedFactor double; the new speed factor to set
+     * @param fireChangeSpeedFactorEvent boolean; whether to fire a CHANGE_SPEED_FACTOR event or not
      */
     public final void setSpeedFactor(final double newSpeedFactor, final boolean fireChangeSpeedFactorEvent)
     {
@@ -260,7 +260,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
     /**
      * Set the speedFactor, and send a CHANGE_SPEED_FACTOR event.
-     * @param newSpeedFactor set speedFactor
+     * @param newSpeedFactor double; set speedFactor
      */
     public final void setSpeedFactor(final double newSpeedFactor)
     {
@@ -276,7 +276,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /**
-     * @param catchup set catchup
+     * @param catchup boolean; set catchup
      */
     public final void setCatchup(final boolean catchup)
     {
@@ -300,7 +300,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
      * Hz between events. When this is too course, set e.g. to 1, which means that the clock will be updated with 1 kHz
      * between events. The latter can be important in real time simulations. Note that the housekeeping of the
      * simulation clock takes time as well, so 1 kHz can be too fine grained in some situations.
-     * @param updateMsec set the relative update delay in milliseconds
+     * @param updateMsec int; set the relative update delay in milliseconds
      */
     public final void setUpdateMsec(final int updateMsec)
     {
@@ -325,7 +325,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         private final double msecWallClockToSimTimeUnit;
 
         /**
-         * @param msecWallClockToSimTimeUnit the translation between a millisecond on the clock and '1.0' in the
+         * @param msecWallClockToSimTimeUnit double; the translation between a millisecond on the clock and '1.0' in the
          *            simulation time.
          */
         public TimeDouble(final double msecWallClockToSimTimeUnit)

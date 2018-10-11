@@ -56,7 +56,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
 
     /**
      * constructs a new stateful DifferentialEquation with Euleras numerical integration method.
-     * @param simulator the simulator
+     * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator
      * @throws RemoteException on remote network exception for the listener
      */
     public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator) throws RemoteException
@@ -66,8 +66,8 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
 
     /**
      * constructs a new stateful DifferentialEquation with Euleras numerical integration method.
-     * @param simulator the simulator
-     * @param timeStep the timeStep for ODE estimation
+     * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator
+     * @param timeStep R; the timeStep for ODE estimation
      * @throws RemoteException on remote network exception for the listener
      */
     public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final R timeStep)
@@ -78,9 +78,9 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
 
     /**
      * constructs a new DifferentialEquation.
-     * @param simulator the simulator.
-     * @param timeStep the timeStep for ODE estimation.
-     * @param numericalMethod the numerical method to be used.
+     * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator.
+     * @param timeStep R; the timeStep for ODE estimation.
+     * @param numericalMethod short; the numerical method to be used.
      * @throws RemoteException on remote network exception for the listener
      */
     public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final R timeStep,
@@ -93,9 +93,9 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
 
     /**
      * constructs a new DifferentialEquation.
-     * @param simulator the simulator.
-     * @param timeStep the timeStep for ODE estimation.
-     * @param numericalIntegrator the actual integrator to be used.
+     * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator.
+     * @param timeStep double; the timeStep for ODE estimation.
+     * @param numericalIntegrator NumericalIntegrator; the actual integrator to be used.
      * @throws RemoteException on remote network exception for the listener
      */
     public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final double timeStep,

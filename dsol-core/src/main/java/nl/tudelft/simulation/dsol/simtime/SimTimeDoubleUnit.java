@@ -24,7 +24,7 @@ public class SimTimeDoubleUnit extends SimTime<Time, Duration, SimTimeDoubleUnit
     private Time time;
 
     /**
-     * @param time the initial time.
+     * @param time Time; the initial time.
      */
     public SimTimeDoubleUnit(final Time time)
     {

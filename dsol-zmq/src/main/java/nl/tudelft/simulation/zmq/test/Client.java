@@ -16,7 +16,7 @@ import org.zeromq.ZMQ;
 public class Client
 {
     /**
-     * @param args
+     * @param args String[];
      */
     public static void main(String[] args)
     {

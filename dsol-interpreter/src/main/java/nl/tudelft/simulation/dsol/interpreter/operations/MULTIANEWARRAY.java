@@ -39,7 +39,7 @@ public class MULTIANEWARRAY extends VoidOperation
 
     /**
      * constructs a new MULTIANEWARRAY.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public MULTIANEWARRAY(final DataInput dataInput) throws IOException
@@ -83,9 +83,9 @@ public class MULTIANEWARRAY extends VoidOperation
 
     /**
      * creates a new Array.
-     * @param depth the depth
-     * @param dimensions the dimensions
-     * @param clazz the clazz
+     * @param depth int; the depth
+     * @param dimensions int[]; the dimensions
+     * @param clazz Class&lt;?&gt;; the clazz
      * @return Object the array
      */
     private Object newArray(final int depth, final int[] dimensions, final Class<?> clazz)

@@ -23,7 +23,7 @@ public class ContextTreeModel extends DefaultTreeModel
 
     /**
      * constructs a new ContextTreeModel.
-     * @param context the context
+     * @param context EventContext; the context
      * @throws NamingException on failure
      */
     public ContextTreeModel(final EventContext context) throws NamingException
@@ -33,9 +33,9 @@ public class ContextTreeModel extends DefaultTreeModel
 
     /**
      * constructs a new ContextTreeModel.
-     * @param context the context
-     * @param displayClasses the set of classes to display as children
-     * @param displayFields should we display them?
+     * @param context EventContext; the context
+     * @param displayClasses Class&lt;?&gt;[]; the set of classes to display as children
+     * @param displayFields boolean; should we display them?
      * @throws NamingException on failure
      */
     public ContextTreeModel(final EventContext context, final Class<?>[] displayClasses, final boolean displayFields)

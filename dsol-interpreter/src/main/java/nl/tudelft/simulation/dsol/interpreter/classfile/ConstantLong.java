@@ -23,8 +23,8 @@ public final class ConstantLong extends Constant
 
     /**
      * constructs a new ConstantLong.
-     * @param constantPool the constantPool it is part of
-     * @param inputStream the inputstream to read from
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param inputStream DataInput; the inputstream to read from
      * @throws IOException on failure
      */
     public ConstantLong(final Constant[] constantPool, final DataInput inputStream) throws IOException
@@ -34,8 +34,8 @@ public final class ConstantLong extends Constant
 
     /**
      * constructs a new ConstantLong.
-     * @param constantPool the constantPool it is part of
-     * @param bytes the bytes
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param bytes long; the bytes
      */
     public ConstantLong(final Constant[] constantPool, final long bytes)
     {

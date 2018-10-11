@@ -24,8 +24,8 @@ public class DistDiscreteConstant extends DistDiscrete
 
     /**
      * creates a new discrete constant distribution.
-     * @param stream the random number stream
-     * @param value the value for this distribution
+     * @param stream StreamInterface; the random number stream
+     * @param value long; the value for this distribution
      */
     public DistDiscreteConstant(final StreamInterface stream, final long value)
     {

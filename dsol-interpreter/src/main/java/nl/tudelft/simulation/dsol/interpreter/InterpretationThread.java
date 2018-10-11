@@ -22,7 +22,7 @@ public final class InterpretationThread extends Thread
 
     /**
      * constructs a new InterpretationThread.
-     * @param target the target.
+     * @param target Runnable; the target.
      */
     public InterpretationThread(final Runnable target)
     {
@@ -32,8 +32,8 @@ public final class InterpretationThread extends Thread
 
     /**
      * constructs a new InterpretationThread.
-     * @param target the target.
-     * @param name the name of the thread
+     * @param target Runnable; the target.
+     * @param name String; the name of the thread
      */
     public InterpretationThread(final Runnable target, final String name)
     {
@@ -43,8 +43,8 @@ public final class InterpretationThread extends Thread
 
     /**
      * constructs a new InterpretationThread.
-     * @param group the threadGroup
-     * @param target the target.
+     * @param group ThreadGroup; the threadGroup
+     * @param target Runnable; the target.
      */
     public InterpretationThread(final ThreadGroup group, final Runnable target)
     {
@@ -54,9 +54,9 @@ public final class InterpretationThread extends Thread
 
     /**
      * constructs a new InterpretationThread.
-     * @param group the threadGroup
-     * @param target the target.
-     * @param name the name of the thread
+     * @param group ThreadGroup; the threadGroup
+     * @param target Runnable; the target.
+     * @param name String; the name of the thread
      */
     public InterpretationThread(final ThreadGroup group, final Runnable target, final String name)
     {

@@ -51,7 +51,7 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
 
     /**
      * constructor for the Container Terminal.
-     * @param rep the replication number
+     * @param rep int; the replication number
      */
     public Terminal(final int rep)
     {
@@ -159,13 +159,13 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
 
         /**
          * /**
-         * @param numQC qc
-         * @param numAGV agv
-         * @param rep replication nr
-         * @param delayHours delay in hours
-         * @param costs costs in Euros
-         * @param ready time when ready in hrs
-         * @param nrCont nr containers handled
+         * @param numQC int; qc
+         * @param numAGV int; agv
+         * @param rep int; replication nr
+         * @param delayHours double; delay in hours
+         * @param costs double; costs in Euros
+         * @param ready double; time when ready in hrs
+         * @param nrCont int; nr containers handled
          */
         public Output(final int numQC, final int numAGV, final int rep, final double delayHours, final double costs,
                 final double ready, final int nrCont)

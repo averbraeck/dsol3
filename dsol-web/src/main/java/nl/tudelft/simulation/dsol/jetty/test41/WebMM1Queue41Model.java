@@ -59,7 +59,7 @@ public class WebMM1Queue41Model implements DSOLModel.TimeDouble
     {
         this.devsSimulator = (DEVSSimulatorInterface.TimeDouble) simulator;
         StreamInterface defaultStream = new MersenneTwister();
-        
+
         // The Generator
         Generator.TimeDouble generator = new Generator.TimeDouble(this.devsSimulator, Object.class, null);
         generator.setInterval(new DistContinuousTime.TimeDouble(new DistExponential(defaultStream, 1.0)));

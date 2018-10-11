@@ -35,7 +35,7 @@ public abstract class AbstractAttribute implements AttributeInterface
 
     /**
      * constructs a new AbstractAttribute.
-     * @param layer the layer of this attribute
+     * @param layer LayerInterface; the layer of this attribute
      */
     public AbstractAttribute(LayerInterface layer)
     {

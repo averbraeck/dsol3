@@ -27,13 +27,13 @@ public class StaticLocation extends DirectedPoint implements Locatable
 
     /**
      * constructs a new StaticLocation.
-     * @param x the x location
-     * @param y the y location
-     * @param z the z location
-     * @param theta theta
-     * @param phi phi
-     * @param rho rho
-     * @param bounds the bounds
+     * @param x double; the x location
+     * @param y double; the y location
+     * @param z double; the z location
+     * @param theta double; theta
+     * @param phi double; phi
+     * @param rho double; rho
+     * @param bounds Bounds; the bounds
      */
     public StaticLocation(final double x, final double y, final double z, final double theta, final double phi,
             final double rho, final Bounds bounds)
@@ -44,9 +44,9 @@ public class StaticLocation extends DirectedPoint implements Locatable
 
     /**
      * constructs a new StaticLocation.
-     * @param point2D the point2d
-     * @param rotZ the rotation in the xy plane
-     * @param bounds the bounds
+     * @param point2D Point2D; the point2d
+     * @param rotZ double; the rotation in the xy plane
+     * @param bounds Bounds; the bounds
      */
     public StaticLocation(final Point2D point2D, final double rotZ, final Bounds bounds)
     {
@@ -56,8 +56,8 @@ public class StaticLocation extends DirectedPoint implements Locatable
 
     /**
      * constructs a new StaticLocation.
-     * @param location the location
-     * @param bounds the bounds
+     * @param location DirectedPoint; the location
+     * @param bounds Bounds; the bounds
      */
     public StaticLocation(final DirectedPoint location, final Bounds bounds)
     {

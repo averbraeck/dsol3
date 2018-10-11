@@ -32,10 +32,10 @@ public class DistTriangular extends DistContinuous
 
     /**
      * constructs a new triangular distribution.
-     * @param stream the random number stream
-     * @param a the minimum
-     * @param b the mode
-     * @param c the maximum
+     * @param stream StreamInterface; the random number stream
+     * @param a double; the minimum
+     * @param b double; the mode
+     * @param c double; the maximum
      */
     public DistTriangular(final StreamInterface stream, final double a, final double b, final double c)
     {

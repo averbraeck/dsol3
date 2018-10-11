@@ -40,7 +40,7 @@ public class EventProducingList<T> extends EventProducer implements List<T>
 
     /**
      * constructs a new EventProducingList.
-     * @param parent the parent list.
+     * @param parent List&lt;T&gt;; the parent list.
      */
     public EventProducingList(final List<T> parent)
     {

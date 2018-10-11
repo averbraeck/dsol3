@@ -31,8 +31,8 @@ public class BallAnimation2D extends Renderable2D<Locatable>
 
     /**
      * constructs a new BallAnimation2D.
-     * @param source the source
-     * @param simulator the simulator
+     * @param source Locatable; the source
+     * @param simulator SimulatorInterface.TimeDouble; the simulator
      * @throws NamingException on animation error
      * @throws RemoteException on animation error
      */
@@ -62,7 +62,7 @@ public class BallAnimation2D extends Renderable2D<Locatable>
     }
 
     /**
-     * @param color The color to set.
+     * @param color Color; The color to set.
      */
     public void setColor(final Color color)
     {

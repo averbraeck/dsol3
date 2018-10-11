@@ -24,7 +24,7 @@ public interface RemoteContextListenerInterface extends Remote
      * Called when an object has been added.
      * <p>
      * The binding of the newly added object can be obtained using <tt>evt.getNewBinding()</tt>.
-     * @param evt The nonnull event.
+     * @param evt NamingEvent; The nonnull event.
      * @see NamingEvent#OBJECT_ADDED
      * @throws RemoteException on network failure
      */
@@ -34,7 +34,7 @@ public interface RemoteContextListenerInterface extends Remote
      * Called when an object has been removed.
      * <p>
      * The binding of the newly removed object can be obtained using <tt>evt.getOldBinding()</tt>.
-     * @param evt The nonnull event.
+     * @param evt NamingEvent; The nonnull event.
      * @see NamingEvent#OBJECT_REMOVED
      * @throws RemoteException on network failure
      */
@@ -46,7 +46,7 @@ public interface RemoteContextListenerInterface extends Remote
      * The binding of the renamed object can be obtained using <tt>evt.getNewBinding()</tt>. Its old binding (before the
      * rename) can be obtained using <tt>evt.getOldBinding()</tt>. One of these may be null if the old/new binding was
      * outside the scope in which the listener has registered interest.
-     * @param evt The nonnull event.
+     * @param evt NamingEvent; The nonnull event.
      * @see NamingEvent#OBJECT_RENAMED
      * @throws RemoteException on network failure
      */
@@ -57,7 +57,7 @@ public interface RemoteContextListenerInterface extends Remote
      * <p>
      * The binding of the changed object can be obtained using <tt>evt.getNewBinding()</tt>. Its old binding (before the
      * change) can be obtained using <tt>evt.getOldBinding()</tt>.
-     * @param evt The nonnull naming event.
+     * @param evt NamingEvent; The nonnull naming event.
      * @see NamingEvent#OBJECT_CHANGED
      * @throws RemoteException on network failure.
      */
@@ -65,7 +65,7 @@ public interface RemoteContextListenerInterface extends Remote
 
     /**
      * Called when a naming exception is thrown while attempting to fire a <tt>NamingEvent</tt>.
-     * @param evt The nonnull event.
+     * @param evt NamingExceptionEvent; The nonnull event.
      * @throws RemoteException on network exception
      * @throws RemoteException on network failure
      */

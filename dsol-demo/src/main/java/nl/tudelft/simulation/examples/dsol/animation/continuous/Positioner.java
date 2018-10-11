@@ -24,7 +24,7 @@ public class Positioner extends DifferentialEquation<Double, Double, SimTimeDoub
 
     /**
      * constructs a new Positioner.
-     * @param simulator the simulator
+     * @param simulator DESSSimulatorInterface.TimeDouble; the simulator
      * @throws RemoteException on remote error
      */
     public Positioner(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
@@ -35,7 +35,7 @@ public class Positioner extends DifferentialEquation<Double, Double, SimTimeDoub
 
     /**
      * sets the value.
-     * @param value the new value
+     * @param value double; the new value
      */
     public void setValue(final double value)
     {

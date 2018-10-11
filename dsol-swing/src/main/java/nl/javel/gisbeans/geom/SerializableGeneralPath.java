@@ -32,7 +32,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
 
     /**
      * constructs a new SerializableGeneralPath.
-     * @param rule the windingRule
+     * @param rule int; the windingRule
      */
     public SerializableGeneralPath(final int rule)
     {
@@ -41,8 +41,8 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
 
     /**
      * constructs a new SerializableGeneralPath.
-     * @param rule the windingRule
-     * @param initialCapacity the initialCapacity
+     * @param rule int; the windingRule
+     * @param initialCapacity int; the initialCapacity
      */
     public SerializableGeneralPath(final int rule, final int initialCapacity)
     {
@@ -51,7 +51,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
 
     /**
      * constructs a new SerializableGeneralPath.
-     * @param s the shape
+     * @param s Shape; the shape
      */
     public SerializableGeneralPath(final Shape s)
     {
@@ -59,8 +59,8 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param pi the pathIterator
-     * @param connect the connect
+     * @param pi PathIterator; the pathIterator
+     * @param connect boolean; the connect
      */
     public void append(final PathIterator pi, final boolean connect)
     {
@@ -68,8 +68,8 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param s the shape
-     * @param connect whether to connect
+     * @param s Shape; the shape
+     * @param connect boolean; whether to connect
      */
     public void append(final Shape s, final boolean connect)
     {
@@ -122,7 +122,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param at the effinetransform
+     * @param at java.awt.geom.AffineTransform; the effinetransform
      * @return the new shape
      */
     public java.awt.Shape createTranformedShape(final java.awt.geom.AffineTransform at)
@@ -132,12 +132,12 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
 
     /**
      * curves to.
-     * @param x1 x1
-     * @param y1 y1
-     * @param x2 x2
-     * @param y2 y2
-     * @param x3 x3
-     * @param y3 y3
+     * @param x1 float; x1
+     * @param y1 float; y1
+     * @param x2 float; x2
+     * @param y2 float; y2
+     * @param x3 float; x3
+     * @param y3 float; y3
      */
     public void curveTo(final float x1, final float y1, final float x2, final float y2, final float x3, final float y3)
     {
@@ -204,8 +204,8 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param x x
-     * @param y y
+     * @param x float; x
+     * @param y float; y
      */
     public void lineTo(final float x, final float y)
     {
@@ -213,8 +213,8 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param x x
-     * @param y y
+     * @param x float; x
+     * @param y float; y
      */
     public void moveTo(final float x, final float y)
     {
@@ -222,10 +222,10 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param x1 x1
-     * @param y1 y1
-     * @param x2 x2
-     * @param y2 y2
+     * @param x1 float; x1
+     * @param y1 float; y1
+     * @param x2 float; x2
+     * @param y2 float; y2
      */
     public void quadTo(final float x1, final float y1, final float x2, final float y2)
     {
@@ -241,7 +241,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param rule rule
+     * @param rule int; rule
      */
     public void setWindingRule(final int rule)
     {
@@ -249,7 +249,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
-     * @param at affinity transform
+     * @param at java.awt.geom.AffineTransform; affinity transform
      */
     public void transform(final java.awt.geom.AffineTransform at)
     {
@@ -258,9 +258,9 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
 
     /**
      * writes a float array
-     * @param out the output stream
-     * @param array the array
-     * @param length the length
+     * @param out java.io.ObjectOutputStream; the output stream
+     * @param array float[]; the array
+     * @param length int; the length
      * @throws java.io.IOException on exception
      */
     private void writeFloatArray(final java.io.ObjectOutputStream out, final float[] array, final int length)
@@ -274,7 +274,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
 
     /**
      * writes to the stream
-     * @param out the stream
+     * @param out java.io.ObjectOutputStream; the stream
      * @throws IOException on IOfailure
      */
     private void writeObject(final java.io.ObjectOutputStream out) throws IOException
@@ -324,7 +324,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
 
     /**
      * reads an object
-     * @param in the inputstream
+     * @param in java.io.ObjectInputStream; the inputstream
      * @throws IOException on IOException
      */
     private void readObject(final java.io.ObjectInputStream in) throws IOException

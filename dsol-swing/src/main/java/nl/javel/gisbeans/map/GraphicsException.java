@@ -14,7 +14,7 @@ public class GraphicsException extends Exception
 
     /**
      * constructs a new GraphicsException.
-     * @param msg the exception message
+     * @param msg String; the exception message
      */
     public GraphicsException(String msg)
     {

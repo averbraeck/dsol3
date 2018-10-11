@@ -28,7 +28,7 @@ public abstract class ImmutableAbstractCollection<E> implements ImmutableCollect
 
     /**
      * Construct an abstract immutable collection.
-     * @param copyOrWrap indicates whether the immutable is a copy or a wrap
+     * @param copyOrWrap Immutable; indicates whether the immutable is a copy or a wrap
      */
     public ImmutableAbstractCollection(final Immutable copyOrWrap)
     {

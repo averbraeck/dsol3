@@ -39,12 +39,12 @@ public class RemoteContext extends UnicastRemoteObject implements RemoteContextI
     private EventContext eventContext = null;
 
     /** the listeners. */
-    private Map<RemoteContextListenerInterface, RemoteContextListenerClient> listeners = Collections
-            .synchronizedMap(new HashMap<RemoteContextListenerInterface, RemoteContextListenerClient>());
+    private Map<RemoteContextListenerInterface, RemoteContextListenerClient> listeners =
+            Collections.synchronizedMap(new HashMap<RemoteContextListenerInterface, RemoteContextListenerClient>());
 
     /**
      * constructs a new RemoteContext.
-     * @param eventContext the underlying context
+     * @param eventContext EventContext; the underlying context
      * @throws RemoteException on network failure
      */
     public RemoteContext(final EventContext eventContext) throws RemoteException

@@ -22,9 +22,9 @@ public abstract class VoidOperation extends Operation
 {
     /**
      * executes the operation.
-     * @param stack the stack to operate on
-     * @param constantPool the constantpool
-     * @param localvariables the localvariables
+     * @param stack OperandStack; the stack to operate on
+     * @param constantPool Constant[]; the constantpool
+     * @param localvariables LocalVariable[]; the localvariables
      */
     public abstract void execute(final OperandStack stack, final Constant[] constantPool,
             final LocalVariable[] localvariables);

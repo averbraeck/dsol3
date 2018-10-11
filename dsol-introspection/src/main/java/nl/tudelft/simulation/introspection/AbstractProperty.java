@@ -66,7 +66,7 @@ public abstract class AbstractProperty implements Property
 
     /**
      * Method used to set a regular (i.e. not-composite) property value.
-     * @param value the new value
+     * @param value Object; the new value
      */
     protected abstract void setRegularValue(final Object value);
 

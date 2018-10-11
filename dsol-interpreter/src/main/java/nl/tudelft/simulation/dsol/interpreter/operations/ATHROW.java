@@ -5,8 +5,7 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ExceptionEntry;
 
 /**
- * The ATHROW operation as defined in
- * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * The ATHROW operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -28,7 +27,7 @@ public class ATHROW extends Operation
 
     /**
      * constructs a new ARETURN.
-     * @param bytePosition where the ARETURN starts
+     * @param bytePosition int; where the ARETURN starts
      */
     public ATHROW(final int bytePosition)
     {
@@ -38,7 +37,7 @@ public class ATHROW extends Operation
 
     /**
      * executes the aThrow operation on a frame.
-     * @param frame the frame
+     * @param frame Frame; the frame
      * @return the frame
      */
     public final Frame execute(final Frame frame)
@@ -83,7 +82,7 @@ public class ATHROW extends Operation
 
     /**
      * As an exception, the Interpreter class needs to be able to set the byte position.
-     * @param bytePosition set bytePosition
+     * @param bytePosition int; set bytePosition
      */
     public final void setBytePosition(final int bytePosition)
     {

@@ -6,8 +6,9 @@ import org.junit.Test;
 
 /**
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
+ * License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -47,7 +48,7 @@ public class SupSubTest
         assertEquals("Sub.sSubABC (e)", sub.sSubABC(), "ABC");
         assertEquals("Sup.sSubABC (e)", sup.sSubABC(), "ABC");
         assertEquals("Sup.sPlusDEF (e)", sup.sPlusDEF("ABC"), "ABCDEFABC");
-
+        
         assertEquals("Sub.sSubABC (i)", Interpreter.invoke(sub, "sSubABC", new Object[]{}, new Class<?>[]{}), "ABC");
         assertEquals("Sup.sSubABC (i)", Interpreter.invoke(sup, "sSubABC", new Object[]{}, new Class<?>[]{}), "ABC");
         assertEquals("Sup.splusDEF (i)",

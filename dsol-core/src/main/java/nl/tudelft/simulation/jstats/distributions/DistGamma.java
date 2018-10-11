@@ -31,9 +31,9 @@ public class DistGamma extends DistContinuous
     /**
      * constructs a new gamma distribution. The gamma distribution represents the time to complete some task, e.g.
      * customer service or machine repair
-     * @param stream the random number stream
-     * @param alpha is the shape parameter alpha &gt; 0
-     * @param beta is the scale parameter beta &gt; 0
+     * @param stream StreamInterface; the random number stream
+     * @param alpha double; is the shape parameter alpha &gt; 0
+     * @param beta double; is the scale parameter beta &gt; 0
      */
     public DistGamma(final StreamInterface stream, final double alpha, final double beta)
     {

@@ -31,9 +31,9 @@ public class BoundingBox extends javax.media.j3d.BoundingBox implements Serializ
 
     /**
      * constructs a new BoundingBox around [0;0;0].
-     * @param deltaX the deltaX
-     * @param deltaY the deltaY
-     * @param deltaZ the deltaZ
+     * @param deltaX double; the deltaX
+     * @param deltaY double; the deltaY
+     * @param deltaZ double; the deltaZ
      */
     public BoundingBox(final double deltaX, final double deltaY, final double deltaZ)
     {
@@ -44,7 +44,7 @@ public class BoundingBox extends javax.media.j3d.BoundingBox implements Serializ
 
     /**
      * constructs a new BoundingBox.
-     * @param arg0 the boundaries
+     * @param arg0 Bounds; the boundaries
      */
     public BoundingBox(final Bounds arg0)
     {
@@ -54,7 +54,7 @@ public class BoundingBox extends javax.media.j3d.BoundingBox implements Serializ
 
     /**
      * constructs a new BoundingBox.
-     * @param arg0 the boundaries
+     * @param arg0 Bounds[]; the boundaries
      */
     public BoundingBox(final Bounds[] arg0)
     {
@@ -64,8 +64,8 @@ public class BoundingBox extends javax.media.j3d.BoundingBox implements Serializ
 
     /**
      * constructs a new BoundingBox.
-     * @param arg0 the boundaries
-     * @param arg1 the point
+     * @param arg0 Point3d; the boundaries
+     * @param arg1 Point3d; the point
      */
     public BoundingBox(final Point3d arg0, final Point3d arg1)
     {

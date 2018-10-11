@@ -35,7 +35,7 @@ public class GETSTATIC extends VoidOperation
 
     /**
      * constructs a new GETSTATIC.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public GETSTATIC(final DataInput dataInput) throws IOException

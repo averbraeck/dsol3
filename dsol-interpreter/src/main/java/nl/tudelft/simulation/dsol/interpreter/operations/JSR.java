@@ -8,8 +8,7 @@ import nl.tudelft.simulation.dsol.interpreter.OperandStack;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 
 /**
- * The JSR operation as defined in
- * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * The JSR operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -34,8 +33,8 @@ public class JSR extends JumpOperation
 
     /**
      * constructs a new JSR.
-     * @param dataInput the dataInput
-     * @param startBytePosition the startBytePosition of this operation
+     * @param dataInput DataInput; the dataInput
+     * @param startBytePosition int; the startBytePosition of this operation
      * @throws IOException on IOfailure
      */
     public JSR(final DataInput dataInput, final int startBytePosition) throws IOException

@@ -27,7 +27,7 @@ public class INVOKEVIRTUAL extends nl.tudelft.simulation.dsol.interpreter.operat
 {
     /**
      * constructs a new INVOKEVIRTUAL.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public INVOKEVIRTUAL(final DataInput dataInput) throws IOException

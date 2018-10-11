@@ -22,8 +22,8 @@ public class BoxAndWhiskerChart extends nl.tudelft.simulation.jstats.charts.boxA
 {
     /**
      * constructs a new BoxAndWhiskerChart.
-     * @param simulator the simulator
-     * @param title the title
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
      */
     public BoxAndWhiskerChart(final SimulatorInterface simulator, final String title)
     {

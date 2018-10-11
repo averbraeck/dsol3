@@ -39,7 +39,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
 
     /**
      * Creates an ObjectTableModel utilizing a {see nl.tudelft.simulation.introspection.beans.BeanIntrospector}.
-     * @param bean The object to be introspected according to the bean property-paradigm.
+     * @param bean Object; The object to be introspected according to the bean property-paradigm.
      */
     public ObjectTableModel(final Object bean)
     {
@@ -48,8 +48,8 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
 
     /**
      * Creates an ObjectTableModel utilizing a custom introspector.
-     * @param object The object to be introspected.
-     * @param introspector The introspector instance utilized.
+     * @param object Object; The object to be introspected.
+     * @param introspector Introspector; The introspector instance utilized.
      */
     public ObjectTableModel(final Object object, final Introspector introspector)
     {
@@ -177,7 +177,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
     }
 
     /**
-     * @param property the property
+     * @param property String; the property
      * @return Returns the index of the property in this tablemodel which name matches 'property'.
      */
     protected int getPropertyIndex(final String property)
@@ -213,7 +213,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
 
     /**
      * Sets the modelmanager. By default, a {see DefaultModelManager}is used.
-     * @param manager the manager
+     * @param manager ModelManager; the manager
      */
     public void setModelManager(final ModelManager manager)
     {

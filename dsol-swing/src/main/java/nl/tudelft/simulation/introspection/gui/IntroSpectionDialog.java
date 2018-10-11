@@ -48,7 +48,7 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * @param introspected The introspected object
+     * @param introspected Object; The introspected object
      */
     public IntroSpectionDialog(final Object introspected)
     {
@@ -57,8 +57,8 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * @param parent The parent window, used for locating the dialog
-     * @param introspected The introspected object
+     * @param parent Window; The parent window, used for locating the dialog
+     * @param introspected Object; The introspected object
      */
     public IntroSpectionDialog(final Window parent, final Object introspected)
     {
@@ -67,8 +67,8 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * @param title The title of the frame
-     * @param introspected The introspected object
+     * @param title String; The title of the frame
+     * @param introspected Object; The introspected object
      */
     public IntroSpectionDialog(final Object introspected, final String title)
     {
@@ -77,8 +77,9 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * @param title The title of the dialog
-     * @param content The object table-model containing the data of the introspected object
+     * @param title String; The title of the dialog
+     * @param content IntrospectingTableModelInterface; The object table-model containing the data of the introspected
+     *            object
      */
     public IntroSpectionDialog(final String title, final IntrospectingTableModelInterface content)
     {
@@ -87,9 +88,10 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * @param parent The parent window, used for locating the dialog
-     * @param title The title of the dialog
-     * @param content The object table-model containing the data of the introspected object
+     * @param parent Window; The parent window, used for locating the dialog
+     * @param title String; The title of the dialog
+     * @param content IntrospectingTableModelInterface; The object table-model containing the data of the introspected
+     *            object
      */
     public IntroSpectionDialog(final Window parent, final String title, final IntrospectingTableModelInterface content)
     {
@@ -98,9 +100,9 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * @param parent The parent window, used for locating the dialog
-     * @param title The title of the dialog
-     * @param introspected The introspected object
+     * @param parent Frame; The parent window, used for locating the dialog
+     * @param title String; The title of the dialog
+     * @param introspected Object; The introspected object
      */
     public IntroSpectionDialog(final Frame parent, final Object introspected, final String title)
     {
@@ -109,8 +111,8 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * @param title The title of the dialog
-     * @param content The table displaying the data of the introspected object
+     * @param title String; The title of the dialog
+     * @param content JTable; The table displaying the data of the introspected object
      */
     public IntroSpectionDialog(final String title, final JTable content)
     {
@@ -119,9 +121,9 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * Constructs a new IntroSpectionDialog.
-     * @param parent The parent window, used for locating the dialog
-     * @param title The title of the dialog
-     * @param content The table displaying the data of the introspected object
+     * @param parent Window; The parent window, used for locating the dialog
+     * @param title String; The title of the dialog
+     * @param content JTable; The table displaying the data of the introspected object
      */
     public IntroSpectionDialog(final Window parent, final String title, final JTable content)
     {
@@ -132,8 +134,8 @@ public class IntroSpectionDialog extends JDialog
 
     /**
      * initializes the dialog.
-     * @param title the title of the dialog
-     * @param newTable the table to display
+     * @param title String; the title of the dialog
+     * @param newTable JTable; the table to display
      */
     private void init(final String title, final JTable newTable)
     {
@@ -200,8 +202,8 @@ public class IntroSpectionDialog extends JDialog
 
         /**
          * Constructs a new ButtonPanel.
-         * @param model the model to control
-         * @param viewer the viewer to control
+         * @param model DynamicTableModel; the model to control
+         * @param viewer JTable; the viewer to control
          */
         public ButtonPanel(final DynamicTableModel model, final JTable viewer)
         {

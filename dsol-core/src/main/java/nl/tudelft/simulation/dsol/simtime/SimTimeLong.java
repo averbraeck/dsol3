@@ -20,7 +20,7 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
     private long time;
 
     /**
-     * @param time the initial time.
+     * @param time long; the initial time.
      */
     public SimTimeLong(final long time)
     {

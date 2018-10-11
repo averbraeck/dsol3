@@ -47,7 +47,7 @@ public class MyColorEditor extends AbstractCellEditor implements TableCellEditor
 
         /**
          * constructs a new OKListener.
-         * @param chooser the color chooser.
+         * @param chooser JColorChooser; the color chooser.
          */
         public OKListener(JColorChooser chooser)
         {

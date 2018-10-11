@@ -34,7 +34,7 @@ public class OutputPort<A extends Comparable<A>, R extends Number & Comparable<R
 
     /**
      * Constructor for the output port where the model is a coupled model.
-     * @param coupledModel the coupled model.
+     * @param coupledModel CoupledModel&lt;A,R,T&gt;; the coupled model.
      */
     public OutputPort(final CoupledModel<A, R, T> coupledModel)
     {
@@ -43,7 +43,7 @@ public class OutputPort<A extends Comparable<A>, R extends Number & Comparable<R
 
     /**
      * Constructor for the output port where the model is an atomic model.
-     * @param atomicModel the atomic model.
+     * @param atomicModel AtomicModel&lt;A,R,T&gt;; the atomic model.
      */
     public OutputPort(final AtomicModel<A, R, T> atomicModel)
     {

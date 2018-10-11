@@ -47,13 +47,13 @@ public final class NamingTestSuite
             suite.addTest(new ContextTest(context));
 
             // TODO: create working tests for the FileContextFactory an RemoteContextFactory
-            
+
             /*-
             properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.FileContextFactory");
             properties.put("java.naming.provider.url", "file:/tmp/context.jpo");
             context = new InitialEventContext(properties);
             suite.addTest(new ContextTest(context)); 
-
+            
             properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.RemoteContextFactory");
             properties.put("java.naming.provider.url", "http://localhost:1099/remoteContext");
             properties.put("wrapped.naming.factory.initial", "nl.tudelft.simulation.naming.JVMContextFactory");

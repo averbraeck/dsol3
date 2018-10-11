@@ -28,8 +28,8 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param model the model
-     * @param simulator the simulator
+     * @param model MM1Queue41Model; the model
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      */
     public MM1Queue41Panel(final MM1Queue41Model model, final DEVSSimulatorInterface.TimeDouble simulator)
     {
@@ -39,7 +39,7 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
 
     /**
      * add a number of charts for the demo.
-     * @param model the model from which to take the statistics
+     * @param model MM1Queue41Model; the model from which to take the statistics
      */
     @SuppressWarnings("static-access")
     protected final void addTabs(final MM1Queue41Model model)

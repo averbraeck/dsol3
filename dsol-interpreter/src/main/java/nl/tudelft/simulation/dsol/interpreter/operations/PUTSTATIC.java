@@ -35,7 +35,7 @@ public class PUTSTATIC extends VoidOperation
 
     /**
      * constructs a new PUTSTATIC.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public PUTSTATIC(final DataInput dataInput) throws IOException

@@ -16,7 +16,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
- * See for project information <a href="https://simulation.tudelft.nl/" target="_blank">  www.simulation.tudelft.nl</a>.
+ * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -74,7 +74,7 @@ public class WebMM1Queue41Application
     }
 
     /**
-     * @param args can be left empty
+     * @param args String[]; can be left empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error

@@ -19,7 +19,7 @@ public interface LayerInterface extends java.io.Serializable
 {
     /**
      * sets the symbols for this layer
-     * @param symbols the symbols
+     * @param symbols List; the symbols
      */
     public void setSymbols(List symbols);
 
@@ -37,7 +37,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Getter for property attribute
-     * @param index the index
+     * @param index int; the index
      * @return AttributeInterface.
      */
     public AttributeInterface getAttribute(int index);
@@ -50,7 +50,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * sets the color of the layer
-     * @param color the rgb-color
+     * @param color Color; the rgb-color
      */
     public void setColor(Color color);
 
@@ -62,7 +62,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * sets the outlineColor of the layer
-     * @param outlineColor the rgb-color
+     * @param outlineColor Color; the rgb-color
      */
     public void setOutlineColor(Color outlineColor);
 
@@ -74,7 +74,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Setter for property name.
-     * @param name New value of property name.
+     * @param name String; New value of property name.
      */
     public void setName(String name);
 
@@ -86,13 +86,13 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Setter for property attributes
-     * @param attributes the attributes to set
+     * @param attributes List; the attributes to set
      */
     public void setAttributes(List attributes);
 
     /**
      * Setter for property dataSource.
-     * @param dataSource New value of property dataSource.
+     * @param dataSource DataSourceInterface; New value of property dataSource.
      */
     public void setDataSource(DataSourceInterface dataSource);
 
@@ -104,7 +104,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Setter for property minscale.
-     * @param minscale New value of property minscale.
+     * @param minscale int; New value of property minscale.
      */
     public void setMinScale(int minscale);
 
@@ -116,7 +116,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Setter for property maxScale.
-     * @param maxScale New value of property maxScale.
+     * @param maxScale int; New value of property maxScale.
      */
     public void setMaxScale(int maxScale);
 
@@ -128,7 +128,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Setter for property status.
-     * @param status New value of property status.
+     * @param status boolean; New value of property status.
      */
     public void setStatus(boolean status);
 
@@ -140,7 +140,7 @@ public interface LayerInterface extends java.io.Serializable
 
     /**
      * Setter for property transform.
-     * @param transform New value of property transform.
+     * @param transform boolean; New value of property transform.
      */
     public void setTransform(boolean transform);
 }

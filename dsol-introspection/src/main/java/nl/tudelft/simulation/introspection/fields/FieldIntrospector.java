@@ -45,7 +45,7 @@ public class FieldIntrospector implements Introspector
 
     /**
      * constructs a new FieldIntrospector.
-     * @param useDeepIntrospection whether to use deep introspection
+     * @param useDeepIntrospection boolean; whether to use deep introspection
      */
     public FieldIntrospector(final boolean useDeepIntrospection)
     {
@@ -74,7 +74,7 @@ public class FieldIntrospector implements Introspector
 
     /**
      * Collect the fields for the given class, taking the preference for deep introspection into account.
-     * @param clasz the class to use
+     * @param clasz Class&lt;?&gt;; the class to use
      * @return Field[] the fields
      */
     private Field[] collectFields(final Class<?> clasz)
@@ -86,9 +86,9 @@ public class FieldIntrospector implements Introspector
 
     /**
      * Add fields of 'clasz' to the fieldList. Optionally iterate over the class hierarchy.
-     * @param fieldList the fieldList
-     * @param clasz the class
-     * @param iterate whether to iterate
+     * @param fieldList List&lt;Field&gt;; the fieldList
+     * @param clasz Class&lt;?&gt;; the class
+     * @param iterate boolean; whether to iterate
      */
     private void addFields(final List<Field> fieldList, final Class<?> clasz, final boolean iterate)
     {

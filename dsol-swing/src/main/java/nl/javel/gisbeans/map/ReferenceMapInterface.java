@@ -25,7 +25,7 @@ public interface ReferenceMapInterface extends Serializable
 
     /**
      * Setter for property image.
-     * @param image New value of property image.
+     * @param image java.net.URL; New value of property image.
      */
     public void setImage(java.net.URL image);
 
@@ -37,7 +37,7 @@ public interface ReferenceMapInterface extends Serializable
 
     /**
      * Setter for property extent.
-     * @param extent New value of property extent.
+     * @param extent double[]; New value of property extent.
      */
     public void setExtent(double[] extent);
 
@@ -49,7 +49,7 @@ public interface ReferenceMapInterface extends Serializable
 
     /**
      * Setter for property color.
-     * @param color New value of property color.
+     * @param color Color; New value of property color.
      */
     public void setOutlineColor(Color color);
 
@@ -61,7 +61,7 @@ public interface ReferenceMapInterface extends Serializable
 
     /**
      * Setter for property size.
-     * @param size New value of property size.
+     * @param size Dimension; New value of property size.
      */
     public void setSize(Dimension size);
 
@@ -73,7 +73,7 @@ public interface ReferenceMapInterface extends Serializable
 
     /**
      * Setter for property status.
-     * @param status New value of property status.
+     * @param status boolean; New value of property status.
      */
     public void setStatus(boolean status);
 }

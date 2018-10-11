@@ -25,8 +25,8 @@ public interface EventProducerInterface
 
     /**
      * adds a listener as strong reference to the BEGINNING of a queue of listeners.
-     * @param listener the listener which is interested at events of eventtype.
-     * @param eventType the events of interest.
+     * @param listener EventListenerInterface; the listener which is interested at events of eventtype.
+     * @param eventType EventType; the events of interest.
      * @return the success of adding the listener. If a listener was already added false is returned.
      * @throws RemoteException If a network connection failure occurs.
      * @see nl.tudelft.simulation.event.ref.WeakReference
@@ -35,9 +35,9 @@ public interface EventProducerInterface
 
     /**
      * adds a listener to the BEGINNING of a queue of listeners.
-     * @param listener the listener which is interested at events of eventtype.
-     * @param eventType the events of interest.
-     * @param weak whether or not the listener is added as weak reference.
+     * @param listener EventListenerInterface; the listener which is interested at events of eventtype.
+     * @param eventType EventType; the events of interest.
+     * @param weak boolean; whether or not the listener is added as weak reference.
      * @return the success of adding the listener. If a listener was already added false is returned.
      * @throws RemoteException If a network connection failure occurs.
      * @see nl.tudelft.simulation.event.ref.WeakReference
@@ -46,9 +46,9 @@ public interface EventProducerInterface
 
     /**
      * adds a listener as strong reference to the specified position of a queue of listeners.
-     * @param listener the listener which is interested at events of eventtype.
-     * @param eventType the events of interest.
-     * @param position the position of the listener in the queue.
+     * @param listener EventListenerInterface; the listener which is interested at events of eventtype.
+     * @param eventType EventType; the events of interest.
+     * @param position short; the position of the listener in the queue.
      * @return the success of adding the listener. If a listener was already added, or an illegal position is provided
      *         false is returned.
      * @throws RemoteException If a network connection failure occurs.
@@ -58,10 +58,10 @@ public interface EventProducerInterface
 
     /**
      * adds a listener to the specified position of a queue of listeners.
-     * @param listener which is interested at certain events,
-     * @param eventType the events of interest.
-     * @param position the position of the listener in the queue
-     * @param weak whether the reference should be weak or strong.
+     * @param listener EventListenerInterface; which is interested at certain events,
+     * @param eventType EventType; the events of interest.
+     * @param position short; the position of the listener in the queue
+     * @param weak boolean; whether the reference should be weak or strong.
      * @return the success of adding the listener. If a listener was already added or an illegal position is provided
      *         false is returned.
      * @throws RemoteException If a network connection failure occurs.
@@ -71,8 +71,8 @@ public interface EventProducerInterface
 
     /**
      * removes the subscription of a listener for a specific event.
-     * @param listener which is no longer interested.
-     * @param eventType the event which is of no interest any more.
+     * @param listener EventListenerInterface; which is no longer interested.
+     * @param eventType EventType; the event which is of no interest any more.
      * @return the success of removing the listener. If a listener was not subscribed false is returned.
      * @throws RemoteException If a network connection failure occurs.
      */

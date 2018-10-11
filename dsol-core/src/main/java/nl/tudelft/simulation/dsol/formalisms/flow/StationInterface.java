@@ -53,13 +53,13 @@ public interface StationInterface<A extends Comparable<A>, R extends Number & Co
 
     /**
      * receives an object is invoked whenever an entity arrives.
-     * @param object is the entity
+     * @param object Object; is the entity
      */
     void receiveObject(Object object);
 
     /**
      * sets the destination of this object.
-     * @param destination defines the next station in the model
+     * @param destination StationInterface&lt;A,R,T&gt;; defines the next station in the model
      */
     void setDestination(StationInterface<A, R, T> destination);
 

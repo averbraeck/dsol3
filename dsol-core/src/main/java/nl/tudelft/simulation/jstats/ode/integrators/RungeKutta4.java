@@ -21,8 +21,8 @@ public class RungeKutta4 extends NumericalIntegrator
 
     /**
      * constructs a new RungeKutta4.
-     * @param timeStep the timeStep
-     * @param equation the differentialEquation
+     * @param timeStep double; the timeStep
+     * @param equation DifferentialEquationInterface; the differentialEquation
      */
     public RungeKutta4(final double timeStep, final DifferentialEquationInterface equation)
     {

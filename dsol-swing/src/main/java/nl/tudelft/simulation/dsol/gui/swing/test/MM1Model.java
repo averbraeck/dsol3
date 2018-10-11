@@ -107,7 +107,7 @@ public class MM1Model implements DSOLModel.TimeDouble
     }
 
     /**
-     * @param entity entity to process
+     * @param entity Entity; entity to process
      * @throws SimRuntimeException on simulation error
      */
     protected void startProcess(Entity entity) throws SimRuntimeException
@@ -121,7 +121,7 @@ public class MM1Model implements DSOLModel.TimeDouble
     }
 
     /**
-     * @param entity entity to stop processing
+     * @param entity Entity; entity to stop processing
      * @throws SimRuntimeException on simulation error
      */
     protected void endProcess(Entity entity) throws SimRuntimeException
@@ -154,8 +154,8 @@ public class MM1Model implements DSOLModel.TimeDouble
         private final int id;
 
         /**
-         * @param id entity id number
-         * @param createTime time of creation for statistics
+         * @param id int; entity id number
+         * @param createTime SimTimeDouble; time of creation for statistics
          */
         public Entity(int id, SimTimeDouble createTime)
         {
@@ -198,8 +198,8 @@ public class MM1Model implements DSOLModel.TimeDouble
         final E object;
 
         /**
-         * @param object the object to insert in the queue
-         * @param queueInTime the time it gets into the queue
+         * @param object E; the object to insert in the queue
+         * @param queueInTime SimTimeDouble; the time it gets into the queue
          */
         public QueueEntry(E object, SimTimeDouble queueInTime)
         {

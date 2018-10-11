@@ -30,8 +30,8 @@ public class CUSTOMINVOKESTATIC extends nl.tudelft.simulation.dsol.interpreter.o
 
     /**
      * constructs a new CUSTOMINVOKESTATIC.
-     * @param interpreterOracle the interpreterOracle to use
-     * @param dataInput the dataInput
+     * @param interpreterOracle InterpreterOracleInterface; the interpreterOracle to use
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public CUSTOMINVOKESTATIC(final InterpreterOracleInterface interpreterOracle, final DataInput dataInput)

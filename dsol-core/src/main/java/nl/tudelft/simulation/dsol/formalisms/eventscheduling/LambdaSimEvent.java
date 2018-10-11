@@ -42,8 +42,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
     /**
      * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-     * @param executionTime the absolute time the event has to be executed.
-     * @param executable the lambda method to invoke
+     * @param executionTime T; the absolute time the event has to be executed.
+     * @param executable Executable; the lambda method to invoke
      */
     public LambdaSimEvent(final T executionTime, final Executable executable)
     {
@@ -52,9 +52,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
     /**
      * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-     * @param executionTime the time the event has to be executed.
-     * @param priority the priority of the event
-     * @param executable the lambda method to invoke
+     * @param executionTime T; the time the event has to be executed.
+     * @param priority short; the priority of the event
+     * @param executable Executable; the lambda method to invoke
      */
     public LambdaSimEvent(final T executionTime, final short priority, final Executable executable)
     {
@@ -102,8 +102,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param executable the lambda method to invoke
+         * @param executionTime Double; the time the event has to be executed.
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeDouble(final Double executionTime, final Executable executable)
         {
@@ -112,9 +112,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param priority the priority of the event
-         * @param executable the lambda method to invoke
+         * @param executionTime Double; the time the event has to be executed.
+         * @param priority short; the priority of the event
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeDouble(final Double executionTime, final short priority, final Executable executable)
         {
@@ -130,8 +130,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param executable the lambda method to invoke
+         * @param executionTime Float; the time the event has to be executed.
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeFloat(final Float executionTime, final Executable executable)
         {
@@ -140,9 +140,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param priority the priority of the event
-         * @param executable the lambda method to invoke
+         * @param executionTime Float; the time the event has to be executed.
+         * @param priority short; the priority of the event
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeFloat(final Float executionTime, final short priority, final Executable executable)
         {
@@ -158,8 +158,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param executable the lambda method to invoke
+         * @param executionTime Long; the time the event has to be executed.
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeLong(final Long executionTime, final Executable executable)
         {
@@ -168,9 +168,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param priority the priority of the event
-         * @param executable the lambda method to invoke
+         * @param executionTime Long; the time the event has to be executed.
+         * @param priority short; the priority of the event
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeLong(final Long executionTime, final short priority, final Executable executable)
         {
@@ -187,8 +187,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param executable the lambda method to invoke
+         * @param executionTime Time; the time the event has to be executed.
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeDoubleUnit(final Time executionTime, final Executable executable)
         {
@@ -197,9 +197,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param priority the priority of the event
-         * @param executable the lambda method to invoke
+         * @param executionTime Time; the time the event has to be executed.
+         * @param priority short; the priority of the event
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeDoubleUnit(final Time executionTime, final short priority, final Executable executable)
         {
@@ -216,8 +216,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param executable the lambda method to invoke
+         * @param executionTime FloatTime; the time the event has to be executed.
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeFloatUnit(final FloatTime executionTime, final Executable executable)
         {
@@ -226,9 +226,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param priority the priority of the event
-         * @param executable the lambda method to invoke
+         * @param executionTime FloatTime; the time the event has to be executed.
+         * @param priority short; the priority of the event
+         * @param executable Executable; the lambda method to invoke
          */
         public TimeFloatUnit(final FloatTime executionTime, final short priority, final Executable executable)
         {
@@ -245,8 +245,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param executable the lambda method to invoke
+         * @param executionTime Calendar; the time the event has to be executed.
+         * @param executable Executable; the lambda method to invoke
          */
         public CalendarDouble(final Calendar executionTime, final Executable executable)
         {
@@ -255,9 +255,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param priority the priority of the event
-         * @param executable the lambda method to invoke
+         * @param executionTime Calendar; the time the event has to be executed.
+         * @param priority short; the priority of the event
+         * @param executable Executable; the lambda method to invoke
          */
         public CalendarDouble(final Calendar executionTime, final short priority, final Executable executable)
         {
@@ -274,8 +274,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param executable the lambda method to invoke
+         * @param executionTime Calendar; the time the event has to be executed.
+         * @param executable Executable; the lambda method to invoke
          */
         public CalendarFloat(final Calendar executionTime, final Executable executable)
         {
@@ -284,9 +284,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param priority the priority of the event
-         * @param executable the lambda method to invoke
+         * @param executionTime Calendar; the time the event has to be executed.
+         * @param priority short; the priority of the event
+         * @param executable Executable; the lambda method to invoke
          */
         public CalendarFloat(final Calendar executionTime, final short priority, final Executable executable)
         {
@@ -303,8 +303,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param executable the lambda method to invoke
+         * @param executionTime Calendar; the time the event has to be executed.
+         * @param executable Executable; the lambda method to invoke
          */
         public CalendarLong(final Calendar executionTime, final Executable executable)
         {
@@ -313,9 +313,9 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
         /**
          * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime the time the event has to be executed.
-         * @param priority the priority of the event
-         * @param executable the lambda method to invoke
+         * @param executionTime Calendar; the time the event has to be executed.
+         * @param priority short; the priority of the event
+         * @param executable Executable; the lambda method to invoke
          */
         public CalendarLong(final Calendar executionTime, final short priority, final Executable executable)
         {

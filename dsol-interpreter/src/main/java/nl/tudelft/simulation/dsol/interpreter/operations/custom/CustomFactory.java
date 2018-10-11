@@ -29,7 +29,7 @@ public class CustomFactory extends InterpreterFactory
 
     /**
      * constructs a new InterpreterFactory.
-     * @param interpreterOracle the oracle to use
+     * @param interpreterOracle InterpreterOracleInterface; the oracle to use
      */
     public CustomFactory(final InterpreterOracleInterface interpreterOracle)
     {

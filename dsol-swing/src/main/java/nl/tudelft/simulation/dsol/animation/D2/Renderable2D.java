@@ -66,8 +66,8 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
 
     /**
      * constructs a new Renderable2D.
-     * @param source the source
-     * @param simulator the simulator
+     * @param source T; the source
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
@@ -89,7 +89,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
      * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding
      * the code in the constructor is related to the RFE submitted by van Houten that in specific distributed context,
      * such binding must be overwritten.
-     * @param simulator the simulator used for binding the object.
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object.
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
@@ -108,7 +108,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     }
 
     /**
-     * @param flip The flip to set.
+     * @param flip boolean; The flip to set.
      */
     @SuppressWarnings("checkstyle:needbraces")
     public final void setFlip(final boolean flip)
@@ -128,7 +128,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     }
 
     /**
-     * @param rotate The rotate to set.
+     * @param rotate boolean; The rotate to set.
      */
     @SuppressWarnings("checkstyle:needbraces")
     public final void setRotate(final boolean rotate)
@@ -148,7 +148,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     }
 
     /**
-     * @param scale The scale to set.
+     * @param scale boolean; The scale to set.
      */
     @SuppressWarnings("checkstyle:needbraces")
     public final void setScale(final boolean scale)
@@ -168,7 +168,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     }
 
     /**
-     * @param translate The translate to set.
+     * @param translate boolean; The translate to set.
      */
     @SuppressWarnings("checkstyle:needbraces")
     public final void setTranslate(final boolean translate)
@@ -285,8 +285,8 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
 
     /**
      * draws an animation on a world coordinates around [x,y=0,0].
-     * @param graphics the graphics object
-     * @param observer the observer
+     * @param graphics Graphics2D; the graphics object
+     * @param observer ImageObserver; the observer
      * @throws RemoteException on network exception
      */
     public abstract void paint(final Graphics2D graphics, final ImageObserver observer) throws RemoteException;

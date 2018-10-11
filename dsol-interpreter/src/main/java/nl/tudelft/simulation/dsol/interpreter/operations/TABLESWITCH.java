@@ -42,8 +42,8 @@ public class TABLESWITCH extends JumpOperation
 
     /**
      * constructs a new TABLESWITCH.
-     * @param dataInput the dataInput
-     * @param padding the number of bytes to pad
+     * @param dataInput DataInput; the dataInput
+     * @param padding int; the number of bytes to pad
      * @throws IOException on IOfailure
      */
     public TABLESWITCH(final DataInput dataInput, final int padding) throws IOException

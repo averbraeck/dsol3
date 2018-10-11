@@ -29,8 +29,8 @@ import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
 public class Warehouse42SwingApplication extends DSOLApplication
 {
     /**
-     * @param title the title
-     * @param panel the panel
+     * @param title String; the title
+     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
      */
     public Warehouse42SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
     {
@@ -41,37 +41,40 @@ public class Warehouse42SwingApplication extends DSOLApplication
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param args arguments, expected to be empty
+     * @param args String[]; arguments, expected to be empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
+     * @throws InterruptedException on error
      */
-    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
+    public static void main(final String[] args)
+            throws SimRuntimeException, RemoteException, NamingException, InterruptedException
     {
         Warehouse42Model model = new Warehouse42Model();
         DEVSSimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble();
         Replication<Double, Double, SimTimeDouble> replication =
                 new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 5 * 24.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
-        new Warehouse42SwingApplication("MM1 Queue model", new Boat42Panel(model, simulator));
+        new Warehouse42SwingApplication("MM1 Queue model", new Warehouse42Panel(model, simulator));
     }
 
     /**
      * <p>
      * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
-     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
+     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
+     * License</a>. <br>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
-         */
-    protected static class Boat42Panel extends DSOLPanel<Double, Double, SimTimeDouble>
+     */
+    protected static class Warehouse42Panel extends DSOLPanel<Double, Double, SimTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 1L;
 
         /**
-         * @param model the model
-         * @param simulator the simulator
+         * @param model Warehouse42Model; the model
+         * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
          */
-        Boat42Panel(final Warehouse42Model model, final DEVSSimulatorInterface.TimeDouble simulator)
+        Warehouse42Panel(final Warehouse42Model model, final DEVSSimulatorInterface.TimeDouble simulator)
         {
             super(model, simulator);
             addTabs(model);
@@ -79,7 +82,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
 
         /**
          * add a number of charts for the demo.
-         * @param model the model from which to take the statistics
+         * @param model Warehouse42Model; the model from which to take the statistics
          */
         protected final void addTabs(final Warehouse42Model model)
         {

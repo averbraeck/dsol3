@@ -28,7 +28,7 @@ public class RemoteContextListener extends UnicastRemoteObject implements Remote
 
     /**
      * constructs a new RemoteContextListener
-     * @param listener the target.
+     * @param listener ContextListenerInterface; the target.
      * @throws RemoteException on network failure.
      */
     public RemoteContextListener(final ContextListenerInterface listener) throws RemoteException

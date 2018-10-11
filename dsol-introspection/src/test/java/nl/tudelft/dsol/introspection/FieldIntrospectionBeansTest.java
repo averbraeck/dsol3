@@ -12,8 +12,8 @@ import nl.tudelft.simulation.introspection.fields.FieldIntrospector;
  *         <a href="http://www.tbm.tudelft.nl">Faculty of Technology, Policy and Management </a> <br>
  *         <a href="http://www.sk.tbm.tudelft.nl">Department of System Engineering </a> <br>
  *         Main researcher : <a href="http://www.tbm.tudelft.nl/webstaf/alexandv/">Dr. Ir. A. Verbraeck</a><br>
- *         Assistant researchers <a href="https://www.linkedin.com/in/peterhmjacobs">Ir. P.H.M. Jacobs </a> and <a
- *         href="http://www.tbm.tudelft.nl/webstaf/nielsl">Ir. N.A. Lang </a>
+ *         Assistant researchers <a href="https://www.linkedin.com/in/peterhmjacobs">Ir. P.H.M. Jacobs </a> and
+ *         <a href="http://www.tbm.tudelft.nl/webstaf/nielsl">Ir. N.A. Lang </a>
  */
 public final class FieldIntrospectionBeansTest
 {

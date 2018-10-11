@@ -80,8 +80,8 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
     protected Map<String, Object> elements = Collections.synchronizedMap(new TreeMap<String, Object>());
 
     /** the eventListeners. */
-    protected List<EventContextListenerRecord> eventListeners = Collections
-            .synchronizedList(new ArrayList<EventContextListenerRecord>());
+    protected List<EventContextListenerRecord> eventListeners =
+            Collections.synchronizedList(new ArrayList<EventContextListenerRecord>());
 
     /** the nameParser. */
     protected NameParser parser = new MyParser(JVMContext.syntax);
@@ -96,8 +96,8 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
     /**
      * constructs a new JVMContext.
-     * @param parent the parent context
-     * @param atomicName the atomicname
+     * @param parent Context; the parent context
+     * @param atomicName String; the atomicname
      */
     public JVMContext(final Context parent, final String atomicName)
     {
@@ -127,7 +127,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
     /**
      * Returns true when this context is not root itself and name starts with '/'
-     * @param name the name
+     * @param name Name; the name
      * @return boolean
      * @throws NamingException on parse failure
      */
@@ -148,7 +148,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
     /**
      * makes the name relative
-     * @param name the name
+     * @param name Name; the name
      * @return Name
      * @throws NamingException on parse failure
      */
@@ -223,8 +223,8 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             this.elements.put(relativeName.get(0), value);
             fireEvent(new Event(NUMBER_CHANGED_EVENT, this, new Integer(this.elements.size())));
             fireEvent(new Event(CHILD_ADDED_EVENT, this, value));
-            fireContextEvent(true, this.getNameInNamespace() + syntax.getProperty("jndi.syntax.separator")
-                    + relativeName, value);
+            fireContextEvent(true,
+                    this.getNameInNamespace() + syntax.getProperty("jndi.syntax.separator") + relativeName, value);
         }
     }
 
@@ -269,8 +269,8 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             this.elements.remove(relativeName.get(0));
             fireEvent(new Event(NUMBER_CHANGED_EVENT, this, new Integer(this.elements.size())));
             fireEvent(new Event(CHILD_REMOVED_EVENT, this, old));
-            fireContextEvent(false, this.getNameInNamespace() + syntax.getProperty("jndi.syntax.separator")
-                    + relativeName, old);
+            fireContextEvent(false,
+                    this.getNameInNamespace() + syntax.getProperty("jndi.syntax.separator") + relativeName, old);
         }
     }
 
@@ -508,9 +508,9 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
     /**
      * fires a contextEvent
-     * @param isAddition addition
-     * @param name the name
-     * @param value the value
+     * @param isAddition boolean; addition
+     * @param name String; the name
+     * @param value Object; the value
      * @throws NamingException on failure
      */
     private void fireContextEvent(final boolean isAddition, final String name, final Object value)
@@ -521,9 +521,9 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
     /**
      * fires a contextEvent
-     * @param isAddition addition
-     * @param name the name
-     * @param value the value
+     * @param isAddition boolean; addition
+     * @param name Name; the name
+     * @param value Object; the value
      */
     private synchronized void fireContextEvent(final boolean isAddition, final Name name, final Object value)
     {
@@ -533,14 +533,13 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             NamingEvent namingEvent = null;
             if (isAddition)
             {
-                namingEvent =
-                        new NamingEvent(this, NamingEvent.OBJECT_ADDED, new Binding(name.toString(), value), null, null);
+                namingEvent = new NamingEvent(this, NamingEvent.OBJECT_ADDED, new Binding(name.toString(), value), null,
+                        null);
             }
             else
             {
-                namingEvent =
-                        new NamingEvent(this, NamingEvent.OBJECT_REMOVED, null, new Binding(name.toString(), value),
-                                null);
+                namingEvent = new NamingEvent(this, NamingEvent.OBJECT_REMOVED, null,
+                        new Binding(name.toString(), value), null);
             }
             if (name.equals(record.getTarget()) || scope == EventContext.SUBTREE_SCOPE)
             {
@@ -589,9 +588,9 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
         /**
          * constructs a new EventContextListenerRecord
-         * @param target the target
-         * @param scope the scope
-         * @param listener the listener
+         * @param target Name; the target
+         * @param scope int; the scope
+         * @param listener NamingListener; the listener
          */
         public EventContextListenerRecord(final Name target, final int scope, final NamingListener listener)
         {
@@ -642,7 +641,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
         /**
          * constructs a new NamingList.
-         * @param classList isClassList
+         * @param classList boolean; isClassList
          */
         @SuppressWarnings("unchecked")
         public NamingList(final boolean classList)
@@ -651,8 +650,8 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             {
                 if (classList)
                 {
-                    this.add((T) new NameClassPair(currentKey, JVMContext.this.elements.get(currentKey).getClass()
-                            .toString()));
+                    this.add((T) new NameClassPair(currentKey,
+                            JVMContext.this.elements.get(currentKey).getClass().toString()));
                 }
                 else
                 {
@@ -724,7 +723,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
 
         /**
          * constructs a new MyParser.
-         * @param syntax the syntax properties
+         * @param syntax Properties; the syntax properties
          */
         public MyParser(final Properties syntax)
         {

@@ -22,8 +22,8 @@ public final class ConstantInteger extends Constant
 
     /**
      * constructs a new ConstantInteger.
-     * @param constantPool the constantPool it is part of
-     * @param inputStream the inputstream to read from
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param inputStream DataInput; the inputstream to read from
      * @throws IOException on failure
      */
     public ConstantInteger(final Constant[] constantPool, final DataInput inputStream) throws IOException
@@ -33,8 +33,8 @@ public final class ConstantInteger extends Constant
 
     /**
      * constructs a new ConstantInteger.
-     * @param constantPool the constantPool it is part of
-     * @param bytes the bytes
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param bytes int; the bytes
      */
     public ConstantInteger(final Constant[] constantPool, final int bytes)
     {

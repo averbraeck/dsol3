@@ -58,7 +58,7 @@ public class FederationManager extends DSOLFederateAmbassador
     /**
      * constructs a new FederationManager().
      * @param federationName the federate to join
-     * @param populateReadinessController the populateReadinessController to use
+     * @param populateReadinessController PopulateReadinessController; the populateReadinessController to use
      */
     public FederationManager(final Hashtable environment, final PopulateReadinessController populateReadinessController)
     {
@@ -170,7 +170,7 @@ public class FederationManager extends DSOLFederateAmbassador
     }
 
     /**
-     * @param populuateReadinessController The populuateReadinessController to set.
+     * @param populuateReadinessController PopulateReadinessController; The populuateReadinessController to set.
      */
     public void setPopuluateReadinessController(final PopulateReadinessController populuateReadinessController)
     {
@@ -179,7 +179,7 @@ public class FederationManager extends DSOLFederateAmbassador
 
     /**
      * executes the manager
-     * @param args the command line arguments
+     * @param args String[]; the command line arguments
      */
     public static void main(String[] args)
     {

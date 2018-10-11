@@ -31,7 +31,7 @@ public class IF_ACMPNE extends JumpOperation
 
     /**
      * constructs a new IF_ACMPNE.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public IF_ACMPNE(final DataInput dataInput) throws IOException

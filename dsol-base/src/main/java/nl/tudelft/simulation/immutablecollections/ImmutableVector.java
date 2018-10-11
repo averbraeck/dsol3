@@ -27,7 +27,7 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param collection the collection to use for the immutable vector.
+     * @param collection Collection&lt;? extends E&gt;; the collection to use for the immutable vector.
      */
     public ImmutableVector(final Collection<? extends E> collection)
     {
@@ -35,7 +35,7 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param vector the vector to use for the immutable vector.
+     * @param vector Vector&lt;E&gt;; the vector to use for the immutable vector.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */
@@ -45,7 +45,8 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param collection the immutable collection to use for the immutable vector.
+     * @param collection ImmutableAbstractCollection&lt;? extends E&gt;; the immutable collection to use for the
+     *            immutable vector.
      */
     public ImmutableVector(final ImmutableAbstractCollection<? extends E> collection)
     {
@@ -53,7 +54,7 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
     }
 
     /**
-     * @param vector the vector to use for the immutable vector.
+     * @param vector ImmutableVector&lt;E&gt;; the vector to use for the immutable vector.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */
@@ -95,7 +96,7 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
     /**
      * Copies the components of this immutable vector into the specified array. The item at index {@code k} in this
      * immutable vector is copied into component {@code k} of {@code anArray}.
-     * @param anArray the array into which the components get copied
+     * @param anArray Object[]; the array into which the components get copied
      * @throws NullPointerException if the given array is null
      * @throws IndexOutOfBoundsException if the specified array is not large enough to hold all the components of this
      *             immutable vector
@@ -135,8 +136,8 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
      * such that
      * <tt>(i&nbsp;&gt;=&nbsp;index&nbsp;&amp;&amp;&nbsp;(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i))))</tt>,
      * or -1 if there is no such index.
-     * @param o element to search for
-     * @param index index to start searching from
+     * @param o Object; element to search for
+     * @param index int; index to start searching from
      * @return the index of the first occurrence of the element in this immutable vector at position {@code index} or
      *         later in the vector; {@code -1} if the element is not found.
      * @throws IndexOutOfBoundsException if the specified index is negative
@@ -153,8 +154,8 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
      * such that
      * <tt>(i&nbsp;&lt;=&nbsp;index&nbsp;&amp;&amp;&nbsp;(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i))))</tt>,
      * or -1 if there is no such index.
-     * @param o element to search for
-     * @param index index to start searching backwards from
+     * @param o Object; element to search for
+     * @param index int; index to start searching backwards from
      * @return the index of the last occurrence of the element at position less than or equal to {@code index} in this
      *         immutable vector; -1 if the element is not found.
      * @throws IndexOutOfBoundsException if the specified index is greater than or equal to the current size of this
@@ -170,7 +171,7 @@ public class ImmutableVector<E> extends ImmutableAbstractList<E>
      * <p>
      * This method is identical in functionality to the {@link #get(int)} method (which is part of the {@link List}
      * interface).
-     * @param index an index into this immutable vector
+     * @param index int; an index into this immutable vector
      * @return the component at the specified index
      * @throws ArrayIndexOutOfBoundsException if the index is out of range ({@code index < 0 || index >= size()})
      */

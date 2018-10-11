@@ -69,7 +69,7 @@ public class CollectionTableModel extends AbstractTableModel
 
     /**
      * constructs a new CollectionTableModel.
-     * @param parentProperty the parentPropert
+     * @param parentProperty Property; the parentPropert
      */
     public CollectionTableModel(final Property parentProperty)
     {
@@ -78,8 +78,8 @@ public class CollectionTableModel extends AbstractTableModel
 
     /**
      * constructs a new CollectionTableModel.
-     * @param parentProperty the parentProperty
-     * @param introspector the introspector to use
+     * @param parentProperty Property; the parentProperty
+     * @param introspector Introspector; the introspector to use
      */
     public CollectionTableModel(final Property parentProperty, final Introspector introspector)
     {
@@ -117,7 +117,7 @@ public class CollectionTableModel extends AbstractTableModel
 
     /**
      * Adds a new value to the managed composite property.
-     * @param value the value to add
+     * @param value Object; the value to add
      */
     private void addValue(final Object value)
     {
@@ -228,7 +228,7 @@ public class CollectionTableModel extends AbstractTableModel
     }
 
     /**
-     * @param index the index of the property
+     * @param index int; the index of the property
      * @return the Property
      */
     protected Property getProperty(final int index)
@@ -250,8 +250,8 @@ public class CollectionTableModel extends AbstractTableModel
         /**
          * This implementation is NOT thread-safe. When multiple users will edit the parent at the same time, errors are
          * expected.
-         * @param key the key
-         * @param name the name
+         * @param key Integer; the key
+         * @param name String; the name
          */
         public CollectionProperty(Integer key, String name)
         {
@@ -403,7 +403,7 @@ public class CollectionTableModel extends AbstractTableModel
 
     /**
      * Sets the modelmanager. By default, a {see DefaultModelManager}is used.
-     * @param manager the manager
+     * @param manager ModelManager; the manager
      */
     public void setModelManager(final ModelManager manager)
     {

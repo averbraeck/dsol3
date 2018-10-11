@@ -42,8 +42,8 @@ public class DirectionalShape implements Serializable
 
     /**
      * add a point to the shape.
-     * @param x X coordinate
-     * @param y Y coordinate
+     * @param x double; X coordinate
+     * @param y double; Y coordinate
      */
     public void addPoint(final double x, final double y)
     {
@@ -78,8 +78,8 @@ public class DirectionalShape implements Serializable
 
     /**
      * determine whether a point (x,y) is inside this shape or not.
-     * @param x X coordinate
-     * @param y Y coordinate
+     * @param x double; X coordinate
+     * @param y double; Y coordinate
      * @return True if (x,y) is inside this shape
      */
     public boolean getInside(final double x, final double y)

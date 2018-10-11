@@ -40,7 +40,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
      * Returns <tt>true</tt> if this immutable collection contains the specified element. More formally, returns
      * <tt>true</tt> if and only if this immutable collection contains at least one element <tt>e</tt> such that
      * <tt>(o==null&nbsp;?&nbsp;e==null&nbsp;:&nbsp;o.equals(e))</tt>.
-     * @param o element whose presence in this immutable collection is to be tested
+     * @param o Object; element whose presence in this immutable collection is to be tested
      * @return <tt>true</tt> if this immutable collection contains the specified element
      * @throws ClassCastException if the type of the specified element is incompatible with this immutable collection
      * @throws NullPointerException if the specified element is null and this immutable collection does not permit null
@@ -86,7 +86,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
 
     /**
      * Returns <tt>true</tt> if this immutable collection contains all of the elements in the specified collection.
-     * @param c collection to be checked for containment in this immutable collection
+     * @param c Collection&lt;?&gt;; collection to be checked for containment in this immutable collection
      * @return <tt>true</tt> if this immutable collection contains all of the elements in the specified collection
      * @throws ClassCastException if the types of one or more elements in the specified collection are incompatible with
      *             this immutable collection
@@ -99,7 +99,8 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
     /**
      * Returns <tt>true</tt> if this immutable collection contains all of the elements in the specified immutable
      * collection.
-     * @param c immutable collection to be checked for containment in this immutable collection
+     * @param c ImmutableCollection&lt;?&gt;; immutable collection to be checked for containment in this immutable
+     *            collection
      * @return <tt>true</tt> if this immutable collection contains all of the elements in the specified immutable
      *         collection
      * @throws ClassCastException if the types of one or more elements in the specified immutable collection are
@@ -154,7 +155,7 @@ public interface ImmutableCollection<E> extends Iterable<E>, Serializable
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj the object to compare this collection with
+     * @param obj Object; the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override

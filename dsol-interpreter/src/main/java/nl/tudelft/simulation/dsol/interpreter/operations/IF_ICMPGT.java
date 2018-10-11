@@ -32,7 +32,7 @@ public class IF_ICMPGT extends JumpOperation
 
     /**
      * constructs a new IF_ICMPGT.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public IF_ICMPGT(final DataInput dataInput) throws IOException

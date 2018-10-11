@@ -62,7 +62,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * constructs a new Replication.
-     * @param experiment the experiment to which this replication belongs
+     * @param experiment Experiment&lt;A,R,T&gt;; the experiment to which this replication belongs
      * @throws NamingException in case a context for the replication cannot be created
      */
     public Replication(final Experiment<A, R, T> experiment) throws NamingException
@@ -74,11 +74,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * constructs a stand-alone Replication and make a treatment and experiment as well.
-     * @param id the id of the replication.
-     * @param startTime the start time as a time object.
-     * @param warmupPeriod the warmup period, included in the runlength (!)
-     * @param runLength the total length of the run, including the warm-up period.
-     * @param model the model for which this is the replication
+     * @param id String; the id of the replication.
+     * @param startTime T; the start time as a time object.
+     * @param warmupPeriod R; the warmup period, included in the runlength (!)
+     * @param runLength R; the total length of the run, including the warm-up period.
+     * @param model DSOLModel&lt;A,R,T&gt;; the model for which this is the replication
      * @throws NamingException in case a context for the replication cannot be created
      */
     public Replication(final String id, final T startTime, final R warmupPeriod, final R runLength,
@@ -95,7 +95,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * set the context for this replication.
-     * @param id the id of the replication.
+     * @param id String; the id of the replication.
      * @throws NamingException in case a context for the experiment or replication cannot be created
      */
     private void setContext(final String id) throws NamingException
@@ -121,7 +121,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * returns a specific stream.
-     * @param name the name of the stream
+     * @param name String; the name of the stream
      * @return StreamInterface the stream
      */
     public final StreamInterface getStream(final String name)
@@ -143,7 +143,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * Sets the description of this replication.
-     * @param description the description of this replication
+     * @param description String; the description of this replication
      */
     public final void setDescription(final String description)
     {
@@ -152,7 +152,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * sets the stream for this replication.
-     * @param streams the map of stream,name tuples
+     * @param streams Map&lt;String,StreamInterface&gt;; the map of stream,name tuples
      */
     public final void setStreams(final Map<String, StreamInterface> streams)
     {
@@ -210,7 +210,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeDouble.
-         * @param experiment the experiment to which this replication belongs
+         * @param experiment Experiment.TimeDouble; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeDouble(final Experiment.TimeDouble experiment) throws NamingException
@@ -220,11 +220,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a stand-alone Replication.TimeDouble and make a treatment and experiment as well.
-         * @param id the id of the replication.
-         * @param startTime the start time as a time object.
-         * @param warmupPeriod the warmup period, included in the runlength (!)
-         * @param runLength the total length of the run, including the warm-up period.
-         * @param model the model for which this is the replication
+         * @param id String; the id of the replication.
+         * @param startTime Double; the start time as a time object.
+         * @param warmupPeriod Double; the warmup period, included in the runlength (!)
+         * @param runLength Double; the total length of the run, including the warm-up period.
+         * @param model DSOLModel.TimeDouble; the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeDouble(final String id, final Double startTime, final Double warmupPeriod, final Double runLength,
@@ -242,7 +242,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeFloat.
-         * @param experiment the experiment to which this replication belongs
+         * @param experiment Experiment.TimeFloat; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeFloat(final Experiment.TimeFloat experiment) throws NamingException
@@ -252,11 +252,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a stand-alone Replication.TimeFloat and make a treatment and experiment as well.
-         * @param id the id of the replication.
-         * @param startTime the start time as a time object.
-         * @param warmupPeriod the warmup period, included in the runlength (!)
-         * @param runLength the total length of the run, including the warm-up period.
-         * @param model the model for which this is the replication
+         * @param id String; the id of the replication.
+         * @param startTime Float; the start time as a time object.
+         * @param warmupPeriod Float; the warmup period, included in the runlength (!)
+         * @param runLength Float; the total length of the run, including the warm-up period.
+         * @param model DSOLModel.TimeFloat; the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeFloat(final String id, final Float startTime, final Float warmupPeriod, final Float runLength,
@@ -274,7 +274,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeLong.
-         * @param experiment the experiment to which this replication belongs
+         * @param experiment Experiment.TimeLong; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeLong(final Experiment.TimeLong experiment) throws NamingException
@@ -284,11 +284,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a stand-alone Replication.TimeLong and make a treatment and experiment as well.
-         * @param id the id of the replication.
-         * @param startTime the start time as a time object.
-         * @param warmupPeriod the warmup period, included in the runlength (!)
-         * @param runLength the total length of the run, including the warm-up period.
-         * @param model the model for which this is the replication
+         * @param id String; the id of the replication.
+         * @param startTime Long; the start time as a time object.
+         * @param warmupPeriod Long; the warmup period, included in the runlength (!)
+         * @param runLength Long; the total length of the run, including the warm-up period.
+         * @param model DSOLModel.TimeLong; the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeLong(final String id, final Long startTime, final Long warmupPeriod, final Long runLength,
@@ -306,7 +306,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeDoubleUnit.
-         * @param experiment the experiment to which this replication belongs
+         * @param experiment Experiment.TimeDoubleUnit; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment) throws NamingException
@@ -316,11 +316,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a stand-alone Replication.TimeDoubleUnit and make a treatment and experiment as well.
-         * @param id the id of the replication.
-         * @param startTime the start time as a time object.
-         * @param warmupPeriod the warmup period, included in the runlength (!)
-         * @param runLength the total length of the run, including the warm-up period.
-         * @param model the model for which this is the replication
+         * @param id String; the id of the replication.
+         * @param startTime Time; the start time as a time object.
+         * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
+         * @param runLength Duration; the total length of the run, including the warm-up period.
+         * @param model DSOLModel.TimeDoubleUnit; the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod,
@@ -338,7 +338,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeFloatUnit.
-         * @param experiment the experiment to which this replication belongs
+         * @param experiment Experiment.TimeFloatUnit; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeFloatUnit(final Experiment.TimeFloatUnit experiment) throws NamingException
@@ -348,11 +348,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a stand-alone Replication.TimeFloatUnit and make a treatment and experiment as well.
-         * @param id the id of the replication.
-         * @param startTime the start time as a time object.
-         * @param warmupPeriod the warmup period, included in the runlength (!)
-         * @param runLength the total length of the run, including the warm-up period.
-         * @param model the model for which this is the replication
+         * @param id String; the id of the replication.
+         * @param startTime FloatTime; the start time as a time object.
+         * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
+         * @param runLength FloatDuration; the total length of the run, including the warm-up period.
+         * @param model DSOLModel.TimeFloatUnit; the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
         public TimeFloatUnit(final String id, final FloatTime startTime, final FloatDuration warmupPeriod,
@@ -370,7 +370,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarDouble.
-         * @param experiment the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarDouble; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
         public CalendarDouble(final Experiment.CalendarDouble experiment) throws NamingException
@@ -380,11 +380,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a stand-alone Replication.CalendarDouble and make a treatment and experiment as well.
-         * @param id the id of the replication.
-         * @param startTime the start time as a time object.
-         * @param warmupPeriod the warmup period, included in the runlength (!)
-         * @param runLength the total length of the run, including the warm-up period.
-         * @param model the model for which this is the replication
+         * @param id String; the id of the replication.
+         * @param startTime Calendar; the start time as a time object.
+         * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
+         * @param runLength Duration; the total length of the run, including the warm-up period.
+         * @param model DSOLModel.CalendarDouble; the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
         public CalendarDouble(final String id, final Calendar startTime, final Duration warmupPeriod,
@@ -402,7 +402,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarFloat.
-         * @param experiment the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarFloat; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
         public CalendarFloat(final Experiment.CalendarFloat experiment) throws NamingException
@@ -412,11 +412,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a stand-alone Replication.CalendarFloat and make a treatment and experiment as well.
-         * @param id the id of the replication.
-         * @param startTime the start time as a time object.
-         * @param warmupPeriod the warmup period, included in the runlength (!)
-         * @param runLength the total length of the run, including the warm-up period.
-         * @param model the model for which this is the replication
+         * @param id String; the id of the replication.
+         * @param startTime Calendar; the start time as a time object.
+         * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
+         * @param runLength FloatDuration; the total length of the run, including the warm-up period.
+         * @param model DSOLModel.CalendarFloat; the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
         public CalendarFloat(final String id, final Calendar startTime, final FloatDuration warmupPeriod,
@@ -434,7 +434,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarLong.
-         * @param experiment the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarLong; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
         public CalendarLong(final Experiment.CalendarLong experiment) throws NamingException
@@ -444,11 +444,11 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a stand-alone Replication.CalendarLong and make a treatment and experiment as well.
-         * @param id the id of the replication.
-         * @param startTime the start time as a time object.
-         * @param warmupPeriod the warmup period, included in the runlength (!)
-         * @param runLength the total length of the run, including the warm-up period.
-         * @param model the model for which this is the replication
+         * @param id String; the id of the replication.
+         * @param startTime Calendar; the start time as a time object.
+         * @param warmupPeriod Long; the warmup period, included in the runlength (!)
+         * @param runLength Long; the total length of the run, including the warm-up period.
+         * @param model DSOLModel.CalendarLong; the model for which this is the replication
          * @throws NamingException in case a context for the replication cannot be created
          */
         public CalendarLong(final String id, final Calendar startTime, final Long warmupPeriod, final Long runLength,

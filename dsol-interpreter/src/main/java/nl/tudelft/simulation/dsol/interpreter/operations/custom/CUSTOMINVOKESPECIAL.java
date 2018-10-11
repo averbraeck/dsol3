@@ -30,8 +30,8 @@ public class CUSTOMINVOKESPECIAL extends nl.tudelft.simulation.dsol.interpreter.
 
     /**
      * constructs a new CUSTOMINVOKESPECIAL.
-     * @param interpreterOracle the oracle to use
-     * @param dataInput the dataInput
+     * @param interpreterOracle InterpreterOracleInterface; the oracle to use
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public CUSTOMINVOKESPECIAL(final InterpreterOracleInterface interpreterOracle, final DataInput dataInput)

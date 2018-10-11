@@ -32,10 +32,10 @@ public class MM1Queue41SwingApplication extends DSOLApplication
     private MM1Queue41Model model;
 
     /**
-     * @param title the title
-     * @param panel the panel
-     * @param model the model
-     * @param devsSimulator the simulator
+     * @param title String; the title
+     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
+     * @param model MM1Queue41Model; the model
+     * @param devsSimulator DEVSSimulator.TimeDouble; the simulator
      */
     public MM1Queue41SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel,
             final MM1Queue41Model model, final DEVSSimulator.TimeDouble devsSimulator)
@@ -57,7 +57,7 @@ public class MM1Queue41SwingApplication extends DSOLApplication
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param args arguments, expected to be empty
+     * @param args String[]; arguments, expected to be empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error

@@ -14,9 +14,9 @@ import org.junit.Test;
  * TestImmutable.java. <br>
  * <br>
  * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of Delft
+ * University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
  */
 public class TestImmutableVector
@@ -35,13 +35,14 @@ public class TestImmutableVector
         vector = new Vector<Integer>(intVector);
         ImmutableVector<Integer> ial = new ImmutableVector<Integer>(vector);
         testIntVector(vector, new ImmutableVector<Integer>(ial), Immutable.COPY);
-        
+
         vector = new Vector<Integer>(intVector);
         Set<Integer> intSet = new HashSet<>(Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
         testIntVector(vector, new ImmutableVector<Integer>(intSet), Immutable.COPY);
     }
 
-    private void testIntVector(final Vector<Integer> vector, final ImmutableVector<Integer> imVector, final Immutable copyOrWrap)
+    private void testIntVector(final Vector<Integer> vector, final ImmutableVector<Integer> imVector,
+            final Immutable copyOrWrap)
     {
         Assert.assertTrue(vector.size() == 10);
         Assert.assertTrue(imVector.size() == 10);
@@ -62,14 +63,14 @@ public class TestImmutableVector
             Assert.assertTrue(imVector.toList().equals(vector));
             Assert.assertFalse(imVector.toList() == vector); // this WRAP method returns a NEW list
         }
-        
+
         Vector<Integer> to = imVector.toVector();
         Assert.assertTrue(vector.equals(to));
-        
+
         Integer[] arr = (Integer[]) imVector.toArray(new Integer[]{});
         Integer[] sar = (Integer[]) vector.toArray(new Integer[]{});
         Assert.assertArrayEquals(arr, sar);
-        
+
         // modify the underlying data structure
         vector.add(11);
         if (copyOrWrap == Immutable.COPY)

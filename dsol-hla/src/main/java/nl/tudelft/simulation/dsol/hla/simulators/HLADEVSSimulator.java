@@ -55,8 +55,8 @@ public class HLADEVSSimulator extends DEVSSimulator implements DEVSSimulatorInte
 
     /**
      * constructs a new HLADEVSSimulator.
-     * @param rtiAmbassador the RTIAmbassador to use
-     * @param dsolFederateAmbassador the dsolFederateAmbassador to use
+     * @param rtiAmbassador RTIAmbassador; the RTIAmbassador to use
+     * @param dsolFederateAmbassador DSOLFederateAmbassador; the dsolFederateAmbassador to use
      */
     public HLADEVSSimulator(final RTIAmbassador rtiAmbassador, final DSOLFederateAmbassador dsolFederateAmbassador)
     {
@@ -65,8 +65,8 @@ public class HLADEVSSimulator extends DEVSSimulator implements DEVSSimulatorInte
 
     /**
      * constructs a new HLADEVSSimulator.
-     * @param rtiAmbassador the RTIAmbassador to use
-     * @param dsolFederateAmbassador the dsolFederateAmbassador to use
+     * @param rtiAmbassador RTIAmbassador; the RTIAmbassador to use
+     * @param dsolFederateAmbassador DSOLFederateAmbassador; the dsolFederateAmbassador to use
      */
     public HLADEVSSimulator(final RTIAmbassador rtiAmbassador, final DSOLFederateAmbassador dsolFederateAmbassador,
             final short timeAdvanceMode)
@@ -132,7 +132,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements DEVSSimulatorInte
 
     /**
      * requests a grant to continue until time
-     * @param time the time to advance to
+     * @param time double; the time to advance to
      */
     protected void timeAdvanceRequest(double time)
     {
@@ -193,7 +193,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements DEVSSimulatorInte
 
     /**
      * sets the look ahead time of the simulator
-     * @param lookAheadTime the look ahead time of the simulator
+     * @param lookAheadTime double; the look ahead time of the simulator
      */
     public void setLookAheadTime(final double lookAheadTime)
     {
@@ -247,7 +247,7 @@ public class HLADEVSSimulator extends DEVSSimulator implements DEVSSimulatorInte
      * time stamps less than or equal to this value. If the grant is in response to an invocation of Time Advance
      * Request Available, Next Event Request Available, or Flush Queue Request, the RTI shall guarantee that no
      * additional TSO messages shall be delivered in the future with time stamps less than the value of the grant.
-     * @param arg0 the time until granted
+     * @param arg0 double; the time until granted
      */
     protected synchronized void timeAdvanceGrant(final double arg0)
     {

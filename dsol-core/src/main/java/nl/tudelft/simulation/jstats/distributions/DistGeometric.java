@@ -29,8 +29,8 @@ public class DistGeometric extends DistDiscrete
 
     /**
      * constructs a new geometric distribution.
-     * @param stream the random number stream
-     * @param p is the p-value
+     * @param stream StreamInterface; the random number stream
+     * @param p double; is the p-value
      */
     public DistGeometric(final StreamInterface stream, final double p)
     {

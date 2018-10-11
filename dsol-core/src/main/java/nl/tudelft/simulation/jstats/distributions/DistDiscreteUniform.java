@@ -30,9 +30,9 @@ public class DistDiscreteUniform extends DistDiscrete
     /**
      * constructs a new uniform distribution. Random occurence with several possible outcomes, each of which is equally
      * likely.
-     * @param stream the random number stream
-     * @param min the minimal value
-     * @param max the maximum value
+     * @param stream StreamInterface; the random number stream
+     * @param min long; the minimal value
+     * @param max long; the maximum value
      */
     public DistDiscreteUniform(final StreamInterface stream, final long min, final long max)
     {

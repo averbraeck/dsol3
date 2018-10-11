@@ -52,9 +52,9 @@ public abstract class NumericalIntegrator implements Serializable
     public static final short DEFAULT_INTEGRATOR = NumericalIntegrator.RUNGEKUTTA4;
 
     /**
-     * @param integrationMethod the type of integrator to create
-     * @param timeStep the starting timestep to use
-     * @param equation the differential equation
+     * @param integrationMethod short; the type of integrator to create
+     * @param timeStep double; the starting timestep to use
+     * @param equation DifferentialEquationInterface; the differential equation
      * @return the integrator
      */
     public static NumericalIntegrator resolve(final short integrationMethod, final double timeStep,
@@ -99,8 +99,8 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * constructs a new NumericalIntegrator.
-     * @param timeStep the timeStep
-     * @param equation the differentialEquation
+     * @param timeStep double; the timeStep
+     * @param equation DifferentialEquationInterface; the differentialEquation
      */
     public NumericalIntegrator(final double timeStep, final DifferentialEquationInterface equation)
     {
@@ -110,16 +110,16 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * computes the next value.
-     * @param x the x value corresponding to the last y-value computed
-     * @param y the last y value
+     * @param x double; the x value corresponding to the last y-value computed
+     * @param y double[]; the last y value
      * @return the new value
      */
     public abstract double[] next(double x, double[] y);
 
     /**
      * multiplies a vector with a constant.
-     * @param constant the constant
-     * @param vector the vector
+     * @param constant double; the constant
+     * @param vector double[]; the vector
      * @return the new vector
      */
     protected double[] multiply(final double constant, final double[] vector)
@@ -134,8 +134,8 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds two vectors.
-     * @param a vector a
-     * @param b vector b
+     * @param a double[]; vector a
+     * @param b double[]; vector b
      * @return the new vector
      */
     protected double[] add(final double[] a, final double[] b)
@@ -150,9 +150,9 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds a number of vectors.
-     * @param a vector a
-     * @param b vector b
-     * @param c vector c
+     * @param a double[]; vector a
+     * @param b double[]; vector b
+     * @param c double[]; vector c
      * @return the new vector
      */
     protected double[] add(final double[] a, final double[] b, final double[] c)
@@ -167,10 +167,10 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds a number of vectors.
-     * @param a vector a
-     * @param b vector b
-     * @param c vector c
-     * @param d vector d
+     * @param a double[]; vector a
+     * @param b double[]; vector b
+     * @param c double[]; vector c
+     * @param d double[]; vector d
      * @return the sum
      */
     protected double[] add(final double[] a, final double[] b, final double[] c, final double[] d)
@@ -185,11 +185,11 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds a number of vectors.
-     * @param a vector a
-     * @param b vector b
-     * @param c vector c
-     * @param d vector d
-     * @param e vector e
+     * @param a double[]; vector a
+     * @param b double[]; vector b
+     * @param c double[]; vector c
+     * @param d double[]; vector d
+     * @param e double[]; vector e
      * @return the sum
      */
     protected double[] add(final double[] a, final double[] b, final double[] c, final double[] d, final double[] e)
@@ -204,12 +204,12 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * adds a number of vectors.
-     * @param a vector a
-     * @param b vector b
-     * @param c vector c
-     * @param d vector d
-     * @param e vector e
-     * @param f vector f
+     * @param a double[]; vector a
+     * @param b double[]; vector b
+     * @param c double[]; vector c
+     * @param d double[]; vector d
+     * @param e double[]; vector e
+     * @param f double[]; vector f
      * @return the sum
      */
     protected double[] add(final double[] a, final double[] b, final double[] c, final double[] d, final double[] e,
@@ -232,7 +232,7 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /**
-     * @param timeStep The timeStep to set.
+     * @param timeStep double; The timeStep to set.
      */
     public void setTimeStep(final double timeStep)
     {
