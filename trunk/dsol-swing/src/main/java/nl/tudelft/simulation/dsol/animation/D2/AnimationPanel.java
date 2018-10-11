@@ -88,9 +88,9 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /**
      * constructs a new AnimationPanel.
-     * @param extent the extent of the panel
-     * @param size the size of the panel.
-     * @param simulator the simulator of which we want to know the events for animation
+     * @param extent Rectangle2D; the extent of the panel
+     * @param size Dimension; the size of the panel.
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator of which we want to know the events for animation
      * @throws RemoteException on network error for one of the listeners
      */
     public AnimationPanel(final Rectangle2D extent, final Dimension size, final SimulatorInterface<?, ?, ?> simulator)
@@ -148,7 +148,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /**
      * Test whether the element needs to be shown on the screen or not.
-     * @param element the renderable element to test
+     * @param element Renderable2DInterface&lt;? extends Locatable&gt;; the renderable element to test
      * @return whether the element needs to be shown or not
      */
     public boolean isShowElement(final Renderable2DInterface<? extends Locatable> element)
@@ -159,7 +159,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * Test whether a certain class needs to be shown on the screen or not. The class needs to implement Locatable,
      * otherwise it cannot be shown at all.
-     * @param locatableClass the class to test
+     * @param locatableClass Class&lt;? extends Locatable&gt;; the class to test
      * @return whether the class needs to be shown or not
      */
     public boolean isShowClass(final Class<? extends Locatable> locatableClass)
@@ -336,7 +336,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /**
      * Set a class to be shown in the animation to true.
-     * @param locatableClass the class for which the animation has to be shown.
+     * @param locatableClass Class&lt;? extends Locatable&gt;; the class for which the animation has to be shown.
      */
     public void showClass(final Class<? extends Locatable> locatableClass)
     {
@@ -348,7 +348,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /**
      * Set a class to be hidden in the animation to true.
-     * @param locatableClass the class for which the animation has to be hidden.
+     * @param locatableClass Class&lt;? extends Locatable&gt;; the class for which the animation has to be hidden.
      */
     public void hideClass(final Class<? extends Locatable> locatableClass)
     {
@@ -360,7 +360,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /**
      * Toggle a class to be displayed in the animation to its reverse value.
-     * @param locatableClass the class for which a visible animation has to be turned off or vice versa.
+     * @param locatableClass Class&lt;? extends Locatable&gt;; the class for which a visible animation has to be turned
+     *            off or vice versa.
      */
     public void toggleClass(final Class<? extends Locatable> locatableClass)
     {
@@ -399,7 +400,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     }
 
     /**
-     * @param dragLineEnabled the dragLineEnabled to set.
+     * @param dragLineEnabled boolean; the dragLineEnabled to set.
      */
     public final void setDragLineEnabled(final boolean dragLineEnabled)
     {

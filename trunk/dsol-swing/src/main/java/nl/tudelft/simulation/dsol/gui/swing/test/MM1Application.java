@@ -57,7 +57,7 @@ public class MM1Application
     }
 
     /**
-     * @param args the arguments (not used, should be empty)
+     * @param args String[]; the arguments (not used, should be empty)
      * @throws SimRuntimeException on simulation error
      * @throws RemoteException on remote error
      * @throws NamingException on naming/animation error

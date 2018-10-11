@@ -50,8 +50,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
     /**
      * Constructor for Release.
-     * @param simulator on which is scheduled
-     * @param resource which is released
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
+     * @param resource Resource&lt;A,R,T&gt;; which is released
      */
     public Release(final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource)
     {
@@ -60,9 +60,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
     /**
      * Constructor for Release.
-     * @param simulator on which is scheduled
-     * @param resource which is released
-     * @param amount of resource which is released
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
+     * @param resource Resource&lt;A,R,T&gt;; which is released
+     * @param amount double; of resource which is released
      */
     public Release(final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource,
             final double amount)
@@ -100,8 +100,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeDouble; on which is scheduled
+         * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; which is released
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
                 final Resource<Double, Double, SimTimeDouble> resource)
@@ -111,9 +111,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeDouble; on which is scheduled
+         * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; which is released
+         * @param amount double; of resource which is released
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
                 final Resource<Double, Double, SimTimeDouble> resource, final double amount)
@@ -130,8 +130,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeFloat; on which is scheduled
+         * @param resource Resource&lt;Float,Float,SimTimeFloat&gt;; which is released
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
                 final Resource<Float, Float, SimTimeFloat> resource)
@@ -141,9 +141,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeFloat; on which is scheduled
+         * @param resource Resource&lt;Float,Float,SimTimeFloat&gt;; which is released
+         * @param amount double; of resource which is released
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
                 final Resource<Float, Float, SimTimeFloat> resource, final double amount)
@@ -160,8 +160,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeLong; on which is scheduled
+         * @param resource Resource&lt;Long,Long,SimTimeLong&gt;; which is released
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
                 final Resource<Long, Long, SimTimeLong> resource)
@@ -171,9 +171,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeLong; on which is scheduled
+         * @param resource Resource&lt;Long,Long,SimTimeLong&gt;; which is released
+         * @param amount double; of resource which is released
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
                 final Resource<Long, Long, SimTimeLong> resource, final double amount)
@@ -191,8 +191,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which is scheduled
+         * @param resource Resource&lt;Time,Duration,SimTimeDoubleUnit&gt;; which is released
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final Resource<Time, Duration, SimTimeDoubleUnit> resource)
@@ -202,9 +202,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which is scheduled
+         * @param resource Resource&lt;Time,Duration,SimTimeDoubleUnit&gt;; which is released
+         * @param amount double; of resource which is released
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final Resource<Time, Duration, SimTimeDoubleUnit> resource, final double amount)
@@ -222,8 +222,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which is scheduled
+         * @param resource Resource&lt;FloatTime,FloatDuration,SimTimeFloatUnit&gt;; which is released
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource)
@@ -233,9 +233,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which is scheduled
+         * @param resource Resource&lt;FloatTime,FloatDuration,SimTimeFloatUnit&gt;; which is released
+         * @param amount double; of resource which is released
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource, final double amount)
@@ -253,8 +253,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
+         * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is released
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
                 final Resource<Calendar, Duration, SimTimeCalendarDouble> resource)
@@ -264,9 +264,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
+         * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is released
+         * @param amount double; of resource which is released
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
                 final Resource<Calendar, Duration, SimTimeCalendarDouble> resource, final double amount)
@@ -284,8 +284,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
+         * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is released
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
                 final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource)
@@ -295,9 +295,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
+         * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is released
+         * @param amount double; of resource which is released
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
                 final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource, final double amount)
@@ -315,8 +315,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
+         * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
+         * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is released
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
                 final Resource<Calendar, Long, SimTimeCalendarLong> resource)
@@ -326,9 +326,9 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
 
         /**
          * Constructor for Release.
-         * @param simulator on which is scheduled
-         * @param resource which is released
-         * @param amount of resource which is released
+         * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
+         * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is released
+         * @param amount double; of resource which is released
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
                 final Resource<Calendar, Long, SimTimeCalendarLong> resource, final double amount)

@@ -172,7 +172,9 @@ public class EventProducerTest extends TestCase
             this.name = name;
         }
 
-        /** {@inheritDoc} */ @Override public  void notify(final EventInterface event) throws RemoteException
+        /** {@inheritDoc} */
+        @Override
+        public void notify(final EventInterface event) throws RemoteException
         {
             assertTrue(event.getType().equals(EventProducerParent.EVENT_E));
             EventProducerInterface producer = (EventProducerInterface) event.getSource();
@@ -209,7 +211,9 @@ public class EventProducerTest extends TestCase
             this.name = name;
         }
 
-        /** {@inheritDoc} */ @Override public  void notify(final EventInterface event)
+        /** {@inheritDoc} */
+        @Override
+        public void notify(final EventInterface event)
         {
             assertTrue(event != null);
         }

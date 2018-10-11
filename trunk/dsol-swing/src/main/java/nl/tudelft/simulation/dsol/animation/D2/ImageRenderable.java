@@ -78,9 +78,9 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
 
     /**
      * constructs a new ImageRenderable.
-     * @param source the source to be animated.
-     * @param simulator the simulator to be used.
-     * @param images the image urls.
+     * @param source T; the source to be animated.
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used.
+     * @param images URL[]; the image urls.
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
@@ -94,7 +94,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
 
     /**
      * reads and caches the images.
-     * @param _images the images
+     * @param _images URL[]; the images
      */
     private void readImages(final URL[] _images)
     {
@@ -116,10 +116,10 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
 
     /**
      * constructs a new ImageRenderable.
-     * @param staticLocation the static location of the set of imageIcons
-     * @param size the size of the imageIcons in world coordinates.
-     * @param simulator the simulator to be used
-     * @param images the imageIcons to display.
+     * @param staticLocation DirectedPoint; the static location of the set of imageIcons
+     * @param size Dimension; the size of the imageIcons in world coordinates.
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
+     * @param images URL[]; the imageIcons to display.
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
@@ -133,10 +133,10 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
 
     /**
      * constructs a new ImageRenderable.
-     * @param staticLocation the static location of the set of imageIcons
-     * @param size the size of the imageIcons in world coordinates.
-     * @param simulator the simulator to be used
-     * @param images the imageIcons to display.
+     * @param staticLocation Point2D; the static location of the set of imageIcons
+     * @param size Dimension; the size of the imageIcons in world coordinates.
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
+     * @param images URL[]; the imageIcons to display.
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
@@ -178,7 +178,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     public abstract int selectImage();
 
     /**
-     * @param orientation The orientation to set.
+     * @param orientation short; The orientation to set.
      */
     public void setOrientation(final short orientation)
     {
@@ -195,9 +195,9 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
 
     /**
      * resolves the origin of the image
-     * @param _orientation the orientation (CC,..)
+     * @param _orientation short; the orientation (CC,..)
      * @return Point2D the location
-     * @param size the size of the image.
+     * @param size Dimension; the size of the image.
      */
     protected Point2D resolveOrigin(final short _orientation, final Dimension size)
     {
@@ -252,7 +252,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
 
     /**
      * writes a serializable object to stream.
-     * @param out the outputstream
+     * @param out ObjectOutputStream; the outputstream
      * @throws IOException on IOException
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException
@@ -262,7 +262,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
 
     /**
      * reads a serializable object from stream.
-     * @param in the inputstream
+     * @param in java.io.ObjectInputStream; the inputstream
      * @throws IOException on IOException
      */
     private synchronized void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException

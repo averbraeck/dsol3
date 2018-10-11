@@ -42,7 +42,7 @@ public interface OutputPortInterface<A extends Comparable<A>, R extends Number &
 
     /**
      * Send a message through the output port.
-     * @param value the value to transfer.
+     * @param value TYPE; the value to transfer.
      * @throws SimRuntimeException a simulation runtime exception
      * @throws RemoteException a remote exception
      */

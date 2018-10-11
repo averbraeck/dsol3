@@ -24,7 +24,7 @@ public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param map the map to use for the immutable map.
+     * @param map Map&lt;K,V&gt;; the map to use for the immutable map.
      */
     public ImmutableLinkedHashMap(final Map<K, V> map)
     {
@@ -32,7 +32,7 @@ public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
     }
 
     /**
-     * @param map the map to use for the immutable map.
+     * @param map Map&lt;K,V&gt;; the map to use for the immutable map.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */
@@ -42,7 +42,7 @@ public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
     }
 
     /**
-     * @param immutableMap the map to use for the immutable map.
+     * @param immutableMap ImmutableAbstractMap&lt;K,V&gt;; the map to use for the immutable map.
      */
     public ImmutableLinkedHashMap(final ImmutableAbstractMap<K, V> immutableMap)
     {
@@ -50,7 +50,7 @@ public class ImmutableLinkedHashMap<K, V> extends ImmutableAbstractMap<K, V>
     }
 
     /**
-     * @param immutableMap the map to use for the immutable map.
+     * @param immutableMap ImmutableAbstractMap&lt;K,V&gt;; the map to use for the immutable map.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */

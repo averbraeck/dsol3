@@ -69,7 +69,7 @@ public class ExperimentParser
 
     /**
      * parses an experimentalFrame xml-file.
-     * @param input the url of the xmlfile
+     * @param input URL; the url of the xmlfile
      * @return ExperimentalFrame the experimentalFrame
      * @throws IOException whenever parsing fails
      */
@@ -80,7 +80,7 @@ public class ExperimentParser
 
     /**
      * parses an experimentalFrame xml-file.
-     * @param input the url of the xmlfile
+     * @param input URL; the url of the xmlfile
      * @return ExperimentalFrame the experimentalFrame
      * @throws IOException whenever parsing fails
      */
@@ -121,8 +121,8 @@ public class ExperimentParser
 
     /**
      * parses an experiment xml-file.
-     * @param url the url of the experimentfile
-     * @param rootElement the element representing the experiment
+     * @param url URL; the url of the experimentfile
+     * @param rootElement Element; the element representing the experiment
      * @return ExperimentalFrame the experiment
      * @throws IOException whenever parsing fails
      */
@@ -133,8 +133,8 @@ public class ExperimentParser
 
     /**
      * parses an experiment xml-file.
-     * @param url the url of the experimentfile
-     * @param rootElement the element representing the experiment
+     * @param url URL; the url of the experimentfile
+     * @param rootElement Element; the element representing the experiment
      * @return ExperimentalFrame the experiment
      * @throws IOException whenever parsing fails
      */
@@ -257,7 +257,7 @@ public class ExperimentParser
     // *********************** PRIVATE PARSING FUNCTIONS *******************//
     /**
      * parses an experiment xml-file.
-     * @param input the inputstream
+     * @param input URL; the inputstream
      * @return Classloader the classLoader
      */
     private static ClassLoader resolveClassLoader(final URL input)
@@ -316,7 +316,7 @@ public class ExperimentParser
 
     /**
      * parses the dateTime
-     * @param value the string value in the yyyy-mm-ddThh:mm:ss format
+     * @param value String; the string value in the yyyy-mm-ddThh:mm:ss format
      * @return long the amount of milliseconds since 1970.
      */
     private static long parseDateTime(final String value)
@@ -334,8 +334,8 @@ public class ExperimentParser
 
     /**
      * parses a period
-     * @param element the xml-element representing the period
-     * @param treatmentDurationUnit the timeUnit of the treatment
+     * @param element Element; the xml-element representing the period
+     * @param treatmentDurationUnit DurationUnit; the timeUnit of the treatment
      * @return double the value in units defined by the treatment
      * @throws Exception whenever the period.
      */
@@ -360,8 +360,8 @@ public class ExperimentParser
 
     /**
      * parses a replication.
-     * @param element the JDOM element
-     * @param parent the experiment
+     * @param element Element; the JDOM element
+     * @param parent Experiment.TimeDouble; the experiment
      * @return the replication
      * @throws Exception on failure
      */
@@ -388,7 +388,7 @@ public class ExperimentParser
 
     /**
      * parses properties to treatments.
-     * @param element the element
+     * @param element Element; the element
      * @return Properties
      */
     private static Properties parseProperties(final Element element)
@@ -408,7 +408,7 @@ public class ExperimentParser
 
     /**
      * parses a timeUnit
-     * @param name the name
+     * @param name String; the name
      * @return DurationUnitInterface result
      * @throws Exception on failure
      */
@@ -447,8 +447,8 @@ public class ExperimentParser
 
     /**
      * parses the treatment.
-     * @param element the xml-element
-     * @param parent parent
+     * @param element Element; the xml-element
+     * @param parent Experiment.TimeDouble; parent
      * @return Treatment
      * @throws Exception on failure
      */

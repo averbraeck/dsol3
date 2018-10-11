@@ -30,7 +30,7 @@ public class ZoomOutAction extends AbstractAction
 
     /**
      * constructs a new ZoomIn.
-     * @param target the target
+     * @param target GridPanel; the target
      */
     public ZoomOutAction(final GridPanel target)
     {

@@ -43,9 +43,9 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
 
     /**
      * constructs a new Utilization.
-     * @param description the description of this utilization
-     * @param simulator the simulator
-     * @param target the target
+     * @param description String; the description of this utilization
+     * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+     * @param target StationInterface&lt;A,R,T&gt;; the target
      * @throws RemoteException on network error for one of the listeners
      */
     public Utilization(final String description, final SimulatorInterface<A, R, T> simulator,

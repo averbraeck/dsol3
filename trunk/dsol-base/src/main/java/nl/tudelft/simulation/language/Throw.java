@@ -62,8 +62,8 @@ public final class Throw
      * </pre>
      * 
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      */
@@ -86,9 +86,9 @@ public final class Throw
      * </pre>
      * 
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg value to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg Object; value to use for the formatting identifiers
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      */
@@ -113,10 +113,10 @@ public final class Throw
      * </pre>
      * 
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      */
@@ -142,11 +142,11 @@ public final class Throw
      * </pre>
      * 
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
-     * @param arg3 3rd value to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param arg3 Object; 3rd value to use for the formatting identifiers
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      */
@@ -173,12 +173,12 @@ public final class Throw
      * </pre>
      * 
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
-     * @param arg3 3rd value to use for the formatting identifiers
-     * @param args potential 4th and further values to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param arg3 Object; 3rd value to use for the formatting identifiers
+     * @param args Object...; potential 4th and further values to use for the formatting identifiers
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      */
@@ -199,9 +199,9 @@ public final class Throw
 
     /**
      * Private method to handle the throwing an Exception, Throwable or Error.
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with potential formatting identifiers
-     * @param argList List with potential values to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with potential formatting identifiers
+     * @param argList List&lt;Object&gt;; List with potential values to use for the formatting identifiers
      * @throws T the throwable to throw
      * @param <T> the Throwable type
      */
@@ -253,10 +253,10 @@ public final class Throw
      * super(Throw.when(object, Double.isNan(object.getValue()), IllegalArgumentException.class, &quot;Value may not be NaN.&quot;));
      * </pre>
      * 
-     * @param object the object to return by this static method
+     * @param object O; the object to return by this static method
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      * @param <O> the Object type to return
@@ -282,11 +282,11 @@ public final class Throw
      *         &quot;Value may not be NaN for object %s.&quot;, object));
      * </pre>
      * 
-     * @param object the object to return by this static method
+     * @param object O; the object to return by this static method
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg value to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg Object; value to use for the formatting identifiers
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      * @param <O> the Object type to return
@@ -314,12 +314,12 @@ public final class Throw
      *         &quot;Value may not be NaN for object %s with name %s.&quot;, object, name));
      * </pre>
      * 
-     * @param object the object to return by this static method
+     * @param object O; the object to return by this static method
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      * @param <O> the Object type to return
@@ -348,13 +348,13 @@ public final class Throw
      *         &quot;Value may not be NaN for object %s with name %s and id %s.&quot;, object, name, id));
      * </pre>
      * 
-     * @param object the object to return by this static method
+     * @param object O; the object to return by this static method
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
-     * @param arg3 3rd value to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param arg3 Object; 3rd value to use for the formatting identifiers
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      * @param <O> the Object type to return
@@ -385,14 +385,14 @@ public final class Throw
      *         &quot;Value may not be NaN for object %s with name %s, id %s and parent %s.&quot;, object, name, id, parent));
      * </pre>
      * 
-     * @param object the object to return by this static method
+     * @param object O; the object to return by this static method
      * @param condition the condition to check; an exception will be thrown if this is <b>true</b>
-     * @param throwableClass the Throwable type to throw
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
-     * @param arg3 3rd value to use for the formatting identifiers
-     * @param args potential 4th and further values to use for the formatting identifiers
+     * @param throwableClass Class&lt;T&gt;; the Throwable type to throw
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param arg3 Object; 3rd value to use for the formatting identifiers
+     * @param args Object...; potential 4th and further values to use for the formatting identifiers
      * @throws T the throwable to throw on true condition
      * @param <T> the Throwable type
      * @param <O> the Object type to return
@@ -422,7 +422,7 @@ public final class Throw
      * </pre>
      * 
      * @param object object to check; an exception will be thrown if this is <b>null</b>
-     * @param message the message to use in the exception
+     * @param message String; the message to use in the exception
      * @param <O> the Object type to return
      * @return the object that was passed as the first parameter
      * @throws NullPointerException if object is null
@@ -444,8 +444,8 @@ public final class Throw
      * </pre>
      * 
      * @param object object to check; an exception will be thrown if this is <b>null</b>
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg value to use for the formatting identifiers
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg Object; value to use for the formatting identifiers
      * @param <O> the Object type to return
      * @return the object that was passed as the first parameter
      * @throws NullPointerException if object is null
@@ -470,9 +470,9 @@ public final class Throw
      * </pre>
      * 
      * @param object object to check; an exception will be thrown if this is <b>null</b>
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
      * @param <O> the Object type to return
      * @return the object that was passed as the first parameter
      * @throws NullPointerException if object is null
@@ -498,10 +498,10 @@ public final class Throw
      * </pre>
      * 
      * @param object object to check; an exception will be thrown if this is <b>null</b>
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
-     * @param arg3 3rd value to use for the formatting identifiers
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param arg3 Object; 3rd value to use for the formatting identifiers
      * @param <O> the Object type to return
      * @return the object that was passed as the first parameter
      * @throws NullPointerException if object is null
@@ -529,11 +529,11 @@ public final class Throw
      * </pre>
      * 
      * @param object object to check; an exception will be thrown if this is <b>null</b>
-     * @param message the message to use in the exception, with formatting identifiers
-     * @param arg1 1st value to use for the formatting identifiers
-     * @param arg2 2nd value to use for the formatting identifiers
-     * @param arg3 3rd value to use for the formatting identifiers
-     * @param args potential 4th and further values to use for the formatting identifiers
+     * @param message String; the message to use in the exception, with formatting identifiers
+     * @param arg1 Object; 1st value to use for the formatting identifiers
+     * @param arg2 Object; 2nd value to use for the formatting identifiers
+     * @param arg3 Object; 3rd value to use for the formatting identifiers
+     * @param args Object...; potential 4th and further values to use for the formatting identifiers
      * @param <O> the Object type to return
      * @return the object that was passed as the first parameter
      * @throws NullPointerException if object is null

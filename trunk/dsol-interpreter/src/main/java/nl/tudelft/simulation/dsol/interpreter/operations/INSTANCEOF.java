@@ -33,7 +33,7 @@ public class INSTANCEOF extends VoidOperation
 
     /**
      * constructs a new INSTANCEOF.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on failure
      */
     public INSTANCEOF(final DataInput dataInput) throws IOException

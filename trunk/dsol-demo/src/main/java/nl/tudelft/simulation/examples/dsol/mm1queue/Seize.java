@@ -22,8 +22,8 @@ public class Seize extends nl.tudelft.simulation.dsol.formalisms.flow.Seize.Time
 
     /**
      * constructs a new Seize.
-     * @param simulator the devs simulator on which to schedule
-     * @param resource the resource to claim
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the devs simulator on which to schedule
+     * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; the resource to claim
      */
     public Seize(final DEVSSimulatorInterface.TimeDouble simulator,
             final Resource<Double, Double, SimTimeDouble> resource)
@@ -33,9 +33,9 @@ public class Seize extends nl.tudelft.simulation.dsol.formalisms.flow.Seize.Time
 
     /**
      * constructs a new Seize.
-     * @param simulator the devs simulator on which to schedule
-     * @param resource the resource to claim
-     * @param requestedCapacity the amount to claim
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the devs simulator on which to schedule
+     * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; the resource to claim
+     * @param requestedCapacity double; the amount to claim
      */
     public Seize(final DEVSSimulatorInterface.TimeDouble simulator,
             final Resource<Double, Double, SimTimeDouble> resource, final double requestedCapacity)

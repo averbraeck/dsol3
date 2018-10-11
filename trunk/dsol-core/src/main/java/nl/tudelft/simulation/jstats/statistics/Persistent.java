@@ -39,7 +39,7 @@ public class Persistent extends Tally
 
     /**
      * constructs a new Persistent with a description.
-     * @param description the description of this Persistent
+     * @param description String; the description of this Persistent
      */
     public Persistent(final String description)
     {

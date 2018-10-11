@@ -38,7 +38,7 @@ public class EventProducingCollection<T> extends EventProducer implements Collec
 
     /**
      * constructs a new EventProducingList.
-     * @param parent the parent collection.
+     * @param parent Collection&lt;T&gt;; the parent collection.
      */
     public EventProducingCollection(final Collection<T> parent)
     {

@@ -22,8 +22,8 @@ public final class ConstantFloat extends Constant
 
     /**
      * constructs a new ConstantFloat.
-     * @param constantPool the constantPool it is part of
-     * @param inputStream the inputstream to read from
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param inputStream DataInput; the inputstream to read from
      * @throws IOException on failure
      */
     public ConstantFloat(final Constant[] constantPool, final DataInput inputStream) throws IOException
@@ -33,8 +33,8 @@ public final class ConstantFloat extends Constant
 
     /**
      * constructs a new ConstantFloat.
-     * @param constantPool the constantPool it is part of
-     * @param bytes the bytes
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param bytes float; the bytes
      */
     public ConstantFloat(final Constant[] constantPool, final float bytes)
     {

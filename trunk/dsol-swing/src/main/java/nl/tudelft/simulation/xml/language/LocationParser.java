@@ -36,7 +36,7 @@ public final class LocationParser
 
     /**
      * parses a xml-element representing a DirectedPoint
-     * @param element The j-dom element
+     * @param element Element; The j-dom element
      * @return DirectedPoint of element
      * @throws IOException on IOfailure
      */

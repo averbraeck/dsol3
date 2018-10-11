@@ -28,9 +28,9 @@ public class Event implements EventInterface
 
     /**
      * constructs a new Event.
-     * @param type the name of the Event.
-     * @param source the source of the sender.
-     * @param content the content of the event.
+     * @param type EventType; the name of the Event.
+     * @param source Object; the source of the sender.
+     * @param content Object; the content of the event.
      */
     public Event(final EventType type, final Object source, final Object content)
     {
@@ -64,8 +64,8 @@ public class Event implements EventInterface
     @Override
     public String toString()
     {
-        return "[" + this.getClass().getName() + ";" + this.getType() + ";" + this.getSource() + ";"
-                + this.getContent() + "]";
+        return "[" + this.getClass().getName() + ";" + this.getType() + ";" + this.getSource() + ";" + this.getContent()
+                + "]";
     }
 
     /** {@inheritDoc} */

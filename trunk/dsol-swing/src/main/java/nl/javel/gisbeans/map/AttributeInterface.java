@@ -18,7 +18,7 @@ public interface AttributeInterface extends Serializable
 {
     /**
      * returns the angle of the attribute
-     * @param shapeIndex the shapeIndex
+     * @param shapeIndex int; the shapeIndex
      * @return the angle
      */
     public double getAngle(int shapeIndex);
@@ -39,23 +39,23 @@ public interface AttributeInterface extends Serializable
     public int getPosition();
 
     /**
-     * @param shapeIndex the shapeIndex
+     * @param shapeIndex int; the shapeIndex
      * @return the value of the attribute
      */
     public String getValue(int shapeIndex);
 
     /**
-     * @param font the font to set
+     * @param font Font; the font to set
      */
     public void setFont(Font font);
 
     /**
-     * @param fontColor the font color to set
+     * @param fontColor Color; the font color to set
      */
     public void setFontColor(Color fontColor);
 
     /**
-     * @param position the position to set
+     * @param position int; the position to set
      */
     public void setPosition(int position);
 
@@ -77,13 +77,13 @@ public interface AttributeInterface extends Serializable
 
     /**
      * sets the minScale of the attribute
-     * @param minScale the minscale to set
+     * @param minScale double; the minscale to set
      */
     public void setMinScale(double minScale);
 
     /**
      * sets the maxScale of the attribute
-     * @param maxScale the maxscale to set
+     * @param maxScale double; the maxscale to set
      */
     public void setMaxScale(double maxScale);
 }

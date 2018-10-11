@@ -30,9 +30,9 @@ public class DistUniform extends DistContinuous
     /**
      * constructs a new uniform distribution. a and b are real numbers with a less than b. a is a location parameter,
      * b-a is a scale parameter.
-     * @param stream the random number stream
-     * @param a the minimum value
-     * @param b the maximum value
+     * @param stream StreamInterface; the random number stream
+     * @param a double; the minimum value
+     * @param b double; the maximum value
      */
     public DistUniform(final StreamInterface stream, final double a, final double b)
     {

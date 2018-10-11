@@ -31,7 +31,7 @@ public class ObjectEndianOutputStream implements EndianInterface, DataOutput
 
     /**
      * constructs a new ObjectEndianOutputStream.
-     * @param outputStream the target.
+     * @param outputStream OutputStream; the target.
      */
     public ObjectEndianOutputStream(final OutputStream outputStream)
     {

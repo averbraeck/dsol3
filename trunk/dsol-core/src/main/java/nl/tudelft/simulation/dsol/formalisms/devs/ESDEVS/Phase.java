@@ -36,7 +36,7 @@ public class Phase implements Serializable
 
     /**
      * The constructor of a new phase.
-     * @param name the identifier of the phase
+     * @param name String; the identifier of the phase
      */
     public Phase(final String name)
     {
@@ -62,7 +62,7 @@ public class Phase implements Serializable
 
     /**
      * Sets the lifetime of the phase.
-     * @param lifeTime the lifetime of the phase
+     * @param lifeTime double; the lifetime of the phase
      */
     public final void setLifeTime(final double lifeTime)
     {

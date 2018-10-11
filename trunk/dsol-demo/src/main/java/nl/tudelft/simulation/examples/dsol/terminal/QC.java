@@ -25,10 +25,10 @@ public class QC extends IntResource<Double, Double, SimTimeDouble>
     private final DistContinuous qcTime;
 
     /**
-     * @param simulator the simulator
-     * @param description the description
-     * @param capacity the capacity
-     * @param qcTime QC time delay
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
+     * @param description String; the description
+     * @param capacity long; the capacity
+     * @param qcTime DistContinuous; QC time delay
      */
     public QC(final DEVSSimulatorInterface.TimeDouble simulator, final String description, final long capacity,
             final DistContinuous qcTime)

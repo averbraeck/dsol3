@@ -32,7 +32,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
 
     /**
      * constructs a new continuous distribution.
-     * @param wrappedDistribution the wrapped continuous distribution
+     * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
      */
     public DistContinuousTime(final DistContinuous wrappedDistribution)
     {
@@ -48,7 +48,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
 
     /**
      * returns the probability density value of an observation.
-     * @param observation the observation.
+     * @param observation double; the observation.
      * @return double the probability density.
      */
     public final double probDensity(final double observation)
@@ -67,7 +67,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param wrappedDistribution the wrapped continuous distribution
+         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
          */
         public TimeDouble(final DistContinuous wrappedDistribution)
         {
@@ -89,7 +89,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param wrappedDistribution the wrapped continuous distribution
+         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
          */
         public TimeFloat(final DistContinuous wrappedDistribution)
         {
@@ -111,7 +111,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param wrappedDistribution the wrapped continuous distribution
+         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
          */
         public TimeLong(final DistContinuous wrappedDistribution)
         {
@@ -136,8 +136,8 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         private final DurationUnit unit;
 
         /**
-         * @param wrappedDistribution the wrapped continuous distribution
-         * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
+         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
+         * @param unit DurationUnit; the unit for the parameters (and drawn values) of the wrapped distribution
          */
         public TimeDoubleUnit(final DistContinuous wrappedDistribution, final DurationUnit unit)
         {
@@ -163,8 +163,8 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         private final DurationUnit unit;
 
         /**
-         * @param wrappedDistribution the wrapped continuous distribution
-         * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
+         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
+         * @param unit DurationUnit; the unit for the parameters (and drawn values) of the wrapped distribution
          */
         public TimeFloatUnit(final DistContinuous wrappedDistribution, final DurationUnit unit)
         {
@@ -190,8 +190,8 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         private final DurationUnit unit;
 
         /**
-         * @param wrappedDistribution the wrapped continuous distribution
-         * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
+         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
+         * @param unit DurationUnit; the unit for the parameters (and drawn values) of the wrapped distribution
          */
         public CalendarDouble(final DistContinuous wrappedDistribution, final DurationUnit unit)
         {
@@ -217,8 +217,8 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         private final DurationUnit unit;
 
         /**
-         * @param wrappedDistribution the wrapped continuous distribution
-         * @param unit the unit for the parameters (and drawn values) of the wrapped distribution
+         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
+         * @param unit DurationUnit; the unit for the parameters (and drawn values) of the wrapped distribution
          */
         public CalendarFloat(final DistContinuous wrappedDistribution, final DurationUnit unit)
         {
@@ -241,7 +241,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param wrappedDistribution the wrapped continuous distribution
+         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
          */
         public CalendarLong(final DistContinuous wrappedDistribution)
         {

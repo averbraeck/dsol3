@@ -48,7 +48,7 @@ public class SortingTableModel implements TableModel, Sortable
 
     /**
      * constructs a new SortingTableModel.
-     * @param source the sorce
+     * @param source TableModel; the sorce
      */
     public SortingTableModel(final TableModel source)
     {
@@ -117,9 +117,9 @@ public class SortingTableModel implements TableModel, Sortable
     }
 
     /**
-     * @param unsorted the list.
-     * @param ascending is it ascending
-     * @param column the column
+     * @param unsorted List&lt;Object&gt;; the list.
+     * @param ascending boolean; is it ascending
+     * @param column int; the column
      * @return the sortedList
      */
     private List<Object> sortList(final List<Object> unsorted, final boolean ascending, final int column)
@@ -144,9 +144,9 @@ public class SortingTableModel implements TableModel, Sortable
     }
 
     /**
-     * @param unsorted the list.
-     * @param ascending is it ascending
-     * @param column the column
+     * @param unsorted List&lt;?&gt;; the list.
+     * @param ascending boolean; is it ascending
+     * @param column int; the column
      * @return the sortedList
      */
     @SuppressWarnings("unchecked")

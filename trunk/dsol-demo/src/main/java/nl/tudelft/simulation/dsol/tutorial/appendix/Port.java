@@ -30,7 +30,7 @@ public class Port
 
     /**
      * constructs a new Port.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      */
     public Port(final DEVSSimulatorInterface.TimeDouble simulator)
     {

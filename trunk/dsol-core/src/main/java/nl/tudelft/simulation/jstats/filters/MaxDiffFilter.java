@@ -27,7 +27,7 @@ public class MaxDiffFilter extends AbstractFilter
 
     /**
      * constructs a new MaxDiffFilter.
-     * @param acceptedDifferencePercentage the maximum accepted difference percentage, e.g. 10%
+     * @param acceptedDifferencePercentage double; the maximum accepted difference percentage, e.g. 10%
      */
     public MaxDiffFilter(final double acceptedDifferencePercentage)
     {
@@ -41,7 +41,7 @@ public class MaxDiffFilter extends AbstractFilter
 
     /**
      * filters based on the maximum difference.
-     * @param entry we expect a double[2] representing x,y as input.
+     * @param entry Object; we expect a double[2] representing x,y as input.
      * @see nl.tudelft.simulation.language.filters.AbstractFilter#filter(java.lang.Object)
      * @return whether to accept the entry
      */

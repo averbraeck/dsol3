@@ -25,7 +25,7 @@ public class ImmutableTreeSet<E> extends ImmutableAbstractSet<E> implements Immu
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param sortedSet the collection to use for the immutable set.
+     * @param sortedSet Collection&lt;? extends E&gt;; the collection to use for the immutable set.
      */
     public ImmutableTreeSet(final Collection<? extends E> sortedSet)
     {
@@ -33,7 +33,7 @@ public class ImmutableTreeSet<E> extends ImmutableAbstractSet<E> implements Immu
     }
 
     /**
-     * @param treeSet the collection to use for the immutable set.
+     * @param treeSet NavigableSet&lt;E&gt;; the collection to use for the immutable set.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */
@@ -43,7 +43,7 @@ public class ImmutableTreeSet<E> extends ImmutableAbstractSet<E> implements Immu
     }
 
     /**
-     * @param immutableSortedSet the collection to use for the immutable set.
+     * @param immutableSortedSet ImmutableAbstractSet&lt;E&gt;; the collection to use for the immutable set.
      */
     public ImmutableTreeSet(final ImmutableAbstractSet<E> immutableSortedSet)
     {
@@ -51,7 +51,7 @@ public class ImmutableTreeSet<E> extends ImmutableAbstractSet<E> implements Immu
     }
 
     /**
-     * @param immutableTreeSet the collection to use for the immutable set.
+     * @param immutableTreeSet ImmutableTreeSet&lt;E&gt;; the collection to use for the immutable set.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */

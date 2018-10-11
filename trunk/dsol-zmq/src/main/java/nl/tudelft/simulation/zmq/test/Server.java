@@ -18,7 +18,7 @@ import nl.tudelft.simulation.logger.CategoryLogger;
 public class Server
 {
     /**
-     * @param args
+     * @param args String[];
      */
     public static void main(String[] args)
     {

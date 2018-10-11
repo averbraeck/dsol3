@@ -49,15 +49,16 @@ public interface ObservationsInterface
 
     /**
      * Returns the index of the entry of this structure. Returns -1 if entry not in structure.
-     * @param entry the entry
+     * @param entry ObservationsInterface.Entry; the entry
      * @return the index of this entry.
      */
     int getIndex(ObservationsInterface.Entry entry);
 
     /**
      * returns whether the structure contains this specific object (either an observation or a probability).
-     * @param object the object to look for
-     * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
+     * @param object Number; the object to look for
+     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the
+     *            ObservationsInterface.CUMPROBABILITY)
      * @return true if object in observation.
      */
     boolean contains(Number object, byte type);
@@ -78,8 +79,9 @@ public interface ObservationsInterface
      * Returns the entry to which the structure maps the specific object. Returns <tt>null</tt> if the structure
      * contains no entry for the object. The object might either refer to an observation or to a probability. If
      * multiple entries match the search, there is no guarantee which entry is returned.
-     * @param object entry whose associated entry is to be returned.
-     * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
+     * @param object Number; entry whose associated entry is to be returned.
+     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the
+     *            ObservationsInterface.CUMPROBABILITY)
      * @return the entries which comply.
      */
     ObservationsInterface.Entry getEntry(Number object, byte type);
@@ -89,9 +91,10 @@ public interface ObservationsInterface
      * exists, returns the entry for the greatest object less than the specified object; if no such entry exists (i.e.,
      * the least object in the Tree is greater than the specified object), returns <tt>null</tt>. If multiple entries
      * match the search, there is no guarantee which entry is returned.
-     * @param object object whose next object associated value is to be returned.
-     * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
-     * @param inclusive if inclusive and structure contains object object is returned
+     * @param object Number; object whose next object associated value is to be returned.
+     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the
+     *            ObservationsInterface.CUMPROBABILITY)
+     * @param inclusive boolean; if inclusive and structure contains object object is returned
      * @return the value to which this structure maps the specified object, or <tt>null</tt> if the structure contains
      *         no mapping for this object.
      */
@@ -102,9 +105,10 @@ public interface ObservationsInterface
      * exists, returns the entry for the least object greater than the specified object; if no such entry exists (i.e.,
      * the greatest object in the Tree is less than the specified object), returns <tt>null</tt>. If multiple entries
      * match the search, there is no guarantee which entry is returned.
-     * @param object object whose associated value is to be returned.
-     * @param type the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
-     * @param inclusive if inclusive and structure contains object object is returned
+     * @param object Number; object whose associated value is to be returned.
+     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the
+     *            ObservationsInterface.CUMPROBABILITY)
+     * @param inclusive boolean; if inclusive and structure contains object object is returned
      * @return the value to which this structure maps the specified object, or <tt>null</tt> if the structure contains
      *         no mapping for this object.
      */
@@ -112,7 +116,7 @@ public interface ObservationsInterface
 
     /**
      * Returns the element at the specified position in this structure.
-     * @param index index of element to return.
+     * @param index int; index of element to return.
      * @return the entry at the specified position in this list.
      */
     ObservationsInterface.Entry get(int index);

@@ -24,7 +24,7 @@ public final class ProbMath
 
     /**
      * computes the faculty of n.
-     * @param n is the input
+     * @param n int; is the input
      * @return faculty of n
      */
     public static double faculty(final int n)
@@ -47,8 +47,8 @@ public final class ProbMath
 
     /**
      * computes the permutations of n over m.
-     * @param n the first parameter
-     * @param m the second parameter
+     * @param n int; the first parameter
+     * @param m int; the second parameter
      * @return the permutations of n over m
      */
     public static double permutations(final int n, final int m)

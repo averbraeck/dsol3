@@ -41,8 +41,8 @@ public interface InputPortInterface<A extends Comparable<A>, R extends Number & 
 {
     /**
      * Receive and handle an event on the port.
-     * @param value the value that is received of type &lt;T&gt;
-     * @param time the time on which the value is received
+     * @param value TYPE; the value that is received of type &lt;T&gt;
+     * @param time T; the time on which the value is received
      * @throws RemoteException a remote exception occurred
      * @throws SimRuntimeException a simulation run time exception occurred
      */

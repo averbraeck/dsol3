@@ -24,7 +24,7 @@ public class ContextTransferable implements Transferable
 
     /**
      * constructs a new ContextTransferable.
-     * @param object the object to send
+     * @param object Object; the object to send
      * @throws NamingException whenever the object cannot be found in the context
      */
     public ContextTransferable(final Object object) throws NamingException

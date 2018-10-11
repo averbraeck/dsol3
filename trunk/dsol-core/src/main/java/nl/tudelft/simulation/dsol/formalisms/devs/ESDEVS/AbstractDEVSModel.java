@@ -105,9 +105,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
     /**
      * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
      * parent model we are part of. A parent model of null means that we are the top model.
-     * @param modelName the name of this component
-     * @param simulator the simulator to schedule the events on.
-     * @param parentModel the parent model we are part of.
+     * @param modelName String; the name of this component
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule the events on.
+     * @param parentModel CoupledModel&lt;A,R,T&gt;; the parent model we are part of.
      */
     public AbstractDEVSModel(final String modelName, final DEVSSimulatorInterface<A, R, T> simulator,
             final CoupledModel<A, R, T> parentModel)
@@ -136,7 +136,7 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
     }
 
     /**
-     * @param simulator the simulator to use from now on
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to use from now on
      */
     public final void setSimulator(final DEVSSimulatorInterface<A, R, T> simulator)
     {
@@ -176,7 +176,7 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
 
     /**
      * Print the model, preceded by a user provided string.
-     * @param header the user provided string to print in front of the model (e.g. newlines, header).
+     * @param header String; the user provided string to print in front of the model (e.g. newlines, header).
      */
     public abstract void printModel(String header);
 
@@ -272,9 +272,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct a StateUPdate tuple to report a state update.
-         * @param modelName the name of the model
-         * @param variableName the name of the variable
-         * @param value the value
+         * @param modelName String; the name of the model
+         * @param variableName String; the name of the variable
+         * @param value Object; the value
          */
         public StateUpdate(final String modelName, final String variableName, final Object value)
         {
@@ -322,9 +322,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         /**
          * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
          * parent model we are part of. A parent model of null means that we are the top model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule the events on.
-         * @param parentModel the parent model we are part of.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator to schedule the events on.
+         * @param parentModel CoupledModel.TimeDouble; the parent model we are part of.
          */
         public TimeDouble(final String modelName, final DEVSSimulatorInterface.TimeDouble simulator,
                 final CoupledModel.TimeDouble parentModel)
@@ -342,9 +342,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         /**
          * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
          * parent model we are part of. A parent model of null means that we are the top model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule the events on.
-         * @param parentModel the parent model we are part of.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeFloat; the simulator to schedule the events on.
+         * @param parentModel CoupledModel.TimeFloat; the parent model we are part of.
          */
         public TimeFloat(final String modelName, final DEVSSimulatorInterface.TimeFloat simulator,
                 final CoupledModel.TimeFloat parentModel)
@@ -362,9 +362,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         /**
          * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
          * parent model we are part of. A parent model of null means that we are the top model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule the events on.
-         * @param parentModel the parent model we are part of.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeLong; the simulator to schedule the events on.
+         * @param parentModel CoupledModel.TimeLong; the parent model we are part of.
          */
         public TimeLong(final String modelName, final DEVSSimulatorInterface.TimeLong simulator,
                 final CoupledModel.TimeLong parentModel)
@@ -382,9 +382,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         /**
          * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
          * parent model we are part of. A parent model of null means that we are the top model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule the events on.
-         * @param parentModel the parent model we are part of.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; the simulator to schedule the events on.
+         * @param parentModel CoupledModel.TimeDoubleUnit; the parent model we are part of.
          */
         public TimeDoubleUnit(final String modelName, final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final CoupledModel.TimeDoubleUnit parentModel)
@@ -402,9 +402,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         /**
          * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
          * parent model we are part of. A parent model of null means that we are the top model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule the events on.
-         * @param parentModel the parent model we are part of.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; the simulator to schedule the events on.
+         * @param parentModel CoupledModel.TimeFloatUnit; the parent model we are part of.
          */
         public TimeFloatUnit(final String modelName, final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final CoupledModel.TimeFloatUnit parentModel)
@@ -422,9 +422,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         /**
          * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
          * parent model we are part of. A parent model of null means that we are the top model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule the events on.
-         * @param parentModel the parent model we are part of.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; the simulator to schedule the events on.
+         * @param parentModel CoupledModel.CalendarDouble; the parent model we are part of.
          */
         public CalendarDouble(final String modelName, final DEVSSimulatorInterface.CalendarDouble simulator,
                 final CoupledModel.CalendarDouble parentModel)
@@ -442,9 +442,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         /**
          * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
          * parent model we are part of. A parent model of null means that we are the top model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule the events on.
-         * @param parentModel the parent model we are part of.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; the simulator to schedule the events on.
+         * @param parentModel CoupledModel.CalendarFloat; the parent model we are part of.
          */
         public CalendarFloat(final String modelName, final DEVSSimulatorInterface.CalendarFloat simulator,
                 final CoupledModel.CalendarFloat parentModel)
@@ -462,9 +462,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         /**
          * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
          * parent model we are part of. A parent model of null means that we are the top model.
-         * @param modelName the name of this component
-         * @param simulator the simulator to schedule the events on.
-         * @param parentModel the parent model we are part of.
+         * @param modelName String; the name of this component
+         * @param simulator DEVSSimulatorInterface.CalendarLong; the simulator to schedule the events on.
+         * @param parentModel CoupledModel.CalendarLong; the parent model we are part of.
          */
         public CalendarLong(final String modelName, final DEVSSimulatorInterface.CalendarLong simulator,
                 final CoupledModel.CalendarLong parentModel)

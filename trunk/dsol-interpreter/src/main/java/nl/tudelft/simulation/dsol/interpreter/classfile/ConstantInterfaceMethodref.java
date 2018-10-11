@@ -25,8 +25,8 @@ public final class ConstantInterfaceMethodref extends Constant
 
     /**
      * constructs a new ConstantInterfaceMethodref.
-     * @param constantPool the constantPool it is part of
-     * @param inputStream the inputstream to read from
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param inputStream DataInput; the inputstream to read from
      * @throws IOException on failure
      */
     public ConstantInterfaceMethodref(final Constant[] constantPool, final DataInput inputStream) throws IOException
@@ -36,9 +36,9 @@ public final class ConstantInterfaceMethodref extends Constant
 
     /**
      * constructs a new ConstantInterfaceMethodref.
-     * @param constantPool the constantPool it is part of
-     * @param classIndex the classIndex
-     * @param nameAndTypeIndex the NameAndTypeIndex
+     * @param constantPool Constant[]; the constantPool it is part of
+     * @param classIndex int; the classIndex
+     * @param nameAndTypeIndex int; the NameAndTypeIndex
      */
     public ConstantInterfaceMethodref(final Constant[] constantPool, final int classIndex, final int nameAndTypeIndex)
     {

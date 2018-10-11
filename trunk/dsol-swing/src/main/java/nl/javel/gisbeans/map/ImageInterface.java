@@ -23,7 +23,7 @@ public interface ImageInterface extends java.io.Serializable
 
     /**
      * Setter for property backgroundColor.
-     * @param backgroundColor New value of property backgroundColor.
+     * @param backgroundColor Color; New value of property backgroundColor.
      */
     public void setBackgroundColor(Color backgroundColor);
 
@@ -35,7 +35,7 @@ public interface ImageInterface extends java.io.Serializable
 
     /**
      * Setter for property size.
-     * @param size New value of property size.
+     * @param size Dimension; New value of property size.
      */
     public void setSize(Dimension size);
 
@@ -47,7 +47,7 @@ public interface ImageInterface extends java.io.Serializable
 
     /**
      * Setter for property legend.
-     * @param legend New value of property legend.
+     * @param legend LegendInterface; New value of property legend.
      */
     public void setLegend(LegendInterface legend);
 
@@ -59,7 +59,7 @@ public interface ImageInterface extends java.io.Serializable
 
     /**
      * Setter for property scalebar.
-     * @param scalebar New value of property scalebar.
+     * @param scalebar ScalebarInterface; New value of property scalebar.
      */
     public void setScalebar(ScalebarInterface scalebar);
 }

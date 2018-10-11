@@ -34,7 +34,7 @@ public final class URLResource
 
     /**
      * Resolves a resource for name.
-     * @param name the name to search for
+     * @param name String; the name to search for
      * @return the resolved URL
      */
     public static URL getResource(final String name)
@@ -99,8 +99,8 @@ public final class URLResource
     /**
      * Resolves a resource for name. For relative names, base is used to resolve to an absolute name. If name is
      * absolute, base is ignored.
-     * @param name the name to search for
-     * @param base the base for relative paths
+     * @param name String; the name to search for
+     * @param base String; the base for relative paths
      * @return the resolved URL
      */
     public static URL getResource(final String name, final String base)
@@ -176,7 +176,7 @@ public final class URLResource
 
     /**
      * Resolves a resource for a path.
-     * @param path the path to search for
+     * @param path String; the path to search for
      * @return the resolved URL to the path
      */
     private static URL getResourceOrFile(String path)
@@ -217,7 +217,7 @@ public final class URLResource
 
     /**
      * returns the resource as stream.
-     * @param name the name of the resource
+     * @param name String; the name of the resource
      * @return the inputStream
      */
     public static InputStream getResourceAsStream(final String name)
@@ -250,8 +250,8 @@ public final class URLResource
 
         /**
          * constructs a new PasswordAuthenticator.
-         * @param userName my userName
-         * @param password my passWord
+         * @param userName String; my userName
+         * @param password String; my passWord
          */
         public PasswordAuthenticator(final String userName, final String password)
         {

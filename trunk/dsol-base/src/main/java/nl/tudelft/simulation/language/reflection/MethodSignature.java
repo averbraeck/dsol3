@@ -30,7 +30,7 @@ public class MethodSignature implements Serializable
 
     /**
      * constructs a new MethodSignature.
-     * @param value the descriptor
+     * @param value String; the descriptor
      */
     public MethodSignature(final String value)
     {
@@ -40,7 +40,7 @@ public class MethodSignature implements Serializable
 
     /**
      * constructs a new MethodSignature.
-     * @param method the method
+     * @param method Method; the method
      */
     public MethodSignature(final Method method)
     {
@@ -60,7 +60,7 @@ public class MethodSignature implements Serializable
 
     /**
      * constructs a new MethodSignature.
-     * @param constructor the constructor
+     * @param constructor Constructor&lt;?&gt;; the constructor
      */
     public MethodSignature(final Constructor<?> constructor)
     {
@@ -124,7 +124,7 @@ public class MethodSignature implements Serializable
 
     /**
      * @return Returns the parameterDescriptor
-     * @param methodDescriptor the methodDescriptor
+     * @param methodDescriptor String; the methodDescriptor
      */
     public static String getParameterDescriptor(final String methodDescriptor)
     {
@@ -133,7 +133,7 @@ public class MethodSignature implements Serializable
 
     /**
      * returns the parameterTypes
-     * @param methodDescriptor the string
+     * @param methodDescriptor String; the string
      * @return ClassDescriptor[] the result
      * @throws ClassNotFoundException on incomplete classPath
      */
@@ -168,7 +168,7 @@ public class MethodSignature implements Serializable
 
     /**
      * @return Returns the returnDescriptor
-     * @param methodDescriptor the methodDescriptor
+     * @param methodDescriptor String; the methodDescriptor
      */
     public static String getReturnDescriptor(final String methodDescriptor)
     {
@@ -177,7 +177,7 @@ public class MethodSignature implements Serializable
 
     /**
      * returns the returnType of this methodDescriptor
-     * @param methodDescriptor the returnDescriptor
+     * @param methodDescriptor String; the returnDescriptor
      * @return Returns the returnType
      * @throws ClassNotFoundException on incomplete classPath
      */

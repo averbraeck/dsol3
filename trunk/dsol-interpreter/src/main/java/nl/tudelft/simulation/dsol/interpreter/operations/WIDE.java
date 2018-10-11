@@ -6,8 +6,7 @@ import java.io.IOException;
 import nl.tudelft.simulation.dsol.interpreter.Operation;
 
 /**
- * The WIDE operation as defined in
- * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * The WIDE operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -29,7 +28,7 @@ public class WIDE extends Operation
 
     /**
      * constructs a new WIDE.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public WIDE(final DataInput dataInput) throws IOException

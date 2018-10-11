@@ -25,7 +25,7 @@ public class SimTimeFloatUnit extends SimTime<FloatTime, FloatDuration, SimTimeF
     private FloatTime time;
 
     /**
-     * @param time the initial time.
+     * @param time FloatTime; the initial time.
      */
     public SimTimeFloatUnit(final FloatTime time)
     {

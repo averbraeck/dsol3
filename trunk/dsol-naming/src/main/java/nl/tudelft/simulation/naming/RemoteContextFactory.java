@@ -65,8 +65,8 @@ public class RemoteContextFactory implements InitialContextFactory
                 // This is only allowed if the host is our localhost. We cannot
                 // create a registry on a remote host.
                 if (!(url.getHost().equals("localhost") || url.getHost().equals("127.0.0.1")
-                        || url.getHost().equals(InetAddress.getLocalHost().getHostName()) || url.getHost().equals(
-                        InetAddress.getLocalHost().getHostAddress())))
+                        || url.getHost().equals(InetAddress.getLocalHost().getHostName())
+                        || url.getHost().equals(InetAddress.getLocalHost().getHostAddress())))
                 {
                     throw new IllegalArgumentException("cannot create registry on remote host");
                 }

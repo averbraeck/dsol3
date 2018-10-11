@@ -53,7 +53,7 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * Method setTimeStep sets the time step of the simulator.
-     * @param timeStep the new timeStep. Its value should be &gt; 0.0
+     * @param timeStep R; the new timeStep. Its value should be &gt; 0.0
      * @throws SimRuntimeException when timestep &lt;= 0, NaN, or Infinity
      */
     void setTimeStep(R timeStep) throws SimRuntimeException;

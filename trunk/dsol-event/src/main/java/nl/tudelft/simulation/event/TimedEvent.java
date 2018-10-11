@@ -24,10 +24,10 @@ public class TimedEvent<T extends Comparable<T>> extends Event implements Compar
 
     /**
      * constructs a new timed event.
-     * @param type the eventType of the event.
-     * @param source the source of the event.
-     * @param value the value of the event.
-     * @param timeStamp the timeStamp.
+     * @param type EventType; the eventType of the event.
+     * @param source Object; the source of the event.
+     * @param value Object; the value of the event.
+     * @param timeStamp T; the timeStamp.
      */
     public TimedEvent(final EventType type, final Object source, final Object value, final T timeStamp)
     {

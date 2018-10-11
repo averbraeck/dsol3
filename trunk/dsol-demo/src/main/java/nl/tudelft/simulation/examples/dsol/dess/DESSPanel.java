@@ -23,8 +23,8 @@ public class DESSPanel extends DSOLPanel<Double, Double, SimTimeDouble>
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param model the model
-     * @param simulator the simulator
+     * @param model DESSModel; the model
+     * @param simulator DESSSimulatorInterface.TimeDouble; the simulator
      * @throws RemoteException on error
      */
     public DESSPanel(final DESSModel model, final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException

@@ -21,7 +21,7 @@ import nl.tudelft.simulation.language.io.URLResource;
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved.
  * <p>
- * See for project information <a href="https://simulation.tudelft.nl/" target="_blank">  www.simulation.tudelft.nl</a>.
+ * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -41,7 +41,7 @@ public class DiscreteBall extends Ball
 
     /**
      * constructs a new DiscreteBall.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      * @throws SimRuntimeException on schedule failure
      * @throws NamingException on animation error
      * @throws RemoteException on network error for the animation listener

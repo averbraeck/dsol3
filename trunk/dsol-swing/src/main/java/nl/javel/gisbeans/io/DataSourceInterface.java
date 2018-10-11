@@ -47,7 +47,7 @@ public interface DataSourceInterface extends java.io.Serializable
 
     /**
      * returns a GisObject.
-     * @param index the number of the shape to be returned
+     * @param index int; the number of the shape to be returned
      * @return GisObject returns a <code>nl.javel.gisbeans.geom.GisObject</code>
      * @throws IndexOutOfBoundsException whenever index &gt; numShapes
      * @throws IOException on IOFailure
@@ -63,7 +63,7 @@ public interface DataSourceInterface extends java.io.Serializable
 
     /**
      * returns the shapes of the particular datasource in a particular extent.
-     * @param rectangle the extent of the box (in geo-coordinates)
+     * @param rectangle SerializableRectangle2D; the extent of the box (in geo-coordinates)
      * @return List the resulting ArrayList of <code>nl.javel.gisbeans.geom.GisObject</code>
      * @throws IOException on IOFailure
      */
@@ -71,8 +71,8 @@ public interface DataSourceInterface extends java.io.Serializable
 
     /**
      * returns the shapes based on a particular value of the attributes.
-     * @param attribute the value of the attribute
-     * @param columnName the columnName
+     * @param attribute String; the value of the attribute
+     * @param columnName String; the columnName
      * @return List the resulting ArrayList of <code>nl.javel.gisbeans.geom.GisObject</code>
      * @throws IOException on IOFailure
      */

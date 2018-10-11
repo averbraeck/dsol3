@@ -32,7 +32,7 @@ public final class ConsoleRunner25
 
     /**
      * executes our model.
-     * @param args the experiment xml-file url
+     * @param args String[]; the experiment xml-file url
      */
     public static void main(final String[] args)
     {

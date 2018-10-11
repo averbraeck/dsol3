@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Each frame (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">par 2.6</a>)
- * contains a last-in-first-out (LIFO) stack known as its operand stack. The maximum depth of the operand stack of a
- * frame is determined at compile time and is supplied along with the code for the method associated with the frame
+ * Each frame (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">par 2.6</a>) contains a
+ * last-in-first-out (LIFO) stack known as its operand stack. The maximum depth of the operand stack of a frame is
+ * determined at compile time and is supplied along with the code for the method associated with the frame
  * (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3">par. 4.7.3</a>). Where it is
  * clear by context, we will sometimes refer to the operand stack of the current frame as simply the operand stack.
  * <p>
@@ -42,7 +42,7 @@ public class OperandStack implements Cloneable
 
     /**
      * constructs a new OperandStack.
-     * @param initialSize the stackSize
+     * @param initialSize int; the stackSize
      */
     public OperandStack(final int initialSize)
     {
@@ -93,7 +93,7 @@ public class OperandStack implements Cloneable
 
     /**
      * peeks the depth-object from the stack.
-     * @param depth the depth-object
+     * @param depth int; the depth-object
      * @return the depth object.
      */
     public final Object peek(final int depth)
@@ -106,7 +106,7 @@ public class OperandStack implements Cloneable
 
     /**
      * pushes object on the stack.
-     * @param object the object to be pushed to the stack
+     * @param object Object; the object to be pushed to the stack
      */
     public final void push(final Object object)
     {
@@ -129,8 +129,8 @@ public class OperandStack implements Cloneable
 
     /**
      * replaces all instances of oldObject by newObject.
-     * @param oldObject the oldObject
-     * @param newObject the newObject
+     * @param oldObject Object; the oldObject
+     * @param newObject Object; the newObject
      */
     public final void replace(final Object oldObject, final Object newObject)
     {

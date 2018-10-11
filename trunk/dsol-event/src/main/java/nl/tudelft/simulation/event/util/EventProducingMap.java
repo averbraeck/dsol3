@@ -40,7 +40,7 @@ public class EventProducingMap<K, V> extends EventProducer implements Map<K, V>
 
     /**
      * constructs a new EventProducingMap.
-     * @param parent the parent map.
+     * @param parent Map&lt;K,V&gt;; the parent map.
      */
     public EventProducingMap(final Map<K, V> parent)
     {

@@ -27,7 +27,7 @@ public class INVOKEINTERFACE extends nl.tudelft.simulation.dsol.interpreter.oper
 {
     /**
      * constructs a new INVOKEINTERFACE.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public INVOKEINTERFACE(final DataInput dataInput) throws IOException

@@ -26,7 +26,7 @@ public class ImmutableLinkedHashSet<E> extends ImmutableAbstractSet<E>
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param collection the collection to use for the immutable set.
+     * @param collection Collection&lt;? extends E&gt;; the collection to use for the immutable set.
      */
     public ImmutableLinkedHashSet(final Collection<? extends E> collection)
     {
@@ -34,7 +34,7 @@ public class ImmutableLinkedHashSet<E> extends ImmutableAbstractSet<E>
     }
 
     /**
-     * @param collection the collection to use for the immutable set.
+     * @param collection Set&lt;E&gt;; the collection to use for the immutable set.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */
@@ -44,7 +44,7 @@ public class ImmutableLinkedHashSet<E> extends ImmutableAbstractSet<E>
     }
 
     /**
-     * @param collection the collection to use for the immutable set.
+     * @param collection ImmutableAbstractCollection&lt;? extends E&gt;; the collection to use for the immutable set.
      */
     public ImmutableLinkedHashSet(final ImmutableAbstractCollection<? extends E> collection)
     {
@@ -52,7 +52,7 @@ public class ImmutableLinkedHashSet<E> extends ImmutableAbstractSet<E>
     }
 
     /**
-     * @param set the collection to use for the immutable set.
+     * @param set ImmutableAbstractSet&lt;E&gt;; the collection to use for the immutable set.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */

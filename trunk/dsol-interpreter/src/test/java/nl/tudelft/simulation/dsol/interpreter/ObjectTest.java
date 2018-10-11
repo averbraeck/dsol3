@@ -7,8 +7,9 @@ import org.junit.Test;
 
 /**
  * <p>
- * copyright (c) 2002-2018  <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
+ * License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -24,7 +25,7 @@ public class ObjectTest
 
         String eabc = new String("ABC");
         String iabc = new String("ABC");
-        ObjectMethods e1 = new ObjectMethods(eabc); 
+        ObjectMethods e1 = new ObjectMethods(eabc);
         ObjectMethods i1 = new ObjectMethods(iabc);
         ObjectMethods e2 = new ObjectMethods(eabc);
         ObjectMethods i2 = new ObjectMethods(iabc);
@@ -32,7 +33,7 @@ public class ObjectTest
         ObjectMethods i3 = new ObjectMethods(new String("DEF"));
         ObjectMethods e4 = new ObjectMethods(new String("DEF"));
         ObjectMethods i4 = new ObjectMethods(new String("DEF"));
-        
+
         // System.out.println("=========================================");
         // Interpreter.DEBUG = true;
         // Interpreter.invoke(i1, "getC", new Object[]{}, new Class<?>[]{});

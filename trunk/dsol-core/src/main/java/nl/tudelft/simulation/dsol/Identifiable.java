@@ -27,7 +27,7 @@ public interface Identifiable<T>
      * License</a>. <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
-         */
+     */
     public interface String extends Identifiable<String>
     {
         @Override
@@ -41,7 +41,7 @@ public interface Identifiable<T>
      * License</a>. <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
-         */
+     */
     public interface Long extends Identifiable<Long>
     {
         @Override

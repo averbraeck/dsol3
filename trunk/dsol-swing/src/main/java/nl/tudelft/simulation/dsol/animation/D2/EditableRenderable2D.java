@@ -29,8 +29,8 @@ public abstract class EditableRenderable2D extends Renderable2D implements Edita
 
     /**
      * constructs a new EditableRenderable2D.
-     * @param source the source and target
-     * @param simulator the simulator
+     * @param source Editable; the source and target
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @throws NamingException when animation context cannot be retrieved
      * @throws RemoteException when remote animation context cannot be found
      */

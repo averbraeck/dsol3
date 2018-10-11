@@ -35,7 +35,7 @@ public class LocalVariable implements Cloneable
 
     /**
      * constructs a new LocalVariable.
-     * @param localVariableDescriptor the descriptor
+     * @param localVariableDescriptor LocalVariableDescriptor; the descriptor
      */
     public LocalVariable(final LocalVariableDescriptor localVariableDescriptor)
     {
@@ -59,7 +59,7 @@ public class LocalVariable implements Cloneable
     }
 
     /**
-     * @param value The value to set.
+     * @param value Object; The value to set.
      */
     public final synchronized void setValue(final Object value)
     {
@@ -93,7 +93,7 @@ public class LocalVariable implements Cloneable
 
     /**
      * creates a new array of local variables.
-     * @param descriptors the descriptors
+     * @param descriptors LocalVariableDescriptor[]; the descriptors
      * @return LocalVariable[]
      */
     public static LocalVariable[] newInstance(final LocalVariableDescriptor[] descriptors)
@@ -108,9 +108,9 @@ public class LocalVariable implements Cloneable
 
     /**
      * replaces the value of a local variable.
-     * @param localVariables the set to introspect
-     * @param oldValue the oldValue
-     * @param newValue the new value
+     * @param localVariables LocalVariable[]; the set to introspect
+     * @param oldValue Object; the oldValue
+     * @param newValue Object; the new value
      */
     public static void replace(final LocalVariable[] localVariables, final Object oldValue, final Object newValue)
     {
@@ -128,7 +128,7 @@ public class LocalVariable implements Cloneable
 
     /**
      * parses the localVariables to string.
-     * @param localVariables the localVariables
+     * @param localVariables LocalVariable[]; the localVariables
      * @return String the result
      */
     public static String toString(final LocalVariable[] localVariables)

@@ -34,13 +34,13 @@ public abstract class Reference<T> implements Serializable
 
     /**
      * sets the value of the reference
-     * @param value the value to set
+     * @param value T; the value to set
      */
     protected abstract void set(final T value);
 
     /**
      * writes a serializable method to stream
-     * @param out the output stream
+     * @param out ObjectOutputStream; the output stream
      * @throws IOException on IOException
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException
@@ -50,7 +50,7 @@ public abstract class Reference<T> implements Serializable
 
     /**
      * reads a serializable method from stream
-     * @param in the input stream
+     * @param in java.io.ObjectInputStream; the input stream
      * @throws IOException on IOException
      * @throws ClassNotFoundException on ClassNotFoundException
      */

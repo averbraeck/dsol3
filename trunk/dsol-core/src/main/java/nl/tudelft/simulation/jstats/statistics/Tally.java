@@ -94,7 +94,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * Constructs a new Tally.
-     * @param description the description of this tally
+     * @param description String; the description of this tally
      */
     public Tally(final String description)
     {
@@ -113,8 +113,8 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the confidence interval on either side of the mean.
-     * @param alpha Alpha is the significance level used to compute the confidence level. The confidence level equals
-     *            100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
+     * @param alpha double; Alpha is the significance level used to compute the confidence level. The confidence level
+     *            equals 100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
      * @return double[] the confidence interval of this tally
      */
     public final double[] getConfidenceInterval(final double alpha)
@@ -124,9 +124,9 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the confidence interval based of the mean.
-     * @param alpha Alpha is the significance level used to compute the confidence level. The confidence level equals
-     *            100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
-     * @param side the side of the confidence interval with respect to the mean
+     * @param alpha double; Alpha is the significance level used to compute the confidence level. The confidence level
+     *            equals 100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
+     * @param side short; the side of the confidence interval with respect to the mean
      * @return double[] the confidence interval of this tally
      */
     public final double[] getConfidenceInterval(final double alpha, final short side)
@@ -361,7 +361,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets sampleMean.
-     * @param newSampleMean the new mean
+     * @param newSampleMean double; the new mean
      * @return double sampleMean
      */
     @SuppressWarnings("checkstyle:designforextension")
@@ -374,7 +374,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets min.
-     * @param newMin the new minimum value
+     * @param newMin double; the new minimum value
      * @return double the input
      */
     @SuppressWarnings("checkstyle:designforextension")
@@ -387,7 +387,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets max.
-     * @param newMax the new maximum value
+     * @param newMax double; the new maximum value
      * @return double the input
      */
     @SuppressWarnings("checkstyle:designforextension")
@@ -400,7 +400,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets n.
-     * @param newN the new n
+     * @param newN long; the new n
      * @return double the input
      */
     @SuppressWarnings("checkstyle:designforextension")
@@ -413,7 +413,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets the count.
-     * @param newSum the new sum
+     * @param newSum double; the new sum
      * @return double the input
      */
     @SuppressWarnings("checkstyle:designforextension")

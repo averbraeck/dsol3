@@ -28,8 +28,8 @@ import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
 public class BallSwingApplication extends DSOLApplication
 {
     /**
-     * @param title the title
-     * @param panel the panel
+     * @param title String; the title
+     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
      */
     public BallSwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
     {
@@ -40,7 +40,7 @@ public class BallSwingApplication extends DSOLApplication
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param args arguments, expected to be empty
+     * @param args String[]; arguments, expected to be empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
@@ -56,7 +56,7 @@ public class BallSwingApplication extends DSOLApplication
                 new AnimationPanel(new Rectangle2D.Double(-100, -100, 200, 200), new Dimension(200, 200), simulator));
         panel.getTabbedPane().setSelectedIndex(1);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
-        new BallSwingApplication("MM1 Queue model", panel);
+        new BallSwingApplication("Ball Animation model", panel);
     }
 
 }

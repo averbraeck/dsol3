@@ -33,9 +33,9 @@ public class DistPearson5 extends DistContinuous
 
     /**
      * constructs a new Pearson5 distribution.
-     * @param stream the random number stream
-     * @param alpha the scale parameter
-     * @param beta the shape parameter
+     * @param stream StreamInterface; the random number stream
+     * @param alpha double; the scale parameter
+     * @param beta double; the shape parameter
      */
     public DistPearson5(final StreamInterface stream, final double alpha, final double beta)
     {

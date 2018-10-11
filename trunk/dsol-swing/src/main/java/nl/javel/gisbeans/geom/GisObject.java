@@ -23,8 +23,9 @@ public class GisObject implements Serializable
 
     /**
      * constructs a GisObject
-     * @param shape the shape (either a <code>java.awt.geom.Point2D</code> or a <code>java.awt.Shape</code>
-     * @param attributes attributes
+     * @param shape Object; the shape (either a &lt;code&gt;java.awt.geom.Point2D&lt;/code&gt; or a
+     *            &lt;code&gt;java.awt.Shape&lt;/code&gt;
+     * @param attributes String[]; attributes
      */
     public GisObject(final Object shape, final String[] attributes)
     {

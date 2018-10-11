@@ -32,7 +32,7 @@ public class IF_ICMPLE extends JumpOperation
 
     /**
      * constructs a new IF_ICMPLE.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public IF_ICMPLE(final DataInput dataInput) throws IOException

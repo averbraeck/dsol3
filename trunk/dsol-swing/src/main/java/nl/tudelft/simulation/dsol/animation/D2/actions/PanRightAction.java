@@ -30,7 +30,7 @@ public class PanRightAction extends AbstractAction
 
     /**
      * constructs a new ZoomIn
-     * @param target the target
+     * @param target GridPanel; the target
      */
     public PanRightAction(final GridPanel target)
     {

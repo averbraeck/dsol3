@@ -30,7 +30,7 @@ public final class BitUtil implements Serializable
     }
 
     /**
-     * @param bits the bitset to convert
+     * @param bits BitSet; the bitset to convert
      * @return Returns a byte array of at least length 1. The most significant bit in the result is guaranteed not to be
      *         a 1 (since BitSet does not support sign extension). The byte-ordering of the result is big-endian which
      *         means the most significant bit is in element 0. The bit at index 0 of the bit set is assumed to be the
@@ -53,8 +53,8 @@ public final class BitUtil implements Serializable
     }
 
     /**
-     * @param bits the bitset to convert
-     * @param length the length of the set
+     * @param bits BitSet; the bitset to convert
+     * @param length int; the length of the set
      * @return Returns an int. The most significant bit in the result is guaranteed not to be a 1 (since BitSet does not
      *         support sign extension). The int-ordering of the result is big-endian which means the most significant
      *         bit is in element 0. The bit at index 0 of the bit set is assumed to be the least significant bit.
@@ -72,7 +72,7 @@ public final class BitUtil implements Serializable
 
     /**
      * constructs a new BitSet from a string in the "110110" format.
-     * @param value the value
+     * @param value String; the value
      * @return the BitSet
      */
     public static BitSet fromString(String value)
@@ -113,7 +113,7 @@ public final class BitUtil implements Serializable
     }
 
     /**
-     * @param bytes the byteArray
+     * @param bytes byte[]; the byteArray
      * @return Returns a bitset containing the values in bytes.The byte-ordering of bytes must be big-endian which means
      *         the most significant bit is in element 0.
      */
@@ -132,8 +132,8 @@ public final class BitUtil implements Serializable
 
     /**
      * returns the bitset of an integer value.
-     * @param value the value
-     * @param length the length of the bitSet to produce
+     * @param value int; the value
+     * @param length int; the length of the bitSet to produce
      * @return the BitSet
      */
     public static BitSet fromInt(final int value, final int length)
@@ -143,8 +143,8 @@ public final class BitUtil implements Serializable
 
     /**
      * returns the bitset of an integer value.
-     * @param value the value
-     * @param length the length of
+     * @param value Integer; the value
+     * @param length int; the length of
      * @return the BitSet
      */
     public static BitSet fromInteger(Integer value, final int length)
@@ -158,7 +158,7 @@ public final class BitUtil implements Serializable
 
     /**
      * returns a one-size BitSet with value.
-     * @param value the value of the bitSet
+     * @param value boolean; the value of the bitSet
      * @return the BitSet
      */
     public static BitSet fromBoolean(final boolean value)

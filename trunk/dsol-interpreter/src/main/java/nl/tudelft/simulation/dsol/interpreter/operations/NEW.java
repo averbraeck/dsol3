@@ -10,8 +10,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantClass;
 
 /**
- * The NEW operation as defined in
- * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * The NEW operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -33,7 +32,7 @@ public class NEW extends VoidOperation
 
     /**
      * constructs a new NEW.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public NEW(final DataInput dataInput) throws IOException
@@ -83,7 +82,7 @@ public class NEW extends VoidOperation
 
         /**
          * constructs a new UninitializedInstance.
-         * @param instanceClass the class of which an instance must be made
+         * @param instanceClass Class&lt;?&gt;; the class of which an instance must be made
          */
         public UninitializedInstance(final Class<?> instanceClass)
         {

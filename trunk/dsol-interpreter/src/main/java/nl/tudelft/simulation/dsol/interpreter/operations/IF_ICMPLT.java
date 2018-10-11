@@ -32,7 +32,7 @@ public class IF_ICMPLT extends JumpOperation
 
     /**
      * constructs a new IF_ICMPLT.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public IF_ICMPLT(final DataInput dataInput) throws IOException

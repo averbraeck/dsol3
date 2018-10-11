@@ -26,7 +26,7 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     private static final long serialVersionUID = 20160507L;
 
     /**
-     * @param sortedMap the map to use for the immutable map.
+     * @param sortedMap Map&lt;K,V&gt;; the map to use for the immutable map.
      */
     public ImmutableTreeMap(final Map<K, V> sortedMap)
     {
@@ -34,7 +34,7 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     }
 
     /**
-     * @param map the map to use for the immutable map.
+     * @param map NavigableMap&lt;K,V&gt;; the map to use for the immutable map.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */
@@ -44,7 +44,7 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     }
 
     /**
-     * @param immutableMap the map to use for the immutable map.
+     * @param immutableMap ImmutableAbstractMap&lt;K,V&gt;; the map to use for the immutable map.
      */
     public ImmutableTreeMap(final ImmutableAbstractMap<K, V> immutableMap)
     {
@@ -52,7 +52,7 @@ public class ImmutableTreeMap<K, V> extends ImmutableAbstractMap<K, V> implement
     }
 
     /**
-     * @param immutableTreeMap the map to use for the immutable map.
+     * @param immutableTreeMap ImmutableTreeMap&lt;K,V&gt;; the map to use for the immutable map.
      * @param copyOrWrap COPY stores a safe, internal copy of the collection; WRAP stores a pointer to the original
      *            collection
      */

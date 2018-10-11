@@ -25,7 +25,7 @@ public class ContinuousBall extends Ball
 
     /**
      * constructs a new Ball.
-     * @param simulator the simulator
+     * @param simulator DESSSimulatorInterface.TimeDouble; the simulator
      * @throws RemoteException on network exception
      * @throws NamingException on animation error
      */

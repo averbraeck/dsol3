@@ -28,7 +28,7 @@ public class Warehouse implements SellerInterface
 
     /**
      * constructs a new Warehouse.
-     * @param simulator the simulator to schedule on
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator to schedule on
      */
     public Warehouse(final DEVSSimulatorInterface.TimeDouble simulator)
     {

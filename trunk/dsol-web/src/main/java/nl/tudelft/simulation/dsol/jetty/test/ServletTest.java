@@ -12,15 +12,15 @@ import org.eclipse.jetty.servlet.ServletHolder;
  * ServletTest.java. <br>
  * <br>
  * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://www.simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
+ * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
+ * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of Delft
+ * University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
  */
 public class ServletTest
 {
     /**
-     * @param args
+     * @param args String[];
      * @throws Exception
      */
     public static void main(String[] args) throws Exception
@@ -28,7 +28,7 @@ public class ServletTest
         Server server = new Server(8080);
         ContextHandlerCollection handlerCollection = new ContextHandlerCollection();
         server.setHandler(handlerCollection);
-        
+
         ServletContextHandler root = new ServletContextHandler(ServletContextHandler.SESSIONS);
         // WebAppContext root = new WebAppContext();
         root.setContextPath("/test");
@@ -43,13 +43,13 @@ public class ServletTest
             {
                 System.out.println("Handling GET");
             }
-
+        
             @Override
             public void doPost(HttpServletRequest req, HttpServletResponse resp)
             {
                 System.out.println("Handling POST");
             }
-
+        
         };
         */
         ServletHolder holder = new ServletHolder(servlet);

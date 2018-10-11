@@ -32,7 +32,7 @@ public class EventIterator<T> extends EventProducer implements Iterator<T>
 
     /**
      * constructs a new Iterator.
-     * @param parent parent.
+     * @param parent Iterator&lt;T&gt;; parent.
      */
     public EventIterator(final Iterator<T> parent)
     {

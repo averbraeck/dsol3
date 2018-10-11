@@ -46,7 +46,7 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
 
     /**
      * constructs a new SortingHeaderCell.
-     * @param sort the sort mode (none, ascending, descending).
+     * @param sort int; the sort mode (none, ascending, descending).
      */
     public SortingHeaderCell(final int sort)
     {
@@ -75,7 +75,7 @@ public class SortingHeaderCell extends DefaultTableCellRenderer
 
     /**
      * sets the sort mode.
-     * @param sort the new mode
+     * @param sort int; the new mode
      */
     public void setSort(final int sort)
     {

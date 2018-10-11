@@ -33,8 +33,8 @@ public class ExperimentParsingThread extends Thread
 
     /**
      * constructs a new ExperimentParsingThread
-     * @param source the source of this thread
-     * @param experiment the experiment to parse
+     * @param source EventListenerInterface; the source of this thread
+     * @param experiment URL; the experiment to parse
      */
     public ExperimentParsingThread(final EventListenerInterface source, final URL experiment)
     {

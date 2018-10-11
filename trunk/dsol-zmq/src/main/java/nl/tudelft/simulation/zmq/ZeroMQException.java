@@ -27,7 +27,7 @@ public class ZeroMQException extends Exception
 
     /**
      * Create a ZeroMQ Exception.
-     * @param message the message
+     * @param message String; the message
      */
     public ZeroMQException(final String message)
     {
@@ -36,7 +36,7 @@ public class ZeroMQException extends Exception
 
     /**
      * Create a ZeroMQ Exception.
-     * @param cause the exception that caused the ZeroMQ exception
+     * @param cause Throwable; the exception that caused the ZeroMQ exception
      */
     public ZeroMQException(final Throwable cause)
     {
@@ -45,8 +45,8 @@ public class ZeroMQException extends Exception
 
     /**
      * Create a ZeroMQ Exception.
-     * @param message the message
-     * @param cause the exception that caused the ZeroMQ exception
+     * @param message String; the message
+     * @param cause Throwable; the exception that caused the ZeroMQ exception
      */
     public ZeroMQException(final String message, final Throwable cause)
     {
@@ -55,10 +55,10 @@ public class ZeroMQException extends Exception
 
     /**
      * Create a ZeroMQ Exception.
-     * @param message the message
-     * @param cause the exception that caused the ZeroMQ exception
-     * @param enableSuppression to enable suppressions or not
-     * @param writableStackTrace to have a writable stack trace or not
+     * @param message String; the message
+     * @param cause Throwable; the exception that caused the ZeroMQ exception
+     * @param enableSuppression boolean; to enable suppressions or not
+     * @param writableStackTrace boolean; to have a writable stack trace or not
      */
     public ZeroMQException(final String message, final Throwable cause, final boolean enableSuppression,
             final boolean writableStackTrace)

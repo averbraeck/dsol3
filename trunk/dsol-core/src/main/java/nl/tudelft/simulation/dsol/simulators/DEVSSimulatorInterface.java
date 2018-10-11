@@ -49,7 +49,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * cancels an event from the event list.
-     * @param event a simulation event to be canceled.
+     * @param event SimEventInterface&lt;T&gt;; a simulation event to be canceled.
      * @return boolean the succes of the operation.
      */
     boolean cancelEvent(SimEventInterface<T> event);
@@ -62,7 +62,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * Method scheduleEvent schedules an event on the eventlist.
-     * @param event a simulation event
+     * @param event SimEventInterface&lt;T&gt;; a simulation event
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever event is scheduled in past.
      */
@@ -71,12 +71,12 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /**
      * schedules a methodCall at a relative duration. The executionTime is thus
      * simulator.getSimulatorTime()+relativeDuration.
-     * @param relativeDelay the relativeDelay in timeUnits of the simulator.
-     * @param priority the priority compared to other events scheduled at the same time.
-     * @param source the source of the event
-     * @param target the target
-     * @param method the method
-     * @param args the arguments.
+     * @param relativeDelay R; the relativeDelay in timeUnits of the simulator.
+     * @param priority short; the priority compared to other events scheduled at the same time.
+     * @param source Object; the source of the event
+     * @param target Object; the target
+     * @param method String; the method
+     * @param args Object[]; the arguments.
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -86,11 +86,11 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /**
      * schedules a methodCall at a relative duration. The executionTime is thus
      * simulator.getSimulatorTime()+relativeDuration.
-     * @param relativeDelay the relativeDelay in timeUnits of the simulator.
-     * @param source the source of the event
-     * @param target the target
-     * @param method the method
-     * @param args the arguments.
+     * @param relativeDelay R; the relativeDelay in timeUnits of the simulator.
+     * @param source Object; the source of the event
+     * @param target Object; the target
+     * @param method String; the method
+     * @param args Object[]; the arguments.
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -99,12 +99,12 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a methodCall at an absolute time.
-     * @param absoluteTime the exact time to schedule the method on the simulator.
-     * @param priority the priority compared to other events scheduled at the same time.
-     * @param source the source of the event
-     * @param target the target
-     * @param method the method
-     * @param args the arguments.
+     * @param absoluteTime T; the exact time to schedule the method on the simulator.
+     * @param priority short; the priority compared to other events scheduled at the same time.
+     * @param source Object; the source of the event
+     * @param target Object; the target
+     * @param method String; the method
+     * @param args Object[]; the arguments.
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -113,11 +113,11 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a methodCall at an absolute time.
-     * @param absoluteTime the exact time to schedule the method on the simulator.
-     * @param source the source of the event
-     * @param target the target
-     * @param method the method
-     * @param args the arguments.
+     * @param absoluteTime A; the exact time to schedule the method on the simulator.
+     * @param source Object; the source of the event
+     * @param target Object; the target
+     * @param method String; the method
+     * @param args Object[]; the arguments.
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -126,12 +126,12 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a methodCall at an absolute time.
-     * @param absoluteTime the exact time to schedule the method on the simulator.
-     * @param priority the priority compared to other events scheduled at the same time.
-     * @param source the source of the event
-     * @param target the target
-     * @param method the method
-     * @param args the arguments.
+     * @param absoluteTime A; the exact time to schedule the method on the simulator.
+     * @param priority short; the priority compared to other events scheduled at the same time.
+     * @param source Object; the source of the event
+     * @param target Object; the target
+     * @param method String; the method
+     * @param args Object[]; the arguments.
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -140,11 +140,11 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a methodCall at an absolute time.
-     * @param absoluteTime the exact time to schedule the method on the simulator.
-     * @param source the source of the event
-     * @param target the target
-     * @param method the method
-     * @param args the arguments.
+     * @param absoluteTime T; the exact time to schedule the method on the simulator.
+     * @param source Object; the source of the event
+     * @param target Object; the target
+     * @param method String; the method
+     * @param args Object[]; the arguments.
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -153,11 +153,11 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a methodCall immediately.
-     * @param priority the priority compared to other events scheduled at the same time.
-     * @param source the source of the event
-     * @param target the target
-     * @param method the method
-     * @param args the arguments.
+     * @param priority short; the priority compared to other events scheduled at the same time.
+     * @param source Object; the source of the event
+     * @param target Object; the target
+     * @param method String; the method
+     * @param args Object[]; the arguments.
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -166,10 +166,10 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a methodCall immediately.
-     * @param source the source of the event
-     * @param target the target
-     * @param method the method
-     * @param args the arguments.
+     * @param source Object; the source of the event
+     * @param target Object; the target
+     * @param method String; the method
+     * @param args Object[]; the arguments.
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -179,9 +179,9 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /**
      * schedules a lambda expression at a relative duration. The executionTime is thus
      * simulator.getSimulatorTime()+relativeDuration.
-     * @param relativeDelay the relativeDelay in timeUnits of the simulator.
-     * @param priority the priority compared to other events scheduled at the same time.
-     * @param executable the lambda expression to execute
+     * @param relativeDelay R; the relativeDelay in timeUnits of the simulator.
+     * @param priority short; the priority compared to other events scheduled at the same time.
+     * @param executable Executable; the lambda expression to execute
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -191,8 +191,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /**
      * schedules a lambda expression at a relative duration. The executionTime is thus
      * simulator.getSimulatorTime()+relativeDuration.
-     * @param relativeDelay the relativeDelay in timeUnits of the simulator.
-     * @param executable the lambda expression to execute
+     * @param relativeDelay R; the relativeDelay in timeUnits of the simulator.
+     * @param executable Executable; the lambda expression to execute
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -200,9 +200,9 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a lambda expression at an absolute time.
-     * @param absoluteTime the exact time to schedule the method on the simulator.
-     * @param priority the priority compared to other events scheduled at the same time.
-     * @param executable the lambda expression to execute
+     * @param absoluteTime T; the exact time to schedule the method on the simulator.
+     * @param priority short; the priority compared to other events scheduled at the same time.
+     * @param executable Executable; the lambda expression to execute
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -211,8 +211,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a lambda expression at an absolute time.
-     * @param absoluteTime the exact time to schedule the method on the simulator.
-     * @param executable the lambda expression to execute
+     * @param absoluteTime A; the exact time to schedule the method on the simulator.
+     * @param executable Executable; the lambda expression to execute
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -220,9 +220,9 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a lambda expression at an absolute time.
-     * @param absoluteTime the exact time to schedule the method on the simulator.
-     * @param priority the priority compared to other events scheduled at the same time.
-     * @param executable the lambda expression to execute
+     * @param absoluteTime A; the exact time to schedule the method on the simulator.
+     * @param priority short; the priority compared to other events scheduled at the same time.
+     * @param executable Executable; the lambda expression to execute
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -231,8 +231,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a lambda expression at an absolute time.
-     * @param absoluteTime the exact time to schedule the method on the simulator.
-     * @param executable the lambda expression to execute
+     * @param absoluteTime T; the exact time to schedule the method on the simulator.
+     * @param executable Executable; the lambda expression to execute
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -240,8 +240,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a lambda expression immediately.
-     * @param priority the priority compared to other events scheduled at the same time.
-     * @param executable the lambda expression to execute
+     * @param priority short; the priority compared to other events scheduled at the same time.
+     * @param executable Executable; the lambda expression to execute
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -249,7 +249,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * schedules a lambda expression immediately.
-     * @param executable the lambda expression to execute
+     * @param executable Executable; the lambda expression to execute
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
@@ -257,21 +257,21 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * Method setEventList sets the eventlist.
-     * @param eventList the eventList for the simulator.
+     * @param eventList EventListInterface&lt;T&gt;; the eventList for the simulator.
      * @throws SimRuntimeException whenever simulator.isRunning()==true
      */
     void setEventList(EventListInterface<T> eventList) throws SimRuntimeException;
 
     /**
      * Runs the simulator up to a certain time; events at that time will not yet be executed.
-     * @param when the absolute time till when we want to run the simulation
+     * @param when A; the absolute time till when we want to run the simulation
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      */
     void runUpTo(A when) throws SimRuntimeException;
 
     /**
      * Runs the simulator up to a certain time; events at that time will not yet be executed.
-     * @param when the absolute time till when we want to run the simulation
+     * @param when A; the absolute time till when we want to run the simulation
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      */
     void runUpToAndIncluding(A when) throws SimRuntimeException;
@@ -281,7 +281,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
 
     /**
      * Set the boolean whether we pause on an error or not.
-     * @param pauseOnError set true or false.
+     * @param pauseOnError boolean; set true or false.
      */
     void setPauseOnError(boolean pauseOnError);
 

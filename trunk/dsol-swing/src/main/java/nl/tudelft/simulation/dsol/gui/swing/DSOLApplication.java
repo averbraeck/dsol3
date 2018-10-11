@@ -22,8 +22,8 @@ public class DSOLApplication extends JFrame
 
     /**
      * Constructor for DSOLApplication.
-     * @param title the title in the top bar
-     * @param panel the panel to put in the frame
+     * @param title String; the title in the top bar
+     * @param panel DSOLPanel; the panel to put in the frame
      */
     public DSOLApplication(final String title, final DSOLPanel panel)
     {

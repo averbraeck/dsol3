@@ -42,9 +42,9 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param x the x value
-     * @param y the y value
-     * @param z the z value
+     * @param x double; the x value
+     * @param y double; the y value
+     * @param z double; the z value
      */
     public DirectedPoint(final double x, final double y, final double z)
     {
@@ -53,12 +53,12 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param x the x value
-     * @param y the y value
-     * @param z the z value
-     * @param rotX rotX
-     * @param rotY rotY
-     * @param rotZ rotZ
+     * @param x double; the x value
+     * @param y double; the y value
+     * @param z double; the z value
+     * @param rotX double; rotX
+     * @param rotY double; rotY
+     * @param rotZ double; rotZ
      */
     public DirectedPoint(final double x, final double y, final double z, final double rotX, final double rotY,
             final double rotZ)
@@ -71,8 +71,8 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param point2D the point
-     * @param rotZ rotZ
+     * @param point2D Point2D; the point
+     * @param rotZ double; rotZ
      */
     public DirectedPoint(final Point2D point2D, final double rotZ)
     {
@@ -82,7 +82,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param xyz the xyx value
+     * @param xyz double[]; the xyx value
      */
     public DirectedPoint(final double[] xyz)
     {
@@ -91,7 +91,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param cartesianPoint the cartesianPoint
+     * @param cartesianPoint Point3d; the cartesianPoint
      */
     public DirectedPoint(final Point3d cartesianPoint)
     {
@@ -100,7 +100,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param sphericalPoint the sphericalPoint
+     * @param sphericalPoint SphericalPoint; the sphericalPoint
      */
     public DirectedPoint(final SphericalPoint sphericalPoint)
     {
@@ -109,7 +109,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param location the location
+     * @param location DirectedPoint; the location
      */
     public DirectedPoint(final DirectedPoint location)
     {
@@ -121,7 +121,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param point2D the point
+     * @param point2D Point2D; the point
      */
     public DirectedPoint(final Point2D point2D)
     {
@@ -130,7 +130,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param point the point
+     * @param point Point3f; the point
      */
     public DirectedPoint(final Point3f point)
     {
@@ -139,7 +139,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param tuple the point
+     * @param tuple Tuple3d; the point
      */
     public DirectedPoint(final Tuple3d tuple)
     {
@@ -148,7 +148,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * constructs a new DirectedPoint.
-     * @param tuple the point
+     * @param tuple Tuple3f; the point
      */
     public DirectedPoint(final Tuple3f tuple)
     {
@@ -166,7 +166,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * sets the rotY.
-     * @param rotY the rotY-value
+     * @param rotY double; the rotY-value
      */
     public final void setRotY(final double rotY)
     {
@@ -184,7 +184,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * sets the rotZ value.
-     * @param rotZ the rotZ-value
+     * @param rotZ double; the rotZ-value
      */
     public final void setRotZ(final double rotZ)
     {
@@ -202,7 +202,7 @@ public class DirectedPoint extends CartesianPoint
 
     /**
      * sets the rotX.
-     * @param rotX rotX-value
+     * @param rotX double; rotX-value
      */
     public final void setRotX(final double rotX)
     {

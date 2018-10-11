@@ -28,8 +28,8 @@ public class Gill extends NumericalIntegrator
 
     /**
      * constructs a new Gill integrator.
-     * @param timeStep the timeStep
-     * @param equation the differentialEquation
+     * @param timeStep double; the timeStep
+     * @param equation DifferentialEquationInterface; the differentialEquation
      */
     public Gill(final double timeStep, final DifferentialEquationInterface equation)
     {

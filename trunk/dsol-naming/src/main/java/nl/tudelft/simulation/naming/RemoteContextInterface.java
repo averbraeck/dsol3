@@ -20,7 +20,7 @@ import javax.naming.OperationNotSupportedException;
 import nl.tudelft.simulation.naming.listener.RemoteContextListenerInterface;
 
 /**
- * The interface for the RemoteContext, adding the RemoteException to the method calls. 
+ * The interface for the RemoteContext, adding the RemoteException to the method calls.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
@@ -54,26 +54,28 @@ public interface RemoteContextInterface extends Remote
      * <tt>addNamingListener()</tt> is executed. Care must be taken when multiple threads are accessing the same
      * <tt>EventContext</tt> concurrently. See the <a href=package-summary.html#THREADING>package description </a> for
      * more information on threading issues.
-     * @param target A nonnull name to be resolved relative to this context.
-     * @param scope One of <tt>OBJECT_SCOPE</tt>,<tt>ONELEVEL_SCOPE</tt>, or <tt>SUBTREE_SCOPE</tt>.
-     * @param l The nonnull listener.
+     * @param target Name; A nonnull name to be resolved relative to this context.
+     * @param scope int; One of &lt;tt&gt;OBJECT_SCOPE&lt;/tt&gt;,&lt;tt&gt;ONELEVEL_SCOPE&lt;/tt&gt;, or
+     *            &lt;tt&gt;SUBTREE_SCOPE&lt;/tt&gt;.
+     * @param l RemoteContextListenerInterface; The nonnull listener.
      * @exception NamingException If a problem was encountered while adding the listener.
      * @exception RemoteException on network exception
      */
-    public void addNamingListener(Name target, int scope, RemoteContextListenerInterface l) throws RemoteException,
-            NamingException;
+    public void addNamingListener(Name target, int scope, RemoteContextListenerInterface l)
+            throws RemoteException, NamingException;
 
     /**
      * Adds a listener for receiving naming events fired when the object named by the string target name and scope
      * changes. See the overload that accepts a <tt>Name</tt> for details.
-     * @param target The nonnull string name of the object resolved relative to this context.
-     * @param scope One of <tt>OBJECT_SCOPE</tt>,<tt>ONELEVEL_SCOPE</tt>, or <tt>SUBTREE_SCOPE</tt>.
-     * @param l The nonnull listener.
+     * @param target String; The nonnull string name of the object resolved relative to this context.
+     * @param scope int; One of &lt;tt&gt;OBJECT_SCOPE&lt;/tt&gt;,&lt;tt&gt;ONELEVEL_SCOPE&lt;/tt&gt;, or
+     *            &lt;tt&gt;SUBTREE_SCOPE&lt;/tt&gt;.
+     * @param l RemoteContextListenerInterface; The nonnull listener.
      * @exception NamingException If a problem was encountered while adding the listener.
      * @exception RemoteException on network exception
      */
-    public void addNamingListener(String target, int scope, RemoteContextListenerInterface l) throws NamingException,
-            RemoteException;
+    public void addNamingListener(String target, int scope, RemoteContextListenerInterface l)
+            throws NamingException, RemoteException;
 
     /**
      * Removes a listener from receiving naming events fired by this <tt>EventContext</tt>. The listener may have
@@ -81,7 +83,7 @@ public interface RemoteContextInterface extends Remote
      * this method is invoked, the listener will no longer receive events with this <tt>EventContext</tt> instance as
      * the event source (except for those events already in the process of being dispatched). If the listener was not,
      * or is no longer, registered with this <tt>EventContext</tt> instance, this method does not do anything.
-     * @param l The nonnull listener.
+     * @param l RemoteContextListenerInterface; The nonnull listener.
      * @exception NamingException If a problem was encountered while removing the listener.
      * @exception RemoteException on network exception
      */
@@ -99,7 +101,7 @@ public interface RemoteContextInterface extends Remote
      * Retrieves the named object. If <tt>name</tt> is empty, returns a new instance of this context (which represents
      * the same naming context as this context, but its environment may be modified independently and it may be accessed
      * concurrently).
-     * @param name the name of the object to look up
+     * @param name Name; the name of the object to look up
      * @return the object bound to <tt>name</tt>
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -110,7 +112,7 @@ public interface RemoteContextInterface extends Remote
 
     /**
      * Retrieves the named object. See {@link #lookup(Name)}for details.
-     * @param name the name of the object to look up
+     * @param name String; the name of the object to look up
      * @return the object bound to <tt>name</tt>
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -222,7 +224,7 @@ public interface RemoteContextInterface extends Remote
      * <p>
      * If a binding is added to or removed from this context, its effect on an enumeration previously returned is
      * undefined.
-     * @param name the name of the context to list
+     * @param name Name; the name of the context to list
      * @return an enumeration of the names and class names of the bindings in this context. Each element of the
      *         enumeration is of type <tt>NameClassPair</tt>.
      * @throws NamingException if a naming exception is encountered
@@ -236,7 +238,7 @@ public interface RemoteContextInterface extends Remote
     /**
      * Enumerates the names bound in the named context, along with the class names of objects bound to them. See
      * {@link #list(Name)}for details.
-     * @param name the name of the context to list
+     * @param name String; the name of the context to list
      * @return an enumeration of the names and class names of the bindings in this context. Each element of the
      *         enumeration is of type <tt>NameClassPair</tt>.
      * @throws NamingException if a naming exception is encountered
@@ -250,7 +252,7 @@ public interface RemoteContextInterface extends Remote
      * <p>
      * If a binding is added to or removed from this context, its effect on an enumeration previously returned is
      * undefined.
-     * @param name the name of the context to list
+     * @param name Name; the name of the context to list
      * @return an enumeration of the bindings in this context. Each element of the enumeration is of type
      *         <tt>Binding</tt>.
      * @throws NamingException if a naming exception is encountered
@@ -264,7 +266,7 @@ public interface RemoteContextInterface extends Remote
     /**
      * Enumerates the names bound in the named context, along with the objects bound to them. See
      * {@link #listBindings(Name)}for details.
-     * @param name the name of the context to list
+     * @param name String; the name of the context to list
      * @return an enumeration of the bindings in this context. Each element of the enumeration is of type
      *         <tt>Binding</tt>.
      * @throws NamingException if a naming exception is encountered
@@ -338,7 +340,7 @@ public interface RemoteContextInterface extends Remote
     /**
      * Retrieves the named object, following links except for the terminal atomic component of the name. If the object
      * bound to <tt>name</tt> is not a link, returns the object itself.
-     * @param name the name of the object to look up
+     * @param name Name; the name of the object to look up
      * @return the object bound to <tt>name</tt>, not following the terminal link (if any).
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -349,7 +351,7 @@ public interface RemoteContextInterface extends Remote
     /**
      * Retrieves the named object, following links except for the terminal atomic component of the name. See
      * {@link #lookupLink(Name)}for details.
-     * @param name the name of the object to look up
+     * @param name String; the name of the object to look up
      * @return the object bound to <tt>name</tt>, not following the terminal link (if any)
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -361,7 +363,7 @@ public interface RemoteContextInterface extends Remote
      * will parse names differently. This method allows an application to get a parser for parsing names into their
      * atomic components using the naming convention of a particular naming system. Within any single naming system,
      * <tt>NameParser</tt> objects returned by this method must be equal (using the <tt>equals()</tt> test).
-     * @param name the name of the context from which to get the parser
+     * @param name Name; the name of the context from which to get the parser
      * @return a name parser that can parse compound names into their atomic components
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -372,7 +374,7 @@ public interface RemoteContextInterface extends Remote
 
     /**
      * Retrieves the parser associated with the named context. See {@link #getNameParser(Name)}for details.
-     * @param name the name of the context from which to get the parser
+     * @param name String; the name of the context from which to get the parser
      * @return a name parser that can parse compound names into their atomic components
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -405,8 +407,8 @@ public interface RemoteContextInterface extends Remote
      * </pre>
      * 
      * returns <code>"research/user/jane"</code>.
-     * @param name a name relative to this context
-     * @param prefix the name of this context relative to one of its ancestors
+     * @param name Name; a name relative to this context
+     * @param prefix Name; the name of this context relative to one of its ancestors
      * @return the composition of <code>prefix</code> and <code>name</code>
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -417,8 +419,8 @@ public interface RemoteContextInterface extends Remote
     /**
      * Composes the name of this context with a name relative to this context. See {@link #composeName(Name, Name)}for
      * details.
-     * @param name a name relative to this context
-     * @param prefix the name of this context relative to one of its ancestors
+     * @param name String; a name relative to this context
+     * @param prefix String; the name of this context relative to one of its ancestors
      * @return the composition of <code>prefix</code> and <code>name</code>
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -455,7 +457,8 @@ public interface RemoteContextInterface extends Remote
      * properties.
      * <p>
      * The caller should not make any changes to the object returned: their effect on the context is undefined. The
-     * environment of this context may be changed using <tt>addToEnvironment()</tt> and <tt>removeFromEnvironment()</tt>.
+     * environment of this context may be changed using <tt>addToEnvironment()</tt> and
+     * <tt>removeFromEnvironment()</tt>.
      * @return the environment of this context; never null
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception

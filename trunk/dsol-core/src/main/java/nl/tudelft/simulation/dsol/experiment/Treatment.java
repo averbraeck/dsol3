@@ -70,12 +70,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * constructs a Treatment.
-     * @param experiment reflects the experiment
-     * @param id an id to recognize the treatment
-     * @param startTime the absolute start time of a run (can be zero)
-     * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-     * @param runLength the run length of a run (relative to the start time)
-     * @param replicationMode the replication mode of this treatment
+     * @param experiment Experiment&lt;A,R,T&gt;; reflects the experiment
+     * @param id String; an id to recognize the treatment
+     * @param startTime T; the absolute start time of a run (can be zero)
+     * @param warmupPeriod R; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+     *            runLength
+     * @param runLength R; the run length of a run (relative to the start time)
+     * @param replicationMode ReplicationMode; the replication mode of this treatment
      */
     public Treatment(final Experiment<A, R, T> experiment, final String id, final T startTime, final R warmupPeriod,
             final R runLength, final ReplicationMode replicationMode)
@@ -95,11 +96,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * constructs a Treatment.
-     * @param experiment reflects the experiment
-     * @param id an id to recognize the treatment
-     * @param startTime the absolute start time of a run (can be zero)
-     * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-     * @param runLength the run length of a run (relative to the start time)
+     * @param experiment Experiment&lt;A,R,T&gt;; reflects the experiment
+     * @param id String; an id to recognize the treatment
+     * @param startTime T; the absolute start time of a run (can be zero)
+     * @param warmupPeriod R; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+     *            runLength
+     * @param runLength R; the run length of a run (relative to the start time)
      */
     public Treatment(final Experiment<A, R, T> experiment, final String id, final T startTime, final R warmupPeriod,
             final R runLength)
@@ -125,7 +127,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * sets the properties.
-     * @param properties the properties
+     * @param properties Properties; the properties
      */
     public final void setProperties(final Properties properties)
     {
@@ -233,12 +235,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeDouble.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
-         * @param replicationMode the replication mode of this treatment
+         * @param experiment Experiment.TimeDouble; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Double; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Double; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
+         * @param runLength Double; the run length of a run (relative to the start time)
+         * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
         public TimeDouble(final Experiment.TimeDouble experiment, final String id, final Double startTime,
                 final Double warmupPeriod, final Double runLength, final ReplicationMode replicationMode)
@@ -248,11 +251,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeDouble.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
+         * @param experiment Experiment.TimeDouble; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Double; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Double; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
+         * @param runLength Double; the run length of a run (relative to the start time)
          */
         public TimeDouble(final Experiment.TimeDouble experiment, final String id, final Double startTime,
                 final Double warmupPeriod, final Double runLength)
@@ -269,12 +273,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeFloat.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
-         * @param replicationMode the replication mode of this treatment
+         * @param experiment Experiment.TimeFloat; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Float; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Float; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
+         * @param runLength Float; the run length of a run (relative to the start time)
+         * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
         public TimeFloat(final Experiment.TimeFloat experiment, final String id, final Float startTime,
                 final Float warmupPeriod, final Float runLength, final ReplicationMode replicationMode)
@@ -284,11 +289,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeFloat.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
+         * @param experiment Experiment.TimeFloat; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Float; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Float; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
+         * @param runLength Float; the run length of a run (relative to the start time)
          */
         public TimeFloat(final Experiment.TimeFloat experiment, final String id, final Float startTime,
                 final Float warmupPeriod, final Float runLength)
@@ -305,12 +311,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeLong.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
-         * @param replicationMode the replication mode of this treatment
+         * @param experiment Experiment.TimeLong; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Long; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
+         * @param runLength Long; the run length of a run (relative to the start time)
+         * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
         public TimeLong(final Experiment.TimeLong experiment, final String id, final Long startTime,
                 final Long warmupPeriod, final Long runLength, final ReplicationMode replicationMode)
@@ -320,11 +327,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeLong.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
+         * @param experiment Experiment.TimeLong; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Long; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
+         * @param runLength Long; the run length of a run (relative to the start time)
          */
         public TimeLong(final Experiment.TimeLong experiment, final String id, final Long startTime,
                 final Long warmupPeriod, final Long runLength)
@@ -341,12 +349,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeDoubleUnit.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
-         * @param replicationMode the replication mode of this treatment
+         * @param experiment Experiment.TimeDoubleUnit; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Time; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
+         * @param runLength Duration; the run length of a run (relative to the start time)
+         * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
         public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment, final String id, final Time startTime,
                 final Duration warmupPeriod, final Duration runLength, final ReplicationMode replicationMode)
@@ -356,11 +365,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeDoubleUnit.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
+         * @param experiment Experiment.TimeDoubleUnit; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Time; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
+         * @param runLength Duration; the run length of a run (relative to the start time)
          */
         public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment, final String id, final Time startTime,
                 final Duration warmupPeriod, final Duration runLength)
@@ -377,12 +387,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeFloatUnit.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
-         * @param replicationMode the replication mode of this treatment
+         * @param experiment Experiment.TimeFloatUnit; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime FloatTime; the absolute start time of a run (can be zero)
+         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero),
+         *            &lt;i&gt;included&lt;/i&gt; in the runLength
+         * @param runLength FloatDuration; the run length of a run (relative to the start time)
+         * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
         public TimeFloatUnit(final Experiment.TimeFloatUnit experiment, final String id, final FloatTime startTime,
                 final FloatDuration warmupPeriod, final FloatDuration runLength, final ReplicationMode replicationMode)
@@ -392,11 +403,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeFloatUnit.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
+         * @param experiment Experiment.TimeFloatUnit; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime FloatTime; the absolute start time of a run (can be zero)
+         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero),
+         *            &lt;i&gt;included&lt;/i&gt; in the runLength
+         * @param runLength FloatDuration; the run length of a run (relative to the start time)
          */
         public TimeFloatUnit(final Experiment.TimeFloatUnit experiment, final String id, final FloatTime startTime,
                 final FloatDuration warmupPeriod, final FloatDuration runLength)
@@ -413,12 +425,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarDouble.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
-         * @param replicationMode the replication mode of this treatment
+         * @param experiment Experiment.CalendarDouble; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Calendar; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
+         * @param runLength Duration; the run length of a run (relative to the start time)
+         * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
         public CalendarDouble(final Experiment.CalendarDouble experiment, final String id, final Calendar startTime,
                 final Duration warmupPeriod, final Duration runLength, final ReplicationMode replicationMode)
@@ -428,11 +441,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarDouble.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
+         * @param experiment Experiment.CalendarDouble; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Calendar; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
+         * @param runLength Duration; the run length of a run (relative to the start time)
          */
         public CalendarDouble(final Experiment.CalendarDouble experiment, final String id, final Calendar startTime,
                 final Duration warmupPeriod, final Duration runLength)
@@ -449,12 +463,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarFloat.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
-         * @param replicationMode the replication mode of this treatment
+         * @param experiment Experiment.CalendarFloat; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Calendar; the absolute start time of a run (can be zero)
+         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero),
+         *            &lt;i&gt;included&lt;/i&gt; in the runLength
+         * @param runLength FloatDuration; the run length of a run (relative to the start time)
+         * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
         public CalendarFloat(final Experiment.CalendarFloat experiment, final String id, final Calendar startTime,
                 final FloatDuration warmupPeriod, final FloatDuration runLength, final ReplicationMode replicationMode)
@@ -464,11 +479,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarFloat.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
+         * @param experiment Experiment.CalendarFloat; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Calendar; the absolute start time of a run (can be zero)
+         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero),
+         *            &lt;i&gt;included&lt;/i&gt; in the runLength
+         * @param runLength FloatDuration; the run length of a run (relative to the start time)
          */
         public CalendarFloat(final Experiment.CalendarFloat experiment, final String id, final Calendar startTime,
                 final FloatDuration warmupPeriod, final FloatDuration runLength)
@@ -485,12 +501,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarLong.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
-         * @param replicationMode the replication mode of this treatment
+         * @param experiment Experiment.CalendarLong; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Calendar; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
+         * @param runLength Long; the run length of a run (relative to the start time)
+         * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
         public CalendarLong(final Experiment.CalendarLong experiment, final String id, final Calendar startTime,
                 final Long warmupPeriod, final Long runLength, final ReplicationMode replicationMode)
@@ -500,11 +517,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarLong.
-         * @param experiment reflects the experiment
-         * @param id an id to recognize the treatment
-         * @param startTime the absolute start time of a run (can be zero)
-         * @param warmupPeriod the relative warmup time of a run (can be zero), <i>included</i> in the runLength
-         * @param runLength the run length of a run (relative to the start time)
+         * @param experiment Experiment.CalendarLong; reflects the experiment
+         * @param id String; an id to recognize the treatment
+         * @param startTime Calendar; the absolute start time of a run (can be zero)
+         * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
+         * @param runLength Long; the run length of a run (relative to the start time)
          */
         public CalendarLong(final Experiment.CalendarLong experiment, final String id, final Calendar startTime,
                 final Long warmupPeriod, final Long runLength)

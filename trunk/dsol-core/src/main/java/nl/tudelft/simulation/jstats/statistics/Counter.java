@@ -47,7 +47,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * constructs a new CounterTest.
-     * @param description the description for this counter
+     * @param description String; the description for this counter
      */
     public Counter(final String description)
     {
@@ -125,7 +125,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets the count.
-     * @param count the value
+     * @param count long; the value
      */
     private void setCount(final long count)
     {
@@ -135,7 +135,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
 
     /**
      * sets n.
-     * @param n the number of measurements.
+     * @param n long; the number of measurements.
      */
     private void setN(final long n)
     {

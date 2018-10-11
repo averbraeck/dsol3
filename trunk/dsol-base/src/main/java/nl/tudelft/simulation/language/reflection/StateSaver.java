@@ -39,7 +39,7 @@ public final class StateSaver
     /**
      * Save the state of a single object into another object. Fields of the superclass are included. The state save is a
      * deep copy, using the writeObject() method of serialization.
-     * @param object the object to save the state from
+     * @param object Object; the object to save the state from
      * @return the state packed into a memory object
      * @throws DSOLException on serialization error
      */
@@ -66,8 +66,8 @@ public final class StateSaver
      * Retrieve the earlier saved state of a single object and write it into an object (which could be a clone or the
      * original object). Fields of the superclass are included. The state retrieval uses all information from a deep
      * copy, using the readObject() method of deserialization to fill the target object.
-     * @param target the target object to write the deserialized information into
-     * @param state the earlier saved state to write
+     * @param target Object; the target object to write the deserialized information into
+     * @param state Object; the earlier saved state to write
      * @throws DSOLException on deserialization error
      */
     public static void restoreState(final Object target, final Object state) throws DSOLException

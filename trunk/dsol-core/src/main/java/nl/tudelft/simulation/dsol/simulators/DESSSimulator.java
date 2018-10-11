@@ -50,7 +50,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /**
      * Construct a DESSSimulator with an initial time step for the integration process.
-     * @param initialTimeStep the initial time step to use in the integration.
+     * @param initialTimeStep R; the initial time step to use in the integration.
      * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
      */
     public DESSSimulator(final R initialTimeStep) throws SimRuntimeException
@@ -126,7 +126,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep the initial time step to use in the integration.
+         * @param initialTimeStep Double; the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeDouble(final Double initialTimeStep) throws SimRuntimeException
@@ -143,7 +143,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep the initial time step to use in the integration.
+         * @param initialTimeStep Float; the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeFloat(final Float initialTimeStep) throws SimRuntimeException
@@ -160,7 +160,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep the initial time step to use in the integration.
+         * @param initialTimeStep Long; the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeLong(final Long initialTimeStep) throws SimRuntimeException
@@ -177,7 +177,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep the initial time step to use in the integration.
+         * @param initialTimeStep Duration; the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeDoubleUnit(final Duration initialTimeStep) throws SimRuntimeException
@@ -194,7 +194,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep the initial time step to use in the integration.
+         * @param initialTimeStep FloatDuration; the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public TimeFloatUnit(final FloatDuration initialTimeStep) throws SimRuntimeException
@@ -211,7 +211,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep the initial time step to use in the integration.
+         * @param initialTimeStep Duration; the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public CalendarDouble(final Duration initialTimeStep) throws SimRuntimeException
@@ -228,7 +228,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep the initial time step to use in the integration.
+         * @param initialTimeStep FloatDuration; the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public CalendarFloat(final FloatDuration initialTimeStep) throws SimRuntimeException
@@ -245,7 +245,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * @param initialTimeStep the initial time step to use in the integration.
+         * @param initialTimeStep Long; the initial time step to use in the integration.
          * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
          */
         public CalendarLong(final Long initialTimeStep) throws SimRuntimeException

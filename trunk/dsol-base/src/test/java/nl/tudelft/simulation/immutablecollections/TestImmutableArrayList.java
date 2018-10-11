@@ -13,9 +13,9 @@ import org.junit.Test;
  * TestImmutable.java. <br>
  * <br>
  * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
+ * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
+ * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of Delft
+ * University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
  */
 public class TestImmutableArrayList
@@ -34,7 +34,7 @@ public class TestImmutableArrayList
         list = new ArrayList<Integer>(intList);
         ImmutableArrayList<Integer> ial = new ImmutableArrayList<Integer>(list);
         testIntList(list, new ImmutableArrayList<Integer>(ial), Immutable.COPY);
-        
+
         list = new ArrayList<Integer>(intList);
         Set<Integer> intSet = new HashSet<>(Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
         testIntList(list, new ImmutableArrayList<Integer>(intSet), Immutable.COPY);
@@ -61,14 +61,14 @@ public class TestImmutableArrayList
             Assert.assertTrue(imList.toList().equals(list));
             Assert.assertFalse(imList.toList() == list); // this WRAP method returns a NEW list
         }
-        
+
         List<Integer> to = imList.toList();
         Assert.assertTrue(list.equals(to));
-        
+
         Integer[] arr = imList.toArray(new Integer[]{});
         Integer[] sar = list.toArray(new Integer[]{});
         Assert.assertArrayEquals(arr, sar);
-        
+
         // modify the underlying data structure
         list.add(11);
         if (copyOrWrap == Immutable.COPY)

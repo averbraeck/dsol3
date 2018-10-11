@@ -30,8 +30,8 @@ public interface FactoryInterface
 
     /**
      * resolves an operation for an operandCode.
-     * @param dataInput the dataInput
-     * @param startBytePosition the position in the byteStream
+     * @param dataInput DataInput; the dataInput
+     * @param startBytePosition int; the position in the byteStream
      * @return Operation the operation
      * @throws IOException on IOException
      */
@@ -39,9 +39,9 @@ public interface FactoryInterface
 
     /**
      * resolves an operation for an operandCode.
-     * @param operand the operand
-     * @param dataInput the dataInput
-     * @param startBytePosition the position in the byteStream
+     * @param operand int; the operand
+     * @param dataInput DataInput; the dataInput
+     * @param startBytePosition int; the position in the byteStream
      * @return Operation the operation
      * @throws IOException on IOException
      */

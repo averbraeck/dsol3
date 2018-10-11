@@ -25,9 +25,9 @@ public class Job
 
     /**
      * constructs a new Job.
-     * @param serviceTimeDistribution the distribution from which to draw the serviceTime
-     * @param source the source of the job
-     * @param creationTime time of creation
+     * @param serviceTimeDistribution DistContinuous; the distribution from which to draw the serviceTime
+     * @param source StationInterface; the source of the job
+     * @param creationTime double; time of creation
      */
     public Job(final DistContinuous serviceTimeDistribution, final StationInterface source, final double creationTime)
     {
@@ -56,7 +56,7 @@ public class Job
 
     /**
      * sets the serviceTime
-     * @param serviceTime the time
+     * @param serviceTime double; the time
      */
     public void setServiceTime(final double serviceTime)
     {

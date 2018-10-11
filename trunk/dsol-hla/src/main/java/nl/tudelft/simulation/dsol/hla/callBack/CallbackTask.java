@@ -47,10 +47,10 @@ public class CallbackTask
      * The constuctor of the event stores the time the event must be executed and the object and method to invoke
      * @param executionTime reflects the time the event has to be executed.
      * @param priority reflects the priority of the event
-     * @param source reflects the source that created the method
-     * @param target reflects the object on which the method must be invoked.
-     * @param method reflects the method to invoke
-     * @param args reflects the argumenst the method to invoke with
+     * @param source Object; reflects the source that created the method
+     * @param target Object; reflects the object on which the method must be invoked.
+     * @param method String; reflects the method to invoke
+     * @param args Object[]; reflects the argumenst the method to invoke with
      */
     public CallbackTask(final Object source, final Object target, final String method, final Object[] args)
     {

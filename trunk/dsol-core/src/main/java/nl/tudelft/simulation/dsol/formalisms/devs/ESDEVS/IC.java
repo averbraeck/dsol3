@@ -30,8 +30,8 @@ public class IC<A extends Comparable<A>, R extends Number & Comparable<R>, T ext
 
     /**
      * Make the wiring between output and input.
-     * @param fromPort the output port of the sending component
-     * @param toPort input port of the receiving component
+     * @param fromPort OutputPortInterface&lt;A,R,T,P&gt;; the output port of the sending component
+     * @param toPort InputPortInterface&lt;A,R,T,P&gt;; input port of the receiving component
      * @throws Exception in case of wiring to self
      */
     public IC(final OutputPortInterface<A, R, T, P> fromPort, final InputPortInterface<A, R, T, P> toPort)

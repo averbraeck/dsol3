@@ -36,8 +36,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
     private static final long serialVersionUID = 20140830L;
 
     /** listeners is the collection of interested listeners. */
-    protected Map<EventType, List<Reference<EventListenerInterface>>> listeners = Collections
-            .synchronizedMap(new EventListenerMap());
+    protected Map<EventType, List<Reference<EventListenerInterface>>> listeners =
+            Collections.synchronizedMap(new EventListenerMap());
 
     /**
      * the semaphore used to lock on while performing thread sensitive operations.
@@ -160,8 +160,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
     /**
      * fires the event to the listener. This method is a hook method. The default implementation simply invokes the
      * notify on the listener. In specific cases (filtering, storing, queuing, this method can be overwritten.
-     * @param listener the listener for this event
-     * @param event the event to fire
+     * @param listener EventListenerInterface; the listener for this event
+     * @param event EventInterface; the event to fire
      * @return the event
      * @throws RemoteException on network failure.
      */
@@ -174,7 +174,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires an event to subscribed listeners.
-     * @param event the event.
+     * @param event EventInterface; the event.
      * @return the event.
      */
     protected synchronized EventInterface fireEvent(final EventInterface event)
@@ -184,7 +184,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
             synchronized (this.semaphore)
             {
                 // make a safe copy because of possible removeListener() in notify() method during fireEvent
-                List<Reference<EventListenerInterface>> listenerList = new ArrayList<>(this.listeners.get(event.getType()));
+                List<Reference<EventListenerInterface>> listenerList =
+                        new ArrayList<>(this.listeners.get(event.getType()));
                 for (Reference<EventListenerInterface> reference : listenerList)
                 {
                     EventListenerInterface listener = reference.get();
@@ -216,8 +217,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a value to listeners subscribed to eventType.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value Object; the value of the event.
      * @return the Serializable value.
      */
     protected synchronized Object fireEvent(final EventType eventType, final Object value)
@@ -228,7 +229,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * notifies listeners subscribed to eventType.
-     * @param eventType the eventType of the event.
+     * @param eventType EventType; the eventType of the event.
      */
     protected synchronized void fireEvent(final EventType eventType)
     {
@@ -237,9 +238,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a Serializable value to listeners subscribed to eventType. A timed event is fired.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
-     * @param time a timestamp for the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value Object; the value of the event.
+     * @param time C; a timestamp for the event.
      * @return the Serializable value.
      * @param <C> the comparable type to indicate the time when the event is fired.
      */
@@ -252,8 +253,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a byte value to listeners subscribed to eventType.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value byte; the value of the event.
      * @return the byte value.
      */
     protected synchronized byte fireEvent(final EventType eventType, final byte value)
@@ -264,9 +265,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a byte value to listeners subscribed to eventType. A timed event is fired.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
-     * @param time a timestamp for the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value byte; the value of the event.
+     * @param time C; a timestamp for the event.
      * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the byte value.
      */
@@ -279,8 +280,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a boolean value to listeners subscribed to eventType.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value boolean; the value of the event.
      * @return the boolean value.
      */
     protected synchronized boolean fireEvent(final EventType eventType, final boolean value)
@@ -291,9 +292,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a boolean value to listeners subscribed to eventType. A timed event is fired.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
-     * @param time a timestamp for the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value boolean; the value of the event.
+     * @param time C; a timestamp for the event.
      * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the boolean value.
      */
@@ -306,8 +307,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a double value to listeners subscribed to eventType.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value double; the value of the event.
      * @return the double value.
      */
     protected synchronized double fireEvent(final EventType eventType, final double value)
@@ -318,9 +319,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a double value to listeners subscribed to eventType. A timed event is fired.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
-     * @param time a timestamp for the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value double; the value of the event.
+     * @param time C; a timestamp for the event.
      * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the double value.
      */
@@ -333,8 +334,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires an integer value to listeners subscribed to eventType.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value int; the value of the event.
      * @return the integer value.
      */
     protected synchronized int fireEvent(final EventType eventType, final int value)
@@ -345,9 +346,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires an integer value to listeners subscribed to eventType. A timed event is fired.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
-     * @param time a timestamp for the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value int; the value of the event.
+     * @param time C; a timestamp for the event.
      * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the integer value.
      */
@@ -360,8 +361,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a long value to listeners subscribed to eventType.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value long; the value of the event.
      * @return the long value.
      */
     protected synchronized long fireEvent(final EventType eventType, final long value)
@@ -372,9 +373,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a long value to listeners subscribed to eventType. A timed event is fired.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
-     * @param time a timestamp for the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value long; the value of the event.
+     * @param time C; a timestamp for the event.
      * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the long value.
      */
@@ -387,8 +388,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a short value to listeners subscribed to eventType.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value short; the value of the event.
      * @return the short value.
      */
     protected synchronized short fireEvent(final EventType eventType, final short value)
@@ -399,9 +400,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * fires a short value to listeners subscribed to eventType. A timed event is fired.
-     * @param eventType the eventType of the event.
-     * @param value the value of the event.
-     * @param time a timestamp for the event.
+     * @param eventType EventType; the eventType of the event.
+     * @param value short; the value of the event.
+     * @param time C; a timestamp for the event.
      * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the short value.
      */
@@ -470,7 +471,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * removes all the listeners of a class.
-     * @param ofClass the class or superclass.
+     * @param ofClass Class&lt;?&gt;; the class or superclass.
      * @return the number of listeners which were removed.
      */
     protected synchronized int removeAllListeners(final Class<?> ofClass)
@@ -480,7 +481,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
         {
             for (EventType type : this.listeners.keySet())
             {
-                for (Iterator<Reference<EventListenerInterface>> ii = this.listeners.get(type).iterator(); ii.hasNext();)
+                for (Iterator<Reference<EventListenerInterface>> ii = this.listeners.get(type).iterator(); ii
+                        .hasNext();)
                 {
                     Reference<EventListenerInterface> listener = ii.next();
                     if (listener.getClass().isAssignableFrom(ofClass))
@@ -532,8 +534,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * removes a reference from the subscription list.
-     * @param reference the reference to remove
-     * @param eventType the eventType for which reference must be removed
+     * @param reference Reference&lt;EventListenerInterface&gt;; the reference to remove
+     * @param eventType EventType; the eventType for which reference must be removed
      * @return success whenever the reference is removes; otherwise returns false.
      */
     private synchronized boolean removeListener(final Reference<EventListenerInterface> reference,
@@ -557,7 +559,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * writes a serializable method to stream.
-     * @param out the output stream
+     * @param out ObjectOutputStream; the output stream
      * @throws IOException on IOException
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException
@@ -567,7 +569,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
 
     /**
      * reads a serializable method from stream.
-     * @param in the input stream
+     * @param in java.io.ObjectInputStream; the input stream
      * @throws IOException on IOException
      * @throws ClassNotFoundException on class cast exeption when reading object
      */

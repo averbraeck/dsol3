@@ -43,8 +43,8 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * empty.)
      * <p>
      * The result of this method is a new, immutable sorted map.
-     * @param fromKey low endpoint (inclusive) of the returned immutable map
-     * @param toKey high endpoint (exclusive) of the returned immutable map
+     * @param fromKey K; low endpoint (inclusive) of the returned immutable map
+     * @param toKey K; high endpoint (exclusive) of the returned immutable map
      * @return a new, immutable sorted map of the portion of this immutable map whose keys range from <tt>fromKey</tt>,
      *         inclusive, to <tt>toKey</tt>, exclusive
      * @throws ClassCastException if <tt>fromKey</tt> and <tt>toKey</tt> cannot be compared to one another using this
@@ -66,7 +66,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * that this immutable map supports.
      * <p>
      * The result of this method is a new, immutable sorted map.
-     * @param toKey high endpoint (exclusive) of the returned immutable map
+     * @param toKey K; high endpoint (exclusive) of the returned immutable map
      * @return a view of the portion of this immutable map whose keys are strictly less than <tt>toKey</tt>
      * @throws ClassCastException if <tt>toKey</tt> is not compatible with this immutable map's comparator (or, if the
      *             immutable map has no comparator, if <tt>toKey</tt> does not implement {@link Comparable}).
@@ -85,7 +85,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
      * that this immutable map supports.
      * <p>
      * The result of this method is a new, immutable sorted map.
-     * @param fromKey low endpoint (inclusive) of the returned immutable map
+     * @param fromKey K; low endpoint (inclusive) of the returned immutable map
      * @return a view of the portion of this immutable map whose keys are greater than or equal to <tt>fromKey</tt>
      * @throws ClassCastException if <tt>fromKey</tt> is not compatible with this immutable map's comparator (or, if the
      *             immutable map has no comparator, if <tt>fromKey</tt> does not implement {@link Comparable}).
@@ -120,7 +120,7 @@ public interface ImmutableSortedMap<K, V> extends ImmutableMap<K, V>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj the object to compare this collection with
+     * @param obj Object; the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override

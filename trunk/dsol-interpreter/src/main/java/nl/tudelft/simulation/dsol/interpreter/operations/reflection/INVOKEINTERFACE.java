@@ -35,7 +35,7 @@ public class INVOKEINTERFACE extends InvokeOperation
 
     /**
      * constructs a new INVOKEINTERFACE.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public INVOKEINTERFACE(final DataInput dataInput) throws IOException
@@ -85,10 +85,10 @@ public class INVOKEINTERFACE extends InvokeOperation
 
     /**
      * executes the method on the objectRef.
-     * @param frame the frame
-     * @param objectRef the objectRef
-     * @param method the method
-     * @param arguments the arguments
+     * @param frame Frame; the frame
+     * @param objectRef Object; the objectRef
+     * @param method Method; the method
+     * @param arguments Object[]; the arguments
      * @return the resulting Frame
      * @throws Exception on reflection exception
      */

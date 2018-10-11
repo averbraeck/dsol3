@@ -33,9 +33,9 @@ public class DistNegBinomial extends DistDiscrete
 
     /**
      * constructs a new negative binomial distribution.
-     * @param stream the random number stream
-     * @param n reflect the independent geometric trials with probability p
-     * @param p is the probability
+     * @param stream StreamInterface; the random number stream
+     * @param n long; reflect the independent geometric trials with probability p
+     * @param p double; is the probability
      */
     public DistNegBinomial(final StreamInterface stream, final long n, final double p)
     {

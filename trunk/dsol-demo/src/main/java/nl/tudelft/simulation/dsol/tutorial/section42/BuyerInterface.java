@@ -15,7 +15,7 @@ public interface BuyerInterface
 {
     /**
      * receive the ordered Product.
-     * @param amount the amount to receive
+     * @param amount long; the amount to receive
      */
     void receiveProduct(long amount);
 }

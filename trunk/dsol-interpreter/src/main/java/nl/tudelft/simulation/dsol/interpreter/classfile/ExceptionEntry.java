@@ -31,8 +31,8 @@ public final class ExceptionEntry
 
     /**
      * constructs a new ExceptionEntry.
-     * @param dataInput the input to read
-     * @param constantPool the constantPool of this entry
+     * @param dataInput DataInput; the input to read
+     * @param constantPool Constant[]; the constantPool of this entry
      * @throws IOException on IOFailure
      */
     public ExceptionEntry(final DataInput dataInput, final Constant[] constantPool) throws IOException
@@ -94,9 +94,9 @@ public final class ExceptionEntry
 
     /**
      * Resolves the exceptionEntry for this particular exceptionType.
-     * @param entries the entries to choose from
-     * @param exceptionType the exception type
-     * @param bytePosition the position where the exception starts
+     * @param entries ExceptionEntry[]; the entries to choose from
+     * @param exceptionType Class&lt;?&gt;; the exception type
+     * @param bytePosition int; the position where the exception starts
      * @return the most specific exceptionType. null is no exceptionType is found
      */
     public static ExceptionEntry resolveExceptionEntry(final ExceptionEntry[] entries, final Class<?> exceptionType,

@@ -20,13 +20,13 @@ public interface DynamicTableModel extends TableModel
 {
     /**
      * Deletes a specific row from the TableModel.
-     * @param index The (TableModel) index of the row to be deleted
+     * @param index int; The (TableModel) index of the row to be deleted
      */
     void deleteRow(int index);
 
     /**
      * Deletes a specific set of rows from the TableModel.
-     * @param indices The (TableModel) indices of the rows to be deleted
+     * @param indices int[]; The (TableModel) indices of the rows to be deleted
      */
     void deleteRows(int[] indices);
 
@@ -37,7 +37,7 @@ public interface DynamicTableModel extends TableModel
 
     /**
      * Creates a number of new rows at the end of the TableModel
-     * @param amount The number of rows to be created.
+     * @param amount int; The number of rows to be created.
      */
     void createRows(int amount);
 

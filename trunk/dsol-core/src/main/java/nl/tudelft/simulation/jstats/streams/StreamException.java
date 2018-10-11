@@ -24,7 +24,7 @@ public class StreamException extends Exception
     }
 
     /**
-     * @param message the description of the exception.
+     * @param message String; the description of the exception.
      */
     public StreamException(final String message)
     {
@@ -32,7 +32,7 @@ public class StreamException extends Exception
     }
 
     /**
-     * @param cause the earlier exception on which this exception is based.
+     * @param cause Throwable; the earlier exception on which this exception is based.
      */
     public StreamException(final Throwable cause)
     {
@@ -40,8 +40,8 @@ public class StreamException extends Exception
     }
 
     /**
-     * @param message the description of the exception.
-     * @param cause the earlier exception on which this exception is based.
+     * @param message String; the description of the exception.
+     * @param cause Throwable; the earlier exception on which this exception is based.
      */
     public StreamException(final String message, final Throwable cause)
     {
@@ -49,10 +49,10 @@ public class StreamException extends Exception
     }
 
     /**
-     * @param message the description of the exception.
-     * @param cause the earlier exception on which this exception is based.
-     * @param enableSuppression ..
-     * @param writableStackTrace ..
+     * @param message String; the description of the exception.
+     * @param cause Throwable; the earlier exception on which this exception is based.
+     * @param enableSuppression boolean; ..
+     * @param writableStackTrace boolean; ..
      */
     public StreamException(final String message, final Throwable cause, final boolean enableSuppression,
             final boolean writableStackTrace)

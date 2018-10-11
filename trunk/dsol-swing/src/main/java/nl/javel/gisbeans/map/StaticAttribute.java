@@ -16,9 +16,9 @@ public class StaticAttribute extends AbstractAttribute
 
     /**
      * constructs a new StaticAttribute.
-     * @param layer the layer
-     * @param angle the angle
-     * @param value the value
+     * @param layer LayerInterface; the layer
+     * @param angle double; the angle
+     * @param value String; the value
      */
     public StaticAttribute(LayerInterface layer, double angle, String value)
     {

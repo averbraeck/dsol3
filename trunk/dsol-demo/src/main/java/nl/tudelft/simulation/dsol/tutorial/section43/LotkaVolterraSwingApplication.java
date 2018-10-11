@@ -27,8 +27,8 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 public class LotkaVolterraSwingApplication extends DSOLApplication
 {
     /**
-     * @param title the title
-     * @param panel the panel
+     * @param title String; the title
+     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
      */
     public LotkaVolterraSwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
     {
@@ -39,7 +39,7 @@ public class LotkaVolterraSwingApplication extends DSOLApplication
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param args arguments, expected to be empty
+     * @param args String[]; arguments, expected to be empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
@@ -61,8 +61,8 @@ public class LotkaVolterraSwingApplication extends DSOLApplication
         private static final long serialVersionUID = 1L;
 
         /**
-         * @param model the model
-         * @param simulator the simulator
+         * @param model PredatorPrey; the model
+         * @param simulator DESSSimulatorInterface.TimeDouble; the simulator
          */
         LotkaVolterraPanel(final PredatorPrey model, final DESSSimulatorInterface.TimeDouble simulator)
         {

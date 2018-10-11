@@ -31,9 +31,9 @@ public class CompositeFilter extends AbstractFilter
 
     /**
      * constructs a new CompositeFilter.
-     * @param filter1 the first filter
-     * @param filter2 the second filter
-     * @param operator the operator (AND or OR)
+     * @param filter1 FilterInterface; the first filter
+     * @param filter2 FilterInterface; the second filter
+     * @param operator short; the operator (AND or OR)
      */
     public CompositeFilter(final FilterInterface filter1, final FilterInterface filter2, final short operator)
     {

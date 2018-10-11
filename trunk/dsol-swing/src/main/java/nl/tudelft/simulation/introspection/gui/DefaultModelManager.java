@@ -30,8 +30,8 @@ public class DefaultModelManager implements ModelManager
 
     /**
      * Constructor for the model manager.
-     * @param objectModelClass the objectModelClass
-     * @param collectionModelClass the collectionModelClass
+     * @param objectModelClass Class&lt;?&gt;; the objectModelClass
+     * @param collectionModelClass Class&lt;?&gt;; the collectionModelClass
      */
     public DefaultModelManager(final Class<?> objectModelClass, final Class<?> collectionModelClass)
     {

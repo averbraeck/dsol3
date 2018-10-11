@@ -35,7 +35,7 @@ public final class ColorParser
 
     /**
      * parses a xml-element representing a Color
-     * @param element The j-dom element
+     * @param element Element; The j-dom element
      * @return Color the color
      * @throws IOException on failure
      */

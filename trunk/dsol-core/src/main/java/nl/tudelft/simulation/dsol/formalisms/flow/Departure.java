@@ -42,7 +42,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * Constructor for Departure.
-     * @param simulator on which is scheduled
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
      */
     public Departure(final DEVSSimulatorInterface<A, R, T> simulator)
     {
@@ -70,7 +70,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeDouble.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeDouble; is the simulator on which behavior is scheduled
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator)
         {
@@ -86,7 +86,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeFloat.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeFloat; is the simulator on which behavior is scheduled
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator)
         {
@@ -102,7 +102,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeLong.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeLong; is the simulator on which behavior is scheduled
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator)
         {
@@ -119,7 +119,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeDoubleUnit.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; is the simulator on which behavior is scheduled
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator)
         {
@@ -136,7 +136,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeFloatUnit.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; is the simulator on which behavior is scheduled
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator)
         {
@@ -153,7 +153,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.CalendarDouble.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; is the simulator on which behavior is scheduled
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator)
         {
@@ -170,7 +170,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.CalendarFloat.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; is the simulator on which behavior is scheduled
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator)
         {
@@ -187,7 +187,7 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.CalendarLong.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.CalendarLong; is the simulator on which behavior is scheduled
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator)
         {

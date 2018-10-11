@@ -24,14 +24,14 @@ public abstract class ReturnOperation extends Operation
 {
     /**
      * executes the operation.
-     * @param frame the current frame
+     * @param frame Frame; the current frame
      * @return Object the result
      */
     public abstract Object execute(final Frame frame);
 
     /**
      * is the accessibleObject synchronized?
-     * @param object the method or constructor
+     * @param object AccessibleObject; the method or constructor
      * @return isSynchronized?
      */
     public static boolean isSynchronized(final AccessibleObject object)
@@ -45,7 +45,7 @@ public abstract class ReturnOperation extends Operation
 
     /**
      * is the accessibleObject static?
-     * @param object the method or constructor
+     * @param object AccessibleObject; the method or constructor
      * @return isStatic?
      */
     public static boolean isStatic(final AccessibleObject object)

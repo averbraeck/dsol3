@@ -49,9 +49,9 @@ public class Histogram implements Swingable
 
     /**
      * constructs a new Histogram.
-     * @param title the title
-     * @param domain the domain
-     * @param numberofBins the numberofbins
+     * @param title String; the title
+     * @param domain double[]; the domain
+     * @param numberofBins int; the numberofbins
      */
     public Histogram(final String title, final double[] domain, final int numberofBins)
     {
@@ -60,10 +60,10 @@ public class Histogram implements Swingable
 
     /**
      * constructs a new Histogram.
-     * @param title the title. The title of the histogram
-     * @param domain the domain of the x-axis.
-     * @param range the y-axis range of the histogram.
-     * @param numberofBins the numberofbins of this histogram.
+     * @param title String; the title. The title of the histogram
+     * @param domain double[]; the domain of the x-axis.
+     * @param range double[]; the y-axis range of the histogram.
+     * @param numberofBins int; the numberofbins of this histogram.
      */
     public Histogram(final String title, final double[] domain, final double[] range, final int numberofBins)
     {
@@ -84,7 +84,7 @@ public class Histogram implements Swingable
     /**
      * adds a counter to the histogramdataset. This histogram then subscribes its dataset to the
      * <code>Counter.COUNT_EVENT</code>.
-     * @param counter the counter to add.
+     * @param counter Counter; the counter to add.
      */
     public synchronized void add(final Counter counter)
     {
@@ -95,9 +95,9 @@ public class Histogram implements Swingable
     /**
      * adds an eventProducer to the histogram dataset. The histogram subscribes its dataset subsequentially to the
      * specified event.
-     * @param description the description of the eventProducer
-     * @param source the eventproducer which functions as source for this histogram.
-     * @param eventType the eventType.
+     * @param description String; the description of the eventProducer
+     * @param source EventProducerInterface; the eventproducer which functions as source for this histogram.
+     * @param eventType EventType; the eventType.
      * @throws RemoteException on network error for the (possibly remote) event listener
      */
     public synchronized void add(final String description, final EventProducerInterface source,

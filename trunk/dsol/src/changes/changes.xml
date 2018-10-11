@@ -2,6 +2,12 @@
   <body>
 
     <release version="3.02.06" date="2018-10-XX" description="dsol-web first version">
+      <action dev="averbraeck" type="add">
+        The ParamComments utility class has been added to the dsol-build-tools project. 
+        It adds or updates the type for each parameter in the javadoc of all java files in 
+        /src/main/java in all or in selected projects in the workspace. After running the
+        utility, do a refresh on all projects, followed by a Source - Format.
+      </action>
       <action dev="averbraeck" type="fix">
         The .classpath files have a classpathentry for /src/main/resources after a Maven Update with
         an entry 'excluding="**" kind="src"'. The exclusion means that the export of a Runnable jar 
@@ -9,6 +15,11 @@
         works. Ensure that after each Maven Update in Eclipse, the "Excludes:" entry for 
         /src/main/resources in each project's Properties - Build path - Source is set to (None)
         before committing the sources!
+      </action>
+      <action dev="averbraeck" type="add">
+        A small program called CleanClassfileFiles has been added to dsol-build-tools to help in
+        setting the exclusions correctly in the build path. After running this program, do a 
+        Project - Clean - All.
       </action>
       <action dev="averbraeck" type="update">
         Several experiments with server-side events (SSE), WebSockets, Ajax/jQuery in dsol-web to see

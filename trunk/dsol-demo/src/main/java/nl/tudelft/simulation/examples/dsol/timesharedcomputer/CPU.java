@@ -18,8 +18,7 @@ import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
- * The CPU example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4.
- *.
+ * The CPU example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. .
  * <p>
  * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
@@ -63,7 +62,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
 
     /**
      * constructs a new CPU.
-     * @param simulator a devs simulator
+     * @param simulator DEVSSimulatorInterface.TimeDouble; a devs simulator
      */
     public CPU(final DEVSSimulatorInterface.TimeDouble simulator)
     {

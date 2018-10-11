@@ -53,7 +53,7 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
 
     /**
      * adds a dataset to the series
-     * @param dataset the set
+     * @param dataset XYSeries; the set
      */
     public synchronized void addSeries(final XYSeries dataset)
     {
@@ -100,7 +100,7 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
     }
 
     /**
-     * @param serie the series to retrieve the name for
+     * @param serie int; the series to retrieve the name for
      * @return name the name of the series
      */
     public String getSeriesName(final int serie)
@@ -124,7 +124,7 @@ public class XYDataset extends AbstractSeriesDataset implements org.jfree.data.x
 
     /**
      * applies a filter on the chart
-     * @param filter the filter to apply
+     * @param filter FilterInterface; the filter to apply
      */
     public void setFilter(final FilterInterface filter)
     {

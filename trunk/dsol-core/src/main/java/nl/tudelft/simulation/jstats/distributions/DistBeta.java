@@ -36,9 +36,9 @@ public class DistBeta extends DistContinuous
 
     /**
      * constructs a new beta distribution.
-     * @param stream the stream.
-     * @param alpha1 the first alpha parameter for the distribution.
-     * @param alpha2 the second alpha parameter for the distribution.
+     * @param stream StreamInterface; the stream.
+     * @param alpha1 double; the first alpha parameter for the distribution.
+     * @param alpha2 double; the second alpha parameter for the distribution.
      */
     public DistBeta(final StreamInterface stream, final double alpha1, final double alpha2)
     {

@@ -63,8 +63,8 @@ public class Persistent<A extends Comparable<A>, R extends Number & Comparable<R
 
     /**
      * constructs a new Persistent.
-     * @param description refers to the description of this Persistent
-     * @param simulator the simulator
+     * @param description String; refers to the description of this Persistent
+     * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
      * @throws RemoteException on network error for one of the listeners
      */
     public Persistent(final String description, final SimulatorInterface<A, R, T> simulator) throws RemoteException
@@ -104,10 +104,10 @@ public class Persistent<A extends Comparable<A>, R extends Number & Comparable<R
 
     /**
      * constructs a new Persistent.
-     * @param simulator the simulator of this model
-     * @param description the description
-     * @param target the target on which to count
-     * @param field the field which is counted
+     * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator of this model
+     * @param description String; the description
+     * @param target EventProducerInterface; the target on which to count
+     * @param field EventType; the field which is counted
      * @throws RemoteException on network error for one of the listeners
      */
     public Persistent(final String description, final SimulatorInterface<A, R, T> simulator,

@@ -51,10 +51,10 @@ public abstract class AbstractXMLParser
      * Parses an XML file and validates it against a schema XSD. Explicitly call parse() from the extended class, after
      * other initialization tasks have been carried out. The parse() method will, after schema validation and xml-file
      * validation, call the parse(Element) method that has been declared in the extended class.
-     * @param url the URL of the XML file to read.
-     * @param schema the URL of the XSD schema file to validate against.
-     * @param schemaNamespace the namespace of the schema
-     * @param validateSchema whether to validate the schema file.
+     * @param url URL; the URL of the XML file to read.
+     * @param schema URL; the URL of the XSD schema file to validate against.
+     * @param schemaNamespace String; the namespace of the schema
+     * @param validateSchema boolean; whether to validate the schema file.
      */
     public AbstractXMLParser(final URL url, final URL schema, final String schemaNamespace,
             final boolean validateSchema)
@@ -108,7 +108,7 @@ public abstract class AbstractXMLParser
     /**
      * The actual parsing method to implement, based on the availability of the entire JDOM tree, starting from the root
      * element.
-     * @param xmlRootElement the root element
+     * @param xmlRootElement Element; the root element
      * @throws Exception on failure
      */
     protected abstract void parse(final Element xmlRootElement) throws Exception;
@@ -129,7 +129,7 @@ public abstract class AbstractXMLParser
     {
         /**
          * format the exception with line number, column number, etc.
-         * @param exception the excpetion to format
+         * @param exception SAXParseException; the excpetion to format
          * @return the String
          */
         private String formatError(final SAXParseException exception)

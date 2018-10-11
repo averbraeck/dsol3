@@ -24,8 +24,8 @@ public final class ConstantClass extends Constant
 
     /**
      * constructs a new ConstantClass.
-     * @param dataInput the inputstream to read from
-     * @param constantPool the constantPool it is part of
+     * @param dataInput DataInput; the inputstream to read from
+     * @param constantPool Constant[]; the constantPool it is part of
      * @throws IOException on failure
      */
     public ConstantClass(final Constant[] constantPool, final DataInput dataInput) throws IOException
@@ -35,8 +35,8 @@ public final class ConstantClass extends Constant
 
     /**
      * constructs a new ClassConstant.
-     * @param nameIndex the nameIndex
-     * @param constantPool the constantPool it is part of
+     * @param nameIndex int; the nameIndex
+     * @param constantPool Constant[]; the constantPool it is part of
      */
     public ConstantClass(final Constant[] constantPool, final int nameIndex)
     {

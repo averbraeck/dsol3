@@ -19,7 +19,7 @@ import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 
 /**
- * M/M/1 Swing application that shows the events that are fired by the Simulator in the Console. 
+ * M/M/1 Swing application that shows the events that are fired by the Simulator in the Console.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
@@ -35,10 +35,10 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
     private MM1Queue41Model model;
 
     /**
-     * @param title the title
-     * @param panel the panel
-     * @param model the model
-     * @param devsSimulator the simulator
+     * @param title String; the title
+     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
+     * @param model MM1Queue41Model; the model
+     * @param devsSimulator DEVSSimulator.TimeDouble; the simulator
      */
     public MM1Queue41SwingApplicationEvents(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel,
             final MM1Queue41Model model, final DEVSSimulator.TimeDouble devsSimulator)
@@ -61,7 +61,7 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param args arguments, expected to be empty
+     * @param args String[]; arguments, expected to be empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
@@ -94,7 +94,7 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
     protected static class SimulatorEventLogger implements EventListenerInterface
     {
         /**
-         * @param devsSimulator the simulator to provide the events
+         * @param devsSimulator DEVSSimulator.TimeDouble; the simulator to provide the events
          */
         SimulatorEventLogger(final DEVSSimulator.TimeDouble devsSimulator)
         {

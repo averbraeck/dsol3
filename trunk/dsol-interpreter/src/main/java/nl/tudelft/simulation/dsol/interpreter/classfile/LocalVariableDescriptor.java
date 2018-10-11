@@ -36,8 +36,8 @@ public final class LocalVariableDescriptor
 
     /**
      * constructs a new LocalVariableDescriptor.
-     * @param dataInput the dataInput to read
-     * @param constantPool the constantPool for this variable
+     * @param dataInput DataInput; the dataInput to read
+     * @param constantPool Constant[]; the constantPool for this variable
      * @throws IOException on failure
      */
     public LocalVariableDescriptor(final DataInput dataInput, final Constant[] constantPool) throws IOException

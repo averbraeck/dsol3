@@ -39,10 +39,10 @@ public class DistPearson6 extends DistContinuous
 
     /**
      * constructs a new Pearson6 distribution.
-     * @param stream the random number stream
-     * @param alpha1 the first shape parameter
-     * @param alpha2 the second shape parameter
-     * @param beta the scale parameter
+     * @param stream StreamInterface; the random number stream
+     * @param alpha1 double; the first shape parameter
+     * @param alpha2 double; the second shape parameter
+     * @param beta double; the scale parameter
      */
     public DistPearson6(final StreamInterface stream, final double alpha1, final double alpha2, final double beta)
     {

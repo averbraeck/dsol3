@@ -40,7 +40,7 @@ public interface Property
      * Set the value of this property. However, if isEditable() returns 'false', the value of this property will not be
      * altered. Composite property values (i.e. {see java.util.Collection}or arrays) should be provided as an instance
      * of {see java.util.Collection}.
-     * @param value The new value of this property.
+     * @param value Object; The new value of this property.
      */
     void setValue(Object value);
 

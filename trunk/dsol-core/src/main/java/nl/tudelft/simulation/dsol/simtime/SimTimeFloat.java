@@ -20,7 +20,7 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
     private float time;
 
     /**
-     * @param time the initial time.
+     * @param time float; the initial time.
      */
     public SimTimeFloat(final float time)
     {

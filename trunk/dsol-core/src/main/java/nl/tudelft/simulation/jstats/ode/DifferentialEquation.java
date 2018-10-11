@@ -37,7 +37,7 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
 
     /**
      * constructs a new DifferentialEquation with default integrator.
-     * @param timeStep the timeStep to use.
+     * @param timeStep double; the timeStep to use.
      */
     public DifferentialEquation(final double timeStep)
     {
@@ -46,8 +46,8 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
 
     /**
      * constructs a new DifferentialEquation with a user-specified integrator.
-     * @param timeStep the timeStep to use.
-     * @param integrator the integrator to use.
+     * @param timeStep double; the timeStep to use.
+     * @param integrator NumericalIntegrator; the integrator to use.
      */
     public DifferentialEquation(final double timeStep, final NumericalIntegrator integrator)
     {
@@ -58,8 +58,8 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
 
     /**
      * constructs a new DifferentialEquation with a preselected integrator.
-     * @param timeStep the timeStep to use.
-     * @param integrationMethod the integrator to use.
+     * @param timeStep double; the timeStep to use.
+     * @param integrationMethod short; the integrator to use.
      */
     public DifferentialEquation(final double timeStep, final short integrationMethod)
     {
@@ -95,9 +95,9 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
 
     /**
      * integrates Y.
-     * @param x the x-value
-     * @param initialX the initial X value, non-final (will be updated)
-     * @param initialY the initial Y value, non-final (will be updated)
+     * @param x double; the x-value
+     * @param initialX double; the initial X value, non-final (will be updated)
+     * @param initialY double[]; the initial Y value, non-final (will be updated)
      * @return the new Y value
      */
     @SuppressWarnings("checkstyle:finalparameters")
@@ -128,7 +128,7 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     }
 
     /**
-     * @param integrator The integrator to set.
+     * @param integrator NumericalIntegrator; The integrator to set.
      */
     public void setIntegrator(final NumericalIntegrator integrator)
     {

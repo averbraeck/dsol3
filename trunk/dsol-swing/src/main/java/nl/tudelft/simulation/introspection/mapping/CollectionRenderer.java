@@ -50,7 +50,7 @@ public class CollectionRenderer extends DefaultTableCellRenderer
 
     /**
      * Returns the short name of a class.
-     * @param clasz the class
+     * @param clasz Class&lt;?&gt;; the class
      * @return the short name
      */
     private static String getShortName(Class<?> clasz)

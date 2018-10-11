@@ -23,7 +23,7 @@ public class Customer
 
     /**
      * sets the entrance time of the customer to the queue.
-     * @param time the entranceTime
+     * @param time double; the entranceTime
      */
     public final void setEntranceTime(final double time)
     {

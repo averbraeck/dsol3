@@ -42,7 +42,7 @@ public class ProcessFactory extends CustomFactory
 
     /**
      * constructs a new InterpreterFactory.
-     * @param interpreterOracle the interpreterOracle to use
+     * @param interpreterOracle InterpreterOracleInterface; the interpreterOracle to use
      */
     public ProcessFactory(final InterpreterOracleInterface interpreterOracle)
     {
@@ -51,9 +51,9 @@ public class ProcessFactory extends CustomFactory
 
     /**
      * reads a sequence of bytes and returns the appropriate bytecode operations.
-     * @param operand the operatand (short value)
-     * @param dataInput the dataInput to read from
-     * @param startBytePostion the position in the current block of bytecode.
+     * @param operand int; the operatand (short value)
+     * @param dataInput DataInput; the dataInput to read from
+     * @param startBytePostion int; the position in the current block of bytecode.
      * @return the assemnbly Operation
      * @throws IOException on IO exception
      */

@@ -22,11 +22,11 @@ public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.His
 {
     /**
      * constructs a new Histogram.
-     * @param simulator the simulator
-     * @param title the title of the plot
-     * @param domain the domain of the plot
-     * @param range the range of the plot
-     * @param numberofBins the number of bins in this plot
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title of the plot
+     * @param domain double[]; the domain of the plot
+     * @param range double[]; the range of the plot
+     * @param numberofBins int; the number of bins in this plot
      */
     public Histogram(final SimulatorInterface simulator, final String title, final double[] domain,
             final double[] range, final int numberofBins)
@@ -45,10 +45,10 @@ public class Histogram extends nl.tudelft.simulation.jstats.charts.histogram.His
 
     /**
      * constructs a new Histogram.
-     * @param simulator the simulator
-     * @param title the title
-     * @param domain the domain
-     * @param numberofBins the number of bins
+     * @param simulator SimulatorInterface; the simulator
+     * @param title String; the title
+     * @param domain double[]; the domain
+     * @param numberofBins int; the number of bins
      */
     public Histogram(final SimulatorInterface simulator, final String title, final double[] domain,
             final int numberofBins)

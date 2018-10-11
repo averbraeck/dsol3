@@ -54,9 +54,9 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
 
     /**
      * constructs a new XYSeries.
-     * @param name the name of the series.
-     * @param axisType whether this serie is logarithmic (x=0 and y=0 are neglected)
-     * @param period the period of this series.
+     * @param name String; the name of the series.
+     * @param axisType short; whether this serie is logarithmic (x=0 and y=0 are neglected)
+     * @param period double; the period of this series.
      */
     public XYSeries(final String name, final short axisType, final double period)
     {
@@ -127,7 +127,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
 
     /**
      * returns the X value
-     * @param item the item
+     * @param item int; the item
      * @return Number the xValue
      */
     public synchronized double getXValue(int item)
@@ -138,7 +138,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
 
     /**
      * returns the yValue
-     * @param item the item
+     * @param item int; the item
      * @return Number
      */
     public double getYValue(int item)
@@ -158,7 +158,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
 
     /**
      * applies a filter on the chart
-     * @param filter the filter to apply
+     * @param filter FilterInterface; the filter to apply
      */
     public void setFilter(final FilterInterface filter)
     {

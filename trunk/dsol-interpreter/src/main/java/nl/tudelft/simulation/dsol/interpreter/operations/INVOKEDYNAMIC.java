@@ -28,7 +28,7 @@ public class INVOKEDYNAMIC extends nl.tudelft.simulation.dsol.interpreter.operat
 {
     /**
      * constructs a new INVOKEDYNAMIC.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public INVOKEDYNAMIC(final DataInput dataInput) throws IOException

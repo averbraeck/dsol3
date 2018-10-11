@@ -42,8 +42,8 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
      * set is empty.)
      * <p>
      * The result of this method is a new, immutable sorted set.
-     * @param fromElement low endpoint (inclusive) of the returned immutable set
-     * @param toElement high endpoint (exclusive) of the returned immutable set
+     * @param fromElement E; low endpoint (inclusive) of the returned immutable set
+     * @param toElement E; high endpoint (exclusive) of the returned immutable set
      * @return a new, immutable sorted set of the portion of this immutable set whose elements range from
      *         <tt>fromElement</tt>, inclusive, to <tt>toElement</tt>, exclusive
      * @throws ClassCastException if <tt>fromElement</tt> and <tt>toElement</tt> cannot be compared to one another using
@@ -65,7 +65,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
      * that this immutable set supports.
      * <p>
      * The result of this method is a new, immutable sorted set.
-     * @param toElement high endpoint (exclusive) of the returned immutable set
+     * @param toElement E; high endpoint (exclusive) of the returned immutable set
      * @return a view of the portion of this immutable set whose elements are strictly less than <tt>toElement</tt>
      * @throws ClassCastException if <tt>toElement</tt> is not compatible with this immutable set's comparator (or, if
      *             the immutable set has no comparator, if <tt>toElement</tt> does not implement {@link Comparable}).
@@ -84,7 +84,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
      * optional immutable set operations that this immutable set supports.
      * <p>
      * The result of this method is a new, immutable sorted set.
-     * @param fromElement low endpoint (inclusive) of the returned immutable set
+     * @param fromElement E; low endpoint (inclusive) of the returned immutable set
      * @return a view of the portion of this immutable set whose elements are greater than or equal to
      *         <tt>fromElement</tt>
      * @throws ClassCastException if <tt>fromElement</tt> is not compatible with this immutable set's comparator (or, if
@@ -113,7 +113,7 @@ public interface ImmutableSortedSet<E> extends ImmutableSet<E>
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj the object to compare this collection with
+     * @param obj Object; the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override

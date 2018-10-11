@@ -42,7 +42,7 @@ public interface DSOLModel<A extends Comparable<A>, R extends Number & Comparabl
 {
     /**
      * construct a model on a simulator.
-     * @param simulator is the simulator
+     * @param simulator SimulatorInterface&lt;A,R,T&gt;; is the simulator
      * @throws SimRuntimeException on model failure
      */
     void constructModel(SimulatorInterface<A, R, T> simulator) throws SimRuntimeException;

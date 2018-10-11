@@ -40,7 +40,7 @@ public class DistNormal extends DistContinuous
      * constructs a normal distribution with mu=0 and sigma=1. Errors of various types, e.g., in the impact point of a
      * bomb; quantities that are the sum of a large number of other quantities by the virtue of the central limit
      * theorem.
-     * @param stream the random number stream
+     * @param stream StreamInterface; the random number stream
      */
     public DistNormal(final StreamInterface stream)
     {
@@ -51,9 +51,9 @@ public class DistNormal extends DistContinuous
 
     /**
      * constructs a normal distribution with mu=0 and sigma=1.
-     * @param stream the random number stream
-     * @param mu the medium
-     * @param sigma the standard deviation
+     * @param stream StreamInterface; the random number stream
+     * @param mu double; the medium
+     * @param sigma double; the standard deviation
      */
     public DistNormal(final StreamInterface stream, final double mu, final double sigma)
     {
@@ -78,7 +78,7 @@ public class DistNormal extends DistContinuous
 
     /**
      * returns the cumulative probability of the x-value.
-     * @param x the obsevervation x
+     * @param x double; the obsevervation x
      * @return double the cumulative probability
      */
     public double getCumulativeProbability(final double x)
@@ -98,7 +98,7 @@ public class DistNormal extends DistContinuous
 
     /**
      * returns the x-value of the given cumulativePropability.
-     * @param cumulativeProbability reflects cum prob
+     * @param cumulativeProbability double; reflects cum prob
      * @return double the inverse cumulative probability
      */
     public double getInverseCumulativeProbability(final double cumulativeProbability)

@@ -33,7 +33,7 @@ public final class ContextUtil
 
     /**
      * resolves the name of an object under which it is accessible in the initial context.
-     * @param object the object
+     * @param object Object; the object
      * @return String
      * @throws NamingException whenever the object cannot be found
      */
@@ -49,9 +49,9 @@ public final class ContextUtil
 
     /**
      * resolves the key under which an object is stored in the given context.
-     * @param object the object which key to resolve.
-     * @param context the context.
-     * @param name the name of the parent.
+     * @param object Object; the object which key to resolve.
+     * @param context Context; the context.
+     * @param name String; the name of the parent.
      * @return the key
      * @throws NamingException on lookup failure
      */
@@ -81,8 +81,8 @@ public final class ContextUtil
 
     /**
      * binds an object to the given context based on its toString() method.
-     * @param context the context
-     * @param object the object
+     * @param context Context; the context
+     * @param object Object; the object
      * @throws NamingException on context failure
      */
     public static void bind(final Context context, final Object object) throws NamingException
@@ -92,7 +92,7 @@ public final class ContextUtil
 
     /**
      * binds an object to the initial context based on its toString() method.
-     * @param object the object
+     * @param object Object; the object
      * @throws NamingException on context failure
      */
     public static void bind(final Object object) throws NamingException
@@ -102,8 +102,8 @@ public final class ContextUtil
 
     /**
      * unbinds an object from the given context.
-     * @param context the context
-     * @param object the object to be removed.
+     * @param context Context; the context
+     * @param object Object; the object to be removed.
      * @throws NamingException on context failure
      */
     public static void unbind(final Context context, final Object object) throws NamingException
@@ -114,7 +114,7 @@ public final class ContextUtil
 
     /**
      * unbinds an object from the initial context.
-     * @param object the object to be removed.
+     * @param object Object; the object to be removed.
      * @throws NamingException on context failure
      */
     public static void unbind(final Object object) throws NamingException
@@ -124,8 +124,8 @@ public final class ContextUtil
 
     /**
      * creates a subContext to the given context.
-     * @param root the root of the context
-     * @param element the element to add
+     * @param root Context; the root of the context
+     * @param element String; the element to add
      * @return the new root
      * @throws NamingException on context failure
      */
@@ -143,7 +143,7 @@ public final class ContextUtil
 
     /**
      * creates a subContext to the initial context.
-     * @param element the element to add
+     * @param element String; the element to add
      * @return the new root
      * @throws NamingException on context failure
      */
@@ -154,8 +154,8 @@ public final class ContextUtil
 
     /**
      * removes a subContext from the given context.
-     * @param root the root of the context
-     * @param element the element to remove
+     * @param root Context; the root of the context
+     * @param element String; the element to remove
      * @throws NamingException on context failure
      */
     public static void removeSubContext(final Context root, final String element) throws NamingException
@@ -165,7 +165,7 @@ public final class ContextUtil
 
     /**
      * removes a subContext from the initial context.
-     * @param element the element to remove
+     * @param element String; the element to remove
      * @throws NamingException on context failure
      */
     public static void removeSubContext(final String element) throws NamingException
@@ -175,7 +175,7 @@ public final class ContextUtil
 
     /**
      * recursively removes a subContext from the initial context and unbinds all its elements.
-     * @param name the name to remove, relative to the root of the initial context
+     * @param name String; the name to remove, relative to the root of the initial context
      * @throws NamingException on context failure
      */
     public static void destroySubContext(final String name) throws NamingException
@@ -185,8 +185,8 @@ public final class ContextUtil
 
     /**
      * recursively removes a subContext from the given context and unbinds all its elements.
-     * @param root the root of the context
-     * @param name the name to remove, relative to the given context, e.g. "/animation/2D"
+     * @param root Context; the root of the context
+     * @param name String; the name to remove, relative to the given context, e.g. "/animation/2D"
      * @throws NamingException on context failure
      */
     public static void destroySubContext(final Context root, final String name) throws NamingException
@@ -210,8 +210,8 @@ public final class ContextUtil
 
     /**
      * resolves the context with relative name on the given root context. If the context does not exist it is created.
-     * @param root the root context
-     * @param name the name
+     * @param root Context; the root context
+     * @param name String; the name
      * @return the context
      * @throws NamingException on context failure
      */
@@ -236,7 +236,7 @@ public final class ContextUtil
 
     /**
      * resolves the context with relative name on initial context. If the context does not exist it is created.
-     * @param name the name
+     * @param name String; the name
      * @return the context
      * @throws NamingException on context failure
      */

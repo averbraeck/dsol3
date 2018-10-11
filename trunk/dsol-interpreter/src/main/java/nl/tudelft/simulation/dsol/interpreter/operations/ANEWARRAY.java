@@ -35,7 +35,7 @@ public class ANEWARRAY extends VoidOperation
 
     /**
      * constructs a new ANEWARRAY.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public ANEWARRAY(final DataInput dataInput) throws IOException

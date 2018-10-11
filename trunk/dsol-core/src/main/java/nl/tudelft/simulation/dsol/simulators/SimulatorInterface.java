@@ -99,8 +99,8 @@ public interface SimulatorInterface<A extends Comparable<A>, R extends Number & 
      * are removed when the simulator is initialized with the replication. Connecting the statistics objects to the
      * simulation should be done between the initialize(...) method and starting the simulator, or could even be delayed
      * till the WARMUP_EVENT has been fired.
-     * @param replication the replication
-     * @param replicationMode the replication mode, i.e. steady state or terminating
+     * @param replication Replication&lt;A,R,T&gt;; the replication
+     * @param replicationMode ReplicationMode; the replication mode, i.e. steady state or terminating
      * @throws SimRuntimeException when the simulator is running
      */
     void initialize(Replication<A, R, T> replication, ReplicationMode replicationMode) throws SimRuntimeException;

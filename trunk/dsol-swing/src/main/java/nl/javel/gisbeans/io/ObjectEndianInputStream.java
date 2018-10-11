@@ -34,7 +34,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
 
     /**
      * constructs a new ObjectEndianInputStream
-     * @param inputStream the inputStream to use
+     * @param inputStream InputStream; the inputStream to use
      */
     public ObjectEndianInputStream(final InputStream inputStream)
     {
@@ -130,7 +130,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
 
     /**
      * reads b from the stream.
-     * @param b byte
+     * @param b byte[]; byte
      * @return in the value
      * @throws IOException on failure
      */
@@ -141,9 +141,9 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
 
     /**
      * reads b from the stream.
-     * @param b byte
-     * @param off offset
-     * @param len length
+     * @param b byte[]; byte
+     * @param off int; offset
+     * @param len int; length
      * @return in the value
      * @throws IOException on failure
      */
@@ -210,7 +210,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
 
     /**
      * reads UTF from the stream.
-     * @param dataInput data input
+     * @param dataInput DataInput; data input
      * @return String the value
      * @throws IOException on read failure
      */

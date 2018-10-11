@@ -33,9 +33,9 @@ public final class BoundsUtil
 
     /**
      * computes the intersect of bounds with the zValue.
-     * @param bounds the bounds
-     * @param center the
-     * @param zValue the zValue
+     * @param bounds Bounds; the bounds
+     * @param center DirectedPoint; the
+     * @param zValue double; the zValue
      * @return Rectangle2D the result
      */
     public static Rectangle2D getIntersect(final DirectedPoint center, final Bounds bounds, final double zValue)
@@ -62,8 +62,8 @@ public final class BoundsUtil
 
     /**
      * rotates and translates to a directed point.
-     * @param point the point
-     * @param bounds the bounds
+     * @param point DirectedPoint; the point
+     * @param bounds Bounds; the bounds
      * @return the bounds
      */
     public static Bounds transform(final Bounds bounds, final DirectedPoint point)
@@ -81,9 +81,9 @@ public final class BoundsUtil
     }
 
     /**
-     * @param center the center of the bounds
-     * @param bounds the bounds
-     * @param point the point
+     * @param center DirectedPoint; the center of the bounds
+     * @param bounds Bounds; the bounds
+     * @param point Point3d; the point
      * @return whether or not the point is in the bounds
      */
     public static boolean contains(final DirectedPoint center, final Bounds bounds, final Point3d point)

@@ -34,7 +34,7 @@ public abstract class SwingWorker
 
     /**
      * Set the value produced by worker thread
-     * @param x the value
+     * @param x Object; the value
      */
     protected synchronized void setValue(final Object x)
     {
@@ -152,7 +152,7 @@ public abstract class SwingWorker
 
         /**
          * constructs a new ThreadVar.
-         * @param t the thread
+         * @param t Thread; the thread
          */
         ThreadVar(final Thread t)
         {

@@ -22,7 +22,7 @@ public abstract class Constant
 
     /**
      * constructs a new Constant.
-     * @param constantPool the constantPool it is part of
+     * @param constantPool Constant[]; the constantPool it is part of
      */
     public Constant(final Constant[] constantPool)
     {
@@ -38,8 +38,8 @@ public abstract class Constant
 
     /**
      * reads a constant from the stream.
-     * @param dataInput the dataInput
-     * @param constantPool the constantPool
+     * @param dataInput DataInput; the dataInput
+     * @param constantPool Constant[]; the constantPool
      * @return Constant
      * @throws IOException on exception
      */
@@ -77,7 +77,7 @@ public abstract class Constant
 
     /**
      * parses the constantPool to string.
-     * @param constantPool the pool
+     * @param constantPool Constant[]; the pool
      * @return String
      */
     public static String toString(final Constant[] constantPool)

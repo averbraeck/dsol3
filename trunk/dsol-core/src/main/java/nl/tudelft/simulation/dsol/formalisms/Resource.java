@@ -76,9 +76,9 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /**
      * Method Resource.
-     * @param simulator on which is scheduled
-     * @param description the description of this resource
-     * @param capacity of the resource
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
+     * @param description String; the description of this resource
+     * @param capacity double; of the resource
      */
     public Resource(final DEVSSimulatorInterface<A, R, T> simulator, final String description, final double capacity)
     {
@@ -90,8 +90,8 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /**
      * Method Resource.
-     * @param simulator on which is scheduled
-     * @param capacity of the resource
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
+     * @param capacity double; of the resource
      */
     public Resource(final DEVSSimulatorInterface<A, R, T> simulator, final double capacity)
     {
@@ -137,7 +137,7 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /**
      * Method alterClaimedCapacity.
-     * @param amount refers the amount which is added to the claimed capacity
+     * @param amount double; refers the amount which is added to the claimed capacity
      * @throws RemoteException on network failure
      */
     private synchronized void alterClaimedCapacity(final double amount) throws RemoteException
@@ -148,7 +148,7 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /**
      * sets the capacity of the resource.
-     * @param capacity the new maximal capacity
+     * @param capacity double; the new maximal capacity
      */
     public final void setCapacity(final double capacity)
     {
@@ -166,8 +166,8 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /**
      * requests an amount of capacity from the resource.
-     * @param amount the requested amount
-     * @param requestor the RequestorInterface requesting the amount
+     * @param amount double; the requested amount
+     * @param requestor ResourceRequestorInterface&lt;A,R,T&gt;; the RequestorInterface requesting the amount
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on other failures
      */
@@ -179,9 +179,9 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /**
      * requests an amount of capacity from the resource.
-     * @param amount the requested amount
-     * @param requestor the RequestorInterface requesting the amount
-     * @param priority the priority of the request
+     * @param amount double; the requested amount
+     * @param requestor ResourceRequestorInterface&lt;A,R,T&gt;; the RequestorInterface requesting the amount
+     * @param priority int; the priority of the request
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on other failures
      */
@@ -212,7 +212,7 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /**
      * releases an amount of capacity from the resource.
-     * @param amount the amount to release
+     * @param amount double; the amount to release
      * @throws RemoteException on network failure
      */
     public final void releaseCapacity(final double amount) throws RemoteException
@@ -307,9 +307,9 @@ public class Resource<A extends Comparable<A>, R extends Number & Comparable<R>,
 
         /**
          * constructs a new Request.
-         * @param requestor the requestor
-         * @param amount the requested amount
-         * @param priority the priority of the request
+         * @param requestor ResourceRequestorInterface&lt;A,R,T&gt;; the requestor
+         * @param amount double; the requested amount
+         * @param priority int; the priority of the request
          */
         public Request(final ResourceRequestorInterface<A, R, T> requestor, final double amount, final int priority)
         {

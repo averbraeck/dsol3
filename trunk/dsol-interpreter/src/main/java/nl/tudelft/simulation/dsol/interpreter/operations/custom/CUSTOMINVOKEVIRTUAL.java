@@ -30,8 +30,8 @@ public class CUSTOMINVOKEVIRTUAL extends nl.tudelft.simulation.dsol.interpreter.
 
     /**
      * constructs a new CUSTOMINVOKEVIRTUAL.
-     * @param interpreterOracle the interpreterOracle to use
-     * @param dataInput the dataInput
+     * @param interpreterOracle InterpreterOracleInterface; the interpreterOracle to use
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public CUSTOMINVOKEVIRTUAL(final InterpreterOracleInterface interpreterOracle, final DataInput dataInput)

@@ -17,8 +17,8 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 public class Animation
 {
     /**
-     * @param frameName the name to use for the frame
-     * @param simulator the simulator.
+     * @param frameName String; the name to use for the frame
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
      */
     public Animation(final String frameName, final SimulatorInterface<?, ?, ?> simulator)
     {

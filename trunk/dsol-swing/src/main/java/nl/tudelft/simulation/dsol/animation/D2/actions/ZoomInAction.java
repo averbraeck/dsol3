@@ -30,7 +30,7 @@ public class ZoomInAction extends AbstractAction
 
     /**
      * constructs a new AddRowAction
-     * @param target the target
+     * @param target GridPanel; the target
      */
     public ZoomInAction(final GridPanel target)
     {

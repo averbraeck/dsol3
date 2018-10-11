@@ -31,9 +31,9 @@ public class DistBinomial extends DistDiscrete
     /**
      * constructs a Binomial distribution. Number of successes in t independent Bernoulli trials with probability p of
      * sucess on each trial.
-     * @param stream the random number stream
-     * @param n is the n-parameter of the Binomial distribution
-     * @param p is the p-parameter of the Binomial distribution
+     * @param stream StreamInterface; the random number stream
+     * @param n long; is the n-parameter of the Binomial distribution
+     * @param p double; is the p-parameter of the Binomial distribution
      */
     public DistBinomial(final StreamInterface stream, final long n, final double p)
     {

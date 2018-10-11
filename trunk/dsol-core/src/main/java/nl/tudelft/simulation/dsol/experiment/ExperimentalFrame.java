@@ -71,7 +71,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
 
     /**
      * constructs a new Experimental frame.
-     * @param url the url of the experimental frame
+     * @param url URL; the url of the experimental frame
      */
     public ExperimentalFrame(final URL url)
     {
@@ -118,7 +118,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /**
-     * @param experiments The experiments to set.
+     * @param experiments List&lt;Experiment&lt;A,R,T&gt;&gt;; The experiments to set.
      */
     public final void setExperiments(final List<Experiment<A, R, T>> experiments)
     {
@@ -187,7 +187,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
 
     /**
      * sets the url of this experimentalframe.
-     * @param url The url to set.
+     * @param url URL; The url to set.
      */
     public final void setUrl(final URL url)
     {
@@ -226,7 +226,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
 
         /**
          * constructs a new ExperimentalFrame.TimeDouble.
-         * @param url the url of the experimental frame
+         * @param url URL; the url of the experimental frame
          */
         public TimeDouble(final URL url)
         {
@@ -250,7 +250,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
 
         /**
          * constructs a new ExperimentalFrame.TimeFloat.
-         * @param url the url of the experimental frame
+         * @param url URL; the url of the experimental frame
          */
         public TimeFloat(final URL url)
         {

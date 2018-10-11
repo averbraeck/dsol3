@@ -8,7 +8,6 @@ import javax.naming.event.NamingExceptionEvent;
 import nl.tudelft.simulation.naming.InitialEventContext;
 import nl.tudelft.simulation.naming.listener.ContextListenerInterface;
 
-
 /**
  * The ServerTest.
  * <p>
@@ -52,27 +51,37 @@ public class ServerTest implements ContextListenerInterface
         }
     }
 
-    /** {@inheritDoc} */ @Override public  void objectChanged(NamingEvent evt)
+    /** {@inheritDoc} */
+    @Override
+    public void objectChanged(NamingEvent evt)
     {
         System.out.println("changed " + evt);
     }
 
-    /** {@inheritDoc} */ @Override public  void namingExceptionThrown(NamingExceptionEvent evt)
+    /** {@inheritDoc} */
+    @Override
+    public void namingExceptionThrown(NamingExceptionEvent evt)
     {
         System.out.println("exception " + evt);
     }
 
-    /** {@inheritDoc} */ @Override public  void objectAdded(NamingEvent evt)
+    /** {@inheritDoc} */
+    @Override
+    public void objectAdded(NamingEvent evt)
     {
         System.out.println("added" + evt);
     }
 
-    /** {@inheritDoc} */ @Override public  void objectRemoved(NamingEvent evt)
+    /** {@inheritDoc} */
+    @Override
+    public void objectRemoved(NamingEvent evt)
     {
         System.out.println("removed" + evt);
     }
 
-    /** {@inheritDoc} */ @Override public  void objectRenamed(NamingEvent evt)
+    /** {@inheritDoc} */
+    @Override
+    public void objectRenamed(NamingEvent evt)
     {
         System.out.println("renamed : " + evt);
     }

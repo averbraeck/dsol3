@@ -29,7 +29,7 @@ public class Ship extends EventProducer
     public static final EventType SHIP_FULL_EVENT = new EventType("SHIP_FULL_EVENT");
 
     /**
-     * @param capacity the ship's capacity
+     * @param capacity int; the ship's capacity
      */
     public Ship(final int capacity)
     {

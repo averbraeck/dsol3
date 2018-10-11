@@ -43,7 +43,7 @@ public class HLAModel extends DSOLFederateAmbassador implements DSOLModel
 
     /**
      * constructs a new HLAModel.
-     * @param targetModel the targetModel
+     * @param targetModel DSOLModel; the targetModel
      * @param rtIAmbassador the rtIAmbassador
      */
     public HLAModel(final DSOLModel targetModel, final RTIAmbassador rtiAmbassador, final Hashtable environment)
@@ -167,7 +167,7 @@ public class HLAModel extends DSOLFederateAmbassador implements DSOLModel
 
     /**
      * executes the manager
-     * @param args the command line arguments
+     * @param args String[]; the command line arguments
      */
     public static void main(String[] args)
     {

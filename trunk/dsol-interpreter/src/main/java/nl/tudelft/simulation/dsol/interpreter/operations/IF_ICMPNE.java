@@ -32,7 +32,7 @@ public class IF_ICMPNE extends JumpOperation
 
     /**
      * constructs a new IF_ICMPNE.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public IF_ICMPNE(final DataInput dataInput) throws IOException

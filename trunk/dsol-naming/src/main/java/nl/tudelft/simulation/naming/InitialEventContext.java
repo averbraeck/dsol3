@@ -17,7 +17,7 @@ import javax.naming.spi.NamingManager;
 import com.sun.naming.internal.ResourceManager;
 
 /**
- * InitialEventContext class. This class is the starting context for performing naming operations. 
+ * InitialEventContext class. This class is the starting context for performing naming operations.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
@@ -83,7 +83,8 @@ public class InitialEventContext implements EventContext
      * description.
      * <p>
      * This constructor will not modify <tt>environment</tt> or save a reference to it, but may save a clone.
-     * @param environment environment used to create the initial context. Null indicates an empty environment.
+     * @param environment Hashtable&lt;?,?&gt;; environment used to create the initial context. Null indicates an empty
+     *            environment.
      * @throws NamingException if a naming exception is encountered
      */
     public InitialEventContext(final Hashtable<?, ?> environment) throws NamingException
@@ -103,7 +104,8 @@ public class InitialEventContext implements EventContext
      * description.
      * <p>
      * This method will modify <tt>environment</tt> and save a reference to it. The caller may no longer modify it.
-     * @param environment environment used to create the initial context. Null indicates an empty environment.
+     * @param environment Hashtable&lt;?,?&gt;; environment used to create the initial context. Null indicates an empty
+     *            environment.
      * @throws NamingException if a naming exception is encountered
      * @since 1.5
      */
@@ -119,7 +121,7 @@ public class InitialEventContext implements EventContext
 
     /**
      * returns the URL Scheme
-     * @param str the string
+     * @param str String; the string
      * @return URL
      */
     private static String getURLScheme(final String str)
@@ -159,7 +161,7 @@ public class InitialEventContext implements EventContext
      * return <code>getDefaultInitCtx()</code>.
      * <p>
      * See getURLOrDefaultInitCtx(Name) for description of how a subclass should use this method.
-     * @param name The non-null name for which to get the context.
+     * @param name String; The non-null name for which to get the context.
      * @return A URL context for <code>name</code> or the cached initial context. The result cannot be null.
      * @throws NamingException on exception
      */
@@ -182,7 +184,7 @@ public class InitialEventContext implements EventContext
     }
 
     /**
-     * @param name The non-null name for which to get the context.
+     * @param name Name; The non-null name for which to get the context.
      * @return A URL context for <code>name</code>
      * @throws NamingException In a naming exception is encountered.
      */
@@ -432,8 +434,8 @@ public class InitialEventContext implements EventContext
      * Composes the name of this context with a name relative to this context. Since an initial context may never be
      * named relative to any context other than itself, the value of the <tt>prefix</tt> parameter must be an empty name
      * (<tt>""</tt>).
-     * @param name the name
-     * @param prefix the prefix
+     * @param name String; the name
+     * @param prefix String; the prefix
      * @return String
      * @throws NamingException on exception
      */
@@ -447,8 +449,8 @@ public class InitialEventContext implements EventContext
      * Composes the name of this context with a name relative to this context. Since an initial context may never be
      * named relative to any context other than itself, the value of the <tt>prefix</tt> parameter must be an empty
      * name.
-     * @param name the name
-     * @param prefix the prefix
+     * @param name Name; the name
+     * @param prefix Name; the prefix
      * @return Name
      * @throws NamingException on exception
      */

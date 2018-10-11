@@ -84,7 +84,7 @@ public final class Interpreter
 
     /**
      * sets the Interpreter factory.
-     * @param factory the factory to use
+     * @param factory FactoryInterface; the factory to use
      */
     public static void setFactory(final FactoryInterface factory)
     {
@@ -109,9 +109,9 @@ public final class Interpreter
 
     /**
      * creates a frame for a method.
-     * @param object the object on which the method must be invoked
-     * @param method the method or constructor
-     * @param arguments the arguments
+     * @param object Object; the object on which the method must be invoked
+     * @param method AccessibleObject; the method or constructor
+     * @param arguments Object[]; the arguments
      * @return Frame the result
      * @throws ClassNotFoundException whenever the classpath is incomplete
      * @throws IOException on IOException
@@ -194,9 +194,9 @@ public final class Interpreter
 
     /**
      * throws an exception.
-     * @param operation the aThrow operation to invoke
-     * @param frame the frame to start with
-     * @param frameStack the framestack
+     * @param operation Operation; the aThrow operation to invoke
+     * @param frame Frame; the frame to start with
+     * @param frameStack Stack&lt;Frame&gt;; the framestack
      * @return the frame and operationIndex to continue with...
      */
     public static Frame aThrow(final Operation operation, final Frame frame, final Stack<Frame> frameStack)
@@ -232,7 +232,7 @@ public final class Interpreter
 
     /**
      * interprets the frameStack.
-     * @param frameStack the frameStack of the interpreter
+     * @param frameStack Stack&lt;Frame&gt;; the frameStack of the interpreter
      * @return Object the return value of the invoked method
      */
     public static Object interpret(final Stack<Frame> frameStack)
@@ -386,10 +386,10 @@ public final class Interpreter
 
     /**
      * interprets the invocation of a method on an object.
-     * @param object the object on which the method must be invoked
-     * @param methodName the methodName
-     * @param arguments the arguments
-     * @param argumentTypes the classes of the arguments
+     * @param object Object; the object on which the method must be invoked
+     * @param methodName String; the methodName
+     * @param arguments Object[]; the arguments
+     * @param argumentTypes Class&lt;?&gt;[]; the classes of the arguments
      * @return Object the result
      */
     public static Object invoke(final Object object, final String methodName, final Object[] arguments,
@@ -423,9 +423,9 @@ public final class Interpreter
 
     /**
      * interprets the invocation of a method on an object.
-     * @param object the object on which the method must be invoked
-     * @param method the method
-     * @param arguments the arguments
+     * @param object Object; the object on which the method must be invoked
+     * @param method AccessibleObject; the method
+     * @param arguments Object[]; the arguments
      * @return Object the result
      */
     public static Object invoke(final Object object, final AccessibleObject method, final Object[] arguments)

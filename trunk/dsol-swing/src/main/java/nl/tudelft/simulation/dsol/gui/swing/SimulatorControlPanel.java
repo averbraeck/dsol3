@@ -47,7 +47,7 @@ public class SimulatorControlPanel extends JPanel
 
     /**
      * Method SimulatorControlPanel.
-     * @param target the simulator
+     * @param target SimulatorInterface&lt;?,?,?&gt;; the simulator
      */
     public SimulatorControlPanel(SimulatorInterface<?, ?, ?> target)
     {
@@ -56,8 +56,8 @@ public class SimulatorControlPanel extends JPanel
 
     /**
      * Method SimulatorControlPanel.
-     * @param target the simulator
-     * @param size the size of the buttons (16 or 24 px)
+     * @param target SimulatorInterface&lt;?,?,?&gt;; the simulator
+     * @param size int; the size of the buttons (16 or 24 px)
      */
     public SimulatorControlPanel(SimulatorInterface<?, ?, ?> target, int size)
     {
@@ -159,7 +159,7 @@ public class SimulatorControlPanel extends JPanel
 
         /**
          * Method SimulatorControlListener.
-         * @param target
+         * @param target SimulatorInterface&lt;?,?,?&gt;;
          */
         public SimulatorControlListener(SimulatorInterface<?, ?, ?> target)
         {

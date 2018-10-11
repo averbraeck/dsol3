@@ -276,7 +276,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /**
      * writes a serializable method to stream.
-     * @param out the outputstream
+     * @param out ObjectOutputStream; the outputstream
      * @throws IOException on IOException
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException
@@ -287,7 +287,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /**
      * reads a serializable method from stream.
-     * @param in the inputstream
+     * @param in java.io.ObjectInputStream; the inputstream
      * @throws IOException on IOException
      */
     @SuppressWarnings("unchecked")

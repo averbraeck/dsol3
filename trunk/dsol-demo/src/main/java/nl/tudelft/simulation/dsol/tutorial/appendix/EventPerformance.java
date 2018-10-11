@@ -65,7 +65,7 @@ public class EventPerformance implements DSOLModel.TimeDouble
 
     /**
      * stepA.
-     * @param pSimulator the simulator
+     * @param pSimulator DEVSSimulatorInterface&lt;Double,Double,SimTimeDouble&gt;; the simulator
      * @throws SimRuntimeException on dsol error
      * @throws RemoteException on distributed error
      */
@@ -85,7 +85,7 @@ public class EventPerformance implements DSOLModel.TimeDouble
 
     /**
      * completes the run.
-     * @param startTime the startTime
+     * @param startTime long; the startTime
      */
     protected void complete(final long startTime)
     {
@@ -94,7 +94,7 @@ public class EventPerformance implements DSOLModel.TimeDouble
 
     /**
      * commandline executes the model.
-     * @param args the arguments to the commandline
+     * @param args String[]; the arguments to the commandline
      */
     public static void main(final String[] args)
     {

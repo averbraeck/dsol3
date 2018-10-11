@@ -27,7 +27,7 @@ public class INVOKESTATIC extends nl.tudelft.simulation.dsol.interpreter.operati
 {
     /**
      * constructs a new INVOKESTATIC.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public INVOKESTATIC(final DataInput dataInput) throws IOException

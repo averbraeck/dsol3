@@ -59,7 +59,7 @@ public class MM1Queue41Application
     }
 
     /**
-     * @param args can be left empty
+     * @param args String[]; can be left empty
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error

@@ -43,10 +43,10 @@ public class DirectionalLine extends Line2D.Double
 
     /**
      * Creates a new DirectionalLine based on the specified coordinates.
-     * @param x1 Coordinate x1
-     * @param y1 Coordinate y1
-     * @param x2 Coordinate x2
-     * @param y2 Coordinate y2
+     * @param x1 double; Coordinate x1
+     * @param y1 double; Coordinate y1
+     * @param x2 double; Coordinate x2
+     * @param y2 double; Coordinate y2
      */
     public DirectionalLine(final double x1, final double y1, final double x2, final double y2)
     {
@@ -74,10 +74,10 @@ public class DirectionalLine extends Line2D.Double
 
     /**
      * Set the line using floats.
-     * @param x1 x1 coordinate
-     * @param y1 y1 coodinate
-     * @param x2 x2 coordinate
-     * @param y2 y2 coordinate
+     * @param x1 float; x1 coordinate
+     * @param y1 float; y1 coodinate
+     * @param x2 float; x2 coordinate
+     * @param y2 float; y2 coordinate
      */
     public void setLine(final float x1, final float y1, final float x2, final float y2)
     {
@@ -112,7 +112,7 @@ public class DirectionalLine extends Line2D.Double
     /**
      * Returns true if the endpoints of this line match the endpoints of the specified line. Ignores normal and height
      * values.
-     * @param line another line
+     * @param line DirectionalLine; another line
      * @return true if this line's coordinates are equal to the other line's coordinates
      */
     public boolean equalsCoordinates(final DirectionalLine line)
@@ -124,7 +124,7 @@ public class DirectionalLine extends Line2D.Double
      * Returns true if the endpoints of this line match the endpoints of the specified line, ignoring endpoint order (if
      * the first point of this line is equal to the second point of the specified line, and vice versa, returns true).
      * Ignores normal and height values.
-     * @param line another line
+     * @param line DirectionalLine; another line
      * @return true if coordinates match independent of the order
      */
     public boolean equalsCoordinatesIgnoreOrder(final DirectionalLine line)
@@ -145,8 +145,8 @@ public class DirectionalLine extends Line2D.Double
      * within this 1-unit border are considered collinear. For this to work correctly, the normal of this line must be
      * normalized, either by setting this line to a polygon or by calling normalize(). Returns either FRONTSIDE,
      * BACKSIDE, or COLLINEAR.
-     * @param x coordinate x
-     * @param y coordinate y
+     * @param x double; coordinate x
+     * @param y double; coordinate y
      * @return the side
      */
     public int getSideThick(final double x, final double y)
@@ -174,8 +174,8 @@ public class DirectionalLine extends Line2D.Double
      * Gets the side of this line the specified point is on. Because of doubling point inaccuracy, a collinear line will
      * be rare. For this to work correctly, the normal of this line must be normalized, either by setting this line to a
      * polygon or by calling normalize(). Returns either FRONTSIDE, BACKSIDE, or COLLINEAR.
-     * @param x coordinate x
-     * @param y coordinate y
+     * @param x double; coordinate x
+     * @param y double; coordinate y
      * @return the side
      */
     public int getSideThin(final double x, final double y)
@@ -199,7 +199,7 @@ public class DirectionalLine extends Line2D.Double
     /**
      * Gets the side of this line that the specified line segment is on. Returns either FRONT, BACK, COLINEAR, or
      * SPANNING.
-     * @param line line segment
+     * @param line Line2D.Double; line segment
      * @return the side
      */
     public int getSide(final Line2D.Double line)
@@ -233,7 +233,7 @@ public class DirectionalLine extends Line2D.Double
      * example, a return value of 0 means the intersection occurs at point (x1, y1), 1 means the intersection occurs at
      * point (x2, y2), and .5 mean the intersection occurs halfway between the two endpoints of this line. Returns -1 if
      * the lines are parallel.
-     * @param line a line
+     * @param line Line2D.Double; a line
      * @return the intersection
      */
     public double getIntersection(final Line2D.Double line)
@@ -260,7 +260,7 @@ public class DirectionalLine extends Line2D.Double
 
     /**
      * Returns the intersection point of this line with the specified line.
-     * @param line a line
+     * @param line Line2D.Double; a line
      * @return intersection point
      */
     public Point2D.Double getIntersectionPoint(final Line2D.Double line)
@@ -282,7 +282,7 @@ public class DirectionalLine extends Line2D.Double
 
     /**
      * Sets the thickness of the line.
-     * @param lineThickness the lineThickness to set
+     * @param lineThickness double; the lineThickness to set
      */
     public void setLineThickness(final double lineThickness)
     {

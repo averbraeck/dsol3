@@ -128,7 +128,7 @@ public final class EventListenerMap implements Map<EventType, List<Reference<Eve
 
     /**
      * writes a serializable method to stream.
-     * @param out the output stream
+     * @param out ObjectOutputStream; the output stream
      * @throws IOException on IOException
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException
@@ -156,7 +156,7 @@ public final class EventListenerMap implements Map<EventType, List<Reference<Eve
 
     /**
      * reads a serializable method from stream.
-     * @param in the input stream
+     * @param in java.io.ObjectInputStream; the input stream
      * @throws IOException on IOException
      * @throws ClassNotFoundException on ClassNotFoundException
      */

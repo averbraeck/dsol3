@@ -8,8 +8,7 @@ import nl.tudelft.simulation.dsol.interpreter.OperandStack;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 
 /**
- * The ISTORE operation as defined in
- * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * The ISTORE operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -34,7 +33,7 @@ public class ISTORE extends VoidOperation
 
     /**
      * constructs a new ISTORE.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public ISTORE(final DataInput dataInput) throws IOException
@@ -44,8 +43,8 @@ public class ISTORE extends VoidOperation
 
     /**
      * constructs a new ISTORE.
-     * @param dataInput the dataInput
-     * @param widened whether or not to widen
+     * @param dataInput DataInput; the dataInput
+     * @param widened boolean; whether or not to widen
      * @throws IOException on IOfailure
      */
     public ISTORE(final DataInput dataInput, final boolean widened) throws IOException

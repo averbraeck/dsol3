@@ -28,9 +28,9 @@ public class StatisticsTableModel extends DefaultTableModel implements EventList
 
     /**
      * constructs a new StatisticsTableModel.
-     * @param columnNames the names of the columns
-     * @param eventTypes the eventTypes representing the column
-     * @param rows the number of rows
+     * @param columnNames Object[]; the names of the columns
+     * @param eventTypes EventType[]; the eventTypes representing the column
+     * @param rows int; the number of rows
      */
     public StatisticsTableModel(final Object[] columnNames, final EventType[] eventTypes, final int rows)
     {

@@ -64,8 +64,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /**
      * Constructor for Seize.
-     * @param simulator on which behavior is scheduled
-     * @param resource which is claimed
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which behavior is scheduled
+     * @param resource Resource&lt;A,R,T&gt;; which is claimed
      */
     public Seize(final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource)
     {
@@ -74,9 +74,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /**
      * Constructor for Seize.
-     * @param simulator on which behavior is scheduled
-     * @param resource which is claimed
-     * @param requestedCapacity is the amount which is claimed by the seize
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which behavior is scheduled
+     * @param resource Resource&lt;A,R,T&gt;; which is claimed
+     * @param requestedCapacity double; is the amount which is claimed by the seize
      */
     public Seize(final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource,
             final double requestedCapacity)
@@ -92,8 +92,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /**
      * receives an object which request an amount.
-     * @param object the object
-     * @param pRequestedCapacity the requested capacity
+     * @param object Object; the object
+     * @param pRequestedCapacity double; the requested capacity
      */
     public final synchronized void receiveObject(final Object object, final double pRequestedCapacity)
 
@@ -126,7 +126,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /**
      * sets the queue to this seize. This enables seize blocks to share one queue.
-     * @param queue is a new queue.
+     * @param queue List&lt;Request&lt;A,R,T&gt;&gt;; is a new queue.
      */
     public final void setQueue(final List<Request<A, R, T>> queue)
     {
@@ -186,9 +186,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Method Request.
-         * @param entity the requesting entity
-         * @param amount is the requested amount
-         * @param creationTime the time the request was created
+         * @param entity Object; the requesting entity
+         * @param amount double; is the requested amount
+         * @param creationTime T; the time the request was created
          */
         public Request(final Object entity, final double amount, final T creationTime)
         {
@@ -237,8 +237,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
+         * @param simulator DEVSSimulatorInterface.TimeDouble; on which behavior is scheduled
+         * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; which is claimed
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
                 final Resource<Double, Double, SimTimeDouble> resource)
@@ -248,9 +248,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
+         * @param simulator DEVSSimulatorInterface.TimeDouble; on which behavior is scheduled
+         * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; which is claimed
+         * @param requestedCapacity double; is the amount which is claimed by the seize
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
                 final Resource<Double, Double, SimTimeDouble> resource, final double requestedCapacity)
@@ -267,8 +267,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
+         * @param simulator DEVSSimulatorInterface.TimeFloat; on which behavior is scheduled
+         * @param resource Resource&lt;Float,Float,SimTimeFloat&gt;; which is claimed
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
                 final Resource<Float, Float, SimTimeFloat> resource)
@@ -278,9 +278,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
+         * @param simulator DEVSSimulatorInterface.TimeFloat; on which behavior is scheduled
+         * @param resource Resource&lt;Float,Float,SimTimeFloat&gt;; which is claimed
+         * @param requestedCapacity double; is the amount which is claimed by the seize
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
                 final Resource<Float, Float, SimTimeFloat> resource, final double requestedCapacity)
@@ -298,8 +298,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
+         * @param simulator DEVSSimulatorInterface.TimeLong; on which behavior is scheduled
+         * @param resource Resource&lt;Long,Long,SimTimeLong&gt;; which is claimed
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
                 final Resource<Long, Long, SimTimeLong> resource)
@@ -309,9 +309,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
+         * @param simulator DEVSSimulatorInterface.TimeLong; on which behavior is scheduled
+         * @param resource Resource&lt;Long,Long,SimTimeLong&gt;; which is claimed
+         * @param requestedCapacity double; is the amount which is claimed by the seize
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
                 final Resource<Long, Long, SimTimeLong> resource, final double requestedCapacity)
@@ -329,8 +329,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which behavior is scheduled
+         * @param resource Resource&lt;Time,Duration,SimTimeDoubleUnit&gt;; which is claimed
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final Resource<Time, Duration, SimTimeDoubleUnit> resource)
@@ -340,9 +340,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which behavior is scheduled
+         * @param resource Resource&lt;Time,Duration,SimTimeDoubleUnit&gt;; which is claimed
+         * @param requestedCapacity double; is the amount which is claimed by the seize
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final Resource<Time, Duration, SimTimeDoubleUnit> resource, final double requestedCapacity)
@@ -360,8 +360,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which behavior is scheduled
+         * @param resource Resource&lt;FloatTime,FloatDuration,SimTimeFloatUnit&gt;; which is claimed
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource)
@@ -371,9 +371,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which behavior is scheduled
+         * @param resource Resource&lt;FloatTime,FloatDuration,SimTimeFloatUnit&gt;; which is claimed
+         * @param requestedCapacity double; is the amount which is claimed by the seize
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource, final double requestedCapacity)
@@ -391,8 +391,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which behavior is scheduled
+         * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is claimed
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
                 final Resource<Calendar, Duration, SimTimeCalendarDouble> resource)
@@ -402,9 +402,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which behavior is scheduled
+         * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is claimed
+         * @param requestedCapacity double; is the amount which is claimed by the seize
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
                 final Resource<Calendar, Duration, SimTimeCalendarDouble> resource, final double requestedCapacity)
@@ -422,8 +422,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which behavior is scheduled
+         * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is claimed
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
                 final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource)
@@ -433,9 +433,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which behavior is scheduled
+         * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is claimed
+         * @param requestedCapacity double; is the amount which is claimed by the seize
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
                 final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource, final double requestedCapacity)
@@ -453,8 +453,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
+         * @param simulator DEVSSimulatorInterface.CalendarLong; on which behavior is scheduled
+         * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is claimed
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
                 final Resource<Calendar, Long, SimTimeCalendarLong> resource)
@@ -464,9 +464,9 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
-         * @param simulator on which behavior is scheduled
-         * @param resource which is claimed
-         * @param requestedCapacity is the amount which is claimed by the seize
+         * @param simulator DEVSSimulatorInterface.CalendarLong; on which behavior is scheduled
+         * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is claimed
+         * @param requestedCapacity double; is the amount which is claimed by the seize
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
                 final Resource<Calendar, Long, SimTimeCalendarLong> resource, final double requestedCapacity)

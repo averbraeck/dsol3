@@ -9,8 +9,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 import nl.tudelft.simulation.language.primitives.Primitive;
 
 /**
- * The IINC operation as defined in
- * <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
+ * The IINC operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
  * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
@@ -38,7 +37,7 @@ public class IINC extends VoidOperation
 
     /**
      * constructs a new IINC.
-     * @param dataInput the dataInput to read
+     * @param dataInput DataInput; the dataInput to read
      * @throws IOException on IOException
      */
     public IINC(final DataInput dataInput) throws IOException
@@ -48,8 +47,8 @@ public class IINC extends VoidOperation
 
     /**
      * constructs a new IINC.
-     * @param dataInput the dataInput to read
-     * @param widened is the operation widened
+     * @param dataInput DataInput; the dataInput to read
+     * @param widened boolean; is the operation widened
      * @throws IOException on IOException
      */
     public IINC(final DataInput dataInput, final boolean widened) throws IOException

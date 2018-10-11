@@ -52,7 +52,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /**
      * constructs a new InputListener.
-     * @param panel the panel
+     * @param panel AnimationPanel; the panel
      */
     public InputListener(final AnimationPanel panel)
     {
@@ -212,8 +212,8 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /**
      * What to do if the middle mouse button was released.
-     * @param mouseClickedPoint the point where the mouse was clicked
-     * @param mouseReleasedPoint the point where the mouse was released
+     * @param mouseClickedPoint Point2D; the point where the mouse was clicked
+     * @param mouseReleasedPoint Point2D; the point where the mouse was released
      */
     protected void pan(final Point2D mouseClickedPoint, final Point2D mouseReleasedPoint)
     {
@@ -229,7 +229,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /**
      * returns the list of selected objects at a certain mousePoint.
-     * @param mousePoint the mousePoint
+     * @param mousePoint Point2D; the mousePoint
      * @return the selected objects
      */
     protected List<Locatable> getSelectedObjects(final Point2D mousePoint)
@@ -257,7 +257,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /**
      * popsup on a mouseEvent.
-     * @param e the mouseEvent
+     * @param e MouseEvent; the mouseEvent
      */
     protected void popup(final MouseEvent e)
     {
@@ -277,7 +277,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /**
      * edits a selected Renderable2D.
-     * @param targets which are selected by the mouse.
+     * @param targets List&lt;Locatable&gt;; which are selected by the mouse.
      * @return the selected Object (e.g. the one with the highest zValue).
      */
     protected Object getSelectedObject(final List<Locatable> targets)
@@ -305,7 +305,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
 
     /**
      * set the drag line: a line that shows where the user is dragging.
-     * @param mousePosition the position of the mouse pointer
+     * @param mousePosition Point2D; the position of the mouse pointer
      */
     private void setDragLine(final Point2D mousePosition)
     {

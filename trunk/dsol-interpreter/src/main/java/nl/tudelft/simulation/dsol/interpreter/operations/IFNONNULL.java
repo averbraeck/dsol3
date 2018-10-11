@@ -31,7 +31,7 @@ public class IFNONNULL extends JumpOperation
 
     /**
      * constructs a new IFNONNULL.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public IFNONNULL(final DataInput dataInput) throws IOException

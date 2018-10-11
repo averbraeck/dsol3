@@ -37,7 +37,7 @@ public class FileContext extends JVMContext implements Serializable
 
     /**
      * constructs a new FileContext.
-     * @param file the file to write to
+     * @param file File; the file to write to
      */
     public FileContext(final File file)
     {
@@ -47,9 +47,9 @@ public class FileContext extends JVMContext implements Serializable
 
     /**
      * constructs a new FileContext.
-     * @param file the file to which to write
-     * @param parent the parent context
-     * @param atomicName the atomicName
+     * @param file File; the file to which to write
+     * @param parent Context; the parent context
+     * @param atomicName String; the atomicName
      */
     public FileContext(final File file, final Context parent, final String atomicName)
     {

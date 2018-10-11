@@ -85,7 +85,7 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
 
     /**
      * Sets whether the window is empty
-     * @param empty Empty frame or not
+     * @param empty boolean; Empty frame or not
      */
     public void setEmpty(final boolean empty)
     {
@@ -105,9 +105,9 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
     /**
      * Adds another toolbar to the specified side of the frame. Any attempt to add a toolbar that has already been added
      * is ignored.
-     * @param bar The toolbar to add.
-     * @param align One of <TT>SwingConstants.TOP</TT>,<TT>SwingConstants.BOTTOM</TT>, <TT>SwingConstants.LEFT</TT>, or
-     *            <TT>SwingConstants.RIGHT</TT>.
+     * @param bar JToolBar; The toolbar to add.
+     * @param align int; One of &lt;TT&gt;SwingConstants.TOP&lt;/TT&gt;,&lt;TT&gt;SwingConstants.BOTTOM&lt;/TT&gt;,
+     *            &lt;TT&gt;SwingConstants.LEFT&lt;/TT&gt;, or <TT>SwingConstants.RIGHT</TT>.
      */
     public void addJToolBar(final JToolBar bar, final int align)
     {
@@ -159,7 +159,7 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
 
     /**
      * Removes the specified toolbar. Any attempt to remove a toolbar that has never been added is ignored.
-     * @param bar Toolbar to remove
+     * @param bar JToolBar; Toolbar to remove
      */
     public void removeJToolBar(final JToolBar bar)
     {

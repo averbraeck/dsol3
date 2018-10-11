@@ -51,7 +51,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * constructs a new Station.
-     * @param simulator is the simulator on which behavior is scheduled
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; is the simulator on which behavior is scheduled
      */
     public Station(final DEVSSimulatorInterface<A, R, T> simulator)
     {
@@ -76,7 +76,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
     /**
      * releases an object.
-     * @param object is the entity
+     * @param object Object; is the entity
      */
     @SuppressWarnings("checkstyle:designforextension")
     protected synchronized void releaseObject(final Object object)
@@ -107,7 +107,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeDouble.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeDouble; is the simulator on which behavior is scheduled
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator)
         {
@@ -123,7 +123,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeFloat.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeFloat; is the simulator on which behavior is scheduled
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator)
         {
@@ -139,7 +139,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeLong.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeLong; is the simulator on which behavior is scheduled
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator)
         {
@@ -156,7 +156,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeDoubleUnit.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; is the simulator on which behavior is scheduled
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator)
         {
@@ -173,7 +173,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeFloatUnit.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.TimeFloatUnit; is the simulator on which behavior is scheduled
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator)
         {
@@ -190,7 +190,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.CalendarDouble.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.CalendarDouble; is the simulator on which behavior is scheduled
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator)
         {
@@ -207,7 +207,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.CalendarFloat.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.CalendarFloat; is the simulator on which behavior is scheduled
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator)
         {
@@ -224,7 +224,7 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.CalendarLong.
-         * @param simulator is the simulator on which behavior is scheduled
+         * @param simulator DEVSSimulatorInterface.CalendarLong; is the simulator on which behavior is scheduled
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator)
         {

@@ -28,7 +28,7 @@ public class InterpreterException extends RuntimeException
 
     /**
      * constructs a new InterpreterException.
-     * @param message the message
+     * @param message String; the message
      */
     public InterpreterException(final String message)
     {
@@ -37,8 +37,8 @@ public class InterpreterException extends RuntimeException
 
     /**
      * constructs a new InterpreterException.
-     * @param message the message
-     * @param cause the cause
+     * @param message String; the message
+     * @param cause Throwable; the cause
      */
     public InterpreterException(final String message, final Throwable cause)
     {
@@ -47,7 +47,7 @@ public class InterpreterException extends RuntimeException
 
     /**
      * constructs a new InterpreterException.
-     * @param cause the cause
+     * @param cause Throwable; the cause
      */
     public InterpreterException(final Throwable cause)
     {

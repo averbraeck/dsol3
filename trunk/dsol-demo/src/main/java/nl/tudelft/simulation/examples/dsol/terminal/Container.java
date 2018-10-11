@@ -40,11 +40,11 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
     private int phase = 0;
 
     /**
-     * @param simulator the simulator
-     * @param containerNumber the container number
-     * @param qc the QC resources
-     * @param agv the AGV resources
-     * @param ship the ship
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
+     * @param containerNumber int; the container number
+     * @param qc QC; the QC resources
+     * @param agv AGV; the AGV resources
+     * @param ship Ship; the ship
      */
     public Container(final DEVSSimulatorInterface.TimeDouble simulator, final int containerNumber, final QC qc,
             final AGV agv, final Ship ship)

@@ -61,8 +61,8 @@ public interface StreamInterface extends Serializable
 
     /**
      * Method returns (pseudo)random number from the stream over the integers i and j .
-     * @param i the minimal value
-     * @param j the maximum value
+     * @param i int; the minimal value
+     * @param j int; the maximum value
      * @return int
      */
     int nextInt(int i, int j);
@@ -82,7 +82,7 @@ public interface StreamInterface extends Serializable
 
     /**
      * sets the seed of the generator.
-     * @param seed the new seed
+     * @param seed long; the new seed
      */
     void setSeed(long seed);
 
@@ -100,7 +100,7 @@ public interface StreamInterface extends Serializable
 
     /**
      * restore the state to an earlier saved state object.
-     * @param state the earlier saved state to which the RNG rolls back.
+     * @param state Object; the earlier saved state to which the RNG rolls back.
      * @throws StreamException when resetting the state fails.
      */
     void restoreState(Object state) throws StreamException;

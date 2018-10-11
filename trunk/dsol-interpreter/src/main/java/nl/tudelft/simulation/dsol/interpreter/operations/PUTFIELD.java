@@ -37,7 +37,7 @@ public class PUTFIELD extends VoidOperation
 
     /**
      * constructs a new PUTFIELD.
-     * @param dataInput the dataInput
+     * @param dataInput DataInput; the dataInput
      * @throws IOException on IOfailure
      */
     public PUTFIELD(final DataInput dataInput) throws IOException

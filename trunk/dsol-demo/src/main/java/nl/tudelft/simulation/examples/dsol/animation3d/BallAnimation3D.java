@@ -27,8 +27,8 @@ public class BallAnimation3D extends Renderable3D
 
     /**
      * constructs a new BallAnimation3D.
-     * @param source the source
-     * @param simulator the simulator
+     * @param source Locatable; the source
+     * @param simulator SimulatorInterface.TimeDouble; the simulator
      */
     public BallAnimation3D(final Locatable source, final SimulatorInterface.TimeDouble simulator)
     {

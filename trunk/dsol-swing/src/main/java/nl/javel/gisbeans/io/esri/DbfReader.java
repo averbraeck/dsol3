@@ -50,7 +50,7 @@ public class DbfReader implements Serializable
 
     /**
      * constructs a DbfReader
-     * @param dbfFile the URL of the dbfFile
+     * @param dbfFile URL; the URL of the dbfFile
      * @throws IOException whenever url does not occur to exist.
      */
     public DbfReader(URL dbfFile) throws IOException
@@ -106,7 +106,7 @@ public class DbfReader implements Serializable
 
     /**
      * returns the row
-     * @param rowNumber the rowNumber
+     * @param rowNumber int; the rowNumber
      * @return String[] the attributes of the row
      * @throws IOException on read failure
      * @throws IndexOutOfBoundsException whenever the rowNumber &gt; numRecords
@@ -179,8 +179,8 @@ public class DbfReader implements Serializable
 
     /**
      * returns the array of rowNumbers belonging to a attribute/column pair
-     * @param attribute the attribute value
-     * @param columnName the name of the column
+     * @param attribute String; the attribute value
+     * @param columnName String; the name of the column
      * @return int[] the array of shape numbers.
      * @throws IOException on read failure
      */
@@ -218,7 +218,7 @@ public class DbfReader implements Serializable
     }
 
     /**
-     * @param cache The cache to set.
+     * @param cache boolean; The cache to set.
      */
     public void setCache(boolean cache)
     {

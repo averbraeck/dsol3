@@ -39,7 +39,7 @@ public class RemoteContextClient implements EventContext, Serializable
 
     /**
      * constructs a new RemoteContextClient.
-     * @param remoteContext the remoteContext on which all calls are passed.
+     * @param remoteContext RemoteContextInterface; the remoteContext on which all calls are passed.
      */
     public RemoteContextClient(final RemoteContextInterface remoteContext)
     {
@@ -53,8 +53,8 @@ public class RemoteContextClient implements EventContext, Serializable
     {
         try
         {
-            this.remoteContext
-                    .addNamingListener(target, scope, new RemoteContextListener((ContextListenerInterface) l));
+            this.remoteContext.addNamingListener(target, scope,
+                    new RemoteContextListener((ContextListenerInterface) l));
         }
         catch (RemoteException remoteException)
         {
@@ -68,8 +68,8 @@ public class RemoteContextClient implements EventContext, Serializable
     {
         try
         {
-            this.remoteContext
-                    .addNamingListener(target, scope, new RemoteContextListener((ContextListenerInterface) l));
+            this.remoteContext.addNamingListener(target, scope,
+                    new RemoteContextListener((ContextListenerInterface) l));
         }
         catch (RemoteException remoteException)
         {

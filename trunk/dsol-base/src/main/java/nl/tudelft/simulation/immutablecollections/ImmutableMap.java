@@ -42,7 +42,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * Returns <tt>true</tt> if this map contains a mapping for the specified key. More formally, returns <tt>true</tt>
      * if and only if this map contains a mapping for a key <tt>k</tt> such that
      * <tt>(key==null ? k==null : key.equals(k))</tt>. (There can be at most one such mapping.)
-     * @param key key whose presence in this map is to be tested
+     * @param key Object; key whose presence in this map is to be tested
      * @return <tt>true</tt> if this map contains a mapping for the specified key
      * @throws ClassCastException if the key is of an inappropriate type for this map
      * @throws NullPointerException if the specified key is null and this map does not permit null keys
@@ -54,7 +54,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * <tt>true</tt> if and only if this map contains at least one mapping to a value <tt>v</tt> such that
      * <tt>(value==null ? v==null : value.equals(v))</tt>. This operation will probably require time linear in the map
      * size for most implementations of the <tt>Map</tt> interface.
-     * @param value value whose presence in this map is to be tested
+     * @param value Object; value whose presence in this map is to be tested
      * @return <tt>true</tt> if this map maps one or more keys to the specified value
      * @throws ClassCastException if the value is of an inappropriate type for this map
      * @throws NullPointerException if the specified value is null and this map does not permit null values
@@ -72,7 +72,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * If this map permits null values, then a return value of {@code null} does not <i>necessarily</i> indicate that
      * the map contains no mapping for the key; it's also possible that the map explicitly maps the key to {@code null}.
      * The {@link #containsKey containsKey} operation may be used to distinguish these two cases.
-     * @param key the key whose associated value is to be returned
+     * @param key Object; the key whose associated value is to be returned
      * @return the value to which the specified key is mapped, or {@code null} if this map contains no mapping for the
      *         key
      * @throws ClassCastException if the key is of an inappropriate type for this map
@@ -97,8 +97,8 @@ public interface ImmutableMap<K, V> extends Serializable
      * for the key. The default implementation makes no guarantees about synchronization or atomicity properties of this
      * method. Any implementation providing atomicity guarantees must override this method and document its concurrency
      * properties.
-     * @param key the key whose associated value is to be returned
-     * @param defaultValue the default mapping of the key
+     * @param key Object; the key whose associated value is to be returned
+     * @param defaultValue V; the default mapping of the key
      * @return the value to which the specified key is mapped, or {@code defaultValue} if this map contains no mapping
      *         for the key
      * @throws ClassCastException if the key is of an inappropriate type for this map
@@ -116,7 +116,7 @@ public interface ImmutableMap<K, V> extends Serializable
      * set iteration (if an iteration order is specified.) Exceptions thrown by the action are relayed to the caller.
      * The default implementation makes no guarantees about synchronization or atomicity properties of this method. Any
      * implementation providing atomicity guarantees must override this method and document its concurrency properties.
-     * @param action The action to be performed for each entry
+     * @param action BiConsumer&lt;? super K,? super V&gt;; The action to be performed for each entry
      * @throws NullPointerException if the specified action is null
      * @throws ConcurrentModificationException if an entry is found to be removed during iteration
      */
@@ -149,7 +149,7 @@ public interface ImmutableMap<K, V> extends Serializable
 
     /**
      * Force to redefine equals for the implementations of immutable collection classes.
-     * @param obj the object to compare this collection with
+     * @param obj Object; the object to compare this collection with
      * @return whether the objects are equal
      */
     @Override
