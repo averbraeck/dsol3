@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Control panel for DSOL simulation</title>
+<link rel="stylesheet" href="/css/jquery-ui-base.css">
+<link rel="stylesheet" href="/css/jquery-ui-slider-pips.css">
+<script src="/js/jquery-3.3.1.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/jquery-ui-slider-pips.js"></script>
+<!-- 
+
+----------------- JAVASCRIPT --------------
+
+ -->
+<script>
+	var speedLabels = new Array(1301);
+	speedLabels[0] = "0.1";
+	speedLabels[100] = "0.2";
+	speedLabels[200] = "0.5";
+	speedLabels[300] = "1";
+	speedLabels[400] = "2";
+	speedLabels[500] = "5";
+	speedLabels[600] = "10";
+	speedLabels[700] = "20";
+	speedLabels[800] = "50";
+	speedLabels[900] = "100";
+	speedLabels[1000] = "200";
+	speedLabels[1100] = "500";
+	speedLabels[1200] = "1K";
+	speedLabels[1300] = "oo";
+	$(function() {
+		$("#speedslider").slider({
+			min : 100,
+			max : 1400,
+			value : 400
+		}).slider("pips", {
+			labels : speedLabels,
+			first : "label",
+			last : "label",
+			rest : "label",
+			step : 100
+		});
+	});
+</script>
+<!-- 
+
+----------------- CSS --------------
+
+ -->
+<style type="text/css">
+#speedslider.ui-slider {
+	background: #555555;
+	border: none;
+	border-radius: 0;
+	height: 2px;
+    width: 400px;
+}
+
+#speedslider.ui-slider.ui-slider-horizontal {
+	height: 4px;
+}
+
+#speedslider.ui-slider .ui-slider-handle {
+	top: -8px;
+	margin-left: -5px;
+	width: 10px;
+	height: 20px;
+	background-color: blue;
+	border: 0px;
+	border-radius: 0 0 50% 50%;
+	border-color: transparent;
+}
+
+#speedslider.ui-slider.ui-slider-horizontal .ui-slider-pip {
+	top: 4px;
+}
+
+#speedslider .ui-slider-pip .ui-slider-label {
+	color: #555555;
+	top: 10px;
+}
+
+#speedslider.ui-slider.ui-slider-horizontal .ui-slider-pip .ui-slider-line
+	{
+	width: 2px;
+	top: -10px;
+	height: 16px;
+	margin-left: -1px;
+	background-color: #555555;
+}
+</style>
+</head>
+<!-- 
+
+----------------- HTML --------------
+
+ -->
+<body bgcolor="#BBBBBB">
+  <table style="width: 624px; margin: 0; border: 0px; border-spacing: 0px; padding: 0px;">
+    <tr height="36px">
+      <td width="48px" align="center" valign="middle" bgcolor="#EEEEEE" title="Execute one event" onclick="">
+        <img src="/images/Last_recor.png">
+      </td>
+      <td width="2px">&nbsp;</td>
+      <td width="48px" align="center" valign="middle" bgcolor="#EEEEEE"
+        title="Execute all event scheduled for the current time" onclick="">
+        <img src="/images/NextTrack.png">
+      </td>
+      <td width="2px">&nbsp;</td>
+      <td width="48px" align="center" valign="middle" bgcolor="#EEEEEE"
+        title="Run the simulation at the indicated speed" onclick="">
+        <img src="/images/Play.png">
+      </td>
+      <!-- slider bar -->
+      <td width="12px">&nbsp;</td>
+      <td width="400px">
+        <div id="speedslider"></div>
+      </td>
+      <td width="12px">&nbsp;</td>
+      <!-- reset -->
+      <td width="48px" align="center" valign="middle" bgcolor="#EEEEEE" title="Reset the simulation" onclick="">
+        <img src="/images/Undo.png">
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
