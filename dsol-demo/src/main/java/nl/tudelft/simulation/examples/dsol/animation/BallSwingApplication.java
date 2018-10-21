@@ -7,13 +7,13 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.animation.D2.AnimationPanel;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
-import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
+import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 
 /**
  * <p>

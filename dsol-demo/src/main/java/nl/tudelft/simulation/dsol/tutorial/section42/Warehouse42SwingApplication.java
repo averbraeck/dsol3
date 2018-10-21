@@ -7,14 +7,14 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
-import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
-import nl.tudelft.simulation.dsol.gui.swing.TablePanel;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
+import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
 
 /**
  * <p>

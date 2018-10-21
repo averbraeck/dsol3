@@ -9,8 +9,8 @@ import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.animation.D3.Renderable3D;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.swing.animation.D3.Renderable3D;
 
 /**
  * BallAnimation3D, animation of a ball in 3D.

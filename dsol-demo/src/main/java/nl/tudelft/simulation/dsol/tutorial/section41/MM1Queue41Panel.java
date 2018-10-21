@@ -2,15 +2,15 @@ package nl.tudelft.simulation.dsol.tutorial.section41;
 
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
-import nl.tudelft.simulation.dsol.gui.swing.TablePanel;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
 import nl.tudelft.simulation.dsol.statistics.Tally;
-import nl.tudelft.simulation.dsol.statistics.charts.BoxAndWhiskerChart;
-import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
+import nl.tudelft.simulation.dsol.swing.charts.boxAndWhisker.BoxAndWhiskerChart;
+import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
 
 /**
  * <p>

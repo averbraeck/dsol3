@@ -1,7 +1,28 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.02.06" date="2018-10-XX" description="dsol-web first version">
+    <release version="3.03.00" date="2018-10-XX" description="Major refactoring, dsol-web and dsol-animation">
+      <action dev="averbraeck" type="update">
+        The ExperimentParser has been moved to the dsol-demo project as it is only used there.
+        Potentially a dsol-experiment project could be created at some point in time with an
+        improved version of the xml parsing classes. 
+      </action>
+      <action dev="averbraeck" type="update">
+        The double entries of the classes 'BoxAndWhiskerChart', 'Histogram' and 'XYChart'
+        have been removed. The classes have been combined into one new class, as they only
+        differed in terms of the constructors.
+      </action>
+      <action dev="averbraeck" type="update">
+        The package names of the swing implementation of the UI have been renamed to contain
+        the word 'swing'.
+      </action>
+      <action dev="averbraeck" type="add">
+        In order to accommodate the dsol-web implementation, the dsol-swing project has
+        been split into a dsol-animation project with the implementation-independent
+        animation classes and a dsol-swing package with the swing-dependent implementation 
+        of the user interface and animation. dol-web contains the Web-specific 
+        implementation of the animation and user interface.
+      </action>
       <action dev="averbraeck" type="add">
         The ParamComments utility class has been added to the dsol-build-tools project. 
         It adds or updates the type for each parameter in the javadoc of all java files in 

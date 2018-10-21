@@ -8,8 +8,8 @@ import javax.media.j3d.Material;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
 
-import nl.tudelft.simulation.dsol.animation.D3.Renderable3D;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.swing.animation.D3.Renderable3D;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**

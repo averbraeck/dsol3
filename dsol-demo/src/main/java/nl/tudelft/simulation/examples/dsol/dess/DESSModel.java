@@ -7,7 +7,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
-import nl.tudelft.simulation.dsol.statistics.charts.XYChart;
+import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 
 /**
  * <p>
