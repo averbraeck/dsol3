@@ -2,10 +2,10 @@
 package nl.tudelft.dsol.introspection;
 
 import nl.tudelft.dsol.introspection.beans.GUIBean;
+import nl.tudelft.simulation.dsol.swing.introspection.gui.IntroSpectionDialog;
+import nl.tudelft.simulation.dsol.swing.introspection.gui.ObjectTableModel;
 import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
 import nl.tudelft.simulation.introspection.fields.FieldIntrospector;
-import nl.tudelft.simulation.introspection.gui.IntroSpectionDialog;
-import nl.tudelft.simulation.introspection.gui.ObjectTableModel;
 
 /**
  * A test program for the GUI package.
