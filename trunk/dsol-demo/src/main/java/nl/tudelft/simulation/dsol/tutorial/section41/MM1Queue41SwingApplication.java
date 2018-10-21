@@ -9,11 +9,12 @@ import org.pmw.tinylog.Level;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.gui.swing.DSOLApplication;
-import nl.tudelft.simulation.dsol.gui.swing.DSOLPanel;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 
 /**
  * M/M/1 queuing model with animation and graphs.
@@ -38,7 +39,7 @@ public class MM1Queue41SwingApplication extends DSOLApplication
      * @param devsSimulator DEVSSimulator.TimeDouble; the simulator
      */
     public MM1Queue41SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel,
-            final MM1Queue41Model model, final DEVSSimulator.TimeDouble devsSimulator)
+            final MM1Queue41Model model, final DEVSSimulatorInterface.TimeDouble devsSimulator)
     {
         super(title, panel);
         this.model = model;

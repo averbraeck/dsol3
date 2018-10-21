@@ -50,7 +50,7 @@ public class BallAnimation2D extends Renderable2D<Locatable>
         graphics.fillOval(-(int) Ball.RADIUS, -(int) Ball.RADIUS, (int) (Ball.RADIUS * 2.0), (int) (Ball.RADIUS * 2.0));
         graphics.setFont(graphics.getFont().deriveFont(Font.BOLD));
         graphics.setColor(Color.GRAY);
-        graphics.drawString(this.source.toString(), (int) (Ball.RADIUS * -1.0), (int) (Ball.RADIUS * 1.0));
+        graphics.drawString(getSource().toString(), (int) (Ball.RADIUS * -1.0), (int) (Ball.RADIUS * 1.0));
     }
 
     /**

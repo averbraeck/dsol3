@@ -24,7 +24,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  * @since 1.4
  */
-public class BallAnimation extends Renderable2D
+public class BallAnimation extends Renderable2D<Locatable>
 {
     /**
      * the color of the ballAnimation.
@@ -52,7 +52,7 @@ public class BallAnimation extends Renderable2D
         graphics.fillOval(-(int) Ball.RADIUS, -(int) Ball.RADIUS, (int) (Ball.RADIUS * 2.0), (int) (Ball.RADIUS * 2.0));
         graphics.setFont(graphics.getFont().deriveFont(Font.BOLD));
         graphics.setColor(Color.GRAY);
-        graphics.drawString(this.source.toString(), (float) (Ball.RADIUS * -1.0), (float) (Ball.RADIUS * 1.0));
+        graphics.drawString(getSource().toString(), (float) (Ball.RADIUS * -1.0), (float) (Ball.RADIUS * 1.0));
     }
 
     /**
@@ -66,7 +66,7 @@ public class BallAnimation extends Renderable2D
     /**
      * @param color Color; The color to set.
      */
-    public void setColor(Color color)
+    public void setColor(final Color color)
     {
         this.color = color;
     }
