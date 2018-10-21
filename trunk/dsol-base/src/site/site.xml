@@ -18,6 +18,7 @@
       <item name="dsol-introspection" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-introspection/index.html" />
       <item name="dsol-core" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-core/index.html" />
       <item name="dsol-swing" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-swing/index.html" />
+      <item name="dsol-animation" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-animation/index.html" />
       <item name="dsol-web" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-web/index.html" />
       <item name="dsol-demo" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-demo/index.html" />
       <!-- item name="dsol-akka" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-akka/index.html" / -->
