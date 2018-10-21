@@ -10,10 +10,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
-import nl.tudelft.simulation.introspection.gui.SortingObjectTableModel;
-import nl.tudelft.simulation.introspection.sortable.SortDefinition;
-import nl.tudelft.simulation.introspection.sortable.Sortable;
-import nl.tudelft.simulation.introspection.sortable.SortingTableHeader;
+import nl.tudelft.simulation.dsol.swing.introspection.gui.SortingObjectTableModel;
+import nl.tudelft.simulation.dsol.swing.introspection.sortable.SortDefinition;
+import nl.tudelft.simulation.dsol.swing.introspection.sortable.Sortable;
+import nl.tudelft.simulation.dsol.swing.introspection.sortable.SortingTableHeader;
 
 /**
  * A test program for the sortable table model.
