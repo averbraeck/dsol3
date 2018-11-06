@@ -7,13 +7,12 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -21,10 +20,10 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * A TestExperimentalFrame.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
@@ -64,16 +63,17 @@ public final class TestExperimentalFrame
      * @param simulator the simulator
      * @return an experimental Frame
      */
-    public static ExperimentalFrame createExperimentalFrame(final SimulatorInterface simulator, final DSOLModel model)
+    public static <S extends SimulatorInterface.TimeDouble> ExperimentalFrame createExperimentalFrame(final S simulator,
+            final DSOLModel.TimeDouble<S> model)
     {
         try
         {
             ExperimentalFrame experimentalFrame = new ExperimentalFrame();
 
-            List<Experiment> experiments = new ArrayList<Experiment>();
+            List<Experiment.TimeDouble<S>> experiments = new ArrayList<Experiment.TimeDouble<S>>();
             for (int i = 0; i < 3; i++)
             {
-                Experiment experiment = TestExperimentalFrame.createExperiment();
+                Experiment.TimeDouble<S> experiment = TestExperimentalFrame.createExperiment();
                 experiment.setSimulator(simulator);
                 experiment.setModel(model);
                 experiments.add(experiment);
@@ -91,10 +91,11 @@ public final class TestExperimentalFrame
      * creates a new TestExperimentalFrame.
      * @return ExperimentalFrame
      * @throws NamingException on error
+     * @param <S> the simulator type
      */
-    public static Experiment createExperiment() throws NamingException
+    public static <S extends SimulatorInterface.TimeDouble> Experiment.TimeDouble<S> createExperiment() throws NamingException
     {
-        Experiment experiment = new Experiment();
+        Experiment.TimeDouble<S> experiment = new Experiment.TimeDouble<>();
         experiment.setTreatment(TestExperimentalFrame.createTreatment(experiment));
         experiment.setReplications(TestExperimentalFrame.createReplications(experiment));
         return experiment;
@@ -104,10 +105,13 @@ public final class TestExperimentalFrame
      * creates the Treatment for this experiment.
      * @param experiment the parent
      * @return Treatment[] the result
+     * @param <S> the simulator type
      */
-    public static Treatment createTreatment(final Experiment experiment)
+    public static <S extends SimulatorInterface.TimeDouble> Treatment.TimeDouble createTreatment(
+            final Experiment.TimeDouble<S> experiment)
     {
-        Treatment treatment = new Treatment(experiment, "1", new SimTimeDouble(System.currentTimeMillis()), 0.0, 100.0);
+        Treatment.TimeDouble treatment =
+                new Treatment.TimeDouble(experiment, "1", 1.0 * System.currentTimeMillis(), 0.0, 100.0);
         return treatment;
     }
 
@@ -116,14 +120,16 @@ public final class TestExperimentalFrame
      * @param experiment the simulation experiment
      * @return a list of replications
      * @throws NamingException on error
+     * @param <S> the simulator type
      */
-    public static List<Replication> createReplications(final Experiment experiment) throws NamingException
+    public static <S extends SimulatorInterface.TimeDouble> List<Replication.TimeDouble<S>> createReplications(
+            final Experiment.TimeDouble<S> experiment) throws NamingException
     {
-        List<Replication> replications = new ArrayList<Replication>();
+        List<Replication.TimeDouble<S>> replications = new ArrayList<>();
 
         for (int i = 0; i < 3; i++)
         {
-            Replication replication = new Replication(experiment);
+            Replication.TimeDouble<S> replication = new Replication.TimeDouble<S>(experiment);
             Map<String, StreamInterface> streams = new HashMap<String, StreamInterface>();
             streams.put("DEFAULT", new Java2Random(SEED));
             replication.setStreams(streams);

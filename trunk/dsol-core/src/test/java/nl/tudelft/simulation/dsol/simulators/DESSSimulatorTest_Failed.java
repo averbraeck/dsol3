@@ -23,7 +23,7 @@ public class DESSSimulatorTest_Failed extends SimulatorTest_NotCorrect
      */
     public DESSSimulatorTest_Failed() throws SimRuntimeException
     {
-        super(new DESSSimulator(0.1));
+        super(new DESSSimulator.TimeDouble(0.1));
     }
 
     /** {@inheritDoc} */
@@ -32,14 +32,14 @@ public class DESSSimulatorTest_Failed extends SimulatorTest_NotCorrect
     {
         super.test();
 
-        DESSSimulatorInterface dessSimulator = (DESSSimulatorInterface) super.simulator;
-        ExperimentalFrame experimentalFrame = TestExperiment.createExperimentalFrame(dessSimulator, new TestModel());
+        DESSSimulatorInterface.TimeDouble dessSimulator = (DESSSimulatorInterface.TimeDouble) super.simulator;
+        ExperimentalFrame experimentalFrame = TestExperiment.createExperimentalFrame(dessSimulator, new TestModel(dessSimulator));
         experimentalFrame.start();
 
     }
 
     /**
-     * Executes a DESSSimulatorTest
+     * Executes a DESSSimulatorTest.
      * @param args the arguments given on the command line
      * @throws SimRuntimeException on error
      */

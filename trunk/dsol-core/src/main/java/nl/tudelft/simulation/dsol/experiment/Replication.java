@@ -13,7 +13,7 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -23,27 +23,28 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * The replication of an Experiment.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
- * @since 1.5
+ * @param <S> the simulator to use
  */
-public class Replication<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        implements Serializable
+public class Replication<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
+        S extends SimulatorInterface<A, R, T>> implements Serializable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -55,7 +56,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     private String description = "rep_no_description";
 
     /** the experiment to which this replication belongs. */
-    private Experiment<A, R, T> experiment = null;
+    private Experiment<A, R, T, S> experiment = null;
 
     /** the contextRoot of this replication. */
     private Context context = null;
@@ -65,7 +66,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
      * @param experiment Experiment&lt;A,R,T&gt;; the experiment to which this replication belongs
      * @throws NamingException in case a context for the replication cannot be created
      */
-    public Replication(final Experiment<A, R, T> experiment) throws NamingException
+    public Replication(final Experiment<A, R, T, S> experiment) throws NamingException
     {
         super();
         this.experiment = experiment;
@@ -79,18 +80,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
      * @param model DSOLModel&lt;A,R,T&gt;; the model for which this is the replication
+     * @return a Replication object with corresponding experiment and treatment
      * @throws NamingException in case a context for the replication cannot be created
+     * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
+     * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+     *            relative types are the same.
+     * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
+     * @param <S> the simulator type, consistent with the simulation time
      */
-    public Replication(final String id, final T startTime, final R warmupPeriod, final R runLength,
-            final DSOLModel<A, R, T> model) throws NamingException
+    public static <A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
+            S extends SimulatorInterface<A, R, T>> Replication<A, R, T, S> create(final String id, final T startTime,
+                    final R warmupPeriod, final R runLength, final DSOLModel<A, R, T, S> model) throws NamingException
     {
-        super();
-        this.experiment = new Experiment<A, R, T>();
-        this.experiment.setModel(model);
+        Experiment<A, R, T, S> experiment = new Experiment<>();
+        experiment.setModel(model);
         Treatment<A, R, T> treatment =
-                new Treatment<A, R, T>(this.experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
-        this.experiment.setTreatment(treatment);
-        setContext(id);
+                new Treatment<A, R, T>(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+        experiment.setTreatment(treatment);
+        return new Replication<A, R, T, S>(experiment);
     }
 
     /**
@@ -162,14 +169,13 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     /**
      * @return Returns the experiment.
      */
-    public final Experiment<A, R, T> getExperiment()
+    public final Experiment<A, R, T, S> getExperiment()
     {
         return this.experiment;
     }
 
     /**
-     * @return Returns the treatment. This is a convenience method to avoid the getExperiment().getTreatment() many
-     *         times.
+     * @return Returns the treatment. This is a convenience method to avoid the getExperiment().getTreatment() many times.
      */
     public final Treatment<A, R, T> getTreatment()
     {
@@ -202,8 +208,12 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class Treatment.TimeDouble. */
-    public static class TimeDouble extends Replication<Double, Double, SimTimeDouble>
+    /**
+     * Easy access class Replication.TimeDouble.
+     * @param <S> the simulator to use
+     */
+    public static class TimeDouble<S extends SimulatorInterface.TimeDouble>
+            extends Replication<Double, Double, SimTimeDouble, S>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -213,29 +223,40 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param experiment Experiment.TimeDouble; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDouble(final Experiment.TimeDouble experiment) throws NamingException
+        public TimeDouble(final Experiment.TimeDouble<S> experiment) throws NamingException
         {
             super(experiment);
         }
 
         /**
-         * constructs a stand-alone Replication.TimeDouble and make a treatment and experiment as well.
+         * constructs a stand-alone Replication and make a treatment and experiment as well.
          * @param id String; the id of the replication.
-         * @param startTime Double; the start time as a time object.
-         * @param warmupPeriod Double; the warmup period, included in the runlength (!)
-         * @param runLength Double; the total length of the run, including the warm-up period.
+         * @param startTime double; the start time
+         * @param warmupPeriod double; the warmup period, included in the runlength (!)
+         * @param runLength double; the total length of the run, including the warm-up period.
          * @param model DSOLModel.TimeDouble; the model for which this is the replication
+         * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
+         * @param <S> the simulator to use
          */
-        public TimeDouble(final String id, final Double startTime, final Double warmupPeriod, final Double runLength,
-                final DSOLModel.TimeDouble model) throws NamingException
+        public static <S extends SimulatorInterface.TimeDouble> Replication.TimeDouble<S> create(final String id,
+                final double startTime, final double warmupPeriod, final double runLength, final DSOLModel.TimeDouble<S> model)
+                throws NamingException
         {
-            super(id, new SimTimeDouble(startTime), warmupPeriod, runLength, model);
+            Experiment.TimeDouble<S> experiment = new Experiment.TimeDouble<S>();
+            experiment.setModel(model);
+            Treatment.TimeDouble treatment =
+                    new Treatment.TimeDouble(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+            experiment.setTreatment(treatment);
+            return new Replication.TimeDouble<S>(experiment);
         }
     }
 
-    /** Easy access class Treatment.TimeFloat. */
-    public static class TimeFloat extends Replication<Float, Float, SimTimeFloat>
+    /**
+     * Easy access class Replication.TimeFloat.
+     * @param <S> the simulator to use
+     */
+    public static class TimeFloat<S extends SimulatorInterface.TimeFloat> extends Replication<Float, Float, SimTimeFloat, S>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -245,29 +266,40 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param experiment Experiment.TimeFloat; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloat(final Experiment.TimeFloat experiment) throws NamingException
+        public TimeFloat(final Experiment.TimeFloat<S> experiment) throws NamingException
         {
             super(experiment);
         }
 
         /**
-         * constructs a stand-alone Replication.TimeFloat and make a treatment and experiment as well.
+         * constructs a stand-alone Replication and make a treatment and experiment as well.
          * @param id String; the id of the replication.
-         * @param startTime Float; the start time as a time object.
-         * @param warmupPeriod Float; the warmup period, included in the runlength (!)
-         * @param runLength Float; the total length of the run, including the warm-up period.
+         * @param startTime double; the start time
+         * @param warmupPeriod double; the warmup period, included in the runlength (!)
+         * @param runLength double; the total length of the run, including the warm-up period.
          * @param model DSOLModel.TimeFloat; the model for which this is the replication
+         * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
+         * @param <S> the simulator to use
          */
-        public TimeFloat(final String id, final Float startTime, final Float warmupPeriod, final Float runLength,
-                final DSOLModel.TimeFloat model) throws NamingException
+        public static <S extends SimulatorInterface.TimeFloat> Replication.TimeFloat<S> create(final String id,
+                final float startTime, final float warmupPeriod, final float runLength, final DSOLModel.TimeFloat<S> model)
+                throws NamingException
         {
-            super(id, new SimTimeFloat(startTime), warmupPeriod, runLength, model);
+            Experiment.TimeFloat<S> experiment = new Experiment.TimeFloat<S>();
+            experiment.setModel(model);
+            Treatment.TimeFloat treatment =
+                    new Treatment.TimeFloat(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+            experiment.setTreatment(treatment);
+            return new Replication.TimeFloat<S>(experiment);
         }
     }
 
-    /** Easy access class Treatment.TimeLong. */
-    public static class TimeLong extends Replication<Long, Long, SimTimeLong>
+    /**
+     * Easy access class Replication.TimeLong.
+     * @param <S> the simulator to use
+     */
+    public static class TimeLong<S extends SimulatorInterface.TimeLong> extends Replication<Long, Long, SimTimeLong, S>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -277,29 +309,41 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param experiment Experiment.TimeLong; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeLong(final Experiment.TimeLong experiment) throws NamingException
+        public TimeLong(final Experiment.TimeLong<S> experiment) throws NamingException
         {
             super(experiment);
         }
 
         /**
-         * constructs a stand-alone Replication.TimeLong and make a treatment and experiment as well.
+         * constructs a stand-alone Replication and make a treatment and experiment as well.
          * @param id String; the id of the replication.
-         * @param startTime Long; the start time as a time object.
-         * @param warmupPeriod Long; the warmup period, included in the runlength (!)
-         * @param runLength Long; the total length of the run, including the warm-up period.
+         * @param startTime long; the start time
+         * @param warmupPeriod long; the warmup period, included in the runlength (!)
+         * @param runLength long; the total length of the run, including the warm-up period.
          * @param model DSOLModel.TimeLong; the model for which this is the replication
+         * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
+         * @param <S> the simulator to use
          */
-        public TimeLong(final String id, final Long startTime, final Long warmupPeriod, final Long runLength,
-                final DSOLModel.TimeLong model) throws NamingException
+        public static <S extends SimulatorInterface.TimeLong> Replication.TimeLong<S> create(final String id,
+                final long startTime, final long warmupPeriod, final long runLength, final DSOLModel.TimeLong<S> model)
+                throws NamingException
         {
-            super(id, new SimTimeLong(startTime), warmupPeriod, runLength, model);
+            Experiment.TimeLong<S> experiment = new Experiment.TimeLong<S>();
+            experiment.setModel(model);
+            Treatment.TimeLong treatment =
+                    new Treatment.TimeLong(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+            experiment.setTreatment(treatment);
+            return new Replication.TimeLong<S>(experiment);
         }
     }
 
-    /** Easy access class Treatment.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends Replication<Time, Duration, SimTimeDoubleUnit>
+    /**
+     * Easy access class Replication.TimeDoubleUnit.
+     * @param <S> the simulator to use
+     */
+    public static class TimeDoubleUnit<S extends SimulatorInterface.TimeDoubleUnit>
+            extends Replication<Time, Duration, SimTimeDoubleUnit, S>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -309,29 +353,41 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param experiment Experiment.TimeDoubleUnit; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment) throws NamingException
+        public TimeDoubleUnit(final Experiment.TimeDoubleUnit<S> experiment) throws NamingException
         {
             super(experiment);
         }
 
         /**
-         * constructs a stand-alone Replication.TimeDoubleUnit and make a treatment and experiment as well.
+         * constructs a stand-alone Replication and make a treatment and experiment as well.
          * @param id String; the id of the replication.
-         * @param startTime Time; the start time as a time object.
+         * @param startTime Time; the start time
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
          * @param model DSOLModel.TimeDoubleUnit; the model for which this is the replication
+         * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
+         * @param <S> the simulator to use
          */
-        public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod,
-                final Duration runLength, final DSOLModel.TimeDoubleUnit model) throws NamingException
+        public static <S extends SimulatorInterface.TimeDoubleUnit> Replication.TimeDoubleUnit<S> create(final String id,
+                final Time startTime, final Duration warmupPeriod, final Duration runLength,
+                final DSOLModel.TimeDoubleUnit<S> model) throws NamingException
         {
-            super(id, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength, model);
+            Experiment.TimeDoubleUnit<S> experiment = new Experiment.TimeDoubleUnit<S>();
+            experiment.setModel(model);
+            Treatment.TimeDoubleUnit treatment =
+                    new Treatment.TimeDoubleUnit(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+            experiment.setTreatment(treatment);
+            return new Replication.TimeDoubleUnit<S>(experiment);
         }
     }
 
-    /** Easy access class Treatment.TimeDoubleUnit. */
-    public static class TimeFloatUnit extends Replication<FloatTime, FloatDuration, SimTimeFloatUnit>
+    /**
+     * Easy access class Replication.TimeDoubleUnit.
+     * @param <S> the simulator to use
+     */
+    public static class TimeFloatUnit<S extends SimulatorInterface.TimeFloatUnit>
+            extends Replication<FloatTime, FloatDuration, SimTimeFloatUnit, S>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -341,29 +397,41 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param experiment Experiment.TimeFloatUnit; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloatUnit(final Experiment.TimeFloatUnit experiment) throws NamingException
+        public TimeFloatUnit(final Experiment.TimeFloatUnit<S> experiment) throws NamingException
         {
             super(experiment);
         }
 
         /**
-         * constructs a stand-alone Replication.TimeFloatUnit and make a treatment and experiment as well.
+         * constructs a stand-alone Replication and make a treatment and experiment as well.
          * @param id String; the id of the replication.
-         * @param startTime FloatTime; the start time as a time object.
+         * @param startTime FloatTime; the start time
          * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
          * @param model DSOLModel.TimeFloatUnit; the model for which this is the replication
+         * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
+         * @param <S> the simulator to use
          */
-        public TimeFloatUnit(final String id, final FloatTime startTime, final FloatDuration warmupPeriod,
-                final FloatDuration runLength, final DSOLModel.TimeFloatUnit model) throws NamingException
+        public static <S extends SimulatorInterface.TimeFloatUnit> Replication.TimeFloatUnit<S> create(final String id,
+                final FloatTime startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
+                final DSOLModel.TimeFloatUnit<S> model) throws NamingException
         {
-            super(id, new SimTimeFloatUnit(startTime), warmupPeriod, runLength, model);
+            Experiment.TimeFloatUnit<S> experiment = new Experiment.TimeFloatUnit<S>();
+            experiment.setModel(model);
+            Treatment.TimeFloatUnit treatment =
+                    new Treatment.TimeFloatUnit(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+            experiment.setTreatment(treatment);
+            return new Replication.TimeFloatUnit<S>(experiment);
         }
     }
 
-    /** Easy access class Treatment.CalendarDouble. */
-    public static class CalendarDouble extends Replication<Calendar, Duration, SimTimeCalendarDouble>
+    /**
+     * Easy access class Replication.CalendarDouble.
+     * @param <S> the simulator to use
+     */
+    public static class CalendarDouble<S extends SimulatorInterface.CalendarDouble>
+            extends Replication<Calendar, Duration, SimTimeCalendarDouble, S>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -373,29 +441,41 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param experiment Experiment.CalendarDouble; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarDouble(final Experiment.CalendarDouble experiment) throws NamingException
+        public CalendarDouble(final Experiment.CalendarDouble<S> experiment) throws NamingException
         {
             super(experiment);
         }
 
         /**
-         * constructs a stand-alone Replication.CalendarDouble and make a treatment and experiment as well.
+         * constructs a stand-alone Replication and make a treatment and experiment as well.
          * @param id String; the id of the replication.
-         * @param startTime Calendar; the start time as a time object.
+         * @param startTime Calendar; the start time
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
          * @param model DSOLModel.CalendarDouble; the model for which this is the replication
+         * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
+         * @param <S> the simulator to use
          */
-        public CalendarDouble(final String id, final Calendar startTime, final Duration warmupPeriod,
-                final Duration runLength, final DSOLModel.CalendarDouble model) throws NamingException
+        public static <S extends SimulatorInterface.CalendarDouble> Replication.CalendarDouble<S> create(final String id,
+                final Calendar startTime, final Duration warmupPeriod, final Duration runLength,
+                final DSOLModel.CalendarDouble<S> model) throws NamingException
         {
-            super(id, new SimTimeCalendarDouble(startTime), warmupPeriod, runLength, model);
+            Experiment.CalendarDouble<S> experiment = new Experiment.CalendarDouble<S>();
+            experiment.setModel(model);
+            Treatment.CalendarDouble treatment =
+                    new Treatment.CalendarDouble(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+            experiment.setTreatment(treatment);
+            return new Replication.CalendarDouble<S>(experiment);
         }
     }
 
-    /** Easy access class Treatment.CalendarFloat. */
-    public static class CalendarFloat extends Replication<Calendar, FloatDuration, SimTimeCalendarFloat>
+    /**
+     * Easy access class Replication.CalendarFloat.
+     * @param <S> the simulator to use
+     */
+    public static class CalendarFloat<S extends SimulatorInterface.CalendarFloat>
+            extends Replication<Calendar, FloatDuration, SimTimeCalendarFloat, S>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -405,29 +485,41 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param experiment Experiment.CalendarFloat; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarFloat(final Experiment.CalendarFloat experiment) throws NamingException
+        public CalendarFloat(final Experiment.CalendarFloat<S> experiment) throws NamingException
         {
             super(experiment);
         }
 
         /**
-         * constructs a stand-alone Replication.CalendarFloat and make a treatment and experiment as well.
+         * constructs a stand-alone Replication and make a treatment and experiment as well.
          * @param id String; the id of the replication.
-         * @param startTime Calendar; the start time as a time object.
+         * @param startTime Calendar; the start time
          * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
          * @param model DSOLModel.CalendarFloat; the model for which this is the replication
+         * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
+         * @param <S> the simulator to use
          */
-        public CalendarFloat(final String id, final Calendar startTime, final FloatDuration warmupPeriod,
-                final FloatDuration runLength, final DSOLModel.CalendarFloat model) throws NamingException
+        public static <S extends SimulatorInterface.CalendarFloat> Replication.CalendarFloat<S> create(final String id,
+                final Calendar startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
+                final DSOLModel.CalendarFloat<S> model) throws NamingException
         {
-            super(id, new SimTimeCalendarFloat(startTime), warmupPeriod, runLength, model);
+            Experiment.CalendarFloat<S> experiment = new Experiment.CalendarFloat<S>();
+            experiment.setModel(model);
+            Treatment.CalendarFloat treatment =
+                    new Treatment.CalendarFloat(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+            experiment.setTreatment(treatment);
+            return new Replication.CalendarFloat<S>(experiment);
         }
     }
 
-    /** Easy access class Treatment.CalendarLong. */
-    public static class CalendarLong extends Replication<Calendar, Long, SimTimeCalendarLong>
+    /**
+     * Easy access class Replication.CalendarLong.
+     * @param <S> the simulator to use
+     */
+    public static class CalendarLong<S extends SimulatorInterface.CalendarLong>
+            extends Replication<Calendar, Long, SimTimeCalendarLong, S>
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -437,24 +529,32 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
          * @param experiment Experiment.CalendarLong; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarLong(final Experiment.CalendarLong experiment) throws NamingException
+        public CalendarLong(final Experiment.CalendarLong<S> experiment) throws NamingException
         {
             super(experiment);
         }
 
         /**
-         * constructs a stand-alone Replication.CalendarLong and make a treatment and experiment as well.
+         * constructs a stand-alone Replication and make a treatment and experiment as well.
          * @param id String; the id of the replication.
-         * @param startTime Calendar; the start time as a time object.
-         * @param warmupPeriod Long; the warmup period, included in the runlength (!)
-         * @param runLength Long; the total length of the run, including the warm-up period.
+         * @param startTime Calendar; the start time
+         * @param warmupPeriod long; the warmup period, included in the runlength (!)
+         * @param runLength long; the total length of the run, including the warm-up period.
          * @param model DSOLModel.CalendarLong; the model for which this is the replication
+         * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
+         * @param <S> the simulator to use
          */
-        public CalendarLong(final String id, final Calendar startTime, final Long warmupPeriod, final Long runLength,
-                final DSOLModel.CalendarLong model) throws NamingException
+        public static <S extends SimulatorInterface.CalendarLong> Replication.CalendarLong<S> create(final String id,
+                final Calendar startTime, final long warmupPeriod, final long runLength, final DSOLModel.CalendarLong<S> model)
+                throws NamingException
         {
-            super(id, new SimTimeCalendarLong(startTime), warmupPeriod, runLength, model);
+            Experiment.CalendarLong<S> experiment = new Experiment.CalendarLong<S>();
+            experiment.setModel(model);
+            Treatment.CalendarLong treatment =
+                    new Treatment.CalendarLong(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
+            experiment.setTreatment(treatment);
+            return new Replication.CalendarLong<S>(experiment);
         }
     }
 }

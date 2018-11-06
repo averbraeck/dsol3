@@ -72,11 +72,11 @@
       /* 0=command, 1=transform.m11(h-scale), 2=transform.m12(h-skew), 3=transform.m21(v-skew), 4=transform.m22(v-scale),
        * 5=transform.dx(h-translate), 6=transform.dy(v-translate), 7=color.r, 8=color.g, 9=color.b, 10=color.alpha, 
        * 11=color.transparency, 12=params... */
-      if (tagName.toUpperCase() === "TRANSFORMDRAW") {
+      if (tagName.toUpperCase() === "TRANSFORMFILL") {
         var parts = val.split(",");
         context.save();
         setTransform(context, parts);
-        setColor(context, parts);
+        setFillColor(context, parts);
 
         if (parts[0] === "fillOval") {
           context.beginPath();
@@ -84,22 +84,10 @@
           context.fill();
         }
 
-        if (parts[0] === "drawOval") {
-          context.beginPath();
-          context.arc(parts[12], parts[13], parts[14], 0, 2 * Math.PI, false);
-          context.stroke();
-        }
-
         if (parts[0] === "fillRect") {
           context.beginPath();
           context.rect(parts[12], parts[13], parts[14], parts[15]);
           context.fill();
-        }
-
-        if (parts[0] === "drawRect") {
-          context.beginPath();
-          context.rect(parts[12], parts[13], parts[14], parts[15]);
-          context.stroke();
         }
 
         if (parts[0] === "clearRect") {
@@ -116,19 +104,61 @@
       }
 
       /* 0=command, 1=transform.m11(h-scale), 2=transform.m12(h-skew), 3=transform.m21(v-skew), 4=transform.m22(v-scale),
+       * 5=transform.dx(h-translate), 6=transform.dy(v-translate), 7=linecolor.r, 8=linecolor.g, 9=linecolor.b, 
+       * 10=linecolor.alpha, 11=linecolor.transparency, 12=line-width, 13=params... */
+      if (tagName.toUpperCase() === "TRANSFORMDRAW") {
+        var parts = val.split(",");
+
+        if (parts[0] === "drawOval") {
+          context.save();
+          context.lineWidth = parts[12];
+          setTransform(context, parts);
+          setStrokeColor(context, parts);
+          context.beginPath();
+          context.arc(parts[13], parts[14], parts[15], 0, 2 * Math.PI, false);
+          context.stroke();
+          context.restore();
+        }
+
+        if (parts[0] === "drawRect") {
+          context.save();
+          context.lineWidth = parts[12];
+          setTransform(context, parts);
+          setStrokeColor(context, parts);
+          context.beginPath();
+          context.rect(parts[13], parts[14], parts[15], parts[16]);
+          context.stroke();
+          context.restore();
+        }
+
+        if (parts[0] === "drawLine") {
+          context.save();
+          context.lineWidth = parts[12];
+          setTransform(context, parts);
+          setStrokeColor(context, parts);
+          context.beginPath();
+          context.moveTo(parts[13], parts[14]);
+          context.lineTo(parts[15], parts[16]);
+          context.stroke();
+          context.restore();
+        }
+      }
+
+      // test in http://jsfiddle.net/Ldkn3m62/
+      /* 0=command, 1=transform.m11(h-scale), 2=transform.m12(h-skew), 3=transform.m21(v-skew), 4=transform.m22(v-scale),
        * 5=transform.dx(h-translate), 6=transform.dy(v-translate), 7=color.r, 8=color.g, 9=color.b, 10=color.alpha, 
        * 11=color.transparency, 12=fontname, 13=fontsize, 14=fontstyle(normal/italic/bold), 15=x, 16=y, 17=text */
       if (tagName.toUpperCase() === "TRANSFORMTEXT") {
         var parts = val.split(",");
-        context.save();
-        setTransform(context, parts);
-        setColor(context, parts);
 
         if (parts[0] === "drawString") {
+          context.save();
+          setFillColor(context, parts);
           context.font = parts[14] + ' ' + parts[13] + 'pt ' + parts[12];
+          setTransform(context, parts);
           context.fillText(parts[17], parts[15], parts[16]);
+          context.restore();
         }
-        context.restore();
       }
       
     });
@@ -143,8 +173,12 @@
     context.setTransform(arr[1], arr[2], arr[3], arr[4], arr[5], arr[6]);
   }
 
-  function setColor(context, arr) {
+  function setFillColor(context, arr) {
     context.fillStyle = "rgb(" + arr[7] + "," + arr[8] + "," + arr[9] + "," + arr[10] + ")";
+  }
+
+  function setStrokeColor(context, arr) {
+    context.strokeStyle = "rgb(" + arr[7] + "," + arr[8] + "," + arr[9] + "," + arr[10] + ")";
   }
 </script>
 </head>

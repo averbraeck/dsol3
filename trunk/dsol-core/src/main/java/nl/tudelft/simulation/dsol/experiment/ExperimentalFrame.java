@@ -2,25 +2,10 @@ package nl.tudelft.simulation.dsol.experiment;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-import org.djunits.value.vdouble.scalar.Duration;
-import org.djunits.value.vdouble.scalar.Time;
-import org.djunits.value.vfloat.scalar.FloatDuration;
-import org.djunits.value.vfloat.scalar.FloatTime;
-
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
-import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
-import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
@@ -31,20 +16,15 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * The Experimental frame specifies the set of experiments to run.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author Peter Jacobs, Alexander Verbraeck
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, such as
- *            Double or Long, the absolute and relative types are the same.
- * @param <T> the simulation time type based on the absolute and relative time.
  */
-public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends EventProducer implements Iterator<Experiment<A, R, T>>, EventListenerInterface
+public class ExperimentalFrame extends EventProducer implements Iterator<Experiment<?, ?, ?, ?>>, EventListenerInterface
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -53,7 +33,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     public static final EventType END_OF_EXPERIMENTALFRAME_EVENT = new EventType("END_OF_EXPERIMENTALFRAME_EVENT");
 
     /** the list of experiments defined in this experimental frame. */
-    private List<Experiment<A, R, T>> experiments = null;
+    private List<? extends Experiment<?, ?, ?, ?>> experiments = null;
 
     /** the current experiment. */
     private int currentExperiment = -1;
@@ -80,8 +60,8 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /**
-     * Returns whether there is a next experiment to run. If one wants to link DSOL to optimization services, it is a
-     * good idea to overwrite this method.
+     * Returns whether there is a next experiment to run. If one wants to link DSOL to optimization services, it is a good idea
+     * to overwrite this method.
      * @see java.util.Iterator#hasNext()
      */
     @Override
@@ -91,12 +71,12 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     }
 
     /**
-     * Returns the next experiment to run. If one wants to link DSOL to optimization services, it is a good idea to
-     * overwrite this method.
+     * Returns the next experiment to run. If one wants to link DSOL to optimization services, it is a good idea to overwrite
+     * this method.
      * @see java.util.Iterator#next()
      */
     @Override
-    public final Experiment<A, R, T> next()
+    public final Experiment<?, ?, ?, ?> next()
     {
         this.currentExperiment++;
         return this.experiments.get(this.currentExperiment);
@@ -112,7 +92,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     /**
      * @return Returns the experiments.
      */
-    public final List<Experiment<A, R, T>> getExperiments()
+    public final List<? extends Experiment<?, ?, ?, ?>> getExperiments()
     {
         return this.experiments;
     }
@@ -120,7 +100,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     /**
      * @param experiments List&lt;Experiment&lt;A,R,T&gt;&gt;; The experiments to set.
      */
-    public final void setExperiments(final List<Experiment<A, R, T>> experiments)
+    public final void setExperiments(final List<? extends Experiment<?, ?, ?, ?>> experiments)
     {
         this.experiments = experiments;
     }
@@ -150,7 +130,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
             if (this.hasNext())
             {
                 // we can run the next experiment...s
-                Experiment<?, ?, ?> next = this.next();
+                Experiment<?, ?, ?, ?> next = this.next();
                 next.addListener(this, Experiment.END_OF_EXPERIMENT_EVENT, false);
                 next.start();
             }
@@ -170,7 +150,7 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
     public final String toString()
     {
         String result = "ExperimentalFrame ";
-        for (Experiment<?, ?, ?> experiment : this.experiments)
+        for (Experiment<?, ?, ?, ?> experiment : this.experiments)
         {
             result = result + "\n [Experiment=" + experiment.toString();
         }
@@ -199,112 +179,11 @@ public class ExperimentalFrame<A extends Comparable<A>, R extends Number & Compa
      */
     public final void reset()
     {
-        for (Experiment<?, ?, ?> experiment : this.experiments)
+        for (Experiment<?, ?, ?, ?> experiment : this.experiments)
         {
             experiment.reset();
         }
         this.currentExperiment = -1;
-    }
-
-    /***********************************************************************************************************/
-    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
-    /***********************************************************************************************************/
-
-    /** Easy access class ExperimentalFrame.TimeDouble. */
-    public static class TimeDouble extends ExperimentalFrame<Double, Double, SimTimeDouble>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new ExperimentalFrame.TimeDouble.
-         */
-        public TimeDouble()
-        {
-            super();
-        }
-
-        /**
-         * constructs a new ExperimentalFrame.TimeDouble.
-         * @param url URL; the url of the experimental frame
-         */
-        public TimeDouble(final URL url)
-        {
-            super(url);
-        }
-    }
-
-    /** Easy access class ExperimentalFrame.TimeFloat. */
-    public static class TimeFloat extends ExperimentalFrame<Float, Float, SimTimeFloat>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new ExperimentalFrame.TimeFloat.
-         */
-        public TimeFloat()
-        {
-            super();
-        }
-
-        /**
-         * constructs a new ExperimentalFrame.TimeFloat.
-         * @param url URL; the url of the experimental frame
-         */
-        public TimeFloat(final URL url)
-        {
-            super(url);
-        }
-    }
-
-    /** Easy access class ExperimentalFrame.TimeLong. */
-    public static class TimeLong extends ExperimentalFrame<Long, Long, SimTimeLong>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        // TODO
-    }
-
-    /** Easy access class ExperimentalFrame.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends ExperimentalFrame<Time, Duration, SimTimeDoubleUnit>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-    }
-
-    /** Easy access class ExperimentalFrame.TimeFloatUnit. */
-    public static class TimeFloatUnit extends ExperimentalFrame<FloatTime, FloatDuration, SimTimeFloatUnit>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-    }
-
-    /** Easy access class ExperimentalFrame.CalendarDouble. */
-    public static class CalendarDouble extends ExperimentalFrame<Calendar, Duration, SimTimeCalendarDouble>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-    }
-
-    /** Easy access class ExperimentalFrame.CalendarFloat. */
-    public static class CalendarFloat extends ExperimentalFrame<Calendar, FloatDuration, SimTimeCalendarFloat>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-    }
-
-    /** Easy access class ExperimentalFrame.CalendarLong. */
-    public static class CalendarLong extends ExperimentalFrame<Calendar, Long, SimTimeCalendarLong>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
     }
 
 }

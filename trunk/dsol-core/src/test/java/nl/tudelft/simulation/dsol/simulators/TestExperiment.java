@@ -7,12 +7,12 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -20,10 +20,10 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * A TestExperimentalFrame.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
@@ -68,7 +68,7 @@ public final class TestExperiment
         try
         {
             ExperimentalFrame experimentalFrame = new ExperimentalFrame(null);
-            List<Experiment<?, ?, ?>> experiments = new ArrayList<Experiment<?, ?, ?>>();
+            List<Experiment<?, ?, ?, ?>> experiments = new ArrayList<Experiment<?, ?, ?, ?>>();
             for (int i = 0; i < 3; i++)
             {
                 Experiment experiment = TestExperiment.createExperiment();
@@ -106,8 +106,7 @@ public final class TestExperiment
      */
     public static Treatment createTreatment(final Experiment experiment)
     {
-        Treatment treatment =
-                new Treatment(experiment, "tr1", new SimTimeDouble(System.currentTimeMillis()), 0.0, 100.0);
+        Treatment treatment = new Treatment(experiment, "tr1", new SimTimeDouble(System.currentTimeMillis()), 0.0, 100.0);
         return treatment;
     }
 

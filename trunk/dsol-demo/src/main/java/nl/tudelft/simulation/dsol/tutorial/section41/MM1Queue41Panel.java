@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
 import nl.tudelft.simulation.dsol.statistics.Tally;
 import nl.tudelft.simulation.dsol.swing.charts.boxAndWhisker.BoxAndWhiskerChart;
@@ -31,7 +31,7 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
      * @param model MM1Queue41Model; the model
      * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      */
-    public MM1Queue41Panel(final MM1Queue41Model model, final DEVSSimulatorInterface.TimeDouble simulator)
+    public MM1Queue41Panel(final MM1Queue41Model model, final DEVSSimulator.TimeDouble simulator)
     {
         super(model, simulator);
         addTabs(model);

@@ -15,7 +15,7 @@
  * <p>
  * The central object is therefore the <b>Experiment</b>. This is the object that links to Replications, Model, and
  * Simulator. The Replication object is an object that indicates the current replication that is being carried out. The
- * Simulator knows its Replication, and the Model now knows its simulator (change in ModelInterface). The Replication is
+ * Simulator knows its Replication, and the Model now knows its simulator (change in DSOLModel). The Replication is
  * now initialized with its Experiment and not anymore with its Treatment. Treatment and Experiment are combined into
  * Experiment. The list of Replications has also been moved to the Experiment where it belongs. This makes the structure
  * more consistent. The set of Experiments to execute was called an ExperimentalFrame, but this term will be reserved

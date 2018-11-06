@@ -2,15 +2,12 @@ package nl.tudelft.simulation.examples.dsol.terminal;
 
 import java.util.Properties;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.distributions.DistTriangular;
@@ -23,16 +20,13 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="http://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class Terminal extends EventProducer implements DSOLModel.TimeDouble, EventListenerInterface
+public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> implements EventListenerInterface
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /** the ship-full event. */
     public static final EventType READY_EVENT = new EventType("READY_EVENT");
-
-    /** the simulator. */
-    private SimulatorInterface.TimeDouble simulator;
 
     /** QCs. */
     private int numQC = 5;
@@ -51,46 +45,36 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
 
     /**
      * constructor for the Container Terminal.
+     * @param simulator the simulator
      * @param rep int; the replication number
      */
-    public Terminal(final int rep)
+    public Terminal(final DEVSSimulatorInterface.TimeDouble simulator, final int rep)
     {
-        super();
+        super(simulator);
         this.rep = rep;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
-            throws SimRuntimeException
+    public final void constructModel() throws SimRuntimeException
     {
-        this.simulator = (DEVSSimulatorInterface.TimeDouble) pSimulator;
-        DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface.TimeDouble) pSimulator;
+        StreamInterface defaultStream = this.simulator.getReplication().getStream("default");
 
-        StreamInterface defaultStream = devsSimulator.getReplication().getStream("default");
-
-        Properties properties = pSimulator.getReplication().getTreatment().getProperties();
+        Properties properties = this.simulator.getReplication().getTreatment().getProperties();
         this.numQC = Integer.parseInt(properties.getProperty("numQC"));
         this.numAGV = Integer.parseInt(properties.getProperty("numAGV"));
         int numCont = 3000;
 
-        QC qc = new QC(devsSimulator, "QC", this.numQC, new DistExponential(defaultStream, 60. / 30.));
-        AGV agv = new AGV(devsSimulator, "AGV", this.numAGV, new DistTriangular(defaultStream, 7, 9, 14));
+        QC qc = new QC(this.simulator, "QC", this.numQC, new DistExponential(defaultStream, 60. / 30.));
+        AGV agv = new AGV(this.simulator, "AGV", this.numAGV, new DistTriangular(defaultStream, 7, 9, 14));
         this.ship = new Ship(numCont);
 
         this.ship.addListener(this, Ship.SHIP_FULL_EVENT);
 
         for (int c = 0; c < numCont; c++)
         {
-            new Container(devsSimulator, c, qc, agv, this.ship);
+            new Container(this.simulator, c, qc, agv, this.ship);
         }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final SimulatorInterface<Double, Double, SimTimeDouble> getSimulator()
-    {
-        return this.simulator;
     }
 
     /**
@@ -116,8 +100,8 @@ public class Terminal extends EventProducer implements DSOLModel.TimeDouble, Eve
                 {
                     System.out.println("Delay = " + delayHours);
                 }
-                double costs = Math.max(20.0, Math.ceil(ready)) * (300.0 * this.numQC + 12.0 * this.numAGV)
-                        + 2500.0 * delayHours;
+                double costs =
+                        Math.max(20.0, Math.ceil(ready)) * (300.0 * this.numQC + 12.0 * this.numAGV) + 2500.0 * delayHours;
                 if (DEBUG)
                 {
                     System.out.println("Costs = " + costs);

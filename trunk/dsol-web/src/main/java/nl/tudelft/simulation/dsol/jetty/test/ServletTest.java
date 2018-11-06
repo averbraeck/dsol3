@@ -21,7 +21,7 @@ public class ServletTest
 {
     /**
      * @param args String[];
-     * @throws Exception
+     * @throws Exception on jetty server error
      */
     public static void main(String[] args) throws Exception
     {

@@ -1,30 +1,25 @@
 package nl.tudelft.simulation.examples.dsol.dess;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquationInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DESSModel implements DSOLModel.TimeDouble
+public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterface.TimeDouble>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
-
-    /** the simulator. */
-    private SimulatorInterface.TimeDouble simulator;
 
     /** the distance chart. */
     private XYChart distanceChart;
@@ -34,22 +29,21 @@ public class DESSModel implements DSOLModel.TimeDouble
 
     /**
      * constructs a new DESSModel.
+     * @param simulator the continuous simulator
      */
-    public DESSModel()
+    public DESSModel(final DESSSimulatorInterface.TimeDouble simulator)
     {
-        super();
+        super(simulator);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> pSimulator)
+    public void constructModel()
     {
-        this.simulator = (SimulatorInterface.TimeDouble) pSimulator;
         try
         {
-            Distance distance = new Distance((DESSSimulatorInterface.TimeDouble) pSimulator);
-
-            this.distancePersistent = new Persistent<>("persistent on distance", pSimulator, distance,
+            Distance distance = new Distance(this.simulator);
+            this.distancePersistent = new Persistent<>("persistent on distance", this.simulator, distance,
                     DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
         }
         catch (Exception exception)
@@ -58,16 +52,9 @@ public class DESSModel implements DSOLModel.TimeDouble
         }
 
         this.distancePersistent.initialize();
-        this.distanceChart = new XYChart(pSimulator, "xyplot of distance");
+        this.distanceChart = new XYChart(this.simulator, "xyplot of distance");
         this.distanceChart.add(this.distancePersistent);
 
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public SimulatorInterface.TimeDouble getSimulator()
-    {
-        return this.simulator;
     }
 
     /**

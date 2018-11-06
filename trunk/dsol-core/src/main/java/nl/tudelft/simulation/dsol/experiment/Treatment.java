@@ -18,21 +18,22 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
- * The treatment is comprises the specification of input data, the runControl and the specification of output data.
- * (Sol:1982, Oeren &amp; Zeigler:1979).
+ * The treatment is comprises the specification of input data, the runControl and the specification of output data. (Sol:1982,
+ * Oeren &amp; Zeigler:1979).
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author Peter Jacobs, Alexander Verbraeck
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement functions on the simulation time.
  */
 public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
@@ -45,7 +46,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     private final ReplicationMode replicationMode;
 
     /** the experiment to which this treatment belongs. */
-    private final Experiment<A, R, T> experiment;
+    private final Experiment<A, R, T, ? extends SimulatorInterface<A, R, T>> experiment;
 
     /** warmupPeriod is the warmup period. */
     private final R warmupPeriod;
@@ -73,13 +74,12 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param experiment Experiment&lt;A,R,T&gt;; reflects the experiment
      * @param id String; an id to recognize the treatment
      * @param startTime T; the absolute start time of a run (can be zero)
-     * @param warmupPeriod R; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
-     *            runLength
+     * @param warmupPeriod R; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the runLength
      * @param runLength R; the run length of a run (relative to the start time)
      * @param replicationMode ReplicationMode; the replication mode of this treatment
      */
-    public Treatment(final Experiment<A, R, T> experiment, final String id, final T startTime, final R warmupPeriod,
-            final R runLength, final ReplicationMode replicationMode)
+    public Treatment(final Experiment<A, R, T, ? extends SimulatorInterface<A, R, T>> experiment, final String id,
+            final T startTime, final R warmupPeriod, final R runLength, final ReplicationMode replicationMode)
     {
         super();
         this.experiment = experiment;
@@ -99,12 +99,11 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param experiment Experiment&lt;A,R,T&gt;; reflects the experiment
      * @param id String; an id to recognize the treatment
      * @param startTime T; the absolute start time of a run (can be zero)
-     * @param warmupPeriod R; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
-     *            runLength
+     * @param warmupPeriod R; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the runLength
      * @param runLength R; the run length of a run (relative to the start time)
      */
-    public Treatment(final Experiment<A, R, T> experiment, final String id, final T startTime, final R warmupPeriod,
-            final R runLength)
+    public Treatment(final Experiment<A, R, T, ? extends SimulatorInterface<A, R, T>> experiment, final String id,
+            final T startTime, final R warmupPeriod, final R runLength)
     {
         this(experiment, id, startTime, warmupPeriod, runLength, ReplicationMode.TERMINATING);
     }
@@ -112,7 +111,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return the experiment
      */
-    public final Experiment<A, R, T> getExperiment()
+    public final Experiment<A, R, T, ? extends SimulatorInterface<A, R, T>> getExperiment()
     {
         return this.experiment;
     }
@@ -227,7 +226,9 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
-    /** Easy access class Treatment.TimeDouble. */
+    /**
+     * Easy access class Treatment.TimeDouble.
+     */
     public static class TimeDouble extends Treatment<Double, Double, SimTimeDouble>
     {
         /** */
@@ -238,13 +239,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.TimeDouble; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Double; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Double; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
+         * @param warmupPeriod Double; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
          * @param runLength Double; the run length of a run (relative to the start time)
          * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
-        public TimeDouble(final Experiment.TimeDouble experiment, final String id, final Double startTime,
-                final Double warmupPeriod, final Double runLength, final ReplicationMode replicationMode)
+        public TimeDouble(final Experiment.TimeDouble<? extends SimulatorInterface.TimeDouble> experiment, final String id,
+                final Double startTime, final Double warmupPeriod, final Double runLength,
+                final ReplicationMode replicationMode)
         {
             super(experiment, id, new SimTimeDouble(startTime), warmupPeriod, runLength, replicationMode);
         }
@@ -254,18 +256,20 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.TimeDouble; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Double; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Double; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
+         * @param warmupPeriod Double; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
          * @param runLength Double; the run length of a run (relative to the start time)
          */
-        public TimeDouble(final Experiment.TimeDouble experiment, final String id, final Double startTime,
-                final Double warmupPeriod, final Double runLength)
+        public TimeDouble(final Experiment.TimeDouble<? extends SimulatorInterface.TimeDouble> experiment, final String id,
+                final Double startTime, final Double warmupPeriod, final Double runLength)
         {
             super(experiment, id, new SimTimeDouble(startTime), warmupPeriod, runLength);
         }
     }
 
-    /** Easy access class Treatment.TimeFloat. */
+    /**
+     * Easy access class Treatment.TimeFloat.
+     */
     public static class TimeFloat extends Treatment<Float, Float, SimTimeFloat>
     {
         /** */
@@ -276,13 +280,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.TimeFloat; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Float; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Float; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
+         * @param warmupPeriod Float; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
          * @param runLength Float; the run length of a run (relative to the start time)
          * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
-        public TimeFloat(final Experiment.TimeFloat experiment, final String id, final Float startTime,
-                final Float warmupPeriod, final Float runLength, final ReplicationMode replicationMode)
+        public TimeFloat(final Experiment.TimeFloat<? extends SimulatorInterface.TimeFloat> experiment, final String id,
+                final Float startTime, final Float warmupPeriod, final Float runLength, final ReplicationMode replicationMode)
         {
             super(experiment, id, new SimTimeFloat(startTime), warmupPeriod, runLength, replicationMode);
         }
@@ -292,18 +296,20 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.TimeFloat; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Float; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Float; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
+         * @param warmupPeriod Float; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
          * @param runLength Float; the run length of a run (relative to the start time)
          */
-        public TimeFloat(final Experiment.TimeFloat experiment, final String id, final Float startTime,
-                final Float warmupPeriod, final Float runLength)
+        public TimeFloat(final Experiment.TimeFloat<? extends SimulatorInterface.TimeFloat> experiment, final String id,
+                final Float startTime, final Float warmupPeriod, final Float runLength)
         {
             super(experiment, id, new SimTimeFloat(startTime), warmupPeriod, runLength);
         }
     }
 
-    /** Easy access class Treatment.TimeLong. */
+    /**
+     * Easy access class Treatment.TimeLong.
+     */
     public static class TimeLong extends Treatment<Long, Long, SimTimeLong>
     {
         /** */
@@ -319,8 +325,8 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param runLength Long; the run length of a run (relative to the start time)
          * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
-        public TimeLong(final Experiment.TimeLong experiment, final String id, final Long startTime,
-                final Long warmupPeriod, final Long runLength, final ReplicationMode replicationMode)
+        public TimeLong(final Experiment.TimeLong<? extends SimulatorInterface.TimeLong> experiment, final String id,
+                final Long startTime, final Long warmupPeriod, final Long runLength, final ReplicationMode replicationMode)
         {
             super(experiment, id, new SimTimeLong(startTime), warmupPeriod, runLength, replicationMode);
         }
@@ -334,14 +340,16 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          *            runLength
          * @param runLength Long; the run length of a run (relative to the start time)
          */
-        public TimeLong(final Experiment.TimeLong experiment, final String id, final Long startTime,
-                final Long warmupPeriod, final Long runLength)
+        public TimeLong(final Experiment.TimeLong<? extends SimulatorInterface.TimeLong> experiment, final String id,
+                final Long startTime, final Long warmupPeriod, final Long runLength)
         {
             super(experiment, id, new SimTimeLong(startTime), warmupPeriod, runLength);
         }
     }
 
-    /** Easy access class Treatment.TimeDoubleUnit. */
+    /**
+     * Easy access class Treatment.TimeDoubleUnit.
+     */
     public static class TimeDoubleUnit extends Treatment<Time, Duration, SimTimeDoubleUnit>
     {
         /** */
@@ -352,13 +360,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.TimeDoubleUnit; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Time; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
+         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
          * @param runLength Duration; the run length of a run (relative to the start time)
          * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
-        public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment, final String id, final Time startTime,
-                final Duration warmupPeriod, final Duration runLength, final ReplicationMode replicationMode)
+        public TimeDoubleUnit(final Experiment.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit> experiment,
+                final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength,
+                final ReplicationMode replicationMode)
         {
             super(experiment, id, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength, replicationMode);
         }
@@ -368,18 +377,20 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.TimeDoubleUnit; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Time; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
+         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
          * @param runLength Duration; the run length of a run (relative to the start time)
          */
-        public TimeDoubleUnit(final Experiment.TimeDoubleUnit experiment, final String id, final Time startTime,
-                final Duration warmupPeriod, final Duration runLength)
+        public TimeDoubleUnit(final Experiment.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit> experiment,
+                final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength)
         {
             super(experiment, id, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength);
         }
     }
 
-    /** Easy access class Treatment.TimeFloatUnit. */
+    /**
+     * Easy access class Treatment.TimeFloatUnit.
+     */
     public static class TimeFloatUnit extends Treatment<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         /** */
@@ -390,13 +401,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.TimeFloatUnit; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime FloatTime; the absolute start time of a run (can be zero)
-         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero),
-         *            &lt;i&gt;included&lt;/i&gt; in the runLength
+         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
          * @param runLength FloatDuration; the run length of a run (relative to the start time)
          * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
-        public TimeFloatUnit(final Experiment.TimeFloatUnit experiment, final String id, final FloatTime startTime,
-                final FloatDuration warmupPeriod, final FloatDuration runLength, final ReplicationMode replicationMode)
+        public TimeFloatUnit(final Experiment.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit> experiment,
+                final String id, final FloatTime startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
+                final ReplicationMode replicationMode)
         {
             super(experiment, id, new SimTimeFloatUnit(startTime), warmupPeriod, runLength, replicationMode);
         }
@@ -406,18 +418,20 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.TimeFloatUnit; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime FloatTime; the absolute start time of a run (can be zero)
-         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero),
-         *            &lt;i&gt;included&lt;/i&gt; in the runLength
+         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
          * @param runLength FloatDuration; the run length of a run (relative to the start time)
          */
-        public TimeFloatUnit(final Experiment.TimeFloatUnit experiment, final String id, final FloatTime startTime,
-                final FloatDuration warmupPeriod, final FloatDuration runLength)
+        public TimeFloatUnit(final Experiment.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit> experiment,
+                final String id, final FloatTime startTime, final FloatDuration warmupPeriod, final FloatDuration runLength)
         {
             super(experiment, id, new SimTimeFloatUnit(startTime), warmupPeriod, runLength);
         }
     }
 
-    /** Easy access class Treatment.CalendarDouble. */
+    /**
+     * Easy access class Treatment.CalendarDouble.
+     */
     public static class CalendarDouble extends Treatment<Calendar, Duration, SimTimeCalendarDouble>
     {
         /** */
@@ -428,13 +442,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.CalendarDouble; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
+         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
          * @param runLength Duration; the run length of a run (relative to the start time)
          * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
-        public CalendarDouble(final Experiment.CalendarDouble experiment, final String id, final Calendar startTime,
-                final Duration warmupPeriod, final Duration runLength, final ReplicationMode replicationMode)
+        public CalendarDouble(final Experiment.CalendarDouble<? extends SimulatorInterface.CalendarDouble> experiment,
+                final String id, final Calendar startTime, final Duration warmupPeriod, final Duration runLength,
+                final ReplicationMode replicationMode)
         {
             super(experiment, id, new SimTimeCalendarDouble(startTime), warmupPeriod, runLength, replicationMode);
         }
@@ -444,18 +459,20 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.CalendarDouble; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
+         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
+         *            runLength
          * @param runLength Duration; the run length of a run (relative to the start time)
          */
-        public CalendarDouble(final Experiment.CalendarDouble experiment, final String id, final Calendar startTime,
-                final Duration warmupPeriod, final Duration runLength)
+        public CalendarDouble(final Experiment.CalendarDouble<? extends SimulatorInterface.CalendarDouble> experiment,
+                final String id, final Calendar startTime, final Duration warmupPeriod, final Duration runLength)
         {
             super(experiment, id, new SimTimeCalendarDouble(startTime), warmupPeriod, runLength);
         }
     }
 
-    /** Easy access class Treatment.CalendarFloat. */
+    /**
+     * Easy access class Treatment.CalendarFloat.
+     */
     public static class CalendarFloat extends Treatment<Calendar, FloatDuration, SimTimeCalendarFloat>
     {
         /** */
@@ -466,13 +483,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.CalendarFloat; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero),
-         *            &lt;i&gt;included&lt;/i&gt; in the runLength
+         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
          * @param runLength FloatDuration; the run length of a run (relative to the start time)
          * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
-        public CalendarFloat(final Experiment.CalendarFloat experiment, final String id, final Calendar startTime,
-                final FloatDuration warmupPeriod, final FloatDuration runLength, final ReplicationMode replicationMode)
+        public CalendarFloat(final Experiment.CalendarFloat<? extends SimulatorInterface.CalendarFloat> experiment,
+                final String id, final Calendar startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
+                final ReplicationMode replicationMode)
         {
             super(experiment, id, new SimTimeCalendarFloat(startTime), warmupPeriod, runLength, replicationMode);
         }
@@ -482,18 +500,20 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param experiment Experiment.CalendarFloat; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero),
-         *            &lt;i&gt;included&lt;/i&gt; in the runLength
+         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
+         *            the runLength
          * @param runLength FloatDuration; the run length of a run (relative to the start time)
          */
-        public CalendarFloat(final Experiment.CalendarFloat experiment, final String id, final Calendar startTime,
-                final FloatDuration warmupPeriod, final FloatDuration runLength)
+        public CalendarFloat(final Experiment.CalendarFloat<? extends SimulatorInterface.CalendarFloat> experiment,
+                final String id, final Calendar startTime, final FloatDuration warmupPeriod, final FloatDuration runLength)
         {
             super(experiment, id, new SimTimeCalendarFloat(startTime), warmupPeriod, runLength);
         }
     }
 
-    /** Easy access class Treatment.CalendarLong. */
+    /**
+     * Easy access class Treatment.CalendarLong.
+     */
     public static class CalendarLong extends Treatment<Calendar, Long, SimTimeCalendarLong>
     {
         /** */
@@ -509,8 +529,9 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param runLength Long; the run length of a run (relative to the start time)
          * @param replicationMode ReplicationMode; the replication mode of this treatment
          */
-        public CalendarLong(final Experiment.CalendarLong experiment, final String id, final Calendar startTime,
-                final Long warmupPeriod, final Long runLength, final ReplicationMode replicationMode)
+        public CalendarLong(final Experiment.CalendarLong<? extends SimulatorInterface.CalendarLong> experiment,
+                final String id, final Calendar startTime, final Long warmupPeriod, final Long runLength,
+                final ReplicationMode replicationMode)
         {
             super(experiment, id, new SimTimeCalendarLong(startTime), warmupPeriod, runLength, replicationMode);
         }
@@ -524,8 +545,8 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
          *            runLength
          * @param runLength Long; the run length of a run (relative to the start time)
          */
-        public CalendarLong(final Experiment.CalendarLong experiment, final String id, final Calendar startTime,
-                final Long warmupPeriod, final Long runLength)
+        public CalendarLong(final Experiment.CalendarLong<? extends SimulatorInterface.CalendarLong> experiment,
+                final String id, final Calendar startTime, final Long warmupPeriod, final Long runLength)
         {
             super(experiment, id, new SimTimeCalendarLong(startTime), warmupPeriod, runLength);
         }

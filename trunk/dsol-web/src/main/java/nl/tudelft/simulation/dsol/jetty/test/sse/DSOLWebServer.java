@@ -3,8 +3,14 @@ package nl.tudelft.simulation.dsol.jetty.test.sse;
 import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.FileSystems;
+import java.nio.file.Paths;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -30,7 +36,7 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.language.io.URLResource;
 
 /**
- * DSOLServer.java. <br>
+ * DSOLWebServer.java. <br>
  * <br>
  * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information
@@ -55,9 +61,11 @@ public abstract class DSOLWebServer implements EventListenerInterface
     /**
      * @param title the title for the model window
      * @param simulator the simulator
+     * @param extent the extent to use for the graphics (min/max coordinates)
      * @throws Exception in case jetty crashes
      */
-    public DSOLWebServer(final String title, final SimulatorInterface<?, ?, ?> simulator) throws Exception
+    public DSOLWebServer(final String title, final SimulatorInterface<?, ?, ?> simulator,
+            final Rectangle2D.Double extent) throws Exception
     {
         this.title = title;
 
@@ -74,8 +82,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
 
         if (this.simulator instanceof AnimatorInterface)
         {
-            this.animationPanel = new HTMLAnimationPanel(new Rectangle2D.Double(-100.0, -100.0, 200.0, 200.0),
-                    new Dimension(800, 600), this.simulator);
+            this.animationPanel = new HTMLAnimationPanel(extent, new Dimension(800, 600), this.simulator);
             // get the already created elements in context(/animation/D2)
             this.animationPanel.notify(new Event(SimulatorInterface.START_REPLICATION_EVENT, this.simulator,
                     this.simulator.getSimulatorTime()));
@@ -84,10 +91,14 @@ public abstract class DSOLWebServer implements EventListenerInterface
         Server server = new Server(8080);
         ResourceHandler resourceHandler = new ResourceHandler();
 
-        URL home = URLResource.getResource("/home");
+        // root folder; to work in Eclipse, as an external jar, and in an embedded jar
+        URL homeFolder = URLResource.getResource("/home");
+        String webRoot = homeFolder.toExternalForm();
+        System.out.println("webRoot is " + webRoot);
+
         resourceHandler.setDirectoriesListed(true);
         resourceHandler.setWelcomeFiles(new String[]{"index.html"});
-        resourceHandler.setResourceBase(home.toURI().getPath());
+        resourceHandler.setResourceBase(webRoot);
 
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{resourceHandler, new XHRHandler(this)});
@@ -339,9 +350,9 @@ public abstract class DSOLWebServer implements EventListenerInterface
         }
 
         /**
-         * @param active
-         * @param started
-         * @return
+         * @param active is the simulation active?
+         * @param started has the simulation been started?
+         * @return XML message to send to the server
          */
         private String controlButtonResponse(final boolean active, final boolean started)
         {

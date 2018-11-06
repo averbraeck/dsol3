@@ -23,7 +23,7 @@ public class ServerApplication extends AbstractHandler
 {
 
     /**
-     * @throws Exception
+     * @throws Exception on error
      */
     public ServerApplication() throws Exception
     {
@@ -48,6 +48,10 @@ public class ServerApplication extends AbstractHandler
         baseRequest.setHandled(true);
     }
 
+    /**
+     * @param args should be empty
+     * @throws Exception on error
+     */
     public static void main(final String[] args) throws Exception
     {
         Server server = new Server(8080);

@@ -3,12 +3,11 @@ package nl.tudelft.simulation.dsol.swing.gui.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.distributions.DistTriangular;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
@@ -16,38 +15,34 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
  * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following
+ * conditions are met:
  * <ul>
  * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
  * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- * following disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.</li>
+ * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ * disclaimer in the documentation and/or other materials provided with the distribution.</li>
+ * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or promote
+ * products derived from this software without specific prior written permission.</li>
  * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties,
- * including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are
- * disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental,
- * special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or
- * services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability,
- * whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use
- * of this software, even if advised of the possibility of such damage.
+ * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties, including,
+ * but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no
+ * event shall the copyright holder or contributors be liable for any direct, indirect, incidental, special, exemplary, or
+ * consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or
+ * profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or
+ * tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the
+ * possibility of such damage.
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Model implements DSOLModel.TimeDouble
+public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDouble>
 {
     /** */
     private static final long serialVersionUID = 1L;
-
-    /** the simulator. */
-    private DEVSSimulatorInterface.TimeDouble simulator;
 
     /** resource capacity. */
     private int capacity = 1;
@@ -72,12 +67,18 @@ public class MM1Model implements DSOLModel.TimeDouble
     /** entity counter for id. */
     private int entityCounter = 0;
 
+    /**
+     * @param simulator
+     */
+    public MM1Model(DEVSSimulator.TimeDouble simulator)
+    {
+        super(simulator);
+    }
+
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> _simulator)
-            throws SimRuntimeException
+    public void constructModel() throws SimRuntimeException
     {
-        this.simulator = (DEVSSimulatorInterface.TimeDouble) _simulator;
         generate();
     }
 
@@ -115,7 +116,7 @@ public class MM1Model implements DSOLModel.TimeDouble
         synchronized (this.queue)
         {
             this.busy++;
-            this.simulator.scheduleEventRel(this.processingTime.draw(), this, this, "endProcess", new Object[]{entity});
+            this.simulator.scheduleEventRel(this.processingTime.draw(), this, this, "endProcess", new Object[] {entity});
             System.out.println("Start Proc.: " + entity);
         }
     }
@@ -135,13 +136,6 @@ public class MM1Model implements DSOLModel.TimeDouble
                 startProcess(this.queue.remove(0).getObject());
             }
         }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public DEVSSimulatorInterface.TimeDouble getSimulator()
-    {
-        return this.simulator;
     }
 
     /******************************************************************************************************/
