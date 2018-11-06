@@ -83,7 +83,10 @@ import nl.tudelft.simulation.dsol.web.animation.peer.HTMLWindow;
 @SuppressWarnings("restriction")
 public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManagerPeerProvider
 {
+    /** the queue of AWT events to process. */
     EventQueue eventQueue = new EventQueue();
+    
+    /** the toolkit should implement this class. It's internal to sun, so a bit weird. */
     HTMLKeyboardFocusManagerPeer htmlKeyboardFocusManagerPeer = new HTMLKeyboardFocusManagerPeer();
     
     /**

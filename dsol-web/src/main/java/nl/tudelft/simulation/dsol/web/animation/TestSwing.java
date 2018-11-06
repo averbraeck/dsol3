@@ -50,8 +50,10 @@ public class TestSwing
         });
     }
 
+    /** */
     protected class CustomPanel extends JPanel
     {
+        /** */
         public CustomPanel()
         {
             setMinimumSize(new Dimension(100, 100));

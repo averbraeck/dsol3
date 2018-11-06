@@ -8,7 +8,6 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 
 /**
@@ -54,10 +53,10 @@ public class WebMM1Queue41Application
      */
     protected WebMM1Queue41Application() throws SimRuntimeException, RemoteException, NamingException
     {
-        this.model = new WebMM1Queue41Model();
         this.simulator = new DEVSSimulator.TimeDouble();
-        Replication<Double, Double, SimTimeDouble> replication =
-                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 1000.0, this.model);
+        this.model = new WebMM1Queue41Model(this.simulator);
+        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
+                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, this.model);
         this.simulator.initialize(replication, ReplicationMode.TERMINATING);
         this.simulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
         this.simulator.start();

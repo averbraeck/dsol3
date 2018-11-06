@@ -21,21 +21,20 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 
 /**
- * The DESS defines the interface of the DESS simulator. DESS stands for the Differential Equation System Specification.
- * More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler
- * et.al.
+ * The DESS defines the interface of the DESS simulator. DESS stands for the Differential Equation System Specification. More
+ * information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.al.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
 public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
@@ -62,11 +61,10 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
-            throws SimRuntimeException
+    public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
+            final ReplicationMode replicationMode) throws SimRuntimeException
     {
         super.initialize(initReplication, replicationMode);
-        this.replication.getTreatment().getExperiment().getModel().constructModel(this);
     }
 
     /** {@inheritDoc} */
@@ -108,8 +106,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                     this.simulatorTime = this.replication.getTreatment().getEndSimTime().copy();
                     this.endReplication();
                 }
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                        this.simulatorTime.get());
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
             }
         }
     }
@@ -136,8 +133,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.TimeFloat. */
-    public static class TimeFloat extends DESSSimulator<Float, Float, SimTimeFloat>
-            implements DESSSimulatorInterface.TimeFloat
+    public static class TimeFloat extends DESSSimulator<Float, Float, SimTimeFloat> implements DESSSimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -153,8 +149,7 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     }
 
     /** Easy access class DESSSimulator.TimeLong. */
-    public static class TimeLong extends DESSSimulator<Long, Long, SimTimeLong>
-            implements DESSSimulatorInterface.TimeLong
+    public static class TimeLong extends DESSSimulator<Long, Long, SimTimeLong> implements DESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

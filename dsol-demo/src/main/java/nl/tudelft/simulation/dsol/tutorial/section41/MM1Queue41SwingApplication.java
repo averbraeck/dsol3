@@ -19,10 +19,10 @@ import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 /**
  * M/M/1 queuing model with animation and graphs.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -66,10 +66,10 @@ public class MM1Queue41SwingApplication extends DSOLApplication
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
         SimLogger.setAllLogLevel(Level.TRACE);
-        MM1Queue41Model model = new MM1Queue41Model();
         DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble();
-        Replication<Double, Double, SimTimeDouble> replication =
-                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 1000.0, model);
+        MM1Queue41Model model = new MM1Queue41Model(devsSimulator);
+        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
+                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
         devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
         SimLogger.setSimulator(devsSimulator);
         MM1Queue41Panel panel = new MM1Queue41Panel(model, devsSimulator);

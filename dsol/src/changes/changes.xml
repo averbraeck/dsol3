@@ -1,7 +1,41 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.03.00" date="2018-10-XX" description="Major refactoring, dsol-web and dsol-animation">
+    <release version="3.03.00" date="2018-11-06" description="Major refactoring, dsol-web and dsol-animation">
+      <action dev="averbraeck" type="update">
+        The ExperimentalFrame, Experiment, Replication and Treatment classes have been 
+        provided with generics to make them compatible with the type of time used, and
+        the type of simulator used. Easy access classes for the most common types of
+        time have been provided.
+      </action>
+      <action dev="averbraeck" type="add">
+        Since version 3.03 of DSOL, models have specified input parameters. These can be 
+        shown on the screen for user input, set by reading them from a file, or set in the 
+        user code of the model itself. The input parameters are stored a SortedMap. 
+        Each input parameter has a key (a String without spaces and periods) and a value. 
+        Sorting of the input parameters is done based on a priority variable, currently 
+        implemented as a double (making it easy to insert a parameter between parameter #3 
+        with a priority 3 and parameter #4 with a priority 4 by giving it a priority 
+        value of e.g., 3.5).
+      </action>
+      <action dev="averbraeck" type="update">
+       The DSOLModel interface has convenience methods for the extension classes. So it is now
+       possible to use e.g.:
+<![CDATA[
+<pre>
+    public SimulatorInterface.TimeDouble getSimulator()
+</pre>
+]]>
+      </action>
+      <action dev="averbraeck" type="add">
+        A class AbstractDSOLModel to easily create a model has been added, together with easy 
+        access inner classes. The AbstractDSOLModel contains fields and access methods for the
+        simulator, input parameters, and output statistics. It extends EventProducer to provide
+        statistics to the statistics classes.   
+      </action>
+      <action dev="averbraeck" type="update">
+        The DSOLModel interface has been moved to the nl.tudelft.simulation.dsol.model package. 
+      </action>
       <action dev="averbraeck" type="update">
         The ExperimentParser has been moved to the dsol-demo project as it is only used there.
         Potentially a dsol-experiment project could be created at some point in time with an

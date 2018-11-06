@@ -10,7 +10,6 @@ import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
@@ -18,10 +17,10 @@ import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -50,10 +49,10 @@ public class Warehouse42SwingApplication extends DSOLApplication
     public static void main(final String[] args)
             throws SimRuntimeException, RemoteException, NamingException, InterruptedException
     {
-        Warehouse42Model model = new Warehouse42Model();
-        DEVSSimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble();
-        Replication<Double, Double, SimTimeDouble> replication =
-                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, 5 * 24.0, model);
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
+        Warehouse42Model model = new Warehouse42Model(simulator);
+        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
+                Replication.TimeDouble.create("rep1", 0.0, 0.0, 5 * 24.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
         new Warehouse42SwingApplication("MM1 Queue model", new Warehouse42Panel(model, simulator));
     }
@@ -61,8 +60,8 @@ public class Warehouse42SwingApplication extends DSOLApplication
     /**
      * <p>
      * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
-     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
-     * License</a>. <br>
+     * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>.
+     * <br>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      */
     protected static class Warehouse42Panel extends DSOLPanel<Double, Double, SimTimeDouble>
@@ -74,7 +73,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
          * @param model Warehouse42Model; the model
          * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
          */
-        Warehouse42Panel(final Warehouse42Model model, final DEVSSimulatorInterface.TimeDouble simulator)
+        Warehouse42Panel(final Warehouse42Model model, final DEVSSimulator.TimeDouble simulator)
         {
             super(model, simulator);
             addTabs(model);

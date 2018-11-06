@@ -226,7 +226,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title)
@@ -236,7 +236,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param axisType short; the axisType to use.
      */
@@ -248,7 +248,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param domain double[]; the domain
      */
@@ -268,7 +268,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param period double; the period
      */
@@ -288,7 +288,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param domain double[]; the domain
      * @param axisType short; the axisType to use.
@@ -309,7 +309,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param period double; the period
      * @param axisType short; the axisType to use.
@@ -330,7 +330,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param domain double[]; the domain
      * @param range double[]; the range
@@ -351,7 +351,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param period double; the period
      * @param range double[]; the range
@@ -372,7 +372,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param domain double[]; the domain
      * @param range double[]; the range
@@ -395,7 +395,7 @@ public class XYChart implements Swingable
 
     /**
      * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface<?, ?, ?>; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param period double; the period
      * @param range double[]; the range

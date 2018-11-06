@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.swing.gui.test;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.charts.histogram.Histogram;

@@ -18,12 +18,12 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSAnimator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -73,7 +73,7 @@ public class ExperimentParser
      * @return ExperimentalFrame the experimentalFrame
      * @throws IOException whenever parsing fails
      */
-    public static ExperimentalFrame<?, ?, ?> parseExperimentalFrame(final URL input) throws IOException
+    public static ExperimentalFrame parseExperimentalFrame(final URL input) throws IOException
     {
         return parseExperimentalFrameTimeDouble(input);
     }
@@ -84,7 +84,7 @@ public class ExperimentParser
      * @return ExperimentalFrame the experimentalFrame
      * @throws IOException whenever parsing fails
      */
-    public static ExperimentalFrame.TimeDouble parseExperimentalFrameTimeDouble(final URL input) throws IOException
+    public static ExperimentalFrame parseExperimentalFrameTimeDouble(final URL input) throws IOException
     {
         if (input == null)
         {
@@ -97,7 +97,7 @@ public class ExperimentParser
             String name = DateFormat.getDateTimeInstance().format(calendar.getTime());
 
             Element rootElement = builder.build(input).getRootElement();
-            List<Experiment<Double, Double, SimTimeDouble>> experiments = new ArrayList<>();
+            List<Experiment<Double, Double, SimTimeDouble, ?>> experiments = new ArrayList<>();
             List<Element> experimentElements = rootElement.getChildren("experiment");
             int number = 0;
 
@@ -108,7 +108,7 @@ public class ExperimentParser
                 experiments.add(experiment);
                 number++;
             }
-            ExperimentalFrame.TimeDouble frame = new ExperimentalFrame.TimeDouble(input);
+            ExperimentalFrame frame = new ExperimentalFrame(input);
             frame.setExperiments(experiments);
             return frame;
         }
@@ -126,7 +126,7 @@ public class ExperimentParser
      * @return ExperimentalFrame the experiment
      * @throws IOException whenever parsing fails
      */
-    public static Experiment<?, ?, ?> parseExperiment(final Element rootElement, final URL url) throws IOException
+    public static Experiment<?, ?, ?, ?> parseExperiment(final Element rootElement, final URL url) throws IOException
     {
         return parseExperimentTimeDouble(rootElement, url);
     }
@@ -221,7 +221,7 @@ public class ExperimentParser
             Element replicationsElement = rootElement.getChild("replications");
             @SuppressWarnings("unchecked")
             List<Element> replicationElements = replicationsElement.getChildren("replication");
-            List<Replication<Double, Double, SimTimeDouble>> replicationArray = new ArrayList<>();
+            List<Replication<Double, Double, SimTimeDouble, ?>> replicationArray = new ArrayList<>();
             for (Iterator<Element> i = replicationElements.iterator(); i.hasNext();)
             {
                 replicationArray.add(ExperimentParser.parseReplication(i.next(), experiment));

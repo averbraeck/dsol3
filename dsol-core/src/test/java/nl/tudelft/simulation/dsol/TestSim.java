@@ -4,14 +4,12 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -43,7 +41,7 @@ public class TestSim
     {
         this.devsSimulator = new DEVSSimulator.TimeDouble();
         Model model = new Model(this.devsSimulator);
-        Replication.TimeDouble rep = new Replication.TimeDouble("rep1", 0.0, 0.0, 100.0, model);
+        Replication.TimeDouble rep = Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
         this.devsSimulator.initialize(rep, ReplicationMode.TERMINATING);
 
         for (int i = 0; i < 10; i++)
@@ -73,34 +71,22 @@ public class TestSim
     }
 
     /** */
-    public class Model implements DSOLModel.TimeDouble
+    public class Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble>
     {
         /** */
         private static final long serialVersionUID = 1L;
-
-        /** the simulator. */
-        private DEVSSimulatorInterface.TimeDouble modelSimulator;
 
         /**
          * @param simulator the simulator.
          */
         public Model(final DEVSSimulatorInterface.TimeDouble simulator)
         {
-            super();
-            this.modelSimulator = simulator;
+            super(simulator);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final SimulatorInterface.TimeDouble getSimulator()
-        {
-            return this.modelSimulator;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> simulator)
-                throws SimRuntimeException
+        public void constructModel() throws SimRuntimeException
         {
             //
         }

@@ -7,8 +7,8 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
@@ -38,11 +38,11 @@ public final class ConsoleRunnerTerminal implements EventListenerInterface
         int rep = 1;
         int numQC = 5;
         int numAGV = 42;
-        Terminal model = new Terminal(rep);
         double runtime = 40 * 60;
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
-        Replication<Double, Double, SimTimeDouble> replication =
-                new Replication<>("rep1", new SimTimeDouble(0.0), 0.0, runtime, model);
+        Terminal model = new Terminal(simulator, rep);
+        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
+                Replication.TimeDouble.create("rep1", 0.0, 0.0, runtime, model);
         replication.getStreams().put("default", new MersenneTwister(seed++));
         replication.getTreatment().getProperties().setProperty("numQC", "" + numQC);
         replication.getTreatment().getProperties().setProperty("numAGV", "" + numAGV);

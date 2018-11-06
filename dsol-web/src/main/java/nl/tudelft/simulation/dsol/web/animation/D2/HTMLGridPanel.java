@@ -142,7 +142,7 @@ public class HTMLGridPanel implements ImageObserver
      {
          this.htmlGraphics2D.clearCommand();
          this.paintComponent(this.htmlGraphics2D);
-         return this.htmlGraphics2D.getCommands();
+         return this.htmlGraphics2D.closeAndGetCommands();
      }
      
     /**

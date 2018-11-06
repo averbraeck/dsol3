@@ -29,13 +29,14 @@ public class DEVSSimulatorTest_Failed extends SimulatorTest_NotCorrect
     public void test()
     {
         super.test();
+        DEVSSimulatorInterface.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble();
         ExperimentalFrame experimentalFrame =
-                TestExperiment.createExperimentalFrame(new DEVSSimulator(), new DEVSTestModel());
+                TestExperiment.createExperimentalFrame(devsSimulator, new DEVSTestModel(devsSimulator));
         experimentalFrame.start();
     }
 
     /**
-     * The main method
+     * The main method.
      * @param args command-line input
      */
     public static void main(final String[] args)

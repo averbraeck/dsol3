@@ -86,7 +86,6 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     
     /**
      * constructs a new AnimationPanel.
-     * @param webServer the webserver for sending the animation to the browser
      * @param extent Rectangle2D; the extent of the panel
      * @param size Dimension; the size of the panel.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator of which we want to know the events for animation

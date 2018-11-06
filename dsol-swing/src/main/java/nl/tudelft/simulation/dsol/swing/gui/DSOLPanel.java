@@ -7,29 +7,28 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends JPanel
+public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends JPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -41,7 +40,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     protected Console console = new Console();
 
     /** the model. */
-    private final DSOLModel<A, R, T> model;
+    private final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model;
 
     /** */
     protected SimulatorControlPanel simulatorControlPanel;
@@ -56,7 +55,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param model DSOLModel&lt;A,R,T&gt;; the model to run in this panel
      * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to use for the model
      */
-    public DSOLPanel(final DSOLModel<A, R, T> model, final SimulatorInterface<A, R, T> simulator)
+    public <S extends SimulatorInterface<A, R, T>> DSOLPanel(final DSOLModel<A, R, T, S> model, final S simulator)
     {
         this.model = model;
         this.simulator = simulator;

@@ -41,7 +41,7 @@ public final class ConsoleRunner25
             // We are ready to start
             // First we resolve the experiment and parse it
             URL experimentalframeURL = URLResource.getResource("/section25.xml");
-            ExperimentalFrame.TimeDouble experimentalFrame =
+            ExperimentalFrame experimentalFrame =
                     ExperimentParser.parseExperimentalFrameTimeDouble(experimentalframeURL);
 
             experimentalFrame.start();

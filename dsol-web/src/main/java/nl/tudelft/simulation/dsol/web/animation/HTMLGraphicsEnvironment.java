@@ -19,10 +19,13 @@ import java.util.Locale;
  */
 public class HTMLGraphicsEnvironment extends GraphicsEnvironment
 {
+    /** the (dummy) device to use in the graphics environment. */
     HTMLDevice htmlDevice;
 
+    /** the canvas to draw on. */
     HTMLGraphics2D graphics2D;
 
+    /** the (dummy) configuration to use. */
     HTMLGraphicsConfiguration graphicsConfiguration;
 
     /**

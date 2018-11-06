@@ -29,17 +29,17 @@ import nl.tudelft.simulation.language.concurrent.WorkerThread;
 /**
  * The Simulator class is an abstract implementation of the SimulatorInterface.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -59,7 +59,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** replication represents the currently active replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Replication<A, R, T> replication = null;
+    protected Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> replication = null;
 
     /** a worker. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -95,7 +95,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public Replication<A, R, T> getReplication()
+    public Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> getReplication()
     {
         return this.replication;
     }
@@ -103,8 +103,8 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void initialize(final Replication<A, R, T> initReplication, final ReplicationMode replicationMode)
-            throws SimRuntimeException
+    public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
+            final ReplicationMode replicationMode) throws SimRuntimeException
     {
         if (initReplication == null)
         {
@@ -119,9 +119,9 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             this.removeAllListeners(StatisticsObject.class);
             this.replication = initReplication;
             this.simulatorTime = initReplication.getTreatment().getStartSimTime().copy();
-            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime,
-                    this.simulatorTime.get());
+            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime.get());
             this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+            this.replication.getTreatment().getExperiment().getModel().constructModel();
         }
     }
 
@@ -136,9 +136,8 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
         if (this.simulatorTime.lt(this.getReplication().getTreatment().getEndSimTime()))
         {
-            Logger.warn("The simulator executes the endReplication method, but the simulation time "
-                    + this.simulatorTime.get() + " is earlier than the replication length "
-                    + this.getReplication().getTreatment().getEndSimTime());
+            Logger.warn("The simulator executes the endReplication method, but the simulation time " + this.simulatorTime.get()
+                    + " is earlier than the replication length " + this.getReplication().getTreatment().getEndSimTime());
             this.simulatorTime = this.getReplication().getTreatment().getEndSimTime().copy();
         }
     }
@@ -151,9 +150,8 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /**
-     * The run method defines the actual time step mechanism of the simulator. The implementation of this method depends
-     * on the formalism. Where discrete event formalisms loop over an eventlist, continuous simulators take predefined
-     * time steps.
+     * The run method defines the actual time step mechanism of the simulator. The implementation of this method depends on the
+     * formalism. Where discrete event formalisms loop over an eventlist, continuous simulators take predefined time steps.
      */
     @Override
     public abstract void run();
@@ -296,7 +294,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         try
         {
             this.simulatorTime = (T) in.readObject();
-            this.replication = (Replication<A, R, T>) in.readObject();
+            this.replication = (Replication<A, R, T, ? extends SimulatorInterface<A, R, T>>) in.readObject();
             this.running = false;
             this.semaphore = new Object();
             this.worker = new WorkerThread(this.getClass().getName(), this);
@@ -320,16 +318,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     }
 
     /** Easy access class Simulator.TimeFloat. */
-    public abstract static class TimeFloat extends Simulator<Float, Float, SimTimeFloat>
-            implements SimulatorInterface.TimeFloat
+    public abstract static class TimeFloat extends Simulator<Float, Float, SimTimeFloat> implements SimulatorInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20140805L;
     }
 
     /** Easy access class Simulator.TimeLong. */
-    public abstract static class TimeLong extends Simulator<Long, Long, SimTimeLong>
-            implements SimulatorInterface.TimeLong
+    public abstract static class TimeLong extends Simulator<Long, Long, SimTimeLong> implements SimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;

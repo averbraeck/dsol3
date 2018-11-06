@@ -2,12 +2,12 @@ package nl.tudelft.simulation.examples.dsol.timesharedcomputer;
 
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.dsol.DSOLModel;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.Counter;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
@@ -19,24 +19,20 @@ import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The Computer example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and
- * 2.4..
+ * The Computer example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4..
  * <p>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  */
-public class Computer implements DSOLModel<Double, Double, SimTimeDouble>
+public class Computer extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDouble>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
-
-    /** the simulator. */
-    private SimulatorInterface.TimeDouble simulator;
 
     /** the number of jobs. */
     public static final long NUMBER_OF_JOBS = 1000;
@@ -46,42 +42,40 @@ public class Computer implements DSOLModel<Double, Double, SimTimeDouble>
 
     /**
      * constructs a new Computer.
+     * @param simulator the simulator
      */
-    public Computer()
+    public Computer(final DEVSSimulator.TimeDouble simulator)
     {
-        super();
+        super(simulator);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void constructModel(final SimulatorInterface<Double, Double, SimTimeDouble> modelSimulator)
-            throws SimRuntimeException
+    public void constructModel() throws SimRuntimeException
     {
-        this.simulator = (SimulatorInterface.TimeDouble) modelSimulator;
-        DEVSSimulatorInterface.TimeDouble devsSimulator = (DEVSSimulatorInterface.TimeDouble) modelSimulator;
-        StreamInterface stream = modelSimulator.getReplication().getStream("default");
+        StreamInterface stream = this.simulator.getReplication().getStream("default");
 
-        CPU cpu = new CPU(devsSimulator);
+        CPU cpu = new CPU(this.simulator);
         DistContinuous thinkDelay = new DistExponential(stream, 25);
         DistContinuous processDelay = new DistExponential(stream, 0.8);
 
         try
         {
             // First the statistics
-            Persistent<Double, Double, SimTimeDouble> persistent = new Persistent<>("service time", devsSimulator);
-            ExitCounter exitCounter = new ExitCounter("counter", devsSimulator);
+            Persistent<Double, Double, SimTimeDouble> persistent = new Persistent<>("service time", this.simulator);
+            ExitCounter exitCounter = new ExitCounter("counter", this.simulator);
 
             // Now the charts
-            Histogram histogram = new Histogram(modelSimulator, "service time", new double[]{0, 200}, 200);
+            Histogram histogram = new Histogram(this.simulator, "service time", new double[] {0, 200}, 200);
             histogram.add("serviceTime", persistent, nl.tudelft.simulation.jstats.statistics.Persistent.VALUE_EVENT);
 
-            BoxAndWhiskerChart boxAndWhisker = new BoxAndWhiskerChart(modelSimulator, "serviceTime");
+            BoxAndWhiskerChart boxAndWhisker = new BoxAndWhiskerChart(this.simulator, "serviceTime");
             boxAndWhisker.add(persistent);
 
             // Now we start the action
             for (int i = 0; i < NUMBER_OF_TERMINALS; i++)
             {
-                Terminal terminal = new Terminal(devsSimulator, cpu, thinkDelay, processDelay);
+                Terminal terminal = new Terminal(this.simulator, cpu, thinkDelay, processDelay);
                 terminal.addListener(exitCounter, StationInterface.RELEASE_EVENT);
                 terminal.addListener(persistent, Terminal.SERVICE_TIME);
             }
@@ -109,8 +103,7 @@ public class Computer implements DSOLModel<Double, Double, SimTimeDouble>
          * @param simulator SimulatorInterface.TimeDouble; the simulator
          * @throws RemoteException on network failure
          */
-        public ExitCounter(final String description, final SimulatorInterface.TimeDouble simulator)
-                throws RemoteException
+        public ExitCounter(final String description, final SimulatorInterface.TimeDouble simulator) throws RemoteException
         {
             super(description, simulator);
             this.simulator = simulator;
@@ -136,13 +129,5 @@ public class Computer implements DSOLModel<Double, Double, SimTimeDouble>
                 }
             }
         }
-    }
-
-    /**
-     * @return the simulator
-     */
-    public SimulatorInterface.TimeDouble getSimulator()
-    {
-        return this.simulator;
     }
 }

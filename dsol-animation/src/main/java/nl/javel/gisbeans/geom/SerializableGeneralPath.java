@@ -257,6 +257,14 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
     }
 
     /**
+     * @return generalPath
+     */
+    public final GeneralPath getGeneralPath()
+    {
+        return this.generalPath;
+    }
+
+    /**
      * writes a float array
      * @param out java.io.ObjectOutputStream; the output stream
      * @param array float[]; the array

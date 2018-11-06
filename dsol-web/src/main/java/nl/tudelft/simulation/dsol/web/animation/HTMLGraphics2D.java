@@ -20,9 +20,10 @@ import java.awt.Stroke;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -32,6 +33,8 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.util.HashMap;
 import java.util.Map;
+
+import nl.javel.gisbeans.geom.SerializableGeneralPath;
 
 /**
  * HTMLGraphics.java. <br>
@@ -44,40 +47,63 @@ import java.util.Map;
  */
 public class HTMLGraphics2D extends Graphics2D
 {
+    /** the current color of the background for drawing. */
     Color background = Color.WHITE;
 
+    /** the current drawing color. */
     Color color = Color.BLACK;
 
+    /** the current font. */
     Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
 
+    /** the drawing canvas. */
     Canvas canvas = new Canvas();
 
+    /** the cached current font properties. */
     FontMetrics fontMetrics = canvas.getFontMetrics(font);
 
+    /** the current paint. */
     Paint paint = Color.BLACK;
 
+    /** the current stroke. */
     Stroke stroke = new BasicStroke();
 
+    /** TODO: the current rendering hints. */
     RenderingHints renderingHints = new RenderingHints(new HashMap<Key, Object>());
 
+    /** the current affine transform. */
     AffineTransform affineTransform = new AffineTransform();
 
+    /** TODO: the current composite. What is that? */
     Composite composite = AlphaComposite.Clear;
 
+    /** the commands to send over the channel to the HTML5 code. */
     StringBuffer commands = new StringBuffer();
 
+    /**
+     * Clear the commands and put the start tag in.
+     */
     public void clearCommand()
     {
         this.commands = new StringBuffer();
         this.commands.append("<animate>\n");
     }
 
-    public String getCommands()
+    /**
+     * Close the commands and put the end tag in.
+     * @return the current set of commands
+     */
+    public String closeAndGetCommands()
     {
         this.commands.append("</animate>\n");
         return this.commands.toString();
     }
 
+    /**
+     * Add a draw command
+     * @param drawCommand the tag for the draw command
+     * @param params the params for the draw command
+     */
     protected void addDraw(String drawCommand, Object... params)
     {
         this.commands.append("<draw>" + drawCommand);
@@ -109,19 +135,20 @@ public class HTMLGraphics2D extends Graphics2D
 
     /**
      * add Color to the command.
+     * @param c the color
      */
-    protected void addColor()
+    protected void addColor(Color c)
     {
         this.commands.append(",");
-        this.commands.append(this.color.getRed());
+        this.commands.append(c.getRed());
         this.commands.append(",");
-        this.commands.append(this.color.getGreen());
+        this.commands.append(c.getGreen());
         this.commands.append(",");
-        this.commands.append(this.color.getBlue());
+        this.commands.append(c.getBlue());
         this.commands.append(",");
-        this.commands.append(this.color.getAlpha());
+        this.commands.append(c.getAlpha());
         this.commands.append(",");
-        this.commands.append(this.color.getTransparency());
+        this.commands.append(c.getTransparency());
     }
 
     /**
@@ -144,17 +171,43 @@ public class HTMLGraphics2D extends Graphics2D
     }
 
     /**
-     * Send command, transform.m11(h-scale), transform.m12(h-skew), transform.m21(v-skew), transform.m22(v-scale),
-     * transform.dx(h-translate), transform.dy(v-translate), color.r, golor.g, color.b, color.alpha, color.transparency,
+     * Add fill command, transform.m11(h-scale), transform.m12(h-skew), transform.m21(v-skew), transform.m22(v-scale),
+     * transform.dx(h-translate), transform.dy(v-translate), color.r, color.g, color.b, color.alpha, color.transparency,
      * params...
-     * @param drawCommand
-     * @param params
+     * @param fillCommand the tag to use
+     * @param params the params to send
+     */
+    protected void addTransformFill(String fillCommand, Object... params)
+    {
+        this.commands.append("<transformFill>" + fillCommand);
+        addAffineTransform();
+        addColor(this.color);
+        for (Object param : params)
+        {
+            this.commands.append("," + param.toString());
+        }
+        this.commands.append("</transformFill>\n");
+    }
+
+    /**
+     * Add command, transform.m11(h-scale), transform.m12(h-skew), transform.m21(v-skew), transform.m22(v-scale),
+     * transform.dx(h-translate), transform.dy(v-translate), linecolor.r, linecolor.g, linecolor.b, linecolor.alpha,
+     * linecolor.transparency, line-width, params...
+     * @param drawCommand the tag to use
+     * @param params the params
      */
     protected void addTransformDraw(String drawCommand, Object... params)
     {
         this.commands.append("<transformDraw>" + drawCommand);
         addAffineTransform();
-        addColor();
+        if (this.paint instanceof Color)
+            addColor((Color) this.paint);
+        else
+            addColor(this.color);
+        if (this.stroke instanceof BasicStroke)
+            this.commands.append("," + ((BasicStroke) this.stroke).getLineWidth());
+        else
+            this.commands.append(", 1.0");
         for (Object param : params)
         {
             this.commands.append("," + param.toString());
@@ -163,18 +216,155 @@ public class HTMLGraphics2D extends Graphics2D
     }
 
     /**
-     * Send string, 0=command, 1=transform.m11(h-scale), 2=transform.m12(h-skew), 3=transform.m21(v-skew),
+     * adds a float array to the command
+     * @param array float[]; the array
+     * @param length int; the length
+     */
+    private void addFloatArray(final float[] array, final int length)
+    {
+        for (int i = 0; i < length; i++)
+        {
+            this.commands.append(", " + array[i]);
+        }
+    }
+
+    /**
+     * Add a path2D to the command
+     * @param drawCommand the tag to use
+     * @param path the path to draw
+     * @param fill // TODO fill
+     */
+    protected void addTransformPathFloat(String drawCommand, Path2D.Float path, boolean fill)
+    {
+        // XXX this.commands.append("<transformPath>" + drawCommand);
+        // addAffineTransform();
+        // addColor();
+
+        // TODO: make it real...
+        // XXX write generalPath.getWindingRule());
+        float[] coords = new float[6];
+        PathIterator i = path.getPathIterator(null);
+        float[] lastCoords = new float[2]; // XXX delete after full implementation
+        while (!i.isDone())
+        {
+            int segment = i.currentSegment(coords);
+            switch (segment)
+            {
+                case PathIterator.SEG_CLOSE:
+                    // this.commands.append(", CLOSE");
+                    // addFloatArray(coords, 0);
+                    break;
+                case PathIterator.SEG_CUBICTO:
+                    // this.commands.append(", CUBICTO");
+                    // addFloatArray(coords, 6);
+                    addTransformDraw("drawLine", lastCoords[0], lastCoords[1], coords[4], coords[5]);
+                    lastCoords[0] = coords[4];
+                    lastCoords[1] = coords[5];
+                    break;
+                case PathIterator.SEG_LINETO:
+                    // this.commands.append(", LINETO");
+                    // addFloatArray(coords, 2);
+                    addTransformDraw("drawLine", lastCoords[0], lastCoords[1], coords[0], coords[1]);
+                    lastCoords[0] = coords[0];
+                    lastCoords[1] = coords[1];
+                    break;
+                case PathIterator.SEG_MOVETO:
+                    // this.commands.append(", MOVETO");
+                    // addFloatArray(coords, 2);
+                    lastCoords[0] = coords[0];
+                    lastCoords[1] = coords[1];
+                    break;
+                case PathIterator.SEG_QUADTO:
+                    // this.commands.append(", QUADTO");
+                    // addFloatArray(coords, 4);
+                    addTransformDraw("drawLine", lastCoords[0], lastCoords[1], coords[2], coords[3]);
+                    lastCoords[0] = coords[2];
+                    lastCoords[1] = coords[3];
+                    break;
+                default:
+                    throw new RuntimeException("unkown segment");
+            }
+            i.next();
+        }
+        // XXX this.commands.append(", -1"); // We are ready and give an end-signal
+        // XXX this.commands.append("</transformDraw>\n");
+    }
+
+    /**
+     * Add a path2D to the command
+     * @param drawCommand the tag to use
+     * @param path the path to draw
+     * @param fill // TODO fill
+     */
+    protected void addTransformPathDouble(String drawCommand, Path2D.Double path, boolean fill)
+    {
+        // XXX this.commands.append("<transformPath>" + drawCommand);
+        // addAffineTransform();
+        // addColor();
+
+        // TODO: make it real...
+        // XXX write generalPath.getWindingRule());
+        double[] coords = new double[6];
+        PathIterator i = path.getPathIterator(null);
+        double[] lastCoords = new double[2]; // XXX delete after full implementation
+        while (!i.isDone())
+        {
+            int segment = i.currentSegment(coords);
+            switch (segment)
+            {
+                case PathIterator.SEG_CLOSE:
+                    // this.commands.append(", CLOSE");
+                    // addFloatArray(coords, 0);
+                    break;
+                case PathIterator.SEG_CUBICTO:
+                    // this.commands.append(", CUBICTO");
+                    // addFloatArray(coords, 6);
+                    addTransformDraw("drawLine", lastCoords[0], lastCoords[1], coords[4], coords[5]);
+                    lastCoords[0] = coords[4];
+                    lastCoords[1] = coords[5];
+                    break;
+                case PathIterator.SEG_LINETO:
+                    // this.commands.append(", LINETO");
+                    // addFloatArray(coords, 2);
+                    addTransformDraw("drawLine", lastCoords[0], lastCoords[1], coords[0], coords[1]);
+                    lastCoords[0] = coords[0];
+                    lastCoords[1] = coords[1];
+                    break;
+                case PathIterator.SEG_MOVETO:
+                    // this.commands.append(", MOVETO");
+                    // addFloatArray(coords, 2);
+                    lastCoords[0] = coords[0];
+                    lastCoords[1] = coords[1];
+                    break;
+                case PathIterator.SEG_QUADTO:
+                    // this.commands.append(", QUADTO");
+                    // addFloatArray(coords, 4);
+                    addTransformDraw("drawLine", lastCoords[0], lastCoords[1], coords[2], coords[3]);
+                    lastCoords[0] = coords[2];
+                    lastCoords[1] = coords[3];
+                    break;
+                default:
+                    throw new RuntimeException("unkown segment");
+            }
+            i.next();
+        }
+        // XXX this.commands.append(", -1"); // We are ready and give an end-signal
+        // XXX this.commands.append("</transformDraw>\n");
+    }
+
+    /**
+     * Add string, 0=command, 1=transform.m11(h-scale), 2=transform.m12(h-skew), 3=transform.m21(v-skew),
      * 4=transform.m22(v-scale), 5=transform.dx(h-translate), 6=transform.dy(v-translate), 7=color.r, 8=color.g,
      * 9=color.b, 10=color.alpha, 11=color.transparency, 12=fontname, 13=fontsize, 14=fontstyle(normal/italic/bold),
      * 15=x, 16=y, 17=text.
-     * @param drawCommand
-     * @param params
+     * @param drawCommand the tag to use
+     * @param params the params
      */
     protected void addTransformText(String drawCommand, Object... params)
     {
         this.commands.append("<transformText>" + drawCommand);
         addAffineTransform();
-        addColor();
+        addColor(this.color);
         addFontData();
         for (Object param : params)
         {
@@ -187,11 +377,24 @@ public class HTMLGraphics2D extends Graphics2D
     @Override
     public void draw(Shape shape)
     {
-        System.out.println("HTMLGraphics2D.draw(shape)");
+        drawFillShape(shape, false);
+    }
+
+    /**
+     * Draw or fill a shape.
+     * @param shape the shape
+     * @param fill filled or not
+     */
+    protected void drawFillShape(Shape shape, boolean fill)
+    {
+        System.out.println("HTMLGraphics2D.draw(shape:" + shape.getClass().getSimpleName() + ")");
         if (shape instanceof Ellipse2D.Double)
         {
             Ellipse2D.Double ellipse = (Ellipse2D.Double) shape;
-            addTransformDraw("drawOval", ellipse.x, ellipse.y, ellipse.width, ellipse.height);
+            if (fill)
+                addTransformFill("fillOval", ellipse.x, ellipse.y, ellipse.width, ellipse.height);
+            else
+                addTransformDraw("drawOval", ellipse.x, ellipse.y, ellipse.width, ellipse.height);
         }
         else if (shape instanceof Ellipse2D.Float)
         {
@@ -217,6 +420,22 @@ public class HTMLGraphics2D extends Graphics2D
         {
             Rectangle2D.Float rect = (Rectangle2D.Float) shape;
             addTransformDraw("drawRect", rect.x, rect.y, rect.width, rect.height);
+        }
+        else if (shape instanceof SerializableGeneralPath)
+        {
+            SerializableGeneralPath sgp = (SerializableGeneralPath) shape;
+            Path2D.Float path = sgp.getGeneralPath();
+            addTransformPathFloat("drawPath", path, fill);
+        }
+        else if (shape instanceof Path2D.Float)
+        {
+            Path2D.Float path = (Path2D.Float) shape;
+            addTransformPathFloat("drawPath", path, fill);
+        }
+        else if (shape instanceof Path2D.Double)
+        {
+            Path2D.Double path = (Path2D.Double) shape;
+            addTransformPathDouble("drawPath", path, fill);
         }
 
     }
@@ -289,9 +508,10 @@ public class HTMLGraphics2D extends Graphics2D
 
     /** {@inheritDoc} */
     @Override
-    public void fill(Shape s)
+    public void fill(Shape shape)
     {
         System.out.println("HTMLGraphics2D.fill()");
+        drawFillShape(shape, true);
     }
 
     /** {@inheritDoc} */
@@ -521,6 +741,7 @@ public class HTMLGraphics2D extends Graphics2D
     public void setColor(Color c)
     {
         this.color = c;
+        this.paint = c; // XXX see how difference between paint and color should be handled
         System.out.println("HTMLGraphics2D.setColor()");
     }
 

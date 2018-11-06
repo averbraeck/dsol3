@@ -14,6 +14,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVDESSAnimator;
 import nl.tudelft.simulation.dsol.simulators.DEVDESSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
 
 /**
@@ -57,8 +58,9 @@ public class SerializeTest extends TestCase
             new MarshalledObject(new DEVSRealTimeClock.TimeDoubleUnit());
 
             // Now we look at the experiment
+            DEVSSimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble();
             ExperimentalFrame experimentalFrame =
-                    TestExperimentalFrame.createExperimentalFrame(new DEVSSimulator(), new Model());
+                    TestExperimentalFrame.createExperimentalFrame(simulator, new Model(simulator));
             new MarshalledObject(experimentalFrame);
 
             // ---------- Let's test the formalisms ----------------

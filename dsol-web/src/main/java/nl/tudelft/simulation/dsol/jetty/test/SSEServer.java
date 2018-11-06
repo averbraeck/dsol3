@@ -74,8 +74,8 @@ public class SSEServer extends AbstractHandler
     }
 
     /**
-     * @param args String[];
-     * @throws Exception
+     * @param args String[]; should be empty
+     * @throws Exception on jetty server error
      */
     public static void main(String[] args) throws Exception
     {

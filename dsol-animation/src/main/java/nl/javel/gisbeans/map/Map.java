@@ -215,10 +215,10 @@ public class Map implements MapInterface
     {
         if (this.drawBackground)
         {
-            // We fill the background. */
-            graphics.setColor(this.getImage().getBackgroundColor());
-            graphics.fillRect(0, 0, (int) this.getImage().getSize().getWidth(),
-                    (int) this.getImage().getSize().getHeight());
+            // XXX: We fill the background.
+            // graphics.setColor(this.getImage().getBackgroundColor());
+            // graphics.fillRect(0, 0, (int) this.getImage().getSize().getWidth(),
+            // (int) this.getImage().getSize().getHeight());
         }
 
         // We compute the transform of the map
