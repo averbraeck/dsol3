@@ -169,7 +169,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     /**
      * @return Returns the experiment.
      */
-    public final Experiment<A, R, T, S> getExperiment()
+    public Experiment<A, R, T, S> getExperiment()
     {
         return this.experiment;
     }
@@ -177,7 +177,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     /**
      * @return Returns the treatment. This is a convenience method to avoid the getExperiment().getTreatment() many times.
      */
-    public final Treatment<A, R, T> getTreatment()
+    public Treatment<A, R, T> getTreatment()
     {
         return this.experiment.getTreatment();
     }
@@ -250,6 +250,20 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             experiment.setTreatment(treatment);
             return new Replication.TimeDouble<S>(experiment);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public Experiment.TimeDouble<S> getExperiment()
+        {
+            return (Experiment.TimeDouble<S>) super.getExperiment();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeDouble getTreatment()
+        {
+            return (Treatment.TimeDouble) super.getTreatment();
+        }
     }
 
     /**
@@ -293,6 +307,20 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             experiment.setTreatment(treatment);
             return new Replication.TimeFloat<S>(experiment);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public Experiment.TimeFloat<S> getExperiment()
+        {
+            return (Experiment.TimeFloat<S>) super.getExperiment();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeFloat getTreatment()
+        {
+            return (Treatment.TimeFloat) super.getTreatment();
+        }
     }
 
     /**
@@ -335,6 +363,20 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
                     new Treatment.TimeLong(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
             return new Replication.TimeLong<S>(experiment);
+        }
+        
+        /** {@inheritDoc} */
+        @Override
+        public Experiment.TimeLong<S> getExperiment()
+        {
+            return (Experiment.TimeLong<S>) super.getExperiment();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeLong getTreatment()
+        {
+            return (Treatment.TimeLong) super.getTreatment();
         }
     }
 
@@ -380,6 +422,20 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             experiment.setTreatment(treatment);
             return new Replication.TimeDoubleUnit<S>(experiment);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public Experiment.TimeDoubleUnit<S> getExperiment()
+        {
+            return (Experiment.TimeDoubleUnit<S>) super.getExperiment();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeDoubleUnit getTreatment()
+        {
+            return (Treatment.TimeDoubleUnit) super.getTreatment();
+        }
     }
 
     /**
@@ -423,6 +479,20 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
                     new Treatment.TimeFloatUnit(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
             return new Replication.TimeFloatUnit<S>(experiment);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Experiment.TimeFloatUnit<S> getExperiment()
+        {
+            return (Experiment.TimeFloatUnit<S>) super.getExperiment();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeFloatUnit getTreatment()
+        {
+            return (Treatment.TimeFloatUnit) super.getTreatment();
         }
     }
 
@@ -468,6 +538,20 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             experiment.setTreatment(treatment);
             return new Replication.CalendarDouble<S>(experiment);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public Experiment.CalendarDouble<S> getExperiment()
+        {
+            return (Experiment.CalendarDouble<S>) super.getExperiment();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.CalendarDouble getTreatment()
+        {
+            return (Treatment.CalendarDouble) super.getTreatment();
+        }
     }
 
     /**
@@ -512,6 +596,20 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             experiment.setTreatment(treatment);
             return new Replication.CalendarFloat<S>(experiment);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public Experiment.CalendarFloat<S> getExperiment()
+        {
+            return (Experiment.CalendarFloat<S>) super.getExperiment();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.CalendarFloat getTreatment()
+        {
+            return (Treatment.CalendarFloat) super.getTreatment();
+        }
     }
 
     /**
@@ -555,6 +653,20 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
                     new Treatment.CalendarLong(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
             return new Replication.CalendarLong<S>(experiment);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Experiment.CalendarLong<S> getExperiment()
+        {
+            return (Experiment.CalendarLong<S>) super.getExperiment();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.CalendarLong getTreatment()
+        {
+            return (Treatment.CalendarLong) super.getTreatment();
         }
     }
 }

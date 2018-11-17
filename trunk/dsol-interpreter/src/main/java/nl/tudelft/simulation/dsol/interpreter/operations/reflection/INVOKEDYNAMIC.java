@@ -4,14 +4,15 @@ import java.io.DataInput;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import org.djutils.primitives.Primitive;
+import org.djutils.reflection.ClassUtil;
+import org.djutils.reflection.MethodSignature;
+
 import nl.tudelft.simulation.dsol.interpreter.Frame;
 import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantMethodref;
 import nl.tudelft.simulation.dsol.interpreter.operations.InvokeOperation;
-import nl.tudelft.simulation.language.primitives.Primitive;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
-import nl.tudelft.simulation.language.reflection.MethodSignature;
 
 //TODO Was missing in DSOL1 and DSOL2. Check if correct. INVOKEDYNAMIC has been copied from INVOKESTATIC and that is 100% sure not correct.
 

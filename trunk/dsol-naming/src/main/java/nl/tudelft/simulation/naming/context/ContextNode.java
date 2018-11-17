@@ -14,8 +14,9 @@ import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingExceptionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * A node in the context.

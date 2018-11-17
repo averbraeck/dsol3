@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.interpreter;
 
-import nl.tudelft.simulation.logger.CategoryLogger;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * An InterpretationThread to interpret runnable code.

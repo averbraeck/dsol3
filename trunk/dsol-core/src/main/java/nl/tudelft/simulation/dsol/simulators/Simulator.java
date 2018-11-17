@@ -94,7 +94,6 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> getReplication()
     {
         return this.replication;
@@ -315,6 +314,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDouble<? extends SimulatorInterface.TimeDouble> getReplication()
+        {
+            return (Replication.TimeDouble<? extends SimulatorInterface.TimeDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class Simulator.TimeFloat. */
@@ -322,6 +329,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloat<? extends SimulatorInterface.TimeFloat> getReplication()
+        {
+            return (Replication.TimeFloat<? extends SimulatorInterface.TimeFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class Simulator.TimeLong. */
@@ -329,6 +344,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeLong<? extends SimulatorInterface.TimeLong> getReplication()
+        {
+            return (Replication.TimeLong<? extends SimulatorInterface.TimeLong>) super.getReplication();
+        }
     }
 
     /** Easy access class Simulator.TimeDoubleUnit. */
@@ -337,6 +360,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit> getReplication()
+        {
+            return (Replication.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit>) super.getReplication();
+        }
     }
 
     /** Easy access class Simulator.TimeFloatUnit. */
@@ -345,6 +376,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit> getReplication()
+        {
+            return (Replication.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit>) super.getReplication();
+        }
     }
 
     /** Easy access class Simulator.CalendarDouble. */
@@ -353,6 +392,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarDouble<? extends SimulatorInterface.CalendarDouble> getReplication()
+        {
+            return (Replication.CalendarDouble<? extends SimulatorInterface.CalendarDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class Simulator.CalendarFloat. */
@@ -361,6 +408,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarFloat<? extends SimulatorInterface.CalendarFloat> getReplication()
+        {
+            return (Replication.CalendarFloat<? extends SimulatorInterface.CalendarFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class Simulator.CalendarLong. */
@@ -369,6 +424,14 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarLong<? extends SimulatorInterface.CalendarLong> getReplication()
+        {
+            return (Replication.CalendarLong<? extends SimulatorInterface.CalendarLong>) super.getReplication();
+        }
     }
 
 }

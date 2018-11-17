@@ -23,12 +23,13 @@ import javax.naming.event.EventContext;
 import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingListener;
 
+import org.djutils.logger.Cat;
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventProducerInterface;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Cat;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The JVMContext as in-memory context implementation if the Context.

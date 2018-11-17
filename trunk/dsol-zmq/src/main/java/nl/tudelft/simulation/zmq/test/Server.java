@@ -1,8 +1,7 @@
 package nl.tudelft.simulation.zmq.test;
 
+import org.djutils.logger.CategoryLogger;
 import org.zeromq.ZMQ;
-
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * Server example for JeroMQ / ZeroMQ.

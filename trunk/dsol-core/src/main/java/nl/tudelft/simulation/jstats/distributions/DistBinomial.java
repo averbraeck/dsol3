@@ -29,8 +29,8 @@ public class DistBinomial extends DistDiscrete
     private double p;
 
     /**
-     * constructs a Binomial distribution. Number of successes in t independent Bernoulli trials with probability p of
-     * sucess on each trial.
+     * constructs a Binomial distribution. Number of successes in n independent Bernoulli trials with probability p of
+     * success on each trial.
      * @param stream StreamInterface; the random number stream
      * @param n long; is the n-parameter of the Binomial distribution
      * @param p double; is the p-parameter of the Binomial distribution

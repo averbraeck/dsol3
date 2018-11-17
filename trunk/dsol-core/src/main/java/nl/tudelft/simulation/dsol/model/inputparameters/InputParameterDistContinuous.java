@@ -20,7 +20,7 @@ public class InputParameterDistContinuous extends AbstractInputParameter<DistCon
     private StreamInterface stream;
 
     /**
-     * Construct a new InputParameterBoolean.
+     * Construct a new InputParameterDistContinuous.
      * @param key String; unique (within the parent's input parameter map) name of the new InputParameterDistContinuous
      * @param shortName String; concise description of the input parameter
      * @param description String; long description of the input parameter (may use HTML markup)

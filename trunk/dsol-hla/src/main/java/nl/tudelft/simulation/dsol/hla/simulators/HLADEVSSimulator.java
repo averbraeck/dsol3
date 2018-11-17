@@ -1,5 +1,8 @@
 package nl.tudelft.simulation.dsol.hla.simulators;
 
+import org.djutils.logger.Cat;
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
@@ -11,8 +14,6 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.logger.CategoryLogger;
-import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.LogicalTimeDouble;
 import se.pitch.prti.LogicalTimeIntervalDouble;
 

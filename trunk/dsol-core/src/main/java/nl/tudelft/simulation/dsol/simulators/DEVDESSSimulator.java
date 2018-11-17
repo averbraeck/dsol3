@@ -8,6 +8,7 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -150,6 +151,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         {
             super(initialTimeStep);
         }
+        
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDouble<? extends DEVDESSSimulatorInterface.TimeDouble> getReplication()
+        {
+            return (Replication.TimeDouble<? extends DEVDESSSimulatorInterface.TimeDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVDESSSimulator.TimeFloat. */
@@ -166,6 +175,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         public TimeFloat(final Float initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloat<? extends DEVDESSSimulatorInterface.TimeFloat> getReplication()
+        {
+            return (Replication.TimeFloat<? extends DEVDESSSimulatorInterface.TimeFloat>) super.getReplication();
         }
     }
 
@@ -184,6 +201,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeLong<? extends DEVDESSSimulatorInterface.TimeLong> getReplication()
+        {
+            return (Replication.TimeLong<? extends DEVDESSSimulatorInterface.TimeLong>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVDESSSimulator.TimeDoubleUnit. */
@@ -200,6 +225,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         public TimeDoubleUnit(final Duration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDoubleUnit<DEVDESSSimulatorInterface.TimeDoubleUnit> getReplication()
+        {
+            return (Replication.TimeDoubleUnit<DEVDESSSimulatorInterface.TimeDoubleUnit>) super.getReplication();
         }
     }
 
@@ -218,6 +251,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloatUnit<? extends DEVDESSSimulatorInterface.TimeFloatUnit> getReplication()
+        {
+            return (Replication.TimeFloatUnit<? extends DEVDESSSimulatorInterface.TimeFloatUnit>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVDESSSimulator.CalendarDouble. */
@@ -234,6 +275,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         public CalendarDouble(final Duration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+        
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarDouble<? extends DEVDESSSimulatorInterface.CalendarDouble> getReplication()
+        {
+            return (Replication.CalendarDouble<? extends DEVDESSSimulatorInterface.CalendarDouble>) super.getReplication();
         }
     }
 
@@ -252,6 +301,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarFloat<? extends DEVDESSSimulatorInterface.CalendarFloat> getReplication()
+        {
+            return (Replication.CalendarFloat<? extends DEVDESSSimulatorInterface.CalendarFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVDESSSimulator.CalendarLong. */
@@ -268,6 +325,14 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         public CalendarLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarLong<? extends DEVDESSSimulatorInterface.CalendarLong> getReplication()
+        {
+            return (Replication.CalendarLong<? extends DEVDESSSimulatorInterface.CalendarLong>) super.getReplication();
         }
     }
 

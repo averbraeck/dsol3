@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.reflection.ClassUtil;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -18,7 +19,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
  * The SimEvent forms the essential scheduling mechanism for D-SOL. Objects do not invoke methods directly on eachother;

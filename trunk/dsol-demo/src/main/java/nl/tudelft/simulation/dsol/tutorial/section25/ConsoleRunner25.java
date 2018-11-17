@@ -2,9 +2,10 @@ package nl.tudelft.simulation.dsol.tutorial.section25;
 
 import java.net.URL;
 
+import org.djutils.io.URLResource;
+
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.language.io.URLResource;
 import nl.tudelft.simulation.xml.dsol.ExperimentParser;
 
 /**

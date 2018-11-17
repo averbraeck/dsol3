@@ -2,10 +2,11 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
+import org.djutils.logger.Cat;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.logger.Cat;
 
 /**
  * OutputPort class. The output port transfers the event (message) to the next receiver. In case there is no next

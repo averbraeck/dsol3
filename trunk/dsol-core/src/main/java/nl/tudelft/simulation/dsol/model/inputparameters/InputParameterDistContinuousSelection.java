@@ -3,13 +3,17 @@ package nl.tudelft.simulation.dsol.model.inputparameters;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.djutils.exceptions.Throw;
+import org.djutils.logger.CategoryLogger;
+
+import nl.tudelft.simulation.jstats.distributions.DistBeta;
+import nl.tudelft.simulation.jstats.distributions.DistConstant;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.distributions.DistTriangular;
 import nl.tudelft.simulation.jstats.distributions.DistUniform;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * InputParameterDistContinuousSelection takes care of exposing the necessary parameters for each of the continuous distribution
@@ -37,6 +41,8 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         distOptions = new TreeMap<>();
         try
         {
+            distOptions.put("Beta", new Beta());
+            distOptions.put("Constant", new Constant());
             distOptions.put("Exponential", new Exponential());
             distOptions.put("Normal", new Normal());
             distOptions.put("Triangular", new Triangular());
@@ -96,21 +102,30 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         private static final long serialVersionUID = 1L;
 
         /**
-         * Construct the input for the exponential distribution.
+         * Construct the input for the Exponential distribution.
          * @throws InputParameterException on error with the distribution
          */
         public Exponential() throws InputParameterException
         {
             super("Exponential", "Exponential", "Negative Exponential distribution", 1.0);
             add(new InputParameterDouble("lambda", "lambda", "lambda value, mean of the exponential distribution", 1.0, 0.0,
-                    Double.MAX_VALUE, "%f", 1.0));
+                    Double.MAX_VALUE, false, false, "%f", 1.0));
         }
 
         /** {@inheritDoc} */
         @Override
-        public DistContinuous getDist() throws InputParameterException
+        public DistExponential getDist() throws InputParameterException
         {
-            return new DistExponential(getStream(), (Double) get("lambda").getValue());
+            Throw.when((Double) get("lambda").getValue() <= 0.0, InputParameterException.class,
+                    "DistExponential: lambda <= 0.0");
+            try
+            {
+                return new DistExponential(getStream(), (Double) get("lambda").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistExponential: " + exception.getMessage(), exception);
+            }
         }
     }
 
@@ -128,16 +143,24 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         {
             super("Normal", "Normal", "Normal distribution", 1.0);
             add(new InputParameterDouble("mu", "mu", "mu value, mean of the Normal distribution", 0.0, -Double.MAX_VALUE,
-                    Double.MAX_VALUE, "%f", 1.0));
+                    Double.MAX_VALUE, false, false, "%f", 1.0));
             add(new InputParameterDouble("sigma", "sigma", "sigma value, standard deviation of the Normal distribution", 1.0,
-                    0.0, Double.MAX_VALUE, "%f", 2.0));
+                    0.0, Double.MAX_VALUE, true, false, "%f", 2.0));
         }
 
         /** {@inheritDoc} */
         @Override
-        public DistContinuous getDist() throws InputParameterException
+        public DistNormal getDist() throws InputParameterException
         {
-            return new DistNormal(getStream(), (Double) get("mu").getValue(), (Double) get("sigma").getValue());
+            Throw.when((Double) get("sigma").getValue() < 0.0, InputParameterException.class, "DistNormal: sigma < 0.0");
+            try
+            {
+                return new DistNormal(getStream(), (Double) get("mu").getValue(), (Double) get("sigma").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistNormal: " + exception.getMessage(), exception);
+            }
         }
     }
 
@@ -155,19 +178,34 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         {
             super("Triangular", "Triangular", "Triangular distribution", 1.0);
             add(new InputParameterDouble("a", "min", "a value, lowest value of the Triangular distribution", 0.0,
-                    -Double.MAX_VALUE, Double.MAX_VALUE, "%f", 1.0));
+                    -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 1.0));
             add(new InputParameterDouble("b", "mode", "b value, mode value of the Triangular distribution", 1.0,
-                    -Double.MAX_VALUE, Double.MAX_VALUE, "%f", 2.0));
+                    -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 2.0));
             add(new InputParameterDouble("c", "max", "c value, highest value of the Triangular distribution", 2.0,
-                    -Double.MAX_VALUE, Double.MAX_VALUE, "%f", 3.0));
+                    -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 3.0));
         }
 
         /** {@inheritDoc} */
         @Override
-        public DistContinuous getDist() throws InputParameterException
+        public DistTriangular getDist() throws InputParameterException
         {
-            return new DistTriangular(getStream(), (Double) get("a").getValue(), (Double) get("b").getValue(),
-                    (Double) get("c").getValue());
+            Throw.when((Double) get("a").getValue() > (Double) get("b").getValue(), InputParameterException.class,
+                    "DistTriangular: a > b");
+            Throw.when((Double) get("b").getValue() > (Double) get("c").getValue(), InputParameterException.class,
+                    "DistTriangular: b > c");
+            Throw.when(
+                    ((Double) get("a").getValue()).equals(get("b").getValue())
+                            && ((Double) get("b").getValue()).equals(get("c").getValue()),
+                    InputParameterException.class, "DistTriangular: a == b == c");
+            try
+            {
+                return new DistTriangular(getStream(), (Double) get("a").getValue(), (Double) get("b").getValue(),
+                        (Double) get("c").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistTriangular: " + exception.getMessage(), exception);
+            }
         }
     }
 
@@ -185,16 +223,94 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         {
             super("Uniform", "Uniform", "Uniform distribution", 1.0);
             add(new InputParameterDouble("a", "min", "a value, lowest value of the Uniform distribution", 0.0,
-                    -Double.MAX_VALUE, Double.MAX_VALUE, "%f", 1.0));
+                    -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 1.0));
             add(new InputParameterDouble("b", "max", "b value, highest value of the Uniform distribution", 1.0,
-                    -Double.MAX_VALUE, Double.MAX_VALUE, "%f", 2.0));
+                    -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 2.0));
         }
 
         /** {@inheritDoc} */
         @Override
-        public DistContinuous getDist() throws InputParameterException
+        public DistUniform getDist() throws InputParameterException
         {
-            return new DistUniform(getStream(), (Double) get("a").getValue(), (Double) get("b").getValue());
+            Throw.when((Double) get("a").getValue() >= (Double) get("b").getValue(), InputParameterException.class,
+                    "DistUniform: a >= b");
+            try
+            {
+                return new DistUniform(getStream(), (Double) get("a").getValue(), (Double) get("b").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistUniform: " + exception.getMessage(), exception);
+            }
         }
     }
+
+    /** InputParameterDistContinuous.Beta class. */
+    public static class Beta extends InputParameterMapDistContinuous
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Construct the input for the Beta distribution.
+         * @throws InputParameterException on error with the distribution
+         */
+        public Beta() throws InputParameterException
+        {
+            super("Beta", "Beta", "Beta distribution", 1.0);
+            add(new InputParameterDouble("alpha1", "alpha1", "alpha1 value", 1.0, 0.0, Double.MAX_VALUE, false, false, "%f",
+                    1.0));
+            add(new InputParameterDouble("alpha2", "alpha2", "alpha2 value", 1.0, 0.0, Double.MAX_VALUE, false, false, "%f",
+                    2.0));
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DistBeta getDist() throws InputParameterException
+        {
+            Throw.when((Double) get("alpha1").getValue() <= 0.0, InputParameterException.class, "DistBeta: alpha1 <= 0.0");
+            Throw.when((Double) get("alpha2").getValue() <= 0.0, InputParameterException.class, "DistBeta: alpha2 <= 0.0");
+            try
+            {
+                return new DistBeta(getStream(), (Double) get("alpha1").getValue(), (Double) get("alpha2").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistBeta: " + exception.getMessage(), exception);
+            }
+        }
+    }
+
+    /** InputParameterDistContinuous.Constant class. */
+    public static class Constant extends InputParameterMapDistContinuous
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Construct the input for the Constant distribution.
+         * @throws InputParameterException on error with the distribution
+         */
+        public Constant() throws InputParameterException
+        {
+            super("Constant", "Constant", "Constant 'distribution'", 1.0);
+            add(new InputParameterDouble("c", "c", "constant value to return", 0.0, -Double.MAX_VALUE, Double.MAX_VALUE, false,
+                    false, "%f", 1.0));
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DistConstant getDist() throws InputParameterException
+        {
+            try
+            {
+                return new DistConstant(getStream(), (Double) get("c").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistConstant: " + exception.getMessage(), exception);
+            }
+        }
+    }
+
 }

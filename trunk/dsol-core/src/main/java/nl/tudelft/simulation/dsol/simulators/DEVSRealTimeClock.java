@@ -9,6 +9,7 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -23,20 +24,19 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.event.EventType;
 
 /**
- * The reference implementation of the realTimeClock. The realTime clock is a DEVS simulator which runs at a ratio of
- * realTime. If the executionTime exceeds the timeStep, a catchup mechanism can be triggered to make up lost time in
- * consecutive steps.
+ * The reference implementation of the realTimeClock. The realTime clock is a DEVS simulator which runs at a ratio of realTime.
+ * If the executionTime exceeds the timeStep, a catchup mechanism can be triggered to make up lost time in consecutive steps.
  * <p>
- * Copyright (c) 2004-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2004-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -56,11 +56,11 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     private double speedFactor = 1.0;
 
     /**
-     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated
-     * between events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100
-     * Hz between events. When this is too course, set e.g. to 1, which means that the clock will be updated with 1 kHz
-     * between events. The latter can be important in real time simulations. Note that the housekeeping of the
-     * simulation clock takes time as well, so 1 kHz can be too fine grained in some situations.
+     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated between
+     * events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100 Hz between
+     * events. When this is too course, set e.g. to 1, which means that the clock will be updated with 1 kHz between events. The
+     * latter can be important in real time simulations. Note that the housekeeping of the simulation clock takes time as well,
+     * so 1 kHz can be too fine grained in some situations.
      */
     private int updateMsec = 10;
 
@@ -138,13 +138,12 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
             // peek at the first event and determine the time difference relative to RT speed; that determines
             // how long we have to wait.
             SimEventInterface<T> event = this.eventList.first();
-            double simTimeDiffMillis =
-                    (event.getAbsoluteExecutionTime().diff(simTime0)).doubleValue() / (msec1 * factor);
+            double simTimeDiffMillis = (event.getAbsoluteExecutionTime().diff(simTime0)).doubleValue() / (msec1 * factor);
 
             /*
-             * simTimeDiff gives the number of milliseconds between the last event and this event. if speed == 1, this
-             * is the number of milliseconds we have to wait. if speed == 10, we have to wait 1/10 of that. If the speed
-             * == 0.1, we have to wait 10 times that amount. We might also be behind.
+             * simTimeDiff gives the number of milliseconds between the last event and this event. if speed == 1, this is the
+             * number of milliseconds we have to wait. if speed == 10, we have to wait 1/10 of that. If the speed == 0.1, we
+             * have to wait 10 times that amount. We might also be behind.
              */
             if (simTimeDiffMillis >= (System.currentTimeMillis() - clockTime0))
             {
@@ -172,8 +171,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                     if (!event.equals(this.eventList.first())) // event inserted by a thread...
                     {
                         event = this.eventList.first();
-                        simTimeDiffMillis =
-                                (event.getAbsoluteExecutionTime().diff(simTime0)).doubleValue() / (msec1 * factor);
+                        simTimeDiffMillis = (event.getAbsoluteExecutionTime().diff(simTime0)).doubleValue() / (msec1 * factor);
                     }
                     else
                     {
@@ -200,8 +198,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                 this.simulatorTime = event.getAbsoluteExecutionTime();
 
                 // carry out all events scheduled on this simulation time, as long as we are still running.
-                while (this.isRunning() && !this.eventList.isEmpty()
-                        && event.getAbsoluteExecutionTime().eq(this.simulatorTime))
+                while (this.isRunning() && !this.eventList.isEmpty() && event.getAbsoluteExecutionTime().eq(this.simulatorTime))
                 {
                     event = this.eventList.removeFirst();
                     try
@@ -284,9 +281,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /**
-     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated
-     * between events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100
-     * Hz between events.
+     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated between
+     * events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100 Hz between
+     * events.
      * @return the relative update delay in milliseconds
      */
     public final int getUpdateMsec()
@@ -295,11 +292,11 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     }
 
     /**
-     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated
-     * between events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100
-     * Hz between events. When this is too course, set e.g. to 1, which means that the clock will be updated with 1 kHz
-     * between events. The latter can be important in real time simulations. Note that the housekeeping of the
-     * simulation clock takes time as well, so 1 kHz can be too fine grained in some situations.
+     * The relative update delay in milliseconds is the step size in wall clock time by which the time is updated between
+     * events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100 Hz between
+     * events. When this is too course, set e.g. to 1, which means that the clock will be updated with 1 kHz between events. The
+     * latter can be important in real time simulations. Note that the housekeeping of the simulation clock takes time as well,
+     * so 1 kHz can be too fine grained in some situations.
      * @param updateMsec int; set the relative update delay in milliseconds
      */
     public final void setUpdateMsec(final int updateMsec)
@@ -319,8 +316,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20140805L;
 
         /**
-         * the translation from a millisecond on the wall clock to '1.0' in the simulation time. This means that if the
-         * wall clock runs in seconds, the factor should be 0.001.
+         * the translation from a millisecond on the wall clock to '1.0' in the simulation time. This means that if the wall
+         * clock runs in seconds, the factor should be 0.001.
          */
         private final double msecWallClockToSimTimeUnit;
 
@@ -340,6 +337,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         {
             return this.msecWallClockToSimTimeUnit * factor;
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble> getReplication()
+        {
+            return (Replication.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class RealTimeClock.TimeFloat. */
@@ -348,6 +353,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloat<? extends DEVSSimulatorInterface.TimeFloat> getReplication()
+        {
+            return (Replication.TimeFloat<? extends DEVSSimulatorInterface.TimeFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class RealTimeClock.TimeLong. */
@@ -356,6 +369,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeLong<? extends DEVSSimulatorInterface.TimeLong> getReplication()
+        {
+            return (Replication.TimeLong<? extends DEVSSimulatorInterface.TimeLong>) super.getReplication();
+        }
     }
 
     /** Easy access class RealTimeClock.TimeDoubleUnit. */
@@ -370,6 +391,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         protected final Duration relativeMillis(final double factor)
         {
             return new Duration(factor, DurationUnit.MILLISECOND);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDoubleUnit<? extends DEVSSimulatorInterface.TimeDoubleUnit> getReplication()
+        {
+            return (Replication.TimeDoubleUnit<? extends DEVSSimulatorInterface.TimeDoubleUnit>) super.getReplication();
         }
     }
 
@@ -386,6 +415,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         {
             return new FloatDuration((float) factor, DurationUnit.MILLISECOND);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloatUnit<? extends DEVSSimulatorInterface.TimeFloatUnit> getReplication()
+        {
+            return (Replication.TimeFloatUnit<? extends DEVSSimulatorInterface.TimeFloatUnit>) super.getReplication();
+        }
     }
 
     /** Easy access class RealTimeClock.CalendarDouble. */
@@ -400,6 +437,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         protected final Duration relativeMillis(final double factor)
         {
             return new Duration(factor, DurationUnit.MILLISECOND);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarDouble<? extends DEVSSimulatorInterface.CalendarDouble> getReplication()
+        {
+            return (Replication.CalendarDouble<? extends DEVSSimulatorInterface.CalendarDouble>) super.getReplication();
         }
     }
 
@@ -416,6 +461,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         {
             return new FloatDuration((float) factor, DurationUnit.MILLISECOND);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarFloat<? extends DEVSSimulatorInterface.CalendarFloat> getReplication()
+        {
+            return (Replication.CalendarFloat<? extends DEVSSimulatorInterface.CalendarFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class RealTimeClock.CalendarLong. */
@@ -430,6 +483,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         protected final Long relativeMillis(final double factor)
         {
             return (long) factor;
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarLong<? extends DEVSSimulatorInterface.CalendarLong> getReplication()
+        {
+            return (Replication.CalendarLong<? extends DEVSSimulatorInterface.CalendarLong>) super.getReplication();
         }
     }
 

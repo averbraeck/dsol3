@@ -7,13 +7,14 @@ import java.util.Properties;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.Bounds;
 
+import org.djutils.io.URLResource;
+
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * An Editable object is a simulation object that can be edited by the user. That means that the user is capable of

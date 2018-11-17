@@ -6,8 +6,9 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 
+import org.djutils.io.URLResource;
+
 import nl.tudelft.simulation.dsol.swing.animation.D2.GridPanel;
-import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * The PanRightAction

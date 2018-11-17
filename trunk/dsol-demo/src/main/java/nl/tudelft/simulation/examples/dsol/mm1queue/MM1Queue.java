@@ -10,7 +10,7 @@ import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime;
-import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
+import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimulationTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.statistics.Counter;
 import nl.tudelft.simulation.dsol.statistics.Persistent;
@@ -59,7 +59,7 @@ public class MM1Queue extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
 
         // The Generator
         Generator.TimeDouble generator = new Generator.TimeDouble(this.simulator, Customer.class, null);
-        DistContinuousTime.TimeDouble intervalTime = new DistContinuousTime.TimeDouble(
+        DistContinuousSimulationTime.TimeDouble intervalTime = new DistContinuousSimulationTime.TimeDouble(
                 new DistExponential(defaultStream, new Double(properties.getProperty("generator.intervalTime")).doubleValue()));
         generator.setInterval(intervalTime);
 
@@ -80,7 +80,7 @@ public class MM1Queue extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
         StationInterface.TimeDouble release = new Release(this.simulator, resource, capacity);
 
         // The server
-        DistContinuousTime.TimeDouble serviceTime = new DistContinuousTime.TimeDouble(
+        DistContinuousSimulationTime.TimeDouble serviceTime = new DistContinuousSimulationTime.TimeDouble(
                 new DistExponential(defaultStream, new Double(properties.getProperty("resource.serviceTime")).doubleValue()));
         StationInterface.TimeDouble server = new Delay.TimeDouble(this.simulator, serviceTime);
 

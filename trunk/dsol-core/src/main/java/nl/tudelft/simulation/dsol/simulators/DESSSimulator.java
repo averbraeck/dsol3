@@ -130,6 +130,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDouble<? extends DESSSimulatorInterface.TimeDouble> getReplication()
+        {
+            return (Replication.TimeDouble<? extends DESSSimulatorInterface.TimeDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class DESSSimulator.TimeFloat. */
@@ -146,6 +154,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloat<? extends DESSSimulatorInterface.TimeFloat> getReplication()
+        {
+            return (Replication.TimeFloat<? extends DESSSimulatorInterface.TimeFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class DESSSimulator.TimeLong. */
@@ -161,6 +177,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         public TimeLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeLong<? extends DESSSimulatorInterface.TimeLong> getReplication()
+        {
+            return (Replication.TimeLong<? extends DESSSimulatorInterface.TimeLong>) super.getReplication();
         }
     }
 
@@ -179,6 +203,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDoubleUnit<DESSSimulatorInterface.TimeDoubleUnit> getReplication()
+        {
+            return (Replication.TimeDoubleUnit<DESSSimulatorInterface.TimeDoubleUnit>) super.getReplication();
+        }
     }
 
     /** Easy access class DESSSimulator.TimeFloatUnit. */
@@ -195,6 +227,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         public TimeFloatUnit(final FloatDuration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloatUnit<? extends DESSSimulatorInterface.TimeFloatUnit> getReplication()
+        {
+            return (Replication.TimeFloatUnit<? extends DESSSimulatorInterface.TimeFloatUnit>) super.getReplication();
         }
     }
 
@@ -213,6 +253,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarDouble<? extends DESSSimulatorInterface.CalendarDouble> getReplication()
+        {
+            return (Replication.CalendarDouble<? extends DESSSimulatorInterface.CalendarDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class DESSSimulator.CalendarFloat. */
@@ -230,6 +278,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarFloat<? extends DESSSimulatorInterface.CalendarFloat> getReplication()
+        {
+            return (Replication.CalendarFloat<? extends DESSSimulatorInterface.CalendarFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class DESSSimulator.CalendarLong. */
@@ -246,6 +302,14 @@ public class DESSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         public CalendarLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarLong<? extends DESSSimulatorInterface.CalendarLong> getReplication()
+        {
+            return (Replication.CalendarLong<? extends DESSSimulatorInterface.CalendarLong>) super.getReplication();
         }
     }
 

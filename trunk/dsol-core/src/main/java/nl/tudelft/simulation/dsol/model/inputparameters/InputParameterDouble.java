@@ -22,6 +22,12 @@ public class InputParameterDouble extends AbstractInputParameter<Double>
     /** The maximum value of the input parameter. */
     private double maximumValue = Double.MAX_VALUE;
 
+    /** Is the minimum value included or excluded in the allowed interval? */
+    private boolean minIncluded = true;
+
+    /** Is the maximum value included or excluded in the allowed interval? */
+    private boolean maxIncluded = true;
+
     /**
      * Construct a new InputParameterDouble.
      * @param key String; unique (within the parent's input parameter map) name of the new InputParameterDouble
@@ -44,16 +50,21 @@ public class InputParameterDouble extends AbstractInputParameter<Double>
      * @param defaultValue double; the default value of this input parameter
      * @param minimumValue double; the lowest value allowed as input
      * @param maximumValue double; the highest value allowed as input
+     * @param minIncluded boolean; is the minimum value included or excluded in the allowed interval?
+     * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
      * @param format the format to use in displaying the double
      * @param displayPriority double; sorting order when properties are displayed to the user
      */
     @SuppressWarnings("checkstyle:parameternumber")
     public InputParameterDouble(final String key, final String shortName, final String description, final double defaultValue,
-            final double minimumValue, final double maximumValue, final String format, final double displayPriority)
+            final double minimumValue, final double maximumValue, final boolean minIncluded, final boolean maxIncluded,
+            final String format, final double displayPriority)
     {
         super(key, shortName, description, defaultValue, displayPriority);
         this.minimumValue = minimumValue;
         this.maximumValue = maximumValue;
+        this.minIncluded = minIncluded;
+        this.maxIncluded = maxIncluded;
         this.format = format;
     }
 
@@ -115,6 +126,38 @@ public class InputParameterDouble extends AbstractInputParameter<Double>
     public final void setMaximumValue(final double maximumValue)
     {
         this.maximumValue = maximumValue;
+    }
+
+    /**
+     * @return minIncluded
+     */
+    public final boolean isMinIncluded()
+    {
+        return this.minIncluded;
+    }
+
+    /**
+     * @param minIncluded set minIncluded
+     */
+    public final void setMinIncluded(final boolean minIncluded)
+    {
+        this.minIncluded = minIncluded;
+    }
+
+    /**
+     * @return maxIncluded
+     */
+    public final boolean isMaxIncluded()
+    {
+        return this.maxIncluded;
+    }
+
+    /**
+     * @param maxIncluded set maxIncluded
+     */
+    public final void setMaxIncluded(final boolean maxIncluded)
+    {
+        this.maxIncluded = maxIncluded;
     }
 
     /** {@inheritDoc} */

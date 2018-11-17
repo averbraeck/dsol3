@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.djunits.unit.DurationUnit;
+import org.djutils.io.URLResource;
+import org.djutils.reflection.ClassUtil;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -29,8 +31,6 @@ import nl.tudelft.simulation.dsol.simulators.DEVSAnimator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
-import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
  * The ExperimentParser parses xml-based experiments into their java objects.

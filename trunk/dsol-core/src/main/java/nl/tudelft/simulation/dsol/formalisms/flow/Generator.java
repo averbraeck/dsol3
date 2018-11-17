@@ -7,6 +7,8 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.logger.Cat;
+import org.djutils.reflection.ClassUtil;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
@@ -21,13 +23,11 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime;
-import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
+import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimulationTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
 import nl.tudelft.simulation.language.reflection.SerializableConstructor;
-import nl.tudelft.simulation.logger.Cat;
 
 /**
  * This class defines a generator.
@@ -60,7 +60,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /** interval defines the inter-construction time. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected DistContinuousTime<R> interval;
+    protected DistContinuousSimulationTime<R> interval;
 
     /** startTime defines the absolute startTime for the generator. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -173,7 +173,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
      * @return DistContinuous
      */
     @SuppressWarnings("checkstyle:designforextension")
-    public DistContinuousTime<R> getInterval()
+    public DistContinuousSimulationTime<R> getInterval()
     {
         return this.interval;
     }
@@ -201,7 +201,7 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param interval DistContinuousTime&lt;R&gt;; is the interarrival time
      */
     @SuppressWarnings("checkstyle:designforextension")
-    public void setInterval(final DistContinuousTime<R> interval)
+    public void setInterval(final DistContinuousSimulationTime<R> interval)
     {
         this.interval = interval;
     }
@@ -278,16 +278,16 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
          * sets the interarrival distribution.
          * @param interval DistContinuousTime.TimeDouble; is the interarrival time
          */
-        public final void setInterval(final DistContinuousTime.TimeDouble interval)
+        public final void setInterval(final DistContinuousSimulationTime.TimeDouble interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousTime.TimeDouble getInterval()
+        public final DistContinuousSimulationTime.TimeDouble getInterval()
         {
-            return (DistContinuousTime.TimeDouble) this.interval;
+            return (DistContinuousSimulationTime.TimeDouble) this.interval;
         }
 
         /**
@@ -336,16 +336,16 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
          * sets the interarrival distribution.
          * @param interval DistContinuousTime.TimeFloat; is the interarrival time
          */
-        public final void setInterval(final DistContinuousTime.TimeFloat interval)
+        public final void setInterval(final DistContinuousSimulationTime.TimeFloat interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousTime.TimeFloat getInterval()
+        public final DistContinuousSimulationTime.TimeFloat getInterval()
         {
-            return (DistContinuousTime.TimeFloat) this.interval;
+            return (DistContinuousSimulationTime.TimeFloat) this.interval;
         }
 
         /**
@@ -394,16 +394,16 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
          * sets the interarrival distribution.
          * @param interval DistContinuousTime.TimeLong; is the interarrival time
          */
-        public final void setInterval(final DistContinuousTime.TimeLong interval)
+        public final void setInterval(final DistContinuousSimulationTime.TimeLong interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousTime.TimeLong getInterval()
+        public final DistContinuousSimulationTime.TimeLong getInterval()
         {
-            return (DistContinuousTime.TimeLong) this.interval;
+            return (DistContinuousSimulationTime.TimeLong) this.interval;
         }
 
         /**
@@ -453,16 +453,16 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
          * sets the interarrival distribution.
          * @param interval DistContinuousTime.TimeDoubleUnit; is the interarrival time
          */
-        public final void setInterval(final DistContinuousTime.TimeDoubleUnit interval)
+        public final void setInterval(final DistContinuousSimulationTime.TimeDoubleUnit interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousTime.TimeDoubleUnit getInterval()
+        public final DistContinuousSimulationTime.TimeDoubleUnit getInterval()
         {
-            return (DistContinuousTime.TimeDoubleUnit) this.interval;
+            return (DistContinuousSimulationTime.TimeDoubleUnit) this.interval;
         }
 
         /**
@@ -512,16 +512,16 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
          * sets the interarrival distribution.
          * @param interval DistContinuousTime.TimeFloatUnit; is the interarrival time
          */
-        public final void setInterval(final DistContinuousTime.TimeFloatUnit interval)
+        public final void setInterval(final DistContinuousSimulationTime.TimeFloatUnit interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousTime.TimeFloatUnit getInterval()
+        public final DistContinuousSimulationTime.TimeFloatUnit getInterval()
         {
-            return (DistContinuousTime.TimeFloatUnit) this.interval;
+            return (DistContinuousSimulationTime.TimeFloatUnit) this.interval;
         }
 
         /**
@@ -571,16 +571,16 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
          * sets the interarrival distribution.
          * @param interval DistContinuousTime.CalendarDouble; is the interarrival time
          */
-        public final void setInterval(final DistContinuousTime.CalendarDouble interval)
+        public final void setInterval(final DistContinuousSimulationTime.CalendarDouble interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousTime.CalendarDouble getInterval()
+        public final DistContinuousSimulationTime.CalendarDouble getInterval()
         {
-            return (DistContinuousTime.CalendarDouble) this.interval;
+            return (DistContinuousSimulationTime.CalendarDouble) this.interval;
         }
 
         /**
@@ -630,16 +630,16 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
          * sets the interarrival distribution.
          * @param interval DistContinuousTime.CalendarFloat; is the interarrival time
          */
-        public final void setInterval(final DistContinuousTime.CalendarFloat interval)
+        public final void setInterval(final DistContinuousSimulationTime.CalendarFloat interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousTime.CalendarFloat getInterval()
+        public final DistContinuousSimulationTime.CalendarFloat getInterval()
         {
-            return (DistContinuousTime.CalendarFloat) this.interval;
+            return (DistContinuousSimulationTime.CalendarFloat) this.interval;
         }
 
         /**
@@ -689,16 +689,16 @@ public class Generator<A extends Comparable<A>, R extends Number & Comparable<R>
          * sets the interarrival distribution.
          * @param interval DistContinuousTime.CalendarLong; is the interarrival time
          */
-        public final void setInterval(final DistContinuousTime.CalendarLong interval)
+        public final void setInterval(final DistContinuousSimulationTime.CalendarLong interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousTime.CalendarLong getInterval()
+        public final DistContinuousSimulationTime.CalendarLong getInterval()
         {
-            return (DistContinuousTime.CalendarLong) this.interval;
+            return (DistContinuousSimulationTime.CalendarLong) this.interval;
         }
 
         /**

@@ -111,7 +111,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @return the experiment
      */
-    public final Experiment<A, R, T, ? extends SimulatorInterface<A, R, T>> getExperiment()
+    public Experiment<A, R, T, ? extends SimulatorInterface<A, R, T>> getExperiment()
     {
         return this.experiment;
     }
@@ -265,6 +265,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         {
             super(experiment, id, new SimTimeDouble(startTime), warmupPeriod, runLength);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Experiment.TimeDouble<? extends SimulatorInterface.TimeDouble> getExperiment()
+        {
+            return (Experiment.TimeDouble<? extends SimulatorInterface.TimeDouble>) super.getExperiment();
+        }
     }
 
     /**
@@ -305,6 +313,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         {
             super(experiment, id, new SimTimeFloat(startTime), warmupPeriod, runLength);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Experiment.TimeFloat<? extends SimulatorInterface.TimeFloat> getExperiment()
+        {
+            return (Experiment.TimeFloat<? extends SimulatorInterface.TimeFloat>) super.getExperiment();
+        }
     }
 
     /**
@@ -344,6 +360,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
                 final Long startTime, final Long warmupPeriod, final Long runLength)
         {
             super(experiment, id, new SimTimeLong(startTime), warmupPeriod, runLength);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Experiment.TimeLong<? extends SimulatorInterface.TimeLong> getExperiment()
+        {
+            return (Experiment.TimeLong<? extends SimulatorInterface.TimeLong>) super.getExperiment();
         }
     }
 
@@ -386,6 +410,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         {
             super(experiment, id, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Experiment.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit> getExperiment()
+        {
+            return (Experiment.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit>) super.getExperiment();
+        }
     }
 
     /**
@@ -426,6 +458,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
                 final String id, final FloatTime startTime, final FloatDuration warmupPeriod, final FloatDuration runLength)
         {
             super(experiment, id, new SimTimeFloatUnit(startTime), warmupPeriod, runLength);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Experiment.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit> getExperiment()
+        {
+            return (Experiment.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit>) super.getExperiment();
         }
     }
 
@@ -468,6 +508,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         {
             super(experiment, id, new SimTimeCalendarDouble(startTime), warmupPeriod, runLength);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Experiment.CalendarDouble<? extends SimulatorInterface.CalendarDouble> getExperiment()
+        {
+            return (Experiment.CalendarDouble<? extends SimulatorInterface.CalendarDouble>) super.getExperiment();
+        }
     }
 
     /**
@@ -509,6 +557,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         {
             super(experiment, id, new SimTimeCalendarFloat(startTime), warmupPeriod, runLength);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Experiment.CalendarFloat<? extends SimulatorInterface.CalendarFloat> getExperiment()
+        {
+            return (Experiment.CalendarFloat<? extends SimulatorInterface.CalendarFloat>) super.getExperiment();
+        }
     }
 
     /**
@@ -549,6 +605,14 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
                 final String id, final Calendar startTime, final Long warmupPeriod, final Long runLength)
         {
             super(experiment, id, new SimTimeCalendarLong(startTime), warmupPeriod, runLength);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Experiment.CalendarLong<? extends SimulatorInterface.CalendarLong> getExperiment()
+        {
+            return (Experiment.CalendarLong<? extends SimulatorInterface.CalendarLong>) super.getExperiment();
         }
     }
 }

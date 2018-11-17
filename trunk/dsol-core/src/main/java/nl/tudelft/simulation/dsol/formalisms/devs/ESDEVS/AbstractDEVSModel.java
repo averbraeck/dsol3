@@ -12,6 +12,7 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.reflection.ClassUtil;
 
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -26,7 +27,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
  * AbstractDEVSModel class. The basic model or component from which the AtomicModel, the CoupledModel, and the

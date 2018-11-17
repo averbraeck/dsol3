@@ -8,8 +8,8 @@ import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import nl.tudelft.simulation.logger.Cat;
-import nl.tudelft.simulation.logger.CategoryLogger;
+import org.djutils.logger.Cat;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * <p>

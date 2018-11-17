@@ -4,24 +4,23 @@
  */
 package nl.tudelft.simulation.dsol.hla;
 
+import java.util.Hashtable;
+import java.util.Properties;
+
+import org.djutils.io.URLResource;
+import org.djutils.logger.CategoryLogger;
+
 import hla.rti.EnableTimeConstrainedWasNotPending;
 import hla.rti.EnableTimeRegulationWasNotPending;
 import hla.rti.FederateInternalError;
 import hla.rti.InvalidFederationTime;
 import hla.rti.LogicalTime;
-
-import java.util.Hashtable;
-import java.util.Properties;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Experiment;
 import nl.tudelft.simulation.dsol.hla.callBack.RTIAmbassador;
 import nl.tudelft.simulation.dsol.hla.simulators.HLADEVSSimulator;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.logger.CategoryLogger;
-import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.LogicalTimeDouble;
 import se.pitch.prti.LogicalTimeIntervalDouble;
 import se.pitch.prti.RTI;

@@ -4,13 +4,14 @@ import java.io.DataInput;
 import java.io.IOException;
 import java.lang.reflect.Array;
 
+import org.djutils.primitives.Primitive;
+import org.djutils.reflection.FieldSignature;
+
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
 import nl.tudelft.simulation.dsol.interpreter.OperandStack;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantClass;
-import nl.tudelft.simulation.language.primitives.Primitive;
-import nl.tudelft.simulation.language.reflection.FieldSignature;
 
 /**
  * The MULTINEWARRAY operation as defined in

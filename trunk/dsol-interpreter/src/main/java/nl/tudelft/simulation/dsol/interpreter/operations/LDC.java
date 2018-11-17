@@ -3,6 +3,9 @@ package nl.tudelft.simulation.dsol.interpreter.operations;
 import java.io.DataInput;
 import java.io.IOException;
 
+import org.djutils.logger.CategoryLogger;
+import org.djutils.reflection.FieldSignature;
+
 import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
 import nl.tudelft.simulation.dsol.interpreter.OperandStack;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
@@ -10,8 +13,6 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantClass;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantFloat;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantInteger;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantString;
-import nl.tudelft.simulation.language.reflection.FieldSignature;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The LDC operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">

@@ -10,7 +10,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.spi.InitialContextFactory;
 
-import nl.tudelft.simulation.logger.CategoryLogger;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * A factory for FileContext instances, automatically invoked by JNDI when the correct jndi.properties file has been

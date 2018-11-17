@@ -26,7 +26,6 @@ import javax.vecmath.Point4i;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DComparator;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
-import nl.tudelft.simulation.dsol.jetty.test.sse.DSOLWebServer;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;

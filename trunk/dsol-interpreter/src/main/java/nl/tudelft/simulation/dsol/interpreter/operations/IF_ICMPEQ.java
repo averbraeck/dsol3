@@ -3,10 +3,11 @@ package nl.tudelft.simulation.dsol.interpreter.operations;
 import java.io.DataInput;
 import java.io.IOException;
 
+import org.djutils.primitives.Primitive;
+
 import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
 import nl.tudelft.simulation.dsol.interpreter.OperandStack;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
-import nl.tudelft.simulation.language.primitives.Primitive;
 
 /**
  * The IF_ICMPEQ operation as defined in
