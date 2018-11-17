@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.language.concurrent;
 
-import nl.tudelft.simulation.logger.CategoryLogger;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * The WorkerThread is a working thread. The thread sleeps while not interrupted. If interrupted the job.run operation

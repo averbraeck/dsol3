@@ -15,14 +15,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.djutils.immutablecollections.ImmutableArrayList;
+import org.djutils.immutablecollections.ImmutableHashMap;
+import org.djutils.immutablecollections.ImmutableList;
+import org.djutils.immutablecollections.ImmutableMap;
+
 import nl.javel.gisbeans.geom.GisObject;
 import nl.javel.gisbeans.geom.SerializableGeneralPath;
 import nl.javel.gisbeans.geom.SerializableRectangle2D;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.immutablecollections.ImmutableArrayList;
-import nl.tudelft.simulation.immutablecollections.ImmutableHashMap;
-import nl.tudelft.simulation.immutablecollections.ImmutableList;
-import nl.tudelft.simulation.immutablecollections.ImmutableMap;
 
 /**
  * Provides the implementation of a Map.

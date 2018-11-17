@@ -5,6 +5,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
+import org.djutils.reflection.ClassUtil;
+import org.djutils.reflection.MethodSignature;
+
 /**
  * A SerializableMethod.
  * <p>

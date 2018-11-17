@@ -13,7 +13,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.djutils.logger.CategoryLogger;
 
 import nl.javel.gisbeans.geom.GisObject;
 import nl.javel.gisbeans.geom.SerializableGeneralPath;
@@ -23,7 +24,6 @@ import nl.javel.gisbeans.io.EndianInterface;
 import nl.javel.gisbeans.io.ObjectEndianInputStream;
 import nl.javel.gisbeans.map.MapInterface;
 import nl.tudelft.simulation.language.d2.Shape;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * This class reads ESRI-shapefiles and returns the shape object

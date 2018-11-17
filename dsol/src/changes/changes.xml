@@ -1,12 +1,32 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.03.00" date="2018-11-06" description="Major refactoring, dsol-web and dsol-animation">
+    <release version="3.03.00" date="2018-11-17" description="Major refactoring, dsol-web and dsol-animation">
+      <action dev="averbraeck" type="update">
+        Generic classes to multiple projects have been moved to the DJUTILS project. 
+        Examples are the immutable collections, the Throw class, URLResource, Primitive,
+        ClassUtil, and the CategoryLogger for tinylog. See www.djutils.org for more info.
+      </action>
+      <action dev="averbraeck" type="add">
+        Distribution functions for scalars with units have been added. They wrap one of
+        the existing (continuous) distributions. Example:
+<![CDATA[
+  <pre>DistContinuousLength lengthDist = new DistContinuousLength(
+    new DistUniform(stream, 1.0, 2.0), LengthUnit.METER);
+  ...
+  Length length = lengthDist.draw();
+</pre>
+]]>
+      </action>
+      <action dev="averbraeck" type="update">
+        Because of the distribution functions with scalars, the existing distribution class
+        DistContinuousTime has been renamed into DistContinuousSimulationTime.
+      </action>
       <action dev="averbraeck" type="update">
         The ExperimentalFrame, Experiment, Replication and Treatment classes have been 
         provided with generics to make them compatible with the type of time used, and
-        the type of simulator used. Easy access classes for the most common types of
-        time have been provided.
+        the type of simulator used. Easy access classes for the 8 most common types of
+        simulation time have been provided.
       </action>
       <action dev="averbraeck" type="add">
         Since version 3.03 of DSOL, models have specified input parameters. These can be 

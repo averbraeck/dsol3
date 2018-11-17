@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Set;
 
+import org.djutils.reflection.ClassUtil;
+
 import nl.tudelft.simulation.language.DSOLException;
 
 /**

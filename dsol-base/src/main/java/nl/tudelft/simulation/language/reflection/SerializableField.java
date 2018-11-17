@@ -5,6 +5,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
+import org.djutils.reflection.ClassUtil;
+import org.djutils.reflection.FieldSignature;
+
 /**
  * A SerializableField.
  * <p>
