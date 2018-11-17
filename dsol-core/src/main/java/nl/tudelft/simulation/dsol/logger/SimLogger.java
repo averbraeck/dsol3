@@ -2,13 +2,14 @@ package nl.tudelft.simulation.dsol.logger;
 
 import java.util.Set;
 
+import org.djutils.logger.CategoryLogger;
+import org.djutils.logger.CategoryLogger.DelegateLogger;
+import org.djutils.logger.LogCategory;
 import org.pmw.tinylog.Level;
 import org.pmw.tinylog.LogEntryForwarder;
 import org.pmw.tinylog.writers.Writer;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.logger.CategoryLogger;
-import nl.tudelft.simulation.logger.LogCategory;
 
 /**
  * SimLogger, "extends" the CategoryLogger to be simulator aware and able to print the simulator time as part of the log

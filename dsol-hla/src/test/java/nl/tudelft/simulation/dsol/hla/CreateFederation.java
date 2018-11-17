@@ -1,8 +1,9 @@
 package nl.tudelft.simulation.dsol.hla;
 
+import org.djutils.io.URLResource;
+import org.djutils.logger.CategoryLogger;
+
 import hla.rti.RTIambassador;
-import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.logger.CategoryLogger;
 import se.pitch.prti.RTI;
 
 /**

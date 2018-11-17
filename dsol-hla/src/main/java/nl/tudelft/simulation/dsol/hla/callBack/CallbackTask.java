@@ -3,9 +3,9 @@ package nl.tudelft.simulation.dsol.hla.callBack;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
+import org.djutils.reflection.ClassUtil;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
  * The CallbackTask forms the essential scheduling mechanism for D-SOL. Objects do not invoke methods directly on each

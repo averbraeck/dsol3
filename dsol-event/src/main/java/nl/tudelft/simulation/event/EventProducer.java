@@ -12,10 +12,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.event.ref.Reference;
 import nl.tudelft.simulation.event.ref.StrongReference;
 import nl.tudelft.simulation.event.ref.WeakReference;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The EventProducer forms the reference implementation of the EventProducerInterface. Objects extending this class are

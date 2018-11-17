@@ -13,14 +13,13 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Configuration;
 import org.pmw.tinylog.Configurator;
 import org.pmw.tinylog.Level;
 import org.pmw.tinylog.LogEntry;
 import org.pmw.tinylog.writers.LogEntryValue;
 import org.pmw.tinylog.writers.Writer;
-
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The Console for the swing application where the log messages are displayed. <br>

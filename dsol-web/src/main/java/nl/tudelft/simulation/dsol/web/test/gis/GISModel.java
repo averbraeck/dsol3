@@ -2,10 +2,11 @@ package nl.tudelft.simulation.dsol.web.test.gis;
 
 import java.net.URL;
 
+import org.djutils.io.URLResource;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
-import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * <p>

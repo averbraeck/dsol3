@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.model.inputparameters;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.simulation.language.Throw;
+import org.djutils.exceptions.Throw;
 
 /**
  * InputParameterSelectionList contains a list of values to select from. An example would be a list of countries (String), a

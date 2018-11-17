@@ -141,6 +141,45 @@ public class InputParameterMap extends AbstractInputParameter<SortedMap<String, 
         set.addAll(getValue().values());
         return set;
     }
+    
+    /**
+     * Return a formatted human readable list of keys and values, indented with spaces corresponding to the depth.
+     * @param map InputParameterMap; the map to display
+     * @param depth int; the depth of the tree
+     * @return String; a formatted human readable list of keys and values, indented by depth 
+     */
+    protected String printValues(final InputParameterMap map, final int depth)
+    {
+        StringBuffer out = new StringBuffer();
+        for (InputParameter<?> param : map.getSortedSet())
+        {
+            out.append("                    ".substring(0, depth));
+            if (param instanceof InputParameterMap)
+            {
+                out.append("MAP: ");
+                out.append(param.getKey());
+                out.append("\n");
+                out.append(printValues((InputParameterMap) param, depth + 2));
+            }
+            else
+            {
+                out.append(param.getKey());
+                out.append(" = ");
+                out.append(param.getValue());
+                out.append("\n");
+            }
+        }
+        return out.toString();
+    }
+    
+    /**
+     * Return a formatted human readable list of keys and values.
+     * @return String; a formatted human readable list of keys and values 
+     */
+    public String printValues()
+    {
+        return printValues(this, 0);
+    }
 
     /**
      * InputParameterComparator provides the comparator based on the displayPriority of the entries. In case they are the same,

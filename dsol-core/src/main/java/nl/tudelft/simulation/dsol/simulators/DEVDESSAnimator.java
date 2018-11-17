@@ -8,6 +8,7 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -23,17 +24,17 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * The reference implementation of the animator.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -101,8 +102,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
                 // Let's neglect this sleep..
             }
             T runUntil = this.simulatorTime.plus(this.timeStep);
-            while (!this.eventList.isEmpty() && this.running
-                    && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
+            while (!this.eventList.isEmpty() && this.running && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
                 synchronized (super.semaphore)
                 {
@@ -152,6 +152,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDouble<? extends DEVDESSSimulatorInterface.TimeDouble> getReplication()
+        {
+            return (Replication.TimeDouble<? extends DEVDESSSimulatorInterface.TimeDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class Animator.TimeFloat. */
@@ -169,11 +177,18 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloat<? extends DEVDESSSimulatorInterface.TimeFloat> getReplication()
+        {
+            return (Replication.TimeFloat<? extends DEVDESSSimulatorInterface.TimeFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class Animator.TimeLong. */
-    public static class TimeLong extends DEVDESSAnimator<Long, Long, SimTimeLong>
-            implements DEVDESSSimulatorInterface.TimeLong
+    public static class TimeLong extends DEVDESSAnimator<Long, Long, SimTimeLong> implements DEVDESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -185,6 +200,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         public TimeLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeLong<? extends DEVDESSSimulatorInterface.TimeLong> getReplication()
+        {
+            return (Replication.TimeLong<? extends DEVDESSSimulatorInterface.TimeLong>) super.getReplication();
         }
     }
 
@@ -203,6 +226,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDoubleUnit<DEVDESSSimulatorInterface.TimeDoubleUnit> getReplication()
+        {
+            return (Replication.TimeDoubleUnit<DEVDESSSimulatorInterface.TimeDoubleUnit>) super.getReplication();
+        }
     }
 
     /** Easy access class Animator.TimeFloatUnit. */
@@ -219,6 +250,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         public TimeFloatUnit(final FloatDuration initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloatUnit<? extends DEVDESSSimulatorInterface.TimeFloatUnit> getReplication()
+        {
+            return (Replication.TimeFloatUnit<? extends DEVDESSSimulatorInterface.TimeFloatUnit>) super.getReplication();
         }
     }
 
@@ -237,6 +276,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarDouble<? extends DEVDESSSimulatorInterface.CalendarDouble> getReplication()
+        {
+            return (Replication.CalendarDouble<? extends DEVDESSSimulatorInterface.CalendarDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class Animator.CalendarFloat. */
@@ -254,6 +301,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         {
             super(initialTimeStep);
         }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarFloat<? extends DEVDESSSimulatorInterface.CalendarFloat> getReplication()
+        {
+            return (Replication.CalendarFloat<? extends DEVDESSSimulatorInterface.CalendarFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class Animator.CalendarLong. */
@@ -270,6 +325,14 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
         public CalendarLong(final Long initialTimeStep) throws SimRuntimeException
         {
             super(initialTimeStep);
+        }
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarLong<? extends DEVDESSSimulatorInterface.CalendarLong> getReplication()
+        {
+            return (Replication.CalendarLong<? extends DEVDESSSimulatorInterface.CalendarLong>) super.getReplication();
         }
     }
 

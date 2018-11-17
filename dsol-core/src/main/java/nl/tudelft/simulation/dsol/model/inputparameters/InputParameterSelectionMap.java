@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.model.inputparameters;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import nl.tudelft.simulation.language.Throw;
+import org.djutils.exceptions.Throw;
 
 /**
  * InputParameterSelectionMap contains a list of key values to select from, each leading to another value to be selected as the
@@ -87,6 +87,22 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T>
     @Override
     public void setValue(final T newValue) throws InputParameterException
     {
+        if (getKeyforValue(newValue) == null)
+        {
+            throw new InputParameterException("Value " + newValue + " not part of selectionMap options");
+        }
+        super.setValue(newValue);
+    }
+
+    /**
+     * Change the value of the input parameter, as an object when the generics are not known (e.g., in a user interface).
+     * @param objectValue Object; the new value for the input parameter
+     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     */
+    public void setObjectValue(final Object objectValue) throws InputParameterException
+    {
+        @SuppressWarnings("unchecked")
+        T newValue = (T) objectValue;
         if (getKeyforValue(newValue) == null)
         {
             throw new InputParameterException("Value " + newValue + " not part of selectionMap options");

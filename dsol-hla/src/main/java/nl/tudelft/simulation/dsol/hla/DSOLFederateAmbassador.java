@@ -1,5 +1,15 @@
 package nl.tudelft.simulation.dsol.hla;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import org.djutils.logger.CategoryLogger;
+
 import hla.rti.AttributeAcquisitionWasNotCanceled;
 import hla.rti.AttributeAcquisitionWasNotRequested;
 import hla.rti.AttributeAlreadyOwned;
@@ -25,19 +35,9 @@ import hla.rti.ReceivedInteraction;
 import hla.rti.ReflectedAttributes;
 import hla.rti.SpecifiedSaveLabelDoesNotExist;
 import hla.rti.UnableToPerformSave;
-
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import nl.tudelft.simulation.dsol.hla.simulators.HLAInteractionEvent;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.LogicalTimeDouble;
 
 /**

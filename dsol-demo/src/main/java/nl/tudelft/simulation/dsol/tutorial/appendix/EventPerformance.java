@@ -2,12 +2,13 @@ package nl.tudelft.simulation.dsol.tutorial.appendix;
 
 import java.rmi.RemoteException;
 
+import org.djutils.io.URLResource;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.language.io.URLResource;
 import nl.tudelft.simulation.xml.dsol.ExperimentParser;
 
 /**

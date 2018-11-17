@@ -409,6 +409,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble> getReplication()
+        {
+            return (Replication.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVSSimulator.TimeFloat. */
@@ -416,6 +424,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloat<? extends DEVSSimulatorInterface.TimeFloat> getReplication()
+        {
+            return (Replication.TimeFloat<? extends DEVSSimulatorInterface.TimeFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVSSimulator.TimeLong. */
@@ -423,6 +439,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeLong<? extends DEVSSimulatorInterface.TimeLong> getReplication()
+        {
+            return (Replication.TimeLong<? extends DEVSSimulatorInterface.TimeLong>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVSSimulator.TimeDoubleUnit. */
@@ -431,6 +455,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeDoubleUnit<? extends DEVSSimulatorInterface.TimeDoubleUnit> getReplication()
+        {
+            return (Replication.TimeDoubleUnit<? extends DEVSSimulatorInterface.TimeDoubleUnit>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVSSimulator.TimeFloatUnit. */
@@ -439,6 +471,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.TimeFloatUnit<? extends DEVSSimulatorInterface.TimeFloatUnit> getReplication()
+        {
+            return (Replication.TimeFloatUnit<? extends DEVSSimulatorInterface.TimeFloatUnit>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVSSimulator.CalendarDouble. */
@@ -447,6 +487,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarDouble<? extends DEVSSimulatorInterface.CalendarDouble> getReplication()
+        {
+            return (Replication.CalendarDouble<? extends DEVSSimulatorInterface.CalendarDouble>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVSSimulator.CalendarFloat. */
@@ -455,6 +503,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarFloat<? extends DEVSSimulatorInterface.CalendarFloat> getReplication()
+        {
+            return (Replication.CalendarFloat<? extends DEVSSimulatorInterface.CalendarFloat>) super.getReplication();
+        }
     }
 
     /** Easy access class DEVSSimulator.CalendarLong. */
@@ -463,6 +519,14 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /** {@inheritDoc} */
+        @SuppressWarnings("unchecked")
+        @Override
+        public Replication.CalendarLong<? extends DEVSSimulatorInterface.CalendarLong> getReplication()
+        {
+            return (Replication.CalendarLong<? extends DEVSSimulatorInterface.CalendarLong>) super.getReplication();
+        }
     }
 
 }

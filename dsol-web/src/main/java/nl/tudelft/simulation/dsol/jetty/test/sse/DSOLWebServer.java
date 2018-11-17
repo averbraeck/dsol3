@@ -3,20 +3,15 @@ package nl.tudelft.simulation.dsol.jetty.test.sse;
 import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystemNotFoundException;
-import java.nio.file.FileSystems;
-import java.nio.file.Paths;
 import java.rmi.RemoteException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.djutils.io.URLResource;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
@@ -33,7 +28,6 @@ import nl.tudelft.simulation.dsol.web.animation.D2.HTMLAnimationPanel;
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * DSOLWebServer.java. <br>

@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.io.URLResource;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.SingleImageRenderable;
 import nl.tudelft.simulation.dsol.animation.interpolation.InterpolationInterface;
@@ -14,7 +16,6 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * <p>

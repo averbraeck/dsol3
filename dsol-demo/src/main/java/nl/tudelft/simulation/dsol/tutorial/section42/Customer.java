@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
+import org.djutils.logger.Cat;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -10,7 +12,6 @@ import nl.tudelft.simulation.jstats.distributions.DistDiscreteEmpirical;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.distributions.empirical.Observations;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
-import nl.tudelft.simulation.logger.Cat;
 
 /**
  * A Customer.

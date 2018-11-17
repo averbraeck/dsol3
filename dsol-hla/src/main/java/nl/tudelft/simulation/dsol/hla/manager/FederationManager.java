@@ -4,18 +4,17 @@
  */
 package nl.tudelft.simulation.dsol.hla.manager;
 
-import hla.rti.AttributeHandleSet;
-import hla.rti.FederateInternalError;
-
 import java.util.Hashtable;
 import java.util.Properties;
 
+import org.djutils.io.URLResource;
+import org.djutils.logger.CategoryLogger;
+
+import hla.rti.AttributeHandleSet;
+import hla.rti.FederateInternalError;
 import nl.tudelft.simulation.dsol.hla.Barrier;
 import nl.tudelft.simulation.dsol.hla.DSOLFederateAmbassador;
 import nl.tudelft.simulation.dsol.hla.callBack.RTIAmbassador;
-import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.logger.CategoryLogger;
-import nl.tudelft.simulation.Logger.Logger;
 import se.pitch.prti.RTI;
 
 /**

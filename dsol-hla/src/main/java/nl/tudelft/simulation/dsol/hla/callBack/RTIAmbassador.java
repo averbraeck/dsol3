@@ -1,5 +1,11 @@
 package nl.tudelft.simulation.dsol.hla.callBack;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import javax.swing.plaf.synth.Region;
+
 import hla.rti.AsynchronousDeliveryAlreadyDisabled;
 import hla.rti.AsynchronousDeliveryAlreadyEnabled;
 import hla.rti.AttributeAcquisitionWasNotRequested;
@@ -55,7 +61,6 @@ import hla.rti.ObjectNotKnown;
 import hla.rti.OwnershipAcquisitionPending;
 import hla.rti.RTIambassador;
 import hla.rti.RTIinternalError;
-import hla.rti.Region;
 import hla.rti.RegionInUse;
 import hla.rti.RegionNotKnown;
 import hla.rti.RestoreInProgress;
@@ -71,11 +76,6 @@ import hla.rti.TimeConstrainedAlreadyEnabled;
 import hla.rti.TimeConstrainedWasNotEnabled;
 import hla.rti.TimeRegulationAlreadyEnabled;
 import hla.rti.TimeRegulationWasNotEnabled;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import nl.tudelft.simulation.event.util.EventProducingList;
 
 /**

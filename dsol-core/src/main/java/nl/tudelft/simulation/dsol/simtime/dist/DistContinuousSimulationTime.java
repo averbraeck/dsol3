@@ -18,10 +18,9 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <R> the relative time type.
  */
-public abstract class DistContinuousTime<R extends Number & Comparable<R>> extends Dist
+public abstract class DistContinuousSimulationTime<R extends Number & Comparable<R>> extends Dist
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -34,7 +33,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
      * constructs a new continuous distribution.
      * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
      */
-    public DistContinuousTime(final DistContinuous wrappedDistribution)
+    public DistContinuousSimulationTime(final DistContinuous wrappedDistribution)
     {
         super(wrappedDistribution.getStream());
         this.wrappedDistribution = wrappedDistribution;
@@ -61,7 +60,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     /***********************************************************************************************************/
 
     /** Easy access class DistContinuousTime.Double. */
-    public static class TimeDouble extends DistContinuousTime<java.lang.Double>
+    public static class TimeDouble extends DistContinuousSimulationTime<java.lang.Double>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -83,7 +82,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.Float. */
-    public static class TimeFloat extends DistContinuousTime<java.lang.Float>
+    public static class TimeFloat extends DistContinuousSimulationTime<java.lang.Float>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -105,7 +104,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.Long. */
-    public static class TimeLong extends DistContinuousTime<java.lang.Long>
+    public static class TimeLong extends DistContinuousSimulationTime<java.lang.Long>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -127,7 +126,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.DoubleUnit. */
-    public static class TimeDoubleUnit extends DistContinuousTime<Duration>
+    public static class TimeDoubleUnit extends DistContinuousSimulationTime<Duration>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -154,7 +153,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.FloatUnit. */
-    public static class TimeFloatUnit extends DistContinuousTime<FloatDuration>
+    public static class TimeFloatUnit extends DistContinuousSimulationTime<FloatDuration>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -181,7 +180,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.CalendarDouble. */
-    public static class CalendarDouble extends DistContinuousTime<Duration>
+    public static class CalendarDouble extends DistContinuousSimulationTime<Duration>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -208,7 +207,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.CalendarFloat. */
-    public static class CalendarFloat extends DistContinuousTime<FloatDuration>
+    public static class CalendarFloat extends DistContinuousSimulationTime<FloatDuration>
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -235,7 +234,7 @@ public abstract class DistContinuousTime<R extends Number & Comparable<R>> exten
     }
 
     /** Easy access class DistContinuousTime.CalendarLong. */
-    public static class CalendarLong extends DistContinuousTime<Long>
+    public static class CalendarLong extends DistContinuousSimulationTime<Long>
     {
         /** */
         private static final long serialVersionUID = 20140805L;

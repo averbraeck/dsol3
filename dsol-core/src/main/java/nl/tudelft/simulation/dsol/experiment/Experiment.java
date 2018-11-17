@@ -12,6 +12,7 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.logger.Cat;
 
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
@@ -30,7 +31,6 @@ import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.logger.Cat;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
@@ -132,7 +132,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
      * returns the model.
      * @return DSOLModel the model
      */
-    public final DSOLModel<A, R, T, S> getModel()
+    public DSOLModel<A, R, T, S> getModel()
     {
         return this.model;
     }
@@ -220,7 +220,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /**
      * @return the treatment of this experiment
      */
-    public final Treatment<A, R, T> getTreatment()
+    public Treatment<A, R, T> getTreatment()
     {
         return this.treatment;
     }
@@ -334,6 +334,20 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         {
             super(treatment, simulator, model);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeDouble<S> getModel()
+        {
+            return (DSOLModel.TimeDouble<S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeDouble getTreatment()
+        {
+            return (Treatment.TimeDouble) super.getTreatment();
+        }
     }
 
     /**
@@ -363,6 +377,20 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         {
             super(treatment, simulator, model);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeFloat<S> getModel()
+        {
+            return (DSOLModel.TimeFloat<S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeFloat getTreatment()
+        {
+            return (Treatment.TimeFloat) super.getTreatment();
+        }
     }
 
     /**
@@ -391,6 +419,20 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         public TimeLong(final Treatment.TimeLong treatment, final S simulator, final DSOLModel.TimeLong<S> model)
         {
             super(treatment, simulator, model);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeLong<S> getModel()
+        {
+            return (DSOLModel.TimeLong<S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeLong getTreatment()
+        {
+            return (Treatment.TimeLong) super.getTreatment();
         }
     }
 
@@ -423,6 +465,20 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         {
             super(treatment, simulator, model);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeDoubleUnit<S> getModel()
+        {
+            return (DSOLModel.TimeDoubleUnit<S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeDoubleUnit getTreatment()
+        {
+            return (Treatment.TimeDoubleUnit) super.getTreatment();
+        }
     }
 
     /**
@@ -452,6 +508,20 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         public TimeFloatUnit(final Treatment.TimeFloatUnit treatment, final S simulator, final DSOLModel.TimeFloatUnit<S> model)
         {
             super(treatment, simulator, model);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeFloatUnit<S> getModel()
+        {
+            return (DSOLModel.TimeFloatUnit<S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.TimeFloatUnit getTreatment()
+        {
+            return (Treatment.TimeFloatUnit) super.getTreatment();
         }
     }
 
@@ -484,6 +554,20 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         {
             super(treatment, simulator, model);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.CalendarDouble<S> getModel()
+        {
+            return (DSOLModel.CalendarDouble<S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.CalendarDouble getTreatment()
+        {
+            return (Treatment.CalendarDouble) super.getTreatment();
+        }
     }
 
     /**
@@ -514,6 +598,20 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         {
             super(treatment, simulator, model);
         }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.CalendarFloat<S> getModel()
+        {
+            return (DSOLModel.CalendarFloat<S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.CalendarFloat getTreatment()
+        {
+            return (Treatment.CalendarFloat) super.getTreatment();
+        }
     }
 
     /**
@@ -543,6 +641,20 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         public CalendarLong(final Treatment.CalendarLong treatment, final S simulator, final DSOLModel.CalendarLong<S> model)
         {
             super(treatment, simulator, model);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.CalendarLong<S> getModel()
+        {
+            return (DSOLModel.CalendarLong<S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Treatment.CalendarLong getTreatment()
+        {
+            return (Treatment.CalendarLong) super.getTreatment();
         }
     }
 

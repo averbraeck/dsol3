@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.interpreter.classfile;
 import java.io.DataInput;
 import java.io.IOException;
 
-import nl.tudelft.simulation.language.reflection.FieldSignature;
+import org.djutils.reflection.FieldSignature;
 
 /**
  * A ConstantClass.

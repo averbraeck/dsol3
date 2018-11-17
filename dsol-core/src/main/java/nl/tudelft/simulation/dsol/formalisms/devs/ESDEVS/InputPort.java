@@ -2,11 +2,12 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
+import org.djutils.logger.Cat;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.logger.Cat;
 
 /**
  * InputPort class. The input port can function as an input port for a Parallel DEVS Atomic Model as well as for a

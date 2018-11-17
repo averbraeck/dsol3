@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.xerces.parsers.DOMParser;
+import org.djutils.io.URLResource;
 import org.jdom2.Element;
 import org.jdom2.input.DOMBuilder;
 import org.w3c.dom.Document;
@@ -18,7 +19,6 @@ import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * <br>

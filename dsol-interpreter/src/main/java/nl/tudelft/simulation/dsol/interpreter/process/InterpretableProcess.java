@@ -2,13 +2,14 @@ package nl.tudelft.simulation.dsol.interpreter.process;
 
 import java.util.Stack;
 
+import org.djutils.logger.CategoryLogger;
+import org.djutils.reflection.ClassUtil;
+
 import nl.tudelft.simulation.dsol.interpreter.Frame;
 import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The Process class is an abstract Process which can be suspended and resumed.

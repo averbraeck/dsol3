@@ -10,6 +10,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Stack;
 
+import org.djutils.io.URLResource;
+import org.djutils.logger.CategoryLogger;
+import org.djutils.reflection.ClassUtil;
+
 import nl.tudelft.simulation.dsol.interpreter.classfile.ClassDescriptor;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ExceptionEntry;
@@ -26,9 +30,6 @@ import nl.tudelft.simulation.dsol.interpreter.operations.ReturnOperation;
 import nl.tudelft.simulation.dsol.interpreter.operations.VoidOperation;
 import nl.tudelft.simulation.dsol.interpreter.operations.WIDE;
 import nl.tudelft.simulation.dsol.interpreter.operations.custom.InterpreterOracleInterface;
-import nl.tudelft.simulation.language.io.URLResource;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * The Java interpreter.

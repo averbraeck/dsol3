@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import javax.naming.event.NamingEvent;
 import javax.naming.event.NamingExceptionEvent;
 
-import nl.tudelft.simulation.logger.CategoryLogger;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * The local wrapper for RemoteContextListeners.

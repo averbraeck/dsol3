@@ -8,10 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.djutils.reflection.MethodSignature;
+
 import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.dsol.interpreter.Operation;
-import nl.tudelft.simulation.language.reflection.MethodSignature;
 
 /**
  * A MethodDescriptor.

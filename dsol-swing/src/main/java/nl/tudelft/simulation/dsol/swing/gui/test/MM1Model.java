@@ -6,7 +6,7 @@ import java.util.List;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousTime;
+import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimulationTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.distributions.DistTriangular;
@@ -54,12 +54,12 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     private StreamInterface stream = new MersenneTwister();
 
     /** interarrival time. */
-    private DistContinuousTime.TimeDouble interarrivalTime =
-            new DistContinuousTime.TimeDouble(new DistExponential(this.stream, 1.0));
+    private DistContinuousSimulationTime.TimeDouble interarrivalTime =
+            new DistContinuousSimulationTime.TimeDouble(new DistExponential(this.stream, 1.0));
 
     /** processing time. */
-    private DistContinuousTime.TimeDouble processingTime =
-            new DistContinuousTime.TimeDouble(new DistTriangular(this.stream, 0.8, 0.9, 1.1));
+    private DistContinuousSimulationTime.TimeDouble processingTime =
+            new DistContinuousSimulationTime.TimeDouble(new DistTriangular(this.stream, 0.8, 0.9, 1.1));
 
     /** queue of waiting entities. */
     private List<QueueEntry<Entity>> queue = new ArrayList<QueueEntry<Entity>>();

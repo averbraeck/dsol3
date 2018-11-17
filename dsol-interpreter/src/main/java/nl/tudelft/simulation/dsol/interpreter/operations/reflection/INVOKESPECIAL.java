@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
+import org.djutils.primitives.Primitive;
+import org.djutils.reflection.ClassUtil;
+import org.djutils.reflection.MethodSignature;
+
 import nl.tudelft.simulation.dsol.interpreter.Frame;
 import nl.tudelft.simulation.dsol.interpreter.Interpreter;
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
@@ -12,9 +16,6 @@ import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantMethodref;
 import nl.tudelft.simulation.dsol.interpreter.operations.InvokeOperation;
 import nl.tudelft.simulation.dsol.interpreter.operations.NEW;
-import nl.tudelft.simulation.language.primitives.Primitive;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
-import nl.tudelft.simulation.language.reflection.MethodSignature;
 
 /**
  * INVOKESPECIAL.

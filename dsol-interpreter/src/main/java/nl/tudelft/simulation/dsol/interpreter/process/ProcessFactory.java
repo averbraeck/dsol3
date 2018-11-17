@@ -4,12 +4,13 @@ import java.io.DataInput;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.dsol.interpreter.Operation;
 import nl.tudelft.simulation.dsol.interpreter.operations.custom.CustomFactory;
 import nl.tudelft.simulation.dsol.interpreter.operations.custom.InterpreterOracleInterface;
 import nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKESPECIAL;
 import nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKEVIRTUAL;
-import nl.tudelft.simulation.logger.CategoryLogger;
 
 /**
  * An InterpreterFactory for processes that can be suspended without threads.

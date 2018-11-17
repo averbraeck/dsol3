@@ -13,7 +13,7 @@ import javax.naming.Context;
 import javax.naming.Name;
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.logger.CategoryLogger;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * The FileContext as a file-based implementation of the Context interface.

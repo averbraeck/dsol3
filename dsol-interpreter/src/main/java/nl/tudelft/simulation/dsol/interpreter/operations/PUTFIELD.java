@@ -4,13 +4,14 @@ import java.io.DataInput;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+import org.djutils.primitives.Primitive;
+import org.djutils.reflection.ClassUtil;
+
 import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
 import nl.tudelft.simulation.dsol.interpreter.OperandStack;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 import nl.tudelft.simulation.dsol.interpreter.classfile.ConstantFieldref;
-import nl.tudelft.simulation.language.primitives.Primitive;
-import nl.tudelft.simulation.language.reflection.ClassUtil;
 
 /**
  * The PUTFIELD operation as defined in
