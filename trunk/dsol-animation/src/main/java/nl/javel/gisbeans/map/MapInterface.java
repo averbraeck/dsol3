@@ -11,9 +11,10 @@ import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import org.djutils.immutablecollections.ImmutableList;
+import org.djutils.immutablecollections.ImmutableMap;
+
 import nl.javel.gisbeans.geom.SerializableRectangle2D;
-import nl.tudelft.simulation.immutablecollections.ImmutableList;
-import nl.tudelft.simulation.immutablecollections.ImmutableMap;
 
 /**
  * This interface defines the map.

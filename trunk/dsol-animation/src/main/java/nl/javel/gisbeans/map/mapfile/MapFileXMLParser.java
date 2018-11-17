@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.xerces.parsers.DOMParser;
+import org.djutils.io.URLResource;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jdom2.input.DOMBuilder;
@@ -36,7 +37,6 @@ import nl.javel.gisbeans.map.ReferenceMapInterface;
 import nl.javel.gisbeans.map.Scalebar;
 import nl.javel.gisbeans.map.ScalebarInterface;
 import nl.javel.gisbeans.map.StaticAttribute;
-import nl.tudelft.simulation.language.io.URLResource;
 
 /**
  * This class parses XML-mapfiles and constructs appropriate map objects. <br>
