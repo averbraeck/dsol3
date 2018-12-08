@@ -35,13 +35,6 @@ public interface InputParameter<T> extends Serializable, Cloneable
     T getValue();
 
     /**
-     * Change the value of the input parameter.
-     * @param newValue T; the new value for the input parameter
-     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
-     */
-    void setValue(T newValue) throws InputParameterException;
-
-    /**
      * Retrieve the default value of the input parameter.
      * @return T; the default value of the input parameter
      */

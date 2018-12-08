@@ -57,9 +57,12 @@ public class InputParameterLong extends AbstractInputParameter<Long>
         this.format = format;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public final void setValue(final Long newValue) throws InputParameterException
+    /**
+     * Check and set the typed value, and call super.setValue to make the actual allocation. 
+     * @param newValue long; the new value for the input parameter
+     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     */
+    public final void setLongValue(final long newValue) throws InputParameterException
     {
         if (this.minimumValue > newValue || this.maximumValue < newValue)
         {

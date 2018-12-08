@@ -11,6 +11,9 @@ import nl.tudelft.simulation.jstats.distributions.DistBinomial;
 import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
 import nl.tudelft.simulation.jstats.distributions.DistDiscreteConstant;
 import nl.tudelft.simulation.jstats.distributions.DistDiscreteUniform;
+import nl.tudelft.simulation.jstats.distributions.DistGeometric;
+import nl.tudelft.simulation.jstats.distributions.DistNegBinomial;
+import nl.tudelft.simulation.jstats.distributions.DistPoisson;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -43,6 +46,9 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
             distOptions.put("Binomial", new Binomial());
             distOptions.put("DiscreteConstant", new DiscreteConstant());
             distOptions.put("DiscreteUniform", new DiscreteUniform());
+            distOptions.put("Geometric", new Geometric());
+            distOptions.put("NegBinomial", new NegBinomial());
+            distOptions.put("Poisson", new Poisson());
         }
         catch (InputParameterException exception)
         {
@@ -61,7 +67,7 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
     public InputParameterDistDiscreteSelection(final String key, final String shortName, final String description,
             final StreamInterface stream, final double displayPriority) throws InputParameterException
     {
-        super(key, shortName, description, distOptions, distOptions.get("Exponential"), displayPriority);
+        super(key, shortName, description, distOptions, distOptions.get("DiscreteConstant"), displayPriority);
         this.stream = stream;
         for (InputParameterMapDistDiscrete dist : getOptions().values())
         {
@@ -110,13 +116,13 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
 
         /** {@inheritDoc} */
         @Override
-        public DistBernoulli getDist() throws InputParameterException
+        public void setDist() throws InputParameterException
         {
             Throw.when((Double) get("p").getValue() <= 0.0, InputParameterException.class, "DistBernoulli: p <= 0.0");
             Throw.when((Double) get("p").getValue() >= 1.0, InputParameterException.class, "DistBernoulli: p >= 1.0");
             try
             {
-                return new DistBernoulli(getStream(), (Double) get("p").getValue());
+                this.dist = new DistBernoulli(getStream(), (Double) get("p").getValue());
             }
             catch (Exception exception)
             {
@@ -146,14 +152,14 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
 
         /** {@inheritDoc} */
         @Override
-        public DistBinomial getDist() throws InputParameterException
+        public void setDist() throws InputParameterException
         {
             Throw.when((Long) get("n").getValue() <= 0, InputParameterException.class, "DistBinomial: n <= 0");
             Throw.when((Double) get("p").getValue() <= 0.0, InputParameterException.class, "DistBinomial: p <= 0.0");
             Throw.when((Double) get("p").getValue() >= 1.0, InputParameterException.class, "DistBinomial: p >= 1.0");
             try
             {
-                return new DistBinomial(getStream(), (Long) get("n").getValue(), (Double) get("p").getValue());
+                this.dist = new DistBinomial(getStream(), (Long) get("n").getValue(), (Double) get("p").getValue());
             }
             catch (Exception exception)
             {
@@ -180,11 +186,11 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
 
         /** {@inheritDoc} */
         @Override
-        public DistDiscreteConstant getDist() throws InputParameterException
+        public void setDist() throws InputParameterException
         {
             try
             {
-                return new DistDiscreteConstant(getStream(), (Long) get("c").getValue());
+                this.dist = new DistDiscreteConstant(getStream(), (Long) get("c").getValue());
             }
             catch (Exception exception)
             {
@@ -214,13 +220,13 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
 
         /** {@inheritDoc} */
         @Override
-        public DistDiscreteUniform getDist() throws InputParameterException
+        public void setDist() throws InputParameterException
         {
             Throw.when((Long) get("min").getValue() >= (Long) get("max").getValue(), InputParameterException.class,
                     "DistDiscreteUniform: min value >= max value");
             try
             {
-                return new DistDiscreteUniform(getStream(), (Long) get("min").getValue(), (Long) get("max").getValue());
+                this.dist = new DistDiscreteUniform(getStream(), (Long) get("min").getValue(), (Long) get("max").getValue());
             }
             catch (Exception exception)
             {
@@ -229,4 +235,108 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
         }
     }
 
+    /** InputParameterDistDiscrete.Geometric class. */
+    public static class Geometric extends InputParameterMapDistDiscrete
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Construct the input for the Geometric distribution.
+         * @throws InputParameterException on error with the distribution
+         */
+        public Geometric() throws InputParameterException
+        {
+            super("Geometric", "Geometric", "Geometric distribution", 1.0);
+            add(new InputParameterDouble("p", "p", "p value, chance of success for the Geometric distribution", 0.5, 0.0, 1.0,
+                    false, false, "%f", 1.0));
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void setDist() throws InputParameterException
+        {
+            Throw.when((Double) get("p").getValue() <= 0.0, InputParameterException.class, "DistGeometric: p <= 0.0");
+            Throw.when((Double) get("p").getValue() >= 1.0, InputParameterException.class, "DistGeometric: p >= 1.0");
+            try
+            {
+                this.dist = new DistGeometric(getStream(), (Double) get("p").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistGeometric: " + exception.getMessage(), exception);
+            }
+        }
+    }
+
+    /** InputParameterDistDiscrete.NegBinomial class. */
+    public static class NegBinomial extends InputParameterMapDistDiscrete
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Construct the input for the NegBinomial distribution.
+         * @throws InputParameterException on error with the distribution
+         */
+        public NegBinomial() throws InputParameterException
+        {
+            super("NegBinomial", "NegBinomial",
+                    "NegBinomial distribution (Number of successes in n independent Bernoulli trials with probability p)", 1.0);
+            add(new InputParameterLong("n", "n", "n value, first success at the n-th trial", 1L, 1L, Long.MAX_VALUE, "%f",
+                    1.0));
+            add(new InputParameterDouble("p", "p", "p value, probability of success in each trial", 0.5, 0.0, 1.0, false, false,
+                    "%f", 2.0));
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void setDist() throws InputParameterException
+        {
+            Throw.when((Long) get("n").getValue() <= 0, InputParameterException.class, "DistNegBinomial: n <= 0");
+            Throw.when((Double) get("p").getValue() <= 0.0, InputParameterException.class, "DistNegBinomial: p <= 0.0");
+            Throw.when((Double) get("p").getValue() >= 1.0, InputParameterException.class, "DistNegBinomial: p >= 1.0");
+            try
+            {
+                this.dist = new DistNegBinomial(getStream(), (Long) get("n").getValue(), (Double) get("p").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistNegBinomial: " + exception.getMessage(), exception);
+            }
+        }
+    }
+
+    /** InputParameterDistDiscrete.Poisson class. */
+    public static class Poisson extends InputParameterMapDistDiscrete
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Construct the input for the Poisson distribution.
+         * @throws InputParameterException on error with the distribution
+         */
+        public Poisson() throws InputParameterException
+        {
+            super("Poisson", "Poisson", "Poisson distribution", 1.0);
+            add(new InputParameterDouble("lambda", "lambda", "lambda value, mean value", 1.0, 0.0, Double.MAX_VALUE, false,
+                    false, "%f", 1.0));
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void setDist() throws InputParameterException
+        {
+            Throw.when((Double) get("lambda").getValue() <= 0.0, InputParameterException.class, "DistPoisson: lambda <= 0.0");
+            try
+            {
+                this.dist = new DistPoisson(getStream(), (Double) get("lambda").getValue());
+            }
+            catch (Exception exception)
+            {
+                throw new InputParameterException("DistPoisson: " + exception.getMessage(), exception);
+            }
+        }
+    }
 }

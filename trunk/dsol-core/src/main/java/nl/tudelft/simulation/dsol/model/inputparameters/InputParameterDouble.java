@@ -68,11 +68,15 @@ public class InputParameterDouble extends AbstractInputParameter<Double>
         this.format = format;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public final void setValue(final Double newValue) throws InputParameterException
+    /**
+     * Check and set the typed value, and call super.setValue to make the actual allocation. 
+     * @param newValue double; the new value for the input parameter
+     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     */
+    public void setDoubleValue(final double newValue) throws InputParameterException
     {
-        if (this.minimumValue > newValue || this.maximumValue < newValue)
+        if (this.minimumValue > newValue || this.maximumValue < newValue || (this.minimumValue == newValue && !this.minIncluded)
+                || (this.maximumValue == newValue && !this.maxIncluded))
         {
             throw new InputParameterException("new value for InputParameterDouble with key " + getKey() + " with value "
                     + newValue + " is out of valid range [" + this.minimumValue + ".." + this.maximumValue + "]");

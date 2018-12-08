@@ -27,12 +27,11 @@ public class InputFieldBoolean extends AbstractInputField
     public InputFieldBoolean(final JPanel panel, final InputParameterBoolean parameter)
     {
         super(parameter);
-        JLabel label = new JLabel(parameter.getShortName());
-        this.checkField = new JCheckBox(this.key);
+        this.checkField = new JCheckBox(parameter.getShortName());
         this.checkField.setSelected(parameter.getDefaultValue());
         JLabel explanation = new JLabel(parameter.getDescription());
+        panel.add(new JLabel(""));
         panel.add(this.checkField);
-        panel.add(label);
         panel.add(explanation);
     }
 

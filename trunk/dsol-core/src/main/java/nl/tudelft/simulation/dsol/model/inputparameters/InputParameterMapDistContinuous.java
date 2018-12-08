@@ -1,10 +1,12 @@
 package nl.tudelft.simulation.dsol.model.inputparameters;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * InputParameterMapDistContinuous is a InputParameterMap with a getDist() function. <br>
+ * InputParameterMapDistContinuous is a InputParameterMap with a stream, a getDist() and a setDist() method. <br>
  * <br>
  * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
@@ -18,6 +20,10 @@ public abstract class InputParameterMapDistContinuous extends InputParameterMap
 
     /** the random number stream to use for the distribution. */
     private StreamInterface stream;
+
+    /** the distribution based on the input. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected DistContinuous dist;
 
     /**
      * Construct a new InputParameterMap.
@@ -33,11 +39,22 @@ public abstract class InputParameterMapDistContinuous extends InputParameterMap
     }
 
     /**
-     * Return the distribution function corresponding to the set parameters. 
-     * @return DistContinuous; the distribution function corresponding to the set parameters
-     * @throws InputParameterException on error retrieving the values for the distribution
+     * Calculate the distribution for this parameter entry.
+     * @throws InputParameterException when the distribution based on the parameter map cannot be constructed
      */
-    public abstract DistContinuous getDist() throws InputParameterException;
+    public abstract void setDist() throws InputParameterException;
+
+    /**
+     * Return the previously calculated typed value based on the components.
+     * @return T; the previously calculated typed value based on the components
+     * @throws InputParameterException when the value has not been calculated
+     */
+    public DistContinuous getDist() throws InputParameterException
+    {
+        Throw.when(this.dist == null, InputParameterException.class,
+                "Value for parameter " + getShortName() + " has not yet been calculated");
+        return this.dist;
+    }
 
     /**
      * @return stream
@@ -53,6 +70,15 @@ public abstract class InputParameterMapDistContinuous extends InputParameterMap
     public final void setStream(final StreamInterface stream)
     {
         this.stream = stream;
-    } 
-    
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public InputParameterMapDistContinuous clone() throws CloneNotSupportedException
+    {
+        InputParameterMapDistContinuous clonedMap = (InputParameterMapDistContinuous) super.clone();
+        clonedMap.dist = this.dist;
+        return clonedMap;
+    }
+
 }

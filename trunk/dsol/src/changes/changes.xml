@@ -1,6 +1,13 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.03.01" date="2018-11-XX" description="Updates to dsol-swing, dsol-web">
+      <action dev="averbraeck" type="update">
+        The DSOL categories for the CategoryLogger in DJUTILS have been added to dsol-base into
+        the nl.tudelft.simulation.dsol.logger package.
+      </action>
+    </release>
+
     <release version="3.03.00" date="2018-11-17" description="Major refactoring, dsol-web and dsol-animation">
       <action dev="averbraeck" type="update">
         Generic classes to multiple projects have been moved to the DJUTILS project. 

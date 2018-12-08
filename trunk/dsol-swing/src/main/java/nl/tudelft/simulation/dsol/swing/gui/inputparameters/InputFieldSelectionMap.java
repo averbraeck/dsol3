@@ -42,13 +42,14 @@ public class InputFieldSelectionMap<K, T> extends AbstractInputField
         int i = 0;
         for (K option : parameter.getOptions().keySet())
         {
-            selections[i++] = option.toString();
+            selections[i] = option.toString();
             T value = parameter.getOptions().get(option);
             this.selectionMap.put(selections[i], value);
             if (value.equals(parameter.getDefaultValue()))
             {
                 defaultIndex = i;
             }
+            i++;
         }
         this.selectField = new JComboBox<>(selections);
         this.selectField.setSelectedIndex(defaultIndex);

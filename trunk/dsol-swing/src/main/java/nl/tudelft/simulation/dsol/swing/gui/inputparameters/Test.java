@@ -3,11 +3,19 @@ package nl.tudelft.simulation.dsol.swing.gui.inputparameters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.djunits.unit.LengthUnit;
+import org.djunits.value.vdouble.scalar.Length;
+
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterBoolean;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDistContinuousSelection;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDistDiscreteSelection;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDouble;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDoubleScalar;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionList;
+import nl.tudelft.simulation.jstats.streams.MersenneTwister;
+import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * Test.java. <br>
@@ -69,6 +77,16 @@ public class Test
         InputParameterSelectionList<String> paramSelect = new InputParameterSelectionList<String>("country", "Country",
                 "Counttry to select", countries, "Netherlands", 4.0);
         xxMap.add(paramSelect);
+        StreamInterface stream = new MersenneTwister(1L);
+        InputParameterDistContinuousSelection ipdcs = new InputParameterDistContinuousSelection("distCont",
+                "Continuous distribution", "Continuous distribution", stream, 5.0);
+        xxMap.add(ipdcs);
+        InputParameterDistDiscreteSelection ipdds = new InputParameterDistDiscreteSelection("distDiscrete",
+                "Discrete distribution", "Discrete distribution", stream, 6.0);
+        xxMap.add(ipdds);
+        InputParameterDoubleScalar<LengthUnit, Length> length = new InputParameterDoubleScalar<>("length", "Length",
+                "Length of the trip", new Length(20.0, LengthUnit.KILOMETER), 0.0, Double.MAX_VALUE, true, false, "%d", 7.0);
+        xxMap.add(length);
 
         // InputParameterString is = new InputParameterString("runName", "Name of run", "Description of the run", "", 1.0);
         // ipMap.add(is); // should give error when displayed in a tabbed environment

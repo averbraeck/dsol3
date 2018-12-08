@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.swing.gui.inputparameters;
 
 import javax.swing.JPanel;
 
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterFloat;
 
 /**
@@ -31,10 +32,33 @@ public class InputFieldFloat extends InputFieldString
         return (InputParameterFloat) super.getParameter();
     }
 
-    /** @return the float value of the field in the gui. */
-    public float getFloatValue()
+    /**
+     * Return the numeric value of the field
+     * @return the float value of the field in the gui.
+     * @throws InputParameterException on invalid input
+     */
+    public float getFloatValue() throws InputParameterException
     {
-        return Float.valueOf(this.textField.getText());
+        return getFloatValue(this.textField.getText(), this.parameter.getShortName());
     }
 
+    /**
+     * Return the numeric value of the field
+     * @param s the String to test
+     * @param shortName the name of the field to test
+     * @return the float value of the field in the gui.
+     * @throws InputParameterException on invalid input
+     */
+    public static float getFloatValue(final String s, final String shortName) throws InputParameterException
+    {
+        try
+        {
+            return Float.parseFloat(s);
+        }
+        catch (NumberFormatException exception)
+        {
+            throw new InputParameterException(
+                    "Field " + shortName + " does not contain a valid float value -- value = '" + s + "'");
+        }
+    }
 }

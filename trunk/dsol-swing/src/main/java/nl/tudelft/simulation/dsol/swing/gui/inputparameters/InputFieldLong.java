@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.swing.gui.inputparameters;
 
 import javax.swing.JPanel;
 
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterLong;
 
 /**
@@ -31,10 +32,33 @@ public class InputFieldLong extends InputFieldString
         return (InputParameterLong) super.getParameter();
     }
 
-    /** @return the long value of the field in the gui. */
-    public long getLongValue()
+    /**
+     * Return the numeric value of the field
+     * @return the long value of the field in the gui.
+     * @throws InputParameterException on invalid input
+     */
+    public long getLongValue() throws InputParameterException
     {
-        return Long.valueOf(this.textField.getText());
+        return getLongValue(this.textField.getText(), this.parameter.getShortName());
     }
 
+    /**
+     * Return the numeric value of the field
+     * @param s the String to test
+     * @param shortName the name of the field to test
+     * @return the long value of the field in the gui.
+     * @throws InputParameterException on invalid input
+     */
+    public static long getLongValue(final String s, final String shortName) throws InputParameterException
+    {
+        try
+        {
+            return Long.parseLong(s);
+        }
+        catch (NumberFormatException exception)
+        {
+            throw new InputParameterException(
+                    "Field " + shortName + " does not contain a valid long value -- value = '" + s + "'");
+        }
+    }
 }

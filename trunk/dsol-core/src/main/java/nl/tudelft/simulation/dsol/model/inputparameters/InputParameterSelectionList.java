@@ -74,9 +74,12 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T>
         return this.options.indexOf(value);
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public void setValue(final T newValue) throws InputParameterException
+    /**
+     * Set a new value by providing one of the list options.
+     * @param newValue the new value (must be one of the list options)
+     * @throws InputParameterException when the new value is not part of selectionList options, or when the list is read-only
+     */
+    public void setListValue(final T newValue) throws InputParameterException
     {
         if (getIndex(newValue) == -1)
         {
