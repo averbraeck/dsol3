@@ -75,14 +75,20 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
 
     /** {@inheritDoc} */
     @Override
-    public T getValue()
+    public final T getValue()
     {
         return this.value;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public void setValue(final T newValue) throws InputParameterException
+    /**
+     * Change the value of the input parameter. This method is protected and final, so classes that extend this class must use
+     * their own method to set the value (e.g., setDoubleValue(...)), which has to call, in turn, super.setValue(...) to make
+     * the actual setting of the value happen. In case the setValue(...) method would be non-final and public, it would be too
+     * easy to forget to call super.setValue(...). 
+     * @param newValue T; the new value for the input parameter
+     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     */
+    protected final void setValue(final T newValue) throws InputParameterException
     {
         if (isReadOnly())
         {

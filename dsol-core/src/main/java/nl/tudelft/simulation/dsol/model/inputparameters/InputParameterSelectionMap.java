@@ -83,9 +83,12 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T>
         return null;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public void setValue(final T newValue) throws InputParameterException
+    /**
+     * Set a new value by providing one of the map value options.
+     * @param newValue the new value (must be one of the map value options)
+     * @throws InputParameterException when the new value is not part of selectionMap options, or when the map is read-only
+     */
+    public void setMapValue(final T newValue) throws InputParameterException
     {
         if (getKeyforValue(newValue) == null)
         {

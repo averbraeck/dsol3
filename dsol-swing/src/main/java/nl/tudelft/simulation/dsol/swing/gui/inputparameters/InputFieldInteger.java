@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.swing.gui.inputparameters;
 
 import javax.swing.JPanel;
 
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterInteger;
 
 /**
@@ -31,10 +32,33 @@ public class InputFieldInteger extends InputFieldString
         return (InputParameterInteger) super.getParameter();
     }
 
-    /** @return the int value of the field in the gui. */
-    public int getIntValue()
+    /**
+     * Return the numeric value of the field
+     * @return the integer value of the field in the gui.
+     * @throws InputParameterException on invalid input
+     */
+    public int getIntValue() throws InputParameterException
     {
-        return Integer.valueOf(this.textField.getText());
+        return getIntValue(this.textField.getText(), this.parameter.getShortName());
     }
 
+    /**
+     * Return the numeric value of the field
+     * @param s the String to test
+     * @param shortName the name of the field to test
+     * @return the integer value of the field in the gui.
+     * @throws InputParameterException on invalid input
+     */
+    public static int getIntValue(final String s, final String shortName) throws InputParameterException
+    {
+        try
+        {
+            return Integer.parseInt(s);
+        }
+        catch (NumberFormatException exception)
+        {
+            throw new InputParameterException(
+                    "Field " + shortName + " does not contain a valid integer value -- value = '" + s + "'");
+        }
+    }
 }

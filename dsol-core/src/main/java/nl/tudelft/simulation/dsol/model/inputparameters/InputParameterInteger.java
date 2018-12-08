@@ -57,9 +57,12 @@ public class InputParameterInteger extends AbstractInputParameter<Integer>
         this.format = format;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public final void setValue(final Integer newValue) throws InputParameterException
+    /**
+     * Check and set the typed value, and call super.setValue to make the actual allocation. 
+     * @param newValue int; the new value for the input parameter
+     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     */
+    public final void setIntValue(final int newValue) throws InputParameterException
     {
         if (this.minimumValue > newValue || this.maximumValue < newValue)
         {

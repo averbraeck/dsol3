@@ -57,7 +57,8 @@ public class InputParameterFloat extends AbstractInputParameter<Float>
      */
     @SuppressWarnings("checkstyle:parameternumber")
     public InputParameterFloat(final String key, final String shortName, final String description, final float defaultValue,
-            final float minimumValue, final float maximumValue, final boolean minIncluded, final boolean maxIncluded, final String format, final double displayPriority)
+            final float minimumValue, final float maximumValue, final boolean minIncluded, final boolean maxIncluded,
+            final String format, final double displayPriority)
     {
         super(key, shortName, description, defaultValue, displayPriority);
         this.minimumValue = minimumValue;
@@ -67,11 +68,15 @@ public class InputParameterFloat extends AbstractInputParameter<Float>
         this.maxIncluded = maxIncluded;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public final void setValue(final Float newValue) throws InputParameterException
+    /**
+     * Check and set the typed value, and call super.setValue to make the actual allocation. 
+     * @param newValue float; the new value for the input parameter
+     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     */
+    public final void setFloatValue(final float newValue) throws InputParameterException
     {
-        if (this.minimumValue > newValue || this.maximumValue < newValue)
+        if (this.minimumValue > newValue || this.maximumValue < newValue || (this.minimumValue == newValue && !this.minIncluded)
+                || (this.maximumValue == newValue && !this.maxIncluded))
         {
             throw new InputParameterException("new value for InputParameterFloat with key " + getKey() + " with value "
                     + newValue + " is out of valid range [" + this.minimumValue + ".." + this.maximumValue + "]");

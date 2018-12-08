@@ -24,9 +24,12 @@ import javax.swing.WindowConstants;
 
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameter;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterBoolean;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDistContinuousSelection;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDistDiscreteSelection;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDouble;
-import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDoubleScalar;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterFloat;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterFloatScalar;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionList;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionMap;
@@ -93,18 +96,22 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
             else
             {
                 InputParameterMap tabbedMap = (InputParameterMap) tab;
-                int items = tabbedMap.getSortedSet().size();
                 JPanel tabbedPanel = new JPanel();
                 JPanel tabbedWrapper = new JPanel(new BorderLayout());
                 tabbedWrapper.add(tabbedPanel, BorderLayout.NORTH);
                 tabbedWrapper.add(Box.createGlue(), BorderLayout.CENTER);
                 tabbedPane.addTab(tab.getShortName(), tabbedWrapper);
-                GridLayout seGridLayout = new GridLayout(items, 3);
-                tabbedPanel.setLayout(seGridLayout);
-
+                // to accommodate different height fields we use a horizontal box layout within a vertical box layout
+                BoxLayout tabLayout = new BoxLayout(tabbedPanel, BoxLayout.Y_AXIS);
+                tabbedPanel.setLayout(tabLayout);
                 for (InputParameter<?> parameter : tabbedMap.getSortedSet())
                 {
-                    addParameterField(tabbedPanel, parameter);
+                    JPanel row = new JPanel();
+                    GridLayout rowLayout = new GridLayout(1, 3, 5, 0);
+                    row.setLayout(rowLayout);
+                    tabbedPanel.add(row);
+                    addParameterField(row, parameter);
+                    tabbedPanel.add(Box.createVerticalStrut(2));
                 }
             }
         }
@@ -163,9 +170,25 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
         {
             this.fields.add(new InputFieldBoolean(panel, (InputParameterBoolean) parameter));
         }
+        else if (parameter instanceof InputParameterDoubleScalar)
+        {
+            this.fields.add(new InputFieldDoubleScalar(panel, (InputParameterDoubleScalar<?, ?>) parameter));
+        }
+        else if (parameter instanceof InputParameterFloatScalar)
+        {
+            this.fields.add(new InputFieldFloatScalar(panel, (InputParameterFloatScalar<?, ?>) parameter));
+        }
         else if (parameter instanceof InputParameterSelectionList<?>)
         {
             this.fields.add(new InputFieldSelectionList(panel, (InputParameterSelectionList<?>) parameter));
+        }
+        else if (parameter instanceof InputParameterDistDiscreteSelection)
+        {
+            this.fields.add(new InputFieldDistDiscrete(panel, (InputParameterDistDiscreteSelection) parameter));
+        }
+        else if (parameter instanceof InputParameterDistContinuousSelection)
+        {
+            this.fields.add(new InputFieldDistContinuous(panel, (InputParameterDistContinuousSelection) parameter));
         }
         else if (parameter instanceof InputParameterSelectionMap<?, ?>)
         {
@@ -177,6 +200,7 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        boolean ok = true;
         try
         {
             for (InputField field : this.fields)
@@ -184,32 +208,58 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
                 if (field instanceof InputFieldDouble)
                 {
                     InputFieldDouble f = (InputFieldDouble) field;
-                    f.getParameter().setValue(f.getDoubleValue());
+                    f.getParameter().setDoubleValue(f.getDoubleValue());
                 }
                 else if (field instanceof InputFieldString)
                 {
                     InputFieldString f = (InputFieldString) field;
-                    ((InputParameterString) f.getParameter()).setValue(f.getStringValue());
+                    ((InputParameterString) f.getParameter()).setStringValue(f.getStringValue());
                 }
                 else if (field instanceof InputFieldFloat)
                 {
                     InputFieldFloat f = (InputFieldFloat) field;
-                    f.getParameter().setValue(f.getFloatValue());
+                    f.getParameter().setFloatValue(f.getFloatValue());
                 }
                 else if (field instanceof InputFieldInteger)
                 {
                     InputFieldInteger f = (InputFieldInteger) field;
-                    f.getParameter().setValue(f.getIntValue());
+                    f.getParameter().setIntValue(f.getIntValue());
                 }
                 else if (field instanceof InputFieldLong)
                 {
                     InputFieldLong f = (InputFieldLong) field;
-                    f.getParameter().setValue(f.getLongValue());
+                    f.getParameter().setLongValue(f.getLongValue());
+                }
+                else if (field instanceof InputFieldDoubleScalar)
+                {
+                    InputFieldDoubleScalar<?, ?> f = (InputFieldDoubleScalar<?, ?>) field;
+                    f.getParameter().getDoubleParameter().setDoubleValue(f.getDoubleValue());
+                    f.getParameter().getUnitParameter().setObjectValue(f.getUnit());
+                    f.getParameter().setTypedValue(); // it will retrieve the set double value and unit
+                }
+                else if (field instanceof InputFieldFloatScalar)
+                {
+                    InputFieldFloatScalar<?, ?> f = (InputFieldFloatScalar<?, ?>) field;
+                    f.getParameter().getFloatParameter().setFloatValue(f.getFloatValue());
+                    f.getParameter().getUnitParameter().setObjectValue(f.getUnit());
+                    f.getParameter().setTypedValue(); // it will retrieve the set float value and unit
                 }
                 else if (field instanceof InputFieldSelectionList<?>)
                 {
                     InputFieldSelectionList<?> f = (InputFieldSelectionList<?>) field;
                     f.getParameter().setIndex(f.getIndex());
+                }
+                else if (field instanceof InputFieldDistContinuous)
+                {
+                    InputFieldDistContinuous f = (InputFieldDistContinuous) field;
+                    f.setDistParameterValues();
+                    f.getParameter().getValue().setDist();
+                }
+                else if (field instanceof InputFieldDistDiscrete)
+                {
+                    InputFieldDistDiscrete f = (InputFieldDistDiscrete) field;
+                    f.setDistParameterValues();
+                    f.getParameter().getValue().setDist();
                 }
                 else if (field instanceof InputFieldSelectionMap<?, ?>)
                 {
@@ -218,13 +268,17 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
                 }
             }
         }
-        catch (InputParameterException exception)
+        catch (Exception exception)
         {
-            exception.printStackTrace(); // TODO
+            JOptionPane.showMessageDialog(null, exception.getMessage(), "Data Entry Error", JOptionPane.ERROR_MESSAGE);
+            ok = false;
         }
-        setVisible(false);
-        dispose();
-        System.out.println(this.inputParameterMap.printValues());
+        if (ok)
+        {
+            setVisible(false);
+            dispose();
+            System.out.println(this.inputParameterMap.printValues());
+        }
     }
 
 }

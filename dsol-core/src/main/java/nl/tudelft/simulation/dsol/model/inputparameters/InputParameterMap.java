@@ -154,7 +154,21 @@ public class InputParameterMap extends AbstractInputParameter<SortedMap<String, 
         for (InputParameter<?> param : map.getSortedSet())
         {
             out.append("                    ".substring(0, depth));
-            if (param instanceof InputParameterMap)
+            if (param instanceof AbstractInputParameterTypedMap)
+            {
+                out.append(param.getKey());
+                out.append(" = ");
+                try
+                {
+                    out.append(((AbstractInputParameterTypedMap<?>) param).getTypedValue().toString());
+                }
+                catch (InputParameterException exception)
+                {
+                    out.append("!!ERROR!!");
+                }
+                out.append("\n");
+            }
+            else if (param instanceof InputParameterMap)
             {
                 out.append("MAP: ");
                 out.append(param.getKey());

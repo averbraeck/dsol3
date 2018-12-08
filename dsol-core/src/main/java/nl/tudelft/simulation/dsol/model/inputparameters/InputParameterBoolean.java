@@ -27,6 +27,16 @@ public class InputParameterBoolean extends AbstractInputParameter<Boolean>
         super(key, shortName, description, defaultValue, displayPriority);
     }
 
+    /**
+     * Check and set the typed value, and call super.setValue to make the actual allocation. 
+     * @param newValue String; the new value for the input parameter
+     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     */
+    public void setBooleanValue(final boolean newValue) throws InputParameterException
+    {
+        super.setValue(newValue);
+    }
+
     /** {@inheritDoc} */
     @Override
     public InputParameterBoolean clone() throws CloneNotSupportedException

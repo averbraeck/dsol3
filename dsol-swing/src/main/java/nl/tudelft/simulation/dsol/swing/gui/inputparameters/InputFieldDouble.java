@@ -3,6 +3,7 @@ package nl.tudelft.simulation.dsol.swing.gui.inputparameters;
 import javax.swing.JPanel;
 
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDouble;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 
 /**
  * Swing InputField for Double. <br>
@@ -31,10 +32,33 @@ public class InputFieldDouble extends InputFieldString
         return (InputParameterDouble) super.getParameter();
     }
 
-    /** @return the double value of the field in the gui. */
-    public double getDoubleValue()
+    /**
+     * Return the numeric value of the field
+     * @return the double value of the field in the gui.
+     * @throws InputParameterException on invalid input
+     */
+    public double getDoubleValue() throws InputParameterException
     {
-        return Double.valueOf(this.textField.getText());
+        return getDoubleValue(this.textField.getText(), this.parameter.getShortName());
     }
 
+    /**
+     * Return the numeric value of the field
+     * @param s the String to test
+     * @param shortName the name of the field to test
+     * @return the double value of the field in the gui.
+     * @throws InputParameterException on invalid input
+     */
+    public static double getDoubleValue(final String s, final String shortName) throws InputParameterException
+    {
+        try
+        {
+            return Double.parseDouble(s);
+        }
+        catch (NumberFormatException exception)
+        {
+            throw new InputParameterException(
+                    "Field " + shortName + " does not contain a valid double value -- value = '" + s + "'");
+        }
+    }
 }
