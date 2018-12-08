@@ -46,7 +46,7 @@ public class InputParameterUnit<U extends Unit<U>> extends InputParameterSelecti
     {
         SortedMap<String, U> options = new TreeMap<>();
         @SuppressWarnings("unchecked")
-        Set<U> unitSet = Unit.getUnits(defaultUnit.getClass());
+        Set<U> unitSet = Unit.getUnits((Class<U>) defaultUnit.getClass());
         for (U unit : unitSet)
         {
             options.put(unit.getName(), unit);
