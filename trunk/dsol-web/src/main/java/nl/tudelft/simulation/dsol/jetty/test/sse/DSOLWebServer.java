@@ -32,7 +32,7 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 /**
  * DSOLWebServer.java. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information
  * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
  * binary code of this software is proprietary information of Delft University of Technology.
@@ -208,7 +208,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
     /**
      * Answer handles the events from the web-based user interface. <br>
      * <br>
-     * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
      * reserved. See for project information
      * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
      * binary code of this software is proprietary information of Delft University of Technology.

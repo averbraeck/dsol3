@@ -20,7 +20,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * Test.java. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -75,7 +75,7 @@ public class Test
         countries.add("France");
         countries.add("Belgium");
         InputParameterSelectionList<String> paramSelect = new InputParameterSelectionList<String>("country", "Country",
-                "Counttry to select", countries, "Netherlands", 4.0);
+                "Country to select", countries, "Netherlands", 4.0);
         xxMap.add(paramSelect);
         StreamInterface stream = new MersenneTwister(1L);
         InputParameterDistContinuousSelection ipdcs = new InputParameterDistContinuousSelection("distCont",
@@ -85,13 +85,32 @@ public class Test
                 "Discrete distribution", "Discrete distribution", stream, 6.0);
         xxMap.add(ipdds);
         InputParameterDoubleScalar<LengthUnit, Length> length = new InputParameterDoubleScalar<>("length", "Length",
-                "Length of the trip", new Length(20.0, LengthUnit.KILOMETER), 0.0, Double.MAX_VALUE, true, false, "%d", 7.0);
+                "Length of the trip", new Length(20.0, LengthUnit.LIGHTYEAR), 0.0, Double.MAX_VALUE, true, false, "%d", 7.0);
         xxMap.add(length);
 
         // InputParameterString is = new InputParameterString("runName", "Name of run", "Description of the run", "", 1.0);
         // ipMap.add(is); // should give error when displayed in a tabbed environment
 
+        // InputParameterMap inputParameterMap = ipMap;
+        // InputParameterDistContinuous ipDist = new InputParameterDistContinuous("arrDist", "Arrival distribution",
+        // "Arrival distribution, e.g. DistExponential(lambda)", stream, new DistExponential(stream, 1.0), 1.0);
+        // ipMap.add(ipDist);
+        //
+        // InputParameterMap ipMap = getInputParameterMap();
+        // InputParameterDistContinuous arrDist = (InputParameterDistContinuous) ipMap.get("arrDist");
+        // arrDist.setDistValue(new DistExponential(arrDist.getStream(), 2.17));
+
         new TabbedParameterDialog(ipMap);
+
+        System.out.println(ipMap.printValues());
+        System.out.println(((InputParameterMap) ipMap.get("other")).get("length").toString());
+        @SuppressWarnings("unchecked")
+        InputParameterDoubleScalar<LengthUnit, Length> ipds =
+                (InputParameterDoubleScalar<LengthUnit, Length>) ((InputParameterMap) ipMap.get("other")).get("length");
+        Length l1 = ipds.getCalculatedValue();
+        Length l2 = (Length) ipMap.get("other.length").getCalculatedValue();
+        System.out.println(l1);
+        System.out.println(l2);
     }
 
 }

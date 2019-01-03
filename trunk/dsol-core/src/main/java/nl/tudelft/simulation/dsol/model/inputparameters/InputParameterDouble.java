@@ -3,18 +3,18 @@ package nl.tudelft.simulation.dsol.model.inputparameters;
 /**
  * InputParameterDouble.java. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public class InputParameterDouble extends AbstractInputParameter<Double>
+public class InputParameterDouble extends AbstractInputParameter<Double, Double>
 {
     /** */
     private static final long serialVersionUID = 1L;
 
     /** Format string to display the value of the input parameter. */
-    private String format = "%d";
+    private String format = "%f";
 
     /** The minimum value of the input parameter. */
     private double minimumValue = -Double.MAX_VALUE;
@@ -66,6 +66,13 @@ public class InputParameterDouble extends AbstractInputParameter<Double>
         this.minIncluded = minIncluded;
         this.maxIncluded = maxIncluded;
         this.format = format;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final Double getCalculatedValue()
+    {
+        return getValue();
     }
 
     /**

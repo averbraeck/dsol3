@@ -20,7 +20,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 /**
  * The CPU example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. .
  * <p>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">

@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.statistics;
 
+import java.util.Calendar;
+
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventType;
@@ -8,10 +10,10 @@ import nl.tudelft.simulation.event.TimedEvent;
 /**
  * The Persistent class defines a statistics event persistent. A Persistent is a time-averaged tally.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
@@ -93,14 +95,12 @@ public class Persistent extends Tally
     {
         if (!(event instanceof TimedEvent<?>) || !(event.getContent() instanceof Number))
         {
-            throw new IllegalArgumentException(
-                    "event != TimedEvent || event.source != Double (" + event.getContent().getClass().toString() + ")");
+            throw new IllegalArgumentException("Persistent: event != TimedEvent || event.conent != Number ("
+                    + event.getContent().getClass().toString() + ")");
         }
         if (event instanceof TimedEvent<?>)
         {
-            // TODO: When we use e.g. a calendar, time is not a number
-            @SuppressWarnings("unchecked")
-            TimedEvent<Double> timedEvent = (TimedEvent<Double>) event;
+            TimedEvent<?> timedEvent = (TimedEvent<?>) event;
             double value = 0.0;
             if (event.getContent() instanceof Number)
             {
@@ -108,13 +108,27 @@ public class Persistent extends Tally
             }
             else
             {
-                SimLogger.always().warn("notify: {} should be a number", event.getContent());
+                SimLogger.always().warn("Persistent.notify: Content {} should be a Number", event.getContent());
             }
 
             synchronized (this.semaphore)
             {
                 super.fireTimedEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent.getTimeStamp());
                 super.fireTimedEvent(Persistent.VALUE_EVENT, value, timedEvent.getTimeStamp());
+                double timestamp = 0;
+                if (timedEvent.getTimeStamp() instanceof Number)
+                {
+                    timestamp = ((Number) timedEvent.getTimeStamp()).doubleValue();
+                }
+                else if (timedEvent.getTimeStamp() instanceof Calendar)
+                {
+                    timestamp = ((Calendar) timedEvent.getTimeStamp()).getTimeInMillis();
+                }
+                else
+                {
+                    SimLogger.always().warn("Persistent.notify: Timestamp {} should be a Number or Calendar",
+                            event.getContent());
+                }
                 super.setN(super.n + 1); // we increase the number of measurements.
                 if (value < super.min)
                 {
@@ -130,16 +144,15 @@ public class Persistent extends Tally
                 if (this.n == 1)
                 {
                     super.setSampleMean(value);
-                    this.startTime = timedEvent.getTimeStamp();
+                    this.startTime = timestamp;
                 }
                 else
                 {
-                    this.deltaTime = timedEvent.getTimeStamp() - (this.elapsedTime + this.startTime);
+                    this.deltaTime = timestamp - (this.elapsedTime + this.startTime);
                     if (this.deltaTime > 0.0)
                     {
-                        double newAverage =
-                                ((super.sampleMean * (this.elapsedTime)) + (this.lastValue * this.deltaTime))
-                                        / (this.elapsedTime + this.deltaTime);
+                        double newAverage = ((super.sampleMean * (this.elapsedTime)) + (this.lastValue * this.deltaTime))
+                                / (this.elapsedTime + this.deltaTime);
                         super.varianceSum +=
                                 (this.lastValue - super.sampleMean) * (this.lastValue - newAverage) * this.deltaTime;
                         super.setSampleMean(newAverage);

@@ -12,14 +12,14 @@ import org.djutils.exceptions.Throw;
  * not AbstractInputParameter&lt;Map&lt;K,&nbsp;T&gt;&gt; because the value it can return is the value-item in the map and not
  * the map itself.<br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @param <K> the key value to select the values in the map
  * @param <T> the type of parameter stored in the map
  */
-public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T>
+public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, T>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -47,6 +47,13 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T>
             throw new InputParameterException(
                     "Default value " + defaultValue + " not part of selectionMap options for key " + getKey());
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final T getCalculatedValue()
+    {
+        return getValue();
     }
 
     /**
@@ -136,9 +143,9 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T>
         {
             T item = this.options.get(key);
             // needed because the ArrayList.clone() returns a shallow copy
-            if (item instanceof InputParameter<?>)
+            if (item instanceof InputParameter<?, ?>)
             {
-                clonedMap.put(key, (T) ((InputParameter<?>) item).clone());
+                clonedMap.put(key, (T) ((InputParameter<?, ?>) item).clone());
             }
             else
             {

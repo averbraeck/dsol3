@@ -26,7 +26,7 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMapDistDis
 /**
  * Swing InputField for a selection of a continuous distribution, using a ComboBox. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -93,7 +93,7 @@ public class InputFieldDistDiscrete extends AbstractInputField implements ItemLi
             InputParameterMapDistDiscrete value = parameter.getOptions().get(option);
             JTextField[] paramFields = new JTextField[value.getSortedSet().size()];
             int index = 0;
-            for (InputParameter<?> param : value.getSortedSet())
+            for (InputParameter<?, ?> param : value.getSortedSet())
             {
                 JPanel itemPanel = new JPanel();
                 itemPanel.setLayout(new GridLayout(1, 2, 5, 0));
@@ -143,7 +143,7 @@ public class InputFieldDistDiscrete extends AbstractInputField implements ItemLi
         InputParameterMapDistDiscrete ipMap = this.selectionMap.get(selectedOption);
         JTextField[] paramFields = this.textFields.get(selectedOption);
         int index = 0;
-        for (InputParameter<?> param : ipMap.getSortedSet())
+        for (InputParameter<?, ?> param : ipMap.getSortedSet())
         {
             String sValue = paramFields[index].getText();
             if (param instanceof InputParameterDouble)

@@ -29,7 +29,7 @@ import nl.tudelft.simulation.event.EventProducer;
  * AbstractDSOLModel, an abstract helper class to easily construct a DSOLModel. The model automatically acts as an
  * EventProducer, so events can be sent to statistics gathering classes. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -51,7 +51,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
     /** the input parameters. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected InputParameterMap inputParameterMap;
+    protected InputParameterMap inputParameterMap = new InputParameterMap("model", "Model parameters", "Model parameters", 1.0);
 
     /** the output statistics. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -65,7 +65,6 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
     {
         super();
         this.simulator = simulator;
-        this.inputParameterMap = new InputParameterMap("model", "Model parameters", "Model parameters", 1.0);
     }
 
     /** {@inheritDoc} */
@@ -87,21 +86,21 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
      * @param inputParameter the input parameter to add
      * @throws InputParameterException in case an input parameter with the same key already exists
      */
-    public void addInputParameter(final AbstractInputParameter<?> inputParameter) throws InputParameterException
+    public void addInputParameter(final AbstractInputParameter<?, ?> inputParameter) throws InputParameterException
     {
         this.inputParameterMap.add(inputParameter);
     }
 
     /**
-     * Retrieve an input parameter from the map of input parameters, based on a key. The key can use the 'dot notation' to
-     * access values in sub-maps of input parameters.
+     * Retrieve the value of an input parameter from the map of input parameters, based on a key. The key can use the 'dot
+     * notation' to access values in sub-maps of input parameters.
      * @param key the key of the input parameter to retrieve
      * @return the value belonging to the key, or null if the key could not be found
-     * @throws InputParameterException  in case the input parameter with this key does not exist
+     * @throws InputParameterException in case the input parameter with this key does not exist
      */
     public Object getInputParameter(final String key) throws InputParameterException
     {
-        return this.inputParameterMap.get(key);
+        return this.inputParameterMap.get(key).getCalculatedValue();
     }
 
     /** {@inheritDoc} */

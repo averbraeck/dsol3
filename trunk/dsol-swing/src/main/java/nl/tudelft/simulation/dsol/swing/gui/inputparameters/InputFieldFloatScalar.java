@@ -16,7 +16,7 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterFloatScala
 /**
  * Swing InputField for Floats with a unit. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -90,8 +90,8 @@ public class InputFieldFloatScalar<U extends Unit<U>, T extends AbstractFloatSca
         getParameter().getFloatParameter().setFloatValue(floatValue);
         U unit = getParameter().getUnitParameter().getOptions().get(this.unitField.getSelectedItem().toString());
         getParameter().getUnitParameter().setMapValue(unit);
-        getParameter().setTypedValue();
-        return getParameter().getTypedValue();
+        getParameter().setCalculatedValue();
+        return getParameter().getCalculatedValue();
     }
 
     /**

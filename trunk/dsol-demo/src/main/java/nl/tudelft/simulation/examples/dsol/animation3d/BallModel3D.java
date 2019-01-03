@@ -7,13 +7,12 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * BallModel3D, the ball example in 3D.
  * <p>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -21,7 +20,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * </p>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/royc/index.htm">Roy Chin </a>
  */
-public class BallModel3D extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble>
+public class BallModel3D extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterface.TimeDouble>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -30,7 +29,7 @@ public class BallModel3D extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInter
      * Constructs new BallModel3D.
      * @param simulator the simulator
      */
-    public BallModel3D(final DEVSSimulatorInterface.TimeDouble simulator)
+    public BallModel3D(final DESSSimulatorInterface.TimeDouble simulator)
     {
         super(simulator);
     }
@@ -44,7 +43,7 @@ public class BallModel3D extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInter
         {
             try
             {
-                new Ball3D((DESSSimulatorInterface.TimeDouble) this.simulator);
+                new Ball3D(this.simulator);
             }
             catch (NamingException | RemoteException exception)
             {

@@ -1,16 +1,16 @@
 package nl.tudelft.simulation.dsol.tutorial.section42.policies;
 
-import java.util.Properties;
-
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * A StationaryPolicy.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -30,10 +30,17 @@ public class StationaryPolicy implements OrderingPolicy
     public StationaryPolicy(final SimulatorInterface.TimeDouble simulator)
     {
         super();
-        Properties properties = simulator.getReplication().getTreatment().getProperties();
-
-        this.lowerBound = new Long(properties.getProperty("policy.lowerBound")).longValue();
-        this.upperBound = new Long(properties.getProperty("policy.upperBound")).longValue();
+        try
+        {
+            InputParameterMap parameters = simulator.getReplication().getTreatment().getInputParameterMap();
+            this.lowerBound = (Long) parameters.get("policy.lowerBound").getCalculatedValue();
+            this.upperBound = (Long) parameters.get("policy.upperBound").getCalculatedValue();
+        }
+        catch (InputParameterException ipe)
+        {
+            ipe.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     /** {@inheritDoc} */

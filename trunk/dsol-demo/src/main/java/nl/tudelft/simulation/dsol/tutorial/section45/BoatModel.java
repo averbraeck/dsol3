@@ -2,19 +2,19 @@ package nl.tudelft.simulation.dsol.tutorial.section45;
 
 import java.rmi.RemoteException;
 
-import org.djutils.io.URLResource;
+import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.xml.dsol.ExperimentParser;
 
 /**
  * A BoatModel.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -57,24 +57,22 @@ public class BoatModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDo
      */
     private void scheduleBoatArrival(final double time, final Port port) throws SimRuntimeException
     {
-        this.simulator.scheduleEventAbs(time, this, Boat.class, "<init>", null);
+        this.simulator.scheduleEventAbs(time, this, Boat.class, "<init>", new Object[] {this.simulator, port});
     }
 
     /**
-     * commandline executes the model.
-     * @param args String[]; the arguments to the commandline
+     * command line executes the model.
+     * @param args String[]; the arguments to the command line
+     * @throws NamingException on Context error
+     * @throws SimRuntimeException on simulation model construction error
      */
-    public static void main(final String[] args)
+    public static void main(final String[] args) throws NamingException, SimRuntimeException
     {
-        try
-        {
-            ExperimentalFrame experimentalFrame =
-                    ExperimentParser.parseExperimentalFrame(URLResource.getResource("/section45.xml"));
-            experimentalFrame.start();
-        }
-        catch (Exception exception)
-        {
-            SimLogger.always().error(exception);
-        }
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
+        DSOLModel.TimeDouble<DEVSSimulator.TimeDouble> model = new BoatModel(simulator);
+        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
+                Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
+        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.start();
     }
 }

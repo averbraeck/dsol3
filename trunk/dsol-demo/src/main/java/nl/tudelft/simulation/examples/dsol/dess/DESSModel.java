@@ -5,12 +5,12 @@ import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
-import nl.tudelft.simulation.dsol.statistics.Persistent;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -25,7 +25,7 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
     private XYChart distanceChart;
 
     /** the distance persistent. */
-    private Persistent<Double, Double, SimTimeDouble> distancePersistent;
+    private SimPersistent<Double, Double, SimTimeDouble> distancePersistent;
 
     /**
      * constructs a new DESSModel.
@@ -43,7 +43,7 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
         try
         {
             Distance distance = new Distance(this.simulator);
-            this.distancePersistent = new Persistent<>("persistent on distance", this.simulator, distance,
+            this.distancePersistent = new SimPersistent<>("persistent on distance", this.simulator, distance,
                     DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
         }
         catch (Exception exception)
@@ -68,7 +68,7 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
     /**
      * @return distancePersistent
      */
-    public final Persistent<Double, Double, SimTimeDouble> getDistancePersistent()
+    public final SimPersistent<Double, Double, SimTimeDouble> getDistancePersistent()
     {
         return this.distancePersistent;
     }

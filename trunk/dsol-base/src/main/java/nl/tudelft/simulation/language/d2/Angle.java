@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
  * The Angle class presents a number of mathematical utility functions on the angle. For now, the class only implements
  * static helper methods. No instances of the class should be made now.
  * <p>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">

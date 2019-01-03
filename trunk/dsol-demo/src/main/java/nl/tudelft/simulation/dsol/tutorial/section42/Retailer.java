@@ -1,9 +1,9 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
-import java.util.Properties;
-
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.tutorial.section42.policies.OrderingPolicy;
 import nl.tudelft.simulation.dsol.tutorial.section42.policies.StationaryPolicy;
@@ -13,10 +13,10 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * A Retailer.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -73,11 +73,19 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         this.simulator = simulator;
         this.warehouse = warehouse;
         this.orderingPolicy = new StationaryPolicy(simulator);
-        Properties properties = this.simulator.getReplication().getTreatment().getProperties();
-        this.backlogCosts = new Double(properties.getProperty("retailer.costs.setup")).doubleValue();
-        this.holdingCosts = new Double(properties.getProperty("retailer.costs.holding")).doubleValue();
-        this.marginalCosts = new Double(properties.getProperty("retailer.costs.marginal")).doubleValue();
-        this.setupCosts = new Double(properties.getProperty("retailer.costs.setup")).doubleValue();
+        try
+        {
+            InputParameterMap parameters = simulator.getReplication().getTreatment().getInputParameterMap();
+            this.backlogCosts = (Double) parameters.get("retailer.backlogCosts").getCalculatedValue();
+            this.holdingCosts = (Double) parameters.get("retailer.holdingCosts").getCalculatedValue();
+            this.marginalCosts = (Double) parameters.get("retailer.marginalCosts").getCalculatedValue();
+            this.setupCosts = (Double) parameters.get("retailer.setupCosts").getCalculatedValue();
+        }
+        catch (InputParameterException ipe)
+        {
+            ipe.printStackTrace();
+            System.exit(-1);
+        }
         this.reviewInventory();
     }
 
@@ -107,8 +115,8 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         }
         try
         {
-            this.simulator.scheduleEvent(new SimEvent.TimeDouble(this.simulator.getSimulatorTime() + 1.0, this, this,
-                    "reviewInventory", null));
+            this.simulator.scheduleEvent(
+                    new SimEvent.TimeDouble(this.simulator.getSimulatorTime() + 1.0, this, this, "reviewInventory", null));
         }
         catch (Exception exception)
         {

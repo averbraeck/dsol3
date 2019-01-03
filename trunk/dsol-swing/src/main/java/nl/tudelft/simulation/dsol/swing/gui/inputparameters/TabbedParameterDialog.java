@@ -30,6 +30,8 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDouble;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDoubleScalar;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterFloat;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterFloatScalar;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterInteger;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterLong;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionList;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionMap;
@@ -38,7 +40,7 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterString;
 /**
  * TabbedParameterDialog takes an InputParameterMap and displays the top selections of the tree as tabs. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -80,7 +82,7 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
         JTabbedPane tabbedPane = new JTabbedPane();
         panel.add(tabbedPane);
 
-        for (InputParameter<?> tab : this.inputParameterMap.getSortedSet())
+        for (InputParameter<?, ?> tab : this.inputParameterMap.getSortedSet())
         {
             if (!(tab instanceof InputParameterMap))
             {
@@ -104,7 +106,7 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
                 // to accommodate different height fields we use a horizontal box layout within a vertical box layout
                 BoxLayout tabLayout = new BoxLayout(tabbedPanel, BoxLayout.Y_AXIS);
                 tabbedPanel.setLayout(tabLayout);
-                for (InputParameter<?> parameter : tabbedMap.getSortedSet())
+                for (InputParameter<?, ?> parameter : tabbedMap.getSortedSet())
                 {
                     JPanel row = new JPanel();
                     GridLayout rowLayout = new GridLayout(1, 3, 5, 0);
@@ -152,13 +154,9 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
      * @param parameter the input parameter to display
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private void addParameterField(final JPanel panel, final InputParameter<?> parameter)
+    private void addParameterField(final JPanel panel, final InputParameter<?, ?> parameter)
     {
-        if (parameter instanceof InputParameterString)
-        {
-            this.fields.add(new InputFieldString(panel, parameter));
-        }
-        else if (parameter instanceof InputParameterDouble)
+        if (parameter instanceof InputParameterDouble)
         {
             this.fields.add(new InputFieldDouble(panel, (InputParameterDouble) parameter));
         }
@@ -169,6 +167,18 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
         else if (parameter instanceof InputParameterBoolean)
         {
             this.fields.add(new InputFieldBoolean(panel, (InputParameterBoolean) parameter));
+        }
+        else if (parameter instanceof InputParameterLong)
+        {
+            this.fields.add(new InputFieldLong(panel, (InputParameterLong) parameter));
+        }
+        else if (parameter instanceof InputParameterInteger)
+        {
+            this.fields.add(new InputFieldInteger(panel, (InputParameterInteger) parameter));
+        }
+        else if (parameter instanceof InputParameterString)
+        {
+            this.fields.add(new InputFieldString(panel, parameter));
         }
         else if (parameter instanceof InputParameterDoubleScalar)
         {
@@ -210,11 +220,6 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
                     InputFieldDouble f = (InputFieldDouble) field;
                     f.getParameter().setDoubleValue(f.getDoubleValue());
                 }
-                else if (field instanceof InputFieldString)
-                {
-                    InputFieldString f = (InputFieldString) field;
-                    ((InputParameterString) f.getParameter()).setStringValue(f.getStringValue());
-                }
                 else if (field instanceof InputFieldFloat)
                 {
                     InputFieldFloat f = (InputFieldFloat) field;
@@ -230,19 +235,24 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
                     InputFieldLong f = (InputFieldLong) field;
                     f.getParameter().setLongValue(f.getLongValue());
                 }
+                else if (field instanceof InputFieldString)
+                {
+                    InputFieldString f = (InputFieldString) field;
+                    ((InputParameterString) f.getParameter()).setStringValue(f.getStringValue());
+                }
                 else if (field instanceof InputFieldDoubleScalar)
                 {
                     InputFieldDoubleScalar<?, ?> f = (InputFieldDoubleScalar<?, ?>) field;
                     f.getParameter().getDoubleParameter().setDoubleValue(f.getDoubleValue());
                     f.getParameter().getUnitParameter().setObjectValue(f.getUnit());
-                    f.getParameter().setTypedValue(); // it will retrieve the set double value and unit
+                    f.getParameter().setCalculatedValue(); // it will retrieve the set double value and unit
                 }
                 else if (field instanceof InputFieldFloatScalar)
                 {
                     InputFieldFloatScalar<?, ?> f = (InputFieldFloatScalar<?, ?>) field;
                     f.getParameter().getFloatParameter().setFloatValue(f.getFloatValue());
                     f.getParameter().getUnitParameter().setObjectValue(f.getUnit());
-                    f.getParameter().setTypedValue(); // it will retrieve the set float value and unit
+                    f.getParameter().setCalculatedValue(); // it will retrieve the set float value and unit
                 }
                 else if (field instanceof InputFieldSelectionList<?>)
                 {
@@ -277,7 +287,6 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
         {
             setVisible(false);
             dispose();
-            System.out.println(this.inputParameterMap.printValues());
         }
     }
 

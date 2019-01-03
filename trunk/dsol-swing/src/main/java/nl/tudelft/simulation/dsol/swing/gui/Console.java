@@ -24,7 +24,7 @@ import org.pmw.tinylog.writers.Writer;
 /**
  * The Console for the swing application where the log messages are displayed. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
  * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of Delft
  * University of Technology.
@@ -101,7 +101,7 @@ public class Console extends JTextPane
     /**
      * LogWriter takes care of writing the log records to the console. <br>
      * <br>
-     * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
      * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
      * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of
      * Delft University of Technology.

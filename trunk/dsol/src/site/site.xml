@@ -43,6 +43,7 @@
       <item name="Project Team" href="team.html" />
       <item name="Project License" href="license.html" />
       <item name="Versions + Changes" href="changes-report.html" />
+      <item name="DSOL Manual" href="https://simulation.tudelft.nl/dsol/manual/" target="_blank" />
     </menu>
 
     <menu name="RELATED" inherit="bottom">

@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.model.inputparameters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.djutils.exceptions.Throw;
@@ -11,13 +12,13 @@ import org.djutils.exceptions.Throw;
  * extends AbstractInputParameter&lt;T&gt; and not AbstractInputParameter&lt;List&lt;T&gt;&gt; because the value it can return
  * is the item in the list and not the list itself.<br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @param <T> the type of parameter stored in the list
  */
-public class InputParameterSelectionList<T> extends AbstractInputParameter<T>
+public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -45,6 +46,29 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T>
             throw new InputParameterException(
                     "Default value " + defaultValue + " not part of selectionList options for key " + getKey());
         }
+    }
+
+    /**
+     * Construct a new InputParameterSelectionList.
+     * @param key String; unique (within the parent's input parameter map) name of the new InputParameterSelectionList
+     * @param shortName String; concise description of the input parameter
+     * @param description String; long description of the input parameter (may use HTML markup)
+     * @param options the array of selection options
+     * @param defaultValue T; the default value of this input parameter
+     * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws InputParameterException in case the default value is not part of the list
+     */
+    public InputParameterSelectionList(final String key, final String shortName, final String description,
+            final T[] options, final T defaultValue, final double displayPriority) throws InputParameterException
+    {
+        this(key, shortName, description, Arrays.asList(options), defaultValue, displayPriority);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final T getCalculatedValue()
+    {
+        return getValue();
     }
 
     /**
@@ -110,9 +134,9 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T>
         for (T item : this.options)
         {
             // needed because the ArrayList.clone() returns a shallow copy
-            if (item instanceof InputParameter<?>)
+            if (item instanceof InputParameter<?, ?>)
             {
-                clonedList.add((T) ((InputParameter<?>) item).clone());
+                clonedList.add((T) ((InputParameter<?, ?>) item).clone());
             }
             else
             {

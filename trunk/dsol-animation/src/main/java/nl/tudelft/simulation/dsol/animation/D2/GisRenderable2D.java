@@ -27,7 +27,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 /**
  * This renderable draws CAD/GIS objects.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -104,8 +104,8 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
             this.location =
                     new DirectedPoint(new CartesianPoint(this.cachedExtent.getCenterX(), this.cachedExtent.getCenterY(), z));
             this.bounds = new BoundingBox(this.cachedExtent.getWidth(), this.cachedExtent.getHeight(), 0.0);
-            simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
-                    this.map.getExtent());
+            // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
+            // XXX       this.map.getExtent());
             this.bind2Context(simulator);
         }
         catch (Exception exception)
@@ -135,8 +135,8 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
             this.location =
                     new DirectedPoint(new CartesianPoint(this.cachedExtent.getCenterX(), this.cachedExtent.getCenterY(), z));
             this.bounds = new BoundingBox(this.cachedExtent.getWidth(), this.cachedExtent.getHeight(), 0.0);
-            simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
-                    this.map.getExtent());
+            // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
+            // XXX        this.map.getExtent());
             this.bind2Context(simulator);
         }
         catch (Exception exception)

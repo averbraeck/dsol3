@@ -3,12 +3,12 @@ package nl.tudelft.simulation.dsol.model.inputparameters;
 /**
  * InputParameterLong.java. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public class InputParameterLong extends AbstractInputParameter<Long>
+public class InputParameterLong extends AbstractInputParameter<Long, Long>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -55,6 +55,13 @@ public class InputParameterLong extends AbstractInputParameter<Long>
         this.minimumValue = minimumValue;
         this.maximumValue = maximumValue;
         this.format = format;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final Long getCalculatedValue()
+    {
+        return getValue();
     }
 
     /**

@@ -1,10 +1,11 @@
 package nl.tudelft.simulation.examples.dsol.terminal;
 
-import java.util.Properties;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterInteger;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
@@ -47,11 +48,16 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
      * constructor for the Container Terminal.
      * @param simulator the simulator
      * @param rep int; the replication number
+     * @throws InputParameterException on input parameter error
      */
-    public Terminal(final DEVSSimulatorInterface.TimeDouble simulator, final int rep)
+    public Terminal(final DEVSSimulatorInterface.TimeDouble simulator, final int rep) throws InputParameterException
     {
         super(simulator);
         this.rep = rep;
+        this.inputParameterMap.add(new InputParameterInteger("numQC", "Number of QCs", "Number of Quay Cranes (QCs)", 10, 1.0));
+        this.inputParameterMap.add(
+                new InputParameterInteger("numAGV", "Number of AGVs", "Number of Automated Quided Vehicles (AGVs)", 20, 2.0));
+
     }
 
     /** {@inheritDoc} */
@@ -60,9 +66,16 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
     {
         StreamInterface defaultStream = this.simulator.getReplication().getStream("default");
 
-        Properties properties = this.simulator.getReplication().getTreatment().getProperties();
-        this.numQC = Integer.parseInt(properties.getProperty("numQC"));
-        this.numAGV = Integer.parseInt(properties.getProperty("numAGV"));
+        try
+        {
+            InputParameterMap parameters = this.simulator.getReplication().getTreatment().getInputParameterMap();
+            this.numQC = (Integer) parameters.get("numQC").getCalculatedValue();
+            this.numAGV = (Integer) parameters.get("numAGV").getCalculatedValue();
+        }
+        catch (InputParameterException ipe)
+        {
+            throw new SimRuntimeException(ipe);
+        }
         int numCont = 3000;
 
         QC qc = new QC(this.simulator, "QC", this.numQC, new DistExponential(defaultStream, 60. / 30.));

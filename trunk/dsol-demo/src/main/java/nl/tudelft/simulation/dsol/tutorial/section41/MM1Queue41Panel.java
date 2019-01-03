@@ -5,8 +5,8 @@ import java.rmi.RemoteException;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.statistics.Persistent;
-import nl.tudelft.simulation.dsol.statistics.Tally;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
+import nl.tudelft.simulation.dsol.statistics.SimTally;
 import nl.tudelft.simulation.dsol.swing.charts.boxAndWhisker.BoxAndWhiskerChart;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
@@ -14,7 +14,7 @@ import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -51,19 +51,19 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
         try
         {
             XYChart dN = new XYChart(this.simulator, "dN mean");
-            dN.add("dN mean", model.dN, Tally.TIMED_SAMPLE_MEAN_EVENT);
+            dN.add("dN mean", model.dN, SimTally.TIMED_SAMPLE_MEAN_EVENT);
             charts.setCell(dN.getSwingPanel(), 0, 0);
 
             XYChart qN = new XYChart(this.simulator, "qN mean");
-            qN.add("qN mean", model.qN, Tally.TIMED_SAMPLE_MEAN_EVENT);
+            qN.add("qN mean", model.qN, SimTally.TIMED_SAMPLE_MEAN_EVENT);
             charts.setCell(qN.getSwingPanel(), 1, 0);
 
             XYChart utilization = new XYChart(this.simulator, "utilization");
-            utilization.add("utilization", model.uN, Persistent.VALUE_EVENT);
+            utilization.add("utilization", model.uN, SimPersistent.VALUE_EVENT);
             charts.setCell(utilization.getSwingPanel(), 2, 0);
 
             XYChart meanUtilization = new XYChart(this.simulator, "mean utilization");
-            meanUtilization.add("mean utilization", model.uN, Persistent.TIMED_SAMPLE_MEAN_EVENT);
+            meanUtilization.add("mean utilization", model.uN, SimPersistent.TIMED_SAMPLE_MEAN_EVENT);
             charts.setCell(meanUtilization.getSwingPanel(), 2, 1);
 
             // Charts

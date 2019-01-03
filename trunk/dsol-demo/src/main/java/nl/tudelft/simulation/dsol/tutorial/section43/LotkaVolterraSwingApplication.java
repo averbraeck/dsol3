@@ -15,7 +15,7 @@ import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -46,7 +46,7 @@ public class LotkaVolterraSwingApplication extends DSOLApplication
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
         DESSSimulator.TimeDouble simulator = new DESSSimulator.TimeDouble(0.01);
-        PredatorPrey model = new PredatorPrey(simulator);
+        PredatorPreyModel model = new PredatorPreyModel(simulator);
         Replication.TimeDouble<DESSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
@@ -63,7 +63,7 @@ public class LotkaVolterraSwingApplication extends DSOLApplication
          * @param model PredatorPrey; the model
          * @param simulator DESSSimulatorInterface.TimeDouble; the simulator
          */
-        LotkaVolterraPanel(final PredatorPrey model, final DESSSimulator.TimeDouble simulator)
+        LotkaVolterraPanel(final PredatorPreyModel model, final DESSSimulator.TimeDouble simulator)
         {
             super(model, simulator);
 

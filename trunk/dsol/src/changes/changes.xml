@@ -1,7 +1,45 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.03.01" date="2018-11-XX" description="Updates to dsol-swing, dsol-web">
+    <release version="3.03.01" date="2019-01-03" description="Updates to dsol-swing, dsol-web">
+      <action dev="averbraeck" type="remove">
+        The XML-parsing has been removed from the dsol-demo project. Instead, interactive applications and 
+        applications using the console or the Web have been created.
+      </action>
+      <action dev="averbraeck" type="add">
+        The site contains a reference to the new DSOL manual at https://simulation.tudelft.nl/dsol/manual/
+      </action>
+      <action dev="averbraeck" type="update">
+        The SimCounter, SimTally and SimPersistent have easy access inner classes such as 
+        SimTally.TimeDoubleUnit to link them strongly typed to the right simulator.
+      </action>
+       <action dev="averbraeck" type="update">
+        The SimPersistent class now handles SimTime objects for the timestamp. 
+      </action>
+      <action dev="averbraeck" type="update">
+        The Persistent class can now also handle Calendar objects for the timestamp.
+      </action>
+      <action dev="averbraeck" type="update">
+        The simulator-aware versions of the Counter, Tally and Persistent have been renamed into
+        SimCounter, SimTally and SimPersistent, to avoid having classes with exactly the same 
+        name within the dsol-core project, which has always been very confusing.
+      </action>
+      <action dev="averbraeck" type="update">
+        The interface for the InputParameter now forces each parameter to return a getCalculatedValue()
+        in addition to the getValue(). This is important, as for the typed selection functions
+        using a map, the getValue() returns the map (the value of that parameter), whereas 
+        getCalculatedValue() returns the value that can be calculated from the map. This is 
+        particularly important for the distribution functions. To enable this and to make it 
+        type-safe, the InputParameter interface got one extra generic to denote the 'calculated' type.
+      </action>
+      <action dev="averbraeck" type="update">
+        The Replication in dsol-core defines a default random stream using a MersenneTwister
+        with the name "default" and a seed equal to the hashCode of the Replication's id. 
+      </action>
+      <action dev="averbraeck" type="update">
+        The Replication in dsol-core now has an id, and requests the id to be used in the constructor.
+        The id can be of type String or of type int.
+      </action>
       <action dev="averbraeck" type="update">
         The DSOL categories for the CategoryLogger in DJUTILS have been added to dsol-base into
         the nl.tudelft.simulation.dsol.logger package.
