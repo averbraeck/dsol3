@@ -7,6 +7,9 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterInteger;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
@@ -15,7 +18,7 @@ import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -43,8 +46,9 @@ public final class ExperimentRunnerTerminal implements EventListenerInterface
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
+     * @throws InputParameterException on error
      */
-    private ExperimentRunnerTerminal() throws SimRuntimeException, RemoteException, NamingException
+    private ExperimentRunnerTerminal() throws SimRuntimeException, RemoteException, NamingException, InputParameterException
     {
         long seed = 1;
         int maxConcurrent = 8;
@@ -72,8 +76,9 @@ public final class ExperimentRunnerTerminal implements EventListenerInterface
                     Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                             Replication.TimeDouble.create("rep1", 0.0, 0.0, runtime, model);
                     replication.getStreams().put("default", new MersenneTwister(seed++));
-                    replication.getTreatment().getProperties().setProperty("numQC", "" + numQC);
-                    replication.getTreatment().getProperties().setProperty("numAGV", "" + numAGV);
+                    InputParameterMap parameters = model.getInputParameterMap();
+                    ((InputParameterInteger) parameters.get("numQC")).setIntValue(numQC);
+                    ((InputParameterInteger) parameters.get("numAGV")).setIntValue(numAGV);
                     simulator.initialize(replication, ReplicationMode.TERMINATING);
                     model.addListener(this, Terminal.READY_EVENT);
                     this.numruns++;
@@ -130,8 +135,10 @@ public final class ExperimentRunnerTerminal implements EventListenerInterface
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
+     * @throws InputParameterException on error
      */
-    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
+    public static void main(final String[] args)
+            throws SimRuntimeException, RemoteException, NamingException, InputParameterException
     {
         new ExperimentRunnerTerminal();
     }

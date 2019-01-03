@@ -8,16 +8,18 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.TabbedParameterDialog;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -45,15 +47,17 @@ public class Warehouse42SwingApplication extends DSOLApplication
      * @throws RemoteException on error
      * @throws NamingException on error
      * @throws InterruptedException on error
+     * @throws InputParameterException on parameter error
      */
     public static void main(final String[] args)
-            throws SimRuntimeException, RemoteException, NamingException, InterruptedException
+            throws SimRuntimeException, RemoteException, NamingException, InterruptedException, InputParameterException
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
         Warehouse42Model model = new Warehouse42Model(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 5 * 24.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
+        new TabbedParameterDialog(model.getInputParameterMap());
         new Warehouse42SwingApplication("MM1 Queue model", new Warehouse42Panel(model, simulator));
     }
 

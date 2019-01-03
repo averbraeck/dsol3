@@ -9,8 +9,8 @@ import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.dsol.statistics.Counter;
-import nl.tudelft.simulation.dsol.statistics.Persistent;
+import nl.tudelft.simulation.dsol.statistics.SimCounter;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.swing.charts.boxAndWhisker.BoxAndWhiskerChart;
 import nl.tudelft.simulation.dsol.swing.charts.histogram.Histogram;
 import nl.tudelft.simulation.event.EventInterface;
@@ -21,7 +21,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The Computer example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4..
  * <p>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -62,7 +62,7 @@ public class Computer extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
         try
         {
             // First the statistics
-            Persistent<Double, Double, SimTimeDouble> persistent = new Persistent<>("service time", this.simulator);
+            SimPersistent<Double, Double, SimTimeDouble> persistent = new SimPersistent<>("service time", this.simulator);
             ExitCounter exitCounter = new ExitCounter("counter", this.simulator);
 
             // Now the charts
@@ -89,7 +89,7 @@ public class Computer extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     /**
      * A counter which stops after a predifined number of jobs.
      */
-    public static class ExitCounter extends Counter<Double, Double, SimTimeDouble>
+    public static class ExitCounter extends SimCounter<Double, Double, SimTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 1L;

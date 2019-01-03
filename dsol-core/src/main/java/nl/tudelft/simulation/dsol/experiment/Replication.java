@@ -24,13 +24,14 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
  * The replication of an Experiment.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -55,27 +56,48 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     /** description the description of the replication. */
     private String description = "rep_no_description";
 
+    /** the id of the replication. */
+    private final String id;
+
     /** the experiment to which this replication belongs. */
-    private Experiment<A, R, T, S> experiment = null;
+    private final Experiment<A, R, T, S> experiment;
 
     /** the contextRoot of this replication. */
     private Context context = null;
 
     /**
      * constructs a new Replication.
+     * @param id the id of the replication, which has to be unique within the experiment
      * @param experiment Experiment&lt;A,R,T&gt;; the experiment to which this replication belongs
      * @throws NamingException in case a context for the replication cannot be created
      */
-    public Replication(final Experiment<A, R, T, S> experiment) throws NamingException
+    public Replication(final String id, final Experiment<A, R, T, S> experiment) throws NamingException
     {
         super();
+        this.id = id;
         this.experiment = experiment;
-        setContext(String.valueOf(hashCode()));
+        setContext();
+        this.streams.put("default", new MersenneTwister(this.id.hashCode()));
+    }
+
+    /**
+     * constructs a new Replication.
+     * @param id the id of the replication, which has to be unique within the experiment
+     * @param experiment Experiment&lt;A,R,T&gt;; the experiment to which this replication belongs
+     * @throws NamingException in case a context for the replication cannot be created
+     */
+    public Replication(final int id, final Experiment<A, R, T, S> experiment) throws NamingException
+    {
+        super();
+        this.id = "" + id;
+        this.experiment = experiment;
+        setContext();
+        this.streams.put("default", new MersenneTwister(this.id.hashCode()));
     }
 
     /**
      * constructs a stand-alone Replication and make a treatment and experiment as well.
-     * @param id String; the id of the replication.
+     * @param id String; the id of the replication; should be unique within the experiment.
      * @param startTime T; the start time as a time object.
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
@@ -97,17 +119,16 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
         Treatment<A, R, T> treatment =
                 new Treatment<A, R, T>(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
         experiment.setTreatment(treatment);
-        return new Replication<A, R, T, S>(experiment);
+        return new Replication<A, R, T, S>(id, experiment);
     }
 
     /**
      * set the context for this replication.
-     * @param id String; the id of the replication.
      * @throws NamingException in case a context for the experiment or replication cannot be created
      */
-    private void setContext(final String id) throws NamingException
+    private void setContext() throws NamingException
     {
-        this.context = ContextUtil.lookup(this.experiment.getContext(), String.valueOf(id));
+        this.context = ContextUtil.lookup(this.experiment.getContext(), String.valueOf(this.id.hashCode()));
     }
 
     /**
@@ -220,12 +241,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeDouble.
+         * @param id String; the id of the replication; should be unique within the experiment.
          * @param experiment Experiment.TimeDouble; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDouble(final Experiment.TimeDouble<S> experiment) throws NamingException
+        public TimeDouble(final String id, final Experiment.TimeDouble<S> experiment) throws NamingException
         {
-            super(experiment);
+            super(id, experiment);
+        }
+
+        /**
+         * constructs a new Replication.TimeDouble.
+         * @param id int; the id of the replication; should be unique within the experiment.
+         * @param experiment Experiment.TimeDouble; the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeDouble(final int id, final Experiment.TimeDouble<S> experiment) throws NamingException
+        {
+            super(id, experiment);
         }
 
         /**
@@ -248,7 +281,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             Treatment.TimeDouble treatment =
                     new Treatment.TimeDouble(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
-            return new Replication.TimeDouble<S>(experiment);
+            return new Replication.TimeDouble<S>(id, experiment);
         }
 
         /** {@inheritDoc} */
@@ -277,12 +310,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeFloat.
+         * @param id String; the id of the replication; should be unique within the experiment.
          * @param experiment Experiment.TimeFloat; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloat(final Experiment.TimeFloat<S> experiment) throws NamingException
+        public TimeFloat(final String id, final Experiment.TimeFloat<S> experiment) throws NamingException
         {
-            super(experiment);
+            super(id, experiment);
+        }
+
+        /**
+         * constructs a new Replication.TimeFloat.
+         * @param id int; the id of the replication; should be unique within the experiment.
+         * @param experiment Experiment.TimeFloat; the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeFloat(final int id, final Experiment.TimeFloat<S> experiment) throws NamingException
+        {
+            super(id, experiment);
         }
 
         /**
@@ -305,7 +350,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             Treatment.TimeFloat treatment =
                     new Treatment.TimeFloat(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
-            return new Replication.TimeFloat<S>(experiment);
+            return new Replication.TimeFloat<S>(id, experiment);
         }
 
         /** {@inheritDoc} */
@@ -334,12 +379,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeLong.
+         * @param id String; the id of the replication; should be unique within the experiment.
          * @param experiment Experiment.TimeLong; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeLong(final Experiment.TimeLong<S> experiment) throws NamingException
+        public TimeLong(final String id, final Experiment.TimeLong<S> experiment) throws NamingException
         {
-            super(experiment);
+            super(id, experiment);
+        }
+
+        /**
+         * constructs a new Replication.TimeLong.
+         * @param id int; the id of the replication; should be unique within the experiment.
+         * @param experiment Experiment.TimeLong; the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeLong(final int id, final Experiment.TimeLong<S> experiment) throws NamingException
+        {
+            super(id, experiment);
         }
 
         /**
@@ -362,9 +419,9 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             Treatment.TimeLong treatment =
                     new Treatment.TimeLong(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
-            return new Replication.TimeLong<S>(experiment);
+            return new Replication.TimeLong<S>(id, experiment);
         }
-        
+
         /** {@inheritDoc} */
         @Override
         public Experiment.TimeLong<S> getExperiment()
@@ -392,12 +449,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeDoubleUnit.
+         * @param id String; the id of the replication; should be unique within the experiment.
          * @param experiment Experiment.TimeDoubleUnit; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDoubleUnit(final Experiment.TimeDoubleUnit<S> experiment) throws NamingException
+        public TimeDoubleUnit(final String id, final Experiment.TimeDoubleUnit<S> experiment) throws NamingException
         {
-            super(experiment);
+            super(id, experiment);
+        }
+
+        /**
+         * constructs a new Replication.TimeDoubleUnit.
+         * @param id int; the id of the replication; should be unique within the experiment.
+         * @param experiment Experiment.TimeDoubleUnit; the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeDoubleUnit(final int id, final Experiment.TimeDoubleUnit<S> experiment) throws NamingException
+        {
+            super(id, experiment);
         }
 
         /**
@@ -420,7 +489,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             Treatment.TimeDoubleUnit treatment =
                     new Treatment.TimeDoubleUnit(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
-            return new Replication.TimeDoubleUnit<S>(experiment);
+            return new Replication.TimeDoubleUnit<S>(id, experiment);
         }
 
         /** {@inheritDoc} */
@@ -450,12 +519,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.TimeFloatUnit.
+         * @param id String; the id of the replication; should be unique within the experiment.
          * @param experiment Experiment.TimeFloatUnit; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloatUnit(final Experiment.TimeFloatUnit<S> experiment) throws NamingException
+        public TimeFloatUnit(final String id, final Experiment.TimeFloatUnit<S> experiment) throws NamingException
         {
-            super(experiment);
+            super(id, experiment);
+        }
+
+        /**
+         * constructs a new Replication.TimeFloatUnit.
+         * @param id int; the id of the replication; should be unique within the experiment.
+         * @param experiment Experiment.TimeFloatUnit; the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public TimeFloatUnit(final int id, final Experiment.TimeFloatUnit<S> experiment) throws NamingException
+        {
+            super(id, experiment);
         }
 
         /**
@@ -478,7 +559,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             Treatment.TimeFloatUnit treatment =
                     new Treatment.TimeFloatUnit(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
-            return new Replication.TimeFloatUnit<S>(experiment);
+            return new Replication.TimeFloatUnit<S>(id, experiment);
         }
 
         /** {@inheritDoc} */
@@ -508,12 +589,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarDouble.
+         * @param id String; the id of the replication; should be unique within the experiment.
          * @param experiment Experiment.CalendarDouble; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarDouble(final Experiment.CalendarDouble<S> experiment) throws NamingException
+        public CalendarDouble(final String id, final Experiment.CalendarDouble<S> experiment) throws NamingException
         {
-            super(experiment);
+            super(id, experiment);
+        }
+
+        /**
+         * constructs a new Replication.CalendarDouble.
+         * @param id int; the id of the replication; should be unique within the experiment.
+         * @param experiment Experiment.CalendarDouble; the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public CalendarDouble(final int id, final Experiment.CalendarDouble<S> experiment) throws NamingException
+        {
+            super(id, experiment);
         }
 
         /**
@@ -536,7 +629,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             Treatment.CalendarDouble treatment =
                     new Treatment.CalendarDouble(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
-            return new Replication.CalendarDouble<S>(experiment);
+            return new Replication.CalendarDouble<S>(id, experiment);
         }
 
         /** {@inheritDoc} */
@@ -566,12 +659,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarFloat.
+         * @param id String; the id of the replication; should be unique within the experiment.
          * @param experiment Experiment.CalendarFloat; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarFloat(final Experiment.CalendarFloat<S> experiment) throws NamingException
+        public CalendarFloat(final String id, final Experiment.CalendarFloat<S> experiment) throws NamingException
         {
-            super(experiment);
+            super(id, experiment);
+        }
+
+        /**
+         * constructs a new Replication.CalendarFloat.
+         * @param id int; the id of the replication; should be unique within the experiment.
+         * @param experiment Experiment.CalendarFloat; the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public CalendarFloat(final int id, final Experiment.CalendarFloat<S> experiment) throws NamingException
+        {
+            super(id, experiment);
         }
 
         /**
@@ -594,7 +699,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             Treatment.CalendarFloat treatment =
                     new Treatment.CalendarFloat(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
-            return new Replication.CalendarFloat<S>(experiment);
+            return new Replication.CalendarFloat<S>(id, experiment);
         }
 
         /** {@inheritDoc} */
@@ -624,12 +729,24 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
 
         /**
          * constructs a new Replication.CalendarLong.
+         * @param id String; the id of the replication; should be unique within the experiment.
          * @param experiment Experiment.CalendarLong; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarLong(final Experiment.CalendarLong<S> experiment) throws NamingException
+        public CalendarLong(final String id, final Experiment.CalendarLong<S> experiment) throws NamingException
         {
-            super(experiment);
+            super(id, experiment);
+        }
+
+        /**
+         * constructs a new Replication.CalendarLong.
+         * @param id int; the id of the replication; should be unique within the experiment.
+         * @param experiment Experiment.CalendarLong; the experiment to which this replication belongs
+         * @throws NamingException in case a context for the replication cannot be created
+         */
+        public CalendarLong(final int id, final Experiment.CalendarLong<S> experiment) throws NamingException
+        {
+            super(id, experiment);
         }
 
         /**
@@ -652,7 +769,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
             Treatment.CalendarLong treatment =
                     new Treatment.CalendarLong(experiment, "Treatment for " + id, startTime, warmupPeriod, runLength);
             experiment.setTreatment(treatment);
-            return new Replication.CalendarLong<S>(experiment);
+            return new Replication.CalendarLong<S>(id, experiment);
         }
 
         /** {@inheritDoc} */

@@ -3,12 +3,12 @@ package nl.tudelft.simulation.dsol.model.inputparameters;
 /**
  * InputParameterFloat.java. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public class InputParameterFloat extends AbstractInputParameter<Float>
+public class InputParameterFloat extends AbstractInputParameter<Float, Float>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -66,6 +66,13 @@ public class InputParameterFloat extends AbstractInputParameter<Float>
         this.format = format;
         this.minIncluded = minIncluded;
         this.maxIncluded = maxIncluded;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final Float getCalculatedValue()
+    {
+        return getValue();
     }
 
     /**

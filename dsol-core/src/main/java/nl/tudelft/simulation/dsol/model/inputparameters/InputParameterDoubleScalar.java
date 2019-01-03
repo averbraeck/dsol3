@@ -11,7 +11,7 @@ import org.djutils.reflection.ClassUtil;
  * InputParameterDoubleScalar: double parameter with a unit. The number and the value are stored in an InputParameterMap as two
  * input variables of type InputFieldDouble (name: value), and InputFieldUnit (name: unit). <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -48,7 +48,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     public InputParameterDoubleScalar(final String key, final String shortName, final String description, final T defaultValue,
             final double displayPriority) throws InputParameterException
     {
-        this(key, shortName, description, defaultValue, -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%d",
+        this(key, shortName, description, defaultValue, -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f",
                 displayPriority);
     }
 
@@ -144,7 +144,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
      *             or when the scalar does not have a constructor Scalar(double, unit)
      */
     @Override
-    public final void setTypedValue() throws InputParameterException
+    public final void setCalculatedValue() throws InputParameterException
     {
         double doubleValue = getDoubleParameter().getValue();
         U unit = getUnitParameter().getValue();

@@ -6,12 +6,12 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * InputParameterDistDiscrete provides a choice for a discrete distribution.<br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public class InputParameterDistDiscrete extends AbstractInputParameter<DistDiscrete>
+public class InputParameterDistDiscrete extends AbstractInputParameter<DistDiscrete, DistDiscrete>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -35,6 +35,13 @@ public class InputParameterDistDiscrete extends AbstractInputParameter<DistDiscr
     {
         super(key, shortName, description, defaultValue, displayPriority);
         this.stream = stream;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public DistDiscrete getCalculatedValue() throws InputParameterException
+    {
+        return getValue();
     }
 
     /**

@@ -12,7 +12,7 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
  * other; they bundle the object on which the method is planned to be invoked together with the arguments and the name
  * of the method in a simEvent. The CallbackTask is then stored in the eventList and executed.
  * <p>
- * Copyright (c) 2004-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2004-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">

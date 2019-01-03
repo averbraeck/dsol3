@@ -10,13 +10,13 @@ import org.djutils.exceptions.Throw;
  * selection map for the distribution, followed by one or more parameters for the chosen distribution, which are stored in an
  * InputParameterMap. <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  * @param <T> the type that this map should be able to construct or return
  */
-public abstract class AbstractInputParameterTypedMap<T> extends InputParameterMap
+public abstract class AbstractInputParameterTypedMap<T> extends AbstractInputParameterMap<T>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -44,17 +44,14 @@ public abstract class AbstractInputParameterTypedMap<T> extends InputParameterMa
     }
 
     /**
-     * Calculate the typed value for this parameter entry.
+     * Calculate the calculated value for this parameter entry.
      * @throws InputParameterException when the typed value based on the parameter map cannot be constructed
      */
-    public abstract void setTypedValue() throws InputParameterException;
+    public abstract void setCalculatedValue() throws InputParameterException;
 
-    /**
-     * Return the previously calculated typed value based on the components.
-     * @return T; the previously calculated typed value based on the components
-     * @throws InputParameterException when the value has not been calculated
-     */
-    public T getTypedValue() throws InputParameterException
+    /** {@inheritDoc} */
+    @Override
+    public T getCalculatedValue() throws InputParameterException
     {
         Throw.when(this.typedValue == null, InputParameterException.class,
                 "Value for parameter " + getShortName() + " has not yet been calculated");

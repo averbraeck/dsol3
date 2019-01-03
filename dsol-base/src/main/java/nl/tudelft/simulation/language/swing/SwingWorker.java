@@ -9,7 +9,7 @@ import javax.swing.SwingUtilities;
  * https://docs.oracle.com/javase/tutorial/uiswing/concurrency/worker.html </a>. Note that the API changed slightly in
  * the 3rd version: You must now invoke start() on the SwingWorker after creating it.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">

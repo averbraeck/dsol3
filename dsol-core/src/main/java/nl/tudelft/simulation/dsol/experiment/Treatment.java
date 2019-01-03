@@ -2,13 +2,13 @@ package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Properties;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -24,7 +24,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * The treatment is comprises the specification of input data, the runControl and the specification of output data. (Sol:1982,
  * Oeren &amp; Zeigler:1979).
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -62,9 +62,6 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /** the warmup time of the simulation (included in the total run length). */
     private final T warmupTime;
-
-    /** the properties of this treatment. */
-    private Properties properties = new Properties();
 
     /** the id. */
     private final String id;
@@ -116,21 +113,13 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         return this.experiment;
     }
 
+    
     /**
-     * @return Properties for this treatment
+     * @return the input parameter map for this treatment
      */
-    public final Properties getProperties()
+    public final InputParameterMap getInputParameterMap()
     {
-        return this.properties;
-    }
-
-    /**
-     * sets the properties.
-     * @param properties Properties; the properties
-     */
-    public final void setProperties(final Properties properties)
-    {
-        this.properties = properties;
+        return this.experiment.getModel().getInputParameterMap();
     }
 
     /**
@@ -142,7 +131,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
     }
 
     /**
-     * @return Returns the runLength.
+     * @return the runLength.
      */
     public final R getRunLength()
     {

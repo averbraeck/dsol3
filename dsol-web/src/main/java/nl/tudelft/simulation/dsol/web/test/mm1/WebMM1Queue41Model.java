@@ -13,7 +13,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimulationTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.statistics.Tally;
+import nl.tudelft.simulation.dsol.statistics.SimTally;
 import nl.tudelft.simulation.jstats.distributions.DistConstant;
 import nl.tudelft.simulation.jstats.distributions.DistDiscreteConstant;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
@@ -23,7 +23,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The M/M/1 example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4.
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -38,11 +38,11 @@ public class WebMM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulat
 
     /** tally dN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    Tally<Double, Double, SimTimeDouble> dN;
+    SimTally<Double, Double, SimTimeDouble> dN;
 
     /** tally qN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    Tally<Double, Double, SimTimeDouble> qN;
+    SimTally<Double, Double, SimTimeDouble> qN;
 
     /** utilization uN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -90,8 +90,8 @@ public class WebMM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulat
         // Statistics
         try
         {
-            this.dN = new Tally<>("d(n)", getSimulator(), queue, Seize.DELAY_TIME);
-            this.qN = new Tally<>("q(n)", getSimulator(), queue, Seize.QUEUE_LENGTH_EVENT);
+            this.dN = new SimTally<>("d(n)", getSimulator(), queue, Seize.DELAY_TIME);
+            this.qN = new SimTally<>("q(n)", getSimulator(), queue, Seize.QUEUE_LENGTH_EVENT);
             this.uN = new Utilization<>("u(n)", getSimulator(), server);
         }
         catch (Exception exception)

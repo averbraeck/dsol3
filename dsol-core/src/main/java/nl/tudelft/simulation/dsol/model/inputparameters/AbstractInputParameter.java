@@ -3,15 +3,16 @@ package nl.tudelft.simulation.dsol.model.inputparameters;
 /**
  * Abstract input parameter.
  * <p>
- * Copyright (c) 2013-2018 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2013-2019 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="http://opentrafficsim.org/docs/license.html">OpenTrafficSim License</a>.
  * <p>
  * $LastChangedDate: 2016-05-28 11:33:31 +0200 (Sat, 28 May 2016) $, @version $Revision: 2051 $, by $Author: averbraeck $,
  * initial version 18 dec. 2014 <br>
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
- * @param <T> type of the input parameter
+ * @param <VT> Value type of the input parameter
+ * @param <CT> Calculated type of the input parameter (often the same as VT, except in complex maps)
  */
-public abstract class AbstractInputParameter<T> implements InputParameter<T>
+public abstract class AbstractInputParameter<VT, CT> implements InputParameter<VT, CT>
 {
     /** */
     private static final long serialVersionUID = 20150000L;
@@ -26,10 +27,10 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
     private String description;
 
     /** the default value. */
-    private T defaultValue;
+    private VT defaultValue;
 
     /** the current value. */
-    private T value;
+    private VT value;
 
     /** Determines sorting order when properties are displayed to the user. */
     private final double displayPriority;
@@ -38,7 +39,7 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
     private boolean readOnly = false;
 
     /** Parent of this AbstractInputParameter. */
-    private InputParameterMap parent = null;
+    private AbstractInputParameterMap<?> parent = null;
 
     /**
      * Construct a new AbstractInputParameter.
@@ -48,7 +49,7 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
      * @param defaultValue T; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
      */
-    public AbstractInputParameter(final String key, final String shortName, final String description, final T defaultValue,
+    public AbstractInputParameter(final String key, final String shortName, final String description, final VT defaultValue,
             final double displayPriority)
     {
         this.key = key;
@@ -75,7 +76,7 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
 
     /** {@inheritDoc} */
     @Override
-    public final T getValue()
+    public final VT getValue()
     {
         return this.value;
     }
@@ -84,11 +85,11 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
      * Change the value of the input parameter. This method is protected and final, so classes that extend this class must use
      * their own method to set the value (e.g., setDoubleValue(...)), which has to call, in turn, super.setValue(...) to make
      * the actual setting of the value happen. In case the setValue(...) method would be non-final and public, it would be too
-     * easy to forget to call super.setValue(...). 
+     * easy to forget to call super.setValue(...).
      * @param newValue T; the new value for the input parameter
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
-    protected final void setValue(final T newValue) throws InputParameterException
+    protected final void setValue(final VT newValue) throws InputParameterException
     {
         if (isReadOnly())
         {
@@ -99,14 +100,14 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
 
     /** {@inheritDoc} */
     @Override
-    public T getDefaultValue()
+    public VT getDefaultValue()
     {
         return this.defaultValue;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setDefaultValue(final T newValue) throws InputParameterException
+    public void setDefaultValue(final VT newValue) throws InputParameterException
     {
         this.defaultValue = newValue;
     }
@@ -150,14 +151,14 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
      * Set the parent of this AbstractInputParameter.
      * @param newParent InputParameterMap; the new parent of this AbstractInputParameter
      */
-    protected final void setParent(final InputParameterMap newParent)
+    protected final void setParent(final AbstractInputParameterMap<?> newParent)
     {
         this.parent = newParent;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final InputParameterMap getParent()
+    public final AbstractInputParameterMap<?> getParent()
     {
         return this.parent;
     }
@@ -171,9 +172,9 @@ public abstract class AbstractInputParameter<T> implements InputParameter<T>
 
     /** {@inheritDoc} */
     @Override
-    public AbstractInputParameter<?> clone() throws CloneNotSupportedException
+    public AbstractInputParameter<?, ?> clone() throws CloneNotSupportedException
     {
-        return (AbstractInputParameter<?>) super.clone();
+        return (AbstractInputParameter<?, ?>) super.clone();
     }
 
 }

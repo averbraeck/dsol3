@@ -13,7 +13,7 @@ import org.djutils.logger.CategoryLogger;
 
 /**
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -74,7 +74,7 @@ public class HTMLPanel extends JEditorPane
             System.out.println("Usage: java nl.tudelft.simulation.dsol.gui.HTMLPanel [url]");
             System.exit(0);
         }
-        JFrame app = new JFrame("HTMLPanel, (c) 2003-2018 Delft University of Technology");
+        JFrame app = new JFrame("HTMLPanel, (c) 2003-2019 Delft University of Technology");
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setContentPane(new JScrollPane(new HTMLPanel(new URL(args[0]))));
         app.setVisible(true);

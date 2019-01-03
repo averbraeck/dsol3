@@ -11,7 +11,7 @@ import org.djutils.reflection.ClassUtil;
  * InputParameterFloatScalar: float parameter with a unit. The number and the value are stored in an InputParameterMap as two
  * input variables of type InputFieldFloat (name: value), and InputFieldUnit (name: unit). <br>
  * <br>
- * Copyright (c) 2003-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -143,7 +143,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      *             or when the scalar does not have a constructor Scalar(float, unit)
      */
     @Override
-    public final void setTypedValue() throws InputParameterException
+    public final void setCalculatedValue() throws InputParameterException
     {
         float floatValue = ((InputParameterFloat) get("value")).getValue();
         @SuppressWarnings("unchecked")

@@ -6,7 +6,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 /**
  * The Customer Ordering model class as presented in section 2.5 in the DSOL tutorial..
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -14,7 +14,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class Model25 extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDouble>
+public class CustomerOrderModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDouble>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class Model25 extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDoub
      * Construct a new customer ordering model.
      * @param simulator the simulator
      */
-    public Model25(final DEVSSimulator.TimeDouble simulator)
+    public CustomerOrderModel(final DEVSSimulator.TimeDouble simulator)
     {
         super(simulator);
     }

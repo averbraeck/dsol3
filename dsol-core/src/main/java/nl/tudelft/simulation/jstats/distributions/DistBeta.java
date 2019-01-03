@@ -7,7 +7,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * The Beta distribution. For more information on this distribution see
  * <a href="http://mathworld.wolfram.com/BetaDistribution.html"> http://mathworld.wolfram.com/BetaDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
  * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
  * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
  * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -60,8 +60,7 @@ public class DistBeta extends DistContinuous
     @Override
     public double draw()
     {
-        // according to Law and Kelton, Simulation Modeling and Analysis, 1991
-        // pages 492-493
+        // according to Law and Kelton, Simulation Modeling and Analysis, 1991, pages 492-493
         double y1 = this.dist1.draw();
         double y2 = this.dist2.draw();
         return y1 / (y1 + y2);
