@@ -1,7 +1,7 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.03.01" date="2019-01-03" description="Updates to dsol-swing, dsol-web">
+    <release version="3.03.02" date="2019-01-03" description="Statistics, dsol-demo, manual">
       <action dev="averbraeck" type="remove">
         The XML-parsing has been removed from the dsol-demo project. Instead, interactive applications and 
         applications using the console or the Web have been created.
@@ -40,11 +40,15 @@
         The Replication in dsol-core now has an id, and requests the id to be used in the constructor.
         The id can be of type String or of type int.
       </action>
+    </release>
+      
+    <release version="3.03.01" date="2018-12-08" description="CategoryLogger">
       <action dev="averbraeck" type="update">
         The DSOL categories for the CategoryLogger in DJUTILS have been added to dsol-base into
         the nl.tudelft.simulation.dsol.logger package.
       </action>
     </release>
+
 
     <release version="3.03.00" date="2018-11-17" description="Major refactoring, dsol-web and dsol-animation">
       <action dev="averbraeck" type="update">
