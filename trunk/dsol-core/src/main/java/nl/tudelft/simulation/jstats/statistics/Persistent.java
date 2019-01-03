@@ -113,8 +113,12 @@ public class Persistent extends Tally
 
             synchronized (this.semaphore)
             {
-                super.fireTimedEvent(Persistent.VALUE_EVENT, this.lastValue, timedEvent.getTimeStamp());
-                super.fireTimedEvent(Persistent.VALUE_EVENT, value, timedEvent.getTimeStamp());
+                TimedEvent<? extends Comparable<?>> lastValueEvent =
+                        new TimedEvent<>(Persistent.VALUE_EVENT, this, this.lastValue, timedEvent.getTimeStamp());
+                fireEvent(lastValueEvent);
+                TimedEvent<? extends Comparable<?>> valueEvent =
+                        new TimedEvent<>(Persistent.VALUE_EVENT, this, value, timedEvent.getTimeStamp());
+                fireEvent(valueEvent);
                 double timestamp = 0;
                 if (timedEvent.getTimeStamp() instanceof Number)
                 {
