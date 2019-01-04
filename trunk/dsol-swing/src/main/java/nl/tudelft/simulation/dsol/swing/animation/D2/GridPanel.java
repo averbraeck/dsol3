@@ -285,23 +285,33 @@ public class GridPanel extends JPanel
         g.setColor(GRIDCOLOR);
         double scale = Renderable2DInterface.Util.getScale(this.extent, this.getSize());
 
+        int count = 0;
         int gridSizePixels = (int) Math.round(this.gridSize / scale);
-        if (gridSizePixels < 40)
+        while (gridSizePixels < 40)
         {
             this.gridSize = 10 * this.gridSize;
             int maximumNumberOfDigits = (int) Math.max(0, 1 + Math.ceil(Math.log(1 / this.gridSize) / Math.log(10)));
             this.formatter.setMaximumFractionDigits(maximumNumberOfDigits);
-            this.drawGrid(g);
-            return;
+            gridSizePixels = (int) Math.round(this.gridSize / scale);
+            if (count++ > 10)
+            {
+                break;
+            }
         }
-        if (gridSizePixels > 10 * 40)
+        
+        count = 0;
+        while (gridSizePixels > 10 * 40)
         {
             int maximumNumberOfDigits = (int) Math.max(0, 2 + Math.ceil(Math.log(1 / this.gridSize) / Math.log(10)));
             this.formatter.setMaximumFractionDigits(maximumNumberOfDigits);
             this.gridSize = this.gridSize / 10;
-            this.drawGrid(g);
-            return;
+            gridSizePixels = (int) Math.round(this.gridSize / scale);
+            if (count++ > 10)
+            {
+                break;
+            }
         }
+        
         // Let's draw the vertical lines
         double mod = this.extent.getMinX() % this.gridSize;
         int x = (int) -Math.round(mod / scale);
@@ -321,6 +331,7 @@ public class GridPanel extends JPanel
             }
             x = x + gridSizePixels;
         }
+        
         // Let's draw the horizontal lines
         mod = Math.abs(this.extent.getMinY()) % this.gridSize;
         int y = (int) Math.round(this.getSize().getHeight() - (mod / scale));
