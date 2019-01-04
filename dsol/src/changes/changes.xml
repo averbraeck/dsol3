@@ -1,6 +1,13 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.03.03" date="2019-01-XX" description="dsol-swing, dsol-web, dsol-demo">
+      <action dev="averbraeck" type="update">
+        The recursive call of drawGrid() in dsol-swing's gridPanel has been replaced by a while-loop.
+        The recursive version sometimes led to an infinite loop.
+      </action>
+    </release>
+
     <release version="3.03.02" date="2019-01-03" description="Statistics, dsol-demo, manual">
       <action dev="averbraeck" type="remove">
         The XML-parsing has been removed from the dsol-demo project. Instead, interactive applications and 
