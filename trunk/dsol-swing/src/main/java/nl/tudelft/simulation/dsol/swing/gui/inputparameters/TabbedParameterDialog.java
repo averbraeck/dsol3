@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +35,19 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionList;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterString;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputField;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldBoolean;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldDistContinuous;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldDistDiscrete;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldDouble;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldDoubleScalar;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldFloat;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldFloatScalar;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldInteger;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldLong;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldSelectionList;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldSelectionMap;
+import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldString;
 
 /**
  * TabbedParameterDialog takes an InputParameterMap and displays the top selections of the tree as tabs. <br>
@@ -56,6 +68,10 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
     /** the fields with the parameters. */
     private List<InputField> fields = new ArrayList<>();
 
+    /** indication that the user has indicated to stop, leading to a dispose of the parameter dialog. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected boolean stopped = false;
+
     /**
      * Construct a tabbed parameter dialog that is not a part of a higher dialog.
      * @param inputParameterMap the parameter map to use
@@ -64,14 +80,13 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
     {
         super(null, inputParameterMap.getShortName(), Dialog.ModalityType.DOCUMENT_MODAL);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        for (WindowListener wl : this.getWindowListeners())
-            this.removeWindowListener(wl);
-        this.addWindowListener(new WindowAdapter()
+        addWindowListener(new WindowAdapter()
         {
             @Override
-            public void windowClosing(WindowEvent e)
+            public void windowClosing(final WindowEvent windowEvent)
             {
-                System.exit(0);
+                TabbedParameterDialog.this.stopped = true;
+                super.windowClosing(windowEvent);
             }
         });
         setPreferredSize(new Dimension(1024, 600));
@@ -84,77 +99,87 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
 
         for (InputParameter<?, ?> tab : this.inputParameterMap.getSortedSet())
         {
-            if (!(tab instanceof InputParameterMap))
+            if (!this.stopped)
             {
-                Object[] options = {"CONTINUE", "STOP"};
-                int choice = JOptionPane.showOptionDialog(null,
-                        "Input parameter\n" + tab.getShortName() + "\ncannot be displayed in a tab", "Warning",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-                if (choice == 1)
+                if (!(tab instanceof InputParameterMap))
                 {
-                    System.exit(1);
+                    Object[] options = { "CONTINUE", "STOP" };
+                    int choice = JOptionPane.showOptionDialog(null,
+                            "Input parameter\n" + tab.getShortName() + "\ncannot be displayed in a tab", "Warning",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+                    if (choice == 1)
+                    {
+                        dispose();
+                        this.stopped = true;
+                    }
                 }
-            }
-            else
-            {
-                InputParameterMap tabbedMap = (InputParameterMap) tab;
-                JPanel tabbedPanel = new JPanel();
-                JPanel tabbedWrapper = new JPanel(new BorderLayout());
-                tabbedWrapper.add(tabbedPanel, BorderLayout.NORTH);
-                tabbedWrapper.add(Box.createGlue(), BorderLayout.CENTER);
-                tabbedPane.addTab(tab.getShortName(), tabbedWrapper);
-                // to accommodate different height fields we use a horizontal box layout within a vertical box layout
-                BoxLayout tabLayout = new BoxLayout(tabbedPanel, BoxLayout.Y_AXIS);
-                tabbedPanel.setLayout(tabLayout);
-                for (InputParameter<?, ?> parameter : tabbedMap.getSortedSet())
+                else
                 {
-                    JPanel row = new JPanel();
-                    GridLayout rowLayout = new GridLayout(1, 3, 5, 0);
-                    row.setLayout(rowLayout);
-                    tabbedPanel.add(row);
-                    addParameterField(row, parameter);
-                    tabbedPanel.add(Box.createVerticalStrut(2));
+                    InputParameterMap tabbedMap = (InputParameterMap) tab;
+                    JPanel tabbedPanel = new JPanel();
+                    JPanel tabbedWrapper = new JPanel(new BorderLayout());
+                    tabbedWrapper.add(tabbedPanel, BorderLayout.NORTH);
+                    tabbedWrapper.add(Box.createGlue(), BorderLayout.CENTER);
+                    tabbedPane.addTab(tab.getShortName(), tabbedWrapper);
+                    // to accommodate different height fields we use a horizontal box layout within a vertical box layout
+                    BoxLayout tabLayout = new BoxLayout(tabbedPanel, BoxLayout.Y_AXIS);
+                    tabbedPanel.setLayout(tabLayout);
+                    for (InputParameter<?, ?> parameter : tabbedMap.getSortedSet())
+                    {
+                        JPanel row = new JPanel();
+                        GridLayout rowLayout = new GridLayout(1, 3, 5, 0);
+                        row.setLayout(rowLayout);
+                        tabbedPanel.add(row);
+                        addParameterField(row, parameter);
+                        tabbedPanel.add(Box.createVerticalStrut(2));
+                    }
                 }
             }
         }
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        centerPanel.add(buttonPanel);
-        panel.add(centerPanel);
-
-        JButton startSimulationButton = new JButton("Start simulation model");
-        startSimulationButton.addActionListener(this);
-        buttonPanel.add(startSimulationButton);
-
-        JButton cancelButton = new JButton("Cancel");
-        buttonPanel.add(cancelButton);
-        cancelButton.addActionListener(new ActionListener()
+        if (!this.stopped)
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new FlowLayout());
+            JPanel centerPanel = new JPanel();
+            centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+            centerPanel.add(buttonPanel);
+            panel.add(centerPanel);
+
+            JButton startSimulationButton = new JButton("Start simulation model");
+            startSimulationButton.addActionListener(this);
+            buttonPanel.add(startSimulationButton);
+
+            JButton cancelButton = new JButton("Cancel");
+            buttonPanel.add(cancelButton);
+            cancelButton.addActionListener(new ActionListener()
             {
-                setVisible(false);
-                dispose();
-                System.exit(0);
-            }
-        });
+                @Override
+                public void actionPerformed(final ActionEvent e)
+                {
+                    setVisible(false);
+                    dispose();
+                    TabbedParameterDialog.this.stopped = true;
+                }
+            });
+        }
 
-        add(panel);
-
-        pack();
-        setVisible(true);
+        if (!this.stopped)
+        {
+            add(panel);
+            pack();
+            setVisible(true);
+        }
     }
 
     /**
-     * Add the right type of field for this parameter and do the housekeeping to retrieve the value.
+     * Add the right type of field for this parameter and do the housekeeping to retrieve the value. When overriding, do not
+     * forget to call super.addParameterField() for the options that should be handled in a standard way.
      * @param panel the panel in which to put the parameter
      * @param parameter the input parameter to display
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    private void addParameterField(final JPanel panel, final InputParameter<?, ?> parameter)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public void addParameterField(final JPanel panel, final InputParameter<?, ?> parameter)
     {
         if (parameter instanceof InputParameterDouble)
         {
@@ -208,7 +233,7 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
 
     /** {@inheritDoc} */
     @Override
-    public void actionPerformed(ActionEvent e)
+    public void actionPerformed(final ActionEvent e)
     {
         boolean ok = true;
         try
@@ -290,4 +315,14 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
         }
     }
 
+    /**
+     * Construct a tabbed parameter dialog that is not a part of a higher dialog.
+     * @param inputParameterMap InputParameterMap; the parameter map to use
+     * @return whether the data was entered correctly or not
+     */
+    public static boolean process(final InputParameterMap inputParameterMap)
+    {
+        TabbedParameterDialog dialog = new TabbedParameterDialog(inputParameterMap);
+        return !dialog.stopped;
+    }
 }
