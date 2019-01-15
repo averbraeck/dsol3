@@ -1,8 +1,16 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
-    <release version="3.03.03" date="2019-01-XX" description="dsol-swing, dsol-web, dsol-demo">
+    <release version="3.03.03" date="2019-01-15" description="dsol-swing, dsol-web, dsol-demo">
+      <action dev="averbraeck" type="fix">
+        AnimationPanel.visibilityMap changed into a synchronized map to avoid ConcurrentModificationException
+        on the call of isShowClass().
+      </action>
       <action dev="averbraeck" type="update">
+        TabbedParameterDialog updated to be able to easily extend it with different renderings
+        for the data types.
+      </action>
+      <action dev="averbraeck" type="fix">
         The recursive call of drawGrid() in dsol-swing's gridPanel has been replaced by a while-loop.
         The recursive version sometimes led to an infinite loop.
       </action>
