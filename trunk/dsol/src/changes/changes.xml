@@ -1,6 +1,15 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.03.04" date="2019-01-17" description="djutils version, copyright">
+      <action dev="averbraeck" type="update">
+        djutils version updated to 1.00.02.
+      </action>
+      <action dev="averbraeck" type="update">
+        Copyright notice updated to 2019.
+      </action>
+    </release>
+
     <release version="3.03.03" date="2019-01-15" description="dsol-swing, dsol-web, dsol-demo">
       <action dev="averbraeck" type="fix">
         AnimationPanel.visibilityMap changed into a synchronized map to avoid ConcurrentModificationException
