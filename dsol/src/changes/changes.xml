@@ -1,6 +1,13 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+     <release version="3.03.05" date="2019-01-18" description="TabbedParameterDialog">
+      <action dev="averbraeck" type="update">
+        TabbedParameterDialog in ots-swing made better accessible for extensions with user-built
+        fields, e.g. for radio buttons (see dsol manual - advanced topics).
+      </action>
+    </release>
+
     <release version="3.03.04" date="2019-01-17" description="djutils version, copyright">
       <action dev="averbraeck" type="update">
         djutils version updated to 1.00.02.
