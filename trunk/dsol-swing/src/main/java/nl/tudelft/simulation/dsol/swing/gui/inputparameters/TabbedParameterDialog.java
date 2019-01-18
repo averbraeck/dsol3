@@ -63,10 +63,12 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
     private static final long serialVersionUID = 1L;
 
     /** The parameter map. */
-    private final InputParameterMap inputParameterMap;
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected final InputParameterMap inputParameterMap;
 
     /** the fields with the parameters. */
-    private List<InputField> fields = new ArrayList<>();
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected List<InputField> fields = new ArrayList<>();
 
     /** indication that the user has indicated to stop, leading to a dispose of the parameter dialog. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
