@@ -3,6 +3,10 @@ package nl.tudelft.simulation.dsol.web.animation;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 
+import org.djutils.logger.CategoryLogger;
+
+import nl.tudelft.simulation.dsol.logger.Cat;
+
 /**
  * HTMLDevice.java. <br>
  * <br>
@@ -22,7 +26,7 @@ public class HTMLDevice extends GraphicsDevice
      */
     public HTMLDevice(GraphicsConfiguration htmlGraphicsConfiguration)
     {
-        System.out.println("HTMLDevice.<init>");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLDevice.<init>");
         this.htmlGraphicsConfigurations = new GraphicsConfiguration[]{htmlGraphicsConfiguration};
     }
 
@@ -30,7 +34,7 @@ public class HTMLDevice extends GraphicsDevice
     @Override
     public int getType()
     {
-        System.out.println("HTMLDevice.getType()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLDevice.getType()");
         return GraphicsDevice.TYPE_RASTER_SCREEN;
     }
 
@@ -38,7 +42,7 @@ public class HTMLDevice extends GraphicsDevice
     @Override
     public String getIDstring()
     {
-        System.out.println("HTMLDevice.getIDString()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLDevice.getIDString()");
         return "HTMLDevice";
     }
 
@@ -46,7 +50,7 @@ public class HTMLDevice extends GraphicsDevice
     @Override
     public GraphicsConfiguration[] getConfigurations()
     {
-        System.out.println("HTMLDevice.getConfiguration()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLDevice.getConfiguration()");
         return this.htmlGraphicsConfigurations;
     }
 
@@ -54,7 +58,7 @@ public class HTMLDevice extends GraphicsDevice
     @Override
     public GraphicsConfiguration getDefaultConfiguration()
     {
-        System.out.println("HTMLDevice.getDefaultConfiguration()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLDevice.getDefaultConfiguration()");
         return this.htmlGraphicsConfigurations[0];
     }
 

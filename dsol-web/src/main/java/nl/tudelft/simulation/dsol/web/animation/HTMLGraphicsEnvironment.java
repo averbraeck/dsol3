@@ -8,6 +8,10 @@ import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.util.Locale;
 
+import org.djutils.logger.CategoryLogger;
+
+import nl.tudelft.simulation.dsol.logger.Cat;
+
 /**
  * HTMLGraphicsEnvironment.java. <br>
  * <br>
@@ -33,7 +37,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
      */
     public HTMLGraphicsEnvironment()
     {
-        System.out.println("HTMLGraphicsEnvironment.<init>");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.<init>");
         this.graphics2D = new HTMLGraphics2D();
         this.graphicsConfiguration = new HTMLGraphicsConfiguration();
         this.htmlDevice = new HTMLDevice(this.graphicsConfiguration);
@@ -44,7 +48,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     @Override
     public GraphicsDevice[] getScreenDevices() throws HeadlessException
     {
-        System.out.println("HTMLGraphicsEnvironment.getScreenDevices()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getScreenDevices()");
         return new GraphicsDevice[]{this.htmlDevice};
     }
 
@@ -52,7 +56,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     @Override
     public GraphicsDevice getDefaultScreenDevice() throws HeadlessException
     {
-        System.out.println("HTMLGraphicsEnvironment.getDefaultScreenDevice()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getDefaultScreenDevice()");
         return this.htmlDevice;
     }
 
@@ -60,7 +64,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     @Override
     public Graphics2D createGraphics(BufferedImage img)
     {
-        System.out.println("HTMLGraphicsEnvironment.createGraphics()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.createGraphics()");
         return this.graphics2D;
     }
 
@@ -68,7 +72,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     @Override
     public Font[] getAllFonts()
     {
-        System.out.println("HTMLGraphicsEnvironment.getAllFonts()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getAllFonts()");
         return new Font[]{};
     }
 
@@ -76,7 +80,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     @Override
     public String[] getAvailableFontFamilyNames()
     {
-        System.out.println("HTMLGraphicsEnvironment.getAvailableFontFamilyNames()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getAvailableFontFamilyNames()");
         return new String[]{};
     }
 
@@ -84,7 +88,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     @Override
     public String[] getAvailableFontFamilyNames(Locale l)
     {
-        System.out.println("HTMLGraphicsEnvironment.getAvailableFontFamilyNames()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getAvailableFontFamilyNames()");
         return new String[]{};
     }
 
