@@ -6,6 +6,10 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ColorModel;
 
+import org.djutils.logger.CategoryLogger;
+
+import nl.tudelft.simulation.dsol.logger.Cat;
+
 /**
  * The <code>HTMLGraphicsConfiguration</code> class describes the characteristics of the HTML canvas in the browser, as
  * a graphics destination to write to. Note that there can be several <code>GraphicsConfiguration</code> objects
@@ -33,14 +37,14 @@ public class HTMLGraphicsConfiguration extends GraphicsConfiguration
      */
     public HTMLGraphicsConfiguration()
     {
-        System.out.println("HTMLGraphicsConfiguration.<init>");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsConfiguration.<init>");
     }
 
     /** {@inheritDoc} */
     @Override
     public GraphicsDevice getDevice()
     {
-        System.out.println("HTMLGraphicsConfiguration.getDevice()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsConfiguration.getDevice()");
         return this.htmlDevice;
     }
 
@@ -51,7 +55,7 @@ public class HTMLGraphicsConfiguration extends GraphicsConfiguration
      */
     public void setDevice(final HTMLDevice htmlDevice)
     {
-        System.out.println("HTMLGraphicsConfiguration.setDevice()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsConfiguration.setDevice()");
         this.htmlDevice = htmlDevice;
     }
 
@@ -59,7 +63,7 @@ public class HTMLGraphicsConfiguration extends GraphicsConfiguration
     @Override
     public ColorModel getColorModel()
     {
-        System.out.println("HTMLGraphicsConfiguration.getColorModel()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsConfiguration.getColorModel()");
         return ColorModel.getRGBdefault();
     }
 
@@ -67,7 +71,7 @@ public class HTMLGraphicsConfiguration extends GraphicsConfiguration
     @Override
     public ColorModel getColorModel(int transparency)
     {
-        System.out.println("HTMLGraphicsConfiguration.getColorModel()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsConfiguration.getColorModel()");
         return ColorModel.getRGBdefault();
     }
 
@@ -75,7 +79,7 @@ public class HTMLGraphicsConfiguration extends GraphicsConfiguration
     @Override
     public AffineTransform getDefaultTransform()
     {
-        System.out.println("HTMLGraphicsConfiguration.getDefaultTransform()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsConfiguration.getDefaultTransform()");
         return this.identityTransform;
     }
 
@@ -83,7 +87,7 @@ public class HTMLGraphicsConfiguration extends GraphicsConfiguration
     @Override
     public AffineTransform getNormalizingTransform()
     {
-        System.out.println("HTMLGraphicsConfiguration.getNormalizingTransform()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsConfiguration.getNormalizingTransform()");
         return this.identityTransform;
     }
 
@@ -91,7 +95,7 @@ public class HTMLGraphicsConfiguration extends GraphicsConfiguration
     @Override
     public Rectangle getBounds()
     {
-        System.out.println("HTMLGraphicsConfiguration.getBounds()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsConfiguration.getBounds()");
         return this.bounds;
     }
 

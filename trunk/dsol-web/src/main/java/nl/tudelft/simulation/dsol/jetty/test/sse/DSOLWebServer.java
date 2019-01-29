@@ -232,19 +232,19 @@ public abstract class DSOLWebServer implements EventListenerInterface
         public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
                 throws IOException, ServletException
         {
-            System.out.println("target=" + target);
-            System.out.println("baseRequest=" + baseRequest);
-            System.out.println("request=" + request);
+            //System.out.println("target=" + target);
+            //System.out.println("baseRequest=" + baseRequest);
+            //System.out.println("request=" + request);
 
             Map<String, String[]> params = request.getParameterMap();
-            System.out.println(params);
+            //System.out.println(params);
 
             String answer = "<message>ok</message>";
 
             if (request.getParameter("message") != null)
             {
                 String message = request.getParameter("message");
-                System.out.println(message);
+                //System.out.println(message);
 
                 switch (message)
                 {
@@ -313,7 +313,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
 
             if (request.getParameter("slider") != null)
             {
-                System.out.println(request.getParameter("slider") + "\n");
+                //System.out.println(request.getParameter("slider") + "\n");
                 try
                 {
                     int value = Integer.parseInt(request.getParameter("slider"));
@@ -324,7 +324,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
                     else
                         speedFactor = Math.pow(2.15444, value / 100.0) / 21.5444;
                     this.webServer.setSpeedFactor(speedFactor);
-                    System.out.println("speed factor changed to " + speedFactor);
+                    //System.out.println("speed factor changed to " + speedFactor);
                 }
                 catch (NumberFormatException exception)
                 {
@@ -332,7 +332,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
                 }
             }
 
-            System.out.println();
+            //System.out.println();
 
             response.setContentType("text/xml");
             response.setHeader("Cache-Control", "no-cache");

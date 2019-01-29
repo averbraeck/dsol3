@@ -67,6 +67,9 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 
+import org.djutils.logger.CategoryLogger;
+
+import nl.tudelft.simulation.dsol.logger.Cat;
 import nl.tudelft.simulation.dsol.web.animation.peer.HTMLFrame;
 import nl.tudelft.simulation.dsol.web.animation.peer.HTMLKeyboardFocusManagerPeer;
 import nl.tudelft.simulation.dsol.web.animation.peer.HTMLLabel;
@@ -85,10 +88,10 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
 {
     /** the queue of AWT events to process. */
     EventQueue eventQueue = new EventQueue();
-    
+
     /** the toolkit should implement this class. It's internal to sun, so a bit weird. */
     HTMLKeyboardFocusManagerPeer htmlKeyboardFocusManagerPeer = new HTMLKeyboardFocusManagerPeer();
-    
+
     /**
      * 
      */
@@ -100,7 +103,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected DesktopPeer createDesktopPeer(Desktop target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createDesktopPeer()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createDesktopPeer()");
         return null;
     }
 
@@ -108,7 +111,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected ButtonPeer createButton(Button target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createButton()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createButton()");
         return null;
     }
 
@@ -116,7 +119,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected TextFieldPeer createTextField(TextField target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createTextField()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createTextField()");
         return null;
     }
 
@@ -124,7 +127,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected LabelPeer createLabel(Label target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createLabel()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createLabel()");
         return new HTMLLabel();
     }
 
@@ -132,7 +135,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected ListPeer createList(List target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createList()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createList()");
         return null;
     }
 
@@ -140,7 +143,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected CheckboxPeer createCheckbox(Checkbox target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createCheckbox()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createCheckbox()");
         return null;
     }
 
@@ -148,7 +151,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected ScrollbarPeer createScrollbar(Scrollbar target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createScrollbar()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createScrollbar()");
         return null;
     }
 
@@ -156,7 +159,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected ScrollPanePeer createScrollPane(ScrollPane target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createScrollPane()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createScrollPane()");
         return null;
     }
 
@@ -164,7 +167,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected TextAreaPeer createTextArea(TextArea target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createTextArea()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createTextArea()");
         return null;
     }
 
@@ -172,7 +175,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected ChoicePeer createChoice(Choice target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createChoice()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createChoice()");
         return null;
     }
 
@@ -180,7 +183,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected FramePeer createFrame(Frame target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createFrame()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createFrame()");
         return new HTMLFrame();
     }
 
@@ -188,7 +191,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected CanvasPeer createCanvas(Canvas target)
     {
-        System.out.println("HTMLToolkit.createCanvas()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createCanvas()");
         return null;
     }
 
@@ -196,7 +199,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected PanelPeer createPanel(Panel target)
     {
-        System.out.println("HTMLToolkit.createPanel()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createPanel()");
         return null;
     }
 
@@ -204,7 +207,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected WindowPeer createWindow(Window target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createWindow()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createWindow()");
         return new HTMLWindow();
     }
 
@@ -212,7 +215,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected DialogPeer createDialog(Dialog target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createDialog()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createDialog()");
         return null;
     }
 
@@ -220,7 +223,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected MenuBarPeer createMenuBar(MenuBar target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createMenuBar()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createMenuBar()");
         return null;
     }
 
@@ -228,7 +231,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected MenuPeer createMenu(Menu target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createMenu()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createMenu()");
         return null;
     }
 
@@ -236,7 +239,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected PopupMenuPeer createPopupMenu(PopupMenu target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createPopupMenu()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createPopupMenu()");
         return null;
     }
 
@@ -244,7 +247,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected MenuItemPeer createMenuItem(MenuItem target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createMenuItem()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createMenuItem()");
         return null;
     }
 
@@ -252,7 +255,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected FileDialogPeer createFileDialog(FileDialog target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createFileDialog()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createFileDialog()");
         return null;
     }
 
@@ -260,7 +263,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected CheckboxMenuItemPeer createCheckboxMenuItem(CheckboxMenuItem target) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.createCheckboxMenuItem()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createCheckboxMenuItem()");
         return null;
     }
 
@@ -268,7 +271,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected FontPeer getFontPeer(String name, int style)
     {
-        System.out.println("HTMLToolkit.getFontPeer()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getFontPeer()");
         return null;
     }
 
@@ -276,7 +279,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public Dimension getScreenSize() throws HeadlessException
     {
-        System.out.println("HTMLToolkit.getScreenSize()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getScreenSize()");
         return null;
     }
 
@@ -284,7 +287,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public int getScreenResolution() throws HeadlessException
     {
-        System.out.println("HTMLToolkit.getScreenResolution()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getScreenResolution()");
         return 0;
     }
 
@@ -292,7 +295,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public ColorModel getColorModel() throws HeadlessException
     {
-        System.out.println("HTMLToolkit.getColorModel()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getColorModel()");
         return null;
     }
 
@@ -300,7 +303,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public String[] getFontList()
     {
-        System.out.println("HTMLToolkit.getFontList()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getFontList()");
         return null;
     }
 
@@ -308,7 +311,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public FontMetrics getFontMetrics(Font font)
     {
-        System.out.println("HTMLToolkit.getFontMetrics()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getFontMetrics()");
         return null;
     }
 
@@ -316,14 +319,14 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public void sync()
     {
-        System.out.println("HTMLToolkit.sync()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.sync()");
     }
 
     /** {@inheritDoc} */
     @Override
     public Image getImage(String filename)
     {
-        System.out.println("HTMLToolkit.getImage()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getImage()");
         return null;
     }
 
@@ -331,7 +334,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public Image getImage(URL url)
     {
-        System.out.println("HTMLToolkit.getImage()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getImage()");
         return null;
     }
 
@@ -339,7 +342,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public Image createImage(String filename)
     {
-        System.out.println("HTMLToolkit.createImage()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createImage()");
         return null;
     }
 
@@ -347,7 +350,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public Image createImage(URL url)
     {
-        System.out.println("HTMLToolkit.createImage()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createImage()");
         return null;
     }
 
@@ -355,15 +358,15 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public boolean prepareImage(Image image, int width, int height, ImageObserver observer)
     {
-        System.out.println("HTMLToolkit.prepareImage()");
-       return false;
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.prepareImage()");
+        return false;
     }
 
     /** {@inheritDoc} */
     @Override
     public int checkImage(Image image, int width, int height, ImageObserver observer)
     {
-        System.out.println("HTMLToolkit.checkImage()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.checkImage()");
         return 0;
     }
 
@@ -371,7 +374,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public Image createImage(ImageProducer producer)
     {
-        System.out.println("HTMLToolkit.createImage()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createImage()");
         return null;
     }
 
@@ -379,7 +382,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public Image createImage(byte[] imagedata, int imageoffset, int imagelength)
     {
-        System.out.println("HTMLToolkit.createImage()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createImage()");
         return null;
     }
 
@@ -387,7 +390,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public PrintJob getPrintJob(Frame frame, String jobtitle, Properties props)
     {
-        System.out.println("HTMLToolkit.getPrintJob()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getPrintJob()");
         return null;
     }
 
@@ -395,14 +398,14 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public void beep()
     {
-        System.out.println("HTMLToolkit.beep()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.beep()");
     }
 
     /** {@inheritDoc} */
     @Override
     public Clipboard getSystemClipboard() throws HeadlessException
     {
-        System.out.println("HTMLToolkit.getSystemClipboard()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getSystemClipboard()");
         return null;
     }
 
@@ -410,15 +413,16 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     protected EventQueue getSystemEventQueueImpl()
     {
-       System.out.println("HTMLToolkit.getSystemEventQueueImpl() -- next event is " + this.eventQueue.peekEvent());
-       return this.eventQueue;
+        CategoryLogger.filter(Cat.WEB)
+                .trace("HTMLToolkit.getSystemEventQueueImpl() -- next event is " + this.eventQueue.peekEvent());
+        return this.eventQueue;
     }
 
     /** {@inheritDoc} */
     @Override
     public DragSourceContextPeer createDragSourceContextPeer(DragGestureEvent dge) throws InvalidDnDOperationException
     {
-        System.out.println("HTMLToolkit.createDragSourceContextPeer()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.createDragSourceContextPeer()");
         return null;
     }
 
@@ -426,7 +430,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public boolean isModalityTypeSupported(ModalityType modalityType)
     {
-        System.out.println("HTMLToolkit.isModalityTypeSupported()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.isModalityTypeSupported()");
         return false;
     }
 
@@ -434,7 +438,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public boolean isModalExclusionTypeSupported(ModalExclusionType modalExclusionType)
     {
-        System.out.println("HTMLToolkit.isModalExclusionTypeSupported()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.isModalExclusionTypeSupported()");
         return false;
     }
 
@@ -442,7 +446,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public Map<TextAttribute, ?> mapInputMethodHighlight(InputMethodHighlight highlight) throws HeadlessException
     {
-        System.out.println("HTMLToolkit.mapInputMethodHighlight()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.mapInputMethodHighlight()");
         return null;
     }
 
@@ -450,7 +454,7 @@ public class HTMLToolkit extends Toolkit implements sun.awt.KeyboardFocusManager
     @Override
     public KeyboardFocusManagerPeer getKeyboardFocusManagerPeer()
     {
-        System.out.println("HTMLToolkit.getKeyboardFocusManagerPeer()");
+        CategoryLogger.filter(Cat.WEB).trace("HTMLToolkit.getKeyboardFocusManagerPeer()");
         return this.htmlKeyboardFocusManagerPeer;
     }
 
