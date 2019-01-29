@@ -35,7 +35,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.djutils.logger.CategoryLogger;
-import org.junit.experimental.categories.Categories;
 
 import nl.javel.gisbeans.geom.SerializableGeneralPath;
 import nl.tudelft.simulation.dsol.logger.Cat;
@@ -43,10 +42,9 @@ import nl.tudelft.simulation.dsol.logger.Cat;
 /**
  * HTMLGraphics.java. <br>
  * <br>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
+ * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
 public class HTMLGraphics2D extends Graphics2D
@@ -361,9 +359,8 @@ public class HTMLGraphics2D extends Graphics2D
 
     /**
      * Add string, 0=command, 1=transform.m11(h-scale), 2=transform.m12(h-skew), 3=transform.m21(v-skew),
-     * 4=transform.m22(v-scale), 5=transform.dx(h-translate), 6=transform.dy(v-translate), 7=color.r, 8=color.g,
-     * 9=color.b, 10=color.alpha, 11=color.transparency, 12=fontname, 13=fontsize, 14=fontstyle(normal/italic/bold),
-     * 15=x, 16=y, 17=text.
+     * 4=transform.m22(v-scale), 5=transform.dx(h-translate), 6=transform.dy(v-translate), 7=color.r, 8=color.g, 9=color.b,
+     * 10=color.alpha, 11=color.transparency, 12=fontname, 13=fontsize, 14=fontstyle(normal/italic/bold), 15=x, 16=y, 17=text.
      * @param drawCommand the tag to use
      * @param params the params
      */
@@ -967,8 +964,8 @@ public class HTMLGraphics2D extends Graphics2D
 
     /** {@inheritDoc} */
     @Override
-    public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2,
-            Color bgcolor, ImageObserver observer)
+    public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, Color bgcolor,
+            ImageObserver observer)
     {
         CategoryLogger.filter(Cat.WEB).trace("HTMLGraphics2D.drawImage()");
         return false;
