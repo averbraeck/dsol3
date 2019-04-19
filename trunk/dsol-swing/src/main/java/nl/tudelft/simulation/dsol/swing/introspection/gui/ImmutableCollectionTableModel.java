@@ -1,9 +1,7 @@
 package nl.tudelft.simulation.dsol.swing.introspection.gui;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,8 +13,6 @@ import javax.swing.table.AbstractTableModel;
 
 import org.djutils.immutablecollections.ImmutableCollection;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.swing.introspection.table.DynamicTableModel;
 import nl.tudelft.simulation.introspection.AbstractProperty;
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
@@ -36,7 +32,7 @@ import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
  * @author Niels Lang.
  * @since 1.5
  */
-public class CollectionTableModel extends AbstractTableModel implements IntrospectingTableModelInterface, DynamicTableModel
+public class ImmutableCollectionTableModel extends AbstractTableModel implements IntrospectingTableModelInterface
 {
     /** */
     private static final long serialVersionUID = 20140831L;
@@ -46,9 +42,6 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
 
     /** the keys identifying specific instances. */
     protected List<Integer> keys = Collections.synchronizedList(new ArrayList<Integer>(20));
-
-    /** the componentType. */
-    private Class<?> componentType = null;
 
     /** the COLUMNS of this tabbleModel. */
     private static final String[] COLUMNS = {"#", "+", "Instance"};
@@ -72,7 +65,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
      * constructs a new CollectionTableModel.
      * @param parentProperty Property; the parentPropert
      */
-    public CollectionTableModel(final Property parentProperty)
+    public ImmutableCollectionTableModel(final Property parentProperty)
     {
         this(parentProperty, new BeanIntrospector());
     }
@@ -82,7 +75,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
      * @param parentProperty Property; the parentProperty
      * @param introspector Introspector; the introspector to use
      */
-    public CollectionTableModel(final Property parentProperty, final Introspector introspector)
+    public ImmutableCollectionTableModel(final Property parentProperty, final Introspector introspector)
     {
         Object values;
         try
@@ -146,7 +139,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
     @Override
     public int getColumnCount()
     {
-        return CollectionTableModel.COLUMNS.length;
+        return ImmutableCollectionTableModel.COLUMNS.length;
     }
 
     /** {@inheritDoc} */
@@ -172,17 +165,13 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
     @Override
     public String getColumnName(final int columnIndex)
     {
-        return CollectionTableModel.COLUMNS[columnIndex];
+        return ImmutableCollectionTableModel.COLUMNS[columnIndex];
     }
 
     /** {@inheritDoc} */
     @Override
     public boolean isCellEditable(final int rowIndex, final int columnIndex)
     {
-        if (columnIndex == 1 || columnIndex == 2)
-        {
-            return true;
-        }
         return false;
     }
 
@@ -190,27 +179,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
     @Override
     public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
     {
-        if (columnIndex == 2)
-        {
-            Integer key = this.keys.get(rowIndex);
-            this.instances.put(key, aValue);
-        }
-        this.update();
-    }
-
-    /**
-     * updates the tableModel
-     */
-    private void update()
-    {
-        // Generate a List reflecting changes
-        List<Object> newValue = new ArrayList<Object>(this.keys.size());
-        for (int i = 0; i < this.keys.size(); i++)
-        {
-            newValue.add(this.instances.get(this.keys.get(i)));
-        }
-        this.parentProperty.setValue(newValue);
-        this.fireTableDataChanged();
+        throw new IllegalArgumentException("cannot set values in an ImmutableCollection...");
     }
 
     /** {@inheritDoc} */
@@ -242,65 +211,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
      */
     protected Property getProperty(final int index)
     {
-        return new CollectionProperty(this.keys.get(index), this.parentProperty.getName());
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void createRow()
-    {
-        if (this.componentType == null)
-        {
-            this.componentType = this.parentProperty.getComponentType();
-            if (this.componentType == null)
-            {
-                return;
-            }
-        }
-        try
-        {
-            Constructor<?> instanceConstructor = this.componentType.getConstructor(new Class[0]);
-            Object instance = instanceConstructor.newInstance(new Object[0]);
-            addValue(instance);
-            this.buttons.add(new ExpandButton(getProperty(this.instances.size() - 1), this));
-            update();
-        }
-        catch (Exception e)
-        {
-            SimLogger.always().warn(e, "createRow: Could not instantiate new instance: ");
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void createRows(final int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            this.createRow();
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void deleteRow(final int index)
-    {
-        Integer deletionKey = this.keys.get(index);
-        this.instances.remove(deletionKey);
-        this.keys.remove(index);
-        this.buttons.remove(index);
-        update();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public synchronized void deleteRows(final int[] indices)
-    {
-        Arrays.sort(indices);
-        for (int i = indices.length - 1; i >= 0; i--)
-        {
-            deleteRow(indices[i]);
-        }
+        return new ImmutableCollectionProperty(this.keys.get(index), this.parentProperty.getName());
     }
 
     /** {@inheritDoc} */
@@ -349,17 +260,10 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         return this.manager;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public boolean isRowEditable()
-    {
-        return this.parentProperty.isEditable();
-    }
-
     /**
-     * The CollectionProperty.
+     * The ImmutableCollectionProperty.
      */
-    class CollectionProperty extends AbstractProperty implements Property
+    class ImmutableCollectionProperty extends AbstractProperty implements Property
     {
         /** the key of this property */
         private final Integer key;
@@ -373,7 +277,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
          * @param key Integer; the key
          * @param name String; the name
          */
-        public CollectionProperty(Integer key, String name)
+        public ImmutableCollectionProperty(Integer key, String name)
         {
             this.key = key;
             this.name = name;
@@ -383,21 +287,21 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         @Override
         public Object getInstance()
         {
-            return CollectionTableModel.this.instances.values();
+            return ImmutableCollectionTableModel.this.instances.values();
         }
 
         /** {@inheritDoc} */
         @Override
         public String getName()
         {
-            return this.name + "[" + CollectionTableModel.this.keys.indexOf(this.key) + "]";
+            return this.name + "[" + ImmutableCollectionTableModel.this.keys.indexOf(this.key) + "]";
         }
 
         /** {@inheritDoc} */
         @Override
         public Class<?> getType()
         {
-            return CollectionTableModel.this.instances.get(this.key).getClass();
+            return ImmutableCollectionTableModel.this.instances.get(this.key).getClass();
         }
 
         /** {@inheritDoc} */
@@ -406,7 +310,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         {
             try
             {
-                return CollectionTableModel.this.instances.get(this.key);
+                return ImmutableCollectionTableModel.this.instances.get(this.key);
             }
             catch (Exception e)
             {
@@ -418,7 +322,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         @Override
         public boolean isEditable()
         {
-            return true;
+            return false;
         }
 
         /** {@inheritDoc} */

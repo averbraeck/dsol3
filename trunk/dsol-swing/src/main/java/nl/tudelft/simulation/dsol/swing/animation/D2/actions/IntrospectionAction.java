@@ -33,23 +33,8 @@ public class IntrospectionAction extends AbstractAction
      */
     public IntrospectionAction(final Object target)
     {
-        super(checkDelegation(target));
+        super(DelegateIntrospection.checkDelegation(target));
         this.target = target;
-    }
-
-    /**
-     * Check for introspection delegation to allow for the right object to be shown on the screen. 
-     * @param target Object; the object that is displayed on the screen and might have delegation
-     * @return the toString() of the (delegated) object 
-     */
-    private static String checkDelegation(final Object target)
-    {
-        Object introspected = target;
-        while (introspected instanceof DelegateIntrospection)
-        {
-            introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
-        }
-        return introspected.toString();
     }
     
     /** {@inheritDoc} */

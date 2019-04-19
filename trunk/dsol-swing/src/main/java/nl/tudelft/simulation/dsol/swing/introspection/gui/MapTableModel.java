@@ -1,57 +1,47 @@
 package nl.tudelft.simulation.dsol.swing.introspection.gui;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.djutils.immutablecollections.ImmutableCollection;
+import org.djutils.immutablecollections.ImmutableMap;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.swing.introspection.table.DynamicTableModel;
 import nl.tudelft.simulation.introspection.AbstractProperty;
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
 
 /**
- * A tablemodel used to manage and present the instances of a composite property.
+ * A tablemodel used to manage and present the instances of a map property.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2018-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
- * @author Niels Lang.
- * @since 1.5
  */
-public class CollectionTableModel extends AbstractTableModel implements IntrospectingTableModelInterface, DynamicTableModel
+public class MapTableModel extends AbstractTableModel implements IntrospectingTableModelInterface
 {
     /** */
     private static final long serialVersionUID = 20140831L;
 
-    /** the instances of the collection. */
-    protected Map<Integer, Object> instances = Collections.synchronizedMap(new HashMap<Integer, Object>(20));
+    /** the keys of the map entries. */
+    protected Map<Integer, Object> keyMap = Collections.synchronizedMap(new HashMap<Integer, Object>(20));
+
+    /** the values of the map entries. */
+    protected Map<Integer, Object> valueMap = Collections.synchronizedMap(new HashMap<Integer, Object>(20));
 
     /** the keys identifying specific instances. */
-    protected List<Integer> keys = Collections.synchronizedList(new ArrayList<Integer>(20));
-
-    /** the componentType. */
-    private Class<?> componentType = null;
+    protected List<Integer> rowKeys = Collections.synchronizedList(new ArrayList<Integer>(20));
 
     /** the COLUMNS of this tabbleModel. */
-    private static final String[] COLUMNS = {"#", "+", "Instance"};
+    private static final String[] COLUMNS = {"#", "+", "Key", "Value"};
 
     /** the expand button. */
     private List<ExpandButton> buttons = Collections.synchronizedList(new ArrayList<ExpandButton>(20));
@@ -72,7 +62,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
      * constructs a new CollectionTableModel.
      * @param parentProperty Property; the parentPropert
      */
-    public CollectionTableModel(final Property parentProperty)
+    public MapTableModel(final Property parentProperty)
     {
         this(parentProperty, new BeanIntrospector());
     }
@@ -82,7 +72,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
      * @param parentProperty Property; the parentProperty
      * @param introspector Introspector; the introspector to use
      */
-    public CollectionTableModel(final Property parentProperty, final Introspector introspector)
+    public MapTableModel(final Property parentProperty, final Introspector introspector)
     {
         Object values;
         try
@@ -91,34 +81,28 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
         catch (Exception e)
         {
-            values = new String("-");
+            values = new HashMap<>();
         }
-        if (values.getClass().isArray())
+        if (values instanceof Map)
         {
-            for (int i = 0; i < Array.getLength(values); i++)
+            Map<?, ?> map = (Map<?, ?>) values;
+            for (Object key : map.keySet())
             {
-                addValue(Array.get(values, i));
+                addValue(key, map.get(key));
             }
         }
-        if (values instanceof Collection)
+        if (values instanceof ImmutableMap)
         {
-            for (Iterator<?> i = ((Collection<?>) values).iterator(); i.hasNext();)
+            ImmutableMap<?, ?> map = (ImmutableMap<?, ?>) values;
+            for (Object key : map.keySet())
             {
-                addValue(i.next());
+                addValue(key, map.get(key));
             }
         }
-        if (values instanceof ImmutableCollection)
-        {
-            for (Iterator<?> i = ((ImmutableCollection<?>) values).iterator(); i.hasNext();)
-            {
-                addValue(i.next());
-            }
-        }
-        // TODO: how to handle a Map or ImmutableMap?
         this.parentProperty = parentProperty;
         this.introspector = introspector;
         // Initialize buttons
-        for (int i = 0; i < this.instances.size(); i++)
+        for (int i = 0; i < this.keyMap.size(); i++)
         {
             this.buttons.add(new ExpandButton(getProperty(i), this));
         }
@@ -128,25 +112,26 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
      * Adds a new value to the managed composite property.
      * @param value Object; the value to add
      */
-    private void addValue(final Object value)
+    private void addValue(final Object key, final Object value)
     {
         Integer nextKey = new Integer(this.maxKey++);
-        this.keys.add(nextKey);
-        this.instances.put(nextKey, value);
+        this.rowKeys.add(nextKey);
+        this.keyMap.put(nextKey, key);
+        this.valueMap.put(nextKey, value);
     }
 
     /** {@inheritDoc} */
     @Override
     public int getRowCount()
     {
-        return this.instances.size();
+        return this.keyMap.size();
     }
 
     /** {@inheritDoc} */
     @Override
     public int getColumnCount()
     {
-        return CollectionTableModel.COLUMNS.length;
+        return MapTableModel.COLUMNS.length;
     }
 
     /** {@inheritDoc} */
@@ -163,7 +148,11 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
         if (columnIndex == 2)
         {
-            return this.instances.get(this.keys.get(rowIndex));
+            return this.keyMap.get(this.rowKeys.get(rowIndex));
+        }
+        if (columnIndex == 3)
+        {
+            return this.valueMap.get(this.rowKeys.get(rowIndex));
         }
         return null;
     }
@@ -172,45 +161,21 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
     @Override
     public String getColumnName(final int columnIndex)
     {
-        return CollectionTableModel.COLUMNS[columnIndex];
+        return MapTableModel.COLUMNS[columnIndex];
     }
 
     /** {@inheritDoc} */
     @Override
     public boolean isCellEditable(final int rowIndex, final int columnIndex)
     {
-        if (columnIndex == 1 || columnIndex == 2)
-        {
-            return true;
-        }
         return false;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
+    public void setValueAt(final Object keyValue, final int rowIndex, final int columnIndex)
     {
-        if (columnIndex == 2)
-        {
-            Integer key = this.keys.get(rowIndex);
-            this.instances.put(key, aValue);
-        }
-        this.update();
-    }
-
-    /**
-     * updates the tableModel
-     */
-    private void update()
-    {
-        // Generate a List reflecting changes
-        List<Object> newValue = new ArrayList<Object>(this.keys.size());
-        for (int i = 0; i < this.keys.size(); i++)
-        {
-            newValue.add(this.instances.get(this.keys.get(i)));
-        }
-        this.parentProperty.setValue(newValue);
-        this.fireTableDataChanged();
+        throw new IllegalArgumentException("cannot set values in a Map...");
     }
 
     /** {@inheritDoc} */
@@ -242,66 +207,9 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
      */
     protected Property getProperty(final int index)
     {
-        return new CollectionProperty(this.keys.get(index), this.parentProperty.getName());
+        return new MapProperty(this.rowKeys.get(index), this.parentProperty.getName());
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public void createRow()
-    {
-        if (this.componentType == null)
-        {
-            this.componentType = this.parentProperty.getComponentType();
-            if (this.componentType == null)
-            {
-                return;
-            }
-        }
-        try
-        {
-            Constructor<?> instanceConstructor = this.componentType.getConstructor(new Class[0]);
-            Object instance = instanceConstructor.newInstance(new Object[0]);
-            addValue(instance);
-            this.buttons.add(new ExpandButton(getProperty(this.instances.size() - 1), this));
-            update();
-        }
-        catch (Exception e)
-        {
-            SimLogger.always().warn(e, "createRow: Could not instantiate new instance: ");
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void createRows(final int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            this.createRow();
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void deleteRow(final int index)
-    {
-        Integer deletionKey = this.keys.get(index);
-        this.instances.remove(deletionKey);
-        this.keys.remove(index);
-        this.buttons.remove(index);
-        update();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public synchronized void deleteRows(final int[] indices)
-    {
-        Arrays.sort(indices);
-        for (int i = indices.length - 1; i >= 0; i--)
-        {
-            deleteRow(indices[i]);
-        }
-    }
 
     /** {@inheritDoc} */
     @Override
@@ -324,7 +232,11 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         }
         if (columnIndex == 2)
         {
-            return this.instances.get(this.keys.get(rowIndex)).getClass();
+            return this.keyMap.get(this.rowKeys.get(rowIndex)).getClass();
+        }
+        if (columnIndex == 3)
+        {
+            return this.valueMap.get(this.rowKeys.get(rowIndex)).getClass();
         }
         return null;
     }
@@ -349,17 +261,10 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         return this.manager;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public boolean isRowEditable()
-    {
-        return this.parentProperty.isEditable();
-    }
-
     /**
-     * The CollectionProperty.
+     * The MapProperty.
      */
-    class CollectionProperty extends AbstractProperty implements Property
+    class MapProperty extends AbstractProperty implements Property
     {
         /** the key of this property */
         private final Integer key;
@@ -373,7 +278,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
          * @param key Integer; the key
          * @param name String; the name
          */
-        public CollectionProperty(Integer key, String name)
+        public MapProperty(Integer key, String name)
         {
             this.key = key;
             this.name = name;
@@ -383,21 +288,21 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         @Override
         public Object getInstance()
         {
-            return CollectionTableModel.this.instances.values();
+            return MapTableModel.this.valueMap.values();
         }
 
         /** {@inheritDoc} */
         @Override
         public String getName()
         {
-            return this.name + "[" + CollectionTableModel.this.keys.indexOf(this.key) + "]";
+            return this.name + "[" + MapTableModel.this.rowKeys.indexOf(this.key) + "]";
         }
 
         /** {@inheritDoc} */
         @Override
         public Class<?> getType()
         {
-            return CollectionTableModel.this.instances.get(this.key).getClass();
+            return MapTableModel.this.valueMap.get(this.key).getClass();
         }
 
         /** {@inheritDoc} */
@@ -406,7 +311,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         {
             try
             {
-                return CollectionTableModel.this.instances.get(this.key);
+                return MapTableModel.this.valueMap.get(this.key);
             }
             catch (Exception e)
             {
@@ -418,7 +323,7 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         @Override
         public boolean isEditable()
         {
-            return true;
+            return false;
         }
 
         /** {@inheritDoc} */

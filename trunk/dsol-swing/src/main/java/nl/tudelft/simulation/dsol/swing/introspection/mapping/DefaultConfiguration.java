@@ -3,9 +3,13 @@ package nl.tudelft.simulation.dsol.swing.introspection.mapping;
 import java.awt.Color;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JComponent;
+
+import org.djutils.immutablecollections.ImmutableCollection;
+import org.djutils.immutablecollections.ImmutableMap;
 
 import nl.tudelft.simulation.dsol.swing.introspection.gui.ExpandButton;
 
@@ -35,6 +39,9 @@ public class DefaultConfiguration implements CellPresentationConfiguration
         defaultConfig.addRenderer(Object.class, MyDefaultRenderer.class);
         defaultConfig.addRenderer(Object[].class, ArrayRenderer.class);
         defaultConfig.addRenderer(Collection.class, CollectionRenderer.class);
+        defaultConfig.addRenderer(ImmutableCollection.class, ImmutableCollectionRenderer.class);
+        defaultConfig.addRenderer(Map.class, MapRenderer.class);
+        defaultConfig.addRenderer(ImmutableMap.class, ImmutableMapRenderer.class);
         defaultConfig.addRenderer(Color.class, MyColorRenderer.class);
         defaultConfig.addEditor(Color.class, MyColorEditor.class);
         defaultConfig.addEditor(JComponent.class, SwingCellEditor.class);

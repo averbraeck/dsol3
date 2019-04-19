@@ -3,6 +3,7 @@ package nl.tudelft.simulation.dsol.swing.introspection.gui;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import java.util.Collection;
+import java.util.Map;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -10,6 +11,9 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+
+import org.djutils.immutablecollections.ImmutableCollection;
+import org.djutils.immutablecollections.ImmutableMap;
 
 import nl.tudelft.simulation.dsol.swing.introspection.mapping.CellPresentationConfiguration;
 import nl.tudelft.simulation.dsol.swing.introspection.mapping.DefaultConfiguration;
@@ -135,6 +139,12 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
             return super.getDefaultRenderer(Object[].class);
         if (Collection.class.isAssignableFrom(columnClass))
             return super.getDefaultRenderer(Collection.class);
+        if (ImmutableCollection.class.isAssignableFrom(columnClass))
+            return super.getDefaultRenderer(ImmutableCollection.class);
+        if (Map.class.isAssignableFrom(columnClass))
+            return super.getDefaultRenderer(Map.class);
+        if (ImmutableMap.class.isAssignableFrom(columnClass))
+            return super.getDefaultRenderer(ImmutableMap.class);
         return super.getDefaultRenderer(columnClass);
     }
 
@@ -186,10 +196,18 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
             throw new IllegalArgumentException(
                     "Configuration " + this.CONFIG + "failed, " + "probably invalid classes.");
         }
-        this.getColumn(getColumnName(0)).setPreferredWidth(70);
+        this.getColumn(getColumnName(0)).setPreferredWidth(150);
         this.getColumn(getColumnName(1)).setMaxWidth(25);
-        this.getColumn(getColumnName(2)).setPreferredWidth(450);
-        this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        if (this.getColumnCount() == 3)
+        {
+            this.getColumn(getColumnName(2)).setPreferredWidth(600);
+        }
+        else
+        {
+            this.getColumn(getColumnName(2)).setPreferredWidth(200);
+            this.getColumn(getColumnName(3)).setPreferredWidth(400);
+        }
+        this.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     /** {@inheritDoc} */

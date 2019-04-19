@@ -30,6 +30,11 @@ public interface ModelManager
     Class<?> getDefaultObjectTableModel();
 
     /**
+     * @return Returns the class of the default map table model
+     */
+    Class<?> getDefaultMapObjectTableModel();
+
+    /**
      * sets the class of the default collection object table model.
      * @param defaultCollectionObjectTableModel Class&lt;?&gt;; the class
      */
@@ -40,4 +45,10 @@ public interface ModelManager
      * @param defaultObjectTableModel Class&lt;?&gt;; the class
      */
     void setDefaultObjectTableModel(Class<?> defaultObjectTableModel);
+    
+    /**
+     * sets the class of the default map table model.
+     * @param defaultMapTableModel Class&lt;?&gt;; the class
+     */
+    void setDefaultMapObjectTableModel(Class<?> defaultMapTableModel);
 }
