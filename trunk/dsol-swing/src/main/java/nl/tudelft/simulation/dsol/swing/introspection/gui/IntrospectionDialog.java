@@ -35,7 +35,7 @@ import nl.tudelft.simulation.introspection.DelegateIntrospection;
  * @author Niels Lang.
  * @since 1.5
  */
-public class IntrospectionDialogX extends JDialog
+public class IntrospectionDialog extends JDialog
 {
     /** */
     private static final long serialVersionUID = 20140831L;
@@ -50,7 +50,7 @@ public class IntrospectionDialogX extends JDialog
      * Constructs a new IntrospectionDialog.
      * @param introspected Object; The introspected object
      */
-    public IntrospectionDialogX(final Object introspected)
+    public IntrospectionDialog(final Object introspected)
     {
         this(null, introspected);
     }
@@ -60,7 +60,7 @@ public class IntrospectionDialogX extends JDialog
      * @param parent Window; The parent window, used for locating the dialog
      * @param introspected Object; The introspected object
      */
-    public IntrospectionDialogX(final Window parent, final Object introspected)
+    public IntrospectionDialog(final Window parent, final Object introspected)
     {
         this(parent, DelegateIntrospection.checkDelegation(introspected).toString(),
                 new ObjectJTable(new ObjectTableModel(introspected)));
@@ -71,7 +71,7 @@ public class IntrospectionDialogX extends JDialog
      * @param title String; The title of the frame
      * @param introspected Object; The introspected object
      */
-    public IntrospectionDialogX(final Object introspected, final String title)
+    public IntrospectionDialog(final Object introspected, final String title)
     {
         this(null, title, new ObjectJTable(new ObjectTableModel(introspected)));
     }
@@ -81,7 +81,7 @@ public class IntrospectionDialogX extends JDialog
      * @param title String; The title of the dialog
      * @param content IntrospectingTableModelInterface; The object table-model containing the data of the introspected object
      */
-    public IntrospectionDialogX(final String title, final IntrospectingTableModelInterface content)
+    public IntrospectionDialog(final String title, final IntrospectingTableModelInterface content)
     {
         this(null, title, content);
     }
@@ -92,7 +92,7 @@ public class IntrospectionDialogX extends JDialog
      * @param title String; The title of the dialog
      * @param content IntrospectingTableModelInterface; The object table-model containing the data of the introspected object
      */
-    public IntrospectionDialogX(final Window parent, final String title, final IntrospectingTableModelInterface content)
+    public IntrospectionDialog(final Window parent, final String title, final IntrospectingTableModelInterface content)
     {
         this(parent, title, new ObjectJTable(content));
     }
@@ -103,7 +103,7 @@ public class IntrospectionDialogX extends JDialog
      * @param title String; The title of the dialog
      * @param introspected Object; The introspected object
      */
-    public IntrospectionDialogX(final Frame parent, final Object introspected, final String title)
+    public IntrospectionDialog(final Frame parent, final Object introspected, final String title)
     {
         this(parent, title, new ObjectJTable(new ObjectTableModel(introspected)));
     }
@@ -113,7 +113,7 @@ public class IntrospectionDialogX extends JDialog
      * @param title String; The title of the dialog
      * @param content JTable; The table displaying the data of the introspected object
      */
-    public IntrospectionDialogX(final String title, final JTable content)
+    public IntrospectionDialog(final String title, final JTable content)
     {
         this(null, title, content);
     }
@@ -124,7 +124,7 @@ public class IntrospectionDialogX extends JDialog
      * @param title String; The title of the dialog
      * @param content JTable; The table displaying the data of the introspected object
      */
-    public IntrospectionDialogX(final Window parent, final String title, final JTable content)
+    public IntrospectionDialog(final Window parent, final String title, final JTable content)
     {
         super();
         this.parent = parent;

@@ -29,7 +29,7 @@ import nl.tudelft.simulation.dsol.swing.animation.D2.actions.PanDownAction;
 import nl.tudelft.simulation.dsol.swing.animation.D2.actions.PanLeftAction;
 import nl.tudelft.simulation.dsol.swing.animation.D2.actions.PanRightAction;
 import nl.tudelft.simulation.dsol.swing.animation.D2.actions.PanUpAction;
-import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialogX;
+import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialog;
 
 /**
  * A InputListener.
@@ -71,7 +71,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
             Object selected = this.getSelectedObject(this.getSelectedObjects(e.getPoint()));
             if (selected != null)
             {
-                new IntrospectionDialogX(selected);
+                new IntrospectionDialog(selected);
             }
         }
     }
