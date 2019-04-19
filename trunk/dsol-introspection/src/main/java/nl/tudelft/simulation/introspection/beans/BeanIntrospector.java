@@ -5,23 +5,24 @@ import java.beans.PropertyDescriptor;
 import java.util.HashSet;
 import java.util.Set;
 
+import nl.tudelft.simulation.introspection.DelegateIntrospection;
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 
 /**
- * The Bean introspector provides a simplified JavaBean implementation of the introspection interfaces. Its behavior
- * adheres to the following:
+ * The Bean introspector provides a simplified JavaBean implementation of the introspection interfaces. Its behavior adheres to
+ * the following:
  * <ul>
  * <li>Properties are discovered by searching for 'getter' and / or 'setter' methods</li>
- * <li>Property value are manipulated via a property's 'setter' method. If no such method is found, the property cannot
- * be altered</li>
+ * <li>Property value are manipulated via a property's 'setter' method. If no such method is found, the property cannot be
+ * altered</li>
  * <li>Indexed properties are probably not correctly supported.</li>
  * </ul>
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -33,8 +34,13 @@ public class BeanIntrospector implements Introspector
 {
     /** {@inheritDoc} */
     @Override
-    public Property[] getProperties(final Object introspected)
+    public Property[] getProperties(final Object introspectedObject)
     {
+        Object introspected = introspectedObject;
+        while (introspectedObject instanceof DelegateIntrospection)
+        {
+            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+        }
         Set<Property> props = new HashSet<Property>();
         try
         {
@@ -55,8 +61,13 @@ public class BeanIntrospector implements Introspector
 
     /** {@inheritDoc} */
     @Override
-    public Property getProperty(final Object introspected, final String property)
+    public Property getProperty(final Object introspectedObject, final String property)
     {
+        Object introspected = introspectedObject;
+        while (introspectedObject instanceof DelegateIntrospection)
+        {
+            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+        }
         try
         {
             BeanInfo info = java.beans.Introspector.getBeanInfo(introspected.getClass());
@@ -78,8 +89,13 @@ public class BeanIntrospector implements Introspector
 
     /** {@inheritDoc} */
     @Override
-    public String[] getPropertyNames(final Object introspected)
+    public String[] getPropertyNames(final Object introspectedObject)
     {
+        Object introspected = introspectedObject;
+        while (introspectedObject instanceof DelegateIntrospection)
+        {
+            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+        }
         Set<String> props = new HashSet<String>();
         try
         {

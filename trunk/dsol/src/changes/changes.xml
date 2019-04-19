@@ -1,6 +1,15 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.03.06" date="2019-04-19" description="DelegateIntrospection">
+      <action dev="averbraeck" type="add">
+        The DelegateIntrospection has been added to introspection. When an object implements the
+        DelegateIntrospection interface, it delegates the introspection to it parent. The implementation
+        has been set up that multiple delegations are handled correctly. The function is to provide
+        intermediate animation objects the option to delegate the introspection to their parent object.
+      </action>
+    </release>
+ 
      <release version="3.03.05" date="2019-01-18" description="TabbedParameterDialog">
       <action dev="averbraeck" type="update">
         TabbedParameterDialog in ots-swing made better accessible for extensions with user-built
