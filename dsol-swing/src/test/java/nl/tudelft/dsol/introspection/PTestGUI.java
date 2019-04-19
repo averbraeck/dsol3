@@ -1,6 +1,9 @@
 
 package nl.tudelft.dsol.introspection;
 
+import org.djutils.logger.CategoryLogger;
+import org.pmw.tinylog.Level;
+
 import nl.tudelft.dsol.introspection.beans.GUIBean;
 import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialog;
 import nl.tudelft.simulation.dsol.swing.introspection.gui.ObjectTableModel;
@@ -39,6 +42,7 @@ public final class PTestGUI
      */
     public static void main(final String[] args)
     {
+        CategoryLogger.setAllLogLevel(Level.TRACE);
         Object introspected = new GUIBean();
         // new IntrospectionDialog("Test Field introspector", new ObjectTableModel(introspected, new FieldIntrospector()));
         new IntrospectionDialog("Test Bean introspector", new ObjectTableModel(introspected, new BeanIntrospector()));

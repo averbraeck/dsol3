@@ -107,7 +107,6 @@ public class ImmutableCollectionTableModel extends AbstractTableModel implements
                 addValue(i.next());
             }
         }
-        // TODO: how to handle a Map or ImmutableMap?
         this.parentProperty = parentProperty;
         this.introspector = introspector;
         // Initialize buttons
@@ -172,6 +171,11 @@ public class ImmutableCollectionTableModel extends AbstractTableModel implements
     @Override
     public boolean isCellEditable(final int rowIndex, final int columnIndex)
     {
+        // NOTE: For a button to be clickable, it needs to be editable!!!
+        if (columnIndex == 1)
+        {
+            return true;
+        }
         return false;
     }
 
@@ -179,6 +183,8 @@ public class ImmutableCollectionTableModel extends AbstractTableModel implements
     @Override
     public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex)
     {
+        if (columnIndex == 1)
+            return; // Clicked a button...
         throw new IllegalArgumentException("cannot set values in an ImmutableCollection...");
     }
 
@@ -337,8 +343,14 @@ public class ImmutableCollectionTableModel extends AbstractTableModel implements
         @Override
         public String toString()
         {
-            return "Coll.Prop, key:" + this.key;
+            return "ImmColl.Prop, key:" + this.key;
         }
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
+    {
+        return "ImmutableCollectionTableModel";
+    }
 }

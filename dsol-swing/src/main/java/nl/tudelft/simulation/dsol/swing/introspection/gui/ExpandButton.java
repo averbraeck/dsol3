@@ -56,14 +56,17 @@ public class ExpandButton extends JButton
         this.setMargin(new Insets(0, 0, 0, 0));
         this.PROPERTY = property;
         this.MODEL = model;
-        this.addActionListener(new ActionListener()
+        
+        ActionListener al = new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
                 showTable();
             }
-        });
+        };
+
+        this.addActionListener(al);
     }
 
     /**
@@ -182,6 +185,14 @@ public class ExpandButton extends JButton
         // Propagate model settings
         newModel.getModelManager().setDefaultCollectionObjectTableModel(manager.getDefaultCollectionObjectTableModel());
         newModel.getModelManager().setDefaultObjectTableModel(manager.getDefaultObjectTableModel());
+        result.repaint();
         return result;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
+    {
+        return "ExpandButton [PROPERTY=" + this.PROPERTY + ", MODEL=" + this.MODEL + "]";
     }
 }

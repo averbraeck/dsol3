@@ -138,4 +138,11 @@ public abstract class AbstractProperty implements Property
         // TODO: is this ok? Map or ImmutableMap do not have a single type...
         return null;
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
+    {
+        return "Property [getName()=" + this.getName() + "]";
+    }
 }

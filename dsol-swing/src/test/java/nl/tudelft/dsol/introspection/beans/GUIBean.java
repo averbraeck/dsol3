@@ -2,10 +2,13 @@ package nl.tudelft.dsol.introspection.beans;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.djutils.immutablecollections.ImmutableHashMap;
@@ -52,6 +55,9 @@ public class GUIBean
     /** An Immutable map. */
     private ImmutableMap<Double, Double> immutableMap;
 
+    /** A list of maps of sets. */
+    private List<Map<String, Set<Double>>> listMapSet = new ArrayList<>();
+
     /**
      * Construct the values.
      */
@@ -75,6 +81,20 @@ public class GUIBean
         doubleMap.put(4.0, 16.0);
         doubleMap.put(5.0, 25.0);
         this.immutableMap = new ImmutableHashMap<Double, Double>(doubleMap);
+
+        Map<String, Set<Double>> map1 = new HashMap<>();
+        this.listMapSet.add(map1);
+        Set<Double> set11 = new HashSet<>(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0));
+        map1.put("first", set11);
+        Set<Double> set12 = new HashSet<>(Arrays.asList(11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0));
+        map1.put("second", set12);
+        
+        Map<String, Set<Double>> map2 = new HashMap<>();
+        this.listMapSet.add(map2);
+        Set<Double> set21 = new HashSet<>(Arrays.asList(1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5));
+        map2.put("first", set21);
+        Set<Double> set22 = new HashSet<>(Arrays.asList(11.5, 12.5, 13.5, 14.5, 15.5, 16.5, 17.5));
+        map2.put("second", set22);
     }
 
     /**
@@ -131,6 +151,14 @@ public class GUIBean
     public final ImmutableMap<Double, Double> getImmutableMap()
     {
         return this.immutableMap;
+    }
+
+    /**
+     * @return listMapSet
+     */
+    public final List<Map<String, Set<Double>>> getListMapSet()
+    {
+        return this.listMapSet;
     }
 
     /**

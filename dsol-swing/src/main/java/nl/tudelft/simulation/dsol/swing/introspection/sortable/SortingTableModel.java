@@ -327,4 +327,11 @@ public class SortingTableModel implements TableModel, Sortable
             ((DefaultTableModel) this.source).fireTableDataChanged();
         }
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
+    {
+        return "SortingTableModel";
+    }
 }
