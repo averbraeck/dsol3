@@ -76,4 +76,11 @@ public class SortingObjectTableModel extends SortingTableModel implements Intros
         }
         return ((IntrospectingTableModelInterface) this.source).getModelManager();
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
+    {
+        return "SortingObjectTableModel";
+    }
 }

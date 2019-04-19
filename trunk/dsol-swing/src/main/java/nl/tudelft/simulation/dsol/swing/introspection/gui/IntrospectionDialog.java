@@ -146,6 +146,7 @@ public class IntrospectionDialog extends JDialog
         this.getContentPane().setLayout(new BorderLayout());
         JScrollPane pane = new JScrollPane(newTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.getContentPane().add(newTable.getTableHeader(), BorderLayout.NORTH);
         this.getContentPane().add(pane, BorderLayout.CENTER);
         if (newTable instanceof ObjectJTableInterface)
         {

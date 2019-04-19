@@ -1,10 +1,12 @@
 package nl.tudelft.simulation.dsol.swing.introspection.gui;
 
+import java.awt.BorderLayout;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.JTableHeader;
@@ -125,6 +127,12 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
         JTableHeader header = new SortingTableHeader(new SortDefinition[]{new SortDefinition(0, true)});
         this.setTableHeader(header);
         header.setColumnModel(this.getColumnModel());
+        
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(header, BorderLayout.NORTH);
+        panel.add(this, BorderLayout.CENTER);
+        
         ObjectJTable.updateTimer.add(this);
     }
 

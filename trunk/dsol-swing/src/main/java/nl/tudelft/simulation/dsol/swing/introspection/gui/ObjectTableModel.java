@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.swing.introspection.gui;
 
+import java.util.Arrays;
+
 import javax.swing.table.AbstractTableModel;
 
 import nl.tudelft.simulation.dsol.logger.SimLogger;
@@ -229,4 +231,12 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
     {
         return this.manager;
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
+    {
+        return "ObjectTableModel [properties=" + Arrays.toString(this.properties) + "]";
+    }
+    
 }

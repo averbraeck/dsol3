@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
 import org.djutils.immutablecollections.ImmutableMap;
+import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.introspection.AbstractProperty;
 import nl.tudelft.simulation.introspection.Introspector;
@@ -104,8 +105,10 @@ public class MapTableModel extends AbstractTableModel implements IntrospectingTa
         // Initialize buttons
         for (int i = 0; i < this.keyMap.size(); i++)
         {
-            this.buttons.add(new ExpandButton(getProperty(i), this));
+            ExpandButton button = new ExpandButton(getProperty(i), this);
+            this.buttons.add(button);
         }
+        this.fireTableDataChanged();
     }
 
     /**
@@ -168,6 +171,11 @@ public class MapTableModel extends AbstractTableModel implements IntrospectingTa
     @Override
     public boolean isCellEditable(final int rowIndex, final int columnIndex)
     {
+        // NOTE: For a button to be clickable, it needs to be editable!!!
+        if (columnIndex == 1)
+        {
+            return true;
+        }
         return false;
     }
 
@@ -175,6 +183,9 @@ public class MapTableModel extends AbstractTableModel implements IntrospectingTa
     @Override
     public void setValueAt(final Object keyValue, final int rowIndex, final int columnIndex)
     {
+        if (columnIndex == 1)
+            return; // Clicked a button...
+        CategoryLogger.always().warn("cannot set values in a Map...");
         throw new IllegalArgumentException("cannot set values in a Map...");
     }
 
@@ -338,8 +349,14 @@ public class MapTableModel extends AbstractTableModel implements IntrospectingTa
         @Override
         public String toString()
         {
-            return "Coll.Prop, key:" + this.key;
+            return "Map.Prop, key:" + this.key;
         }
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
+    {
+        return "MapTableModel";
+    }
 }

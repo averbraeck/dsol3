@@ -114,7 +114,6 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
                 addValue(i.next());
             }
         }
-        // TODO: how to handle a Map or ImmutableMap?
         this.parentProperty = parentProperty;
         this.introspector = introspector;
         // Initialize buttons
@@ -435,6 +434,13 @@ public class CollectionTableModel extends AbstractTableModel implements Introspe
         {
             return "Coll.Prop, key:" + this.key;
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String toString()
+    {
+        return "CollectionTableModel";
     }
 
 }
