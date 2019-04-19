@@ -18,16 +18,16 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
 import nl.tudelft.simulation.dsol.swing.introspection.table.DynamicTableModel;
+import nl.tudelft.simulation.introspection.DelegateIntrospection;
 
 /**
- * A GUI element for presentation and manipulation of an introspected object. The dialog is 'powered' by an instance of
- * {see ObjectJTable}. The dialog is positioned to a 'parent' window, or displayed centered if no parent window is
- * available.
+ * A GUI element for presentation and manipulation of an introspected object. The dialog is 'powered' by an instance of {see
+ * ObjectJTable}. The dialog is positioned to a 'parent' window, or displayed centered if no parent window is available.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
@@ -47,7 +47,7 @@ public class IntroSpectionDialog extends JDialog
     private Window parent;
 
     /**
-     * Constructs a new IntroSpectionDialog.
+     * Constructs a new IntrospectionDialog.
      * @param introspected Object; The introspected object
      */
     public IntroSpectionDialog(final Object introspected)
@@ -56,17 +56,18 @@ public class IntroSpectionDialog extends JDialog
     }
 
     /**
-     * Constructs a new IntroSpectionDialog.
+     * Constructs a new IntrospectionDialog.
      * @param parent Window; The parent window, used for locating the dialog
      * @param introspected Object; The introspected object
      */
     public IntroSpectionDialog(final Window parent, final Object introspected)
     {
-        this(parent, introspected.toString(), new ObjectJTable(new ObjectTableModel(introspected)));
+        this(parent, DelegateIntrospection.checkDelegation(introspected).toString(),
+                new ObjectJTable(new ObjectTableModel(introspected)));
     }
 
     /**
-     * Constructs a new IntroSpectionDialog.
+     * Constructs a new IntrospectionDialog.
      * @param title String; The title of the frame
      * @param introspected Object; The introspected object
      */
@@ -76,10 +77,9 @@ public class IntroSpectionDialog extends JDialog
     }
 
     /**
-     * Constructs a new IntroSpectionDialog.
+     * Constructs a new IntrospectionDialog.
      * @param title String; The title of the dialog
-     * @param content IntrospectingTableModelInterface; The object table-model containing the data of the introspected
-     *            object
+     * @param content IntrospectingTableModelInterface; The object table-model containing the data of the introspected object
      */
     public IntroSpectionDialog(final String title, final IntrospectingTableModelInterface content)
     {
@@ -87,11 +87,10 @@ public class IntroSpectionDialog extends JDialog
     }
 
     /**
-     * Constructs a new IntroSpectionDialog.
+     * Constructs a new IntrospectionDialog.
      * @param parent Window; The parent window, used for locating the dialog
      * @param title String; The title of the dialog
-     * @param content IntrospectingTableModelInterface; The object table-model containing the data of the introspected
-     *            object
+     * @param content IntrospectingTableModelInterface; The object table-model containing the data of the introspected object
      */
     public IntroSpectionDialog(final Window parent, final String title, final IntrospectingTableModelInterface content)
     {
@@ -99,7 +98,7 @@ public class IntroSpectionDialog extends JDialog
     }
 
     /**
-     * Constructs a new IntroSpectionDialog.
+     * Constructs a new IntrospectionDialog.
      * @param parent Frame; The parent window, used for locating the dialog
      * @param title String; The title of the dialog
      * @param introspected Object; The introspected object
@@ -110,7 +109,7 @@ public class IntroSpectionDialog extends JDialog
     }
 
     /**
-     * Constructs a new IntroSpectionDialog.
+     * Constructs a new IntrospectionDialog.
      * @param title String; The title of the dialog
      * @param content JTable; The table displaying the data of the introspected object
      */
@@ -120,7 +119,7 @@ public class IntroSpectionDialog extends JDialog
     }
 
     /**
-     * Constructs a new IntroSpectionDialog.
+     * Constructs a new IntrospectionDialog.
      * @param parent Window; The parent window, used for locating the dialog
      * @param title String; The title of the dialog
      * @param content JTable; The table displaying the data of the introspected object
@@ -142,6 +141,7 @@ public class IntroSpectionDialog extends JDialog
         this.table = newTable;
         this.setModal(false);
         this.setTitle(title);
+        this.setAlwaysOnTop(true);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.getContentPane().setLayout(new BorderLayout());
         JScrollPane pane = new JScrollPane(newTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -151,8 +151,7 @@ public class IntroSpectionDialog extends JDialog
         {
             if (((ObjectJTableInterface) newTable).getIntrospectingTableModel() instanceof DynamicTableModel)
             {
-                DynamicTableModel model =
-                        (DynamicTableModel) ((ObjectJTableInterface) newTable).getIntrospectingTableModel();
+                DynamicTableModel model = (DynamicTableModel) ((ObjectJTableInterface) newTable).getIntrospectingTableModel();
                 this.getContentPane().add(new ButtonPanel(model, newTable), BorderLayout.SOUTH);
             }
         }

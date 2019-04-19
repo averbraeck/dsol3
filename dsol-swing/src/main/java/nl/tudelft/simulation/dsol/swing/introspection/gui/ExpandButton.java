@@ -108,9 +108,33 @@ public class ExpandButton extends JButton
         try
         {
             Class<?> modelClass = null;
-            if (this.PROPERTY.isCollection())
+            if (this.PROPERTY.getComposedType().isArray())
             {
                 modelClass = manager.getDefaultCollectionObjectTableModel();
+                Constructor<?> c = modelClass.getConstructor(new Class[]{Property.class, Introspector.class});
+                newModel = (IntrospectingTableModelInterface) c.newInstance(new Object[]{this.PROPERTY, introspector});
+            }
+            else if (this.PROPERTY.getComposedType().isCollection())
+            {
+                modelClass = manager.getDefaultCollectionObjectTableModel();
+                Constructor<?> c = modelClass.getConstructor(new Class[]{Property.class, Introspector.class});
+                newModel = (IntrospectingTableModelInterface) c.newInstance(new Object[]{this.PROPERTY, introspector});
+            }
+            else if (this.PROPERTY.getComposedType().isImmutableCollection())
+            {
+                modelClass = manager.getDefaultCollectionObjectTableModel();
+                Constructor<?> c = modelClass.getConstructor(new Class[]{Property.class, Introspector.class});
+                newModel = (IntrospectingTableModelInterface) c.newInstance(new Object[]{this.PROPERTY, introspector});
+            }
+            else if (this.PROPERTY.getComposedType().isMap())
+            {
+                modelClass = manager.getDefaultMapObjectTableModel();
+                Constructor<?> c = modelClass.getConstructor(new Class[]{Property.class, Introspector.class});
+                newModel = (IntrospectingTableModelInterface) c.newInstance(new Object[]{this.PROPERTY, introspector});
+            }
+            else if (this.PROPERTY.getComposedType().isImmutableMap())
+            {
+                modelClass = manager.getDefaultMapObjectTableModel();
                 Constructor<?> c = modelClass.getConstructor(new Class[]{Property.class, Introspector.class});
                 newModel = (IntrospectingTableModelInterface) c.newInstance(new Object[]{this.PROPERTY, introspector});
             }
@@ -125,9 +149,25 @@ public class ExpandButton extends JButton
         catch (Exception exception)
         {
             SimLogger.always().warn(exception, "instantiate: could not instantiate parent tablemodel, using default");
-            if (this.PROPERTY.isCollection())
+            if (this.PROPERTY.getComposedType().isArray())
             {
                 newModel = new CollectionTableModel(this.PROPERTY);
+            }
+            else if (this.PROPERTY.getComposedType().isCollection())
+            {
+                newModel = new CollectionTableModel(this.PROPERTY);
+            }
+            else if (this.PROPERTY.getComposedType().isImmutableCollection())
+            {
+                newModel = new ImmutableCollectionTableModel(this.PROPERTY);
+            }
+            else if (this.PROPERTY.getComposedType().isMap())
+            {
+                newModel = new MapTableModel(this.PROPERTY);
+            }
+            else if (this.PROPERTY.getComposedType().isImmutableMap())
+            {
+                newModel = new MapTableModel(this.PROPERTY);
             }
             else
             {
