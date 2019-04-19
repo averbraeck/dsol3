@@ -87,12 +87,12 @@ public class ExpandButton extends JButton
         if (this.myTable != null)
         {
             Window parentWindow = SwingUtilities.getWindowAncestor(this);
-            new IntrospectionDialogX(parentWindow, this.PROPERTY.getName() + ", " + this.PROPERTY.getValue(),
+            new IntrospectionDialog(parentWindow, this.PROPERTY.getName() + ", " + this.PROPERTY.getValue(),
                     instantiateTable());
         }
         else
         {
-            new IntrospectionDialogX(this.PROPERTY.getName() + ", " + this.PROPERTY.getValue(), instantiateTable());
+            new IntrospectionDialog(this.PROPERTY.getName() + ", " + this.PROPERTY.getValue(), instantiateTable());
         }
     }
 

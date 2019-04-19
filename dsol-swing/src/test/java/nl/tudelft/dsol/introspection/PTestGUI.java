@@ -2,7 +2,7 @@
 package nl.tudelft.dsol.introspection;
 
 import nl.tudelft.dsol.introspection.beans.GUIBean;
-import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialogX;
+import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialog;
 import nl.tudelft.simulation.dsol.swing.introspection.gui.ObjectTableModel;
 import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
 
@@ -41,6 +41,6 @@ public final class PTestGUI
     {
         Object introspected = new GUIBean();
         // new IntrospectionDialog("Test Field introspector", new ObjectTableModel(introspected, new FieldIntrospector()));
-        new IntrospectionDialogX("Test Bean introspector", new ObjectTableModel(introspected, new BeanIntrospector()));
+        new IntrospectionDialog("Test Bean introspector", new ObjectTableModel(introspected, new BeanIntrospector()));
     }
 }
