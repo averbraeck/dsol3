@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import nl.tudelft.simulation.introspection.DelegateIntrospection;
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 
@@ -54,8 +55,13 @@ public class FieldIntrospector implements Introspector
 
     /** {@inheritDoc} */
     @Override
-    public Property[] getProperties(final Object introspected)
+    public Property[] getProperties(final Object introspectedObject)
     {
+        Object introspected = introspectedObject;
+        while (introspectedObject instanceof DelegateIntrospection)
+        {
+            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+        }
         Set<Property> props = new HashSet<Property>();
         try
         {
@@ -101,8 +107,13 @@ public class FieldIntrospector implements Introspector
 
     /** {@inheritDoc} */
     @Override
-    public Property getProperty(final Object introspected, final String property)
+    public Property getProperty(final Object introspectedObject, final String property)
     {
+        Object introspected = introspectedObject;
+        while (introspectedObject instanceof DelegateIntrospection)
+        {
+            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+        }
         try
         {
             Field[] fields = collectFields(introspected.getClass());
@@ -123,8 +134,13 @@ public class FieldIntrospector implements Introspector
 
     /** {@inheritDoc} */
     @Override
-    public String[] getPropertyNames(final Object introspected)
+    public String[] getPropertyNames(final Object introspectedObject)
     {
+        Object introspected = introspectedObject;
+        while (introspectedObject instanceof DelegateIntrospection)
+        {
+            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+        }
         Set<String> props = new HashSet<String>();
         try
         {
