@@ -58,9 +58,9 @@ public class FieldIntrospector implements Introspector
     public Property[] getProperties(final Object introspectedObject)
     {
         Object introspected = introspectedObject;
-        while (introspectedObject instanceof DelegateIntrospection)
+        while (introspected instanceof DelegateIntrospection)
         {
-            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+            introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
         }
         Set<Property> props = new HashSet<Property>();
         try
@@ -110,9 +110,9 @@ public class FieldIntrospector implements Introspector
     public Property getProperty(final Object introspectedObject, final String property)
     {
         Object introspected = introspectedObject;
-        while (introspectedObject instanceof DelegateIntrospection)
+        while (introspected instanceof DelegateIntrospection)
         {
-            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+            introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
         }
         try
         {
@@ -137,9 +137,9 @@ public class FieldIntrospector implements Introspector
     public String[] getPropertyNames(final Object introspectedObject)
     {
         Object introspected = introspectedObject;
-        while (introspectedObject instanceof DelegateIntrospection)
+        while (introspected instanceof DelegateIntrospection)
         {
-            introspected = ((DelegateIntrospection) introspectedObject).getParentIntrospectionObject();
+            introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
         }
         Set<String> props = new HashSet<String>();
         try

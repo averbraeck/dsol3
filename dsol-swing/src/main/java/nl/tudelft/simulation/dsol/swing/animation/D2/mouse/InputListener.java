@@ -189,7 +189,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
             case KeyEvent.VK_MINUS:
                 this.panel.zoom(GridPanel.ZOOMFACTOR, this.panel.getWidth() / 2, this.panel.getHeight() / 2);
                 break;
-            case KeyEvent.VK_EQUALS:
+            case KeyEvent.VK_PLUS:
                 this.panel.zoom(1.0 / GridPanel.ZOOMFACTOR, this.panel.getWidth() / 2, this.panel.getHeight() / 2);
                 break;
             default:
@@ -256,7 +256,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     }
 
     /**
-     * popsup on a mouseEvent.
+     * popup on a mouseEvent.
      * @param e MouseEvent; the mouseEvent
      */
     protected void popup(final MouseEvent e)

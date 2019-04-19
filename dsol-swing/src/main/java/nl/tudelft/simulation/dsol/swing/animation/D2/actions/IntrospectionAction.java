@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import nl.tudelft.simulation.dsol.swing.introspection.gui.IntroSpectionDialog;
+import nl.tudelft.simulation.introspection.DelegateIntrospection;
 
 /**
  * Introspecting an object on the screen.
@@ -32,13 +33,26 @@ public class IntrospectionAction extends AbstractAction
      */
     public IntrospectionAction(final Object target)
     {
-        super(target.toString());
+        super(checkDelegation(target));
         this.target = target;
     }
 
     /**
-     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     * Check for introspection delegation to allow for the right object to be shown on the screen. 
+     * @param target Object; the object that is displayed on the screen and might have delegation
+     * @return the toString() of the (delegated) object 
      */
+    private static String checkDelegation(final Object target)
+    {
+        Object introspected = target;
+        while (introspected instanceof DelegateIntrospection)
+        {
+            introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
+        }
+        return introspected.toString();
+    }
+    
+    /** {@inheritDoc} */
     @Override
     public void actionPerformed(final ActionEvent e)
     {
