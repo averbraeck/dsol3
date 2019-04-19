@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import nl.tudelft.simulation.dsol.swing.introspection.gui.IntroSpectionDialog;
+import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialogX;
 import nl.tudelft.simulation.introspection.DelegateIntrospection;
 
 /**
@@ -41,6 +41,6 @@ public class IntrospectionAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent e)
     {
-        new IntroSpectionDialog(this.target);
+        new IntrospectionDialogX(this.target);
     }
 }
