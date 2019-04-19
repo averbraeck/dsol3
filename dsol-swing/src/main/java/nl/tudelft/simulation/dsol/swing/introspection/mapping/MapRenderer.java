@@ -5,10 +5,9 @@
 package nl.tudelft.simulation.dsol.swing.introspection.mapping;
 
 import java.awt.Component;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -35,10 +34,13 @@ public class MapRenderer extends DefaultTableCellRenderer
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
             int column)
     {
-        SortedMap<Object, Object> map = new TreeMap<Object, Object>((Map<?, ?>) value);
+        Map<Object, Object> map = new HashMap<Object, Object>((Map<?, ?>) value);
         String content = "Map of <";
         if (map.size() > 0)
-            content += getShortName(map.firstKey().getClass()) + "," + getShortName(map.get(map.firstKey()).getClass());
+        {
+            Object key = map.keySet().iterator().next();
+            content += getShortName(key.getClass()) + "," + getShortName(map.get(key).getClass());
+        }
         else
             content += "?,?";
         content += ">: ";
