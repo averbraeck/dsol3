@@ -2,14 +2,18 @@ package nl.tudelft.simulation.introspection;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.Map;
+
+import org.djutils.immutablecollections.ImmutableCollection;
+import org.djutils.immutablecollections.ImmutableMap;
 
 /**
  * A default Property implementation that provides a standard way to handle composite values.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -20,31 +24,31 @@ import java.util.Collection;
 public abstract class AbstractProperty implements Property
 {
     /**
-     * Basic 'setValue' implementation. It is checked whether this property contains a composite value. If so, the
-     * composite value of this property is updated. Composite values are expected to be supplied as a {see
-     * java.util.Collection}. If needed, array conversion takes place. If the property is not composite, the
-     * value-setting is delegated to the 'setRegularValue' method.
+     * Basic 'setValue' implementation. It is checked whether this property contains a composite value. If so, the composite
+     * value of this property is updated. Composite values are expected to be supplied as a {see java.util.Collection}. If
+     * needed, array conversion takes place. If the property is not composite, the value-setting is delegated to the
+     * 'setRegularValue' method. Maps cannot be updated at this moment.
      * @see nl.tudelft.simulation.introspection.Property#setValue(java.lang.Object)
      */
     @SuppressWarnings("unchecked")
     @Override
     public void setValue(final Object value)
     {
-        if (!this.isCollection())
+        if (!this.getComposedType().isComposed())
         {
             this.setRegularValue(value);
             return;
         }
         if (!(value instanceof Collection))
         {
-            throw new IllegalArgumentException(this + " - assign Collection values to composite properties");
+            throw new IllegalArgumentException(this + " - tried to assign a singular value to composite properties");
         }
-        if (this.getType().isArray())
+        if (this.getComposedType().isArray())
         {
             Object[] array = (Object[]) Array.newInstance(getType().getComponentType(), 0);
             this.setRegularValue(((Collection<?>) value).toArray(array));
         }
-        else
+        else if (this.getComposedType().isCollection())
         {
             synchronized (this.getInstance())
             {
@@ -61,6 +65,10 @@ public abstract class AbstractProperty implements Property
                 }
             }
         }
+        else
+        {
+            throw new IllegalArgumentException(this + " - tried to assign a value to a map or an immutable collection");
+        }
 
     }
 
@@ -70,38 +78,64 @@ public abstract class AbstractProperty implements Property
      */
     protected abstract void setRegularValue(final Object value);
 
-    /**
-     * Returns true when the contained value is either an array, or an instance of {see java.util.Collection}, i.e. is a
-     * property with composite value.
-     * @see nl.tudelft.simulation.introspection.Property#isCollection()
-     */
+    /** {@inheritDoc} */
     @Override
-    public boolean isCollection()
+    public ComposedTypeEnum getComposedType()
     {
-        if (getType().isArray() || Collection.class.isAssignableFrom(getType()))
+        if (getType().isArray())
         {
-            return true;
+            return ComposedTypeEnum.ARRAY;
         }
-        return false;
+        else if (Collection.class.isAssignableFrom(getType()))
+        {
+            return ComposedTypeEnum.COLLECTION;
+        }
+        else if (ImmutableCollection.class.isAssignableFrom(getType()))
+        {
+            return ComposedTypeEnum.IMMUTABLECOLLECTION;
+        }
+        else if (Map.class.isAssignableFrom(getType()))
+        {
+            return ComposedTypeEnum.MAP;
+        }
+        else if (ImmutableMap.class.isAssignableFrom(getType()))
+        {
+            return ComposedTypeEnum.IMMUTABLEMAP;
+        }
+        return ComposedTypeEnum.NONE;
     }
 
     /** {@inheritDoc} */
     @Override
     public Class<?> getComponentType()
     {
-        if (!isCollection())
+        if (!this.getComposedType().isComposed())
         {
             return null;
         }
-        if (getType().isArray())
+        if (getComposedType().isArray())
         {
             return getType().getComponentType();
         }
-        Collection<?> value = (Collection<?>) getValue();
-        if (value == null || value.size() == 0)
+        if (getComposedType().isCollection())
         {
-            return null;
+            Collection<?> value = (Collection<?>) getValue();
+            if (value == null || value.size() == 0)
+            {
+                return null;
+            }
+            return value.toArray()[0].getClass();
         }
-        return value.toArray()[0].getClass();
+        if (getComposedType().isImmutableCollection())
+        {
+            ImmutableCollection<?> value = (ImmutableCollection<?>) getValue();
+            if (value == null || value.size() == 0)
+            {
+                return null;
+            }
+            return value.toArray()[0].getClass();
+        }
+        // TODO: is this ok? Map or ImmutableMap do not have a single type...
+        return null;
     }
 }

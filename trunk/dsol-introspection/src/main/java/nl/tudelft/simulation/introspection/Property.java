@@ -57,11 +57,11 @@ public interface Property
     Object getInstance();
 
     /**
-     * Returns whether the contained value is a collection (i.e. is a composite value). The definition whether a value
+     * Returns the collection type of the contained value (i.e. a composite value). The definition whether a value
      * is considered composite depends on the property paradigm used by this Property.
-     * @return true, if the contained value is a collection, false otherwise.
+     * @return the CollectionTypeEnum of this Property.
      */
-    boolean isCollection();
+    ComposedTypeEnum getComposedType();
 
     /**
      * Returns the type of the collection components contained in this Property.
