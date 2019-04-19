@@ -5,8 +5,9 @@
 package nl.tudelft.simulation.dsol.swing.introspection.mapping;
 
 import java.awt.Component;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.TreeMap;
+import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -36,10 +37,13 @@ public class ImmutableMapRenderer extends DefaultTableCellRenderer
             int column)
     {
         @SuppressWarnings("unchecked")
-        TreeMap<Object, Object> map = new TreeMap<Object, Object>(((ImmutableMap<Object, Object>) value).toMap());
+        Map<Object, Object> map = new HashMap<Object, Object>(((ImmutableMap<Object, Object>) value).toMap());
         String content = "ImmutableMap of <";
         if (map.size() > 0)
-            content += getShortName(map.firstKey().getClass()) + "," + getShortName(map.get(map.firstKey()).getClass());
+        {
+            Object key = map.keySet().iterator().next();
+            content += getShortName(key.getClass()) + "," + getShortName(map.get(key).getClass());
+        }
         else
             content += "?,?";
         content += ">: ";
