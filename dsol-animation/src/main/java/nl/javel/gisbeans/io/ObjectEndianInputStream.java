@@ -13,8 +13,7 @@ import java.io.InputStream;
 /**
  * This class enables the object inputstream to be switched from little to big endian. The class works exactly like an
  * ObjectInputStream
- * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a><a href="mailto:peter.jacobs@javel.nl">Peter Jacobs
- *         </a>
+ * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a><a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a>
  * @since JDK 1.0
  */
 public class ObjectEndianInputStream implements EndianInterface, DataInput
@@ -87,8 +86,7 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
             return this.dataInputStream.readInt();
         }
         this.dataInputStream.readFully(this.buffer, 0, 4);
-        return (this.buffer[3]) << 24 | (this.buffer[2] & 0xff) << 16 | (this.buffer[1] & 0xff) << 8
-                | (this.buffer[0] & 0xff);
+        return (this.buffer[3]) << 24 | (this.buffer[2] & 0xff) << 16 | (this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff);
     }
 
     /** {@inheritDoc} */
@@ -100,10 +98,9 @@ public class ObjectEndianInputStream implements EndianInterface, DataInput
             return this.dataInputStream.readLong();
         }
         this.dataInputStream.readFully(this.buffer, 0, 8);
-        return (long) (this.buffer[7]) << 56 | (long) (this.buffer[6] & 0xff) << 48
-                | (long) (this.buffer[5] & 0xff) << 40 | (long) (this.buffer[4] & 0xff) << 32
-                | (long) (this.buffer[3] & 0xff) << 24 | (long) (this.buffer[2] & 0xff) << 16
-                | (long) (this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff);
+        return (long) (this.buffer[7]) << 56 | (long) (this.buffer[6] & 0xff) << 48 | (long) (this.buffer[5] & 0xff) << 40
+                | (long) (this.buffer[4] & 0xff) << 32 | (long) (this.buffer[3] & 0xff) << 24
+                | (long) (this.buffer[2] & 0xff) << 16 | (long) (this.buffer[1] & 0xff) << 8 | (this.buffer[0] & 0xff);
     }
 
     /** {@inheritDoc} */

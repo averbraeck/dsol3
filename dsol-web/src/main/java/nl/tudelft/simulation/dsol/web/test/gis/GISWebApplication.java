@@ -33,8 +33,8 @@ public class GISWebApplication extends DSOLWebServer
     }
 
     /**
-     * @param title the tile for the model
-     * @param simulator the simulator
+     * @param title String; the tile for the model
+     * @param simulator DEVSRealTimeClock.TimeDouble; the simulator
      * @throws Exception on jetty error
      */
     public GISWebApplication(final String title, final DEVSRealTimeClock.TimeDouble simulator) throws Exception

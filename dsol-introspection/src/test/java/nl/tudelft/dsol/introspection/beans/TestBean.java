@@ -160,8 +160,7 @@ public class TestBean extends java.lang.Object implements java.io.Serializable
     public String toString()
     {
         String result;
-        result = this.getColor() + this.getFirstProperty() + this.getSecondProperty() + this.getFont()
-                + this.getIntProp();
+        result = this.getColor() + this.getFirstProperty() + this.getSecondProperty() + this.getFont() + this.getIntProp();
         return result;
     }
 

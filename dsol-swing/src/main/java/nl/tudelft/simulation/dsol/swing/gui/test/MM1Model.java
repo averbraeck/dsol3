@@ -69,7 +69,7 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     private int entityCounter = 0;
 
     /**
-     * @param simulator
+     * @param simulator DEVSSimulator.TimeDouble;
      */
     public MM1Model(DEVSSimulator.TimeDouble simulator)
     {

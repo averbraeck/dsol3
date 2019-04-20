@@ -32,7 +32,7 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
      * @param key String; unique (within the parent's input parameter map) name of the new InputParameterSelectionMap
      * @param shortName String; concise description of the input parameter
      * @param description String; long description of the input parameter (may use HTML markup)
-     * @param options the list of selection options
+     * @param options SortedMap&lt;K,T&gt;; the list of selection options
      * @param defaultValue T; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException in case the default value is not part of the list
@@ -92,7 +92,7 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
 
     /**
      * Set a new value by providing one of the map value options.
-     * @param newValue the new value (must be one of the map value options)
+     * @param newValue T; the new value (must be one of the map value options)
      * @throws InputParameterException when the new value is not part of selectionMap options, or when the map is read-only
      */
     public void setMapValue(final T newValue) throws InputParameterException

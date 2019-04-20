@@ -36,16 +36,15 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 import nl.tudelft.simulation.naming.context.ContextUtil;
 
 /**
- * The AnimationPanel to display animated (Locatable) objects. Added the possibility to witch layers on and off. By
- * default all layers will be drawn, so no changes to existing software need to be made.<br>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * The AnimationPanel to display animated (Locatable) objects. Added the possibility to witch layers on and off. By default all
+ * layers will be drawn, so no changes to existing software need to be made.<br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
@@ -82,7 +81,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
 
     /** dirty flag for the list. */
     private boolean dirtyElements = false;
-    
+
     /**
      * constructs a new AnimationPanel.
      * @param extent Rectangle2D; the extent of the panel
@@ -146,8 +145,8 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     }
 
     /**
-     * Test whether a certain class needs to be shown on the screen or not. The class needs to implement Locatable,
-     * otherwise it cannot be shown at all.
+     * Test whether a certain class needs to be shown on the screen or not. The class needs to implement Locatable, otherwise it
+     * cannot be shown at all.
      * @param locatableClass Class&lt;? extends Locatable&gt;; the class to test
      * @return whether the class needs to be shown or not
      */
@@ -203,8 +202,8 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
                         this.context.removeNamingListener(this);
                     }
 
-                    this.context = (EventContext) ContextUtil.lookup(this.simulator.getReplication().getContext(),
-                            "/animation/2D");
+                    this.context =
+                            (EventContext) ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/2D");
                     this.context.addNamingListener("", EventContext.SUBTREE_SCOPE, this);
                     NamingEnumeration<Binding> list = this.context.listBindings("");
                     while (list.hasMore())
@@ -339,8 +338,8 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
 
     /**
      * Toggle a class to be displayed in the animation to its reverse value.
-     * @param locatableClass Class&lt;? extends Locatable&gt;; the class for which a visible animation has to be turned
-     *            off or vice versa.
+     * @param locatableClass Class&lt;? extends Locatable&gt;; the class for which a visible animation has to be turned off or
+     *            vice versa.
      */
     public void toggleClass(final Class<? extends Locatable> locatableClass)
     {

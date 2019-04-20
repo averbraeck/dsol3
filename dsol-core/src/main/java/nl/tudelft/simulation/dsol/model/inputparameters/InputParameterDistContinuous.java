@@ -25,7 +25,7 @@ public class InputParameterDistContinuous extends AbstractInputParameter<DistCon
      * @param shortName String; concise description of the input parameter
      * @param description String; long description of the input parameter (may use HTML markup)
      * @param stream StreamInterface; the random number stream to use for the chosen distribution
-     * @param defaultValue boolean; the default value of this input parameter
+     * @param defaultValue DistContinuous; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException in case the default value is not part of the list
      */
@@ -53,7 +53,7 @@ public class InputParameterDistContinuous extends AbstractInputParameter<DistCon
     }
 
     /**
-     * @param stream set stream
+     * @param stream StreamInterface; set stream
      */
     public final void setStream(final StreamInterface stream)
     {
@@ -62,7 +62,7 @@ public class InputParameterDistContinuous extends AbstractInputParameter<DistCon
 
     /**
      * Set the value of the distribution.
-     * @param dist the distribution to set the value to
+     * @param dist DistContinuous; the distribution to set the value to
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
     public final void setDistValue(final DistContinuous dist) throws InputParameterException

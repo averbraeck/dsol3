@@ -7,10 +7,10 @@ import java.awt.geom.Point2D;
  * A directional line with normal vector. Based on the BSPLine-example from the book Developing games in Java from David
  * Brackeen. DirectionalLine.java
  * <p>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:royc@tbm.tudelft.nl">Roy Chin </a>
@@ -94,8 +94,8 @@ public class DirectionalLine extends Line2D.Double
     }
 
     /**
-     * Flips this line so that the end points are reversed (in other words, (x1,y1) becomes (x2,y2) and vice versa) and
-     * the normal is changed to point the opposite direction.
+     * Flips this line so that the end points are reversed (in other words, (x1,y1) becomes (x2,y2) and vice versa) and the
+     * normal is changed to point the opposite direction.
      */
     public void flip()
     {
@@ -110,8 +110,7 @@ public class DirectionalLine extends Line2D.Double
     }
 
     /**
-     * Returns true if the endpoints of this line match the endpoints of the specified line. Ignores normal and height
-     * values.
+     * Returns true if the endpoints of this line match the endpoints of the specified line. Ignores normal and height values.
      * @param line DirectionalLine; another line
      * @return true if this line's coordinates are equal to the other line's coordinates
      */
@@ -121,9 +120,9 @@ public class DirectionalLine extends Line2D.Double
     }
 
     /**
-     * Returns true if the endpoints of this line match the endpoints of the specified line, ignoring endpoint order (if
-     * the first point of this line is equal to the second point of the specified line, and vice versa, returns true).
-     * Ignores normal and height values.
+     * Returns true if the endpoints of this line match the endpoints of the specified line, ignoring endpoint order (if the
+     * first point of this line is equal to the second point of the specified line, and vice versa, returns true). Ignores
+     * normal and height values.
      * @param line DirectionalLine; another line
      * @return true if coordinates match independent of the order
      */
@@ -141,10 +140,9 @@ public class DirectionalLine extends Line2D.Double
     }
 
     /**
-     * Gets the side of this line the specified point is on. This method treats the line as 1-unit thick, so points
-     * within this 1-unit border are considered collinear. For this to work correctly, the normal of this line must be
-     * normalized, either by setting this line to a polygon or by calling normalize(). Returns either FRONTSIDE,
-     * BACKSIDE, or COLLINEAR.
+     * Gets the side of this line the specified point is on. This method treats the line as 1-unit thick, so points within this
+     * 1-unit border are considered collinear. For this to work correctly, the normal of this line must be normalized, either by
+     * setting this line to a polygon or by calling normalize(). Returns either FRONTSIDE, BACKSIDE, or COLLINEAR.
      * @param x double; coordinate x
      * @param y double; coordinate y
      * @return the side
@@ -171,9 +169,9 @@ public class DirectionalLine extends Line2D.Double
     }
 
     /**
-     * Gets the side of this line the specified point is on. Because of doubling point inaccuracy, a collinear line will
-     * be rare. For this to work correctly, the normal of this line must be normalized, either by setting this line to a
-     * polygon or by calling normalize(). Returns either FRONTSIDE, BACKSIDE, or COLLINEAR.
+     * Gets the side of this line the specified point is on. Because of doubling point inaccuracy, a collinear line will be
+     * rare. For this to work correctly, the normal of this line must be normalized, either by setting this line to a polygon or
+     * by calling normalize(). Returns either FRONTSIDE, BACKSIDE, or COLLINEAR.
      * @param x double; coordinate x
      * @param y double; coordinate y
      * @return the side
@@ -197,8 +195,7 @@ public class DirectionalLine extends Line2D.Double
     }
 
     /**
-     * Gets the side of this line that the specified line segment is on. Returns either FRONT, BACK, COLINEAR, or
-     * SPANNING.
+     * Gets the side of this line that the specified line segment is on. Returns either FRONT, BACK, COLINEAR, or SPANNING.
      * @param line Line2D.Double; line segment
      * @return the side
      */
@@ -229,10 +226,9 @@ public class DirectionalLine extends Line2D.Double
     }
 
     /**
-     * Returns the fraction of intersection along this line. Returns a value from 0 to 1 if the segments intersect. For
-     * example, a return value of 0 means the intersection occurs at point (x1, y1), 1 means the intersection occurs at
-     * point (x2, y2), and .5 mean the intersection occurs halfway between the two endpoints of this line. Returns -1 if
-     * the lines are parallel.
+     * Returns the fraction of intersection along this line. Returns a value from 0 to 1 if the segments intersect. For example,
+     * a return value of 0 means the intersection occurs at point (x1, y1), 1 means the intersection occurs at point (x2, y2),
+     * and .5 mean the intersection occurs halfway between the two endpoints of this line. Returns -1 if the lines are parallel.
      * @param line Line2D.Double; a line
      * @return the intersection
      */

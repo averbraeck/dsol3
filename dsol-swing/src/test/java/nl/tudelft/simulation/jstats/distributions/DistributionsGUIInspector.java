@@ -18,10 +18,10 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * (c) 2002-2018-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -38,40 +38,40 @@ public class DistributionsGUIInspector extends JTabbedPane
         StreamInterface stream = new MersenneTwister();
 
         DistContinuous distribution = new DistUniform(stream, 0, 1.0);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 1}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 1}).getSwingPanel());
 
         distribution = new DistConstant(stream, 10.0);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 10}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 10}).getSwingPanel());
 
         distribution = new DistExponential(stream, 1.0);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 6}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 6}).getSwingPanel());
 
         distribution = new DistGamma(stream, 2.0, 1.0);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 9}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 9}).getSwingPanel());
 
         distribution = new DistWeibull(stream, 2.0, 1.0);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 4}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 4}).getSwingPanel());
 
         distribution = new DistNormal(stream, 0.0, 1.0);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{-3, 3}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {-3, 3}).getSwingPanel());
 
         distribution = new DistLogNormal(stream, 0.0, 1);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 5}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 5}).getSwingPanel());
 
         distribution = new DistBeta(stream, 1.5, 5);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 1}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 1}).getSwingPanel());
 
         distribution = new DistBeta(stream, 5, 1.5);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 1}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 1}).getSwingPanel());
 
         distribution = new DistPearson5(stream, 1, 1);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 5}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 5}).getSwingPanel());
 
         distribution = new DistPearson6(stream, 1, 2, 4);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 5}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 5}).getSwingPanel());
 
         distribution = new DistTriangular(stream, 1, 1.5, 7);
-        this.add(distribution.toString(), this.createHistogram(distribution, new double[]{0, 7}).getSwingPanel());
+        this.add(distribution.toString(), this.createHistogram(distribution, new double[] {0, 7}).getSwingPanel());
     }
 
     /**

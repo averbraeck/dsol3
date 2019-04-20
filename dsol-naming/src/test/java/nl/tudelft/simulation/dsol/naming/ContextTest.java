@@ -10,10 +10,10 @@ import nl.tudelft.simulation.naming.JVMContext;
 /**
  * Tests the context.
  * <p>
- * Copyright (c) 2004-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2004-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author Niels Lang
@@ -79,8 +79,7 @@ public class ContextTest extends TestCase
             lev2.bind("/level_1/test_2", "HelloWorld_2");
             lev2.createSubcontext("level_21");
             lev2.bind("level_21/test_3", "HelloWorld_3");
-            Assert.assertEquals(((Context) lev2.lookup("level_3")).lookup("/level_1/level_2/level_21/test_3"),
-                    "HelloWorld_3");
+            Assert.assertEquals(((Context) lev2.lookup("level_3")).lookup("/level_1/level_2/level_21/test_3"), "HelloWorld_3");
         }
         catch (Exception exception)
         {

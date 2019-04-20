@@ -22,10 +22,10 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 /**
  * The BoxAndWhiskerChart specifies a Box-and-Whisker chart.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -52,7 +52,7 @@ public class BoxAndWhiskerChart implements Swingable
 
     /**
      * constructs a new BoxAndWhiskerChart, linked to the simulator-provided context.
-     * @param simulator SimulatorInterface; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      */
     public BoxAndWhiskerChart(final SimulatorInterface<?, ?, ?> simulator, final String title)
@@ -114,7 +114,7 @@ public class BoxAndWhiskerChart implements Swingable
     {
         ((BoxAndWhiskerPlot) this.chart.getPlot()).setConfidenceInterval(confidenceInterval);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString()

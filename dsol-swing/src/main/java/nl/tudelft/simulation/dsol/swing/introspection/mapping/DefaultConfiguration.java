@@ -14,14 +14,14 @@ import org.djutils.immutablecollections.ImmutableMap;
 import nl.tudelft.simulation.dsol.swing.introspection.gui.ExpandButton;
 
 /**
- * A default implementation of the {see CellPresentationConfiguration} interface. Editors and renders are provided for
- * the JComponent, Color and Font classes. Furthermore, a special editor is provided for the ExpandButton class, to
- * implement the pop-up behaviour of the {see nl.tudelft.simulation.introspection.gui.ExpandButton}.
+ * A default implementation of the {see CellPresentationConfiguration} interface. Editors and renders are provided for the
+ * JComponent, Color and Font classes. Furthermore, a special editor is provided for the ExpandButton class, to implement the
+ * pop-up behaviour of the {see nl.tudelft.simulation.introspection.gui.ExpandButton}.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
@@ -70,7 +70,7 @@ public class DefaultConfiguration implements CellPresentationConfiguration
      */
     protected synchronized void addRenderer(final Class<?> cellType, final Class<?> renderingClass)
     {
-        this.renderers.add(new Class[]{cellType, renderingClass});
+        this.renderers.add(new Class[] {cellType, renderingClass});
     }
 
     /**
@@ -80,7 +80,7 @@ public class DefaultConfiguration implements CellPresentationConfiguration
      */
     protected void addEditor(final Class<?> cellType, final Class<?> editingClass)
     {
-        this.editors.add(new Class[]{cellType, editingClass});
+        this.editors.add(new Class[] {cellType, editingClass});
     }
 
     /** {@inheritDoc} */

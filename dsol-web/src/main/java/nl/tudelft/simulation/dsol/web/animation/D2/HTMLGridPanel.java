@@ -19,10 +19,10 @@ import nl.tudelft.simulation.dsol.web.animation.HTMLGraphics2D;
 /**
  * The GridPanel introduces the gridPanel.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>, <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
@@ -86,28 +86,28 @@ public class HTMLGridPanel implements ImageObserver
     /** whether to show a tooltip with the coordinates or not. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected boolean showToolTip = true;
-    
+
     /** the background color. */
     private Color background;
 
     /** The tooltip text which shows the coordinates. */
     private String toolTipText = "";
-    
+
     /** Whether the panel is showing or not. */
     private boolean showing = true;
-    
+
     /** the current font. */
-    private Font currentFont = new Font(Font.SANS_SERIF, Font.PLAIN,  10);
+    private Font currentFont = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
 
     /** the canvas to determine the font metrics. */
     private Canvas canvas = new Canvas();
-    
+
     /** the HTMLGraphics2D 'shadow' canvas. */
     protected HTMLGraphics2D htmlGraphics2D;
-    
+
     /** dirty flag. */
     private boolean dirty = false;
-    
+
     /**
      * constructs a new GridPanel.
      * @param extent Rectangle2D; the extent to show.
@@ -138,13 +138,13 @@ public class HTMLGridPanel implements ImageObserver
      * Return the set of drawing commands.
      * @return the set of drawing commands
      */
-     public String getDrawingCommands()
-     {
-         this.htmlGraphics2D.clearCommand();
-         this.paintComponent(this.htmlGraphics2D);
-         return this.htmlGraphics2D.closeAndGetCommands();
-     }
-     
+    public String getDrawingCommands()
+    {
+        this.htmlGraphics2D.clearCommand();
+        this.paintComponent(this.htmlGraphics2D);
+        return this.htmlGraphics2D.closeAndGetCommands();
+    }
+
     /**
      * Draw the grid.
      * @param g HTMLGraphics2D; the virtual Graphics2D canvas to enable writing to the browser
@@ -304,8 +304,8 @@ public class HTMLGridPanel implements ImageObserver
      */
     public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
     {
-        Point2D mwc = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent,
-                this.getSize());
+        Point2D mwc =
+                Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent, this.getSize());
         double minX = mwc.getX() - (mwc.getX() - this.extent.getMinX()) * factor;
         double minY = mwc.getY() - (mwc.getY() - this.extent.getMinY()) * factor;
         double w = this.extent.getWidth() * factor;
@@ -350,8 +350,8 @@ public class HTMLGridPanel implements ImageObserver
         int x = (int) -Math.round(mod / scale);
         while (x < this.getWidth())
         {
-            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent,
-                    this.getSize());
+            Point2D point =
+                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent, this.getSize());
             if (point != null)
             {
                 String label = this.formatter.format(Math.round(point.getX() / this.gridSize) * this.gridSize);
@@ -369,8 +369,8 @@ public class HTMLGridPanel implements ImageObserver
         int y = (int) Math.round(this.getSize().getHeight() - (mod / scale));
         while (y > 15)
         {
-            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent,
-                    this.getSize());
+            Point2D point =
+                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent, this.getSize());
             if (point != null)
             {
                 String label = this.formatter.format(Math.round(point.getY() / this.gridSize) * this.gridSize);
@@ -381,7 +381,7 @@ public class HTMLGridPanel implements ImageObserver
             y = y - gridSizePixels;
         }
     }
-    
+
     /**
      * Repaint the shadow canvas.
      */
@@ -390,7 +390,7 @@ public class HTMLGridPanel implements ImageObserver
         // repaint does not do any painting -- information is pulled from the browser
         this.dirty = true;
     }
-    
+
     /**
      * @return size
      */
@@ -400,7 +400,7 @@ public class HTMLGridPanel implements ImageObserver
     }
 
     /**
-     * @param size set size
+     * @param size Dimension; set size
      */
     public final void setSize(Dimension size)
     {
@@ -416,13 +416,13 @@ public class HTMLGridPanel implements ImageObserver
     }
 
     /**
-     * @param background set background
+     * @param background Color; set background
      */
     public final void setBackground(Color background)
     {
         this.background = background;
     }
-    
+
     /**
      * @return width
      */
@@ -448,7 +448,7 @@ public class HTMLGridPanel implements ImageObserver
     }
 
     /**
-     * @param preferredSize set preferredSize
+     * @param preferredSize Dimension; set preferredSize
      */
     public final void setPreferredSize(Dimension preferredSize)
     {
@@ -464,7 +464,7 @@ public class HTMLGridPanel implements ImageObserver
     }
 
     /**
-     * @param toolTipText set toolTipText
+     * @param toolTipText String; set toolTipText
      */
     public final void setToolTipText(String toolTipText)
     {
@@ -480,7 +480,7 @@ public class HTMLGridPanel implements ImageObserver
     }
 
     /**
-     * @param showing set showing
+     * @param showing boolean; set showing
      */
     public final void setShowing(boolean showing)
     {
@@ -496,7 +496,7 @@ public class HTMLGridPanel implements ImageObserver
     }
 
     /**
-     * @param font set font
+     * @param font Font; set font
      */
     public final void setFont(Font font)
     {
@@ -504,7 +504,7 @@ public class HTMLGridPanel implements ImageObserver
     }
 
     /**
-     * @param font the font to calculate the fontmetrics for
+     * @param font Font; the font to calculate the fontmetrics for
      * @return fontMetrics
      */
     public final FontMetrics getFontMetrics(Font font)

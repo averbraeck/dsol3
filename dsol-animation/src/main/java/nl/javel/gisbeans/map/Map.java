@@ -178,8 +178,8 @@ public class Map implements MapInterface
 
             int space = 2;
             int position = space;
-            int dPosition = (int) Math.floor(
-                    (this.getImage().getLegend().getSize().getHeight() - 2 * space) / (1 + this.allLayers.size()));
+            int dPosition = (int) Math
+                    .floor((this.getImage().getLegend().getSize().getHeight() - 2 * space) / (1 + this.allLayers.size()));
             int nr = 0;
             for (Iterator<LayerInterface> i = this.allLayers.iterator(); i.hasNext();)
             {
@@ -291,8 +291,7 @@ public class Map implements MapInterface
                                 graphics.setFont(attribute.getFont());
                                 if (layer.isTransform())
                                 {
-                                    graphics.translate(shape.getBounds2D().getCenterX(),
-                                            shape.getBounds2D().getCenterY());
+                                    graphics.translate(shape.getBounds2D().getCenterX(), shape.getBounds2D().getCenterY());
                                     graphics.rotate(2 * Math.PI - attribute.getAngle(shapeNumber));
                                 }
                                 FontMetrics fm = graphics.getFontMetrics(attribute.getFont());
@@ -300,13 +299,12 @@ public class Map implements MapInterface
                                 switch (attribute.getPosition())
                                 {
                                     case MapInterface.UL:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getWidth();
+                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth();
                                         xy[1] = 0;
                                         break;
                                     case MapInterface.UC:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getWidth() / 2;
+                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth()
+                                                / 2;
                                         xy[1] = 0;
                                         break;
                                     case MapInterface.UR:
@@ -314,31 +312,29 @@ public class Map implements MapInterface
                                         xy[1] = 0;
                                         break;
                                     case MapInterface.CL:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getWidth();
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getHeight() / 2;
+                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth();
+                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getHeight()
+                                                / 2;
                                         break;
                                     case MapInterface.CC:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getWidth() / 2;
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getHeight() / 2;
+                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth()
+                                                / 2;
+                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getHeight()
+                                                / 2;
                                         break;
                                     case MapInterface.CR:
                                         xy[0] = 0;
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getHeight() / 2;
+                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getHeight()
+                                                / 2;
                                         break;
                                     case MapInterface.LL:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getWidth();
+                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth();
                                         xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
                                                 .getHeight();
                                         break;
                                     case MapInterface.LC:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getWidth() / 2;
+                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth()
+                                                / 2;
                                         xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
                                                 .getHeight();
                                         break;
@@ -356,8 +352,7 @@ public class Map implements MapInterface
                                 if (layer.isTransform())
                                 {
                                     graphics.rotate(-(2 * Math.PI - attribute.getAngle(shapeNumber)));
-                                    graphics.translate(-shape.getBounds2D().getCenterX(),
-                                            -shape.getBounds2D().getCenterY());
+                                    graphics.translate(-shape.getBounds2D().getCenterX(), -shape.getBounds2D().getCenterY());
                                 }
                             }
                         }
@@ -433,15 +428,16 @@ public class Map implements MapInterface
             DecimalFormat formatter = new DecimalFormat("#.00");
 
             double[] factor = {FEET_TO_METER, INCH_TO_METER, KILOMETER_TO_METER, 1, MILES_TO_METER, DD_TO_METER};
-            String scale = formatter
-                    .format(((this.getImage().getScalebar().getSize().getWidth() / this.getImage().getSize().getWidth())
-                            * this.getExtent().getWidth())
-                            * (factor[this.getUnits()] / factor[this.getImage().getScalebar().getUnits()]))
-                    + unitString;
+            String scale =
+                    formatter
+                            .format(((this.getImage().getScalebar().getSize().getWidth() / this.getImage().getSize().getWidth())
+                                    * this.getExtent().getWidth())
+                                    * (factor[this.getUnits()] / factor[this.getImage().getScalebar().getUnits()]))
+                            + unitString;
 
             FontMetrics fm = graphics.getFontMetrics(this.getImage().getScalebar().getFont());
-            while (fm.getStringBounds((formatter.format(this.getUnitImageRatio()) + unitString), graphics)
-                    .getWidth() > this.getImage().getScalebar().getSize().getWidth()
+            while (fm.getStringBounds((formatter.format(this.getUnitImageRatio()) + unitString), graphics).getWidth() > this
+                    .getImage().getScalebar().getSize().getWidth()
                     || fm.getStringBounds((formatter.format(this.getUnitImageRatio()) + unitString), graphics)
                             .getHeight() > this.getImage().getScalebar().getSize().getHeight() / 2)
             {
@@ -449,8 +445,7 @@ public class Map implements MapInterface
                         graphics.getFont().getSize() - 1));
                 fm = graphics.getFontMetrics(graphics.getFont());
             }
-            graphics.drawString(scale,
-                    (int) this.getImage().getScalebar().getSize().getWidth() - fm.stringWidth(scale) - 1,
+            graphics.drawString(scale, (int) this.getImage().getScalebar().getSize().getWidth() - fm.stringWidth(scale) - 1,
                     (int) this.getImage().getScalebar().getSize().getHeight() - 2);
 
             int x = 0;
@@ -549,8 +544,8 @@ public class Map implements MapInterface
     @Override
     public void setExtent(final Rectangle2D extent)
     {
-        this.extent = new SerializableRectangle2D.Double(extent.getMinX(), extent.getMinY(), extent.getWidth(),
-                extent.getHeight());
+        this.extent =
+                new SerializableRectangle2D.Double(extent.getMinX(), extent.getMinY(), extent.getWidth(), extent.getHeight());
     }
 
     /** {@inheritDoc} */
@@ -614,8 +609,7 @@ public class Map implements MapInterface
 
         double centerX = (pixelPosition.getX() / this.getImage().getSize().getWidth()) * (maxX - this.extent.getMinX())
                 + this.extent.getMinX();
-        double centerY =
-                maxY - (pixelPosition.getY() / this.getImage().getSize().getHeight()) * (maxY - this.extent.getMinY());
+        double centerY = maxY - (pixelPosition.getY() / this.getImage().getSize().getHeight()) * (maxY - this.extent.getMinY());
 
         double width = (1.0 / zoomFactor) * (maxX - this.extent.getMinX());
         double height = (1.0 / zoomFactor) * (maxY - this.getExtent().getMinY());
@@ -635,12 +629,13 @@ public class Map implements MapInterface
         double height = maxY - this.extent.getMinY();
 
         double minX = this.extent.getMinX() + (rectangle.getMinX() / this.getImage().getSize().getWidth()) * width;
-        double minY = this.extent.getMinY() + ((this.getImage().getSize().getHeight() - rectangle.getMaxY())
-                / this.getImage().getSize().getHeight()) * height;
+        double minY = this.extent.getMinY()
+                + ((this.getImage().getSize().getHeight() - rectangle.getMaxY()) / this.getImage().getSize().getHeight())
+                        * height;
 
         maxX = minX + (rectangle.getWidth() / this.getImage().getSize().getWidth()) * width;
-        maxY = minY + ((this.getImage().getSize().getHeight() - rectangle.getHeight())
-                / this.getImage().getSize().getHeight()) * height;
+        maxY = minY + ((this.getImage().getSize().getHeight() - rectangle.getHeight()) / this.getImage().getSize().getHeight())
+                * height;
         this.extent = new SerializableRectangle2D.Double(minX, minY, (maxX - minX), (maxY - minY));
     }
 

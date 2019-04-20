@@ -17,14 +17,14 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 
 /**
- * The SimEvent forms the essential scheduling mechanism for D-SOL. Objects do not invoke methods directly on eachother;
- * they bundle the object on which the method is planned to be invoked together with the arguments and the name of the
- * method in a simEvent. The SimEvent is then stored in the eventList and executed.
+ * The SimEvent forms the essential scheduling mechanism for D-SOL. Objects do not invoke methods directly on eachother; they
+ * bundle the object on which the method is planned to be invoked together with the arguments and the name of the method in a
+ * simEvent. The SimEvent is then stored in the eventList and executed.
  * <p>
- * Copyright (c) 2016-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2016-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -86,8 +86,8 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; executable="
-                + this.executable + "]";
+        return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; executable=" + this.executable
+                + "]";
     }
 
     /***********************************************************************************************************/
@@ -179,8 +179,7 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
     }
 
     /** Easy access class SimEvent.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends LambdaSimEvent<SimTimeDoubleUnit>
-            implements SimEventInterface.TimeDoubleUnit
+    public static class TimeDoubleUnit extends LambdaSimEvent<SimTimeDoubleUnit> implements SimEventInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -208,8 +207,7 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
     }
 
     /** Easy access class SimEvent.TimeFloatUnit. */
-    public static class TimeFloatUnit extends LambdaSimEvent<SimTimeFloatUnit>
-            implements SimEventInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends LambdaSimEvent<SimTimeFloatUnit> implements SimEventInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -237,8 +235,7 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
     }
 
     /** Easy access class SimEvent.CalendarDouble. */
-    public static class CalendarDouble extends LambdaSimEvent<SimTimeCalendarDouble>
-            implements SimEventInterface.CalendarDouble
+    public static class CalendarDouble extends LambdaSimEvent<SimTimeCalendarDouble> implements SimEventInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -266,8 +263,7 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
     }
 
     /** Easy access class SimEvent.CalendarFloat. */
-    public static class CalendarFloat extends LambdaSimEvent<SimTimeCalendarFloat>
-            implements SimEventInterface.CalendarFloat
+    public static class CalendarFloat extends LambdaSimEvent<SimTimeCalendarFloat> implements SimEventInterface.CalendarFloat
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -295,8 +291,7 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
     }
 
     /** Easy access class SimEvent.CalendarLong. */
-    public static class CalendarLong extends LambdaSimEvent<SimTimeCalendarLong>
-            implements SimEventInterface.CalendarLong
+    public static class CalendarLong extends LambdaSimEvent<SimTimeCalendarLong> implements SimEventInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;

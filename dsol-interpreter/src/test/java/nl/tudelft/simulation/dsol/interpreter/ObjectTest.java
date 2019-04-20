@@ -8,8 +8,7 @@ import org.junit.Test;
 /**
  * <p>
  * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
- * License</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -41,24 +40,24 @@ public class ObjectTest
 
         // object methods
         assertFalse("Object equals content (e)", e1.equals(e3));
-        boolean iq = 1 == (int) Interpreter.invoke(i1, "equals", new Object[]{null}, new Class<?>[]{Object.class});
+        boolean iq = 1 == (int) Interpreter.invoke(i1, "equals", new Object[] {null}, new Class<?>[] {Object.class});
         assertFalse("Object equals content (i)", iq);
 
         assertTrue("Object equals same content (e)", e1.equals(e2));
-        iq = 1 == (int) Interpreter.invoke(i1, "equals", new Object[]{i2}, new Class<?>[]{Object.class});
+        iq = 1 == (int) Interpreter.invoke(i1, "equals", new Object[] {i2}, new Class<?>[] {Object.class});
         assertTrue("Object equals same content (i)", iq);
 
         assertTrue("Object equals hashCode content (e)", e1.equalsHC(e2));
-        iq = 1 == (int) Interpreter.invoke(i1, "equalsHC", new Object[]{i2}, new Class<?>[]{Object.class});
+        iq = 1 == (int) Interpreter.invoke(i1, "equalsHC", new Object[] {i2}, new Class<?>[] {Object.class});
         assertTrue("Object equals hashCode content (i)", iq);
 
         assertFalse("Object equals hashCode other (e)", e1.equalsHC(e3));
-        iq = 1 == (int) Interpreter.invoke(i1, "equalsHC", new Object[]{i3}, new Class<?>[]{Object.class});
+        iq = 1 == (int) Interpreter.invoke(i1, "equalsHC", new Object[] {i3}, new Class<?>[] {Object.class});
         assertFalse("Object equals hashCode other (i)", iq);
 
         e4.set(null);
         assertTrue("Object null (e)", e4.get() == null);
-        Interpreter.invoke(i4, "set", new Object[]{null}, new Class<?>[]{Object.class});
+        Interpreter.invoke(i4, "set", new Object[] {null}, new Class<?>[] {Object.class});
         assertTrue("Object null (i)", i4.get() == null);
 
         // TODO strings still contains an error

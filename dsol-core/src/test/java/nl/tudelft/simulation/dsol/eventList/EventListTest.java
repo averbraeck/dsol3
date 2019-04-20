@@ -11,10 +11,10 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 /**
  * This class defines the JUnit test for the TreeMapEventListOld.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
@@ -70,8 +70,8 @@ public class EventListTest extends TestCase
             // between [0..200]
             for (int i = 0; i < 500; i++)
             {
-                this.eventList.add(new SimEvent<SimTimeDouble>(new SimTimeDouble(200 * Math.random()), this,
-                        new String(), "trim", null));
+                this.eventList.add(
+                        new SimEvent<SimTimeDouble>(new SimTimeDouble(200 * Math.random()), this, new String(), "trim", null));
             }
 
             // Now we assert some getters on the eventList
@@ -95,8 +95,8 @@ public class EventListTest extends TestCase
             // different priorities on time=0.0
             for (int i = 1; i < 10; i++)
             {
-                this.eventList.add(new SimEvent<SimTimeDouble>(new SimTimeDouble(0.0), (short) i, this, new String(),
-                        "trim", null));
+                this.eventList
+                        .add(new SimEvent<SimTimeDouble>(new SimTimeDouble(0.0), (short) i, this, new String(), "trim", null));
             }
             short priority = SimEventInterface.MAX_PRIORITY;
 

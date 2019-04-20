@@ -5,13 +5,12 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Binomial distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/BinomialDistribution.html">
- * http://mathworld.wolfram.com/BinomialDistribution.html </a>
+ * <a href="http://mathworld.wolfram.com/BinomialDistribution.html"> http://mathworld.wolfram.com/BinomialDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -29,8 +28,8 @@ public class DistBinomial extends DistDiscrete
     private double p;
 
     /**
-     * constructs a Binomial distribution. Number of successes in n independent Bernoulli trials with probability p of
-     * success on each trial.
+     * constructs a Binomial distribution. Number of successes in n independent Bernoulli trials with probability p of success
+     * on each trial.
      * @param stream StreamInterface; the random number stream
      * @param n long; is the n-parameter of the Binomial distribution
      * @param p double; is the p-parameter of the Binomial distribution

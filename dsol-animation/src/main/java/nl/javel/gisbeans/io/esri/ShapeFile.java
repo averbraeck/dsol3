@@ -289,10 +289,8 @@ public class ShapeFile implements DataSourceInterface
             int type = shapeInput.readInt();
             if (type != 0 && type != 1 && type != 11 && type != 21)
             {
-                double[] min =
-                        this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
-                double[] max =
-                        this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
+                double[] min = this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
+                double[] max = this.coordinateTransform.doubleTransform(shapeInput.readDouble(), shapeInput.readDouble());
                 double minX = Math.min(min[0], max[0]);
                 double minY = Math.min(min[1], max[1]);
                 double width = Math.max(min[0], max[0]) - minX;
@@ -300,8 +298,8 @@ public class ShapeFile implements DataSourceInterface
                 SerializableRectangle2D bounds = new SerializableRectangle2D.Double(minX, minY, width, height);
                 if (Shape.overlaps(extent, bounds))
                 {
-                    results.add(new GisObject(this.readShape(shapeInput, shapeNumber, contentLength, type, false),
-                            attributes[i]));
+                    results.add(
+                            new GisObject(this.readShape(shapeInput, shapeNumber, contentLength, type, false), attributes[i]));
                 }
                 else
                 {
@@ -369,8 +367,8 @@ public class ShapeFile implements DataSourceInterface
      * @return the shape
      * @throws IOException
      */
-    private Object readShape(ObjectEndianInputStream input, int shapeNumber, int contentLength, int type,
-            boolean skipBox) throws IOException
+    private Object readShape(ObjectEndianInputStream input, int shapeNumber, int contentLength, int type, boolean skipBox)
+            throws IOException
     {
         input.setEncode(EndianInterface.BIG_ENDIAN);
         if (shapeNumber == -1)

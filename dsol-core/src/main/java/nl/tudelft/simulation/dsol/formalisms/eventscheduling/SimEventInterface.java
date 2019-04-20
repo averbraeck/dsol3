@@ -16,10 +16,10 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * A SimEventInterface embodies the envelope in which the scheduled method invocation information is stored.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -49,8 +49,8 @@ public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializa
     T getAbsoluteExecutionTime();
 
     /**
-     * @return The priority of a simulation event. The priorities are programmed according to the Java thread priority.
-     *         Use 10 (MAX_PRIORITY), 9, .. , 5 (NORMAL_PRIORITY), 1(MIN_PRIORITY)
+     * @return The priority of a simulation event. The priorities are programmed according to the Java thread priority. Use 10
+     *         (MAX_PRIORITY), 9, .. , 5 (NORMAL_PRIORITY), 1(MIN_PRIORITY)
      */
     short getPriority();
 

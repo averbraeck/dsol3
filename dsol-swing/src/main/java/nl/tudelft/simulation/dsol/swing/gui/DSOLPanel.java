@@ -52,8 +52,8 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     protected StatusBar statusBar;
 
     /**
-     * @param model DSOLModel&lt;A,R,T&gt;; the model to run in this panel
-     * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to use for the model
+     * @param model DSOLModel&lt;A, R, T, S&gt;; the model to run in this panel
+     * @param simulator S; the simulator to use for the model
      */
     public <S extends SimulatorInterface<A, R, T>> DSOLPanel(final DSOLModel<A, R, T, S> model, final S simulator)
     {

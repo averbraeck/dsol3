@@ -6,13 +6,12 @@ import nl.tudelft.simulation.dsol.interpreter.Operation;
 import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
 
 /**
- * The JumpOperation is an abstract class for all operations which return an offset value to jump to a bytecode
- * statement.
+ * The JumpOperation is an abstract class for all operations which return an offset value to jump to a bytecode statement.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
@@ -27,6 +26,5 @@ public abstract class JumpOperation extends Operation
      * @param localvariables LocalVariable[]; the localvariables
      * @return int the offset in bytes relative to the operand byte of this operation
      */
-    public abstract int execute(final OperandStack stack, final Constant[] constantPool,
-            final LocalVariable[] localvariables);
+    public abstract int execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localvariables);
 }

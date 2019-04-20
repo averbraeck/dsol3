@@ -29,7 +29,7 @@ public class Test
 {
 
     /**
-     * @param args empty
+     * @param args String[]; empty
      * @throws InputParameterException on error
      */
     public static void main(String[] args) throws InputParameterException

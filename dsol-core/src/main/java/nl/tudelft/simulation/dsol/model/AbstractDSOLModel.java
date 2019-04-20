@@ -59,7 +59,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
     /**
      * Construct a DSOL model and set the simulator.
-     * @param simulator SimulatorInterface&lt;A, R, T&gt;; the simulator to use for this model
+     * @param simulator S; the simulator to use for this model
      */
     public AbstractDSOLModel(final S simulator)
     {
@@ -83,7 +83,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
     /**
      * Add an input parameter to the list of input parameters.
-     * @param inputParameter the input parameter to add
+     * @param inputParameter AbstractInputParameter&lt;?,?&gt;; the input parameter to add
      * @throws InputParameterException in case an input parameter with the same key already exists
      */
     public void addInputParameter(final AbstractInputParameter<?, ?> inputParameter) throws InputParameterException
@@ -94,7 +94,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
     /**
      * Retrieve the value of an input parameter from the map of input parameters, based on a key. The key can use the 'dot
      * notation' to access values in sub-maps of input parameters.
-     * @param key the key of the input parameter to retrieve
+     * @param key String; the key of the input parameter to retrieve
      * @return the value belonging to the key, or null if the key could not be found
      * @throws InputParameterException in case the input parameter with this key does not exist
      */
@@ -126,7 +126,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct an abstract DSOL model and set the simulator.
-         * @param simulator SimulatorInterface.TimeDouble; the simulator to use for this model
+         * @param simulator S; the simulator to use for this model
          */
         public TimeDouble(final S simulator)
         {
@@ -146,7 +146,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct an abstract DSOL model and set the simulator.
-         * @param simulator SimulatorInterface.TimeFloat; the simulator to use for this model
+         * @param simulator S; the simulator to use for this model
          */
         public TimeFloat(final S simulator)
         {
@@ -166,7 +166,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct an abstract DSOL model and set the simulator.
-         * @param simulator SimulatorInterface.TimeLong; the simulator to use for this model
+         * @param simulator S; the simulator to use for this model
          */
         public TimeLong(final S simulator)
         {
@@ -186,7 +186,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct an abstract DSOL model and set the simulator.
-         * @param simulator SimulatorInterface.TimeDoubleUnit; the simulator to use for this model
+         * @param simulator S; the simulator to use for this model
          */
         public TimeDoubleUnit(final S simulator)
         {
@@ -206,7 +206,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct an abstract DSOL model and set the simulator.
-         * @param simulator SimulatorInterface.TimeFloatUnit; the simulator to use for this model
+         * @param simulator S; the simulator to use for this model
          */
         public TimeFloatUnit(final S simulator)
         {
@@ -226,7 +226,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct an abstract DSOL model and set the simulator.
-         * @param simulator SimulatorInterface.CalendarDouble; the simulator to use for this model
+         * @param simulator S; the simulator to use for this model
          */
         public CalendarDouble(final S simulator)
         {
@@ -246,7 +246,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct an abstract DSOL model and set the simulator.
-         * @param simulator SimulatorInterface.CalendarFloat; the simulator to use for this model
+         * @param simulator S; the simulator to use for this model
          */
         public CalendarFloat(final S simulator)
         {
@@ -266,7 +266,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Numbe
 
         /**
          * Construct an abstract DSOL model and set the simulator.
-         * @param simulator SimulatorInterface.CalendarLong; the simulator to use for this model
+         * @param simulator S; the simulator to use for this model
          */
         public CalendarLong(final S simulator)
         {

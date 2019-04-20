@@ -22,10 +22,10 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 /**
  * The Renderable2D provides an easy accessible renderable object.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -34,8 +34,8 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 public abstract class Renderable2D<T extends Locatable> implements Renderable2DInterface<T>
 {
     /**
-     * Storage of the boolean flags, to prevent each flag from taking 32 bits... The initial value is binary 1011 = 0B:
-     * rotate = true, flip = false, scale = true, translate = true.
+     * Storage of the boolean flags, to prevent each flag from taking 32 bits... The initial value is binary 1011 = 0B: rotate =
+     * true, flip = false, scale = true, translate = true.
      */
     private byte flags = 0x0B;
 
@@ -71,8 +71,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public Renderable2D(final T source, final SimulatorInterface<?, ?, ?> simulator)
-            throws NamingException, RemoteException
+    public Renderable2D(final T source, final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
     {
         this.id = ++lastGeneratedId;
         this.source = source;
@@ -86,15 +85,14 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     }
 
     /**
-     * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding
-     * the code in the constructor is related to the RFE submitted by van Houten that in specific distributed context,
-     * such binding must be overwritten.
+     * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding the code
+     * in the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must
+     * be overwritten.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object.
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
-            throws NamingException, RemoteException
+    protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
     {
         this.context.bind(Long.toString(this.id), this);
     }
@@ -194,14 +192,13 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         try
         {
             DirectedPoint location = this.source.getLocation();
-            Rectangle2D rectangle =
-                    BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(), location.z);
+            Rectangle2D rectangle = BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(), location.z);
             if (rectangle == null || (!Shape.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
             }
-            Point2D screenCoordinates = Renderable2DInterface.Util
-                    .getScreenCoordinates(this.source.getLocation().to2D(), extent, screenSize);
+            Point2D screenCoordinates =
+                    Renderable2DInterface.Util.getScreenCoordinates(this.source.getLocation().to2D(), extent, screenSize);
             // Let's transform
             if (isTranslate())
             {
@@ -250,8 +247,8 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     {
         try
         {
-            Rectangle2D intersect = BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(),
-                    this.source.getLocation().z);
+            Rectangle2D intersect =
+                    BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getLocation().z);
             if (intersect == null)
             {
                 throw new NullPointerException(

@@ -7,10 +7,10 @@ import java.io.Serializable;
 /**
  * A Reference interface defining the indirect pointer access to an object.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -25,10 +25,9 @@ public abstract class Reference<T> implements Serializable
     private static final long serialVersionUID = 20140830L;
 
     /**
-     * Returns this reference object's referent. If this reference object has been cleared, either by the program or by
-     * the garbage collector, then this method returns <code>null</code>.
-     * @return The object to which this reference refers, or <code>null</code> if this reference object has been
-     *         cleared.
+     * Returns this reference object's referent. If this reference object has been cleared, either by the program or by the
+     * garbage collector, then this method returns <code>null</code>.
+     * @return The object to which this reference refers, or <code>null</code> if this reference object has been cleared.
      */
     public abstract T get();
 

@@ -7,8 +7,7 @@ import org.junit.Test;
 /**
  * <p>
  * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
- * License</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -35,13 +34,13 @@ public class SupSubTest
         assertEquals("Sup.iPlus4 (e)", sup.iPlus4(), 7);
         assertEquals("Sup.iPl123 (e)", sup.iPl123(0), 6);
 
-        assertEquals("Sub.iSub10 (i)", (int) Interpreter.invoke(sub, "iSub10", new Object[]{}, new Class<?>[]{}), 10);
-        assertEquals("Sup.iSub10 (i)", (int) Interpreter.invoke(sup, "iSub10", new Object[]{}, new Class<?>[]{}), 10);
-        assertEquals("Sub.iOver5 (i)", (int) Interpreter.invoke(sub, "iOver5", new Object[]{}, new Class<?>[]{}), 10);
-        assertEquals("Sup.iOver5 (i)", (int) Interpreter.invoke(sup, "iOver5", new Object[]{}, new Class<?>[]{}), 5);
-        assertEquals("Sup.iPlus4 (i)", (int) Interpreter.invoke(sup, "iPlus4", new Object[]{}, new Class<?>[]{}), 7);
+        assertEquals("Sub.iSub10 (i)", (int) Interpreter.invoke(sub, "iSub10", new Object[] {}, new Class<?>[] {}), 10);
+        assertEquals("Sup.iSub10 (i)", (int) Interpreter.invoke(sup, "iSub10", new Object[] {}, new Class<?>[] {}), 10);
+        assertEquals("Sub.iOver5 (i)", (int) Interpreter.invoke(sub, "iOver5", new Object[] {}, new Class<?>[] {}), 10);
+        assertEquals("Sup.iOver5 (i)", (int) Interpreter.invoke(sup, "iOver5", new Object[] {}, new Class<?>[] {}), 5);
+        assertEquals("Sup.iPlus4 (i)", (int) Interpreter.invoke(sup, "iPlus4", new Object[] {}, new Class<?>[] {}), 7);
         assertEquals("Sup.iPl123 (i)",
-                (int) Interpreter.invoke(sup, "iPl123", new Object[]{new Integer(0)}, new Class<?>[]{int.class}), 6);
+                (int) Interpreter.invoke(sup, "iPl123", new Object[] {new Integer(0)}, new Class<?>[] {int.class}), 6);
 
         // TODO strings still contains an error
         /*-

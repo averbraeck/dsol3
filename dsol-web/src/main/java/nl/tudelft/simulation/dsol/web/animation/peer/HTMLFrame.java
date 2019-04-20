@@ -88,5 +88,5 @@ public class HTMLFrame extends HTMLWindow implements FramePeer
     {
         System.out.println("HTMLFrame.emulateActivation()");
     }
-    
+
 }

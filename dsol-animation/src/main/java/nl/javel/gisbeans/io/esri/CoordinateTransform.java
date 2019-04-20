@@ -37,14 +37,14 @@ public interface CoordinateTransform
         @Override
         public final float[] floatTransform(final double x, final double y)
         {
-            return new float[]{(float) x, (float) y};
+            return new float[] {(float) x, (float) y};
         }
 
         /** {@inheritDoc} */
         @Override
         public final double[] doubleTransform(final double x, final double y)
         {
-            return new double[]{x, y};
+            return new double[] {x, y};
         }
 
     }

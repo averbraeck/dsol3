@@ -35,8 +35,8 @@ public class InputParameterBoolean extends AbstractInputParameter<Boolean, Boole
     }
 
     /**
-     * Check and set the typed value, and call super.setValue to make the actual allocation. 
-     * @param newValue String; the new value for the input parameter
+     * Check and set the typed value, and call super.setValue to make the actual allocation.
+     * @param newValue boolean; the new value for the input parameter
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
     public void setBooleanValue(final boolean newValue) throws InputParameterException

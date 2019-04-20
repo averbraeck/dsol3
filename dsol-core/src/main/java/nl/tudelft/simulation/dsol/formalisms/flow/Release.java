@@ -23,16 +23,16 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * The release station releases a given quantity of a claimed resource.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -64,8 +64,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
      * @param resource Resource&lt;A,R,T&gt;; which is released
      * @param amount double; of resource which is released
      */
-    public Release(final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource,
-            final double amount)
+    public Release(final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource, final double amount)
     {
         super(simulator);
         this.resource = resource;
@@ -133,8 +132,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param simulator DEVSSimulatorInterface.TimeFloat; on which is scheduled
          * @param resource Resource&lt;Float,Float,SimTimeFloat&gt;; which is released
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
-                final Resource<Float, Float, SimTimeFloat> resource)
+        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator, final Resource<Float, Float, SimTimeFloat> resource)
         {
             super(simulator, resource);
         }
@@ -145,8 +143,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param resource Resource&lt;Float,Float,SimTimeFloat&gt;; which is released
          * @param amount double; of resource which is released
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
-                final Resource<Float, Float, SimTimeFloat> resource, final double amount)
+        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator, final Resource<Float, Float, SimTimeFloat> resource,
+                final double amount)
         {
             super(simulator, resource, amount);
         }
@@ -163,8 +161,7 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param simulator DEVSSimulatorInterface.TimeLong; on which is scheduled
          * @param resource Resource&lt;Long,Long,SimTimeLong&gt;; which is released
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
-                final Resource<Long, Long, SimTimeLong> resource)
+        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final Resource<Long, Long, SimTimeLong> resource)
         {
             super(simulator, resource);
         }
@@ -175,8 +172,8 @@ public class Release<A extends Comparable<A>, R extends Number & Comparable<R>, 
          * @param resource Resource&lt;Long,Long,SimTimeLong&gt;; which is released
          * @param amount double; of resource which is released
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
-                final Resource<Long, Long, SimTimeLong> resource, final double amount)
+        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final Resource<Long, Long, SimTimeLong> resource,
+                final double amount)
         {
             super(simulator, resource, amount);
         }

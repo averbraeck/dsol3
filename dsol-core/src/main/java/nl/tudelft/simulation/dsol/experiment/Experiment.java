@@ -99,8 +99,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /**
      * constructs a new Experiment.
      * @param treatment Treatment&lt;A,R,T&gt;; the treatment for this experiment
-     * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
-     * @param model DSOLModel&lt;A,R,T&gt;; the model to experiment with
+     * @param simulator S; the simulator
+     * @param model DSOLModel&lt;A, R, T, S&gt;; the model to experiment with
      */
     public Experiment(final Treatment<A, R, T> treatment, final S simulator, final DSOLModel<A, R, T, S> model)
     {
@@ -111,7 +111,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
 
     /**
      * sets the simulator.
-     * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+     * @param simulator S; the simulator
      */
     public final synchronized void setSimulator(final S simulator)
     {
@@ -146,7 +146,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     }
 
     /**
-     * @param replications List&lt;Replication&lt;A,R,T,S&gt;&gt;; The replications to set.
+     * @param replications List&lt;? extends Replication&lt;A, R, T, S&gt;&gt;; The replications to set.
      */
     public final void setReplications(final List<? extends Replication<A, R, T, S>> replications)
     {
@@ -209,7 +209,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
 
     /**
      * sets the model on the experiment.
-     * @param model DSOLModel&lt;A,R,T&gt;; the simulator model
+     * @param model DSOLModel&lt;A, R, T, S&gt;; the simulator model
      */
     public final synchronized void setModel(final DSOLModel<A, R, T, S> model)
     {
@@ -327,8 +327,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         /**
          * constructs a new Experiment.TimeDouble.
          * @param treatment Treatment.TimeDouble; the treatment for this experiment
-         * @param simulator SimulatorInterface.TimeDouble; the simulator
-         * @param model DSOLModel.TimeDouble; the model to experiment with
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeDouble&lt;S&gt;; the model to experiment with
          */
         public TimeDouble(final Treatment.TimeDouble treatment, final S simulator, final DSOLModel.TimeDouble<S> model)
         {
@@ -370,8 +370,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         /**
          * constructs a new Experiment.TimeFloat.
          * @param treatment Treatment.TimeFloat; the treatment for this experiment
-         * @param simulator SimulatorInterface.TimeFloat; the simulator
-         * @param model DSOLModel.TimeFloat; the model to experiment with
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeFloat&lt;S&gt;; the model to experiment with
          */
         public TimeFloat(final Treatment.TimeFloat treatment, final S simulator, final DSOLModel.TimeFloat<S> model)
         {
@@ -413,8 +413,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         /**
          * constructs a new Experiment.TimeLong.
          * @param treatment Treatment.TimeLong; the treatment for this experiment
-         * @param simulator SimulatorInterface.TimeLong; the simulator
-         * @param model DSOLModel.TimeLong; the model to experiment with
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeLong&lt;S&gt;; the model to experiment with
          */
         public TimeLong(final Treatment.TimeLong treatment, final S simulator, final DSOLModel.TimeLong<S> model)
         {
@@ -457,8 +457,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         /**
          * constructs a new Experiment.TimeDoubleUnit.
          * @param treatment Treatment.TimeDoubleUnit; the treatment for this experiment
-         * @param simulator SimulatorInterface.TimeDoubleUnit; the simulator
-         * @param model DSOLModel.TimeDoubleUnit; the model to experiment with
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeDoubleUnit&lt;S&gt;; the model to experiment with
          */
         public TimeDoubleUnit(final Treatment.TimeDoubleUnit treatment, final S simulator,
                 final DSOLModel.TimeDoubleUnit<S> model)
@@ -502,8 +502,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         /**
          * constructs a new Experiment.TimeFloatUnit.
          * @param treatment Treatment.TimeFloatUnit; the treatment for this experiment
-         * @param simulator SimulatorInterface.TimeFloatUnit; the simulator
-         * @param model DSOLModel.TimeFloatUnit; the model to experiment with
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeFloatUnit&lt;S&gt;; the model to experiment with
          */
         public TimeFloatUnit(final Treatment.TimeFloatUnit treatment, final S simulator, final DSOLModel.TimeFloatUnit<S> model)
         {
@@ -546,8 +546,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         /**
          * constructs a new Experiment.CalendarDouble.
          * @param treatment Treatment.CalendarDouble; the treatment for this experiment
-         * @param simulator SimulatorInterface.CalendarDouble; the simulator
-         * @param model DSOLModel.CalendarDouble; the model to experiment with
+         * @param simulator S; the simulator
+         * @param model DSOLModel.CalendarDouble&lt;S&gt;; the model to experiment with
          */
         public CalendarDouble(final Treatment.CalendarDouble treatment, final S simulator,
                 final DSOLModel.CalendarDouble<S> model)
@@ -591,8 +591,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         /**
          * constructs a new Experiment.CalendarFloat.
          * @param treatment Treatment.CalendarFloat; the treatment for this experiment
-         * @param simulator SimulatorInterface.CalendarFloat; the simulator
-         * @param model DSOLModel.CalendarFloat; the model to experiment with
+         * @param simulator S; the simulator
+         * @param model DSOLModel.CalendarFloat&lt;S&gt;; the model to experiment with
          */
         public CalendarFloat(final Treatment.CalendarFloat treatment, final S simulator, final DSOLModel.CalendarFloat<S> model)
         {
@@ -635,8 +635,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         /**
          * constructs a new Experiment.CalendarLong.
          * @param treatment Treatment.CalendarLong; the treatment for this experiment
-         * @param simulator SimulatorInterface.CalendarLong; the simulator
-         * @param model DSOLModel.CalendarLong; the model to experiment with
+         * @param simulator S; the simulator
+         * @param model DSOLModel.CalendarLong&lt;S&gt;; the model to experiment with
          */
         public CalendarLong(final Treatment.CalendarLong treatment, final S simulator, final DSOLModel.CalendarLong<S> model)
         {

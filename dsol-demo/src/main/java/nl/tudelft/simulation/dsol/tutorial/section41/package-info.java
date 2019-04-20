@@ -6,7 +6,7 @@
  * the server idle is being serviced immediately. A customer who finds the server busy enters a single queue. Upon completing a
  * service for a customer, the server checks the queue and (if any) services the next customer in a first-in, first-out (FIFO)
  * manner.
- * </p> 
+ * </p>
  * <p>
  * The simulation begins in an empty-and-idle state. We simulate until a predefined fixed number of customers <i>n</i> have
  * entered the system and completed their service. To measure the performance of this system, we focus on a number of output

@@ -6,8 +6,7 @@ import org.junit.Test;
 /**
  * <p>
  * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
- * License</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -19,26 +18,23 @@ public class CalcInterpreterTest
     @Test
     public void calcTest()
     {
-        Assert.assertEquals("dValue", dValue(),
-                (double) Interpreter.invoke(this, "dValue", new Object[]{}, new Class<?>[]{}), 0.0);
-        Assert.assertEquals("fValue", fValue(),
-                (float) Interpreter.invoke(this, "fValue", new Object[]{}, new Class<?>[]{}), 0.0);
-        Assert.assertEquals("lValue", lValue(),
-                (long) Interpreter.invoke(this, "lValue", new Object[]{}, new Class<?>[]{}));
-        Assert.assertEquals("iValue", iValue(),
-                (int) Interpreter.invoke(this, "iValue", new Object[]{}, new Class<?>[]{}));
+        Assert.assertEquals("dValue", dValue(), (double) Interpreter.invoke(this, "dValue", new Object[] {}, new Class<?>[] {}),
+                0.0);
+        Assert.assertEquals("fValue", fValue(), (float) Interpreter.invoke(this, "fValue", new Object[] {}, new Class<?>[] {}),
+                0.0);
+        Assert.assertEquals("lValue", lValue(), (long) Interpreter.invoke(this, "lValue", new Object[] {}, new Class<?>[] {}));
+        Assert.assertEquals("iValue", iValue(), (int) Interpreter.invoke(this, "iValue", new Object[] {}, new Class<?>[] {}));
         Assert.assertEquals("sValue", sValue(),
-                (short) (int) Interpreter.invoke(this, "sValue", new Object[]{}, new Class<?>[]{}));
+                (short) (int) Interpreter.invoke(this, "sValue", new Object[] {}, new Class<?>[] {}));
 
         double d1 = newDouble(4.77d);
-        Object od =
-                Interpreter.invoke(this, "newDouble", new Object[]{new Double(4.77d)}, new Class<?>[]{double.class});
+        Object od = Interpreter.invoke(this, "newDouble", new Object[] {new Double(4.77d)}, new Class<?>[] {double.class});
         Assert.assertEquals("double return is Double class", od.getClass(), Double.class);
         double d2 = (double) od;
         Assert.assertEquals("4.77d ^ 2 == 4.77d ^ 2", d1, d2, 0.0);
 
         boolean b1 = newBool(true);
-        Object ob = Interpreter.invoke(this, "newBool", new Object[]{new Boolean(true)}, new Class<?>[]{boolean.class});
+        Object ob = Interpreter.invoke(this, "newBool", new Object[] {new Boolean(true)}, new Class<?>[] {boolean.class});
         // boolean is stored on the stack as an int.
         // Assert.assertEquals("boolean return is Boolean class", ob.getClass(), Boolean.class);
         Assert.assertEquals("boolean return is Integer class", ob.getClass(), Integer.class);
@@ -46,21 +42,19 @@ public class CalcInterpreterTest
         Assert.assertEquals("false == false", b1, b2);
 
         float f1 = newFloat(33.6673f);
-        Object of =
-                Interpreter.invoke(this, "newFloat", new Object[]{new Float(33.6673f)}, new Class<?>[]{float.class});
+        Object of = Interpreter.invoke(this, "newFloat", new Object[] {new Float(33.6673f)}, new Class<?>[] {float.class});
         Assert.assertEquals("float return is Float class", of.getClass(), Float.class);
         float f2 = (float) of;
         Assert.assertEquals("33.6673f ^ 2 == 33.6673f ^ 2", f1, f2, 0.0);
 
         long l1 = newLong(8332L);
-        Object ol = Interpreter.invoke(this, "newLong", new Object[]{new Long(8332L)}, new Class<?>[]{long.class});
+        Object ol = Interpreter.invoke(this, "newLong", new Object[] {new Long(8332L)}, new Class<?>[] {long.class});
         Assert.assertEquals("long return is Long class", ol.getClass(), Long.class);
         long l2 = (long) ol;
         Assert.assertEquals("8332L ^ 2 == 8332L ^ 2", l1, l2);
 
         short s1 = newShort((short) 55);
-        Object os =
-                Interpreter.invoke(this, "newShort", new Object[]{new Short((short) 55)}, new Class<?>[]{short.class});
+        Object os = Interpreter.invoke(this, "newShort", new Object[] {new Short((short) 55)}, new Class<?>[] {short.class});
         // short is stored on the stack as an int.
         // Assert.assertEquals("short return is Short class", os.getClass(), Short.class);
         Assert.assertEquals("short return is Integer class", os.getClass(), Integer.class);
@@ -68,11 +62,11 @@ public class CalcInterpreterTest
         Assert.assertEquals("8332L ^ 2 == 8332L ^ 2", s1, s2);
 
         double df1 = dfCalc();
-        double df2 = (double) Interpreter.invoke(this, "dfCalc", new Object[]{}, new Class<?>[]{});
+        double df2 = (double) Interpreter.invoke(this, "dfCalc", new Object[] {}, new Class<?>[] {});
         Assert.assertEquals("dfCalc1 == dfCalc2", df1, df2, 0.0);
 
         double cd1 = complexCalc();
-        double cd2 = (double) Interpreter.invoke(this, "complexCalc", new Object[]{}, new Class<?>[]{});
+        double cd2 = (double) Interpreter.invoke(this, "complexCalc", new Object[] {}, new Class<?>[] {});
         Assert.assertEquals("complexCalc1 == complexCalc2", cd1, cd2, 0.0);
     }
 

@@ -29,8 +29,8 @@ public class InputFieldSelectionList<T> extends AbstractInputField
 
     /**
      * Create a string field on the screen.
-     * @param panel panel to add the field to
-     * @param parameter the parameter
+     * @param panel JPanel; panel to add the field to
+     * @param parameter InputParameterSelectionList&lt;T&gt;; the parameter
      */
     public InputFieldSelectionList(final JPanel panel, final InputParameterSelectionList<T> parameter)
     {

@@ -52,7 +52,7 @@ public class MM1QueueModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.Ti
 
     /**
      * constructor for the MM1Queue.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulator.TimeDouble; the simulator
      * @throws InputParameterException on parameter error
      */
     public MM1QueueModel(final DEVSSimulator.TimeDouble simulator) throws InputParameterException

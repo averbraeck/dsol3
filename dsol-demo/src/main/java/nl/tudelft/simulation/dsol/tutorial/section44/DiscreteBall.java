@@ -19,8 +19,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -66,8 +65,8 @@ public class DiscreteBall extends Ball
         StreamInterface stream = this.simulator.getReplication().getStream("default");
         this.origin = this.destination;
         this.rotZ = 2 * Math.PI * Math.random();
-        this.destination = new DirectedPoint(
-                new Point2D.Double(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200)), this.rotZ);
+        this.destination =
+                new DirectedPoint(new Point2D.Double(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200)), this.rotZ);
         this.startTime = this.simulator.getSimulatorTime();
         this.stopTime = this.startTime + Math.abs(new DistNormal(stream, 9, 1.8).draw());
         this.interpolator = new LinearInterpolation(this.startTime, this.stopTime, this.origin, this.destination);

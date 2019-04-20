@@ -221,7 +221,6 @@ public class MapTableModel extends AbstractTableModel implements IntrospectingTa
         return new MapProperty(this.rowKeys.get(index), this.parentProperty.getName());
     }
 
-
     /** {@inheritDoc} */
     @Override
     public Introspector getIntrospector()

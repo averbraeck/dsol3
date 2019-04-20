@@ -15,10 +15,10 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
@@ -52,7 +52,7 @@ public class StatusBar extends JPanel
 
     /** */
     protected static String[] WEEKDAY =
-            new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+            new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     /**
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
@@ -94,10 +94,10 @@ public class StatusBar extends JPanel
     /**
      * The TimerTask to update the time and simulation time in the status bar.
      * <p>
-     * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
-     * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which
-     * can be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+     * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>.
+     * The DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
      * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
      * </p>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>

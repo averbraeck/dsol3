@@ -31,10 +31,10 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
@@ -85,8 +85,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
 
             JPanel northPanel = new JPanel(new BorderLayout());
             northPanel.add(
-                    new JLabel(new ImageIcon(
-                            this.getClass().getResource("/nl/tudelft/simulation/dsol/images/clock24.gif"))),
+                    new JLabel(new ImageIcon(this.getClass().getResource("/nl/tudelft/simulation/dsol/images/clock24.gif"))),
                     BorderLayout.WEST);
             JTextField introduction = new JTextField("    change the simulation & animation speed");
             introduction.setFont(new Font("arial", Font.BOLD, 12));

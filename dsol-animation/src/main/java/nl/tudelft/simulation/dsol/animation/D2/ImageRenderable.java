@@ -25,10 +25,10 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 /**
  * An abstract class for state-dependent image renderables. .
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -141,11 +141,11 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
      * @throws RemoteException when remote context cannot be found
      */
     @SuppressWarnings("unchecked")
-    public ImageRenderable(final Point2D staticLocation, final Dimension size,
-            final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
+    public ImageRenderable(final Point2D staticLocation, final Dimension size, final SimulatorInterface<?, ?, ?> simulator,
+            final URL[] images) throws RemoteException, NamingException
     {
-        this((T) new StaticLocation(new DirectedPoint(staticLocation),
-                new BoundingBox(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
+        this((T) new StaticLocation(new DirectedPoint(staticLocation), new BoundingBox(size.getWidth(), size.getHeight(), 0.0)),
+                simulator, images);
     }
 
     /** {@inheritDoc} */
@@ -171,8 +171,8 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     }
 
     /**
-     * selects the image. This methods makes the ImageRenderable state dependent. One is required to return the index
-     * number of the imageIcons[] which has to be drawn.
+     * selects the image. This methods makes the ImageRenderable state dependent. One is required to return the index number of
+     * the imageIcons[] which has to be drawn.
      * @return int the current (state-dependent) image.
      */
     public abstract int selectImage();
@@ -208,12 +208,10 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
                 imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY() - size.getHeight());
                 return imageOrigin;
             case ImageRenderable.CB:
-                imageOrigin.setLocation(imageOrigin.getX() - 0.5 * size.getWidth(),
-                        imageOrigin.getY() - size.getHeight());
+                imageOrigin.setLocation(imageOrigin.getX() - 0.5 * size.getWidth(), imageOrigin.getY() - size.getHeight());
                 return imageOrigin;
             case ImageRenderable.RB:
-                imageOrigin.setLocation(imageOrigin.getX() - 1.0 * size.getWidth(),
-                        imageOrigin.getY() - size.getHeight());
+                imageOrigin.setLocation(imageOrigin.getX() - 1.0 * size.getWidth(), imageOrigin.getY() - size.getHeight());
                 return imageOrigin;
             case ImageRenderable.LC:
                 imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY() - 0.5 * size.getHeight());
@@ -241,8 +239,8 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     }
 
     /**
-     * Returns the orientation of this image to the point [0,0]. Orientations are either LEFT, CENTER, RIGHT and TOP,
-     * CENTER, or BOTTOM. An example is thus ImageRenderable.RT.
+     * Returns the orientation of this image to the point [0,0]. Orientations are either LEFT, CENTER, RIGHT and TOP, CENTER, or
+     * BOTTOM. An example is thus ImageRenderable.RT.
      * @return the orientation of this image
      */
     public short getOrientation()

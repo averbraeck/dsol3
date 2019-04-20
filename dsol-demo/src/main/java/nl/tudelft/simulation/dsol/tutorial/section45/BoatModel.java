@@ -29,7 +29,7 @@ public class BoatModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDo
 
     /**
      * constructs a new BoatModel.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulator.TimeDouble; the simulator
      */
     public BoatModel(final DEVSSimulator.TimeDouble simulator)
     {

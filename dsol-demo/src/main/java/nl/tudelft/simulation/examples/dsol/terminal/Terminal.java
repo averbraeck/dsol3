@@ -46,7 +46,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
 
     /**
      * constructor for the Container Terminal.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      * @param rep int; the replication number
      * @throws InputParameterException on input parameter error
      */

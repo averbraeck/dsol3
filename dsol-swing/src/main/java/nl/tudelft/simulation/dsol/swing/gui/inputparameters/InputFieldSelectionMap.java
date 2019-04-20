@@ -30,8 +30,8 @@ public class InputFieldSelectionMap<K, T> extends AbstractInputField
 
     /**
      * Create a string field on the screen.
-     * @param panel panel to add the field to
-     * @param parameter the parameter
+     * @param panel JPanel; panel to add the field to
+     * @param parameter InputParameterSelectionMap&lt;K,T&gt;; the parameter
      */
     public InputFieldSelectionMap(final JPanel panel, final InputParameterSelectionMap<K, T> parameter)
     {

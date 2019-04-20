@@ -40,13 +40,12 @@ import nl.javel.gisbeans.map.StaticAttribute;
 
 /**
  * This class parses XML-mapfiles and constructs appropriate map objects. <br>
- * Validation is set with the system property nl.javel.gisbeans.map.mapfile.validate =[true|false] and the xmlschema is
- * set with the systemproperty nl.javel.gisbeans.map.mapfile.schema = [file]
+ * Validation is set with the system property nl.javel.gisbeans.map.mapfile.validate =[true|false] and the xmlschema is set with
+ * the systemproperty nl.javel.gisbeans.map.mapfile.schema = [file]
  * <p>
  * copyright (c) 2002-2018 <a href="http://www.javel.nl">Javel b.v. </a>, the Netherlands.
  * </p>
- * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no
- * warranty.
+ * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no warranty.
  * @author <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs</a>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  */
@@ -62,8 +61,7 @@ public final class MapFileXMLParser
      * @return MapInterface the parsed mapfile.
      * @throws IOException on failure.
      */
-    public static MapInterface parseMapFile(final URL url, final CoordinateTransform coordinateTransform)
-            throws IOException
+    public static MapInterface parseMapFile(final URL url, final CoordinateTransform coordinateTransform) throws IOException
     {
         try
         {
@@ -97,8 +95,8 @@ public final class MapFileXMLParser
             extent[MapInterface.MINY] = Math.min(p[1], q[1]);
             extent[MapInterface.MAXX] = Math.max(p[0], q[0]);
             extent[MapInterface.MAXY] = Math.max(p[1], q[1]);
-            map.setExtent(new SerializableRectangle2D.Double(extent[0], extent[1], (extent[2] - extent[0]),
-                    (extent[3] - extent[1])));
+            map.setExtent(
+                    new SerializableRectangle2D.Double(extent[0], extent[1], (extent[2] - extent[0]), (extent[3] - extent[1])));
             if ((element = xmlMapFileElement.getChild("image", nameSpace)) != null)
             {
                 map.setImage(parseImage(element, nameSpace));
@@ -358,8 +356,7 @@ public final class MapFileXMLParser
      * @return Layer of element
      * @throws IOException
      */
-    private static LayerInterface parseLayer(Element element, final CoordinateTransform coordinateTransform)
-            throws IOException
+    private static LayerInterface parseLayer(Element element, final CoordinateTransform coordinateTransform) throws IOException
     {
         LayerInterface result = new Layer();
         try

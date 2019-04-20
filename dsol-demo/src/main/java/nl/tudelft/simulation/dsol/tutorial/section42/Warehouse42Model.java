@@ -46,7 +46,7 @@ public class Warehouse42Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator
 
     /**
      * constructs a new BoatModel.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulator.TimeDouble; the simulator
      * @throws InputParameterException on parameter error
      */
     public Warehouse42Model(final DEVSSimulator.TimeDouble simulator) throws InputParameterException

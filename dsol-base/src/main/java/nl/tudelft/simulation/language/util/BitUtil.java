@@ -7,10 +7,10 @@ import java.util.BitSet;
 /**
  * Utilities for the BitSet class.
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -31,10 +31,10 @@ public final class BitUtil implements Serializable
 
     /**
      * @param bits BitSet; the bitset to convert
-     * @return Returns a byte array of at least length 1. The most significant bit in the result is guaranteed not to be
-     *         a 1 (since BitSet does not support sign extension). The byte-ordering of the result is big-endian which
-     *         means the most significant bit is in element 0. The bit at index 0 of the bit set is assumed to be the
-     *         least significant bit.
+     * @return Returns a byte array of at least length 1. The most significant bit in the result is guaranteed not to be a 1
+     *         (since BitSet does not support sign extension). The byte-ordering of the result is big-endian which means the
+     *         most significant bit is in element 0. The bit at index 0 of the bit set is assumed to be the least significant
+     *         bit.
      */
     public static byte[] toByteArray(final BitSet bits)
     {
@@ -55,9 +55,9 @@ public final class BitUtil implements Serializable
     /**
      * @param bits BitSet; the bitset to convert
      * @param length int; the length of the set
-     * @return Returns an int. The most significant bit in the result is guaranteed not to be a 1 (since BitSet does not
-     *         support sign extension). The int-ordering of the result is big-endian which means the most significant
-     *         bit is in element 0. The bit at index 0 of the bit set is assumed to be the least significant bit.
+     * @return Returns an int. The most significant bit in the result is guaranteed not to be a 1 (since BitSet does not support
+     *         sign extension). The int-ordering of the result is big-endian which means the most significant bit is in element
+     *         0. The bit at index 0 of the bit set is assumed to be the least significant bit.
      */
     public static int toInt(final BitSet bits, final int length)
     {
@@ -114,8 +114,8 @@ public final class BitUtil implements Serializable
 
     /**
      * @param bytes byte[]; the byteArray
-     * @return Returns a bitset containing the values in bytes.The byte-ordering of bytes must be big-endian which means
-     *         the most significant bit is in element 0.
+     * @return Returns a bitset containing the values in bytes.The byte-ordering of bytes must be big-endian which means the
+     *         most significant bit is in element 0.
      */
     public static BitSet fromByteArray(final byte[] bytes)
     {

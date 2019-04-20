@@ -24,17 +24,17 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * The reference implementation of the DEVDESS simulator.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -126,8 +126,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
                 {
                     this.simulatorTime = runUntil;
                 }
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                        this.simulatorTime.get());
+                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
             }
         }
     }
@@ -151,7 +150,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         {
             super(initialTimeStep);
         }
-        
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -187,8 +186,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
     }
 
     /** Easy access class DEVDESSSimulator.TimeLong. */
-    public static class TimeLong extends DEVDESSSimulator<Long, Long, SimTimeLong>
-            implements DEVDESSSimulatorInterface.TimeLong
+    public static class TimeLong extends DEVDESSSimulator<Long, Long, SimTimeLong> implements DEVDESSSimulatorInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20140805L;
@@ -276,7 +274,7 @@ public class DEVDESSSimulator<A extends Comparable<A>, R extends Number & Compar
         {
             super(initialTimeStep);
         }
-        
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override

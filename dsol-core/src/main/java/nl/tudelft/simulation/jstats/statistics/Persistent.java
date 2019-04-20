@@ -118,8 +118,7 @@ public class Persistent extends Tally
                         new TimedEvent(Persistent.VALUE_EVENT, this, this.lastValue, timedEvent.getTimeStamp());
                 fireEvent(lastValueEvent);
                 @SuppressWarnings({"rawtypes", "unchecked"})
-                TimedEvent valueEvent =
-                        new TimedEvent(Persistent.VALUE_EVENT, this, value, timedEvent.getTimeStamp());
+                TimedEvent valueEvent = new TimedEvent(Persistent.VALUE_EVENT, this, value, timedEvent.getTimeStamp());
                 fireEvent(valueEvent);
                 double timestamp = 0;
                 if (timedEvent.getTimeStamp() instanceof Number)

@@ -44,7 +44,7 @@ public class InputParameterLong extends AbstractInputParameter<Long, Long>
      * @param defaultValue long; the default value of this input parameter
      * @param minimumValue long; the lowest value allowed as input
      * @param maximumValue long; the highest value allowed as input
-     * @param format the format to use in displaying the long
+     * @param format String; the format to use in displaying the long
      * @param displayPriority double; sorting order when properties are displayed to the user
      */
     @SuppressWarnings("checkstyle:parameternumber")
@@ -65,7 +65,7 @@ public class InputParameterLong extends AbstractInputParameter<Long, Long>
     }
 
     /**
-     * Check and set the typed value, and call super.setValue to make the actual allocation. 
+     * Check and set the typed value, and call super.setValue to make the actual allocation.
      * @param newValue long; the new value for the input parameter
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
@@ -88,7 +88,7 @@ public class InputParameterLong extends AbstractInputParameter<Long, Long>
     }
 
     /**
-     * @param format set format
+     * @param format String; set format
      */
     public final void setFormat(final String format)
     {
@@ -104,7 +104,7 @@ public class InputParameterLong extends AbstractInputParameter<Long, Long>
     }
 
     /**
-     * @param minimumValue set minimumValue
+     * @param minimumValue long; set minimumValue
      */
     public final void setMinimumValue(final long minimumValue)
     {
@@ -120,7 +120,7 @@ public class InputParameterLong extends AbstractInputParameter<Long, Long>
     }
 
     /**
-     * @param maximumValue set maximumValue
+     * @param maximumValue long; set maximumValue
      */
     public final void setMaximumValue(final long maximumValue)
     {

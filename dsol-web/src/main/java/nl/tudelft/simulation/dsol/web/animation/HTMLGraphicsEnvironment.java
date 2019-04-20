@@ -15,10 +15,9 @@ import nl.tudelft.simulation.dsol.logger.Cat;
 /**
  * HTMLGraphicsEnvironment.java. <br>
  * <br>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
+ * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
 public class HTMLGraphicsEnvironment extends GraphicsEnvironment
@@ -49,7 +48,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     public GraphicsDevice[] getScreenDevices() throws HeadlessException
     {
         CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getScreenDevices()");
-        return new GraphicsDevice[]{this.htmlDevice};
+        return new GraphicsDevice[] {this.htmlDevice};
     }
 
     /** {@inheritDoc} */
@@ -73,7 +72,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     public Font[] getAllFonts()
     {
         CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getAllFonts()");
-        return new Font[]{};
+        return new Font[] {};
     }
 
     /** {@inheritDoc} */
@@ -81,7 +80,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     public String[] getAvailableFontFamilyNames()
     {
         CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getAvailableFontFamilyNames()");
-        return new String[]{};
+        return new String[] {};
     }
 
     /** {@inheritDoc} */
@@ -89,7 +88,7 @@ public class HTMLGraphicsEnvironment extends GraphicsEnvironment
     public String[] getAvailableFontFamilyNames(Locale l)
     {
         CategoryLogger.filter(Cat.WEB).trace("HTMLGraphicsEnvironment.getAvailableFontFamilyNames()");
-        return new String[]{};
+        return new String[] {};
     }
 
 }

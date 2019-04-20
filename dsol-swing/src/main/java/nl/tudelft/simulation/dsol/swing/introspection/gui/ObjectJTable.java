@@ -23,18 +23,18 @@ import nl.tudelft.simulation.dsol.swing.introspection.sortable.SortDefinition;
 import nl.tudelft.simulation.dsol.swing.introspection.sortable.SortingTableHeader;
 
 /**
- * * A customization of a standard JTable to allow the display of an introspected object. The behaviour of the
- * ObjectJTable depends on the contained TableModel. {see ObjectTableModel}provides a view of the properties and values
- * of a single introspected object. {see CollectionTableModel}provides a view on a collection of instances: usually the
- * value of a composite property.
+ * * A customization of a standard JTable to allow the display of an introspected object. The behaviour of the ObjectJTable
+ * depends on the contained TableModel. {see ObjectTableModel}provides a view of the properties and values of a single
+ * introspected object. {see CollectionTableModel}provides a view on a collection of instances: usually the value of a composite
+ * property.
  * <p>
  * A configuration mechanism is implemented to load the editors and renders to be used by this JTable. See {see
  * #setConfig(nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration)} for details.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
@@ -100,8 +100,7 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
      * @param cm TableColumnModel; the tableColumnModel
      * @param sm ListSelectionModel; the listSelectionModel
      */
-    public ObjectJTable(final IntrospectingTableModelInterface dm, final TableColumnModel cm,
-            final ListSelectionModel sm)
+    public ObjectJTable(final IntrospectingTableModelInterface dm, final TableColumnModel cm, final ListSelectionModel sm)
     {
         super(new SortingObjectTableModel(dm), cm, sm);
         this.CONFIG = DefaultConfiguration.getDefaultConfiguration();
@@ -124,15 +123,15 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
         this.introspectionTableModel = model;
         initConfig();
         setPreferredScrollableViewportSize(this.getPreferredSize());
-        JTableHeader header = new SortingTableHeader(new SortDefinition[]{new SortDefinition(0, true)});
+        JTableHeader header = new SortingTableHeader(new SortDefinition[] {new SortDefinition(0, true)});
         this.setTableHeader(header);
         header.setColumnModel(this.getColumnModel());
-        
+
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(header, BorderLayout.NORTH);
         panel.add(this, BorderLayout.CENTER);
-        
+
         ObjectJTable.updateTimer.add(this);
     }
 
@@ -201,8 +200,7 @@ public class ObjectJTable extends JTable implements ObjectJTableInterface, ICell
         }
         catch (Exception e)
         {
-            throw new IllegalArgumentException(
-                    "Configuration " + this.CONFIG + "failed, " + "probably invalid classes.");
+            throw new IllegalArgumentException("Configuration " + this.CONFIG + "failed, " + "probably invalid classes.");
         }
         this.getColumn(getColumnName(0)).setPreferredWidth(150);
         this.getColumn(getColumnName(1)).setMaxWidth(25);

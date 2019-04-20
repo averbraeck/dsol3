@@ -21,20 +21,20 @@ import nl.tudelft.simulation.event.EventType;
 
 /**
  * The DESSSimulatorInterface defines the methods for a DESS simulator. DESS stands for the Differential Equation System
- * Specification. More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by
- * Bernard Zeigler et.al.
+ * Specification. More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard
+ * Zeigler et.al.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -63,8 +63,7 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /***********************************************************************************************************/
 
     /** Easy access interface DESSSimulatorInterface.TimeDouble. */
-    public interface TimeDouble
-            extends DESSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
+    public interface TimeDouble extends DESSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
     {
         // typed extension
     }
@@ -103,8 +102,8 @@ public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DESSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends DESSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>,
-            SimulatorInterface.CalendarFloat
+    public interface CalendarFloat
+            extends DESSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>, SimulatorInterface.CalendarFloat
     {
         // typed extension
     }

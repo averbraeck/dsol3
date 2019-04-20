@@ -18,10 +18,10 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * A resource defines a shared and limited amount..
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://tudelft.nl/averbraeck">Alexander Verbraeck </a>
@@ -168,8 +168,8 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on other failures
      */
-    public final synchronized void requestCapacity(final long amount,
-            final IntResourceRequestorInterface<A, R, T> requestor) throws RemoteException, SimRuntimeException
+    public final synchronized void requestCapacity(final long amount, final IntResourceRequestorInterface<A, R, T> requestor)
+            throws RemoteException, SimRuntimeException
     {
         this.requestCapacity(amount, requestor, IntResource.DEFAULT_REQUEST_PRIORITY);
     }
@@ -182,9 +182,8 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on other failures
      */
-    public final synchronized void requestCapacity(final long amount,
-            final IntResourceRequestorInterface<A, R, T> requestor, final int priority)
-            throws RemoteException, SimRuntimeException
+    public final synchronized void requestCapacity(final long amount, final IntResourceRequestorInterface<A, R, T> requestor,
+            final int priority) throws RemoteException, SimRuntimeException
     {
         if (amount < 0)
         {
@@ -193,8 +192,7 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
         if ((this.claimedCapacity + amount) <= this.capacity)
         {
             this.alterClaimedCapacity(amount);
-            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource",
-                    new Object[]{new Long(amount), this});
+            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource", new Object[] {new Long(amount), this});
         }
         else
         {
@@ -356,8 +354,8 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
         @Override
         public final String toString()
         {
-            return "RequestForResource[requestor=" + this.requestor + ";amount=" + this.amount + ";priority="
-                    + this.priority + "]";
+            return "RequestForResource[requestor=" + this.requestor + ";amount=" + this.amount + ";priority=" + this.priority
+                    + "]";
         }
     }
 

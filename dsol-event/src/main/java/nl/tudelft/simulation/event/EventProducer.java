@@ -19,13 +19,13 @@ import nl.tudelft.simulation.event.ref.StrongReference;
 import nl.tudelft.simulation.event.ref.WeakReference;
 
 /**
- * The EventProducer forms the reference implementation of the EventProducerInterface. Objects extending this class are
- * provided all the functionalities for registration and event firing.
+ * The EventProducer forms the reference implementation of the EventProducerInterface. Objects extending this class are provided
+ * all the functionalities for registration and event firing.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -49,9 +49,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
     private transient EventType[] cache = null;
 
     /**
-     * checks whether no duplicate short values are assigned to the producer. An event producer produces events of a
-     * certain eventType. This eventType functions as a marker for registration. If the eventProducer defines two
-     * eventTypes with an equal value, the marker function is lost. This method checks for this particular problem.
+     * checks whether no duplicate short values are assigned to the producer. An event producer produces events of a certain
+     * eventType. This eventType functions as a marker for registration. If the eventProducer defines two eventTypes with an
+     * equal value, the marker function is lost. This method checks for this particular problem.
      * @return returns whether every eventType in this class is unique.
      */
     private boolean checkEventType()
@@ -159,8 +159,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
     }
 
     /**
-     * fires the event to the listener. This method is a hook method. The default implementation simply invokes the
-     * notify on the listener. In specific cases (filtering, storing, queuing, this method can be overwritten.
+     * fires the event to the listener. This method is a hook method. The default implementation simply invokes the notify on
+     * the listener. In specific cases (filtering, storing, queuing, this method can be overwritten.
      * @param listener EventListenerInterface; the listener for this event
      * @param event EventInterface; the event to fire
      * @return the event
@@ -185,8 +185,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
             synchronized (this.semaphore)
             {
                 // make a safe copy because of possible removeListener() in notify() method during fireEvent
-                List<Reference<EventListenerInterface>> listenerList =
-                        new ArrayList<>(this.listeners.get(event.getType()));
+                List<Reference<EventListenerInterface>> listenerList = new ArrayList<>(this.listeners.get(event.getType()));
                 for (Reference<EventListenerInterface> reference : listenerList)
                 {
                     EventListenerInterface listener = reference.get();
@@ -245,8 +244,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @return the Serializable value.
      * @param <C> the comparable type to indicate the time when the event is fired.
      */
-    protected synchronized <C extends Comparable<C>> Object fireTimedEvent(final EventType eventType,
-            final Object value, final C time)
+    protected synchronized <C extends Comparable<C>> Object fireTimedEvent(final EventType eventType, final Object value,
+            final C time)
     {
         this.fireEvent(new TimedEvent<C>(eventType, this, value, time));
         return value;
@@ -299,8 +298,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the boolean value.
      */
-    protected synchronized <C extends Comparable<C>> boolean fireTimedEvent(final EventType eventType,
-            final boolean value, final C time)
+    protected synchronized <C extends Comparable<C>> boolean fireTimedEvent(final EventType eventType, final boolean value,
+            final C time)
     {
         this.fireTimedEvent(eventType, Boolean.valueOf(value), time);
         return value;
@@ -326,8 +325,8 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param <C> the comparable type to indicate the time when the event is fired.
      * @return the double value.
      */
-    protected synchronized <C extends Comparable<C>> double fireTimedEvent(final EventType eventType,
-            final double value, final C time)
+    protected synchronized <C extends Comparable<C>> double fireTimedEvent(final EventType eventType, final double value,
+            final C time)
     {
         this.fireTimedEvent(eventType, Double.valueOf(value), time);
         return value;
@@ -482,8 +481,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
         {
             for (EventType type : this.listeners.keySet())
             {
-                for (Iterator<Reference<EventListenerInterface>> ii = this.listeners.get(type).iterator(); ii
-                        .hasNext();)
+                for (Iterator<Reference<EventListenerInterface>> ii = this.listeners.get(type).iterator(); ii.hasNext();)
                 {
                     Reference<EventListenerInterface> listener = ii.next();
                     if (listener.getClass().isAssignableFrom(ofClass))
@@ -539,8 +537,7 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      * @param eventType EventType; the eventType for which reference must be removed
      * @return success whenever the reference is removes; otherwise returns false.
      */
-    private synchronized boolean removeListener(final Reference<EventListenerInterface> reference,
-            final EventType eventType)
+    private synchronized boolean removeListener(final Reference<EventListenerInterface> reference, final EventType eventType)
     {
         boolean success = false;
         for (Iterator<Reference<EventListenerInterface>> i = this.listeners.get(eventType).iterator(); i.hasNext();)

@@ -3,22 +3,22 @@ package nl.tudelft.simulation.dsol.interpreter;
 import nl.tudelft.simulation.dsol.interpreter.classfile.LocalVariableDescriptor;
 
 /**
- * Each frame (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">par 2.6</a>) contains
- * an array of variables known as its local variables. The length of the local variable array of a frame is determined
- * at compile time and supplied in the binary representation of a class or interface along with the code for the method
- * associated with the frame (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3">par
- * 4.7.3</a>). A single local variable can hold a value of type boolean, byte, char, short, int, float, reference, or
- * returnAddress. A pair of local variables can hold a value of type long or double.
+ * Each frame (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">par 2.6</a>) contains an array
+ * of variables known as its local variables. The length of the local variable array of a frame is determined at compile time
+ * and supplied in the binary representation of a class or interface along with the code for the method associated with the
+ * frame (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3">par 4.7.3</a>). A single local
+ * variable can hold a value of type boolean, byte, char, short, int, float, reference, or returnAddress. A pair of local
+ * variables can hold a value of type long or double.
  * <p>
- * Local variables are addressed by indexing. The index of the first local variable is zero. An integer is be considered
- * to be an index into the local variable array if and only if that integer is between zero and one less than the size
- * of the local variable array.
+ * Local variables are addressed by indexing. The index of the first local variable is zero. An integer is be considered to be
+ * an index into the local variable array if and only if that integer is between zero and one less than the size of the local
+ * variable array.
  * </p>
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>

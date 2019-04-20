@@ -24,16 +24,16 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * A duplicate station duplicates incoming objects and sends them to their alternative destination.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -54,8 +54,7 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
      * @param duplicateDestination StationInterface&lt;A,R,T&gt;; the duplicate destination
      */
-    public Duplicate(final DEVSSimulatorInterface<A, R, T> simulator,
-            final StationInterface<A, R, T> duplicateDestination)
+    public Duplicate(final DEVSSimulatorInterface<A, R, T> simulator, final StationInterface<A, R, T> duplicateDestination)
     {
         this(simulator, duplicateDestination, 1);
     }
@@ -66,8 +65,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
      * @param duplicateDestination StationInterface&lt;A,R,T&gt;; which is the duplicate definition
      * @param numberCopies int; the number of copies
      */
-    public Duplicate(final DEVSSimulatorInterface<A, R, T> simulator,
-            final StationInterface<A, R, T> duplicateDestination, final int numberCopies)
+    public Duplicate(final DEVSSimulatorInterface<A, R, T> simulator, final StationInterface<A, R, T> duplicateDestination,
+            final int numberCopies)
     {
         super(simulator);
         this.duplicateDestination = duplicateDestination;
@@ -108,8 +107,7 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
     /***********************************************************************************************************/
 
     /** Easy access class Duplicate.TimeDouble. */
-    public static class TimeDouble extends Duplicate<Double, Double, SimTimeDouble>
-            implements StationInterface.TimeDouble
+    public static class TimeDouble extends Duplicate<Double, Double, SimTimeDouble> implements StationInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -179,8 +177,7 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param simulator DEVSSimulatorInterface.TimeLong; on which is scheduled
          * @param duplicateDestination StationInterface.TimeLong; the duplicate destination
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
-                final StationInterface.TimeLong duplicateDestination)
+        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final StationInterface.TimeLong duplicateDestination)
         {
             super(simulator, duplicateDestination);
         }
@@ -191,8 +188,8 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
          * @param duplicateDestination StationInterface.TimeLong; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
-                final StationInterface.TimeLong duplicateDestination, final int numberCopies)
+        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final StationInterface.TimeLong duplicateDestination,
+                final int numberCopies)
         {
             super(simulator, duplicateDestination, numberCopies);
         }

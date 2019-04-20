@@ -12,10 +12,10 @@ import javax.swing.SwingConstants;
 /**
  * JMultiToolbarFrame with a stack of ToolBars.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:royc@tbm.tudelft.nl">Roy Chin </a>
@@ -26,14 +26,14 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
     private static final long serialVersionUID = 1L;
 
     /**
-     * The pane you can fiddle with -- to which content can be added, of which the layout can be changed, and so on.
-     * It's returned by <TT>getContentPane()</TT>.
+     * The pane you can fiddle with -- to which content can be added, of which the layout can be changed, and so on. It's
+     * returned by <TT>getContentPane()</TT>.
      */
     protected Container currentContentPane;
 
     /**
-     * A stack of all the toolbar containers -- those "outside" of <TT>currentContentPane</TT>. The indices match those
-     * of <TT>toolbarStack</TT>.
+     * A stack of all the toolbar containers -- those "outside" of <TT>currentContentPane</TT>. The indices match those of
+     * <TT>toolbarStack</TT>.
      */
     protected Vector<Container> containerStack;
 
@@ -103,8 +103,8 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
     }
 
     /**
-     * Adds another toolbar to the specified side of the frame. Any attempt to add a toolbar that has already been added
-     * is ignored.
+     * Adds another toolbar to the specified side of the frame. Any attempt to add a toolbar that has already been added is
+     * ignored.
      * @param bar JToolBar; The toolbar to add.
      * @param align int; One of &lt;TT&gt;SwingConstants.TOP&lt;/TT&gt;,&lt;TT&gt;SwingConstants.BOTTOM&lt;/TT&gt;,
      *            &lt;TT&gt;SwingConstants.LEFT&lt;/TT&gt;, or <TT>SwingConstants.RIGHT</TT>.
@@ -139,11 +139,11 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
             }
 
             /*
-             * The current content pane is lifted from the top container and another container, containing the new
-             * toolbar, is inserted between them. The new container and new toolbar are added to the respective stacks,
-             * and the new container becomes the new top container. Note that the original content pane
-             * (super.getContentPane()) does act as a top container, but never contains a toolbar and is never added to
-             * the container stack. The current content pane always stays on top.
+             * The current content pane is lifted from the top container and another container, containing the new toolbar, is
+             * inserted between them. The new container and new toolbar are added to the respective stacks, and the new
+             * container becomes the new top container. Note that the original content pane (super.getContentPane()) does act as
+             * a top container, but never contains a toolbar and is never added to the container stack. The current content pane
+             * always stays on top.
              */
             this.topContainer.remove(this.currentContentPane);
             Container newContainer = new JPanel(new BorderLayout());

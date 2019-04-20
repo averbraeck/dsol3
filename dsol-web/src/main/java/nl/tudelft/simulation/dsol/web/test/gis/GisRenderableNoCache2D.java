@@ -27,10 +27,10 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 /**
  * This renderable draws CAD/GIS objects.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -92,11 +92,11 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         try
         {
             this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
-            this.location =
-                    new DirectedPoint(new CartesianPoint(this.map.getExtent().getCenterX(), this.map.getExtent().getCenterY(), z));
+            this.location = new DirectedPoint(
+                    new CartesianPoint(this.map.getExtent().getCenterX(), this.map.getExtent().getCenterY(), z));
             this.bounds = new BoundingBox(this.map.getExtent().getWidth(), this.map.getExtent().getHeight(), 0.0);
             // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
-            // XXX        this.map.getExtent());
+            // XXX this.map.getExtent());
             this.bind2Context(simulator);
         }
         catch (Exception exception)
@@ -123,11 +123,11 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         try
         {
             this.map = map;
-            this.location =
-                    new DirectedPoint(new CartesianPoint(this.map.getExtent().getCenterX(), this.map.getExtent().getCenterY(), z));
+            this.location = new DirectedPoint(
+                    new CartesianPoint(this.map.getExtent().getCenterX(), this.map.getExtent().getCenterY(), z));
             this.bounds = new BoundingBox(this.map.getExtent().getWidth(), this.map.getExtent().getHeight(), 100.0);
             // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
-            // XXX        this.map.getExtent());
+            // XXX this.map.getExtent());
             this.bind2Context(simulator);
         }
         catch (Exception exception)
@@ -137,9 +137,9 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
     }
 
     /**
-     * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding
-     * the code in the constructor is related to the RFE submitted by van Houten that in specific distributed context,
-     * such binding must be overwritten.
+     * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding the code
+     * in the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must
+     * be overwritten.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object.
      */
     protected void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
@@ -157,8 +157,7 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
 
     /** {@inheritDoc} */
     @Override
-    public void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen,
-            final ImageObserver observer)
+    public void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen, final ImageObserver observer)
     {
         try
         {

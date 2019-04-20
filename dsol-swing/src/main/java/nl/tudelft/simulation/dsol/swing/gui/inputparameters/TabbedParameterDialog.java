@@ -35,19 +35,6 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionList;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterString;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputField;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldBoolean;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldDistContinuous;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldDistDiscrete;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldDouble;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldDoubleScalar;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldFloat;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldFloatScalar;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldInteger;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldLong;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldSelectionList;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldSelectionMap;
-import nl.tudelft.simulation.dsol.swing.gui.inputparameters.InputFieldString;
 
 /**
  * TabbedParameterDialog takes an InputParameterMap and displays the top selections of the tree as tabs. <br>
@@ -76,7 +63,7 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
 
     /**
      * Construct a tabbed parameter dialog that is not a part of a higher dialog.
-     * @param inputParameterMap the parameter map to use
+     * @param inputParameterMap InputParameterMap; the parameter map to use
      */
     public TabbedParameterDialog(final InputParameterMap inputParameterMap)
     {
@@ -105,7 +92,7 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
             {
                 if (!(tab instanceof InputParameterMap))
                 {
-                    Object[] options = { "CONTINUE", "STOP" };
+                    Object[] options = {"CONTINUE", "STOP"};
                     int choice = JOptionPane.showOptionDialog(null,
                             "Input parameter\n" + tab.getShortName() + "\ncannot be displayed in a tab", "Warning",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
@@ -177,10 +164,10 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
     /**
      * Add the right type of field for this parameter and do the housekeeping to retrieve the value. When overriding, do not
      * forget to call super.addParameterField() for the options that should be handled in a standard way.
-     * @param panel the panel in which to put the parameter
-     * @param parameter the input parameter to display
+     * @param panel JPanel; the panel in which to put the parameter
+     * @param parameter InputParameter&lt;?,?&gt;; the input parameter to display
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void addParameterField(final JPanel panel, final InputParameter<?, ?> parameter)
     {
         if (parameter instanceof InputParameterDouble)

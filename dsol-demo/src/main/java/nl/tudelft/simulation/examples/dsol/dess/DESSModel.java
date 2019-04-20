@@ -29,7 +29,7 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
 
     /**
      * constructs a new DESSModel.
-     * @param simulator the continuous simulator
+     * @param simulator DESSSimulatorInterface.TimeDouble; the continuous simulator
      */
     public DESSModel(final DESSSimulatorInterface.TimeDouble simulator)
     {

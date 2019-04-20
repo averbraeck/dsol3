@@ -46,7 +46,7 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
      * @param key String; unique (within this input parameter tree) name of the new AbstractInputParameter
      * @param shortName String; concise description of the input parameter
      * @param description String; long description of the input parameter (may use HTML markup)
-     * @param defaultValue T; the default value of this input parameter
+     * @param defaultValue VT; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
      */
     public AbstractInputParameter(final String key, final String shortName, final String description, final VT defaultValue,
@@ -86,7 +86,7 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
      * their own method to set the value (e.g., setDoubleValue(...)), which has to call, in turn, super.setValue(...) to make
      * the actual setting of the value happen. In case the setValue(...) method would be non-final and public, it would be too
      * easy to forget to call super.setValue(...).
-     * @param newValue T; the new value for the input parameter
+     * @param newValue VT; the new value for the input parameter
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
     protected final void setValue(final VT newValue) throws InputParameterException
@@ -149,7 +149,7 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
 
     /**
      * Set the parent of this AbstractInputParameter.
-     * @param newParent InputParameterMap; the new parent of this AbstractInputParameter
+     * @param newParent AbstractInputParameterMap&lt;?&gt;; the new parent of this AbstractInputParameter
      */
     protected final void setParent(final AbstractInputParameterMap<?> newParent)
     {

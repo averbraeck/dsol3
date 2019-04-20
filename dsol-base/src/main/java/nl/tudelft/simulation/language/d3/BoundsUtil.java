@@ -8,14 +8,14 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
 /**
- * A Bounds utility class to help with finding intersections between bounds, to make transformations, and to see if a
- * point lies witin a bounds. The static methods can help in animation to see whether a shape needs to be drawn on the
- * screen (3D-viewport) or not.
+ * A Bounds utility class to help with finding intersections between bounds, to make transformations, and to see if a point lies
+ * witin a bounds. The static methods can help in animation to see whether a shape needs to be drawn on the screen (3D-viewport)
+ * or not.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -99,7 +99,7 @@ public final class BoundsUtil
         box.getLower(lower);
         Point3d upper = new Point3d();
         box.getUpper(upper);
-        return (point.x >= lower.x && point.x <= upper.x && point.y >= lower.y && point.y <= upper.y
-                && point.z >= lower.z && point.z <= upper.z);
+        return (point.x >= lower.x && point.x <= upper.x && point.y >= lower.y && point.y <= upper.y && point.z >= lower.z
+                && point.z <= upper.z);
     }
 }

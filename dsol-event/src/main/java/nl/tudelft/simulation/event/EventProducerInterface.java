@@ -3,13 +3,13 @@ package nl.tudelft.simulation.event;
 import java.rmi.RemoteException;
 
 /**
- * The EventProducerInterface defines the registration operations of an event producer. This behavior includes adding
- * and removing listeners for a specific event type.
+ * The EventProducerInterface defines the registration operations of an event producer. This behavior includes adding and
+ * removing listeners for a specific event type.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -49,8 +49,8 @@ public interface EventProducerInterface
      * @param listener EventListenerInterface; the listener which is interested at events of eventtype.
      * @param eventType EventType; the events of interest.
      * @param position short; the position of the listener in the queue.
-     * @return the success of adding the listener. If a listener was already added, or an illegal position is provided
-     *         false is returned.
+     * @return the success of adding the listener. If a listener was already added, or an illegal position is provided false is
+     *         returned.
      * @throws RemoteException If a network connection failure occurs.
      * @see nl.tudelft.simulation.event.ref.WeakReference
      */
@@ -62,8 +62,8 @@ public interface EventProducerInterface
      * @param eventType EventType; the events of interest.
      * @param position short; the position of the listener in the queue
      * @param weak boolean; whether the reference should be weak or strong.
-     * @return the success of adding the listener. If a listener was already added or an illegal position is provided
-     *         false is returned.
+     * @return the success of adding the listener. If a listener was already added or an illegal position is provided false is
+     *         returned.
      * @throws RemoteException If a network connection failure occurs.
      */
     boolean addListener(EventListenerInterface listener, EventType eventType, short position, boolean weak)

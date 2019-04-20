@@ -21,7 +21,7 @@ public class CustomerOrderModel extends AbstractDSOLModel.TimeDouble<DEVSSimulat
 
     /**
      * Construct a new customer ordering model.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulator.TimeDouble; the simulator
      */
     public CustomerOrderModel(final DEVSSimulator.TimeDouble simulator)
     {

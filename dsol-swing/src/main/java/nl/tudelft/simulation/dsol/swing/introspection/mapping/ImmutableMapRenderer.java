@@ -48,7 +48,7 @@ public class ImmutableMapRenderer extends DefaultTableCellRenderer
             content += "?,?";
         content += ">: ";
         Iterator<Object> keys = map.keySet().iterator();
-        while(keys.hasNext())
+        while (keys.hasNext())
         {
             Object key = keys.next();
             content += "{" + key.toString() + "," + map.get(key).toString() + "}; ";

@@ -278,7 +278,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
         /**
          * constructs a new SimPersistent.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface; the simulator
+         * @param simulator SimulatorInterface.TimeDouble; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeDouble(final String description, final SimulatorInterface.TimeDouble simulator) throws RemoteException
@@ -288,7 +288,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * constructs a new SimPersistent.
-         * @param simulator SimulatorInterface; the simulator of this model
+         * @param simulator SimulatorInterface.TimeDouble; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
          * @param eventType EventType; the eventType for which statistics are sampled
@@ -310,7 +310,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
         /**
          * constructs a new SimPersistent.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface; the simulator
+         * @param simulator SimulatorInterface.TimeFloat; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeFloat(final String description, final SimulatorInterface.TimeFloat simulator) throws RemoteException
@@ -320,7 +320,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * constructs a new SimPersistent.
-         * @param simulator SimulatorInterface; the simulator of this model
+         * @param simulator SimulatorInterface.TimeFloat; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
          * @param eventType EventType; the eventType for which statistics are sampled
@@ -342,7 +342,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
         /**
          * constructs a new SimPersistent.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface; the simulator
+         * @param simulator SimulatorInterface.TimeLong; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeLong(final String description, final SimulatorInterface.TimeLong simulator) throws RemoteException
@@ -352,7 +352,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * constructs a new SimPersistent.
-         * @param simulator SimulatorInterface; the simulator of this model
+         * @param simulator SimulatorInterface.TimeLong; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
          * @param eventType EventType; the eventType for which statistics are sampled
@@ -374,7 +374,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
         /**
          * constructs a new SimPersistent.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface; the simulator
+         * @param simulator SimulatorInterface.TimeDoubleUnit; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeDoubleUnit(final String description, final SimulatorInterface.TimeDoubleUnit simulator)
@@ -385,7 +385,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * constructs a new SimPersistent.
-         * @param simulator SimulatorInterface; the simulator of this model
+         * @param simulator SimulatorInterface.TimeDoubleUnit; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
          * @param eventType EventType; the eventType for which statistics are sampled
@@ -407,7 +407,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
         /**
          * constructs a new SimPersistent.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface; the simulator
+         * @param simulator SimulatorInterface.TimeFloatUnit; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeFloatUnit(final String description, final SimulatorInterface.TimeFloatUnit simulator) throws RemoteException
@@ -417,7 +417,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * constructs a new SimPersistent.
-         * @param simulator SimulatorInterface; the simulator of this model
+         * @param simulator SimulatorInterface.TimeFloatUnit; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
          * @param eventType EventType; the eventType for which statistics are sampled
@@ -439,7 +439,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
         /**
          * constructs a new SimPersistent.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface; the simulator
+         * @param simulator SimulatorInterface.CalendarDouble; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarDouble(final String description, final SimulatorInterface.CalendarDouble simulator)
@@ -450,7 +450,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * constructs a new SimPersistent.
-         * @param simulator SimulatorInterface; the simulator of this model
+         * @param simulator SimulatorInterface.CalendarDouble; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
          * @param eventType EventType; the eventType for which statistics are sampled
@@ -472,7 +472,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
         /**
          * constructs a new SimPersistent.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface; the simulator
+         * @param simulator SimulatorInterface.CalendarFloat; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarFloat(final String description, final SimulatorInterface.CalendarFloat simulator) throws RemoteException
@@ -482,7 +482,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * constructs a new SimPersistent.
-         * @param simulator SimulatorInterface; the simulator of this model
+         * @param simulator SimulatorInterface.CalendarFloat; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
          * @param eventType EventType; the eventType for which statistics are sampled
@@ -504,7 +504,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
         /**
          * constructs a new SimPersistent.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface; the simulator
+         * @param simulator SimulatorInterface.CalendarLong; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarLong(final String description, final SimulatorInterface.CalendarLong simulator) throws RemoteException
@@ -514,7 +514,7 @@ public class SimPersistent<A extends Comparable<A>, R extends Number & Comparabl
 
         /**
          * constructs a new SimPersistent.
-         * @param simulator SimulatorInterface; the simulator of this model
+         * @param simulator SimulatorInterface.CalendarLong; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
          * @param eventType EventType; the eventType for which statistics are sampled

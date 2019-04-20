@@ -13,8 +13,7 @@ import java.io.OutputStream;
 /**
  * This class enables the object outputstream to be switched from little to big endian. The class works exactly like an
  * ObjectOutputStream
- * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a><a href="mailto:paul.jacobs@javel.nl">Paul Jacobs
- *         </a>
+ * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a><a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
  * @since JDK 1.0
  */
 public class ObjectEndianOutputStream implements EndianInterface, DataOutput

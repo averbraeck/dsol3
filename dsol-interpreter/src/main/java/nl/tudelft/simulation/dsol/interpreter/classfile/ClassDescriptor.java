@@ -10,10 +10,10 @@ import java.util.Map;
 /**
  * A ClassDescriptor.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
@@ -70,8 +70,7 @@ public final class ClassDescriptor
         {
             classLoader = ClassLoader.getSystemClassLoader();
         }
-        this.readClass(
-                new DataInputStream(classLoader.getResourceAsStream(javaClass.getName().replace('.', '/') + ".class")));
+        this.readClass(new DataInputStream(classLoader.getResourceAsStream(javaClass.getName().replace('.', '/') + ".class")));
     }
 
     /**
@@ -146,8 +145,8 @@ public final class ClassDescriptor
         for (int i = 0; i < methodCount; i++)
         {
             MethodDescriptor methodDescriptor = new MethodDescriptor(dataInput, this.constantPool);
-            AccessibleObject method = this.parseMethod(methodDescriptor.getName(),
-                    methodDescriptor.getMethodSignature().getParameterTypes());
+            AccessibleObject method =
+                    this.parseMethod(methodDescriptor.getName(), methodDescriptor.getMethodSignature().getParameterTypes());
             methodDescriptor.setMethod(method);
             this.methods.put(method, methodDescriptor);
         }
@@ -172,9 +171,9 @@ public final class ClassDescriptor
             if (this.constantPool[i] instanceof ConstantDouble || this.constantPool[i] instanceof ConstantLong)
             {
                 /*
-                 * Quote from the JVM specification: "All eight byte constants take up two spots in the constant pool.
-                 * If this is the n'th byte in the constant pool, then the next item will be numbered n+2" Thus we have
-                 * to increment the index counter.
+                 * Quote from the JVM specification: "All eight byte constants take up two spots in the constant pool. If this
+                 * is the n'th byte in the constant pool, then the next item will be numbered n+2" Thus we have to increment the
+                 * index counter.
                  */
                 i++;
             }

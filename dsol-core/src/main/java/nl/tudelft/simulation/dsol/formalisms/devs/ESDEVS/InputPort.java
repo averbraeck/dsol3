@@ -10,22 +10,22 @@ import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 
 /**
- * InputPort class. The input port can function as an input port for a Parallel DEVS Atomic Model as well as for a
- * Parallel Hierarchical DEVS Coupled Model. A boolean in the class indicates whether it behaves as a port for an atomic
- * model or a coupled model. For a coupled model, the input message is passed on to the external input couplings (EIC),
- * for an atomic model, the external event handler is called (or the confluent event handler in case of a conflict).
+ * InputPort class. The input port can function as an input port for a Parallel DEVS Atomic Model as well as for a Parallel
+ * Hierarchical DEVS Coupled Model. A boolean in the class indicates whether it behaves as a port for an atomic model or a
+ * coupled model. For a coupled model, the input message is passed on to the external input couplings (EIC), for an atomic
+ * model, the external event handler is called (or the confluent event handler in case of a conflict).
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @param <TYPE> The type of messages the input port accepts.
  */
@@ -71,8 +71,7 @@ public class InputPort<A extends Comparable<A>, R extends Number & Comparable<R>
             AtomicModel<A, R, T> atomicModel = (AtomicModel<A, R, T>) this.model;
             while (atomicModel.activePort != null)
             {
-                SimLogger.filter(Cat.DSOL)
-                        .trace("receive: Waiting for event treatement // Another input is being processed");
+                SimLogger.filter(Cat.DSOL).trace("receive: Waiting for event treatement // Another input is being processed");
                 try
                 {
                     Thread.sleep(1); // added because of infinite loop
@@ -95,8 +94,7 @@ public class InputPort<A extends Comparable<A>, R extends Number & Comparable<R>
                         atomicModel.timeAdvance().doubleValue());
                 if (etminta == 1)
                 {
-                    SimLogger.always().error("receive: {} - {}", atomicModel.elapsedTime(time),
-                            atomicModel.timeAdvance());
+                    SimLogger.always().error("receive: {} - {}", atomicModel.elapsedTime(time), atomicModel.timeAdvance());
                     SimLogger.always().error("receive - IMPOSSIBLE !!! TIME SYNCHRONIZATION PROBLEM {}",
                             atomicModel.toString());
                     System.err.println("IMPOSSIBLE !!! TIME SYNCHRONIZATION PROBLEM " + atomicModel.toString());
@@ -125,8 +123,8 @@ public class InputPort<A extends Comparable<A>, R extends Number & Comparable<R>
                 }
                 if (atomicModel.isConflict())
                 {
-                    atomicModel.deltaConfluent(
-                            this.model.getSimulator().getSimTime().diff(atomicModel.getTimeLastEvent()), value);
+                    atomicModel.deltaConfluent(this.model.getSimulator().getSimTime().diff(atomicModel.getTimeLastEvent()),
+                            value);
                 }
                 else
                 {

@@ -19,10 +19,10 @@ import nl.tudelft.simulation.dsol.logger.SimLogger;
 /**
  * The SortingTableModel.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
@@ -168,8 +168,7 @@ public class SortingTableModel implements TableModel, Sortable
                     if (resultValue instanceof List)
                     {
                         inList = true;
-                        resultValue =
-                                this.source.getValueAt(((Integer) ((List<?>) resultValue).get(0)).intValue(), column);
+                        resultValue = this.source.getValueAt(((Integer) ((List<?>) resultValue).get(0)).intValue(), column);
                     }
                     else
                     {
@@ -204,8 +203,8 @@ public class SortingTableModel implements TableModel, Sortable
                         }
                         catch (ClassCastException exception)
                         {
-                            SimLogger.filter(Cat.SWING).info(exception, "sortSubList - Could not compare {} and {}",
-                                    current, resultValue);
+                            SimLogger.filter(Cat.SWING).info(exception, "sortSubList - Could not compare {} and {}", current,
+                                    resultValue);
                         }
                     }
                 }
@@ -316,8 +315,8 @@ public class SortingTableModel implements TableModel, Sortable
     {
         if (rowIndex > this.expandedIndex.length)
         {
-            SimLogger.always().warn(
-                    "setValueAt could not retrieve row {} from sorted list. Ignoring 'setValue' command", rowIndex);
+            SimLogger.always().warn("setValueAt could not retrieve row {} from sorted list. Ignoring 'setValue' command",
+                    rowIndex);
             return;
         }
         this.source.setValueAt(aValue, this.expandedIndex[rowIndex].intValue(), columnIndex);

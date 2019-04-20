@@ -5,13 +5,12 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Pearson6 distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/Pearson6Distribution.html">
- * http://mathworld.wolfram.com/Pearson6Distribution.html </a>
+ * <a href="http://mathworld.wolfram.com/Pearson6Distribution.html"> http://mathworld.wolfram.com/Pearson6Distribution.html </a>
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -76,9 +75,8 @@ public class DistPearson6 extends DistContinuous
     {
         if (observation > 0)
         {
-            return Math.pow(observation / this.beta, this.alpha1 - 1)
-                    / (this.beta * Gamma.beta(this.alpha1, this.alpha2)
-                            * Math.pow(1 + (observation / this.beta), (this.alpha1 + this.alpha2)));
+            return Math.pow(observation / this.beta, this.alpha1 - 1) / (this.beta * Gamma.beta(this.alpha1, this.alpha2)
+                    * Math.pow(1 + (observation / this.beta), (this.alpha1 + this.alpha2)));
         }
         return 0;
     }

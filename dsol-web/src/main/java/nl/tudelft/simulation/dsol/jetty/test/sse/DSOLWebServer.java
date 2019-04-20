@@ -32,10 +32,9 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 /**
  * DSOLWebServer.java. <br>
  * <br>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
+ * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
 public abstract class DSOLWebServer implements EventListenerInterface
@@ -53,13 +52,13 @@ public abstract class DSOLWebServer implements EventListenerInterface
     private HTMLAnimationPanel animationPanel;
 
     /**
-     * @param title the title for the model window
-     * @param simulator the simulator
-     * @param extent the extent to use for the graphics (min/max coordinates)
+     * @param title String; the title for the model window
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
+     * @param extent Rectangle2D.Double; the extent to use for the graphics (min/max coordinates)
      * @throws Exception in case jetty crashes
      */
-    public DSOLWebServer(final String title, final SimulatorInterface<?, ?, ?> simulator,
-            final Rectangle2D.Double extent) throws Exception
+    public DSOLWebServer(final String title, final SimulatorInterface<?, ?, ?> simulator, final Rectangle2D.Double extent)
+            throws Exception
     {
         this.title = title;
 
@@ -78,8 +77,8 @@ public abstract class DSOLWebServer implements EventListenerInterface
         {
             this.animationPanel = new HTMLAnimationPanel(extent, new Dimension(800, 600), this.simulator);
             // get the already created elements in context(/animation/D2)
-            this.animationPanel.notify(new Event(SimulatorInterface.START_REPLICATION_EVENT, this.simulator,
-                    this.simulator.getSimulatorTime()));
+            this.animationPanel.notify(
+                    new Event(SimulatorInterface.START_REPLICATION_EVENT, this.simulator, this.simulator.getSimulatorTime()));
         }
 
         Server server = new Server(8080);
@@ -91,11 +90,11 @@ public abstract class DSOLWebServer implements EventListenerInterface
         System.out.println("webRoot is " + webRoot);
 
         resourceHandler.setDirectoriesListed(true);
-        resourceHandler.setWelcomeFiles(new String[]{"index.html"});
+        resourceHandler.setWelcomeFiles(new String[] {"index.html"});
         resourceHandler.setResourceBase(webRoot);
 
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{resourceHandler, new XHRHandler(this)});
+        handlers.setHandlers(new Handler[] {resourceHandler, new XHRHandler(this)});
         server.setHandler(handlers);
 
         server.start();
@@ -181,7 +180,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
     }
 
     /**
-     * @param speedFactor the new speed factor
+     * @param speedFactor double; the new speed factor
      */
     protected void setSpeedFactor(final double speedFactor)
     {
@@ -208,10 +207,9 @@ public abstract class DSOLWebServer implements EventListenerInterface
     /**
      * Answer handles the events from the web-based user interface. <br>
      * <br>
-     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved. See for project information
-     * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
-     * binary code of this software is proprietary information of Delft University of Technology.
+     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>.
+     * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
      */
     public static class XHRHandler extends AbstractHandler
@@ -221,7 +219,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
 
         /**
          * Create the handler for Servlet requests.
-         * @param webServer web server for callback of actions
+         * @param webServer DSOLWebServer; web server for callback of actions
          */
         public XHRHandler(final DSOLWebServer webServer)
         {
@@ -232,19 +230,19 @@ public abstract class DSOLWebServer implements EventListenerInterface
         public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
                 throws IOException, ServletException
         {
-            //System.out.println("target=" + target);
-            //System.out.println("baseRequest=" + baseRequest);
-            //System.out.println("request=" + request);
+            // System.out.println("target=" + target);
+            // System.out.println("baseRequest=" + baseRequest);
+            // System.out.println("request=" + request);
 
             Map<String, String[]> params = request.getParameterMap();
-            //System.out.println(params);
+            // System.out.println(params);
 
             String answer = "<message>ok</message>";
 
             if (request.getParameter("message") != null)
             {
                 String message = request.getParameter("message");
-                //System.out.println(message);
+                // System.out.println(message);
 
                 switch (message)
                 {
@@ -313,7 +311,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
 
             if (request.getParameter("slider") != null)
             {
-                //System.out.println(request.getParameter("slider") + "\n");
+                // System.out.println(request.getParameter("slider") + "\n");
                 try
                 {
                     int value = Integer.parseInt(request.getParameter("slider"));
@@ -324,7 +322,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
                     else
                         speedFactor = Math.pow(2.15444, value / 100.0) / 21.5444;
                     this.webServer.setSpeedFactor(speedFactor);
-                    //System.out.println("speed factor changed to " + speedFactor);
+                    // System.out.println("speed factor changed to " + speedFactor);
                 }
                 catch (NumberFormatException exception)
                 {
@@ -332,7 +330,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
                 }
             }
 
-            //System.out.println();
+            // System.out.println();
 
             response.setContentType("text/xml");
             response.setHeader("Cache-Control", "no-cache");
@@ -344,8 +342,8 @@ public abstract class DSOLWebServer implements EventListenerInterface
         }
 
         /**
-         * @param active is the simulation active?
-         * @param started has the simulation been started?
+         * @param active boolean; is the simulation active?
+         * @param started boolean; has the simulation been started?
          * @return XML message to send to the server
          */
         private String controlButtonResponse(final boolean active, final boolean started)
@@ -354,22 +352,19 @@ public abstract class DSOLWebServer implements EventListenerInterface
             {
                 return "<controls>\n" + "<oneEventActive>false</oneEventActive>\n"
                         + "<allEventsActive>false</allEventsActive>\n" + "<startStop>start</startStop>\n"
-                        + "<startStopActive>false</startStopActive>\n" + "<resetActive>false</resetActive>\n"
-                        + "</controls>\n";
+                        + "<startStopActive>false</startStopActive>\n" + "<resetActive>false</resetActive>\n" + "</controls>\n";
             }
             if (started)
             {
                 return "<controls>\n" + "<oneEventActive>false</oneEventActive>\n"
                         + "<allEventsActive>false</allEventsActive>\n" + "<startStop>stop</startStop>\n"
-                        + "<startStopActive>true</startStopActive>\n" + "<resetActive>false</resetActive>\n"
-                        + "</controls>\n";
+                        + "<startStopActive>true</startStopActive>\n" + "<resetActive>false</resetActive>\n" + "</controls>\n";
             }
             else
             {
-                return "<controls>\n" + "<oneEventActive>true</oneEventActive>\n"
-                        + "<allEventsActive>true</allEventsActive>\n" + "<startStop>start</startStop>\n"
-                        + "<startStopActive>true</startStopActive>\n" + "<resetActive>false</resetActive>\n"
-                        + "</controls>\n";
+                return "<controls>\n" + "<oneEventActive>true</oneEventActive>\n" + "<allEventsActive>true</allEventsActive>\n"
+                        + "<startStop>start</startStop>\n" + "<startStopActive>true</startStopActive>\n"
+                        + "<resetActive>false</resetActive>\n" + "</controls>\n";
             }
         }
     }

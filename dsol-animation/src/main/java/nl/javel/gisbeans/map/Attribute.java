@@ -51,8 +51,7 @@ public class Attribute extends AbstractAttribute
         }
         try
         {
-            double angle =
-                    Double.parseDouble(super.layer.getDataSource().getAttributes()[shapeIndex][this.angleColumn]);
+            double angle = Double.parseDouble(super.layer.getDataSource().getAttributes()[shapeIndex][this.angleColumn]);
             if (this.mode == DEGREES)
             {
                 angle = Math.toRadians(angle);

@@ -34,7 +34,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDouble>
 {
     /**
-     * @param simulator the simulator
+     * @param simulator DEVSSimulator.TimeDouble; the simulator
      */
     public MM1Queue41Model(final DEVSSimulator.TimeDouble simulator)
     {
@@ -77,7 +77,8 @@ public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.
         StationInterface.TimeDouble release = new Release.TimeDouble(this.simulator, resource, 1.0);
 
         // The server
-        DistContinuousSimulationTime.TimeDouble serviceTime = new DistContinuousSimulationTime.TimeDouble(new DistExponential(defaultStream, 0.5));
+        DistContinuousSimulationTime.TimeDouble serviceTime =
+                new DistContinuousSimulationTime.TimeDouble(new DistExponential(defaultStream, 0.5));
         StationInterface.TimeDouble server = new Delay.TimeDouble(this.simulator, serviceTime);
 
         // The flow

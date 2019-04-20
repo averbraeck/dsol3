@@ -8,10 +8,10 @@ import nl.tudelft.simulation.zmq.ZeroMQException;
 /**
  * Message conversions. These take into account the endianness of the different values. Java is by default big-endian.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
@@ -149,8 +149,7 @@ public class Message
             else if (hc == BYTE_ARRAY_HC)
                 size += ((byte[]) content[i]).length + 4;
             else
-                throw new ZeroMQException(
-                        "Unknown data type " + content[i].getClass() + " for encoding the ZeroMQ message");
+                throw new ZeroMQException("Unknown data type " + content[i].getClass() + " for encoding the ZeroMQ message");
         }
 
         byte[] message = new byte[size];
@@ -479,8 +478,8 @@ public class Message
      */
     private static int decodeIntBigEndian(final byte[] message, final int pointer)
     {
-        return (((message[pointer] & 0xff) << 24) | ((message[pointer + 1] & 0xff) << 16)
-                | ((message[pointer + 2] & 0xff) << 8) | ((message[pointer + 3] & 0xff)));
+        return (((message[pointer] & 0xff) << 24) | ((message[pointer + 1] & 0xff) << 16) | ((message[pointer + 2] & 0xff) << 8)
+                | ((message[pointer + 3] & 0xff)));
     }
 
     /**

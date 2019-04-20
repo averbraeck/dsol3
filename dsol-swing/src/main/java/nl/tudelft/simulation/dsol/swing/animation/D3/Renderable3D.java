@@ -24,10 +24,10 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 /**
  * Renderable3D, a 3d renderable.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:royc@tbm.tudelft.nl">Roy Chin </a>
@@ -47,9 +47,8 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     protected int type = Renderable3DInterface.DYNAMIC_OBJECT;
 
     /**
-     * Scale: temporary solution This scale is used to scale translations and can also be used to scale the model
-     * (shape). This is a temporary solution as we would actually like to scale the entire content branch, but this is
-     * not possible yet
+     * Scale: temporary solution This scale is used to scale translations and can also be used to scale the model (shape). This
+     * is a temporary solution as we would actually like to scale the entire content branch, but this is not possible yet
      */
     protected double scale = 1.0d;
 
@@ -100,8 +99,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
      * @param branchGroup BranchGroup; A branchGroup containing (a part of) the model
      * @param simulator SimulatorInterface; SimulatorInterface
      */
-    public Renderable3D(final DirectedPoint staticLocation, final BranchGroup branchGroup,
-            final SimulatorInterface simulator)
+    public Renderable3D(final DirectedPoint staticLocation, final BranchGroup branchGroup, final SimulatorInterface simulator)
     {
         super();
         this.source = new StaticLocation(staticLocation, null);

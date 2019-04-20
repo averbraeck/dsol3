@@ -70,7 +70,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
      * @param key String; unique name for the selection parameter of the distribution function
      * @param shortName String; concise description of the input parameter
      * @param description String; long description of the input parameter (may use HTML markup)
-     * @param stream the random number stream to use for the distribution
+     * @param stream StreamInterface; the random number stream to use for the distribution
      * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException in case the default value is not part of the list; should not happen
      */
@@ -142,8 +142,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
             Throw.when((Double) get("alpha2").getValue() <= 0.0, InputParameterException.class, "DistBeta: alpha2 <= 0.0");
             try
             {
-                this.dist =
-                        new DistBeta(getStream(), (Double) get("alpha1").getValue(), (Double) get("alpha2").getValue());
+                this.dist = new DistBeta(getStream(), (Double) get("alpha1").getValue(), (Double) get("alpha2").getValue());
             }
             catch (Exception exception)
             {

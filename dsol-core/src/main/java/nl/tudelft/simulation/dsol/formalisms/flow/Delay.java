@@ -21,19 +21,19 @@ import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimulationTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
- * The Delay object is a station which delays an entity by some time units. When an entity arrives at a delay object,
- * dsol delays the entity by the resulting time period. During the time delay, the entity is held in the delay object.
+ * The Delay object is a station which delays an entity by some time units. When an entity arrives at a delay object, dsol
+ * delays the entity by the resulting time period. During the time delay, the entity is held in the delay object.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -49,7 +49,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     /**
      * Constructor for Delay.
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; is the simulator
-     * @param delayDistribution DistContinuousTime&lt;R&gt;; is the delayDistribution
+     * @param delayDistribution DistContinuousSimulationTime&lt;R&gt;; is the delayDistribution
      */
     public Delay(final DEVSSimulatorInterface<A, R, T> simulator, final DistContinuousSimulationTime<R> delayDistribution)
     {
@@ -64,8 +64,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         super.receiveObject(object);
         try
         {
-            this.simulator.scheduleEventRel(this.delayDistribution.draw(), this, this, "releaseObject",
-                    new Object[]{object});
+            this.simulator.scheduleEventRel(this.delayDistribution.draw(), this, this, "releaseObject", new Object[] {object});
         }
         catch (Exception exception)
         {
@@ -86,7 +85,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         /**
          * Constructor for TimeDouble Delay.
          * @param simulator DEVSSimulatorInterface.TimeDouble; is the simulator
-         * @param delayDistribution DistContinuousTime.TimeDouble; is the delayDistribution
+         * @param delayDistribution DistContinuousSimulationTime.TimeDouble; is the delayDistribution
          */
         public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
                 final DistContinuousSimulationTime.TimeDouble delayDistribution)
@@ -104,7 +103,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         /**
          * Constructor for TimeFloat Delay.
          * @param simulator DEVSSimulatorInterface.TimeFloat; is the simulator
-         * @param delayDistribution DistContinuousTime.TimeFloat; is the delayDistribution
+         * @param delayDistribution DistContinuousSimulationTime.TimeFloat; is the delayDistribution
          */
         public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
                 final DistContinuousSimulationTime.TimeFloat delayDistribution)
@@ -122,7 +121,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         /**
          * Constructor for TimeLong Delay.
          * @param simulator DEVSSimulatorInterface.TimeLong; is the simulator
-         * @param delayDistribution DistContinuousTime.TimeLong; is the delayDistribution
+         * @param delayDistribution DistContinuousSimulationTime.TimeLong; is the delayDistribution
          */
         public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
                 final DistContinuousSimulationTime.TimeLong delayDistribution)
@@ -141,7 +140,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         /**
          * Constructor for TimeDoubleUnit Delay.
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; is the simulator
-         * @param delayDistribution DistContinuousTime.TimeDoubleUnit; is the delayDistribution
+         * @param delayDistribution DistContinuousSimulationTime.TimeDoubleUnit; is the delayDistribution
          */
         public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final DistContinuousSimulationTime.TimeDoubleUnit delayDistribution)
@@ -160,7 +159,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         /**
          * Constructor for TimeFloatUnit Delay.
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; is the simulator
-         * @param delayDistribution DistContinuousTime.TimeFloatUnit; is the delayDistribution
+         * @param delayDistribution DistContinuousSimulationTime.TimeFloatUnit; is the delayDistribution
          */
         public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final DistContinuousSimulationTime.TimeFloatUnit delayDistribution)
@@ -179,7 +178,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         /**
          * Constructor for CalendarDouble Delay.
          * @param simulator DEVSSimulatorInterface.CalendarDouble; is the simulator
-         * @param delayDistribution DistContinuousTime.CalendarDouble; is the delayDistribution
+         * @param delayDistribution DistContinuousSimulationTime.CalendarDouble; is the delayDistribution
          */
         public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
                 final DistContinuousSimulationTime.CalendarDouble delayDistribution)
@@ -198,7 +197,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         /**
          * Constructor for CalendarFloat Delay.
          * @param simulator DEVSSimulatorInterface.CalendarFloat; is the simulator
-         * @param delayDistribution DistContinuousTime.CalendarFloat; is the delayDistribution
+         * @param delayDistribution DistContinuousSimulationTime.CalendarFloat; is the delayDistribution
          */
         public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
                 final DistContinuousSimulationTime.CalendarFloat delayDistribution)
@@ -208,8 +207,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     }
 
     /** Easy access class Delay.CalendarLong. */
-    public static class CalendarLong extends Delay<Calendar, Long, SimTimeCalendarLong>
-            implements StationInterface.CalendarLong
+    public static class CalendarLong extends Delay<Calendar, Long, SimTimeCalendarLong> implements StationInterface.CalendarLong
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -217,7 +215,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         /**
          * Constructor for CalendarLong Delay.
          * @param simulator DEVSSimulatorInterface.CalendarLong; is the simulator
-         * @param delayDistribution DistContinuousTime.CalendarLong; is the delayDistribution
+         * @param delayDistribution DistContinuousSimulationTime.CalendarLong; is the delayDistribution
          */
         public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
                 final DistContinuousSimulationTime.CalendarLong delayDistribution)

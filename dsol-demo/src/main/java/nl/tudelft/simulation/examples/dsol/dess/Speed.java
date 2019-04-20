@@ -8,8 +8,7 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -34,6 +33,6 @@ public class Speed extends DifferentialEquation<Double, Double, SimTimeDouble>
     @Override
     public double[] dy(final double x, final double[] y)
     {
-        return new double[]{0.5};
+        return new double[] {0.5};
     }
 }

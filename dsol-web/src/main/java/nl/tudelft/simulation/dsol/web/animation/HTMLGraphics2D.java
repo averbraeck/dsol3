@@ -103,8 +103,8 @@ public class HTMLGraphics2D extends Graphics2D
 
     /**
      * Add a draw command
-     * @param drawCommand the tag for the draw command
-     * @param params the params for the draw command
+     * @param drawCommand String; the tag for the draw command
+     * @param params Object...; the params for the draw command
      */
     protected void addDraw(String drawCommand, Object... params)
     {
@@ -137,7 +137,7 @@ public class HTMLGraphics2D extends Graphics2D
 
     /**
      * add Color to the command.
-     * @param c the color
+     * @param c Color; the color
      */
     protected void addColor(Color c)
     {
@@ -176,8 +176,8 @@ public class HTMLGraphics2D extends Graphics2D
      * Add fill command, transform.m11(h-scale), transform.m12(h-skew), transform.m21(v-skew), transform.m22(v-scale),
      * transform.dx(h-translate), transform.dy(v-translate), color.r, color.g, color.b, color.alpha, color.transparency,
      * params...
-     * @param fillCommand the tag to use
-     * @param params the params to send
+     * @param fillCommand String; the tag to use
+     * @param params Object...; the params to send
      */
     protected void addTransformFill(String fillCommand, Object... params)
     {
@@ -198,8 +198,8 @@ public class HTMLGraphics2D extends Graphics2D
      * Add command, transform.m11(h-scale), transform.m12(h-skew), transform.m21(v-skew), transform.m22(v-scale),
      * transform.dx(h-translate), transform.dy(v-translate), linecolor.r, linecolor.g, linecolor.b, linecolor.alpha,
      * linecolor.transparency, line-width, params...
-     * @param drawCommand the tag to use
-     * @param params the params
+     * @param drawCommand String; the tag to use
+     * @param params Object...; the params
      */
     protected void addTransformDraw(String drawCommand, Object... params)
     {
@@ -235,9 +235,9 @@ public class HTMLGraphics2D extends Graphics2D
 
     /**
      * Add a path2D to the command
-     * @param drawCommand the tag to use
-     * @param path the path to draw
-     * @param fill // TODO fill
+     * @param drawCommand String; the tag to use
+     * @param path Path2D.Float; the path to draw
+     * @param fill boolean; // TODO fill
      */
     protected void addTransformPathFloat(String drawCommand, Path2D.Float path, boolean fill)
     {
@@ -297,9 +297,9 @@ public class HTMLGraphics2D extends Graphics2D
 
     /**
      * Add a path2D to the command
-     * @param drawCommand the tag to use
-     * @param path the path to draw
-     * @param fill // TODO fill
+     * @param drawCommand String; the tag to use
+     * @param path Path2D.Double; the path to draw
+     * @param fill boolean; // TODO fill
      */
     protected void addTransformPathDouble(String drawCommand, Path2D.Double path, boolean fill)
     {
@@ -361,8 +361,8 @@ public class HTMLGraphics2D extends Graphics2D
      * Add string, 0=command, 1=transform.m11(h-scale), 2=transform.m12(h-skew), 3=transform.m21(v-skew),
      * 4=transform.m22(v-scale), 5=transform.dx(h-translate), 6=transform.dy(v-translate), 7=color.r, 8=color.g, 9=color.b,
      * 10=color.alpha, 11=color.transparency, 12=fontname, 13=fontsize, 14=fontstyle(normal/italic/bold), 15=x, 16=y, 17=text.
-     * @param drawCommand the tag to use
-     * @param params the params
+     * @param drawCommand String; the tag to use
+     * @param params Object...; the params
      */
     protected void addTransformText(String drawCommand, Object... params)
     {
@@ -386,8 +386,8 @@ public class HTMLGraphics2D extends Graphics2D
 
     /**
      * Draw or fill a shape.
-     * @param shape the shape
-     * @param fill filled or not
+     * @param shape Shape; the shape
+     * @param fill boolean; filled or not
      */
     protected void drawFillShape(Shape shape, boolean fill)
     {

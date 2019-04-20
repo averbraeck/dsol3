@@ -23,10 +23,10 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The M/M/1 example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -49,7 +49,7 @@ public class WebMM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulat
     Utilization<Double, Double, SimTimeDouble> uN;
 
     /**
-     * @param simulator the simulator to use for this model
+     * @param simulator DEVSSimulator.TimeDouble; the simulator to use for this model
      */
     public WebMM1Queue41Model(DEVSSimulator.TimeDouble simulator)
     {
@@ -58,8 +58,7 @@ public class WebMM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulat
 
     /** {@inheritDoc} */
     @Override
-    public final void constructModel()
-            throws SimRuntimeException
+    public final void constructModel() throws SimRuntimeException
     {
         StreamInterface defaultStream = new MersenneTwister();
 

@@ -12,10 +12,10 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The discrete empirical distribution as defined on page 326 of Law &amp; Kelton.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -32,10 +32,10 @@ public class DistDiscreteEmpirical extends DistDiscrete
     /**
      * constructs a new DistDiscreteEmpirical distribution.
      * @param stream StreamInterface; the stream to use
-     * @param observations ObservationsInterface; the observations feeding the distributions. These observations should
-     *            be in one of two possible formats. The first accepted format is the X(i);probability format. This
-     *            results in a map with values such as 1=0.33;2=0.167;3=0.167;4=0.33. The second allowed format is the
-     *            X(i);occurrence combination resulting in values such as 1=2;2=1;3=1;4=2.
+     * @param observations ObservationsInterface; the observations feeding the distributions. These observations should be in
+     *            one of two possible formats. The first accepted format is the X(i);probability format. This results in a map
+     *            with values such as 1=0.33;2=0.167;3=0.167;4=0.33. The second allowed format is the X(i);occurrence
+     *            combination resulting in values such as 1=2;2=1;3=1;4=2.
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final ObservationsInterface observations)
     {
@@ -54,23 +54,22 @@ public class DistDiscreteEmpirical extends DistDiscrete
     /**
      * constructs a new DistDiscreteEmpirical distribution.
      * @param stream StreamInterface; the stream to use
-     * @param observations Long[]; the observations feeding the distributions. This sortedmap should be filled with
-     *            observation probability values. The probability may either reflect the number of times this
-     *            observation is observed or may contain a relative probability.
+     * @param observations Long[]; the observations feeding the distributions. This sortedmap should be filled with observation
+     *            probability values. The probability may either reflect the number of times this observation is observed or may
+     *            contain a relative probability.
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final Long[] observations)
     {
         super(stream);
-        this.observations =
-                new Observations(DistDiscreteEmpirical.constructGroupedMap(Arrays.asList(observations)), false);
+        this.observations = new Observations(DistDiscreteEmpirical.constructGroupedMap(Arrays.asList(observations)), false);
     }
 
     /**
      * constructs a new DistDiscreteEmpirical distribution.
      * @param stream StreamInterface; the stream to use
-     * @param observations long[]; the observations feeding the distributions. This sortedmap should be filled with
-     *            observation probability values. The probability may either reflect the number of times this
-     *            observation is observed or may contain a relative probability.
+     * @param observations long[]; the observations feeding the distributions. This sortedmap should be filled with observation
+     *            probability values. The probability may either reflect the number of times this observation is observed or may
+     *            contain a relative probability.
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final long[] observations)
     {
@@ -86,9 +85,9 @@ public class DistDiscreteEmpirical extends DistDiscrete
     /**
      * constructs a new DistDiscreteEmpirical distribution.
      * @param stream StreamInterface; the stream to use
-     * @param observations SortedMap&lt;Number,Double&gt;; the observations feeding the distributions. This sortedmap
-     *            should be filled with observation probability values. The probability may either reflect the number of
-     *            times this observation is observed or may contain a relative probability.
+     * @param observations SortedMap&lt;Number,Double&gt;; the observations feeding the distributions. This sortedmap should be
+     *            filled with observation probability values. The probability may either reflect the number of times this
+     *            observation is observed or may contain a relative probability.
      * @param cumulative boolean; reflects whether the probabilities are cumulative
      */
     public DistDiscreteEmpirical(final StreamInterface stream, final SortedMap<Number, Double> observations,
@@ -103,8 +102,8 @@ public class DistDiscreteEmpirical extends DistDiscrete
     public long draw()
     {
         double u = super.stream.nextDouble();
-        return this.observations.getCeilingEntry(new Double(u), ObservationsInterface.CUMPROBABILITY, true)
-                .getObservation().longValue();
+        return this.observations.getCeilingEntry(new Double(u), ObservationsInterface.CUMPROBABILITY, true).getObservation()
+                .longValue();
     }
 
     /** {@inheritDoc} */
