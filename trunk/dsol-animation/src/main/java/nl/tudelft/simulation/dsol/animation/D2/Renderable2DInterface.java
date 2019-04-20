@@ -12,13 +12,13 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 
 /**
- * The Renderable2D interface defines the basic interface for 2d animation. This is a hard-to-use interface. It is
- * implemented by the easy-to-use Renderable2D class.
+ * The Renderable2D interface defines the basic interface for 2d animation. This is a hard-to-use interface. It is implemented
+ * by the easy-to-use Renderable2D class.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -33,8 +33,7 @@ public interface Renderable2DInterface<T extends Locatable>
      * @param screenSize Dimension; the screen of the panel
      * @param observer ImageObserver; the observer of the renderableInterface
      */
-    void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screenSize,
-            final ImageObserver observer);
+    void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screenSize, final ImageObserver observer);
 
     /**
      * gets the source of this renderable.
@@ -44,8 +43,8 @@ public interface Renderable2DInterface<T extends Locatable>
 
     /**
      * does the shape contain the point?
-     * @param pointWorldCoordinates Point2D; the point in world coordinates. Default implementation is to intersect the
-     *            3D bounds on location.z and to return the bounds2D of this intersect.
+     * @param pointWorldCoordinates Point2D; the point in world coordinates. Default implementation is to intersect the 3D
+     *            bounds on location.z and to return the bounds2D of this intersect.
      * @param extent Rectangle2D; the extent of the panel.
      * @param screenSize Dimension; the screen of the panel.
      * @return whether the point is in the shape
@@ -62,10 +61,10 @@ public interface Renderable2DInterface<T extends Locatable>
     /**
      * A Utility helper class for transforming between screen coordinates and world coordinates. <br>
      * <p>
-     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
-     * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which
-     * can be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>.
+     * The DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
      * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
      * </p>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -81,10 +80,10 @@ public interface Renderable2DInterface<T extends Locatable>
         }
 
         /**
-         * returns the scale of a screen compared to an extent. The scale can only be computed if the xScale and yScale
-         * are equal. If this is not the case, Double.NaN is returned. In order to overcome estimation errors, this
-         * equality is computed with Math.abs(yScale-xScale) &lt; 0.005 * xScale. If the height or the width of the
-         * screen are &lt; 0 Double.NaN is returned.
+         * returns the scale of a screen compared to an extent. The scale can only be computed if the xScale and yScale are
+         * equal. If this is not the case, Double.NaN is returned. In order to overcome estimation errors, this equality is
+         * computed with Math.abs(yScale-xScale) &lt; 0.005 * xScale. If the height or the width of the screen are &lt; 0
+         * Double.NaN is returned.
          * @param extent Rectangle2D; the extent
          * @param screen Dimension; the screen
          * @return double the scale. Can return Double.NaN
@@ -120,16 +119,16 @@ public interface Renderable2DInterface<T extends Locatable>
             }
             else
             {
-                result.setRect(result.getX(), result.getCenterY() - 0.5 * xScale * screen.getHeight(),
-                        result.getWidth(), xScale * screen.getHeight());
+                result.setRect(result.getX(), result.getCenterY() - 0.5 * xScale * screen.getHeight(), result.getWidth(),
+                        xScale * screen.getHeight());
             }
             return result;
         }
 
         /**
-         * returns the frame xy-coordinates of a point in world coordinates. If parameters are invalid (i.e. screen.size
-         * &lt; 0) a null value is returned. If parameter combinations (i.e !extent.contains(point)) are invalid a null
-         * value is returned.
+         * returns the frame xy-coordinates of a point in world coordinates. If parameters are invalid (i.e. screen.size &lt; 0)
+         * a null value is returned. If parameter combinations (i.e !extent.contains(point)) are invalid a null value is
+         * returned.
          * @param worldCoordinates Point2D; the world coordinates
          * @param extent Rectangle2D; the extent of this
          * @param screen Dimension; the screen
@@ -145,9 +144,9 @@ public interface Renderable2DInterface<T extends Locatable>
         }
 
         /**
-         * returns the frame xy-coordinates of a point in screen coordinates. If parameters are invalid (i.e.
-         * screen.size &lt; 0) a null value is returned. If parameter combinations (i.e !screen.contains(point)) are
-         * invalid a null value is returned.
+         * returns the frame xy-coordinates of a point in screen coordinates. If parameters are invalid (i.e. screen.size &lt;
+         * 0) a null value is returned. If parameter combinations (i.e !screen.contains(point)) are invalid a null value is
+         * returned.
          * @param screenCoordinates Point2D; the screen coordinates
          * @param extent Rectangle2D; the extent of this
          * @param screen Dimension; the screen

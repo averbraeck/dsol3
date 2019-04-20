@@ -5,27 +5,27 @@ import java.util.Arrays;
 
 /**
  * Each frame (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">par 2.6</a>) contains a
- * last-in-first-out (LIFO) stack known as its operand stack. The maximum depth of the operand stack of a frame is
- * determined at compile time and is supplied along with the code for the method associated with the frame
- * (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3">par. 4.7.3</a>). Where it is
- * clear by context, we will sometimes refer to the operand stack of the current frame as simply the operand stack.
+ * last-in-first-out (LIFO) stack known as its operand stack. The maximum depth of the operand stack of a frame is determined at
+ * compile time and is supplied along with the code for the method associated with the frame
+ * (<a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.7.3">par. 4.7.3</a>). Where it is clear by
+ * context, we will sometimes refer to the operand stack of the current frame as simply the operand stack.
  * <p>
- * The operand stack is empty when the frame that contains it is created. The Java virtual machine supplies instructions
- * to load constants or values from local variables or fields onto the operand stack. Other Java virtual machine
- * instructions take operands from the operand stack, operate on them, and push the result back onto the operand stack.
- * The operand stack is also used to prepare parameters to be passed to methods and to receive method results.
+ * The operand stack is empty when the frame that contains it is created. The Java virtual machine supplies instructions to load
+ * constants or values from local variables or fields onto the operand stack. Other Java virtual machine instructions take
+ * operands from the operand stack, operate on them, and push the result back onto the operand stack. The operand stack is also
+ * used to prepare parameters to be passed to methods and to receive method results.
  * </p>
  * <p>
- * For example, the IADD instruction adds two int values together. It requires that the int values to be added be the
- * top two values of the operand stack, pushed there by previous instructions. Both of the int values are popped from
- * the operand stack. They are added, and their sum is pushed back onto the operand stack. Subcomputations may be nested
- * on the operand stack, resulting in values that can be used by the encompassing computation.
+ * For example, the IADD instruction adds two int values together. It requires that the int values to be added be the top two
+ * values of the operand stack, pushed there by previous instructions. Both of the int values are popped from the operand stack.
+ * They are added, and their sum is pushed back onto the operand stack. Subcomputations may be nested on the operand stack,
+ * resulting in values that can be used by the encompassing computation.
  * </p>
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>

@@ -61,7 +61,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      * @param maximumValue T; the highest value allowed as input
      * @param minIncluded boolean; is the minimum value included or excluded in the allowed interval?
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
-     * @param format the format to use in displaying the float
+     * @param format String; the format to use in displaying the float
      * @param displayPriority float; sorting order when properties are displayed to the user
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
@@ -84,7 +84,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      * @param maximumValueSI float; the highest value allowed as input (in SI units)
      * @param minIncluded boolean; is the minimum value included or excluded in the allowed interval?
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
-     * @param format the format to use in displaying the float
+     * @param format String; the format to use in displaying the float
      * @param displayPriority float; sorting order when properties are displayed to the user
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
@@ -183,7 +183,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     }
 
     /**
-     * @param minimumValueSI set minimumValue (SI units)
+     * @param minimumValueSI float; set minimumValue (SI units)
      */
     public final void setMinimumValueSI(final float minimumValueSI)
     {
@@ -199,7 +199,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     }
 
     /**
-     * @param maximumValueSI set maximumValue (SI units)
+     * @param maximumValueSI float; set maximumValue (SI units)
      */
     public final void setMaximumValueSI(final float maximumValueSI)
     {
@@ -215,7 +215,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     }
 
     /**
-     * @param minIncluded set minIncluded
+     * @param minIncluded boolean; set minIncluded
      */
     public final void setMinIncluded(final boolean minIncluded)
     {
@@ -231,7 +231,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     }
 
     /**
-     * @param maxIncluded set maxIncluded
+     * @param maxIncluded boolean; set maxIncluded
      */
     public final void setMaxIncluded(final boolean maxIncluded)
     {

@@ -4,13 +4,12 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Uniform distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/UniformDistribution.html">
- * http://mathworld.wolfram.com/UniformDistribution.html </a>
+ * <a href="http://mathworld.wolfram.com/UniformDistribution.html"> http://mathworld.wolfram.com/UniformDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -28,8 +27,8 @@ public class DistUniform extends DistContinuous
     private double b;
 
     /**
-     * constructs a new uniform distribution. a and b are real numbers with a less than b. a is a location parameter,
-     * b-a is a scale parameter.
+     * constructs a new uniform distribution. a and b are real numbers with a less than b. a is a location parameter, b-a is a
+     * scale parameter.
      * @param stream StreamInterface; the random number stream
      * @param a double; the minimum value
      * @param b double; the maximum value

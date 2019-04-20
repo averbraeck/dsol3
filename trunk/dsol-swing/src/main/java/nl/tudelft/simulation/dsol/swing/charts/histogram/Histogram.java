@@ -25,14 +25,13 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
 /**
  * The histogram specifies a histogram chart for the DSOL framework.
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
@@ -76,20 +75,20 @@ public class Histogram implements Swingable
         super();
         this.dataset = new HistogramDataset(title, domain, range, numberofBins);
 
-        this.chart = ChartFactory.createHistogram(title, LABEL_X_AXIS, LABEL_Y_AXIS, this.dataset,
-                PlotOrientation.VERTICAL, true, true, true);
+        this.chart = ChartFactory.createHistogram(title, LABEL_X_AXIS, LABEL_Y_AXIS, this.dataset, PlotOrientation.VERTICAL,
+                true, true, true);
         this.chart.setBackgroundPaint(new GradientPaint(0.0F, 0.0F, Color.white, 1000F, 0.0F, Color.blue));
 
         this.chart.getXYPlot().setRangeAxis(new NumberAxis(Histogram.LABEL_Y_AXIS));
         this.chart.getXYPlot().getRangeAxis().setAutoRange(true);
-        this.chart.getXYPlot().setDomainAxis(
-                new HistogramDomainAxis(this.chart.getXYPlot(), Histogram.LABEL_X_AXIS, domain, numberofBins));
+        this.chart.getXYPlot()
+                .setDomainAxis(new HistogramDomainAxis(this.chart.getXYPlot(), Histogram.LABEL_X_AXIS, domain, numberofBins));
         this.dataset.addChangeListener(this.chart.getXYPlot());
     }
 
     /**
      * constructs a new Histogram that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title of the plot
      * @param domain double[]; the domain of the plot
      * @param range double[]; the range of the plot
@@ -112,7 +111,7 @@ public class Histogram implements Swingable
 
     /**
      * constructs a new Histogram that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface; the simulator
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
      * @param title String; the title
      * @param domain double[]; the domain
      * @param numberofBins int; the number of bins
@@ -144,15 +143,15 @@ public class Histogram implements Swingable
     }
 
     /**
-     * adds an eventProducer to the histogram dataset. The histogram subscribes its dataset subsequentially to the
-     * specified event.
+     * adds an eventProducer to the histogram dataset. The histogram subscribes its dataset subsequentially to the specified
+     * event.
      * @param description String; the description of the eventProducer
      * @param source EventProducerInterface; the eventproducer which functions as source for this histogram.
      * @param eventType EventType; the eventType.
      * @throws RemoteException on network error for the (possibly remote) event listener
      */
-    public synchronized void add(final String description, final EventProducerInterface source,
-            final EventType eventType) throws RemoteException
+    public synchronized void add(final String description, final EventProducerInterface source, final EventType eventType)
+            throws RemoteException
     {
         HistogramSeries set = this.getDataset().addSeries(description);
         source.addListener(set, eventType, false);

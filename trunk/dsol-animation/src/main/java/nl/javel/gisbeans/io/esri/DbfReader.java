@@ -208,8 +208,7 @@ public class DbfReader implements Serializable
     }
 
     /**
-     * may we cache parsed data for a session. If false, every getRows results in IO activity. If true data is stored
-     * inMemory
+     * may we cache parsed data for a session. If false, every getRows results in IO activity. If true data is stored inMemory
      * @return Returns the cache.
      */
     public boolean isCache()

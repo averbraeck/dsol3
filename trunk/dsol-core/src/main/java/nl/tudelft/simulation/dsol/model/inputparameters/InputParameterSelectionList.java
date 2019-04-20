@@ -31,7 +31,7 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
      * @param key String; unique (within the parent's input parameter map) name of the new InputParameterSelectionList
      * @param shortName String; concise description of the input parameter
      * @param description String; long description of the input parameter (may use HTML markup)
-     * @param options the list of selection options
+     * @param options List&lt;T&gt;; the list of selection options
      * @param defaultValue T; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException in case the default value is not part of the list
@@ -53,13 +53,13 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
      * @param key String; unique (within the parent's input parameter map) name of the new InputParameterSelectionList
      * @param shortName String; concise description of the input parameter
      * @param description String; long description of the input parameter (may use HTML markup)
-     * @param options the array of selection options
+     * @param options T[]; the array of selection options
      * @param defaultValue T; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException in case the default value is not part of the list
      */
-    public InputParameterSelectionList(final String key, final String shortName, final String description,
-            final T[] options, final T defaultValue, final double displayPriority) throws InputParameterException
+    public InputParameterSelectionList(final String key, final String shortName, final String description, final T[] options,
+            final T defaultValue, final double displayPriority) throws InputParameterException
     {
         this(key, shortName, description, Arrays.asList(options), defaultValue, displayPriority);
     }
@@ -100,7 +100,7 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
 
     /**
      * Set a new value by providing one of the list options.
-     * @param newValue the new value (must be one of the list options)
+     * @param newValue T; the new value (must be one of the list options)
      * @throws InputParameterException when the new value is not part of selectionList options, or when the list is read-only
      */
     public void setListValue(final T newValue) throws InputParameterException

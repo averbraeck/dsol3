@@ -11,10 +11,10 @@ import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 /**
  * The Tally class defines a statistics event tally.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
@@ -113,8 +113,8 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the confidence interval on either side of the mean.
-     * @param alpha double; Alpha is the significance level used to compute the confidence level. The confidence level
-     *            equals 100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
+     * @param alpha double; Alpha is the significance level used to compute the confidence level. The confidence level equals
+     *            100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
      * @return double[] the confidence interval of this tally
      */
     public final double[] getConfidenceInterval(final double alpha)
@@ -124,8 +124,8 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
     /**
      * returns the confidence interval based of the mean.
-     * @param alpha double; Alpha is the significance level used to compute the confidence level. The confidence level
-     *            equals 100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
+     * @param alpha double; Alpha is the significance level used to compute the confidence level. The confidence level equals
+     *            100*(1 - alpha)%, or in other words, an alpha of 0.05 indicates a 95 percent confidence level.
      * @param side short; the side of the confidence interval with respect to the mean
      * @return double[] the confidence interval of this tally
      */

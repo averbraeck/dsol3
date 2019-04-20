@@ -3,10 +3,10 @@ package nl.tudelft.simulation.event;
 /**
  * The Event class forms the reference implementation for the EventInterface.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -64,8 +64,7 @@ public class Event implements EventInterface
     @Override
     public String toString()
     {
-        return "[" + this.getClass().getName() + ";" + this.getType() + ";" + this.getSource() + ";" + this.getContent()
-                + "]";
+        return "[" + this.getClass().getName() + ";" + this.getType() + ";" + this.getSource() + ";" + this.getContent() + "]";
     }
 
     /** {@inheritDoc} */

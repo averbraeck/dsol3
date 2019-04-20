@@ -68,7 +68,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * constructs a Treatment.
-     * @param experiment Experiment&lt;A,R,T&gt;; reflects the experiment
+     * @param experiment Experiment&lt;A, R, T, ? extends SimulatorInterface&lt;A, R, T&gt;&gt;; reflects the experiment
      * @param id String; an id to recognize the treatment
      * @param startTime T; the absolute start time of a run (can be zero)
      * @param warmupPeriod R; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the runLength
@@ -93,7 +93,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * constructs a Treatment.
-     * @param experiment Experiment&lt;A,R,T&gt;; reflects the experiment
+     * @param experiment Experiment&lt;A, R, T, ? extends SimulatorInterface&lt;A, R, T&gt;&gt;; reflects the experiment
      * @param id String; an id to recognize the treatment
      * @param startTime T; the absolute start time of a run (can be zero)
      * @param warmupPeriod R; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the runLength
@@ -113,7 +113,6 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
         return this.experiment;
     }
 
-    
     /**
      * @return the input parameter map for this treatment
      */
@@ -225,7 +224,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeDouble.
-         * @param experiment Experiment.TimeDouble; reflects the experiment
+         * @param experiment Experiment.TimeDouble&lt;? extends SimulatorInterface.TimeDouble&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Double; the absolute start time of a run (can be zero)
          * @param warmupPeriod Double; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -242,7 +241,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeDouble.
-         * @param experiment Experiment.TimeDouble; reflects the experiment
+         * @param experiment Experiment.TimeDouble&lt;? extends SimulatorInterface.TimeDouble&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Double; the absolute start time of a run (can be zero)
          * @param warmupPeriod Double; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -274,7 +273,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeFloat.
-         * @param experiment Experiment.TimeFloat; reflects the experiment
+         * @param experiment Experiment.TimeFloat&lt;? extends SimulatorInterface.TimeFloat&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Float; the absolute start time of a run (can be zero)
          * @param warmupPeriod Float; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -290,7 +289,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeFloat.
-         * @param experiment Experiment.TimeFloat; reflects the experiment
+         * @param experiment Experiment.TimeFloat&lt;? extends SimulatorInterface.TimeFloat&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Float; the absolute start time of a run (can be zero)
          * @param warmupPeriod Float; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -322,7 +321,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeLong.
-         * @param experiment Experiment.TimeLong; reflects the experiment
+         * @param experiment Experiment.TimeLong&lt;? extends SimulatorInterface.TimeLong&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Long; the absolute start time of a run (can be zero)
          * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -338,7 +337,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeLong.
-         * @param experiment Experiment.TimeLong; reflects the experiment
+         * @param experiment Experiment.TimeLong&lt;? extends SimulatorInterface.TimeLong&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Long; the absolute start time of a run (can be zero)
          * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -370,7 +369,8 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeDoubleUnit.
-         * @param experiment Experiment.TimeDoubleUnit; reflects the experiment
+         * @param experiment Experiment.TimeDoubleUnit&lt;? extends SimulatorInterface.TimeDoubleUnit&gt;; reflects the
+         *            experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Time; the absolute start time of a run (can be zero)
          * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -387,7 +387,8 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeDoubleUnit.
-         * @param experiment Experiment.TimeDoubleUnit; reflects the experiment
+         * @param experiment Experiment.TimeDoubleUnit&lt;? extends SimulatorInterface.TimeDoubleUnit&gt;; reflects the
+         *            experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Time; the absolute start time of a run (can be zero)
          * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -419,7 +420,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeFloatUnit.
-         * @param experiment Experiment.TimeFloatUnit; reflects the experiment
+         * @param experiment Experiment.TimeFloatUnit&lt;? extends SimulatorInterface.TimeFloatUnit&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime FloatTime; the absolute start time of a run (can be zero)
          * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
@@ -436,7 +437,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.TimeFloatUnit.
-         * @param experiment Experiment.TimeFloatUnit; reflects the experiment
+         * @param experiment Experiment.TimeFloatUnit&lt;? extends SimulatorInterface.TimeFloatUnit&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime FloatTime; the absolute start time of a run (can be zero)
          * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
@@ -468,7 +469,8 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarDouble.
-         * @param experiment Experiment.CalendarDouble; reflects the experiment
+         * @param experiment Experiment.CalendarDouble&lt;? extends SimulatorInterface.CalendarDouble&gt;; reflects the
+         *            experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
          * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -485,7 +487,8 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarDouble.
-         * @param experiment Experiment.CalendarDouble; reflects the experiment
+         * @param experiment Experiment.CalendarDouble&lt;? extends SimulatorInterface.CalendarDouble&gt;; reflects the
+         *            experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
          * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -517,7 +520,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarFloat.
-         * @param experiment Experiment.CalendarFloat; reflects the experiment
+         * @param experiment Experiment.CalendarFloat&lt;? extends SimulatorInterface.CalendarFloat&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
          * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
@@ -534,7 +537,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarFloat.
-         * @param experiment Experiment.CalendarFloat; reflects the experiment
+         * @param experiment Experiment.CalendarFloat&lt;? extends SimulatorInterface.CalendarFloat&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
          * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
@@ -566,7 +569,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarLong.
-         * @param experiment Experiment.CalendarLong; reflects the experiment
+         * @param experiment Experiment.CalendarLong&lt;? extends SimulatorInterface.CalendarLong&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
          * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
@@ -583,7 +586,7 @@ public class Treatment<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a Treatment.CalendarLong.
-         * @param experiment Experiment.CalendarLong; reflects the experiment
+         * @param experiment Experiment.CalendarLong&lt;? extends SimulatorInterface.CalendarLong&gt;; reflects the experiment
          * @param id String; an id to recognize the treatment
          * @param startTime Calendar; the absolute start time of a run (can be zero)
          * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the

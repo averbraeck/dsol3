@@ -26,8 +26,8 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
     }
 
     /**
-     * The SerializableRectangle2D.Double class is a serializable version of the
-     * <code>java.awt.geom.Rectangle2D.Double</code> class.
+     * The SerializableRectangle2D.Double class is a serializable version of the <code>java.awt.geom.Rectangle2D.Double</code>
+     * class.
      * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
      *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
      * @since JDK 1.2
@@ -167,8 +167,8 @@ public abstract class SerializableRectangle2D extends java.awt.geom.Rectangle2D
     }
 
     /**
-     * The SerializableRectangle2D.Float class is a serializable version of the
-     * <code>java.awt.geom.Rectangle2D.Double</code> class.
+     * The SerializableRectangle2D.Float class is a serializable version of the <code>java.awt.geom.Rectangle2D.Double</code>
+     * class.
      * @author <a href="mailto:peter.jacobs@javel.nl">Peter Jacobs </a> <br>
      *         <a href="mailto:paul.jacobs@javel.nl">Paul Jacobs </a>
      * @since JDK 1.2

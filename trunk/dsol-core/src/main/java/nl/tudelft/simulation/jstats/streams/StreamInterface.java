@@ -3,13 +3,13 @@ package nl.tudelft.simulation.jstats.streams;
 import java.io.Serializable;
 
 /**
- * The StreamInterface defines the streams to be used within the JSTATS package. Potential implementations include the
- * pseudo random stream, the fully one-time random stream, etc.
+ * The StreamInterface defines the streams to be used within the JSTATS package. Potential implementations include the pseudo
+ * random stream, the fully one-time random stream, etc.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
@@ -18,11 +18,10 @@ import java.io.Serializable;
 public interface StreamInterface extends Serializable
 {
     /**
-     * Returns the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number
-     * generator's sequence. The general contract of <tt>nextBoolean</tt> is that one <tt>boolean</tt> value is
-     * pseudorandomly generated and returned. The values <code>true</code> and <code>false</code> are produced with
-     * (approximately) equal probability. The method <tt>nextBoolean</tt> is implemented by class <tt>Random</tt> as
-     * follows: <blockquote>
+     * Returns the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
+     * sequence. The general contract of <tt>nextBoolean</tt> is that one <tt>boolean</tt> value is pseudorandomly generated and
+     * returned. The values <code>true</code> and <code>false</code> are produced with (approximately) equal probability. The
+     * method <tt>nextBoolean</tt> is implemented by class <tt>Random</tt> as follows: <blockquote>
      * 
      * <pre>
      * public boolean nextBoolean()
@@ -32,29 +31,28 @@ public interface StreamInterface extends Serializable
      * </pre>
      * 
      * </blockquote>
-     * @return the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number
-     *         generator's sequence.
+     * @return the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
+     *         sequence.
      * @since 1.5
      */
     boolean nextBoolean();
 
     /**
-     * Method return a (pseudo)random number from the stream over the interval (0,1) using this stream, after advancing
-     * its state by one step.
+     * Method return a (pseudo)random number from the stream over the interval (0,1) using this stream, after advancing its
+     * state by one step.
      * @return double the (pseudo)random number
      */
     double nextDouble();
 
     /**
-     * Method return a (pseudo)random number from the stream over the interval (0,1) using this stream, after advancing
-     * its state by one step.
+     * Method return a (pseudo)random number from the stream over the interval (0,1) using this stream, after advancing its
+     * state by one step.
      * @return float the (pseudo)random number
      */
     float nextFloat();
 
     /**
-     * Method return a (pseudo)random number from the stream over using this stream, after advancing its state by one
-     * step.
+     * Method return a (pseudo)random number from the stream over using this stream, after advancing its state by one step.
      * @return int the (pseudo)random number
      */
     int nextInt();
@@ -68,8 +66,7 @@ public interface StreamInterface extends Serializable
     int nextInt(int i, int j);
 
     /**
-     * Method return a (pseudo)random number from the stream over using this stream, after advancing its state by one
-     * step.
+     * Method return a (pseudo)random number from the stream over using this stream, after advancing its state by one step.
      * @return long the (pseudo)random number
      */
     long nextLong();

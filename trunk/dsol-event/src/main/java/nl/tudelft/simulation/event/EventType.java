@@ -3,13 +3,13 @@ package nl.tudelft.simulation.event;
 import java.io.Serializable;
 
 /**
- * The EventType is a masker used for the subscription to asynchronous events. Eventtypes are used by EventProducers to
- * show which events they potentially fire. EventTypes should be defined as static final fields.
+ * The EventType is a masker used for the subscription to asynchronous events. Eventtypes are used by EventProducers to show
+ * which events they potentially fire. EventTypes should be defined as static final fields.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -28,8 +28,8 @@ public final class EventType implements Serializable
 
     /**
      * constructs a new EventType.
-     * @param name String; the name of this eventType. Two values are not appreciated : &lt;code&gt;null&lt;/code&gt;
-     *            and &lt;code&gt;""&lt;/code&gt;.
+     * @param name String; the name of this eventType. Two values are not appreciated : &lt;code&gt;null&lt;/code&gt; and
+     *            &lt;code&gt;""&lt;/code&gt;.
      */
     public EventType(final String name)
     {
@@ -54,16 +54,16 @@ public final class EventType implements Serializable
     }
 
     /**
-     * Returns a hash code for the name of the this eventType. The hash code for an <code>EventType</code> object is
-     * computed as <blockquote>
+     * Returns a hash code for the name of the this eventType. The hash code for an <code>EventType</code> object is computed as
+     * <blockquote>
      * 
      * <pre>
      *        s[0]*31&circ;(n-1) + s[1]*31&circ;(n-2) + ... + s[n-1]
      * </pre>
      * 
-     * </blockquote> using <code>int</code> arithmetic, where <code>s[i]</code> is the <i>i </i>th character of the name
-     * of the eventType, <code>n</code> is the length of the name, and <code>^</code> indicates exponentiation. This
-     * algorithm assures JVM, host, time independence.
+     * </blockquote> using <code>int</code> arithmetic, where <code>s[i]</code> is the <i>i </i>th character of the name of the
+     * eventType, <code>n</code> is the length of the name, and <code>^</code> indicates exponentiation. This algorithm assures
+     * JVM, host, time independence.
      * @return a hash code value for this object.
      */
     @Override

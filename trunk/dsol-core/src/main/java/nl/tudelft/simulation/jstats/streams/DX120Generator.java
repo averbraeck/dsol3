@@ -2,13 +2,13 @@ package nl.tudelft.simulation.jstats.streams;
 
 /**
  * The DX-120-4 pseudo random number generator. This generator is described in
- * <a href="http://www.cs.memphis.edu/~dengl/dx-rng/dengxu2002.pdf"> A System of High-dimensional, Efficient, Long-cycle
- * and Portable Uniform Random Number Generators </a>.
+ * <a href="http://www.cs.memphis.edu/~dengl/dx-rng/dengxu2002.pdf"> A System of High-dimensional, Efficient, Long-cycle and
+ * Portable Uniform Random Number Generators </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
@@ -105,9 +105,9 @@ public class DX120Generator extends RandomNumberGenerator
         {
             this.k23 = 0; /* wrap around running k23 */
         }
-        this.buffer[this.index] = (521673
-                * (this.buffer[this.index] + this.buffer[this.k13] + this.buffer[this.k23] + this.buffer[tempIndex]))
-                & MASK;
+        this.buffer[this.index] =
+                (521673 * (this.buffer[this.index] + this.buffer[this.k13] + this.buffer[this.k23] + this.buffer[tempIndex]))
+                        & MASK;
         if (bits <= 32)
         {
             return (this.buffer[this.index]) >>> (32 - bits);

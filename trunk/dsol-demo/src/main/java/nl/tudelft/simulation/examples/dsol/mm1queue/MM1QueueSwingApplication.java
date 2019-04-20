@@ -72,8 +72,8 @@ public class MM1QueueSwingApplication extends DSOLApplication
         private static final long serialVersionUID = 1L;
 
         /**
-         * @param model Warehouse42Model; the model
-         * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
+         * @param model MM1QueueModel; the model
+         * @param simulator DEVSSimulator.TimeDouble; the simulator
          */
         MM1QueuePanel(final MM1QueueModel model, final DEVSSimulator.TimeDouble simulator)
         {
@@ -83,7 +83,7 @@ public class MM1QueueSwingApplication extends DSOLApplication
 
         /**
          * add a number of charts for the demo.
-         * @param model Warehouse42Model; the model from which to take the statistics
+         * @param model MM1QueueModel; the model from which to take the statistics
          */
         protected final void addTabs(final MM1QueueModel model)
         {

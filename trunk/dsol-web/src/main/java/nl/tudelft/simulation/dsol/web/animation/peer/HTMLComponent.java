@@ -97,7 +97,7 @@ public class HTMLComponent implements ComponentPeer
     @Override
     public void handleEvent(AWTEvent e)
     {
-        System.out.println("HTMLComponent.handleEvent("+ e.toString() + ")");
+        System.out.println("HTMLComponent.handleEvent(" + e.toString() + ")");
     }
 
     /** {@inheritDoc} */
@@ -192,8 +192,8 @@ public class HTMLComponent implements ComponentPeer
 
     /** {@inheritDoc} */
     @Override
-    public boolean requestFocus(Component lightweightChild, boolean temporary, boolean focusedWindowChangeAllowed,
-            long time, Cause cause)
+    public boolean requestFocus(Component lightweightChild, boolean temporary, boolean focusedWindowChangeAllowed, long time,
+            Cause cause)
     {
         System.out.println("HTMLComponent.requestFocus()");
         return false;
@@ -312,21 +312,21 @@ public class HTMLComponent implements ComponentPeer
     public void layout()
     {
         System.out.println("HTMLComponent.layout()");
-   }
+    }
 
     /** {@inheritDoc} */
     @Override
     public void applyShape(Region shape)
     {
         System.out.println("HTMLComponent.applyShape()");
-   }
+    }
 
     /** {@inheritDoc} */
     @Override
     public void setZOrder(ComponentPeer above)
     {
         System.out.println("HTMLComponent.setZOrder()");
-   }
+    }
 
     /** {@inheritDoc} */
     @Override

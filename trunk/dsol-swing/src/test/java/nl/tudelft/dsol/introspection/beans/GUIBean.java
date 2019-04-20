@@ -88,7 +88,7 @@ public class GUIBean
         map1.put("first", set11);
         Set<Double> set12 = new HashSet<>(Arrays.asList(11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0));
         map1.put("second", set12);
-        
+
         Map<String, Set<Double>> map2 = new HashMap<>();
         this.listMapSet.add(map2);
         Set<Double> set21 = new HashSet<>(Arrays.asList(1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5));

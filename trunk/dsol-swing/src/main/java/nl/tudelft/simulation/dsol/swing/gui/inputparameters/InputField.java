@@ -14,7 +14,7 @@ public interface InputField
 {
     /** @return the key of the field. */
     String getKey();
-    
+
     /** @return the input parameter for the field. */
     InputParameter<?, ?> getParameter();
 }

@@ -7,10 +7,10 @@ import nl.tudelft.simulation.language.filters.FilterInterface;
 /**
  * Tests the MaxDiffFilter.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://web.eur.nl/fbk/dep/dep1/Introduction/Staff/People/Lang">Niels Lang
@@ -42,10 +42,10 @@ public class SnippetFilterTest extends TestCase
     public void test()
     {
         FilterInterface filter = new SnippetFilter(1.0);
-        Assert.assertTrue(filter.accept(new double[]{10.0, 0}));
-        Assert.assertFalse(filter.accept(new double[]{10.1, 0.0}));
-        Assert.assertTrue(filter.accept(new double[]{11.0, 0.0}));
-        Assert.assertFalse(filter.accept(new double[]{11.1, 0.0}));
-        Assert.assertFalse(filter.accept(new double[]{11.5, 0.0}));
+        Assert.assertTrue(filter.accept(new double[] {10.0, 0}));
+        Assert.assertFalse(filter.accept(new double[] {10.1, 0.0}));
+        Assert.assertTrue(filter.accept(new double[] {11.0, 0.0}));
+        Assert.assertFalse(filter.accept(new double[] {11.1, 0.0}));
+        Assert.assertFalse(filter.accept(new double[] {11.5, 0.0}));
     }
 }

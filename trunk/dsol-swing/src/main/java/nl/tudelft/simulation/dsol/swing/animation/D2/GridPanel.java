@@ -15,10 +15,10 @@ import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
 /**
  * The GridPanel introduces the gridPanel.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>, <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
@@ -116,7 +116,7 @@ public class GridPanel extends JPanel
     public void paintComponent(final Graphics g)
     {
         super.paintComponent(g);
-        
+
         if (!this.getSize().equals(this.lastDimension))
         {
             this.lastDimension = this.getSize();
@@ -261,8 +261,8 @@ public class GridPanel extends JPanel
      */
     public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
     {
-        Point2D mwc = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent,
-                this.getSize());
+        Point2D mwc =
+                Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent, this.getSize());
         double minX = mwc.getX() - (mwc.getX() - this.extent.getMinX()) * factor;
         double minY = mwc.getY() - (mwc.getY() - this.extent.getMinY()) * factor;
         double w = this.extent.getWidth() * factor;
@@ -298,7 +298,7 @@ public class GridPanel extends JPanel
                 break;
             }
         }
-        
+
         count = 0;
         while (gridSizePixels > 10 * 40)
         {
@@ -311,14 +311,14 @@ public class GridPanel extends JPanel
                 break;
             }
         }
-        
+
         // Let's draw the vertical lines
         double mod = this.extent.getMinX() % this.gridSize;
         int x = (int) -Math.round(mod / scale);
         while (x < this.getWidth())
         {
-            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent,
-                    this.getSize());
+            Point2D point =
+                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent, this.getSize());
             if (point != null)
             {
                 String label = this.formatter.format(Math.round(point.getX() / this.gridSize) * this.gridSize);
@@ -331,14 +331,14 @@ public class GridPanel extends JPanel
             }
             x = x + gridSizePixels;
         }
-        
+
         // Let's draw the horizontal lines
         mod = Math.abs(this.extent.getMinY()) % this.gridSize;
         int y = (int) Math.round(this.getSize().getHeight() - (mod / scale));
         while (y > 15)
         {
-            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent,
-                    this.getSize());
+            Point2D point =
+                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent, this.getSize());
             if (point != null)
             {
                 String label = this.formatter.format(Math.round(point.getY() / this.gridSize) * this.gridSize);

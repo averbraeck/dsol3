@@ -21,14 +21,14 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 
 /**
- * The SimEvent forms the essential scheduling mechanism for D-SOL. Objects do not invoke methods directly on eachother;
- * they bundle the object on which the method is planned to be invoked together with the arguments and the name of the
- * method in a simEvent. The SimEvent is then stored in the eventList and executed.
+ * The SimEvent forms the essential scheduling mechanism for D-SOL. Objects do not invoke methods directly on eachother; they
+ * bundle the object on which the method is planned to be invoked together with the arguments and the name of the method in a
+ * simEvent. The SimEvent is then stored in the eventList and executed.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -64,8 +64,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
      * @param method String; the method to invoke
      * @param args Object[]; the arguments the method to invoke with
      */
-    public SimEvent(final T executionTime, final Object source, final Object target, final String method,
-            final Object[] args)
+    public SimEvent(final T executionTime, final Object source, final Object target, final String method, final Object[] args)
     {
         this(executionTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
     }
@@ -79,8 +78,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
      * @param method String; the method to invoke
      * @param args Object[]; the arguments the method to invoke with
      */
-    public SimEvent(final T executionTime, final short priority, final Object source, final Object target,
-            final String method, final Object[] args)
+    public SimEvent(final T executionTime, final short priority, final Object source, final Object target, final String method,
+            final Object[] args)
     {
         super(executionTime, priority);
         if (source == null || target == null || method == null)
@@ -104,8 +103,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
             {
                 if (!(this.target instanceof Class))
                 {
-                    throw new SimRuntimeException(
-                            "Invoking a constructor implies that target should be instance of Class");
+                    throw new SimRuntimeException("Invoking a constructor implies that target should be instance of Class");
                 }
                 Constructor<?> constructor = ClassUtil.resolveConstructor((Class<?>) this.target, this.args);
                 if (!ClassUtil.isVisible(constructor, this.source.getClass()))
@@ -128,8 +126,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
         }
         catch (Exception exception)
         {
-            System.err.println(exception.toString() + " calling " + this.target + "." + this.methodName
-                    + " with arguments " + Arrays.toString(this.getArgs()));
+            System.err.println(exception.toString() + " calling " + this.target + "." + this.methodName + " with arguments "
+                    + Arrays.toString(this.getArgs()));
             throw new SimRuntimeException(exception);
         }
     }
@@ -337,8 +335,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
          * @param method String; the method to invoke
          * @param args Object[]; the arguments the method to invoke with
          */
-        public TimeFloatUnit(final FloatTime executionTime, final Object source, final Object target,
-                final String method, final Object[] args)
+        public TimeFloatUnit(final FloatTime executionTime, final Object source, final Object target, final String method,
+                final Object[] args)
         {
             super(new SimTimeFloatUnit(executionTime), source, target, method, args);
         }
@@ -352,16 +350,15 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
          * @param method String; the method to invoke
          * @param args Object[]; the arguments the method to invoke with
          */
-        public TimeFloatUnit(final FloatTime executionTime, final short priority, final Object source,
-                final Object target, final String method, final Object[] args)
+        public TimeFloatUnit(final FloatTime executionTime, final short priority, final Object source, final Object target,
+                final String method, final Object[] args)
         {
             super(new SimTimeFloatUnit(executionTime), priority, source, target, method, args);
         }
     }
 
     /** Easy access class SimEvent.CalendarDouble. */
-    public static class CalendarDouble extends SimEvent<SimTimeCalendarDouble>
-            implements SimEventInterface.CalendarDouble
+    public static class CalendarDouble extends SimEvent<SimTimeCalendarDouble> implements SimEventInterface.CalendarDouble
     {
         /** */
         private static final long serialVersionUID = 20150422L;
@@ -374,8 +371,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
          * @param method String; the method to invoke
          * @param args Object[]; the arguments the method to invoke with
          */
-        public CalendarDouble(final Calendar executionTime, final Object source, final Object target,
-                final String method, final Object[] args)
+        public CalendarDouble(final Calendar executionTime, final Object source, final Object target, final String method,
+                final Object[] args)
         {
             super(new SimTimeCalendarDouble(executionTime), source, target, method, args);
         }
@@ -389,8 +386,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
          * @param method String; the method to invoke
          * @param args Object[]; the arguments the method to invoke with
          */
-        public CalendarDouble(final Calendar executionTime, final short priority, final Object source,
-                final Object target, final String method, final Object[] args)
+        public CalendarDouble(final Calendar executionTime, final short priority, final Object source, final Object target,
+                final String method, final Object[] args)
         {
             super(new SimTimeCalendarDouble(executionTime), priority, source, target, method, args);
         }
@@ -410,8 +407,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
          * @param method String; the method to invoke
          * @param args Object[]; the arguments the method to invoke with
          */
-        public CalendarFloat(final Calendar executionTime, final Object source, final Object target,
-                final String method, final Object[] args)
+        public CalendarFloat(final Calendar executionTime, final Object source, final Object target, final String method,
+                final Object[] args)
         {
             super(new SimTimeCalendarFloat(executionTime), source, target, method, args);
         }
@@ -425,8 +422,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
          * @param method String; the method to invoke
          * @param args Object[]; the arguments the method to invoke with
          */
-        public CalendarFloat(final Calendar executionTime, final short priority, final Object source,
-                final Object target, final String method, final Object[] args)
+        public CalendarFloat(final Calendar executionTime, final short priority, final Object source, final Object target,
+                final String method, final Object[] args)
         {
             super(new SimTimeCalendarFloat(executionTime), priority, source, target, method, args);
         }
@@ -461,8 +458,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
          * @param method String; the method to invoke
          * @param args Object[]; the arguments the method to invoke with
          */
-        public CalendarLong(final Calendar executionTime, final short priority, final Object source,
-                final Object target, final String method, final Object[] args)
+        public CalendarLong(final Calendar executionTime, final short priority, final Object source, final Object target,
+                final String method, final Object[] args)
         {
             super(new SimTimeCalendarLong(executionTime), priority, source, target, method, args);
         }

@@ -175,8 +175,7 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
 
     /** {@inheritDoc} */
     @Override
-    public java.awt.geom.PathIterator getPathIterator(final java.awt.geom.AffineTransform affineTransform,
-            final double param)
+    public java.awt.geom.PathIterator getPathIterator(final java.awt.geom.AffineTransform affineTransform, final double param)
     {
         return this.generalPath.getPathIterator(affineTransform, param);
     }
@@ -348,8 +347,8 @@ public class SerializableGeneralPath implements java.io.Serializable, java.awt.S
                     this.generalPath.closePath();
                     break;
                 case PathIterator.SEG_CUBICTO:
-                    this.generalPath.curveTo(in.readFloat(), in.readFloat(), in.readFloat(), in.readFloat(),
-                            in.readFloat(), in.readFloat());
+                    this.generalPath.curveTo(in.readFloat(), in.readFloat(), in.readFloat(), in.readFloat(), in.readFloat(),
+                            in.readFloat());
                     break;
                 case PathIterator.SEG_LINETO:
                     this.generalPath.lineTo(in.readFloat(), in.readFloat());

@@ -24,10 +24,9 @@ import org.pmw.tinylog.writers.Writer;
 /**
  * The Console for the swing application where the log messages are displayed. <br>
  * <br>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
- * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of Delft
- * University of Technology.
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>. The
+ * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
  */
 public class Console extends JTextPane
@@ -89,8 +88,8 @@ public class Console extends JTextPane
     }
 
     /**
-     * Set the maximum number of lines in the console before the first lines will be erased. The number of lines should
-     * be at least 1. If the provided number of lines is less than 1, it wil be set to 1.
+     * Set the maximum number of lines in the console before the first lines will be erased. The number of lines should be at
+     * least 1. If the provided number of lines is less than 1, it wil be set to 1.
      * @param maxLines int; set the maximum number of lines before the first lines will be erased
      */
     public final void setMaxLines(final int maxLines)
@@ -101,10 +100,9 @@ public class Console extends JTextPane
     /**
      * LogWriter takes care of writing the log records to the console. <br>
      * <br>
-     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
-     * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of
-     * Delft University of Technology.
+     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
+     * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
      */
     public static class ConsoleLogWriter implements Writer

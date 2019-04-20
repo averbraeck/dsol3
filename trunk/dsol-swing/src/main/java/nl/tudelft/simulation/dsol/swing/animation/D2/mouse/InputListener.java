@@ -34,10 +34,10 @@ import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialog;
 /**
  * A InputListener.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
@@ -223,8 +223,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         double scale = Renderable2DInterface.Util.getScale(this.panel.getExtent(), this.panel.getSize());
 
         Rectangle2D.Double extent = (Rectangle2D.Double) this.panel.getExtent();
-        extent.setRect((extent.getMinX() - dx * scale), (extent.getMinY() + dy * scale), extent.getWidth(),
-                extent.getHeight());
+        extent.setRect((extent.getMinX() - dx * scale), (extent.getMinY() + dy * scale), extent.getWidth(), extent.getHeight());
     }
 
     /**
@@ -237,8 +236,8 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         List<Locatable> targets = new ArrayList<Locatable>();
         try
         {
-            Point2D point = Renderable2DInterface.Util.getWorldCoordinates(mousePoint, this.panel.getExtent(),
-                    this.panel.getSize());
+            Point2D point =
+                    Renderable2DInterface.Util.getWorldCoordinates(mousePoint, this.panel.getExtent(), this.panel.getSize());
             for (Renderable2DInterface<?> renderable : this.panel.getElements())
             {
                 if (this.panel.isShowElement(renderable)

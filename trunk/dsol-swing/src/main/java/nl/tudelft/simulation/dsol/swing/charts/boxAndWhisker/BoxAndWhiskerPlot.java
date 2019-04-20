@@ -23,10 +23,10 @@ import nl.tudelft.simulation.jstats.statistics.Tally;
 /**
  * The Summary chart class defines a summary chart..
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -127,10 +127,8 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         double[] result = {0, 0};
         for (int i = 0; i < tallyArray.length; i++)
         {
-            double left =
-                    g2.getFont().getStringBounds(this.formatter.format(tallyArray[i].getMin()), context).getWidth();
-            double rigth =
-                    g2.getFont().getStringBounds(this.formatter.format(tallyArray[i].getMax()), context).getWidth();
+            double left = g2.getFont().getStringBounds(this.formatter.format(tallyArray[i].getMin()), context).getWidth();
+            double rigth = g2.getFont().getStringBounds(this.formatter.format(tallyArray[i].getMax()), context).getWidth();
             if (left > result[0])
             {
                 result[0] = left;
@@ -165,8 +163,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     private void fillRectangle(final Graphics2D g2, final Rectangle2D rectangle, final Color color)
     {
         g2.setColor(color);
-        g2.fillRect((int) rectangle.getX(), (int) rectangle.getY(), (int) rectangle.getWidth(),
-                (int) rectangle.getHeight());
+        g2.fillRect((int) rectangle.getX(), (int) rectangle.getY(), (int) rectangle.getWidth(), (int) rectangle.getHeight());
     }
 
     /**
@@ -195,8 +192,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         int tallyMax = (int) Math.round(rectangle.getX() + (tally.getMax() - leftX) * scale + leftBorder);
         int middle = (int) Math.round(rectangle.getY() + 0.5 * rectangle.getHeight());
         String label = this.formatter.format(tally.getMin());
-        g2.drawString(label,
-                (int) Math.round(tallyMin - 3 - this.getBounds(label, g2.getFontRenderContext()).getWidth()),
+        g2.drawString(label, (int) Math.round(tallyMin - 3 - this.getBounds(label, g2.getFontRenderContext()).getWidth()),
                 (int) Math.round(middle + 0.5 * this.getBounds(label, g2.getFontRenderContext()).getHeight()));
         label = this.formatter.format(tally.getMax());
         g2.drawString(label, tallyMax + 3,

@@ -60,8 +60,8 @@ public class LotkaVolterraSwingApplication extends DSOLApplication
         private static final long serialVersionUID = 1L;
 
         /**
-         * @param model PredatorPrey; the model
-         * @param simulator DESSSimulatorInterface.TimeDouble; the simulator
+         * @param model PredatorPreyModel; the model
+         * @param simulator DESSSimulator.TimeDouble; the simulator
          */
         LotkaVolterraPanel(final PredatorPreyModel model, final DESSSimulator.TimeDouble simulator)
         {

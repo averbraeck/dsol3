@@ -256,7 +256,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+         * @param simulator SimulatorInterface.TimeDouble; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeDouble(final String description, final SimulatorInterface.TimeDouble simulator) throws RemoteException
@@ -267,7 +267,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; the description of this tally.
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+         * @param simulator SimulatorInterface.TimeDouble; the simulator to schedule on
          * @param target EventProducerInterface; the target on which to subscribe
          * @param eventType EventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
@@ -288,7 +288,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+         * @param simulator SimulatorInterface.TimeFloat; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeFloat(final String description, final SimulatorInterface.TimeFloat simulator) throws RemoteException
@@ -299,7 +299,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; the description of this tally.
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+         * @param simulator SimulatorInterface.TimeFloat; the simulator to schedule on
          * @param target EventProducerInterface; the target on which to subscribe
          * @param eventType EventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
@@ -320,7 +320,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+         * @param simulator SimulatorInterface.TimeLong; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeLong(final String description, final SimulatorInterface.TimeLong simulator) throws RemoteException
@@ -331,7 +331,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; the description of this tally.
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+         * @param simulator SimulatorInterface.TimeLong; the simulator to schedule on
          * @param target EventProducerInterface; the target on which to subscribe
          * @param eventType EventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
@@ -352,7 +352,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+         * @param simulator SimulatorInterface.TimeDoubleUnit; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeDoubleUnit(final String description, final SimulatorInterface.TimeDoubleUnit simulator)
@@ -364,7 +364,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; the description of this tally.
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+         * @param simulator SimulatorInterface.TimeDoubleUnit; the simulator to schedule on
          * @param target EventProducerInterface; the target on which to subscribe
          * @param eventType EventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
@@ -385,7 +385,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+         * @param simulator SimulatorInterface.TimeFloatUnit; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeFloatUnit(final String description, final SimulatorInterface.TimeFloatUnit simulator) throws RemoteException
@@ -396,7 +396,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; the description of this tally.
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+         * @param simulator SimulatorInterface.TimeFloatUnit; the simulator to schedule on
          * @param target EventProducerInterface; the target on which to subscribe
          * @param eventType EventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
@@ -417,7 +417,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+         * @param simulator SimulatorInterface.CalendarDouble; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarDouble(final String description, final SimulatorInterface.CalendarDouble simulator)
@@ -429,7 +429,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; the description of this tally.
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+         * @param simulator SimulatorInterface.CalendarDouble; the simulator to schedule on
          * @param target EventProducerInterface; the target on which to subscribe
          * @param eventType EventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
@@ -450,7 +450,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+         * @param simulator SimulatorInterface.CalendarFloat; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarFloat(final String description, final SimulatorInterface.CalendarFloat simulator) throws RemoteException
@@ -461,7 +461,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; the description of this tally.
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+         * @param simulator SimulatorInterface.CalendarFloat; the simulator to schedule on
          * @param target EventProducerInterface; the target on which to subscribe
          * @param eventType EventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
@@ -482,7 +482,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator
+         * @param simulator SimulatorInterface.CalendarLong; the simulator
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarLong(final String description, final SimulatorInterface.CalendarLong simulator) throws RemoteException
@@ -493,7 +493,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         /**
          * constructs a new SimTally.
          * @param description String; the description of this tally.
-         * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
+         * @param simulator SimulatorInterface.CalendarLong; the simulator to schedule on
          * @param target EventProducerInterface; the target on which to subscribe
          * @param eventType EventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners

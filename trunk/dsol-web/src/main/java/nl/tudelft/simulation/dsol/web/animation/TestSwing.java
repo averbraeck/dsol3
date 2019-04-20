@@ -11,10 +11,9 @@ import javax.swing.JPanel;
 /**
  * TestSwing.java. <br>
  * <br>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
+ * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
 public class TestSwing
@@ -34,7 +33,7 @@ public class TestSwing
     }
 
     /**
-     * @param args empty
+     * @param args String[]; empty
      */
     public static void main(String[] args)
     {
@@ -58,7 +57,7 @@ public class TestSwing
         {
             setMinimumSize(new Dimension(100, 100));
         }
-        
+
         /** {@inheritDoc} */
         @Override
         protected void paintComponent(Graphics g)
@@ -66,6 +65,6 @@ public class TestSwing
             super.paintComponent(g);
             g.fillOval(50, 10, 60, 60);
         }
-        
+
     }
 }

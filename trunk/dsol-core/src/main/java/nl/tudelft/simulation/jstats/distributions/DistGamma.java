@@ -5,13 +5,12 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Gamma distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/GammaDistribution.html"> http://mathworld.wolfram.com/GammaDistribution.html
- * </a>
+ * <a href="http://mathworld.wolfram.com/GammaDistribution.html"> http://mathworld.wolfram.com/GammaDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -29,8 +28,8 @@ public class DistGamma extends DistContinuous
     private double beta;
 
     /**
-     * constructs a new gamma distribution. The gamma distribution represents the time to complete some task, e.g.
-     * customer service or machine repair
+     * constructs a new gamma distribution. The gamma distribution represents the time to complete some task, e.g. customer
+     * service or machine repair
      * @param stream StreamInterface; the random number stream
      * @param alpha double; is the shape parameter alpha &gt; 0
      * @param beta double; is the scale parameter beta &gt; 0

@@ -15,8 +15,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -26,7 +25,7 @@ public class DiscreteBall extends Ball
 {
     /** the ball number. */
     private final int nr;
-    
+
     /** the origin. */
     private CartesianPoint origin = new CartesianPoint(0, 0, 0);
 
@@ -48,11 +47,12 @@ public class DiscreteBall extends Ball
     /**
      * constructs a new Ball.
      * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
-     * @param nr the ball number
+     * @param nr int; the ball number
      * @throws RemoteException on remote failure
      * @throws SimRuntimeException on schedule failure
      */
-    public DiscreteBall(final DEVSSimulatorInterface.TimeDouble simulator, final int nr) throws RemoteException, SimRuntimeException
+    public DiscreteBall(final DEVSSimulatorInterface.TimeDouble simulator, final int nr)
+            throws RemoteException, SimRuntimeException
     {
         super();
         this.nr = nr;

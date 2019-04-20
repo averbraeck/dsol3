@@ -9,8 +9,7 @@ import org.junit.Test;
 /**
  * <p>
  * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
- * License</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
@@ -23,7 +22,7 @@ public class ArrayInterpreterTest
     public void arrayTest()
     {
         String[] a1 = stringArrayContent();
-        String[] a2 = (String[]) Interpreter.invoke(this, "stringArrayContent", new Object[]{}, new Class<?>[]{});
+        String[] a2 = (String[]) Interpreter.invoke(this, "stringArrayContent", new Object[] {}, new Class<?>[] {});
         Assert.assertEquals("length  array1 == array2", a1.length, a2.length);
         List<String> l1 = Arrays.asList(a1);
         List<String> l2 = Arrays.asList(a2);
@@ -31,53 +30,53 @@ public class ArrayInterpreterTest
         Assert.assertTrue("Content array1 == content array2", same);
 
         String s1 = getStringContentAt(a1, 2);
-        String s2 = (String) Interpreter.invoke(this, "getStringContentAt", new Object[]{a1, new Integer(2)},
-                new Class<?>[]{String[].class, int.class});
+        String s2 = (String) Interpreter.invoke(this, "getStringContentAt", new Object[] {a1, new Integer(2)},
+                new Class<?>[] {String[].class, int.class});
         Assert.assertEquals("String array1[2] == 'ccc'", s2, "ccc");
         Assert.assertEquals("String array1[2] == array2[2]", s1, s2);
 
         int i1 = getLength(a1);
-        int i2 = (int) Interpreter.invoke(this, "getLength", new Object[]{a1}, new Class<?>[]{String[].class});
+        int i2 = (int) Interpreter.invoke(this, "getLength", new Object[] {a1}, new Class<?>[] {String[].class});
         Assert.assertEquals("String array1.length == 4", i1, 4);
         Assert.assertEquals("String array1.length == array2.length", i1, i2);
 
         // double
         double[] double1 = doubleArrayContent();
-        double[] double2 = (double[]) Interpreter.invoke(this, "doubleArrayContent", new Object[]{}, new Class<?>[]{});
+        double[] double2 = (double[]) Interpreter.invoke(this, "doubleArrayContent", new Object[] {}, new Class<?>[] {});
         Assert.assertArrayEquals("double arrays equal", double1, double2, 0.0);
         double doubleValue1 = getDoubleContentAt(double1, 3);
-        double doubleValue2 = (double) Interpreter.invoke(this, "getDoubleContentAt",
-                new Object[]{double1, new Integer(3)}, new Class<?>[]{double[].class, int.class});
+        double doubleValue2 = (double) Interpreter.invoke(this, "getDoubleContentAt", new Object[] {double1, new Integer(3)},
+                new Class<?>[] {double[].class, int.class});
         Assert.assertEquals("Double array2[3] == '4'", doubleValue2, 4.0d, 0.0);
         Assert.assertEquals("Double array1[3] == array2[3]", doubleValue1, doubleValue2, 0.0);
 
         // float
         float[] float1 = floatArrayContent();
-        float[] float2 = (float[]) Interpreter.invoke(this, "floatArrayContent", new Object[]{}, new Class<?>[]{});
+        float[] float2 = (float[]) Interpreter.invoke(this, "floatArrayContent", new Object[] {}, new Class<?>[] {});
         Assert.assertArrayEquals("float arrays equal", float1, float2, 0.0f);
         float floatValue1 = getFloatContentAt(float1, 3);
-        float floatValue2 = (float) Interpreter.invoke(this, "getFloatContentAt", new Object[]{float1, new Integer(3)},
-                new Class<?>[]{float[].class, int.class});
+        float floatValue2 = (float) Interpreter.invoke(this, "getFloatContentAt", new Object[] {float1, new Integer(3)},
+                new Class<?>[] {float[].class, int.class});
         Assert.assertEquals("Float array2[3] == '4'", floatValue2, 4.0f, 0.0);
         Assert.assertEquals("Float array1[3] == array2[3]", floatValue1, floatValue2, 0.0);
 
         // int
         int[] int1 = intArrayContent();
-        int[] int2 = (int[]) Interpreter.invoke(this, "intArrayContent", new Object[]{}, new Class<?>[]{});
+        int[] int2 = (int[]) Interpreter.invoke(this, "intArrayContent", new Object[] {}, new Class<?>[] {});
         Assert.assertArrayEquals("int arrays equal", int1, int2);
         int intValue1 = getIntegerContentAt(int1, 3);
-        int intValue2 = (int) Interpreter.invoke(this, "getIntegerContentAt", new Object[]{int1, new Integer(3)},
-                new Class<?>[]{int[].class, int.class});
+        int intValue2 = (int) Interpreter.invoke(this, "getIntegerContentAt", new Object[] {int1, new Integer(3)},
+                new Class<?>[] {int[].class, int.class});
         Assert.assertEquals("Integer array2[3] == '4'", intValue2, 4);
         Assert.assertEquals("Integer array1[3] == array2[3]", intValue1, intValue2);
 
         // long
         long[] long1 = longArrayContent();
-        long[] long2 = (long[]) Interpreter.invoke(this, "longArrayContent", new Object[]{}, new Class<?>[]{});
+        long[] long2 = (long[]) Interpreter.invoke(this, "longArrayContent", new Object[] {}, new Class<?>[] {});
         Assert.assertArrayEquals("long arrays equal", long1, long2);
         long longValue1 = getLongContentAt(long1, 3);
-        long longValue2 = (long) Interpreter.invoke(this, "getLongContentAt", new Object[]{long1, new Integer(3)},
-                new Class<?>[]{long[].class, int.class});
+        long longValue2 = (long) Interpreter.invoke(this, "getLongContentAt", new Object[] {long1, new Integer(3)},
+                new Class<?>[] {long[].class, int.class});
         Assert.assertEquals("Long array2[3] == '4'", longValue2, 4L);
         Assert.assertEquals("Long array1[3] == array2[3]", longValue1, longValue2);
 
@@ -97,11 +96,11 @@ public class ArrayInterpreterTest
 
         // byte
         byte[] byte1 = byteArrayContent();
-        byte[] byte2 = (byte[]) Interpreter.invoke(this, "byteArrayContent", new Object[]{}, new Class<?>[]{});
+        byte[] byte2 = (byte[]) Interpreter.invoke(this, "byteArrayContent", new Object[] {}, new Class<?>[] {});
         Assert.assertArrayEquals("byte arrays equal", byte1, byte2);
         byte byteValue1 = getByteContentAt(byte1, 3);
-        byte byteValue2 = (byte) Interpreter.invoke(this, "getByteContentAt", new Object[]{byte1, new Integer(3)},
-                new Class<?>[]{byte[].class, int.class});
+        byte byteValue2 = (byte) Interpreter.invoke(this, "getByteContentAt", new Object[] {byte1, new Integer(3)},
+                new Class<?>[] {byte[].class, int.class});
         Assert.assertEquals("Byte array2[3] == '4'", byteValue2, 4);
         Assert.assertEquals("Byte array1[3] == array2[3]", byteValue1, byteValue2);
 
@@ -112,7 +111,7 @@ public class ArrayInterpreterTest
      */
     protected String[] stringArrayContent()
     {
-        String[] array = new String[]{"a", "bb", "c", "dddd"};
+        String[] array = new String[] {"a", "bb", "c", "dddd"};
         array[2] = "ccc";
         return array;
     }
@@ -138,7 +137,7 @@ public class ArrayInterpreterTest
      */
     protected double[] doubleArrayContent()
     {
-        double[] array = new double[]{1.0d, 2.0d, 3.0d, 0.0d};
+        double[] array = new double[] {1.0d, 2.0d, 3.0d, 0.0d};
         array[3] = 4.0d;
         return array;
     }
@@ -156,7 +155,7 @@ public class ArrayInterpreterTest
      */
     protected float[] floatArrayContent()
     {
-        float[] array = new float[]{1.0f, 2.0f, 3.0f, 0.0f};
+        float[] array = new float[] {1.0f, 2.0f, 3.0f, 0.0f};
         array[3] = 4.0f;
         return array;
     }
@@ -174,7 +173,7 @@ public class ArrayInterpreterTest
      */
     protected int[] intArrayContent()
     {
-        int[] array = new int[]{1, 2, 3, 0};
+        int[] array = new int[] {1, 2, 3, 0};
         array[3] = 4;
         return array;
     }
@@ -192,7 +191,7 @@ public class ArrayInterpreterTest
      */
     protected long[] longArrayContent()
     {
-        long[] array = new long[]{1, 2, 3, 0};
+        long[] array = new long[] {1, 2, 3, 0};
         array[3] = 4;
         return array;
     }
@@ -210,7 +209,7 @@ public class ArrayInterpreterTest
      */
     protected short[] shortArrayContent()
     {
-        short[] array = new short[]{1, 2, 3, 0};
+        short[] array = new short[] {1, 2, 3, 0};
         array[3] = 4;
         return array;
     }
@@ -228,7 +227,7 @@ public class ArrayInterpreterTest
      */
     protected byte[] byteArrayContent()
     {
-        byte[] array = new byte[]{1, 2, 3, 0};
+        byte[] array = new byte[] {1, 2, 3, 0};
         array[3] = 4;
         return array;
     }

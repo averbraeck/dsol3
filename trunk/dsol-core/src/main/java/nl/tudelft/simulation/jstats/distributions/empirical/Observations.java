@@ -8,10 +8,10 @@ import java.util.SortedMap;
 /**
  * Observations for the empirical distributions.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -45,8 +45,8 @@ public class Observations implements ObservationsInterface
 
     /**
      * constructs a new Observations.
-     * @param observations SortedMap&lt;Number,Double&gt;; a sortedMap of observations. The double values in the map
-     *            either represent actual times of observation, or represent a probability
+     * @param observations SortedMap&lt;Number,Double&gt;; a sortedMap of observations. The double values in the map either
+     *            represent actual times of observation, or represent a probability
      * @param cumulative boolean; are the probabilities in the map cumulative?
      */
     public Observations(final SortedMap<Number, Double> observations, final boolean cumulative)
@@ -70,8 +70,8 @@ public class Observations implements ObservationsInterface
 
     /**
      * constructs a new Observations.
-     * @param observations Number[][]; a sortedMap of observations. The double values in the map either represent actual
-     *            times of observation, or represent a probability
+     * @param observations Number[][]; a sortedMap of observations. The double values in the map either represent actual times
+     *            of observation, or represent a probability
      * @param cumulative boolean; are the probabilities in the map cumulative?
      */
     public Observations(final Number[][] observations, final boolean cumulative)
@@ -330,10 +330,8 @@ public class Observations implements ObservationsInterface
     /**
      * The Observation class holds one observation, cumulative probability entry. (c) copyright 2004
      * <a href="https://simulation.tudelft.nl/dsol/">Delft University of Technology </a>, the Netherlands. <br>
-     * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a>
-     * <br>
-     * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty
-     * <br>
+     * See for project information <a href="https://simulation.tudelft.nl/dsol/"> www.simulation.tudelft.nl/dsol </a> <br>
+     * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
      * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
      * @since 1.5
      */

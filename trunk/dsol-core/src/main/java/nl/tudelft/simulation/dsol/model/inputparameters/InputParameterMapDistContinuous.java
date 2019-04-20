@@ -65,7 +65,7 @@ public abstract class InputParameterMapDistContinuous extends InputParameterMap
     }
 
     /**
-     * @param stream set stream
+     * @param stream StreamInterface; set stream
      */
     public final void setStream(final StreamInterface stream)
     {

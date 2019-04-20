@@ -34,10 +34,10 @@ import nl.tudelft.simulation.event.EventType;
 /**
  * The JVMContext as in-memory context implementation if the Context.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -224,8 +224,8 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             this.elements.put(relativeName.get(0), value);
             fireEvent(new Event(NUMBER_CHANGED_EVENT, this, new Integer(this.elements.size())));
             fireEvent(new Event(CHILD_ADDED_EVENT, this, value));
-            fireContextEvent(true,
-                    this.getNameInNamespace() + syntax.getProperty("jndi.syntax.separator") + relativeName, value);
+            fireContextEvent(true, this.getNameInNamespace() + syntax.getProperty("jndi.syntax.separator") + relativeName,
+                    value);
         }
     }
 
@@ -270,8 +270,8 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             this.elements.remove(relativeName.get(0));
             fireEvent(new Event(NUMBER_CHANGED_EVENT, this, new Integer(this.elements.size())));
             fireEvent(new Event(CHILD_REMOVED_EVENT, this, old));
-            fireContextEvent(false,
-                    this.getNameInNamespace() + syntax.getProperty("jndi.syntax.separator") + relativeName, old);
+            fireContextEvent(false, this.getNameInNamespace() + syntax.getProperty("jndi.syntax.separator") + relativeName,
+                    old);
         }
     }
 
@@ -514,8 +514,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
      * @param value Object; the value
      * @throws NamingException on failure
      */
-    private void fireContextEvent(final boolean isAddition, final String name, final Object value)
-            throws NamingException
+    private void fireContextEvent(final boolean isAddition, final String name, final Object value) throws NamingException
     {
         fireContextEvent(isAddition, this.parser.parse(name), value);
     }
@@ -534,13 +533,12 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             NamingEvent namingEvent = null;
             if (isAddition)
             {
-                namingEvent = new NamingEvent(this, NamingEvent.OBJECT_ADDED, new Binding(name.toString(), value), null,
-                        null);
+                namingEvent = new NamingEvent(this, NamingEvent.OBJECT_ADDED, new Binding(name.toString(), value), null, null);
             }
             else
             {
-                namingEvent = new NamingEvent(this, NamingEvent.OBJECT_REMOVED, null,
-                        new Binding(name.toString(), value), null);
+                namingEvent =
+                        new NamingEvent(this, NamingEvent.OBJECT_REMOVED, null, new Binding(name.toString(), value), null);
             }
             if (name.equals(record.getTarget()) || scope == EventContext.SUBTREE_SCOPE)
             {
@@ -651,8 +649,7 @@ public class JVMContext extends EventProducer implements EventContext, EventProd
             {
                 if (classList)
                 {
-                    this.add((T) new NameClassPair(currentKey,
-                            JVMContext.this.elements.get(currentKey).getClass().toString()));
+                    this.add((T) new NameClassPair(currentKey, JVMContext.this.elements.get(currentKey).getClass().toString()));
                 }
                 else
                 {

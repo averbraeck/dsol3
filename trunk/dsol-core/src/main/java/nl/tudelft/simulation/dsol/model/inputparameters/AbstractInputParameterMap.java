@@ -38,7 +38,7 @@ public abstract class AbstractInputParameterMap<CT> extends AbstractInputParamet
 
     /**
      * Add an input parameter to this map of input parameters.
-     * @param inputParameter the input parameter to add
+     * @param inputParameter AbstractInputParameter&lt;?,?&gt;; the input parameter to add
      * @throws InputParameterException in case an input parameter with the same key already exists
      */
     public void add(final AbstractInputParameter<?, ?> inputParameter) throws InputParameterException
@@ -56,7 +56,7 @@ public abstract class AbstractInputParameterMap<CT> extends AbstractInputParamet
      * Removes an input parameter from this map of input parameters. The input parameter can point to deeper maps using the
      * dot-notation. E.g., when an InputParameterMap exists in this map with name 'server1', and the server1 map has an input
      * parameter called 'iat', we can remove iat by calling remove("server1.iat");
-     * @param key the key of the input parameter to remove
+     * @param key String; the key of the input parameter to remove
      * @throws InputParameterException in case the input parameter with this key does not exist
      */
     public void remove(final String key) throws InputParameterException
@@ -84,7 +84,7 @@ public abstract class AbstractInputParameterMap<CT> extends AbstractInputParamet
      * Gets an input parameter from this map of input parameters. The input parameter can point to deeper maps using the
      * dot-notation. E.g., when an InputParameterMap exists in this map with name 'server1', and the server1 map has an input
      * parameter called 'iat', we can get the InputParameter iat by calling get("server1.iat");
-     * @param key the key of the input parameter to retrieve
+     * @param key String; the key of the input parameter to retrieve
      * @return the input parameter belonging to the key
      * @throws InputParameterException in case the input parameter with this key does not exist
      */
@@ -146,7 +146,7 @@ public abstract class AbstractInputParameterMap<CT> extends AbstractInputParamet
 
     /**
      * Return a formatted human readable list of keys and values, indented with spaces corresponding to the depth.
-     * @param map InputParameterMap; the map to display
+     * @param map AbstractInputParameterMap&lt;?&gt;; the map to display
      * @param depth int; the depth of the tree
      * @return String; a formatted human readable list of keys and values, indented by depth
      */

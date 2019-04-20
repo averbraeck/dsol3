@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Monitor class. In the Java programming language there is a lock associated with every object. The language does not
- * provide a way to perform separate lock and unlock operations; instead, they are implicitly performed by high-level
- * constructs that always arrange to pair such operations correctly. This Monitor class, however, provides separate
- * monitorenter and monitorexit instructions that implement the lock and unlock operations. The class is final for now,
- * as it is not the idea that the class should be extended. It has only static methods.
+ * Monitor class. In the Java programming language there is a lock associated with every object. The language does not provide a
+ * way to perform separate lock and unlock operations; instead, they are implicitly performed by high-level constructs that
+ * always arrange to pair such operations correctly. This Monitor class, however, provides separate monitorenter and monitorexit
+ * instructions that implement the lock and unlock operations. The class is final for now, as it is not the idea that the class
+ * should be extended. It has only static methods.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:phmjacobs@hotmail.com">Peter H.M. Jacobs</a>
@@ -98,8 +98,7 @@ public final class Monitor
             }
             if (!thread.getOwner().equals(owner))
             {
-                throw new IllegalMonitorStateException(
-                        owner + " cannot" + " unlock object owned by " + thread.getOwner());
+                throw new IllegalMonitorStateException(owner + " cannot" + " unlock object owned by " + thread.getOwner());
             }
             thread.decreaseCounter();
             if (thread.getCounter() == 0)

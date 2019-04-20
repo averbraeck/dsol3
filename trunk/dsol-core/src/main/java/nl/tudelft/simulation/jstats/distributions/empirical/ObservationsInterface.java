@@ -5,10 +5,10 @@ import java.util.List;
 /**
  * The observations interface is an interface for empirical observations to be used in JStats.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -57,8 +57,7 @@ public interface ObservationsInterface
     /**
      * returns whether the structure contains this specific object (either an observation or a probability).
      * @param object Number; the object to look for
-     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the
-     *            ObservationsInterface.CUMPROBABILITY)
+     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @return true if object in observation.
      */
     boolean contains(Number object, byte type);
@@ -76,41 +75,38 @@ public interface ObservationsInterface
     List<Double> getCumProbabilities();
 
     /**
-     * Returns the entry to which the structure maps the specific object. Returns <tt>null</tt> if the structure
-     * contains no entry for the object. The object might either refer to an observation or to a probability. If
-     * multiple entries match the search, there is no guarantee which entry is returned.
+     * Returns the entry to which the structure maps the specific object. Returns <tt>null</tt> if the structure contains no
+     * entry for the object. The object might either refer to an observation or to a probability. If multiple entries match the
+     * search, there is no guarantee which entry is returned.
      * @param object Number; entry whose associated entry is to be returned.
-     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the
-     *            ObservationsInterface.CUMPROBABILITY)
+     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @return the entries which comply.
      */
     ObservationsInterface.Entry getEntry(Number object, byte type);
 
     /**
-     * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not
-     * exists, returns the entry for the greatest object less than the specified object; if no such entry exists (i.e.,
-     * the least object in the Tree is greater than the specified object), returns <tt>null</tt>. If multiple entries
-     * match the search, there is no guarantee which entry is returned.
+     * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not exists,
+     * returns the entry for the greatest object less than the specified object; if no such entry exists (i.e., the least object
+     * in the Tree is greater than the specified object), returns <tt>null</tt>. If multiple entries match the search, there is
+     * no guarantee which entry is returned.
      * @param object Number; object whose next object associated value is to be returned.
-     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the
-     *            ObservationsInterface.CUMPROBABILITY)
+     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive boolean; if inclusive and structure contains object object is returned
-     * @return the value to which this structure maps the specified object, or <tt>null</tt> if the structure contains
-     *         no mapping for this object.
+     * @return the value to which this structure maps the specified object, or <tt>null</tt> if the structure contains no
+     *         mapping for this object.
      */
     ObservationsInterface.Entry getPrecedingEntry(Number object, byte type, boolean inclusive);
 
     /**
-     * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not
-     * exists, returns the entry for the least object greater than the specified object; if no such entry exists (i.e.,
-     * the greatest object in the Tree is less than the specified object), returns <tt>null</tt>. If multiple entries
-     * match the search, there is no guarantee which entry is returned.
+     * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not exists,
+     * returns the entry for the least object greater than the specified object; if no such entry exists (i.e., the greatest
+     * object in the Tree is less than the specified object), returns <tt>null</tt>. If multiple entries match the search, there
+     * is no guarantee which entry is returned.
      * @param object Number; object whose associated value is to be returned.
-     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the
-     *            ObservationsInterface.CUMPROBABILITY)
+     * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive boolean; if inclusive and structure contains object object is returned
-     * @return the value to which this structure maps the specified object, or <tt>null</tt> if the structure contains
-     *         no mapping for this object.
+     * @return the value to which this structure maps the specified object, or <tt>null</tt> if the structure contains no
+     *         mapping for this object.
      */
     ObservationsInterface.Entry getCeilingEntry(Number object, byte type, boolean inclusive);
 

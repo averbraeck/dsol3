@@ -29,7 +29,7 @@ public class PredatorPreyModel extends AbstractDSOLModel.TimeDouble<DESSSimulato
 
     /**
      * constructs a new Life.
-     * @param simulator the continuous simulator
+     * @param simulator DESSSimulator.TimeDouble; the continuous simulator
      */
     public PredatorPreyModel(final DESSSimulator.TimeDouble simulator)
     {

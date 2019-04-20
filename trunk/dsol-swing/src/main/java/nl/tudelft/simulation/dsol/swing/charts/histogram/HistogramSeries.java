@@ -8,14 +8,13 @@ import nl.tudelft.simulation.event.EventListenerInterface;
 /**
  * The serie defines a histogram series containing the entries of a set.
  * <p>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>
@@ -50,7 +49,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         double min = domain[0] - binWidth;
         for (int i = 0; i < numberOfBins + 2; i++)
         {
-            this.bins[i] = new Bin(new double[]{min, min + binWidth}, range);
+            this.bins[i] = new Bin(new double[] {min, min + binWidth}, range);
             if (range != null)
             {
                 this.bins[i].setFixed(true);
@@ -195,7 +194,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
             this.domain = domain;
             if (range == null)
             {
-                this.range = new double[]{0, 1};
+                this.range = new double[] {0, 1};
             }
             else
             {

@@ -8,10 +8,10 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 /**
  * A Boat as presented in Birtwistle, 1979, page 12.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -76,9 +76,9 @@ public class Boat extends Process<Double, Double, SimTimeDouble>
             System.out.println(this + " am alive @" + super.simulator.getSimulatorTime());
             this.port.getJetties().releaseCapacity(1.0);
             System.out.println(this + " am alive @" + super.simulator.getSimulatorTime());
-            System.out.println(this.toString() + "arrived at time=" + startTime + " and left at time="
-                    + this.simulator.getSimulatorTime() + ". ProcessTime = "
-                    + (super.simulator.getSimulatorTime() - startTime));
+            System.out.println(
+                    this.toString() + "arrived at time=" + startTime + " and left at time=" + this.simulator.getSimulatorTime()
+                            + ". ProcessTime = " + (super.simulator.getSimulatorTime() - startTime));
         }
         catch (Exception exception)
         {

@@ -17,8 +17,8 @@ public class InputFieldFloat extends InputFieldString
 {
     /**
      * Create a float field on the screen.
-     * @param panel panel to add the field to
-     * @param parameter the parameter
+     * @param panel JPanel; panel to add the field to
+     * @param parameter InputParameterFloat; the parameter
      */
     public InputFieldFloat(final JPanel panel, final InputParameterFloat parameter)
     {
@@ -44,8 +44,8 @@ public class InputFieldFloat extends InputFieldString
 
     /**
      * Return the numeric value of the field
-     * @param s the String to test
-     * @param shortName the name of the field to test
+     * @param s String; the String to test
+     * @param shortName String; the name of the field to test
      * @return the float value of the field in the gui.
      * @throws InputParameterException on invalid input
      */

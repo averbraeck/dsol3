@@ -98,7 +98,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     }
 
     /**
-     * @param experiments List&lt;Experiment&lt;A,R,T&gt;&gt;; The experiments to set.
+     * @param experiments List&lt;? extends Experiment&lt;?, ?, ?, ?&gt;&gt;; The experiments to set.
      */
     public final void setExperiments(final List<? extends Experiment<?, ?, ?, ?>> experiments)
     {

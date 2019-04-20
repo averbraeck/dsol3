@@ -29,21 +29,21 @@ import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.event.EventType;
 
 /**
- * AbstractDEVSModel class. The basic model or component from which the AtomicModel, the CoupledModel, and the
- * AbstractEntity are derived. The DEVSModel provides basic functionality for reporting its state changes through the
- * publish/subscribe mechanism.
+ * AbstractDEVSModel class. The basic model or component from which the AtomicModel, the CoupledModel, and the AbstractEntity
+ * are derived. The DEVSModel provides basic functionality for reporting its state changes through the publish/subscribe
+ * mechanism.
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -91,8 +91,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
     private static Set<Field> abstractDEVSFields = new HashSet<Field>();
 
     /**
-     * Static constructor. Takes care of filling the static constants the first time an extension of the
-     * AbstractDEVSModel is created.
+     * Static constructor. Takes care of filling the static constants the first time an extension of the AbstractDEVSModel is
+     * created.
      */
     static
     {
@@ -103,8 +103,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
     }
 
     /**
-     * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-     * parent model we are part of. A parent model of null means that we are the top model.
+     * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent model
+     * we are part of. A parent model of null means that we are the top model.
      * @param modelName String; the name of this component
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule the events on.
      * @param parentModel CoupledModel&lt;A,R,T&gt;; the parent model we are part of.
@@ -185,9 +185,9 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
     // ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Create state field set. For this first version, take all the fields into account as state variables. The method
-     * substract the fields that are on the level of AbstractModel or Atomic Model or higher; only leave the non-static
-     * fields that are part of the descendents of the abstract models.
+     * Create state field set. For this first version, take all the fields into account as state variables. The method substract
+     * the fields that are on the level of AbstractModel or Atomic Model or higher; only leave the non-static fields that are
+     * part of the descendents of the abstract models.
      */
     private void createStateFieldSet()
     {
@@ -218,11 +218,11 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
 
     /**
      * Fire a state update. At this moment, all state variables are reported for an atomic model when it fires its
-     * delta_internal or delta_external method. More intelligence can be added here later. For simple types, a
-     * comparison with the old value (state map) is possible. For complex variables (objects) this is more difficult as
-     * a deep clone should be saved as old state, followed by a full comparison. This does not seem practical, and more
-     * expensive than firing the state change of all state variables. The intelligence to detect real state changes then
-     * has to be built in at the receiver's side.
+     * delta_internal or delta_external method. More intelligence can be added here later. For simple types, a comparison with
+     * the old value (state map) is possible. For complex variables (objects) this is more difficult as a deep clone should be
+     * saved as old state, followed by a full comparison. This does not seem practical, and more expensive than firing the state
+     * change of all state variables. The intelligence to detect real state changes then has to be built in at the receiver's
+     * side.
      */
     @SuppressWarnings("checkstyle:designforextension")
     protected void fireUpdatedState()
@@ -247,10 +247,10 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
     /**
      * StateUpdate class. Reports a state update. Right now, it is a modelname - variable name - value tuple.
      * <p>
-     * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
-     * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which
-     * can be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+     * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>.
+     * The DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
      * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
      * </p>
      * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
@@ -320,8 +320,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20180929L;
 
         /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-         * parent model we are part of. A parent model of null means that we are the top model.
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
+         * model we are part of. A parent model of null means that we are the top model.
          * @param modelName String; the name of this component
          * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator to schedule the events on.
          * @param parentModel CoupledModel.TimeDouble; the parent model we are part of.
@@ -340,8 +340,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20180929L;
 
         /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-         * parent model we are part of. A parent model of null means that we are the top model.
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
+         * model we are part of. A parent model of null means that we are the top model.
          * @param modelName String; the name of this component
          * @param simulator DEVSSimulatorInterface.TimeFloat; the simulator to schedule the events on.
          * @param parentModel CoupledModel.TimeFloat; the parent model we are part of.
@@ -360,8 +360,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20180929L;
 
         /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-         * parent model we are part of. A parent model of null means that we are the top model.
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
+         * model we are part of. A parent model of null means that we are the top model.
          * @param modelName String; the name of this component
          * @param simulator DEVSSimulatorInterface.TimeLong; the simulator to schedule the events on.
          * @param parentModel CoupledModel.TimeLong; the parent model we are part of.
@@ -380,8 +380,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20180929L;
 
         /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-         * parent model we are part of. A parent model of null means that we are the top model.
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
+         * model we are part of. A parent model of null means that we are the top model.
          * @param modelName String; the name of this component
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; the simulator to schedule the events on.
          * @param parentModel CoupledModel.TimeDoubleUnit; the parent model we are part of.
@@ -400,8 +400,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20180929L;
 
         /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-         * parent model we are part of. A parent model of null means that we are the top model.
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
+         * model we are part of. A parent model of null means that we are the top model.
          * @param modelName String; the name of this component
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; the simulator to schedule the events on.
          * @param parentModel CoupledModel.TimeFloatUnit; the parent model we are part of.
@@ -420,8 +420,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20180929L;
 
         /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-         * parent model we are part of. A parent model of null means that we are the top model.
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
+         * model we are part of. A parent model of null means that we are the top model.
          * @param modelName String; the name of this component
          * @param simulator DEVSSimulatorInterface.CalendarDouble; the simulator to schedule the events on.
          * @param parentModel CoupledModel.CalendarDouble; the parent model we are part of.
@@ -440,8 +440,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20180929L;
 
         /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-         * parent model we are part of. A parent model of null means that we are the top model.
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
+         * model we are part of. A parent model of null means that we are the top model.
          * @param modelName String; the name of this component
          * @param simulator DEVSSimulatorInterface.CalendarFloat; the simulator to schedule the events on.
          * @param parentModel CoupledModel.CalendarFloat; the parent model we are part of.
@@ -460,8 +460,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A>, R extends Numbe
         private static final long serialVersionUID = 20180929L;
 
         /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the
-         * parent model we are part of. A parent model of null means that we are the top model.
+         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
+         * model we are part of. A parent model of null means that we are the top model.
          * @param modelName String; the name of this component
          * @param simulator DEVSSimulatorInterface.CalendarLong; the simulator to schedule the events on.
          * @param parentModel CoupledModel.CalendarLong; the parent model we are part of.

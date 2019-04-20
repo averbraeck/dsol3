@@ -19,10 +19,10 @@ import com.sun.naming.internal.ResourceManager;
 /**
  * InitialEventContext class. This class is the starting context for performing naming operations.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -37,23 +37,22 @@ public class InitialEventContext implements EventContext
     protected Hashtable myProps = null;
 
     /**
-     * Field holding the result of calling NamingManager.getInitialContext(). It is set by getDefaultInitCtx() the first
-     * time getDefaultInitCtx() is called. Subsequent invocations of getDefaultInitCtx() return the value of
-     * defaultInitCtx.
+     * Field holding the result of calling NamingManager.getInitialContext(). It is set by getDefaultInitCtx() the first time
+     * getDefaultInitCtx() is called. Subsequent invocations of getDefaultInitCtx() return the value of defaultInitCtx.
      */
     protected EventContext defaultInitCtx = null;
 
     /**
-     * Field indicating whether the initial context has been obtained by calling NamingManager.getInitialContext(). If
-     * true, its result is in <code>defaultInitCtx</code>.
+     * Field indicating whether the initial context has been obtained by calling NamingManager.getInitialContext(). If true, its
+     * result is in <code>defaultInitCtx</code>.
      */
     protected boolean gotDefault = false;
 
     /**
-     * Constructs an initial context with the option of not initializing it. This may be used by a constructor in a
-     * subclass when the value of the environment parameter is not yet known at the time the <tt>InitialContext</tt>
-     * constructor is called. The subclass's constructor will call this constructor, compute the value of the
-     * environment, and then call <tt>init()</tt> before returning.
+     * Constructs an initial context with the option of not initializing it. This may be used by a constructor in a subclass
+     * when the value of the environment parameter is not yet known at the time the <tt>InitialContext</tt> constructor is
+     * called. The subclass's constructor will call this constructor, compute the value of the environment, and then call
+     * <tt>init()</tt> before returning.
      * @param lazy true means do not initialize the initial context; false is equivalent to calling
      *            <tt>new InitialContext()</tt>
      * @throws NamingException if a naming exception is encountered
@@ -69,8 +68,7 @@ public class InitialEventContext implements EventContext
     }
 
     /**
-     * Constructs an initial context. No environment properties are supplied. Equivalent to
-     * <tt>new InitialContext(null)</tt>.
+     * Constructs an initial context. No environment properties are supplied. Equivalent to <tt>new InitialContext(null)</tt>.
      * @throws NamingException if a naming exception is encountered
      */
     public InitialEventContext() throws NamingException
@@ -156,9 +154,9 @@ public class InitialEventContext implements EventContext
     }
 
     /**
-     * Retrieves a context for resolving the string name <code>name</code>. If <code>name</code> name is a URL string,
-     * then attempt to find a URL context for it. If none is found, or if <code>name</code> is not a URL string, then
-     * return <code>getDefaultInitCtx()</code>.
+     * Retrieves a context for resolving the string name <code>name</code>. If <code>name</code> name is a URL string, then
+     * attempt to find a URL context for it. If none is found, or if <code>name</code> is not a URL string, then return
+     * <code>getDefaultInitCtx()</code>.
      * <p>
      * See getURLOrDefaultInitCtx(Name) for description of how a subclass should use this method.
      * @param name String; The non-null name for which to get the context.
@@ -431,8 +429,8 @@ public class InitialEventContext implements EventContext
     }
 
     /**
-     * Composes the name of this context with a name relative to this context. Since an initial context may never be
-     * named relative to any context other than itself, the value of the <tt>prefix</tt> parameter must be an empty name
+     * Composes the name of this context with a name relative to this context. Since an initial context may never be named
+     * relative to any context other than itself, the value of the <tt>prefix</tt> parameter must be an empty name
      * (<tt>""</tt>).
      * @param name String; the name
      * @param prefix String; the prefix
@@ -446,9 +444,8 @@ public class InitialEventContext implements EventContext
     }
 
     /**
-     * Composes the name of this context with a name relative to this context. Since an initial context may never be
-     * named relative to any context other than itself, the value of the <tt>prefix</tt> parameter must be an empty
-     * name.
+     * Composes the name of this context with a name relative to this context. Since an initial context may never be named
+     * relative to any context other than itself, the value of the <tt>prefix</tt> parameter must be an empty name.
      * @param name Name; the name
      * @param prefix Name; the prefix
      * @return Name

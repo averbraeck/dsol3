@@ -3,7 +3,6 @@ package nl.tudelft.simulation.dsol.logger;
 import java.util.Set;
 
 import org.djutils.logger.CategoryLogger;
-import org.djutils.logger.CategoryLogger.DelegateLogger;
 import org.djutils.logger.LogCategory;
 import org.pmw.tinylog.Level;
 import org.pmw.tinylog.LogEntryForwarder;
@@ -15,10 +14,10 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * SimLogger, "extends" the CategoryLogger to be simulator aware and able to print the simulator time as part of the log
  * message.
  * <p>
- * Copyright (c) 2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See for
+ * project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
@@ -41,10 +40,9 @@ public class SimLogger extends CategoryLogger
     }
 
     /**
-     * Create a new logger for the system console. Note that this REPLACES current loggers, so create this class before
-     * ANY other loggers are created. Note that the initial LogCategory is LogCategory.ALL, so all categories will be
-     * logged. This category has to be explicitly removed (or new categories have to be set) to log a limited set of
-     * categories.
+     * Create a new logger for the system console. Note that this REPLACES current loggers, so create this class before ANY
+     * other loggers are created. Note that the initial LogCategory is LogCategory.ALL, so all categories will be logged. This
+     * category has to be explicitly removed (or new categories have to be set) to log a limited set of categories.
      */
     protected static void create()
     {
@@ -170,8 +168,8 @@ public class SimLogger extends CategoryLogger
     }
 
     /**
-     * Check whether the provided category needs to be logged. Note that when LogCategory.ALL is contained in the
-     * categories, filter will return true.
+     * Check whether the provided category needs to be logged. Note that when LogCategory.ALL is contained in the categories,
+     * filter will return true.
      * @param logCategory LogCategory; the category to check for.
      * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
      */
@@ -221,13 +219,12 @@ public class SimLogger extends CategoryLogger
     }
 
     /**
-     * DelegateSimLogger class that takes care of actually logging the message and/or exception. The methods take care
-     * of inserting the simulation time in the message.<br>
+     * DelegateSimLogger class that takes care of actually logging the message and/or exception. The methods take care of
+     * inserting the simulation time in the message.<br>
      * <br>
-     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
-     * reserved. See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">
-     * www.simulation.tudelft.nl</a>. The source code and binary code of this software is proprietary information of
-     * Delft University of Technology.
+     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
+     * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
      */
     public static class DelegateSimLogger extends DelegateLogger
@@ -403,8 +400,7 @@ public class SimLogger extends CategoryLogger
         @Override
         public void warn(final Throwable exception)
         {
-            LogEntryForwarder.forward(1, Level.WARNING, exception,
-                    this.simTimeFormatter.format(exception.getMessage()));
+            LogEntryForwarder.forward(1, Level.WARNING, exception, this.simTimeFormatter.format(exception.getMessage()));
         }
 
         /** {@inheritDoc} */

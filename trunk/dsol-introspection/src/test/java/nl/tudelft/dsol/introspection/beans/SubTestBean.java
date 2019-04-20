@@ -144,7 +144,6 @@ public class SubTestBean implements Serializable
     @Override
     public String toString()
     {
-        return "" + this.getColor() + this.getFirstProperty() + this.getFont() + this.getIntProp()
-                + this.getSecondProperty();
+        return "" + this.getColor() + this.getFirstProperty() + this.getFont() + this.getIntProp() + this.getSecondProperty();
     }
 }

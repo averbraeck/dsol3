@@ -62,7 +62,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
      * @param maximumValue T; the highest value allowed as input
      * @param minIncluded boolean; is the minimum value included or excluded in the allowed interval?
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
-     * @param format the format to use in displaying the double
+     * @param format String; the format to use in displaying the double
      * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
@@ -85,7 +85,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
      * @param maximumValueSI double; the highest value allowed as input (in SI units)
      * @param minIncluded boolean; is the minimum value included or excluded in the allowed interval?
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
-     * @param format the format to use in displaying the double
+     * @param format String; the format to use in displaying the double
      * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
@@ -183,7 +183,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     }
 
     /**
-     * @param minimumValueSI set minimumValue (SI units)
+     * @param minimumValueSI double; set minimumValue (SI units)
      */
     public final void setMinimumValueSI(final double minimumValueSI)
     {
@@ -199,7 +199,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     }
 
     /**
-     * @param maximumValueSI set maximumValue (SI units)
+     * @param maximumValueSI double; set maximumValue (SI units)
      */
     public final void setMaximumValueSI(final double maximumValueSI)
     {
@@ -215,7 +215,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     }
 
     /**
-     * @param minIncluded set minIncluded
+     * @param minIncluded boolean; set minIncluded
      */
     public final void setMinIncluded(final boolean minIncluded)
     {
@@ -231,7 +231,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     }
 
     /**
-     * @param maxIncluded set maxIncluded
+     * @param maxIncluded boolean; set maxIncluded
      */
     public final void setMaxIncluded(final boolean maxIncluded)
     {

@@ -3,17 +3,16 @@ package nl.tudelft.simulation.dsol.animation.interpolation;
 import java.awt.Color;
 
 /**
- * ColorInterpolation. This class works on two given colors and will, based on a start and end time transform from
- * starting color to the destination color.
+ * ColorInterpolation. This class works on two given colors and will, based on a start and end time transform from starting
+ * color to the destination color.
  * <p>
- * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * copyright (c) 2004-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="mailto:stijnh@tbm.tudelft.nl">Stijn-Pieter van Houten </a>
@@ -48,8 +47,8 @@ public class ColorInterpolation
      * @param startTime double; the startTime for the interpolation
      * @param endTime double; the endTime of the interpolation
      */
-    public ColorInterpolation(final Color originalStartingColor, final Color originalDestinationColor,
-            final double startTime, final double endTime)
+    public ColorInterpolation(final Color originalStartingColor, final Color originalDestinationColor, final double startTime,
+            final double endTime)
     {
         super();
         if (endTime < startTime)
@@ -114,13 +113,11 @@ public class ColorInterpolation
         {
             if (this.origin.getAlpha() < this.destination.getAlpha())
             {
-                alpha = this.origin.getAlpha()
-                        + (int) ((this.destination.getAlpha() - this.origin.getAlpha()) * fraction);
+                alpha = this.origin.getAlpha() + (int) ((this.destination.getAlpha() - this.origin.getAlpha()) * fraction);
             }
             if (this.origin.getAlpha() > this.destination.getAlpha())
             {
-                alpha = this.origin.getAlpha()
-                        - (int) ((this.origin.getAlpha() - this.destination.getAlpha()) * fraction);
+                alpha = this.origin.getAlpha() - (int) ((this.origin.getAlpha() - this.destination.getAlpha()) * fraction);
             }
         }
         return new Color(this.calculatedRGBValues[0], this.calculatedRGBValues[1], this.calculatedRGBValues[2], alpha);

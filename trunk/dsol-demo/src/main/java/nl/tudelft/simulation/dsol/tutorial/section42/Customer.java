@@ -16,10 +16,10 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * A Customer.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
@@ -41,8 +41,8 @@ public class Customer implements BuyerInterface
     /**
      * constructs a new Customer.
      * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator to schedule on
-     * @param retailer SellerInterface; the retailer to buy at. In more advanced examples, we would look up this
-     *            retailer at a yellow page.
+     * @param retailer SellerInterface; the retailer to buy at. In more advanced examples, we would look up this retailer at a
+     *            yellow page.
      */
     public Customer(final DEVSSimulatorInterface.TimeDouble simulator, final SellerInterface retailer)
     {
@@ -52,7 +52,7 @@ public class Customer implements BuyerInterface
         StreamInterface stream = this.simulator.getReplication().getStream("default");
         this.intervalTime = new DistExponential(stream, 0.1);
         Observations observations =
-                new Observations(new Number[][]{{1, 1.0 / 6.0}, {2, 1.0 / 3.0}, {3, 1.0 / 3.0}, {4, 1.0 / 6.0}}, false);
+                new Observations(new Number[][] {{1, 1.0 / 6.0}, {2, 1.0 / 3.0}, {3, 1.0 / 3.0}, {4, 1.0 / 6.0}}, false);
         this.orderBatchSize = new DistDiscreteEmpirical(stream, observations);
         this.createOrder();
     }
@@ -72,8 +72,8 @@ public class Customer implements BuyerInterface
         this.retailer.order(this, this.orderBatchSize.draw());
         try
         {
-            this.simulator.scheduleEvent(new SimEvent<SimTimeDouble>(
-                    this.simulator.getSimTime().plus(this.intervalTime.draw()), this, this, "createOrder", null));
+            this.simulator.scheduleEvent(new SimEvent<SimTimeDouble>(this.simulator.getSimTime().plus(this.intervalTime.draw()),
+                    this, this, "createOrder", null));
         }
         catch (Exception exception)
         {

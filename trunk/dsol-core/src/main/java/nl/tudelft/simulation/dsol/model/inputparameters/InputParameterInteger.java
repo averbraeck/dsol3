@@ -44,7 +44,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
      * @param defaultValue int; the default value of this input parameter
      * @param minimumValue int; the lowest value allowed as input
      * @param maximumValue int; the highest value allowed as input
-     * @param format the format to use in displaying the integer
+     * @param format String; the format to use in displaying the integer
      * @param displayPriority double; sorting order when properties are displayed to the user
      */
     @SuppressWarnings("checkstyle:parameternumber")
@@ -65,7 +65,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     }
 
     /**
-     * Check and set the typed value, and call super.setValue to make the actual allocation. 
+     * Check and set the typed value, and call super.setValue to make the actual allocation.
      * @param newValue int; the new value for the input parameter
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
@@ -88,7 +88,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     }
 
     /**
-     * @param format set format
+     * @param format String; set format
      */
     public final void setFormat(final String format)
     {
@@ -104,7 +104,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     }
 
     /**
-     * @param minimumValue set minimumValue
+     * @param minimumValue int; set minimumValue
      */
     public final void setMinimumValue(final int minimumValue)
     {
@@ -120,7 +120,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     }
 
     /**
-     * @param maximumValue set maximumValue
+     * @param maximumValue int; set maximumValue
      */
     public final void setMaximumValue(final int maximumValue)
     {

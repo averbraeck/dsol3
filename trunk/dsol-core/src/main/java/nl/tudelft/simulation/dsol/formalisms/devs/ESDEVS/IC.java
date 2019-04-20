@@ -3,20 +3,20 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 
 /**
- * IC class. IC stands for Internal Coupling, which is a coupling between two components within a coupled model. The
- * definition can be found in Zeigler et al. (2000), p. 86-87.
+ * IC class. IC stands for Internal Coupling, which is a coupling between two components within a coupled model. The definition
+ * can be found in Zeigler et al. (2000), p. 86-87.
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @param <P> the type of message the IC can transfer.
  */
@@ -34,8 +34,7 @@ public class IC<A extends Comparable<A>, R extends Number & Comparable<R>, T ext
      * @param toPort InputPortInterface&lt;A,R,T,P&gt;; input port of the receiving component
      * @throws Exception in case of wiring to self
      */
-    public IC(final OutputPortInterface<A, R, T, P> fromPort, final InputPortInterface<A, R, T, P> toPort)
-            throws Exception
+    public IC(final OutputPortInterface<A, R, T, P> fromPort, final InputPortInterface<A, R, T, P> toPort) throws Exception
     {
         this.fromPort = fromPort;
         this.toPort = toPort;

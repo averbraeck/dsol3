@@ -11,22 +11,22 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * AbstractDEVSPortModel class. Adds named ports to the abstract DEVS model.
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
  * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class AbstractDEVSPortModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends AbstractDEVSModel<A, R, T>
+public abstract class AbstractDEVSPortModel<A extends Comparable<A>, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends AbstractDEVSModel<A, R, T>
 {
     /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
@@ -40,8 +40,8 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A>, R extends N
     protected Map<String, OutputPortInterface<A, R, T, ?>> outputPortMap = new HashMap<>();
 
     /**
-     * Constructor for an abstract DEVS model with ports: we have to indicate the simulator to schedule the events on,
-     * and the parent model we are part of. A parent model of null means that we are the top model.
+     * Constructor for an abstract DEVS model with ports: we have to indicate the simulator to schedule the events on, and the
+     * parent model we are part of. A parent model of null means that we are the top model.
      * @param modelName String; the name of this component
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; the simulator to schedule the events on.
      * @param parentModel CoupledModel&lt;A,R,T&gt;; the parent model we are part of.
@@ -91,8 +91,8 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A>, R extends N
     }
 
     /**
-     * Remove an input port from the model. Note: override this method in classes that extend the behavior, e.g. to
-     * remove couplings from this port in case it is removed.
+     * Remove an input port from the model. Note: override this method in classes that extend the behavior, e.g. to remove
+     * couplings from this port in case it is removed.
      * @param name String; the name of the input port to be removed
      * @throws PortNotFoundException in case the port name does not exist for the model
      */
@@ -108,8 +108,8 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A>, R extends N
     }
 
     /**
-     * Remove an output port from the model. Note: override this method in classes that extend the behavior, e.g. to
-     * remove couplings from this port in case it is removed.
+     * Remove an output port from the model. Note: override this method in classes that extend the behavior, e.g. to remove
+     * couplings from this port in case it is removed.
      * @param name String; the name of the output port to be removed
      * @throws PortNotFoundException in case the port name does not exist for the model
      */

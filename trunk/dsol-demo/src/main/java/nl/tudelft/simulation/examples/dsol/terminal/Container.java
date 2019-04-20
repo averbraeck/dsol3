@@ -10,10 +10,10 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * The 'active' container object.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
@@ -46,8 +46,8 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
      * @param agv AGV; the AGV resources
      * @param ship Ship; the ship
      */
-    public Container(final DEVSSimulatorInterface.TimeDouble simulator, final int containerNumber, final QC qc,
-            final AGV agv, final Ship ship)
+    public Container(final DEVSSimulatorInterface.TimeDouble simulator, final int containerNumber, final QC qc, final AGV agv,
+            final Ship ship)
     {
         this.simulator = simulator;
         this.containerNumber = containerNumber;
@@ -60,8 +60,8 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
             {
                 if (Terminal.DEBUG)
                 {
-                    System.out.println("T = " + this.simulator.getSimulatorTime() + ", Claim AGV for container "
-                            + this.containerNumber);
+                    System.out.println(
+                            "T = " + this.simulator.getSimulatorTime() + ", Claim AGV for container " + this.containerNumber);
                 }
                 this.simulator.scheduleEventAbs(39.0 * 60.0, this, this, "checkPhase", null);
                 this.agv.requestCapacity(1, this);
@@ -91,8 +91,8 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
             {
                 if (Terminal.DEBUG)
                 {
-                    System.out.println("T = " + this.simulator.getSimulatorTime() + ", Claim QC for container "
-                            + this.containerNumber);
+                    System.out.println(
+                            "T = " + this.simulator.getSimulatorTime() + ", Claim QC for container " + this.containerNumber);
                 }
                 this.phase++;
                 this.simulator.scheduleEventRel(this.qc.drawDelay(), this, this, "qcReady", null);
@@ -112,8 +112,8 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
             this.phase++;
             if (Terminal.DEBUG)
             {
-                System.out.println("T = " + this.simulator.getSimulatorTime() + ", AGV ready for container "
-                        + this.containerNumber);
+                System.out.println(
+                        "T = " + this.simulator.getSimulatorTime() + ", AGV ready for container " + this.containerNumber);
             }
             this.agv.releaseCapacity(1);
             this.qc.requestCapacity(1, this);
@@ -131,8 +131,8 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
         {
             if (Terminal.DEBUG)
             {
-                System.out.println("T = " + this.simulator.getSimulatorTime() + ", QC ready for container "
-                        + this.containerNumber);
+                System.out.println(
+                        "T = " + this.simulator.getSimulatorTime() + ", QC ready for container " + this.containerNumber);
             }
             this.qc.releaseCapacity(1);
             this.phase++;

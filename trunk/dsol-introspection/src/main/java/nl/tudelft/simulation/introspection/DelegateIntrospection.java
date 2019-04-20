@@ -7,8 +7,7 @@ package nl.tudelft.simulation.introspection;
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
- * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
- * <br>
+ * https://simulation.tudelft.nl/dsol/3.0/license.html</a>. <br>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
 public interface DelegateIntrospection
@@ -20,9 +19,9 @@ public interface DelegateIntrospection
     Object getParentIntrospectionObject();
 
     /**
-     * Check for introspection delegation to allow for the right object to be shown on the screen. 
+     * Check for introspection delegation to allow for the right object to be shown on the screen.
      * @param introspectedObject Object; the object that is displayed on the screen and might have delegation
-     * @return the toString() of the (delegated) object 
+     * @return the toString() of the (delegated) object
      */
     static String checkDelegation(final Object introspectedObject)
     {

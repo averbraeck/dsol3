@@ -7,8 +7,7 @@ import nl.tudelft.simulation.event.EventType;
 
 /**
  * The Seize is an extended Seize block which computes the servicetime. <br>
- * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands.
- * <br>
+ * Copyright (c) 2003-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
@@ -26,8 +25,7 @@ public class Release extends nl.tudelft.simulation.dsol.formalisms.flow.Release.
      * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator on which to schedule
      * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; the resource to be released
      */
-    public Release(final DEVSSimulatorInterface.TimeDouble simulator,
-            final Resource<Double, Double, SimTimeDouble> resource)
+    public Release(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<Double, Double, SimTimeDouble> resource)
     {
         super(simulator, resource);
     }
@@ -38,8 +36,8 @@ public class Release extends nl.tudelft.simulation.dsol.formalisms.flow.Release.
      * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; the resource to be released
      * @param amount double; the amount to be released
      */
-    public Release(final DEVSSimulatorInterface.TimeDouble simulator,
-            final Resource<Double, Double, SimTimeDouble> resource, final double amount)
+    public Release(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<Double, Double, SimTimeDouble> resource,
+            final double amount)
     {
         super(simulator, resource, amount);
     }

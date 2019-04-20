@@ -19,13 +19,12 @@ import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 /**
- * Utility to add or update the type foe each parameter in the javadoc of all java files in /src/main/java in all or in
- * selected projects in the workspace. Run this utility only from Eclipse!<br>
+ * Utility to add or update the type foe each parameter in the javadoc of all java files in /src/main/java in all or in selected
+ * projects in the workspace. Run this utility only from Eclipse!<br>
  * <br>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information
- * <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The source code and
- * binary code of this software is proprietary information of Delft University of Technology.
+ * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
+ * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
 public class ParamComments
@@ -153,8 +152,7 @@ public class ParamComments
         @Override
         /**
          * {@inheritDoc} <br>
-         * This method will be called for all constructors in this CompilationUnit, including constructors of inner
-         * classes.
+         * This method will be called for all constructors in this CompilationUnit, including constructors of inner classes.
          */
         public void visit(final ConstructorDeclaration constructorDeclaration, final Void arg)
         {
@@ -171,8 +169,8 @@ public class ParamComments
          */
         public void visit(final MethodDeclaration methodDeclaration, final Void arg)
         {
-            System.out.println(
-                    "\n------\n" + "   " + methodDeclaration.getName() + " : " + methodDeclaration.getTypeAsString());
+            System.out
+                    .println("\n------\n" + "   " + methodDeclaration.getName() + " : " + methodDeclaration.getTypeAsString());
             processDeclaration(methodDeclaration);
             super.visit(methodDeclaration, arg);
         }
@@ -236,11 +234,10 @@ public class ParamComments
                                         if (noHtmlLine.indexOf(";", varEndIndex + 1) != -1)
                                         {
                                             varType = noHtmlLine
-                                                    .substring(varEndIndex + 1,
-                                                            noHtmlLine.indexOf(';', varEndIndex + 1))
-                                                    .trim().replaceAll(", ", ",");
-                                            String parameterType = parameter.getType().asString()
-                                                    + (parameter.isVarArgs() ? "..." : "");
+                                                    .substring(varEndIndex + 1, noHtmlLine.indexOf(';', varEndIndex + 1)).trim()
+                                                    .replaceAll(", ", ",");
+                                            String parameterType =
+                                                    parameter.getType().asString() + (parameter.isVarArgs() ? "..." : "");
                                             // if there are spaces in the varType, we either have a type with spaces
                                             // e.g., Type<A, B>, or we have no variable but a ; later in the line,
                                             // e.g., @param var this is the B&eacute;zier variable. In these cases,
@@ -249,8 +246,8 @@ public class ParamComments
                                             {
                                                 if (varType.contains(" "))
                                                 {
-                                                    System.out.println("NO CHANGE - SPACES IN TYPE : " + line
-                                                            .replaceAll("<", "&lt;").replaceAll(">", "&gt;").trim());
+                                                    System.out.println("NO CHANGE - SPACES IN TYPE : "
+                                                            + line.replaceAll("<", "&lt;").replaceAll(">", "&gt;").trim());
                                                 }
                                                 else
                                                 {
@@ -260,8 +257,7 @@ public class ParamComments
                                                     line = line.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
                                                     System.out.println("CHANGED TYPE : " + line.trim());
                                                     this.paramComments.setChanged(true);
-                                                    this.paramComments.getLines().set(fileLine,
-                                                            line.replaceAll("\\n", ""));
+                                                    this.paramComments.getLines().set(fileLine, line.replaceAll("\\n", ""));
                                                 }
                                             }
                                         }

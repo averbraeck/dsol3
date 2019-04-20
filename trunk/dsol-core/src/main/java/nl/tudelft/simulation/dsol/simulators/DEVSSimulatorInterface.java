@@ -24,20 +24,19 @@ import nl.tudelft.simulation.event.EventType;
 
 /**
  * The DEVS defines the interface of the DEVS simulator. DEVS stands for the Discrete Event System Specification. More
- * information on Discrete Event Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler
- * et.al.
+ * information on Discrete Event Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.al.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute
- *            and relative types are the same.
+ * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
@@ -69,8 +68,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     SimEventInterface<T> scheduleEvent(SimEventInterface<T> event) throws SimRuntimeException;
 
     /**
-     * schedules a methodCall at a relative duration. The executionTime is thus
-     * simulator.getSimulatorTime()+relativeDuration.
+     * schedules a methodCall at a relative duration. The executionTime is thus simulator.getSimulatorTime()+relativeDuration.
      * @param relativeDelay R; the relativeDelay in timeUnits of the simulator.
      * @param priority short; the priority compared to other events scheduled at the same time.
      * @param source Object; the source of the event
@@ -84,8 +82,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
             Object[] args) throws SimRuntimeException;
 
     /**
-     * schedules a methodCall at a relative duration. The executionTime is thus
-     * simulator.getSimulatorTime()+relativeDuration.
+     * schedules a methodCall at a relative duration. The executionTime is thus simulator.getSimulatorTime()+relativeDuration.
      * @param relativeDelay R; the relativeDelay in timeUnits of the simulator.
      * @param source Object; the source of the event
      * @param target Object; the target
@@ -185,8 +182,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventRel(R relativeDelay, short priority, Executable executable)
-            throws SimRuntimeException;
+    SimEventInterface<T> scheduleEventRel(R relativeDelay, short priority, Executable executable) throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at a relative duration. The executionTime is thus
@@ -206,8 +202,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventAbs(T absoluteTime, short priority, Executable executable)
-            throws SimRuntimeException;
+    SimEventInterface<T> scheduleEventAbs(T absoluteTime, short priority, Executable executable) throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
@@ -226,8 +221,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
      * @return the simulation event so it can be cancelled later
      * @throws SimRuntimeException whenever the event is scheduled in the past.
      */
-    SimEventInterface<T> scheduleEventAbs(A absoluteTime, short priority, Executable executable)
-            throws SimRuntimeException;
+    SimEventInterface<T> scheduleEventAbs(A absoluteTime, short priority, Executable executable) throws SimRuntimeException;
 
     /**
      * schedules a lambda expression at an absolute time.
@@ -290,8 +284,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     /***********************************************************************************************************/
 
     /** Easy access interface DEVSSimulatorInterface.TimeDouble. */
-    public interface TimeDouble
-            extends DEVSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
+    public interface TimeDouble extends DEVSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
     {
         // typed extension
     }
@@ -330,8 +323,8 @@ public interface DEVSSimulatorInterface<A extends Comparable<A>, R extends Numbe
     }
 
     /** Easy access interface DEVSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends DEVSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>,
-            SimulatorInterface.CalendarFloat
+    public interface CalendarFloat
+            extends DEVSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>, SimulatorInterface.CalendarFloat
     {
         // typed extension
     }

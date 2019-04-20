@@ -42,7 +42,7 @@ public class Computer extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
 
     /**
      * constructs a new Computer.
-     * @param simulator the simulator
+     * @param simulator DEVSSimulator.TimeDouble; the simulator
      */
     public Computer(final DEVSSimulator.TimeDouble simulator)
     {

@@ -9,10 +9,10 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
@@ -58,8 +58,7 @@ public final class StreamBenchmark
         {
             dist.draw();
         }
-        System.out.println(
-                "1000000x DistNormal() with Java2Random takes " + (System.currentTimeMillis() - timeMs) + " msec.");
+        System.out.println("1000000x DistNormal() with Java2Random takes " + (System.currentTimeMillis() - timeMs) + " msec.");
 
         si = new DX120Generator(10);
         dist = new DistNormal(si);
@@ -68,8 +67,7 @@ public final class StreamBenchmark
         {
             dist.draw();
         }
-        System.out
-                .println("1000000x DistNormal() with DX120 takes " + (System.currentTimeMillis() - timeMs) + " msec.");
+        System.out.println("1000000x DistNormal() with DX120 takes " + (System.currentTimeMillis() - timeMs) + " msec.");
 
         timeMs = System.currentTimeMillis();
         double z = 0.0;

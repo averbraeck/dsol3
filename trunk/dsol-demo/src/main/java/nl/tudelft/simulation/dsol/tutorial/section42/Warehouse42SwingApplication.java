@@ -75,7 +75,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
 
         /**
          * @param model Warehouse42Model; the model
-         * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
+         * @param simulator DEVSSimulator.TimeDouble; the simulator
          */
         Warehouse42Panel(final Warehouse42Model model, final DEVSSimulator.TimeDouble simulator)
         {

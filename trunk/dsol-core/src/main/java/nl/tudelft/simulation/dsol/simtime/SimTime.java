@@ -5,21 +5,20 @@ import java.io.Serializable;
 /**
  * The abstract SimTime class that implements the majority of the operators on a SimTime.
  * <p>
- * Copyright (c) 2016-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2016-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @param <A> the absolute storage type, e.g. Calendar for the absolute time to ensure type safety. This is the
- *            <i>absolute</i> number, e.g., a Calendar for a simulation time. For simple calendar types such as a double
- *            for simulation time, the internal (relative) and external (absolute) storage types are the same.
+ * @param <A> the absolute storage type, e.g. Calendar for the absolute time to ensure type safety. This is the <i>absolute</i>
+ *            number, e.g., a Calendar for a simulation time. For simple calendar types such as a double for simulation time,
+ *            the internal (relative) and external (absolute) storage types are the same.
  * @param <R> the relative number type, e.g. Double for the internal storage type to ensure type safety. This is the
- *            <i>relative</i> number, so in case of a Calendar for a simulation time, the relative storage type is a
- *            relative time with a unit.
- * @param <T> the extended type itself to be able to implement a comparator, and to ease the use of extension return
- *            types.
+ *            <i>relative</i> number, so in case of a Calendar for a simulation time, the relative storage type is a relative
+ *            time with a unit.
+ * @param <T> the extended type itself to be able to implement a comparator, and to ease the use of extension return types.
  */
 public abstract class SimTime<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         implements Serializable, Comparable<T>
@@ -119,8 +118,7 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * The minus function of two absolute times returns a relative time, which is the difference between the two
-     * absolute times.
+     * The minus function of two absolute times returns a relative time, which is the difference between the two absolute times.
      * @param simTime T; the time to subtract.
      * @return the relative time difference between this SimTime object and the provided absoluteTime argument.
      */
@@ -130,9 +128,9 @@ public abstract class SimTime<A extends Comparable<A>, R extends Number & Compar
     }
 
     /**
-     * The minus function of two absolute times returns a relative time, which is the difference between the two
-     * absolute times. Note that the function was called diff because the erasure of minus(A) is the same as the erasure
-     * of minus(R) in case of SimTimeDOuble, SimTimeFloat and SimTimeLong.
+     * The minus function of two absolute times returns a relative time, which is the difference between the two absolute times.
+     * Note that the function was called diff because the erasure of minus(A) is the same as the erasure of minus(R) in case of
+     * SimTimeDOuble, SimTimeFloat and SimTimeLong.
      * @param absoluteTime A; the time to subtract.
      * @return the relative time based, which is the difference between the two absolute times.
      */

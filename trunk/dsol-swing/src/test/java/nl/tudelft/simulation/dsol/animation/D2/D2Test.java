@@ -10,10 +10,10 @@ import junit.framework.TestCase;
 /**
  * This class defines the JUnit test for the D2Test.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
@@ -67,12 +67,12 @@ public class D2Test extends TestCase
          * size.setSize(-200, -200); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(1, 1);
          * Assert.assertNull(Renderable2DInterface.Util.getScreenCoordinates( point, extent, size)); // Invalid ratio
          * size.setSize(200, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(1, 1);
-         * Assert.assertNull(Renderable2DInterface.Util.getScreenCoordinates( point, extent, size)); // Let's test for
-         * null values size.setSize(100, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(1, 1);
+         * Assert.assertNull(Renderable2DInterface.Util.getScreenCoordinates( point, extent, size)); // Let's test for null
+         * values size.setSize(100, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(1, 1);
          * Assert.assertNull(Renderable2DInterface.Util.getScreenCoordinates(null, extent, size));
          * Assert.assertNull(Renderable2DInterface.Util.getScreenCoordinates( point, null, size));
-         * Assert.assertNull(Renderable2DInterface.Util.getScreenCoordinates( point, extent, null)); // point not in
-         * extent size.setSize(100, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(-1, 1);
+         * Assert.assertNull(Renderable2DInterface.Util.getScreenCoordinates( point, extent, null)); // point not in extent
+         * size.setSize(100, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(-1, 1);
          * Assert.assertNull(Renderable2DInterface.Util.getScreenCoordinates( point, extent, size));
          */// ********************* WORLD COORDINATES ASSERTIONS **************//
         size.setSize(100, 100);
@@ -90,12 +90,12 @@ public class D2Test extends TestCase
          * size.setSize(-200, -200); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(1, 1);
          * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(point, extent, size)); // Invalid ratio
          * size.setSize(200, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(1, 1);
-         * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(point, extent, size)); // Let's test for
-         * null values size.setSize(100, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(1, 1);
+         * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(point, extent, size)); // Let's test for null values
+         * size.setSize(100, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(1, 1);
          * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(null, extent, size));
          * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(point, null, size));
-         * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(point, extent, null)); // point not in
-         * extent size.setSize(100, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(-1, 1);
+         * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(point, extent, null)); // point not in extent
+         * size.setSize(100, 100); extent.setRect(0, 0, 100, 100); point = new Point2D.Double(-1, 1);
          * Assert.assertNull(Renderable2DInterface.Util.getWorldCoordinates(point, extent, size));
          */
         // ********************* COMPUTE VISIBLE EXTENT **************//

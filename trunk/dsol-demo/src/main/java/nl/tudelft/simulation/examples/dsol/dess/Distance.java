@@ -8,8 +8,7 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved.
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -32,8 +31,8 @@ public class Distance extends DifferentialEquation<Double, Double, SimTimeDouble
     {
         super(simulator);
         this.speed = new Speed(simulator);
-        this.speed.initialize(10, new double[]{0});
-        this.initialize(10, new double[]{0});
+        this.speed.initialize(10, new double[] {0});
+        this.initialize(10, new double[] {0});
     }
 
     /** {@inheritDoc} */

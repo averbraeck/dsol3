@@ -11,8 +11,7 @@ import java.util.TimerTask;
 /**
  * provides a timed update mechanism for components. <br>
  * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
- * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL
- * License</a>. <br>
+ * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>.
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>.
  * @author Niels Lang.
@@ -47,8 +46,7 @@ public class UpdateTimer extends TimerTask
     @SuppressWarnings("unchecked")
     public synchronized void add(final Component component)
     {
-        List<WeakReference<Component>> arrayList =
-                new ArrayList<WeakReference<Component>>(Arrays.asList(this.components));
+        List<WeakReference<Component>> arrayList = new ArrayList<WeakReference<Component>>(Arrays.asList(this.components));
         arrayList.add(new WeakReference<Component>(component));
         this.components = arrayList.toArray(new WeakReference[arrayList.size()]);
         // The first table added
@@ -81,8 +79,7 @@ public class UpdateTimer extends TimerTask
     @SuppressWarnings("unchecked")
     private synchronized void remove(final WeakReference<Component> reference)
     {
-        List<WeakReference<Component>> arrayList =
-                new ArrayList<WeakReference<Component>>(Arrays.asList(this.components));
+        List<WeakReference<Component>> arrayList = new ArrayList<WeakReference<Component>>(Arrays.asList(this.components));
         arrayList.remove(reference);
         this.components = arrayList.toArray(new WeakReference[arrayList.size()]);
         if (this.components.length == 0)

@@ -8,10 +8,10 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
 /**
  * The histogram specifies a histogram chart for the DSOL framework.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights
- * reserved. See for project information <a href="https://simulation.tudelft.nl/" target="_blank">
- * https://simulation.tudelft.nl</a>. The DSOL project is distributed under a three-clause BSD-style license, which can
- * be found at <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
+ * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
@@ -48,8 +48,7 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
      * @param numericalMethod the integration method
      * @throws RemoteException on network error
      */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, short numericalMethod)
-            throws RemoteException
+    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, short numericalMethod) throws RemoteException
     {
         super(simulator, timeStep, numericalMethod);
     }
@@ -61,8 +60,8 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
      * @param numericalIntegrator the integration method
      * @throws RemoteException on network error
      */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep,
-            NumericalIntegrator numericalIntegrator) throws RemoteException
+    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, NumericalIntegrator numericalIntegrator)
+            throws RemoteException
     {
         super(simulator, timeStep, numericalIntegrator);
     }
@@ -71,6 +70,6 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
     @Override
     public double[] dy(double arg0, double[] arg1)
     {
-        return new double[]{1.0};
+        return new double[] {1.0};
     }
 }
