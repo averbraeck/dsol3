@@ -1,6 +1,44 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.03.07" date="2019-05-01" description="DEVSRealTimeClock animation 'jumps' repaired">
+      <action dev="averbraeck" type="fix">
+        The 'jumps' that sometimes occurred in the animation of the DEVSRealTimeClock have been repaired.
+        This was due to an accumulating error in the translation of short waits when no events were happening,
+        which was corrected with a time jump when the next event was executed. The code that is responsible
+        for handling this correctly is:
+<![CDATA[
+<pre>
+// make a small time step for the animation during wallclock waiting, but never beyond the next event
+// time. Changed 2019-04-30: this is now recalculated based on latest system time after the 'sleep'.
+synchronized (super.semaphore)
+{
+    A nextEventSimTime = nextEvent.getAbsoluteExecutionTime().get();
+    R deltaToWall0inSimTime = simulatorTimeForWallClockMillis(
+            (System.currentTimeMillis() - wallTime0) * currentSpeedFactor);
+    A currentWallSimTime = simTime0.plus(deltaToWall0inSimTime).get();
+    if (nextEventSimTime.compareTo(currentWallSimTime) &lt; 0)
+    {
+        this.simulatorTime.set(nextEventSimTime);
+        wallMillisNextEventSinceBaseline = 0.0; // force breakout of the loop
+    }
+    else
+    {
+        this.simulatorTime.set(currentWallSimTime);
+    }
+}
+</pre>
+]]>     
+      </action>
+      <action dev="averbraeck" type="add">
+        The DEVSRealTimeClock got an extra setting: public void setAnimation(final boolean animation). This setting
+        indicates whether the animation thread will be started or not. For Web-based applications, the simulation 
+        has to be scaled to the real-time clock, but the animation events do not come from the separate
+        AnimationThread, but from a timer in the Web application. In tat case setAnimation(false) can be
+        called on the DEVSRealTimeClock after constructing it.
+      </action>
+    </release>
+    
     <release version="3.03.06" date="2019-04-19" description="DelegateIntrospection, Map and Immutable introspection">
       <action dev="averbraeck" type="add">
         Introspection for Map, ImmutableCollection, and ImmutableMap added.

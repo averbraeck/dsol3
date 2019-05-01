@@ -186,7 +186,7 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
             }
             else
             {
-                this.run();
+                run();
             }
         }
     }

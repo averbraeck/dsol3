@@ -48,7 +48,7 @@ public class BallSwingApplication extends DSOLApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        DEVSRealTimeClock.TimeDouble simulator = new DEVSRealTimeClock.TimeDouble(0.01);
+        DEVSRealTimeClock.TimeDouble simulator = new DEVSRealTimeClock.TimeDouble(0.001);
         BallModel model = new BallModel(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
@@ -59,5 +59,4 @@ public class BallSwingApplication extends DSOLApplication
         simulator.initialize(replication, ReplicationMode.TERMINATING);
         new BallSwingApplication("Ball Animation model", panel);
     }
-
 }
