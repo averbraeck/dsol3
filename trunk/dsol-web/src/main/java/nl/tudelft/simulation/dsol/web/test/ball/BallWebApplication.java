@@ -29,6 +29,7 @@ public class BallWebApplication extends DSOLWebServer
         super(title, simulator, new Rectangle2D.Double(-100, -100, 200, 200));
     }
 
+    
     /**
      * @param args String[]; arguments, expected to be empty
      * @throws Exception on error

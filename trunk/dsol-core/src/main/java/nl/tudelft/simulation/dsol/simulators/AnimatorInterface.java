@@ -28,21 +28,21 @@ public interface AnimatorInterface
     EventType ANIMATION_DELAY_CHANGED_EVENT = new EventType("ANIMATION_DELAY_CHANGED_EVENT");
 
     /**
-     * returns the animation delay between each consequtive animation update.
-     * @return the animation delay in milliseconds of wallclock time
+     * returns the animation delay in milliseconds between each consecutive animation update.
+     * @return long; the animation delay in milliseconds of wallclock time
      * @throws RemoteException on network failure
      */
     long getAnimationDelay() throws RemoteException;
 
     /**
-     * sets the animationDelay.
-     * @param miliseconds long; the animation delay
+     * sets the animationDelay using wallclock time in milliseconds.
+     * @param milliseconds long; the animation delay in milliseconds
      * @throws RemoteException on network failure
      */
-    void setAnimationDelay(long miliseconds) throws RemoteException;
+    void setAnimationDelay(long milliseconds) throws RemoteException;
 
     /**
-     * UpdateAnimation takes care of firing the UPDATE_ANIMATION_EVENT.
+     * updateAnimation takes care of firing the UPDATE_ANIMATION_EVENT.
      */
     void updateAnimation();
 
@@ -78,11 +78,14 @@ public interface AnimatorInterface
         @Override
         public final void run()
         {
+            long lastTime = System.currentTimeMillis();
             while (this.running)
             {
                 try
                 {
-                    sleep(this.animator.getAnimationDelay());
+                    long delta = System.currentTimeMillis() - lastTime;
+                    sleep(Math.max(1,  this.animator.getAnimationDelay() - delta));
+                    lastTime = System.currentTimeMillis();
                     this.animator.updateAnimation();
                 }
                 catch (InterruptedException exception)

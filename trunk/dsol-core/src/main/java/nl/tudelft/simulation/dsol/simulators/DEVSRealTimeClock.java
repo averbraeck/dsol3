@@ -60,58 +60,80 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
      * events. Default, this value is set at 10 msec, which means that the simulation updates its clock with 100 Hz between
      * events. When this is too course, set e.g. to 1, which means that the clock will be updated with 1 kHz between events. The
      * latter can be important in real time simulations. Note that the housekeeping of the simulation clock takes time as well,
-     * so 1 kHz can be too fine grained in some situations.
+     * so 1 kHz can be too fine grained in some situations. This factor takes care that animation updates between events happen
+     * fine grained and in small increments.
      */
     private int updateMsec = 10;
 
     /** catch up or not catch up after running behind. */
     private boolean catchup = true;
 
+    /** Start an animation thread or not. */
+    private Boolean animation = true;
+
+    /** the current animation thread; null if none. */
+    private AnimationThread animationThread = null;
+
     /**
-     * Calculate the relative time step to do "factor" milliseconds on the simulation clock.
-     * @param factor double; the factor to multiply the milliseconds with
+     * Calculate the how much simulation duration corresponds to the number of wall clock milliseconds indicated in the
+     * parameter. When the DEVSRealTimeClock works with djunits Time or Duration, and the simulation is scaled to milliseconds,
+     * the simulatorTimeForWallClockMillis of a millisecond is a Duration of 1 millisecond. When 1 simulated time unit stands
+     * for a second, the simulatorTimeForWallClockMillis is 0.001.
+     * @param wallMilliseconds double; the number of milliseconds to calculate the corresponding simulation time for
      * @return the relative time step.
      */
-    protected abstract R relativeMillis(double factor);
+    protected abstract R simulatorTimeForWallClockMillis(double wallMilliseconds);
 
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings({"checkstyle:designforextension", "checkstyle:methodlength"})
     public void run()
     {
-        AnimationThread animationThread = new AnimationThread(this);
-        animationThread.start();
+        synchronized (this.animation)
+        {
+            if (this.animation)
+            {
+                this.animationThread = new AnimationThread(this);
+                this.animationThread.start();
+            }
+        }
 
-        long clockTime0 = System.currentTimeMillis(); // _________ current zero for the wall clock
-        T simTime0 = this.simulatorTime; // ______________________ current zero for the sim clock
-        double factor = this.speedFactor; // _____________________ local copy of speed factor to detect change
-        double msec1 = relativeMillis(1.0).doubleValue(); // _____ translation factor for 1 msec for sim clock
-        R rSim = this.relativeMillis(this.updateMsec * factor); // sim clock change for 'updateMsec' wall clock
+        System.out.println("\n\nbaseline...");
+
+        /* Baseline point for the wallclock time. */
+        long wallTime0 = System.currentTimeMillis();
+
+        /* Baseline point for the simulator time. */
+        T simTime0 = this.simulatorTime;
+
+        /* Speed factor is simulation seconds per 1 wallclock second. */
+        double currentSpeedFactor = this.speedFactor;
+
+        /* wall clock milliseconds per 1 simulation clock millisecond. */
+        double msec1 = simulatorTimeForWallClockMillis(1.0).doubleValue();
 
         while (this.isRunning() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             // check if speedFactor has changed. If yes: re-baseline.
-            if (factor != this.speedFactor)
+            if (currentSpeedFactor != this.speedFactor)
             {
-                clockTime0 = System.currentTimeMillis();
+                wallTime0 = System.currentTimeMillis();
                 simTime0 = this.simulatorTime;
-                factor = this.speedFactor;
-                rSim = this.relativeMillis(this.updateMsec * factor);
+                currentSpeedFactor = this.speedFactor;
             }
 
-            // check if we are behind; syncTime is the needed current time on the wall-clock
-            double syncTime = (System.currentTimeMillis() - clockTime0) * msec1 * factor;
-            // delta is the time we might be behind
-            double simTime = this.simulatorTime.diff(simTime0).doubleValue();
+            // check if we are behind; wantedSimTime is the needed current time on the wall-clock
+            double wantedSimTime = (System.currentTimeMillis() - wallTime0) * msec1 * currentSpeedFactor;
+            double simTimeSinceBaseline = this.simulatorTime.diff(simTime0).doubleValue();
 
-            if (syncTime > simTime)
+            if (simTimeSinceBaseline < wantedSimTime)
             {
                 // we are behind
                 if (!this.catchup)
                 {
                     // if no catch-up: re-baseline.
-                    clockTime0 = System.currentTimeMillis();
+                    wallTime0 = System.currentTimeMillis();
                     simTime0 = this.simulatorTime;
                 }
                 else
@@ -120,7 +142,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                     // first
                     synchronized (super.semaphore)
                     {
-                        R delta = relativeMillis((syncTime - simTime) / msec1);
+                        R delta = simulatorTimeForWallClockMillis((wantedSimTime - simTimeSinceBaseline) / msec1);
                         T absSyncTime = this.simulatorTime.plus(delta);
                         T eventTime = this.eventList.first().getAbsoluteExecutionTime();
                         if (absSyncTime.lt(eventTime))
@@ -137,100 +159,172 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
             // peek at the first event and determine the time difference relative to RT speed; that determines
             // how long we have to wait.
-            SimEventInterface<T> event = this.eventList.first();
-            double simTimeDiffMillis = (event.getAbsoluteExecutionTime().diff(simTime0)).doubleValue() / (msec1 * factor);
+            SimEventInterface<T> nextEvent = this.eventList.first();
+            double wallMillisNextEventSinceBaseline =
+                    (nextEvent.getAbsoluteExecutionTime().diff(simTime0)).doubleValue() / (msec1 * currentSpeedFactor);
 
-            /*
-             * simTimeDiff gives the number of milliseconds between the last event and this event. if speed == 1, this is the
-             * number of milliseconds we have to wait. if speed == 10, we have to wait 1/10 of that. If the speed == 0.1, we
-             * have to wait 10 times that amount. We might also be behind.
-             */
-            if (simTimeDiffMillis >= (System.currentTimeMillis() - clockTime0))
+            // wallMillisNextEventSinceBaseline gives the number of milliseconds on the wall clock since baselining for the
+            // expected execution time of the next event on the event list .
+            if (wallMillisNextEventSinceBaseline >= (System.currentTimeMillis() - wallTime0))
             {
-                while (simTimeDiffMillis > System.currentTimeMillis() - clockTime0)
+                while (wallMillisNextEventSinceBaseline > System.currentTimeMillis() - wallTime0)
                 {
                     try
                     {
                         Thread.sleep(this.updateMsec);
-
-                        // check if speedFactor has changed. If yes: break out of this loop and execute event.
-                        // this could cause a jump.
-                        if (factor != this.speedFactor)
-                        {
-                            simTimeDiffMillis = 0.0;
-                        }
-
                     }
                     catch (InterruptedException ie)
                     {
                         // do nothing
                         ie = null;
+                        Thread.interrupted(); // clear the flag
                     }
 
-                    // check if an event has been inserted. In a real-time situation this can be dome by other threads
-                    if (!event.equals(this.eventList.first())) // event inserted by a thread...
+                    // did we stop running between events?
+                    if (!isRunning())
                     {
-                        event = this.eventList.first();
-                        simTimeDiffMillis = (event.getAbsoluteExecutionTime().diff(simTime0)).doubleValue() / (msec1 * factor);
+                        wallMillisNextEventSinceBaseline = 0.0; // jump out of the while loop for sleeping
+                    }
+
+                    // check if speedFactor has changed. If yes: break out of this loop and execute event.
+                    // this could cause a jump...
+                    if (currentSpeedFactor != getSpeedFactor())
+                    {
+                        // rebaseline
+                        wallTime0 = System.currentTimeMillis();
+                        simTime0 = this.simulatorTime;
+                        currentSpeedFactor = getSpeedFactor();
+                        wallMillisNextEventSinceBaseline = 0.0;
+                    }
+
+                    // check if an event has been inserted. In a real-time situation this can be done by other threads
+                    if (!nextEvent.equals(this.eventList.first())) // event inserted by a thread...
+                    {
+                        nextEvent = this.eventList.first();
+                        wallMillisNextEventSinceBaseline = (nextEvent.getAbsoluteExecutionTime().diff(simTime0)).doubleValue()
+                                / (msec1 * currentSpeedFactor);
                     }
                     else
                     {
-                        // make a small time step for the animation during wallclock waiting.
-                        // but never beyond the next event time.
-                        if (this.simulatorTime.plus(rSim).lt(event.getAbsoluteExecutionTime()))
+                        // make a small time step for the animation during wallclock waiting, but never beyond the next event
+                        // time. Changed 2019-04-30: this is now recalculated based on latest system time after the 'sleep'.
+                        synchronized (super.semaphore)
                         {
-                            synchronized (super.semaphore)
+                            A nextEventSimTime = nextEvent.getAbsoluteExecutionTime().get();
+                            R deltaToWall0inSimTime = simulatorTimeForWallClockMillis(
+                                    (System.currentTimeMillis() - wallTime0) * currentSpeedFactor);
+                            A currentWallSimTime = simTime0.plus(deltaToWall0inSimTime).get();
+                            if (nextEventSimTime.compareTo(currentWallSimTime) < 0)
                             {
-                                this.simulatorTime.add(rSim);
+                                this.simulatorTime.set(nextEventSimTime);
+                                wallMillisNextEventSinceBaseline = 0.0; // force breakout of the loop
+                            }
+                            else
+                            {
+                                this.simulatorTime.set(currentWallSimTime);
                             }
                         }
                     }
                 }
             }
 
-            synchronized (super.semaphore)
+            // only execute an event if we are still running...
+            if (isRunning())
             {
-                if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
+                synchronized (super.semaphore)
                 {
-                    super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
-                            event.getAbsoluteExecutionTime().get());
-                }
-                this.simulatorTime = event.getAbsoluteExecutionTime();
-
-                // carry out all events scheduled on this simulation time, as long as we are still running.
-                while (this.isRunning() && !this.eventList.isEmpty() && event.getAbsoluteExecutionTime().eq(this.simulatorTime))
-                {
-                    event = this.eventList.removeFirst();
-                    try
+                    if (nextEvent.getAbsoluteExecutionTime().ne(super.simulatorTime))
                     {
-                        event.execute();
+                        fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, nextEvent.getAbsoluteExecutionTime(),
+                                nextEvent.getAbsoluteExecutionTime().get());
                     }
-                    catch (Exception exception)
+                    this.simulatorTime = nextEvent.getAbsoluteExecutionTime();
+
+                    // carry out all events scheduled on this simulation time, as long as we are still running.
+                    while (this.isRunning() && !this.eventList.isEmpty()
+                            && nextEvent.getAbsoluteExecutionTime().eq(this.simulatorTime))
                     {
-                        SimLogger.always().error(exception);
-                        if (this.isPauseOnError())
+                        nextEvent = this.eventList.removeFirst();
+                        try
                         {
-                            try
+                            nextEvent.execute();
+                        }
+                        catch (Exception exception)
+                        {
+                            SimLogger.always().error(exception);
+                            if (this.isPauseOnError())
                             {
-                                this.stop();
-                            }
-                            catch (SimRuntimeException stopException)
-                            {
-                                SimLogger.always().error(stopException);
+                                try
+                                {
+                                    this.stop();
+                                }
+                                catch (SimRuntimeException stopException)
+                                {
+                                    SimLogger.always().error(stopException);
+                                }
                             }
                         }
-                    }
-                    if (!this.eventList.isEmpty())
-                    {
-                        // peek at next event for while loop.
-                        event = this.eventList.first();
+                        if (!this.eventList.isEmpty())
+                        {
+                            // peek at next event for while loop.
+                            nextEvent = this.eventList.first();
+                        }
                     }
                 }
             }
         }
-        this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
-        updateAnimation();
-        animationThread.stopAnimation();
+        fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+
+        System.out.println("cleanup...");
+
+        synchronized (this.animation)
+        {
+            if (this.animation && this.animationThread != null)
+            {
+                updateAnimation();
+                this.animationThread.stopAnimation();
+            }
+        }
+    }
+
+    /**
+     * Indicate whether we support animation or not.
+     * @param animation boolean; whether we support animation or not
+     */
+    public void setAnimation(final boolean animation)
+    {
+        synchronized (this.animation)
+        {
+            if (this.animation == animation)
+            {
+                return; // nothing changed
+            }
+            if (this.animation)
+            {
+                if (this.animationThread != null)
+                {
+                    this.animationThread.stopAnimation();
+                    this.animationThread = null;
+                }
+            }
+            else
+            {
+                if (isRunning())
+                {
+                    this.animationThread = new AnimationThread(this);
+                    this.animationThread.start();
+                }
+            }
+            this.animation = animation;
+        }
+    }
+
+    /**
+     * @return animation boolean; whether we support animation or not
+     */
+    public final boolean isAnimation()
+    {
+        return this.animation;
     }
 
     /**
@@ -333,9 +427,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final Double relativeMillis(final double factor)
+        protected final Double simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
-            return this.msecWallClockToSimTimeUnit * factor;
+            return this.msecWallClockToSimTimeUnit * wallMilliseconds;
         }
 
         /** {@inheritDoc} */
@@ -388,9 +482,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final Duration relativeMillis(final double factor)
+        protected final Duration simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
-            return new Duration(factor, DurationUnit.MILLISECOND);
+            return new Duration(wallMilliseconds, DurationUnit.MILLISECOND);
         }
 
         /** {@inheritDoc} */
@@ -411,9 +505,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final FloatDuration relativeMillis(final double factor)
+        protected final FloatDuration simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
-            return new FloatDuration((float) factor, DurationUnit.MILLISECOND);
+            return new FloatDuration((float) wallMilliseconds, DurationUnit.MILLISECOND);
         }
 
         /** {@inheritDoc} */
@@ -434,9 +528,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final Duration relativeMillis(final double factor)
+        protected final Duration simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
-            return new Duration(factor, DurationUnit.MILLISECOND);
+            return new Duration(wallMilliseconds, DurationUnit.MILLISECOND);
         }
 
         /** {@inheritDoc} */
@@ -457,9 +551,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final FloatDuration relativeMillis(final double factor)
+        protected final FloatDuration simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
-            return new FloatDuration((float) factor, DurationUnit.MILLISECOND);
+            return new FloatDuration((float) wallMilliseconds, DurationUnit.MILLISECOND);
         }
 
         /** {@inheritDoc} */
@@ -480,9 +574,9 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        protected final Long relativeMillis(final double factor)
+        protected final Long simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
-            return (long) factor;
+            return (long) wallMilliseconds;
         }
 
         /** {@inheritDoc} */

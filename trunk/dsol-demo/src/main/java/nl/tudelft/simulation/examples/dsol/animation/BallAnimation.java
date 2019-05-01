@@ -8,7 +8,6 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2D;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
@@ -24,7 +23,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  * @since 1.4
  */
-public class BallAnimation extends Renderable2D<Locatable>
+public class BallAnimation extends Renderable2D<Ball>
 {
     /**
      * the color of the ballAnimation.
@@ -38,7 +37,7 @@ public class BallAnimation extends Renderable2D<Locatable>
      * @throws NamingException on registration error
      * @throws RemoteException on remote animation error
      */
-    public BallAnimation(final Locatable source, final SimulatorInterface.TimeDouble simulator)
+    public BallAnimation(final Ball source, final SimulatorInterface.TimeDouble simulator)
             throws RemoteException, NamingException
     {
         super(source, simulator);
