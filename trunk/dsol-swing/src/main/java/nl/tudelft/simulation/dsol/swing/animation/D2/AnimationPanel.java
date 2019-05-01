@@ -175,24 +175,27 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
             boolean show = true;
             if (!this.shownClasses.contains(locatableClass))
             {
-                for (Class<? extends Locatable> lc : this.visibilityMap.keySet())
+                synchronized (this.visibilityMap)
                 {
-                    if (lc.isAssignableFrom(locatableClass))
+                    for (Class<? extends Locatable> lc : this.visibilityMap.keySet())
                     {
-                        if (!this.visibilityMap.get(lc))
+                        if (lc.isAssignableFrom(locatableClass))
                         {
-                            show = false;
+                            if (!this.visibilityMap.get(lc))
+                            {
+                                show = false;
+                            }
                         }
                     }
-                }
-                // add to the right cache
-                if (show)
-                {
-                    this.shownClasses.add(locatableClass);
-                }
-                else
-                {
-                    this.hiddenClasses.add(locatableClass);
+                    // add to the right cache
+                    if (show)
+                    {
+                        this.shownClasses.add(locatableClass);
+                    }
+                    else
+                    {
+                        this.hiddenClasses.add(locatableClass);
+                    }
                 }
             }
             return show;
@@ -342,7 +345,10 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      */
     public void showClass(final Class<? extends Locatable> locatableClass)
     {
-        this.visibilityMap.put(locatableClass, true);
+        synchronized (this.visibilityMap)
+        {
+            this.visibilityMap.put(locatableClass, true);
+        }
         this.shownClasses.clear();
         this.hiddenClasses.clear();
         this.repaint();
@@ -354,7 +360,10 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      */
     public void hideClass(final Class<? extends Locatable> locatableClass)
     {
-        this.visibilityMap.put(locatableClass, false);
+        synchronized (this.visibilityMap)
+        {
+            this.visibilityMap.put(locatableClass, false);
+        }
         this.shownClasses.clear();
         this.hiddenClasses.clear();
         this.repaint();
@@ -367,11 +376,14 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      */
     public void toggleClass(final Class<? extends Locatable> locatableClass)
     {
-        if (!this.visibilityMap.containsKey(locatableClass))
+        synchronized (this.visibilityMap)
         {
-            showClass(locatableClass);
+            if (!this.visibilityMap.containsKey(locatableClass))
+            {
+                showClass(locatableClass);
+            }
+            this.visibilityMap.put(locatableClass, !this.visibilityMap.get(locatableClass));
         }
-        this.visibilityMap.put(locatableClass, !this.visibilityMap.get(locatableClass));
         this.shownClasses.clear();
         this.hiddenClasses.clear();
         this.repaint();

@@ -98,13 +98,11 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
             }
         }
 
-        System.out.println("\n\nbaseline...");
-
         /* Baseline point for the wallclock time. */
         long wallTime0 = System.currentTimeMillis();
 
         /* Baseline point for the simulator time. */
-        T simTime0 = this.simulatorTime;
+        T simTime0 = this.simulatorTime.copy();
 
         /* Speed factor is simulation seconds per 1 wallclock second. */
         double currentSpeedFactor = this.speedFactor;
@@ -119,7 +117,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
             if (currentSpeedFactor != this.speedFactor)
             {
                 wallTime0 = System.currentTimeMillis();
-                simTime0 = this.simulatorTime;
+                simTime0.set(this.simulatorTime.get());
                 currentSpeedFactor = this.speedFactor;
             }
 
@@ -134,7 +132,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                 {
                     // if no catch-up: re-baseline.
                     wallTime0 = System.currentTimeMillis();
-                    simTime0 = this.simulatorTime;
+                    simTime0.set(this.simulatorTime.get());
                 }
                 else
                 {
@@ -147,11 +145,11 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                         T eventTime = this.eventList.first().getAbsoluteExecutionTime();
                         if (absSyncTime.lt(eventTime))
                         {
-                            this.simulatorTime = absSyncTime;
+                            this.simulatorTime.set(absSyncTime.get());
                         }
                         else
                         {
-                            this.simulatorTime = eventTime;
+                            this.simulatorTime.set(eventTime.get());
                         }
                     }
                 }
@@ -184,17 +182,18 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                     if (!isRunning())
                     {
                         wallMillisNextEventSinceBaseline = 0.0; // jump out of the while loop for sleeping
+                        break;
                     }
 
-                    // check if speedFactor has changed. If yes: break out of this loop and execute event.
-                    // this could cause a jump...
-                    if (currentSpeedFactor != getSpeedFactor())
+                    // check if speedFactor has changed. If yes: rebaseline. Try to avoid a jump.
+                    if (currentSpeedFactor != this.speedFactor)
                     {
                         // rebaseline
                         wallTime0 = System.currentTimeMillis();
-                        simTime0 = this.simulatorTime;
-                        currentSpeedFactor = getSpeedFactor();
-                        wallMillisNextEventSinceBaseline = 0.0;
+                        simTime0.set(this.simulatorTime.get());
+                        currentSpeedFactor = this.speedFactor;
+                        wallMillisNextEventSinceBaseline = (nextEvent.getAbsoluteExecutionTime().diff(simTime0)).doubleValue()
+                                / (msec1 * currentSpeedFactor);
                     }
 
                     // check if an event has been inserted. In a real-time situation this can be done by other threads
@@ -204,22 +203,26 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                         wallMillisNextEventSinceBaseline = (nextEvent.getAbsoluteExecutionTime().diff(simTime0)).doubleValue()
                                 / (msec1 * currentSpeedFactor);
                     }
-                    else
+
+                    // make a small time step for the animation during wallclock waiting, but never beyond the next event
+                    // time. Changed 2019-04-30: this is now recalculated based on latest system time after the 'sleep'.
+                    synchronized (super.semaphore)
                     {
-                        // make a small time step for the animation during wallclock waiting, but never beyond the next event
-                        // time. Changed 2019-04-30: this is now recalculated based on latest system time after the 'sleep'.
-                        synchronized (super.semaphore)
+                        A nextEventSimTime = nextEvent.getAbsoluteExecutionTime().get();
+                        R deltaToWall0inSimTime =
+                                simulatorTimeForWallClockMillis((System.currentTimeMillis() - wallTime0) * currentSpeedFactor);
+                        A currentWallSimTime = simTime0.plus(deltaToWall0inSimTime).get();
+                        if (nextEventSimTime.compareTo(currentWallSimTime) < 0)
                         {
-                            A nextEventSimTime = nextEvent.getAbsoluteExecutionTime().get();
-                            R deltaToWall0inSimTime = simulatorTimeForWallClockMillis(
-                                    (System.currentTimeMillis() - wallTime0) * currentSpeedFactor);
-                            A currentWallSimTime = simTime0.plus(deltaToWall0inSimTime).get();
-                            if (nextEventSimTime.compareTo(currentWallSimTime) < 0)
+                            if (nextEventSimTime.compareTo(this.simulatorTime.get()) > 0) // don't go back in time
                             {
                                 this.simulatorTime.set(nextEventSimTime);
-                                wallMillisNextEventSinceBaseline = 0.0; // force breakout of the loop
                             }
-                            else
+                            wallMillisNextEventSinceBaseline = 0.0; // force breakout of the loop
+                        }
+                        else
+                        {
+                            if (currentWallSimTime.compareTo(this.simulatorTime.get()) > 0) // don't go back in time
                             {
                                 this.simulatorTime.set(currentWallSimTime);
                             }
@@ -233,12 +236,12 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
             {
                 synchronized (super.semaphore)
                 {
-                    if (nextEvent.getAbsoluteExecutionTime().ne(super.simulatorTime))
+                    if (nextEvent.getAbsoluteExecutionTime().ne(this.simulatorTime))
                     {
                         fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, nextEvent.getAbsoluteExecutionTime(),
                                 nextEvent.getAbsoluteExecutionTime().get());
                     }
-                    this.simulatorTime = nextEvent.getAbsoluteExecutionTime();
+                    this.simulatorTime.set(nextEvent.getAbsoluteExecutionTime().get());
 
                     // carry out all events scheduled on this simulation time, as long as we are still running.
                     while (this.isRunning() && !this.eventList.isEmpty()
@@ -274,8 +277,6 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
             }
         }
         fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
-
-        System.out.println("cleanup...");
 
         synchronized (this.animation)
         {

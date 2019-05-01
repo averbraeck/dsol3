@@ -78,14 +78,14 @@ public interface AnimatorInterface
         @Override
         public final void run()
         {
-            long lastTime = System.currentTimeMillis();
+            long lastTime = System.nanoTime();
             while (this.running)
             {
                 try
                 {
-                    long delta = System.currentTimeMillis() - lastTime;
-                    sleep(Math.max(1,  this.animator.getAnimationDelay() - delta));
-                    lastTime = System.currentTimeMillis();
+                    long delta = System.nanoTime() - lastTime;
+                    sleep(Math.max(1,  this.animator.getAnimationDelay() - delta / 1000000));
+                    lastTime = System.nanoTime();
                     this.animator.updateAnimation();
                 }
                 catch (InterruptedException exception)

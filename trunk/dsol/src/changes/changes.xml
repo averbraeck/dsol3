@@ -37,6 +37,16 @@ synchronized (super.semaphore)
         AnimationThread, but from a timer in the Web application. In tat case setAnimation(false) can be
         called on the DEVSRealTimeClock after constructing it.
       </action>
+      <action dev="averbraeck" type="fix">
+        A 'ConcurrentModificationException' on the visibilityMap in the AnimationPanel in dsol-swing has been repaired
+        with a 'synchronized' block for its use. The main program thread was still setting the visibility of the
+        classes, while the first animation was already iterating over the visibility to see which classes need to 
+        be drawn on the screen.
+      </action>
+      <action dev="averbraeck" type="fix">
+        The AnimationThread corrects the time between animation updates for the time it takes to draw the animation.
+        It thereby tries to stay as close as possible to the given update frequency.
+      </action>
     </release>
     
     <release version="3.03.06" date="2019-04-19" description="DelegateIntrospection, Map and Immutable introspection">
