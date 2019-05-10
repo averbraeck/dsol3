@@ -83,7 +83,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     public final void setFloatValue(final float newValue) throws InputParameterException
     {
         if (this.minimumValue > newValue || this.maximumValue < newValue || (this.minimumValue == newValue && !this.minIncluded)
-                || (this.maximumValue == newValue && !this.maxIncluded))
+                || (this.maximumValue == newValue && !this.maxIncluded) || Float.isNaN(newValue))
         {
             throw new InputParameterException("new value for InputParameterFloat with key " + getKey() + " with value "
                     + newValue + " is out of valid range [" + this.minimumValue + ".." + this.maximumValue + "]");

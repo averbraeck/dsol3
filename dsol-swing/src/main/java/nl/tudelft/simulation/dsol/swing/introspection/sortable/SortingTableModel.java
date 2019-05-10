@@ -12,8 +12,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import org.djutils.logger.Cat;
-
+import nl.tudelft.simulation.dsol.logger.Cat;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 
 /**

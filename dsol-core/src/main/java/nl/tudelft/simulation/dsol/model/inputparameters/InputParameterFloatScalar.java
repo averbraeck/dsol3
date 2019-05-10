@@ -94,9 +94,13 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
             final String format, final float displayPriority) throws InputParameterException
     {
         super(key, shortName, description, defaultValue, displayPriority);
-        add(new InputParameterFloat("value", "value", "float value in the given unit", defaultValue.getInUnit(), minimumValueSI,
-                maximumValueSI, minIncluded, maxIncluded, format, 1.0));
+        add(new InputParameterFloat("value", "value", "float value in the given unit", defaultValue.getInUnit(),
+                -Float.MAX_VALUE, Float.MAX_VALUE, false, false, format, 1.0));
         add(new InputParameterUnit<U>("unit", "unit", "unit for the value", defaultValue.getUnit(), 2.0));
+        this.minimumValueSI = minimumValueSI;
+        this.maximumValueSI = maximumValueSI;
+        this.minIncluded = minIncluded;
+        this.maxIncluded = maxIncluded;
     }
 
     /**
@@ -164,7 +168,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
 
         if (this.minimumValueSI > newValue.si || this.maximumValueSI < newValue.si
                 || (this.minimumValueSI == newValue.si && !this.minIncluded)
-                || (this.maximumValueSI == newValue.si && !this.maxIncluded))
+                || (this.maximumValueSI == newValue.si && !this.maxIncluded) || Float.isNaN(newValue.si))
         {
             throw new InputParameterException(
                     "new value for InputParameterFloatUnit with key " + getKey() + " with value " + newValue

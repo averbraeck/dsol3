@@ -96,8 +96,12 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     {
         super(key, shortName, description, defaultValue, displayPriority);
         add(new InputParameterDouble("value", "value", "double value in the given unit", defaultValue.getInUnit(),
-                minimumValueSI, maximumValueSI, minIncluded, maxIncluded, format, 1.0));
+                -Double.MAX_VALUE, Double.MAX_VALUE, false, false, format, 1.0));
         add(new InputParameterUnit<U>("unit", "unit", "unit for the value", defaultValue.getUnit(), 2.0));
+        this.minimumValueSI = minimumValueSI;
+        this.maximumValueSI = maximumValueSI;
+        this.minIncluded = minIncluded;
+        this.maxIncluded = maxIncluded;
     }
 
     /**
@@ -164,7 +168,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
 
         if (this.minimumValueSI > newValue.si || this.maximumValueSI < newValue.si
                 || (this.minimumValueSI == newValue.si && !this.minIncluded)
-                || (this.maximumValueSI == newValue.si && !this.maxIncluded))
+                || (this.maximumValueSI == newValue.si && !this.maxIncluded) || Double.isNaN(newValue.si))
         {
             throw new InputParameterException(
                     "new value for InputParameterDoubleUnit with key " + getKey() + " with value " + newValue

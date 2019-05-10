@@ -2,10 +2,9 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.rmi.RemoteException;
 
-import org.djutils.logger.Cat;
-
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
+import nl.tudelft.simulation.dsol.logger.Cat;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
