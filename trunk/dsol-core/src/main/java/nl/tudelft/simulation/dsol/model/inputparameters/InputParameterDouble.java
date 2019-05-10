@@ -83,7 +83,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     public void setDoubleValue(final double newValue) throws InputParameterException
     {
         if (this.minimumValue > newValue || this.maximumValue < newValue || (this.minimumValue == newValue && !this.minIncluded)
-                || (this.maximumValue == newValue && !this.maxIncluded))
+                || (this.maximumValue == newValue && !this.maxIncluded) || Double.isNaN(newValue))
         {
             throw new InputParameterException("new value for InputParameterDouble with key " + getKey() + " with value "
                     + newValue + " is out of valid range [" + this.minimumValue + ".." + this.maximumValue + "]");

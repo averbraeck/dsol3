@@ -1,6 +1,18 @@
 <document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <body>
 
+    <release version="3.03.08" date="2019-05-10" description="InputParameters checks for min/max repaired">
+      <action dev="averbraeck" type="fix">
+        The InputParameterDouble and InputParameterFloat did not check for NaN. This has been repaired. 
+        The InputParameyterDoubleScalar and InputParameyterFloatScalar checked for the min/max values
+        in the double/float rather than in the SI values including the unit. This has been repaired.    
+      </action>
+      <action dev="averbraeck" type="update">
+        DJUTILS has been updated to version 1.00.06. This resulted in several imports for the Cat class
+        for logging to be changed.     
+      </action>
+    </release>
+    
     <release version="3.03.07" date="2019-05-01" description="DEVSRealTimeClock animation 'jumps' repaired">
       <action dev="averbraeck" type="fix">
         The 'jumps' that sometimes occurred in the animation of the DEVSRealTimeClock have been repaired.

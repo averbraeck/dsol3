@@ -26,7 +26,7 @@ public class EventListTest extends TestCase
     public static final String TEST_METHOD_NAME = "test";
 
     /**
-     * eventList is the eventList on which the test is fired
+     * eventList is the eventList on which the test is fired.
      */
     private EventListInterface<SimTimeDouble> eventList = null;
 

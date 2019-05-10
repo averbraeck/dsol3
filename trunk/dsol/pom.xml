@@ -33,7 +33,7 @@
     <jdom.version>2.0.6</jdom.version>
     <xstream.version>1.4.10</xstream.version>
     <djunits.version>3.00.07</djunits.version>
-    <djutils.version>1.00.02</djutils.version>
+    <djutils.version>1.00.06</djutils.version>
 
     <maven.compiler.version>3.8.0</maven.compiler.version>
     <maven.site.version>3.7.1</maven.site.version>
