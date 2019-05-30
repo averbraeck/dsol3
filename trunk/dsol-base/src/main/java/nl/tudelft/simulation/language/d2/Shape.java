@@ -20,7 +20,7 @@ public final class Shape
      */
     private Shape()
     {
-        super();
+        // utility class.
     }
 
     /**
@@ -51,13 +51,14 @@ public final class Shape
     }
 
     /**
+     * do the rectangles really intersect (so, not being contained)? 
      * @param r1 Rectangle2D; the first rectangle
      * @param r2 Rectangle2D; the second rectangle
-     * @return whether r1 intersects r2
+     * @return whether r1 really intersects r2
      */
     public static boolean intersects(final Rectangle2D r1, final Rectangle2D r2)
     {
-        return !Shape.contains(r1, r2) && Shape.intersects(r1, r2);
+        return !Shape.contains(r1, r2) && !Shape.contains(r2, r1) && overlaps(r1, r2);
     }
 
     /**
@@ -68,8 +69,8 @@ public final class Shape
      */
     public static boolean contains(final Rectangle2D r1, final Rectangle2D r2)
     {
-        boolean contains = (r1.getMinX() <= r1.getMinX() && r1.getMinY() <= r2.getMinY() && r1.getMaxX() >= r2.getMaxX()
-                && r1.getMaxY() >= r2.getMaxY());
+        boolean contains = (r2.getMinX() <= r1.getMinX() && r2.getMinY() <= r1.getMinY() && r2.getMaxX() >= r1.getMaxX()
+                && r2.getMaxY() >= r1.getMaxY());
         return contains;
     }
 }

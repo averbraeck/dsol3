@@ -21,7 +21,6 @@ public final class Circle
      */
     private Circle()
     {
-        super();
         // unreachable code
     }
 
