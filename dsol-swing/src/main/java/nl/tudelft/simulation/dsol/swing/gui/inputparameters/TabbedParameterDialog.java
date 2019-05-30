@@ -239,6 +239,11 @@ public class TabbedParameterDialog extends JDialog implements ActionListener
                     InputFieldFloat f = (InputFieldFloat) field;
                     f.getParameter().setFloatValue(f.getFloatValue());
                 }
+                else if (field instanceof InputFieldBoolean)
+                {
+                    InputFieldBoolean f = (InputFieldBoolean) field;
+                    f.getParameter().setBooleanValue(f.getValue());
+                }
                 else if (field instanceof InputFieldInteger)
                 {
                     InputFieldInteger f = (InputFieldInteger) field;
