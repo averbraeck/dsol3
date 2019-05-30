@@ -54,12 +54,12 @@ public class DirectionalLine extends Line2D.Double
     }
 
     /**
-     * Calculates the normal to this line.
+     * Calculates the normal to this line. The normal of (a, b) is (-b, a).
      */
     public void calcNormal()
     {
-        this.normalX = this.y2 - this.y1;
-        this.normalY = this.x1 - this.x2;
+        this.normalX = this.y1 - this.y2;
+        this.normalY = this.x2 - this.x1;
     }
 
     /**
@@ -75,7 +75,7 @@ public class DirectionalLine extends Line2D.Double
     /**
      * Set the line using floats.
      * @param x1 float; x1 coordinate
-     * @param y1 float; y1 coodinate
+     * @param y1 float; y1 coordinate
      * @param x2 float; x2 coordinate
      * @param y2 float; y2 coordinate
      */
@@ -136,7 +136,7 @@ public class DirectionalLine extends Line2D.Double
     @Override
     public String toString()
     {
-        return "(" + this.x1 + ", " + this.y1 + ")->" + "(" + this.x2 + "," + this.y2 + ")";
+        return "(" + this.x1 + "," + this.y1 + ")->(" + this.x2 + "," + this.y2 + ")";
     }
 
     /**

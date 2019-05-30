@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.language.d2;
 
-import java.awt.geom.Point2D;
-
 /**
  * The Angle class presents a number of mathematical utility functions on the angle. For now, the class only implements static
  * helper methods. No instances of the class should be made now.
@@ -21,7 +19,6 @@ public final class Angle
      */
     private Angle()
     {
-        super();
         // unreachable code
     }
 
@@ -49,16 +46,5 @@ public final class Angle
         double times = Math.floor((result + Math.PI) / (2.0d * Math.PI));
         result -= times * 2.0d * Math.PI;
         return result;
-    }
-
-    /**
-     * Return the 2-pi normalized angle when making an arc from p0 to p1.
-     * @param p0 Point2D; first point
-     * @param p1 Point2D; second point
-     * @return the normalized angle
-     */
-    public static double angle(final Point2D p0, final Point2D p1)
-    {
-        return normalize2Pi(Math.atan2(p1.getY() - p0.getY(), p1.getX() - p0.getX()));
     }
 }
