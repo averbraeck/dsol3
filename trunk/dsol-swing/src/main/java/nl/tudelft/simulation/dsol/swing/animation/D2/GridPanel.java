@@ -84,7 +84,7 @@ public class GridPanel extends JPanel
      */
     public GridPanel(final Rectangle2D extent)
     {
-        this(extent, new Dimension(600, 600));
+        this(extent, new Dimension(800, 600));
     }
 
     /**
