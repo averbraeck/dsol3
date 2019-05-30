@@ -37,15 +37,21 @@ public class CollectionRenderer extends DefaultTableCellRenderer
             int column)
     {
         List<Object> coll = new ArrayList<Object>((Collection<?>) value);
-        String content = "Collection of ";
+        StringBuilder content = new StringBuilder();
+        content.append("Collection of ");
         if (coll.size() > 0)
-            content += getShortName(coll.get(0).getClass());
+            content.append(getShortName(coll.get(0).getClass()));
         else
-            content += "?";
-        content += ": ";
+            content.append("?");
+        content.append(": ");
         for (int i = 0; i < coll.size(); i++)
-            content += coll.get(i).toString() + "; ";
-        return new JLabel(content);
+        {
+            if (coll.get(i) == null)
+                content.append("null; ");
+            else
+                content.append(coll.get(i).toString() + "; ");
+        }
+        return new JLabel(content.toString());
     }
 
     /**
