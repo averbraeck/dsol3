@@ -87,6 +87,9 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
 
     /** dirty flag for the list. */
     private boolean dirty = false;
+    
+    /** the margin factor 'around' the extent. */
+    public static final double EXTENT_MARGIN_FACTOR = 0.05; 
 
     /**
      * constructs a new AnimationPanel.
@@ -322,10 +325,10 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
             // ignore
         }
 
-        minX = minX - 0.05 * Math.abs(minX);
-        minY = minY - 0.05 * Math.abs(minY);
-        maxX = maxX + 0.05 * Math.abs(maxX);
-        maxY = maxY + 0.05 * Math.abs(maxY);
+        minX -= EXTENT_MARGIN_FACTOR * Math.abs(maxX - minX);
+        minY -= EXTENT_MARGIN_FACTOR * Math.abs(maxY - minY);
+        maxX += EXTENT_MARGIN_FACTOR * Math.abs(maxX - minX);
+        maxY += EXTENT_MARGIN_FACTOR * Math.abs(maxY - minY);
 
         return new Rectangle2D.Double(minX, minY, maxX - minX, maxY - minY);
     }
