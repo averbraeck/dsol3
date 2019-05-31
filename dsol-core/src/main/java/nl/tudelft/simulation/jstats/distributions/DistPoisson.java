@@ -22,10 +22,10 @@ public class DistPoisson extends DistDiscrete
     private static final long serialVersionUID = 1L;
 
     /** lambda is the lambda parameter. */
-    private double lambda;
+    private final double lambda;
 
     /** expl is a helper variable. */
-    private double expl;
+    private final double expl;
 
     /**
      * constructs a new Poisson distribution.
@@ -50,8 +50,7 @@ public class DistPoisson extends DistDiscrete
     @Override
     public long draw()
     {
-        // Adapted from Fortran program in Shannon, Systems Simulation, 1975,
-        // p. 359
+        // Adapted from Fortran program in Shannon, Systems Simulation, 1975, p. 359
         double s = 1.0;
         long x = -1;
         do
@@ -72,6 +71,14 @@ public class DistPoisson extends DistDiscrete
             return (Math.exp(-this.lambda) * Math.pow(this.lambda, observation)) / ProbMath.faculty(observation);
         }
         return 0;
+    }
+
+    /**
+     * @return lambda
+     */
+    public final double getLambda()
+    {
+        return this.lambda;
     }
 
     /** {@inheritDoc} */

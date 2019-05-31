@@ -60,6 +60,16 @@ public class InputParameterDistDiscrete extends AbstractInputParameter<DistDiscr
         this.stream = stream;
     }
 
+    /**
+     * Set the value of the distribution.
+     * @param dist DistDiscrete; the distribution to set the value to
+     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     */
+    public final void setDistValue(final DistDiscrete dist) throws InputParameterException
+    {
+        setValue(dist);
+    }
+
     /** {@inheritDoc} */
     @Override
     public InputParameterDistDiscrete clone() throws CloneNotSupportedException

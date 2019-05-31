@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -21,35 +23,31 @@ public class DistTriangular extends DistContinuous
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** a is the minimum. */
-    private double a;
+    /** the minimum. */
+    private final double min;
 
-    /** b is the mode. */
-    private double b;
+    /** the mode. */
+    private final double mode;
 
-    /** c is the maximum. */
-    private double c;
+    /** the maximum. */
+    private final double max;
 
     /**
      * constructs a new triangular distribution.
      * @param stream StreamInterface; the random number stream
-     * @param a double; the minimum
-     * @param b double; the mode
-     * @param c double; the maximum
+     * @param min double; the minimum
+     * @param mode double; the mode
+     * @param max double; the maximum
      */
-    public DistTriangular(final StreamInterface stream, final double a, final double b, final double c)
+    public DistTriangular(final StreamInterface stream, final double min, final double mode, final double max)
     {
         super(stream);
-        if ((a < b) && (b < c))
-        {
-            this.a = a;
-            this.b = b;
-            this.c = c;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error condition for tria: a<b<c");
-        }
+        Throw.when(mode < min, IllegalArgumentException.class, "Triangular distribution, mode < min");
+        Throw.when(mode > max, IllegalArgumentException.class, "Triangular distribution, mode > max");
+        Throw.when(min == max, IllegalArgumentException.class, "Triangular distribution, min == max");
+        this.min = min;
+        this.mode = mode;
+        this.max = max;
     }
 
     /** {@inheritDoc} */
@@ -57,32 +55,56 @@ public class DistTriangular extends DistContinuous
     public double draw()
     {
         double u = this.stream.nextDouble();
-        if (u <= ((this.b - this.a) / (this.c - this.a)))
+        if (u <= ((this.mode - this.min) / (this.max - this.min)))
         {
-            return this.a + Math.sqrt((this.b - this.a) * (this.c - this.a) * u);
+            return this.min + Math.sqrt((this.mode - this.min) * (this.max - this.min) * u);
         }
-        return this.c - Math.sqrt((this.c - this.a) * (this.c - this.b) * (1.0d - u));
+        return this.max - Math.sqrt((this.max - this.min) * (this.max - this.mode) * (1.0d - u));
     }
 
     /** {@inheritDoc} */
     @Override
     public double probDensity(final double observation)
     {
-        if (observation >= this.a && observation <= this.b)
+        if (observation >= this.min && observation <= this.mode)
         {
-            return 2 * (observation - this.a) / ((this.c - this.a) * (this.b - this.a));
+            return 2 * (observation - this.min) / ((this.max - this.min) * (this.mode - this.min));
         }
-        if (observation >= this.b && observation <= this.c)
+        if (observation >= this.mode && observation <= this.max)
         {
-            return 2 * (this.c - observation) / ((this.c - this.a) * (this.c - this.b));
+            return 2 * (this.max - observation) / ((this.max - this.min) * (this.max - this.mode));
         }
         return 0.0;
+    }
+
+    /**
+     * @return min
+     */
+    public final double getMin()
+    {
+        return this.min;
+    }
+
+    /**
+     * @return mode
+     */
+    public final double getMode()
+    {
+        return this.mode;
+    }
+
+    /**
+     * @return max
+     */
+    public final double getMax()
+    {
+        return this.max;
     }
 
     /** {@inheritDoc} */
     @Override
     public String toString()
     {
-        return "Triangular(" + this.a + "," + this.b + "," + this.c + ")";
+        return "Triangular(" + this.min + "," + this.mode + "," + this.max + ")";
     }
 }

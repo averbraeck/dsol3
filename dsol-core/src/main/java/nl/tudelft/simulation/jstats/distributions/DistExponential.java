@@ -22,7 +22,7 @@ public class DistExponential extends DistContinuous
     private static final long serialVersionUID = 1L;
 
     /** mean is the mean value of the exponential distribution. */
-    private double mean;
+    private final double mean;
 
     /**
      * constructs a new exponential function. The exponential distribution describes the interarrival times of "cutomers" to a
@@ -59,6 +59,14 @@ public class DistExponential extends DistContinuous
             return (1 / this.mean) * Math.exp(-observation / this.mean);
         }
         return 0.0;
+    }
+
+    /**
+     * @return mean
+     */
+    public final double getMean()
+    {
+        return this.mean;
     }
 
     /** {@inheritDoc} */

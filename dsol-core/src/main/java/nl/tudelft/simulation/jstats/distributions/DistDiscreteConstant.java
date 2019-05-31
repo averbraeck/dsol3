@@ -20,17 +20,17 @@ public class DistDiscreteConstant extends DistDiscrete
     private static final long serialVersionUID = 1L;
 
     /** value is the value of the distribution. */
-    private long value;
+    private final long constant;
 
     /**
      * creates a new discrete constant distribution.
      * @param stream StreamInterface; the random number stream
-     * @param value long; the value for this distribution
+     * @param constant long; the value for this distribution
      */
-    public DistDiscreteConstant(final StreamInterface stream, final long value)
+    public DistDiscreteConstant(final StreamInterface stream, final long constant)
     {
         super(stream);
-        this.value = value;
+        this.constant = constant;
     }
 
     /** {@inheritDoc} */
@@ -38,24 +38,32 @@ public class DistDiscreteConstant extends DistDiscrete
     public long draw()
     {
         this.stream.nextDouble();
-        return this.value;
+        return this.constant;
     }
 
     /** {@inheritDoc} */
     @Override
     public double probability(final int observation)
     {
-        if (observation == this.value)
+        if (observation == this.constant)
         {
             return 1.0;
         }
         return 0.0;
     }
 
+    /**
+     * @return constant
+     */
+    public final long getConstant()
+    {
+        return this.constant;
+    }
+
     /** {@inheritDoc} */
     @Override
     public String toString()
     {
-        return "DiscreteConstant(" + this.value + ")";
+        return "DiscreteConstant(" + this.constant + ")";
     }
 }

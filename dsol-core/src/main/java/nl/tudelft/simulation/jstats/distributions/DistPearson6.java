@@ -22,19 +22,19 @@ public class DistPearson6 extends DistContinuous
     private static final long serialVersionUID = 1L;
 
     /** dist1 is the first gamma distribution. */
-    private DistGamma dist1;
+    private final DistGamma dist1;
 
     /** dist2 is the second gamma distribution. */
-    private DistGamma dist2;
+    private final DistGamma dist2;
 
     /** alpha1 is the first shape parameter. */
-    private double alpha1;
+    private final double alpha1;
 
     /** alpha2 is the second shape parameter. */
-    private double alpha2;
+    private final double alpha2;
 
     /** beta is the scale parameter. */
-    private double beta;
+    private final double beta;
 
     /**
      * constructs a new Pearson6 distribution.
@@ -64,8 +64,7 @@ public class DistPearson6 extends DistContinuous
     @Override
     public double draw()
     {
-        // according to Law and Kelton, Simulation Modeling and Analysis, 1991
-        // page 494
+        // according to Law and Kelton, Simulation Modeling and Analysis, 1991, page 494
         return this.dist1.draw() / this.dist2.draw();
     }
 
@@ -79,6 +78,30 @@ public class DistPearson6 extends DistContinuous
                     * Math.pow(1 + (observation / this.beta), (this.alpha1 + this.alpha2)));
         }
         return 0;
+    }
+
+    /**
+     * @return alpha1
+     */
+    public final double getAlpha1()
+    {
+        return this.alpha1;
+    }
+
+    /**
+     * @return alpha2
+     */
+    public final double getAlpha2()
+    {
+        return this.alpha2;
+    }
+
+    /**
+     * @return beta
+     */
+    public final double getBeta()
+    {
+        return this.beta;
     }
 
     /** {@inheritDoc} */

@@ -22,10 +22,10 @@ public class DistGamma extends DistContinuous
     private static final long serialVersionUID = 1L;
 
     /** alpha is the alpha parameter of the distribution. */
-    private double alpha;
+    private final double alpha;
 
     /** beta is the beta parameter of the distribution. */
-    private double beta;
+    private final double beta;
 
     /**
      * constructs a new gamma distribution. The gamma distribution represents the time to complete some task, e.g. customer
@@ -138,6 +138,22 @@ public class DistGamma extends DistContinuous
         }
         return (Math.pow(this.beta, -this.alpha) * Math.pow(observation, this.alpha - 1)
                 * Math.exp(-1 * observation / this.beta)) / Gamma.gamma(this.alpha);
+    }
+
+    /**
+     * @return alpha
+     */
+    public final double getAlpha()
+    {
+        return this.alpha;
+    }
+
+    /**
+     * @return beta
+     */
+    public final double getBeta()
+    {
+        return this.beta;
     }
 
     /** {@inheritDoc} */

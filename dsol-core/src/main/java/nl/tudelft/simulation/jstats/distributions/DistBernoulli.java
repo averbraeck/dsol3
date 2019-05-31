@@ -22,7 +22,7 @@ public class DistBernoulli extends DistDiscrete
     private static final long serialVersionUID = 1L;
 
     /** p is the p-value of the Bernouilli distribution. */
-    private double p;
+    private final double p;
 
     /**
      * constructs a new Bernoulli distribution. Random occurence with two possible outcomes; used to generate other discrete
@@ -72,6 +72,14 @@ public class DistBernoulli extends DistDiscrete
             return this.p;
         }
         return 0;
+    }
+
+    /**
+     * @return p
+     */
+    public final double getP()
+    {
+        return this.p;
     }
 
     /** {@inheritDoc} */

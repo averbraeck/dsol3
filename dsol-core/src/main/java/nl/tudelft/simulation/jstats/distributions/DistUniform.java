@@ -20,26 +20,26 @@ public class DistUniform extends DistContinuous
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** a is the minimum. */
-    private double a;
+    /** the minimum. */
+    private final double min;
 
-    /** b is the maximum. */
-    private double b;
+    /** the maximum. */
+    private final double max;
 
     /**
-     * constructs a new uniform distribution. a and b are real numbers with a less than b. a is a location parameter, b-a is a
-     * scale parameter.
+     * constructs a new uniform distribution. min and max are real numbers with min less than max. min is a location parameter,
+     * max-min is a scale parameter.
      * @param stream StreamInterface; the random number stream
-     * @param a double; the minimum value
-     * @param b double; the maximum value
+     * @param min double; the minimum value
+     * @param max double; the maximum value
      */
-    public DistUniform(final StreamInterface stream, final double a, final double b)
+    public DistUniform(final StreamInterface stream, final double min, final double max)
     {
         super(stream);
-        this.a = a;
-        if (b > a)
+        this.min = min;
+        if (max > min)
         {
-            this.b = b;
+            this.max = max;
         }
         else
         {
@@ -51,24 +51,40 @@ public class DistUniform extends DistContinuous
     @Override
     public double draw()
     {
-        return this.a + (this.b - this.a) * this.stream.nextDouble();
+        return this.min + (this.max - this.min) * this.stream.nextDouble();
     }
 
     /** {@inheritDoc} */
     @Override
     public double probDensity(final double observation)
     {
-        if (observation >= this.a && observation <= this.b)
+        if (observation >= this.min && observation <= this.max)
         {
-            return 1.0 / (this.b - this.a);
+            return 1.0 / (this.max - this.min);
         }
         return 0.0;
+    }
+
+    /**
+     * @return min
+     */
+    public final double getMin()
+    {
+        return this.min;
+    }
+
+    /**
+     * @return max
+     */
+    public final double getMax()
+    {
+        return this.max;
     }
 
     /** {@inheritDoc} */
     @Override
     public String toString()
     {
-        return "Uniform(" + this.a + "," + this.b + ")";
+        return "Uniform(" + this.min + "," + this.max + ")";
     }
 }

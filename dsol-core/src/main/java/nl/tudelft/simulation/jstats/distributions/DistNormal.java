@@ -22,11 +22,11 @@ public class DistNormal extends DistContinuous
 
     /** mu refers to the mean of the normal distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double mu;
+    protected final double mu;
 
     /** mu refers to the mean of the normal distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double sigma;
+    protected final double sigma;
 
     /** nextNextGaussian is a helper attribute. */
     private double nextNextGaussian;
@@ -63,7 +63,7 @@ public class DistNormal extends DistContinuous
         }
         else
         {
-            throw new IllegalArgumentException("Error Normal - sigma<0.0");
+            throw new IllegalArgumentException("Error - sigma<0.0");
         }
     }
 
@@ -162,6 +162,22 @@ public class DistNormal extends DistContinuous
     {
         return 1.0 / (Math.sqrt(2 * Math.PI * Math.pow(this.sigma, 2)))
                 * Math.exp(-1 * Math.pow(x - this.mu, 2) / (2 * Math.pow(this.sigma, 2)));
+    }
+
+    /**
+     * @return mu
+     */
+    public final double getMu()
+    {
+        return this.mu;
+    }
+
+    /**
+     * @return sigma
+     */
+    public final double getSigma()
+    {
+        return this.sigma;
     }
 
     /** {@inheritDoc} */

@@ -21,10 +21,10 @@ public class DistWeibull extends DistContinuous
     private static final long serialVersionUID = 1L;
 
     /** alpha is the alpha parameter. */
-    private double alpha;
+    private final double alpha;
 
     /** beta is the beta parameter. */
-    private double beta;
+    private final double beta;
 
     /**
      * constructs a new Weibull distribution.
@@ -63,6 +63,22 @@ public class DistWeibull extends DistContinuous
                     * Math.exp(Math.pow(-1 * (observation / this.beta), this.alpha));
         }
         return 0.0;
+    }
+
+    /**
+     * @return alpha
+     */
+    public final double getAlpha()
+    {
+        return this.alpha;
+    }
+
+    /**
+     * @return beta
+     */
+    public final double getBeta()
+    {
+        return this.beta;
     }
 
     /** {@inheritDoc} */
