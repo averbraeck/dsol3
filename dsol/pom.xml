@@ -1,5 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xml:space="preserve">
+  
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>dsol</groupId>
@@ -152,8 +154,7 @@
             <configuration>
               <fromDir>${basedir}/target/site/jacoco-ut</fromDir>
               <includes>.*, .resources/*</includes>
-              <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}
-              </url>
+              <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}</url>
               <toDir>jacoco-ut</toDir>
               <serverId>dsol-deployment</serverId>
             </configuration>
@@ -186,8 +187,7 @@
               <commands>
                 <command>rm -r -f /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
                 <command>mkdir -p /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
-                <command>cp -r -f /home/web/simulation.tudelft.nl/html/dsol/${project.version}/.
-                  /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
+                <command>cp -r -f /home/web/simulation.tudelft.nl/html/dsol/${project.version}/. /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
               </commands>
             </configuration>
           </execution>
