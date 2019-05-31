@@ -29,16 +29,7 @@ public class DistLogNormal extends DistNormal
      */
     public DistLogNormal(final StreamInterface stream, final double mu, final double sigma)
     {
-        super(stream);
-        this.mu = mu;
-        if (sigma > 0.0)
-        {
-            this.sigma = sigma;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error DistLogNormal - sigma<=0.0");
-        }
+        super(stream, mu, sigma);
     }
 
     /** {@inheritDoc} */

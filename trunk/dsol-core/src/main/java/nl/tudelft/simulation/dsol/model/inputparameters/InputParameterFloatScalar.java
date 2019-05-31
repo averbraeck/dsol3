@@ -42,11 +42,11 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      * @param shortName String; concise description of the input parameter
      * @param description String; float description of the input parameter (may use HTML markup)
      * @param defaultValue T; the default value of this input parameter
-     * @param displayPriority float; sorting order when properties are displayed to the user
+     * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
     public InputParameterFloatScalar(final String key, final String shortName, final String description, final T defaultValue,
-            final float displayPriority) throws InputParameterException
+            final double displayPriority) throws InputParameterException
     {
         this(key, shortName, description, defaultValue, -Float.MAX_VALUE, Float.MAX_VALUE, false, false, "%d", displayPriority);
     }
@@ -62,13 +62,13 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      * @param minIncluded boolean; is the minimum value included or excluded in the allowed interval?
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
      * @param format String; the format to use in displaying the float
-     * @param displayPriority float; sorting order when properties are displayed to the user
+     * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
     @SuppressWarnings("checkstyle:parameternumber")
     public InputParameterFloatScalar(final String key, final String shortName, final String description, final T defaultValue,
             final T minimumValue, final T maximumValue, final boolean minIncluded, final boolean maxIncluded,
-            final String format, final float displayPriority) throws InputParameterException
+            final String format, final double displayPriority) throws InputParameterException
     {
         this(key, shortName, description, defaultValue, minimumValue.si, maximumValue.si, minIncluded, maxIncluded, format,
                 displayPriority);
@@ -85,13 +85,13 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      * @param minIncluded boolean; is the minimum value included or excluded in the allowed interval?
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
      * @param format String; the format to use in displaying the float
-     * @param displayPriority float; sorting order when properties are displayed to the user
+     * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
     @SuppressWarnings("checkstyle:parameternumber")
     public InputParameterFloatScalar(final String key, final String shortName, final String description, final T defaultValue,
             final float minimumValueSI, final float maximumValueSI, final boolean minIncluded, final boolean maxIncluded,
-            final String format, final float displayPriority) throws InputParameterException
+            final String format, final double displayPriority) throws InputParameterException
     {
         super(key, shortName, description, defaultValue, displayPriority);
         add(new InputParameterFloat("value", "value", "float value in the given unit", defaultValue.getInUnit(),
@@ -156,7 +156,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
         try
         {
             @SuppressWarnings("unchecked")
-            Constructor<T> constructor = (Constructor<T>) ClassUtil.resolveConstructor(getDefaultValue().getClass(),
+            Constructor<T> constructor = (Constructor<T>) ClassUtil.resolveConstructor(getDefaultTypedValue().getClass(),
                     new Object[] {floatValue, unit});
             newValue = constructor.newInstance(floatValue, unit);
         }

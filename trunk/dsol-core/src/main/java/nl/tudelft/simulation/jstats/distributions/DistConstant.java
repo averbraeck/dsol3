@@ -22,17 +22,17 @@ public class DistConstant extends DistContinuous
     private static final long serialVersionUID = 1L;
 
     /** value is the value of the constant distribution. */
-    private double value;
+    private final double constant;
 
     /**
      * constructs a new constant distribution.
      * @param stream StreamInterface; the random number stream
-     * @param value double; the value
+     * @param constant double; the value
      */
-    public DistConstant(final StreamInterface stream, final double value)
+    public DistConstant(final StreamInterface stream, final double constant)
     {
         super(stream);
-        this.value = value;
+        this.constant = constant;
     }
 
     /** {@inheritDoc} */
@@ -40,24 +40,32 @@ public class DistConstant extends DistContinuous
     public double draw()
     {
         this.stream.nextDouble();
-        return this.value;
+        return this.constant;
     }
 
     /** {@inheritDoc} */
     @Override
     public double probDensity(final double observation)
     {
-        if (observation == this.value)
+        if (observation == this.constant)
         {
             return 1.0;
         }
         return 0.0;
     }
 
+    /**
+     * @return constant
+     */
+    public final double getConstant()
+    {
+        return this.constant;
+    }
+
     /** {@inheritDoc} */
     @Override
     public String toString()
     {
-        return "Constant(" + this.value + ")";
+        return "Constant(" + this.constant + ")";
     }
 }

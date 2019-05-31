@@ -22,13 +22,13 @@ public class DistPearson5 extends DistContinuous
     private static final long serialVersionUID = 1L;
 
     /** dist is the gamma distribution. */
-    private DistGamma dist;
+    private final DistGamma dist;
 
     /** alpha is the alpha parameter of the distribution. */
-    private double alpha;
+    private final double alpha;
 
     /** beta is the beta parameter of the distribution. */
-    private double beta;
+    private final double beta;
 
     /**
      * constructs a new Pearson5 distribution.
@@ -70,6 +70,22 @@ public class DistPearson5 extends DistContinuous
                     / (Math.pow(this.beta, -this.alpha) * Gamma.gamma(this.alpha));
         }
         return 0;
+    }
+
+    /**
+     * @return alpha
+     */
+    public final double getAlpha()
+    {
+        return this.alpha;
+    }
+
+    /**
+     * @return beta
+     */
+    public final double getBeta()
+    {
+        return this.beta;
     }
 
     /** {@inheritDoc} */

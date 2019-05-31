@@ -23,16 +23,16 @@ public class DistBeta extends DistContinuous
     private static final long serialVersionUID = 1L;
 
     /** dist1 refers to the first Gamma distribution. */
-    private DistGamma dist1;
+    private final DistGamma dist1;
 
     /** dist2 refers to the second Gamma distribution. */
-    private DistGamma dist2;
+    private final DistGamma dist2;
 
     /** alpha1 is the first parameter for the Beta distribution. */
-    private double alpha1;
+    private final double alpha1;
 
     /** alpha2 is the second parameter for the Beta distribution. */
-    private double alpha2;
+    private final double alpha2;
 
     /**
      * constructs a new beta distribution.
@@ -76,6 +76,22 @@ public class DistBeta extends DistContinuous
                     / Gamma.beta(this.alpha1, this.alpha2);
         }
         return 0;
+    }
+
+    /**
+     * @return alpha1
+     */
+    public final double getAlpha1()
+    {
+        return this.alpha1;
+    }
+
+    /**
+     * @return alpha2
+     */
+    public final double getAlpha2()
+    {
+        return this.alpha2;
     }
 
     /** {@inheritDoc} */

@@ -22,18 +22,18 @@ public class DistErlang extends DistContinuous
     private static final long serialVersionUID = 1L;
 
     /** k is the k-value of the erlang distribution. */
-    private int k;
+    private final int k;
 
     /** beta is the beta value of the erlang distribution. */
-    private double beta;
+    private final double beta;
 
     /** betak is the mean value of the erlang distribution. */
-    private double betak;
+    private final double betak;
 
     /** distGamma is the underlying gamma distribution. */
-    private DistGamma distGamma;
+    private final DistGamma distGamma;
 
-    /** GAMMABORDER is the gammaBorder. */
+    /** GAMMABORDER is the borber above which we use a gamma function and below repeated drawing. */
     private static final short GAMMABORDER = 10;
 
     /**
@@ -57,10 +57,12 @@ public class DistErlang extends DistContinuous
         if (this.k <= DistErlang.GAMMABORDER)
         {
             this.betak = -this.beta / this.k;
+            this.distGamma = null;
         }
         else
         {
             this.distGamma = new DistGamma(stream, this.k, this.beta);
+            this.betak = Double.NaN;
         }
     }
 
@@ -93,6 +95,22 @@ public class DistErlang extends DistContinuous
         }
         return this.beta * Math
                 .exp(-this.beta * observation * (Math.pow(this.beta * observation, this.k - 1) / ProbMath.faculty(this.k - 1)));
+    }
+
+    /**
+     * @return k
+     */
+    public final int getK()
+    {
+        return this.k;
+    }
+
+    /**
+     * @return beta
+     */
+    public final double getBeta()
+    {
+        return this.beta;
     }
 
     /** {@inheritDoc} */

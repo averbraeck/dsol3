@@ -21,10 +21,10 @@ public class DistDiscreteUniform extends DistDiscrete
     private static final long serialVersionUID = 1L;
 
     /** min is the minimum value of this distribution. */
-    private long min;
+    private final long min;
 
     /** max is the maximum value of this distribution. */
-    private long max;
+    private final long max;
 
     /**
      * constructs a new uniform distribution. Random occurence with several possible outcomes, each of which is equally likely.
@@ -62,6 +62,22 @@ public class DistDiscreteUniform extends DistDiscrete
             return 1 / ((double) this.max - this.min + 1);
         }
         return 0.0;
+    }
+
+    /**
+     * @return min
+     */
+    public final long getMin()
+    {
+        return this.min;
+    }
+
+    /**
+     * @return max
+     */
+    public final long getMax()
+    {
+        return this.max;
     }
 
     /** {@inheritDoc} */

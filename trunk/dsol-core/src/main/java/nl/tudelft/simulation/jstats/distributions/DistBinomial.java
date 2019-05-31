@@ -22,10 +22,10 @@ public class DistBinomial extends DistDiscrete
     private static final long serialVersionUID = 1L;
 
     /** n is the n-parameter of the Binomial distribution. */
-    private long n;
+    private final long n;
 
     /** p is the p-value of the binomial distribution. */
-    private double p;
+    private final double p;
 
     /**
      * constructs a Binomial distribution. Number of successes in n independent Bernoulli trials with probability p of success
@@ -73,6 +73,22 @@ public class DistBinomial extends DistDiscrete
                     * Math.pow(1 - this.p, this.n - observation);
         }
         return 0.0;
+    }
+
+    /**
+     * @return n
+     */
+    public final long getN()
+    {
+        return this.n;
+    }
+
+    /**
+     * @return p
+     */
+    public final double getP()
+    {
+        return this.p;
     }
 
     /** {@inheritDoc} */

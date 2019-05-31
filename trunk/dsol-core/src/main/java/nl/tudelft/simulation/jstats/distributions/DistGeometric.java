@@ -22,10 +22,10 @@ public class DistGeometric extends DistDiscrete
     private static final long serialVersionUID = 1L;
 
     /** p is the p-value of the geometric distribution. */
-    private double p;
+    private final double p;
 
     /** lnp is a helper variable to avoid repetitive calculation. */
-    private double lnp;
+    private final double lnp;
 
     /**
      * constructs a new geometric distribution.
@@ -63,6 +63,14 @@ public class DistGeometric extends DistDiscrete
             return this.p * Math.pow(1 - this.p, observation);
         }
         return 0.0;
+    }
+
+    /**
+     * @return p
+     */
+    public final double getP()
+    {
+        return this.p;
     }
 
     /** {@inheritDoc} */
