@@ -6,65 +6,91 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.djunits.value.vdouble.scalar.AbsoluteTemperature;
-import org.djunits.value.vdouble.scalar.AbstractDoubleScalar;
+import org.djunits.value.vdouble.scalar.AbsorbedDose;
 import org.djunits.value.vdouble.scalar.Acceleration;
+import org.djunits.value.vdouble.scalar.AmountOfSubstance;
 import org.djunits.value.vdouble.scalar.Angle;
-import org.djunits.value.vdouble.scalar.AngleSolid;
 import org.djunits.value.vdouble.scalar.Area;
+import org.djunits.value.vdouble.scalar.CatalyticActivity;
 import org.djunits.value.vdouble.scalar.Density;
 import org.djunits.value.vdouble.scalar.Dimensionless;
 import org.djunits.value.vdouble.scalar.Direction;
 import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.ElectricalCapacitance;
 import org.djunits.value.vdouble.scalar.ElectricalCharge;
+import org.djunits.value.vdouble.scalar.ElectricalConductance;
 import org.djunits.value.vdouble.scalar.ElectricalCurrent;
+import org.djunits.value.vdouble.scalar.ElectricalInductance;
 import org.djunits.value.vdouble.scalar.ElectricalPotential;
 import org.djunits.value.vdouble.scalar.ElectricalResistance;
 import org.djunits.value.vdouble.scalar.Energy;
+import org.djunits.value.vdouble.scalar.EquivalentDose;
 import org.djunits.value.vdouble.scalar.FlowMass;
 import org.djunits.value.vdouble.scalar.FlowVolume;
 import org.djunits.value.vdouble.scalar.Force;
 import org.djunits.value.vdouble.scalar.Frequency;
+import org.djunits.value.vdouble.scalar.Illuminance;
 import org.djunits.value.vdouble.scalar.Length;
 import org.djunits.value.vdouble.scalar.LinearDensity;
+import org.djunits.value.vdouble.scalar.LuminousFlux;
+import org.djunits.value.vdouble.scalar.LuminousIntensity;
+import org.djunits.value.vdouble.scalar.MagneticFlux;
+import org.djunits.value.vdouble.scalar.MagneticFluxDensity;
 import org.djunits.value.vdouble.scalar.Mass;
 import org.djunits.value.vdouble.scalar.Position;
 import org.djunits.value.vdouble.scalar.Power;
 import org.djunits.value.vdouble.scalar.Pressure;
+import org.djunits.value.vdouble.scalar.RadioActivity;
+import org.djunits.value.vdouble.scalar.SolidAngle;
 import org.djunits.value.vdouble.scalar.Speed;
 import org.djunits.value.vdouble.scalar.Temperature;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vdouble.scalar.Torque;
 import org.djunits.value.vdouble.scalar.Volume;
-import org.djunits.value.vfloat.scalar.AbstractFloatScalar;
+import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
 import org.djunits.value.vfloat.scalar.FloatAbsoluteTemperature;
+import org.djunits.value.vfloat.scalar.FloatAbsorbedDose;
 import org.djunits.value.vfloat.scalar.FloatAcceleration;
+import org.djunits.value.vfloat.scalar.FloatAmountOfSubstance;
 import org.djunits.value.vfloat.scalar.FloatAngle;
-import org.djunits.value.vfloat.scalar.FloatAngleSolid;
 import org.djunits.value.vfloat.scalar.FloatArea;
+import org.djunits.value.vfloat.scalar.FloatCatalyticActivity;
 import org.djunits.value.vfloat.scalar.FloatDensity;
 import org.djunits.value.vfloat.scalar.FloatDimensionless;
 import org.djunits.value.vfloat.scalar.FloatDirection;
 import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatElectricalCapacitance;
 import org.djunits.value.vfloat.scalar.FloatElectricalCharge;
+import org.djunits.value.vfloat.scalar.FloatElectricalConductance;
 import org.djunits.value.vfloat.scalar.FloatElectricalCurrent;
+import org.djunits.value.vfloat.scalar.FloatElectricalInductance;
 import org.djunits.value.vfloat.scalar.FloatElectricalPotential;
 import org.djunits.value.vfloat.scalar.FloatElectricalResistance;
 import org.djunits.value.vfloat.scalar.FloatEnergy;
+import org.djunits.value.vfloat.scalar.FloatEquivalentDose;
 import org.djunits.value.vfloat.scalar.FloatFlowMass;
 import org.djunits.value.vfloat.scalar.FloatFlowVolume;
 import org.djunits.value.vfloat.scalar.FloatForce;
 import org.djunits.value.vfloat.scalar.FloatFrequency;
+import org.djunits.value.vfloat.scalar.FloatIlluminance;
 import org.djunits.value.vfloat.scalar.FloatLength;
 import org.djunits.value.vfloat.scalar.FloatLinearDensity;
+import org.djunits.value.vfloat.scalar.FloatLuminousFlux;
+import org.djunits.value.vfloat.scalar.FloatLuminousIntensity;
+import org.djunits.value.vfloat.scalar.FloatMagneticFlux;
+import org.djunits.value.vfloat.scalar.FloatMagneticFluxDensity;
 import org.djunits.value.vfloat.scalar.FloatMass;
 import org.djunits.value.vfloat.scalar.FloatPosition;
 import org.djunits.value.vfloat.scalar.FloatPower;
 import org.djunits.value.vfloat.scalar.FloatPressure;
+import org.djunits.value.vfloat.scalar.FloatRadioActivity;
+import org.djunits.value.vfloat.scalar.FloatSolidAngle;
 import org.djunits.value.vfloat.scalar.FloatSpeed;
 import org.djunits.value.vfloat.scalar.FloatTemperature;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djunits.value.vfloat.scalar.FloatTorque;
 import org.djunits.value.vfloat.scalar.FloatVolume;
+import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
 import org.djutils.io.URLResource;
 
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameter;
@@ -347,8 +373,8 @@ public final class ReadInputParameters
             scalar = Dimensionless.valueOf(value);
         else if (param.getDefaultTypedValue() instanceof Acceleration)
             scalar = Acceleration.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof AngleSolid)
-            scalar = AngleSolid.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof SolidAngle)
+            scalar = SolidAngle.valueOf(value);
         else if (param.getDefaultTypedValue() instanceof Angle)
             scalar = Angle.valueOf(value);
         else if (param.getDefaultTypedValue() instanceof Direction)
@@ -401,28 +427,37 @@ public final class ReadInputParameters
             scalar = Torque.valueOf(value);
         else if (param.getDefaultTypedValue() instanceof Volume)
             scalar = Volume.valueOf(value);
-        // TODO: MoneyUnits
-        /*- 
-        else if (param.getDefaultTypedValue() instanceof Money)
-            scalar = Money.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof MoneyPerArea)
-            scalar = MoneyPerArea.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof MoneyPerEnergy)
-            scalar = MoneyPerEnergy.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof MoneyPerLength)
-            scalar = MoneyPerLength.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof MoneyPerMass)
-            scalar = MoneyPerMass.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof MoneyPerDuration)
-            scalar = MoneyPerDuration.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof MoneyPerVolume)
-            scalar = MoneyPerVolume.valueOf(value);
-        */
+        else if (param.getDefaultTypedValue() instanceof AbsorbedDose)
+            scalar = AbsorbedDose.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof AmountOfSubstance)
+            scalar = AmountOfSubstance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof CatalyticActivity)
+            scalar = CatalyticActivity.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof ElectricalCapacitance)
+            scalar = ElectricalCapacitance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof ElectricalConductance)
+            scalar = ElectricalConductance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof ElectricalInductance)
+            scalar = ElectricalInductance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof EquivalentDose)
+            scalar = EquivalentDose.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof Illuminance)
+            scalar = Illuminance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof LuminousFlux)
+            scalar = LuminousFlux.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof LuminousIntensity)
+            scalar = LuminousIntensity.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof MagneticFluxDensity)
+            scalar = MagneticFluxDensity.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof MagneticFlux)
+            scalar = MagneticFlux.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof RadioActivity)
+            scalar = RadioActivity.valueOf(value);
         else
             throw new InputParameterException("Cannot instantiate AbstractDoubleScalar of param " + param.toString());
 
         param.getDoubleParameter().setDoubleValue(scalar.getInUnit());
-        param.getUnitParameter().setObjectValue(scalar.getUnit());
+        param.getUnitParameter().setObjectValue(scalar.getDisplayUnit());
         param.setCalculatedValue();
     }
 
@@ -441,8 +476,8 @@ public final class ReadInputParameters
             scalar = FloatDimensionless.valueOf(value);
         else if (param.getDefaultTypedValue() instanceof FloatAcceleration)
             scalar = FloatAcceleration.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof FloatAngleSolid)
-            scalar = FloatAngleSolid.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatSolidAngle)
+            scalar = FloatSolidAngle.valueOf(value);
         else if (param.getDefaultTypedValue() instanceof FloatAngle)
             scalar = FloatAngle.valueOf(value);
         else if (param.getDefaultTypedValue() instanceof FloatDirection)
@@ -495,28 +530,37 @@ public final class ReadInputParameters
             scalar = FloatTorque.valueOf(value);
         else if (param.getDefaultTypedValue() instanceof FloatVolume)
             scalar = FloatVolume.valueOf(value);
-        // TODO: MoneyUnits
-        /*- 
-        else if (param.getDefaultTypedValue() instanceof FloatMoney)
-            scalar = FloatMoney.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof FloatMoneyPerArea)
-            scalar = FloatMoneyPerArea.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof FloatMoneyPerEnergy)
-            scalar = FloatMoneyPerEnergy.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof FloatMoneyPerLength)
-            scalar = FloatMoneyPerLength.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof FloatMoneyPerMass)
-            scalar = FloatMoneyPerMass.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof FloatMoneyPerDuration)
-            scalar = FloatMoneyPerDuration.valueOf(value);
-        else if (param.getDefaultTypedValue() instanceof FloatMoneyPerVolume)
-            scalar = FloatMoneyPerVolume.valueOf(value);
-        */
+        else if (param.getDefaultTypedValue() instanceof FloatAbsorbedDose)
+            scalar = FloatAbsorbedDose.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatAmountOfSubstance)
+            scalar = FloatAmountOfSubstance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatCatalyticActivity)
+            scalar = FloatCatalyticActivity.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatElectricalCapacitance)
+            scalar = FloatElectricalCapacitance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatElectricalConductance)
+            scalar = FloatElectricalConductance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatElectricalInductance)
+            scalar = FloatElectricalInductance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatEquivalentDose)
+            scalar = FloatEquivalentDose.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatIlluminance)
+            scalar = FloatIlluminance.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatLuminousFlux)
+            scalar = FloatLuminousFlux.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatLuminousIntensity)
+            scalar = FloatLuminousIntensity.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatMagneticFluxDensity)
+            scalar = FloatMagneticFluxDensity.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatMagneticFlux)
+            scalar = FloatMagneticFlux.valueOf(value);
+        else if (param.getDefaultTypedValue() instanceof FloatRadioActivity)
+            scalar = FloatRadioActivity.valueOf(value);
         else
             throw new InputParameterException("Cannot instantiate AbstractFloatScalar of param " + param.toString());
 
         param.getFloatParameter().setFloatValue(scalar.getInUnit());
-        param.getUnitParameter().setObjectValue(scalar.getUnit());
+        param.getUnitParameter().setObjectValue(scalar.getDisplayUnit());
         param.setCalculatedValue();
     }
 

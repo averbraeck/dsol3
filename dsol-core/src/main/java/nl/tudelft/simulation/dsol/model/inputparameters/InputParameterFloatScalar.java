@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.djunits.unit.Unit;
-import org.djunits.value.vfloat.scalar.AbstractFloatScalar;
+import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
 import org.djutils.reflection.ClassUtil;
 
 /**
@@ -96,7 +96,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
         super(key, shortName, description, defaultValue, displayPriority);
         add(new InputParameterFloat("value", "value", "float value in the given unit", defaultValue.getInUnit(),
                 -Float.MAX_VALUE, Float.MAX_VALUE, false, false, format, 1.0));
-        add(new InputParameterUnit<U>("unit", "unit", "unit for the value", defaultValue.getUnit(), 2.0));
+        add(new InputParameterUnit<U>("unit", "unit", "unit for the value", defaultValue.getDisplayUnit(), 2.0));
         this.minimumValueSI = minimumValueSI;
         this.maximumValueSI = maximumValueSI;
         this.minIncluded = minIncluded;

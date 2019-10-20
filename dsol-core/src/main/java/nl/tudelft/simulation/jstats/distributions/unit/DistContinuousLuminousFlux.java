@@ -1,46 +1,46 @@
 package nl.tudelft.simulation.jstats.distributions.unit;
 
-import org.djunits.unit.PositionUnit;
-import org.djunits.value.vdouble.scalar.Position;
+import org.djunits.unit.LuminousFluxUnit;
+import org.djunits.value.vdouble.scalar.LuminousFlux;
 
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 
 /**
- * DistContinuousPosition is class defining a distribution for a Position scalar. <br>
+ * DistContinuousLuminousFlux is class defining a distribution for a LuminousFlux scalar. <br>
  * <br>
  * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public class DistContinuousPosition extends DistContinuousUnit<PositionUnit, Position>
+public class DistContinuousLuminousFlux extends DistContinuousUnit<LuminousFluxUnit, LuminousFlux>
 {
     /** */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructs a new continuous distribution that draws Position scalars.
+     * Constructs a new continuous distribution that draws LuminousFlux scalars.
      * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
-     * @param unit PositionUnit; the unit for the values of the distribution
+     * @param unit LuminousFluxUnit; the unit for the values of the distribution
      */
-    public DistContinuousPosition(final DistContinuous wrappedDistribution, final PositionUnit unit)
+    public DistContinuousLuminousFlux(final DistContinuous wrappedDistribution, final LuminousFluxUnit unit)
     {
         super(wrappedDistribution, unit);
     }
 
     /**
-     * Constructs a new continuous distribution that draws Position scalars in BASE units.
+     * Constructs a new continuous distribution that draws LuminousFlux scalars in SI units.
      * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
      */
-    public DistContinuousPosition(final DistContinuous wrappedDistribution)
+    public DistContinuousLuminousFlux(final DistContinuous wrappedDistribution)
     {
-        super(wrappedDistribution, PositionUnit.DEFAULT);
+        super(wrappedDistribution, LuminousFluxUnit.SI);
     }
 
     /** {@inheritDoc} */
     @Override
-    public Position draw()
+    public LuminousFlux draw()
     {
-        return new Position(this.wrappedDistribution.draw(), this.unit);
+        return new LuminousFlux(this.wrappedDistribution.draw(), this.unit);
     }
 }

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.djunits.unit.Unit;
-import org.djunits.value.vdouble.scalar.AbstractDoubleScalar;
+import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
 
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDoubleScalar;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
@@ -43,7 +43,7 @@ public class InputFieldDoubleScalar<U extends Unit<U>, T extends AbstractDoubleS
         super(parameter);
         JLabel label = new JLabel(parameter.getShortName());
         this.doubleField = new JTextField(20);
-        this.doubleField.setText("" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getUnit()));
+        this.doubleField.setText("" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit()));
         JLabel explanation = new JLabel(parameter.getDescription());
 
         String[] selections = new String[parameter.getUnitParameter().getOptions().size()];

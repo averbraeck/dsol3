@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.djunits.unit.Unit;
-import org.djunits.value.vdouble.scalar.AbstractDoubleScalar;
+import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
 import org.djutils.reflection.ClassUtil;
 
 /**
@@ -97,7 +97,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
         super(key, shortName, description, defaultValue, displayPriority);
         add(new InputParameterDouble("value", "value", "double value in the given unit", defaultValue.getInUnit(),
                 -Double.MAX_VALUE, Double.MAX_VALUE, false, false, format, 1.0));
-        add(new InputParameterUnit<U>("unit", "unit", "unit for the value", defaultValue.getUnit(), 2.0));
+        add(new InputParameterUnit<U>("unit", "unit", "unit for the value", defaultValue.getDisplayUnit(), 2.0));
         this.minimumValueSI = minimumValueSI;
         this.maximumValueSI = maximumValueSI;
         this.minIncluded = minIncluded;

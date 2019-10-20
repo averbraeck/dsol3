@@ -1,46 +1,46 @@
 package nl.tudelft.simulation.jstats.distributions.unit;
 
-import org.djunits.unit.AngleSolidUnit;
-import org.djunits.value.vdouble.scalar.AngleSolid;
+import org.djunits.unit.IlluminanceUnit;
+import org.djunits.value.vdouble.scalar.Illuminance;
 
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 
 /**
- * DistContinuousAngleSolid is class defining a distribution for a AngleSolid scalar. <br>
+ * DistContinuousIlluminance is class defining a distribution for a Illuminance scalar. <br>
  * <br>
  * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public class DistContinuousAngleSolid extends DistContinuousUnit<AngleSolidUnit, AngleSolid>
+public class DistContinuousIlluminance extends DistContinuousUnit<IlluminanceUnit, Illuminance>
 {
     /** */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructs a new continuous distribution that draws AngleSolid scalars.
+     * Constructs a new continuous distribution that draws Illuminance scalars.
      * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
-     * @param unit AngleSolidUnit; the unit for the values of the distribution
+     * @param unit IlluminanceUnit; the unit for the values of the distribution
      */
-    public DistContinuousAngleSolid(final DistContinuous wrappedDistribution, final AngleSolidUnit unit)
+    public DistContinuousIlluminance(final DistContinuous wrappedDistribution, final IlluminanceUnit unit)
     {
         super(wrappedDistribution, unit);
     }
 
     /**
-     * Constructs a new continuous distribution that draws AngleSolid scalars in SI units.
+     * Constructs a new continuous distribution that draws Illuminance scalars in SI units.
      * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
      */
-    public DistContinuousAngleSolid(final DistContinuous wrappedDistribution)
+    public DistContinuousIlluminance(final DistContinuous wrappedDistribution)
     {
-        super(wrappedDistribution, AngleSolidUnit.SI);
+        super(wrappedDistribution, IlluminanceUnit.SI);
     }
 
     /** {@inheritDoc} */
     @Override
-    public AngleSolid draw()
+    public Illuminance draw()
     {
-        return new AngleSolid(this.wrappedDistribution.draw(), this.unit);
+        return new Illuminance(this.wrappedDistribution.draw(), this.unit);
     }
 }

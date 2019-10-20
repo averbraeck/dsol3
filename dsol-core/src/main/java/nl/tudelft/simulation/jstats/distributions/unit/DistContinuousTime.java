@@ -34,7 +34,7 @@ public class DistContinuousTime extends DistContinuousUnit<TimeUnit, Time>
      */
     public DistContinuousTime(final DistContinuous wrappedDistribution)
     {
-        super(wrappedDistribution, TimeUnit.BASE);
+        super(wrappedDistribution, TimeUnit.DEFAULT);
     }
 
     /** {@inheritDoc} */

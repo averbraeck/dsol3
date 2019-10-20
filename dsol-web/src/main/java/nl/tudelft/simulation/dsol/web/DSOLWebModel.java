@@ -16,8 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.djunits.value.vdouble.scalar.AbstractDoubleScalar;
-import org.djunits.value.vfloat.scalar.AbstractFloatScalar;
+import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
+import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
 import org.eclipse.jetty.server.Request;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
