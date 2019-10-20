@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.djunits.unit.Unit;
-import org.djunits.value.vdouble.scalar.AbstractDoubleScalar;
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
-import org.djunits.value.vfloat.scalar.AbstractFloatScalar;
+import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
+import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
 import org.djutils.io.URLResource;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
@@ -175,7 +175,7 @@ public abstract class AbstractTestDemoServer
                     try
                     {
                         Replication.TimeDoubleUnit newReplication = Replication.TimeDoubleUnit.create("rep 1", Time.ZERO,
-                                Duration.ZERO, Duration.createSI(3600.0), model);
+                                Duration.ZERO, Duration.instantiateSI(3600.0), model);
                         simulator.initialize(newReplication, ReplicationMode.TERMINATING);
                         DSOLWebModel webModel = new DSOLWebModel(model.toString(), simulator);
                         AbstractTestDemoServer.this.sessionWebModelMap.put(sessionId, webModel);
@@ -417,7 +417,7 @@ public abstract class AbstractTestDemoServer
         private <U extends Unit<U>,
                 T extends AbstractDoubleScalar<U, T>> String getValueInUnit(InputParameterDoubleScalar<U, T> parameter)
         {
-            return "" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getUnit());
+            return "" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit());
         }
 
         /**
@@ -442,7 +442,7 @@ public abstract class AbstractTestDemoServer
         private <U extends Unit<U>,
                 T extends AbstractFloatScalar<U, T>> String getValueInUnit(InputParameterFloatScalar<U, T> parameter)
         {
-            return "" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getUnit());
+            return "" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit());
         }
 
         /**

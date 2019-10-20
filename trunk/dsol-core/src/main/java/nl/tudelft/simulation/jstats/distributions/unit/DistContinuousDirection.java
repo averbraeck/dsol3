@@ -34,7 +34,7 @@ public class DistContinuousDirection extends DistContinuousUnit<DirectionUnit, D
      */
     public DistContinuousDirection(final DistContinuous wrappedDistribution)
     {
-        super(wrappedDistribution, DirectionUnit.BASE);
+        super(wrappedDistribution, DirectionUnit.DEFAULT);
     }
 
     /** {@inheritDoc} */

@@ -50,7 +50,7 @@ public class ReadInputParameterTest
         InputParameterBoolean ip1 = new InputParameterBoolean("bool", "boolean", "boolean value", true, 1.0);
         InputParameterDouble ip2 = new InputParameterDouble("double", "double", "double value", 0.0, 2.0);
         InputParameterDoubleScalar<DurationUnit, Duration> ip3 =
-                new InputParameterDoubleScalar<>("duration", "duration", "duration value", Duration.createSI(0.0), 3.0);
+                new InputParameterDoubleScalar<>("duration", "duration", "duration value", Duration.instantiateSI(0.0), 3.0);
         InputParameterString ip4 = new InputParameterString("string", "string", "string value", "abc", 4.0);
         InputParameterMap map = new InputParameterMap("map", "map", "map", 1.0);
         map.add(ip1);
@@ -127,8 +127,8 @@ public class ReadInputParameterTest
     {
         InputParameterBoolean ip1 = new InputParameterBoolean("bool", "boolean", "boolean value", true, 1.0);
         InputParameterFloat ip2 = new InputParameterFloat("float", "float", "float value", 0.0f, 2.0);
-        InputParameterFloatScalar<DurationUnit, FloatDuration> ip3 =
-                new InputParameterFloatScalar<>("duration", "duration", "duration value", FloatDuration.createSI(0.0f), 3.0);
+        InputParameterFloatScalar<DurationUnit, FloatDuration> ip3 = new InputParameterFloatScalar<>("duration", "duration",
+                "duration value", FloatDuration.instantiateSI(0.0f), 3.0);
         InputParameterString ip4 = new InputParameterString("string", "string", "string value", "abc", 4.0);
         InputParameterMap map = new InputParameterMap("map", "map", "map", 1.0);
         InputParameterMap nest = new InputParameterMap("nest", "nest", "nested map", 1.0);

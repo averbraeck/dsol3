@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.model.inputparameters;
 
-import java.util.Set;
+import java.util.Collection;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -45,8 +45,7 @@ public class InputParameterUnit<U extends Unit<U>> extends InputParameterSelecti
     private static <U extends Unit<U>> SortedMap<String, U> makeUnitMap(final U defaultUnit) throws InputParameterException
     {
         SortedMap<String, U> options = new TreeMap<>();
-        @SuppressWarnings("unchecked")
-        Set<U> unitSet = Unit.getUnits((Class<U>) defaultUnit.getClass());
+        Collection<U> unitSet = defaultUnit.getUnitBase().getUnitsById().values();
         for (U unit : unitSet)
         {
             options.put(unit.getName(), unit);

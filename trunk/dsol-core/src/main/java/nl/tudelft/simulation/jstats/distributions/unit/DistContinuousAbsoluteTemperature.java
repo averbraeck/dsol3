@@ -34,7 +34,7 @@ public class DistContinuousAbsoluteTemperature extends DistContinuousUnit<Absolu
      */
     public DistContinuousAbsoluteTemperature(final DistContinuous wrappedDistribution)
     {
-        super(wrappedDistribution, AbsoluteTemperatureUnit.BASE);
+        super(wrappedDistribution, AbsoluteTemperatureUnit.DEFAULT);
     }
 
     /** {@inheritDoc} */

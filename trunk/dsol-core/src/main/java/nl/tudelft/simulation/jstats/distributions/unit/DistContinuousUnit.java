@@ -1,9 +1,8 @@
 package nl.tudelft.simulation.jstats.distributions.unit;
 
-import org.djunits.unit.AbsoluteLinearUnit;
 import org.djunits.unit.Unit;
-import org.djunits.value.vdouble.scalar.AbstractDoubleScalar;
-import org.djunits.value.vdouble.scalar.DoubleScalar;
+import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
+import org.djunits.value.vdouble.scalar.base.DoubleScalar;
 
 import nl.tudelft.simulation.jstats.distributions.Dist;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
@@ -18,7 +17,7 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  * @param <U> the unit type for the values of the distribution
  * @param <S> the type of scalar to draw
  */
-public abstract class DistContinuousUnit<U extends Unit<U>, S extends AbstractDoubleScalar<U, S>> extends Dist
+public class DistContinuousUnit<U extends Unit<U>, S extends AbstractDoubleScalar<U, S>> extends Dist
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -47,7 +46,10 @@ public abstract class DistContinuousUnit<U extends Unit<U>, S extends AbstractDo
      * draws the next stream value according to the probability of this this distribution.
      * @return the next double value drawn.
      */
-    public abstract S draw();
+    public S draw()
+    {
+        return DoubleScalar.instantiate(this.wrappedDistribution.draw(), this.unit);
+    }
 
     /**
      * returns the probability density value of an observation.
@@ -58,61 +60,4 @@ public abstract class DistContinuousUnit<U extends Unit<U>, S extends AbstractDo
     {
         return this.wrappedDistribution.probDensity(observation);
     }
-
-    /**
-     * Distribution of a generic absolute DoubleScalar.
-     * @param <AU> Absolute unit
-     * @param <RU> Relative unit belonging to the absolute unit
-     */
-    public static class Abs<AU extends AbsoluteLinearUnit<AU, RU>, RU extends Unit<RU>>
-            extends DistContinuousUnit<AU, DoubleScalar.Abs<AU, RU>>
-    {
-        /** */
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * Constructs a new continuous distribution that draws generic absolute DoubleScalars.
-         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
-         * @param unit AU; the unit for the values of the distribution
-         */
-        public Abs(final DistContinuous wrappedDistribution, final AU unit)
-        {
-            super(wrappedDistribution, unit);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public DoubleScalar.Abs<AU, RU> draw()
-        {
-            return new DoubleScalar.Abs<AU, RU>(this.wrappedDistribution.draw(), this.unit);
-        }
-    }
-
-    /**
-     * Distribution of a generic absolute DoubleScalar.
-     * @param <RU> Relative unit for the DoubleScalar
-     */
-    public static class Rel<RU extends Unit<RU>> extends DistContinuousUnit<RU, DoubleScalar.Rel<RU>>
-    {
-        /** */
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * Constructs a new continuous distribution that draws generic relative DoubleScalars.
-         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
-         * @param unit RU; the unit for the values of the distribution
-         */
-        public Rel(final DistContinuous wrappedDistribution, final RU unit)
-        {
-            super(wrappedDistribution, unit);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public DoubleScalar.Rel<RU> draw()
-        {
-            return new DoubleScalar.Rel<RU>(this.wrappedDistribution.draw(), this.unit);
-        }
-    }
-
 }

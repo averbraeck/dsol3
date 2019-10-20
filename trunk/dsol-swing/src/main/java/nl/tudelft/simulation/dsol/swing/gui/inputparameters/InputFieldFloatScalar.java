@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.djunits.unit.Unit;
-import org.djunits.value.vfloat.scalar.AbstractFloatScalar;
+import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
 
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterFloatScalar;
@@ -43,7 +43,7 @@ public class InputFieldFloatScalar<U extends Unit<U>, T extends AbstractFloatSca
         super(parameter);
         JLabel label = new JLabel(parameter.getShortName());
         this.floatField = new JTextField(20);
-        this.floatField.setText("" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getUnit()));
+        this.floatField.setText("" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit()));
         JLabel explanation = new JLabel(parameter.getDescription());
 
         String[] selections = new String[parameter.getUnitParameter().getOptions().size()];
