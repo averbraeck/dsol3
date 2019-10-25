@@ -45,7 +45,7 @@ public class InputParameterUnit<U extends Unit<U>> extends InputParameterSelecti
     private static <U extends Unit<U>> SortedMap<String, U> makeUnitMap(final U defaultUnit) throws InputParameterException
     {
         SortedMap<String, U> options = new TreeMap<>();
-        Collection<U> unitSet = defaultUnit.getUnitBase().getUnitsById().values();
+        Collection<U> unitSet = defaultUnit.getQuantity().getUnitsById().values();
         for (U unit : unitSet)
         {
             options.put(unit.getName(), unit);

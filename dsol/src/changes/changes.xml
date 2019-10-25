@@ -5,10 +5,15 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+   <release version="3.03.11" date="2019-10-25" description="New version of djunits, djutils">
+      <action dev="averbraeck" type="update">
+        The versions of djunits and djutils have been updated to the latest version (4.01.00 and 1.03.01).    
+      </action>
+    </release>
 
     <release version="3.03.10" date="2019-10-20" description="New version of djunits, djutils">
       <action dev="averbraeck" type="update">
-        The versions of djunits and djutils have been updated to the latest version.    
+        The versions of djunits and djutils have been updated to the latest version (4.00.04 and 1.03.00).    
       </action>
       <action dev="averbraeck" type="remove">
         As a result of the new djunits version, the Money distributions have been removed.
