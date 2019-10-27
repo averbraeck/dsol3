@@ -1,10 +1,12 @@
 package nl.tudelft.simulation.event.util;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.Test;
+
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 
@@ -20,7 +22,7 @@ import nl.tudelft.simulation.event.EventListenerInterface;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class EventIteratorTest extends TestCase implements EventListenerInterface
+public class EventIteratorTest implements EventListenerInterface
 {
     /** a check on the removed state. */
     private boolean removed = false;
@@ -29,26 +31,10 @@ public class EventIteratorTest extends TestCase implements EventListenerInterfac
     public static final String TEST_METHOD = "test";
 
     /**
-     * constructs a new EventIteratorTest.
-     */
-    public EventIteratorTest()
-    {
-        this(TEST_METHOD);
-    }
-
-    /**
-     * constructs a new EventIteratorTest.
-     * @param method the name of the test method
-     */
-    public EventIteratorTest(final String method)
-    {
-        super(method);
-    }
-
-    /**
      * tests the classes in the reference class.
      */
-    public void test()
+    @Test
+    public void eventIteratorTest()
     {
         List<Object> list = new ArrayList<Object>();
         list.add(new Object());
@@ -56,7 +42,7 @@ public class EventIteratorTest extends TestCase implements EventListenerInterfac
         iterator.next();
         iterator.addListener(this, EventIterator.OBJECT_REMOVED_EVENT);
         iterator.remove();
-        Assert.assertTrue(this.removed);
+        assertTrue(this.removed);
     }
 
     /** {@inheritDoc} */

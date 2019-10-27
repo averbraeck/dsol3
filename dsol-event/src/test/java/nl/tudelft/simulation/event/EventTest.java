@@ -1,7 +1,8 @@
 package nl.tudelft.simulation.event;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 /**
  * The test script for the Event class.
@@ -15,32 +16,13 @@ import junit.framework.TestCase;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class EventTest extends TestCase
+public class EventTest
 {
-    /** TEST_METHOD is the name of the test method. */
-    public static final String TEST_METHOD = "test";
-
-    /**
-     * constructs a new EventIteratorTest.
-     */
-    public EventTest()
-    {
-        this(TEST_METHOD);
-    }
-
-    /**
-     * constructs a new EventIteratorTest.
-     * @param method the name of the test method
-     */
-    public EventTest(final String method)
-    {
-        super(method);
-    }
-
     /**
      * tests the classes in the reference class.
      */
-    public void test()
+    @Test
+    public void eventTest()
     {
         Object source = this;
         EventType eventType = new EventType("TEST_TYPE");
@@ -48,9 +30,9 @@ public class EventTest extends TestCase
 
         // Some basic tests
         EventInterface event = new Event(eventType, source, content);
-        Assert.assertEquals(event.getContent(), content);
-        Assert.assertEquals(event.getSource(), source);
-        Assert.assertEquals(event.getType(), eventType);
+        assertEquals(event.getContent(), content);
+        assertEquals(event.getSource(), source);
+        assertEquals(event.getType(), eventType);
 
     }
 }
