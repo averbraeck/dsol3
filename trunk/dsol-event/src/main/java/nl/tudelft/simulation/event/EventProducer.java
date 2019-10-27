@@ -59,9 +59,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
         EventType[] events = this.getEventTypes();
         for (int i = 0; i < events.length; i++)
         {
-            for (int j = 0; j < events.length; j++)
+            for (int j = i + 1; j < events.length; j++) // assumes symmetric "equals"
             {
-                if (i != j && events[i].equals(events[j]))
+                if (events[i].equals(events[j]))
                 {
                     return false;
                 }
@@ -75,10 +75,9 @@ public abstract class EventProducer implements EventProducerInterface, Serializa
      */
     public EventProducer()
     {
-        super();
         if (!this.checkEventType())
         {
-            throw new RuntimeException("EventProducer failed: " + "more events have the same short value");
+            throw new RuntimeException("EventProducer failed: " + "more events have the same class + name combination");
         }
     }
 

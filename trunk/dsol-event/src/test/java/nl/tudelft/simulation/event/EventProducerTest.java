@@ -1,5 +1,10 @@
 package nl.tudelft.simulation.event;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,7 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * The test script for the EventProducer class.
@@ -22,32 +27,13 @@ import junit.framework.TestCase;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class EventProducerTest extends TestCase
+public class EventProducerTest
 {
-    /** TEST_METHOD is the name of the test method. */
-    public static final String TEST_METHOD = "test";
-
-    /**
-     * constructs a new EventIteratorTest.
-     */
-    public EventProducerTest()
-    {
-        this(TEST_METHOD);
-    }
-
-    /**
-     * constructs a new EventIteratorTest.
-     * @param arg0 the name of the test method
-     */
-    public EventProducerTest(final String arg0)
-    {
-        super(arg0);
-    }
-
     /**
      * tests the EventProducer
      */
-    public void test()
+    @Test
+    public void eventProducerTest()
     {
         this.basic();
         this.serialize();
@@ -64,7 +50,7 @@ public class EventProducerTest extends TestCase
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(file));
 
             // Let's test for Serializability
-            EventProducerInterface producer = new EventProducerChild();
+            EventProducerInterface producer = new EventProducerParent();
             output.writeObject(producer);
             ObjectInputStream input = new ObjectInputStream(new FileInputStream(file));
             producer = (EventProducerInterface) input.readObject();
@@ -73,8 +59,8 @@ public class EventProducerTest extends TestCase
 
             // Now we start testing the persistency of listeners after Serialization
             SimpleListener listener = new SimpleListener("Listener");
-            producer = new EventProducerChild();
-            producer.addListener(listener, EventProducerChild.EVENT_A);
+            producer = new EventProducerParent();
+            producer.addListener(listener, EventProducerParent.EVENT_A);
             output.writeObject(producer);
 
             input = new ObjectInputStream(new FileInputStream(file));
@@ -95,7 +81,7 @@ public class EventProducerTest extends TestCase
     public void basic()
     {
         // We start with a basic eventProducer
-        EventProducerInterface producer = new EventProducerParent();
+        EventProducerInterface producer = new EventProducerChild();
 
         // Now we create some listeners
         EventListenerInterface listener1 = new RemoveListener("listener1");
@@ -104,10 +90,10 @@ public class EventProducerTest extends TestCase
 
         // Now we change the EVENT_D and see if the runTimeException occurs
         // This procedure checks for doublures in eventType values
-        EventProducerParent.eventD = EventProducerParent.EVENT_C;
+        EventProducerChild.EVENT_D = EventProducerChild.EVENT_C;
         try
         {
-            new EventProducerParent();
+            new EventProducerChild();
             // This must fail since EVENT_D and EVENT_C have the same value
             fail("double eventType values");
         }
@@ -119,33 +105,33 @@ public class EventProducerTest extends TestCase
         // Now we test the eventProducer
         try
         {
-            producer.addListener(listener2, EventProducerParent.EVENT_E);
-            producer.addListener(listener1, EventProducerChild.EVENT_B);
-            producer.addListener(listener1, EventProducerParent.EVENT_C);
-            producer.addListener(listener1, EventProducerParent.EVENT_E);
-            producer.addListener(listener3, EventProducerParent.EVENT_E);
+            producer.addListener(listener2, EventProducerChild.EVENT_E);
+            producer.addListener(listener1, EventProducerParent.EVENT_B);
+            producer.addListener(listener1, EventProducerChild.EVENT_C);
+            producer.addListener(listener1, EventProducerChild.EVENT_E);
+            producer.addListener(listener3, EventProducerChild.EVENT_E);
 
-            ((EventProducerParent) producer).fireEvent(new Event(EventProducerParent.EVENT_E, producer, "HI"));
+            ((EventProducerChild) producer).fireEvent(new Event(EventProducerChild.EVENT_E, producer, "HI"));
 
-            ((EventProducerParent) producer).fireEvent(new Event(EventProducerParent.EVENT_E, producer, "HI"));
+            ((EventProducerChild) producer).fireEvent(new Event(EventProducerChild.EVENT_E, producer, "HI"));
 
-            ((EventProducerParent) producer).fireEvent(new Event(EventProducerChild.EVENT_A, producer, "HI"));
+            ((EventProducerChild) producer).fireEvent(new Event(EventProducerParent.EVENT_A, producer, "HI"));
 
             // we try to remove the listener from a wrong eventType.
-            assertFalse(producer.removeListener(listener1, EventProducerChild.EVENT_A));
+            assertFalse(producer.removeListener(listener1, EventProducerParent.EVENT_A));
 
             // now we try to remove the same listener again.
-            assertFalse(producer.removeListener(listener1, EventProducerParent.EVENT_E));
+            assertFalse(producer.removeListener(listener1, EventProducerChild.EVENT_E));
 
             // Now we subscribe twice on the same event. The first time should
             // succeed. The second fail.
-            assertFalse(producer.addListener(listener1, EventProducerChild.EVENT_B));
+            assertFalse(producer.addListener(listener1, EventProducerParent.EVENT_B));
 
             // Now we add a null listener
-            assertFalse(producer.addListener(null, EventProducerChild.EVENT_A));
+            assertFalse(producer.addListener(null, EventProducerParent.EVENT_A));
 
             // Now we add some random listeners
-            assertTrue(producer.addListener(listener1, EventProducerChild.EVENT_A));
+            assertTrue(producer.addListener(listener1, EventProducerParent.EVENT_A));
 
             // assertTrue(producer.removeAllListeners() == 4);
         }
@@ -176,11 +162,11 @@ public class EventProducerTest extends TestCase
         @Override
         public void notify(final EventInterface event) throws RemoteException
         {
-            assertTrue(event.getType().equals(EventProducerParent.EVENT_E));
+            assertTrue(event.getType().equals(EventProducerChild.EVENT_E));
             EventProducerInterface producer = (EventProducerInterface) event.getSource();
-            assertTrue(producer.removeListener(this, EventProducerParent.eventD));
-            assertTrue(producer.removeListener(this, EventProducerParent.EVENT_E));
-            assertFalse(producer.removeListener(this, EventProducerParent.EVENT_E));
+            assertTrue(producer.removeListener(this, EventProducerChild.EVENT_D));
+            assertTrue(producer.removeListener(this, EventProducerChild.EVENT_E));
+            assertFalse(producer.removeListener(this, EventProducerChild.EVENT_E));
         }
 
         /** {@inheritDoc} */

@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.event;
 
-import java.io.Serializable;
-
 /**
  * The EventProducerChild is an event producer used in JUNIT tests.
  * <p>
@@ -14,25 +12,33 @@ import java.io.Serializable;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class EventProducerChild extends EventProducer implements Serializable
+public class EventProducerChild extends EventProducerParent
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** EVENT_A is merely a test event. */
-    public static final EventType EVENT_A = new EventType("EVENT_A");
-
-    /** EVENT_B is merely a test event. */
-    public static final EventType EVENT_B = new EventType("EVENT_B");
-
-    /** EVENT_C is merely a test event. */
+    /** event_c is merely a test event. */
+    @SuppressWarnings("hiding")
     public static final EventType EVENT_C = new EventType("EVENT_C");
 
+    /** event_d is merely a test event. */
+    protected static EventType EVENT_D = new EventType("EVENT_D");
+
+    /** event_e is merely a test event. */
+    public static final EventType EVENT_E = new EventType("EVENT_E");
+
     /**
-     * constructs a new EventProducerChild.
+     * constructs a new EventProducerCHild.
      */
-    protected EventProducerChild()
+    public EventProducerChild()
     {
         super();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public synchronized EventInterface fireEvent(final EventInterface event)
+    {
+        return super.fireEvent(event);
     }
 }

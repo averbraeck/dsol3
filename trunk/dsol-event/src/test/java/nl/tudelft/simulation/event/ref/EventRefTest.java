@@ -1,9 +1,13 @@
 package nl.tudelft.simulation.event.ref;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
 import java.rmi.MarshalledObject;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * The test script for the reference package. All classes in this package are tested with this test
@@ -17,32 +21,13 @@ import junit.framework.TestCase;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class EventRefTest extends TestCase
+public class EventRefTest
 {
-    /** TEST_METHOD is the name of the test method. */
-    public static final String TEST_METHOD = "test";
-
-    /**
-     * constructs a new EventIteratorTest.
-     */
-    public EventRefTest()
-    {
-        this(TEST_METHOD);
-    }
-
-    /**
-     * constructs a new EventIteratorTest.
-     * @param method the name of the test method
-     */
-    public EventRefTest(final String method)
-    {
-        super(method);
-    }
-
     /**
      * tests the classes in the reference class.
      */
-    public void test()
+    @Test
+    public void eventRefTest()
     {
         try
         {
@@ -56,21 +41,21 @@ public class EventRefTest extends TestCase
              */
 
             Reference<Object> reference = new WeakReference<Object>(referent);
-            Assert.assertEquals(reference.get(), referent);
+            assertEquals(reference.get(), referent);
             Runtime.getRuntime().gc();
-            Assert.assertNotNull(reference.get());
+            assertNotNull(reference.get());
 
             // Test 2: We since we have a pointer to referent, gc should
             // clean the weakReference
             reference = new WeakReference<Object>(new String("EventIteratorTest"));
             Runtime.getRuntime().gc();
-            Assert.assertNull(reference.get());
+            assertNull(reference.get());
 
             // Test 3: The strong reference..
             reference = new StrongReference<Object>(new String("EventIteratorTest"));
-            Assert.assertNotNull(reference.get());
+            assertNotNull(reference.get());
             Runtime.getRuntime().gc();
-            Assert.assertNotNull(reference.get());
+            assertNotNull(reference.get());
 
             // A Strong one
             new MarshalledObject<Object>(new StrongReference<Object>(new Double(12))).get();
@@ -82,7 +67,7 @@ public class EventRefTest extends TestCase
         {
             // runtime exceptions are not appreciated
             throwable.printStackTrace();
-            Assert.fail();
+            fail();
         }
     }
 }
