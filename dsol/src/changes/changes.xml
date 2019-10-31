@@ -5,6 +5,28 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+   <release version="3.03.12" date="2019-10-31" description="Test updates; compatibility with Java-9+">
+      <action dev="averbraeck" type="remove">
+        Package nl.tudelft.simulation.dsol.web.peer in dsol-web removed, as this is an internal set 
+        of classes that should not be re-implemented. As of Java-9 they are completely internal-only.
+      </action>
+      <action dev="averbraeck" type="update">
+        The test in dsol-event have been upgraded to the latest JUnit test format.    
+      </action>
+      <action dev="averbraeck" type="update">
+        djunits and djutils have been updated to the latest Java9+ compatible version.    
+      </action>
+      <action dev="averbraeck" type="update">
+        Included jakarta.annotation-api to be compatible with Java 11+.
+      </action>
+      <action dev="averbraeck" type="fix">
+        tt-tag in javadoc replaced by code-tag to be compatible with HTML-5 and Java-11+.
+      </action>
+      <action dev="averbraeck" type="fix">
+        javadoc source version 8 added to pom-file to be compatible with Java-11+.
+      </action>
+   </release>
+
    <release version="3.03.11" date="2019-10-25" description="New version of djunits, djutils">
       <action dev="averbraeck" type="update">
         The versions of djunits and djutils have been updated to the latest version (4.01.00 and 1.03.01).    
