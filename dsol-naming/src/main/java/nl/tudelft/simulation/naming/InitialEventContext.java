@@ -50,11 +50,11 @@ public class InitialEventContext implements EventContext
 
     /**
      * Constructs an initial context with the option of not initializing it. This may be used by a constructor in a subclass
-     * when the value of the environment parameter is not yet known at the time the <tt>InitialContext</tt> constructor is
+     * when the value of the environment parameter is not yet known at the time the <code>InitialContext</code> constructor is
      * called. The subclass's constructor will call this constructor, compute the value of the environment, and then call
-     * <tt>init()</tt> before returning.
+     * <code>init()</code> before returning.
      * @param lazy true means do not initialize the initial context; false is equivalent to calling
-     *            <tt>new InitialContext()</tt>
+     *            <code>new InitialContext()</code>
      * @throws NamingException if a naming exception is encountered
      * @see #init(Hashtable)
      * @since 1.5
@@ -68,7 +68,7 @@ public class InitialEventContext implements EventContext
     }
 
     /**
-     * Constructs an initial context. No environment properties are supplied. Equivalent to <tt>new InitialContext(null)</tt>.
+     * Constructs an initial context. No environment properties are supplied. Equivalent to <code>new InitialContext(null)</code>.
      * @throws NamingException if a naming exception is encountered
      */
     public InitialEventContext() throws NamingException
@@ -80,7 +80,7 @@ public class InitialEventContext implements EventContext
      * Constructs an initial context using the supplied environment. Environment properties are discussed in the class
      * description.
      * <p>
-     * This constructor will not modify <tt>environment</tt> or save a reference to it, but may save a clone.
+     * This constructor will not modify <code>environment</code> or save a reference to it, but may save a clone.
      * @param environment Hashtable&lt;?,?&gt;; environment used to create the initial context. Null indicates an empty
      *            environment.
      * @throws NamingException if a naming exception is encountered
@@ -101,7 +101,7 @@ public class InitialEventContext implements EventContext
      * Initializes the initial context using the supplied environment. Environment properties are discussed in the class
      * description.
      * <p>
-     * This method will modify <tt>environment</tt> and save a reference to it. The caller may no longer modify it.
+     * This method will modify <code>environment</code> and save a reference to it. The caller may no longer modify it.
      * @param environment Hashtable&lt;?,?&gt;; environment used to create the initial context. Null indicates an empty
      *            environment.
      * @throws NamingException if a naming exception is encountered
@@ -430,8 +430,8 @@ public class InitialEventContext implements EventContext
 
     /**
      * Composes the name of this context with a name relative to this context. Since an initial context may never be named
-     * relative to any context other than itself, the value of the <tt>prefix</tt> parameter must be an empty name
-     * (<tt>""</tt>).
+     * relative to any context other than itself, the value of the <code>prefix</code> parameter must be an empty name
+     * (<code>""</code>).
      * @param name String; the name
      * @param prefix String; the prefix
      * @return String
@@ -445,7 +445,7 @@ public class InitialEventContext implements EventContext
 
     /**
      * Composes the name of this context with a name relative to this context. Since an initial context may never be named
-     * relative to any context other than itself, the value of the <tt>prefix</tt> parameter must be an empty name.
+     * relative to any context other than itself, the value of the <code>prefix</code> parameter must be an empty name.
      * @param name Name; the name
      * @param prefix Name; the prefix
      * @return Name

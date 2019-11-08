@@ -83,7 +83,6 @@ public class OpcodeTest
                     @SuppressWarnings("unchecked")
                     Class<Operation> clazz =
                             (Class<Operation>) Class.forName("nl.tudelft.simulation.dsol.interpreter.operations." + code);
-                    @SuppressWarnings("restriction")
                     DataInput dataInput = new com.sun.org.apache.bcel.internal.util.ByteSequence(
                             new byte[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
                     try
@@ -91,7 +90,6 @@ public class OpcodeTest
                         Operation operation = null;
                         if (args.equals("wide"))
                         {
-                            @SuppressWarnings("restriction")
                             DataInput dataInputWide = new com.sun.org.apache.bcel.internal.util.ByteSequence(
                                     new byte[] {0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
                             Constructor<Operation> constructor = clazz.getConstructor(new Class<?>[] {DataInput.class});
@@ -124,7 +122,7 @@ public class OpcodeTest
                             clazz.getDeclaredMethod("getOpcode", new Class<?>[] {});
                             Constructor<Operation> constructor =
                                     clazz.getConstructor(new Class<?>[] {DataInput.class, int.class});
-                            Integer i = new Integer(1);
+                            Integer i = Integer.valueOf(1);
                             try
                             {
                                 operation = constructor.newInstance(dataInput, i);
@@ -161,7 +159,7 @@ public class OpcodeTest
                         {
                             clazz.getDeclaredMethod("getOpcode", new Class<?>[] {});
                             Constructor<Operation> constructor = clazz.getConstructor(new Class<?>[] {int.class});
-                            Integer i = new Integer(1);
+                            Integer i = Integer.valueOf(1);
                             try
                             {
                                 operation = constructor.newInstance(i);
@@ -192,7 +190,7 @@ public class OpcodeTest
                             try
                             {
                                 if (nr == 0)
-                                    operation = clazz.newInstance();
+                                    operation = clazz.getDeclaredConstructor().newInstance();
                                 else
                                 {
                                     Constructor<Operation> constructor = clazz.getConstructor(new Class<?>[] {DataInput.class});
@@ -224,6 +222,14 @@ public class OpcodeTest
                             catch (IllegalAccessException exception)
                             {
                                 Assert.fail("OpcodeTest constructor for opcode " + code + " not public");
+                            }
+                            catch (IllegalArgumentException exception)
+                            {
+                                Assert.fail("OpcodeTest constructor for opcode " + code + " constructor failed");
+                            }
+                            catch (InvocationTargetException exception)
+                            {
+                                Assert.fail("OpcodeTest constructor for opcode " + code + " constructor failed");
                             }
                         }
                         int calcOpcode = operation.getOpcode();

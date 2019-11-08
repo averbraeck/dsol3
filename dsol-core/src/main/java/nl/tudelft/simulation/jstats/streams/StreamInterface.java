@@ -19,9 +19,9 @@ public interface StreamInterface extends Serializable
 {
     /**
      * Returns the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
-     * sequence. The general contract of <tt>nextBoolean</tt> is that one <tt>boolean</tt> value is pseudorandomly generated and
+     * sequence. The general contract of <code>nextBoolean</code> is that one <code>boolean</code> value is pseudorandomly generated and
      * returned. The values <code>true</code> and <code>false</code> are produced with (approximately) equal probability. The
-     * method <tt>nextBoolean</tt> is implemented by class <tt>Random</tt> as follows: <blockquote>
+     * method <code>nextBoolean</code> is implemented by class <code>Random</code> as follows: <blockquote>
      * 
      * <pre>
      * public boolean nextBoolean()

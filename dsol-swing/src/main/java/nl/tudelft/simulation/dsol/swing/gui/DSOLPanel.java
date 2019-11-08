@@ -54,6 +54,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
     /**
      * @param model DSOLModel&lt;A, R, T, S&gt;; the model to run in this panel
      * @param simulator S; the simulator to use for the model
+     * @param <S> the simulator type
      */
     public <S extends SimulatorInterface<A, R, T>> DSOLPanel(final DSOLModel<A, R, T, S> model, final S simulator)
     {

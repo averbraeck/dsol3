@@ -27,24 +27,24 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
 
     /**
      * The pane you can fiddle with -- to which content can be added, of which the layout can be changed, and so on. It's
-     * returned by <TT>getContentPane()</TT>.
+     * returned by <code>getContentPane()</code>.
      */
     protected Container currentContentPane;
 
     /**
-     * A stack of all the toolbar containers -- those "outside" of <TT>currentContentPane</TT>. The indices match those of
-     * <TT>toolbarStack</TT>.
+     * A stack of all the toolbar containers -- those "outside" of <code>currentContentPane</code>. The indices match those of
+     * <code>toolbarStack</code>.
      */
     protected Vector<Container> containerStack;
 
     /**
-     * A stack of all the toolbars. The indices match those of <TT>
-     * containerStack</TT>.
+     * A stack of all the toolbars. The indices match those of <code>
+     * containerStack</code>.
      */
     protected Vector<JToolBar> toolbarStack;
 
     /**
-     * The container of <TT>currentContentPane</TT>.
+     * The container of <code>currentContentPane</code>.
      */
     protected Container topContainer;
 
@@ -58,7 +58,7 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
     // ------------------------------------------------------------
 
     /**
-     * Returns a new <TT>JMultiToolbarFrame</TT>.
+     * Returns a new <code>JMultiToolbarFrame</code>.
      */
     public JMultiToolbarFrame()
     {
@@ -93,7 +93,7 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
     }
 
     /**
-     * Overrides <TT>JFrame.getContentPane()</TT>. The pane returned should always be "inside" the toolbars.
+     * Overrides <code>JFrame.getContentPane()</code>. The pane returned should always be "inside" the toolbars.
      * @return The content pane.
      */
     @Override
@@ -107,7 +107,7 @@ public class JMultiToolbarFrame extends JFrame implements SwingConstants
      * ignored.
      * @param bar JToolBar; The toolbar to add.
      * @param align int; One of &lt;TT&gt;SwingConstants.TOP&lt;/TT&gt;,&lt;TT&gt;SwingConstants.BOTTOM&lt;/TT&gt;,
-     *            &lt;TT&gt;SwingConstants.LEFT&lt;/TT&gt;, or <TT>SwingConstants.RIGHT</TT>.
+     *            &lt;TT&gt;SwingConstants.LEFT&lt;/TT&gt;, or <code>SwingConstants.RIGHT</code>.
      */
     public void addJToolBar(final JToolBar bar, final int align)
     {
