@@ -30,20 +30,20 @@ public interface ObservationsInterface
 
     /**
      * Returns the number of observation-probability mappings in this structure. If the structure contains more than
-     * <tt>Integer.MAX_VALUE</tt> elements, returns <tt>Integer.MAX_VALUE</tt>.
+     * <code>Integer.MAX_VALUE</code> elements, returns <code>Integer.MAX_VALUE</code>.
      * @return the number of object-value mappings in this structure.
      */
     int size();
 
     /**
-     * Returns <tt>true</tt> if this structure contains no object-value mappings.
-     * @return <tt>true</tt> if this structure contains no object-value mappings.
+     * Returns <code>true</code> if this structure contains no object-value mappings.
+     * @return <code>true</code> if this structure contains no object-value mappings.
      */
     boolean isEmpty();
 
     /**
-     * Returns <tt>true</tt> if this structure contains grouped empirical data.
-     * @return <tt>true</tt> if this structure contains grouped empirical data.
+     * Returns <code>true</code> if this structure contains grouped empirical data.
+     * @return <code>true</code> if this structure contains grouped empirical data.
      */
     boolean isGrouped();
 
@@ -75,7 +75,7 @@ public interface ObservationsInterface
     List<Double> getCumProbabilities();
 
     /**
-     * Returns the entry to which the structure maps the specific object. Returns <tt>null</tt> if the structure contains no
+     * Returns the entry to which the structure maps the specific object. Returns <code>null</code> if the structure contains no
      * entry for the object. The object might either refer to an observation or to a probability. If multiple entries match the
      * search, there is no guarantee which entry is returned.
      * @param object Number; entry whose associated entry is to be returned.
@@ -87,12 +87,12 @@ public interface ObservationsInterface
     /**
      * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not exists,
      * returns the entry for the greatest object less than the specified object; if no such entry exists (i.e., the least object
-     * in the Tree is greater than the specified object), returns <tt>null</tt>. If multiple entries match the search, there is
+     * in the Tree is greater than the specified object), returns <code>null</code>. If multiple entries match the search, there is
      * no guarantee which entry is returned.
      * @param object Number; object whose next object associated value is to be returned.
      * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive boolean; if inclusive and structure contains object object is returned
-     * @return the value to which this structure maps the specified object, or <tt>null</tt> if the structure contains no
+     * @return the value to which this structure maps the specified object, or <code>null</code> if the structure contains no
      *         mapping for this object.
      */
     ObservationsInterface.Entry getPrecedingEntry(Number object, byte type, boolean inclusive);
@@ -100,12 +100,12 @@ public interface ObservationsInterface
     /**
      * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not exists,
      * returns the entry for the least object greater than the specified object; if no such entry exists (i.e., the greatest
-     * object in the Tree is less than the specified object), returns <tt>null</tt>. If multiple entries match the search, there
+     * object in the Tree is less than the specified object), returns <code>null</code>. If multiple entries match the search, there
      * is no guarantee which entry is returned.
      * @param object Number; object whose associated value is to be returned.
      * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive boolean; if inclusive and structure contains object object is returned
-     * @return the value to which this structure maps the specified object, or <tt>null</tt> if the structure contains no
+     * @return the value to which this structure maps the specified object, or <code>null</code> if the structure contains no
      *         mapping for this object.
      */
     ObservationsInterface.Entry getCeilingEntry(Number object, byte type, boolean inclusive);

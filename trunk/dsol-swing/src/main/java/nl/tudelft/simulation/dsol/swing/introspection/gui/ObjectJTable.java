@@ -24,12 +24,12 @@ import nl.tudelft.simulation.dsol.swing.introspection.sortable.SortingTableHeade
 
 /**
  * * A customization of a standard JTable to allow the display of an introspected object. The behaviour of the ObjectJTable
- * depends on the contained TableModel. {see ObjectTableModel}provides a view of the properties and values of a single
- * introspected object. {see CollectionTableModel}provides a view on a collection of instances: usually the value of a composite
+ * depends on the contained TableModel. @see ObjectTableModel provides a view of the properties and values of a single
+ * introspected object. @see CollectionTableModel provides a view on a collection of instances: usually the value of a composite
  * property.
  * <p>
- * A configuration mechanism is implemented to load the editors and renders to be used by this JTable. See {see
- * #setConfig(nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration)} for details.
+ * A configuration mechanism is implemented to load the editors and renders to be used by this JTable. See @see
+ * #setConfig(nl.tudelft.simulation.introspection.mapping.CellPresentationConfiguration) for details.
  * <p>
  * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL

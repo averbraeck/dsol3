@@ -41,17 +41,17 @@ public interface RemoteContextInterface extends Remote
     /**
      * Adds a listener for receiving naming events fired when the object(s) identified by a target and scope changes. The event
      * source of those events is this context. See the class description for a discussion on event source and target. See the
-     * descriptions of the constants <tt>OBJECT_SCOPE</tt>,<tt>ONELEVEL_SCOPE</tt>, and <tt>SUBTREE_SCOPE</tt> to see how
-     * <tt>scope</tt> affects the registration.
+     * descriptions of the constants <code>OBJECT_SCOPE</code>,<code>ONELEVEL_SCOPE</code>, and <code>SUBTREE_SCOPE</code> to see how
+     * <code>scope</code> affects the registration.
      * <p>
-     * <tt>target</tt> needs to name a context only when <tt>scope</tt> is <tt>ONELEVEL_SCOPE</tt>.<tt>target</tt> may name a
-     * non-context if <tt>scope</tt> is either <tt>OBJECT_SCOPE</tt> or <tt>SUBTREE_SCOPE</tt>. Using <tt>SUBTREE_SCOPE</tt> for
-     * a non-context might be useful, for example, if the caller does not know in advance whether <tt>target</tt> is a context
-     * and just wants to register interest in the (possibly degenerate subtree) rooted at <tt>target</tt>.
+     * <code>target</code> needs to name a context only when <code>scope</code> is <code>ONELEVEL_SCOPE</code>.<code>target</code> may name a
+     * non-context if <code>scope</code> is either <code>OBJECT_SCOPE</code> or <code>SUBTREE_SCOPE</code>. Using <code>SUBTREE_SCOPE</code> for
+     * a non-context might be useful, for example, if the caller does not know in advance whether <code>target</code> is a context
+     * and just wants to register interest in the (possibly degenerate subtree) rooted at <code>target</code>.
      * <p>
      * When the listener is notified of an event, the listener may in invoked in a thread other than the one in which
-     * <tt>addNamingListener()</tt> is executed. Care must be taken when multiple threads are accessing the same
-     * <tt>EventContext</tt> concurrently. See the <a href=package-summary.html#THREADING>package description </a> for more
+     * <code>addNamingListener()</code> is executed. Care must be taken when multiple threads are accessing the same
+     * <code>EventContext</code> concurrently. See the <a href=package-summary.html#THREADING>package description </a> for more
      * information on threading issues.
      * @param target Name; A nonnull name to be resolved relative to this context.
      * @param scope int; One of &lt;tt&gt;OBJECT_SCOPE&lt;/tt&gt;,&lt;tt&gt;ONELEVEL_SCOPE&lt;/tt&gt;, or
@@ -65,7 +65,7 @@ public interface RemoteContextInterface extends Remote
 
     /**
      * Adds a listener for receiving naming events fired when the object named by the string target name and scope changes. See
-     * the overload that accepts a <tt>Name</tt> for details.
+     * the overload that accepts a <code>Name</code> for details.
      * @param target String; The nonnull string name of the object resolved relative to this context.
      * @param scope int; One of &lt;tt&gt;OBJECT_SCOPE&lt;/tt&gt;,&lt;tt&gt;ONELEVEL_SCOPE&lt;/tt&gt;, or
      *            &lt;tt&gt;SUBTREE_SCOPE&lt;/tt&gt;.
@@ -77,11 +77,11 @@ public interface RemoteContextInterface extends Remote
             throws NamingException, RemoteException;
 
     /**
-     * Removes a listener from receiving naming events fired by this <tt>EventContext</tt>. The listener may have registered
-     * more than once with this <tt>EventContext</tt>, perhaps with different target/scope arguments. After this method is
-     * invoked, the listener will no longer receive events with this <tt>EventContext</tt> instance as the event source (except
+     * Removes a listener from receiving naming events fired by this <code>EventContext</code>. The listener may have registered
+     * more than once with this <code>EventContext</code>, perhaps with different target/scope arguments. After this method is
+     * invoked, the listener will no longer receive events with this <code>EventContext</code> instance as the event source (except
      * for those events already in the process of being dispatched). If the listener was not, or is no longer, registered with
-     * this <tt>EventContext</tt> instance, this method does not do anything.
+     * this <code>EventContext</code> instance, this method does not do anything.
      * @param l RemoteContextListenerInterface; The nonnull listener.
      * @exception NamingException If a problem was encountered while removing the listener.
      * @exception RemoteException on network exception
@@ -97,10 +97,10 @@ public interface RemoteContextInterface extends Remote
     public boolean targetMustExist() throws NamingException, RemoteException;
 
     /**
-     * Retrieves the named object. If <tt>name</tt> is empty, returns a new instance of this context (which represents the same
+     * Retrieves the named object. If <code>name</code> is empty, returns a new instance of this context (which represents the same
      * naming context as this context, but its environment may be modified independently and it may be accessed concurrently).
      * @param name Name; the name of the object to look up
-     * @return the object bound to <tt>name</tt>
+     * @return the object bound to <code>name</code>
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
      * @see #lookup(String)
@@ -111,7 +111,7 @@ public interface RemoteContextInterface extends Remote
     /**
      * Retrieves the named object. See {@link #lookup(Name)}for details.
      * @param name String; the name of the object to look up
-     * @return the object bound to <tt>name</tt>
+     * @return the object bound to <code>name</code>
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
      */
@@ -145,7 +145,7 @@ public interface RemoteContextInterface extends Remote
      * Binds a name to an object, overwriting any existing binding. All intermediate contexts and the target context (that named
      * by all but terminal atomic component of the name) must already exist.
      * <p>
-     * If the object is a <tt>DirContext</tt>, any existing attributes associated with the name are replaced with those of the
+     * If the object is a <code>DirContext</code>, any existing attributes associated with the name are replaced with those of the
      * object. Otherwise, any existing attributes associated with the name remain unchanged.
      * @param name the name to bind; may not be empty
      * @param obj the object to bind; possibly null
@@ -174,7 +174,7 @@ public interface RemoteContextInterface extends Remote
      * all but the terminal atomic part of <code>name</code>.
      * <p>
      * This method is idempotent. It succeeds even if the terminal atomic name is not bound in the target context, but throws
-     * <tt>NameNotFoundException</tt> if any of the intermediate contexts do not exist.
+     * <code>NameNotFoundException</code> if any of the intermediate contexts do not exist.
      * <p>
      * Any attributes associated with the name are removed. Intermediate contexts are not changed.
      * @param name the name to unbind; may not be empty
@@ -223,7 +223,7 @@ public interface RemoteContextInterface extends Remote
      * If a binding is added to or removed from this context, its effect on an enumeration previously returned is undefined.
      * @param name Name; the name of the context to list
      * @return an enumeration of the names and class names of the bindings in this context. Each element of the enumeration is
-     *         of type <tt>NameClassPair</tt>.
+     *         of type <code>NameClassPair</code>.
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
      * @see #list(String)
@@ -237,7 +237,7 @@ public interface RemoteContextInterface extends Remote
      * {@link #list(Name)}for details.
      * @param name String; the name of the context to list
      * @return an enumeration of the names and class names of the bindings in this context. Each element of the enumeration is
-     *         of type <tt>NameClassPair</tt>.
+     *         of type <code>NameClassPair</code>.
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
      */
@@ -249,7 +249,7 @@ public interface RemoteContextInterface extends Remote
      * <p>
      * If a binding is added to or removed from this context, its effect on an enumeration previously returned is undefined.
      * @param name Name; the name of the context to list
-     * @return an enumeration of the bindings in this context. Each element of the enumeration is of type <tt>Binding</tt>.
+     * @return an enumeration of the bindings in this context. Each element of the enumeration is of type <code>Binding</code>.
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
      * @see #listBindings(String)
@@ -262,7 +262,7 @@ public interface RemoteContextInterface extends Remote
      * Enumerates the names bound in the named context, along with the objects bound to them. See {@link #listBindings(Name)}for
      * details.
      * @param name String; the name of the context to list
-     * @return an enumeration of the bindings in this context. Each element of the enumeration is of type <tt>Binding</tt>.
+     * @return an enumeration of the bindings in this context. Each element of the enumeration is of type <code>Binding</code>.
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
      */
@@ -273,13 +273,13 @@ public interface RemoteContextInterface extends Remote
      * Intermediate contexts are not destroyed.
      * <p>
      * This method is idempotent. It succeeds even if the terminal atomic name is not bound in the target context, but throws
-     * <tt>NameNotFoundException</tt> if any of the intermediate contexts do not exist.
+     * <code>NameNotFoundException</code> if any of the intermediate contexts do not exist.
      * <p>
      * In a federated naming system, a context from one naming system may be bound to a name in another. One can subsequently
      * look up and perform operations on the foreign context using a composite name. However, an attempt destroy the context
-     * using this composite name will fail with <tt>NotContextException</tt>, because the foreign context is not a "subcontext"
-     * of the context in which it is bound. Instead, use <tt>unbind()</tt> to remove the binding of the foreign context.
-     * Destroying the foreign context requires that the <tt>destroySubcontext()</tt> be performed on a context from the foreign
+     * using this composite name will fail with <code>NotContextException</code>, because the foreign context is not a "subcontext"
+     * of the context in which it is bound. Instead, use <code>unbind()</code> to remove the binding of the foreign context.
+     * Destroying the foreign context requires that the <code>destroySubcontext()</code> be performed on a context from the foreign
      * context's "native" naming system.
      * @param name the name of the context to be destroyed; may not be empty
      * @throws NameNotFoundException if an intermediate context does not exist
@@ -332,9 +332,9 @@ public interface RemoteContextInterface extends Remote
 
     /**
      * Retrieves the named object, following links except for the terminal atomic component of the name. If the object bound to
-     * <tt>name</tt> is not a link, returns the object itself.
+     * <code>name</code> is not a link, returns the object itself.
      * @param name Name; the name of the object to look up
-     * @return the object bound to <tt>name</tt>, not following the terminal link (if any).
+     * @return the object bound to <code>name</code>, not following the terminal link (if any).
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
      * @see #lookupLink(String)
@@ -345,7 +345,7 @@ public interface RemoteContextInterface extends Remote
      * Retrieves the named object, following links except for the terminal atomic component of the name. See
      * {@link #lookupLink(Name)}for details.
      * @param name String; the name of the object to look up
-     * @return the object bound to <tt>name</tt>, not following the terminal link (if any)
+     * @return the object bound to <code>name</code>, not following the terminal link (if any)
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
      */
@@ -354,8 +354,8 @@ public interface RemoteContextInterface extends Remote
     /**
      * Retrieves the parser associated with the named context. In a federation of namespaces, different naming systems will
      * parse names differently. This method allows an application to get a parser for parsing names into their atomic components
-     * using the naming convention of a particular naming system. Within any single naming system, <tt>NameParser</tt> objects
-     * returned by this method must be equal (using the <tt>equals()</tt> test).
+     * using the naming convention of a particular naming system. Within any single naming system, <code>NameParser</code> objects
+     * returned by this method must be equal (using the <code>equals()</code> test).
      * @param name Name; the name of the context from which to get the parser
      * @return a name parser that can parse compound names into their atomic components
      * @throws NamingException if a naming exception is encountered
@@ -448,7 +448,7 @@ public interface RemoteContextInterface extends Remote
      * Retrieves the environment in effect for this context. See class description for more details on environment properties.
      * <p>
      * The caller should not make any changes to the object returned: their effect on the context is undefined. The environment
-     * of this context may be changed using <tt>addToEnvironment()</tt> and <tt>removeFromEnvironment()</tt>.
+     * of this context may be changed using <code>addToEnvironment()</code> and <code>removeFromEnvironment()</code>.
      * @return the environment of this context; never null
      * @throws NamingException if a naming exception is encountered
      * @exception RemoteException on network exception
@@ -475,7 +475,7 @@ public interface RemoteContextInterface extends Remote
      * entry has a distinguished name, and a DNS record has a fully qualified name. This method allows the client application to
      * retrieve this name. The string returned by this method is not a JNDI composite name and should not be passed directly to
      * context methods. In naming systems for which the notion of full name does not make sense,
-     * <tt>OperationNotSupportedException</tt> is thrown.
+     * <code>OperationNotSupportedException</code> is thrown.
      * @return this context's name in its own namespace; never null
      * @throws OperationNotSupportedException if the naming system does not have the notion of a full name
      * @throws NamingException if a naming exception is encountered
