@@ -5,7 +5,14 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-   <release version="3.03.12" date="2019-10-31" description="Test updates; compatibility with Java-9+">
+   <release version="3.03.12" date="2019-11-08" description="Test updates; compatibility with Java-9+">
+      <action dev="averbraeck" type="fix">
+        Ensured that "package-list" exists in apidocs for backward compatibility of javadoc linking.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Replaced FindBugs (which already had a problem supporting Java 8) with SpotBugs 
+        (supporting later Java versions as well).
+      </action>
       <action dev="averbraeck" type="remove">
         Package nl.tudelft.simulation.dsol.web.peer in dsol-web removed, as this is an internal set 
         of classes that should not be re-implemented. As of Java-9 they are completely internal-only.
