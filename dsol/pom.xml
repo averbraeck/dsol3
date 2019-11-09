@@ -6,7 +6,7 @@
 
   <groupId>dsol</groupId>
   <artifactId>dsol</artifactId>
-  <version>3.03.13-SNAPSHOT</version>
+  <version>3.03.12</version>
   <packaging>pom</packaging>
 
   <name>DSOL version 3</name>
@@ -189,7 +189,7 @@
               <url>scp://simulation.tudelft.nl/home/web/simulation.tudelft.nl/html/dsol</url>
               <serverId>dsol-deployment</serverId>
               <commands>
-                <command>cp -f /home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}/apidocs/element-list /home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}/apidocs/package-list</command>
+                <command>cp -f -q /home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}/apidocs/element-list /home/web/simulation.tudelft.nl/html/dsol/${project.version}/${project.artifactId}/apidocs/package-list | true</command>
                 <command>rm -r -f /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
                 <command>mkdir -p /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
                 <command>cp -r -f /home/web/simulation.tudelft.nl/html/dsol/${project.version}/. /home/web/simulation.tudelft.nl/html/dsol/3.0</command>
