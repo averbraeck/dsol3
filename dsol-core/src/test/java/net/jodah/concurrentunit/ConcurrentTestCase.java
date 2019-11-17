@@ -29,52 +29,57 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#assertEquals(Object, Object)
+     * 
      * @param expected the expected value
      * @param actual the actual value
      * @throws AssertionError when the assertion fails
      */
-    public void threadAssertEquals(Object expected, Object actual)
+    public void threadAssertEquals(final Object expected, final Object actual)
     {
         this.waiter.assertEquals(expected, actual);
     }
 
     /**
      * @see Waiter#assertTrue(boolean)
+     * 
      * Asserts that the {@code condition} is false.
      * @param b boolean to test to be false
      * @throws AssertionError when the assertion fails
      */
-    public void threadAssertFalse(boolean b)
+    public void threadAssertFalse(final boolean b)
     {
         this.waiter.assertFalse(b);
     }
 
     /**
      * @see Waiter#assertNotNull(Object)
+     * 
      * @param object the object to test
      * @throws AssertionError when the assertion fails
      */
-    public void threadAssertNotNull(Object object)
+    public void threadAssertNotNull(final Object object)
     {
         this.waiter.assertNotNull(object);
     }
 
     /**
      * @see Waiter#assertNull(Object)
+     * 
      * @param x the object to test
      * @throws AssertionError when the assertion fails
      */
-    public void threadAssertNull(Object x)
+    public void threadAssertNull(final Object x)
     {
         this.waiter.assertNull(x);
     }
 
     /**
      * @see Waiter#assertTrue(boolean)
+     * 
      * @param b boolean to test to be true
      * @throws AssertionError when the assertion fails
      */
-    public void threadAssertTrue(boolean b)
+    public void threadAssertTrue(final boolean b)
     {
         this.waiter.assertTrue(b);
     }
@@ -89,36 +94,43 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#fail(String)
+     * 
      * @param reason the reason for failure
-     * @throws AssertionError
+     * @throws AssertionError when the assertion fails
      */
-    public void threadFail(String reason)
+    public void threadFail(final String reason)
     {
         threadFail(new AssertionError(reason));
     }
 
     /**
      * @see Waiter#fail(Throwable)
+     * 
      * @param reason the reason for failure
      * @throws AssertionError wrapping the {@code reason}
      */
-    public void threadFail(Throwable reason)
+    public void threadFail(final Throwable reason)
     {
         this.waiter.fail(reason);
     }
 
     /**
      * @see Waiter#rethrow(Throwable)
+     * 
      * @param reason the reason for failure
-     * @throws Throwable the {@code failure}
+     * throws Throwable the {@code failure}
      */
-    public void rethrow(Throwable reason)
+    public void rethrow(final Throwable reason)
     {
         this.waiter.rethrow(reason);
     }
 
     /**
      * @see Waiter#await()
+     * 
+     * @throws TimeoutException if the operation times out while waiting
+     * @throws InterruptedException if the operations is interrupted while waiting
+     * @throws AssertionError if any assertion fails while waiting
      */
     protected void await() throws TimeoutException, InterruptedException
     {
@@ -127,32 +139,56 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#await(long)
+     * 
+     * @param delay Delay to wait for
+     * @throws TimeoutException if the operation times out while waiting
+     * @throws InterruptedException if the operations is interrupted while waiting
+     * @throws AssertionError if any assertion fails while waiting
      */
-    protected void await(long delay) throws TimeoutException, InterruptedException
+    protected void await(final long delay) throws TimeoutException, InterruptedException
     {
         this.waiter.await(delay);
     }
 
     /**
      * @see Waiter#await(long, int)
+     * 
+     * @param delay Delay to wait for
+     * @param expectedResumes Number of times {@link #resume()} is expected to be called before the awaiting thread is resumed
+     * @throws TimeoutException if the operation times out while waiting
+     * @throws InterruptedException if the operations is interrupted while waiting
+     * @throws AssertionError if any assertion fails while waiting
      */
-    protected void await(long delay, int expectedResumes) throws TimeoutException, InterruptedException
+    protected void await(final long delay, final int expectedResumes) throws TimeoutException, InterruptedException
     {
         this.waiter.await(delay, expectedResumes);
     }
 
     /**
      * @see Waiter#await(long, TimeUnit)
+     * 
+     * @param delay Delay to wait for
+     * @param timeUnit TimeUnit to delay for
+     * @throws TimeoutException if the operation times out while waiting
+     * @throws InterruptedException if the operations is interrupted while waiting
+     * @throws AssertionError if any assertion fails while waiting
      */
-    protected void await(long delay, TimeUnit timeUnit) throws TimeoutException, InterruptedException
+    protected void await(final long delay, final TimeUnit timeUnit) throws TimeoutException, InterruptedException
     {
         this.waiter.await(delay, timeUnit);
     }
 
     /**
      * @see Waiter#await(long, TimeUnit, int)
+     * 
+     * @param delay Delay to wait for
+     * @param timeUnit TimeUnit to delay for
+     * @param expectedResumes Number of times {@link #resume()} is expected to be called before the awaiting thread is resumed
+     * @throws TimeoutException if the operation times out while waiting
+     * @throws InterruptedException if the operations is interrupted while waiting
+     * @throws AssertionError if any assertion fails while waiting
      */
-    protected void await(long delay, TimeUnit timeUnit, int expectedResumes) throws TimeoutException, InterruptedException
+    protected void await(final long delay, final TimeUnit timeUnit, final int expectedResumes) throws TimeoutException, InterruptedException
     {
         this.waiter.await(delay, timeUnit, expectedResumes);
     }

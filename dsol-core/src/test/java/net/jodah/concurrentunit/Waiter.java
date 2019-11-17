@@ -54,7 +54,7 @@ public class Waiter
      * @param actual the actual value
      * @throws AssertionError when the assertion fails
      */
-    public void assertEquals(Object expected, Object actual)
+    public void assertEquals(final Object expected, final Object actual)
     {
         if (expected == null && actual == null)
             return;
@@ -70,7 +70,7 @@ public class Waiter
      * @param delta the allowed tolerance
      * @throws AssertionError when the assertion fails
      */
-    public void assertEquals(double expected, double actual, double delta)
+    public void assertEquals(final double expected, final double actual, final double delta)
     {
         try
         {
@@ -87,7 +87,7 @@ public class Waiter
      * @param condition boolean to test to be false
      * @throws AssertionError when the assertion fails
      */
-    public void assertFalse(boolean condition)
+    public void assertFalse(final boolean condition)
     {
         if (condition)
             fail("expected false");
@@ -98,7 +98,7 @@ public class Waiter
      * @param object the object to test
      * @throws AssertionError when the assertion fails
      */
-    public void assertNotNull(Object object)
+    public void assertNotNull(final Object object)
     {
         if (object == null)
             fail("expected not null");
@@ -109,7 +109,7 @@ public class Waiter
      * @param object the object to test
      * @throws AssertionError when the assertion fails
      */
-    public void assertNull(Object object)
+    public void assertNull(final Object object)
     {
         if (object != null)
             fail(format("null", object));
@@ -120,7 +120,7 @@ public class Waiter
      * @param condition boolean to test to be true
      * @throws AssertionError when the assertion fails
      */
-    public void assertTrue(boolean condition)
+    public void assertTrue(final boolean condition)
     {
         if (!condition)
             fail("expected true");
@@ -133,7 +133,7 @@ public class Waiter
      * @param <T> the type of the actual
      * @throws AssertionError when the assertion fails
      */
-    public <T> void assertThat(T actual, org.hamcrest.Matcher<? super T> matcher)
+    public <T> void assertThat(final T actual, final org.hamcrest.Matcher<? super T> matcher)
     {
         try
         {
@@ -163,7 +163,7 @@ public class Waiter
      * @throws InterruptedException if the operations is interrupted while waiting
      * @throws AssertionError if any assertion fails while waiting
      */
-    public void await(long delay) throws TimeoutException, InterruptedException
+    public void await(final long delay) throws TimeoutException, InterruptedException
     {
         await(delay, TimeUnit.MILLISECONDS, 1);
     }
@@ -176,7 +176,7 @@ public class Waiter
      * @throws InterruptedException if the operations is interrupted while waiting
      * @throws AssertionError if any assertion fails while waiting
      */
-    public void await(long delay, TimeUnit timeUnit) throws TimeoutException, InterruptedException
+    public void await(final long delay, final TimeUnit timeUnit) throws TimeoutException, InterruptedException
     {
         await(delay, timeUnit, 1);
     }
@@ -190,7 +190,7 @@ public class Waiter
      * @throws InterruptedException if the operations is interrupted while waiting
      * @throws AssertionError if any assertion fails while waiting
      */
-    public void await(long delay, int expectedResumes) throws TimeoutException, InterruptedException
+    public void await(final long delay, final int expectedResumes) throws TimeoutException, InterruptedException
     {
         await(delay, TimeUnit.MILLISECONDS, expectedResumes);
     }
@@ -205,7 +205,7 @@ public class Waiter
      * @throws InterruptedException if the operations is interrupted while waiting
      * @throws AssertionError if any assertion fails while waiting
      */
-    public void await(long delay, TimeUnit timeUnit, int expectedResumes) throws TimeoutException, InterruptedException
+    public void await(final long delay, final TimeUnit timeUnit, final int expectedResumes) throws TimeoutException, InterruptedException
     {
         try
         {
@@ -251,7 +251,7 @@ public class Waiter
 
     /**
      * Fails the current test.
-     * @throws AssertionError
+     * @throws AssertionError as a result of failure
      */
     public void fail()
     {
@@ -261,9 +261,9 @@ public class Waiter
     /**
      * Fails the current test for the given {@code reason}.
      * @param reason the reason for failure
-     * @throws AssertionError
+     * @throws AssertionError wrapping the reason
      */
-    public void fail(String reason)
+    public void fail(final String reason)
     {
         fail(new AssertionError(reason));
     }
@@ -274,7 +274,7 @@ public class Waiter
      * @param reason the reason for failure
      * @throws AssertionError wrapping the {@code reason}
      */
-    public void fail(Throwable reason)
+    public void fail(final Throwable reason)
     {
         AssertionError ae = null;
         if (reason instanceof AssertionError)
@@ -294,7 +294,7 @@ public class Waiter
      * Rethrows the {@code failure} in the main test thread and in the current thread. Differs from {@link #fail(Throwable)}
      * which wraps a failure in an AssertionError before throwing.
      * @param failure the reason for failure
-     * @throws Throwable the {@code failure}
+     * throws Throwable the {@code failure}
      */
     @SuppressWarnings("hiding")
     public void rethrow(Throwable failure)
@@ -317,7 +317,7 @@ public class Waiter
      * Throw the throwable T.
      */
     @SuppressWarnings("unchecked")
-    private static <T extends Throwable> void sneakyThrow2(Throwable t) throws T
+    private static <T extends Throwable> void sneakyThrow2(final Throwable t) throws T
     {
         throw (T) t;
     }
@@ -328,7 +328,7 @@ public class Waiter
      * @param actual the actual value
      * @return a formatted string
      */
-    private String format(Object expected, Object actual)
+    private String format(final Object expected, final Object actual)
     {
         return "expected:<" + expected + "> but was:<" + actual + ">";
     }

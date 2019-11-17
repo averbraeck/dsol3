@@ -53,6 +53,7 @@ public final class ExperimentalFrameUtil
      * @param model the model
      * @param simulator the simulator
      * @return an experimental Frame
+     * @param <S> the simulator type
      */
     public static <S extends SimulatorInterface.TimeDouble> ExperimentalFrame createExperimentalFrame(final S simulator,
             final DSOLModel.TimeDouble<S> model)
