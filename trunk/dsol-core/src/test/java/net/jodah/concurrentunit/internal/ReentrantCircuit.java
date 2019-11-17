@@ -38,9 +38,10 @@ public class ReentrantCircuit
 
         /**
          * Closes the circuit.
+         * @param ignored int; release does not use the int param.
          */
         @Override
-        public boolean tryReleaseShared(int ignored)
+        public boolean tryReleaseShared(final int ignored)
         {
             setState(0);
             return true;
@@ -48,6 +49,7 @@ public class ReentrantCircuit
 
         /**
          * Opens the circuit if not a test.
+         * @param acquires when 0, return whether circuit is closed. When 1, open call
          */
         @Override
         protected int tryAcquireShared(int acquires)
@@ -85,7 +87,7 @@ public class ReentrantCircuit
 
     /**
      * Waits for the circuit to be closed, aborting if interrupted.
-     * @throws InterruptedException
+     * @throws InterruptedException when wait is interrupted
      */
     public void await() throws InterruptedException
     {
@@ -98,9 +100,9 @@ public class ReentrantCircuit
      * @param waitDuration the maximum time
      * @param timeUnit the unit of the time
      * @return {@code true} if acquired; {@code false} if timed out
-     * @throws InterruptedException
+     * @throws InterruptedException  when wait is interrupted
      */
-    public boolean await(long waitDuration, TimeUnit timeUnit) throws InterruptedException
+    public boolean await(final long waitDuration, final TimeUnit timeUnit) throws InterruptedException
     {
         return this.sync.tryAcquireSharedNanos(0, timeUnit.toNanos(waitDuration));
     }
@@ -139,6 +141,7 @@ public class ReentrantCircuit
         this.sync.open();
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
