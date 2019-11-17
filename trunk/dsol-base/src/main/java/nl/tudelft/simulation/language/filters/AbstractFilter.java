@@ -70,14 +70,14 @@ public abstract class AbstractFilter implements FilterInterface
     @Override
     public FilterInterface and(final FilterInterface filter)
     {
-        return new CompositeFilter(this, filter, CompositeFilter.AND);
+        return new CompositeFilter(this, filter, CompositeFilter.Operator.AND);
     }
 
     /** {@inheritDoc} */
     @Override
     public FilterInterface or(final FilterInterface filter)
     {
-        return new CompositeFilter(this, filter, CompositeFilter.OR);
+        return new CompositeFilter(this, filter, CompositeFilter.Operator.OR);
     }
 
     /** {@inheritDoc} */

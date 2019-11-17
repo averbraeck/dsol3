@@ -159,7 +159,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
             return;
         }
         Dimension size =
-                BoundsUtil.getIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getLocation().z)
+                BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getLocation().z)
                         .getBounds().getSize();
         Point2D origin = this.resolveOrigin(this.orientation, size);
         graphics.translate(origin.getX(), origin.getY());

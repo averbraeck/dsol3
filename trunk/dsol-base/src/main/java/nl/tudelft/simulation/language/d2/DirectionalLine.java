@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 
 /**
  * A directional line with normal vector. Based on the BSPLine-example from the book Developing games in Java from David
- * Brackeen. DirectionalLine.java
+ * Brackeen. 
  * <p>
  * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -20,17 +20,42 @@ public class DirectionalLine extends Line2D.Double
     /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
 
-    /** point at the back of the line. */
-    public static final int BACKSIDE = -1;
+    /** different values for the side a point can be at w.r.t. the line. */
+    public enum Side
+    {
+        /** point at the back of the line. */
+        BACKSIDE(-1),
 
-    /** point collinear with the line. */
-    public static final int COLLINEAR = 0;
+        /** point collinear with the line. */
+        COLLINEAR(0),
 
-    /** point in front of the line. */
-    public static final int FRONTSIDE = 1;
+        /** point in front of the line. */
+        FRONTSIDE(1),
 
-    /** other line is spanning this line. */
-    public static final int SPANNING = 2;
+        /** other line is spanning this line. */
+        SPANNING(2);
+    
+        /** the value from DSOL-1 before enum was introduced. */
+        private final int value;
+        
+        /**
+         * Create a side; store the value from DSOL-1 as well.
+         * @param value int; the value from DSOL-1 before enum was introduced
+         */
+        private Side(final int value)
+        {
+            this.value = value;
+        }
+
+        /**
+         * Returns the value from DSOL-1 before enum was introduced.
+         * @return int; the value from DSOL-1 before enum was introduced
+         */
+        public final int getValue()
+        {
+            return this.value;
+        }
+    }
 
     /** the thickness of the line. */
     private double lineThickness = 1;
@@ -49,6 +74,18 @@ public class DirectionalLine extends Line2D.Double
      * @param y2 double; Coordinate y2
      */
     public DirectionalLine(final double x1, final double y1, final double x2, final double y2)
+    {
+        this.setLine(x1, y1, x2, y2);
+    }
+
+    /**
+     * Creates a new DirectionalLine based on the specified (float) coordinates.
+     * @param x1 float; Coordinate x1
+     * @param y1 float; Coordinate y1
+     * @param x2 float; Coordinate x2
+     * @param y2 float; Coordinate y2
+     */
+    public DirectionalLine(final float x1, final float y1, final float x2, final float y2)
     {
         this.setLine(x1, y1, x2, y2);
     }
@@ -147,25 +184,25 @@ public class DirectionalLine extends Line2D.Double
      * @param y double; coordinate y
      * @return the side
      */
-    public int getSideThick(final double x, final double y)
+    public Side getSideThick(final double x, final double y)
     {
         double normalX2 = this.normalX * this.lineThickness;
         double normalY2 = this.normalY * this.lineThickness;
 
-        int frontSide = getSideThin(x - normalX2 / 2, y - normalY2 / 2);
-        if (frontSide == DirectionalLine.FRONTSIDE)
+        Side frontSide = getSideThin(x - normalX2 / 2, y - normalY2 / 2);
+        if (frontSide.equals(Side.FRONTSIDE))
         {
-            return FRONTSIDE;
+            return Side.FRONTSIDE;
         }
-        else if (frontSide == DirectionalLine.BACKSIDE)
+        else if (frontSide.equals(Side.BACKSIDE))
         {
-            int backSide = getSideThin(x + normalX2 / 2, y + normalY2 / 2);
-            if (backSide == DirectionalLine.BACKSIDE)
+            Side backSide = getSideThin(x + normalX2 / 2, y + normalY2 / 2);
+            if (backSide.equals(Side.BACKSIDE))
             {
-                return DirectionalLine.BACKSIDE;
+                return Side.BACKSIDE;
             }
         }
-        return DirectionalLine.COLLINEAR;
+        return Side.COLLINEAR;
     }
 
     /**
@@ -176,21 +213,21 @@ public class DirectionalLine extends Line2D.Double
      * @param y double; coordinate y
      * @return the side
      */
-    public int getSideThin(final double x, final double y)
+    public Side getSideThin(final double x, final double y)
     {
         // dot product between vector to the point and the normal
         double side = (x - this.x1) * this.normalX + (y - this.y1) * this.normalY;
         if (side < 0)
         {
-            return DirectionalLine.BACKSIDE;
+            return Side.BACKSIDE;
         }
         else if (side > 0)
         {
-            return DirectionalLine.FRONTSIDE;
+            return Side.FRONTSIDE;
         }
         else
         {
-            return DirectionalLine.COLLINEAR;
+            return Side.COLLINEAR;
         }
     }
 
@@ -199,29 +236,29 @@ public class DirectionalLine extends Line2D.Double
      * @param line Line2D.Double; line segment
      * @return the side
      */
-    public int getSide(final Line2D.Double line)
+    public Side getSide(final Line2D.Double line)
     {
         if (this.x1 == line.x1 && this.x2 == line.x2 && this.y1 == line.y1 && this.y2 == line.y2)
         {
-            return DirectionalLine.COLLINEAR;
+            return Side.COLLINEAR;
         }
-        int p1Side = getSideThick(line.x1, line.y1);
-        int p2Side = getSideThick(line.x2, line.y2);
+        Side p1Side = getSideThick(line.x1, line.y1);
+        Side p2Side = getSideThick(line.x2, line.y2);
         if (p1Side == p2Side)
         {
             return p1Side;
         }
-        else if (p1Side == DirectionalLine.COLLINEAR)
+        else if (p1Side == Side.COLLINEAR)
         {
             return p2Side;
         }
-        else if (p2Side == DirectionalLine.COLLINEAR)
+        else if (p2Side == Side.COLLINEAR)
         {
             return p1Side;
         }
         else
         {
-            return DirectionalLine.SPANNING;
+            return Side.SPANNING;
         }
     }
 

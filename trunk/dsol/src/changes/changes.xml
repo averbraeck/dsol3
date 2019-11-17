@@ -5,6 +5,43 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+   <release version="3.03.13" date="2019-11-XX" description="Larger coverage of unit tests; optimized differential equations">
+      <action dev="averbraeck" type="add">
+        Added unit tests for dsol-base project to increase test coverage. TestCase has been replaced by @Test.
+      </action>
+      <action dev="averbraeck" type="update">
+        Updated the code for differential equations.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Fixed SphericalPoint in ots-base. The translation from a CartesianPoint to a SphericalPoint was wrong. Also,
+        the arguments of the constructor of a SphericalPoint have been changed. The call is now:
+        public SphericalPoint(final double radius, final double theta, final double phi)
+      </action>
+      <action dev="averbraeck" type="fix">
+        Extra equals() methods have been added to DirectedPoint and CartesianPoint in dsol-base. The Tuple3d from
+        which these point types extends have an equals(Tuple3d) method that always wins from the equals(Object)
+        method because it is more specific. Therefore the RotX, RotY and RotZ were not taken into account when 
+        comparing two DirectedPoint objects.   
+      </action>
+      <action dev="averbraeck" type="update">
+        DirectedLine uses an embedded enum for Side instead of int.
+      </action>
+      <action dev="averbraeck" type="update">
+        CompositeFilter uses an embedded enum for Operator instead of int.
+      </action>
+      <action dev="averbraeck" type="update">
+        StateSaver uses byte[] instead of Object as that is the type in which data is stored. This has changed the 
+        interface of StreamInterface in dsol-core.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Several small errors have been repaired in BitUtil in dsol-base.
+      </action>
+      <action dev="averbraeck" type="remove">
+        Since the classes SwingWorker, ScreenManager and JMultiToolbarFrame are not used anymore in dsol, they
+        have been removed from dsol-base. 
+      </action>
+    </release>
+    
    <release version="3.03.12" date="2019-11-08" description="Test updates; compatibility with Java-9+">
       <action dev="averbraeck" type="fix">
         Ensured that "package-list" exists in apidocs for backward compatibility of javadoc linking.

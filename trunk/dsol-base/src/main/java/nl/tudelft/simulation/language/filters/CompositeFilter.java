@@ -17,14 +17,41 @@ public class CompositeFilter extends AbstractFilter
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** the AND operator. */
-    public static final short AND = 0;
+    /**
+     * The enum for the logical operator in composite filters.
+     */
+    public enum Operator
+    {
+        /** the AND operator. */
+        AND(0),
 
-    /** the OR operator. */
-    public static final short OR = 1;
+        /** the OR operator. */
+        OR(1);
+
+        /** the value from DSOL-1 before enum was introduced. */
+        private final int value;
+
+        /**
+         * Create a side; store the value from DSOL-1 as well.
+         * @param value int; the value from DSOL-1 before enum was introduced
+         */
+        private Operator(final int value)
+        {
+            this.value = value;
+        }
+
+        /**
+         * Returns the value from DSOL-1 before enum was introduced.
+         * @return int; the value from DSOL-1 before enum was introduced
+         */
+        public final int getValue()
+        {
+            return this.value;
+        }
+    }
 
     /** the operator of the composite filter. */
-    private short operator = -1;
+    private Operator operator;
 
     /** the filters to compose. */
     private FilterInterface[] filters = new FilterInterface[2];
@@ -33,12 +60,12 @@ public class CompositeFilter extends AbstractFilter
      * constructs a new CompositeFilter.
      * @param filter1 FilterInterface; the first filter
      * @param filter2 FilterInterface; the second filter
-     * @param operator short; the operator (AND or OR)
+     * @param operator Operator; the operator (AND or OR)
      */
-    public CompositeFilter(final FilterInterface filter1, final FilterInterface filter2, final short operator)
+    public CompositeFilter(final FilterInterface filter1, final FilterInterface filter2, final Operator operator)
     {
         super();
-        if (operator < 0 || operator > 1)
+        if (operator != Operator.AND && operator != Operator.OR)
         {
             throw new IllegalArgumentException("unknown operator");
         }
@@ -51,7 +78,7 @@ public class CompositeFilter extends AbstractFilter
     @Override
     protected boolean filter(final Object entry)
     {
-        if (this.operator == CompositeFilter.AND)
+        if (this.operator == Operator.AND)
         {
             return this.filters[0].accept(entry) && this.filters[1].accept(entry);
         }
@@ -64,7 +91,7 @@ public class CompositeFilter extends AbstractFilter
      */
     protected String operatorToString()
     {
-        if (this.operator == AND)
+        if (this.operator == Operator.AND)
         {
             return "AND";
         }

@@ -18,8 +18,8 @@ import javax.vecmath.Point3d;
  */
 public class BoundingBox extends javax.media.j3d.BoundingBox implements Serializable
 {
-    /** the default serialVersionUId. */
-    private static final long serialVersionUID = 1L;
+    /** */
+    private static final long serialVersionUID = 20191116L;
 
     /**
      * constructs a new BoundingBox.
@@ -43,32 +43,32 @@ public class BoundingBox extends javax.media.j3d.BoundingBox implements Serializ
 
     /**
      * constructs a new BoundingBox.
-     * @param arg0 Bounds; the boundaries
+     * @param bounds Bounds; the boundaries
      */
-    public BoundingBox(final Bounds arg0)
+    public BoundingBox(final Bounds bounds)
     {
-        super(arg0);
+        super(bounds);
         this.normalize();
     }
 
     /**
      * constructs a new BoundingBox.
-     * @param arg0 Bounds[]; the boundaries
+     * @param boundsArray Bounds[]; the boundaries
      */
-    public BoundingBox(final Bounds[] arg0)
+    public BoundingBox(final Bounds[] boundsArray)
     {
-        super(arg0);
+        super(boundsArray);
         this.normalize();
     }
 
     /**
      * constructs a new BoundingBox.
-     * @param arg0 Point3d; the boundaries
-     * @param arg1 Point3d; the point
+     * @param point1 Point3d; the boundaries
+     * @param point2 Point3d; the point
      */
-    public BoundingBox(final Point3d arg0, final Point3d arg1)
+    public BoundingBox(final Point3d point1, final Point3d point2)
     {
-        super(arg0, arg1);
+        super(point1, point2);
         this.normalize();
     }
 

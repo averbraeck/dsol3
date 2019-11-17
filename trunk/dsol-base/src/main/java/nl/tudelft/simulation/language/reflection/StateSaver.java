@@ -45,9 +45,9 @@ public final class StateSaver
      * @return the state packed into a memory object
      * @throws DSOLException on serialization error
      */
-    public static Object saveState(final Object object) throws DSOLException
+    public static byte[] saveState(final Object object) throws DSOLException
     {
-        Object state = null;
+        byte[] state = null;
         try
         {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -72,11 +72,11 @@ public final class StateSaver
      * @param state Object; the earlier saved state to write
      * @throws DSOLException on deserialization error
      */
-    public static void restoreState(final Object target, final Object state) throws DSOLException
+    public static void restoreState(final Object target, final byte[] state) throws DSOLException
     {
         try
         {
-            byte[] byteState = (byte[]) state;
+            byte[] byteState = state;
             ByteArrayInputStream bis = new ByteArrayInputStream(byteState);
             ObjectInputStream in = new ObjectInputStream(bis);
             Object tempObject = in.readObject();

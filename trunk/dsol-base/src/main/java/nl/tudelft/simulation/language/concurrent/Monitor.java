@@ -1,7 +1,7 @@
 package nl.tudelft.simulation.language.concurrent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Monitor class. In the Java programming language there is a lock associated with every object. The language does not provide a
@@ -22,7 +22,7 @@ import java.util.List;
 public final class Monitor
 {
     /** the locks held. */
-    private static List<Monitor.Entry> locks = new ArrayList<Monitor.Entry>();
+    private static Map<Object, MonitorThread> locks = new LinkedHashMap<>();
 
     /**
      * constructs a new Monitor.
@@ -52,7 +52,7 @@ public final class Monitor
         {
             if (Monitor.get(object) == null)
             {
-                Monitor.locks.add(new Entry(object, new MonitorThread(requestor, object)));
+                Monitor.locks.put(object, new MonitorThread(requestor, object));
             }
             else
             {
@@ -66,7 +66,7 @@ public final class Monitor
                     synchronized (object)
                     {
                         // We wait until we gained access to the monitor
-                        Monitor.locks.add(new Entry(object, new MonitorThread(requestor, object)));
+                        Monitor.locks.put(object, new MonitorThread(requestor, object));
                     }
                 }
             }
@@ -116,54 +116,7 @@ public final class Monitor
      */
     private static MonitorThread get(final Object key)
     {
-        for (Entry next : Monitor.locks)
-        {
-            if (next.getKey().equals(key))
-            {
-                return next.getThread();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * The Entry specifies entries in the set.
-     */
-    private static final class Entry
-    {
-        /** the key to use. */
-        private Object key = null;
-
-        /** the monitorThread. */
-        private MonitorThread thread = null;
-
-        /**
-         * constructs a new Entry.
-         * @param key Object; the key that locked the thread
-         * @param thread MonitorThread; the thread to be locked
-         */
-        public Entry(final Object key, final MonitorThread thread)
-        {
-            super();
-            this.key = key;
-            this.thread = thread;
-        }
-
-        /**
-         * @return the key that is locked by a thread
-         */
-        public Object getKey()
-        {
-            return this.key;
-        }
-
-        /**
-         * @return the thread that locked the key
-         */
-        public MonitorThread getThread()
-        {
-            return this.thread;
-        }
+        return locks.get(key);
     }
 
     /**
@@ -193,7 +146,7 @@ public final class Monitor
             synchronized (object)
             {
                 this.object = object;
-                this.counter++;
+                increaseCounter();
                 this.start();
             }
             synchronized (owner)

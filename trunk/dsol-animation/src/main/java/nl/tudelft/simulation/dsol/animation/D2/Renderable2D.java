@@ -192,7 +192,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         try
         {
             DirectedPoint location = this.source.getLocation();
-            Rectangle2D rectangle = BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(), location.z);
+            Rectangle2D rectangle = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), location.z);
             if (rectangle == null || (!Shape.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
@@ -248,7 +248,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         try
         {
             Rectangle2D intersect =
-                    BoundsUtil.getIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getLocation().z);
+                    BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getLocation().z);
             if (intersect == null)
             {
                 throw new NullPointerException(

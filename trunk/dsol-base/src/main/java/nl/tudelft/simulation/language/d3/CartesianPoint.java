@@ -19,8 +19,8 @@ import javax.vecmath.Tuple3f;
  */
 public class CartesianPoint extends javax.vecmath.Point3d
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 1L;
+    /** */
+    private static final long serialVersionUID = 20191116L;
 
     /**
      * constructs a new CartesianPoint.
@@ -108,27 +108,22 @@ public class CartesianPoint extends javax.vecmath.Point3d
      * converts the point to a sperical point.
      * @return the spherical point
      */
-    public final SphericalPoint toCartesianPoint()
+    public final SphericalPoint toSphericalPoint()
     {
         return CartesianPoint.toSphericalPoint(this);
     }
 
     /**
-     * converts a cartesian point to a sperical point.
+     * converts a cartesian point to a sperical point. See http://mathworld.wolfram.com/SphericalCoordinates.html
      * @param point CartesianPoint; the cartesian point
      * @return the spherical point
      */
     public static SphericalPoint toSphericalPoint(final CartesianPoint point)
     {
         double rho = Math.sqrt(Math.pow(point.x, 2) + Math.pow(point.y, 2) + Math.pow(point.z, 2));
-        double s = Math.sqrt(Math.pow(point.x, 2) + Math.pow(point.y, 2));
+        double theta = Math.atan2(point.y, point.x);
         double phi = Math.acos(point.z / rho);
-        double theta = Math.asin(point.y / s);
-        if (point.x >= 0)
-        {
-            theta = Math.PI - theta;
-        }
-        return new SphericalPoint(phi, rho, theta);
+        return new SphericalPoint(rho, theta, phi);
     }
 
     /** {@inheritDoc} */

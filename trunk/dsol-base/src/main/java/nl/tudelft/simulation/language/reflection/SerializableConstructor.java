@@ -37,10 +37,10 @@ public class SerializableConstructor implements Serializable
     /**
      * constructs a new SerializableConstructor
      * @param clazz Class&lt;?&gt;; the clazz this field is instance of
-     * @param parameterTypes Class&lt;?&gt;[]; the parameterTypes of the constructor
+     * @param parameterTypes Class&lt;?&gt;...; the parameterTypes of the constructor
      * @throws NoSuchMethodException whenever the method is not defined in clazz
      */
-    public SerializableConstructor(final Class<?> clazz, final Class<?>[] parameterTypes) throws NoSuchMethodException
+    public SerializableConstructor(final Class<?> clazz, final Class<?>... parameterTypes) throws NoSuchMethodException
     {
         this.constructor = ClassUtil.resolveConstructor(clazz, parameterTypes);
     }

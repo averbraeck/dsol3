@@ -48,6 +48,6 @@ public class ModulusFilter extends AbstractFilter
     @Override
     public String getCriterion()
     {
-        return "accepts every " + this.modulus + "nth entry";
+        return "accepts every " + this.modulus + "th entry";
     }
 }
