@@ -12,7 +12,7 @@ package nl.tudelft.simulation.dsol;
  * </p>
  * @author Peter Jacobs, Alexander Verbraeck
  */
-public class SimRuntimeException extends Exception
+public class SimRuntimeException extends RuntimeException
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;

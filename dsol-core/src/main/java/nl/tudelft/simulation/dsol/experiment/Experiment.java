@@ -200,9 +200,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
             {
                 SimLogger.filter(Cat.DSOL).debug("Last replication carried out");
                 // There is no experiment to run anymore
-                // XXX Concurrent Modification Exception
-                // this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT, true);
-                // XXX this.simulator.removeListener(this, SimulatorInterface.END_OF_REPLICATION_EVENT);
+                this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT, true);
             }
         }
     }
@@ -239,8 +237,8 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        String result = "[" + super.toString() + " ; " + " \n treatment=" + this.treatment.toString() + "\n" + "simulator="
-                + this.simulator;
+        String result = "Experiment[" + this.description + " ; treatment=" + this.treatment.toString() + "; simulator="
+                + this.simulator.getClass().getTypeName() + "]";
         return result;
     }
 

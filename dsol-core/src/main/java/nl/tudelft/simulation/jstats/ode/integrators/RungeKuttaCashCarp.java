@@ -43,12 +43,12 @@ public class RungeKuttaCashCarp extends NumericalIntegrator
 
     /**
      * constructs a new RungeKuttaCashCarp.
-     * @param timeStep double; the timeStep
+     * @param stepSize double; the stepSize
      * @param equation DifferentialEquationInterface; the differentialEquation
      */
-    public RungeKuttaCashCarp(final double timeStep, final DifferentialEquationInterface equation)
+    public RungeKuttaCashCarp(final double stepSize, final DifferentialEquationInterface equation)
     {
-        super(timeStep, equation);
+        super(stepSize, equation);
     }
 
     /** {@inheritDoc} */
@@ -63,17 +63,17 @@ public class RungeKuttaCashCarp extends NumericalIntegrator
             {
                 if (b[i][j] != 0.0)
                 {
-                    ysum = this.add(ysum, this.multiply(b[i][j], k[j]));
+                    ysum = add(ysum, multiply(b[i][j], k[j]));
                 }
             }
-            k[i] = this.multiply(this.timeStep, this.equation.dy(x + a[i] * this.timeStep, ysum));
+            k[i] = multiply(this.stepSize, this.equation.dy(x + a[i] * this.stepSize, ysum));
         }
         double[] sum = y.clone();
         super.error = new double[y.length];
         for (int i = 0; i < nk; i++)
         {
-            sum = this.add(sum, this.multiply(c[i], k[i]));
-            super.error = this.add(super.error, this.multiply(c[i] - c4[i], k[i]));
+            sum = add(sum, this.multiply(c[i], k[i]));
+            super.error = add(super.error, multiply(c[i] - c4[i], k[i]));
         }
         return sum;
     }

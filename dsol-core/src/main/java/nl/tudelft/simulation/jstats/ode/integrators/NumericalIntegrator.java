@@ -21,73 +21,9 @@ public abstract class NumericalIntegrator implements Serializable
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** Euler's integration. */
-    public static final short EULER = 0;
-
-    /** Heun's integration. */
-    public static final short HEUN = 1;
-
-    /** RungeKutta's (3rd level) integration. */
-    public static final short RUNGEKUTTA3 = 2;
-
-    /** RungeKutta's (4th level) integration. */
-    public static final short RUNGEKUTTA4 = 3;
-
-    /** Adam's integration. */
-    public static final short ADAMS = 4;
-
-    /** Gill's integration. */
-    public static final short GILL = 5;
-
-    /** Milne's integration. */
-    public static final short MILNE = 6;
-
-    /** Runge-Kutta-Fehlberg integration. */
-    public static final short RUNGEKUTTAFEHLBERG = 7;
-
-    /** Runge-Kutta-Cash-Carp integration. */
-    public static final short RUNGEKUTTACASHCARP = 8;
-
-    /** The default integrator. */
-    public static final short DEFAULT_INTEGRATOR = NumericalIntegrator.RUNGEKUTTA4;
-
-    /**
-     * @param integrationMethod short; the type of integrator to create
-     * @param timeStep double; the starting timestep to use
-     * @param equation DifferentialEquationInterface; the differential equation
-     * @return the integrator
-     */
-    public static NumericalIntegrator resolve(final short integrationMethod, final double timeStep,
-            final DifferentialEquationInterface equation)
-    {
-        switch (integrationMethod)
-        {
-            case NumericalIntegrator.ADAMS:
-                return new Adams(timeStep, equation);
-            case NumericalIntegrator.EULER:
-                return new Euler(timeStep, equation);
-            case NumericalIntegrator.HEUN:
-                return new Heun(timeStep, equation);
-            case NumericalIntegrator.RUNGEKUTTA3:
-                return new RungeKutta3(timeStep, equation);
-            case NumericalIntegrator.RUNGEKUTTA4:
-                return new RungeKutta4(timeStep, equation);
-            case NumericalIntegrator.GILL:
-                return new Gill(timeStep, equation);
-            case NumericalIntegrator.MILNE:
-                return new Milne(timeStep, equation);
-            case NumericalIntegrator.RUNGEKUTTAFEHLBERG:
-                return new RungeKuttaFehlberg(timeStep, equation);
-            case NumericalIntegrator.RUNGEKUTTACASHCARP:
-                return new RungeKuttaCashCarp(timeStep, equation);
-            default:
-                throw new IllegalArgumentException("unknown integration method");
-        }
-    }
-
-    /** the timeStep to use. */
+    /** the step size to use. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double timeStep = Double.NaN;
+    protected double stepSize = Double.NaN;
 
     /** the calculated error of the last step. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -99,12 +35,12 @@ public abstract class NumericalIntegrator implements Serializable
 
     /**
      * constructs a new NumericalIntegrator.
-     * @param timeStep double; the timeStep
+     * @param stepSize double; the stepSize
      * @param equation DifferentialEquationInterface; the differentialEquation
      */
-    public NumericalIntegrator(final double timeStep, final DifferentialEquationInterface equation)
+    public NumericalIntegrator(final double stepSize, final DifferentialEquationInterface equation)
     {
-        this.timeStep = timeStep;
+        this.stepSize = stepSize;
         this.equation = equation;
     }
 
@@ -224,19 +160,19 @@ public abstract class NumericalIntegrator implements Serializable
     }
 
     /**
-     * @return Returns the timeStep.
+     * @return Returns the current step size.
      */
-    public double getTimeStep()
+    public double getStepSize()
     {
-        return this.timeStep;
+        return this.stepSize;
     }
 
     /**
-     * @param timeStep double; The timeStep to set.
+     * @param stepSize double; The step size to set.
      */
-    public void setTimeStep(final double timeStep)
+    public void setStepSize(final double stepSize)
     {
-        this.timeStep = timeStep;
+        this.stepSize = stepSize;
     }
 
     /**

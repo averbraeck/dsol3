@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
-import nl.tudelft.simulation.dsol.formalisms.process.TestExperimentalFrame;
+import nl.tudelft.simulation.dsol.formalisms.process.ExperimentalFrameUtil;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -73,7 +73,7 @@ public class Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterface.T
     public static void main(final String[] args)
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
-        ExperimentalFrame experimentalFrame = TestExperimentalFrame.createExperimentalFrame(simulator, new Model(simulator));
+        ExperimentalFrame experimentalFrame = ExperimentalFrameUtil.createExperimentalFrame(simulator, new Model(simulator));
         experimentalFrame.start();
     }
 }

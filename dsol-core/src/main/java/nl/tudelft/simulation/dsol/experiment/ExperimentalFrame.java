@@ -103,6 +103,18 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     public final void setExperiments(final List<? extends Experiment<?, ?, ?, ?>> experiments)
     {
         this.experiments = experiments;
+        int i = 0;
+        for (Experiment<?, ?, ?, ?> experiment : experiments)
+        {
+            if (experiment.getDescription() == null)
+            {
+                experiment.setDescription("Exp " + i++);
+            }
+            if (experiment.getAnalyst() == null)
+            {
+                experiment.setAnalyst("Analyst: none");
+            }
+        }
     }
 
     /**
@@ -129,7 +141,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
             ((EventProducerInterface) event.getSource()).removeListener(this, Experiment.END_OF_EXPERIMENT_EVENT);
             if (this.hasNext())
             {
-                // we can run the next experiment...s
+                // we can run the next experiment
                 Experiment<?, ?, ?, ?> next = this.next();
                 next.addListener(this, Experiment.END_OF_EXPERIMENT_EVENT, false);
                 next.start();

@@ -22,14 +22,14 @@ public class DX120Generator extends RandomNumberGenerator
     /** the k value of the DX-120 Generator. */
     private static final int K = 120;
 
-    /** the mask value 2^31-1 (or 1 < < 31)-1. */
-    private static final int MASK = Integer.MAX_VALUE;
+    /** the mask value 2^31-1 (or 1 &lt;&lt; 31)-1. */
+    private static final long MASK = Long.MAX_VALUE;
 
     /** the LCG multiplier. */
-    private static final int MULTIPLIER = 16807;
+    private static final long MULTIPLIER = 16807;
 
     /** the buffer for this generator. */
-    private int[] buffer = null;
+    private long[] buffer = null;
 
     /** indexing attributes. */
     private int index;
@@ -63,8 +63,8 @@ public class DX120Generator extends RandomNumberGenerator
      */
     private void initialize()
     {
-        this.buffer = new int[DX120Generator.K];
-        this.buffer[0] = ((int) super.seed) & MASK;
+        this.buffer = new long[DX120Generator.K];
+        this.buffer[0] = super.seed & MASK;
         if (this.buffer[0] == 0)
         {
             // super.seed=Integer.MAXValue --> seed & UMASK==0
@@ -80,17 +80,19 @@ public class DX120Generator extends RandomNumberGenerator
             this.buffer[i] = (MULTIPLIER * this.buffer[i - 1]) & MASK;
         }
         this.index = K - 1; /* running index */
-        this.k13 = K - K / 3 - 1; // (k13 = 79)
-        this.k23 = K - 2 * K / 3 - 1; // (k23 = 39)
+        this.k13 = K / 3 - 1; // (k13 = 39)
+        this.k23 = 2 * K / 3 - 1; // (k23 = 79)
     }
 
     /** {@inheritDoc} */
     @Override
     protected final synchronized long next(final int bits)
     {
-        if (bits < 0 || bits > 64)
+        // u_dx4 (BB4) variant of http://www.cs.memphis.edu/~dengl/dx-rng/dx-120.c
+        // note that the DX120 RNG provides 31 bits max.
+        if (bits > 63)
         {
-            throw new IllegalArgumentException("bits (" + bits + ") not in range [0,64]");
+            throw new IllegalArgumentException("bits (" + bits + ") not in range [0,63]");
         }
         int tempIndex = this.index;
         if (++this.index >= K)
@@ -108,11 +110,7 @@ public class DX120Generator extends RandomNumberGenerator
         this.buffer[this.index] =
                 (521673 * (this.buffer[this.index] + this.buffer[this.k13] + this.buffer[this.k23] + this.buffer[tempIndex]))
                         & MASK;
-        if (bits <= 32)
-        {
-            return (this.buffer[this.index]) >>> (32 - bits);
-        }
-        return (this.buffer[this.index]) << 32 + this.next(bits - 32);
+        return (this.buffer[this.index]) >>> (63 - bits);
     }
 
     /** {@inheritDoc} */

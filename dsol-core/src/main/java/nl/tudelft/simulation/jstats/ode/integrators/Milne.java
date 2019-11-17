@@ -22,43 +22,43 @@ public class Milne extends CachingNumericalIntegrator
 
     /**
      * constructs a new Milne integrator.
-     * @param timeStep double; the timeStep to use in the estimation.
+     * @param stepSize double; the stepSize to use in the estimation.
      * @param equation DifferentialEquationInterface; the equation to use.
      */
-    public Milne(final double timeStep, final DifferentialEquationInterface equation)
+    public Milne(final double stepSize, final DifferentialEquationInterface equation)
     {
-        super(timeStep, equation, 4, NumericalIntegrator.RUNGEKUTTA4, 10);
+        super(stepSize, equation, 4, NumericalIntegratorType.RUNGEKUTTA4, 10);
     }
 
     /**
      * constructs a new Milne integrator, indicating the starting method and number of substeps.
-     * @param timeStep double; the timeStep to use in the estimation.
+     * @param stepSize double; the stepSize to use in the estimation.
      * @param equation DifferentialEquationInterface; the equation to use.
-     * @param integrationMethod short; the primer integrator to use
+     * @param primerIntegrationMethod NumericalIntegratorType; the primer integrator to use
      * @param startingSubSteps int; the number of substeps per timestep during starting of the integrator
      */
-    public Milne(final double timeStep, final DifferentialEquationInterface equation, final short integrationMethod,
-            final int startingSubSteps)
+    public Milne(final double stepSize, final DifferentialEquationInterface equation,
+            final NumericalIntegratorType primerIntegrationMethod, final int startingSubSteps)
     {
-        super(timeStep, equation, 4, integrationMethod, startingSubSteps);
+        super(stepSize, equation, 4, primerIntegrationMethod, startingSubSteps);
     }
 
     /** {@inheritDoc} */
     @Override
     public double[] next(final double x)
     {
-        double[] y3 = super.getY(3);
-        double[] y1 = super.getY(1);
-        double[] dy2 = super.getDY(2);
-        double[] dy1 = super.getDY(1);
-        double[] dy0 = super.getDY(0);
+        double[] y3 = getY(3);
+        double[] y1 = getY(1);
+        double[] dy2 = getDY(2);
+        double[] dy1 = getDY(1);
+        double[] dy0 = getDY(0);
 
         // Let's evaluate the predictor
-        double[] p = super.add(y3, super.multiply(4 * this.timeStep / 3.0,
-                super.add(super.multiply(2.0, dy0), super.multiply(-1.0, dy1), super.multiply(2.0, dy2))));
+        double[] p = add(y3, multiply(4 * this.stepSize / 3.0,
+                add(multiply(2.0, dy0), multiply(-1.0, dy1), multiply(2.0, dy2))));
 
         // Now we compute the corrector
-        return super.add(y1, super.multiply(this.timeStep / 3.0,
-                super.add(super.multiply(1.0, dy1), super.multiply(4.0, dy0), this.equation.dy(x + this.timeStep, p))));
+        return add(y1, multiply(this.stepSize / 3.0,
+                add(multiply(1.0, dy1), multiply(4.0, dy0), this.equation.dy(x + this.stepSize, p))));
     }
 }

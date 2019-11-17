@@ -1,38 +1,19 @@
 package nl.tudelft.simulation.jstats.streams;
 
-import org.junit.Assert;
+import static org.junit.Assert.fail;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * <br>
- * copyright (c) 2002-2018 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class StreamStateSaveRestoreTest extends TestCase
+public class StreamStateSaveRestoreTest
 {
-    /** TEST_METHOD is the name of the test method. */
-    public static final String TEST_METHOD = "test";
-
-    /**
-     * constructs a new StreamTest.
-     */
-    public StreamStateSaveRestoreTest()
-    {
-        this(TEST_METHOD);
-    }
-
-    /**
-     * constructs a new StreamStateSaveRestoreTest.
-     * @param method the name of the test method
-     */
-    public StreamStateSaveRestoreTest(final String method)
-    {
-        super(method);
-    }
-
     /**
      * @param stream the stream to draw from.
      * @param n the number of draws to make.
@@ -51,7 +32,8 @@ public class StreamStateSaveRestoreTest extends TestCase
     /**
      * tests the classes in the reference class.
      */
-    public final void test()
+    // TODO: @Test testStreamStateSaveRestore
+    public final void testStreamStateSaveRestore()
     {
         StreamInterface[] streams = {new Java2Random(10), new MersenneTwister(10), new DX120Generator(10)};
         for (int j = 0; j < streams.length; j++)
@@ -72,7 +54,7 @@ public class StreamStateSaveRestoreTest extends TestCase
             }
             catch (StreamException se)
             {
-                TestCase.fail("StreamException for j=" + j);
+                fail("StreamException for j=" + j);
             }
         }
     }

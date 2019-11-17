@@ -216,13 +216,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        String result = super.toString() + " ; " + this.getDescription() + " ; streams=[";
-        for (StreamInterface stream : this.streams.values())
-        {
-            result = result + stream.toString() + " ; ";
-        }
-        result = result.substring(0, result.length() - 2) + "]";
-        return result;
+        return "Replication " + this.getDescription();
     }
 
     /***********************************************************************************************************/

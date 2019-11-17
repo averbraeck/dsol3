@@ -5,7 +5,37 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-   <release version="3.03.13" date="2019-11-XX" description="Larger coverage of unit tests; optimized differential equations">
+    <release version="3.03.14" date="2019-11-17" description="Optimized differential equations; concurrent unit tests">
+      <action dev="averbraeck" type="update">
+        Changed the short values for NumericalIntegrator into an Enum called NumericalIntegratorType. The constructors
+        of all DifferentialEquation types have been adapted accordingly.
+      </action>
+      <action dev="averbraeck" type="add">
+        Added test code for an ordinary differential equation, and for a stiff set of ODEs.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Repaired the Gill numerical integration method (formula wrongly implemented).
+      </action>
+      <action dev="averbraeck" type="add">
+        Added test code for the simulators using multi-threaded testing.
+      </action>
+      <action dev="averbraeck" type="add">
+        An extended version of ConcurrentUnit for multi-threaded tests has been added to the test code to be able
+        to test running simulators. See https://github.com/jhalterman/concurrentunit for more info. The original pom
+        has not been included because it lacked several tests that we want to include here.
+      </action>
+      <action dev="averbraeck" type="add">
+        Very extensive unit test for random number generators (bins, test on bit level, all drawing methods).
+      </action>
+      <action dev="averbraeck" type="fix">
+        Repaired the DX120 Random Number Generator (average draw was 0.25 instead of 0.5).
+      </action>
+      <action dev="averbraeck" type="fix">
+        Repaired the nextInt(min, max) function in RandomNumberGenerator.
+      </action>
+    </release>
+
+    <release version="3.03.13" date="2019-11-16" description="Full coverage of unit tests in dsol-base">
       <action dev="averbraeck" type="add">
         Added unit tests for dsol-base project to increase test coverage. TestCase has been replaced by @Test.
       </action>

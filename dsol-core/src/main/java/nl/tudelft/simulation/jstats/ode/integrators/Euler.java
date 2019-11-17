@@ -22,18 +22,18 @@ public class Euler extends NumericalIntegrator
 
     /**
      * constructs a new Euler.
-     * @param timeStep double; the timeStep
+     * @param stepSize double; the stepSize
      * @param equation DifferentialEquationInterface; the differentialEquation
      */
-    public Euler(final double timeStep, final DifferentialEquationInterface equation)
+    public Euler(final double stepSize, final DifferentialEquationInterface equation)
     {
-        super(timeStep, equation);
+        super(stepSize, equation);
     }
 
     /** {@inheritDoc} */
     @Override
     public double[] next(final double x, final double[] y)
     {
-        return super.add(y, super.multiply(this.timeStep, this.equation.dy(x, y)));
+        return add(y, multiply(this.stepSize, this.equation.dy(x, y)));
     }
 }

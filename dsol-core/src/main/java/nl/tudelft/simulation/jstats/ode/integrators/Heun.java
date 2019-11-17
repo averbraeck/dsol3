@@ -21,12 +21,12 @@ public class Heun extends NumericalIntegrator
 
     /**
      * constructs a new Heun.
-     * @param timeStep double; the timeStep
+     * @param stepSize double; the stepSize
      * @param equation DifferentialEquationInterface; the equation
      */
-    public Heun(final double timeStep, final DifferentialEquationInterface equation)
+    public Heun(final double stepSize, final DifferentialEquationInterface equation)
     {
-        super(timeStep, equation);
+        super(stepSize, equation);
     }
 
     /** {@inheritDoc} */
@@ -34,7 +34,7 @@ public class Heun extends NumericalIntegrator
     public double[] next(final double x, final double[] y)
     {
         double[] f0 = this.equation.dy(x, y);
-        double[] p = super.add(y, super.multiply(this.timeStep, f0));
-        return super.add(y, super.multiply(0.5 * this.timeStep, super.add(f0, this.equation.dy(x + this.timeStep, p))));
+        double[] p = add(y, multiply(this.stepSize, f0));
+        return add(y, multiply(0.5 * this.stepSize, add(f0, this.equation.dy(x + this.stepSize, p))));
     }
 }
