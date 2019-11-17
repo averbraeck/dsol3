@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
-import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
+import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 
 /**
  * The population differential equation.
@@ -43,7 +43,7 @@ public class Population extends DifferentialEquation<Double, Double, SimTimeDoub
      */
     public Population(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
-        super(simulator, simulator.getTimeStep(), NumericalIntegrator.ADAMS);
+        super(simulator, simulator.getTimeStep(), NumericalIntegratorType.ADAMS);
         double predator = 10;
         double prey = 20;
         this.initialize(0.0, new double[] {predator, prey});

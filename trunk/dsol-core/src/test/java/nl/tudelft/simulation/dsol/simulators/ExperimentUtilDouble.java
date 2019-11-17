@@ -13,7 +13,6 @@ import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.Treatment;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -29,7 +28,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
  *         <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
-public final class TestExperiment
+public final class ExperimentUtilDouble
 {
     /**
      * STARTTIME defines the starting time for the experiment in millisec since 1970.
@@ -51,9 +50,8 @@ public final class TestExperiment
     /**
      * constructs a new TestExperimentalFrame.
      */
-    private TestExperiment()
+    private ExperimentUtilDouble()
     {
-        super();
         // unreachable code
     }
 
@@ -63,7 +61,8 @@ public final class TestExperiment
      * @param simulator the simulator
      * @return an experimental Frame
      */
-    public static ExperimentalFrame createExperimentalFrame(final SimulatorInterface simulator, final DSOLModel model)
+    public static ExperimentalFrame createExperimentalFrame(final SimulatorInterface.TimeDouble simulator,
+            final DSOLModel.TimeDouble<SimulatorInterface.TimeDouble> model)
     {
         try
         {
@@ -71,9 +70,11 @@ public final class TestExperiment
             List<Experiment<?, ?, ?, ?>> experiments = new ArrayList<Experiment<?, ?, ?, ?>>();
             for (int i = 0; i < 3; i++)
             {
-                Experiment experiment = TestExperiment.createExperiment();
+                Experiment.TimeDouble<SimulatorInterface.TimeDouble> experiment = ExperimentUtilDouble.createExperiment();
                 experiment.setSimulator(simulator);
                 experiment.setModel(model);
+                experiment.setDescription("Exp #" + i);
+                experiment.setAnalyst("Analyst: none");
                 experiments.add(experiment);
             }
             experimentalFrame.setExperiments(experiments);
@@ -91,11 +92,11 @@ public final class TestExperiment
      * @return ExperimentalFrame
      * @throws NamingException on error
      */
-    public static Experiment createExperiment() throws NamingException
+    public static Experiment.TimeDouble<SimulatorInterface.TimeDouble> createExperiment() throws NamingException
     {
-        Experiment experiment = new Experiment();
-        experiment.setTreatment(TestExperiment.createTreatment(experiment));
-        experiment.setReplications(TestExperiment.createReplications(experiment));
+        Experiment.TimeDouble<SimulatorInterface.TimeDouble> experiment = new Experiment.TimeDouble<>();
+        experiment.setTreatment(ExperimentUtilDouble.createTreatment(experiment));
+        experiment.setReplications(ExperimentUtilDouble.createReplications(experiment));
         return experiment;
     }
 
@@ -104,9 +105,9 @@ public final class TestExperiment
      * @param experiment the parent
      * @return Treatment[] the result
      */
-    public static Treatment createTreatment(final Experiment experiment)
+    public static Treatment.TimeDouble createTreatment(final Experiment.TimeDouble<SimulatorInterface.TimeDouble> experiment)
     {
-        Treatment treatment = new Treatment(experiment, "tr1", new SimTimeDouble(System.currentTimeMillis()), 0.0, 100.0);
+        Treatment.TimeDouble treatment = new Treatment.TimeDouble(experiment, "tr1", 0.0, 0.0, 100.0);
         return treatment;
     }
 
@@ -116,16 +117,19 @@ public final class TestExperiment
      * @return a list of replications
      * @throws NamingException on error
      */
-    public static List<Replication> createReplications(final Experiment experiment) throws NamingException
+    public static List<Replication.TimeDouble<SimulatorInterface.TimeDouble>> createReplications(
+            final Experiment.TimeDouble<SimulatorInterface.TimeDouble> experiment) throws NamingException
     {
-        List<Replication> replications = new ArrayList<Replication>();
+        List<Replication.TimeDouble<SimulatorInterface.TimeDouble>> replications =
+                new ArrayList<Replication.TimeDouble<SimulatorInterface.TimeDouble>>();
 
         for (int i = 0; i < 3; i++)
         {
-            Replication replication = new Replication(i, experiment);
+            Replication.TimeDouble<SimulatorInterface.TimeDouble> replication = new Replication.TimeDouble<>(i, experiment);
             Map<String, StreamInterface> streams = new HashMap<String, StreamInterface>();
             streams.put("DEFAULT", new Java2Random(SEED));
             replication.setStreams(streams);
+            replication.setDescription("rep #" + i);
             replications.add(replication);
         }
         return replications;

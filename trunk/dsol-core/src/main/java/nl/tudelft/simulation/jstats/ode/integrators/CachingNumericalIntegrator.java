@@ -41,29 +41,28 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
 
     /**
      * constructs a new CachingNumericalIntegrator with a fixed number of cache places.
-     * @param timeStep double; the timeStep
+     * @param stepSize double; the stepSize
      * @param equation DifferentialEquationInterface; the differentialEquation
      * @param cachePlaces int; the number of cache places to store
-     * @param integrationMethod short; the primer integrator to use
-     * @param startingSubSteps int; the number of substeps per timestep during starting of the integrator
+     * @param primerIntegrationMethod NumericalIntegratorType; the primer integrator to use
+     * @param startingSubSteps int; the number of sub-steps per stepSize during starting of the integrator
      */
-    public CachingNumericalIntegrator(final double timeStep, final DifferentialEquationInterface equation,
-            final int cachePlaces, final short integrationMethod, final int startingSubSteps)
+    public CachingNumericalIntegrator(final double stepSize, final DifferentialEquationInterface equation,
+            final int cachePlaces, final NumericalIntegratorType primerIntegrationMethod, final int startingSubSteps)
     {
-        super(timeStep, equation);
+        super(stepSize, equation);
         this.cachePlaces = cachePlaces;
         this.cacheY = new double[cachePlaces][];
         this.cacheDY = new double[cachePlaces][];
-        this.startingIntegrator =
-                NumericalIntegrator.resolve(integrationMethod, timeStep / (1.0d * startingSubSteps), equation);
+        this.startingIntegrator = primerIntegrationMethod.getInstance(stepSize / (1.0d * startingSubSteps), equation);
         this.startingSubSteps = startingSubSteps;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setTimeStep(final double timeStep)
+    public void setStepSize(final double stepSize)
     {
-        super.setTimeStep(timeStep);
+        super.setStepSize(stepSize);
         this.lastCachePlace = -1;
     }
 
@@ -82,7 +81,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
             for (int i = 0; i < this.startingSubSteps; i++)
             {
                 ynext = this.startingIntegrator.next(xstep, ynext);
-                xstep += this.timeStep / (1.0d * this.startingSubSteps);
+                xstep += this.stepSize / (1.0d * this.startingSubSteps);
             }
         }
         else
@@ -92,7 +91,7 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
         }
         this.lastCachePlace++;
         this.cacheY[this.lastCachePlace % this.cachePlaces] = ynext;
-        this.cacheDY[this.lastCachePlace % this.cachePlaces] = this.equation.dy(x + this.timeStep, ynext);
+        this.cacheDY[this.lastCachePlace % this.cachePlaces] = this.equation.dy(x + this.stepSize, ynext);
         return ynext;
     }
 
@@ -133,10 +132,10 @@ public abstract class CachingNumericalIntegrator extends NumericalIntegrator
     }
 
     /**
-     * The integrators that extend the CachingNumericalIntegrator calculate the value of y(x+timeStep) just based on the
-     * x-value. They retrieve y(x), y(x-timeStep), etc. or y(k), y(k-1) all from the cache.
+     * The integrators that extend the CachingNumericalIntegrator calculate the value of y(x+stepSize) just based on the
+     * x-value. They retrieve y(x), y(x-stepSize), etc. or y(k), y(k-1) all from the cache.
      * @param x double; the x-value to use in the calculation
-     * @return the value of y(x+timeStep)
+     * @return the value of y(x+stepSize)
      */
     public abstract double[] next(double x);
 }

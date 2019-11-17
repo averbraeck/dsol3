@@ -1,5 +1,8 @@
 package nl.tudelft.simulation.dsol.formalisms.process;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import junit.framework.Assert;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -42,12 +45,11 @@ public class OwnProcess extends Process
             super.hold(10.0);
             SimTime newTime = super.simulator.getSimTime();
             System.out.println(this + " finished @ " + newTime);
-            // TODO Assert.assertTrue((newTime.minus(time)).doubleValue() == 10.0);
+            assertTrue((newTime.diff(time)).doubleValue() == 10.0);
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            Assert.fail();
+            fail();
         }
     }
 }

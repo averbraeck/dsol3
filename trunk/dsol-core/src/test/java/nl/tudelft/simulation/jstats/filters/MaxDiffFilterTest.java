@@ -1,7 +1,8 @@
 package nl.tudelft.simulation.jstats.filters;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import nl.tudelft.simulation.language.filters.FilterInterface;
 
 /**
@@ -17,34 +18,17 @@ import nl.tudelft.simulation.language.filters.FilterInterface;
  *         </a><a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class MaxDiffFilterTest extends TestCase
+public class MaxDiffFilterTest
 {
-    /**
-     * constructs a new ZeroFilterTest.
-     */
-    public MaxDiffFilterTest()
-    {
-        this("test");
-    }
-
-    /**
-     * constructs a new ZeroFilterTest.
-     * @param arg0 arg
-     */
-    public MaxDiffFilterTest(String arg0)
-    {
-        super(arg0);
-    }
-
     /**
      * tests the ZeroFilter.
      */
-    public void test()
+    public void testMaxDiffFilter()
     {
         FilterInterface filter = new MaxDiffFilter(0.25);
-        Assert.assertTrue(filter.accept(new double[] {0.0, 10}));
-        Assert.assertFalse(filter.accept(new double[] {0.0, 12.4}));
-        Assert.assertFalse(filter.accept(new double[] {0.0, 10}));
-        Assert.assertTrue(filter.accept(new double[] {0.0, 12.6}));
+        assertTrue(filter.accept(new double[] {0.0, 10}));
+        assertFalse(filter.accept(new double[] {0.0, 12.4}));
+        assertFalse(filter.accept(new double[] {0.0, 10}));
+        assertTrue(filter.accept(new double[] {0.0, 12.6}));
     }
 }

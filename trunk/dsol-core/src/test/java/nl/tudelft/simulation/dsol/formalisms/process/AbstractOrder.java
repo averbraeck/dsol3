@@ -26,7 +26,7 @@ public class AbstractOrder extends Process
 
     /**
      * The abstract order
-     * @param car the cae
+     * @param car the car
      * @param scheduledTime the scheduled time
      * @param simulator the simulator to schedule on
      */

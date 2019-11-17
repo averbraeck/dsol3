@@ -1,7 +1,10 @@
 package nl.tudelft.simulation.jstats.filters;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import nl.tudelft.simulation.language.filters.FilterInterface;
 
 /**
@@ -17,35 +20,19 @@ import nl.tudelft.simulation.language.filters.FilterInterface;
  *         </a><a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class SnippetFilterTest extends TestCase
+public class SnippetFilterTest
 {
-    /**
-     * constructs a new ZeroFilterTest.
-     */
-    public SnippetFilterTest()
-    {
-        this("test");
-    }
-
-    /**
-     * constructs a new ZeroFilterTest.
-     * @param arg0 arg0
-     */
-    public SnippetFilterTest(String arg0)
-    {
-        super(arg0);
-    }
-
     /**
      * tests the SnippetFilter.
      */
-    public void test()
+    @Test
+    public void testSnippetFilter()
     {
         FilterInterface filter = new SnippetFilter(1.0);
-        Assert.assertTrue(filter.accept(new double[] {10.0, 0}));
-        Assert.assertFalse(filter.accept(new double[] {10.1, 0.0}));
-        Assert.assertTrue(filter.accept(new double[] {11.0, 0.0}));
-        Assert.assertFalse(filter.accept(new double[] {11.1, 0.0}));
-        Assert.assertFalse(filter.accept(new double[] {11.5, 0.0}));
+        assertTrue(filter.accept(new double[] {10.0, 0}));
+        assertFalse(filter.accept(new double[] {10.1, 0.0}));
+        assertTrue(filter.accept(new double[] {11.0, 0.0}));
+        assertFalse(filter.accept(new double[] {11.1, 0.0}));
+        assertFalse(filter.accept(new double[] {11.5, 0.0}));
     }
 }

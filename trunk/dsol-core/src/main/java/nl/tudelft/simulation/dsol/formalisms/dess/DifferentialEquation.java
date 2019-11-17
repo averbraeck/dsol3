@@ -8,7 +8,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
+import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 
 /**
  * The Differential equation provides a reference implementation of the differential equation.
@@ -55,39 +55,26 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     protected double[] previousY = null;
 
     /**
-     * constructs a new stateful DifferentialEquation with Euleras numerical integration method.
+     * constructs a new DifferentialEquation with a step size equal to the simulator time step, and Runge-Kutta4 as the default
+     * integrator.
      * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator
      * @throws RemoteException on remote network exception for the listener
      */
     public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator) throws RemoteException
     {
-        this(simulator, simulator.getTimeStep(), NumericalIntegrator.DEFAULT_INTEGRATOR);
+        this(simulator, simulator.getTimeStep().doubleValue(), NumericalIntegratorType.RUNGEKUTTA4);
     }
 
     /**
-     * constructs a new stateful DifferentialEquation with Euleras numerical integration method.
+     * constructs a new DifferentialEquation with a step size equal to the simulator timestep.
      * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator
-     * @param timeStep R; the timeStep for ODE estimation
+     * @param numericalIntegrator NumericalIntegrator; the actual integrator to be used.
      * @throws RemoteException on remote network exception for the listener
      */
-    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final R timeStep) throws RemoteException
+    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator,
+            final NumericalIntegratorType numericalIntegrator) throws RemoteException
     {
-        this(simulator, timeStep, NumericalIntegrator.DEFAULT_INTEGRATOR);
-    }
-
-    /**
-     * constructs a new DifferentialEquation.
-     * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator.
-     * @param timeStep R; the timeStep for ODE estimation.
-     * @param numericalMethod short; the numerical method to be used.
-     * @throws RemoteException on remote network exception for the listener
-     */
-    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final R timeStep, final short numericalMethod)
-            throws RemoteException
-    {
-        super(timeStep.doubleValue(), numericalMethod);
-        this.simulator = simulator;
-        simulator.addListener(this, SimulatorInterface.TIME_CHANGED_EVENT, false);
+        this(simulator, simulator.getTimeStep().doubleValue(), numericalIntegrator);
     }
 
     /**
@@ -98,7 +85,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
      * @throws RemoteException on remote network exception for the listener
      */
     public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final double timeStep,
-            final NumericalIntegrator numericalIntegrator) throws RemoteException
+            final NumericalIntegratorType numericalIntegrator) throws RemoteException
     {
         super(timeStep, numericalIntegrator);
         this.simulator = simulator;
@@ -112,13 +99,13 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
         if (event.getSource() instanceof DESSSimulatorInterface
                 && event.getType().equals(SimulatorInterface.TIME_CHANGED_EVENT))
         {
-            if (this.simulator.getSimulatorTime().doubleValue() < super.x0 || Double.isNaN(super.x0))
+            if (this.simulator.getSimulatorTime().doubleValue() < super.lastX || Double.isNaN(super.lastX))
             {
                 return;
             }
             // do not put super here!
             this.previousY = integrateY(this.simulator.getSimulatorTime().doubleValue(), this.previousX, this.previousY);
-            for (int i = 0; i < super.y0.length; i++)
+            for (int i = 0; i < super.lastY.length; i++)
             {
                 this.fireTimedEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i],
                         this.simulator.getSimulatorTime());

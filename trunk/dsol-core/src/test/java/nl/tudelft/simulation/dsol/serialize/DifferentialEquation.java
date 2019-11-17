@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.serialize;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
-import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
+import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 
 /**
  * The histogram specifies a histogram chart for the DSOL framework.
@@ -34,33 +34,10 @@ public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.
      * constructs a new DifferentialEquation.
      * @param simulator the simulator
      * @param timeStep the time step
-     * @throws RemoteException on network error
-     */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep) throws RemoteException
-    {
-        super(simulator, timeStep);
-    }
-
-    /**
-     * constructs a new DifferentialEquation.
-     * @param simulator the simulator
-     * @param timeStep the time step
-     * @param numericalMethod the integration method
-     * @throws RemoteException on network error
-     */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, short numericalMethod) throws RemoteException
-    {
-        super(simulator, timeStep, numericalMethod);
-    }
-
-    /**
-     * constructs a new DifferentialEquation.
-     * @param simulator the simulator
-     * @param timeStep the time step
      * @param numericalIntegrator the integration method
      * @throws RemoteException on network error
      */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, NumericalIntegrator numericalIntegrator)
+    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, NumericalIntegratorType numericalIntegrator)
             throws RemoteException
     {
         super(simulator, timeStep, numericalIntegrator);

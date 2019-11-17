@@ -21,9 +21,6 @@ public class TestModel extends AbstractDSOLModel.TimeDouble<SimulatorInterface.T
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** the startTime. */
-    private long startTime = 0L;
-
     /**
      * constructs a new TestModel.
      * @param simulator the simulator
@@ -58,14 +55,13 @@ public class TestModel extends AbstractDSOLModel.TimeDouble<SimulatorInterface.T
     {
         if (event.getType().equals(SimulatorInterface.START_EVENT))
         {
-            this.startTime = System.currentTimeMillis();
-            System.out.println("started @ " + this.startTime);
+            System.out.println(getSimulator().getReplication().getExperiment() + ", " + getSimulator().getReplication()
+                    + ", started @ t=" + getSimulator().getSimulatorTime());
         }
         if (event.getType().equals(SimulatorInterface.STOP_EVENT))
         {
-            long runLength = System.currentTimeMillis() - this.startTime;
-            System.out
-                    .println("runlength=" + runLength + " time=" + ((SimulatorInterface) event.getSource()).getSimulatorTime());
+            System.out.println(getSimulator().getReplication().getExperiment() + ", " + getSimulator().getReplication()
+                    + ", stopped @ t=" + getSimulator().getSimulatorTime());
         }
     }
 }

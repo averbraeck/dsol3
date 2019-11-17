@@ -21,12 +21,12 @@ public class RungeKutta3 extends NumericalIntegrator
 
     /**
      * constructs a new RungeKutta3.
-     * @param timeStep double; the timeStep
+     * @param stepSize double; the stepSize
      * @param equation DifferentialEquationInterface; the differentialEquation
      */
-    public RungeKutta3(final double timeStep, final DifferentialEquationInterface equation)
+    public RungeKutta3(final double stepSize, final DifferentialEquationInterface equation)
     {
-        super(timeStep, equation);
+        super(stepSize, equation);
     }
 
     /** {@inheritDoc} */
@@ -34,9 +34,9 @@ public class RungeKutta3 extends NumericalIntegrator
     public double[] next(final double x, final double[] y)
     {
         double[] k1 = this.equation.dy(x, y);
-        double[] k2 = this.equation.dy(x + 0.5 * this.timeStep, super.add(y, super.multiply(0.5 * this.timeStep, k1)));
-        double[] k3 = this.equation.dy(x + 0.5 * this.timeStep, super.add(y, super.multiply(0.5 * this.timeStep, k2)));
-        double[] sum = super.add(k1, super.multiply(4.0, k2), k3);
-        return super.add(y, super.multiply(this.timeStep / 6.0, sum));
+        double[] k2 = this.equation.dy(x + 0.5 * this.stepSize, add(y, multiply(0.5 * this.stepSize, k1)));
+        double[] k3 = this.equation.dy(x + 0.5 * this.stepSize, add(y, multiply(0.5 * this.stepSize, k2)));
+        double[] sum = add(k1, multiply(4.0, k2), k3);
+        return add(y, multiply(this.stepSize / 6.0, sum));
     }
 }

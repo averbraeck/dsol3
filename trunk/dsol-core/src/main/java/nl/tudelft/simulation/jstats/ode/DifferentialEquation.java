@@ -2,6 +2,7 @@ package nl.tudelft.simulation.jstats.ode;
 
 import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
+import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 
 /**
  * The DifferentialEquation is the abstract basis for the DESS formalism.
@@ -23,57 +24,36 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     /** the numerical integrator for the differential equations. */
     private NumericalIntegrator integrator = null;
 
-    /** the initial value array. */
+    /** the last calculated value array for lastX, initialized with the initial value array y0. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double[] y0 = null;
+    protected double[] lastY = null;
 
-    /** the timeStep. */
+    /** the stepSize. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double timeStep = Double.NaN;
+    protected double stepSize = Double.NaN;
 
-    /** the first x value to start integration. */
+    /** the last x value, initialized with x0 to start integration. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double x0 = Double.NaN;
-
-    /**
-     * constructs a new DifferentialEquation with default integrator.
-     * @param timeStep double; the timeStep to use.
-     */
-    public DifferentialEquation(final double timeStep)
-    {
-        this(timeStep, NumericalIntegrator.DEFAULT_INTEGRATOR);
-    }
+    protected double lastX = Double.NaN;
 
     /**
      * constructs a new DifferentialEquation with a user-specified integrator.
-     * @param timeStep double; the timeStep to use.
-     * @param integrator NumericalIntegrator; the integrator to use.
+     * @param stepSize double; the stepSize to use.
+     * @param integratorType NumericalIntegratorType; the integrator to use.
      */
-    public DifferentialEquation(final double timeStep, final NumericalIntegrator integrator)
+    public DifferentialEquation(final double stepSize, final NumericalIntegratorType integratorType)
     {
         super();
-        this.timeStep = timeStep;
-        this.integrator = integrator;
-    }
-
-    /**
-     * constructs a new DifferentialEquation with a preselected integrator.
-     * @param timeStep double; the timeStep to use.
-     * @param integrationMethod short; the integrator to use.
-     */
-    public DifferentialEquation(final double timeStep, final short integrationMethod)
-    {
-        super();
-        this.timeStep = timeStep;
-        this.integrator = NumericalIntegrator.resolve(integrationMethod, timeStep, this);
+        this.stepSize = stepSize;
+        this.integrator = integratorType.getInstance(stepSize, this);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void initialize(final double x, final double[] y)
+    public void initialize(final double x0, final double[] y0)
     {
-        this.x0 = x;
-        this.y0 = y;
+        this.lastX = x0;
+        this.lastY = y0;
     }
 
     /** {@inheritDoc} */
@@ -81,16 +61,16 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     public double[] y(final double x)
     {
         // If the ODE is not initialized, the cache is empty.
-        if (Double.isNaN(this.x0))
+        if (Double.isNaN(this.lastX))
         {
             throw new RuntimeException("differential equation not initialized");
         }
         // x<initialX this is not supported.
-        if (x < this.x0)
+        if (x < this.lastX)
         {
             throw new RuntimeException("cannot compute values x<x0");
         }
-        return this.integrateY(x, this.x0, this.y0);
+        return this.integrateY(x, this.lastX, this.lastY);
     }
 
     /**
@@ -104,18 +84,20 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     protected double[] integrateY(final double x, /* non-final */ double initialX, /* non-final */ double[] initialY)
     {
         // we request the new value from the integrator.
-        while (x > initialX + this.timeStep)
+        while (x > initialX + this.stepSize)
         {
             initialY = this.integrator.next(initialX, initialY);
-            initialX = initialX + this.timeStep;
+            initialX = initialX + this.stepSize;
         }
         // We are in our final step.
         double[] nextValue = this.integrator.next(initialX, initialY);
-        double ratio = (x - initialX) / this.timeStep;
+        double ratio = (x - initialX) / this.stepSize;
         for (int i = 0; i < initialY.length; i++)
         {
             initialY[i] = initialY[i] + ratio * (nextValue[i] - initialY[i]);
         }
+        this.lastX = x;
+        this.lastY = initialY;
         return initialY;
     }
 

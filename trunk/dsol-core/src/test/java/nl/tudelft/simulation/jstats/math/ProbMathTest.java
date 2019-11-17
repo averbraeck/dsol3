@@ -1,7 +1,10 @@
 package nl.tudelft.simulation.jstats.math;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
 
 /**
  * The test script for the ProbMath class.
@@ -15,53 +18,34 @@ import junit.framework.TestCase;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class ProbMathTest extends TestCase
+public class ProbMathTest
 {
-    /** TEST_METHOD is the name of the test method. */
-    public static final String TEST_METHOD = "test";
-
     /**
-     * constructs a new EventIteratorTest.
+     * tests the probMath class.
      */
-    public ProbMathTest()
+    @Test
+    public void testProbMath()
     {
-        this(TEST_METHOD);
-    }
-
-    /**
-     * constructs a new EventIteratorTest.
-     * @param method the name of the test method
-     */
-    public ProbMathTest(final String method)
-    {
-        super(method);
-    }
-
-    /**
-     * tests the classes in the reference class.
-     */
-    public void test()
-    {
-        // //First the faculty function
+        // First the faculty function
         try
         {
             ProbMath.faculty(-1);
-            Assert.fail();
+            fail();
         }
         catch (Exception exception)
         {
-            Assert.assertEquals(exception.getClass(), IllegalArgumentException.class);
+            assertEquals(exception.getClass(), IllegalArgumentException.class);
         }
-        Assert.assertTrue(ProbMath.faculty(0) == 1.0);
-        Assert.assertTrue(ProbMath.faculty(10) == 3628800.0);
+        assertTrue(ProbMath.faculty(0) == 1.0);
+        assertTrue(ProbMath.faculty(10) == 3628800.0);
         try
         {
             ProbMath.faculty(171);
-            Assert.fail();
+            fail();
         }
         catch (Exception exception)
         {
-            Assert.assertEquals(exception.getClass(), IllegalArgumentException.class);
+            assertEquals(exception.getClass(), IllegalArgumentException.class);
         }
 
         // Permutations
@@ -71,7 +55,7 @@ public class ProbMathTest extends TestCase
         }
         catch (Exception exception)
         {
-            Assert.assertEquals(exception.getClass(), IllegalArgumentException.class);
+            assertEquals(exception.getClass(), IllegalArgumentException.class);
         }
     }
 }

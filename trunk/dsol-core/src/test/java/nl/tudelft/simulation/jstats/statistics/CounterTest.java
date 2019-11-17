@@ -1,7 +1,10 @@
 package nl.tudelft.simulation.jstats.statistics;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import nl.tudelft.simulation.event.Event;
 import nl.tudelft.simulation.event.EventInterface;
 import nl.tudelft.simulation.event.EventListenerInterface;
@@ -18,59 +21,41 @@ import nl.tudelft.simulation.event.EventListenerInterface;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class CounterTest extends TestCase
+public class CounterTest
 {
-    /** TEST_METHOD reflects the method which is invoked. */
-    public static final String TEST_METHOD = "test";
-
     /**
-     * constructs a new CounterTest.
+     * tests the counter.
      */
-    public CounterTest()
-    {
-        this(TEST_METHOD);
-    }
-
-    /**
-     * constructs a new CounterTest.
-     * @param arg0 the name of the test method
-     */
-    public CounterTest(final String arg0)
-    {
-        super(arg0);
-    }
-
-    /**
-     * tests the counter
-     */
+    @Test
     public void test()
     {
         String description = "counter description";
         Counter counter = new Counter(description);
-        Assert.assertEquals(counter.toString(), description);
-        Assert.assertEquals(counter.getDescription(), description);
+        assertEquals(counter.toString(), description);
+        assertEquals(counter.getDescription(), description);
 
-        Assert.assertTrue(counter.getN() == Long.MIN_VALUE);
-        Assert.assertTrue(counter.getCount() == Long.MIN_VALUE);
+        assertTrue(counter.getN() == Long.MIN_VALUE);
+        assertTrue(counter.getCount() == Long.MIN_VALUE);
 
         counter.initialize();
 
         counter.addListener(new EventListenerInterface()
         {
+            @Override
             public void notify(final EventInterface event)
             {
-                Assert.assertTrue(event.getType().equals(Counter.COUNT_EVENT));
-                Assert.assertTrue(event.getContent().getClass().equals(Long.class));
+                assertTrue(event.getType().equals(Counter.COUNT_EVENT));
+                assertTrue(event.getContent().getClass().equals(Long.class));
             }
         }, Counter.COUNT_EVENT);
 
         long value = 0;
         for (int i = 0; i < 100; i++)
         {
-            counter.notify(new Event(Counter.COUNT_EVENT, this, new Long(2 * i)));
+            counter.notify(new Event(Counter.COUNT_EVENT, this, Long.valueOf(2 * i)));
             value = value + 2 * i;
         }
-        Assert.assertTrue(counter.getN() == 100);
-        Assert.assertTrue(counter.getCount() == value);
+        assertTrue(counter.getN() == 100);
+        assertTrue(counter.getCount() == value);
     }
 }

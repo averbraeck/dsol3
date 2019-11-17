@@ -170,19 +170,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
         {
             throw new IllegalArgumentException("i, j must be positive");
         }
-        int n = j - i;
-        if ((n & -n) == n) // i.e., n is a power of 2
-        {
-            return (int) (i + (n * next(31)) >> 31);
-        }
-        int bits, val;
-        do
-        {
-            bits = (int) this.next(31);
-            val = bits % n;
-        }
-        while (bits - val + (n - 1) < 0);
-        return i + val;
+        return i + (int) Math.floor((j - i + 1) * this.nextDouble());
     }
 
     /**

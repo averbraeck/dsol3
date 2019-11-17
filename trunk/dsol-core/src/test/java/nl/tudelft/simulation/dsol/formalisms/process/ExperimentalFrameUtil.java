@@ -29,7 +29,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>,
  *         <a href="mailto:a.verbraeck@tudelft.nl">Alexander Verbraeck </a>
  */
-public final class TestExperimentalFrame
+public final class ExperimentalFrameUtil
 {
     /**
      * STARTTIME defines the starting time for the experiment in millisec since 1970.
@@ -49,15 +49,6 @@ public final class TestExperimentalFrame
     public static final double TIMESTEP = 0.01;
 
     /**
-     * constructs a new TestExperimentalFrame.
-     */
-    private TestExperimentalFrame()
-    {
-        super();
-        // unreachable code
-    }
-
-    /**
      * creates an experimental frame.
      * @param model the model
      * @param simulator the simulator
@@ -73,7 +64,7 @@ public final class TestExperimentalFrame
             List<Experiment.TimeDouble<S>> experiments = new ArrayList<Experiment.TimeDouble<S>>();
             for (int i = 0; i < 3; i++)
             {
-                Experiment.TimeDouble<S> experiment = TestExperimentalFrame.createExperiment();
+                Experiment.TimeDouble<S> experiment = ExperimentalFrameUtil.createExperiment();
                 experiment.setSimulator(simulator);
                 experiment.setModel(model);
                 experiments.add(experiment);
@@ -96,8 +87,8 @@ public final class TestExperimentalFrame
     public static <S extends SimulatorInterface.TimeDouble> Experiment.TimeDouble<S> createExperiment() throws NamingException
     {
         Experiment.TimeDouble<S> experiment = new Experiment.TimeDouble<>();
-        experiment.setTreatment(TestExperimentalFrame.createTreatment(experiment));
-        experiment.setReplications(TestExperimentalFrame.createReplications(experiment));
+        experiment.setTreatment(ExperimentalFrameUtil.createTreatment(experiment));
+        experiment.setReplications(ExperimentalFrameUtil.createReplications(experiment));
         return experiment;
     }
 
