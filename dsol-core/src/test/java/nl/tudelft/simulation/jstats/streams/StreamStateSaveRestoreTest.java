@@ -61,7 +61,7 @@ public class StreamStateSaveRestoreTest extends TestCase
                 StreamInterface rng = streams[j];
                 String r = draw(rng, 10);
                 Assert.assertEquals("r.len != 30 for j=" + j, r.length(), 30);
-                Object state = rng.saveState();
+                byte[] state = rng.saveState();
                 String s = draw(rng, 10);
                 Assert.assertEquals("s.len != 30 for j=" + j, s.length(), 30);
                 draw(rng, 20);

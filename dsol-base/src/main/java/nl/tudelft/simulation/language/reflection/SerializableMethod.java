@@ -38,10 +38,10 @@ public class SerializableMethod implements Serializable
      * constructs a new SerializableMethod.
      * @param clazz Class&lt;?&gt;; the clazz this field is instance of
      * @param methodName String; the name of the method
-     * @param parameterTypes Class&lt;?&gt;[]; The parameterTypes of the method
+     * @param parameterTypes Class&lt;?&gt;..; The parameterTypes of the method
      * @throws NoSuchMethodException whenever the method is not defined in clazz
      */
-    public SerializableMethod(final Class<?> clazz, final String methodName, final Class<?>[] parameterTypes)
+    public SerializableMethod(final Class<?> clazz, final String methodName, final Class<?>... parameterTypes)
             throws NoSuchMethodException
     {
         this.method = ClassUtil.resolveMethod(clazz, methodName, parameterTypes);

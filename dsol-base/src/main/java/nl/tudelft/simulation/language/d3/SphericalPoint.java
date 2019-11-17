@@ -1,8 +1,10 @@
 package nl.tudelft.simulation.language.d3;
 
+import java.io.Serializable;
+
 /**
- * A sphericalpoint as defined in <a href="http://mathworld.wolfram.com/SphericalCoordinates.html">
- * http://mathworld.wolfram.com/SphericalCoordinates.html </a>.
+ * A spherical point as defined in <a href="http://mathworld.wolfram.com/SphericalCoordinates.html">
+ * http://mathworld.wolfram.com/SphericalCoordinates.html </a>. Also according to ISO 31-11
  * <p>
  * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -12,24 +14,27 @@ package nl.tudelft.simulation.language.d3;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class SphericalPoint
+public class SphericalPoint implements Serializable
 {
+    /** */
+    private static final long serialVersionUID = 20191116L;
+
     /** radius. */
     private double radius = 0.0;
-
-    /** phi. */
-    private double phi = 0.0;
 
     /** theta. */
     private double theta = 0.0;
 
+    /** phi. */
+    private double phi = 0.0;
+
     /**
      * constructs a new SphericalPoint.
-     * @param phi double; phi
      * @param radius double; radius
      * @param theta double; theta
+     * @param phi double; phi
      */
-    public SphericalPoint(final double radius, final double phi, final double theta)
+    public SphericalPoint(final double radius, final double theta, final double phi)
     {
         super();
         this.phi = phi;

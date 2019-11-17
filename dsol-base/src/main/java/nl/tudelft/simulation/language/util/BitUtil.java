@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.BitSet;
 
+import org.djutils.exceptions.Throw;
+
 /**
  * Utilities for the BitSet class.
  * <p>
@@ -21,12 +23,10 @@ public final class BitUtil implements Serializable
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * constructs a new BitUtil.
-     */
+    /** Constructor is not called for utility class. */
     private BitUtil()
     {
-        super();
+        // Utility class
     }
 
     /**
@@ -53,6 +53,31 @@ public final class BitUtil implements Serializable
     }
 
     /**
+     * returns the bitset of an integer value.
+     * @param value int; the value
+     * @param length int; the length of the bitSet to produce
+     * @return the BitSet
+     */
+    public static BitSet fromInt(final int value, final int length)
+    {
+        return BitUtil.fromInteger(Integer.valueOf(value), length);
+    }
+
+    /**
+     * returns the bitset of an integer value.
+     * @param value Integer; the value
+     * @param length int; the length of
+     * @return the BitSet
+     */
+    public static BitSet fromInteger(Integer value, final int length)
+    {
+        Throw.when(length <= 0, IllegalArgumentException.class, "BitUtil.fromInt should have a positive number of bits");
+        Throw.when(length > 31, IllegalArgumentException.class, "BitUtil.fromInt can have maximum 31 bits");
+        Throw.when(value.intValue() < 0, IllegalArgumentException.class, "BitUtil.fromInt can have only positive values");
+        return BitUtil.fromByteArray(new BigInteger(value.toString()).toByteArray());
+    }
+
+    /**
      * @param bits BitSet; the bitset to convert
      * @param length int; the length of the set
      * @return Returns an int. The most significant bit in the result is guaranteed not to be a 1 (since BitSet does not support
@@ -61,23 +86,21 @@ public final class BitUtil implements Serializable
      */
     public static int toInt(final BitSet bits, final int length)
     {
+        Throw.when(length <= 0, IllegalArgumentException.class, "BitUtil.toInt should have a positive number of bits");
+        Throw.when(length > 31, IllegalArgumentException.class, "BitUtil.toInt can have maximum 31 bits");
         byte[] bytes = BitUtil.toByteArray(bits);
-        int value = new BigInteger(bytes).intValue();
-        if (value > Math.pow(2, length - 1) && length != -1)
-        {
-            value = value - (int) Math.pow(2, length);
-        }
-        return value;
+        return new BigInteger(bytes).intValue();
     }
 
     /**
-     * constructs a new BitSet from a string in the "110110" format.
+     * constructs a new BitSet from a string in the "110110" format, or the {0, 1, 3, 5, 8, 12} format. Note that for the binary
+     * representation, the LEAST SIGNIFICANT BIT COMES FIRST. So, 001 represents the value 4 and not 1.
      * @param value String; the value
      * @return the BitSet
      */
-    public static BitSet fromString(String value)
+    public static BitSet fromString(final String value)
     {
-        if (!value.startsWith("{"))
+        if (!value.trim().startsWith("{"))
         {
             BitSet set = new BitSet(value.length());
             for (int i = 0; i < value.length(); i++)
@@ -98,12 +121,17 @@ public final class BitUtil implements Serializable
             return set;
         }
         BitSet set = new BitSet();
-        value = value.substring(1, value.length() - 1);
-        if (value.equals(""))
+        String array = value.trim();
+        if (!array.endsWith("}"))
+        {
+            throw new IllegalArgumentException("value that starts with { should end with }");
+        }
+        array = array.substring(1, array.length() - 1).trim();
+        if (array.length() == 0)
         {
             return set;
         }
-        String[] bits = value.split(",");
+        String[] bits = array.split(",");
         for (int i = 0; i < bits.length; i++)
         {
             bits[i] = bits[i].trim();
@@ -128,32 +156,6 @@ public final class BitUtil implements Serializable
             }
         }
         return bits;
-    }
-
-    /**
-     * returns the bitset of an integer value.
-     * @param value int; the value
-     * @param length int; the length of the bitSet to produce
-     * @return the BitSet
-     */
-    public static BitSet fromInt(final int value, final int length)
-    {
-        return BitUtil.fromInteger(new Integer(value), length);
-    }
-
-    /**
-     * returns the bitset of an integer value.
-     * @param value Integer; the value
-     * @param length int; the length of
-     * @return the BitSet
-     */
-    public static BitSet fromInteger(Integer value, final int length)
-    {
-        if (value.intValue() < 0 && length != -1)
-        {
-            value = new Integer((int) Math.pow(2, length) + value.intValue());
-        }
-        return BitUtil.fromByteArray(new BigInteger(value.toString()).toByteArray());
     }
 
     /**

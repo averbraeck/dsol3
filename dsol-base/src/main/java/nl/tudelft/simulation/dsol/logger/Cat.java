@@ -27,7 +27,7 @@ public final class Cat
     public static final LogCategory NAMING = new LogCategory("NAMING");
 
     /** DSOL-EVENT project. */
-    public static final LogCategory EVENT = new LogCategory("ROAD");
+    public static final LogCategory EVENT = new LogCategory("EVENT");
 
     /** DSOL-SWING project. */
     public static final LogCategory SWING = new LogCategory("SWING");

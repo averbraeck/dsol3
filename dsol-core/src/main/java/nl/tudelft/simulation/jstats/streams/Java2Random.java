@@ -77,7 +77,7 @@ public class Java2Random extends Random implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final Object saveState() throws StreamException
+    public final byte[] saveState() throws StreamException
     {
         try
         {
@@ -91,7 +91,7 @@ public class Java2Random extends Random implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final void restoreState(final Object state) throws StreamException
+    public final void restoreState(final byte[] state) throws StreamException
     {
         try
         {

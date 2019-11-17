@@ -20,8 +20,8 @@ import javax.vecmath.Tuple3f;
  */
 public class DirectedPoint extends CartesianPoint
 {
-    /** The default serial version UID for serializable classes. */
-    private static final long serialVersionUID = 1L;
+    /** */
+    private static final long serialVersionUID = 20191116L;
 
     /** rotX is the rotX. */
     private double rotX = 0.0;
@@ -233,6 +233,25 @@ public class DirectedPoint extends CartesianPoint
         return result;
     }
 
+    /**
+     * This extra equals method is necessary because Tuple3d (stupidly) implements equals(Tuple3d) which will 'win' from
+     * DirectedPoint.equals(DirectedPoint) because it is more 'specific'. This means that the rotX, rotY and rotZ fields are not
+     * checked in equals when two directedPoints are compared with each other.
+     * @param obj the directed point to compare with
+     * @return whether the two directed points are equal or not
+     */
+    public boolean equals(final DirectedPoint obj)
+    {
+        return this.equals((Object) obj);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean equals(final Tuple3d obj)
+    {
+        return this.equals((Object) obj);
+    }
+    
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
