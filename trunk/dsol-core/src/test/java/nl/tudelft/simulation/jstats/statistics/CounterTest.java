@@ -1,18 +1,17 @@
-package nl.tudelft.simulation.jstats.statistics;
+ package nl.tudelft.simulation.jstats.statistics;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.djutils.event.Event;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
 import org.junit.Test;
-
-import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
 
 /**
  * The counterTest test the counter.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -52,7 +51,7 @@ public class CounterTest
         long value = 0;
         for (int i = 0; i < 100; i++)
         {
-            counter.notify(new Event(Counter.COUNT_EVENT, this, Long.valueOf(2 * i)));
+            counter.notify(new Event(Counter.COUNT_EVENT, "CounterTest", Long.valueOf(2 * i)));
             value = value + 2 * i;
         }
         assertTrue(counter.getN() == 100);

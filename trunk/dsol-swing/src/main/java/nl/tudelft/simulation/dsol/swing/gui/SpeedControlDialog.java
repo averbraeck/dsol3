@@ -26,12 +26,12 @@ import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.Simulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -144,9 +144,9 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
 
             contentPane.add(speedPanel, BorderLayout.CENTER);
 
-            // XXX: this.notify(new Event(AnimatorInterface.ANIMATION_DELAY_CHANGED_EVENT, this, new Long((long)
+            // XXX: this.notify(new Event(AnimatorInterface.ANIMATION_DELAY_CHANGED_EVENT, getSourceId(), Long.valueOf((long)
             // this.target.getTimeFactor().getValue())));
-            // XXX: this.notify(new Event(SimpleAnimatorInterface.SIMULATION_SPEED_CHANGED_EVENT, this, new
+            // XXX: this.notify(new Event(SimpleAnimatorInterface.SIMULATION_SPEED_CHANGED_EVENT, getSourceId(), new
             // Double(this.target.getSimulatorSpeedRatio())));
 
             this.getContentPane().add(contentPane);
@@ -157,7 +157,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception, "SpeedControlDialog - SpeedControlDialog");
+            target.getLogger().always().error(exception, "SpeedControlDialog - SpeedControlDialog");
         }
     }
 
@@ -201,7 +201,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception, "SpeedControlDialog - stateChanged");
+            this.target.getLogger().always().error(exception, "SpeedControlDialog - stateChanged");
         }
     }
 
@@ -213,7 +213,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
         /*-
         if (event.getType().equals(SimpleAnimatorInterface.SIMULATION_SPEED_CHANGED_EVENT))
         {
-            this.simulatorSpeedRatio = new Double(event.getContent().toString()).doubleValue();
+            this.simulatorSpeedRatio = Double.valueOf(event.getContent().toString()).doubleValue();
             double sliderValue = 10 * Math.log(this.simulatorSpeedRatio) / Math.log(10);
             this.simulationSlider.setValue(10 * (int) sliderValue);
             this.simulationValue.setText(NumberFormat.getInstance().format(this.simulatorSpeedRatio) + "      ");
@@ -221,7 +221,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
          */
         if (event.getType().equals(AnimatorInterface.ANIMATION_DELAY_CHANGED_EVENT))
         {
-            this.animationDelay = new Long(event.getContent().toString()).longValue();
+            this.animationDelay = Long.valueOf(event.getContent().toString()).longValue();
             this.animationSlider.setValue((int) this.animationDelay);
             this.animationValue.setText(this.animationDelay + " msec");
         }

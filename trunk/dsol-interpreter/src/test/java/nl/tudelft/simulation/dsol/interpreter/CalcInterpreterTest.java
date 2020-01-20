@@ -28,7 +28,7 @@ public class CalcInterpreterTest
                 (short) (int) Interpreter.invoke(this, "sValue", new Object[] {}, new Class<?>[] {}));
 
         double d1 = newDouble(4.77d);
-        Object od = Interpreter.invoke(this, "newDouble", new Object[] {new Double(4.77d)}, new Class<?>[] {double.class});
+        Object od = Interpreter.invoke(this, "newDouble", new Object[] {Double.valueOf(4.77d)}, new Class<?>[] {double.class});
         Assert.assertEquals("double return is Double class", od.getClass(), Double.class);
         double d2 = (double) od;
         Assert.assertEquals("4.77d ^ 2 == 4.77d ^ 2", d1, d2, 0.0);
@@ -42,19 +42,19 @@ public class CalcInterpreterTest
         Assert.assertEquals("false == false", b1, b2);
 
         float f1 = newFloat(33.6673f);
-        Object of = Interpreter.invoke(this, "newFloat", new Object[] {new Float(33.6673f)}, new Class<?>[] {float.class});
+        Object of = Interpreter.invoke(this, "newFloat", new Object[] {Float.valueOf(33.6673f)}, new Class<?>[] {float.class});
         Assert.assertEquals("float return is Float class", of.getClass(), Float.class);
         float f2 = (float) of;
         Assert.assertEquals("33.6673f ^ 2 == 33.6673f ^ 2", f1, f2, 0.0);
 
         long l1 = newLong(8332L);
-        Object ol = Interpreter.invoke(this, "newLong", new Object[] {new Long(8332L)}, new Class<?>[] {long.class});
+        Object ol = Interpreter.invoke(this, "newLong", new Object[] {Long.valueOf(8332L)}, new Class<?>[] {long.class});
         Assert.assertEquals("long return is Long class", ol.getClass(), Long.class);
         long l2 = (long) ol;
         Assert.assertEquals("8332L ^ 2 == 8332L ^ 2", l1, l2);
 
         short s1 = newShort((short) 55);
-        Object os = Interpreter.invoke(this, "newShort", new Object[] {new Short((short) 55)}, new Class<?>[] {short.class});
+        Object os = Interpreter.invoke(this, "newShort", new Object[] {Short.valueOf((short) 55)}, new Class<?>[] {short.class});
         // short is stored on the stack as an int.
         // Assert.assertEquals("short return is Short class", os.getClass(), Short.class);
         Assert.assertEquals("short return is Integer class", os.getClass(), Integer.class);

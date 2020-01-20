@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
@@ -23,7 +24,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * OutputPortInterface class. Describes the contract for an output port of the Classic Parallel DEVS Atomic Model with Ports
  * conform Zeigler et al (2000), section 4.2.2. and section 4.3 (pp. 84 ff).
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -37,8 +38,8 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @param <TYPE> The type of messages the input port accepts.
  */
-public interface OutputPortInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
-        TYPE>
+public interface OutputPortInterface<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>, TYPE>
 {
 
     /**

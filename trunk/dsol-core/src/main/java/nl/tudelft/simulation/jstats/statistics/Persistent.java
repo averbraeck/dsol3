@@ -2,15 +2,15 @@ package nl.tudelft.simulation.jstats.statistics;
 
 import java.util.Calendar;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.event.TimedEvent;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.TimedEvent;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * The Persistent class defines a statistics event persistent. A Persistent is a time-averaged tally.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -108,7 +108,7 @@ public class Persistent extends Tally
             }
             else
             {
-                SimLogger.always().warn("Persistent.notify: Content {} should be a Number", event.getContent());
+                CategoryLogger.always().warn("Persistent.notify: Content {} should be a Number", event.getContent());
             }
 
             synchronized (this.semaphore)
@@ -131,7 +131,7 @@ public class Persistent extends Tally
                 }
                 else
                 {
-                    SimLogger.always().warn("Persistent.notify: Timestamp {} should be a Number or Calendar",
+                    CategoryLogger.always().warn("Persistent.notify: Timestamp {} should be a Number or Calendar",
                             event.getContent());
                 }
                 super.setN(super.n + 1); // we increase the number of measurements.

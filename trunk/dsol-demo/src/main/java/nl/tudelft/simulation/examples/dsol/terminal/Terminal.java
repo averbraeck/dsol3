@@ -1,15 +1,17 @@
 package nl.tudelft.simulation.examples.dsol.terminal;
 
+import java.io.Serializable;
+
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventType;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterInteger;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.distributions.DistTriangular;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -125,14 +127,24 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
             }
             catch (SimRuntimeException exception)
             {
-                SimLogger.always().error(exception);
+                getSimulator().getLogger().always().error(exception);
             }
         }
     }
 
-    /** */
-    public static class Output
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
     {
+        return "Terminal";
+    }
+    
+    /** */
+    public static class Output implements Serializable
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+
         /** QCs. */
         private final int numQC;
 
@@ -233,4 +245,5 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
             return this.nrCont;
         }
     }
+
 }

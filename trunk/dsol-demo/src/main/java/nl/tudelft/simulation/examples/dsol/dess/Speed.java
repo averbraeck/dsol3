@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.examples.dsol.dess;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
@@ -8,7 +9,7 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -34,5 +35,12 @@ public class Speed extends DifferentialEquation<Double, Double, SimTimeDouble>
     public double[] dy(final double x, final double[] y)
     {
         return new double[] {0.5};
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "Speed";
     }
 }

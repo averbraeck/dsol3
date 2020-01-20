@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.process;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 
 /**
@@ -37,4 +39,12 @@ class Dog extends InterpretableProcess
     {
         this.bark();
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "Dog";
+    }
+    
 }

@@ -1,11 +1,13 @@
 package nl.tudelft.simulation.dsol.simulators;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.EventType;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -17,14 +19,13 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.event.EventType;
 
 /**
  * The DESSSimulatorInterface defines the methods for a DESS simulator. DESS stands for the Differential Equation System
  * Specification. More information on Modeling and Simulation can be found in "Theory of Modeling and Simulation" by Bernard
  * Zeigler et.al.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -39,8 +40,8 @@ import nl.tudelft.simulation.event.EventType;
  * @since 1.5
  */
 
-public interface DESSSimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends SimulatorInterface<A, R, T>
+public interface DESSSimulatorInterface<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends SimulatorInterface<A, R, T>
 {
     /** TIME_STEP_CHANGED_EVENT is fired when the time step is set. */
     EventType TIME_STEP_CHANGED_EVENT = new EventType("TIME_STEP_CHANGED_EVENT");

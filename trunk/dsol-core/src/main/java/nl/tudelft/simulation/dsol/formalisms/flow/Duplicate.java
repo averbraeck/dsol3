@@ -9,7 +9,6 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -24,7 +23,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * A duplicate station duplicates incoming objects and sends them to their alternative destination.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -37,7 +36,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class Duplicate<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Station<A, R, T>
 {
     /** */
@@ -51,24 +50,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * Creates a new Duplicate that makes 1 copy.
+     * @param id Serializable; the id of the Station
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
      * @param duplicateDestination StationInterface&lt;A,R,T&gt;; the duplicate destination
      */
-    public Duplicate(final DEVSSimulatorInterface<A, R, T> simulator, final StationInterface<A, R, T> duplicateDestination)
+    public Duplicate(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator,
+            final StationInterface<A, R, T> duplicateDestination)
     {
-        this(simulator, duplicateDestination, 1);
+        this(id, simulator, duplicateDestination, 1);
     }
 
     /**
      * Create a new Duplicate that makes numberCopies copies.
+     * @param id Serializable; the id of the Station
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
      * @param duplicateDestination StationInterface&lt;A,R,T&gt;; which is the duplicate definition
      * @param numberCopies int; the number of copies
      */
-    public Duplicate(final DEVSSimulatorInterface<A, R, T> simulator, final StationInterface<A, R, T> duplicateDestination,
-            final int numberCopies)
+    public Duplicate(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator,
+            final StationInterface<A, R, T> duplicateDestination, final int numberCopies)
     {
-        super(simulator);
+        super(id, simulator);
         this.duplicateDestination = duplicateDestination;
         this.numberCopies = numberCopies;
     }
@@ -98,7 +100,7 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "receiveMethod");
+            this.simulator.getLogger().always().warn(exception, "receiveMethod");
         }
     }
 
@@ -114,25 +116,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDouble; on which is scheduled
          * @param duplicateDestination StationInterface.TimeDouble; the duplicate destination
          */
-        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
+        public TimeDouble(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
                 final StationInterface.TimeDouble duplicateDestination)
         {
-            super(simulator, duplicateDestination);
+            super(id, simulator, duplicateDestination);
         }
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDouble; on which is scheduled
          * @param duplicateDestination StationInterface.TimeDouble; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
+        public TimeDouble(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
                 final StationInterface.TimeDouble duplicateDestination, final int numberCopies)
         {
-            super(simulator, duplicateDestination, numberCopies);
+            super(id, simulator, duplicateDestination, numberCopies);
         }
     }
 
@@ -144,25 +148,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloat; on which is scheduled
          * @param duplicateDestination StationInterface.TimeFloat; the duplicate destination
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
+        public TimeFloat(final Serializable id, final DEVSSimulatorInterface.TimeFloat simulator,
                 final StationInterface.TimeFloat duplicateDestination)
         {
-            super(simulator, duplicateDestination);
+            super(id, simulator, duplicateDestination);
         }
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloat; on which is scheduled
          * @param duplicateDestination StationInterface.TimeFloat; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
+        public TimeFloat(final Serializable id, final DEVSSimulatorInterface.TimeFloat simulator,
                 final StationInterface.TimeFloat duplicateDestination, final int numberCopies)
         {
-            super(simulator, duplicateDestination, numberCopies);
+            super(id, simulator, duplicateDestination, numberCopies);
         }
     }
 
@@ -174,24 +180,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeLong; on which is scheduled
          * @param duplicateDestination StationInterface.TimeLong; the duplicate destination
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final StationInterface.TimeLong duplicateDestination)
+        public TimeLong(final Serializable id, final DEVSSimulatorInterface.TimeLong simulator,
+                final StationInterface.TimeLong duplicateDestination)
         {
-            super(simulator, duplicateDestination);
+            super(id, simulator, duplicateDestination);
         }
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeLong; on which is scheduled
          * @param duplicateDestination StationInterface.TimeLong; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final StationInterface.TimeLong duplicateDestination,
-                final int numberCopies)
+        public TimeLong(final Serializable id, final DEVSSimulatorInterface.TimeLong simulator,
+                final StationInterface.TimeLong duplicateDestination, final int numberCopies)
         {
-            super(simulator, duplicateDestination, numberCopies);
+            super(id, simulator, duplicateDestination, numberCopies);
         }
     }
 
@@ -204,25 +213,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which is scheduled
          * @param duplicateDestination StationInterface.TimeDoubleUnit; the duplicate destination
          */
-        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
+        public TimeDoubleUnit(final Serializable id, final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final StationInterface.TimeDoubleUnit duplicateDestination)
         {
-            super(simulator, duplicateDestination);
+            super(id, simulator, duplicateDestination);
         }
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which is scheduled
          * @param duplicateDestination StationInterface.TimeDoubleUnit; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
+        public TimeDoubleUnit(final Serializable id, final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final StationInterface.TimeDoubleUnit duplicateDestination, final int numberCopies)
         {
-            super(simulator, duplicateDestination, numberCopies);
+            super(id, simulator, duplicateDestination, numberCopies);
         }
     }
 
@@ -235,25 +246,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which is scheduled
          * @param duplicateDestination StationInterface.TimeFloatUnit; the duplicate destination
          */
-        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
+        public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final StationInterface.TimeFloatUnit duplicateDestination)
         {
-            super(simulator, duplicateDestination);
+            super(id, simulator, duplicateDestination);
         }
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which is scheduled
          * @param duplicateDestination StationInterface.TimeFloatUnit; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
+        public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final StationInterface.TimeFloatUnit duplicateDestination, final int numberCopies)
         {
-            super(simulator, duplicateDestination, numberCopies);
+            super(id, simulator, duplicateDestination, numberCopies);
         }
     }
 
@@ -266,25 +279,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
          * @param duplicateDestination StationInterface.CalendarDouble; the duplicate destination
          */
-        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
+        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
                 final StationInterface.CalendarDouble duplicateDestination)
         {
-            super(simulator, duplicateDestination);
+            super(id, simulator, duplicateDestination);
         }
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
          * @param duplicateDestination StationInterface.CalendarDouble; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
+        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
                 final StationInterface.CalendarDouble duplicateDestination, final int numberCopies)
         {
-            super(simulator, duplicateDestination, numberCopies);
+            super(id, simulator, duplicateDestination, numberCopies);
         }
     }
 
@@ -297,25 +312,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
          * @param duplicateDestination StationInterface.CalendarFloat; the duplicate destination
          */
-        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
+        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
                 final StationInterface.CalendarFloat duplicateDestination)
         {
-            super(simulator, duplicateDestination);
+            super(id, simulator, duplicateDestination);
         }
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
          * @param duplicateDestination StationInterface.CalendarFloat; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
+        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
                 final StationInterface.CalendarFloat duplicateDestination, final int numberCopies)
         {
-            super(simulator, duplicateDestination, numberCopies);
+            super(id, simulator, duplicateDestination, numberCopies);
         }
     }
 
@@ -328,25 +345,27 @@ public class Duplicate<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * Creates a new Duplicate that makes 1 copy.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
          * @param duplicateDestination StationInterface.CalendarLong; the duplicate destination
          */
-        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
+        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
                 final StationInterface.CalendarLong duplicateDestination)
         {
-            super(simulator, duplicateDestination);
+            super(id, simulator, duplicateDestination);
         }
 
         /**
          * Create a new Duplicate that makes numberCopies copies.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
          * @param duplicateDestination StationInterface.CalendarLong; which is the duplicate definition
          * @param numberCopies int; the number of copies
          */
-        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
+        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
                 final StationInterface.CalendarLong duplicateDestination, final int numberCopies)
         {
-            super(simulator, duplicateDestination, numberCopies);
+            super(id, simulator, duplicateDestination, numberCopies);
         }
     }
 

@@ -7,8 +7,8 @@ import javax.swing.JTabbedPane;
 
 import nl.tudelft.simulation.dsol.swing.charts.histogram.Histogram;
 import nl.tudelft.simulation.dsol.swing.charts.histogram.HistogramSeries;
-import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventType;
+import org.djutils.event.Event;
+import org.djutils.event.EventType;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -18,7 +18,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * (c) 2002-2019-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -89,12 +89,12 @@ public class DistributionsGUIInspector extends JTabbedPane
         {
             if (distribution instanceof DistContinuous)
             {
-                Double value = new Double(((DistContinuous) distribution).draw());
-                series.notify(new Event(accept, this, value));
+                Double value = Double.valueOf(((DistContinuous) distribution).draw());
+                series.notify(new Event(accept, null, value));
             }
             else
             {
-                series.notify(new Event(accept, this, new Long(((DistDiscrete) distribution).draw())));
+                series.notify(new Event(accept, null, Long.valueOf(((DistDiscrete) distribution).draw())));
             }
         }
         histogram.getDataset().addSeries(series);

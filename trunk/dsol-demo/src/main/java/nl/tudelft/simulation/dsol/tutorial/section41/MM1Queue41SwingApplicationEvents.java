@@ -4,6 +4,9 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -15,13 +18,11 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
 
 /**
  * M/M/1 Swing application that shows the events that are fired by the Simulator in the Console.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -33,6 +34,9 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
 {
     /** the model. */
     private MM1Queue41Model model;
+    
+    /** logger. */
+    private SimLogger logger;
 
     /**
      * @param title String; the title
@@ -45,6 +49,7 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
     {
         super(title, panel);
         this.model = model;
+        this.logger = devsSimulator.getLogger();
         panel.getConsole().setLogLevel(Level.TRACE);
         // panel.getConsole().setLogMessageFormat("{message|indent=4}");
         try
@@ -53,7 +58,7 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
         }
         catch (SimRuntimeException exception)
         {
-            SimLogger.always().error(exception, "<init>");
+            this.logger.always().error(exception, "<init>");
         }
     }
 
@@ -68,14 +73,13 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        SimLogger.setAllLogLevel(Level.TRACE);
-        DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble();
+        CategoryLogger.setAllLogLevel(Level.TRACE);
+        DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble("MM1Queue41SwingApplicationEvents");
         MM1Queue41Model model = new MM1Queue41Model(devsSimulator);
         new SimulatorEventLogger(devsSimulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
         devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
-        SimLogger.setSimulator(devsSimulator);
         MM1Queue41Panel panel = new MM1Queue41Panel(model, devsSimulator);
         new MM1Queue41SwingApplicationEvents("MM1 Queue model", panel, model, devsSimulator);
     }
@@ -83,9 +87,9 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
     /** stop the simulation. */
     protected final void terminate()
     {
-        SimLogger.always().info("average queue length = " + this.model.qN.getSampleMean());
-        SimLogger.always().info("average queue wait   = " + this.model.dN.getSampleMean());
-        SimLogger.always().info("average utilization  = " + this.model.uN.getSampleMean());
+        this.logger.always().info("average queue length = " + this.model.qN.getSampleMean());
+        this.logger.always().info("average queue wait   = " + this.model.dN.getSampleMean());
+        this.logger.always().info("average utilization  = " + this.model.uN.getSampleMean());
     }
 
     /**
@@ -93,11 +97,18 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
      */
     protected static class SimulatorEventLogger implements EventListenerInterface
     {
+        /** */
+        private static final long serialVersionUID = 1L;
+        
+        /** */
+        private final DEVSSimulator.TimeDouble devsSimulator;
+
         /**
          * @param devsSimulator DEVSSimulator.TimeDouble; the simulator to provide the events
          */
         SimulatorEventLogger(final DEVSSimulator.TimeDouble devsSimulator)
         {
+            this.devsSimulator = devsSimulator;
             devsSimulator.addListener(this, SimulatorInterface.START_REPLICATION_EVENT);
             devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
             devsSimulator.addListener(this, SimulatorInterface.START_EVENT);
@@ -111,7 +122,7 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
         @Override
         public void notify(final EventInterface event) throws RemoteException
         {
-            SimLogger.always().info(event.getType().toString());
+            this.devsSimulator.getLogger().always().info(event.getType().toString());
         }
 
     }

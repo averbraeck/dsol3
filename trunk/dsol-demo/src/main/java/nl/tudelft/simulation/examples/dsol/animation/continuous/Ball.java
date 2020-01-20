@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.examples.dsol.animation.BallAnimation;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -13,7 +12,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -54,7 +53,7 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
         }
         catch (RemoteException exception)
         {
-            SimLogger.always().error(exception);
+            simulator.getLogger().always().error(exception);
         }
     }
 

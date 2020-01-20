@@ -10,7 +10,7 @@ import java.util.Vector;
 
 /**
  * <p>
- * Copyright (c) 2004-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2004-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -36,10 +36,10 @@ public class IndexedPropertyBean extends Object
     private TestBean[] beans;
 
     /** Holds value of property doubleValue. */
-    private Double doubleValue = new Double(1717);
+    private Double doubleValue = Double.valueOf(1717);
 
     /** Holds value of property serializedDoubleValue. */
-    private java.io.Serializable serializedDoubleValue = new Double(1717);
+    private java.io.Serializable serializedDoubleValue = Double.valueOf(1717);
 
     /** Creates new IndexedPropertyBean. */
     public IndexedPropertyBean()

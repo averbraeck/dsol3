@@ -3,40 +3,43 @@ package nl.tudelft.simulation.dsol.swing.charts.xy;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GradientPaint;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
 
+import org.djutils.event.EventProducerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.ReferenceType;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.plot.PlotOrientation;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.EventProducerInterface;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.Swingable;
 import nl.tudelft.simulation.jstats.statistics.Persistent;
 import nl.tudelft.simulation.language.filters.FilterInterface;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The xyChart specifies the xyChart in DSOL.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @since 1.5
  */
-public class XYChart implements Swingable
+public class XYChart implements Swingable, Serializable
 {
+    /** */
+    private static final long serialVersionUID = 20200108L;
+
     /** x-axis is linear y-axis is linear. */
     public static final short XLINEAR_YLINEAR = 0;
 
@@ -255,15 +258,6 @@ public class XYChart implements Swingable
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double[] domain)
     {
         this(title, domain);
-        try
-        {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
-        }
-        catch (NamingException exception)
-        {
-            SimLogger.always().warn(exception, "<init>");
-        }
     }
 
     /**
@@ -277,12 +271,12 @@ public class XYChart implements Swingable
         this(title, period);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -298,12 +292,12 @@ public class XYChart implements Swingable
         this(title, domain, axisType);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -319,12 +313,12 @@ public class XYChart implements Swingable
         this(title, period, axisType);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -340,12 +334,12 @@ public class XYChart implements Swingable
         this(title, domain, range);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -361,12 +355,12 @@ public class XYChart implements Swingable
         this(title, period, range);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -384,12 +378,12 @@ public class XYChart implements Swingable
         this(title, domain, range, axisType);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -407,12 +401,12 @@ public class XYChart implements Swingable
         this(title, period, range, axisType);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -423,7 +417,7 @@ public class XYChart implements Swingable
     public void add(final Persistent persistent)
     {
         XYSeries set = new XYSeries(persistent.getDescription(), this.axisType, this.period);
-        persistent.addListener(set, Persistent.VALUE_EVENT, false);
+        persistent.addListener(set, Persistent.VALUE_EVENT, ReferenceType.STRONG);
         this.getDataset().addSeries(set);
     }
 
@@ -438,7 +432,7 @@ public class XYChart implements Swingable
             throws RemoteException
     {
         XYSeries set = new XYSeries(description, this.axisType, this.period);
-        source.addListener(set, eventType, EventProducerInterface.FIRST_POSITION, false);
+        source.addListener(set, eventType, EventProducerInterface.FIRST_POSITION, ReferenceType.STRONG);
         this.getDataset().addSeries(set);
     }
 

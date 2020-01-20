@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.process;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 
 /**
@@ -37,5 +39,12 @@ class Cow extends InterpretableProcess
     {
         this.moo();
         this.suspendProcess();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "Cow";
     }
 }

@@ -5,17 +5,18 @@ import java.util.Collection;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.djutils.event.EventType;
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.event.EventType;
 
 /**
  * A TableModel implementation of an eventlist is an extionsion of the eventlist which upholds its own TableModel. This
  * implementation is used to graphically display the events in the tree.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -102,7 +103,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "updateTableModel");
+            CategoryLogger.always().warn(exception, "updateTableModel");
         }
     }
 

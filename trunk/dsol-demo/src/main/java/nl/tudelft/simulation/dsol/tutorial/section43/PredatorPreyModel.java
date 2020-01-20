@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.tutorial.section43;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquationInterface;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
@@ -11,7 +13,7 @@ import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 /**
  * A Life.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -69,6 +71,13 @@ public class PredatorPreyModel extends AbstractDSOLModel.TimeDouble<DESSSimulato
     public final XYChart getChart()
     {
         return this.chart;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "PredatorPreyModel";
     }
 
 }

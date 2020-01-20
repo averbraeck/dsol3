@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.swing.gui.test;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * Simple M/M/1 queuing model, which can be changed into a X/X/c model by changing the parameters.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -74,6 +75,13 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     public MM1Model(DEVSSimulator.TimeDouble simulator)
     {
         super(simulator);
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "MM1Model";
     }
 
     /** {@inheritDoc} */
@@ -226,4 +234,5 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
             return "QueueEntry [queueInTime=" + this.queueInTime + ", object=" + this.object + "]";
         }
     }
+
 }

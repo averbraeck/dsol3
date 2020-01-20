@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.media.j3d.Bounds;
 
+import org.djutils.event.EventType;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.formalisms.flow.Station;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.language.d3.BoundingBox;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
@@ -20,7 +20,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 /**
  * The CPU example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. .
  * <p>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -66,7 +66,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
      */
     public CPU(final DEVSSimulatorInterface.TimeDouble simulator)
     {
-        super(simulator);
+        super("CPU", simulator);
         this.fireTimedEvent(UTILIZATION_EVENT, 0.0, simulator.getSimulatorTime());
     }
 
@@ -93,7 +93,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
             }
             catch (SimRuntimeException exception)
             {
-                SimLogger.always().error(exception);
+                getSimulator().getLogger().always().error(exception);
             }
         }
     }
@@ -111,7 +111,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
         }
         catch (SimRuntimeException exception)
         {
-            SimLogger.always().error(exception);
+            getSimulator().getLogger().always().error(exception);
         }
     }
 

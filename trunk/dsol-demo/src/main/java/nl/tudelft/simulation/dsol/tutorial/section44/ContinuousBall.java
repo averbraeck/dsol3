@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
@@ -16,7 +15,6 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  */
 public class ContinuousBall extends Ball
 {
-
     /** the positioner. */
     private Positioner positioner = null;
 
@@ -42,7 +40,7 @@ public class ContinuousBall extends Ball
         }
         catch (RemoteException exception)
         {
-            SimLogger.always().error(exception);
+            this.simulator.getLogger().always().error(exception);
         }
     }
 

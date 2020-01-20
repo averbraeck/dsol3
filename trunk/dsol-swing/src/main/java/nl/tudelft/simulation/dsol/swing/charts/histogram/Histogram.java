@@ -3,24 +3,25 @@ package nl.tudelft.simulation.dsol.swing.charts.histogram;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GradientPaint;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
 
+import org.djutils.event.EventProducerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.ReferenceType;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.EventProducerInterface;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.Swingable;
 import nl.tudelft.simulation.jstats.statistics.Counter;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The histogram specifies a histogram chart for the DSOL framework.
@@ -28,7 +29,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * copyright (c) 2002-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -38,8 +39,11 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  *         <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @since 1.5
  */
-public class Histogram implements Swingable
+public class Histogram implements Swingable, Serializable
 {
+    /** */
+    private static final long serialVersionUID = 20200108L;
+
     /** LABEL_X_AXIS is the label on the X-axis. */
     public static final String LABEL_X_AXIS = "X";
 
@@ -100,12 +104,12 @@ public class Histogram implements Swingable
         this(title, domain, range, numberofBins);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -122,12 +126,12 @@ public class Histogram implements Swingable
         this(title, domain, numberofBins);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -139,7 +143,7 @@ public class Histogram implements Swingable
     public synchronized void add(final Counter counter)
     {
         HistogramSeries set = this.getDataset().addSeries(counter.getDescription());
-        counter.addListener(set, Counter.COUNT_EVENT, false);
+        counter.addListener(set, Counter.COUNT_EVENT, ReferenceType.STRONG);
     }
 
     /**
@@ -154,7 +158,7 @@ public class Histogram implements Swingable
             throws RemoteException
     {
         HistogramSeries set = this.getDataset().addSeries(description);
-        source.addListener(set, eventType, false);
+        source.addListener(set, eventType, ReferenceType.STRONG);
     }
 
     /**

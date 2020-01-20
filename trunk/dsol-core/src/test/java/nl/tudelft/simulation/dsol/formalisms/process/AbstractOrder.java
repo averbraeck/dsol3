@@ -6,6 +6,8 @@
 
 package nl.tudelft.simulation.dsol.formalisms.process;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.Simulator;
 
@@ -18,14 +20,16 @@ public class AbstractOrder extends Process
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** our BWM */
+    /** our BWM. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     String car1 = "bmw";
 
     /** our second car. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     String car2 = null;
 
     /**
-     * The abstract order
+     * The abstract order.
      * @param car the car
      * @param scheduledTime the scheduled time
      * @param simulator the simulator to schedule on
@@ -37,7 +41,7 @@ public class AbstractOrder extends Process
     }
 
     /**
-     * the process method
+     * the process method.
      */
     @Override
     public void process()
@@ -45,5 +49,12 @@ public class AbstractOrder extends Process
         System.out.println("Print the cars");
         System.out.println("car1 =" + this.car1);
         System.out.println("car2 =" + this.car2);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "AbstractOrder";
     }
 }

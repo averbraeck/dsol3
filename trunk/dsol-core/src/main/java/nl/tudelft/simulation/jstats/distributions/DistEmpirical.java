@@ -10,7 +10,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The empirical distribution is a distribution based on a sorted list of observations.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -95,7 +95,7 @@ public class DistEmpirical extends DistContinuous
     {
         double u = super.stream.nextDouble();
         ObservationsInterface.Entry p =
-                this.observations.getPrecedingEntry(new Double(u), ObservationsInterface.CUMPROBABILITY, true);
+                this.observations.getPrecedingEntry(Double.valueOf(u), ObservationsInterface.CUMPROBABILITY, true);
         int j = this.observations.getIndex(p);
         ObservationsInterface.Entry q = this.observations.get(j + 1);
         double result = p.getObservation().doubleValue();
@@ -148,7 +148,7 @@ public class DistEmpirical extends DistContinuous
     private double probDensityGrouped(final double observation)
     {
         ObservationsInterface.Entry p =
-                this.observations.getPrecedingEntry(new Double(observation), ObservationsInterface.OBSERVATION, true);
+                this.observations.getPrecedingEntry(Double.valueOf(observation), ObservationsInterface.OBSERVATION, true);
         int j = this.observations.getIndex(p);
         ObservationsInterface.Entry q = this.observations.get(j + 1);
         return p.getCumProbability().doubleValue() + (observation - p.getObservation().doubleValue())
@@ -166,7 +166,7 @@ public class DistEmpirical extends DistContinuous
     private double probDensityNonGrouped(final double observation)
     {
         ObservationsInterface.Entry p =
-                this.observations.getPrecedingEntry(new Double(observation), ObservationsInterface.OBSERVATION, true);
+                this.observations.getPrecedingEntry(Double.valueOf(observation), ObservationsInterface.OBSERVATION, true);
         int i = this.observations.getIndex(p) + 1;
         ObservationsInterface.Entry q = this.observations.get(i);
         return ((i - 1) / ((double) (this.observations.size() - 1))) + ((observation - p.getObservation().doubleValue()))

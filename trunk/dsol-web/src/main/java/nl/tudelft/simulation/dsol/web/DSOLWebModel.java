@@ -18,28 +18,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
 import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
+import org.djutils.event.Event;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
 import org.eclipse.jetty.server.Request;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.web.animation.D2.HTMLAnimationPanel;
 import nl.tudelft.simulation.dsol.web.animation.D2.HTMLGridPanel;
 import nl.tudelft.simulation.dsol.web.animation.D2.ToggleButtonInfo;
-import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
 
 /**
  * OTSWebModel.java. <br>
  * <br>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -81,15 +80,15 @@ public class DSOLWebModel implements EventListenerInterface
         }
         catch (RemoteException re)
         {
-            SimLogger.always().warn(re, "Problem adding listeners to Simulator");
+            this.simulator.getLogger().always().warn(re, "Problem adding listeners to Simulator");
         }
 
         if (this.simulator instanceof AnimatorInterface)
         {
             this.animationPanel = new HTMLAnimationPanel(extent, new Dimension(800, 600), this.simulator);
             // get the already created elements in context(/animation/D2)
-            this.animationPanel.notify(
-                    new Event(SimulatorInterface.START_REPLICATION_EVENT, this.simulator, this.simulator.getSimulatorTime()));
+            this.animationPanel.notify(new Event(SimulatorInterface.START_REPLICATION_EVENT, this.simulator.getSourceId(),
+                    this.simulator.getSimulatorTime()));
         }
     }
 
@@ -135,7 +134,7 @@ public class DSOLWebModel implements EventListenerInterface
         }
         catch (SimRuntimeException exception)
         {
-            SimLogger.always().warn(exception, "Problem starting Simulator");
+            this.simulator.getLogger().always().warn(exception, "Problem starting Simulator");
         }
         if (getSimulator().isRunning())
         {
@@ -162,7 +161,7 @@ public class DSOLWebModel implements EventListenerInterface
         }
         catch (SimRuntimeException exception)
         {
-            SimLogger.always().warn(exception, "Problem stopping Simulator");
+            this.simulator.getLogger().always().warn(exception, "Problem stopping Simulator");
         }
         if (!getSimulator().isRunning())
         {
@@ -357,7 +356,7 @@ public class DSOLWebModel implements EventListenerInterface
                         }
                         catch (Exception exception)
                         {
-                            SimLogger.always().warn(exception, "getSelectedObjects");
+                            this.simulator.getLogger().always().warn(exception, "getSelectedObjects");
                         }
                         if (targets.size() > 0)
                         {

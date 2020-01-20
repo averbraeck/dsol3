@@ -6,7 +6,7 @@ import java.io.Serializable;
  * The StreamInterface defines the streams to be used within the JSTATS package. Potential implementations include the pseudo
  * random stream, the fully one-time random stream, etc.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -19,9 +19,9 @@ public interface StreamInterface extends Serializable
 {
     /**
      * Returns the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
-     * sequence. The general contract of <code>nextBoolean</code> is that one <code>boolean</code> value is pseudorandomly generated and
-     * returned. The values <code>true</code> and <code>false</code> are produced with (approximately) equal probability. The
-     * method <code>nextBoolean</code> is implemented by class <code>Random</code> as follows: <blockquote>
+     * sequence. The general contract of <code>nextBoolean</code> is that one <code>boolean</code> value is pseudorandomly
+     * generated and returned. The values <code>true</code> and <code>false</code> are produced with (approximately) equal
+     * probability. The method <code>nextBoolean</code> is implemented by class <code>Random</code> as follows: <blockquote>
      * 
      * <pre>
      * public boolean nextBoolean()

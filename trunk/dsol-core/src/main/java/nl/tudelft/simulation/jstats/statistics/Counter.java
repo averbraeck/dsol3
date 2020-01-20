@@ -1,16 +1,19 @@
 package nl.tudelft.simulation.jstats.statistics;
 
+import java.io.Serializable;
+
 import javax.swing.table.TableModel;
 
-import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventType;
+import org.djutils.event.Event;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.ReferenceType;
 
 /**
  * The Counter class defines a statistics event counter.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -53,6 +56,13 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     {
         super();
         this.description = description;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return this.description;
     }
 
     /**
@@ -130,7 +140,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     private void setCount(final long count)
     {
         this.count = count;
-        this.fireEvent(new Event(COUNT_EVENT, this, new Long(this.count)));
+        this.fireEvent(new Event(COUNT_EVENT, getSourceId(), Long.valueOf(this.count)));
     }
 
     /**
@@ -140,7 +150,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
     private void setN(final long n)
     {
         this.n = n;
-        this.fireEvent(new Event(N_EVENT, this, new Long(this.n)));
+        this.fireEvent(new Event(N_EVENT, getSourceId(), Long.valueOf(this.n)));
     }
 
     /**
@@ -159,15 +169,15 @@ public class Counter extends StatisticsObject implements EventListenerInterface
         String[] columnNames = {"field", "value"};
         EventType[] eventTypes = {null, Counter.N_EVENT, Counter.COUNT_EVENT};
         StatisticsTableModel result = new StatisticsTableModel(columnNames, eventTypes, 3);
-        this.addListener(result, Counter.N_EVENT, true);
-        this.addListener(result, Counter.COUNT_EVENT, true);
+        this.addListener(result, Counter.N_EVENT, ReferenceType.STRONG);
+        this.addListener(result, Counter.COUNT_EVENT, ReferenceType.STRONG);
 
         result.setValueAt("name", 0, 0);
         result.setValueAt("n", 1, 0);
         result.setValueAt("count", 2, 0);
         result.setValueAt(this.description, 0, 1);
-        result.setValueAt(new Long(this.n), 1, 1);
-        result.setValueAt(new Long(this.count), 2, 1);
+        result.setValueAt(Long.valueOf(this.n), 1, 1);
+        result.setValueAt(Long.valueOf(this.count), 2, 1);
         return result;
     }
 }

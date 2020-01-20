@@ -2,17 +2,20 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.EventProducer;
 import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -22,14 +25,13 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.event.EventProducer;
 import nl.tudelft.simulation.jstats.statistics.StatisticsObject;
 import nl.tudelft.simulation.language.concurrent.WorkerThread;
 
 /**
  * The Simulator class is an abstract implementation of the SimulatorInterface.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -43,8 +45,8 @@ import nl.tudelft.simulation.language.concurrent.WorkerThread;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class Simulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends EventProducer implements SimulatorInterface<A, R, T>, Runnable
+public abstract class Simulator<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends EventProducer implements SimulatorInterface<A, R, T>, Runnable
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -69,13 +71,21 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected transient Object semaphore = new Object();
 
+    /** the logger. */
+    private SimLogger logger;
+
+    /** the simulator id. */
+    private Serializable id;
+
     /**
-     * constructs a new Simulator.
+     * Constructs a new Simulator.
+     * @param id the id of the simulator, used in logging and firing of events.
      */
-    public Simulator()
+    public Simulator(final Serializable id)
     {
-        super();
+        this.id = id;
         this.worker = new WorkerThread(this.getClass().getName(), this);
+        this.logger = new SimLogger(this);
     }
 
     /** {@inheritDoc} */
@@ -97,6 +107,20 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     public Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> getReplication()
     {
         return this.replication;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public SimLogger getLogger()
+    {
+        return this.logger;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return this.id;
     }
 
     /** {@inheritDoc} */
@@ -315,6 +339,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new Simulator.TimeDouble.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeDouble(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -330,6 +363,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new Simulator.TimeFloat.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeFloat(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -344,6 +386,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Constructs a new Simulator.TimeLong.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeLong(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
@@ -361,6 +412,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new Simulator.TimeDoubleUnit.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeDoubleUnit(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -376,6 +436,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Constructs a new Simulator.TimeFloatUnit.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeFloatUnit(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
@@ -393,6 +462,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new Simulator.CalendarDouble.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarDouble(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -409,6 +487,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new Simulator.CalendarFloat.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarFloat(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -424,6 +511,15 @@ public abstract class Simulator<A extends Comparable<A>, R extends Number & Comp
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Constructs a new Simulator.CalendarLong.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarLong(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")

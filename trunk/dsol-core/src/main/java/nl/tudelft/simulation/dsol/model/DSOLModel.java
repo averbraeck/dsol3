@@ -28,7 +28,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * return it to anyone interested. Through the Simulator, the Replication can be requested and through that the Experiment and
  * the Treatment under which the simulation is running.
  * <p>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -41,7 +41,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @param <S> the simulator to use
  */
-public interface DSOLModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
+public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
         S extends SimulatorInterface<A, R, T>> extends Serializable
 {
     /**

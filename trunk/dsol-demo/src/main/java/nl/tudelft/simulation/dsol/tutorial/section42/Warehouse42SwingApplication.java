@@ -7,7 +7,6 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
@@ -19,7 +18,7 @@ import nl.tudelft.simulation.dsol.swing.gui.inputparameters.TabbedParameterDialo
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -52,7 +51,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
     public static void main(final String[] args)
             throws SimRuntimeException, RemoteException, NamingException, InterruptedException, InputParameterException
     {
-        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("Warehouse42SwingApplication");
         Warehouse42Model model = new Warehouse42Model(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 5 * 24.0, model);
@@ -104,7 +103,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
             }
             catch (RemoteException exception)
             {
-                SimLogger.always().error(exception);
+                this.simulator.getLogger().always().error(exception);
             }
         }
     }

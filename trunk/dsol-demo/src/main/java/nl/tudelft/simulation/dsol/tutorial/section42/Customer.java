@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.tutorial.section42;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.Cat;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
@@ -15,7 +14,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * A Customer.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -60,7 +59,7 @@ public class Customer implements BuyerInterface
     @Override
     public final void receiveProduct(final long amount)
     {
-        SimLogger.filter(Cat.DSOL).trace("receiveProduct: received " + amount);
+        this.simulator.getLogger().filter(Cat.DSOL).trace("receiveProduct: received " + amount);
     }
 
     /**
@@ -76,7 +75,7 @@ public class Customer implements BuyerInterface
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception, "createOrder");
+            this.simulator.getLogger().always().error(exception, "createOrder");
         }
     }
 }

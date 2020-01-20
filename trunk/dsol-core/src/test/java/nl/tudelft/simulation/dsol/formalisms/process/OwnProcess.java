@@ -3,14 +3,15 @@ package nl.tudelft.simulation.dsol.formalisms.process;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import junit.framework.Assert;
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
  * A process used for testing.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -27,7 +28,7 @@ public class OwnProcess extends Process
     /**
      * @param simulator the simulator
      */
-    public OwnProcess(DEVSSimulatorInterface.TimeDouble simulator)
+    public OwnProcess(final DEVSSimulatorInterface.TimeDouble simulator)
     {
         super(simulator);
     }
@@ -51,5 +52,12 @@ public class OwnProcess extends Process
         {
             fail();
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "OwnProcess";
     }
 }

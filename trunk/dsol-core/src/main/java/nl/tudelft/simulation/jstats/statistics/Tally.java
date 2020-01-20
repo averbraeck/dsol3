@@ -1,17 +1,21 @@
 package nl.tudelft.simulation.jstats.statistics;
 
+import java.io.Serializable;
+
 import javax.swing.table.TableModel;
 
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventType;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.ReferenceType;
+
 import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 
 /**
  * The Tally class defines a statistics event tally.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -102,6 +106,13 @@ public class Tally extends StatisticsObject implements EventListenerInterface
         this.description = description;
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return this.description;
+    }
+
     /**
      * Returns the sampleMean of all observations since the initialization.
      * @return double the sampleMean
@@ -141,7 +152,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
         }
         synchronized (this.semaphore)
         {
-            if (new Double(this.sampleMean).isNaN() || new Double(this.getStdDev()).isNaN())
+            if (Double.valueOf(this.sampleMean).isNaN() || Double.valueOf(this.getStdDev()).isNaN())
             {
                 return null;
             }
@@ -254,13 +265,13 @@ public class Tally extends StatisticsObject implements EventListenerInterface
         EventType[] eventTypes = {null, Tally.N_EVENT, Tally.MIN_EVENT, Tally.MAX_EVENT, Tally.SAMPLE_MEAN_EVENT,
                 Tally.SAMPLE_VARIANCE_EVENT, Tally.STANDARD_DEVIATION_EVENT, Tally.SUM_EVENT};
         StatisticsTableModel result = new StatisticsTableModel(columnNames, eventTypes, 8);
-        this.addListener(result, Tally.N_EVENT, true);
-        this.addListener(result, Tally.MAX_EVENT, true);
-        this.addListener(result, Tally.MIN_EVENT, true);
-        this.addListener(result, Tally.SAMPLE_MEAN_EVENT, true);
-        this.addListener(result, Tally.SAMPLE_VARIANCE_EVENT, true);
-        this.addListener(result, Tally.STANDARD_DEVIATION_EVENT, true);
-        this.addListener(result, Tally.SUM_EVENT, true);
+        this.addListener(result, Tally.N_EVENT, ReferenceType.WEAK);
+        this.addListener(result, Tally.MAX_EVENT, ReferenceType.WEAK);
+        this.addListener(result, Tally.MIN_EVENT, ReferenceType.WEAK);
+        this.addListener(result, Tally.SAMPLE_MEAN_EVENT, ReferenceType.WEAK);
+        this.addListener(result, Tally.SAMPLE_VARIANCE_EVENT, ReferenceType.WEAK);
+        this.addListener(result, Tally.STANDARD_DEVIATION_EVENT, ReferenceType.WEAK);
+        this.addListener(result, Tally.SUM_EVENT, ReferenceType.WEAK);
 
         result.setValueAt("name", 0, 0);
         result.setValueAt("n", 1, 0);
@@ -274,13 +285,13 @@ public class Tally extends StatisticsObject implements EventListenerInterface
         // Since the result is subscribed to the actual values
         // there is no need to create a synchronized block.
         result.setValueAt(this.description, 0, 1);
-        result.setValueAt(new Long(this.n), 1, 1);
-        result.setValueAt(new Double(this.min), 2, 1);
-        result.setValueAt(new Double(this.max), 3, 1);
-        result.setValueAt(new Double(this.sampleMean), 4, 1);
-        result.setValueAt(new Double(this.getSampleVariance()), 5, 1);
-        result.setValueAt(new Double(this.getStdDev()), 6, 1);
-        result.setValueAt(new Double(this.getSum()), 7, 1);
+        result.setValueAt(Long.valueOf(this.n), 1, 1);
+        result.setValueAt(Double.valueOf(this.min), 2, 1);
+        result.setValueAt(Double.valueOf(this.max), 3, 1);
+        result.setValueAt(Double.valueOf(this.sampleMean), 4, 1);
+        result.setValueAt(Double.valueOf(this.getSampleVariance()), 5, 1);
+        result.setValueAt(Double.valueOf(this.getStdDev()), 6, 1);
+        result.setValueAt(Double.valueOf(this.getSum()), 7, 1);
         return result;
     }
 
@@ -322,7 +333,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
 
         synchronized (this.semaphore)
         {
-            if (new Double(this.sampleMean).isNaN())
+            if (Double.valueOf(this.sampleMean).isNaN())
             {
                 this.sampleMean = 0.0;
             }

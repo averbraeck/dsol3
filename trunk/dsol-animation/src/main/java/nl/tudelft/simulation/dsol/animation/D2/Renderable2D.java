@@ -7,7 +7,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.rmi.RemoteException;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
@@ -17,12 +16,13 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d2.Shape;
 import nl.tudelft.simulation.language.d3.BoundsUtil;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The Renderable2D provides an easy accessible renderable object.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -33,6 +33,9 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  */
 public abstract class Renderable2D<T extends Locatable> implements Renderable2DInterface<T>
 {
+    /** */
+    private static final long serialVersionUID = 20200108L;
+
     /**
      * Storage of the boolean flags, to prevent each flag from taking 32 bits... The initial value is binary 1011 = 0B: rotate =
      * true, flip = false, scale = true, translate = true.
@@ -56,10 +59,13 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     private final T source;
 
     /** the naming Context in which to store the Renderable with a pointer to the Locatable object. */
-    private final Context context;
+    private final ContextInterface context;
 
     /** the unique id. */
     private final long id;
+    
+    /** the logger for errors / warnings. */
+    private final SimLogger logger;
 
     /** the generator for the unique id. TODO Static for now, should be replaced by a context dependent one. */
     private static long lastGeneratedId = 0;
@@ -75,7 +81,8 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     {
         this.id = ++lastGeneratedId;
         this.source = source;
-        this.context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
+        this.logger = simulator.getLogger();
+        this.context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D");
         if (!(simulator instanceof AnimatorInterface))
         {
             // We are currently running without animation
@@ -236,7 +243,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "paint");
+            this.logger.always().warn(exception, "paint");
         }
     }
 
@@ -259,7 +266,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         }
         catch (RemoteException exception)
         {
-            SimLogger.always().warn(exception, "contains");
+            this.logger.always().warn(exception, "contains");
             return false;
         }
     }
@@ -267,7 +274,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void destroy() throws NamingException
+    public void destroy() throws NamingException, RemoteException
     {
         this.context.unbind(Long.toString(this.id));
     }

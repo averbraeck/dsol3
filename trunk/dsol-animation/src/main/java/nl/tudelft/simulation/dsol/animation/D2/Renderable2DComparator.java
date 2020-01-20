@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -43,6 +43,6 @@ public class Renderable2DComparator implements Comparator<Renderable2DInterface<
             // ignore as this can happen when the source is in the process of deletion
             // and therefore it cannot return a proper location.
         }
-        return new Integer(r1.hashCode()).compareTo(new Integer(r2.hashCode()));
+        return Integer.valueOf(r1.hashCode()).compareTo(Integer.valueOf(r2.hashCode()));
     }
 }

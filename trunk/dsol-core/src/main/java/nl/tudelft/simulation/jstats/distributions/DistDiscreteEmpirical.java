@@ -12,7 +12,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The discrete empirical distribution as defined on page 326 of Law &amp; Kelton.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -77,7 +77,7 @@ public class DistDiscreteEmpirical extends DistDiscrete
         Long[] values = new Long[observations.length];
         for (int i = 0; i < values.length; i++)
         {
-            values[i] = new Long(observations[i]);
+            values[i] = Long.valueOf(observations[i]);
         }
         this.observations = new Observations(DistDiscreteEmpirical.constructGroupedMap(Arrays.asList(values)), false);
     }
@@ -102,7 +102,7 @@ public class DistDiscreteEmpirical extends DistDiscrete
     public long draw()
     {
         double u = super.stream.nextDouble();
-        return this.observations.getCeilingEntry(new Double(u), ObservationsInterface.CUMPROBABILITY, true).getObservation()
+        return this.observations.getCeilingEntry(Double.valueOf(u), ObservationsInterface.CUMPROBABILITY, true).getObservation()
                 .longValue();
     }
 
@@ -110,10 +110,10 @@ public class DistDiscreteEmpirical extends DistDiscrete
     @Override
     public double probability(final int observation)
     {
-        if (this.observations.contains(new Long(observation), ObservationsInterface.OBSERVATION))
+        if (this.observations.contains(Long.valueOf(observation), ObservationsInterface.OBSERVATION))
         {
             int index = this.observations
-                    .getIndex(this.observations.getEntry(new Long(observation), ObservationsInterface.OBSERVATION));
+                    .getIndex(this.observations.getEntry(Long.valueOf(observation), ObservationsInterface.OBSERVATION));
             if (index > 0)
             {
                 return this.observations.get(index).getCumProbability().doubleValue()

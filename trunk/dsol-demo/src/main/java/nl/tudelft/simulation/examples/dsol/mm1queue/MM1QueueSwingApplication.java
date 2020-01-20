@@ -17,7 +17,7 @@ import nl.tudelft.simulation.dsol.swing.gui.inputparameters.TabbedParameterDialo
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -50,7 +50,7 @@ public class MM1QueueSwingApplication extends DSOLApplication
     public static void main(final String[] args)
             throws SimRuntimeException, RemoteException, NamingException, InterruptedException, InputParameterException
     {
-        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("MM1QueueSwingApplication");
         MM1QueueModel model = new MM1QueueModel(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);

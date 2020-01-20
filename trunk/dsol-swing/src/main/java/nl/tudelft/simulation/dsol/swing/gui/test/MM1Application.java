@@ -12,7 +12,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -46,7 +46,7 @@ public class MM1Application
      */
     protected MM1Application() throws SimRuntimeException, RemoteException, NamingException
     {
-        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("MM1Application.Simulator");
         DSOLModel.TimeDouble<DEVSSimulator.TimeDouble> model = new MM1Model(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);

@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -9,10 +10,10 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.EventType;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -23,12 +24,11 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventType;
 
 /**
  * The Seize requests a resource and releases an entity whenever this resource is actually claimed.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -41,7 +41,7 @@ import nl.tudelft.simulation.event.EventType;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class Seize<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Station<A, R, T> implements ResourceRequestorInterface<A, R, T>
 {
     /** */
@@ -64,24 +64,26 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
     /**
      * Constructor for Seize.
+     * @param id Serializable; the id of the Station
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which behavior is scheduled
      * @param resource Resource&lt;A,R,T&gt;; which is claimed
      */
-    public Seize(final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource)
+    public Seize(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource)
     {
-        this(simulator, resource, 1.0);
+        this(id, simulator, resource, 1.0);
     }
 
     /**
      * Constructor for Seize.
+     * @param id Serializable; the id of the Station
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which behavior is scheduled
      * @param resource Resource&lt;A,R,T&gt;; which is claimed
      * @param requestedCapacity double; is the amount which is claimed by the seize
      */
-    public Seize(final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource,
+    public Seize(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator, final Resource<A, R, T> resource,
             final double requestedCapacity)
     {
-        super(simulator);
+        super(id, simulator);
         if (requestedCapacity < 0.0)
         {
             throw new IllegalArgumentException("requestedCapacity cannot < 0.0");
@@ -111,7 +113,7 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "receiveObject");
+            this.simulator.getLogger().always().warn(exception, "receiveObject");
         }
     }
 
@@ -171,7 +173,8 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
      *            relative types are the same.
      * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
      */
-    public static class Request<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+    public static class Request<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+            T extends SimTime<A, R, T>>
     {
         /** amount is the requested amount. */
         private final double amount;
@@ -235,25 +238,27 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDouble; on which behavior is scheduled
          * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; which is claimed
          */
-        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
+        public TimeDouble(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
                 final Resource<Double, Double, SimTimeDouble> resource)
         {
-            super(simulator, resource);
+            super(id, simulator, resource);
         }
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDouble; on which behavior is scheduled
          * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; which is claimed
          * @param requestedCapacity double; is the amount which is claimed by the seize
          */
-        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
+        public TimeDouble(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
                 final Resource<Double, Double, SimTimeDouble> resource, final double requestedCapacity)
         {
-            super(simulator, resource, requestedCapacity);
+            super(id, simulator, resource, requestedCapacity);
         }
     }
 
@@ -265,24 +270,27 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloat; on which behavior is scheduled
          * @param resource Resource&lt;Float,Float,SimTimeFloat&gt;; which is claimed
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator, final Resource<Float, Float, SimTimeFloat> resource)
+        public TimeFloat(final Serializable id, final DEVSSimulatorInterface.TimeFloat simulator,
+                final Resource<Float, Float, SimTimeFloat> resource)
         {
-            super(simulator, resource);
+            super(id, simulator, resource);
         }
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloat; on which behavior is scheduled
          * @param resource Resource&lt;Float,Float,SimTimeFloat&gt;; which is claimed
          * @param requestedCapacity double; is the amount which is claimed by the seize
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator, final Resource<Float, Float, SimTimeFloat> resource,
-                final double requestedCapacity)
+        public TimeFloat(final Serializable id, final DEVSSimulatorInterface.TimeFloat simulator,
+                final Resource<Float, Float, SimTimeFloat> resource, final double requestedCapacity)
         {
-            super(simulator, resource, requestedCapacity);
+            super(id, simulator, resource, requestedCapacity);
         }
 
     }
@@ -295,24 +303,27 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeLong; on which behavior is scheduled
          * @param resource Resource&lt;Long,Long,SimTimeLong&gt;; which is claimed
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final Resource<Long, Long, SimTimeLong> resource)
+        public TimeLong(final Serializable id, final DEVSSimulatorInterface.TimeLong simulator,
+                final Resource<Long, Long, SimTimeLong> resource)
         {
-            super(simulator, resource);
+            super(id, simulator, resource);
         }
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeLong; on which behavior is scheduled
          * @param resource Resource&lt;Long,Long,SimTimeLong&gt;; which is claimed
          * @param requestedCapacity double; is the amount which is claimed by the seize
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final Resource<Long, Long, SimTimeLong> resource,
-                final double requestedCapacity)
+        public TimeLong(final Serializable id, final DEVSSimulatorInterface.TimeLong simulator,
+                final Resource<Long, Long, SimTimeLong> resource, final double requestedCapacity)
         {
-            super(simulator, resource, requestedCapacity);
+            super(id, simulator, resource, requestedCapacity);
         }
     }
 
@@ -325,25 +336,27 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which behavior is scheduled
          * @param resource Resource&lt;Time,Duration,SimTimeDoubleUnit&gt;; which is claimed
          */
-        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
+        public TimeDoubleUnit(final Serializable id, final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final Resource<Time, Duration, SimTimeDoubleUnit> resource)
         {
-            super(simulator, resource);
+            super(id, simulator, resource);
         }
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; on which behavior is scheduled
          * @param resource Resource&lt;Time,Duration,SimTimeDoubleUnit&gt;; which is claimed
          * @param requestedCapacity double; is the amount which is claimed by the seize
          */
-        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
+        public TimeDoubleUnit(final Serializable id, final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final Resource<Time, Duration, SimTimeDoubleUnit> resource, final double requestedCapacity)
         {
-            super(simulator, resource, requestedCapacity);
+            super(id, simulator, resource, requestedCapacity);
         }
     }
 
@@ -356,25 +369,27 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which behavior is scheduled
          * @param resource Resource&lt;FloatTime,FloatDuration,SimTimeFloatUnit&gt;; which is claimed
          */
-        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
+        public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource)
         {
-            super(simulator, resource);
+            super(id, simulator, resource);
         }
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; on which behavior is scheduled
          * @param resource Resource&lt;FloatTime,FloatDuration,SimTimeFloatUnit&gt;; which is claimed
          * @param requestedCapacity double; is the amount which is claimed by the seize
          */
-        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
+        public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final Resource<FloatTime, FloatDuration, SimTimeFloatUnit> resource, final double requestedCapacity)
         {
-            super(simulator, resource, requestedCapacity);
+            super(id, simulator, resource, requestedCapacity);
         }
     }
 
@@ -387,25 +402,27 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarDouble; on which behavior is scheduled
          * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is claimed
          */
-        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
+        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
                 final Resource<Calendar, Duration, SimTimeCalendarDouble> resource)
         {
-            super(simulator, resource);
+            super(id, simulator, resource);
         }
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarDouble; on which behavior is scheduled
          * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is claimed
          * @param requestedCapacity double; is the amount which is claimed by the seize
          */
-        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
+        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
                 final Resource<Calendar, Duration, SimTimeCalendarDouble> resource, final double requestedCapacity)
         {
-            super(simulator, resource, requestedCapacity);
+            super(id, simulator, resource, requestedCapacity);
         }
     }
 
@@ -418,25 +435,27 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarFloat; on which behavior is scheduled
          * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is claimed
          */
-        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
+        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
                 final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource)
         {
-            super(simulator, resource);
+            super(id, simulator, resource);
         }
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarFloat; on which behavior is scheduled
          * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is claimed
          * @param requestedCapacity double; is the amount which is claimed by the seize
          */
-        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
+        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
                 final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource, final double requestedCapacity)
         {
-            super(simulator, resource, requestedCapacity);
+            super(id, simulator, resource, requestedCapacity);
         }
     }
 
@@ -448,25 +467,27 @@ public class Seize<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarLong; on which behavior is scheduled
          * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is claimed
          */
-        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
+        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
                 final Resource<Calendar, Long, SimTimeCalendarLong> resource)
         {
-            super(simulator, resource);
+            super(id, simulator, resource);
         }
 
         /**
          * Constructor for Seize.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarLong; on which behavior is scheduled
          * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is claimed
          * @param requestedCapacity double; is the amount which is claimed by the seize
          */
-        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
+        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
                 final Resource<Calendar, Long, SimTimeCalendarLong> resource, final double requestedCapacity)
         {
-            super(simulator, resource, requestedCapacity);
+            super(id, simulator, resource, requestedCapacity);
         }
     }
 }

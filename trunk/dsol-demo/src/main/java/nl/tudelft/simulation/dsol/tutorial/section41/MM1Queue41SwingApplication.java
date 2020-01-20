@@ -4,12 +4,12 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -19,7 +19,7 @@ import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 /**
  * M/M/1 queuing model with animation and graphs.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -50,7 +50,7 @@ public class MM1Queue41SwingApplication extends DSOLApplication
         }
         catch (SimRuntimeException exception)
         {
-            SimLogger.always().error(exception, "<init>");
+            devsSimulator.getLogger().always().error(exception, "<init>");
         }
     }
 
@@ -65,13 +65,12 @@ public class MM1Queue41SwingApplication extends DSOLApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        SimLogger.setAllLogLevel(Level.TRACE);
-        DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble();
+        CategoryLogger.setAllLogLevel(Level.TRACE);
+        DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble("MM1Queue41SwingApplication");
         MM1Queue41Model model = new MM1Queue41Model(devsSimulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
         devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
-        SimLogger.setSimulator(devsSimulator);
         MM1Queue41Panel panel = new MM1Queue41Panel(model, devsSimulator);
         new MM1Queue41SwingApplication("MM1 Queue model", panel, model, devsSimulator);
     }
@@ -79,9 +78,9 @@ public class MM1Queue41SwingApplication extends DSOLApplication
     /** stop the simulation. */
     protected final void terminate()
     {
-        SimLogger.always().info("average queue length = " + this.model.qN.getSampleMean());
-        SimLogger.always().info("average queue wait   = " + this.model.dN.getSampleMean());
-        SimLogger.always().info("average utilization  = " + this.model.uN.getSampleMean());
+        this.model.getSimulator().getLogger().always().info("average queue length = " + this.model.qN.getSampleMean());
+        this.model.getSimulator().getLogger().always().info("average queue wait   = " + this.model.dN.getSampleMean());
+        this.model.getSimulator().getLogger().always().info("average utilization  = " + this.model.uN.getSampleMean());
     }
 
 }

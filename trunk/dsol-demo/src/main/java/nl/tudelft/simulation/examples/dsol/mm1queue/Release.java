@@ -1,9 +1,12 @@
 package nl.tudelft.simulation.examples.dsol.mm1queue;
 
+import java.io.Serializable;
+
+import org.djutils.event.EventType;
+
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventType;
 
 /**
  * The Seize is an extended Seize block which computes the servicetime. <br>
@@ -22,24 +25,27 @@ public class Release extends nl.tudelft.simulation.dsol.formalisms.flow.Release.
 
     /**
      * constructs a new Release.
+     * @param id the id of the Release block
      * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator on which to schedule
      * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; the resource to be released
      */
-    public Release(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<Double, Double, SimTimeDouble> resource)
+    public Release(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
+            final Resource<Double, Double, SimTimeDouble> resource)
     {
-        super(simulator, resource);
+        super(id, simulator, resource);
     }
 
     /**
      * constructs a new Release.
+     * @param id the id of the Release block
      * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator on which to schedule
      * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; the resource to be released
      * @param amount double; the amount to be released
      */
-    public Release(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<Double, Double, SimTimeDouble> resource,
-            final double amount)
+    public Release(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
+            final Resource<Double, Double, SimTimeDouble> resource, final double amount)
     {
-        super(simulator, resource, amount);
+        super(id, simulator, resource, amount);
     }
 
     /** {@inheritDoc} */

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * The observations interface is an interface for empirical observations to be used in JStats.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -87,8 +87,8 @@ public interface ObservationsInterface
     /**
      * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not exists,
      * returns the entry for the greatest object less than the specified object; if no such entry exists (i.e., the least object
-     * in the Tree is greater than the specified object), returns <code>null</code>. If multiple entries match the search, there is
-     * no guarantee which entry is returned.
+     * in the Tree is greater than the specified object), returns <code>null</code>. If multiple entries match the search, there
+     * is no guarantee which entry is returned.
      * @param object Number; object whose next object associated value is to be returned.
      * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive boolean; if inclusive and structure contains object object is returned
@@ -100,8 +100,8 @@ public interface ObservationsInterface
     /**
      * Gets the entry corresponding to the specified object if inclusive; if not inclusive or such entry does not exists,
      * returns the entry for the least object greater than the specified object; if no such entry exists (i.e., the greatest
-     * object in the Tree is less than the specified object), returns <code>null</code>. If multiple entries match the search, there
-     * is no guarantee which entry is returned.
+     * object in the Tree is less than the specified object), returns <code>null</code>. If multiple entries match the search,
+     * there is no guarantee which entry is returned.
      * @param object Number; object whose associated value is to be returned.
      * @param type byte; the type (either the ObservationsInterface.OBSERVATION or the ObservationsInterface.CUMPROBABILITY)
      * @param inclusive boolean; if inclusive and structure contains object object is returned

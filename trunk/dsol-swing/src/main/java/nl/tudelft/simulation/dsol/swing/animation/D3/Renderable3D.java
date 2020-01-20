@@ -9,7 +9,6 @@ import javax.media.j3d.Group;
 import javax.media.j3d.Node;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
-import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.vecmath.AxisAngle4d;
 import javax.vecmath.Vector3d;
@@ -19,12 +18,13 @@ import nl.tudelft.simulation.dsol.animation.StaticLocation;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * Renderable3D, a 3d renderable.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -34,6 +34,9 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  */
 public abstract class Renderable3D extends BranchGroup implements Renderable3DInterface
 {
+    /** */
+    private static final long serialVersionUID = 20200109L;
+
     /** the source of this animatableObject. */
     protected Locatable source = null;
 
@@ -112,12 +115,12 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         this.update();
         try
         {
-            Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/3D");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "/animation/3D");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            this.simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -160,12 +163,12 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         this.update();
         try
         {
-            Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/3D");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "/animation/3D");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            this.simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -236,7 +239,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         catch (RemoteException exception)
         {
             this.rotate.set(new Vector3d(0, 0, 0));
-            SimLogger.always().warn(exception, "update");
+            this.simulator.getLogger().always().warn(exception, "update");
         }
     }
 

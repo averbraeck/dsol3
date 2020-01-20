@@ -19,11 +19,12 @@ import nl.tudelft.simulation.dsol.swing.animation.D2.actions.PanUpAction;
 import nl.tudelft.simulation.dsol.swing.animation.D2.actions.ShowGridAction;
 import nl.tudelft.simulation.dsol.swing.animation.D2.actions.ZoomInAction;
 import nl.tudelft.simulation.dsol.swing.animation.D2.actions.ZoomOutAction;
+import nl.tudelft.simulation.language.DSOLException;
 
 /**
  * The AnimationFrame.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -52,8 +53,9 @@ public class AnimationFrame extends JFrame
      * @param name String; the name of the frame
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @throws RemoteException on network error for one of the listeners
+     * @throws DSOLException when the simulator is not implementing AnimatorInterface
      */
-    public AnimationFrame(final String name, final SimulatorInterface<?, ?, ?> simulator) throws RemoteException
+    public AnimationFrame(final String name, final SimulatorInterface<?, ?, ?> simulator) throws RemoteException, DSOLException
     {
         super(name);
         this.getContentPane().setLayout(new BorderLayout());
@@ -65,10 +67,10 @@ public class AnimationFrame extends JFrame
             double[] values = new double[4];
             for (int i = 0; i < 3; i++)
             {
-                values[i] = new Double(extentString.substring(0, extentString.indexOf(";"))).doubleValue();
+                values[i] = Double.valueOf(extentString.substring(0, extentString.indexOf(";"))).doubleValue();
                 extentString = extentString.substring(extentString.indexOf(";") + 1);
             }
-            values[3] = new Double(extentString).doubleValue();
+            values[3] = Double.valueOf(extentString).doubleValue();
             extent = new Rectangle2D.Double(values[0], values[1], values[2], values[3]);
         }
         else
@@ -80,8 +82,8 @@ public class AnimationFrame extends JFrame
         Dimension size = new Dimension(1024, 768);
         if (sizeString != null)
         {
-            double width = new Double(sizeString.substring(0, sizeString.indexOf(";"))).doubleValue();
-            double height = new Double(sizeString.substring(sizeString.indexOf(";") + 1)).doubleValue();
+            double width = Double.valueOf(sizeString.substring(0, sizeString.indexOf(";"))).doubleValue();
+            double height = Double.valueOf(sizeString.substring(sizeString.indexOf(";") + 1)).doubleValue();
             size = new Dimension((int) width, (int) height);
         }
         AnimationPanel panel = new AnimationPanel(extent, size, simulator);

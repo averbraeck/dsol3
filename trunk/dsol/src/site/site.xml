@@ -12,7 +12,6 @@
     <menu name="DSOL 3.0 MODULES">
       <item name="dsol" href="https://simulation.tudelft.nl/dsol/${project.version}/index.html" />
       <item name="dsol-base" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-base/index.html" />
-      <item name="dsol-event" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-event/index.html" />
       <item name="dsol-naming" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-naming/index.html" />
       <item name="dsol-interpreter" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-interpreter/index.html" />
       <item name="dsol-introspection" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-introspection/index.html" />

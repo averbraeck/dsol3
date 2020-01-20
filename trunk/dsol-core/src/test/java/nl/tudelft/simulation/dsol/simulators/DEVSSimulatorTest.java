@@ -3,17 +3,17 @@ package nl.tudelft.simulation.dsol.simulators;
 import java.rmi.RemoteException;
 import java.util.concurrent.TimeoutException;
 
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
 import org.junit.Test;
 
 import net.jodah.concurrentunit.Waiter;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
 
 /**
  * The DEVSSimulatorTest test the DEVS Simulator.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -37,7 +37,7 @@ public class DEVSSimulatorTest implements EventListenerInterface
     public void testDEVSSimulator() throws TimeoutException, InterruptedException, RemoteException
     {
         this.waiter = new Waiter();
-        DEVSSimulatorInterface.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble();
+        DEVSSimulatorInterface.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble("DEVSSimulatorTest");
         devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
         ExperimentalFrame experimentalFrame =
                 ExperimentUtilDouble.createExperimentalFrame(devsSimulator, new DEVSTestModel(devsSimulator));

@@ -1,17 +1,21 @@
 package nl.tudelft.simulation.dsol.statistics;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.Event;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventProducerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.ReferenceType;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -22,17 +26,14 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventProducerInterface;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.statistics.Tally;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The time-aware Tally extends the generic tally and links it to the dsol framework.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -43,7 +44,8 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @param <R> the relative time type
  * @param <T> the absolute simulation time to use in the warmup event
  */
-public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends Tally
+public class SimTally<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends Tally
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -91,27 +93,28 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
         }
         else
         {
-            this.simulator.addListener(this, SimulatorInterface.WARMUP_EVENT, false);
+            this.simulator.addListener(this, SimulatorInterface.WARMUP_EVENT, ReferenceType.STRONG);
         }
-        this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, false);
+        this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
         try
         {
-            Context context = ContextUtil.lookup(this.simulator.getReplication().getContext(), "/statistics");
-            ContextUtil.bind(context, this);
+            ContextInterface context =
+                    ContextUtil.lookupOrCreateSubContext(this.simulator.getReplication().getContext(), "statistics");
+            context.bindObject(this);
         }
         catch (NamingException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            this.simulator.getLogger().always().warn(exception, "<init>");
         }
 
         // subscribe to the events from the super Tally to send timed events by this simulator aware tally
-        super.addListener(this, Tally.MAX_EVENT, true);
-        super.addListener(this, Tally.MIN_EVENT, true);
-        super.addListener(this, Tally.N_EVENT, true);
-        super.addListener(this, Tally.SAMPLE_MEAN_EVENT, true);
-        super.addListener(this, Tally.SAMPLE_VARIANCE_EVENT, true);
-        super.addListener(this, Tally.STANDARD_DEVIATION_EVENT, true);
-        super.addListener(this, Tally.SUM_EVENT, true);
+        super.addListener(this, Tally.MAX_EVENT, ReferenceType.STRONG);
+        super.addListener(this, Tally.MIN_EVENT, ReferenceType.STRONG);
+        super.addListener(this, Tally.N_EVENT, ReferenceType.STRONG);
+        super.addListener(this, Tally.SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
+        super.addListener(this, Tally.SAMPLE_VARIANCE_EVENT, ReferenceType.STRONG);
+        super.addListener(this, Tally.STANDARD_DEVIATION_EVENT, ReferenceType.STRONG);
+        super.addListener(this, Tally.SUM_EVENT, ReferenceType.STRONG);
     }
 
     /**
@@ -126,7 +129,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
             final EventType eventType) throws RemoteException
     {
         this(description, simulator);
-        target.addListener(this, eventType, false);
+        target.addListener(this, eventType, ReferenceType.STRONG);
     }
 
     /** {@inheritDoc} */
@@ -174,7 +177,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
             return;
         }
 
-        if (event.getSource().equals(this.simulator))
+        if (event.getSourceId().equals(this.simulator.getSourceId()))
         {
             if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
             {
@@ -184,7 +187,8 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
                 }
                 catch (RemoteException exception)
                 {
-                    SimLogger.always().warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
+                    this.simulator.getLogger().always().warn(exception,
+                            "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;
@@ -198,7 +202,7 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
                 }
                 catch (RemoteException exception)
                 {
-                    SimLogger.always().warn(exception,
+                    this.simulator.getLogger().always().warn(exception,
                             "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
                 }
                 this.endOfReplication();
@@ -212,34 +216,33 @@ public class SimTally<A extends Comparable<A>, R extends Number & Comparable<R>,
     }
 
     /**
-     * endOfReplication is invoked to store the final results. A special Tally is created in the Context to tally the average
-     * results of all replications. Herewith the confidence interval of the means over the different replications can be
-     * calculated.
+     * endOfReplication is invoked to store the final results. A special Tally is created in the Context of the experiment to
+     * tally the average results of all replications. Herewith the confidence interval of the means over the different
+     * replications can be calculated.
      */
     @SuppressWarnings("checkstyle:designforextension")
     protected void endOfReplication()
     {
         try
         {
-            Context context = this.simulator.getReplication().getTreatment().getExperiment().getContext();
-            context = ContextUtil.lookup(context, "average");
-            context = ContextUtil.lookup(context, "statistics");
-            Tally tally = null;
-            try
+            ContextInterface context = ContextUtil
+                    .lookupOrCreateSubContext(this.simulator.getReplication().getExperiment().getContext(), "statistics");
+            Tally experimentTally;
+            if (context.hasKey(this.description))
             {
-                tally = (Tally) context.lookup(this.description);
+                experimentTally = (Tally) context.getObject(this.description);
             }
-            catch (NamingException exception)
+            else
             {
-                tally = new Tally(this.description);
-                context.bind(this.description, tally);
-                tally.initialize();
+                experimentTally = new Tally(this.description);
+                context.bindObject(this.description, experimentTally);
+                experimentTally.initialize();
             }
-            tally.notify(new Event(null, this, new Double(this.sampleMean)));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.sampleMean)));
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "endOfReplication");
+            this.simulator.getLogger().always().warn(exception, "endOfReplication");
         }
     }
 

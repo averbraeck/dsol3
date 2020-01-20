@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.examples.dsol.mm1queue;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -7,7 +9,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * The Seize is an extended Seize block whic sets delay times on arriving customers..
  * <p>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -22,24 +24,27 @@ public class Seize extends nl.tudelft.simulation.dsol.formalisms.flow.Seize.Time
 
     /**
      * constructs a new Seize.
+     * @param id the id of the Release block
      * @param simulator DEVSSimulatorInterface.TimeDouble; the devs simulator on which to schedule
      * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; the resource to claim
      */
-    public Seize(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<Double, Double, SimTimeDouble> resource)
+    public Seize(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
+            final Resource<Double, Double, SimTimeDouble> resource)
     {
-        super(simulator, resource);
+        super(id, simulator, resource);
     }
 
     /**
      * constructs a new Seize.
+     * @param id the id of the Release block
      * @param simulator DEVSSimulatorInterface.TimeDouble; the devs simulator on which to schedule
      * @param resource Resource&lt;Double,Double,SimTimeDouble&gt;; the resource to claim
      * @param requestedCapacity double; the amount to claim
      */
-    public Seize(final DEVSSimulatorInterface.TimeDouble simulator, final Resource<Double, Double, SimTimeDouble> resource,
-            final double requestedCapacity)
+    public Seize(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
+            final Resource<Double, Double, SimTimeDouble> resource, final double requestedCapacity)
     {
-        super(simulator, resource, requestedCapacity);
+        super(id, simulator, resource, requestedCapacity);
     }
 
     /** {@inheritDoc} */

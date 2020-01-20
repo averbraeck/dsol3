@@ -7,12 +7,12 @@ import java.util.Properties;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.Bounds;
 
+import org.djutils.event.EventProducer;
+import org.djutils.event.EventType;
 import org.djutils.io.URLResource;
+import org.djutils.logger.CategoryLogger;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.EventProducer;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 
@@ -20,7 +20,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * An Editable object is a simulation object that can be edited by the user. That means that the user is capable of
  * instantiating, moving, rotating, and editing the vertices that span up the shape of this object during the simulation.
  * <p>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -50,7 +50,7 @@ public abstract class Editable extends EventProducer implements Locatable
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception, "<clinit>");
+            CategoryLogger.always().error(exception, "<clinit>");
         }
     }
 

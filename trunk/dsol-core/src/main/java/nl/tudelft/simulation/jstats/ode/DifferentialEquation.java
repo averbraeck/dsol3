@@ -1,13 +1,14 @@
 package nl.tudelft.simulation.jstats.ode;
 
-import nl.tudelft.simulation.event.EventProducer;
+import org.djutils.event.EventProducer;
+
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegrator;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 
 /**
  * The DifferentialEquation is the abstract basis for the DESS formalism.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -28,7 +29,7 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double[] lastY = null;
 
-    /** the stepSize. */
+    /** the stepSize; can be negative or positive. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected double stepSize = Double.NaN;
 
@@ -65,10 +66,16 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
         {
             throw new RuntimeException("differential equation not initialized");
         }
-        // x<initialX this is not supported.
-        if (x < this.lastX)
+
+        if (x == this.lastX)
         {
-            throw new RuntimeException("cannot compute values x<x0");
+            return this.lastY;
+        }
+
+        // Are we integrating in the right direction?
+        if (Math.signum(this.stepSize) != Math.signum(x - this.lastX))
+        {
+            throw new RuntimeException("Sign of the stepsize does not integrate towards x from x0");
         }
         return this.integrateY(x, this.lastX, this.lastY);
     }
@@ -84,11 +91,23 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
     protected double[] integrateY(final double x, /* non-final */ double initialX, /* non-final */ double[] initialY)
     {
         // we request the new value from the integrator.
-        while (x > initialX + this.stepSize)
+        if (this.stepSize > 0)
         {
-            initialY = this.integrator.next(initialX, initialY);
-            initialX = initialX + this.stepSize;
+            while (x > initialX + this.stepSize)
+            {
+                initialY = this.integrator.next(initialX, initialY); // this process can adapt the stepSize (!)
+                initialX = initialX + this.stepSize;
+            }
         }
+        else // negative stepsize!
+        {
+            while (x < initialX + this.stepSize)
+            {
+                initialY = this.integrator.next(initialX, initialY); // this process can adapt the stepSize (!)
+                initialX = initialX + this.stepSize;
+            }
+        }
+
         // We are in our final step.
         double[] nextValue = this.integrator.next(initialX, initialY);
         double ratio = (x - initialX) / this.stepSize;

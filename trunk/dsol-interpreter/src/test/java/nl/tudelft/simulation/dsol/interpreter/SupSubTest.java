@@ -40,7 +40,7 @@ public class SupSubTest
         assertEquals("Sup.iOver5 (i)", (int) Interpreter.invoke(sup, "iOver5", new Object[] {}, new Class<?>[] {}), 5);
         assertEquals("Sup.iPlus4 (i)", (int) Interpreter.invoke(sup, "iPlus4", new Object[] {}, new Class<?>[] {}), 7);
         assertEquals("Sup.iPl123 (i)",
-                (int) Interpreter.invoke(sup, "iPl123", new Object[] {new Integer(0)}, new Class<?>[] {int.class}), 6);
+                (int) Interpreter.invoke(sup, "iPl123", new Object[] {Integer.valueOf(0)}, new Class<?>[] {int.class}), 6);
 
         // TODO strings still contains an error
         /*-

@@ -5,16 +5,20 @@ import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.Event;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventProducer;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.ReferenceType;
 
 import nl.tudelft.simulation.dsol.logger.Cat;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -26,17 +30,13 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventProducer;
-import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The Experiment specifies the parameters for a simulation experiment.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -49,7 +49,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @param <S> the simulator to use
  */
-public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
+public class Experiment<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
         S extends SimulatorInterface<A, R, T>> extends EventProducer implements EventListenerInterface, Serializable
 {
     /** The default serial version UID for serializable classes. */
@@ -109,6 +109,13 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
         this.setModel(model);
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return this.description;
+    }
+
     /**
      * sets the simulator.
      * @param simulator S; the simulator
@@ -161,11 +168,11 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     {
         try
         {
-            this.notify(new Event(SimulatorInterface.END_REPLICATION_EVENT, this.simulator, Boolean.TRUE));
+            this.notify(new Event(SimulatorInterface.END_REPLICATION_EVENT, this.simulator.getSourceId(), Boolean.TRUE));
         }
         catch (RemoteException remoteException)
         {
-            SimLogger.always().warn(remoteException, "notify");
+            getSimulator().getLogger().always().warn(remoteException, "notify");
         }
     }
 
@@ -176,7 +183,7 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     {
         if (!this.subscribed)
         {
-            this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, false);
+            this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
             this.subscribed = true;
         }
         if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
@@ -193,12 +200,12 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
                 }
                 catch (Exception exception)
                 {
-                    SimLogger.always().error(exception);
+                    getSimulator().getLogger().always().error(exception);
                 }
             }
             else
             {
-                SimLogger.filter(Cat.DSOL).debug("Last replication carried out");
+                getSimulator().getLogger().filter(Cat.DSOL).debug("Last replication carried out");
                 // There is no experiment to run anymore
                 this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT, true);
             }
@@ -286,17 +293,19 @@ public class Experiment<A extends Comparable<A>, R extends Number & Comparable<R
     /**
      * @return the context of the experiment, based on the hashCode.
      * @throws NamingException if context could not be found or created.
+     * @throws RemoteException on RMI error
      */
-    public final Context getContext() throws NamingException
+    public final ContextInterface getContext() throws NamingException, RemoteException
     {
-        return ContextUtil.lookup(String.valueOf(hashCode()));
+        return ContextUtil.lookupOrCreateSubContext(String.valueOf(hashCode()));
     }
 
     /**
      * remove the entire experiment tree from the context.
      * @throws NamingException if context could not be found or removed.
+     * @throws RemoteException on RMI error
      */
-    public final void removeFromContext() throws NamingException
+    public final void removeFromContext() throws NamingException, RemoteException
     {
         ContextUtil.destroySubContext(String.valueOf(hashCode()));
     }

@@ -11,7 +11,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * EditableRenderable2D is an abstract class that implements EditableRenderable2DInterface. This class can be extended by
  * classes that animate editable simulation objects.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -24,6 +24,9 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 public abstract class EditableRenderable2D<T extends Editable> extends Renderable2D<T>
         implements EditableRenderable2DInterface<T>
 {
+    /** */
+    private static final long serialVersionUID = 20200108L;
+
     /**
      * constructs a new EditableRenderable2D.
      * @param source T; the source and target

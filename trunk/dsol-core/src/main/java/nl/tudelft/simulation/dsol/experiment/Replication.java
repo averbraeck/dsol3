@@ -1,11 +1,11 @@
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
 
 import org.djunits.value.vdouble.scalar.Duration;
@@ -26,12 +26,13 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The replication of an Experiment.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -44,7 +45,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @param <S> the simulator to use
  */
-public class Replication<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
+public class Replication<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
         S extends SimulatorInterface<A, R, T>> implements Serializable
 {
     /** The default serial version UID for serializable classes. */
@@ -63,7 +64,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     private final Experiment<A, R, T, S> experiment;
 
     /** the contextRoot of this replication. */
-    private Context context = null;
+    private ContextInterface context = null;
 
     /**
      * constructs a new Replication.
@@ -110,7 +111,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
      * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
      * @param <S> the simulator type, consistent with the simulation time
      */
-    public static <A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
+    public static <A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
             S extends SimulatorInterface<A, R, T>> Replication<A, R, T, S> create(final String id, final T startTime,
                     final R warmupPeriod, final R runLength, final DSOLModel<A, R, T, S> model) throws NamingException
     {
@@ -128,7 +129,16 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
      */
     private void setContext() throws NamingException
     {
-        this.context = ContextUtil.lookup(this.experiment.getContext(), String.valueOf(this.id.hashCode()));
+        try
+        {
+            this.context =
+                    ContextUtil.lookupOrCreateSubContext(this.experiment.getContext(), String.valueOf(this.id.hashCode()));
+        }
+        catch (RemoteException remoteException)
+        {
+            throw new NamingException(
+                    "Cannot lookup or create context for experiment. Error is: " + remoteException.getMessage());
+        }
     }
 
     /**
@@ -206,7 +216,7 @@ public class Replication<A extends Comparable<A>, R extends Number & Comparable<
     /**
      * @return Returns the context.
      */
-    public final Context getContext()
+    public final ContextInterface getContext()
     {
         return this.context;
     }

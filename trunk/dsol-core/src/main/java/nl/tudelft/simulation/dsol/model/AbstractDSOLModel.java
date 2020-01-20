@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.EventProducer;
 
 import nl.tudelft.simulation.dsol.model.inputparameters.AbstractInputParameter;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
@@ -23,13 +25,12 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.EventProducer;
 
 /**
  * AbstractDSOLModel, an abstract helper class to easily construct a DSOLModel. The model automatically acts as an
  * EventProducer, so events can be sent to statistics gathering classes. <br>
  * <br>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -39,8 +40,9 @@ import nl.tudelft.simulation.event.EventProducer;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @param <S> the simulator type to use
  */
-public abstract class AbstractDSOLModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
-        S extends SimulatorInterface<A, R, T>> extends EventProducer implements DSOLModel<A, R, T, S>
+public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>, S extends SimulatorInterface<A, R, T>> extends EventProducer
+        implements DSOLModel<A, R, T, S>
 {
     /** */
     private static final long serialVersionUID = 1L;
