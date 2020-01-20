@@ -1,4 +1,4 @@
-package nl.tudelft.simulation.naming.context;
+package nl.tudelft.simulation.naming.context.tree;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -8,7 +8,7 @@ import javax.naming.NamingException;
 /**
  * The ContextTransferable class transfers keys in drag-and-drop (DnD) operations.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -30,7 +30,7 @@ public class ContextTransferable implements Transferable
     public ContextTransferable(final Object object) throws NamingException
     {
         super();
-        this.name = ContextUtil.resolveKey(object);
+        // TODO this.name = InitialEventContext.instantiate().resolveKey(object);
     }
 
     /** {@inheritDoc} */

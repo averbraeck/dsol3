@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.SortedMap;
@@ -13,7 +14,6 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.Cat;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -35,7 +35,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * distribution function, or use DistConstant(stream, 1E20) to indicate that the next drawing will take place <i>after </i> the
  * end of the interval.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -48,7 +48,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class Schedule<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Generator<A, R, T>
 {
     /** */
@@ -62,16 +62,17 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
 
     /**
      * constructs a new Schedule.
+     * @param id Serializable; the id of the Station
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; is the on which the construction of the objects must be scheduled.
      * @param myClass Class&lt;?&gt;; is the class of which entities are created
      * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-     *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+     *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
      * @throws SimRuntimeException on constructor invocation.
      */
-    public Schedule(final DEVSSimulatorInterface<A, R, T> simulator, final Class<?> myClass,
+    public Schedule(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator, final Class<?> myClass,
             final Object[] constructorArguments) throws SimRuntimeException
     {
-        super(simulator, myClass, constructorArguments);
+        super(id, simulator, myClass, constructorArguments);
     }
 
     /**
@@ -107,12 +108,13 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
                 this.schedule.remove(this.schedule.firstKey());
                 this.simulator.scheduleEvent(new SimEvent<T>(this.schedule.firstKey(), this, this, "changeIntervalTime", null));
                 this.generate(this.constructorArguments);
-                SimLogger.filter(Cat.DSOL).trace("changeIntervalTime: set the intervalTime to {}", this.interval);
+                this.simulator.getLogger().filter(Cat.DSOL).trace("changeIntervalTime: set the intervalTime to {}",
+                        this.interval);
             }
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "changeIntervalTime");
+            this.simulator.getLogger().always().warn(exception, "changeIntervalTime");
         }
     }
 
@@ -130,17 +132,18 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
          * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
          * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
          * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDouble; is the on which the construction of the objects must be
          *            scheduled.
          * @param myClass Class&lt;?&gt;; is the class of which entities are created
          * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
          * @throws SimRuntimeException on constructor invocation.
          */
-        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator, final Class<?> myClass,
+        public TimeDouble(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator, final Class<?> myClass,
                 final Object[] constructorArguments) throws SimRuntimeException
         {
-            super(simulator, myClass, constructorArguments);
+            super(id, simulator, myClass, constructorArguments);
         }
 
         /**
@@ -186,16 +189,17 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
          * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
          * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
          * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloat; is the on which the construction of the objects must be scheduled.
          * @param myClass Class&lt;?&gt;; is the class of which entities are created
          * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
          * @throws SimRuntimeException on constructor invocation.
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator, final Class<?> myClass,
+        public TimeFloat(final Serializable id, final DEVSSimulatorInterface.TimeFloat simulator, final Class<?> myClass,
                 final Object[] constructorArguments) throws SimRuntimeException
         {
-            super(simulator, myClass, constructorArguments);
+            super(id, simulator, myClass, constructorArguments);
         }
 
         /**
@@ -241,16 +245,17 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
          * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
          * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
          * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeLong; is the on which the construction of the objects must be scheduled.
          * @param myClass Class&lt;?&gt;; is the class of which entities are created
          * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
          * @throws SimRuntimeException on constructor invocation.
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator, final Class<?> myClass,
+        public TimeLong(final Serializable id, final DEVSSimulatorInterface.TimeLong simulator, final Class<?> myClass,
                 final Object[] constructorArguments) throws SimRuntimeException
         {
-            super(simulator, myClass, constructorArguments);
+            super(id, simulator, myClass, constructorArguments);
         }
 
         /**
@@ -297,17 +302,18 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
          * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
          * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
          * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; is the on which the construction of the objects must be
          *            scheduled.
          * @param myClass Class&lt;?&gt;; is the class of which entities are created
          * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
          * @throws SimRuntimeException on constructor invocation.
          */
-        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator, final Class<?> myClass,
-                final Object[] constructorArguments) throws SimRuntimeException
+        public TimeDoubleUnit(final Serializable id, final DEVSSimulatorInterface.TimeDoubleUnit simulator,
+                final Class<?> myClass, final Object[] constructorArguments) throws SimRuntimeException
         {
-            super(simulator, myClass, constructorArguments);
+            super(id, simulator, myClass, constructorArguments);
         }
 
         /**
@@ -354,17 +360,18 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
          * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
          * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
          * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; is the on which the construction of the objects must be
          *            scheduled.
          * @param myClass Class&lt;?&gt;; is the class of which entities are created
          * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
          * @throws SimRuntimeException on constructor invocation.
          */
-        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator, final Class<?> myClass,
-                final Object[] constructorArguments) throws SimRuntimeException
+        public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator,
+                final Class<?> myClass, final Object[] constructorArguments) throws SimRuntimeException
         {
-            super(simulator, myClass, constructorArguments);
+            super(id, simulator, myClass, constructorArguments);
         }
 
         /**
@@ -411,17 +418,18 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
          * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
          * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
          * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarDouble; is the on which the construction of the objects must be
          *            scheduled.
          * @param myClass Class&lt;?&gt;; is the class of which entities are created
          * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
          * @throws SimRuntimeException on constructor invocation.
          */
-        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator, final Class<?> myClass,
-                final Object[] constructorArguments) throws SimRuntimeException
+        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
+                final Class<?> myClass, final Object[] constructorArguments) throws SimRuntimeException
         {
-            super(simulator, myClass, constructorArguments);
+            super(id, simulator, myClass, constructorArguments);
         }
 
         /**
@@ -468,17 +476,18 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
          * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
          * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
          * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarFloat; is the on which the construction of the objects must be
          *            scheduled.
          * @param myClass Class&lt;?&gt;; is the class of which entities are created
          * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
          * @throws SimRuntimeException on constructor invocation.
          */
-        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator, final Class<?> myClass,
-                final Object[] constructorArguments) throws SimRuntimeException
+        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
+                final Class<?> myClass, final Object[] constructorArguments) throws SimRuntimeException
         {
-            super(simulator, myClass, constructorArguments);
+            super(id, simulator, myClass, constructorArguments);
         }
 
         /**
@@ -525,17 +534,18 @@ public class Schedule<A extends Comparable<A>, R extends Number & Comparable<R>,
          * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
          * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
          * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarLong; is the on which the construction of the objects must be
          *            scheduled.
          * @param myClass Class&lt;?&gt;; is the class of which entities are created
          * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=new Integer(12)</code> may have constructorArgumentClasses[n]=int.class;
+         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
          * @throws SimRuntimeException on constructor invocation.
          */
-        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator, final Class<?> myClass,
+        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator, final Class<?> myClass,
                 final Object[] constructorArguments) throws SimRuntimeException
         {
-            super(simulator, myClass, constructorArguments);
+            super(id, simulator, myClass, constructorArguments);
         }
 
         /**

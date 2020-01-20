@@ -85,10 +85,10 @@ public final class MapFileXMLParser
                 map.setUnits(parseUnits(element));
             }
             double[] extent = new double[4];
-            double minx = new Double(xmlMapFileElement.getChild("extent").getChildText("minX")).doubleValue();
-            double miny = new Double(xmlMapFileElement.getChild("extent").getChildText("minY")).doubleValue();
-            double maxx = new Double(xmlMapFileElement.getChild("extent").getChildText("maxX")).doubleValue();
-            double maxy = new Double(xmlMapFileElement.getChild("extent").getChildText("maxY")).doubleValue();
+            double minx = Double.valueOf(xmlMapFileElement.getChild("extent").getChildText("minX")).doubleValue();
+            double miny = Double.valueOf(xmlMapFileElement.getChild("extent").getChildText("minY")).doubleValue();
+            double maxx = Double.valueOf(xmlMapFileElement.getChild("extent").getChildText("maxX")).doubleValue();
+            double maxy = Double.valueOf(xmlMapFileElement.getChild("extent").getChildText("maxY")).doubleValue();
             double[] p = coordinateTransform.doubleTransform(minx, miny);
             double[] q = coordinateTransform.doubleTransform(maxx, maxy);
             extent[MapInterface.MINX] = Math.min(p[0], q[0]);
@@ -174,11 +174,11 @@ public final class MapFileXMLParser
             double angle = 0.0;
             if (element.getChild("degrees") != null)
             {
-                angle = Math.toRadians(new Double(element.getChildText("degrees")).doubleValue());
+                angle = Math.toRadians(Double.valueOf(element.getChildText("degrees")).doubleValue());
             }
             if (element.getChild("radians") != null)
             {
-                angle = new Double(element.getChildText("radians")).doubleValue();
+                angle = Double.valueOf(element.getChildText("radians")).doubleValue();
             }
             String value = "";
             if (element.getChild("text") != null)
@@ -188,11 +188,11 @@ public final class MapFileXMLParser
             result = new StaticAttribute(layer, angle, value);
         }
         if (element.getChild("minScale") != null)
-            result.setMinScale(new Integer(element.getChildText("minScale")).intValue());
+            result.setMinScale(Integer.valueOf(element.getChildText("minScale")).intValue());
         else
             result.setMinScale(layer.getMinScale());
         if (element.getChild("maxScale") != null)
-            result.setMaxScale(new Integer(element.getChildText("maxScale")).intValue());
+            result.setMaxScale(Integer.valueOf(element.getChildText("maxScale")).intValue());
         else
             result.setMaxScale(layer.getMaxScale());
         if (element.getChild("position") != null)
@@ -236,12 +236,12 @@ public final class MapFileXMLParser
     {
         try
         {
-            int r = new Integer(element.getChildText("r")).intValue();
-            int g = new Integer(element.getChildText("g")).intValue();
-            int b = new Integer(element.getChildText("b")).intValue();
+            int r = Integer.valueOf(element.getChildText("r")).intValue();
+            int g = Integer.valueOf(element.getChildText("g")).intValue();
+            int b = Integer.valueOf(element.getChildText("b")).intValue();
             if (element.getChildText("a") != null)
             {
-                int a = new Integer(element.getChildText("a")).intValue();
+                int a = Integer.valueOf(element.getChildText("a")).intValue();
                 return new java.awt.Color(r, g, b, a);
             }
             return new java.awt.Color(r, g, b);
@@ -262,8 +262,8 @@ public final class MapFileXMLParser
     {
         try
         {
-            int height = new Integer(element.getChildText("height")).intValue();
-            int width = new Integer(element.getChildText("width")).intValue();
+            int height = Integer.valueOf(element.getChildText("height")).intValue();
+            int width = Integer.valueOf(element.getChildText("width")).intValue();
             return new Dimension(width, height);
         }
         catch (Exception exception)
@@ -283,10 +283,10 @@ public final class MapFileXMLParser
         try
         {
             double[] result = new double[4];
-            double minx = new Double(element.getChildText("minX")).doubleValue();
-            double miny = new Double(element.getChildText("minY")).doubleValue();
-            double maxx = new Double(element.getChildText("maxX")).doubleValue();
-            double maxy = new Double(element.getChildText("maxY")).doubleValue();
+            double minx = Double.valueOf(element.getChildText("minX")).doubleValue();
+            double miny = Double.valueOf(element.getChildText("minY")).doubleValue();
+            double maxx = Double.valueOf(element.getChildText("maxX")).doubleValue();
+            double maxy = Double.valueOf(element.getChildText("maxY")).doubleValue();
             double[] p = coordinateTransform.doubleTransform(minx, miny);
             double[] q = coordinateTransform.doubleTransform(maxx, maxy);
             result[MapInterface.MINX] = Math.min(p[0], q[0]);
@@ -312,7 +312,7 @@ public final class MapFileXMLParser
         try
         {
             String fontName = element.getChildText("fontName");
-            int fontSize = new Integer(element.getChildText("fontSize")).intValue();
+            int fontSize = Integer.valueOf(element.getChildText("fontSize")).intValue();
             return new Font(fontName, Font.TRUETYPE_FONT, fontSize);
         }
         catch (Exception exception)
@@ -387,9 +387,9 @@ public final class MapFileXMLParser
                 throw new IOException("SDI not yet supported");
             }
             if (element.getChild("maxScale") != null)
-                result.setMaxScale(new Integer(element.getChildText("maxScale")).intValue());
+                result.setMaxScale(Integer.valueOf(element.getChildText("maxScale")).intValue());
             if (element.getChild("minScale") != null)
-                result.setMinScale(new Integer(element.getChildText("minScale")).intValue());
+                result.setMinScale(Integer.valueOf(element.getChildText("minScale")).intValue());
             result.setName(element.getChildText("name"));
             if (element.getChild("outlineColor") != null)
                 result.setOutlineColor(parseColor(element.getChild("outlineColor")));
@@ -528,7 +528,7 @@ public final class MapFileXMLParser
                 result.setFontColor(parseColor(element.getChild("font").getChild("fontColor")));
             }
             if (element.getChild("intervals") != null)
-                result.setIntervals(new Integer(element.getChildText("intervals")).intValue());
+                result.setIntervals(Integer.valueOf(element.getChildText("intervals")).intValue());
             if (element.getChild("position") != null)
                 result.setPosition(parsePosition(element.getChild("position")));
             if (element.getChild("size") != null)

@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
@@ -7,7 +9,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * AbstractEntity class. The AbstractEntity takes care of modeling components without behaviour but with state within coupled
  * models.
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -20,8 +22,8 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class AbstractEntity<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends AbstractDEVSModel<A, R, T>
+public class AbstractEntity<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends AbstractDEVSModel<A, R, T>
 {
     /** the default serial version UId. */
     private static final long serialVersionUID = 1L;
@@ -37,6 +39,13 @@ public class AbstractEntity<A extends Comparable<A>, R extends Number & Comparab
             final CoupledModel<A, R, T> parentModel)
     {
         super(modelName, simulator, parentModel);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return this.modelName;
     }
 
     @Override

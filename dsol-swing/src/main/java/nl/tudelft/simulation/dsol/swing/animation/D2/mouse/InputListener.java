@@ -19,9 +19,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.vecmath.Point4i;
 
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
 import nl.tudelft.simulation.dsol.swing.animation.D2.GridPanel;
 import nl.tudelft.simulation.dsol.swing.animation.D2.actions.IntrospectionAction;
@@ -34,7 +35,7 @@ import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialog;
 /**
  * A InputListener.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -249,7 +250,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "getSelectedObjects");
+            CategoryLogger.always().warn(exception, "getSelectedObjects");
         }
         return targets;
     }
@@ -297,7 +298,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         }
         catch (RemoteException exception)
         {
-            SimLogger.always().warn(exception, "edit");
+            CategoryLogger.always().warn(exception, "edit");
         }
         return selectedObject;
     }

@@ -19,11 +19,11 @@ import org.djutils.immutablecollections.ImmutableArrayList;
 import org.djutils.immutablecollections.ImmutableHashMap;
 import org.djutils.immutablecollections.ImmutableList;
 import org.djutils.immutablecollections.ImmutableMap;
+import org.djutils.logger.CategoryLogger;
 
 import nl.javel.gisbeans.geom.GisObject;
 import nl.javel.gisbeans.geom.SerializableGeneralPath;
 import nl.javel.gisbeans.geom.SerializableRectangle2D;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 
 /**
  * Provides the implementation of a Map.
@@ -234,7 +234,7 @@ public class Map implements MapInterface
         }
         catch (NoninvertibleTransformException e)
         {
-            SimLogger.always().error(e);
+            CategoryLogger.always().error(e);
         }
 
         // we cache the scale
@@ -366,7 +366,7 @@ public class Map implements MapInterface
             }
             catch (Exception exception)
             {
-                SimLogger.always().error(exception);
+                CategoryLogger.always().error(exception);
                 throw new GraphicsException(exception.getMessage());
             }
         }

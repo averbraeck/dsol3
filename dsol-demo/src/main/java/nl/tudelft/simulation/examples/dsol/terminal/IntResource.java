@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.examples.dsol.terminal;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,17 +9,17 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.djutils.event.EventProducer;
+import org.djutils.event.EventType;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventProducer;
-import nl.tudelft.simulation.event.EventType;
 
 /**
  * A resource defines a shared and limited amount..
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -30,7 +31,7 @@ import nl.tudelft.simulation.event.EventType;
  * @param <T> the simulation time type to use.
  * @since 1.5
  */
-public class IntResource<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class IntResource<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends EventProducer
 {
     /** */
@@ -157,7 +158,7 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
         catch (RemoteException remoteException)
         {
             // This exception cannot occur.
-            SimLogger.always().error(remoteException, "setCapacity");
+            this.simulator.getLogger().always().error(remoteException, "setCapacity");
         }
     }
 
@@ -192,7 +193,7 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
         if ((this.claimedCapacity + amount) <= this.capacity)
         {
             this.alterClaimedCapacity(amount);
-            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource", new Object[] {new Long(amount), this});
+            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource", new Object[] {Long.valueOf(amount), this});
         }
         else
         {
@@ -246,6 +247,13 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
 
     /** {@inheritDoc} */
     @Override
+    public Serializable getSourceId()
+    {
+        return "IntResource";
+    }
+    
+    /** {@inheritDoc} */
+    @Override
     public String toString()
     {
         return this.description;
@@ -286,7 +294,7 @@ public class IntResource<A extends Comparable<A>, R extends Number & Comparable<
      * @param <R> the relative time type
      * @param <T> the simulation time type to use.
      */
-    public static class Request<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+    public static class Request<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
     {
         /** the priority of the request. */
         private int priority = 5;

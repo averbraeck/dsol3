@@ -21,6 +21,11 @@
 
     <dependency>
       <groupId>dsol</groupId>
+      <artifactId>dsol-base</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>dsol</groupId>
       <artifactId>dsol-naming</artifactId>
     </dependency>
 

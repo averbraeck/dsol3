@@ -1,6 +1,6 @@
 package nl.javel.gisbeans.map;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * An attribute.
@@ -60,7 +60,7 @@ public class Attribute extends AbstractAttribute
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception);
+            CategoryLogger.always().error(exception);
             return 0.0;
         }
     }
@@ -75,7 +75,7 @@ public class Attribute extends AbstractAttribute
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception);
+            CategoryLogger.always().error(exception);
             return "";
         }
     }

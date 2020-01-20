@@ -5,24 +5,25 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GradientPaint;
+import java.io.Serializable;
+import java.rmi.RemoteException;
 
-import javax.naming.Context;
 import javax.naming.NamingException;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.Swingable;
 import nl.tudelft.simulation.jstats.statistics.Tally;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The BoxAndWhiskerChart specifies a Box-and-Whisker chart.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -31,8 +32,11 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a>
  */
-public class BoxAndWhiskerChart implements Swingable
+public class BoxAndWhiskerChart implements Swingable, Serializable
 {
+    /** */
+    private static final long serialVersionUID = 20200108L;
+
     /** TITLE_FONT refers to the font to be used for the title of the plot. */
     public static final Font TITLE_FONT = new Font("SansSerif", Font.BOLD, 18);
 
@@ -60,12 +64,12 @@ public class BoxAndWhiskerChart implements Swingable
         this(title);
         try
         {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/charts");
-            ContextUtil.bind(context, this);
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 

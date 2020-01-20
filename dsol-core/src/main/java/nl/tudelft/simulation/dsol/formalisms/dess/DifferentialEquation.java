@@ -2,18 +2,20 @@ package nl.tudelft.simulation.dsol.formalisms.dess;
 
 import java.rmi.RemoteException;
 
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.ReferenceType;
+
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 
 /**
  * The Differential equation provides a reference implementation of the differential equation.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -89,14 +91,14 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     {
         super(timeStep, numericalIntegrator);
         this.simulator = simulator;
-        simulator.addListener(this, SimulatorInterface.TIME_CHANGED_EVENT, false);
+        simulator.addListener(this, SimulatorInterface.TIME_CHANGED_EVENT, ReferenceType.STRONG);
     }
 
     /** {@inheritDoc} */
     @Override
     public synchronized void notify(final EventInterface event) throws RemoteException
     {
-        if (event.getSource() instanceof DESSSimulatorInterface
+        if (event.getSourceId().equals(this.simulator.getSourceId())
                 && event.getType().equals(SimulatorInterface.TIME_CHANGED_EVENT))
         {
             if (this.simulator.getSimulatorTime().doubleValue() < super.lastX || Double.isNaN(super.lastX))

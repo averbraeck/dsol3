@@ -5,6 +5,51 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.00" date="2020-01-20" description="Event project to DJUTILS, new Context implementation">
+      <action dev="averbraeck" type="remove">
+        The event project has been moved to the DJUTILS project and can be found as part of djutils. See 
+        https://djutils.org/manual/djutils-project/event-package for more information. Much of the event package
+        has been re-implemented and streamlined as part of the the transfer to DJUTILS.  
+      </action>
+      <action dev="averbraeck" type="fix">
+        As a result of the transfer of the event project, all references to nl.tudelft.simulation.dsol.event.* had to 
+        be changed to org.djutils.event.*
+      </action>
+      <action dev="averbraeck" type="fix">
+        The DJUNITS event project implements the EventProducer as an abstract class that needs a sourceId for firing events
+        rather than exposing 'this' in each event. Therefore, the constructor of the classes that extend EventProducer
+        had to be changed. 
+      </action>
+      <action dev="averbraeck" type="fix">
+        The DJUNITS event project forces the sourceId and content of an event, and the timestamp of a TimedEvent to be
+        Serializable, because events are often streamed into a database. Several classes had to be updated to reflect
+        this change.  
+      </action>
+      <action dev="averbraeck" type="update">
+        The context package in the dsol-naming project has been completely re-implemented. The dependency on underlying 
+        JNDI classes has been reduced, and the implementation is more lightweight than it was originally. The package 
+        structure has been updated, and several of the classes have moved to new packages. Interfaces with a Name
+        object have been removed; only the String representations have been re-implemented. Many of the other interfaces 
+        of the new context implementation are the same as or similar to the original ones. The new Context implementation
+        has been documented in https://simulation.tudelft.nl/dsol/manual/advanced/naming-context.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Rigid testing of the context package revealed many smaller and bigger mistakes (one of the reasons for
+        re-implementing the entire package).
+      </action>
+      <action dev="averbraeck" type="add">
+        Unit tests have been included for the entire context package and dsol-naming project.
+      </action>
+      <action dev="averbraeck" type="add">
+        A context demo has been added to the dsol-naming project under the test tree (DemoServer and DemoClient classes).
+      </action>
+      <action dev="averbraeck" type="update">
+        The CategoryLogger in DJUTILS has been turned into a singleton rather than a static class. SimLogger implements a 
+        logger with functionality of the CategoryLogger, but the logger is simulator-aware and can print the simulator time 
+        as part of the log message.
+      </action>
+    </release>
+    
     <release version="3.03.14" date="2019-11-17" description="Optimized differential equations; concurrent unit tests">
       <action dev="averbraeck" type="update">
         Changed the short values for NumericalIntegrator into an Enum called NumericalIntegratorType. The constructors

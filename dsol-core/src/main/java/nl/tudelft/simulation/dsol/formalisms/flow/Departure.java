@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
@@ -21,7 +22,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * The exit station on which statistics are updated and entities destroyed.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -34,7 +35,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class Departure<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Station<A, R, T>
 {
     /** */
@@ -42,19 +43,20 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
     /**
      * Constructor for Departure.
+     * @param id Serializable; the id of the Station
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; on which is scheduled
      */
-    public Departure(final DEVSSimulatorInterface<A, R, T> simulator)
+    public Departure(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator)
     {
-        super(simulator);
+        super(id, simulator);
     }
 
     /** {@inheritDoc} */
     @Override
     public synchronized void receiveObject(final Object object)
     {
-        this.fireEvent(StationInterface.RECEIVE_EVENT, object);
-        this.fireEvent(StationInterface.RELEASE_EVENT, object);
+        this.fireEvent(StationInterface.RECEIVE_EVENT, (Serializable) object);
+        this.fireEvent(StationInterface.RELEASE_EVENT, (Serializable) object);
     }
 
     /***********************************************************************************************************/
@@ -69,11 +71,12 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeDouble.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDouble; is the simulator on which behavior is scheduled
          */
-        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator)
+        public TimeDouble(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -85,11 +88,12 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeFloat.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloat; is the simulator on which behavior is scheduled
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator)
+        public TimeFloat(final Serializable id, final DEVSSimulatorInterface.TimeFloat simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -101,11 +105,12 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeLong.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeLong; is the simulator on which behavior is scheduled
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator)
+        public TimeLong(final Serializable id, final DEVSSimulatorInterface.TimeLong simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -118,11 +123,12 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeDoubleUnit.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; is the simulator on which behavior is scheduled
          */
-        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator)
+        public TimeDoubleUnit(final Serializable id, final DEVSSimulatorInterface.TimeDoubleUnit simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -135,11 +141,12 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.TimeFloatUnit.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; is the simulator on which behavior is scheduled
          */
-        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator)
+        public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -152,11 +159,12 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.CalendarDouble.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarDouble; is the simulator on which behavior is scheduled
          */
-        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator)
+        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -169,11 +177,12 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.CalendarFloat.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarFloat; is the simulator on which behavior is scheduled
          */
-        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator)
+        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -186,11 +195,12 @@ public class Departure<A extends Comparable<A>, R extends Number & Comparable<R>
 
         /**
          * constructs a new Departure.CalendarLong.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarLong; is the simulator on which behavior is scheduled
          */
-        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator)
+        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 

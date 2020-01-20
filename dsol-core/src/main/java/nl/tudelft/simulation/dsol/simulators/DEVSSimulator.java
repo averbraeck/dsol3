@@ -1,11 +1,13 @@
 package nl.tudelft.simulation.dsol.simulators;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.Event;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
@@ -16,7 +18,6 @@ import nl.tudelft.simulation.dsol.formalisms.eventscheduling.Executable;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.LambdaSimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -26,13 +27,12 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.event.Event;
 
 /**
  * The DEVS defines the interface of the DEVS simulator. DEVS stands for the Discrete Event System Specification. More
  * information on Discrete Event Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.al.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -46,7 +46,7 @@ import nl.tudelft.simulation.event.Event;
  * @param <T> the simulation time type based on the absolute and relative time.
  * @since 1.5
  */
-public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Simulator<A, R, T> implements DEVSSimulatorInterface<A, R, T>
 {
     /** */
@@ -58,6 +58,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
 
     /** Does the simulation pause on error when executing an event? */
     private boolean pauseOnError = false;
+
+    /**
+     * Constructs a new DEVSSimulator.
+     * @param id the id of the simulator, used in logging and firing of events.
+     */
+    public DEVSSimulator(final Serializable id)
+    {
+        super(id);
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -85,7 +94,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
             super.initialize(initReplication, replicationMode);
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getEndSimTime(),
                     (short) (SimEventInterface.MIN_PRIORITY - 1), this, this, "endReplication", null));
-            Object[] args = {new Event(SimulatorInterface.WARMUP_EVENT, this, null)};
+            Object[] args = {new Event(SimulatorInterface.WARMUP_EVENT, getSourceId(), null)};
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getWarmupSimTime(),
                     (short) (SimEventInterface.MAX_PRIORITY + 1), this, this, "fireEvent", args));
         }
@@ -312,7 +321,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                 }
                 catch (Exception exception)
                 {
-                    SimLogger.always().error(exception);
+                    getLogger().always().error(exception);
                     if (this.isPauseOnError())
                     {
                         try
@@ -321,7 +330,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
                         }
                         catch (SimRuntimeException stopException)
                         {
-                            SimLogger.always().error(stopException);
+                            getLogger().always().error(stopException);
                         }
                     }
                 }
@@ -380,7 +389,7 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
             }
             catch (SimRuntimeException stopException)
             {
-                SimLogger.always().error(stopException);
+                getLogger().always().error(stopException);
             }
         }
     }
@@ -410,6 +419,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new DEVSSimulator.TimeDouble.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeDouble(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -425,6 +443,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new DEVSSimulator.TimeFloat.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeFloat(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -439,6 +466,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Constructs a new DEVSSimulator.TimeLong.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeLong(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
@@ -456,6 +492,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new DEVSSimulator.TimeDoubleUnit.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeDoubleUnit(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -471,6 +516,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Constructs a new DEVSSimulator.TimeFloatUnit.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeFloatUnit(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
@@ -488,6 +542,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new DEVSSimulator.CalendarDouble.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarDouble(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -504,6 +567,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Constructs a new DEVSSimulator.CalendarFloat.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarFloat(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -519,6 +591,15 @@ public class DEVSSimulator<A extends Comparable<A>, R extends Number & Comparabl
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Constructs a new DEVSSimulator.CalendarLong.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarLong(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")

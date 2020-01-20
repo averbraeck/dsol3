@@ -8,10 +8,13 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.EventProducerInterface;
+import org.djutils.event.EventType;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -21,8 +24,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.event.EventProducerInterface;
-import nl.tudelft.simulation.event.EventType;
 
 /**
  * The SimulatorInterface defines the behavior of the simulators in the DSOL framework. The simulator is defined as the
@@ -35,7 +36,7 @@ import nl.tudelft.simulation.event.EventType;
  * STEP_EVENT should only be fired when the simulator is stopped; the STOP_EVENT should only be fired when the simulator is
  * running.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -50,8 +51,8 @@ import nl.tudelft.simulation.event.EventType;
  * @since 1.5
  */
 @SuppressWarnings("checkstyle:linelength")
-public interface SimulatorInterface<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends Remote, Serializable, EventProducerInterface
+public interface SimulatorInterface<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends Remote, Serializable, EventProducerInterface
 {
     /** END_OF_REPLICATION_EVENT is fired when a replication is finished. */
     EventType END_REPLICATION_EVENT = new EventType("END_REPLICATION_EVENT");
@@ -164,6 +165,17 @@ public interface SimulatorInterface<A extends Comparable<A>, R extends Number & 
      * @throws SimRuntimeException whenever stopping fails. Possible occasions include stopping an already stopped simulator
      */
     void stop(boolean fireStopEvent) throws SimRuntimeException;
+
+    /**
+     * Get the logger for a simulator. Since the loggers display the simulator time, each logger that runs in the same JVM needs
+     * to have its own logger.
+     * @return SimLogger; the logger that is specific for this simulator
+     */
+    SimLogger getLogger();
+
+    /** {@inheritDoc} */
+    @Override
+    Serializable getSourceId();
 
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/

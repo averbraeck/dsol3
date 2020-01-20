@@ -7,12 +7,11 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -52,7 +51,7 @@ public class WebMM1Queue41Application
      */
     protected WebMM1Queue41Application() throws SimRuntimeException, RemoteException, NamingException
     {
-        this.simulator = new DEVSSimulator.TimeDouble();
+        this.simulator = new DEVSSimulator.TimeDouble("WebMM1Queue41Application");
         this.model = new WebMM1Queue41Model(this.simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, this.model);
@@ -64,9 +63,9 @@ public class WebMM1Queue41Application
     /** stop the simulation. */
     protected final void terminate()
     {
-        SimLogger.always().info("average queue length = " + this.model.qN.getSampleMean());
-        SimLogger.always().info("average queue wait   = " + this.model.dN.getSampleMean());
-        SimLogger.always().info("average utilization  = " + this.model.uN.getSampleMean());
+        this.simulator.getLogger().always().info("average queue length = " + this.model.qN.getSampleMean());
+        this.simulator.getLogger().always().info("average queue wait   = " + this.model.dN.getSampleMean());
+        this.simulator.getLogger().always().info("average utilization  = " + this.model.uN.getSampleMean());
 
         System.exit(0);
     }

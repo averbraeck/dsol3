@@ -1,24 +1,26 @@
 package nl.tudelft.simulation.dsol.formalisms.flow.statistics;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.djutils.event.Event;
+import org.djutils.event.EventInterface;
+import org.djutils.event.ref.ReferenceType;
+
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
-import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.jstats.statistics.Tally;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * A Utilization statistic for the flow components.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -29,7 +31,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * @param <R> the relative time type
  * @param <T> the absolute simulation time to use in the warmup event
  */
-public class Utilization<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class Utilization<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends SimPersistent<A, R, T>
 {
     /** */
@@ -53,26 +55,18 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
     {
         super(description, simulator);
         this.simulator = simulator;
-        target.addListener(this, StationInterface.RECEIVE_EVENT, false);
-        target.addListener(this, StationInterface.RELEASE_EVENT, false);
-        this.simulator.addListener(this, SimulatorInterface.WARMUP_EVENT, false);
-        this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, false);
-        try
-        {
-            Context context = ContextUtil.lookup(simulator.getReplication().getContext(), "/statistics");
-            ContextUtil.bind(context, this);
-        }
-        catch (NamingException exception)
-        {
-            SimLogger.always().warn(exception, "<init>");
-        }
+        target.addListener(this, StationInterface.RECEIVE_EVENT, ReferenceType.STRONG);
+        target.addListener(this, StationInterface.RELEASE_EVENT, ReferenceType.STRONG);
+        this.simulator.addListener(this, SimulatorInterface.WARMUP_EVENT, ReferenceType.STRONG);
+        this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
+        // object is already bound, because SimPersistend (super) bound the statistic to the Context
     }
 
     /** {@inheritDoc} */
     @Override
     public void notify(final EventInterface event)
     {
-        if (event.getSource().equals(this.simulator))
+        if (event.getSourceId().equals(this.simulator.getSourceId()))
         {
             if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
             {
@@ -83,7 +77,8 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
                 }
                 catch (RemoteException exception)
                 {
-                    SimLogger.always().warn(exception, "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
+                    this.simulator.getLogger().always().warn(exception,
+                            "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
                 super.initialize();
                 return;
@@ -96,7 +91,7 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
                 }
                 catch (RemoteException exception)
                 {
-                    SimLogger.always().warn(exception,
+                    this.simulator.getLogger().always().warn(exception,
                             "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
                 }
                 this.endOfReplication();
@@ -115,32 +110,24 @@ public class Utilization<A extends Comparable<A>, R extends Number & Comparable<
     {
         try
         {
-            String[] parts = nl.tudelft.simulation.naming.context.ContextUtil.resolveKey(this).split("/");
-            String key = "";
-            for (int i = 0; i < parts.length; i++)
+            ContextInterface context = ContextUtil
+                    .lookupOrCreateSubContext(this.simulator.getReplication().getExperiment().getContext(), "statistics");
+            Tally experimentTally;
+            if (context.hasKey(this.description))
             {
-                if (i != parts.length - 2)
-                {
-                    key = key + parts[i] + "/";
-                }
+                experimentTally = (Tally) context.getObject(this.description);
             }
-            key = key.substring(0, key.length() - 1);
-            nl.tudelft.simulation.jstats.statistics.Tally tally = null;
-            try
+            else
             {
-                tally = (nl.tudelft.simulation.jstats.statistics.Tally) new InitialContext().lookup(key);
+                experimentTally = new Tally(this.description);
+                context.bindObject(this.description, experimentTally);
+                experimentTally.initialize();
             }
-            catch (NamingException exception)
-            {
-                tally = new nl.tudelft.simulation.jstats.statistics.Tally(this.description);
-                new InitialContext().bind(key, tally);
-                tally.initialize();
-            }
-            tally.notify(new Event(null, this, new Double(this.sampleMean)));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.sampleMean)));
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "endOfReplication");
+            this.simulator.getLogger().always().warn(exception, "endOfReplication");
         }
     }
 }

@@ -10,7 +10,7 @@ import nl.tudelft.simulation.dsol.web.DSOLWebServer;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -49,7 +49,7 @@ public class GISWebApplication extends DSOLWebServer
      */
     public static void main(final String[] args) throws Exception
     {
-        DEVSRealTimeClock.TimeDouble simulator = new DEVSRealTimeClock.TimeDouble(0.01);
+        DEVSRealTimeClock.TimeDouble simulator = new DEVSRealTimeClock.TimeDouble("GISWebApplication", 0.01);
         GISModel model = new GISModel(simulator);
         Replication.TimeDouble<DEVSRealTimeClock.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);

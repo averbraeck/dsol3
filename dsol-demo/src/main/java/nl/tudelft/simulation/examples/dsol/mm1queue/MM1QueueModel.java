@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.examples.dsol.mm1queue;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.flow.Delay;
@@ -29,7 +31,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * The M/M/1 example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. .
  * <p>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -81,7 +83,7 @@ public class MM1QueueModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.Ti
             InputParameterMap parameters = this.simulator.getReplication().getTreatment().getInputParameterMap();
 
             // The Generator
-            Generator.TimeDouble generator = new Generator.TimeDouble(this.simulator, Customer.class, null);
+            Generator.TimeDouble generator = new Generator.TimeDouble("Generator", this.simulator, Customer.class, null);
             DistContinuousSimulationTime.TimeDouble intervalTime = new DistContinuousSimulationTime.TimeDouble(
                     new DistExponential(defaultStream, (Double) parameters.get("generator.intervalTime").getCalculatedValue()));
             generator.setInterval(intervalTime);
@@ -99,13 +101,13 @@ public class MM1QueueModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.Ti
             Resource<Double, Double, SimTimeDouble> resource = new Resource<>(this.simulator, capacity);
 
             // created a resource
-            StationInterface.TimeDouble queue = new Seize(this.simulator, resource);
-            StationInterface.TimeDouble release = new Release(this.simulator, resource, capacity);
+            StationInterface.TimeDouble queue = new Seize("Seize", this.simulator, resource);
+            StationInterface.TimeDouble release = new Release("Release", this.simulator, resource, capacity);
 
             // The server
             DistContinuousSimulationTime.TimeDouble serviceTime = new DistContinuousSimulationTime.TimeDouble(
                     new DistExponential(defaultStream, (Double) parameters.get("resource.serviceTime").getCalculatedValue()));
-            StationInterface.TimeDouble server = new Delay.TimeDouble(this.simulator, serviceTime);
+            StationInterface.TimeDouble server = new Delay.TimeDouble("Delay", this.simulator, serviceTime);
 
             // The flow
             generator.setDestination(queue);
@@ -133,6 +135,13 @@ public class MM1QueueModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.Ti
         {
             throw new SimRuntimeException(exception);
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "MM1QueueModel";
     }
 
 }

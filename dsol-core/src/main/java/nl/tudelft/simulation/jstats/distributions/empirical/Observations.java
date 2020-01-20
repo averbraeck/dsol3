@@ -8,7 +8,7 @@ import java.util.SortedMap;
 /**
  * Observations for the empirical distributions.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -38,7 +38,7 @@ public class Observations implements ObservationsInterface
         for (int i = 0; i < observations.length; i++)
         {
             this.data[OBSERVATION][i] = observations[i];
-            this.data[CUMPROBABILITY][i] = new Double((i + 1) * probability);
+            this.data[CUMPROBABILITY][i] = Double.valueOf((i + 1) * probability);
         }
         this.grouped = false;
     }
@@ -298,7 +298,7 @@ public class Observations implements ObservationsInterface
         }
         for (int i = 0; i < this.data[CUMPROBABILITY].length; i++)
         {
-            this.data[CUMPROBABILITY][i] = new Double(this.data[CUMPROBABILITY][i].doubleValue() / sum);
+            this.data[CUMPROBABILITY][i] = Double.valueOf(this.data[CUMPROBABILITY][i].doubleValue() / sum);
         }
     }
 
@@ -311,7 +311,7 @@ public class Observations implements ObservationsInterface
         for (int i = 0; i < this.data[CUMPROBABILITY].length; i++)
         {
             value = value + this.data[CUMPROBABILITY][i].doubleValue();
-            this.data[CUMPROBABILITY][i] = new Double(value);
+            this.data[CUMPROBABILITY][i] = Double.valueOf(value);
         }
     }
 

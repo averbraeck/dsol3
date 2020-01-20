@@ -3,14 +3,13 @@ package nl.tudelft.simulation.examples.dsol.terminal;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
  * The 'active' container object.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -69,7 +68,7 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
             }
             catch (SimRuntimeException | RemoteException e)
             {
-                SimLogger.always().error(e);
+                this.simulator.getLogger().always().error(e);
             }
         }
     }
@@ -100,7 +99,7 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
         }
         catch (SimRuntimeException e)
         {
-            SimLogger.always().error(e);
+            this.simulator.getLogger().always().error(e);
         }
     }
 
@@ -120,7 +119,7 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
         }
         catch (SimRuntimeException | RemoteException e)
         {
-            SimLogger.always().error(e);
+            this.simulator.getLogger().always().error(e);
         }
     }
 
@@ -140,7 +139,7 @@ public class Container implements IntResourceRequestorInterface<Double, Double, 
         }
         catch (RemoteException e)
         {
-            SimLogger.always().error(e);
+            this.simulator.getLogger().always().error(e);
         }
     }
 

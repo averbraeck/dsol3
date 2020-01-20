@@ -1,11 +1,11 @@
 package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.Cat;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
@@ -13,7 +13,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * AtomicModel class. Implements the Classic Parallel DEVS Atomic Model with Ports cf Zeigler et al (2000), section 4.2.2. and
  * section 4.3 (pp. 84 ff). The algorithms for parallel DEVS are explained in Chapters 6 and 7.
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -26,8 +26,8 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends AbstractDEVSPortModel<A, R, T>
+public abstract class AtomicModel<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends AbstractDEVSPortModel<A, R, T>
 {
     /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
@@ -183,7 +183,7 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
             }
             catch (SimRuntimeException exception)
             {
-                SimLogger.always().error(exception, "initialize");
+                this.simulator.getLogger().always().error(exception, "initialize");
             }
         }
         else
@@ -223,14 +223,14 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
                             new SimEvent<T>((this.simulator.getSimTime().plus(this.timeAdvance()).minus(this.elapsedTime)),
                                     this, this, "deltaInternalEventHandler", null);
                     this.timeLastEvent = this.simulator.getSimTime();
-                    SimLogger.filter(Cat.DSOL).trace("schedule {}", this.nextEvent.toString());
+                    this.simulator.getLogger().filter(Cat.DSOL).trace("schedule {}", this.nextEvent.toString());
                     this.simulator.scheduleEvent(this.nextEvent);
                     // this.simulator.setAuthorization(false);
                 }
             }
             catch (Exception e1)
             {
-                SimLogger.always().error(e1);
+                this.simulator.getLogger().always().error(e1);
             }
         }
         else
@@ -260,7 +260,7 @@ public abstract class AtomicModel<A extends Comparable<A>, R extends Number & Co
     @SuppressWarnings("checkstyle:designforextension")
     protected void deltaConfluent(final R e, final Object value)
     {
-        SimLogger.filter(Cat.DSOL).debug("deltaConfluent: CONFLUENT");
+        this.simulator.getLogger().filter(Cat.DSOL).debug("deltaConfluent: CONFLUENT");
         if (this.conflictStrategy == AtomicModel.INTERNAL_FIRST)
         {
             this.deltaInternalEventHandler();

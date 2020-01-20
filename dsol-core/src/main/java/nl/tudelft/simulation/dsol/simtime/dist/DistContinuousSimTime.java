@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.simtime.dist;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.unit.TimeUnit;
@@ -24,7 +25,7 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  * Definitions of distributions over SimTime. The distributions wrap a ContinuousDist from the
  * nl.tudelft.simulation.jstats.distributions package in dsol-core.
  * <p>
- * Copyright (c) 2016-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -36,7 +37,7 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  * @param <R> the relative time type.
  * @param <T> the simulation time type.
  */
-public abstract class DistContinuousSimTime<A extends Comparable<A>, R extends Number & Comparable<R>,
+public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
         T extends SimTime<A, R, T>> extends Dist
 {
     /** */

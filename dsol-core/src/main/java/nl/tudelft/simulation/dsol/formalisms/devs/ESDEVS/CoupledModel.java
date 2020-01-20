@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -10,10 +11,12 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.Reference;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS.exceptions.PortNotFoundException;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -24,15 +27,12 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.event.ref.Reference;
 
 /**
  * CoupledModel class. This class implements the classic parallel DEVS coupled model with ports conform Zeigler et al. (2000),
  * section 4.3.
  * <p>
- * Copyright (c) 2009-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -46,8 +46,8 @@ import nl.tudelft.simulation.event.ref.Reference;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class CoupledModel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends AbstractDEVSPortModel<A, R, T>
+public abstract class CoupledModel<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends AbstractDEVSPortModel<A, R, T>
 {
     /** the default serialVersionUId. */
     private static final long serialVersionUID = 1L;
@@ -178,7 +178,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
         }
         catch (Exception e)
         {
-            SimLogger.always().error(e);
+            this.simulator.getLogger().always().error(e);
         }
 
     }
@@ -220,7 +220,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
         }
         catch (Exception e)
         {
-            SimLogger.always().error(e);
+            this.simulator.getLogger().always().error(e);
         }
     }
 
@@ -261,7 +261,7 @@ public abstract class CoupledModel<A extends Comparable<A>, R extends Number & C
         }
         catch (Exception e)
         {
-            SimLogger.always().error(e);
+            this.simulator.getLogger().always().error(e);
         }
     }
 

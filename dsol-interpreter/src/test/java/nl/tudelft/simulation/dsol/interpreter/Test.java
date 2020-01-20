@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.interpreter;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 
 /**
@@ -77,6 +79,13 @@ public class Test
             int count = Test.countLinks(link);
             System.out.println("links=" + count);
             System.out.println("This process is finished");
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Serializable getSourceId()
+        {
+            return "MyProcess";
         }
     }
 }

@@ -7,9 +7,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.net.URL;
+import java.rmi.RemoteException;
 
 import javax.media.j3d.Bounds;
-import javax.naming.Context;
 import javax.naming.NamingException;
 
 import nl.javel.gisbeans.io.esri.CoordinateTransform;
@@ -22,12 +22,13 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.BoundingBox;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * This renderable draws CAD/GIS objects.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -38,6 +39,9 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  */
 public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, Locatable
 {
+    /** */
+    private static final long serialVersionUID = 20200108L;
+
     /** the map to display */
     protected MapInterface map = null;
 
@@ -56,10 +60,11 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
     /** the bounds of the map. */
     protected Bounds bounds = null;
 
-    /**
-     * the context for (un)binding.
-     */
-    protected Context context;
+    /** the context for (un)binding. */
+    protected ContextInterface context;
+    
+    /** the logger. */
+    private final SimLogger logger;
 
     /**
      * constructs a new GisRenderable2D.
@@ -93,7 +98,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
     public GisRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile,
             final CoordinateTransform coordinateTransform, final double z)
     {
-        super();
+        this.logger = simulator.getLogger();
         if (!(simulator instanceof AnimatorInterface))
         {
             return;
@@ -110,7 +115,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -124,7 +129,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
     public GisRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final MapInterface map,
             final CoordinateTransform coordinateTransform, final double z)
     {
-        super();
+        this.logger = simulator.getLogger();
         if (!(simulator instanceof AnimatorInterface))
         {
             return;
@@ -141,7 +146,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -155,12 +160,12 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
     {
         try
         {
-            this.context = ContextUtil.lookup(simulator.getReplication().getContext(), "/animation/2D");
-            ContextUtil.bind(this.context, this);
+            this.context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D");
+            this.context.bindObject(this);
         }
-        catch (NamingException exception)
+        catch (NamingException | RemoteException exception)
         {
-            SimLogger.always().warn(exception, "<init>");
+            simulator.getLogger().always().warn(exception, "<init>");
         }
     }
 
@@ -183,7 +188,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "paint");
+            this.logger.always().warn(exception, "paint");
         }
     }
 
@@ -242,11 +247,11 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
     {
         try
         {
-            ContextUtil.unbind(this.context, this);
+            this.context.unbindObject(this.toString());
         }
         catch (Throwable throwable)
         {
-            SimLogger.always().warn(throwable, "finalize");
+            this.logger.always().warn(throwable, "finalize");
         }
     }
 

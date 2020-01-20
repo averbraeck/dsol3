@@ -12,13 +12,14 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.dsol.logger.Cat;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 
 /**
  * The SortingTableModel.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -202,8 +203,8 @@ public class SortingTableModel implements TableModel, Sortable
                         }
                         catch (ClassCastException exception)
                         {
-                            SimLogger.filter(Cat.SWING).info(exception, "sortSubList - Could not compare {} and {}", current,
-                                    resultValue);
+                            CategoryLogger.filter(Cat.SWING).info(exception, "sortSubList - Could not compare {} and {}",
+                                    current, resultValue);
                         }
                     }
                 }
@@ -285,7 +286,7 @@ public class SortingTableModel implements TableModel, Sortable
         }
         if (rowIndex > this.expandedIndex.length)
         {
-            SimLogger.always().warn("getValueAt could not retrieve row {} from sorted list. Returning default instead",
+            CategoryLogger.always().warn("getValueAt could not retrieve row {} from sorted list. Returning default instead",
                     rowIndex);
             return this.source.getValueAt(rowIndex, columnIndex);
         }
@@ -314,7 +315,7 @@ public class SortingTableModel implements TableModel, Sortable
     {
         if (rowIndex > this.expandedIndex.length)
         {
-            SimLogger.always().warn("setValueAt could not retrieve row {} from sorted list. Ignoring 'setValue' command",
+            CategoryLogger.always().warn("setValueAt could not retrieve row {} from sorted list. Ignoring 'setValue' command",
                     rowIndex);
             return;
         }

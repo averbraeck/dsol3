@@ -1,7 +1,8 @@
 package nl.tudelft.simulation.examples.dsol.dess;
 
+import java.io.Serializable;
+
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquationInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
@@ -10,7 +11,7 @@ import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -48,7 +49,7 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception);
+            getSimulator().getLogger().always().error(exception);
         }
 
         this.distancePersistent.initialize();
@@ -71,6 +72,13 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
     public final SimPersistent<Double, Double, SimTimeDouble> getDistancePersistent()
     {
         return this.distancePersistent;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "DESSModel";
     }
 
 }

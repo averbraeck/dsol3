@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.TimedEvent;
+import org.djutils.logger.CategoryLogger;
 import org.jfree.data.general.AbstractDataset;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventType;
-import nl.tudelft.simulation.event.TimedEvent;
 import nl.tudelft.simulation.language.filters.FilterInterface;
 import nl.tudelft.simulation.language.filters.ZeroFilter;
 
 /**
  * The xySerie specifies an xySerie for XY Plots in DSOL.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -79,7 +79,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         {
             if (timeStamp.doubleValue() <= 0.0)
             {
-                SimLogger.always().warn("notify: refusing xvalue of {} on logrithmic chart", event);
+                CategoryLogger.always().warn("notify: refusing xvalue of {} on logrithmic chart", event);
                 return;
             }
         }
@@ -87,7 +87,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         {
             if (((Number) timedEvent.getContent()).doubleValue() <= 0.0)
             {
-                SimLogger.always().warn("notify: refusing yValue of {} on logrithmic chart", event);
+                CategoryLogger.always().warn("notify: refusing yValue of {} on logrithmic chart", event);
                 return;
             }
         }

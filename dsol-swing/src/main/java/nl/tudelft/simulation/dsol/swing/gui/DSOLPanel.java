@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.swing.gui;
 
 import java.awt.BorderLayout;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -28,7 +29,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends JPanel
+public class DSOLPanel<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends JPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -67,7 +68,7 @@ public class DSOLPanel<A extends Comparable<A>, R extends Number & Comparable<R>
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception, "DSOLPanel");
+            simulator.getLogger().always().error(exception, "DSOLPanel");
         }
     }
 

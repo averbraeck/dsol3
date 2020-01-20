@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.tutorial.section43;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
@@ -10,7 +11,7 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 /**
  * The population differential equation.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -61,5 +62,12 @@ public class Population extends DifferentialEquation<Double, Double, SimTimeDoub
         dy[0] = -this.a * y[0] + this.b * y[0] * y[1];
         dy[1] = this.c * y[1] - this.d * y[1] * y[0];
         return dy;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "Population";
     }
 }

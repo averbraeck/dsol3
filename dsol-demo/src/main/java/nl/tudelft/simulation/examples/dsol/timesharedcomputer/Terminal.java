@@ -1,18 +1,18 @@
 package nl.tudelft.simulation.examples.dsol.timesharedcomputer;
 
+import org.djutils.event.EventType;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.flow.Station;
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventType;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 
 /**
  * The Terminal as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4..
  * <p>
- * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -44,7 +44,7 @@ public class Terminal extends Station<Double, Double, SimTimeDouble>
     public Terminal(final DEVSSimulatorInterface.TimeDouble simulator, final StationInterface cpu,
             final DistContinuous thinkDelay, final DistContinuous jobSize)
     {
-        super(simulator);
+        super("Terminal", simulator);
         this.thinkDelay = thinkDelay;
         this.jobSize = jobSize;
         this.setDestination(cpu);
@@ -65,7 +65,7 @@ public class Terminal extends Station<Double, Double, SimTimeDouble>
         }
         catch (SimRuntimeException exception)
         {
-            SimLogger.always().error(exception);
+            getSimulator().getLogger().always().error(exception);
         }
     }
 

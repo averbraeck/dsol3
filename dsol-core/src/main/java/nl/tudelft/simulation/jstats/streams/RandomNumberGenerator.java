@@ -6,7 +6,7 @@ import nl.tudelft.simulation.language.reflection.StateSaver;
 /**
  * The RandomNumberGenerator class provides an abstract basis for all pseudo random number generators.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -62,9 +62,9 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /**
      * Returns the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
-     * sequence. The general contract of <code>nextBoolean</code> is that one <code>boolean</code> value is pseudorandomly generated and
-     * returned. The values <code>true</code> and <code>false</code> are produced with (approximately) equal probability. The
-     * method <code>nextBoolean</code> is implemented by class <code>Random</code> as follows: <blockquote>
+     * sequence. The general contract of <code>nextBoolean</code> is that one <code>boolean</code> value is pseudorandomly
+     * generated and returned. The values <code>true</code> and <code>false</code> are produced with (approximately) equal
+     * probability. The method <code>nextBoolean</code> is implemented by class <code>Random</code> as follows: <blockquote>
      * 
      * <pre>
      * public boolean nextBoolean()
@@ -88,10 +88,10 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * Returns the next pseudorandom, uniformly distributed <code>double</code> value between <code>0.0</code> and
      * <code>1.0</code> from this random number generator's sequence.
      * <p>
-     * The general contract of <code>nextDouble</code> is that one <code>double</code> value, chosen (approximately) uniformly from the
-     * range <code>0.0d</code> (inclusive) to <code>1.0d</code> (exclusive), is pseudorandomly generated and returned. All 2 <sup>64
-     * </sup> possible <code>float</code> values of the form <i>m&nbsp;x&nbsp; </i>2 <sup>-64 </sup>, where <i>m </i> is a positive
-     * integer less than 2 <sup>64 </sup>, are produced with (approximately) equal probability.
+     * The general contract of <code>nextDouble</code> is that one <code>double</code> value, chosen (approximately) uniformly
+     * from the range <code>0.0d</code> (inclusive) to <code>1.0d</code> (exclusive), is pseudorandomly generated and returned.
+     * All 2 <sup>64 </sup> possible <code>float</code> values of the form <i>m&nbsp;x&nbsp; </i>2 <sup>-64 </sup>, where <i>m
+     * </i> is a positive integer less than 2 <sup>64 </sup>, are produced with (approximately) equal probability.
      * @return the next pseudorandom, uniformly distributed <code>double</code> value between <code>0.0</code> and
      *         <code>1.0</code> from this random number generator's sequence.
      */
@@ -106,10 +106,10 @@ public abstract class RandomNumberGenerator implements StreamInterface
      * Returns the next pseudorandom, uniformly distributed <code>float</code> value between <code>0.0</code> and
      * <code>1.0</code> from this random number generator's sequence.
      * <p>
-     * The general contract of <code>nextFloat</code> is that one <code>float</code> value, chosen (approximately) uniformly from the
-     * range <code>0.0f</code> (inclusive) to <code>1.0f</code> (exclusive), is pseudorandomly generated and returned. All
-     * 2<sup>24</sup> possible <code>float</code> values of the form <i>m&nbsp;x&nbsp;</i>2<sup>-24</sup>, where <i>m </i> is a
-     * positive integer less than 2 <sup>24 </sup>, are produced with (approximately) equal probability. The method
+     * The general contract of <code>nextFloat</code> is that one <code>float</code> value, chosen (approximately) uniformly
+     * from the range <code>0.0f</code> (inclusive) to <code>1.0f</code> (exclusive), is pseudorandomly generated and returned.
+     * All 2<sup>24</sup> possible <code>float</code> values of the form <i>m&nbsp;x&nbsp;</i>2<sup>-24</sup>, where <i>m </i>
+     * is a positive integer less than 2 <sup>24 </sup>, are produced with (approximately) equal probability. The method
      * <code>nextFloat</code> is implemented by class <code>Random</code> as follows: <blockquote>
      * 
      * <pre>
@@ -134,8 +134,8 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /**
      * Returns the next pseudorandom, uniformly distributed <code>int</code> value from this random number generator's sequence.
-     * The general contract of <code>nextInt</code> is that one <code>int</code> value is pseudorandomly generated and returned. All 2
-     * <sup>32 </sup> possible <code>int</code> values are produced with (approximately) equal probability. The method
+     * The general contract of <code>nextInt</code> is that one <code>int</code> value is pseudorandomly generated and returned.
+     * All 2 <sup>32 </sup> possible <code>int</code> values are produced with (approximately) equal probability. The method
      * <code>nextInt</code> is implemented by class <code>Random</code> as follows: <blockquote>
      * 
      * <pre>
@@ -156,9 +156,9 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /**
      * Returns a pseudorandom, uniformly distributed <code>int</code> value between i (inclusive) and j, drawn from this random
-     * number generator's sequence. The general contract of <code>nextInt</code> is that one <code>int</code> value in the specified
-     * range is pseudorandomly generated and returned. All <code>n</code> possible <code>int</code> values are produced with
-     * (approximately) equal probability.
+     * number generator's sequence. The general contract of <code>nextInt</code> is that one <code>int</code> value in the
+     * specified range is pseudorandomly generated and returned. All <code>n</code> possible <code>int</code> values are
+     * produced with (approximately) equal probability.
      * @param i int; the lower value
      * @param j int; the higher value
      * @return the result
@@ -175,8 +175,8 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /**
      * Returns the next pseudorandom, uniformly distributed <code>long</code> value from this random number generator's
-     * sequence. The general contract of <code>nextLong</code> is that one long value is pseudorandomly generated and returned. All
-     * 2 <sup>64 </sup> possible <code>long</code> values are produced with (approximately) equal probability. The method
+     * sequence. The general contract of <code>nextLong</code> is that one long value is pseudorandomly generated and returned.
+     * All 2 <sup>64 </sup> possible <code>long</code> values are produced with (approximately) equal probability. The method
      * <code>nextLong</code> is implemented by class <code>Random</code> as follows: <blockquote>
      * 
      * <pre>

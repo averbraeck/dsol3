@@ -10,7 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.dsol.swing.introspection.mapping.CellPresentationConfiguration;
 import nl.tudelft.simulation.dsol.swing.introspection.mapping.DefaultConfiguration;
 import nl.tudelft.simulation.introspection.Introspector;
@@ -20,7 +21,7 @@ import nl.tudelft.simulation.introspection.Property;
  * A table-element that spawns an introspection dialog for a property. In the new dialog, the property has become the
  * introspected object.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -151,7 +152,7 @@ public class ExpandButton extends JButton
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "instantiate: could not instantiate parent tablemodel, using default");
+            CategoryLogger.always().warn(exception, "instantiate: could not instantiate parent tablemodel, using default");
             if (this.PROPERTY.getComposedType().isArray())
             {
                 newModel = new CollectionTableModel(this.PROPERTY);

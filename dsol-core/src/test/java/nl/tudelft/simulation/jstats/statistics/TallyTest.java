@@ -4,14 +4,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.djutils.event.Event;
 import org.junit.Test;
-
-import nl.tudelft.simulation.event.Event;
 
 /**
  * The TallyTest test the tally.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -73,17 +72,17 @@ public class TallyTest
         // Now we fire some events
         try
         {
-            tally.notify(new Event(null, this, Double.valueOf(1.0)));
-            tally.notify(new Event(null, this, Double.valueOf(1.1)));
-            tally.notify(new Event(null, this, Double.valueOf(1.2)));
-            tally.notify(new Event(null, this, Double.valueOf(1.3)));
-            tally.notify(new Event(null, this, Double.valueOf(1.4)));
-            tally.notify(new Event(null, this, Double.valueOf(1.5)));
-            tally.notify(new Event(null, this, Double.valueOf(1.6)));
-            tally.notify(new Event(null, this, Double.valueOf(1.7)));
-            tally.notify(new Event(null, this, Double.valueOf(1.8)));
-            tally.notify(new Event(null, this, Double.valueOf(1.9)));
-            tally.notify(new Event(null, this, Double.valueOf(2.0)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.0)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.1)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.2)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.3)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.4)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.5)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.6)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.7)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.8)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.9)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(2.0)));
         }
         catch (Exception exception)
         {

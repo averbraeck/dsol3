@@ -1,11 +1,13 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.EventProducer;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -17,12 +19,11 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventProducer;
 
 /**
  * A station is an object which can accept other objects.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -35,8 +36,8 @@ import nl.tudelft.simulation.event.EventProducer;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class Station<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends EventProducer implements StationInterface<A, R, T>
+public abstract class Station<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends EventProducer implements StationInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -49,14 +50,25 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected StationInterface<A, R, T> destination;
 
+    /** the id of the Station. */
+    private Serializable id;
+
     /**
      * constructs a new Station.
+     * @param id Serializable; the id of the Station
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; is the simulator on which behavior is scheduled
      */
-    public Station(final DEVSSimulatorInterface<A, R, T> simulator)
+    public Station(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator)
     {
-        super();
+        this.id = id;
         this.simulator = simulator;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return this.id;
     }
 
     /** {@inheritDoc} */
@@ -95,6 +107,14 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
         return this.destination;
     }
 
+    /**
+     * @return simulator
+     */
+    public final DEVSSimulatorInterface<A, R, T> getSimulator()
+    {
+        return this.simulator;
+    }
+
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
@@ -107,11 +127,12 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeDouble.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDouble; is the simulator on which behavior is scheduled
          */
-        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator)
+        public TimeDouble(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -123,11 +144,12 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeFloat.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloat; is the simulator on which behavior is scheduled
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator)
+        public TimeFloat(final Serializable id, final DEVSSimulatorInterface.TimeFloat simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -139,11 +161,12 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeLong.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeLong; is the simulator on which behavior is scheduled
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator)
+        public TimeLong(final Serializable id, final DEVSSimulatorInterface.TimeLong simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -156,11 +179,12 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeDoubleUnit.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; is the simulator on which behavior is scheduled
          */
-        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator)
+        public TimeDoubleUnit(final Serializable id, final DEVSSimulatorInterface.TimeDoubleUnit simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -173,11 +197,12 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.TimeFloatUnit.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; is the simulator on which behavior is scheduled
          */
-        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator)
+        public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -190,11 +215,12 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.CalendarDouble.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarDouble; is the simulator on which behavior is scheduled
          */
-        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator)
+        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -207,11 +233,12 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.CalendarFloat.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarFloat; is the simulator on which behavior is scheduled
          */
-        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator)
+        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 
@@ -224,11 +251,12 @@ public abstract class Station<A extends Comparable<A>, R extends Number & Compar
 
         /**
          * constructs a new Station.CalendarLong.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarLong; is the simulator on which behavior is scheduled
          */
-        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator)
+        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator)
         {
-            super(simulator);
+            super(id, simulator);
         }
     }
 

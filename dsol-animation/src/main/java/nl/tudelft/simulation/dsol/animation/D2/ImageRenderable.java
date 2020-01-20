@@ -25,7 +25,7 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
 /**
  * An abstract class for state-dependent image renderables. .
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -37,6 +37,9 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  */
 public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<T>
 {
+    /** */
+    private static final long serialVersionUID = 20200108L;
+
     /** the cache of imageIcons. */
     private static transient Map<URL, ImageIcon> cache = new HashMap<URL, ImageIcon>();
 

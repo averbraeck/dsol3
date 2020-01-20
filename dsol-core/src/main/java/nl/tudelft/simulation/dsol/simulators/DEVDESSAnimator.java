@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.simulators;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
@@ -10,7 +11,6 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -24,7 +24,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * The reference implementation of the animator.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -38,19 +38,20 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends DEVDESSSimulator<A, R, T> implements AnimatorInterface
+public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends DEVDESSSimulator<A, R, T> implements AnimatorInterface
 {
     /** */
     private static final long serialVersionUID = 20140804L;
 
     /**
      * @param initialTimeStep R; the initial time step to use in the integration.
+     * @param id the id of the simulator, used in logging and firing of events.
      * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
      */
-    public DEVDESSAnimator(final R initialTimeStep) throws SimRuntimeException
+    public DEVDESSAnimator(final Serializable id, final R initialTimeStep) throws SimRuntimeException
     {
-        super(initialTimeStep);
+        super(id, initialTimeStep);
     }
 
     /** AnimationDelay refers to the delay in milliseconds between timeSteps. */
@@ -119,7 +120,7 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
                     }
                     catch (Exception exception)
                     {
-                        SimLogger.always().error(exception, "run");
+                        getLogger().always().error(exception, "run");
                     }
                 }
             }
@@ -146,11 +147,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep Double; the initial time step to use in the integration.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public TimeDouble(final Double initialTimeStep) throws SimRuntimeException
+        public TimeDouble(final Serializable id, final Double initialTimeStep) throws SimRuntimeException
         {
-            super(initialTimeStep);
+            super(id, initialTimeStep);
         }
 
         /** {@inheritDoc} */
@@ -171,11 +173,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep Float; the initial time step to use in the integration.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public TimeFloat(final Float initialTimeStep) throws SimRuntimeException
+        public TimeFloat(final Serializable id, final Float initialTimeStep) throws SimRuntimeException
         {
-            super(initialTimeStep);
+            super(id, initialTimeStep);
         }
 
         /** {@inheritDoc} */
@@ -195,11 +198,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep Long; the initial time step to use in the integration.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public TimeLong(final Long initialTimeStep) throws SimRuntimeException
+        public TimeLong(final Serializable id, final Long initialTimeStep) throws SimRuntimeException
         {
-            super(initialTimeStep);
+            super(id, initialTimeStep);
         }
 
         /** {@inheritDoc} */
@@ -220,11 +224,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep Duration; the initial time step to use in the integration.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public DoubleUnit(final Duration initialTimeStep) throws SimRuntimeException
+        public DoubleUnit(final Serializable id, final Duration initialTimeStep) throws SimRuntimeException
         {
-            super(initialTimeStep);
+            super(id, initialTimeStep);
         }
 
         /** {@inheritDoc} */
@@ -245,11 +250,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep FloatDuration; the initial time step to use in the integration.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public TimeFloatUnit(final FloatDuration initialTimeStep) throws SimRuntimeException
+        public TimeFloatUnit(final Serializable id, final FloatDuration initialTimeStep) throws SimRuntimeException
         {
-            super(initialTimeStep);
+            super(id, initialTimeStep);
         }
 
         /** {@inheritDoc} */
@@ -270,11 +276,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep Duration; the initial time step to use in the integration.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public CalendarDouble(final Duration initialTimeStep) throws SimRuntimeException
+        public CalendarDouble(final Serializable id, final Duration initialTimeStep) throws SimRuntimeException
         {
-            super(initialTimeStep);
+            super(id, initialTimeStep);
         }
 
         /** {@inheritDoc} */
@@ -295,11 +302,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep FloatDuration; the initial time step to use in the integration.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public CalendarFloat(final FloatDuration initialTimeStep) throws SimRuntimeException
+        public CalendarFloat(final Serializable id, final FloatDuration initialTimeStep) throws SimRuntimeException
         {
-            super(initialTimeStep);
+            super(id, initialTimeStep);
         }
 
         /** {@inheritDoc} */
@@ -320,11 +328,12 @@ public class DEVDESSAnimator<A extends Comparable<A>, R extends Number & Compara
 
         /**
          * @param initialTimeStep Long; the initial time step to use in the integration.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @throws SimRuntimeException when initialTimeStep &lt;= 0, NaN, or Infinity
          */
-        public CalendarLong(final Long initialTimeStep) throws SimRuntimeException
+        public CalendarLong(final Serializable id, final Long initialTimeStep) throws SimRuntimeException
         {
-            super(initialTimeStep);
+            super(id, initialTimeStep);
         }
 
         /** {@inheritDoc} */

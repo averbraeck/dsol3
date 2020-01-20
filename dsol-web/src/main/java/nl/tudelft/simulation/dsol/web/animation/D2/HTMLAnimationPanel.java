@@ -14,28 +14,22 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.media.j3d.BoundingBox;
-import javax.naming.Binding;
-import javax.naming.NamingEnumeration;
-import javax.naming.event.EventContext;
-import javax.naming.event.NamespaceChangeListener;
-import javax.naming.event.NamingEvent;
-import javax.naming.event.NamingExceptionEvent;
 import javax.vecmath.Point3d;
 import javax.vecmath.Point4i;
+
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
 
 import nl.javel.gisbeans.map.MapInterface;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.GisRenderable2D;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DComparator;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.web.animation.HTMLGraphics2D;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.naming.context.ContextUtil;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The AnimationPanel to display animated (Locatable) objects. Added the possibility to witch layers on and off. By default all
@@ -43,7 +37,7 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * copyright (c) 2002-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -51,8 +45,11 @@ import nl.tudelft.simulation.naming.context.ContextUtil;
  * </p>
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
-public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerInterface, NamespaceChangeListener
+public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerInterface
 {
+    /** */
+    private static final long serialVersionUID = 20200108L;
+
     /** the elements of this panel. */
     private SortedSet<Renderable2DInterface<? extends Locatable>> elements =
             new TreeSet<Renderable2DInterface<? extends Locatable>>(new Renderable2DComparator());
@@ -70,7 +67,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     private SimulatorInterface<?, ?, ?> simulator;
 
     /** the eventContext. */
-    private EventContext context = null;
+    private ContextInterface context = null;
 
     /** a line that helps the user to see where s/he is dragging. */
     private Point4i dragLine = new Point4i();
@@ -203,10 +200,21 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     }
 
     /** {@inheritDoc} */
+    @SuppressWarnings("unchecked")
     @Override
     public void notify(final EventInterface event) throws RemoteException
     {
-        if (event.getSource() instanceof AnimatorInterface
+        if (event.getType().equals(ContextInterface.OBJECT_ADDED_EVENT))
+        {
+            objectAdded((Renderable2DInterface<? extends Locatable>) ((Object[])event.getContent())[2]);
+        }
+        
+        else if (event.getType().equals(ContextInterface.OBJECT_REMOVED_EVENT))
+        {
+            objectRemoved((Renderable2DInterface<? extends Locatable>) ((Object[])event.getContent())[2]);
+        }
+        
+        else if (this.simulator.getSourceId().equals(event.getSourceId())
                 && event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
         {
             synchronized (this.elementList)
@@ -216,35 +224,34 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
                 {
                     if (this.context != null)
                     {
-                        this.context.removeNamingListener(this);
+                        this.context.removeListener(this, ContextInterface.OBJECT_ADDED_EVENT);
+                        this.context.removeListener(this, ContextInterface.OBJECT_REMOVED_EVENT);
                     }
 
                     this.context =
-                            (EventContext) ContextUtil.lookup(this.simulator.getReplication().getContext(), "/animation/2D");
-                    this.context.addNamingListener("", EventContext.SUBTREE_SCOPE, this);
-                    NamingEnumeration<Binding> list = this.context.listBindings("");
-                    while (list.hasMore())
+                            ContextUtil.lookupOrCreateSubContext(this.simulator.getReplication().getContext(), "animation/2D");
+                    this.context.addListener(this, ContextInterface.OBJECT_ADDED_EVENT);
+                    this.context.addListener(this, ContextInterface.OBJECT_REMOVED_EVENT);
+                    for (Object element : this.context.values())
                     {
-                        Binding binding = list.next();
-                        this.objectAdded(new NamingEvent(this.context, -1, binding, binding, null));
+                        objectAdded((Renderable2DInterface<? extends Locatable>) element);
                     }
                     this.repaint();
                 }
                 catch (Exception exception)
                 {
-                    SimLogger.always().warn(exception, "notify");
+                    this.simulator.getLogger().always().warn(exception, "notify");
                 }
             }
         }
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public void objectAdded(final NamingEvent namingEvent)
+    /**
+     * Add a locatable object to the animation.
+     * @param element Renderable2DInterface&lt;? extends Locatable&gt;; the element to add to the animation
+     */
+    public void objectAdded(final Renderable2DInterface<? extends Locatable> element)
     {
-        @SuppressWarnings("unchecked")
-        Renderable2DInterface<? extends Locatable> element =
-                (Renderable2DInterface<? extends Locatable>) namingEvent.getNewBinding().getObject();
         synchronized (this.elementList)
         {
             this.elements.add(element);
@@ -252,33 +259,17 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
         }
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public void objectRemoved(final NamingEvent namingEvent)
+    /**
+     * Remove a locatable object from the animation.
+     * @param element Renderable2DInterface&lt;? extends Locatable&gt;; the element to add to the animation
+     */
+    public void objectRemoved(final Renderable2DInterface<? extends Locatable> element)
     {
-        @SuppressWarnings("unchecked")
-        Renderable2DInterface<? extends Locatable> element =
-                (Renderable2DInterface<? extends Locatable>) namingEvent.getOldBinding().getObject();
         synchronized (this.elementList)
         {
             this.elements.remove(element);
             this.dirtyElements = true;
         }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void objectRenamed(final NamingEvent namingEvent)
-    {
-        this.objectRemoved(namingEvent);
-        this.objectAdded(namingEvent);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void namingExceptionThrown(final NamingExceptionEvent namingEvent)
-    {
-        SimLogger.always().warn(namingEvent.getException(), "namingExceptionThrown");
     }
 
     /**

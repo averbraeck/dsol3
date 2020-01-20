@@ -195,7 +195,7 @@ public class DbfReader implements Serializable
                 for (int row = 0; row < this.numRecords; row++)
                 {
                     if (rows[row][col].equals(attribute))
-                        result.add(new Integer(row));
+                        result.add(Integer.valueOf(row));
                 }
             }
         }

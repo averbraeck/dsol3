@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.tutorial.section44;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
@@ -9,7 +10,7 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 /**
  * A Positioner.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -50,5 +51,12 @@ public class Positioner extends DifferentialEquation<Double, Double, SimTimeDoub
         dy[0] = y[1]; // v(t) = a(t)
         dy[1] = 0.5; // a(t) = constant
         return dy;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "Positioner";
     }
 }

@@ -7,13 +7,14 @@ import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.dsol.swing.introspection.gui.ExpandButton;
 
 /**
  * Implements the pop-up behaviour of the {see nl.tudelft.simulation.introspection.gui.ExpandButton}.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -43,7 +44,8 @@ public class ExpandButtonEditor extends AbstractCellEditor implements TableCellE
         }
         else
         {
-            SimLogger.always().warn("getTableCellEditorComponent: Expected value to be an ExpandButton, but found: {}", value);
+            CategoryLogger.always().warn("getTableCellEditorComponent: Expected value to be an ExpandButton, but found: {}",
+                    value);
         }
         return (Component) value;
     }

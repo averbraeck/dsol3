@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 import javax.swing.table.AbstractTableModel;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.introspection.Introspector;
 import nl.tudelft.simulation.introspection.Property;
 import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
@@ -142,7 +143,7 @@ public class ObjectTableModel extends AbstractTableModel implements Introspectin
         }
         catch (IllegalArgumentException exception)
         {
-            SimLogger.always().warn(exception, "setValueAt");
+            CategoryLogger.always().warn(exception, "setValueAt");
         }
     }
 

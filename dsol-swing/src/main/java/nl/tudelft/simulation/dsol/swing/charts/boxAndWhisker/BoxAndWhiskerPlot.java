@@ -11,19 +11,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.ref.ReferenceType;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.PlotState;
 
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.jstats.statistics.Tally;
 
 /**
  * The Summary chart class defines a summary chart..
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -72,7 +73,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
      */
     public synchronized void add(final Tally tally)
     {
-        tally.addListener(this, Tally.SAMPLE_MEAN_EVENT, false);
+        tally.addListener(this, Tally.SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
         List<Tally> list = new ArrayList<Tally>(Arrays.asList(this.tallies));
         list.add(tally);
         this.tallies = list.toArray(new Tally[list.size()]);

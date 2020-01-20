@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.process;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -8,14 +9,13 @@ import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
  * The Process for the process interaction formalism with hold(), suspend(), resume() and cancel() methods.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -27,8 +27,8 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-public abstract class Process<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends InterpretableProcess implements ResourceRequestorInterface<A, R, T>
+public abstract class Process<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends InterpretableProcess implements ResourceRequestorInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140805L;
@@ -70,7 +70,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
             }
             catch (Exception exception)
             {
-                SimLogger.always().error(exception, "<init>");
+                this.simulator.getLogger().always().error(exception, "<init>");
             }
         }
     }
@@ -111,7 +111,7 @@ public abstract class Process<A extends Comparable<A>, R extends Number & Compar
             }
             catch (Exception exception)
             {
-                SimLogger.always().warn(exception, "cancel");
+                this.simulator.getLogger().always().warn(exception, "cancel");
             }
         }
     }

@@ -1,19 +1,21 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
+import java.io.Serializable;
+
+import org.djutils.event.EventProducer;
+import org.djutils.event.EventType;
+
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.tutorial.section42.policies.OrderingPolicy;
 import nl.tudelft.simulation.dsol.tutorial.section42.policies.StationaryPolicy;
-import nl.tudelft.simulation.event.EventProducer;
-import nl.tudelft.simulation.event.EventType;
 
 /**
  * A Retailer.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -120,7 +122,7 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         }
         catch (Exception exception)
         {
-            SimLogger.always().error(exception, "reviewInventory");
+            this.simulator.getLogger().always().error(exception, "reviewInventory");
         }
     }
 
@@ -137,6 +139,13 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         this.fireTimedEvent(INVENTORY_LEVEL_EVENT, this.inventory, this.simulator.getSimulatorTime());
         this.fireTimedEvent(BACKLOG_LEVEL, this.backLog, this.simulator.getSimulatorTime());
         buyer.receiveProduct(actualOrderSize);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "Retailer";
     }
 
 }

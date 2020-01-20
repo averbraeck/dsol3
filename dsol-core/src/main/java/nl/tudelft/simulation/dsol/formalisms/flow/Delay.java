@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
@@ -7,7 +8,6 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -24,7 +24,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * The Delay object is a station which delays an entity by some time units. When an entity arrives at a delay object, dsol
  * delays the entity by the resulting time period. During the time delay, the entity is held in the delay object.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -37,7 +37,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+public class Delay<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
         extends Station<A, R, T>
 {
     /** */
@@ -47,13 +47,15 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
     private DistContinuousSimulationTime<R> delayDistribution;
 
     /**
-     * Constructor for Delay.
+     * Constructor for Delay. * @param id Serializable; the id of the Station
      * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; is the simulator
+     * @param id Serializable; the id of the Station
      * @param delayDistribution DistContinuousSimulationTime&lt;R&gt;; is the delayDistribution
      */
-    public Delay(final DEVSSimulatorInterface<A, R, T> simulator, final DistContinuousSimulationTime<R> delayDistribution)
+    public Delay(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator,
+            final DistContinuousSimulationTime<R> delayDistribution)
     {
-        super(simulator);
+        super(id, simulator);
         this.delayDistribution = delayDistribution;
     }
 
@@ -68,7 +70,7 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
         }
         catch (Exception exception)
         {
-            SimLogger.always().warn(exception, "receiveObject");
+            this.simulator.getLogger().always().warn(exception, "receiveObject");
         }
     }
 
@@ -84,13 +86,14 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for TimeDouble Delay.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDouble; is the simulator
          * @param delayDistribution DistContinuousSimulationTime.TimeDouble; is the delayDistribution
          */
-        public TimeDouble(final DEVSSimulatorInterface.TimeDouble simulator,
+        public TimeDouble(final Serializable id, final DEVSSimulatorInterface.TimeDouble simulator,
                 final DistContinuousSimulationTime.TimeDouble delayDistribution)
         {
-            super(simulator, delayDistribution);
+            super(id, simulator, delayDistribution);
         }
     }
 
@@ -102,13 +105,14 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for TimeFloat Delay.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeFloat; is the simulator
          * @param delayDistribution DistContinuousSimulationTime.TimeFloat; is the delayDistribution
          */
-        public TimeFloat(final DEVSSimulatorInterface.TimeFloat simulator,
+        public TimeFloat(final Serializable id, final DEVSSimulatorInterface.TimeFloat simulator,
                 final DistContinuousSimulationTime.TimeFloat delayDistribution)
         {
-            super(simulator, delayDistribution);
+            super(id, simulator, delayDistribution);
         }
     }
 
@@ -120,13 +124,14 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for TimeLong Delay.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeLong; is the simulator
          * @param delayDistribution DistContinuousSimulationTime.TimeLong; is the delayDistribution
          */
-        public TimeLong(final DEVSSimulatorInterface.TimeLong simulator,
+        public TimeLong(final Serializable id, final DEVSSimulatorInterface.TimeLong simulator,
                 final DistContinuousSimulationTime.TimeLong delayDistribution)
         {
-            super(simulator, delayDistribution);
+            super(id, simulator, delayDistribution);
         }
     }
 
@@ -139,13 +144,14 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for TimeDoubleUnit Delay.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.TimeDoubleUnit; is the simulator
          * @param delayDistribution DistContinuousSimulationTime.TimeDoubleUnit; is the delayDistribution
          */
-        public TimeDoubleUnit(final DEVSSimulatorInterface.TimeDoubleUnit simulator,
+        public TimeDoubleUnit(final Serializable id, final DEVSSimulatorInterface.TimeDoubleUnit simulator,
                 final DistContinuousSimulationTime.TimeDoubleUnit delayDistribution)
         {
-            super(simulator, delayDistribution);
+            super(id, simulator, delayDistribution);
         }
     }
 
@@ -158,13 +164,14 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for TimeFloatUnit Delay.
+         * @param id Serializable; the id of the Station\n\r @param simulator
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; is the simulator
          * @param delayDistribution DistContinuousSimulationTime.TimeFloatUnit; is the delayDistribution
          */
-        public TimeFloatUnit(final DEVSSimulatorInterface.TimeFloatUnit simulator,
+        public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final DistContinuousSimulationTime.TimeFloatUnit delayDistribution)
         {
-            super(simulator, delayDistribution);
+            super(id, simulator, delayDistribution);
         }
     }
 
@@ -177,13 +184,14 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for CalendarDouble Delay.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarDouble; is the simulator
          * @param delayDistribution DistContinuousSimulationTime.CalendarDouble; is the delayDistribution
          */
-        public CalendarDouble(final DEVSSimulatorInterface.CalendarDouble simulator,
+        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
                 final DistContinuousSimulationTime.CalendarDouble delayDistribution)
         {
-            super(simulator, delayDistribution);
+            super(id, simulator, delayDistribution);
         }
     }
 
@@ -196,13 +204,14 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for CalendarFloat Delay.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarFloat; is the simulator
          * @param delayDistribution DistContinuousSimulationTime.CalendarFloat; is the delayDistribution
          */
-        public CalendarFloat(final DEVSSimulatorInterface.CalendarFloat simulator,
+        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
                 final DistContinuousSimulationTime.CalendarFloat delayDistribution)
         {
-            super(simulator, delayDistribution);
+            super(id, simulator, delayDistribution);
         }
     }
 
@@ -214,13 +223,14 @@ public class Delay<A extends Comparable<A>, R extends Number & Comparable<R>, T 
 
         /**
          * Constructor for CalendarLong Delay.
+         * @param id Serializable; the id of the Station
          * @param simulator DEVSSimulatorInterface.CalendarLong; is the simulator
          * @param delayDistribution DistContinuousSimulationTime.CalendarLong; is the delayDistribution
          */
-        public CalendarLong(final DEVSSimulatorInterface.CalendarLong simulator,
+        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
                 final DistContinuousSimulationTime.CalendarLong delayDistribution)
         {
-            super(simulator, delayDistribution);
+            super(id, simulator, delayDistribution);
         }
     }
 }

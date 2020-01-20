@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.simulators;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.djunits.unit.DurationUnit;
@@ -7,11 +8,11 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.EventType;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -21,13 +22,12 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.event.EventType;
 
 /**
  * The reference implementation of the realTimeClock. The realTime clock is a DEVS simulator which runs at a ratio of realTime.
  * If the executionTime exceeds the timeStep, a catchup mechanism can be triggered to make up lost time in consecutive steps.
  * <p>
- * Copyright (c) 2004-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2004-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -40,8 +40,8 @@ import nl.tudelft.simulation.event.EventType;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends DEVSAnimator<A, R, T> implements DEVSSimulatorInterface<A, R, T>
+public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends DEVSAnimator<A, R, T> implements DEVSSimulatorInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20150428L;
@@ -83,6 +83,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
      * @return the relative time step.
      */
     protected abstract R simulatorTimeForWallClockMillis(double wallMilliseconds);
+
+    /**
+     * Constructs a new DEVSRealTimeClock.
+     * @param id the id of the simulator, used in logging and firing of events.
+     */
+    public DEVSRealTimeClock(final Serializable id)
+    {
+        super(id);
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -254,7 +263,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                         }
                         catch (Exception exception)
                         {
-                            SimLogger.always().error(exception);
+                            getLogger().always().error(exception);
                             if (this.isPauseOnError())
                             {
                                 try
@@ -263,7 +272,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
                                 }
                                 catch (SimRuntimeException stopException)
                                 {
-                                    SimLogger.always().error(stopException);
+                                    getLogger().always().error(stopException);
                                 }
                             }
                         }
@@ -417,12 +426,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         private final double msecWallClockToSimTimeUnit;
 
         /**
+         * Construct a DEVSRealTimeClock.TimeDouble.
+         * @param id the id of the simulator, used in logging and firing of events.
          * @param msecWallClockToSimTimeUnit double; the translation between a millisecond on the clock and '1.0' in the
          *            simulation time.
          */
-        public TimeDouble(final double msecWallClockToSimTimeUnit)
+        public TimeDouble(final Serializable id, final double msecWallClockToSimTimeUnit)
         {
-            super();
+            super(id);
             this.msecWallClockToSimTimeUnit = msecWallClockToSimTimeUnit;
         }
 
@@ -449,6 +460,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Construct a DEVSRealTimeClock.TimeFloat.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeFloat(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -465,6 +485,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Construct a DEVSRealTimeClock.TimeLong.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeLong(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @SuppressWarnings("unchecked")
         @Override
@@ -480,6 +509,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Construct a DEVSRealTimeClock.TimeDoubleUnit.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeDoubleUnit(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @Override
@@ -504,6 +542,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Construct a DEVSRealTimeClock.TimeFloatUnit.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public TimeFloatUnit(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @Override
         protected final FloatDuration simulatorTimeForWallClockMillis(final double wallMilliseconds)
@@ -526,6 +573,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Construct a DEVSRealTimeClock.CalendarDouble.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarDouble(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @Override
@@ -550,6 +606,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
         /** */
         private static final long serialVersionUID = 20140805L;
 
+        /**
+         * Construct a DEVSRealTimeClock.CalendarFloat.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarFloat(final Serializable id)
+        {
+            super(id);
+        }
+
         /** {@inheritDoc} */
         @Override
         protected final FloatDuration simulatorTimeForWallClockMillis(final double wallMilliseconds)
@@ -572,6 +637,15 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A>, R extends Numbe
     {
         /** */
         private static final long serialVersionUID = 20140805L;
+
+        /**
+         * Construct a DEVSRealTimeClock.CalendarLong.
+         * @param id the id of the simulator, used in logging and firing of events.
+         */
+        public CalendarLong(final Serializable id)
+        {
+            super(id);
+        }
 
         /** {@inheritDoc} */
         @Override

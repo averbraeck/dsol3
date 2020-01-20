@@ -4,17 +4,17 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -38,7 +38,7 @@ public class MM1Queue41Application
      */
     protected MM1Queue41Application() throws SimRuntimeException, RemoteException, NamingException
     {
-        this.simulator = new DEVSSimulator.TimeDouble();
+        this.simulator = new DEVSSimulator.TimeDouble("MM1Queue41Application");
         this.model = new MM1Queue41Model(this.simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, this.model);
@@ -65,7 +65,7 @@ public class MM1Queue41Application
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
-        SimLogger.setAllLogLevel(Level.TRACE);
+        CategoryLogger.setAllLogLevel(Level.TRACE);
         new MM1Queue41Application();
     }
 

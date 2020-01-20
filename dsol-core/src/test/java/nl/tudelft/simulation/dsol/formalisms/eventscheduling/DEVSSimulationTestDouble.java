@@ -1,10 +1,13 @@
 package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.concurrent.TimeoutException;
 
 import javax.naming.NamingException;
 
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
 import org.junit.Test;
 
 import net.jodah.concurrentunit.Waiter;
@@ -15,8 +18,6 @@ import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistUniform;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
@@ -45,7 +46,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
             throws SimRuntimeException, RemoteException, NamingException, TimeoutException, InterruptedException
     {
         this.waiter = new Waiter();
-        this.devsSimulator = new DEVSSimulator.TimeDouble();
+        this.devsSimulator = new DEVSSimulator.TimeDouble("testDEVSSimulationDouble");
         this.devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
@@ -86,7 +87,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
             throws SimRuntimeException, RemoteException, NamingException, TimeoutException, InterruptedException
     {
         this.waiter = new Waiter();
-        this.devsSimulator = new DEVSSimulator.TimeDouble();
+        this.devsSimulator = new DEVSSimulator.TimeDouble("testRunUpTo");
         this.devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
@@ -151,7 +152,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
             throws SimRuntimeException, RemoteException, NamingException, TimeoutException, InterruptedException
     {
         this.waiter = new Waiter();
-        this.devsSimulator = new DEVSSimulator.TimeDouble();
+        this.devsSimulator = new DEVSSimulator.TimeDouble("testSimLambda");
         this.devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
@@ -195,6 +196,13 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
         public void constructModel() throws SimRuntimeException
         {
             //
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Serializable getSourceId()
+        {
+            return "ModelDouble";
         }
     }
 }

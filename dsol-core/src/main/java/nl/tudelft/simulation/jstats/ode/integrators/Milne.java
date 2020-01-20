@@ -6,7 +6,7 @@ import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
  * The Milne numerical estimator as described in <a href="http://mathworld.wolfram.com/MilnesMethod.html">
  * http://mathworld.wolfram.com/MilnesMethod.html </a>
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -54,8 +54,8 @@ public class Milne extends CachingNumericalIntegrator
         double[] dy0 = getDY(0);
 
         // Let's evaluate the predictor
-        double[] p = add(y3, multiply(4 * this.stepSize / 3.0,
-                add(multiply(2.0, dy0), multiply(-1.0, dy1), multiply(2.0, dy2))));
+        double[] p =
+                add(y3, multiply(4 * this.stepSize / 3.0, add(multiply(2.0, dy0), multiply(-1.0, dy1), multiply(2.0, dy2))));
 
         // Now we compute the corrector
         return add(y1, multiply(this.stepSize / 3.0,

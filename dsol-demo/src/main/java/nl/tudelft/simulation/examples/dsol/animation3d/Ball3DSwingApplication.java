@@ -15,10 +15,11 @@ import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.language.DSOLException;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -45,11 +46,12 @@ public class Ball3DSwingApplication extends DSOLApplication
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
+     * @throws DSOLException when simulator does not implement AnimatorInterface
      */
-    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
+    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException, DSOLException
     {
         // TODO: Make 3D examples work with Java-8 and provide good instructions
-        DESSSimulator.TimeDouble simulator = new DESSSimulator.TimeDouble(0.01);
+        DESSSimulator.TimeDouble simulator = new DESSSimulator.TimeDouble("Ball3DSwingApplication", 0.01);
         BallModel3D model = new BallModel3D(simulator);
         Replication.TimeDouble<DESSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);

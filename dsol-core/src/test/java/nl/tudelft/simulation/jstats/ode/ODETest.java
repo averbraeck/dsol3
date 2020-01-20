@@ -2,6 +2,8 @@ package nl.tudelft.simulation.jstats.ode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.Serializable;
+
 import org.junit.Test;
 
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
@@ -9,7 +11,7 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 /**
  * The test script for the ODE package.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -86,10 +88,10 @@ public class ODETest
          * @param stepSize the stepSize
          * @param integrationMethod the methodOfIntegration
          */
-        public ODE(final double stepSize, final NumericalIntegratorType integrationMethod)
+        ODE(final double stepSize, final NumericalIntegratorType integrationMethod)
         {
             super(stepSize, integrationMethod);
-            super.initialize(1, new double[] {1.0});
+            super.initialize(1.0, new double[] {1.0});
         }
 
         /** {@inheritDoc} */
@@ -97,6 +99,13 @@ public class ODETest
         public double[] dy(final double x, final double[] y)
         {
             return new double[] {x * Math.pow(y[0], 1.0 / 3.0)};
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Serializable getSourceId()
+        {
+            return "ODE";
         }
     }
 
@@ -111,7 +120,7 @@ public class ODETest
          * @param stepSize the stepSize
          * @param integrationMethod the methodOfIntegration
          */
-        public StiffODE(final double stepSize, final NumericalIntegratorType integrationMethod)
+        StiffODE(final double stepSize, final NumericalIntegratorType integrationMethod)
         {
             super(stepSize, integrationMethod);
             super.initialize(0, new double[] {1.0, -1.0});
@@ -122,6 +131,13 @@ public class ODETest
         public double[] dy(final double x, final double[] y)
         {
             return new double[] {y[1], -100 * y[0] - 101 * y[1]};
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Serializable getSourceId()
+        {
+            return "StiffODE";
         }
     }
 }

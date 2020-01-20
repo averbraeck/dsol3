@@ -11,7 +11,7 @@ import info.clearthought.layout.TableLayoutConstants;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -85,8 +85,8 @@ public class TablePanel extends JPanel
             System.out.println("Usage: java nl.tudelft.simulation.dsol.gui.TablePanel [column] [row]");
             System.exit(0);
         }
-        int columns = new Integer(args[0]).intValue();
-        int rows = new Integer(args[1]).intValue();
+        int columns = Integer.valueOf(args[0]).intValue();
+        int rows = Integer.valueOf(args[1]).intValue();
         JFrame app = new JFrame();
         TablePanel content = new TablePanel(columns, rows);
         for (int i = 0; i < columns; i++)

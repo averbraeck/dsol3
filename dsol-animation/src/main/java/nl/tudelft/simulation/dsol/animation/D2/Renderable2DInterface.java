@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
@@ -15,7 +16,7 @@ import nl.tudelft.simulation.dsol.animation.Locatable;
  * The Renderable2D interface defines the basic interface for 2d animation. This is a hard-to-use interface. It is implemented
  * by the easy-to-use Renderable2D class.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -24,7 +25,7 @@ import nl.tudelft.simulation.dsol.animation.Locatable;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <T> the Locatable class of the source that indicates the location of the Renderable on the screen
  */
-public interface Renderable2DInterface<T extends Locatable>
+public interface Renderable2DInterface<T extends Locatable> extends Serializable
 {
     /**
      * paints the object on a 2D graphics object.
@@ -61,7 +62,7 @@ public interface Renderable2DInterface<T extends Locatable>
     /**
      * A Utility helper class for transforming between screen coordinates and world coordinates. <br>
      * <p>
-     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>.
      * The DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">

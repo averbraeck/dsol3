@@ -12,13 +12,13 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterInteger;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 
 /**
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -43,7 +43,7 @@ public final class ConsoleRunnerTerminal implements EventListenerInterface
         int numQC = 5;
         int numAGV = 42;
         double runtime = 40 * 60;
-        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble();
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("ConsoleRunnerTerminal");
         Terminal model = new Terminal(simulator, rep);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, runtime, model);

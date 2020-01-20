@@ -1,22 +1,23 @@
 package nl.tudelft.simulation.dsol.experiment;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.event.Event;
-import nl.tudelft.simulation.event.EventInterface;
-import nl.tudelft.simulation.event.EventListenerInterface;
-import nl.tudelft.simulation.event.EventProducer;
-import nl.tudelft.simulation.event.EventProducerInterface;
-import nl.tudelft.simulation.event.EventType;
+import org.djutils.event.Event;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventProducer;
+import org.djutils.event.EventType;
+import org.djutils.event.ref.ReferenceType;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * The Experimental frame specifies the set of experiments to run.
  * <p>
- * Copyright (c) 2002-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -41,22 +42,34 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     /** the URL where we can find this experimentalFrame. */
     private URL url = null;
 
+    /** the id of the set of experiments. */
+    private final Serializable id;
+
     /**
      * constructs a new ExperimentalFrame.
+     * @param id Serializable; the id of the set of experiments
      */
-    public ExperimentalFrame()
+    public ExperimentalFrame(final Serializable id)
     {
-        this(null);
+        this(id, null);
     }
 
     /**
      * constructs a new Experimental frame.
+     * @param id Serializable; the id of the set of experiments
      * @param url URL; the url of the experimental frame
      */
-    public ExperimentalFrame(final URL url)
+    public ExperimentalFrame(final Serializable id, final URL url)
     {
-        super();
+        this.id = id;
         this.url = url;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return this.id;
     }
 
     /**
@@ -124,11 +137,11 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     {
         try
         {
-            this.notify(new Event(Experiment.END_OF_EXPERIMENT_EVENT, this, null));
+            this.notify(new Event(Experiment.END_OF_EXPERIMENT_EVENT, getSourceId(), null));
         }
         catch (RemoteException remoteException)
         {
-            SimLogger.always().warn(remoteException, "start");
+            CategoryLogger.always().warn(remoteException, "start");
         }
     }
 
@@ -138,12 +151,12 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     {
         if (event.getType().equals(Experiment.END_OF_EXPERIMENT_EVENT))
         {
-            ((EventProducerInterface) event.getSource()).removeListener(this, Experiment.END_OF_EXPERIMENT_EVENT);
+            // TODO: ((EventProducerInterface) event.getSourceId()).removeListener(this, Experiment.END_OF_EXPERIMENT_EVENT);
             if (this.hasNext())
             {
                 // we can run the next experiment
                 Experiment<?, ?, ?, ?> next = this.next();
-                next.addListener(this, Experiment.END_OF_EXPERIMENT_EVENT, false);
+                next.addListener(this, Experiment.END_OF_EXPERIMENT_EVENT, ReferenceType.STRONG);
                 next.start();
             }
             else

@@ -1,8 +1,14 @@
 package nl.tudelft.simulation.dsol.logger;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
+import org.djutils.event.ref.WeakReference;
+import org.djutils.immutablecollections.ImmutableSet;
 import org.djutils.logger.CategoryLogger;
+import org.djutils.logger.CategoryLogger.DelegateLogger;
 import org.djutils.logger.LogCategory;
 import org.pmw.tinylog.Level;
 import org.pmw.tinylog.LogEntryForwarder;
@@ -11,8 +17,9 @@ import org.pmw.tinylog.writers.Writer;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
- * SimLogger, "extends" the CategoryLogger to be simulator aware and able to print the simulator time as part of the log
- * message.
+ * SimLogger implements a logger with functionality of the CategoryLogger, but the logger is simulator-aware and can print the
+ * simulator time as part of the log message. Because multiple simulators can run in parallel, the SimLogger class is specific
+ * for each instantiated Simulator.
  * <p>
  * Copyright (c) 2018 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See for
  * project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -22,49 +29,55 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
  */
-@SuppressWarnings({"checkstyle:finalclass", "checkstyle:needbraces"})
-public class SimLogger extends CategoryLogger
+@SuppressWarnings("checkstyle:needbraces")
+public class SimLogger
 {
+    /** a weak reference to the simulator to which this logger belongs. */
+    private final WeakReference<SimulatorInterface<?, ?, ?>> simulatorReference;
+
+    /** The current message format. */
+    private String defaultMessageFormat = CategoryLogger.DEFAULT_MESSAGE_FORMAT;
+
+    /** The current logging level. */
+    private Level defaultLevel = Level.INFO;
+
+    /** The writers registered with this CategoryLogger. */
+    private final Set<Writer> writers = new LinkedHashSet<>();
+
+    /** The log level per Writer. */
+    private final Map<Writer, Level> writerLevels = new LinkedHashMap<>();
+
+    /** The message format per Writer. */
+    private final Map<Writer, String> writerFormats = new LinkedHashMap<>();
+
+    /** The categories to log. */
+    private final Set<LogCategory> logCategories = new LinkedHashSet<>(256);
+
+    /** A cached immutable copy of the log categories to return to `extending` classes. */
+    private ImmutableSet<LogCategory> immutableLogCategories;
+
     /** The delegate logger instance that does the actual logging work, after a positive filter outcome. */
-    private static DelegateSimLogger delegateSimLogger = new DelegateSimLogger();
+    private final DelegateSimLogger delegateSimLogger = new DelegateSimLogger();
 
-    /** */
-    private SimLogger()
-    {
-        // Utility class.
-    }
-
-    static
-    {
-        create();
-    }
+    /** The delegate logger that returns immediately after a negative filter outcome. */
+    public static final DelegateLogger NO_LOGGER = new DelegateLogger(false);
 
     /**
-     * Create a new logger for the system console. Note that this REPLACES current loggers, so create this class before ANY
-     * other loggers are created. Note that the initial LogCategory is LogCategory.ALL, so all categories will be logged. This
-     * category has to be explicitly removed (or new categories have to be set) to log a limited set of categories.
+     * Construct a simulator-specific logger.
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator to which this logger belongs
      */
-    protected static void create()
+    public SimLogger(final SimulatorInterface<?, ?, ?> simulator)
     {
-        // nothing to add for now. The SimLogger.create() is called with its static initializer.
-    }
-
-    /**
-     * Set the simulator of which to include the time in the log messages.
-     * @param newSimulator SimulatorInterface&lt;?,?,?&gt;; the simulator to set
-     */
-    public static final void setSimulator(final SimulatorInterface<?, ?, ?> newSimulator)
-    {
-        delegateSimLogger.simTimeFormatter.setSimulator(newSimulator);
+        this.simulatorReference = new WeakReference<>(simulator);
     }
 
     /**
      * Set the formatter to include the simulator time in the log messages.
      * @param simTimeFormatter SimTimeFormatter; the new formatter
      */
-    public static final void setSimTimeFormatter(final SimTimeFormatter simTimeFormatter)
+    public final void setSimTimeFormatter(final SimTimeFormatter simTimeFormatter)
     {
-        delegateSimLogger.simTimeFormatter = simTimeFormatter;
+        this.delegateSimLogger.simTimeFormatter = simTimeFormatter;
     }
 
     /**
@@ -83,7 +96,7 @@ public class SimLogger extends CategoryLogger
      * @see <a href="https://tinylog.org/configuration#format">https://tinylog.org/configuration</a>
      * @param newMessageFormat String; the new formatting pattern to use for all registered writers
      */
-    public static void setAllLogMessageFormat(final String newMessageFormat)
+    public void setAllLogMessageFormat(final String newMessageFormat)
     {
         CategoryLogger.setAllLogMessageFormat(newMessageFormat);
     }
@@ -92,7 +105,7 @@ public class SimLogger extends CategoryLogger
      * Set a new logging level for all registered writers.
      * @param newLevel Level; the new log level for all registered writers
      */
-    public static void setAllLogLevel(final Level newLevel)
+    public void setAllLogLevel(final Level newLevel)
     {
         CategoryLogger.setAllLogLevel(newLevel);
     }
@@ -114,7 +127,7 @@ public class SimLogger extends CategoryLogger
      * @param writer Writer; the writer to change the mesage format for
      * @param newMessageFormat String; the new formatting pattern to use for all registered writers
      */
-    public static void setLogMessageFormat(final Writer writer, final String newMessageFormat)
+    public void setLogMessageFormat(final Writer writer, final String newMessageFormat)
     {
         CategoryLogger.setLogMessageFormat(writer, newMessageFormat);
     }
@@ -124,7 +137,7 @@ public class SimLogger extends CategoryLogger
      * @param writer Writer; the writer to change the log level for
      * @param newLevel Level; the new log level for the writer
      */
-    public static void setLogLevel(final Writer writer, final Level newLevel)
+    public void setLogLevel(final Writer writer, final Level newLevel)
     {
         CategoryLogger.setLogLevel(writer, newLevel);
     }
@@ -133,7 +146,7 @@ public class SimLogger extends CategoryLogger
      * Add a category to be logged to the Writers.
      * @param logCategory LogCategory; the LogCategory to add
      */
-    public static void addLogCategory(final LogCategory logCategory)
+    public void addLogCategory(final LogCategory logCategory)
     {
         CategoryLogger.addLogCategory(logCategory);
     }
@@ -142,7 +155,7 @@ public class SimLogger extends CategoryLogger
      * Remove a category to be logged to the Writers.
      * @param logCategory LogCategory; the LogCategory to remove
      */
-    public static void removeLogCategory(final LogCategory logCategory)
+    public void removeLogCategory(final LogCategory logCategory)
     {
         CategoryLogger.removeLogCategory(logCategory);
     }
@@ -151,7 +164,7 @@ public class SimLogger extends CategoryLogger
      * Set the categories to be logged to the Writers.
      * @param newLogCategories LogCategory...; the LogCategories to set, replacing the previous ones
      */
-    public static void setLogCategories(final LogCategory... newLogCategories)
+    public void setLogCategories(final LogCategory... newLogCategories)
     {
         CategoryLogger.setLogCategories(newLogCategories);
     }
@@ -162,9 +175,9 @@ public class SimLogger extends CategoryLogger
      * The "pass" filter that will result in always trying to log.
      * @return the logger that tries to execute logging (delegateLogger)
      */
-    public static DelegateLogger always()
+    public DelegateLogger always()
     {
-        return delegateSimLogger;
+        return this.delegateSimLogger;
     }
 
     /**
@@ -173,56 +186,56 @@ public class SimLogger extends CategoryLogger
      * @param logCategory LogCategory; the category to check for.
      * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
      */
-    public static DelegateLogger filter(final LogCategory logCategory)
+    public DelegateLogger filter(final LogCategory logCategory)
     {
-        if (categories.contains(LogCategory.ALL))
-            return delegateSimLogger;
-        if (categories.contains(logCategory))
-            return delegateSimLogger;
-        return noLogger;
+        if (CategoryLogger.getLogCategories().contains(LogCategory.ALL))
+            return this.delegateSimLogger;
+        if (CategoryLogger.getLogCategories().contains(logCategory))
+            return this.delegateSimLogger;
+        return CategoryLogger.NO_LOGGER;
     }
 
     /**
      * Check whether the provided categories contain one or more categories that need to be logged. Note that when
      * LogCategory.ALL is contained in the categories, filter will return true.
-     * @param logCategories LogCategory...; elements or array with the categories to check for
+     * @param filterCategories LogCategory...; elements or array with the categories to check for
      * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
      */
-    public static DelegateLogger filter(final LogCategory... logCategories)
+    public DelegateLogger filter(final LogCategory... filterCategories)
     {
-        if (categories.contains(LogCategory.ALL))
-            return delegateSimLogger;
-        for (LogCategory logCategory : logCategories)
+        if (CategoryLogger.getLogCategories().contains(LogCategory.ALL))
+            return this.delegateSimLogger;
+        for (LogCategory logCategory : filterCategories)
         {
-            if (categories.contains(logCategory))
-                return delegateSimLogger;
+            if (CategoryLogger.getLogCategories().contains(logCategory))
+                return this.delegateSimLogger;
         }
-        return noLogger;
+        return CategoryLogger.NO_LOGGER;
     }
 
     /**
      * Check whether the provided categories contain one or more categories that need to be logged. Note that when
      * LogCategory.ALL is contained in the categories, filter will return true.
-     * @param logCategories Set&lt;LogCategory&gt;; the categories to check for
+     * @param filterCategories Set&lt;LogCategory&gt;; the categories to check for
      * @return the logger that either tries to log (delegateLogger), or returns without logging (noLogger)
      */
-    public static DelegateLogger filter(final Set<LogCategory> logCategories)
+    public DelegateLogger filter(final Set<LogCategory> filterCategories)
     {
-        if (categories.contains(LogCategory.ALL))
-            return delegateSimLogger;
-        for (LogCategory logCategory : logCategories)
+        if (CategoryLogger.getLogCategories().contains(LogCategory.ALL))
+            return this.delegateSimLogger;
+        for (LogCategory logCategory : filterCategories)
         {
-            if (categories.contains(logCategory))
-                return delegateSimLogger;
+            if (CategoryLogger.getLogCategories().contains(logCategory))
+                return this.delegateSimLogger;
         }
-        return noLogger;
+        return CategoryLogger.NO_LOGGER;
     }
 
     /**
      * DelegateSimLogger class that takes care of actually logging the message and/or exception. The methods take care of
      * inserting the simulation time in the message.<br>
      * <br>
-     * Copyright (c) 2003-2019 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
      * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
