@@ -58,7 +58,6 @@ public class ContextUtil
     /**
      * Lookup or create a sub-context in the initial context with the name as its path. The path can be absolute or relative.
      * The terminating part of the name will be used as the key under which the created subcontext will be registered.
-     * @param parentContext ContextInterface; the parent context
      * @param name String; the name to register the new subcontext
      * @return ContextInterface; the newly created subcontext
      * @throws NamingException when terminating key in the name is blank or contains "/" character(s)
@@ -94,7 +93,6 @@ public class ContextUtil
 
     /**
      * Lookup a sub-context in the initial context with the name as its path. The path can be absolute or relative.
-     * @param parentContext ContextInterface; the parent context
      * @param name String; the name to register the new subcontext
      * @return ContextInterface; the newly created subcontext
      * @throws NamingException when terminating key in the name is blank or contains "/" character(s)
@@ -130,7 +128,6 @@ public class ContextUtil
     /**
      * Lookup or create a sub-context in the initial context with the name as its path. The path can be absolute or relative.
      * The terminating part of the name will be used as the key under which the created subcontext will be registered.
-     * @param parentContext ContextInterface; the parent context
      * @param name String; the name to register the new subcontext
      * @throws NamingException when terminating key in the name is blank or contains "/" character(s)
      * @throws RemoteException on a network error when the Context is used over RMI

@@ -140,7 +140,7 @@ public class InitialEventContext extends EventProducer implements EventContextIn
      * Initializes the initial context using the supplied environment.
      * @param environment Hashtable&lt;?,?&gt;; environment used to create the initial context. Null indicates an empty
      *            environment.
-     * @throws NamingException, when the provided ContextFactory was not able to instantiate the wrapped context
+     * @throws NamingException when the provided ContextFactory was not able to instantiate the wrapped context
      * @throws RemoteException if a network connection failure occurs
      */
     protected void init(final Hashtable<?, ?> environment) throws NamingException, RemoteException
@@ -230,7 +230,7 @@ public class InitialEventContext extends EventProducer implements EventContextIn
      * Retrieves the initial context by calling NamingManager.getInitialContext() and cache it in defaultInitCtx. Set
      * <code>gotDefault</code> so that we know we've tried this before.
      * @return The non-null cached initial context.
-     * @throws NamingException, If a naming exception was encountered
+     * @throws NamingException if a naming exception was encountered
      * @throws RemoteException if a network connection failure occurs
      */
     protected ContextInterface getDefaultInitCtx() throws NamingException, RemoteException

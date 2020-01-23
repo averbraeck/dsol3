@@ -78,7 +78,6 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface, 
      * When the RMI registry does not exist yet, it will be created, but <b>only</b> on the local host. Remote creation of a
      * registry on another computer is not possible. Any attempt to do so will cause an AccessException to be fired.
      * @param registryURL URL; the URL of the registry, e.g., "http://localhost:1099" or "http://130.161.185.14:28452"
-     * @param bindingKey String; the key under which this context will be bound in the RMI registry
      * @param embeddedContext ContextInterface; the underlying context
      * @throws RemoteException when there is a problem with the RMI registry
      * @throws AlreadyBoundException when there is already another object bound to the bindingKey
