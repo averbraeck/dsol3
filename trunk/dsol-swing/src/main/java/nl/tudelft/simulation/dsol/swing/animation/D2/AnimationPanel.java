@@ -211,8 +211,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     @Override
     public void notify(final EventInterface event) throws RemoteException
     {
-        if (this.simulator.getSourceId().equals(event.getSourceId())
-                && event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT) && this.isShowing())
+        if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
+                (event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT) && this.isShowing())
         {
             if (this.getWidth() > 0 || this.getHeight() > 0)
             {
@@ -231,8 +231,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
             objectRemoved((Renderable2DInterface<? extends Locatable>) ((Object[])event.getContent())[2]);
         }
         
-        else if (this.simulator.getSourceId().equals(event.getSourceId())
-                && event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
+        else if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
+                (event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
         {
             synchronized (this.elementList)
             {

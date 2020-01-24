@@ -214,8 +214,8 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
             objectRemoved((Renderable2DInterface<? extends Locatable>) ((Object[])event.getContent())[2]);
         }
         
-        else if (this.simulator.getSourceId().equals(event.getSourceId())
-                && event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
+        else if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
+                (event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
         {
             synchronized (this.elementList)
             {
