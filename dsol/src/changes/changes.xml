@@ -5,6 +5,16 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.01" date="2020-01-23" description="New DJUTILS version; small update to AnimationPanel">
+      <action dev="averbraeck" type="update">
+        The DJUTILS version has been updated to 1.04.05.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Animation did not always show in applications or web applications. A check on whether the replication
+        initialization event comes from the Simulator has been temporarily removed.  
+      </action>
+    </release>
+        
     <release version="3.04.00" date="2020-01-22" description="Event project to DJUTILS, new Context implementation">
       <action dev="averbraeck" type="remove">
         The event project has been moved to the DJUTILS project and can be found as part of djutils. See 
