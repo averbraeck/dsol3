@@ -97,7 +97,7 @@ public class Counter extends StatisticsObject implements EventListenerInterface
         {
             this.setCount(this.count + value);
             this.setN(this.n + 1);
-            if (!super.listeners.isEmpty())
+            if (hasListeners())
             {
                 this.fireEvent(Counter.COUNT_EVENT, this.count);
                 this.fireEvent(Counter.N_EVENT, this.n);

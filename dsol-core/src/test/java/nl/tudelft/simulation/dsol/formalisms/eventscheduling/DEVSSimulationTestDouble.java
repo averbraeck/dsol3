@@ -29,6 +29,9 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 public class DEVSSimulationTestDouble implements EventListenerInterface
 {
     /** */
+    private static final long serialVersionUID = 1L;
+
+    /** */
     protected DEVSSimulatorInterface.TimeDouble devsSimulator;
 
     /** the Waiter from ConcurrentUnit that catches AssertionErrors in other threads. */

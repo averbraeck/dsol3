@@ -297,7 +297,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
     {
         this.modelComponents.add(model);
 
-        List<Reference<EventListenerInterface>> elis = this.listeners.get(AbstractDEVSModel.STATE_UPDATE);
+        List<Reference<EventListenerInterface>> elis = getListenerReferences(AbstractDEVSModel.STATE_UPDATE);
 
         if (elis == null)
         {
