@@ -1,13 +1,11 @@
-package nl.tudelft.simulation.naming.context;
+package nl.tudelft.simulation.naming.context.event;
 
-import java.rmi.Remote;
+import org.djutils.event.EventProducerInterface;
 
-import org.djutils.event.remote.RemoteEventProducerInterface;
+import nl.tudelft.simulation.naming.context.ContextInterface;
 
 /**
- * RemoteContextInterface is a tagging interface that extends both ContectInterface and Remote, but that does not force any new
- * methods to be implemented. All methods of the ContextInterface can already throw RemoteException, so they are ready for
- * implementation as a RemoteContext.
+ * EventContext is the tagging interface combining the ContextInterface, EventContextInterface, and EventProducerInterface.
  * <p>
  * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -17,7 +15,7 @@ import org.djutils.event.remote.RemoteEventProducerInterface;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public interface RemoteContextInterface extends ContextInterface, RemoteEventProducerInterface, Remote
+public interface EventContext extends ContextInterface, EventContextInterface, EventProducerInterface
 {
-    // tagging interface that extends both ContectInterface and Remote
+    // tagging interface
 }

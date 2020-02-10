@@ -16,6 +16,7 @@ import javax.naming.NotContextException;
 
 import org.djutils.event.EventProducer;
 import org.djutils.exceptions.Throw;
+import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
@@ -41,22 +42,26 @@ public class JVMContext extends EventProducer implements ContextInterface
     /** the atomicName. */
     private String atomicName;
 
+    /** the absolute path of this context. */
+    private String absolutePath;
+
     /** the children. */
     protected Map<String, Object> elements = Collections.synchronizedMap(new TreeMap<String, Object>());
 
     /**
-     * constructs a new JVMContext.
+     * constructs a new root JVMContext.
+     * @param atomicName String; the name under which the root context will be registered
      */
-    public JVMContext()
+    public JVMContext(final String atomicName)
     {
-        this(null, "");
+        this(null, atomicName);
     }
 
     /** {@inheritDoc} */
     @Override
     public Serializable getSourceId()
     {
-        return this.atomicName;
+        return this.absolutePath;
     }
 
     /**
@@ -72,6 +77,15 @@ public class JVMContext extends EventProducer implements ContextInterface
                 ContextInterface.SEPARATOR);
         this.parent = parent;
         this.atomicName = atomicName;
+        try
+        {
+            this.absolutePath = parent == null ? "" : parent.getAbsolutePath() + ContextInterface.SEPARATOR + this.atomicName;
+        }
+        catch (RemoteException exception)
+        {
+            CategoryLogger.always().warn(exception);
+            throw new RuntimeException(exception);
+        }
     }
 
     /** {@inheritDoc} */
@@ -102,17 +116,24 @@ public class JVMContext extends EventProducer implements ContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public Object getObject(String key) throws NamingException, RemoteException
+    public String getAbsolutePath() throws RemoteException
+    {
+        return this.absolutePath;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Object getObject(final String key) throws NamingException, RemoteException
     {
         Throw.whenNull(key, "key cannot be null");
         Throw.when(key.length() == 0 || key.contains(ContextInterface.SEPARATOR), NamingException.class,
                 "key [%s] is the empty string or key contains '/'", key);
-        Object result = this.elements.get(key);
-        if (result == null)
+        if (!this.elements.containsKey(key))
         {
             throw new NameNotFoundException("key " + key + " does not exist in Context");
         }
-        return result;
+        // can be null -- null objects are allowed in the context tree
+        return this.elements.get(key);
     }
 
     /** {@inheritDoc} */
@@ -182,7 +203,7 @@ public class JVMContext extends EventProducer implements ContextInterface
         }
         checkCircular(object);
         this.elements.put(key, object);
-        fireEvent(ContextInterface.OBJECT_ADDED_EVENT, new Object[] {this, key, object});
+        fireEvent(ContextInterface.OBJECT_ADDED_EVENT, new Object[] {getAbsolutePath(), key, object});
     }
 
     /** {@inheritDoc} */
@@ -211,7 +232,7 @@ public class JVMContext extends EventProducer implements ContextInterface
         if (this.elements.containsKey(key))
         {
             Object object = this.elements.remove(key);
-            fireEvent(ContextInterface.OBJECT_REMOVED_EVENT, new Object[] {this, key, object});
+            fireEvent(ContextInterface.OBJECT_REMOVED_EVENT, new Object[] {getAbsolutePath(), key, object});
         }
     }
 
@@ -234,10 +255,10 @@ public class JVMContext extends EventProducer implements ContextInterface
         if (this.elements.containsKey(key))
         {
             this.elements.remove(key);
-            fireEvent(ContextInterface.OBJECT_REMOVED_EVENT, new Object[] {this, key});
+            fireEvent(ContextInterface.OBJECT_REMOVED_EVENT, new Object[] {getAbsolutePath(), key, object});
         }
         this.elements.put(key, object);
-        fireEvent(ContextInterface.OBJECT_ADDED_EVENT, new Object[] {this, key, object});
+        fireEvent(ContextInterface.OBJECT_ADDED_EVENT, new Object[] {getAbsolutePath(), key, object});
     }
 
     /** {@inheritDoc} */
@@ -363,7 +384,7 @@ public class JVMContext extends EventProducer implements ContextInterface
         Set<String> copyKeySet = new LinkedHashSet<>(context.keySet());
         for (String key : copyKeySet)
         {
-            if (context.getObject(key) instanceof ContextInterface)
+            if (context.getObject(key) instanceof ContextInterface && context.getObject(key) != null)
             {
                 destroy((ContextInterface) context.getObject(key));
                 context.unbindObject(key);
@@ -405,16 +426,16 @@ public class JVMContext extends EventProducer implements ContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public void fireObjectChangedEvent(final Object object)
+    public void fireObjectChangedEventValue(final Object object)
             throws NameNotFoundException, NullPointerException, NamingException, RemoteException
     {
         Throw.whenNull(object, "object cannot be null");
-        fireObjectChangedEvent(makeObjectKey(object));
+        fireObjectChangedEventKey(makeObjectKey(object));
     }
 
     /** {@inheritDoc} */
     @Override
-    public void fireObjectChangedEvent(final String key)
+    public void fireObjectChangedEventKey(final String key)
             throws NameNotFoundException, NullPointerException, NamingException, RemoteException
     {
         Throw.whenNull(key, "key cannot be null");
@@ -426,7 +447,7 @@ public class JVMContext extends EventProducer implements ContextInterface
         }
         try
         {
-            fireEvent(ContextInterface.OBJECT_CHANGED_EVENT, new Object[] {this, key, getObject(key)});
+            fireEvent(ContextInterface.OBJECT_CHANGED_EVENT, new Object[] {getAbsolutePath(), key, getObject(key)});
         }
         catch (Exception exception)
         {

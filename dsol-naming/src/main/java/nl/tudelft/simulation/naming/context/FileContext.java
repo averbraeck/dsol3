@@ -33,11 +33,11 @@ public class FileContext extends JVMContext
     /**
      * constructs a new FileContext.
      * @param file File; the file to write to
+     * @param atomicName String; the name under which the root context will be registered
      */
-    public FileContext(final File file)
+    public FileContext(final File file, final String atomicName)
     {
-        super();
-        this.file = file;
+        this(file, null, atomicName);
     }
 
     /**

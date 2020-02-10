@@ -10,9 +10,10 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.rmi.AlreadyBoundException;
+import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -24,14 +25,18 @@ import javax.naming.NamingException;
 import javax.naming.NoInitialContextException;
 import javax.naming.NotContextException;
 
+import org.djutils.event.ref.ReferenceType;
 import org.djutils.exceptions.Try;
+import org.djutils.rmi.RMIUtils;
 import org.junit.Test;
 
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.FileContext;
-import nl.tudelft.simulation.naming.context.InitialEventContext;
 import nl.tudelft.simulation.naming.context.JVMContext;
+import nl.tudelft.simulation.naming.context.RemoteContext;
 import nl.tudelft.simulation.naming.context.RemoteContextInterface;
+import nl.tudelft.simulation.naming.context.event.ContextScope;
+import nl.tudelft.simulation.naming.context.event.InitialEventContext;
 
 /**
  * Tests the context.
@@ -51,9 +56,10 @@ public class ContextTest
      * @throws NamingException on error
      * @throws RemoteException on RMI error
      * @throws IOException on creation of temporary file
+     * @throws AlreadyBoundException on RMI error
      */
     @Test
-    public void testContext() throws NamingException, RemoteException, IOException
+    public void testContext() throws NamingException, RemoteException, IOException, AlreadyBoundException
     {
         // test the ContextName object
         testContextName();
@@ -69,23 +75,43 @@ public class ContextTest
         Path path = Files.createTempFile("context-file", ".jpo");
         File file = path.toFile();
         file.deleteOnExit();
-        ContextInterface fileContext = new FileContext(file);
+        ContextInterface fileContext = new FileContext(file, "root");
         testContext(fileContext, fileContext, true);
+
+        // test RemoteContext directly
+        ContextInterface embeddedContext = new JVMContext(null, "root");
+        RemoteContext remoteContext = new RemoteContext("127.0.0.1", 1099, "remoteContextKey", embeddedContext,
+                "remoteEventProducerKey");
+        testContext(remoteContext, embeddedContext, true);
+        try
+        {
+            RMIUtils.closeRegistry(remoteContext.getRegistry());
+        }
+        catch (NoSuchObjectException e)
+        {
+            System.err.println(e.getMessage());
+        }
 
         // test InitialEventContext
         Properties properties = new Properties();
         properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.context.JVMContextFactory");
-        InitialEventContext eventContext = InitialEventContext.instantiate(properties);
+        InitialEventContext eventContext = InitialEventContext.instantiate(properties, "root");
         assertNull(eventContext.getParent());
-        assertEquals("", eventContext.getAtomicName());
+        assertEquals("root", eventContext.getAtomicName());
         testContext(eventContext, eventContext.getRootContext(), true);
-        InitialEventContext eventContext2 = InitialEventContext.instantiate(properties);
+        InitialEventContext eventContext2 = InitialEventContext.instantiate(properties, "root");
         assertEquals(eventContext, eventContext2);
         assertEquals(eventContext.getRootContext(), eventContext2.getRootContext());
-        testContext(eventContext, eventContext.getRootContext(), true);
-        eventContext.close();
+        testContext(eventContext2, eventContext2.getRootContext(), true);
+        eventContext2.close();
         testNullEventContext(eventContext);
-        destroy(eventContext);
+        ContextTestUtil.destroyInitialEventContext(eventContext);
+        // use jndi.properties
+        InitialEventContext eventContext3 = InitialEventContext.instantiate(new Properties(), "root");
+        assertNull(eventContext3.getParent());
+        assertEquals("root", eventContext3.getAtomicName());
+        testContext(eventContext3, eventContext3.getRootContext(), true);
+        ContextTestUtil.destroyInitialEventContext(eventContext3);
 
         // test FileContext via FileContextFactory
         Path fcPath = Files.createTempFile("factory-context-file", ".jpo");
@@ -95,17 +121,17 @@ public class ContextTest
         String fcName = fcPath.toUri().toURL().toString();
         properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.context.FileContextFactory");
         properties.put("java.naming.provider.url", fcName);
-        InitialEventContext factoryFileContext = InitialEventContext.instantiate(properties);
+        InitialEventContext factoryFileContext = InitialEventContext.instantiate(properties, "root");
         testContext(factoryFileContext, factoryFileContext.getRootContext(), true);
-        destroy(eventContext);
+        ContextTestUtil.destroyInitialEventContext(factoryFileContext);
 
-        // test RemoteContext
+        // test RemoteEventContext
         properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.context.RemoteContextFactory");
         properties.put("java.naming.provider.url", "http://localhost:1099/remoteContext");
         properties.put("wrapped.naming.factory.initial", "nl.tudelft.simulation.naming.context.JVMContextFactory");
-        InitialEventContext remoteContext = InitialEventContext.instantiate(properties);
-        testContext(remoteContext, remoteContext.getRootContext(), false);
-        destroy(eventContext);
+        InitialEventContext remoteEventContext = InitialEventContext.instantiate(properties, "root");
+        testContext(remoteEventContext, remoteEventContext.getRootContext(), false);
+        ContextTestUtil.destroyInitialEventContext(remoteEventContext);
     }
 
     /**
@@ -133,6 +159,7 @@ public class ContextTest
         context.destroySubcontext("/level1/level21");
         subContext.destroySubcontext("level22");
         context.destroySubcontext("level1");
+        assertTrue(context.toString(false).contains(context.getAtomicName()));
 
         // TODO: make sure testSubContext also runs for RemoteContext
         if (testSub)
@@ -820,26 +847,176 @@ public class ContextTest
             // ok
         }
 
-        assertTrue(ctx.toString().startsWith("InitialEventContext"));
-        assertTrue(ctx.toString().contains("null"));
-    }
-
-    /**
-     * destroy the singleton InitialEventContext between tests...
-     * @param ctx InitialEventContext; the context to clear
-     */
-    private void destroy(final InitialEventContext ctx)
-    {
         try
         {
-            Field instance = ctx.getClass().getDeclaredField("INSTANCE");
-            instance.setAccessible(true);
-            instance.set(null, null);
-            instance.setAccessible(false);
+            ctx.close();
         }
-        catch (Exception e)
+        catch (RuntimeException rte)
         {
-            fail(e.getMessage());
+            fail("should not have thrown exception");
         }
+
+        try
+        {
+            ctx.getAbsolutePath();
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.fireObjectChangedEventKey("key");
+            fail("should have thrown exception");
+        }
+        catch (NoInitialContextException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.fireObjectChangedEventValue("value");
+            fail("should have thrown exception");
+        }
+        catch (NoInitialContextException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.addListener(null, ContextInterface.OBJECT_ADDED_EVENT);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.addListener(null, ContextInterface.OBJECT_ADDED_EVENT, ReferenceType.STRONG);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.addListener(null, ContextInterface.OBJECT_ADDED_EVENT, 0);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.addListener(null, ContextInterface.OBJECT_ADDED_EVENT, 0, ReferenceType.STRONG);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.removeListener(null, ContextInterface.OBJECT_ADDED_EVENT);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.hasListeners();
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.numberOfListeners(ContextInterface.OBJECT_ADDED_EVENT);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.getEventTypesWithListeners();
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.addListener(null, "", ContextScope.SUBTREE_SCOPE);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.addListener(null, "", ContextScope.SUBTREE_SCOPE, ReferenceType.STRONG);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.addListener(null, "", ContextScope.SUBTREE_SCOPE, 0);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.addListener(null, "", ContextScope.SUBTREE_SCOPE, 0, ReferenceType.STRONG);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        try
+        {
+            ctx.removeListener(null, "", ContextScope.SUBTREE_SCOPE);
+            fail("should have thrown exception");
+        }
+        catch (RuntimeException rte)
+        {
+            // ok
+        }
+
+        assertTrue(ctx.toString().startsWith("InitialEventContext"));
+        assertTrue(ctx.toString().contains("null"));
     }
 }

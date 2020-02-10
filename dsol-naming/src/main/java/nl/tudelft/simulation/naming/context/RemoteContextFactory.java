@@ -13,6 +13,8 @@ import javax.naming.Context;
 
 import org.djutils.logger.CategoryLogger;
 
+import nl.tudelft.simulation.naming.context.event.InitialEventContext;
+
 /**
  * A factory for RemoteContextClient instances, automatically invoked by JNDI when the correct jndi.properties file has been
  * used.
@@ -29,11 +31,11 @@ import org.djutils.logger.CategoryLogger;
 public class RemoteContextFactory implements ContextFactory
 {
     /** context refers to the static RemoteContextClient. */
-    private static RemoteContextInterface context = null;
+    private static RemoteContext context = null;
 
     /** {@inheritDoc} */
     @Override
-    public synchronized ContextInterface getInitialContext(final Hashtable<?, ?> environment)
+    public synchronized ContextInterface getInitialContext(final Hashtable<?, ?> environment, final String atomicName)
     {
         // If the context is already looked up, let's return immediately
         if (RemoteContextFactory.context != null)
@@ -67,10 +69,10 @@ public class RemoteContextFactory implements ContextFactory
             }
             // We now have a registry. Let's resolve the context object
 
-            RemoteContextInterface remoteContext = null;
+            RemoteContext remoteContext = null;
             try
             {
-                remoteContext = (RemoteContextInterface) registry.lookup(url.getFile());
+                remoteContext = (RemoteContext) registry.lookup(url.getFile());
             }
             catch (NotBoundException notBoundException)
             {
@@ -82,8 +84,7 @@ public class RemoteContextFactory implements ContextFactory
                     String key = iterator.next().toString();
                     if (key.equals(InitialEventContext.WRAPPED_CONTEXT_FACTORY))
                     {
-                        wrappedEnvironment.put(InitialEventContext.INITIAL_CONTEXT_FACTORY,
-                                environment.get(key));
+                        wrappedEnvironment.put(InitialEventContext.INITIAL_CONTEXT_FACTORY, environment.get(key));
                     }
                 }
                 if (wrappedEnvironment.isEmpty())
@@ -92,9 +93,9 @@ public class RemoteContextFactory implements ContextFactory
                     // environment, we'll get in an infinite loop
                     throw new IllegalArgumentException("no wrapped initial context factory defined");
                 }
-                ContextInterface wrappedContext = InitialEventContext.instantiate(wrappedEnvironment);
-                remoteContext = new RemoteContext(url, wrappedContext);
-                //registry.bind(url.getFile(), remoteContext);
+                ContextInterface wrappedContext = InitialEventContext.instantiate(wrappedEnvironment, atomicName);
+                remoteContext = new RemoteContext(url, wrappedContext, url.getFile() + "_producer");
+                // registry.bind(url.getFile(), remoteContext);
             }
             RemoteContextFactory.context = remoteContext;
             return RemoteContextFactory.context;

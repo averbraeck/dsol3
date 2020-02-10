@@ -52,18 +52,20 @@ public interface ContextInterface extends EventProducerInterface, Serializable
 
     /** The replacement string for the separator, in case it is part of a name. */
     public static final String REPLACE_SEPARATOR = "#";
-    
+
     /**
      * OBJECT_ADDED_EVENT is fired whenever an object is added to the Context. The implementations of the ContextInterface in
      * the nl.tudelft.simulation.naming.context package take care of firing this event. <br>
-     * Payload: Object[] - the context in which the object was bound, the relative key in the context, and the bound object.
+     * Payload: Object[] - the absolute path of the context in which the object was bound, the relative key in the context, and
+     * the bound object.
      */
     public static final EventType OBJECT_ADDED_EVENT = new EventType("OBJECT_ADDED");
 
     /**
      * OBJECT_REMOVED_EVENT is fired whenever an object is removed from the Context. The implementations of the ContextInterface
      * in the nl.tudelft.simulation.naming.context package take care of firing this event. <br>
-     * Payload: Object[] - the context in which the object was bound, the relative key in the context, and the removed object.
+     * Payload: Object[] - the absolute path of the context in which the object was bound, the relative key in the context, and
+     * the removed object.
      */
     public static final EventType OBJECT_REMOVED_EVENT = new EventType("OBJECT_REMOVED");
 
@@ -71,7 +73,8 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * OBJECT_CHANGED_EVENT can be fired whenever an object present in the Context is changed. The object making changes has to
      * fire this Event itself, because the Context has no way of knowing that the content of the object has changed. The method
      * fireObjectChangedEvent(...) in the ContextInterface can be used to fire this event. <br>
-     * Payload: Object[] - the context in which the object is bound, the relative key in the context, the object after change.
+     * Payload: Object[] - the absolute path of the context in which the object is bound, the relative key in the context, the
+     * object after change.
      */
     public static final EventType OBJECT_CHANGED_EVENT = new EventType("OBJECT_CHANGED");
 
@@ -95,6 +98,13 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * @throws RemoteException on a network error when the Context is used over RMI
      */
     ContextInterface getRootContext() throws RemoteException;
+
+    /**
+     * Returns the absolute path for this context, or an empty string when this is the root context.
+     * @return String; the absolute path for this context, or an empty string when this is the root context
+     * @throws RemoteException on a network error when the Context is used over RMI
+     */
+    String getAbsolutePath() throws RemoteException;
 
     /**
      * Retrieves the named object from the Context. The name may be a compound name where parts are separated by separation
@@ -181,8 +191,7 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * OBJECT_ADDED_EVENT is fired containing an object array with a pointer to the context, the relative key, and the object
      * when a new binding has taken place.
      * @param key String; the key under which the object will be stored; NOT a compound name
-     * @param object Object; the Context or Object to be stored into this Context using the given name; a null object is
-     *            allowed
+     * @param object Object; the Context or Object to be stored into this Context using the given name; a null object is allowed
      * @throws NamingException when key is the empty string or when key contains "/"
      * @throws NameAlreadyBoundException if key is already bound to an object
      * @throws NullPointerException when key is null
@@ -194,8 +203,8 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * Binds an object into the Context using the toString() method of the object as the key. All "/" characters in the
      * toString() result will be replaced by "#" characters. An OBJECT_ADDED_EVENT is fired containing an object array with a
      * pointer to the context, the relative key, and the object when a new binding has taken place.
-     * @param object Object; the Context or Object to be stored into this Context using the toString() result as the key;
-     *            a null object is not allowed
+     * @param object Object; the Context or Object to be stored into this Context using the toString() result as the key; a null
+     *            object is not allowed
      * @throws NamingException when the toString() of the object results in an empty string
      * @throws NameAlreadyBoundException if key is already bound to an object
      * @throws NullPointerException when object is null
@@ -302,11 +311,11 @@ public interface ContextInterface extends EventProducerInterface, Serializable
     ContextInterface createSubcontext(String name) throws NamingException, RemoteException;
 
     /**
-     * Removes the binding for an existing, empty subcontext with the given name, and recursively unbinds all objects and contexts in
-     * the context indicated by the name. The name may be a compound name where parts are separated by separation strings
-     * indicating subcontexts. Name cannot be empty or "/". A context has to be registered with the given name. For all removed
-     * objects and contexts, OBJECT_REMOVED_EVENT events are fired containing an object array with a pointer to the context from
-     * which content has been removed, the key of the binding that has been removed, and the removed object. The
+     * Removes the binding for an existing, empty subcontext with the given name, and recursively unbinds all objects and
+     * contexts in the context indicated by the name. The name may be a compound name where parts are separated by separation
+     * strings indicating subcontexts. Name cannot be empty or "/". A context has to be registered with the given name. For all
+     * removed objects and contexts, OBJECT_REMOVED_EVENT events are fired containing an object array with a pointer to the
+     * context from which content has been removed, the key of the binding that has been removed, and the removed object. The
      * OBJECT_REMOVED_EVENT events are fired in depth-first order.
      * @param name String; the name of the object that has to be removed; may be a compound name with the terminal reference
      *            indicating the key under which the object is stored
@@ -329,7 +338,7 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * @throws NullPointerException when object is null
      * @throws RemoteException on a network error when the Context is used over RMI
      */
-    void fireObjectChangedEvent(final Object object)
+    void fireObjectChangedEventValue(final Object object)
             throws NameNotFoundException, NullPointerException, NamingException, RemoteException;
 
     /**
@@ -343,7 +352,7 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * @throws NullPointerException when key is null
      * @throws RemoteException on a network error when the Context is used over RMI
      */
-    void fireObjectChangedEvent(final String key)
+    void fireObjectChangedEventKey(final String key)
             throws NameNotFoundException, NullPointerException, NamingException, RemoteException;
 
     /**
@@ -387,7 +396,7 @@ public interface ContextInterface extends EventProducerInterface, Serializable
     void close() throws NamingException, RemoteException;
 
     /**
-     * Return a String with the hierarchical content of the Context in case verbose is true; otherwise return the atomic name. 
+     * Return a String with the hierarchical content of the Context in case verbose is true; otherwise return the atomic name.
      * @param verbose boolean; whether the information is exhaustive or very brief
      * @return String; formatted content of the context when verbose is true; otherwise the atomic name
      * @throws RemoteException on a network error when the Context is used over RMI

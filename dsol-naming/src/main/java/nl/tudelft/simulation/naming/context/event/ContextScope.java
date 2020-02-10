@@ -1,8 +1,9 @@
-package nl.tudelft.simulation.naming.context;
+package nl.tudelft.simulation.naming.context.event;
 
 /**
- * ContextScope defines the area of interest for a NamingListener for the EventContextInterface. Events can be generated for the
- * current node, for all nodes on the current level, or for the subtree starting at the current node
+ * ContextScope defines the area of interest for a Listener for the EventContextInterface. Events can be generated for the
+ * current node, for all nodes on the current level (excluding or including the node itself), or for the subtree starting at the
+ * current node.
  * <p>
  * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -23,7 +24,13 @@ public enum ContextScope
      * Enum constant for expressing interest in events concerning objects in the context named by the target, excluding the
      * context named by the target.
      */
-    ONELEVEL_SCOPE,
+    LEVEL_SCOPE,
+
+    /**
+     * Enum constant for expressing interest in events concerning objects in the context named by the target, including the
+     * context named by the target.
+     */
+    LEVEL_OBJECT_SCOPE,
 
     /**
      * Enum constant for expressing interest in events concerning objects in the subtree of the object named by the target,
