@@ -284,7 +284,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     public final void cleanUp()
     {
         this.running = false;
-        if (this.listeners != null)
+        if (hasListeners())
         {
             this.removeAllListeners();
         }

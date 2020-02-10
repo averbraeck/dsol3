@@ -31,6 +31,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.event.InitialEventContext;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
@@ -87,6 +88,9 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
     /** are we already subscribed to the END_OF_REPLICATION_EVENT. */
     private boolean subscribed = false;
+    
+    /** the context. */
+    private ContextInterface context;
 
     /**
      * constructs a new Experiment.
@@ -297,7 +301,12 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      */
     public final ContextInterface getContext() throws NamingException, RemoteException
     {
-        return ContextUtil.lookupOrCreateSubContext(String.valueOf(hashCode()));
+        if (this.context == null)
+        {
+            ContextInterface rootContext = InitialEventContext.instantiate("root");
+            this.context = ContextUtil.lookupOrCreateSubContext(rootContext, String.valueOf(hashCode()));
+        }
+        return this.context;
     }
 
     /**
@@ -307,7 +316,11 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      */
     public final void removeFromContext() throws NamingException, RemoteException
     {
-        ContextUtil.destroySubContext(String.valueOf(hashCode()));
+        if (this.context != null)
+        {
+            ContextInterface rootContext = InitialEventContext.instantiate("root");
+            ContextUtil.destroySubContext(rootContext, String.valueOf(hashCode()));
+        }
     }
 
     /***********************************************************************************************************/

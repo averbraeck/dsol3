@@ -24,6 +24,9 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
  */
 public class DESSSimulatorTest implements EventListenerInterface
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+    
     /** the Waiter from ConcurrentUnit that catches AssertionErrors in other threads. */
     protected Waiter waiter;
 
@@ -47,7 +50,7 @@ public class DESSSimulatorTest implements EventListenerInterface
 
     /** {@inheritDoc} */
     @Override
-    public void notify(EventInterface event) throws RemoteException
+    public void notify(final EventInterface event) throws RemoteException
     {
         this.waiter.resume();
     }
