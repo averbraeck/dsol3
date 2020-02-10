@@ -21,11 +21,11 @@ public class JVMContextFactory implements ContextFactory
 
     /** {@inheritDoc} */
     @Override
-    public synchronized ContextInterface getInitialContext(final Hashtable<?, ?> environment)
+    public synchronized ContextInterface getInitialContext(final Hashtable<?, ?> environment, final String atomicName)
     {
         if (context == null)
         {
-            JVMContextFactory.context = new JVMContext();
+            JVMContextFactory.context = new JVMContext(atomicName);
         }
         return context;
     }

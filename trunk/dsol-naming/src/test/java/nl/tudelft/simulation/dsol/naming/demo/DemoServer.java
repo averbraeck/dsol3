@@ -1,15 +1,21 @@
 package nl.tudelft.simulation.dsol.naming.demo;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.net.URL;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.Collections;
-import java.util.Properties;
 import java.util.Scanner;
 
 import javax.naming.NamingException;
 
+import org.djutils.event.remote.RemoteEventProducer;
+
 import nl.tudelft.simulation.naming.context.ContextInterface;
-import nl.tudelft.simulation.naming.context.InitialEventContext;
+import nl.tudelft.simulation.naming.context.JVMContext;
+import nl.tudelft.simulation.naming.context.event.RemoteEventContext;
+import nl.tudelft.simulation.naming.context.event.RemoteEventContextInterface;
 
 /**
  * DemoServer sets up a context with a few items and subcontexts to which a DemoClient can subscribe.
@@ -22,20 +28,25 @@ import nl.tudelft.simulation.naming.context.InitialEventContext;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public class DemoServer
+public class DemoServer extends RemoteEventProducer implements DemoServerInterface
 {
+    /** */
+    private static final long serialVersionUID = 20200210L;
+
     /**
-     * @param args empty
+     * @throws RemoteException on network error
+     * @throws AlreadyBoundException on two demo servers being started
      * @throws NamingException on context error
      * @throws IOException on error reading from stdin
+     * @throws InterruptedException on sleep
      */
-    public static void main(final String[] args) throws NamingException, IOException
+    public DemoServer() throws RemoteException, AlreadyBoundException, NamingException, IOException, InterruptedException
     {
-        Properties properties = new Properties();
-        properties.put("java.naming.factory.initial", "nl.tudelft.simulation.naming.context.RemoteContextFactory");
-        properties.put("java.naming.provider.url", "http://localhost:1099/remoteContext");
-        properties.put("wrapped.naming.factory.initial", "nl.tudelft.simulation.naming.context.JVMContextFactory");
-        InitialEventContext remoteContext = InitialEventContext.instantiate(properties);
+        super("127.0.0.1", 1099, "demoserver");
+        URL url = new URL("http://127.0.0.1:1099/remoteContext");
+        RemoteEventContextInterface remoteContext =
+                new RemoteEventContext(url, new JVMContext("root"), "remoteContext.producer");
+
         remoteContext.bind("key1", "string1");
         remoteContext.bind("key2", "string2");
         remoteContext.bind("key3", "string3");
@@ -124,16 +135,39 @@ public class DemoServer
                 print(remoteContext, 0);
             }
         }
+        fireEvent(DemoServerInterface.EXIT_EVENT);
         s.close();
+        Thread.sleep(1000);
         System.exit(0);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return "demoserver";
+    }
+
+    /**
+     * @param args empty
+     * @throws NamingException on context error
+     * @throws IOException on error reading from stdin
+     * @throws AlreadyBoundException on two demo servers being started
+     * @throws InterruptedException on sleep
+     */
+    public static void main(final String[] args)
+            throws NamingException, IOException, AlreadyBoundException, InterruptedException
+    {
+        new DemoServer();
     }
 
     /**
      * recursively print the context to stdout.
      * @param ctx the context to print
      * @param indent the indentation on the screen
+     * @throws RemoteException on network error
      */
-    public static void print(final ContextInterface ctx, final int indent)
+    public static void print(final ContextInterface ctx, final int indent) throws RemoteException
     {
         try
         {
@@ -156,4 +190,5 @@ public class DemoServer
             System.err.println("ERR " + exception.getMessage());
         }
     }
+
 }

@@ -1,5 +1,5 @@
 /**
- * A Context is a JNDI implementation to provide tree-like storage for objects based on keys. Storage can be in memory
+ * A Context is a JNDI-like implementation to provide tree storage for objects based on keys. Storage can be in memory
  * (JVMContext), in files (FileContext) or on other computers (RemoteContext). In DSOL, statistics and animation objects are
  * stored in a context so they can be easily accessed.
  * <p>

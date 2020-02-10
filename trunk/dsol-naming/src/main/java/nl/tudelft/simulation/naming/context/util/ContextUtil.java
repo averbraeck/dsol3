@@ -10,7 +10,6 @@ import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.naming.context.ContextInterface;
-import nl.tudelft.simulation.naming.context.InitialEventContext;
 
 /**
  * ContextUtil contains a few helper methods to deal with an InitialEventContext.
@@ -56,19 +55,6 @@ public class ContextUtil
     }
 
     /**
-     * Lookup or create a sub-context in the initial context with the name as its path. The path can be absolute or relative.
-     * The terminating part of the name will be used as the key under which the created subcontext will be registered.
-     * @param name String; the name to register the new subcontext
-     * @return ContextInterface; the newly created subcontext
-     * @throws NamingException when terminating key in the name is blank or contains "/" character(s)
-     * @throws RemoteException on a network error when the Context is used over RMI
-     */
-    public static ContextInterface lookupOrCreateSubContext(final String name) throws NamingException, RemoteException
-    {
-        return lookupOrCreateSubContext(InitialEventContext.instantiate(), name);
-    }
-
-    /**
      * Lookup a sub-context in the parentContext with the name as its path. The path can be absolute or relative. The
      * terminating part of the name will be used as the key under which the created subcontext will be registered.
      * @param parentContext ContextInterface; the parent context
@@ -88,19 +74,7 @@ public class ContextUtil
             throw new NamingException(
                     "lookup for " + name + " in context " + parentContext + " returned object that is not a Context");
         }
-        throw new NamingException("Context " + name + "not found in parentContext " + parentContext);
-    }
-
-    /**
-     * Lookup a sub-context in the initial context with the name as its path. The path can be absolute or relative.
-     * @param name String; the name to register the new subcontext
-     * @return ContextInterface; the newly created subcontext
-     * @throws NamingException when terminating key in the name is blank or contains "/" character(s)
-     * @throws RemoteException on a network error when the Context is used over RMI
-     */
-    public static ContextInterface lookupSubContext(final String name) throws NamingException, RemoteException
-    {
-        return lookupSubContext(InitialEventContext.instantiate(), name);
+        throw new NamingException("Context " + name + " not found in parentContext " + parentContext);
     }
 
     /**
@@ -114,27 +88,7 @@ public class ContextUtil
     public static void destroySubContext(final ContextInterface parentContext, final String name)
             throws NamingException, RemoteException
     {
-        Object object = parentContext.get(name);
-        if (object instanceof ContextInterface)
-        {
-            for (String sub : ((ContextInterface) object).keySet())
-            {
-                destroySubContext((ContextInterface) object, sub);
-            }
-        }
-        parentContext.unbind(name);
-    }
-
-    /**
-     * Lookup or create a sub-context in the initial context with the name as its path. The path can be absolute or relative.
-     * The terminating part of the name will be used as the key under which the created subcontext will be registered.
-     * @param name String; the name to register the new subcontext
-     * @throws NamingException when terminating key in the name is blank or contains "/" character(s)
-     * @throws RemoteException on a network error when the Context is used over RMI
-     */
-    public static void destroySubContext(final String name) throws NamingException, RemoteException
-    {
-        destroySubContext(InitialEventContext.instantiate(), name);
+        parentContext.destroySubcontext(name);
     }
 
     /**
@@ -155,22 +109,6 @@ public class ContextUtil
         List<String> result = new ArrayList<>();
         resolveKeys(startContext, object, result, "");
         return result;
-    }
-
-    /**
-     * Resolve the key(s) for an object in the InitialEventContext. This can be an expensive operation if the context is large.
-     * An object can be registered zero or more times in the context, so a List of keys under which the object is registered
-     * will be returned. The keys are absolute. The method searches the entire InitialEventContext. It is possible to look up
-     * null objects in the Context.
-     * @param object Object; the object to look up in the InitialEventContext tree
-     * @return List&lt;String&gt;; the list of keys that are bound to the object, or an empty list if no bindings for the object
-     *         were found
-     * @throws NamingException when an error occurs during searching
-     * @throws RemoteException on a network error when the Context is used over RMI
-     */
-    public static List<String> resolveKeys(final Object object) throws NamingException, RemoteException
-    {
-        return resolveKeys(InitialEventContext.instantiate());
     }
 
     /**

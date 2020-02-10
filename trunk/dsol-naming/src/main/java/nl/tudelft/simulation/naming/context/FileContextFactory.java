@@ -28,7 +28,7 @@ public class FileContextFactory implements ContextFactory
 
     /** {@inheritDoc} */
     @Override
-    public synchronized ContextInterface getInitialContext(final Hashtable<?, ?> environment)
+    public synchronized ContextInterface getInitialContext(final Hashtable<?, ?> environment, final String atomicName)
     {
         if (context == null)
         {
@@ -44,7 +44,7 @@ public class FileContextFactory implements ContextFactory
                 }
                 else
                 {
-                    FileContextFactory.context = new FileContext(file);
+                    FileContextFactory.context = new FileContext(file, atomicName);
                 }
             }
             catch (Exception exception)

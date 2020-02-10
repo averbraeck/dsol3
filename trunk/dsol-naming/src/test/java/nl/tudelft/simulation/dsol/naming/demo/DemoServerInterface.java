@@ -1,13 +1,10 @@
-package nl.tudelft.simulation.naming.context;
+package nl.tudelft.simulation.dsol.naming.demo;
 
-import java.rmi.Remote;
-
+import org.djutils.event.EventType;
 import org.djutils.event.remote.RemoteEventProducerInterface;
 
 /**
- * RemoteContextInterface is a tagging interface that extends both ContectInterface and Remote, but that does not force any new
- * methods to be implemented. All methods of the ContextInterface can already throw RemoteException, so they are ready for
- * implementation as a RemoteContext.
+ * DemoServerInterface.java.
  * <p>
  * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -17,7 +14,9 @@ import org.djutils.event.remote.RemoteEventProducerInterface;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public interface RemoteContextInterface extends ContextInterface, RemoteEventProducerInterface, Remote
+public interface DemoServerInterface extends RemoteEventProducerInterface
 {
-    // tagging interface that extends both ContectInterface and Remote
+    /** the exit event. */
+    public static final EventType EXIT_EVENT = new EventType("EXIT");
+
 }
