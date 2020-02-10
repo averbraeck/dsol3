@@ -5,7 +5,34 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.04.02" date="2020-XX-XX" description="...">
+    <release version="3.04.02" date="2020-02-10" description="dsol-naming updated">
+      <action dev="averbraeck" type="fix">
+        All classes in dsol-naming have been completely re-implemented without using the heavyweight jndi
+        classes. Instead, a lightweight recursive tree structure has been used for the contexts that is better
+        scalable and can be more easily interacted with programmatically.  
+      </action>
+      <action dev="averbraeck" type="update">
+        The DJUTILS version has been updated to 1.04.09, allowing for the newest implementation of 
+        the (remote) event producers and event listeners.
+      </action>
+      <action dev="averbraeck" type="remove">
+        The package nl.tudelft.simulation.naming.context.tree has been removed from the dsol-naming project.
+        The classes in this package were there for a DnD (Drag and Drop) interface for the context, which 
+        would fit better in dsol-swing, and can be added to dsol-swing at a later stage.
+      </action>
+      <action dev="averbraeck" type="remove">
+        Removed specific listeners for context changes. Context listeners are now implemented through 
+        the normal 'notify' method.
+      </action>
+      <action dev="averbraeck" type="add">
+        A simple demo for remote contexts has been added to the dsol-naming project in the test sources.  
+      </action>  
+      <action dev="averbraeck" type="add">
+        Subscriptions for four different ContextScopes have been added: subscriptions for an object, a 
+        level in the tree, a level plus the context object that is the root of this level, and a complete
+        subtree including future additions and deletions. The demo in dsol-naming uses an event producer
+        for the entire context tree.
+      </action>  
     </release>
     
     <release version="3.04.01" date="2020-01-23" description="New DJUTILS version; small update to AnimationPanel">
