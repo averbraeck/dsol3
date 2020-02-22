@@ -1,6 +1,9 @@
 package nl.tudelft.simulation.jstats.statistics;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -21,9 +24,7 @@ import org.junit.Test;
  */
 public class TallyTest
 {
-    /**
-     * tests the tally
-     */
+    /** Test the tally. */
     @Test
     public void testTally()
     {
@@ -31,7 +32,8 @@ public class TallyTest
         Tally tally = new Tally(description);
 
         // check the description
-        assertTrue(tally.toString().equals(description));
+        assertEquals(description, tally.toString());
+        assertEquals(description, tally.getDescription());
 
         // now we check the initial values
         assertTrue(Double.valueOf(tally.getMin()).isNaN());
@@ -40,12 +42,16 @@ public class TallyTest
         assertTrue(Double.valueOf(tally.getSampleVariance()).isNaN());
         assertTrue(Double.valueOf(tally.getStdDev()).isNaN());
         assertTrue(Double.valueOf(tally.getSum()).isNaN());
-        assertTrue(tally.getN() == Long.MIN_VALUE);
-        assertTrue(tally.getConfidenceInterval(0.95) == null);
-        assertTrue(tally.getConfidenceInterval(0.95, Tally.LEFT_SIDE_CONFIDENCE) == null);
+        assertEquals(Long.MIN_VALUE, tally.getN());
+        assertNull(tally.getConfidenceInterval(0.95));
+        assertNull(tally.getConfidenceInterval(0.95, Tally.LEFT_SIDE_CONFIDENCE));
+        assertNull(tally.getConfidenceInterval(0.95, Tally.RIGHT_SIDE_CONFIDENCE));
+        assertNull(tally.getConfidenceInterval(0.95, Tally.BOTH_SIDE_CONFIDENCE));
 
         // now we initialize the tally
+        assertFalse(tally.isInitialized());
         tally.initialize();
+        assertTrue(tally.isInitialized());
 
         // now we check wether all the properties are correct
         assertTrue(tally.getMin() == Double.MAX_VALUE);
@@ -53,10 +59,12 @@ public class TallyTest
         assertTrue(Double.valueOf(tally.getSampleMean()).isNaN());
         assertTrue(Double.valueOf(tally.getSampleVariance()).isNaN());
         assertTrue(Double.valueOf(tally.getStdDev()).isNaN());
-        assertTrue(tally.getSum() == 0);
-        assertTrue(tally.getN() == 0);
-        assertTrue(tally.getConfidenceInterval(0.95) == null);
-        assertTrue(tally.getConfidenceInterval(0.95, Tally.LEFT_SIDE_CONFIDENCE) == null);
+        assertEquals(0.0, tally.getSum(), 1.0E-6);
+        assertEquals(0, tally.getN());
+        assertNull(tally.getConfidenceInterval(0.95));
+        assertNull(tally.getConfidenceInterval(0.95, Tally.LEFT_SIDE_CONFIDENCE));
+        assertNull(tally.getConfidenceInterval(0.95, Tally.RIGHT_SIDE_CONFIDENCE));
+        assertNull(tally.getConfidenceInterval(0.95, Tally.BOTH_SIDE_CONFIDENCE));
 
         // We first fire a wrong event
         try
@@ -72,7 +80,6 @@ public class TallyTest
         // Now we fire some events
         try
         {
-            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.0)));
             tally.notify(new Event(null, "TallyTest", Double.valueOf(1.1)));
             tally.notify(new Event(null, "TallyTest", Double.valueOf(1.2)));
             tally.notify(new Event(null, "TallyTest", Double.valueOf(1.3)));
@@ -83,6 +90,7 @@ public class TallyTest
             tally.notify(new Event(null, "TallyTest", Double.valueOf(1.8)));
             tally.notify(new Event(null, "TallyTest", Double.valueOf(1.9)));
             tally.notify(new Event(null, "TallyTest", Double.valueOf(2.0)));
+            tally.notify(new Event(null, "TallyTest", Double.valueOf(1.0)));
         }
         catch (Exception exception)
         {
@@ -90,18 +98,14 @@ public class TallyTest
         }
 
         // Now we check the tally
-        assertTrue(tally.getMax() == 2.0);
-        assertTrue(tally.getMin() == 1.0);
-        assertTrue(tally.getN() == 11);
-        assertTrue(tally.getSum() == 16.5);
-        double mean = Math.round(1000 * tally.getSampleMean()) / 1000.0;
-        assertTrue(mean == 1.5);
-        double variance = Math.round(1000 * tally.getSampleVariance()) / 1000.0;
-        assertTrue(variance == 0.11);
-        double stdv = Math.round(1000 * tally.getStdDev()) / 1000.0;
-        assertTrue(stdv == 0.332);
-        double confidence = Math.round(1000 * tally.getConfidenceInterval(0.05)[0]) / 1000.0;
-        assertTrue(confidence == 1.304);
+        assertEquals(2.0, tally.getMax(), 1.0E-6);
+        assertEquals(1.0, tally.getMin(), 1.0E-6);
+        assertEquals(11, tally.getN());
+        assertEquals(16.5, tally.getSum(), 1.0E-6);
+        assertEquals(1.5, tally.getSampleMean(), 1.0E-6);
+        assertEquals(0.11, tally.getSampleVariance(), 1.0E-6);
+        assertEquals(0.332, tally.getStdDev(), 1.0E-3);
+        assertEquals(1.304, tally.getConfidenceInterval(0.05)[0], 1.0E-6);
 
         // we check the input of the confidence interval
         try
@@ -115,9 +119,17 @@ public class TallyTest
         }
         try
         {
-            assertTrue(tally.getConfidenceInterval(-0.95) == null);
-            assertTrue(tally.getConfidenceInterval(1.14) == null);
-            fail("should have reacted on wrong confidence levels");
+            assertNull(tally.getConfidenceInterval(-0.95));
+            fail("should have reacted on wrong confidence level -0.95");
+        }
+        catch (Exception exception)
+        {
+            assertTrue(exception.getClass().equals(IllegalArgumentException.class));
+        }
+        try
+        {
+            assertNull(tally.getConfidenceInterval(1.14));
+            fail("should have reacted on wrong confidence level 1.14");
         }
         catch (Exception exception)
         {
@@ -127,7 +139,7 @@ public class TallyTest
         assertTrue(Math.abs(tally.getSampleMean() - 1.5) < 10E-6);
 
         // Let's compute the standard deviation
-        variance = 0;
+        double variance = 0;
         for (int i = 0; i < 11; i++)
         {
             variance = Math.pow(1.5 - (1.0 + i / 10.0), 2) + variance;
@@ -135,7 +147,7 @@ public class TallyTest
         variance = variance / 10.0;
         double stDev = Math.sqrt(variance);
 
-        assertTrue(Math.abs(tally.getSampleVariance() - variance) < 10E-6);
-        assertTrue(Math.abs(tally.getStdDev() - stDev) < 10E-6);
+        assertEquals(variance, tally.getSampleVariance(), 1.0E-6);
+        assertEquals(stDev, tally.getStdDev(), 1.0E-6);
     }
 }

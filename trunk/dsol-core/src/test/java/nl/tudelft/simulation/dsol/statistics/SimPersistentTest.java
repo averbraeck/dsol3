@@ -1,4 +1,4 @@
-package nl.tudelft.simulation.jstats.statistics;
+package nl.tudelft.simulation.dsol.statistics;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -20,7 +20,7 @@ import org.junit.Test;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class PersistentTest
+public class SimPersistentTest
 {
     /** Test the persistent. */
     @Test
