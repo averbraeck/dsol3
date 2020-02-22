@@ -190,7 +190,7 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
                     this.simulator.getLogger().always().warn(exception,
                             "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
-                super.initialize();
+                initialize();
                 return;
             }
             if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))

@@ -59,7 +59,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
     public static final short BOTH_SIDE_CONFIDENCE = 0;
 
     /** RIGTH_SIDE_CONFIDENCE refers to the right side confidence. */
-    public static final short RIGTH_SIDE_CONFIDENCE = 1;
+    public static final short RIGHT_SIDE_CONFIDENCE = 1;
 
     /** sum refers to the sum of the tally. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -142,7 +142,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
      */
     public final double[] getConfidenceInterval(final double alpha, final short side)
     {
-        if (!(side == LEFT_SIDE_CONFIDENCE || side == BOTH_SIDE_CONFIDENCE || side == RIGTH_SIDE_CONFIDENCE))
+        if (!(side == LEFT_SIDE_CONFIDENCE || side == BOTH_SIDE_CONFIDENCE || side == RIGHT_SIDE_CONFIDENCE))
         {
             throw new IllegalArgumentException("side of confidence level is not defined");
         }
@@ -168,7 +168,7 @@ public class Tally extends StatisticsObject implements EventListenerInterface
             {
                 result[1] = this.sampleMean;
             }
-            if (side == Tally.RIGTH_SIDE_CONFIDENCE)
+            if (side == Tally.RIGHT_SIDE_CONFIDENCE)
             {
                 result[0] = this.sampleMean;
             }

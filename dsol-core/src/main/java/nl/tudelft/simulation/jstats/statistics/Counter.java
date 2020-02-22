@@ -54,7 +54,6 @@ public class Counter extends StatisticsObject implements EventListenerInterface
      */
     public Counter(final String description)
     {
-        super();
         this.description = description;
     }
 
@@ -91,6 +90,10 @@ public class Counter extends StatisticsObject implements EventListenerInterface
         if (event.getContent() instanceof Number)
         {
             value = Math.round(((Number) event.getContent()).doubleValue());
+        }
+        else
+        {
+            throw new RuntimeException("event content for counter not a number but of type " + event.getClass());
         }
 
         synchronized (this.semaphore)

@@ -59,7 +59,7 @@ public class ODETest
             double stepSize = 0.01;
             if (integrationMethod == NumericalIntegratorType.MILNE)
             {
-                continue; // TODO: MILNE does not converge for this ODE...
+                continue; // MILNE does not converge for this ODE...
             }
             if (integrationMethod == NumericalIntegratorType.ADAMS
                     || integrationMethod == NumericalIntegratorType.RUNGEKUTTAFEHLBERG)
