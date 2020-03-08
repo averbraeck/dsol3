@@ -3,17 +3,15 @@ package nl.tudelft.simulation.dsol.formalisms.flow.statistics;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import javax.naming.NamingException;
-
 import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.stats.summarizers.event.EventBasedTally;
 
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
-import nl.tudelft.simulation.jstats.statistics.Tally;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
@@ -112,18 +110,18 @@ public class Utilization<A extends Comparable<A> & Serializable, R extends Numbe
         {
             ContextInterface context = ContextUtil
                     .lookupOrCreateSubContext(this.simulator.getReplication().getExperiment().getContext(), "statistics");
-            Tally experimentTally;
-            if (context.hasKey(this.description))
+            EventBasedTally experimentTally;
+            if (context.hasKey(getDescription()))
             {
-                experimentTally = (Tally) context.getObject(this.description);
+                experimentTally = (EventBasedTally) context.getObject(getDescription());
             }
             else
             {
-                experimentTally = new Tally(this.description);
-                context.bindObject(this.description, experimentTally);
+                experimentTally = new EventBasedTally(getDescription());
+                context.bindObject(getDescription(), experimentTally);
                 experimentTally.initialize();
             }
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.sampleMean)));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(getWeightedSampleMean())));
         }
         catch (Exception exception)
         {

@@ -25,7 +25,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.jstats.statistics.StatisticsObject;
+import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
 import nl.tudelft.simulation.language.concurrent.WorkerThread;
 
 /**
@@ -139,7 +139,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
         synchronized (this.semaphore)
         {
-            this.removeAllListeners(StatisticsObject.class);
+            this.removeAllListeners(StatisticsInterface.class);
             this.replication = initReplication;
             this.simulatorTime = initReplication.getTreatment().getStartSimTime().copy();
             this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime.get());

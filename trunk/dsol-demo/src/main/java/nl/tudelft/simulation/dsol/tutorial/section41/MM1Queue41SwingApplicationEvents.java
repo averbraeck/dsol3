@@ -87,9 +87,9 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
     /** stop the simulation. */
     protected final void terminate()
     {
-        this.logger.always().info("average queue length = " + this.model.qN.getSampleMean());
+        this.logger.always().info("average queue length = " + this.model.qN.getWeightedSampleMean());
         this.logger.always().info("average queue wait   = " + this.model.dN.getSampleMean());
-        this.logger.always().info("average utilization  = " + this.model.uN.getSampleMean());
+        this.logger.always().info("average utilization  = " + this.model.uN.getWeightedSampleMean());
     }
 
     /**

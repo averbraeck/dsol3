@@ -15,6 +15,8 @@ import org.djutils.event.EventInterface;
 import org.djutils.event.EventProducerInterface;
 import org.djutils.event.EventType;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.stats.summarizers.event.EventBasedCounter;
+import org.djutils.stats.summarizers.event.EventBasedTally;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -26,13 +28,11 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.jstats.statistics.Counter;
-import nl.tudelft.simulation.jstats.statistics.Tally;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
- * The time-aware counter extends the generic counter and links it to the dsol framework.
+ * The time-aware counter extends the djutils event-based counter and links it to the dsol framework.
  * <p>
  * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -46,7 +46,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * @param <T> the absolute simulation time to use in the warmup event
  */
 public class SimCounter<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends Counter
+        extends EventBasedCounter implements StatisticsInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -54,7 +54,13 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
     /** the simulator to subscribe to and from. */
     private SimulatorInterface<A, R, T> simulator = null;
 
-    /** we stopped the counter. */
+    /** OBSERVATION_ADDED_EVENT is fired whenever an observation is processed. */
+    public static final EventType TIMED_OBSERVATION_ADDED_EVENT = new EventType("TIMED_OBSERVATION_ADDED_EVENT");
+
+    /** INITIALIZED_EVENT is fired whenever a Tally is (re-)initialized. */
+    public static final EventType TIMED_INITIALIZED_EVENT = new EventType("TIMED_INITIALIZED_EVENT");
+    
+    /** gathering data stopped or not? */
     private boolean stopped = false;
 
     /**
@@ -105,6 +111,23 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
 
     /** {@inheritDoc} */
     @Override
+    public void initialize()
+    {
+        super.initialize();
+        fireTimedEvent(TIMED_INITIALIZED_EVENT, null, this.simulator.getSimulatorTime());
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public long ingest(final long value)
+    {
+        long result = super.ingest(value);
+        fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, this.simulator.getSimulatorTime());
+        return result;
+    }
+
+    /** {@inheritDoc} */
+    @Override
     @SuppressWarnings("checkstyle:designforextension")
     public void notify(final EventInterface event)
     {
@@ -144,7 +167,7 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
                 return;
             }
         }
-        else if (this.isInitialized())
+        else
         {
             super.notify(event);
         }
@@ -162,23 +185,30 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
         {
             ContextInterface context = ContextUtil
                     .lookupOrCreateSubContext(this.simulator.getReplication().getExperiment().getContext(), "statistics");
-            Tally experimentTally;
-            if (context.hasKey(this.description))
+            EventBasedTally experimentTally;
+            if (context.hasKey(getDescription()))
             {
-                experimentTally = (Tally) context.getObject(this.description);
+                experimentTally = (EventBasedTally) context.getObject(getDescription());
             }
             else
             {
-                experimentTally = new Tally(this.description);
-                context.bindObject(this.description, experimentTally);
+                experimentTally = new EventBasedTally(getDescription());
+                context.bindObject(getDescription(), experimentTally);
                 experimentTally.initialize();
             }
-            experimentTally.notify(new Event(null, getSourceId(), Long.valueOf(this.count)));
+            experimentTally.notify(new Event(null, getSourceId(), Long.valueOf(getCount())));
         }
         catch (Exception exception)
         {
             this.simulator.getLogger().always().warn(exception, "endOfReplication");
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public SimulatorInterface<A, R, T> getSimulator()
+    {
+        return this.simulator;
     }
 
     /***********************************************************************************************************/

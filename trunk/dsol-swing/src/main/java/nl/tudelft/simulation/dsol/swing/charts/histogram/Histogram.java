@@ -18,8 +18,8 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.jstats.Swingable;
-import nl.tudelft.simulation.jstats.statistics.Counter;
+import nl.tudelft.simulation.dsol.statistics.SimCounter;
+import nl.tudelft.simulation.dsol.swing.Swingable;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
@@ -140,10 +140,10 @@ public class Histogram implements Swingable, Serializable
      * <code>Counter.COUNT_EVENT</code>.
      * @param counter Counter; the counter to add.
      */
-    public synchronized void add(final Counter counter)
+    public synchronized void add(final SimCounter<?, ?, ?> counter)
     {
         HistogramSeries set = this.getDataset().addSeries(counter.getDescription());
-        counter.addListener(set, Counter.COUNT_EVENT, ReferenceType.STRONG);
+        counter.addListener(set, SimCounter.TIMED_OBSERVATION_ADDED_EVENT, ReferenceType.STRONG);
     }
 
     /**

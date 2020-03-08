@@ -310,7 +310,7 @@ public class Waiter
      */
     private static void sneakyThrow(Throwable t)
     {
-        Waiter.<Error> sneakyThrow2(t);
+        Waiter.<Error>sneakyThrow2(t);
     }
 
     /**

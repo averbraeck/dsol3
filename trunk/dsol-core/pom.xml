@@ -35,8 +35,24 @@
     </dependency>
 
     <dependency>
+      <groupId>org.djutils</groupId>
+      <artifactId>djutils-cli</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.djutils</groupId>
+      <artifactId>djutils-stats</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.djutils</groupId>
+      <artifactId>djutils-data</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.djunits</groupId>
       <artifactId>djunits</artifactId>
     </dependency>
+
   </dependencies>
 </project>

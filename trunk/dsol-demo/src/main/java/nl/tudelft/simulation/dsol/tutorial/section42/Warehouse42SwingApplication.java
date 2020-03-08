@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.stats.summarizers.event.StatisticsEvents;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -99,7 +101,10 @@ public class Warehouse42SwingApplication extends DSOLApplication
                 chart.add(model.backlog);
                 charts.setCell(chart.getSwingPanel(), 0, 0);
 
-                charts.setCell(model.orderingCosts.getSwingPanel(), 1, 0);
+                XYChart orderChart =
+                        new XYChart(this.simulator, "Ordering costs").setLabelXAxis("time (s)").setLabelYAxis("cost");
+                orderChart.add("ordering costs", model.orderingCosts, StatisticsEvents.OBSERVATION_ADDED_EVENT);
+                charts.setCell(orderChart.getSwingPanel(), 1, 0);
             }
             catch (RemoteException exception)
             {

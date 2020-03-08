@@ -159,7 +159,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
                 }
                 this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
                 R delay = this.simulator.getSimTime().diff(request.getCreationTime());
-                this.fireTimedEvent(Seize.DELAY_TIME, delay, this.simulator.getSimulatorTime());
+                this.fireTimedEvent(Seize.DELAY_TIME, delay.doubleValue(), this.simulator.getSimulatorTime());
                 this.releaseObject(request.getEntity());
                 return;
             }

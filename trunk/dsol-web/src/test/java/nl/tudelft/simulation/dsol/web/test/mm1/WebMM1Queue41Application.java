@@ -63,9 +63,9 @@ public class WebMM1Queue41Application
     /** stop the simulation. */
     protected final void terminate()
     {
-        this.simulator.getLogger().always().info("average queue length = " + this.model.qN.getSampleMean());
+        this.simulator.getLogger().always().info("average queue length = " + this.model.qN.getWeightedSampleMean());
         this.simulator.getLogger().always().info("average queue wait   = " + this.model.dN.getSampleMean());
-        this.simulator.getLogger().always().info("average utilization  = " + this.model.uN.getSampleMean());
+        this.simulator.getLogger().always().info("average utilization  = " + this.model.uN.getWeightedSampleMean());
 
         System.exit(0);
     }

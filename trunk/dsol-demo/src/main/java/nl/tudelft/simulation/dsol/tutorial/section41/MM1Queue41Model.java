@@ -15,6 +15,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimulationTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.statistics.SimTally;
 import nl.tudelft.simulation.jstats.distributions.DistConstant;
 import nl.tudelft.simulation.jstats.distributions.DistDiscreteConstant;
@@ -48,11 +49,11 @@ public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.
 
     /** tally dN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    SimTally<Double, Double, SimTimeDouble> dN;
+    SimTally.TimeDouble dN;
 
     /** tally qN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    SimTally<Double, Double, SimTimeDouble> qN;
+    SimPersistent.TimeDouble qN;
 
     /** utilization uN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -62,7 +63,7 @@ public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.
     @Override
     public final void constructModel() throws SimRuntimeException
     {
-        StreamInterface defaultStream = new MersenneTwister();
+        StreamInterface defaultStream = new MersenneTwister(2L);
 
         // The Generator
         Generator.TimeDouble generator = new Generator.TimeDouble("Generator", this.simulator, Object.class, null);
@@ -91,8 +92,8 @@ public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.
         // Statistics
         try
         {
-            this.dN = new SimTally<>("d(n)", this.simulator, queue, Seize.DELAY_TIME);
-            this.qN = new SimTally<>("q(n)", this.simulator, queue, Seize.QUEUE_LENGTH_EVENT);
+            this.dN = new SimTally.TimeDouble("d(n)", this.simulator, queue, Seize.DELAY_TIME);
+            this.qN = new SimPersistent.TimeDouble("q(n)", this.simulator, queue, Seize.QUEUE_LENGTH_EVENT);
             this.uN = new Utilization<>("u(n)", this.simulator, server);
         }
         catch (Exception exception)

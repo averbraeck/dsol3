@@ -68,7 +68,7 @@ public class Computer extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
 
             // Now the charts
             Histogram histogram = new Histogram(this.simulator, "service time", new double[] {0, 200}, 200);
-            histogram.add("serviceTime", persistent, nl.tudelft.simulation.jstats.statistics.Persistent.VALUE_EVENT);
+            histogram.add("serviceTime", persistent, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT);
 
             BoxAndWhiskerChart boxAndWhisker = new BoxAndWhiskerChart(this.simulator, "serviceTime");
             boxAndWhisker.add(persistent);
@@ -115,7 +115,7 @@ public class Computer extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
         public void notify(final EventInterface event)
         {
             super.notify(event);
-            if (this.count >= NUMBER_OF_JOBS)
+            if (getCount() >= NUMBER_OF_JOBS)
             {
                 try
                 {

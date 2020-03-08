@@ -4,8 +4,10 @@ import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
+import nl.tudelft.simulation.dsol.statistics.table.PersistentTableModel;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
+import nl.tudelft.simulation.dsol.swing.statistics.StatisticsTable;
 
 /**
  * <p>
@@ -36,6 +38,7 @@ public class DESSPanel extends DSOLPanel<Double, Double, SimTimeDouble>
         super.tabbedPane.addTab("statistics", charts);
         super.tabbedPane.setSelectedIndex(1);
         charts.setCell(model.getDistanceChart().getSwingPanel(), 0, 0);
-        charts.setCell(model.getDistancePersistent().getSwingPanel(), 1, 0);
+        StatisticsTable distanceTable = new StatisticsTable(new PersistentTableModel(model.getDistancePersistent()));
+        charts.setCell(distanceTable.getSwingPanel(), 1, 0);
     }
 }

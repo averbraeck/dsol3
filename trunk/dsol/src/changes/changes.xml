@@ -5,6 +5,28 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.03" date="2020-02-10" description="dsol-naming updated">
+      <action dev="averbraeck" type="remove">
+        The jstats statistics have been moved to a separate project djutils-stats, as their use is independent
+        of simulation and much more generic than dsol itself. As a result, the dsol statistics now extend
+        the djutils-stats statistics. The nl.tudelft.simulation.jstats.statistics package has been
+        removed from dsol-core.  
+      </action>
+      <action dev="averbraeck" type="update">
+        The DSOL statistics have been updated with the more advanced functions of the djutils-stats 
+        project, such as the possibility to show percentiles, skewness and kurtosis.
+      </action>
+      <action dev="averbraeck" type="update">
+        All swing-related classes have been moved from dsol-core to dsol-swing. Also the generic 'Swingable'
+        class is now in dsol-swing. The table representations of dsol-core statistics have stayed, however,
+        in dsol-core because the table representation itself is independent of its rendering (which could
+        be using swing, on the web, or in a file).
+      </action>
+      <action dev="averbraeck" type="update">
+        All demos have been updated to use the new statistics classes.
+      </action>
+    </release>
+
     <release version="3.04.02" date="2020-02-10" description="dsol-naming updated">
       <action dev="averbraeck" type="fix">
         All classes in dsol-naming have been completely re-implemented without using the heavyweight jndi

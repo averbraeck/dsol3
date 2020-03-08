@@ -8,10 +8,11 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventProducer;
+import org.djutils.event.EventType;
+import org.djutils.event.TimedEvent;
 import org.junit.Test;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -19,7 +20,6 @@ import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.jstats.statistics.Counter;
 
 /**
  * The counterTest test the counter.
@@ -35,6 +35,9 @@ import nl.tudelft.simulation.jstats.statistics.Counter;
  */
 public class SimCounterTest extends EventProducer
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /**
      * Test the counter.
      * @throws RemoteException on remote error (should not happen)
@@ -54,8 +57,8 @@ public class SimCounterTest extends EventProducer
         assertEquals(counter.toString(), description);
         assertEquals(counter.getDescription(), description);
 
-        assertTrue(counter.getN() == Long.MIN_VALUE);
-        assertTrue(counter.getCount() == Long.MIN_VALUE);
+        assertEquals(0L, counter.getN());
+        assertEquals(0L, counter.getCount());
 
         counter.initialize();
 
@@ -67,15 +70,16 @@ public class SimCounterTest extends EventProducer
             @Override
             public void notify(final EventInterface event)
             {
-                assertTrue(event.getType().equals(Counter.COUNT_EVENT));
+                assertTrue(event.getType().equals(SimCounter.TIMED_OBSERVATION_ADDED_EVENT));
                 assertTrue(event.getContent().getClass().equals(Long.class));
             }
-        }, Counter.COUNT_EVENT);
+        }, SimCounter.TIMED_OBSERVATION_ADDED_EVENT);
 
+        EventType et = new EventType("observation");
         long value = 0;
         for (int i = 0; i < 100; i++)
         {
-            counter.notify(new Event(Counter.COUNT_EVENT, "CounterTest", Long.valueOf(2 * i)));
+            counter.notify(new TimedEvent<Double>(et, "CounterTest", Long.valueOf(2 * i), 0.1 * i));
             value = value + 2 * i;
         }
         assertTrue(counter.getN() == 100);
