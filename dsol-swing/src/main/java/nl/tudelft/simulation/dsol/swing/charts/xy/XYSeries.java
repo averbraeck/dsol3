@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.swing.charts.xy;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.djutils.event.TimedEvent;
 import org.djutils.logger.CategoryLogger;
 import org.jfree.data.general.AbstractDataset;
 
+import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.filters.FilterInterface;
 import nl.tudelft.simulation.language.filters.ZeroFilter;
 
@@ -43,6 +45,9 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     /** the entries of the serie. */
     protected List<double[]> entries = new ArrayList<double[]>();
 
+    /** the simulator. */
+    private final SimulatorInterface<?, ?, ?> simulator;
+
     /** the axisType (default, logarithmic). */
     private short axisType = XYChart.XLINEAR_YLINEAR;
 
@@ -55,14 +60,15 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     /**
      * constructs a new XYSeries.
      * @param name String; the name of the series.
+     * @param simulator Simulator; the simulator
      * @param axisType short; whether this serie is logarithmic (x=0 and y=0 are neglected)
      * @param period double; the period of this series.
      */
-    public XYSeries(final String name, final short axisType, final double period)
+    public XYSeries(final String name, final SimulatorInterface<?, ?, ?> simulator, final short axisType, final double period)
     {
-        super();
         this.axisType = axisType;
         this.name = name;
+        this.simulator = simulator;
         this.PERIOD = period;
         this.fireDatasetChanged();
     }
@@ -71,8 +77,39 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     @Override
     public synchronized void notify(final EventInterface event)
     {
-        TimedEvent<?> timedEvent = (TimedEvent<?>) event;
-        Number timeStamp = (Number) timedEvent.getTimeStamp();
+        Number timeStamp;
+        if (event instanceof TimedEvent)
+        {
+            TimedEvent<?> timedEvent = (TimedEvent<?>) event;
+            if (timedEvent.getTimeStamp() instanceof Number)
+            {
+                timeStamp = (Number) timedEvent.getTimeStamp();
+            }
+            else if (timedEvent.getTimeStamp() instanceof Calendar)
+            {
+                timeStamp = ((Calendar) timedEvent.getTimeStamp()).getTimeInMillis();
+            }
+            else
+            {
+                throw new IllegalArgumentException("TimedEvent has timestamp other than Number or Calendar");
+            }
+        }
+        else
+        {
+            Object simTime = this.simulator.getSimulatorTime();
+            if (simTime instanceof Number)
+            {
+                timeStamp = (Number) simTime;
+            }
+            else if (simTime instanceof Calendar)
+            {
+                timeStamp = ((Calendar) simTime).getTimeInMillis();
+            }
+            else
+            {
+                throw new IllegalArgumentException("Simulator has simulator time other than Number or Calendar");
+            }
+        }
 
         // We have chosen to simply neglect <=0.0 values on logarithmic axis
         if (this.axisType == XYChart.XLOGARITHMIC_YLINEAR || this.axisType == XYChart.XLOGARITHMIC_YLOGARITHMIC)
@@ -85,13 +122,13 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         }
         if (this.axisType == XYChart.XLINEAR_YLOGARITHMIC || this.axisType == XYChart.XLOGARITHMIC_YLOGARITHMIC)
         {
-            if (((Number) timedEvent.getContent()).doubleValue() <= 0.0)
+            if (((Number) event.getContent()).doubleValue() <= 0.0)
             {
                 CategoryLogger.always().warn("notify: refusing yValue of {} on logrithmic chart", event);
                 return;
             }
         }
-        double[] point = {timeStamp.doubleValue(), ((Number) timedEvent.getContent()).doubleValue()};
+        double[] point = {timeStamp.doubleValue(), ((Number) event.getContent()).doubleValue()};
         if (!this.filter.accept(point))
         {
             return;

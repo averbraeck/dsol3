@@ -16,6 +16,8 @@ import org.djutils.event.EventProducerInterface;
 import org.djutils.event.EventType;
 import org.djutils.event.TimedEvent;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.stats.summarizers.event.EventBasedTally;
+import org.djutils.stats.summarizers.event.EventBasedTimestampWeightedTally;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -27,13 +29,11 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.jstats.statistics.Persistent;
-import nl.tudelft.simulation.jstats.statistics.Tally;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
- * The time-aware Persistent extends the generic persistent and links it to the dsol framework.
+ * The time-aware Persistent extends the djutils event-based timestamp-weighed tally and links it to the dsol framework.
  * <p>
  * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -47,7 +47,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * @param <T> the absolute simulation time to use in the warmup event
  */
 public class SimPersistent<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends Persistent
+        extends EventBasedTimestampWeightedTally implements StatisticsInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -55,29 +55,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
     /** simulator. */
     private SimulatorInterface<A, R, T> simulator = null;
 
-    /** Am I stopped ? */
-    private boolean stopped = false;
+    /** OBSERVATION_ADDED_EVENT is fired whenever an observation is processed. */
+    public static final EventType TIMED_OBSERVATION_ADDED_EVENT = new EventType("TIMED_OBSERVATION_ADDED_EVENT");
 
-    /** SAMPLE_MEAN_EVENT is fired whenever the sample mean is updated. */
-    public static final EventType TIMED_SAMPLE_MEAN_EVENT = new EventType("TIMED_SAMPLE_MEAN_EVENT");
-
-    /** SAMPLE_VARIANCE_EVENT is fired whenever the sample variance is updated. */
-    public static final EventType TIMED_SAMPLE_VARIANCE_EVENT = new EventType("TIMED_SAMPLE_VARIANCE_EVENT");
-
-    /** MIN_EVENT is fired whenever a new minimum value has reached. */
-    public static final EventType TIMED_MIN_EVENT = new EventType("TIMED_MIN_EVENT");
-
-    /** MAX_EVENT is fired whenever a new maximum value has reached. */
-    public static final EventType TIMED_MAX_EVENT = new EventType("TIMED_MAX_EVENT");
-
-    /** N_EVENT is fired whenever on a change in measurements. */
-    public static final EventType TIMED_N_EVENT = new EventType("TIMED_N_EVENT");
-
-    /** STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is updated. */
-    public static final EventType TIMED_STANDARD_DEVIATION_EVENT = new EventType("TIMED_STANDARD_DEVIATION_EVENT");
-
-    /** SUM_EVENT is fired whenever the sum is updated. */
-    public static final EventType TIMED_SUM_EVENT = new EventType("TIMED_SUM_EVENT");
+    /** INITIALIZED_EVENT is fired whenever a Tally is (re-)initialized. */
+    public static final EventType TIMED_INITIALIZED_EVENT = new EventType("TIMED_INITIALIZED_EVENT");
 
     /**
      * constructs a new SimPersistent.
@@ -91,7 +73,7 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         this.simulator = simulator;
         if (this.simulator.getSimTime().gt(this.simulator.getReplication().getTreatment().getWarmupSimTime()))
         {
-            this.initialize();
+            fireTimedEvent(TIMED_INITIALIZED_EVENT, this, this.simulator.getSimulatorTime());
         }
         else
         {
@@ -110,15 +92,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         {
             this.simulator.getLogger().always().warn(exception, "<init>");
         }
-
-        // subscribe to the events from the super Persistent to send timed events by this simulator aware tally
-        super.addListener(this, Tally.MAX_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.MIN_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.N_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.SAMPLE_VARIANCE_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.STANDARD_DEVIATION_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.SUM_EVENT, ReferenceType.STRONG);
     }
 
     /**
@@ -141,47 +114,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
     @SuppressWarnings({"checkstyle:designforextension", "unchecked"})
     public void notify(final EventInterface event)
     {
-        if (this.stopped)
-        {
-            // we are no longer active..
-            return;
-        }
-        if (event.getType().equals(MAX_EVENT))
-        {
-            fireTimedEvent(TIMED_MAX_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(MIN_EVENT))
-        {
-            fireTimedEvent(TIMED_MIN_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(N_EVENT))
-        {
-            fireTimedEvent(TIMED_N_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(SAMPLE_MEAN_EVENT))
-        {
-            fireTimedEvent(TIMED_SAMPLE_MEAN_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(SAMPLE_VARIANCE_EVENT))
-        {
-            fireTimedEvent(TIMED_SAMPLE_VARIANCE_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(STANDARD_DEVIATION_EVENT))
-        {
-            fireTimedEvent(TIMED_STANDARD_DEVIATION_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(SUM_EVENT))
-        {
-            fireTimedEvent(TIMED_SUM_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-
         if (event.getSourceId().equals(this.simulator.getSourceId()))
         {
             if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
@@ -195,12 +127,26 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                     this.simulator.getLogger().always().warn(exception,
                             "problem removing Listener for SimulatorIterface.WARMUP_EVENT");
                 }
+                fireTimedEvent(TIMED_INITIALIZED_EVENT, this, this.simulator.getSimulatorTime());
                 super.initialize();
                 return;
             }
             if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
             {
-                this.stopped = true;
+                Object endTime = this.simulator.getSimulatorTime();
+                if (endTime instanceof Calendar)
+                {
+                    endObservations((Calendar) endTime);
+                }
+                else if (endTime instanceof Number)
+                {
+                    endObservations((Number) endTime);
+                }
+                else
+                {
+                    this.simulator.getLogger().always()
+                            .warn("END_REPLICATION_EVENT received, but simulator time implements neither Calendar nor Number");
+                }
                 try
                 {
                     this.simulator.removeListener(this, SimulatorInterface.END_REPLICATION_EVENT);
@@ -214,7 +160,7 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                 return;
             }
         }
-        else if (this.isInitialized())
+        else if (isActive())
         {
             if (event instanceof TimedEvent<?>)
             {
@@ -237,6 +183,24 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         }
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public double ingest(final Calendar timestamp, final double value)
+    {
+        super.ingest(timestamp, value);
+        fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, this.simulator.getSimulatorTime());
+        return value;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public <TS extends Number & Comparable<TS>> double ingest(final TS timestamp, final double value)
+    {
+        super.ingest(timestamp, value);
+        fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, this.simulator.getSimulatorTime());
+        return value;
+    }
+
     /**
      * endOfReplication is invoked to store the final results. A special Tally is created in the Context of the experiment to
      * tally the average results of all replications. Herewith the confidence interval of the means of the Persistent over the
@@ -249,23 +213,33 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         {
             ContextInterface context = ContextUtil
                     .lookupOrCreateSubContext(this.simulator.getReplication().getExperiment().getContext(), "statistics");
-            Tally experimentTally;
-            if (context.hasKey(this.description))
+            EventBasedTally experimentTally;
+            if (context.hasKey(getDescription()))
             {
-                experimentTally = (Tally) context.getObject(this.description);
+                experimentTally = (EventBasedTally) context.getObject(getDescription());
             }
             else
             {
-                experimentTally = new Tally(this.description);
-                context.bindObject(this.description, experimentTally);
+                experimentTally = new EventBasedTally(getDescription());
+                context.bindObject(getDescription(), experimentTally);
                 experimentTally.initialize();
             }
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.sampleMean)));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedSampleMean())));
+
+            // TODO: do this for all statistics of the tally (!)
+
         }
         catch (Exception exception)
         {
             this.simulator.getLogger().always().warn("endOfReplication", exception);
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public SimulatorInterface<A, R, T> getSimulator()
+    {
+        return this.simulator;
     }
 
     /***********************************************************************************************************/

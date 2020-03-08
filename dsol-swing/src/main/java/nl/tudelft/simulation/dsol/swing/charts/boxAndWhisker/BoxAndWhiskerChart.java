@@ -9,14 +9,18 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
+import javax.swing.BorderFactory;
+import javax.swing.border.EtchedBorder;
 
+import org.djutils.stats.summarizers.event.EventBasedTally;
+import org.djutils.stats.summarizers.event.EventBasedTimestampWeightedTally;
+import org.djutils.stats.summarizers.event.EventBasedWeightedTally;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.jstats.Swingable;
-import nl.tudelft.simulation.jstats.statistics.Tally;
+import nl.tudelft.simulation.dsol.swing.Swingable;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
@@ -75,9 +79,27 @@ public class BoxAndWhiskerChart implements Swingable, Serializable
 
     /**
      * adds a tally to the chart
-     * @param tally Tally; the tally to be added
+     * @param tally EventBasedTally; the tally to be added
      */
-    public void add(final Tally tally)
+    public void add(final EventBasedTally tally)
+    {
+        ((BoxAndWhiskerPlot) this.chart.getPlot()).add(tally);
+    }
+
+    /**
+     * adds a weighted tally to the chart
+     * @param tally EventBasedWeightedTally; the tally to be added
+     */
+    public void add(final EventBasedWeightedTally tally)
+    {
+        ((BoxAndWhiskerPlot) this.chart.getPlot()).add(tally);
+    }
+
+    /**
+     * adds a weighted tally to the chart
+     * @param tally EventBasedTimestampWeightedTally; the tally to be added
+     */
+    public void add(final EventBasedTimestampWeightedTally tally)
     {
         ((BoxAndWhiskerPlot) this.chart.getPlot()).add(tally);
     }
@@ -96,6 +118,7 @@ public class BoxAndWhiskerChart implements Swingable, Serializable
     public Container getSwingPanel()
     {
         ChartPanel result = new ChartPanel(this.chart);
+        result.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         result.setMouseZoomable(true, false);
         result.setPreferredSize(new Dimension(800, 600));
         return result;

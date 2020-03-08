@@ -50,9 +50,9 @@ public class MM1Queue41Application
     /** stop the simulation. */
     protected final void terminate()
     {
-        System.out.println("average queue length = " + this.model.qN.getSampleMean());
+        System.out.println("average queue length = " + this.model.qN.getWeightedSampleMean());
         System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
-        System.out.println("average utilization  = " + this.model.uN.getSampleMean());
+        System.out.println("average utilization  = " + this.model.uN.getWeightedSampleMean());
 
         System.exit(0);
     }

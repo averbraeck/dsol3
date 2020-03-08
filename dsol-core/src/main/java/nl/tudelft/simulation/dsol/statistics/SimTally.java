@@ -14,7 +14,9 @@ import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventProducerInterface;
 import org.djutils.event.EventType;
+import org.djutils.event.TimedEvent;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.stats.summarizers.event.EventBasedTally;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -26,12 +28,11 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.jstats.statistics.Tally;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
- * The time-aware Tally extends the generic tally and links it to the dsol framework.
+ * The simulator aware Tally extends the djutils event-based tally and links it to the dsol framework.
  * <p>
  * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -45,37 +46,19 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * @param <T> the absolute simulation time to use in the warmup event
  */
 public class SimTally<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends Tally
+        extends EventBasedTally implements StatisticsInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140804L;
 
     /** the simulator. */
-    private SimulatorInterface<A, R, T> simulator = null;
+    private final SimulatorInterface<A, R, T> simulator;
 
-    /** after the END_OF_REPLICATION we stop. */
-    private boolean stopped = false;
+    /** OBSERVATION_ADDED_EVENT is fired whenever an observation is processed. */
+    public static final EventType TIMED_OBSERVATION_ADDED_EVENT = new EventType("TIMED_OBSERVATION_ADDED_EVENT");
 
-    /** SAMPLE_MEAN_EVENT is fired whenever the sample mean is updated. */
-    public static final EventType TIMED_SAMPLE_MEAN_EVENT = new EventType("TIMED_SAMPLE_MEAN_EVENT");
-
-    /** SAMPLE_VARIANCE_EVENT is fired whenever the sample variance is updated. */
-    public static final EventType TIMED_SAMPLE_VARIANCE_EVENT = new EventType("TIMED_SAMPLE_VARIANCE_EVENT");
-
-    /** MIN_EVENT is fired whenever a new minimum value has reached. */
-    public static final EventType TIMED_MIN_EVENT = new EventType("TIMED_MIN_EVENT");
-
-    /** MAX_EVENT is fired whenever a new maximum value has reached. */
-    public static final EventType TIMED_MAX_EVENT = new EventType("TIMED_MAX_EVENT");
-
-    /** N_EVENT is fired whenever on a change in measurements. */
-    public static final EventType TIMED_N_EVENT = new EventType("TIMED_N_EVENT");
-
-    /** STANDARD_DEVIATION_EVENT is fired whenever the standard deviation is updated. */
-    public static final EventType TIMED_STANDARD_DEVIATION_EVENT = new EventType("TIMED_STANDARD_DEVIATION_EVENT");
-
-    /** SUM_EVENT is fired whenever the sum is updated. */
-    public static final EventType TIMED_SUM_EVENT = new EventType("TIMED_SUM_EVENT");
+    /** INITIALIZED_EVENT is fired whenever a Tally is (re-)initialized. */
+    public static final EventType TIMED_INITIALIZED_EVENT = new EventType("TIMED_INITIALIZED_EVENT");
 
     /**
      * constructs a new SimTally.
@@ -106,19 +89,10 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
         {
             this.simulator.getLogger().always().warn(exception, "<init>");
         }
-
-        // subscribe to the events from the super Tally to send timed events by this simulator aware tally
-        super.addListener(this, Tally.MAX_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.MIN_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.N_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.SAMPLE_VARIANCE_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.STANDARD_DEVIATION_EVENT, ReferenceType.STRONG);
-        super.addListener(this, Tally.SUM_EVENT, ReferenceType.STRONG);
     }
 
     /**
-     * constructs a new SimTally.
+     * constructs a new SimTally based on an eventType for which statistics are sampled.
      * @param description String; the description of this tally.
      * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator to schedule on
      * @param target EventProducerInterface; the target on which to subscribe
@@ -134,49 +108,17 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
+    public void initialize()
+    {
+        super.initialize();
+        fireTimedEvent(TIMED_INITIALIZED_EVENT, this, this.simulator.getSimulatorTime());
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings({"checkstyle:designforextension", "unchecked"})
     public void notify(final EventInterface event)
     {
-        if (this.stopped)
-        {
-            return;
-        }
-        if (event.getType().equals(MAX_EVENT))
-        {
-            fireTimedEvent(TIMED_MAX_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(MIN_EVENT))
-        {
-            fireTimedEvent(TIMED_MIN_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(N_EVENT))
-        {
-            fireTimedEvent(TIMED_N_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(SAMPLE_MEAN_EVENT))
-        {
-            fireTimedEvent(TIMED_SAMPLE_MEAN_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(SAMPLE_VARIANCE_EVENT))
-        {
-            fireTimedEvent(TIMED_SAMPLE_VARIANCE_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(STANDARD_DEVIATION_EVENT))
-        {
-            fireTimedEvent(TIMED_STANDARD_DEVIATION_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-        if (event.getType().equals(SUM_EVENT))
-        {
-            fireTimedEvent(TIMED_SUM_EVENT, event.getContent(), this.simulator.getSimulatorTime());
-            return;
-        }
-
         if (event.getSourceId().equals(this.simulator.getSourceId()))
         {
             if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
@@ -195,7 +137,6 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
             }
             if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
             {
-                this.stopped = true;
                 try
                 {
                     this.simulator.removeListener(this, SimulatorInterface.END_REPLICATION_EVENT);
@@ -209,10 +150,33 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
                 return;
             }
         }
-        else if (this.isInitialized())
+        else if (event instanceof TimedEvent<?>)
         {
-            super.notify(event);
+            TimedEvent<?> timedEvent = (TimedEvent<?>) event;
+            if (timedEvent.getTimeStamp() instanceof SimTime)
+            {
+                // Tally can handle Number (and therefore also Time and Duration) and Calendar but not SimTime
+                super.notify(new TimedEvent<A>(timedEvent.getType(), timedEvent.getSourceId(), timedEvent.getContent(),
+                        ((SimTime<A, R, T>) timedEvent.getTimeStamp()).get()));
+            }
+            else
+            {
+                super.notify(event);
+            }
         }
+        else
+        {
+            this.simulator.getLogger().always().warn("SimPersistent: event not a TimedEvent");
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public double ingest(final double value)
+    {
+        super.ingest(value);
+        fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, this.simulator.getSimulatorTime());
+        return value;
     }
 
     /**
@@ -227,23 +191,33 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
         {
             ContextInterface context = ContextUtil
                     .lookupOrCreateSubContext(this.simulator.getReplication().getExperiment().getContext(), "statistics");
-            Tally experimentTally;
-            if (context.hasKey(this.description))
+            EventBasedTally experimentTally;
+            if (context.hasKey(getDescription()))
             {
-                experimentTally = (Tally) context.getObject(this.description);
+                experimentTally = (EventBasedTally) context.getObject(getDescription());
             }
             else
             {
-                experimentTally = new Tally(this.description);
-                context.bindObject(this.description, experimentTally);
+                experimentTally = new EventBasedTally(getDescription());
+                context.bindObject(getDescription(), experimentTally);
                 experimentTally.initialize();
             }
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.sampleMean)));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(getSampleMean())));
+
+            // TODO: do this for all statistics of the tally (!)
+
         }
         catch (Exception exception)
         {
             this.simulator.getLogger().always().warn(exception, "endOfReplication");
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public SimulatorInterface<A, R, T> getSimulator()
+    {
+        return this.simulator;
     }
 
     /***********************************************************************************************************/

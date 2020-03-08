@@ -2,6 +2,8 @@ package nl.tudelft.simulation.examples.dsol.mm1queue;
 
 import java.io.Serializable;
 
+import org.djutils.stats.summarizers.event.StatisticsEvents;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.flow.Delay;
@@ -25,7 +27,6 @@ import nl.tudelft.simulation.jstats.distributions.DistConstant;
 import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
 import nl.tudelft.simulation.jstats.distributions.DistDiscreteConstant;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
-import nl.tudelft.simulation.jstats.statistics.Tally;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -122,7 +123,7 @@ public class MM1QueueModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.Ti
                     release, Release.SERVICE_TIME_EVENT);
 
             Histogram histogram = new Histogram(this.simulator, "histogram on service time", new double[] {0, 10}, 30);
-            histogram.add("histogram on service time", persistent, Tally.SAMPLE_MEAN_EVENT);
+            histogram.add("histogram on service time", persistent, StatisticsEvents.SAMPLE_MEAN_EVENT);
 
             this.serviceTimeChart = new XYChart(this.simulator, "XY chart of service time",
                     new double[] {0, this.simulator.getReplication().getTreatment().getRunLength()}, new double[] {-2, 30});

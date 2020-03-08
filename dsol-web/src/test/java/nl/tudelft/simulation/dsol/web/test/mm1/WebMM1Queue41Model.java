@@ -15,6 +15,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimTime;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimulationTime;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.statistics.SimTally;
 import nl.tudelft.simulation.jstats.distributions.DistConstant;
 import nl.tudelft.simulation.jstats.distributions.DistDiscreteConstant;
@@ -40,11 +41,11 @@ public class WebMM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulat
 
     /** tally dN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    SimTally<Double, Double, SimTimeDouble> dN;
+    SimTally.TimeDouble dN;
 
     /** tally qN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    SimTally<Double, Double, SimTimeDouble> qN;
+    SimPersistent.TimeDouble qN;
 
     /** utilization uN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -91,8 +92,8 @@ public class WebMM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulat
         // Statistics
         try
         {
-            this.dN = new SimTally<>("d(n)", getSimulator(), queue, Seize.DELAY_TIME);
-            this.qN = new SimTally<>("q(n)", getSimulator(), queue, Seize.QUEUE_LENGTH_EVENT);
+            this.dN = new SimTally.TimeDouble("d(n)", getSimulator(), queue, Seize.DELAY_TIME);
+            this.qN = new SimPersistent.TimeDouble("q(n)", getSimulator(), queue, Seize.QUEUE_LENGTH_EVENT);
             this.uN = new Utilization<>("u(n)", getSimulator(), server);
         }
         catch (Exception exception)

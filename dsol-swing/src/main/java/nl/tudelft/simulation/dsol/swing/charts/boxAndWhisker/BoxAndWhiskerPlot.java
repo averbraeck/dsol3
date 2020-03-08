@@ -8,18 +8,22 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.stats.summarizers.BasicTallyInterface;
+import org.djutils.stats.summarizers.TallyInterface;
+import org.djutils.stats.summarizers.WeightedTallyInterface;
+import org.djutils.stats.summarizers.event.EventBasedTally;
+import org.djutils.stats.summarizers.event.EventBasedTimestampWeightedTally;
+import org.djutils.stats.summarizers.event.EventBasedWeightedTally;
+import org.djutils.stats.summarizers.event.StatisticsEvents;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.PlotState;
-
-import nl.tudelft.simulation.jstats.statistics.Tally;
 
 /**
  * The Summary chart class defines a summary chart..
@@ -51,7 +55,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     public static final Font TITLE_FONT = new Font("SansSerif", Font.BOLD, 15);
 
     /** target is the tally to represent. */
-    protected Tally[] tallies = new Tally[0];
+    protected List<BasicTallyInterface> tallies = new ArrayList<>();
 
     /** formatter formats the text. */
     protected NumberFormat formatter = NumberFormat.getInstance();
@@ -71,12 +75,30 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
      * adds a tally to the array of targets;
      * @param tally Tally; the tally to be summarized
      */
-    public synchronized void add(final Tally tally)
+    public synchronized void add(final EventBasedTally tally)
     {
-        tally.addListener(this, Tally.SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
-        List<Tally> list = new ArrayList<Tally>(Arrays.asList(this.tallies));
-        list.add(tally);
-        this.tallies = list.toArray(new Tally[list.size()]);
+        tally.addListener(this, StatisticsEvents.SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
+        this.tallies.add(tally);
+    }
+
+    /**
+     * adds a tally to the array of targets;
+     * @param tally EventBasedWeightedTally; the tally to be summarized
+     */
+    public synchronized void add(final EventBasedWeightedTally tally)
+    {
+        tally.addListener(this, StatisticsEvents.WEIGHTED_SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
+        this.tallies.add(tally);
+    }
+
+    /**
+     * adds a tally to the array of targets;
+     * @param tally EventBasedTimestampWeightedTally; the tally to be summarized
+     */
+    public synchronized void add(final EventBasedTimestampWeightedTally tally)
+    {
+        tally.addListener(this, StatisticsEvents.WEIGHTED_SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
+        this.tallies.add(tally);
     }
 
     /** {@inheritDoc} */
@@ -94,23 +116,24 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /** ************ PRIVATE METHODS *********************** */
+
     /**
      * computes the extent of the targets
      * @param tallies Tally[]; the range of tallies
      * @return double[min,max]
      */
-    private static double[] extent(final Tally[] tallies)
+    private static double[] extent(final List<BasicTallyInterface> tallies)
     {
         double[] result = {Double.MAX_VALUE, -Double.MAX_VALUE};
-        for (int i = 0; i < tallies.length; i++)
+        for (int i = 0; i < tallies.size(); i++)
         {
-            if (tallies[i].getMin() < result[0])
+            if (tallies.get(i).getMin() < result[0])
             {
-                result[0] = tallies[i].getMin();
+                result[0] = tallies.get(i).getMin();
             }
-            if (tallies[i].getMax() > result[1])
+            if (tallies.get(i).getMax() > result[1])
             {
-                result[1] = tallies[i].getMax();
+                result[1] = tallies.get(i).getMax();
             }
         }
         return result;
@@ -120,16 +143,16 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
      * determines the borders on the left and right side of the tally
      * @param g2 Graphics2D; the graphics object
      * @param context FontRenderContext; the context
-     * @param tallyArray Tally[]; tallies
+     * @param tallyList Tally[]; tallies
      * @return double[] the extent
      */
-    private double[] borders(final Graphics2D g2, final FontRenderContext context, final Tally[] tallyArray)
+    private double[] borders(final Graphics2D g2, final FontRenderContext context, final List<BasicTallyInterface> tallyList)
     {
         double[] result = {0, 0};
-        for (int i = 0; i < tallyArray.length; i++)
+        for (int i = 0; i < tallyList.size(); i++)
         {
-            double left = g2.getFont().getStringBounds(this.formatter.format(tallyArray[i].getMin()), context).getWidth();
-            double rigth = g2.getFont().getStringBounds(this.formatter.format(tallyArray[i].getMax()), context).getWidth();
+            double left = g2.getFont().getStringBounds(this.formatter.format(tallyList.get(i).getMin()), context).getWidth();
+            double rigth = g2.getFont().getStringBounds(this.formatter.format(tallyList.get(i).getMax()), context).getWidth();
             if (left > result[0])
             {
                 result[0] = left;
@@ -176,8 +199,8 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
      * @param leftBorder double; the left border
      * @param scale double; the scale
      */
-    private void paintTally(final Graphics2D g2, final Rectangle2D rectangle, final Tally tally, final double leftX,
-            final double leftBorder, final double scale)
+    private void paintTally(final Graphics2D g2, final Rectangle2D rectangle, final BasicTallyInterface tally,
+            final double leftX, final double leftBorder, final double scale)
     {
         this.fillRectangle(g2, rectangle, Color.WHITE);
         g2.setColor(Color.BLACK);
@@ -201,24 +224,37 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
         g2.drawLine(tallyMin, middle + 6, tallyMin, middle - 6);
         g2.drawLine(tallyMin, middle, tallyMax, middle);
         g2.drawLine(tallyMax, middle + 6, tallyMax, middle - 6);
-        double[] confidence = tally.getConfidenceInterval(this.confidenceInterval);
-        int middleX = (int) Math.round((tally.getSampleMean() - leftX) * scale + tallyMin);
-        g2.fillRect(middleX, middle - 6, 2, 12);
-        label = this.formatter.format(tally.getSampleMean());
-        Rectangle2D bounds = this.getBounds(label, g2.getFontRenderContext());
-        g2.drawString(label, (int) Math.round(middleX - 0.5 * bounds.getWidth()), Math.round(middle - 8));
-        if (confidence != null)
+        if (tally instanceof TallyInterface)
         {
-            int confX = (int) Math.round((confidence[0] - leftX) * scale + tallyMin);
-            int confWidth = (int) Math.round((confidence[1] - confidence[0]) * scale);
-            g2.fillRect(confX, middle - 2, confWidth, 4);
-            label = this.formatter.format(confidence[0]);
-            bounds = this.getBounds(label, g2.getFontRenderContext());
-            g2.drawString(label, (int) Math.round(confX - bounds.getWidth()),
-                    (int) Math.round(middle + 8 + bounds.getHeight()));
-            label = this.formatter.format(confidence[1]);
-            bounds = this.getBounds(label, g2.getFontRenderContext());
-            g2.drawString(label, Math.round(confX + confWidth), (int) Math.round(middle + 8 + bounds.getHeight()));
+            TallyInterface unweightedTally = (TallyInterface) tally;
+            double[] confidence = unweightedTally.getConfidenceInterval(this.confidenceInterval);
+            int middleX = (int) Math.round((unweightedTally.getSampleMean() - leftX) * scale + tallyMin);
+            g2.fillRect(middleX, middle - 6, 2, 12);
+            label = this.formatter.format(unweightedTally.getSampleMean());
+            Rectangle2D bounds = this.getBounds(label, g2.getFontRenderContext());
+            g2.drawString(label, (int) Math.round(middleX - 0.5 * bounds.getWidth()), Math.round(middle - 8));
+            if (confidence != null)
+            {
+                int confX = (int) Math.round((confidence[0] - leftX) * scale + tallyMin);
+                int confWidth = (int) Math.round((confidence[1] - confidence[0]) * scale);
+                g2.fillRect(confX, middle - 2, confWidth, 4);
+                label = this.formatter.format(confidence[0]);
+                bounds = this.getBounds(label, g2.getFontRenderContext());
+                g2.drawString(label, (int) Math.round(confX - bounds.getWidth()),
+                        (int) Math.round(middle + 8 + bounds.getHeight()));
+                label = this.formatter.format(confidence[1]);
+                bounds = this.getBounds(label, g2.getFontRenderContext());
+                g2.drawString(label, Math.round(confX + confWidth), (int) Math.round(middle + 8 + bounds.getHeight()));
+            }
+        }
+        else if (tally instanceof WeightedTallyInterface)
+        {
+            WeightedTallyInterface weightedTally = (WeightedTallyInterface) tally;
+            int middleX = (int) Math.round((weightedTally.getWeightedSampleMean() - leftX) * scale + tallyMin);
+            g2.fillRect(middleX, middle - 6, 2, 12);
+            label = this.formatter.format(weightedTally.getWeightedSampleMean());
+            Rectangle2D bounds = this.getBounds(label, g2.getFontRenderContext());
+            g2.drawString(label, (int) Math.round(middleX - 0.5 * bounds.getWidth()), Math.round(middle - 8));
         }
     }
 
@@ -227,18 +263,17 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     public void draw(final Graphics2D g2, final Rectangle2D rectangle, final Point2D point, final PlotState plotState,
             final PlotRenderingInfo plotRenderingInfo)
     {
-        // TODO Point2D point not in use yet -- look up meaning
         g2.setBackground(Color.WHITE);
-        double height = Math.min(rectangle.getHeight() / this.tallies.length * 1.0, rectangle.getHeight());
+        double height = Math.min(rectangle.getHeight() / this.tallies.size() * 1.0, rectangle.getHeight());
         double[] extent = BoxAndWhiskerPlot.extent(this.tallies);
         double[] border = this.borders(g2, g2.getFontRenderContext(), this.tallies);
         double scale = (0.85 * rectangle.getWidth() - 10 - border[0] - border[1]) / ((extent[1] - extent[0]) * 1.0);
-        for (int i = 0; i < this.tallies.length; i++)
+        for (int i = 0; i < this.tallies.size(); i++)
         {
             g2.setFont(FONT);
             Rectangle2D area = new Rectangle2D.Double(rectangle.getX() + 0.15 * rectangle.getWidth(),
                     rectangle.getY() + i * height + 3, 0.85 * rectangle.getWidth() - 10, 0.75 * height - 3);
-            this.paintTally(g2, area, this.tallies[i], extent[0], border[0], scale);
+            this.paintTally(g2, area, this.tallies.get(i), extent[0], border[0], scale);
         }
     }
 

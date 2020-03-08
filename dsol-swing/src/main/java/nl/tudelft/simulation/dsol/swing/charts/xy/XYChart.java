@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
+import javax.swing.BorderFactory;
+import javax.swing.border.EtchedBorder;
 
 import org.djutils.event.EventProducerInterface;
 import org.djutils.event.EventType;
@@ -18,8 +20,8 @@ import org.jfree.chart.axis.LogarithmicAxis;
 import org.jfree.chart.plot.PlotOrientation;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.jstats.Swingable;
-import nl.tudelft.simulation.jstats.statistics.Persistent;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
+import nl.tudelft.simulation.dsol.swing.Swingable;
 import nl.tudelft.simulation.language.filters.FilterInterface;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
@@ -53,13 +55,16 @@ public class XYChart implements Swingable, Serializable
     public static final short XLOGARITHMIC_YLOGARITHMIC = 3;
 
     /** LABEL_X_AXIS is the label on the X-axis. */
-    public static final String LABEL_X_AXIS = "X";
+    private static final String LABEL_X_AXIS = "X";
 
     /** LABEL_Y_AXIS is the label on the Y-axis. */
-    public static final String LABEL_Y_AXIS = "value";
+    private static final String LABEL_Y_AXIS = "value";
 
     /** chart refers to the chart. */
     protected JFreeChart chart = null;
+    
+    /** the simulator. */
+    final SimulatorInterface<?, ?, ?> simulator;
 
     /** dataset refers to the dataset. */
     protected XYDataset dataset = new XYDataset();
@@ -71,110 +76,17 @@ public class XYChart implements Swingable, Serializable
     private double period = Double.POSITIVE_INFINITY;
 
     /**
-     * constructs a new XYChart.
-     * @param title String; the title
-     */
-    public XYChart(final String title)
-    {
-        this(title, null, null);
-    }
-
-    /**
-     * constructs a new XYChart.
-     * @param title String; the title
-     * @param axisType short; the axisType
-     */
-    public XYChart(final String title, final short axisType)
-    {
-        this(title, null, null, axisType);
-    }
-
-    /**
-     * constructs a new XYChart.
-     * @param title String; tht title
-     * @param domain double[]; the domain
-     */
-    public XYChart(final String title, final double[] domain)
-    {
-        this(title, domain, null);
-    }
-
-    /**
-     * constructs a new XYChart.
-     * @param title String; tht title
-     * @param period double; the period to show in the domain
-     */
-    public XYChart(final String title, final double period)
-    {
-        this(title, period, null);
-    }
-
-    /**
-     * constructs a new XYChart.
-     * @param title String; tht title
-     * @param period double; the period to show in the domain
-     * @param axisType short; the axisType to use.
-     */
-    public XYChart(final String title, final double period, final short axisType)
-    {
-        this(title, period, null, axisType);
-    }
-
-    /**
-     * constructs a new XYChart.
-     * @param title String; tht title
-     * @param domain double[]; the domain
-     * @param axisType short; the axisType to use.
-     */
-    public XYChart(final String title, final double[] domain, final short axisType)
-    {
-        this(title, domain, null, axisType);
-    }
-
-    /**
-     * constructs a new XYChart.
-     * @param title String; the title
-     * @param domain double[]; the domain
-     * @param range double[]; the range
-     */
-    public XYChart(final String title, final double[] domain, final double[] range)
-    {
-        this(title, domain, range, XYChart.XLINEAR_YLINEAR);
-    }
-
-    /**
-     * constructs a new XYChart.
-     * @param title String; the title
-     * @param period double; the period to show in the domain
-     * @param range double[]; the range
-     */
-    public XYChart(final String title, final double period, final double[] range)
-    {
-        this(title, period, range, XYChart.XLINEAR_YLINEAR);
-    }
-
-    /**
-     * constructs a new XYChart.
-     * @param title String; the title
-     * @param period double; the period to show in the domain
-     * @param range double[]; the range
-     * @param axisType short; the type of the axsis
-     */
-    public XYChart(final String title, final double period, final double[] range, final short axisType)
-    {
-        this(title, new double[] {Double.NaN, period}, range, axisType);
-    }
-
-    /**
-     * constructs a new XYChart.
+     * constructs a new XYChart and bind it to the replication context.
+     * @param simulator SimulatorInterface; the simulator
      * @param title String; the title
      * @param domain double[]; the domain
      * @param range double[]; the range
      * @param axisType short; the type of the axsis
      */
-    public XYChart(final String title, final double[] domain, final double[] range, final short axisType)
+    public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double[] domain, final double[] range,
+            final short axisType)
     {
-        super();
+        this.simulator = simulator;
         this.chart = ChartFactory.createXYLineChart(title, LABEL_X_AXIS, LABEL_Y_AXIS, this.dataset, PlotOrientation.VERTICAL,
                 true, true, true);
         this.chart.setBackgroundPaint(new GradientPaint(0.0F, 0.0F, Color.white, 1000F, 0.0F, Color.blue));
@@ -225,6 +137,17 @@ public class XYChart implements Swingable, Serializable
         }
         this.dataset.addChangeListener(this.chart.getXYPlot());
         this.getChart().fireChartChanged();
+        
+        // bind to context
+        try
+        {
+            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
+            context.bindObject(this);
+        }
+        catch (NamingException | RemoteException exception)
+        {
+            simulator.getLogger().always().warn(exception, "<init>");
+        }
     }
 
     /**
@@ -257,7 +180,7 @@ public class XYChart implements Swingable, Serializable
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double[] domain)
     {
-        this(title, domain);
+        this(simulator, title, domain, null, XYChart.XLINEAR_YLINEAR);
     }
 
     /**
@@ -268,16 +191,7 @@ public class XYChart implements Swingable, Serializable
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double period)
     {
-        this(title, period);
-        try
-        {
-            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
-            context.bindObject(this);
-        }
-        catch (NamingException | RemoteException exception)
-        {
-            simulator.getLogger().always().warn(exception, "<init>");
-        }
+        this(simulator, title, new double[] {Double.NaN, period}, null, XYChart.XLINEAR_YLINEAR);
     }
 
     /**
@@ -289,16 +203,7 @@ public class XYChart implements Swingable, Serializable
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double[] domain, final short axisType)
     {
-        this(title, domain, axisType);
-        try
-        {
-            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
-            context.bindObject(this);
-        }
-        catch (NamingException | RemoteException exception)
-        {
-            simulator.getLogger().always().warn(exception, "<init>");
-        }
+        this(simulator, title, domain, null, axisType);
     }
 
     /**
@@ -310,16 +215,7 @@ public class XYChart implements Swingable, Serializable
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double period, final short axisType)
     {
-        this(title, period, axisType);
-        try
-        {
-            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
-            context.bindObject(this);
-        }
-        catch (NamingException | RemoteException exception)
-        {
-            simulator.getLogger().always().warn(exception, "<init>");
-        }
+        this(simulator, title, new double[] {Double.NaN, period}, null, axisType);
     }
 
     /**
@@ -331,16 +227,7 @@ public class XYChart implements Swingable, Serializable
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double[] domain, final double[] range)
     {
-        this(title, domain, range);
-        try
-        {
-            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
-            context.bindObject(this);
-        }
-        catch (NamingException | RemoteException exception)
-        {
-            simulator.getLogger().always().warn(exception, "<init>");
-        }
+        this(simulator, title, domain, range, XYChart.XLINEAR_YLINEAR);
     }
 
     /**
@@ -352,90 +239,57 @@ public class XYChart implements Swingable, Serializable
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double period, final double[] range)
     {
-        this(title, period, range);
-        try
-        {
-            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
-            context.bindObject(this);
-        }
-        catch (NamingException | RemoteException exception)
-        {
-            simulator.getLogger().always().warn(exception, "<init>");
-        }
-    }
-
-    /**
-     * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
-     * @param title String; the title
-     * @param domain double[]; the domain
-     * @param range double[]; the range
-     * @param axisType short; the XYChart.axisType
-     */
-    public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double[] domain, final double[] range,
-            final short axisType)
-    {
-        this(title, domain, range, axisType);
-        try
-        {
-            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
-            context.bindObject(this);
-        }
-        catch (NamingException | RemoteException exception)
-        {
-            simulator.getLogger().always().warn(exception, "<init>");
-        }
-    }
-
-    /**
-     * constructs a new XYChart that is registered in the simulator-provided jndi context.
-     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator
-     * @param title String; the title
-     * @param period double; the period
-     * @param range double[]; the range
-     * @param axisType short; the XYChart.axisType
-     */
-    public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final double period, final double[] range,
-            final short axisType)
-    {
-        this(title, period, range, axisType);
-        try
-        {
-            ContextInterface context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "charts");
-            context.bindObject(this);
-        }
-        catch (NamingException | RemoteException exception)
-        {
-            simulator.getLogger().always().warn(exception, "<init>");
-        }
+        this(simulator, title, new double[] {Double.NaN, period}, range, XYChart.XLINEAR_YLINEAR);
     }
 
     /**
      * adds a tally to the xyChart
      * @param persistent Persistent; the persistent
      */
-    public void add(final Persistent persistent)
+    public void add(final SimPersistent<?, ?, ?> persistent)
     {
-        XYSeries set = new XYSeries(persistent.getDescription(), this.axisType, this.period);
-        persistent.addListener(set, Persistent.VALUE_EVENT, ReferenceType.STRONG);
+        XYSeries set = new XYSeries(persistent.getDescription(), this.simulator, this.axisType, this.period);
+        persistent.addListener(set, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT, ReferenceType.STRONG);
         this.getDataset().addSeries(set);
     }
 
     /**
      * adds an eventProducer to the xyChart
      * @param description String; the description of the eventProducer
-     * @param source EventProducerInterface; the souce
+     * @param source EventProducerInterface; the source
      * @param eventType EventType; the event
      * @throws RemoteException on network failure
      */
     public void add(final String description, final EventProducerInterface source, final EventType eventType)
             throws RemoteException
     {
-        XYSeries set = new XYSeries(description, this.axisType, this.period);
+        XYSeries set = new XYSeries(description, this.simulator, this.axisType, this.period);
         source.addListener(set, eventType, EventProducerInterface.FIRST_POSITION, ReferenceType.STRONG);
         this.getDataset().addSeries(set);
     }
 
+    /**
+     * Set the label for the X-axis of the XY plot.
+     * @param xLabel String; the new label for the X axis
+     * @return the chart for method chaining
+     */
+    public XYChart setLabelXAxis(final String xLabel)
+    {
+        getChart().getXYPlot().getDomainAxis().setLabel(xLabel);
+        return this;
+    }
+    
+    /**
+     * Set the label for the Y-axis of the XY plot.
+     * @param yLabel String; the new label for the X axis
+     * @return the chart for method chaining
+     */
+    public XYChart setLabelYAxis(final String yLabel)
+    {
+        getChart().getXYPlot().getRangeAxis().setLabel(yLabel);
+        return this;
+    }
+    
     /**
      * returns the chart
      * @return JFreeChart
@@ -450,6 +304,7 @@ public class XYChart implements Swingable, Serializable
     public Container getSwingPanel()
     {
         ChartPanel result = new ChartPanel(this.chart);
+        result.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         result.setMouseZoomable(true, false);
         return result;
     }

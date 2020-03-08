@@ -1,4 +1,4 @@
-package nl.tudelft.simulation.jstats;
+package nl.tudelft.simulation.dsol.swing;
 
 import java.awt.Container;
 import java.rmi.RemoteException;
