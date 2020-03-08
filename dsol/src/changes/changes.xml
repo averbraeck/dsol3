@@ -5,7 +5,7 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.04.03" date="2020-02-10" description="dsol-naming updated">
+    <release version="3.04.03" date="2020-03-08" description="base statistics moved to djutils-stats">
       <action dev="averbraeck" type="remove">
         The jstats statistics have been moved to a separate project djutils-stats, as their use is independent
         of simulation and much more generic than dsol itself. As a result, the dsol statistics now extend
