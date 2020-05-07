@@ -44,7 +44,7 @@ public class Population extends DifferentialEquation<Double, Double, SimTimeDoub
      */
     public Population(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
-        super(simulator, simulator.getTimeStep(), NumericalIntegratorType.ADAMS);
+        super(simulator, simulator.getTimeStep(), NumericalIntegratorType.ADAMS, 2);
         double predator = 10;
         double prey = 20;
         this.initialize(0.0, new double[] {predator, prey});

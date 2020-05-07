@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.statistics.table;
 import java.rmi.RemoteException;
 
 import org.djutils.event.EventInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
 
 import nl.tudelft.simulation.dsol.statistics.SimTally;
 
@@ -36,7 +36,7 @@ public class TallyTableModel extends StatisticsTableModel
     public TallyTableModel(final SimTally<?, ?, ?> tally) throws RemoteException
     {
         super(COLUMN_NAMES, 10, tally,
-                new EventType[] {SimTally.TIMED_INITIALIZED_EVENT, SimTally.TIMED_OBSERVATION_ADDED_EVENT});
+                new TimedEventType[] {SimTally.TIMED_INITIALIZED_EVENT, SimTally.TIMED_OBSERVATION_ADDED_EVENT});
         this.tally = tally;
         notify(null);
     }

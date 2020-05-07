@@ -3,12 +3,13 @@ package nl.tudelft.simulation.dsol.tutorial.section43;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
+import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventProducer;
+import org.djutils.event.TimedEvent;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquationInterface;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
@@ -69,11 +70,11 @@ public class PredatorPreyModel extends AbstractDSOLModel.TimeDouble<DESSSimulato
             // this works 8 times faster because the graph gets fewer data points:
             this.chart = new XYChart(this.simulator, "population");
             SkipEventProducer preySEP = new SkipEventProducer(8);
-            population.addListener(preySEP, DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
-            this.chart.add("prey population", preySEP, DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
+            population.addListener(preySEP, population.VALUE_CHANGED_EVENT[0]);
+            this.chart.add("prey population", preySEP, population.VALUE_CHANGED_EVENT[0]);
             SkipEventProducer predSEP = new SkipEventProducer(8);
-            population.addListener(predSEP, DifferentialEquationInterface.VALUE_CHANGED_EVENT[1]);
-            this.chart.add("predator population", predSEP, DifferentialEquationInterface.VALUE_CHANGED_EVENT[1]);
+            population.addListener(predSEP, population.VALUE_CHANGED_EVENT[1]);
+            this.chart.add("predator population", predSEP, population.VALUE_CHANGED_EVENT[1]);
         }
         catch (Exception exception)
         {
@@ -123,7 +124,14 @@ public class PredatorPreyModel extends AbstractDSOLModel.TimeDouble<DESSSimulato
         {
             if (this.count % this.skip == 0)
             {
-                fireEvent(event);
+                if (event instanceof TimedEvent)
+                {
+                    fireTimedEvent((TimedEvent<?>) event);
+                }
+                else
+                {
+                    fireEvent((Event) event);
+                }
                 this.count = 0;
             }
             this.count++;

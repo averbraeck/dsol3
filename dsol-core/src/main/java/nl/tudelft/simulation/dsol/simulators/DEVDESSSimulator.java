@@ -78,7 +78,7 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                 throw new SimRuntimeException("Timestep for DESSimulator has illegal value: " + timeStep);
             }
             this.timeStep = timeStep;
-            this.fireEvent(TIME_STEP_CHANGED_EVENT, timeStep);
+            this.fireTimedEvent(TIME_STEP_CHANGED_EVENT, timeStep, getSimulatorTime());
         }
     }
 
@@ -87,19 +87,19 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        while (this.isRunning() && !this.eventList.isEmpty()
+        while (!this.stoppingState && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             synchronized (super.semaphore)
             {
                 T runUntil = this.simulatorTime.plus(this.timeStep);
-                while (!this.eventList.isEmpty() && this.running
+                while (!this.eventList.isEmpty() && !this.stoppingState
                         && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
                     {
-                        super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                        super.fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
                                 event.getAbsoluteExecutionTime().get());
                     }
                     this.simulatorTime = event.getAbsoluteExecutionTime();
@@ -123,7 +123,7 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                         }
                     }
                 }
-                if (this.running)
+                if (!this.stoppingState)
                 {
                     this.simulatorTime = runUntil;
                 }

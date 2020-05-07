@@ -88,7 +88,7 @@ public class Duplicate<A extends Comparable<A> & Serializable, R extends Number 
                 for (int i = 0; i < this.numberCopies; i++)
                 {
                     Object clone = new MarshalledObject<Object>(object).get();
-                    this.fireEvent(StationInterface.RELEASE_EVENT, 1);
+                    this.fireTimedEvent(StationInterface.RELEASE_EVENT, 1, getSimulator().getSimulatorTime());
                     this.duplicateDestination.receiveObject(clone);
                 }
             }

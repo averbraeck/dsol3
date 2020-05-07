@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.statistics.table;
 import java.rmi.RemoteException;
 
 import org.djutils.event.EventInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
 
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 
@@ -36,7 +36,7 @@ public class PersistentTableModel extends StatisticsTableModel
     public PersistentTableModel(final SimPersistent<?, ?, ?> persistent) throws RemoteException
     {
         super(COLUMN_NAMES, 8, persistent,
-                new EventType[] {SimPersistent.TIMED_INITIALIZED_EVENT, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT});
+                new TimedEventType[] {SimPersistent.TIMED_INITIALIZED_EVENT, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT});
         this.persistent = persistent;
         notify(null);
     }

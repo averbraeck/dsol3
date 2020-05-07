@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.statistics.table;
 import java.rmi.RemoteException;
 
 import org.djutils.event.EventInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
 
 import nl.tudelft.simulation.dsol.statistics.SimCounter;
 
@@ -36,7 +36,7 @@ public class CounterTableModel extends StatisticsTableModel
     public CounterTableModel(final SimCounter<?, ?, ?> counter) throws RemoteException
     {
         super(COLUMN_NAMES, 3, counter,
-                new EventType[] {SimCounter.TIMED_INITIALIZED_EVENT, SimCounter.TIMED_OBSERVATION_ADDED_EVENT});
+                new TimedEventType[] {SimCounter.TIMED_INITIALIZED_EVENT, SimCounter.TIMED_OBSERVATION_ADDED_EVENT});
         this.counter = counter;
         notify(null);
     }

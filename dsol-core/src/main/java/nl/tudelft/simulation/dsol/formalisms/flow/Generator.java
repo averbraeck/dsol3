@@ -8,7 +8,9 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.reflection.ClassUtil;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -52,7 +54,8 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
     public static final long serialVersionUID = 20140805L;
 
     /** CREATE_EVENT is fired on creation. */
-    public static final EventType CREATE_EVENT = new EventType("CREATE_EVENT");
+    public static final TimedEventType CREATE_EVENT = new TimedEventType(new MetaData("CREATE_EVENT", "Created object(s)",
+            new ObjectDescriptor("numberCreated", "number of objects created", Integer.class)));
 
     /** constructorArguments refer to the arguments of the class invoked by the generator. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -137,7 +140,7 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
                     Object object = this.constructor.deSerialize().newInstance(specialConstructorArguments);
                     this.simulator.getLogger().filter(Cat.DSOL).trace("generate created {}th instance of {}", this.number,
                             this.constructor.deSerialize().getDeclaringClass());
-                    this.fireEvent(Generator.CREATE_EVENT, 1);
+                    this.fireTimedEvent(Generator.CREATE_EVENT, 1, this.simulator.getSimulatorTime());
                     this.releaseObject(object);
                 }
                 this.nextEvent =

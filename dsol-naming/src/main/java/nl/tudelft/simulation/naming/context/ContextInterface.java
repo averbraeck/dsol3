@@ -13,6 +13,8 @@ import javax.naming.NotContextException;
 
 import org.djutils.event.EventProducerInterface;
 import org.djutils.event.EventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 /**
  * ContextInterface is the lightweight and simplified version of the JNDI EventContext interface in the standard Java
@@ -59,7 +61,10 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * Payload: Object[] - the absolute path of the context in which the object was bound, the relative key in the context, and
      * the bound object.
      */
-    public static final EventType OBJECT_ADDED_EVENT = new EventType("OBJECT_ADDED");
+    public static final EventType OBJECT_ADDED_EVENT = new EventType(new MetaData("OBJECT_ADDED", "Object added to context",
+            new ObjectDescriptor("path", "absolute path in context", String.class),
+            new ObjectDescriptor("key", "relative key in the context", String.class),
+            new ObjectDescriptor("object", "bound object", Object.class)));
 
     /**
      * OBJECT_REMOVED_EVENT is fired whenever an object is removed from the Context. The implementations of the ContextInterface
@@ -67,7 +72,10 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * Payload: Object[] - the absolute path of the context in which the object was bound, the relative key in the context, and
      * the removed object.
      */
-    public static final EventType OBJECT_REMOVED_EVENT = new EventType("OBJECT_REMOVED");
+    public static final EventType OBJECT_REMOVED_EVENT = new EventType(new MetaData("OBJECT_REMOVED",
+            "Object removed from context", new ObjectDescriptor("path", "absolute path in context", String.class),
+            new ObjectDescriptor("key", "relative key in the context", String.class),
+            new ObjectDescriptor("object", "bound object", Object.class)));
 
     /**
      * OBJECT_CHANGED_EVENT can be fired whenever an object present in the Context is changed. The object making changes has to
@@ -76,7 +84,10 @@ public interface ContextInterface extends EventProducerInterface, Serializable
      * Payload: Object[] - the absolute path of the context in which the object is bound, the relative key in the context, the
      * object after change.
      */
-    public static final EventType OBJECT_CHANGED_EVENT = new EventType("OBJECT_CHANGED");
+    public static final EventType OBJECT_CHANGED_EVENT = new EventType(new MetaData("OBJECT_CHANGED",
+            "Object in context changed", new ObjectDescriptor("path", "absolute path in context", String.class),
+            new ObjectDescriptor("key", "relative key in the context", String.class),
+            new ObjectDescriptor("object", "changed object", Object.class)));
 
     /**
      * Retrieves the atomic name of this context.

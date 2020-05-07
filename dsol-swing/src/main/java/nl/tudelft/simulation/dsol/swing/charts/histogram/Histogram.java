@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import org.djutils.event.EventProducerInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.EventTypeInterface;
 import org.djutils.event.ref.ReferenceType;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -154,8 +154,8 @@ public class Histogram implements Swingable, Serializable
      * @param eventType EventType; the eventType.
      * @throws RemoteException on network error for the (possibly remote) event listener
      */
-    public synchronized void add(final String description, final EventProducerInterface source, final EventType eventType)
-            throws RemoteException
+    public synchronized void add(final String description, final EventProducerInterface source,
+            final EventTypeInterface eventType) throws RemoteException
     {
         HistogramSeries set = this.getDataset().addSeries(description);
         source.addListener(set, eventType, ReferenceType.STRONG);

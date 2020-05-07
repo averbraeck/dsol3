@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.tutorial.section42;
 import java.io.Serializable;
 
 import org.djutils.event.EventProducer;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
@@ -29,13 +29,13 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
     private static final long serialVersionUID = 1L;
 
     /** TOTAL_ORDERING_COST_EVENT is fired whenever ordering occurs. */
-    public static final EventType TOTAL_ORDERING_COST_EVENT = new EventType("TOTAL_ORDERING_COST_EVENT");
+    public static final TimedEventType TOTAL_ORDERING_COST_EVENT = new TimedEventType("TOTAL_ORDERING_COST_EVENT");
 
     /** INVENTORY_LEVEL_EVENT is fired on changes in inventory. */
-    public static final EventType INVENTORY_LEVEL_EVENT = new EventType("INVENTORY_LEVEL_EVENT");
+    public static final TimedEventType INVENTORY_LEVEL_EVENT = new TimedEventType("INVENTORY_LEVEL_EVENT");
 
     /** BACKLOG_LEVEL is fired on BACKLOG_LEVEL changes. */
-    public static final EventType BACKLOG_LEVEL = new EventType("BACKLOG_LEVEL");
+    public static final TimedEventType BACKLOG_LEVEL = new TimedEventType("BACKLOG_LEVEL");
 
     /** the actual inventoryLevel. */
     private long inventory = 60L;
@@ -112,7 +112,7 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         if (amount > 0)
         {
             costs = costs + this.setupCosts + amount * this.marginalCosts;
-            this.fireEvent(TOTAL_ORDERING_COST_EVENT, costs);
+            this.fireTimedEvent(TOTAL_ORDERING_COST_EVENT, costs, this.simulator.getSimulatorTime());
             this.warehouse.order(this, amount);
         }
         try

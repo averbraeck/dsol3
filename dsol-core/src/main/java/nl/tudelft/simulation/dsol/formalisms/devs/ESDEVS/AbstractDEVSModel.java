@@ -13,7 +13,9 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventProducer;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.reflection.ClassUtil;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -69,7 +71,8 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
     protected String fullName;
 
     /** event for listeners about state update. */
-    public static final EventType STATE_UPDATE = new EventType("STATE_UPDATE");
+    public static final TimedEventType STATE_UPDATE = new TimedEventType(new MetaData("STATE_UPDATE", "State update",
+            new ObjectDescriptor("stateUpdate", "State update", StateUpdate.class)));
 
     /** map of call classes and fields for which the state will be reported. */
     private static Map<Class<?>, Set<Field>> stateFieldMap = new HashMap<Class<?>, Set<Field>>();
@@ -232,7 +235,7 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
             {
                 field.setAccessible(true);
                 StateUpdate stateUpdate = new StateUpdate(this.getModelName(), field.getName(), field.get(this));
-                this.fireEvent(AbstractDEVSModel.STATE_UPDATE, stateUpdate);
+                this.fireTimedEvent(AbstractDEVSModel.STATE_UPDATE, stateUpdate, getSimulator().getSimulatorTime());
             }
             catch (IllegalAccessException exception)
             {
@@ -256,7 +259,7 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
      * @author <a href="http://tudelft.nl/mseck">Mamadou Seck</a><br>
      * @author <a href="http://tudelft.nl/averbraeck">Alexander Verbraeck</a><br>
      */
-    public class StateUpdate implements Serializable
+    public static class StateUpdate implements Serializable
     {
         /** the default serial version UId. */
         private static final long serialVersionUID = 1L;

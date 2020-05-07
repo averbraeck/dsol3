@@ -75,7 +75,7 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
     @Override
     public final void updateAnimation()
     {
-        this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
+        this.fireTimedEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, null, this.simulatorTime);
     }
 
     /** {@inheritDoc} */
@@ -85,17 +85,17 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
     {
         AnimationThread animationThread = new AnimationThread(this);
         animationThread.start();
-        while (this.isRunning() && !this.eventList.isEmpty()
+        while (!this.stoppingState && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
-            while (!this.eventList.isEmpty() && this.running)
+            while (!this.eventList.isEmpty() && !this.stoppingState)
             {
                 synchronized (super.semaphore)
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
                     {
-                        super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                        super.fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
                                 event.getAbsoluteExecutionTime().get());
                     }
                     this.simulatorTime = event.getAbsoluteExecutionTime();

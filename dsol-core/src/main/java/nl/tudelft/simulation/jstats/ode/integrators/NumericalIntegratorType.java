@@ -54,7 +54,7 @@ public enum NumericalIntegratorType
      * @param value int; the value from DSOL-1 before enum was introduced
      * @param integratorClass Class&lt;? extends NumericalIntegrator&gt;; the class of the integrator
      */
-    private NumericalIntegratorType(final int value, final Class<? extends NumericalIntegrator> integratorClass)
+    NumericalIntegratorType(final int value, final Class<? extends NumericalIntegrator> integratorClass)
     {
         this.value = value;
         this.integratorClass = integratorClass;

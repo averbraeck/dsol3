@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.naming.demo;
 
 import org.djutils.event.EventType;
 import org.djutils.event.remote.RemoteEventProducerInterface;
+import org.djutils.metadata.MetaData;
 
 /**
  * DemoServerInterface.java.
@@ -17,6 +18,6 @@ import org.djutils.event.remote.RemoteEventProducerInterface;
 public interface DemoServerInterface extends RemoteEventProducerInterface
 {
     /** the exit event. */
-    public static final EventType EXIT_EVENT = new EventType("EXIT");
+    public static final EventType EXIT_EVENT = new EventType(new MetaData("EXIT", "exit"));
 
 }

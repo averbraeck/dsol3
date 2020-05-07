@@ -30,7 +30,7 @@ public class Distance extends DifferentialEquation<Double, Double, SimTimeDouble
      */
     public Distance(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
-        super(simulator);
+        super(simulator, 1);
         this.speed = new Speed(simulator);
         this.speed.initialize(10, new double[] {0});
         this.initialize(10, new double[] {0});

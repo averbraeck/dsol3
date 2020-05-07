@@ -22,14 +22,16 @@ import javax.swing.JTabbedPane;
  */
 public class StreamsGuiInspector extends JPanel
 {
-
+    /** */
+    private static final long serialVersionUID = 1L;
+    
     /**
-     * the stream of the frame
+     * the stream of the frame.
      */
     private StreamInterface stream = null;
 
     /**
-     * constructs a new DistributionsGUIInspector
+     * constructs a new DistributionsGUIInspector.
      * @param stream the stream to display
      */
     public StreamsGuiInspector(final StreamInterface stream)
@@ -51,7 +53,7 @@ public class StreamsGuiInspector extends JPanel
     }
 
     /**
-     * executes the main program
+     * executes the main program.
      * @param args the commandline arguments
      */
     public static void main(final String[] args)

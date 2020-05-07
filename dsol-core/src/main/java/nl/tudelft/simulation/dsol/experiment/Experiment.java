@@ -11,12 +11,14 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventProducer;
 import org.djutils.event.EventType;
+import org.djutils.event.TimedEvent;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.logger.Cat;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
@@ -57,13 +59,17 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     private static final long serialVersionUID = 1L;
 
     /** END_OF_EXPERIMENT_EVENT is fired when the experiment is ended. */
-    public static final EventType END_OF_EXPERIMENT_EVENT = new EventType("END_OF_EXPERIMENT_EVENT");
+    public static final EventType END_OF_EXPERIMENT_EVENT =
+            new EventType(new MetaData("END_OF_EXPERIMENT_EVENT", "End of experiment", new ObjectDescriptor[] {}));
 
     /** MODEL_CHANGED_EVENT is fired whenever the model is changed. */
-    public static final EventType MODEL_CHANGED_EVENT = new EventType("MODEL_CHANGED_EVENT");
+    public static final EventType MODEL_CHANGED_EVENT = new EventType(new MetaData("MODEL_CHANGED_EVENT", "Model changed",
+            new ObjectDescriptor[] {new ObjectDescriptor("newModel", "New model", DSOLModel.class)}));
 
     /** SIMULATOR_CHANGED_EVENT is fired whenever the simulator is changed. */
-    public static final EventType SIMULATOR_CHANGED_EVENT = new EventType("SIMULATOR_CHANGED_EVENT");
+    public static final EventType SIMULATOR_CHANGED_EVENT =
+            new EventType(new MetaData("SIMULATOR_CHANGED_EVENT", "Simulator changed",
+                    new ObjectDescriptor[] {new ObjectDescriptor("newSimulator", "New simulator", SimulatorInterface.class)}));
 
     /** replications are the replications of this experiment. */
     private List<? extends Replication<A, R, T, S>> replications;
@@ -88,7 +94,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
     /** are we already subscribed to the END_OF_REPLICATION_EVENT. */
     private boolean subscribed = false;
-    
+
     /** the context. */
     private ContextInterface context;
 
@@ -172,7 +178,9 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     {
         try
         {
-            this.notify(new Event(SimulatorInterface.END_REPLICATION_EVENT, this.simulator.getSourceId(), Boolean.TRUE));
+            // XXX: Should not be fired here! Nothing has ended!
+            this.notify(new TimedEvent<A>(SimulatorInterface.END_REPLICATION_EVENT, this.simulator.getSourceId(), null,
+                    getSimulator().getSimulatorTime()));
         }
         catch (RemoteException remoteException)
         {
@@ -211,7 +219,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
             {
                 getSimulator().getLogger().filter(Cat.DSOL).debug("Last replication carried out");
                 // There is no experiment to run anymore
-                this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT, true);
+                this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT);
             }
         }
     }

@@ -7,7 +7,9 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -44,7 +46,8 @@ public interface DESSSimulatorInterface<A extends Comparable<A> & Serializable, 
         T extends SimTime<A, R, T>> extends SimulatorInterface<A, R, T>
 {
     /** TIME_STEP_CHANGED_EVENT is fired when the time step is set. */
-    EventType TIME_STEP_CHANGED_EVENT = new EventType("TIME_STEP_CHANGED_EVENT");
+    TimedEventType TIME_STEP_CHANGED_EVENT = new TimedEventType(new MetaData("TIME_STEP_CHANGED_EVENT",
+            "Timestep for integrator changed", new ObjectDescriptor("newTimestep", "New timestep", Number.class)));
 
     /**
      * returns the time step of the DESS simulator.

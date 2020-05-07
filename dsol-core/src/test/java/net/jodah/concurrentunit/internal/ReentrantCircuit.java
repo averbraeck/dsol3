@@ -52,16 +52,20 @@ public class ReentrantCircuit
          * @param acquires when 0, return whether circuit is closed. When 1, open call
          */
         @Override
-        protected int tryAcquireShared(int acquires)
+        protected int tryAcquireShared(final int acquires)
         {
             // Check to make sure the acquisition is not barging in front of a queued thread
             Thread queuedThread = getFirstQueuedThread();
             if (queuedThread != null && queuedThread != Thread.currentThread())
+            {
                 return -1;
+            }
 
             // If await test
             if (acquires == 0)
+            {
                 return isClosed() ? 1 : -1;
+            }
 
             // Explicit open call
             setState(1);
@@ -121,7 +125,9 @@ public class ReentrantCircuit
     public void interruptWaiters()
     {
         for (Thread t : this.sync.getSharedQueuedThreads())
+        {
             t.interrupt();
+        }
     }
 
     /**

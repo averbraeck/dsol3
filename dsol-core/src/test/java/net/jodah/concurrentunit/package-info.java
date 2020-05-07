@@ -1,4 +1,4 @@
-/*
+/**
  * From: https://github.com/jhalterman/concurrentunit/tree/master/src/main/java/net/jodah/concurrentunit
  * 
  * Copyright 2010-2016 the original author or authors.

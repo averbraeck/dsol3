@@ -8,6 +8,7 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventType;
+import org.djutils.metadata.MetaData;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
@@ -45,7 +46,7 @@ public interface DEVSSimulatorInterface<A extends Comparable<A> & Serializable, 
         T extends SimTime<A, R, T>> extends SimulatorInterface<A, R, T>
 {
     /** The EVENTLIST_CHANGED_EVENT is fired when the eventList is changed. */
-    EventType EVENTLIST_CHANGED_EVENT = new EventType("EVENTLIST_CHANGED_EVENT");
+    EventType EVENTLIST_CHANGED_EVENT = new EventType(new MetaData("EVENTLIST_CHANGED_EVENT", "Eventlist changed"));
 
     /**
      * cancels an event from the event list.

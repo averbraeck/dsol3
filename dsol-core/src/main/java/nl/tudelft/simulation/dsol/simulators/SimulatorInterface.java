@@ -10,6 +10,8 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventProducerInterface;
 import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -55,25 +57,31 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
         T extends SimTime<A, R, T>> extends Remote, Serializable, EventProducerInterface
 {
     /** END_OF_REPLICATION_EVENT is fired when a replication is finished. */
-    EventType END_REPLICATION_EVENT = new EventType("END_REPLICATION_EVENT");
+    TimedEventType END_REPLICATION_EVENT = new TimedEventType(new MetaData("END_REPLICATION_EVENT", "Replication ended"));
 
     /** START_EVENT is fired when the simulator is started. */
-    EventType START_REPLICATION_EVENT = new EventType("START_REPLICATION_EVENT");
+    TimedEventType START_REPLICATION_EVENT = new TimedEventType(new MetaData("START_REPLICATION_EVENT", "Replication started"));
+
+    /** STARTING_EVENT is fired when the simulator.start() method is called (the run() method still needs to start). */
+    EventType STARTING_EVENT = new EventType(new MetaData("STARTING_EVENT", "simulator starting"));
 
     /** START_EVENT is fired when the simulator is started. */
-    EventType START_EVENT = new EventType("START_EVENT");
+    TimedEventType START_EVENT = new TimedEventType(new MetaData("START_EVENT", "simulator started"));
 
     /** STEP_EVENT is fired when the simulator is stepped. */
-    EventType STEP_EVENT = new EventType("STEP_EVENT");
+    TimedEventType STEP_EVENT = new TimedEventType(new MetaData("STEP_EVENT", "simulator stepped"));
+
+    /** STOPPING_EVENT is fired when the simulator.stop() method is called (the run() method still needs to be stopped). */
+    EventType STOPPING_EVENT = new EventType(new MetaData("STOPPING_EVENT", "simulator stopping"));
 
     /** STOP_EVENT is fired when the simulator is stopped. */
-    EventType STOP_EVENT = new EventType("STOP_EVENT");
+    TimedEventType STOP_EVENT = new TimedEventType(new MetaData("STOP_EVENT", "simulator stopped"));
 
     /** TIME_CHANGED_EVENT is fired when the simulatorTime is updated. */
-    EventType TIME_CHANGED_EVENT = new EventType("TIME_CHANGED_EVENT");
+    TimedEventType TIME_CHANGED_EVENT = new TimedEventType(new MetaData("TIME_CHANGED_EVENT", "time changed"));
 
     /** WARMUP_EVENT is fired when the initialize method is invoked. */
-    EventType WARMUP_EVENT = new EventType("WARMUP_EVENT");
+    TimedEventType WARMUP_EVENT = new TimedEventType(new MetaData("WARMUP_EVENT", "warmup time"));
 
     /**
      * Returns the absolute simulator time.

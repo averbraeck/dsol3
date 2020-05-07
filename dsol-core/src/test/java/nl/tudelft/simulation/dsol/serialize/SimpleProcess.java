@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.serialize;
 
 import java.io.Serializable;
 
+import nl.tudelft.simulation.dsol.formalisms.process.Process;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
@@ -16,14 +17,16 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @since 1.5
  */
-public class Process extends nl.tudelft.simulation.dsol.formalisms.process.Process
+public class SimpleProcess extends Process
 {
+    /** */
+    private static final long serialVersionUID = 1L;
 
     /**
      * constructs a new Process.
      * @param simulator the simulator
      */
-    public Process(DEVSSimulatorInterface simulator)
+    public SimpleProcess(final DEVSSimulatorInterface simulator)
     {
         super(simulator);
     }

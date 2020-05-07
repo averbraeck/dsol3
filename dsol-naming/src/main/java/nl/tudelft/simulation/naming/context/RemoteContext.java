@@ -16,6 +16,7 @@ import javax.naming.NamingException;
 
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventType;
+import org.djutils.event.EventTypeInterface;
 import org.djutils.event.ref.Reference;
 import org.djutils.event.ref.ReferenceType;
 import org.djutils.event.remote.RemoteEventProducer;
@@ -346,7 +347,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType)
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType)
             throws RemoteException
     {
         return this.embeddedContext.addListener(listener, eventType);
@@ -354,7 +355,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final ReferenceType referenceType) throws RemoteException
     {
         return this.embeddedContext.addListener(listener, eventType, referenceType);
@@ -362,7 +363,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final int position) throws RemoteException
     {
         return this.embeddedContext.addListener(listener, eventType, position);
@@ -370,7 +371,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final int position, final ReferenceType referenceType) throws RemoteException
     {
         return this.embeddedContext.addListener(listener, eventType, position, referenceType);
@@ -400,7 +401,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean removeListener(final EventListenerInterface listener, final EventType eventType)
+    public final synchronized boolean removeListener(final EventListenerInterface listener, final EventTypeInterface eventType)
             throws RemoteException
     {
         return this.embeddedContext.removeListener(listener, eventType);
@@ -415,14 +416,14 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public synchronized int numberOfListeners(final EventType eventType) throws RemoteException
+    public synchronized int numberOfListeners(final EventTypeInterface eventType) throws RemoteException
     {
         return this.embeddedContext.numberOfListeners(eventType);
     }
 
     /** {@inheritDoc} */
     @Override
-    public synchronized Set<EventType> getEventTypesWithListeners() throws RemoteException
+    public synchronized Set<EventTypeInterface> getEventTypesWithListeners() throws RemoteException
     {
         return this.embeddedContext.getEventTypesWithListeners();
     }
@@ -431,11 +432,11 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
      * Return a safe copy of the list of (soft or weak) references to the registered listeners for the provided event type, or
      * an empty list when nothing is registered for this event type. The method never returns a null pointer, so it is safe to
      * use the result directly in an iterator. The references to the listeners are the original references, so not safe copies.
-     * @param eventType EventType; the event type to look up the listeners for
+     * @param eventType EventTypeInterface; the event type to look up the listeners for
      * @return List&lt;Reference&lt;EventListenerInterface&gt;&gt;; the list of references to the listeners for this event type,
      *         or an empty list when the event type is not registered
      */
-    protected List<Reference<EventListenerInterface>> getListenerReferences(final EventType eventType)
+    protected List<Reference<EventListenerInterface>> getListenerReferences(final EventTypeInterface eventType)
     {
         return this.remoteEventProducer.getListenerReferences(eventType);
     }
@@ -526,21 +527,21 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
         /** {@inheritDoc} */
         @Override
-        public synchronized int numberOfListeners(final EventType eventType) throws RemoteException
+        public synchronized int numberOfListeners(final EventTypeInterface eventType) throws RemoteException
         {
             return super.numberOfListeners(eventType);
         }
 
         /** {@inheritDoc} */
         @Override
-        public synchronized Set<EventType> getEventTypesWithListeners() throws RemoteException
+        public synchronized Set<EventTypeInterface> getEventTypesWithListeners() throws RemoteException
         {
             return super.getEventTypesWithListeners();
         }
 
         /** {@inheritDoc} */
         @Override
-        protected List<Reference<EventListenerInterface>> getListenerReferences(final EventType eventType)
+        protected List<Reference<EventListenerInterface>> getListenerReferences(final EventTypeInterface eventType)
         {
             return super.getListenerReferences(eventType);
         }

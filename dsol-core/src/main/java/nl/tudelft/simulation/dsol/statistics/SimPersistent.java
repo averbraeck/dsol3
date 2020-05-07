@@ -13,9 +13,11 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventProducerInterface;
-import org.djutils.event.EventType;
 import org.djutils.event.TimedEvent;
+import org.djutils.event.TimedEventType;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.stats.summarizers.event.EventBasedTally;
 import org.djutils.stats.summarizers.event.EventBasedTimestampWeightedTally;
 
@@ -56,10 +58,13 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
     private SimulatorInterface<A, R, T> simulator = null;
 
     /** OBSERVATION_ADDED_EVENT is fired whenever an observation is processed. */
-    public static final EventType TIMED_OBSERVATION_ADDED_EVENT = new EventType("TIMED_OBSERVATION_ADDED_EVENT");
+    public static final TimedEventType TIMED_OBSERVATION_ADDED_EVENT =
+            new TimedEventType(new MetaData("TIMED_OBSERVATION_ADDED_EVENT", "observation added to Persistent",
+                    new ObjectDescriptor("value", "Observation value", Double.class)));
 
-    /** INITIALIZED_EVENT is fired whenever a Tally is (re-)initialized. */
-    public static final EventType TIMED_INITIALIZED_EVENT = new EventType("TIMED_INITIALIZED_EVENT");
+    /** INITIALIZED_EVENT is fired whenever a Persistent is (re-)initialized. */
+    public static final TimedEventType TIMED_INITIALIZED_EVENT = new TimedEventType(new MetaData("TIMED_INITIALIZED_EVENT",
+            "Persistent initialized", new ObjectDescriptor("simPersistent", "Persistent object", SimTally.class)));
 
     /**
      * constructs a new SimPersistent.
@@ -99,11 +104,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
      * @param simulator SimulatorInterface&lt;A,R,T&gt;; the simulator of this model
      * @param description String; the description
      * @param target EventProducerInterface; the target on which to collect statistics
-     * @param eventType EventType; the eventType for which statistics are sampled
+     * @param eventType TimedEventType; the eventType for which statistics are sampled
      * @throws RemoteException on network error for one of the listeners
      */
     public SimPersistent(final String description, final SimulatorInterface<A, R, T> simulator,
-            final EventProducerInterface target, final EventType eventType) throws RemoteException
+            final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
     {
         this(description, simulator);
         target.addListener(this, eventType, ReferenceType.STRONG);
@@ -268,11 +273,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
          * @param simulator SimulatorInterface.TimeDouble; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
-         * @param eventType EventType; the eventType for which statistics are sampled
+         * @param eventType TimedEventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeDouble(final String description, final SimulatorInterface.TimeDouble simulator,
-                final EventProducerInterface target, final EventType eventType) throws RemoteException
+                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
         }
@@ -300,11 +305,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
          * @param simulator SimulatorInterface.TimeFloat; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
-         * @param eventType EventType; the eventType for which statistics are sampled
+         * @param eventType TimedEventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeFloat(final String description, final SimulatorInterface.TimeFloat simulator,
-                final EventProducerInterface target, final EventType eventType) throws RemoteException
+                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
         }
@@ -332,11 +337,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
          * @param simulator SimulatorInterface.TimeLong; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
-         * @param eventType EventType; the eventType for which statistics are sampled
+         * @param eventType TimedEventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeLong(final String description, final SimulatorInterface.TimeLong simulator,
-                final EventProducerInterface target, final EventType eventType) throws RemoteException
+                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
         }
@@ -365,11 +370,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
          * @param simulator SimulatorInterface.TimeDoubleUnit; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
-         * @param eventType EventType; the eventType for which statistics are sampled
+         * @param eventType TimedEventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeDoubleUnit(final String description, final SimulatorInterface.TimeDoubleUnit simulator,
-                final EventProducerInterface target, final EventType eventType) throws RemoteException
+                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
         }
@@ -397,11 +402,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
          * @param simulator SimulatorInterface.TimeFloatUnit; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
-         * @param eventType EventType; the eventType for which statistics are sampled
+         * @param eventType TimedEventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeFloatUnit(final String description, final SimulatorInterface.TimeFloatUnit simulator,
-                final EventProducerInterface target, final EventType eventType) throws RemoteException
+                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
         }
@@ -430,11 +435,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
          * @param simulator SimulatorInterface.CalendarDouble; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
-         * @param eventType EventType; the eventType for which statistics are sampled
+         * @param eventType TimedEventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarDouble(final String description, final SimulatorInterface.CalendarDouble simulator,
-                final EventProducerInterface target, final EventType eventType) throws RemoteException
+                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
         }
@@ -462,11 +467,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
          * @param simulator SimulatorInterface.CalendarFloat; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
-         * @param eventType EventType; the eventType for which statistics are sampled
+         * @param eventType TimedEventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarFloat(final String description, final SimulatorInterface.CalendarFloat simulator,
-                final EventProducerInterface target, final EventType eventType) throws RemoteException
+                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
         }
@@ -494,11 +499,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
          * @param simulator SimulatorInterface.CalendarLong; the simulator of this model
          * @param description String; the description
          * @param target EventProducerInterface; the target on which to collect statistics
-         * @param eventType EventType; the eventType for which statistics are sampled
+         * @param eventType TimedEventType; the eventType for which statistics are sampled
          * @throws RemoteException on network error for one of the listeners
          */
         public CalendarLong(final String description, final SimulatorInterface.CalendarLong simulator,
-                final EventProducerInterface target, final EventType eventType) throws RemoteException
+                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
         }

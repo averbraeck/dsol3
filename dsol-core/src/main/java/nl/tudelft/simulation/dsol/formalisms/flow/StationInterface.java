@@ -8,7 +8,9 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventProducerInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -41,10 +43,12 @@ public interface StationInterface<A extends Comparable<A> & Serializable, R exte
         T extends SimTime<A, R, T>> extends EventProducerInterface
 {
     /** RECEIVE_EVENT is fired whenever an entity enters the station. */
-    EventType RECEIVE_EVENT = new EventType("RECEIVE_EVENT");
+    TimedEventType RECEIVE_EVENT = new TimedEventType(new MetaData("RECEIVE_EVENT", "Object received",
+            new ObjectDescriptor("receivedObject", "received object", Serializable.class)));
 
     /** RECEIVE_EVENT is fired whenever an entity leaves the station. */
-    EventType RELEASE_EVENT = new EventType("RELEASE_EVENT");
+    TimedEventType RELEASE_EVENT = new TimedEventType(new MetaData("RELEASE_EVENT", "Object released",
+            new ObjectDescriptor("releasedObject", "released object", Serializable.class)));
 
     /**
      * Method getDestination.

@@ -40,7 +40,7 @@ public class DEVSTestModel extends TestModel
             try
             {
                 devsSimulator.scheduleEvent(
-                        new SimEvent<SimTimeDouble>(new SimTimeDouble(Math.random() * i), this, this, "run", null));
+                        new SimEvent<SimTimeDouble>(new SimTimeDouble(Math.random() * 100), this, this, "run", null));
             }
             catch (Exception exception)
             {

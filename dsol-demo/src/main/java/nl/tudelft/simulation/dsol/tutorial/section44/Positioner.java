@@ -30,7 +30,7 @@ public class Positioner extends DifferentialEquation<Double, Double, SimTimeDoub
      */
     public Positioner(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
-        super(simulator);
+        super(simulator, 2);
         this.initialize(0.0, new double[] {0.0, 0.0});
     }
 

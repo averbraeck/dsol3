@@ -9,7 +9,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.djutils.event.EventProducer;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -41,10 +43,13 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
     static long counter = 0;
 
     /** UTILIZATION_EVENT is fired on activity. */
-    public static final EventType UTILIZATION_EVENT = new EventType("UTILIZATION_EVENT");
+    public static final TimedEventType UTILIZATION_EVENT = new TimedEventType(new MetaData("UTILIZATION_EVENT",
+            "Utilization changed", new ObjectDescriptor("newUtilization", "new utilization", double.class)));
 
     /** RESOURCE_REQUESTED_QUEUE_LENGTH fired on changes in queue length. */
-    public static final EventType RESOURCE_REQUESTED_QUEUE_LENGTH = new EventType("RESOURCE_REQUESTED_QUEUE_LENGTH");
+    public static final TimedEventType RESOURCE_REQUESTED_QUEUE_LENGTH =
+            new TimedEventType(new MetaData("RESOURCE_REQUESTED_QUEUE_LENGTH", "Queue length changed",
+                    new ObjectDescriptor("newQueueLength", "new queue length", int.class)));
 
     /** the minimum priority. */
     public static final int MIN_REQUEST_PRIORITY = 0;
@@ -212,7 +217,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
             {
                 this.requests.add(new Request<A, R, T>(requestor, amount, priority));
             }
-            this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
+            this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, this.requests.size(),
                     this.simulator.getSimulatorTime());
         }
     }
@@ -245,7 +250,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
                     {
                         i.remove();
                     }
-                    this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, (double) this.requests.size(),
+                    this.fireTimedEvent(Resource.RESOURCE_REQUESTED_QUEUE_LENGTH, this.requests.size(),
                             this.simulator.getSimulatorTime());
                 }
                 else

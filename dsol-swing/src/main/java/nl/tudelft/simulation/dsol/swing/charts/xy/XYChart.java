@@ -11,7 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.border.EtchedBorder;
 
 import org.djutils.event.EventProducerInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.EventTypeInterface;
 import org.djutils.event.ref.ReferenceType;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -62,7 +62,7 @@ public class XYChart implements Swingable, Serializable
 
     /** chart refers to the chart. */
     protected JFreeChart chart = null;
-    
+
     /** the simulator. */
     final SimulatorInterface<?, ?, ?> simulator;
 
@@ -137,7 +137,7 @@ public class XYChart implements Swingable, Serializable
         }
         this.dataset.addChangeListener(this.chart.getXYPlot());
         this.getChart().fireChartChanged();
-        
+
         // bind to context
         try
         {
@@ -260,7 +260,7 @@ public class XYChart implements Swingable, Serializable
      * @param eventType EventType; the event
      * @throws RemoteException on network failure
      */
-    public void add(final String description, final EventProducerInterface source, final EventType eventType)
+    public void add(final String description, final EventProducerInterface source, final EventTypeInterface eventType)
             throws RemoteException
     {
         XYSeries set = new XYSeries(description, this.simulator, this.axisType, this.period);
@@ -278,7 +278,7 @@ public class XYChart implements Swingable, Serializable
         getChart().getXYPlot().getDomainAxis().setLabel(xLabel);
         return this;
     }
-    
+
     /**
      * Set the label for the Y-axis of the XY plot.
      * @param yLabel String; the new label for the X axis
@@ -289,7 +289,7 @@ public class XYChart implements Swingable, Serializable
         getChart().getXYPlot().getRangeAxis().setLabel(yLabel);
         return this;
     }
-    
+
     /**
      * returns the chart
      * @return JFreeChart

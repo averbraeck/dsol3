@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
 import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
-import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
+import org.djutils.event.TimedEvent;
 import org.djutils.io.URLResource;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
@@ -91,8 +91,8 @@ public abstract class DSOLWebServer implements EventListenerInterface
             this.animationPanel = new HTMLAnimationPanel(extent, new Dimension(800, 600), this.simulator);
 
             // get the already created elements in context(/animation/D2)
-            this.animationPanel.notify(new Event(SimulatorInterface.START_REPLICATION_EVENT, this.simulator.getSourceId(),
-                    this.simulator.getSimulatorTime()));
+            this.animationPanel.notify(new TimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulator.getSourceId(),
+                    null, this.simulator.getSimulatorTime()));
         }
 
         new ServerThread().start();

@@ -5,6 +5,25 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.04" date="2020-05-04" description="event metadata added, runUntil repaired">
+      <action dev="averbraeck" type="update">
+        Updated djutils to 1.05.01, where events have metadata, and TimedEvents are separated from non-timed 
+        Events. All events in DSOL have been given the appropriate metadata that defines the types and names 
+        of the fields in the event. TimedEvents and TimedEventTypes have been properly allocated as well.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Fixed a bug where the run thread of the simulator / animator does not start very briefly after it has
+        been stopped, since it is possible that the worker thread has not yet stopped while the stop() method
+        has already returned. 
+      </action>
+      <action dev="averbraeck" type="update">
+        The dsol-core DifferentialEquation had a VALUE_CHANGED_EVENT array of fixed length 30. In order to
+        give the right length to the array, the constructor of the DifferentialEquation now has the number of
+        variables as one of its arguments. The DifferentialEquationInterface in dsol-core has been removed for
+        now, as it was empty.  
+      </action>
+    </release>
+    
     <release version="3.04.03" date="2020-03-08" description="base statistics moved to djutils-stats">
       <action dev="averbraeck" type="remove">
         The jstats statistics have been moved to a separate project djutils-stats, as their use is independent
