@@ -1,7 +1,3 @@
-/*
- * Created on Mar 20, 2004 To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
 package nl.tudelft.simulation.jstats.distributions;
 
 import nl.tudelft.simulation.jstats.streams.Java2Random;
@@ -23,7 +19,7 @@ public final class DistributionsBenchmark
     }
 
     /**
-     * benchmarks a stream by drawing 1000000 double values
+     * benchmarks a stream by drawing 1000000 double values.
      * @param continuousDistribution the continuousDistribution to test
      * @return the execution time in milliseconds
      */
@@ -38,7 +34,7 @@ public final class DistributionsBenchmark
     }
 
     /**
-     * benchmarks a stream by drawing 1000000 double values
+     * benchmarks a stream by drawing 1000000 double values.
      * @param discreteDistribution the discreteDistribution to test
      * @return the execution time in milliseconds
      */
@@ -53,7 +49,7 @@ public final class DistributionsBenchmark
     }
 
     /**
-     * executes the benchmark
+     * executes the benchmark.
      * @param args the commandline arguments
      */
     public static void main(final String[] args)

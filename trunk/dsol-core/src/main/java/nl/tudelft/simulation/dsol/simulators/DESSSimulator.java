@@ -89,7 +89,7 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
                         "DESSSimulator.setTimeStep: timeStep <= 0, NaN, or Infinity. Value provided = : " + timeStep);
             }
             this.timeStep = timeStep;
-            this.fireEvent(TIME_STEP_CHANGED_EVENT, timeStep);
+            this.fireTimedEvent(TIME_STEP_CHANGED_EVENT, timeStep, getSimulatorTime());
         }
     }
 
@@ -98,7 +98,7 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        while (this.simulatorTime.lt(this.replication.getTreatment().getEndSimTime()) && isRunning())
+        while (this.simulatorTime.lt(this.replication.getTreatment().getEndSimTime()) && !this.stoppingState)
         {
             synchronized (super.semaphore)
             {
@@ -108,7 +108,8 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
                     this.simulatorTime = this.replication.getTreatment().getEndSimTime().copy();
                     this.endReplication();
                 }
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+                this.fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                        this.simulatorTime.get());
             }
         }
     }

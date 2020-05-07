@@ -4,12 +4,15 @@ import java.rmi.RemoteException;
 
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.jstats.ode.DifferentialEquationInterface;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 
 /**
@@ -35,18 +38,21 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     /** */
     private static final long serialVersionUID = 20140804L;
 
-    // we initialize the array (30 size set seems enough..)
-    static
-    {
-        for (int i = 0; i < VALUE_CHANGED_EVENT.length; i++)
-        {
-            VALUE_CHANGED_EVENT[i] = new EventType("VALUE_CHANGED_EVENT[" + i + "]");
-        }
-    }
+    /** VALUE_CHANGED_EVENT is fired on value changes. The array is initialized in the ODE's constructor. */
+    @SuppressWarnings({"checkstyle:visibilitymodifier", "checkstyle:membername"})
+    public TimedEventType[] VALUE_CHANGED_EVENT;
+
+    /** FUNCTION_CHANGED_EVENT is fired on function changes. */
+    @SuppressWarnings({"checkstyle:visibilitymodifier", "checkstyle:membername"})
+    public TimedEventType FUNCTION_CHANGED_EVENT = new TimedEventType("FUNCTION_CHANGED_EVENT", MetaData.NO_META_DATA);
 
     /** simulator. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected DESSSimulatorInterface<A, R, T> simulator = null;
+
+    /** the number of variables in the equation. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected final int numberOfVariables;
 
     /** the previousX. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -57,26 +63,29 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
     protected double[] previousY = null;
 
     /**
-     * constructs a new DifferentialEquation with a step size equal to the simulator time step, and Runge-Kutta4 as the default
-     * integrator.
+     * Construct a new DifferentialEquation with a step size equal to the simulator time step, and Runge-Kutta4 as the default
+     * integrator. Indicate the number of variables that the differential qquation will use.
      * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator
+     * @param numberOfVariables int; the number of variables in the equation
      * @throws RemoteException on remote network exception for the listener
      */
-    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator) throws RemoteException
+    public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final int numberOfVariables)
+            throws RemoteException
     {
-        this(simulator, simulator.getTimeStep().doubleValue(), NumericalIntegratorType.RUNGEKUTTA4);
+        this(simulator, simulator.getTimeStep().doubleValue(), NumericalIntegratorType.RUNGEKUTTA4, numberOfVariables);
     }
 
     /**
      * constructs a new DifferentialEquation with a step size equal to the simulator timestep.
      * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator
      * @param numericalIntegrator NumericalIntegrator; the actual integrator to be used.
+     * @param numberOfVariables int; the number of variables in the equation
      * @throws RemoteException on remote network exception for the listener
      */
     public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator,
-            final NumericalIntegratorType numericalIntegrator) throws RemoteException
+            final NumericalIntegratorType numericalIntegrator, final int numberOfVariables) throws RemoteException
     {
-        this(simulator, simulator.getTimeStep().doubleValue(), numericalIntegrator);
+        this(simulator, simulator.getTimeStep().doubleValue(), numericalIntegrator, numberOfVariables);
     }
 
     /**
@@ -84,13 +93,22 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
      * @param simulator DESSSimulatorInterface&lt;A,R,T&gt;; the simulator.
      * @param timeStep double; the timeStep for ODE estimation.
      * @param numericalIntegrator NumericalIntegrator; the actual integrator to be used.
+     * @param numberOfVariables int; the number of variables in the equation
      * @throws RemoteException on remote network exception for the listener
      */
     public DifferentialEquation(final DESSSimulatorInterface<A, R, T> simulator, final double timeStep,
-            final NumericalIntegratorType numericalIntegrator) throws RemoteException
+            final NumericalIntegratorType numericalIntegrator, final int numberOfVariables) throws RemoteException
     {
         super(timeStep, numericalIntegrator);
         this.simulator = simulator;
+        this.numberOfVariables = numberOfVariables;
+        this.VALUE_CHANGED_EVENT = new TimedEventType[this.numberOfVariables];
+        for (int i = 0; i < this.numberOfVariables; i++)
+        {
+            this.VALUE_CHANGED_EVENT[i] =
+                    new TimedEventType(new MetaData("VALUE_CHANGED_EVENT[" + i + "]", "value changed for variable " + i,
+                            new ObjectDescriptor("value_" + i, "value for variable " + i, Double.class)));
+        }
         simulator.addListener(this, SimulatorInterface.TIME_CHANGED_EVENT, ReferenceType.STRONG);
     }
 
@@ -109,7 +127,7 @@ public abstract class DifferentialEquation<A extends Number & Comparable<A>, R e
             this.previousY = integrateY(this.simulator.getSimulatorTime().doubleValue(), this.previousX, this.previousY);
             for (int i = 0; i < super.lastY.length; i++)
             {
-                this.fireTimedEvent(DifferentialEquationInterface.VALUE_CHANGED_EVENT[i], this.previousY[i],
+                this.fireUnverifiedTimedEvent(this.VALUE_CHANGED_EVENT[i], this.previousY[i],
                         this.simulator.getSimulatorTime());
             }
             this.previousX = this.simulator.getSimulatorTime().doubleValue();

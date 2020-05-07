@@ -10,7 +10,9 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
@@ -48,10 +50,12 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
     private static final long serialVersionUID = 20140911L;
 
     /** QUEUE_LENGTH_EVENT is fired when the queue length is changed. */
-    public static final EventType QUEUE_LENGTH_EVENT = new EventType("QUEUE_LENGTH_EVENT");
+    public static final TimedEventType QUEUE_LENGTH_EVENT = new TimedEventType(new MetaData("QUEUE_LENGTH_EVENT",
+            "Queue length", new ObjectDescriptor("queueLength", "Queue length", Integer.class)));
 
     /** DELAY_TIME is fired when a new delayTime is computed. */
-    public static final EventType DELAY_TIME = new EventType("DELAY_TIME");
+    public static final TimedEventType DELAY_TIME = new TimedEventType(new MetaData("DELAY_TIME", "Delay time",
+            new ObjectDescriptor("delayTime", "Delay time (as a double)", Double.class)));
 
     /** queue refers to the list of waiting requestors. */
     private List<Request<A, R, T>> queue = Collections.synchronizedList(new ArrayList<Request<A, R, T>>());
@@ -108,7 +112,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
         }
         try
         {
-            this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
+            this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime());
             this.resource.requestCapacity(pRequestedCapacity, this);
         }
         catch (Exception exception)
@@ -157,7 +161,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
                 {
                     this.queue.remove(request);
                 }
-                this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, (double) this.queue.size(), this.simulator.getSimulatorTime());
+                this.fireTimedEvent(Seize.QUEUE_LENGTH_EVENT, this.queue.size(), this.simulator.getSimulatorTime());
                 R delay = this.simulator.getSimTime().diff(request.getCreationTime());
                 this.fireTimedEvent(Seize.DELAY_TIME, delay.doubleValue(), this.simulator.getSimulatorTime());
                 this.releaseObject(request.getEntity());

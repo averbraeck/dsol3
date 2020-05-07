@@ -77,7 +77,7 @@ public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends N
     @Override
     public final void updateAnimation()
     {
-        this.fireEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, this.simulatorTime);
+        this.fireTimedEvent(AnimatorInterface.UPDATE_ANIMATION_EVENT, null, this.simulatorTime);
     }
 
     /** {@inheritDoc} */
@@ -87,7 +87,7 @@ public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends N
     {
         AnimationThread animationThread = new AnimationThread(this);
         animationThread.start();
-        while (this.isRunning() && !this.eventList.isEmpty()
+        while (!this.stoppingState && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             try
@@ -103,14 +103,15 @@ public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends N
                 // Let's neglect this sleep..
             }
             T runUntil = this.simulatorTime.plus(this.timeStep);
-            while (!this.eventList.isEmpty() && this.running && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
+            while (!this.eventList.isEmpty() && !this.stoppingState
+                    && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
             {
                 synchronized (super.semaphore)
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
                     {
-                        super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                        super.fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
                                 event.getAbsoluteExecutionTime().get());
                     }
                     this.simulatorTime = event.getAbsoluteExecutionTime();
@@ -124,7 +125,7 @@ public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends N
                     }
                 }
             }
-            if (this.running)
+            if (!this.stoppingState)
             {
                 this.simulatorTime = runUntil;
             }

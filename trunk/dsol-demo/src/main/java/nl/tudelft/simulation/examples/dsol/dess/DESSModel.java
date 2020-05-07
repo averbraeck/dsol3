@@ -2,7 +2,6 @@ package nl.tudelft.simulation.examples.dsol.dess;
 
 import java.io.Serializable;
 
-import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquationInterface;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
@@ -44,8 +43,8 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
         try
         {
             Distance distance = new Distance(this.simulator);
-            this.distancePersistent = new SimPersistent<>("persistent on distance", this.simulator, distance,
-                    DifferentialEquationInterface.VALUE_CHANGED_EVENT[0]);
+            this.distancePersistent =
+                    new SimPersistent<>("persistent on distance", this.simulator, distance, distance.VALUE_CHANGED_EVENT[0]);
         }
         catch (Exception exception)
         {

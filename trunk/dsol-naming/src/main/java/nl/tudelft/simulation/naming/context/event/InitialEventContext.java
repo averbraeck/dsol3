@@ -20,7 +20,7 @@ import javax.naming.NoInitialContextException;
 import javax.naming.NotContextException;
 
 import org.djutils.event.EventListenerInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.EventTypeInterface;
 import org.djutils.event.ref.ReferenceType;
 import org.djutils.exceptions.Throw;
 import org.djutils.io.URLResource;
@@ -582,7 +582,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType)
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType)
             throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -592,7 +592,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final ReferenceType referenceType) throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -602,7 +602,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final int position) throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -612,7 +612,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventType eventType,
+    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final int position, final ReferenceType referenceType) throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -622,7 +622,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean removeListener(final EventListenerInterface listener, final EventType eventType)
+    public final synchronized boolean removeListener(final EventListenerInterface listener, final EventTypeInterface eventType)
             throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -641,7 +641,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public synchronized int numberOfListeners(final EventType eventType) throws RemoteException
+    public synchronized int numberOfListeners(final EventTypeInterface eventType) throws RemoteException
     {
         if (this.defaultInitCtx != null)
             return this.defaultInitCtx.numberOfListeners(eventType);
@@ -650,7 +650,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public synchronized Set<EventType> getEventTypesWithListeners() throws RemoteException
+    public synchronized Set<EventTypeInterface> getEventTypesWithListeners() throws RemoteException
     {
         if (this.defaultInitCtx != null)
             return this.defaultInitCtx.getEventTypesWithListeners();

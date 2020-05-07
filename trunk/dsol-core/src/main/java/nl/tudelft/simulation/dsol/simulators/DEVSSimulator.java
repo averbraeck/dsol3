@@ -7,7 +7,7 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.Event;
+import org.djutils.event.TimedEvent;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
@@ -94,7 +94,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
             super.initialize(initReplication, replicationMode);
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getEndSimTime(),
                     (short) (SimEventInterface.MIN_PRIORITY - 1), this, this, "endReplication", null));
-            Object[] args = {new Event(SimulatorInterface.WARMUP_EVENT, getSourceId(), null)};
+            Object[] args = {new TimedEvent<A>(SimulatorInterface.WARMUP_EVENT, getSourceId(), null, this.simulatorTime.get())};
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getWarmupSimTime(),
                     (short) (SimEventInterface.MAX_PRIORITY + 1), this, this, "fireEvent", args));
         }
@@ -289,12 +289,12 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
             super.step(fireStepEvent);
             if (!this.eventList.isEmpty())
             {
-                this.running = true;
+                this.stepState = true;
                 SimEventInterface<T> event = this.eventList.removeFirst();
                 this.simulatorTime = event.getAbsoluteExecutionTime();
                 this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
                 event.execute();
-                this.running = false;
+                this.stepState = false;
             }
         }
     }
@@ -304,14 +304,15 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        while (super.isRunning())
+        System.out.println("DEVSSimulator.run: started");
+        while (!this.stoppingState)
         {
             synchronized (super.semaphore)
             {
                 SimEventInterface<T> event = this.eventList.removeFirst();
                 if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
                 {
-                    super.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                    fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
                             event.getAbsoluteExecutionTime().get());
                 }
                 super.simulatorTime = event.getAbsoluteExecutionTime();
@@ -336,6 +337,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
                 }
             }
         }
+        System.out.println("DEVSSimulator.run: ended");
     }
 
     /** {@inheritDoc} */

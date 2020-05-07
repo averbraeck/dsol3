@@ -8,7 +8,6 @@ import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.Bounds;
 
 import org.djutils.event.EventProducer;
-import org.djutils.event.EventType;
 import org.djutils.io.URLResource;
 import org.djutils.logger.CategoryLogger;
 
@@ -53,9 +52,6 @@ public abstract class Editable extends EventProducer implements Locatable
             CategoryLogger.always().error(exception, "<clinit>");
         }
     }
-
-    /** LOCATION_CHANGED_EVENT the LOCATION_CHANGED_EVENT. */
-    public static final EventType LOCATION_CHANGED_EVENT = new EventType("LOCATION_CHANGED_EVENT");
 
     /**
      * the simulator to use.

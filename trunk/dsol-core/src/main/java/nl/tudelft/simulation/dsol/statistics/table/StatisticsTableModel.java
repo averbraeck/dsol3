@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventProducerInterface;
-import org.djutils.event.EventType;
+import org.djutils.event.EventTypeInterface;
 
 /**
  * The StatisticsTableModel class defines the tableModel used to represent statistics objects as a table, e.g., on the screen or
@@ -36,10 +36,10 @@ public abstract class StatisticsTableModel extends DefaultTableModel implements 
      * @throws RemoteException when there is a problem communicating with the data producing table
      */
     public StatisticsTableModel(final Object[] columnNames, final int rows, final EventProducerInterface dataProducer,
-            final EventType[] eventTypes) throws RemoteException
+            final EventTypeInterface[] eventTypes) throws RemoteException
     {
         super(columnNames, rows);
-        for (EventType eventType : eventTypes)
+        for (EventTypeInterface eventType : eventTypes)
         {
             dataProducer.addListener(this, eventType);
         }

@@ -13,6 +13,8 @@ import org.djutils.event.EventProducer;
 import org.djutils.event.EventType;
 import org.djutils.event.ref.ReferenceType;
 import org.djutils.logger.CategoryLogger;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 /**
  * The Experimental frame specifies the set of experiments to run.
@@ -31,7 +33,9 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     private static final long serialVersionUID = 1L;
 
     /** END_OF_EXPERIMENTALFRAME_EVENT is fired when the experimental frame is ended. */
-    public static final EventType END_OF_EXPERIMENTALFRAME_EVENT = new EventType("END_OF_EXPERIMENTALFRAME_EVENT");
+    public static final EventType END_OF_EXPERIMENTALFRAME_EVENT =
+            new EventType(new MetaData("END_OF_EXPERIMENTALFRAME_EVENT", "End of experimental frame",
+                    new ObjectDescriptor("hasEnded", "boolean to indicate whether frame has ended", Boolean.class)));
 
     /** the list of experiments defined in this experimental frame. */
     private List<? extends Experiment<?, ?, ?, ?>> experiments = null;

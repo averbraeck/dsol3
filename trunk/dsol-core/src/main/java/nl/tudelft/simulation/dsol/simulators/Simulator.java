@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventProducer;
+import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -26,7 +28,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
-import nl.tudelft.simulation.language.concurrent.WorkerThread;
 
 /**
  * The Simulator class is an abstract implementation of the SimulatorInterface.
@@ -55,9 +56,20 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected T simulatorTime;
 
-    /** running represents the binary state of the simulator. */
+    /**
+     * stoppingState indicates whether the simulator has prepared for a stop. The simulator might keep running for a while after
+     * the stop has been announced, especially in real-time simulators where sleeps can occur in the run thread. The method
+     * isRunning() indicates whether the simulation is in the running state or not.
+     */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected transient boolean running = false;
+    protected transient boolean stoppingState = true;
+
+    /**
+     * stepState indicates whether the simulator is executing an event in step mode. The step() method is typically NOT executed
+     * via the WorkerThread and is therefore registered separately.
+     */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected transient boolean stepState = false;
 
     /** replication represents the currently active replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -65,14 +77,14 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** a worker. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected transient WorkerThread worker = null;
+    protected transient SimulatorWorkerThread worker = null;
 
     /** the simulatorSemaphore. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected transient Object semaphore = new Object();
 
     /** the logger. */
-    private SimLogger logger;
+    private transient SimLogger logger;
 
     /** the simulator id. */
     private Serializable id;
@@ -84,7 +96,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     public Simulator(final Serializable id)
     {
         this.id = id;
-        this.worker = new WorkerThread(this.getClass().getName(), this);
+        this.worker = new SimulatorWorkerThread(this.id.toString(), this);
         this.logger = new SimLogger(this);
     }
 
@@ -142,8 +154,8 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
             this.removeAllListeners(StatisticsInterface.class);
             this.replication = initReplication;
             this.simulatorTime = initReplication.getTreatment().getStartSimTime().copy();
-            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, this.simulatorTime, this.simulatorTime.get());
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, null, this.simulatorTime.get());
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
             this.replication.getTreatment().getExperiment().getModel().constructModel();
         }
     }
@@ -153,9 +165,22 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @SuppressWarnings("checkstyle:designforextension")
     public void endReplication()
     {
-        this.running = false;
-        this.fireEvent(SimulatorInterface.STOP_EVENT);
-        this.fireTimedEvent(SimulatorInterface.END_REPLICATION_EVENT, this, this.simulatorTime.get());
+        this.stoppingState = true;
+        this.stepState = false;
+        // active wait till the run has completely ended
+        while (isRunning())
+        {
+            try
+            {
+                Thread.sleep(1); // looks like a deadlock...
+            }
+            catch (InterruptedException exception)
+            {
+                // ignore exception
+            }
+        }
+        this.fireTimedEvent(SimulatorInterface.STOP_EVENT, null, this.simulatorTime.get());
+        this.fireTimedEvent(SimulatorInterface.END_REPLICATION_EVENT, null, this.simulatorTime.get());
 
         if (this.simulatorTime.lt(this.getReplication().getTreatment().getEndSimTime()))
         {
@@ -169,12 +194,15 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @Override
     public final boolean isRunning()
     {
-        return this.running;
+        synchronized (this.semaphore)
+        {
+            return this.worker.isRunning() || this.stepState;
+        }
     }
 
     /**
      * The run method defines the actual time step mechanism of the simulator. The implementation of this method depends on the
-     * formalism. Where discrete event formalisms loop over an eventlist, continuous simulators take predefined time steps.
+     * formalism. Where discrete event formalisms loop over an event list, continuous simulators take predefined time steps.
      */
     @Override
     public abstract void run();
@@ -184,7 +212,8 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @SuppressWarnings("checkstyle:designforextension")
     public void start(final boolean fireStartEvent) throws SimRuntimeException
     {
-        if (this.isRunning())
+        System.out.println("Simulator.start: called");
+        if (!this.stoppingState)
         {
             throw new SimRuntimeException("Cannot start a running simulator");
         }
@@ -198,18 +227,21 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
         synchronized (this.semaphore)
         {
-            this.running = true;
+            this.stoppingState = false;
             if (fireStartEvent)
             {
-                this.fireEvent(SimulatorInterface.START_EVENT);
+                this.fireTimedEvent(SimulatorInterface.START_EVENT, null, this.simulatorTime.get());
             }
             this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+
             if (!Thread.currentThread().getName().equals(this.worker.getName()))
             {
+                System.out.println("Simulator.start: worker.interrupt()");
                 this.worker.interrupt();
             }
             else
             {
+                System.out.println("Simulator.start: run()");
                 run();
             }
         }
@@ -228,6 +260,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @SuppressWarnings("checkstyle:designforextension")
     public void step(final boolean fireStepEvent) throws SimRuntimeException
     {
+        // XXX: fire TimeChangedEvent?
         if (this.isRunning())
         {
             throw new SimRuntimeException("Cannot step a running simulator");
@@ -242,7 +275,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
         if (fireStepEvent)
         {
-            this.fireEvent(SimulatorInterface.STEP_EVENT);
+            this.fireTimedEvent(SimulatorInterface.STEP_EVENT, null, this.simulatorTime.get());
         }
     }
 
@@ -263,10 +296,10 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         {
             throw new SimRuntimeException("Cannot stop an already stopped simulator");
         }
-        this.running = false;
+        this.stoppingState = true;
         if (fireStopEvent)
         {
-            this.fireEvent(SimulatorInterface.STOP_EVENT);
+            this.fireTimedEvent(SimulatorInterface.STOP_EVENT, null, this.simulatorTime.get());
         }
     }
 
@@ -283,7 +316,8 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
      */
     public final void cleanUp()
     {
-        this.running = false;
+        this.stoppingState = true;
+        this.stepState = false;
         if (hasListeners())
         {
             this.removeAllListeners();
@@ -302,6 +336,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
      */
     private synchronized void writeObject(final ObjectOutputStream out) throws IOException
     {
+        out.writeObject(this.id);
         out.writeObject(this.simulatorTime);
         out.writeObject(this.replication);
     }
@@ -316,15 +351,102 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     {
         try
         {
+            this.id = (Serializable) in.readObject();
             this.simulatorTime = (T) in.readObject();
             this.replication = (Replication<A, R, T, ? extends SimulatorInterface<A, R, T>>) in.readObject();
-            this.running = false;
+            this.stoppingState = true;
+            this.stepState = false;
             this.semaphore = new Object();
-            this.worker = new WorkerThread(this.getClass().getName(), this);
+            this.worker = new SimulatorWorkerThread(this.id.toString(), this);
+            this.logger = new SimLogger(this);
         }
         catch (Exception exception)
         {
             throw new IOException(exception.getMessage());
+        }
+    }
+
+    /** The worker thread to execute the run() method of the Simulator and to start/stop the simulation. */
+    protected static class SimulatorWorkerThread extends Thread
+    {
+        /** the job to execute. */
+        private Simulator<?, ?, ?> job = null;
+
+        /** finalized. */
+        private boolean finalized = false;
+
+        /** running. */
+        private AtomicBoolean running = new AtomicBoolean(false);
+
+        /**
+         * constructs a new SimulatorRunThread.
+         * @param name String; the name of the thread
+         * @param job Runnable; the job to run
+         */
+        protected SimulatorWorkerThread(final String name, final Simulator<?, ?, ?> job)
+        {
+            super(name);
+            this.job = job;
+            this.setDaemon(false);
+            this.setPriority(Thread.NORM_PRIORITY);
+            this.start();
+        }
+
+        /**
+         * Clean up the worker thread. synchronized method, otherwise it does not own the Monitor on the wait.
+         */
+        public final synchronized void cleanUp()
+        {
+            this.running.set(false);
+            this.finalized = true;
+            if (!this.isInterrupted())
+            {
+                this.notify(); // in case it is in the 'wait' state
+            }
+            this.job = null;
+        }
+
+        /**
+         * @return whether the run method of the job is running or not
+         */
+        public final synchronized boolean isRunning()
+        {
+            return this.running.get();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public final synchronized void run()
+        {
+            while (!this.finalized) // always until finalized
+            {
+                try
+                {
+                    System.out.println("WT Start wait");
+                    this.wait(); // as long as possible
+                    System.out.println("WT Stop wait");
+                }
+                catch (InterruptedException interruptedException)
+                {
+                    if (!this.finalized)
+                    {
+                        this.interrupt(); // set the status to interrupted
+                        try
+                        {
+                            this.running.set(true);
+                            System.out.println("WT Start running");
+                            this.job.run();
+                            System.out.println("WT Stop running");
+                            this.running.set(false);
+                        }
+                        catch (Exception exception)
+                        {
+                            CategoryLogger.always().error(exception);
+                        }
+                        Thread.interrupted();
+                    }
+                }
+            }
         }
     }
 

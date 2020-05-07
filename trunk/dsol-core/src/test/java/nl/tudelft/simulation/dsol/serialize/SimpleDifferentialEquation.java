@@ -3,6 +3,7 @@ package nl.tudelft.simulation.dsol.serialize;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
+import nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 
@@ -18,35 +19,28 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs"> Peter Jacobs </a>
  * @since 1.5
  */
-public class DifferentialEquation extends nl.tudelft.simulation.dsol.formalisms.dess.DifferentialEquation
+public class SimpleDifferentialEquation extends DifferentialEquation
 {
-
-    /**
-     * constructs a new DifferentialEquation.
-     * @param simulator the simulator
-     * @throws RemoteException on network error
-     */
-    public DifferentialEquation(DESSSimulatorInterface simulator) throws RemoteException
-    {
-        super(simulator);
-    }
+    /** */
+    private static final long serialVersionUID = 1L;
 
     /**
      * constructs a new DifferentialEquation.
      * @param simulator the simulator
      * @param timeStep the time step
      * @param numericalIntegrator the integration method
+     * @param numberOfVariables the number of variabes in the equation
      * @throws RemoteException on network error
      */
-    public DifferentialEquation(DESSSimulatorInterface simulator, double timeStep, NumericalIntegratorType numericalIntegrator)
-            throws RemoteException
+    public SimpleDifferentialEquation(final DESSSimulatorInterface simulator, final double timeStep,
+            final NumericalIntegratorType numericalIntegrator, final int numberOfVariables) throws RemoteException
     {
-        super(simulator, timeStep, numericalIntegrator);
+        super(simulator, timeStep, numericalIntegrator, numberOfVariables);
     }
 
     /** {@inheritDoc} */
     @Override
-    public double[] dy(double arg0, double[] arg1)
+    public double[] dy(final double arg0, final double[] arg1)
     {
         return new double[] {1.0};
     }

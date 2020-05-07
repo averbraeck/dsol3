@@ -24,7 +24,11 @@ import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
  */
 public class DEVSSimulatorTest implements EventListenerInterface
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+    
     /** the Waiter from ConcurrentUnit that catches AssertionErrors in other threads. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Waiter waiter;
 
     /**
@@ -42,12 +46,12 @@ public class DEVSSimulatorTest implements EventListenerInterface
         ExperimentalFrame experimentalFrame =
                 ExperimentUtilDouble.createExperimentalFrame(devsSimulator, new DEVSTestModel(devsSimulator));
         experimentalFrame.start();
-        this.waiter.await(1000);
+        this.waiter.await();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void notify(EventInterface event) throws RemoteException
+    public void notify(final EventInterface event) throws RemoteException
     {
         this.waiter.resume();
     }

@@ -6,7 +6,9 @@ import java.util.List;
 
 import javax.media.j3d.Bounds;
 
-import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
@@ -34,10 +36,12 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
     private static final long serialVersionUID = 1L;
 
     /** UTILIZATION_EVENT are fired on utilization. */
-    public static final EventType UTILIZATION_EVENT = new EventType("UTILIZATION_EVENT");
+    public static final TimedEventType UTILIZATION_EVENT = new TimedEventType(new MetaData("UTILIZATION_EVENT",
+            "Utilization change", new ObjectDescriptor("utilization", "Current utilization", Double.class)));
 
     /** QUEUE_LENGTH_EVENT is fired on changes in the Queue length. */
-    public static final EventType QUEUE_LENGTH_EVENT = new EventType("QUEUE_LENGTH_EVENT");
+    public static final TimedEventType QUEUE_LENGTH_EVENT = new TimedEventType(new MetaData("QUEUE_LENGTH_EVENT",
+            "Queue length change", new ObjectDescriptor("queueLength", "New queue length", Integer.class)));
 
     /** QUANTUM is the QUANTUM of the CPU. */
     public static final double QUANTUM = 0.1;

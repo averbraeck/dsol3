@@ -39,7 +39,7 @@ public final class StreamsBenchmark
     }
 
     /**
-     * executes the benchmark
+     * executes the benchmark.
      * @param args the commandline arguments
      */
     public static void main(final String[] args)

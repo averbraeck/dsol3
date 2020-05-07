@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.language.concurrent;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.djutils.logger.CategoryLogger;
 
 /**
@@ -24,6 +26,9 @@ public class WorkerThread extends Thread
     /** finalized. */
     private boolean finalized = false;
 
+    /** running. */
+    private AtomicBoolean running = new AtomicBoolean(false);
+
     /**
      * constructs a new SimulatorRunThread.
      * @param name String; the name of the thread
@@ -43,12 +48,21 @@ public class WorkerThread extends Thread
      */
     public final synchronized void cleanUp()
     {
+        this.running.set(false);
         this.finalized = true;
         if (!this.isInterrupted())
         {
             this.notify(); // in case it is in the 'wait' state
         }
         this.job = null;
+    }
+
+    /**
+     * @return whether the run method of the job is running or not
+     */
+    public final synchronized boolean isRunning()
+    {
+        return this.running.get();
     }
 
     /** {@inheritDoc} */
@@ -68,7 +82,9 @@ public class WorkerThread extends Thread
                     this.interrupt(); // set the status to interrupted
                     try
                     {
+                        this.running.set(true);
                         this.job.run();
+                        this.running.set(false);
                     }
                     catch (Exception exception)
                     {

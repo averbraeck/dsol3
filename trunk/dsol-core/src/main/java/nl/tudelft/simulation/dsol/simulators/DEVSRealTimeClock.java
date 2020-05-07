@@ -9,6 +9,9 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -46,11 +49,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     /** */
     private static final long serialVersionUID = 20150428L;
 
+    // TODO: Fire the BACKLOG_EVENT when we are behind in the run thread
     /** the backlog event. */
-    public static final EventType BACKLOG_EVENT = new EventType("BACKLOG_EVENT");
+    public static final TimedEventType BACKLOG_EVENT =
+            new TimedEventType(new MetaData("BACKLOG_EVENT", "Real time simulation is behind"));
 
     /** the speed factor event. */
-    public static final EventType CHANGE_SPEED_FACTOR_EVENT = new EventType("CHANGE_SPEED_FACTOR_EVENT");
+    public static final EventType CHANGE_SPEED_FACTOR_EVENT = new EventType(new MetaData("CHANGE_SPEED_FACTOR_EVENT",
+            "Change speed factor", new ObjectDescriptor("newSpeedFactor", "New speed factor", Double.class)));
 
     /** the speed factor compared to real time clock. &lt;1 is slower, &gt;1 is faster, 1 is real time speed. */
     private double speedFactor = 1.0;
@@ -119,7 +125,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
         /* wall clock milliseconds per 1 simulation clock millisecond. */
         double msec1 = simulatorTimeForWallClockMillis(1.0).doubleValue();
 
-        while (this.isRunning() && !this.eventList.isEmpty()
+        while (!this.stoppingState && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             // check if speedFactor has changed. If yes: re-baseline.
@@ -188,7 +194,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
                     }
 
                     // did we stop running between events?
-                    if (!isRunning())
+                    if (this.stoppingState)
                     {
                         wallMillisNextEventSinceBaseline = 0.0; // jump out of the while loop for sleeping
                         break;
@@ -241,19 +247,19 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
             }
 
             // only execute an event if we are still running...
-            if (isRunning())
+            if (!this.stoppingState)
             {
                 synchronized (super.semaphore)
                 {
                     if (nextEvent.getAbsoluteExecutionTime().ne(this.simulatorTime))
                     {
-                        fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, nextEvent.getAbsoluteExecutionTime(),
+                        fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, nextEvent.getAbsoluteExecutionTime(),
                                 nextEvent.getAbsoluteExecutionTime().get());
                     }
                     this.simulatorTime.set(nextEvent.getAbsoluteExecutionTime().get());
 
                     // carry out all events scheduled on this simulation time, as long as we are still running.
-                    while (this.isRunning() && !this.eventList.isEmpty()
+                    while (!this.stoppingState && !this.eventList.isEmpty()
                             && nextEvent.getAbsoluteExecutionTime().eq(this.simulatorTime))
                     {
                         nextEvent = this.eventList.removeFirst();
@@ -355,7 +361,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
         this.speedFactor = newSpeedFactor;
         if (fireChangeSpeedFactorEvent)
         {
-            this.fireTimedEvent(CHANGE_SPEED_FACTOR_EVENT, newSpeedFactor, this.simulatorTime.get());
+            this.fireEvent(CHANGE_SPEED_FACTOR_EVENT, newSpeedFactor);
         }
     }
 

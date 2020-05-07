@@ -12,8 +12,8 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import org.djutils.event.EventProducer;
-import org.djutils.event.EventType;
 import org.djutils.event.TimedEvent;
+import org.djutils.event.TimedEventType;
 import org.djutils.stats.ConfidenceInterval;
 import org.junit.Test;
 
@@ -41,7 +41,7 @@ public class SimTallyTest extends EventProducer
     private static final long serialVersionUID = 1L;
 
     /** update event. */
-    private static final EventType UPDATE_EVENT = new EventType("UpdateEvent");
+    private static final TimedEventType UPDATE_EVENT = new TimedEventType("UpdateEvent");
 
     /** {@inheritDoc} */
     @Override

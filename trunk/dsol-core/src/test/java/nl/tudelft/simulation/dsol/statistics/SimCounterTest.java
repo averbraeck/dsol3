@@ -11,8 +11,8 @@ import javax.naming.NamingException;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventProducer;
-import org.djutils.event.EventType;
 import org.djutils.event.TimedEvent;
+import org.djutils.event.TimedEventType;
 import org.junit.Test;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -75,7 +75,7 @@ public class SimCounterTest extends EventProducer
             }
         }, SimCounter.TIMED_OBSERVATION_ADDED_EVENT);
 
-        EventType et = new EventType("observation");
+        TimedEventType et = new TimedEventType("observation");
         long value = 0;
         for (int i = 0; i < 100; i++)
         {

@@ -1,18 +1,3 @@
-/*
- * Copyright 2010-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License
- */
 package net.jodah.concurrentunit;
 
 import java.util.concurrent.TimeUnit;
@@ -22,7 +7,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import net.jodah.concurrentunit.internal.ReentrantCircuit;
 
 /**
- * Waits on a test, carrying out assertions, until being resumed.
+ * Waits on a test, carrying out assertions, until being resumed.<br>
+ * <br>
+ * Copyright 2010-2016 the original author or authors. Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed
+ * under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ * implied. See the License for the specific language governing permissions and limitations under the License<br>
  * @author Jonathan Halterman
  */
 public class Waiter
@@ -49,7 +40,7 @@ public class Waiter
     }
 
     /**
-     * Asserts that the {@code expected} values equals the {@code actual} value
+     * Asserts that the {@code expected} values equals the {@code actual} value.
      * @param expected the expected value
      * @param actual the actual value
      * @throws AssertionError when the assertion fails
@@ -57,14 +48,18 @@ public class Waiter
     public void assertEquals(final Object expected, final Object actual)
     {
         if (expected == null && actual == null)
+        {
             return;
+        }
         if (expected != null && expected.equals(actual))
+        {
             return;
+        }
         fail(format(expected, actual));
     }
 
     /**
-     * Asserts that the {@code expected} values equals the {@code actual} value
+     * Asserts that the {@code expected} values equals the {@code actual} value.
      * @param expected the expected value
      * @param actual the actual value
      * @param delta the allowed tolerance
@@ -90,7 +85,9 @@ public class Waiter
     public void assertFalse(final boolean condition)
     {
         if (condition)
+        {
             fail("expected false");
+        }
     }
 
     /**
@@ -101,7 +98,9 @@ public class Waiter
     public void assertNotNull(final Object object)
     {
         if (object == null)
+        {
             fail("expected not null");
+        }
     }
 
     /**
@@ -112,7 +111,9 @@ public class Waiter
     public void assertNull(final Object object)
     {
         if (object != null)
+        {
             fail(format("null", object));
+        }
     }
 
     /**
@@ -123,7 +124,9 @@ public class Waiter
     public void assertTrue(final boolean condition)
     {
         if (!condition)
+        {
             fail("expected true");
+        }
     }
 
     /**
@@ -205,7 +208,8 @@ public class Waiter
      * @throws InterruptedException if the operations is interrupted while waiting
      * @throws AssertionError if any assertion fails while waiting
      */
-    public void await(final long delay, final TimeUnit timeUnit, final int expectedResumes) throws TimeoutException, InterruptedException
+    public void await(final long delay, final TimeUnit timeUnit, final int expectedResumes)
+            throws TimeoutException, InterruptedException
     {
         try
         {
@@ -215,11 +219,15 @@ public class Waiter
                 {
                     int remaining = this.remainingResumes.addAndGet(expectedResumes);
                     if (remaining > 0)
+                    {
                         this.circuit.open();
+                    }
                 }
 
                 if (delay == 0)
+                {
                     this.circuit.await();
+                }
                 else if (!this.circuit.await(delay, timeUnit))
                 {
                     final int actualResumes = expectedResumes - this.remainingResumes.get();
@@ -246,7 +254,9 @@ public class Waiter
     public synchronized void resume()
     {
         if (this.remainingResumes.decrementAndGet() <= 0)
+        {
             this.circuit.close();
+        }
     }
 
     /**
@@ -278,7 +288,9 @@ public class Waiter
     {
         AssertionError ae = null;
         if (reason instanceof AssertionError)
+        {
             ae = (AssertionError) reason;
+        }
         else
         {
             ae = new AssertionError();
@@ -293,28 +305,29 @@ public class Waiter
     /**
      * Rethrows the {@code failure} in the main test thread and in the current thread. Differs from {@link #fail(Throwable)}
      * which wraps a failure in an AssertionError before throwing.
-     * @param failure the reason for failure
-     * throws Throwable the {@code failure}
+     * @param rethrownFailure the reason for failure throws Throwable the {@code failure}
      */
-    @SuppressWarnings("hiding")
-    public void rethrow(Throwable failure)
+    public void rethrow(final Throwable rethrownFailure)
     {
-        this.failure = failure;
+        this.failure = rethrownFailure;
         this.circuit.close();
-        sneakyThrow(failure);
+        sneakyThrow(rethrownFailure);
     }
 
     /**
      * Throw the throwable without having to specify it in the signature.
      * @param t the throwable
      */
-    private static void sneakyThrow(Throwable t)
+    private static void sneakyThrow(final Throwable t)
     {
-        Waiter.<Error>sneakyThrow2(t);
+        Waiter.<Error> sneakyThrow2(t);
     }
 
     /**
      * Throw the throwable T.
+     * @param t Throwable; the exception to throw
+     * @throws T the thrown exception
+     * @param <T> the Throwable type
      */
     @SuppressWarnings("unchecked")
     private static <T extends Throwable> void sneakyThrow2(final Throwable t) throws T

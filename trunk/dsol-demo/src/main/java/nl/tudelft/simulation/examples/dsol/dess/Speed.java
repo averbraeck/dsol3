@@ -27,7 +27,7 @@ public class Speed extends DifferentialEquation<Double, Double, SimTimeDouble>
      */
     public Speed(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
-        super(simulator);
+        super(simulator, 1);
     }
 
     /** {@inheritDoc} */

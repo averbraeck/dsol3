@@ -3,6 +3,9 @@ package nl.tudelft.simulation.dsol.simulators;
 import java.rmi.RemoteException;
 
 import org.djutils.event.EventType;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 /**
  * The AnimatorInterface defines the methods for a DEVSDESS simulator with wallclock delay between the consecutive time steps.
@@ -22,10 +25,11 @@ public interface AnimatorInterface
     long DEFAULT_ANIMATION_DELAY = 100L;
 
     /** UPDATE_ANIMATION_EVENT is fired to wake up animatable components. */
-    EventType UPDATE_ANIMATION_EVENT = new EventType("UPDATE_ANIMATION_EVENT");
+    TimedEventType UPDATE_ANIMATION_EVENT = new TimedEventType(new MetaData("UPDATE_ANIMATION_EVENT", "Animation update"));
 
     /** ANIMATION_DELAY_CHANGED_EVENT is fired when the time step is set. */
-    EventType ANIMATION_DELAY_CHANGED_EVENT = new EventType("ANIMATION_DELAY_CHANGED_EVENT");
+    EventType ANIMATION_DELAY_CHANGED_EVENT = new EventType(new MetaData("ANIMATION_DELAY_CHANGED_EVENT",
+            "Animation delay changed", new ObjectDescriptor("newDelay", "new animation delay", Long.class)));
 
     /**
      * returns the animation delay in milliseconds between each consecutive animation update.
