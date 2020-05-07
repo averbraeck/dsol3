@@ -63,7 +63,7 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
 
     /** INITIALIZED_EVENT is fired whenever a Tally is (re-)initialized. */
     public static final TimedEventType TIMED_INITIALIZED_EVENT = new TimedEventType(new MetaData("TIMED_INITIALIZED_EVENT",
-            "Counter initialized", new ObjectDescriptor("simCounter", "Counter object", SimTally.class)));
+            "Counter initialized", new ObjectDescriptor("simCounter", "Counter object", SimCounter.class)));
 
     /** gathering data stopped or not? */
     private boolean stopped = false;

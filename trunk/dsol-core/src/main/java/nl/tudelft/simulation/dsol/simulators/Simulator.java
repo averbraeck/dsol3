@@ -232,7 +232,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
             {
                 this.fireTimedEvent(SimulatorInterface.START_EVENT, null, this.simulatorTime.get());
             }
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
 
             if (!Thread.currentThread().getName().equals(this.worker.getName()))
             {
