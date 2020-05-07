@@ -3,6 +3,8 @@ package nl.tudelft.simulation.examples.dsol.mm1queue;
 import java.io.Serializable;
 
 import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -21,7 +23,8 @@ public class Release extends nl.tudelft.simulation.dsol.formalisms.flow.Release.
     private static final long serialVersionUID = 1L;
 
     /** SERVICE_TIME_EVENT is fired when a customer is released. */
-    public static final TimedEventType SERVICE_TIME_EVENT = new TimedEventType("SERVICE_TIME_EVENT");
+    public static final TimedEventType SERVICE_TIME_EVENT = new TimedEventType(new MetaData("SERVICE_TIME_EVENT",
+            "Service Time observation", new ObjectDescriptor("serviceTime", "Service time", Double.class)));
 
     /**
      * constructs a new Release.

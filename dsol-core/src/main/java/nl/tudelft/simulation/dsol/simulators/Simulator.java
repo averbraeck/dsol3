@@ -167,18 +167,6 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     {
         this.stoppingState = true;
         this.stepState = false;
-        // active wait till the run has completely ended
-        while (isRunning())
-        {
-            try
-            {
-                Thread.sleep(1); // looks like a deadlock...
-            }
-            catch (InterruptedException exception)
-            {
-                // ignore exception
-            }
-        }
         this.fireTimedEvent(SimulatorInterface.STOP_EVENT, null, this.simulatorTime.get());
         this.fireTimedEvent(SimulatorInterface.END_REPLICATION_EVENT, null, this.simulatorTime.get());
 

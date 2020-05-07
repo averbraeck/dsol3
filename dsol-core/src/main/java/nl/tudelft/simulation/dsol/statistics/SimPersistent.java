@@ -64,7 +64,7 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
 
     /** INITIALIZED_EVENT is fired whenever a Persistent is (re-)initialized. */
     public static final TimedEventType TIMED_INITIALIZED_EVENT = new TimedEventType(new MetaData("TIMED_INITIALIZED_EVENT",
-            "Persistent initialized", new ObjectDescriptor("simPersistent", "Persistent object", SimTally.class)));
+            "Persistent initialized", new ObjectDescriptor("simPersistent", "Persistent object", SimPersistent.class)));
 
     /**
      * constructs a new SimPersistent.
