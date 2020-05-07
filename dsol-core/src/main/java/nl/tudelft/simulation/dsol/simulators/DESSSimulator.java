@@ -89,7 +89,7 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
                         "DESSSimulator.setTimeStep: timeStep <= 0, NaN, or Infinity. Value provided = : " + timeStep);
             }
             this.timeStep = timeStep;
-            this.fireTimedEvent(TIME_STEP_CHANGED_EVENT, timeStep, getSimulatorTime());
+            this.fireEvent(TIME_STEP_CHANGED_EVENT, timeStep);
         }
     }
 

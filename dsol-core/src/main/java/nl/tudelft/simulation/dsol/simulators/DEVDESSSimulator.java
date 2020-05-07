@@ -78,7 +78,7 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                 throw new SimRuntimeException("Timestep for DESSimulator has illegal value: " + timeStep);
             }
             this.timeStep = timeStep;
-            this.fireTimedEvent(TIME_STEP_CHANGED_EVENT, timeStep, getSimulatorTime());
+            this.fireEvent(TIME_STEP_CHANGED_EVENT, timeStep);
         }
     }
 
