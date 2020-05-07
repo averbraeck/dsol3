@@ -44,12 +44,12 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
 
     /** UTILIZATION_EVENT is fired on activity. */
     public static final TimedEventType UTILIZATION_EVENT = new TimedEventType(new MetaData("UTILIZATION_EVENT",
-            "Utilization changed", new ObjectDescriptor("newUtilization", "new utilization", double.class)));
+            "Utilization changed", new ObjectDescriptor("newUtilization", "new utilization", Double.class)));
 
     /** RESOURCE_REQUESTED_QUEUE_LENGTH fired on changes in queue length. */
     public static final TimedEventType RESOURCE_REQUESTED_QUEUE_LENGTH =
             new TimedEventType(new MetaData("RESOURCE_REQUESTED_QUEUE_LENGTH", "Queue length changed",
-                    new ObjectDescriptor("newQueueLength", "new queue length", int.class)));
+                    new ObjectDescriptor("newQueueLength", "new queue length", Integer.class)));
 
     /** the minimum priority. */
     public static final int MIN_REQUEST_PRIORITY = 0;
