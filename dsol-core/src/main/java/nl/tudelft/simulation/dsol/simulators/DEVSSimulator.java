@@ -94,9 +94,8 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
             super.initialize(initReplication, replicationMode);
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getEndSimTime(),
                     (short) (SimEventInterface.MIN_PRIORITY - 1), this, this, "endReplication", null));
-            Object[] args = {new TimedEvent<A>(SimulatorInterface.WARMUP_EVENT, getSourceId(), null, this.simulatorTime.get())};
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getWarmupSimTime(),
-                    (short) (SimEventInterface.MAX_PRIORITY + 1), this, this, "fireEvent", args));
+                    (short) (SimEventInterface.MAX_PRIORITY + 1), this, this, "warmup", null));
         }
     }
 
@@ -347,6 +346,14 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
     {
         super.endReplication();
         this.eventList.clear();
+    }
+
+    /**
+     * Fire the WARMUP event to clear the statistics after the warmup period.
+     */
+    public void warmup()
+    {
+        fireTimedEvent(SimulatorInterface.WARMUP_EVENT, null, getSimulatorTime());
     }
 
     /**
