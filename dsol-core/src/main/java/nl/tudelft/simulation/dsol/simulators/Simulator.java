@@ -11,6 +11,8 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventProducer;
+import org.djutils.event.TimedEventType;
+import org.djutils.exceptions.Throw;
 import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Logger;
 
@@ -56,6 +58,14 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected T simulatorTime;
 
+    /** The runUntil time in case we want to stop before the end of the replication time. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected A runUntilTime;
+
+    /** whether the runUntilTime should carry out the calculation(s) for that time or not. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected boolean runUntilIncluding = true;
+
     /**
      * stoppingState indicates whether the simulator has prepared for a stop. The simulator might keep running for a while after
      * the stop has been announced, especially in real-time simulators where sleeps can occur in the run thread. The method
@@ -65,11 +75,26 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     protected transient boolean stoppingState = true;
 
     /**
+     * running indicated whether the simulation is currently running, according to the calling thread. This can mean that the
+     * actual run thread has not yet started running.
+     */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected transient boolean running = false;
+
+    /**
      * stepState indicates whether the simulator is executing an event in step mode. The step() method is typically NOT executed
      * via the WorkerThread and is therefore registered separately.
      */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected transient boolean stepState = false;
+
+    /** has the replication already started? If no, START_REPLICATION_EVENT still needs to be fired on start or step. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected boolean replicationStarted = false;
+
+    /** has the replication ended? If yes, END_REPLICATION_EVENT can be fired in the run thread. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected boolean replicationEnded = false;
 
     /** replication represents the currently active replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -95,10 +120,214 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
      */
     public Simulator(final Serializable id)
     {
+        Throw.whenNull(id, "id cannot be null");
         this.id = id;
         this.worker = new SimulatorWorkerThread(this.id.toString(), this);
         this.logger = new SimLogger(this);
     }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
+            final ReplicationMode replicationMode) throws SimRuntimeException
+    {
+        this.running = false;
+        Throw.whenNull(initReplication, "Simulator.initialize: replication cannot be null");
+        Throw.whenNull(replicationMode, "Simulator.initialize: replicationMode cannot be null");
+        Throw.when(isRunning(), SimRuntimeException.class, "Cannot initialize a running simulator");
+        synchronized (this.semaphore)
+        {
+            this.removeAllListeners(StatisticsInterface.class);
+            this.replication = initReplication;
+            this.simulatorTime = initReplication.getTreatment().getStartSimTime().copy();
+            this.replication.getTreatment().getExperiment().getModel().constructModel();
+            this.replicationStarted = false;
+            this.replicationEnded = false;
+        }
+    }
+
+    /**
+     * Implementation of the start method. Checks preconditions for running and fires the right events.
+     * @throws SimRuntimeException
+     */
+    protected final void startImpl() throws SimRuntimeException
+    {
+        Throw.when(!this.stoppingState || isRunning(), SimRuntimeException.class, "Cannot start a running simulator");
+        Throw.when(this.replication == null, SimRuntimeException.class, "Cannot start a simulator without replication details");
+        Throw.when(this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()), SimRuntimeException.class,
+                "Cannot start simulator : simulatorTime >= runLength");
+        synchronized (this.semaphore)
+        {
+            this.stoppingState = false;
+            this.running = true;
+            if (!this.replicationStarted)
+            {
+                fireTimedEvent(Replication.START_REPLICATION_EVENT, null, getSimulatorTime());
+                this.replicationStarted = true;
+            }
+            this.fireEvent(SimulatorInterface.STARTING_EVENT, null);
+            if (!Thread.currentThread().getName().equals(this.worker.getName()))
+            {
+                this.worker.interrupt();
+            }
+            else
+            {
+                run();
+            }
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void start() throws SimRuntimeException
+    {
+        this.runUntilTime = this.replication.getTreatment().getEndTime();
+        this.runUntilIncluding = true;
+        startImpl();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void runUpTo(final A stopTime) throws SimRuntimeException
+    {
+        this.runUntilTime = stopTime;
+        this.runUntilIncluding = false;
+        startImpl();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void runUpToAndIncluding(final A stopTime) throws SimRuntimeException
+    {
+        this.runUntilTime = stopTime;
+        this.runUntilIncluding = true;
+        startImpl();
+    }
+
+    /**
+     * The implementation body of the step() method. The stepImpl() method should fire the TIME_CHANGED_EVENT before the
+     * execution of the simulation event, or before executing the integration of the differential equation for the next
+     * timestep. So the time is changed first to match the lgic carried out for that time, and then the action for that time is
+     * carried out.
+     */
+    protected abstract void stepImpl();
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public final void step() throws SimRuntimeException
+    {
+        Throw.when(!this.stoppingState || isRunning(), SimRuntimeException.class, "Cannot step a running simulator");
+        Throw.when(this.replication == null, SimRuntimeException.class, "Cannot step a simulator without replication details");
+        Throw.when(this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()), SimRuntimeException.class,
+                "Cannot step simulator : simulatorTime >= runLength");
+        try
+        {
+            this.stepState = true;
+            this.running = true;
+            if (!this.replicationStarted)
+            {
+                fireTimedEvent(Replication.START_REPLICATION_EVENT, null, getSimulatorTime());
+                this.replicationStarted = true;
+            }
+            fireTimedEvent(SimulatorInterface.START_EVENT, null, getSimulatorTime());
+            this.fireTimedEvent(SimulatorInterface.STEP_EVENT, null, this.simulatorTime.get());
+            stepImpl();
+            fireTimedEvent(SimulatorInterface.STOP_EVENT, null, getSimulatorTime());
+        }
+        finally
+        {
+            this.stepState = false;
+            this.running = false;
+        }
+    }
+
+    /**
+     * Implementation of the stop behavior.
+     */
+    protected void stopImpl()
+    {
+        this.stoppingState = true;
+        this.running = false;
+        this.stepState = false;
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:designforextension")
+    public final void stop() throws SimRuntimeException
+    {
+        Throw.when(!this.isRunning(), SimRuntimeException.class, "Cannot stop an already stopped simulator");
+        this.fireEvent(SimulatorInterface.STOPPING_EVENT, null);
+        stopImpl();
+    }
+
+    /**
+     * Fire the WARMUP event to clear the statistics after the warmup period. Note that for a discrete event simulator, the
+     * warmup event can be scheduled, whereas for a continuous simulator, the warmup event must be detected based on the
+     * simulation time.
+     */
+    public void warmup()
+    {
+        fireTimedEvent(Replication.WARMUP_EVENT, null, getSimulatorTime());
+    }
+
+    /**
+     * Clean up the simulator. Remove the worker thread.
+     */
+    public final void cleanUp()
+    {
+        stopImpl();
+        if (hasListeners())
+        {
+            this.removeAllListeners();
+        }
+        if (this.worker != null)
+        {
+            this.worker.cleanUp();
+        }
+        this.worker = null;
+    }
+
+    /**
+     * The method that is called when the replication ends. Note that it can also forcefully terminate the replication before
+     * the actual replication time is over. It immediately fires a STOP_EVENT followed by an END_REPLICATION_EVENT, and stops
+     * the running of the simulator. When the simulation time is not equal to or larger than the length of the replication, a
+     * logger warning is given, but the method is fully executed. In that case it does set the simulation time to the end time
+     * of the replication, to avoid restarting of the simulator.
+     */
+    protected void endReplication()
+    {
+        this.replicationEnded = true;
+        if (this.simulatorTime.lt(this.getReplication().getTreatment().getEndSimTime()))
+        {
+            Logger.warn("The simulator executes the endReplication method, but the simulation time " + this.simulatorTime.get()
+                    + " is earlier than the replication length " + this.getReplication().getTreatment().getEndSimTime());
+            this.simulatorTime = this.getReplication().getTreatment().getEndSimTime().copy();
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final boolean isRunning()
+    {
+        synchronized (this.semaphore)
+        {
+            return this.running || this.worker.isRunning() || this.stepState;
+        }
+    }
+
+    /**
+     * The run method defines the actual time step mechanism of the simulator. The implementation of this method depends on the
+     * formalism. Where discrete event formalisms loop over an event list, continuous simulators take predefined time steps.
+     * Make sure that:<br>
+     * - SimulatorInterface.TIME_CHANGED_EVENT is fired when the time of the simulator changes<br>
+     * - the warmup() method is called when the warmup period has expired (through an event or based on simulation time)<br>
+     * - the endReplication() method is called when the replication has ended
+     */
+    @Override
+    public abstract void run();
 
     /** {@inheritDoc} */
     @Override
@@ -135,186 +364,13 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         return this.id;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
-            final ReplicationMode replicationMode) throws SimRuntimeException
-    {
-        if (initReplication == null)
-        {
-            throw new IllegalArgumentException("replication == null ?");
-        }
-        if (this.isRunning())
-        {
-            throw new SimRuntimeException("Cannot initialize a running simulator");
-        }
-        synchronized (this.semaphore)
-        {
-            this.removeAllListeners(StatisticsInterface.class);
-            this.replication = initReplication;
-            this.simulatorTime = initReplication.getTreatment().getStartSimTime().copy();
-            this.fireTimedEvent(SimulatorInterface.START_REPLICATION_EVENT, null, this.simulatorTime.get());
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
-            this.replication.getTreatment().getExperiment().getModel().constructModel();
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public void endReplication()
-    {
-        this.stoppingState = true;
-        this.stepState = false;
-        this.fireTimedEvent(SimulatorInterface.STOP_EVENT, null, this.simulatorTime.get());
-        this.fireTimedEvent(SimulatorInterface.END_REPLICATION_EVENT, null, this.simulatorTime.get());
-
-        if (this.simulatorTime.lt(this.getReplication().getTreatment().getEndSimTime()))
-        {
-            Logger.warn("The simulator executes the endReplication method, but the simulation time " + this.simulatorTime.get()
-                    + " is earlier than the replication length " + this.getReplication().getTreatment().getEndSimTime());
-            this.simulatorTime = this.getReplication().getTreatment().getEndSimTime().copy();
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final boolean isRunning()
-    {
-        synchronized (this.semaphore)
-        {
-            return this.worker.isRunning() || this.stepState;
-        }
-    }
-
     /**
-     * The run method defines the actual time step mechanism of the simulator. The implementation of this method depends on the
-     * formalism. Where discrete event formalisms loop over an event list, continuous simulators take predefined time steps.
+     * fireTimedEvent method to be called for a no-payload TimedEvent.
+     * @param event the event to fire at the current time
      */
-    @Override
-    public abstract void run();
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public void start(final boolean fireStartEvent) throws SimRuntimeException
+    protected void fireTimedEvent(final TimedEventType event)
     {
-        System.out.println("Simulator.start: called");
-        if (!this.stoppingState)
-        {
-            throw new SimRuntimeException("Cannot start a running simulator");
-        }
-        if (this.replication == null)
-        {
-            throw new SimRuntimeException("Cannot start a simulator without replication details");
-        }
-        if (this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()))
-        {
-            throw new SimRuntimeException("Cannot start simulator : simulatorTime = runLength");
-        }
-        synchronized (this.semaphore)
-        {
-            this.stoppingState = false;
-            if (fireStartEvent)
-            {
-                this.fireTimedEvent(SimulatorInterface.START_EVENT, null, this.simulatorTime.get());
-            }
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
-
-            if (!Thread.currentThread().getName().equals(this.worker.getName()))
-            {
-                System.out.println("Simulator.start: worker.interrupt()");
-                this.worker.interrupt();
-            }
-            else
-            {
-                System.out.println("Simulator.start: run()");
-                run();
-            }
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public final void start() throws SimRuntimeException
-    {
-        start(true);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public void step(final boolean fireStepEvent) throws SimRuntimeException
-    {
-        // XXX: fire TimeChangedEvent?
-        if (this.isRunning())
-        {
-            throw new SimRuntimeException("Cannot step a running simulator");
-        }
-        if (this.replication == null)
-        {
-            throw new SimRuntimeException("Cannot step a simulator without replication details");
-        }
-        if (this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()))
-        {
-            throw new SimRuntimeException("Cannot step simulator: SimulatorTime = runControl.runLength");
-        }
-        if (fireStepEvent)
-        {
-            this.fireTimedEvent(SimulatorInterface.STEP_EVENT, null, this.simulatorTime.get());
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public final void step() throws SimRuntimeException
-    {
-        step(true);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public void stop(final boolean fireStopEvent) throws SimRuntimeException
-    {
-        if (!this.isRunning())
-        {
-            throw new SimRuntimeException("Cannot stop an already stopped simulator");
-        }
-        this.stoppingState = true;
-        if (fireStopEvent)
-        {
-            this.fireTimedEvent(SimulatorInterface.STOP_EVENT, null, this.simulatorTime.get());
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public final void stop() throws SimRuntimeException
-    {
-        stop(true);
-    }
-
-    /**
-     * Clean up the simulator. Remove the worker thread.
-     */
-    public final void cleanUp()
-    {
-        this.stoppingState = true;
-        this.stepState = false;
-        if (hasListeners())
-        {
-            this.removeAllListeners();
-        }
-        if (this.worker != null)
-        {
-            this.worker.cleanUp();
-        }
-        this.worker = null;
+        fireTimedEvent(event, null, getSimulatorTime());
     }
 
     /**
@@ -410,28 +466,38 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
             {
                 try
                 {
-                    System.out.println("WT Start wait");
                     this.wait(); // as long as possible
-                    System.out.println("WT Stop wait");
                 }
                 catch (InterruptedException interruptedException)
                 {
                     if (!this.finalized)
                     {
-                        this.interrupt(); // set the status to interrupted
+                        this.running.set(true);
+                        //this.interrupt(); // set the status to interrupted
                         try
                         {
-                            this.running.set(true);
-                            System.out.println("WT Start running");
+                            if (!this.job.replicationStarted)
+                            {
+                                this.job.fireTimedEvent(Replication.START_REPLICATION_EVENT);
+                                this.job.replicationStarted = true;
+                            }
+                            this.job.fireTimedEvent(SimulatorInterface.START_EVENT);
+                            this.job.stoppingState = false;
                             this.job.run();
-                            System.out.println("WT Stop running");
-                            this.running.set(false);
+                            this.job.stopImpl();
+                            this.job.fireTimedEvent(SimulatorInterface.STOP_EVENT);
                         }
                         catch (Exception exception)
                         {
                             CategoryLogger.always().error(exception);
+                            exception.printStackTrace();
                         }
-                        Thread.interrupted();
+                        //Thread.interrupted();
+                        this.running.set(false);
+                        if (this.job.replicationEnded)
+                        {
+                            this.job.fireTimedEvent(Replication.END_REPLICATION_EVENT);
+                        }
                     }
                 }
             }

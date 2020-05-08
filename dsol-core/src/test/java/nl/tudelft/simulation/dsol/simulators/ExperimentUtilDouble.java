@@ -65,7 +65,7 @@ public final class ExperimentUtilDouble
     {
         try
         {
-            ExperimentalFrame experimentalFrame = new ExperimentalFrame(null);
+            ExperimentalFrame experimentalFrame = new ExperimentalFrame("test");
             List<Experiment<?, ?, ?, ?>> experiments = new ArrayList<Experiment<?, ?, ?, ?>>();
             for (int i = 0; i < 3; i++)
             {

@@ -5,10 +5,11 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
-import nl.tudelft.simulation.dsol.swing.charts.histogram.Histogram;
-import nl.tudelft.simulation.dsol.swing.charts.histogram.HistogramSeries;
 import org.djutils.event.Event;
 import org.djutils.event.EventType;
+
+import nl.tudelft.simulation.dsol.swing.charts.histogram.Histogram;
+import nl.tudelft.simulation.dsol.swing.charts.histogram.HistogramSeries;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 

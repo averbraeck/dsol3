@@ -22,12 +22,12 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import nl.tudelft.simulation.dsol.logger.SimLogger;
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.Simulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import org.djutils.event.EventInterface;
-import org.djutils.event.EventListenerInterface;
 
 /**
  * <p>

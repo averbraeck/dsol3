@@ -12,6 +12,8 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.event.TimedEventType;
+import org.djutils.metadata.MetaData;
 
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -51,6 +53,17 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
+    /** START_REPLICATION_EVENT is fired when a replication is started. */
+    public static final TimedEventType START_REPLICATION_EVENT =
+            new TimedEventType(new MetaData("START_REPLICATION_EVENT", "Replication started"));
+
+    /** END_REPLICATION_EVENT is fired when a replication is finished. */
+    public static final TimedEventType END_REPLICATION_EVENT =
+            new TimedEventType(new MetaData("END_REPLICATION_EVENT", "Replication ended"));
+
+    /** WARMUP_EVENT is fired when the warmup period is over, and statistics have to be reset. */
+    public static final TimedEventType WARMUP_EVENT = new TimedEventType(new MetaData("WARMUP_EVENT", "warmup time"));
+
     /** streams used in the replication. */
     private Map<String, StreamInterface> streams = new HashMap<String, StreamInterface>();
 
@@ -74,7 +87,6 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
      */
     public Replication(final String id, final Experiment<A, R, T, S> experiment) throws NamingException
     {
-        super();
         this.id = id;
         this.experiment = experiment;
         setContext();
@@ -89,7 +101,6 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
      */
     public Replication(final int id, final Experiment<A, R, T, S> experiment) throws NamingException
     {
-        super();
         this.id = "" + id;
         this.experiment = experiment;
         setContext();

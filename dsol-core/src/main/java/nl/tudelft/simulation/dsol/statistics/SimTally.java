@@ -20,6 +20,7 @@ import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.stats.summarizers.event.EventBasedTally;
 
+import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -81,9 +82,9 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
         }
         else
         {
-            this.simulator.addListener(this, SimulatorInterface.WARMUP_EVENT, ReferenceType.STRONG);
+            this.simulator.addListener(this, Replication.WARMUP_EVENT, ReferenceType.STRONG);
         }
-        this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
+        this.simulator.addListener(this, Replication.END_REPLICATION_EVENT, ReferenceType.STRONG);
         try
         {
             ContextInterface context =
@@ -126,11 +127,11 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
     {
         if (event.getSourceId().equals(this.simulator.getSourceId()))
         {
-            if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
+            if (event.getType().equals(Replication.WARMUP_EVENT))
             {
                 try
                 {
-                    this.simulator.removeListener(this, SimulatorInterface.WARMUP_EVENT);
+                    this.simulator.removeListener(this, Replication.WARMUP_EVENT);
                 }
                 catch (RemoteException exception)
                 {
@@ -140,11 +141,11 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
                 initialize();
                 return;
             }
-            if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
+            if (event.getType().equals(Replication.END_REPLICATION_EVENT))
             {
                 try
                 {
-                    this.simulator.removeListener(this, SimulatorInterface.END_REPLICATION_EVENT);
+                    this.simulator.removeListener(this, Replication.END_REPLICATION_EVENT);
                 }
                 catch (RemoteException exception)
                 {

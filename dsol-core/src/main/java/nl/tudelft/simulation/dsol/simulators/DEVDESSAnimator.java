@@ -118,6 +118,19 @@ public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends N
                     try
                     {
                         event.execute();
+                        if (this.eventList.isEmpty())
+                        {
+                            this.simulatorTime.set(this.runUntilTime);
+                            this.stoppingState = true;
+                            break;
+                        }
+                        int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
+                        if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
+                        {
+                            this.simulatorTime.set(this.runUntilTime);
+                            this.stoppingState = true;
+                            break;
+                        }
                     }
                     catch (Exception exception)
                     {
@@ -129,7 +142,7 @@ public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends N
             {
                 this.simulatorTime = runUntil;
             }
-            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+            this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
         }
         updateAnimation();
         animationThread.stopAnimation();

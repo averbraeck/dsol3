@@ -97,7 +97,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
      */
     public synchronized void add(final EventBasedTimestampWeightedTally tally)
     {
-        tally.addListener(this, StatisticsEvents.WEIGHTED_SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
+        tally.addListener(this, StatisticsEvents.TIMED_WEIGHTED_SAMPLE_MEAN_EVENT, ReferenceType.STRONG);
         this.tallies.add(tally);
     }
 

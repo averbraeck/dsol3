@@ -95,21 +95,27 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
+    protected void stepImpl()
+    {
+        this.simulatorTime = this.simulatorTime.plus(this.timeStep);
+        if (this.simulatorTime.gt(this.replication.getTreatment().getEndSimTime()))
+        {
+            this.simulatorTime = this.replication.getTreatment().getEndSimTime().copy();
+            this.endReplication();
+        }
+        this.fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
+    }
+
+    /** {@inheritDoc} */
+    @Override
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        while (this.simulatorTime.lt(this.replication.getTreatment().getEndSimTime()) && !this.stoppingState)
+        while (this.simulatorTime.get().compareTo(this.runUntilTime) < 0 && !this.stoppingState)
         {
             synchronized (super.semaphore)
             {
-                this.simulatorTime = this.simulatorTime.plus(this.timeStep);
-                if (this.simulatorTime.gt(this.replication.getTreatment().getEndSimTime()))
-                {
-                    this.simulatorTime = this.replication.getTreatment().getEndSimTime().copy();
-                    this.endReplication();
-                }
-                this.fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                        this.simulatorTime.get());
+                stepImpl();
             }
         }
     }

@@ -26,6 +26,7 @@ import org.djutils.event.EventListenerInterface;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DComparator;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
+import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.animation.D2.mouse.InputListener;
@@ -111,7 +112,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
         this.addMouseWheelListener(listener);
         this.addKeyListener(listener);
         simulator.addListener(this, AnimatorInterface.UPDATE_ANIMATION_EVENT);
-        simulator.addListener(this, SimulatorInterface.START_REPLICATION_EVENT);
+        simulator.addListener(this, Replication.START_REPLICATION_EVENT);
     }
 
     /** {@inheritDoc} */
@@ -232,7 +233,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
         }
         
         else if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
-                (event.getType().equals(SimulatorInterface.START_REPLICATION_EVENT))
+                (event.getType().equals(Replication.START_REPLICATION_EVENT))
         {
             synchronized (this.elementList)
             {

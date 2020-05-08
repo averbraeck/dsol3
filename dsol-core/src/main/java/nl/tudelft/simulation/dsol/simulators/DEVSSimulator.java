@@ -7,7 +7,6 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.TimedEvent;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
@@ -280,20 +279,20 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public void step(final boolean fireStepEvent) throws SimRuntimeException
+    protected void stepImpl()
     {
         synchronized (super.semaphore)
         {
-            super.step(fireStepEvent);
             if (!this.eventList.isEmpty())
             {
-                this.stepState = true;
                 SimEventInterface<T> event = this.eventList.removeFirst();
-                this.simulatorTime = event.getAbsoluteExecutionTime();
-                this.fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+                if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
+                {
+                    fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null,
+                            event.getAbsoluteExecutionTime().get());
+                }
+                super.simulatorTime = event.getAbsoluteExecutionTime();
                 event.execute();
-                this.stepState = false;
             }
         }
     }
@@ -303,7 +302,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        System.out.println("DEVSSimulator.run: started");
         while (!this.stoppingState)
         {
             synchronized (super.semaphore)
@@ -311,13 +309,26 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
                 SimEventInterface<T> event = this.eventList.removeFirst();
                 if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
                 {
-                    fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                    fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null,
                             event.getAbsoluteExecutionTime().get());
                 }
                 super.simulatorTime = event.getAbsoluteExecutionTime();
                 try
                 {
                     event.execute();
+                    if (this.eventList.isEmpty())
+                    {
+                        this.simulatorTime.set(this.runUntilTime);
+                        this.stoppingState = true;
+                        break;
+                    }
+                    int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
+                    if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
+                    {
+                        this.simulatorTime.set(this.runUntilTime);
+                        this.stoppingState = true;
+                        break;
+                    }
                 }
                 catch (Exception exception)
                 {
@@ -326,7 +337,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
                     {
                         try
                         {
-                            this.stop();
+                            this.stopImpl();
                         }
                         catch (SimRuntimeException stopException)
                         {
@@ -336,7 +347,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
                 }
             }
         }
-        System.out.println("DEVSSimulator.run: ended");
     }
 
     /** {@inheritDoc} */
@@ -347,61 +357,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
         System.out.println("END_REPLICATION");
         super.endReplication();
         this.eventList.clear();
-    }
-
-    /**
-     * Fire the WARMUP event to clear the statistics after the warmup period.
-     */
-    public void warmup()
-    {
-        fireTimedEvent(SimulatorInterface.WARMUP_EVENT, null, getSimulatorTime());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public void runUpTo(final A when) throws SimRuntimeException
-    {
-        scheduleEventAbs(when, SimEventInterface.MAX_PRIORITY, this, this, "autoPauseSimulator", null);
-        if (!isRunning())
-        {
-            start();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public void runUpToAndIncluding(final A when) throws SimRuntimeException
-    {
-        scheduleEventAbs(when, SimEventInterface.MIN_PRIORITY, this, this, "autoPauseSimulator", null);
-        if (!isRunning())
-        {
-            start();
-        }
-    }
-
-    /**
-     * Pause the simulator.
-     */
-    @SuppressWarnings("checkstyle:designforextension")
-    protected void autoPauseSimulator()
-    {
-        if (isRunning())
-        {
-            try
-            {
-                this.stop();
-            }
-            catch (SimRuntimeException stopException)
-            {
-                getLogger().always().error(stopException);
-            }
-        }
     }
 
     /** {@inheritDoc} */

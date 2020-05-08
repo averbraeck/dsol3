@@ -5,6 +5,45 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.05" date="2020-05-08" description="run until fixed, expiriment / replication flow">
+      <action dev="averbraeck" type="fix">
+        Fixed a bug where the run thread of the simulator / animator does not start very briefly after it has
+        been stopped, since it is possible that the worker thread has not yet stopped while the stop() method
+        has already returned. 
+      </action>
+      <action dev="averbraeck" type="fix">
+        Fixed the way how experiments and replications are triggered and advanced. The old way was to start at 
+        experiment number -1, and replication number -1, and trigger an END_OF_EXPERIMENT_EVENT and an
+        END_OF_REPLICATION_EVENT at the start to advance the experiment and replication both to 0. This
+        has been replaced by a proper start that also triggers the right events.   
+      </action>
+      <action dev="averbraeck" type="add">
+        Events for starting and stopping the simulation have been split into a STARTING_EVENT (Event) that 
+        indicates that an external thread has asked to start the simulator, and a START_EVENT (TimedEvent)
+        that indicates that the run() method of the simulation has actually started. Same for the 
+        STOPPING_EVENT (Event) and the STOP_EVENT (TimedEvent).    
+      </action>
+      <action dev="averbraeck" type="fix">
+        The way events are fired from the Simulator has been made much more precise. Start, stop, end_replication
+        and other events are fired as close as possible to the actual state change that happens. Double firing
+        of events is prevented as much as possible.      
+      </action>
+      <action dev="averbraeck" type="remove">
+        The methods for the simulator start(boolean), step(boolean) and stop(boolean) have been removed. These
+        methods could indicate not to fire a START, STEP or STOP event. Since sending these events is part
+        of the contract for a simulator, the option to not send them has been removed. Instead, startImpl(),
+        stepImpl() and stopImpl() have been created that just do the work without firing events that belong
+        to the user interface thread.
+      </action>
+      <action dev="averbraeck" type="update">
+        The START_REPLICATION_EVENT, WARMUP_EVENT and END_REPLICATION_EVENT are now defined in the Replication  
+        rather than in the SimulatorInterface.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Fixed the BoxAndWhiskerPlot for not listening to TIMED event for timed, weighted tally.      
+      </action>
+    </release>
+
     <release version="3.04.04" date="2020-05-07" description="event metadata added, differential equations">
       <action dev="averbraeck" type="update">
         Updated djutils to 1.05.01, where events have metadata, and TimedEvents are separated from non-timed 
