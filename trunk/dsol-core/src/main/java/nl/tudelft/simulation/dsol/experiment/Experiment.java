@@ -15,12 +15,12 @@ import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventProducer;
 import org.djutils.event.EventType;
-import org.djutils.event.TimedEvent;
 import org.djutils.event.ref.ReferenceType;
+import org.djutils.exceptions.Throw;
 import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
 
-import nl.tudelft.simulation.dsol.logger.Cat;
+import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
@@ -58,9 +58,13 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** END_OF_EXPERIMENT_EVENT is fired when the experiment is ended. */
-    public static final EventType END_OF_EXPERIMENT_EVENT =
-            new EventType(new MetaData("END_OF_EXPERIMENT_EVENT", "End of experiment", new ObjectDescriptor[] {}));
+    /** START_EXPERIMENT_EVENT is fired when the experiment starts. */
+    public static final EventType START_EXPERIMENT_EVENT =
+            new EventType(new MetaData("START_EXPERIMENT_EVENT", "Start of experiment"));
+
+    /** END_EXPERIMENT_EVENT is fired when the experiment is ended. */
+    public static final EventType END_EXPERIMENT_EVENT =
+            new EventType(new MetaData("END_EXPERIMENT_EVENT", "End of experiment"));
 
     /** MODEL_CHANGED_EVENT is fired whenever the model is changed. */
     public static final EventType MODEL_CHANGED_EVENT = new EventType(new MetaData("MODEL_CHANGED_EVENT", "Model changed",
@@ -92,7 +96,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     /** the current replication. */
     private int currentReplication = -1;
 
-    /** are we already subscribed to the END_OF_REPLICATION_EVENT. */
+    /** are we already subscribed to the END_REPLICATION_EVENT. */
     private boolean subscribed = false;
 
     /** the context. */
@@ -107,10 +111,11 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     }
 
     /**
-     * constructs a new Experiment.
+     * Construct a new Experiment.
      * @param treatment Treatment&lt;A,R,T&gt;; the treatment for this experiment
      * @param simulator S; the simulator
      * @param model DSOLModel&lt;A, R, T, S&gt;; the model to experiment with
+     * @throws NullPointerException when treatment, simulator or model is null
      */
     public Experiment(final Treatment<A, R, T> treatment, final S simulator, final DSOLModel<A, R, T, S> model)
     {
@@ -127,17 +132,22 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     }
 
     /**
-     * sets the simulator.
+     * Set the simulator.
      * @param simulator S; the simulator
+     * @throws NullPointerException when simulator is null
      */
     public final synchronized void setSimulator(final S simulator)
     {
+        Throw.whenNull(simulator, "Experiment.setSimulator: simulator cannot be null");
+        if (this.simulator != null)
+        {
+            this.fireEvent(SIMULATOR_CHANGED_EVENT, simulator);
+        }
         this.simulator = simulator;
-        this.fireEvent(SIMULATOR_CHANGED_EVENT, simulator);
     }
 
     /**
-     * returns the simulator.
+     * Return the simulator.
      * @return SimulatorInterface
      */
     public final S getSimulator()
@@ -146,7 +156,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     }
 
     /**
-     * returns the model.
+     * Return the model.
      * @return DSOLModel the model
      */
     public DSOLModel<A, R, T, S> getModel()
@@ -155,7 +165,8 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     }
 
     /**
-     * @return Returns the replications.
+     * Return the list of replications.
+     * @return List&lt;Replication&lt;A, R, T, S&gt;&gt;; the list of replications
      */
     public final List<? extends Replication<A, R, T, S>> getReplications()
     {
@@ -163,28 +174,53 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     }
 
     /**
+     * Set the list of replications.
      * @param replications List&lt;? extends Replication&lt;A, R, T, S&gt;&gt;; The replications to set.
+     * @throws NullPointerException when the list of replications is null
+     * @throws IllegalArgumentException when the list of replications is empty
      */
     public final void setReplications(final List<? extends Replication<A, R, T, S>> replications)
     {
+        Throw.whenNull(replications, "Experiment: list of replications cannot be null");
+        Throw.when(replications.isEmpty(), IllegalArgumentException.class, "Experiment: list of replications cannot be empty");
         this.replications = replications;
     }
 
     /**
      * starts the experiment on a simulator.
+     * @throws RemoteException on netowrk error if started by RMI
+     * @throws SimRuntimeException when there are no more replications to run, or when the simulator is already running
      */
-    @SuppressWarnings("checkstyle:designforextension")
-    public synchronized void start()
+    public synchronized void start() throws RemoteException
     {
-        try
+        Throw.when(this.currentReplication >= this.replications.size(), SimRuntimeException.class,
+                "Experiment: No more replications");
+        Throw.when(this.simulator.isRunning(), SimRuntimeException.class,
+                "Simulator for experiment running -- ExperimentalFrame cannot be started");
+        startNextReplication();
+    }
+
+    /**
+     * Start the next replication from the list of replications, or fire END_EXPERIMENT_EVENT when there are no more
+     * non-executed replications.
+     * @throws RemoteException on netowrk error if started by RMI
+     */
+    private void startNextReplication() throws RemoteException
+    {
+        if (this.currentReplication < (this.replications.size() - 1))
         {
-            // XXX: Should not be fired here! Nothing has ended!
-            this.notify(new TimedEvent<A>(SimulatorInterface.END_REPLICATION_EVENT, this.simulator.getSourceId(), null,
-                    getSimulator().getSimulatorTime()));
+            // we can run the next replication
+            this.currentReplication++;
+            Replication<A, R, T, S> replication = this.replications.get(this.currentReplication);
+            this.simulator.addListener(this, Replication.END_REPLICATION_EVENT, ReferenceType.STRONG);
+            this.fireEvent(Experiment.START_EXPERIMENT_EVENT, null);
+            this.simulator.initialize(replication, this.treatment.getReplicationMode());
+            this.simulator.start();
         }
-        catch (RemoteException remoteException)
+        else
         {
-            getSimulator().getLogger().always().warn(remoteException, "notify");
+            // There is no experiment to run anymore
+            this.fireEvent(Experiment.END_EXPERIMENT_EVENT, null);
         }
     }
 
@@ -195,32 +231,12 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     {
         if (!this.subscribed)
         {
-            this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
+            this.simulator.addListener(this, Replication.END_REPLICATION_EVENT, ReferenceType.STRONG);
             this.subscribed = true;
         }
-        if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
+        if (event.getType().equals(Replication.END_REPLICATION_EVENT))
         {
-            if (this.currentReplication < (this.getReplications().size() - 1))
-            {
-                // we can run the next replication
-                try
-                {
-                    this.currentReplication++;
-                    Replication<A, R, T, S> next = this.getReplications().get(this.currentReplication);
-                    this.simulator.initialize(next, this.treatment.getReplicationMode());
-                    this.simulator.start();
-                }
-                catch (Exception exception)
-                {
-                    getSimulator().getLogger().always().error(exception);
-                }
-            }
-            else
-            {
-                getSimulator().getLogger().filter(Cat.DSOL).debug("Last replication carried out");
-                // There is no experiment to run anymore
-                this.fireEvent(Experiment.END_OF_EXPERIMENT_EVENT);
-            }
+            startNextReplication();
         }
     }
 
@@ -230,8 +246,12 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      */
     public final synchronized void setModel(final DSOLModel<A, R, T, S> model)
     {
+        Throw.whenNull(model, "Experiment.setModel: model cannot be null");
+        if (this.model != null)
+        {
+            this.fireEvent(MODEL_CHANGED_EVENT, model);
+        }
         this.model = model;
-        this.fireEvent(MODEL_CHANGED_EVENT, model);
     }
 
     /**
@@ -248,6 +268,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      */
     public final void setTreatment(final Treatment<A, R, T> treatment)
     {
+        Throw.whenNull(treatment, "Experiment.setTreatment: treatment cannot be null");
         this.treatment = treatment;
     }
 
@@ -300,6 +321,14 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     public final void setAnalyst(final String analyst)
     {
         this.analyst = analyst;
+    }
+
+    /**
+     * @return currentReplication
+     */
+    public final int getCurrentReplication()
+    {
+        return this.currentReplication;
     }
 
     /**

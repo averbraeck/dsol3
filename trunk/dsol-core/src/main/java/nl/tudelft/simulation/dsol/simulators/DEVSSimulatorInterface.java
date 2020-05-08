@@ -258,20 +258,6 @@ public interface DEVSSimulatorInterface<A extends Comparable<A> & Serializable, 
      */
     void setEventList(EventListInterface<T> eventList) throws SimRuntimeException;
 
-    /**
-     * Runs the simulator up to a certain time; events at that time will not yet be executed.
-     * @param when A; the absolute time till when we want to run the simulation
-     * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
-     */
-    void runUpTo(A when) throws SimRuntimeException;
-
-    /**
-     * Runs the simulator up to a certain time; events at that time will not yet be executed.
-     * @param when A; the absolute time till when we want to run the simulation
-     * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
-     */
-    void runUpToAndIncluding(A when) throws SimRuntimeException;
-
     /** @return pauseOnError whether we pause on an error or not. */
     boolean isPauseOnError();
 

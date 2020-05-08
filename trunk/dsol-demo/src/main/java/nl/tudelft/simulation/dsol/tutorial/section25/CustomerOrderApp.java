@@ -10,7 +10,6 @@ import org.djutils.event.EventListenerInterface;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * A Simple console app to run the Customer-Order model.
@@ -39,7 +38,7 @@ public final class CustomerOrderApp implements EventListenerInterface
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
-        simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
+        simulator.addListener(this, Replication.END_REPLICATION_EVENT);
         simulator.start();
     }
 
@@ -47,7 +46,7 @@ public final class CustomerOrderApp implements EventListenerInterface
     @Override
     public void notify(final EventInterface event) throws RemoteException
     {
-        if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
+        if (event.getType().equals(Replication.END_REPLICATION_EVENT))
         {
             System.exit(0);
         }

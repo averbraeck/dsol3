@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import net.jodah.concurrentunit.Waiter;
 import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
+import nl.tudelft.simulation.dsol.experiment.Replication;
 
 /**
  * The DEVSSimulatorTest test the DEVS Simulator.
@@ -42,11 +43,11 @@ public class DEVSSimulatorTest implements EventListenerInterface
     {
         this.waiter = new Waiter();
         DEVSSimulatorInterface.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble("DEVSSimulatorTest");
-        devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
+        devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
         ExperimentalFrame experimentalFrame =
                 ExperimentUtilDouble.createExperimentalFrame(devsSimulator, new DEVSTestModel(devsSimulator));
         experimentalFrame.start();
-        this.waiter.await();
+        this.waiter.await(5000);
     }
 
     /** {@inheritDoc} */

@@ -76,7 +76,7 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
             charts.setCell(qNVal.getSwingPanel(), 0, 1);
 
             XYChart qN = new XYChart(this.simulator, "avg queue length").setLabelXAxis("time (s)").setLabelYAxis("avg qN");
-            qN.add("qN mean", model.qN, StatisticsEvents.WEIGHTED_SAMPLE_MEAN_EVENT);
+            qN.add("qN mean", model.qN, StatisticsEvents.TIMED_WEIGHTED_SAMPLE_MEAN_EVENT);
             charts.setCell(qN.getSwingPanel(), 1, 1);
 
             BoxAndWhiskerChart bwqN = new BoxAndWhiskerChart(this.simulator, "qN boxplot");
@@ -94,7 +94,7 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
 
             XYChart meanUtilization =
                     new XYChart(this.simulator, "avg utilization (uN)").setLabelXAxis("time (s)").setLabelYAxis("avg uN");
-            meanUtilization.add("mean utilization", model.uN, StatisticsEvents.WEIGHTED_SAMPLE_MEAN_EVENT);
+            meanUtilization.add("mean utilization", model.uN, StatisticsEvents.TIMED_WEIGHTED_SAMPLE_MEAN_EVENT);
             charts.setCell(meanUtilization.getSwingPanel(), 1, 2);
 
             BoxAndWhiskerChart bwuN = new BoxAndWhiskerChart(this.simulator, "uN boxplot");

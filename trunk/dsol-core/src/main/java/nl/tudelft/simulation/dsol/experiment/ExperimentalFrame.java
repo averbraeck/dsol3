@@ -1,23 +1,24 @@
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
 
-import org.djutils.event.Event;
+import org.djunits.Throw;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventProducer;
 import org.djutils.event.EventType;
 import org.djutils.event.ref.ReferenceType;
-import org.djutils.logger.CategoryLogger;
 import org.djutils.metadata.MetaData;
-import org.djutils.metadata.ObjectDescriptor;
+
+import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
- * The Experimental frame specifies the set of experiments to run.
+ * The Experimental frame specifies a set of experiments to run. The ExperimentalFrame has a start() method that executes all
+ * experiments in the frame. The reset() method allows for a full reset, after which the experiments can be started again.
  * <p>
  * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -32,10 +33,13 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
-    /** END_OF_EXPERIMENTALFRAME_EVENT is fired when the experimental frame is ended. */
-    public static final EventType END_OF_EXPERIMENTALFRAME_EVENT =
-            new EventType(new MetaData("END_OF_EXPERIMENTALFRAME_EVENT", "End of experimental frame",
-                    new ObjectDescriptor("hasEnded", "boolean to indicate whether frame has ended", Boolean.class)));
+    /** START_EXPERIMENTALFRAME_EVENT is fired when the experimental frame is started. */
+    public static final EventType START_EXPERIMENTALFRAME_EVENT =
+            new EventType(new MetaData("START_EXPERIMENTALFRAME_EVENT", "Start of experimental frame"));
+
+    /** END_EXPERIMENTALFRAME_EVENT is fired when the experimental frame is ended. */
+    public static final EventType END_EXPERIMENTALFRAME_EVENT =
+            new EventType(new MetaData("END_EXPERIMENTALFRAME_EVENT", "End of experimental frame"));
 
     /** the list of experiments defined in this experimental frame. */
     private List<? extends Experiment<?, ?, ?, ?>> experiments = null;
@@ -43,30 +47,18 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     /** the current experiment. */
     private int currentExperiment = -1;
 
-    /** the URL where we can find this experimentalFrame. */
-    private URL url = null;
-
     /** the id of the set of experiments. */
     private final Serializable id;
 
     /**
-     * constructs a new ExperimentalFrame.
+     * Construct a new ExperimentalFrame.
      * @param id Serializable; the id of the set of experiments
+     * @throws NullPointerException when id is null
      */
     public ExperimentalFrame(final Serializable id)
     {
-        this(id, null);
-    }
-
-    /**
-     * constructs a new Experimental frame.
-     * @param id Serializable; the id of the set of experiments
-     * @param url URL; the url of the experimental frame
-     */
-    public ExperimentalFrame(final Serializable id, final URL url)
-    {
+        Throw.whenNull(id, "ExperimentalFrame needs a valid id");
         this.id = id;
-        this.url = url;
     }
 
     /** {@inheritDoc} */
@@ -107,7 +99,8 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     }
 
     /**
-     * @return Returns the experiments.
+     * Returns the experiments.
+     * @return List&lt;? extends Experiment&lt;?, ?, ?, ?&gt;&gt;; the experiments.
      */
     public final List<? extends Experiment<?, ?, ?, ?>> getExperiments()
     {
@@ -116,13 +109,19 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
 
     /**
      * @param experiments List&lt;? extends Experiment&lt;?, ?, ?, ?&gt;&gt;; The experiments to set.
+     * @throws NullPointerException on a null list of experiments, or a null experiment in the list
+     * @throws IllegalArgumentException on an empty list of experiments
      */
     public final void setExperiments(final List<? extends Experiment<?, ?, ?, ?>> experiments)
     {
+        Throw.whenNull(experiments, "ExperimentalFrame does not accept a null list of experiments");
+        Throw.when(experiments.isEmpty(), IllegalArgumentException.class,
+                "ExperimentalFrame does not accept an empty list of experiments");
         this.experiments = experiments;
         int i = 0;
         for (Experiment<?, ?, ?, ?> experiment : experiments)
         {
+            Throw.whenNull(experiment, "ExperimentalFrame: null experiment in experiment list");
             if (experiment.getDescription() == null)
             {
                 experiment.setDescription("Exp " + i++);
@@ -135,39 +134,66 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
     }
 
     /**
-     * starts the experiment on a simulator.
+     * Start the next experiment from the list of experiments, or fire END_EXPERIMENTALFRAME_EVENT when there are no more
+     * non-executed experiments.
+     * @throws RemoteException on network error when using RMI
      */
-    public final synchronized void start()
+    private void startNextExperiment() throws RemoteException
     {
-        try
+        if (this.hasNext())
         {
-            this.notify(new Event(Experiment.END_OF_EXPERIMENT_EVENT, getSourceId(), null));
+            // we can run the next experiment
+            Experiment<?, ?, ?, ?> next = this.next();
+            next.addListener(this, Experiment.END_EXPERIMENT_EVENT, ReferenceType.STRONG);
+            this.fireEvent(ExperimentalFrame.START_EXPERIMENTALFRAME_EVENT, null);
+            next.start();
         }
-        catch (RemoteException remoteException)
+        else
         {
-            CategoryLogger.always().warn(remoteException, "start");
+            // There is no experiment to run anymore
+            this.fireEvent(ExperimentalFrame.END_EXPERIMENTALFRAME_EVENT, null);
         }
+    }
+
+    /**
+     * starts the experiment on a simulator.
+     * @throws RemoteException on network error when using RMI
+     * @throws SimRuntimeException when there are no more experiments to run, or when the simulator is already running
+     */
+    public final synchronized void start() throws RemoteException
+    {
+        Throw.when(this.currentExperiment >= this.experiments.size(), SimRuntimeException.class,
+                "ExperimentalFrame: No more experiments");
+        if (this.currentExperiment >= 0)
+        {
+            Experiment<?, ?, ?, ?> experiment = this.experiments.get(this.currentExperiment);
+            SimulatorInterface<?, ?, ?> simulator = experiment.getSimulator();
+            Throw.when(simulator.isRunning(), SimRuntimeException.class,
+                    "Simulator for experiment running -- ExperimentalFrame cannot be started");
+        }
+        startNextExperiment();
+    }
+
+    /**
+     * resets the experimentalFrame.
+     */
+    public final void reset()
+    {
+        for (Experiment<?, ?, ?, ?> experiment : this.experiments)
+        {
+            experiment.reset();
+        }
+        this.currentExperiment = -1;
     }
 
     /** {@inheritDoc} */
     @Override
     public final void notify(final EventInterface event) throws RemoteException
     {
-        if (event.getType().equals(Experiment.END_OF_EXPERIMENT_EVENT))
+        if (event.getType().equals(Experiment.END_EXPERIMENT_EVENT))
         {
-            // TODO: ((EventProducerInterface) event.getSourceId()).removeListener(this, Experiment.END_OF_EXPERIMENT_EVENT);
-            if (this.hasNext())
-            {
-                // we can run the next experiment
-                Experiment<?, ?, ?, ?> next = this.next();
-                next.addListener(this, Experiment.END_OF_EXPERIMENT_EVENT, ReferenceType.STRONG);
-                next.start();
-            }
-            else
-            {
-                // There is no experiment to run anymore
-                this.fireEvent(ExperimentalFrame.END_OF_EXPERIMENTALFRAME_EVENT, true);
-            }
+            this.experiments.get(this.currentExperiment).removeListener(this, Experiment.END_EXPERIMENT_EVENT);
+            startNextExperiment();
         }
     }
 
@@ -184,35 +210,6 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
             result = result + "\n [Experiment=" + experiment.toString();
         }
         return result;
-    }
-
-    /**
-     * @return Returns the url.
-     */
-    public final URL getUrl()
-    {
-        return this.url;
-    }
-
-    /**
-     * sets the url of this experimentalframe.
-     * @param url URL; The url to set.
-     */
-    public final void setUrl(final URL url)
-    {
-        this.url = url;
-    }
-
-    /**
-     * resets the experimentalFrame.
-     */
-    public final void reset()
-    {
-        for (Experiment<?, ?, ?, ?> experiment : this.experiments)
-        {
-            experiment.reset();
-        }
-        this.currentExperiment = -1;
     }
 
 }

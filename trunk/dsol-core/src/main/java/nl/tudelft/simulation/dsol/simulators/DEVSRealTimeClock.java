@@ -266,6 +266,19 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
                         try
                         {
                             nextEvent.execute();
+                            if (this.eventList.isEmpty())
+                            {
+                                this.simulatorTime.set(this.runUntilTime);
+                                this.stoppingState = true;
+                                break;
+                            }
+                            int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
+                            if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
+                            {
+                                this.simulatorTime.set(this.runUntilTime);
+                                this.stoppingState = true;
+                                break;
+                            }
                         }
                         catch (Exception exception)
                         {
@@ -291,7 +304,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
                 }
             }
         }
-        fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime, this.simulatorTime.get());
+        fireTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
 
         synchronized (this.animation)
         {

@@ -17,7 +17,6 @@ import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistUniform;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
@@ -52,7 +51,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
     {
         this.waiter = new Waiter();
         this.devsSimulator = new DEVSSimulator.TimeDouble("testDEVSSimulationDouble");
-        this.devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
+        this.devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
@@ -93,7 +92,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
     {
         this.waiter = new Waiter();
         this.devsSimulator = new DEVSSimulator.TimeDouble("testRunUpTo");
-        this.devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
+        this.devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
@@ -109,7 +108,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
             {
                 StreamInterface stream = new MersenneTwister();
                 DistContinuous dist = new DistUniform(stream, 0, 1000);
-                for (int i = 0; i < 100000; i++)
+                for (int i = 0; i < 10000; i++)
                 {
                     double time = dist.draw();
                     sim.scheduleEventAbs(time, this, target, "doWork", new Object[] {time});
@@ -119,7 +118,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
                     System.out.println(t);
                     try
                     {
-                        Thread.sleep(100);
+                        Thread.sleep(1);
                     }
                     catch (InterruptedException exception)
                     {
@@ -145,11 +144,11 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
                 sim.start();
             }
         }).start();
-        this.waiter.await(15000);
+        this.waiter.await(30000);
     }
 
     /** the distribution for the work time. 1 in 1000 events take 0.1 sec. */
-    private DistContinuous workTimeDist = new DistUniform(new MersenneTwister(200L), 0, 1000);
+    private DistContinuous workTimeDist = new DistUniform(new MersenneTwister(200L), 0, 100);
 
     /**
      * do some work.
@@ -158,17 +157,18 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
     protected void doWork(final double time)
     {
         this.waiter.assertEquals(time, this.devsSimulator.getSimulatorTime(), 0.0001);
-        // sometimes the work takes time: 1 in 1000 events takes 0.1 sec
-        // there are 100000 events; 100 * 0.1 sec = 10 sec
+        // sometimes the work takes time: 1 in 100 events takes 0.1 sec
+        // there are 10000 events; 100 * 0.1 sec = 10 sec
         try
         {
-            if ((int) this.workTimeDist.draw() == 500)
+            if ((int) this.workTimeDist.draw() == 50)
             {
                 Thread.sleep(100);
             }
         }
         catch (InterruptedException exception)
         {
+            exception.printStackTrace();
             System.err.println("Interrupt doWork!");
             this.waiter.fail("doWork interrupted");
         }
@@ -187,7 +187,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
     {
         this.waiter = new Waiter();
         this.devsSimulator = new DEVSSimulator.TimeDouble("testSimLambda");
-        this.devsSimulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT);
+        this.devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);

@@ -21,6 +21,7 @@ import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.stats.summarizers.event.EventBasedTally;
 import org.djutils.stats.summarizers.event.EventBasedTimestampWeightedTally;
 
+import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
@@ -82,10 +83,10 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         }
         else
         {
-            this.simulator.addListener(this, SimulatorInterface.WARMUP_EVENT, EventProducerInterface.FIRST_POSITION,
+            this.simulator.addListener(this, Replication.WARMUP_EVENT, EventProducerInterface.FIRST_POSITION,
                     ReferenceType.STRONG);
         }
-        this.simulator.addListener(this, SimulatorInterface.END_REPLICATION_EVENT, EventProducerInterface.FIRST_POSITION,
+        this.simulator.addListener(this, Replication.END_REPLICATION_EVENT, EventProducerInterface.FIRST_POSITION,
                 ReferenceType.STRONG);
         try
         {
@@ -121,11 +122,11 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
     {
         if (event.getSourceId().equals(this.simulator.getSourceId()))
         {
-            if (event.getType().equals(SimulatorInterface.WARMUP_EVENT))
+            if (event.getType().equals(Replication.WARMUP_EVENT))
             {
                 try
                 {
-                    this.simulator.removeListener(this, SimulatorInterface.WARMUP_EVENT);
+                    this.simulator.removeListener(this, Replication.WARMUP_EVENT);
                 }
                 catch (RemoteException exception)
                 {
@@ -136,7 +137,7 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                 super.initialize();
                 return;
             }
-            if (event.getType().equals(SimulatorInterface.END_REPLICATION_EVENT))
+            if (event.getType().equals(Replication.END_REPLICATION_EVENT))
             {
                 Object endTime = this.simulator.getSimulatorTime();
                 if (endTime instanceof Calendar)
@@ -154,7 +155,7 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                 }
                 try
                 {
-                    this.simulator.removeListener(this, SimulatorInterface.END_REPLICATION_EVENT);
+                    this.simulator.removeListener(this, Replication.END_REPLICATION_EVENT);
                 }
                 catch (RemoteException exception)
                 {
