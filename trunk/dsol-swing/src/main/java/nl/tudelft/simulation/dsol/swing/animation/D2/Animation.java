@@ -26,7 +26,7 @@ public class Animation
             boolean running = false;
             try
             {
-                if (simulator.isRunning())
+                if (simulator.isStartingOrRunning())
                 {
                     running = true;
                     simulator.stop();

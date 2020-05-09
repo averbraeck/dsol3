@@ -195,7 +195,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     {
         Throw.when(this.currentReplication >= this.replications.size(), SimRuntimeException.class,
                 "Experiment: No more replications");
-        Throw.when(this.simulator.isRunning(), SimRuntimeException.class,
+        Throw.when(this.simulator.isStartingOrRunning(), SimRuntimeException.class,
                 "Simulator for experiment running -- ExperimentalFrame cannot be started");
         startNextReplication();
     }

@@ -118,7 +118,7 @@ public class DEVSRealTimeClockTestDouble implements EventListenerInterface
                 {
                     System.out.println(t);
                     sim.runUpTo(t);
-                    while (sim.isRunning())
+                    while (sim.isStartingOrRunning())
                     {
                         try
                         {

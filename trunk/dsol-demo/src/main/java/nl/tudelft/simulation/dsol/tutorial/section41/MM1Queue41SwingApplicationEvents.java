@@ -112,7 +112,6 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
             devsSimulator.addListener(this, Replication.START_REPLICATION_EVENT);
             devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
             devsSimulator.addListener(this, SimulatorInterface.START_EVENT);
-            devsSimulator.addListener(this, SimulatorInterface.STEP_EVENT);
             devsSimulator.addListener(this, SimulatorInterface.STOP_EVENT);
             devsSimulator.addListener(this, Replication.WARMUP_EVENT);
             devsSimulator.addListener(this, SimulatorInterface.TIME_CHANGED_EVENT);

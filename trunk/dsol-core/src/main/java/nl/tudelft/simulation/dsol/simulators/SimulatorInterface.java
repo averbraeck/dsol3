@@ -94,9 +94,6 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
     /** START_EVENT is fired when the simulator is started. */
     TimedEventType START_EVENT = new TimedEventType(new MetaData("START_EVENT", "simulator started"));
 
-    /** STEP_EVENT is fired when the simulator is stepped. */
-    TimedEventType STEP_EVENT = new TimedEventType(new MetaData("STEP_EVENT", "simulator stepped"));
-
     /** STOPPING_EVENT is fired when the simulator.stop() method is called (the run() method still needs to be stopped). */
     EventType STOPPING_EVENT = new EventType(new MetaData("STOPPING_EVENT", "simulator stopping"));
 
@@ -136,12 +133,6 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
      */
     void initialize(Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> replication, ReplicationMode replicationMode)
             throws SimRuntimeException;
-
-    /**
-     * Return whether the simulator is running.
-     * @return boolean; whether the simulator is running or not
-     */
-    boolean isRunning();
 
     /**
      * Starts the simulator, and fire a START_EVENT that the simulator was started. Note that when the simulator was already
@@ -190,6 +181,48 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
     /** {@inheritDoc} */
     @Override
     Serializable getSourceId();
+
+    /**
+     * Get the run state of the simulator.
+     * @return RunState; the run state of the simulator
+     */
+    RunState getRunState();
+
+    /**
+     * isInitialized is true from the moment that the Simulator has been initialized with the Replication till the moment that
+     * the replication has ended.
+     * @return boolean; whether the Simulator has been initialized with a Replication
+     */
+    default boolean isInitialized()
+    {
+        return getRunState() != RunState.NOT_INITIALIZED;
+    }
+
+    /**
+     * isStartingOrRunning is true between the moment the start has been initiated, till the moment the stop has been initiated.
+     * It includes the STARTING state and the STARTED state.
+     * @return boolean; whether the Simulator has been started or has successfully started, and has not yet been stopped
+     */
+    default boolean isStartingOrRunning()
+    {
+        return getRunState() == RunState.STARTED || getRunState() == RunState.STARTING;
+    }
+
+    /**
+     * isStoppingOrStopped is true for all states where it has not been started or it is not running. It includes all states 
+     * except the STARTING state and the STARTED state.
+     * @return boolean; whether the Simulator has not been started and is not running
+     */
+    default boolean isStoppingOrStopped()
+    {
+        return !isStartingOrRunning();
+    }
+
+    /**
+     * Get the replication state of the simulator.
+     * @return ReplicationState; the replication state of the simulator
+     */
+    ReplicationState getReplicationState();
 
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/

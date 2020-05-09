@@ -5,6 +5,25 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.06" date="2020-05-09" description="state machine for the simulators">
+      <action dev="averbraeck" type="remove">
+        Took out the STEP_EVENT. Instead, the step follows the same rule as normal running: the START_EVENT
+        and the STOP_EVENT are fired before/after the execution of the step.  
+      </action>
+      <action dev="averbraeck" type="fix">
+        More clear contract for the old isRunning() method. Created a RunState class and a method 
+        getRunState() that is much more precise in the state of the simulator: NOT_INITIALIZED, INITIALIZED,
+        STARTING, STARTED, STOPPING, STOPPED, ENDED with more precise methods: isStartingOrRunning(), 
+        isStoppingOrStopped(). The Simulator now implements a clear state machine for the run state.
+      </action>
+      <action dev="averbraeck" type="add">
+        Created a clear contract for the Replication state. Created a ReplicationState class and a method 
+        getReplicationState() that is precise in the state of the replication within simulator: 
+        NOT_INITIALIZED, INITIALIZED, STARTED, ENDING, ENDED. The Simulator implements a clear state machine 
+        for the replication state.
+      </action>
+    </release>
+    
     <release version="3.04.05" date="2020-05-08" description="run until fixed, expiriment / replication flow">
       <action dev="averbraeck" type="fix">
         Fixed a bug where the run thread of the simulator / animator does not start very briefly after it has

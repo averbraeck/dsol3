@@ -85,10 +85,10 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
     {
         AnimationThread animationThread = new AnimationThread(this);
         animationThread.start();
-        while (!this.stoppingState && !this.eventList.isEmpty()
+        while (!isStoppingOrStopped() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
-            while (!this.eventList.isEmpty() && !this.stoppingState)
+            while (!this.eventList.isEmpty() && !isStoppingOrStopped())
             {
                 synchronized (super.semaphore)
                 {
@@ -105,14 +105,14 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
                         if (this.eventList.isEmpty())
                         {
                             this.simulatorTime.set(this.runUntilTime);
-                            this.stoppingState = true;
+                            this.runState = RunState.STOPPING;
                             break;
                         }
                         int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
                         if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
                         {
                             this.simulatorTime.set(this.runUntilTime);
-                            this.stoppingState = true;
+                            this.runState = RunState.STOPPING;
                             break;
                         }
                     }
@@ -123,6 +123,7 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
                         {
                             try
                             {
+                                this.runState = RunState.STOPPING;
                                 this.stop();
                             }
                             catch (SimRuntimeException stopException)

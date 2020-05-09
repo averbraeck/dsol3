@@ -66,35 +66,13 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected boolean runUntilIncluding = true;
 
-    /**
-     * stoppingState indicates whether the simulator has prepared for a stop. The simulator might keep running for a while after
-     * the stop has been announced, especially in real-time simulators where sleeps can occur in the run thread. The method
-     * isRunning() indicates whether the simulation is in the running state or not.
-     */
+    /** The run state of the simulator, that indicates the state of the Simulator state machine. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected transient boolean stoppingState = true;
+    protected RunState runState = RunState.NOT_INITIALIZED;
 
-    /**
-     * running indicated whether the simulation is currently running, according to the calling thread. This can mean that the
-     * actual run thread has not yet started running.
-     */
+    /** The replication state of the simulator, that indicates the state of the Replication state machine. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected transient boolean running = false;
-
-    /**
-     * stepState indicates whether the simulator is executing an event in step mode. The step() method is typically NOT executed
-     * via the WorkerThread and is therefore registered separately.
-     */
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected transient boolean stepState = false;
-
-    /** has the replication already started? If no, START_REPLICATION_EVENT still needs to be fired on start or step. */
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected boolean replicationStarted = false;
-
-    /** has the replication ended? If yes, END_REPLICATION_EVENT can be fired in the run thread. */
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected boolean replicationEnded = false;
+    protected ReplicationState replicationState = ReplicationState.NOT_INITIALIZED;
 
     /** replication represents the currently active replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -128,43 +106,44 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
             final ReplicationMode replicationMode) throws SimRuntimeException
     {
-        this.running = false;
         Throw.whenNull(initReplication, "Simulator.initialize: replication cannot be null");
         Throw.whenNull(replicationMode, "Simulator.initialize: replicationMode cannot be null");
-        Throw.when(isRunning(), SimRuntimeException.class, "Cannot initialize a running simulator");
+        Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot initialize a running simulator");
         synchronized (this.semaphore)
         {
             this.removeAllListeners(StatisticsInterface.class);
             this.replication = initReplication;
             this.simulatorTime = initReplication.getTreatment().getStartSimTime().copy();
             this.replication.getTreatment().getExperiment().getModel().constructModel();
-            this.replicationStarted = false;
-            this.replicationEnded = false;
+            this.runState = RunState.INITIALIZED;
+            this.replicationState = ReplicationState.INITIALIZED;
         }
     }
 
     /**
      * Implementation of the start method. Checks preconditions for running and fires the right events.
-     * @throws SimRuntimeException
+     * @throws SimRuntimeException when the simulator is already running, or when the replication is missing or has ended
      */
     protected final void startImpl() throws SimRuntimeException
     {
-        Throw.when(!this.stoppingState || isRunning(), SimRuntimeException.class, "Cannot start a running simulator");
+        Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot start a running simulator");
         Throw.when(this.replication == null, SimRuntimeException.class, "Cannot start a simulator without replication details");
+        Throw.when(!isInitialized(), SimRuntimeException.class, "Cannot start an uninitialized simulator");
+        Throw.when(
+                !(this.replicationState == ReplicationState.INITIALIZED || this.replicationState == ReplicationState.STARTED),
+                SimRuntimeException.class, "State of the replication should be INITIALIZED or STARTED to run a simulationF");
         Throw.when(this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()), SimRuntimeException.class,
                 "Cannot start simulator : simulatorTime >= runLength");
         synchronized (this.semaphore)
         {
-            this.stoppingState = false;
-            this.running = true;
-            if (!this.replicationStarted)
+            this.runState = RunState.STARTING;
+            if (this.replicationState == ReplicationState.INITIALIZED)
             {
                 fireTimedEvent(Replication.START_REPLICATION_EVENT, null, getSimulatorTime());
-                this.replicationStarted = true;
+                this.replicationState = ReplicationState.STARTED;
             }
             this.fireEvent(SimulatorInterface.STARTING_EVENT, null);
             if (!Thread.currentThread().getName().equals(this.worker.getName()))
@@ -218,28 +197,26 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @SuppressWarnings("checkstyle:designforextension")
     public final void step() throws SimRuntimeException
     {
-        Throw.when(!this.stoppingState || isRunning(), SimRuntimeException.class, "Cannot step a running simulator");
-        Throw.when(this.replication == null, SimRuntimeException.class, "Cannot step a simulator without replication details");
+        Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot step a running simulator");
+        Throw.when(!isInitialized(), SimRuntimeException.class, "Cannot start an uninitialized simulator");
+        Throw.when(
+                !(this.replicationState == ReplicationState.INITIALIZED || this.replicationState == ReplicationState.STARTED),
+                SimRuntimeException.class, "State of the replication should be INITIALIZED or STARTED to run a simulationF");
         Throw.when(this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()), SimRuntimeException.class,
                 "Cannot step simulator : simulatorTime >= runLength");
         try
         {
-            this.stepState = true;
-            this.running = true;
-            if (!this.replicationStarted)
+            synchronized (this.semaphore)
             {
-                fireTimedEvent(Replication.START_REPLICATION_EVENT, null, getSimulatorTime());
-                this.replicationStarted = true;
+                this.runState = RunState.STARTED;
+                fireTimedEvent(SimulatorInterface.START_EVENT, null, getSimulatorTime());
+                stepImpl();
             }
-            fireTimedEvent(SimulatorInterface.START_EVENT, null, getSimulatorTime());
-            this.fireTimedEvent(SimulatorInterface.STEP_EVENT, null, this.simulatorTime.get());
-            stepImpl();
-            fireTimedEvent(SimulatorInterface.STOP_EVENT, null, getSimulatorTime());
         }
         finally
         {
-            this.stepState = false;
-            this.running = false;
+            fireTimedEvent(SimulatorInterface.STOP_EVENT, null, getSimulatorTime());
+            this.runState = RunState.STOPPED;
         }
     }
 
@@ -248,17 +225,15 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
      */
     protected void stopImpl()
     {
-        this.stoppingState = true;
-        this.running = false;
-        this.stepState = false;
+        this.runState = RunState.STOPPING;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
     public final void stop() throws SimRuntimeException
     {
-        Throw.when(!this.isRunning(), SimRuntimeException.class, "Cannot stop an already stopped simulator");
+        Throw.when(isStoppingOrStopped(), SimRuntimeException.class, "Cannot stop an already stopped simulator");
         this.fireEvent(SimulatorInterface.STOPPING_EVENT, null);
         stopImpl();
     }
@@ -288,6 +263,8 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
             this.worker.cleanUp();
         }
         this.worker = null;
+        this.runState = RunState.NOT_INITIALIZED;
+        this.replicationState = ReplicationState.NOT_INITIALIZED;
     }
 
     /**
@@ -299,22 +276,12 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
      */
     protected void endReplication()
     {
-        this.replicationEnded = true;
+        this.replicationState = ReplicationState.ENDING;
         if (this.simulatorTime.lt(this.getReplication().getTreatment().getEndSimTime()))
         {
             Logger.warn("The simulator executes the endReplication method, but the simulation time " + this.simulatorTime.get()
                     + " is earlier than the replication length " + this.getReplication().getTreatment().getEndSimTime());
             this.simulatorTime = this.getReplication().getTreatment().getEndSimTime().copy();
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final boolean isRunning()
-    {
-        synchronized (this.semaphore)
-        {
-            return this.running || this.worker.isRunning() || this.stepState;
         }
     }
 
@@ -364,6 +331,20 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         return this.id;
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public RunState getRunState()
+    {
+        return this.runState;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ReplicationState getReplicationState()
+    {
+        return this.replicationState;
+    }
+
     /**
      * fireTimedEvent method to be called for a no-payload TimedEvent.
      * @param event the event to fire at the current time
@@ -398,8 +379,6 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
             this.id = (Serializable) in.readObject();
             this.simulatorTime = (T) in.readObject();
             this.replication = (Replication<A, R, T, ? extends SimulatorInterface<A, R, T>>) in.readObject();
-            this.stoppingState = true;
-            this.stepState = false;
             this.semaphore = new Object();
             this.worker = new SimulatorWorkerThread(this.id.toString(), this);
             this.logger = new SimLogger(this);
@@ -473,32 +452,34 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
                     if (!this.finalized)
                     {
                         this.running.set(true);
-                        //this.interrupt(); // set the status to interrupted
                         try
                         {
-                            if (!this.job.replicationStarted)
+                            if (this.job.replicationState == ReplicationState.INITIALIZED)
                             {
                                 this.job.fireTimedEvent(Replication.START_REPLICATION_EVENT);
-                                this.job.replicationStarted = true;
+                                this.job.replicationState = ReplicationState.STARTED;
                             }
                             this.job.fireTimedEvent(SimulatorInterface.START_EVENT);
-                            this.job.stoppingState = false;
+                            this.job.runState = RunState.STARTED;
                             this.job.run();
                             this.job.stopImpl();
                             this.job.fireTimedEvent(SimulatorInterface.STOP_EVENT);
+                            this.job.runState = RunState.STOPPED;
                         }
                         catch (Exception exception)
                         {
                             CategoryLogger.always().error(exception);
                             exception.printStackTrace();
                         }
-                        //Thread.interrupted();
                         this.running.set(false);
-                        if (this.job.replicationEnded)
+                        if (this.job.replicationState == ReplicationState.ENDING)
                         {
                             this.job.fireTimedEvent(Replication.END_REPLICATION_EVENT);
+                            this.job.replicationState = ReplicationState.ENDED;
+                            this.job.runState = RunState.ENDED;
                         }
                     }
+                    Thread.interrupted(); // clear the interrupted flag
                 }
             }
         }

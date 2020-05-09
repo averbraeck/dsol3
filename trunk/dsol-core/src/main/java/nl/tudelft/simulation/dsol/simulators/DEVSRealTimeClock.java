@@ -125,8 +125,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
         /* wall clock milliseconds per 1 simulation clock millisecond. */
         double msec1 = simulatorTimeForWallClockMillis(1.0).doubleValue();
 
-        while (!this.stoppingState && !this.eventList.isEmpty()
-                && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
+        while (!isStoppingOrStopped() && !this.eventList.isEmpty() && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             // check if speedFactor has changed. If yes: re-baseline.
             if (currentSpeedFactor != this.speedFactor)
@@ -194,7 +193,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
                     }
 
                     // did we stop running between events?
-                    if (this.stoppingState)
+                    if (isStoppingOrStopped())
                     {
                         wallMillisNextEventSinceBaseline = 0.0; // jump out of the while loop for sleeping
                         break;
@@ -247,7 +246,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
             }
 
             // only execute an event if we are still running...
-            if (!this.stoppingState)
+            if (!isStoppingOrStopped())
             {
                 synchronized (super.semaphore)
                 {
@@ -259,8 +258,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
                     this.simulatorTime.set(nextEvent.getAbsoluteExecutionTime().get());
 
                     // carry out all events scheduled on this simulation time, as long as we are still running.
-                    while (!this.stoppingState && !this.eventList.isEmpty()
-                            && nextEvent.getAbsoluteExecutionTime().eq(this.simulatorTime))
+                    while (!isStoppingOrStopped() && !this.eventList.isEmpty() && nextEvent.getAbsoluteExecutionTime().eq(this.simulatorTime))
                     {
                         nextEvent = this.eventList.removeFirst();
                         try
@@ -269,14 +267,14 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
                             if (this.eventList.isEmpty())
                             {
                                 this.simulatorTime.set(this.runUntilTime);
-                                this.stoppingState = true;
+                                this.runState = RunState.STOPPING;
                                 break;
                             }
                             int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
                             if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
                             {
                                 this.simulatorTime.set(this.runUntilTime);
-                                this.stoppingState = true;
+                                this.runState = RunState.STOPPING;
                                 break;
                             }
                         }
@@ -338,7 +336,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
             }
             else
             {
-                if (isRunning())
+                if (isStartingOrRunning())
                 {
                     this.animationThread = new AnimationThread(this);
                     this.animationThread.start();
