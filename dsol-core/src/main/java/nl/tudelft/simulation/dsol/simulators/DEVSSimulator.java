@@ -302,7 +302,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        while (!this.stoppingState)
+        while (!isStoppingOrStopped())
         {
             synchronized (super.semaphore)
             {
@@ -319,14 +319,14 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
                     if (this.eventList.isEmpty())
                     {
                         this.simulatorTime.set(this.runUntilTime);
-                        this.stoppingState = true;
+                        this.runState = RunState.STOPPING;
                         break;
                     }
                     int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
                     if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
                     {
                         this.simulatorTime.set(this.runUntilTime);
-                        this.stoppingState = true;
+                        this.runState = RunState.STOPPING;
                         break;
                     }
                 }
@@ -337,6 +337,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
                     {
                         try
                         {
+                            this.runState = RunState.STOPPING;
                             this.stopImpl();
                         }
                         catch (SimRuntimeException stopException)

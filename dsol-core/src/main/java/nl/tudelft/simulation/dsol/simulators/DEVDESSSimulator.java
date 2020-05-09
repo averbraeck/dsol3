@@ -87,13 +87,13 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        while (!this.stoppingState && !this.eventList.isEmpty()
+        while (!isStoppingOrStopped() && !this.eventList.isEmpty()
                 && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             synchronized (super.semaphore)
             {
                 T runUntil = this.simulatorTime.plus(this.timeStep);
-                while (!this.eventList.isEmpty() && !this.stoppingState
+                while (!this.eventList.isEmpty() && !isStoppingOrStopped()
                         && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
                 {
                     SimEventInterface<T> event = this.eventList.removeFirst();
@@ -109,14 +109,14 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                         if (this.eventList.isEmpty())
                         {
                             this.simulatorTime.set(this.runUntilTime);
-                            this.stoppingState = true;
+                            this.runState = RunState.STOPPING;
                             break;
                         }
                         int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
                         if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
                         {
                             this.simulatorTime.set(this.runUntilTime);
-                            this.stoppingState = true;
+                            this.runState = RunState.STOPPING;
                             break;
                         }
                     }
@@ -127,6 +127,7 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                         {
                             try
                             {
+                                this.runState = RunState.STOPPING;
                                 this.stop();
                             }
                             catch (SimRuntimeException stopException)
@@ -136,7 +137,7 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                         }
                     }
                 }
-                if (!this.stoppingState)
+                if (!isStoppingOrStopped())
                 {
                     this.simulatorTime = runUntil;
                 }

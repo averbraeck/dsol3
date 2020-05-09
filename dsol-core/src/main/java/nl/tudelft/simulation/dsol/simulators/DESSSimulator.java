@@ -111,7 +111,7 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
-        while (this.simulatorTime.get().compareTo(this.runUntilTime) < 0 && !this.stoppingState)
+        while (this.simulatorTime.get().compareTo(this.runUntilTime) < 0 && !isStoppingOrStopped())
         {
             synchronized (super.semaphore)
             {

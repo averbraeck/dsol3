@@ -45,7 +45,6 @@ public class TestModel extends AbstractDSOLModel.TimeDouble<SimulatorInterface.T
             getSimulator().addListener(this, Replication.START_REPLICATION_EVENT, ReferenceType.STRONG);
             getSimulator().addListener(this, SimulatorInterface.START_EVENT, ReferenceType.STRONG);
             getSimulator().addListener(this, SimulatorInterface.STOP_EVENT, ReferenceType.STRONG);
-            getSimulator().addListener(this, SimulatorInterface.STEP_EVENT, ReferenceType.STRONG);
             getSimulator().addListener(this, SimulatorInterface.TIME_CHANGED_EVENT, ReferenceType.STRONG);
         }
         catch (Exception exception)

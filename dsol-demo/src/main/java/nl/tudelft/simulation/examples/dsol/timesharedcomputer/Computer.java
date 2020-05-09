@@ -119,7 +119,7 @@ public class Computer extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
             {
                 try
                 {
-                    if (this.simulator.isRunning())
+                    if (this.simulator.isStartingOrRunning())
                     {
                         this.simulator.stop();
                     }

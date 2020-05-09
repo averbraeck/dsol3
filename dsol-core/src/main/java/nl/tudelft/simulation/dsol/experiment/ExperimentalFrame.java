@@ -168,7 +168,7 @@ public class ExperimentalFrame extends EventProducer implements Iterator<Experim
         {
             Experiment<?, ?, ?, ?> experiment = this.experiments.get(this.currentExperiment);
             SimulatorInterface<?, ?, ?> simulator = experiment.getSimulator();
-            Throw.when(simulator.isRunning(), SimRuntimeException.class,
+            Throw.when(simulator.isStartingOrRunning(), SimRuntimeException.class,
                     "Simulator for experiment running -- ExperimentalFrame cannot be started");
         }
         startNextExperiment();

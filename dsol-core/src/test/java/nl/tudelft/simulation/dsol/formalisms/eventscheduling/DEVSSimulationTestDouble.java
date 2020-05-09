@@ -127,7 +127,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
                     }
 
                     sim.runUpTo(t);
-                    while (sim.isRunning())
+                    while (sim.isStartingOrRunning())
                     {
                         try
                         {

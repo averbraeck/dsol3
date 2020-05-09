@@ -180,7 +180,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
             if (((JSlider) event.getSource()).getName().equals("simulation"))
             {
                 int value = ((JSlider) event.getSource()).getValue();
-                boolean pause = this.target.isRunning();
+                boolean pause = this.target.isStartingOrRunning();
                 double ratio = Math.pow(10, value / 100.0);
                 if (pause)
                     this.target.stop();
@@ -191,7 +191,7 @@ public class SpeedControlDialog extends JDialog implements ActionListener, Chang
             if (((JSlider) event.getSource()).getName().equals("animation"))
             {
                 int value = ((JSlider) event.getSource()).getValue();
-                boolean pause = this.target.isRunning();
+                boolean pause = this.target.isStartingOrRunning();
                 if (pause)
                     this.target.stop();
                 // XXX: this.target.setAnimationDelay((long) value);
