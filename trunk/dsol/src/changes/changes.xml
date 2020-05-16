@@ -5,6 +5,15 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.07" date="2020-05-16" description="djutils with smaller footprint">
+      <action dev="averbraeck" type="update">
+        Updated djutils to 1.05.02 with a much smaller jar footprint.  
+      </action>
+      <action dev="averbraeck" type="remove">
+        Removed xstream from the dsol pom as it is not used anymore.  
+      </action>
+    </release>
+    
     <release version="3.04.06" date="2020-05-09" description="state machine for the simulators">
       <action dev="averbraeck" type="remove">
         Took out the STEP_EVENT. Instead, the step follows the same rule as normal running: the START_EVENT
