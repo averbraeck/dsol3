@@ -5,6 +5,14 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.08" date="2020-05-18" description="Simulator.runUntil execute event always">
+      <action dev="averbraeck" type="fix">
+        The DEVSSimulator, DEVSAnimator, DEVDESSSimulator and DEVDESSAnimator always executed one event
+        at the runUntil() method, also when there was no event to execute. The time could therefore jump 
+        beyond the runUntil time. This has been repaired for these 4 simulators. 
+      </action>
+    </release>
+    
     <release version="3.04.07" date="2020-05-16" description="djutils with smaller footprint">
       <action dev="averbraeck" type="update">
         Updated djutils to 1.05.02 with a much smaller jar footprint.  
