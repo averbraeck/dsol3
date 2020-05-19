@@ -92,6 +92,14 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
             {
                 synchronized (super.semaphore)
                 {
+                    int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
+                    if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
+                    {
+                        this.simulatorTime.set(this.runUntilTime);
+                        this.runState = RunState.STOPPING;
+                        break;
+                    }
+
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
                     {
@@ -103,13 +111,6 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
                     {
                         event.execute();
                         if (this.eventList.isEmpty())
-                        {
-                            this.simulatorTime.set(this.runUntilTime);
-                            this.runState = RunState.STOPPING;
-                            break;
-                        }
-                        int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
-                        if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
                         {
                             this.simulatorTime.set(this.runUntilTime);
                             this.runState = RunState.STOPPING;

@@ -125,7 +125,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
         /* wall clock milliseconds per 1 simulation clock millisecond. */
         double msec1 = simulatorTimeForWallClockMillis(1.0).doubleValue();
 
-        while (!isStoppingOrStopped() && !this.eventList.isEmpty() && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
+        while (!isStoppingOrStopped() && !this.eventList.isEmpty()
+                && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
         {
             // check if speedFactor has changed. If yes: re-baseline.
             if (currentSpeedFactor != this.speedFactor)
@@ -258,7 +259,8 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
                     this.simulatorTime.set(nextEvent.getAbsoluteExecutionTime().get());
 
                     // carry out all events scheduled on this simulation time, as long as we are still running.
-                    while (!isStoppingOrStopped() && !this.eventList.isEmpty() && nextEvent.getAbsoluteExecutionTime().eq(this.simulatorTime))
+                    while (!isStoppingOrStopped() && !this.eventList.isEmpty()
+                            && nextEvent.getAbsoluteExecutionTime().eq(this.simulatorTime))
                     {
                         nextEvent = this.eventList.removeFirst();
                         try
