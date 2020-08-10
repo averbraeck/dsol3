@@ -5,6 +5,12 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.09" date="2020-08-10" description="new version of djutils">
+      <action dev="averbraeck" type="update">
+        The djutils dependency has been updated to version 1.05.03.
+      </action>
+    </release>
+
     <release version="3.04.08" date="2020-05-18" description="Simulator.runUntil executed one event always">
       <action dev="averbraeck" type="fix">
         The DEVSSimulator, DEVSAnimator, DEVDESSSimulator and DEVDESSAnimator always executed one event
