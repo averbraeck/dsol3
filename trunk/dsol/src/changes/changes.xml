@@ -5,6 +5,17 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.04.10" date="2020-08-22" description="dependency versions, javadocs">
+      <action dev="averbraeck" type="update">
+        djutils and djunits dependencies have been updated to the latest version. Maven plugins have been
+        updated.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Javadoc references in the DSOL tree have been updated using offlineLinks during the generation process. 
+        DSOL packages now refer to each other in the Javadocs. 
+      </action>
+    </release>
+
     <release version="3.04.09" date="2020-08-10" description="new version of djutils">
       <action dev="averbraeck" type="update">
         The djutils dependency has been updated to version 1.05.03.
