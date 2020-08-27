@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.animation;
 
 import java.rmi.RemoteException;
 
-import javax.media.j3d.Bounds;
+import org.scijava.java3d.Bounds;
 
 import nl.tudelft.simulation.language.d3.DirectedPoint;
 

@@ -16,12 +16,11 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.media.j3d.BoundingBox;
-import javax.vecmath.Point3d;
-import javax.vecmath.Point4i;
-
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
+import org.scijava.java3d.BoundingBox;
+import org.scijava.vecmath.Point3d;
+import org.scijava.vecmath.Point4i;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DComparator;

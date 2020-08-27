@@ -9,7 +9,7 @@ import java.awt.image.ImageObserver;
 import java.net.URL;
 import java.rmi.RemoteException;
 
-import javax.media.j3d.Bounds;
+import org.scijava.java3d.Bounds;
 import javax.naming.NamingException;
 
 import nl.javel.gisbeans.io.esri.CoordinateTransform;

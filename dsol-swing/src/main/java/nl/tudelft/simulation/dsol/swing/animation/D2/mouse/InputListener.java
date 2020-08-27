@@ -17,9 +17,9 @@ import java.util.List;
 
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
-import javax.vecmath.Point4i;
 
 import org.djutils.logger.CategoryLogger;
+import org.scijava.vecmath.Point4i;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;

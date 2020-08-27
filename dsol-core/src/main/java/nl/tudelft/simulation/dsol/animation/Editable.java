@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.Bounds;
-
 import org.djutils.event.EventProducer;
 import org.djutils.io.URLResource;
 import org.djutils.logger.CategoryLogger;
+import org.scijava.java3d.BoundingSphere;
+import org.scijava.java3d.Bounds;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.CartesianPoint;

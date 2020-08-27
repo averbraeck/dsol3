@@ -4,14 +4,15 @@ import java.awt.geom.Point2D;
 import java.rmi.RemoteException;
 import java.util.Enumeration;
 
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Group;
-import javax.media.j3d.Node;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
 import javax.naming.NamingException;
-import javax.vecmath.AxisAngle4d;
-import javax.vecmath.Vector3d;
+
+import org.scijava.java3d.BranchGroup;
+import org.scijava.java3d.Group;
+import org.scijava.java3d.Node;
+import org.scijava.java3d.Transform3D;
+import org.scijava.java3d.TransformGroup;
+import org.scijava.vecmath.AxisAngle4d;
+import org.scijava.vecmath.Vector3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation;
