@@ -2,10 +2,10 @@ package nl.tudelft.simulation.language.d3;
 
 import java.awt.geom.Point2D;
 
-import javax.vecmath.Point3d;
-import javax.vecmath.Point3f;
-import javax.vecmath.Tuple3d;
-import javax.vecmath.Tuple3f;
+import org.scijava.vecmath.Point3d;
+import org.scijava.vecmath.Point3f;
+import org.scijava.vecmath.Tuple3d;
+import org.scijava.vecmath.Tuple3f;
 
 /**
  * The location object.

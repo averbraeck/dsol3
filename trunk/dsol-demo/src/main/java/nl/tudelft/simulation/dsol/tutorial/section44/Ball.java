@@ -1,8 +1,8 @@
 package nl.tudelft.simulation.dsol.tutorial.section44;
 
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.Bounds;
-import javax.vecmath.Point3d;
+import org.scijava.java3d.BoundingSphere;
+import org.scijava.java3d.Bounds;
+import org.scijava.vecmath.Point3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.language.d3.DirectedPoint;

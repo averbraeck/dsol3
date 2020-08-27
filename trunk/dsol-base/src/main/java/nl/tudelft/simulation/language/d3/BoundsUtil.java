@@ -2,10 +2,10 @@ package nl.tudelft.simulation.language.d3;
 
 import java.awt.geom.Rectangle2D;
 
-import javax.media.j3d.Bounds;
-import javax.media.j3d.Transform3D;
-import javax.vecmath.Point3d;
-import javax.vecmath.Vector3d;
+import org.scijava.java3d.Bounds;
+import org.scijava.java3d.Transform3D;
+import org.scijava.vecmath.Point3d;
+import org.scijava.vecmath.Vector3d;
 
 /**
  * A Bounds utility class to help with finding intersections between bounds, to make transformations, and to see if a point lies

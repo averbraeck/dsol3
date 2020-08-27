@@ -2,9 +2,10 @@ package nl.tudelft.simulation.language.d3;
 
 import java.awt.geom.Point2D;
 
-import javax.vecmath.Point3f;
-import javax.vecmath.Tuple3d;
-import javax.vecmath.Tuple3f;
+import org.scijava.vecmath.Point3d;
+import org.scijava.vecmath.Point3f;
+import org.scijava.vecmath.Tuple3d;
+import org.scijava.vecmath.Tuple3f;
 
 /**
  * The Point3D class with utilities to convert to point2D where the z-axis is neglected.
@@ -17,7 +18,7 @@ import javax.vecmath.Tuple3f;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class CartesianPoint extends javax.vecmath.Point3d
+public class CartesianPoint extends Point3d
 {
     /** */
     private static final long serialVersionUID = 20191116L;
@@ -46,7 +47,7 @@ public class CartesianPoint extends javax.vecmath.Point3d
      * constructs a new CartesianPoint.
      * @param point javax.vecmath.Point3d; point3d
      */
-    public CartesianPoint(final javax.vecmath.Point3d point)
+    public CartesianPoint(final Point3d point)
     {
         super(point);
     }

@@ -8,11 +8,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.geom.Rectangle2D;
 
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.Bounds;
-import javax.vecmath.Point3d;
-
 import org.junit.Test;
+import org.scijava.java3d.BoundingSphere;
+import org.scijava.java3d.Bounds;
+import org.scijava.vecmath.Point3d;
 
 /**
  * BoundsUtilTest.java.

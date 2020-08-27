@@ -3,10 +3,10 @@ package nl.tudelft.simulation.dsol.tutorial.section44;
 import java.awt.Color;
 import java.util.Enumeration;
 
-import javax.media.j3d.Appearance;
-import javax.media.j3d.Material;
-import javax.media.j3d.TransformGroup;
-import javax.vecmath.Color3f;
+import org.scijava.java3d.Appearance;
+import org.scijava.java3d.Material;
+import org.scijava.java3d.TransformGroup;
+import org.scijava.vecmath.Color3f;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.animation.D3.Renderable3D;

@@ -4,6 +4,9 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.event.EventInterface;
+import org.djutils.event.EventListenerInterface;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -12,8 +15,6 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterInteger;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import org.djutils.event.EventInterface;
-import org.djutils.event.EventListenerInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 
 /**

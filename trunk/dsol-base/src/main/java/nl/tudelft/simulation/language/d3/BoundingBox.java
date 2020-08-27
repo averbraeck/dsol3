@@ -2,8 +2,8 @@ package nl.tudelft.simulation.language.d3;
 
 import java.io.Serializable;
 
-import javax.media.j3d.Bounds;
-import javax.vecmath.Point3d;
+import org.scijava.java3d.Bounds;
+import org.scijava.vecmath.Point3d;
 
 /**
  * A bounding box.
@@ -16,7 +16,7 @@ import javax.vecmath.Point3d;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class BoundingBox extends javax.media.j3d.BoundingBox implements Serializable
+public class BoundingBox extends org.scijava.java3d.BoundingBox implements Serializable
 {
     /** */
     private static final long serialVersionUID = 20191116L;

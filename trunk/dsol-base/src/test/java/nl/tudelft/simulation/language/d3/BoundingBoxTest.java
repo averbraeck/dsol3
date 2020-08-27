@@ -2,11 +2,10 @@ package nl.tudelft.simulation.language.d3;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.Bounds;
-import javax.vecmath.Point3d;
-
 import org.junit.Test;
+import org.scijava.java3d.BoundingSphere;
+import org.scijava.java3d.Bounds;
+import org.scijava.vecmath.Point3d;
 
 /**
  * The JUNIT Test for the <code>BoundingBox</code>.
