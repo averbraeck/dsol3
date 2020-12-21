@@ -16,7 +16,12 @@
         The ancient gisbeans package has been replaced with a new dsol project dsol.animation.gis.
       </action>
       <action dev="averbraeck" type="update">
-        Updated the ancient java3d 1.5.0 version to the more recent 1.6.0 version from org.scijava.
+        Updated the ancient java3d 1.5.0 to djutils-draw primitives. This is a major change. Points are now
+        Point2d or Point3d; Bounds and BoundingBox have been replaced by Bounds3d (or Bounds2d); DirectedPoint
+        as it existed in DSOL is now DirectedPoint3d. DirectedPoint2d also exists in djutils-draw. Affine 
+        transformations are done with the Transform2d and Transform3d classes. As a result of these changes,
+        the Locatable interface has been changed in terms of the directed point location and the bounds.
+        Return types are now Bounds3d for the bounds of the object and DirectedPoint3d for the location.   
       </action>
       <action dev="averbraeck" type="fix">
         Fixed an error in the DistNormal getInverseCumulativeProbability function that did not 
