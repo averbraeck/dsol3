@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -21,8 +22,14 @@ public class DistLogNormal extends DistNormal
     /** */
     private static final long serialVersionUID = 1L;
 
+    /** the constant in the lognormal calculation: SQRT(2 * pi * sigma^2). */
+    private final double c2pisigma2;
+
+    /** the constant in the lognormal calculation: 2 * sigma^2. */
+    private final double csigma2;
+
     /**
-     * constructs a new Lognormal distribution.
+     * Construct a new Lognormal distribution.
      * @param stream StreamInterface; the random number stream
      * @param mu double; the medium
      * @param sigma double; the standard deviation
@@ -30,6 +37,8 @@ public class DistLogNormal extends DistNormal
     public DistLogNormal(final StreamInterface stream, final double mu, final double sigma)
     {
         super(stream, mu, sigma);
+        this.csigma2 = 2.0 * this.sigma * this.sigma;
+        this.c2pisigma2 = Math.sqrt(Math.PI * this.csigma2);
     }
 
     /** {@inheritDoc} */
@@ -42,20 +51,57 @@ public class DistLogNormal extends DistNormal
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation > 0)
+        if (x > 0.0)
         {
-            return 1 / (observation * Math.sqrt(2 * Math.PI * Math.pow(this.sigma, 2)))
-                    * Math.exp(-1 * Math.pow(Math.log(observation) - this.mu, 2) / (2 * Math.pow(this.sigma, 2)));
+            double xminmu = Math.log(x) - this.mu;
+            return Math.exp(-1 * xminmu * xminmu / this.csigma2) / (x * this.c2pisigma2);
         }
         return 0.0;
     }
 
     /** {@inheritDoc} */
     @Override
+    public double getCumulativeProbability(final double x)
+    {
+        if (x <= 0.0)
+        {
+            return 0.0;
+        }
+        return super.getCumulativeProbability(Math.log(x) / this.sigma);
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public double getInverseCumulativeProbability(final double cumulativeProbability)
+    {
+        return Math.exp(super.getInverseCumulativeProbability(cumulativeProbability));
+    }
+    
+    /** {@inheritDoc} */
+    @Override
     public String toString()
     {
         return "LogNormal(" + this.mu + "," + this.sigma + ")";
+    }
+    
+    /**
+     * Test of the lognormal distribution.
+     * @param args empty
+     */
+    public static void main(final String[] args)
+    {
+        StreamInterface stream = new MersenneTwister(2);
+        DistLogNormal ln51 = new DistLogNormal(stream, Math.log(5.0), Math.log(2.0));
+        for (double x = 0.0; x <= 15.0; x += 0.01)
+        {
+            System.out.println(x + "\t" + ln51.getProbabilityDensity(x) + "\t" + ln51.getCumulativeProbability(x));
+        }
+        
+        for (int i = 0; i < 100000; i++)
+        {
+            // System.out.println(ln51.draw());
+        }
     }
 }

@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.logger.CategoryLogger;
+
 import cern.jet.stat.Gamma;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -21,26 +23,26 @@ public class DistGamma extends DistContinuous
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** alpha is the alpha parameter of the distribution. */
-    private final double alpha;
+    /** the shape parameter of the distribution. */
+    private final double shape;
 
-    /** beta is the beta parameter of the distribution. */
-    private final double beta;
+    /** the scale parameter of the distribution, also often called theta. */
+    private final double scale;
 
     /**
      * constructs a new gamma distribution. The gamma distribution represents the time to complete some task, e.g. customer
      * service or machine repair
      * @param stream StreamInterface; the random number stream
-     * @param alpha double; is the shape parameter alpha &gt; 0
-     * @param beta double; is the scale parameter beta &gt; 0
+     * @param shape double; is the shape parameter &gt; 0, also known as beta in combination with scale parameter is theta
+     * @param scale double; is the scale parameter&gt; 0, also known as theta
      */
-    public DistGamma(final StreamInterface stream, final double alpha, final double beta)
+    public DistGamma(final StreamInterface stream, final double shape, final double scale)
     {
         super(stream);
-        if ((alpha > 0.0) && (beta > 0.0))
+        if ((shape > 0.0) && (scale > 0.0))
         {
-            this.alpha = alpha;
-            this.beta = beta;
+            this.shape = shape;
+            this.scale = scale;
         }
         else
         {
@@ -54,10 +56,10 @@ public class DistGamma extends DistContinuous
     {
         // according to Law and Kelton, Simulation Modeling and Analysis, 1991
         // pages 488-489
-        if (this.alpha < 1.0)
+        if (this.shape < 1.0)
         {
-            double b = (Math.E + this.alpha) / Math.E;
-            long counter = 0;
+            double b = (Math.E + this.shape) / Math.E;
+            int counter = 0;
             while (counter < 1000)
             {
                 // step 1.
@@ -65,37 +67,38 @@ public class DistGamma extends DistContinuous
                 if (p <= 1.0d)
                 {
                     // step 2.
-                    double y = Math.pow(p, 1.0d / this.alpha);
+                    double y = Math.pow(p, 1.0d / this.shape);
                     double u2 = this.stream.nextDouble();
                     if (u2 <= Math.exp(-y))
                     {
-                        return this.beta * y;
+                        return this.scale * y;
                     }
                 }
                 else
                 {
                     // step 3.
-                    double y = -Math.log((b - p) / this.alpha);
+                    double y = -Math.log((b - p) / this.shape);
                     double u2 = this.stream.nextDouble();
-                    if (u2 <= Math.pow(y, this.alpha - 1.0d))
+                    if (u2 <= Math.pow(y, this.shape - 1.0d))
                     {
-                        return this.beta * y;
+                        return this.scale * y;
                     }
                 }
+                counter++;
             }
-            new IllegalArgumentException("1000 tries for alpha<1.0");
+            CategoryLogger.always().info("Gamma distribution -- 1000 tries for alpha<1.0");
             return 1.0d;
         }
-        else if (this.alpha > 1.0)
+        else if (this.shape > 1.0)
         {
             // according to Law and Kelton, Simulation Modeling and
             // Analysis, 1991, pages 488-489
-            double a = 1.0d / Math.sqrt(2.0d * this.alpha - 1.0d);
-            double b = this.alpha - Math.log(4.0d);
-            double q = this.alpha + (1.0d / a);
+            double a = 1.0d / Math.sqrt(2.0d * this.shape - 1.0d);
+            double b = this.shape - Math.log(4.0d);
+            double q = this.shape + (1.0d / a);
             double theta = 4.5d;
             double d = 1.0d + Math.log(theta);
-            long counter = 0;
+            int counter = 0;
             while (counter < 1000)
             {
                 // step 1.
@@ -103,63 +106,64 @@ public class DistGamma extends DistContinuous
                 double u2 = this.stream.nextDouble();
                 // step 2.
                 double v = a * Math.log(u1 / (1.0d - u1));
-                double y = this.alpha * Math.exp(v);
+                double y = this.shape * Math.exp(v);
                 double z = u1 * u1 * u2;
                 double w = b + q * v - y;
                 // step 3.
                 if ((w + d - theta * z) >= 0.0d)
                 {
-                    return this.beta * y;
+                    return this.scale * y;
                 }
                 // step 4.
                 if (w > Math.log(z))
                 {
-                    return this.beta * y;
+                    return this.scale * y;
                 }
+                counter++;
             }
-            new IllegalArgumentException("1000 tries for alpha>1.0");
+            CategoryLogger.always().info("Gamma distribution -- 1000 tries for alpha>1.0");
             return 1.0d;
         }
         else
-        // alpha == 1.0
+        // shape == 1.0
         {
-            // Gamma(1.0, beta) ~ exponential with mean = beta
-            return -this.beta * Math.log(this.stream.nextDouble());
+            // Gamma(1.0, scale) ~ exponential with mean = scale
+            return -this.scale * Math.log(this.stream.nextDouble());
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation <= 0)
+        if (x <= 0)
         {
             return 0.0;
         }
-        return (Math.pow(this.beta, -this.alpha) * Math.pow(observation, this.alpha - 1)
-                * Math.exp(-1 * observation / this.beta)) / Gamma.gamma(this.alpha);
+        return (Math.pow(this.scale, -this.shape) * Math.pow(x, this.shape - 1) * Math.exp(-1 * x / this.scale))
+                / Gamma.gamma(this.shape);
     }
 
     /**
      * @return alpha
      */
-    public final double getAlpha()
+    public final double getShape()
     {
-        return this.alpha;
+        return this.shape;
     }
 
     /**
      * @return beta
      */
-    public final double getBeta()
+    public final double getScale()
     {
-        return this.beta;
+        return this.scale;
     }
 
     /** {@inheritDoc} */
     @Override
     public String toString()
     {
-        return "Gamma(" + this.alpha + "," + this.beta + ")";
+        return "Gamma(" + this.shape + "," + this.scale + ")";
     }
 }

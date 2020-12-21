@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.animation.interpolation;
 
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.language.d3.DirectedPoint;
+import org.djutils.draw.point.DirectedPoint3d;
 
 /**
  * A InterpolationInterface.
@@ -20,8 +20,8 @@ public interface InterpolationInterface
     /**
      * returns the current location
      * @param time double; the current time
-     * @return DirectedPoint the current location
+     * @return DirectedPoint3d the current location
      * @throws RemoteException on network failure
      */
-    DirectedPoint getLocation(final double time) throws RemoteException;
+    DirectedPoint3d getLocation(final double time) throws RemoteException;
 }

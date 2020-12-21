@@ -45,11 +45,11 @@ public class DistConstant extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation == this.constant)
+        if (x == this.constant)
         {
-            return 1.0;
+            return 1.0; // actually this value should be infinity...
         }
         return 0.0;
     }

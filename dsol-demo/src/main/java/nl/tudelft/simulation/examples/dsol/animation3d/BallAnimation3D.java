@@ -2,11 +2,6 @@ package nl.tudelft.simulation.examples.dsol.animation3d;
 
 import java.util.Enumeration;
 
-import org.scijava.java3d.Appearance;
-import org.scijava.java3d.Material;
-import org.scijava.java3d.TransformGroup;
-import org.scijava.vecmath.Color3f;
-
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.animation.D3.Renderable3D;
@@ -35,6 +30,7 @@ public class BallAnimation3D extends Renderable3D
         super(source, simulator);
     }
 
+    /*-
     @Override
     public void provideModel(final TransformGroup locationGroup)
     {
@@ -61,10 +57,17 @@ public class BallAnimation3D extends Renderable3D
         // Put it together
         // TODO: locationGroup.addChild(model);
     }
-
+*/
+    
     @Override
     protected void update(final Enumeration children)
     {
         // Do nothing
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void update()
+    {
     }
 }

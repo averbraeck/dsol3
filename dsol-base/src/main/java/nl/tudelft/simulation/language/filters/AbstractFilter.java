@@ -84,7 +84,7 @@ public abstract class AbstractFilter implements FilterInterface
     @Override
     public String toString()
     {
-        return "Filter[criterium=" + this.getCriterion() + ";inverted=" + this.inverted + "]";
+        return "Filter[criterion=" + this.getCriterion() + ";inverted=" + this.inverted + "]";
     }
 
 }

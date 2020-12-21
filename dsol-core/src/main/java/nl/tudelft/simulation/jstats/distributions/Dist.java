@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -29,6 +31,7 @@ public abstract class Dist implements java.io.Serializable
      */
     public Dist(final StreamInterface stream)
     {
+        Throw.whenNull(stream, "stream for a distribution cannot be null");
         this.stream = stream;
     }
 

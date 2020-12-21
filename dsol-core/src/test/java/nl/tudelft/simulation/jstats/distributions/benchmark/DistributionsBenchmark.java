@@ -1,5 +1,26 @@
-package nl.tudelft.simulation.jstats.distributions;
+package nl.tudelft.simulation.jstats.distributions.benchmark;
 
+import nl.tudelft.simulation.jstats.distributions.DistBernoulli;
+import nl.tudelft.simulation.jstats.distributions.DistBeta;
+import nl.tudelft.simulation.jstats.distributions.DistBinomial;
+import nl.tudelft.simulation.jstats.distributions.DistConstant;
+import nl.tudelft.simulation.jstats.distributions.DistContinuous;
+import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
+import nl.tudelft.simulation.jstats.distributions.DistDiscreteConstant;
+import nl.tudelft.simulation.jstats.distributions.DistDiscreteUniform;
+import nl.tudelft.simulation.jstats.distributions.DistErlang;
+import nl.tudelft.simulation.jstats.distributions.DistExponential;
+import nl.tudelft.simulation.jstats.distributions.DistGamma;
+import nl.tudelft.simulation.jstats.distributions.DistGeometric;
+import nl.tudelft.simulation.jstats.distributions.DistLogNormal;
+import nl.tudelft.simulation.jstats.distributions.DistNegBinomial;
+import nl.tudelft.simulation.jstats.distributions.DistNormal;
+import nl.tudelft.simulation.jstats.distributions.DistPearson5;
+import nl.tudelft.simulation.jstats.distributions.DistPearson6;
+import nl.tudelft.simulation.jstats.distributions.DistPoisson;
+import nl.tudelft.simulation.jstats.distributions.DistTriangular;
+import nl.tudelft.simulation.jstats.distributions.DistUniform;
+import nl.tudelft.simulation.jstats.distributions.DistWeibull;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 

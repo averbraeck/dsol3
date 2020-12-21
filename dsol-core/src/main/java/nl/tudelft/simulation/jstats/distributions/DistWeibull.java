@@ -55,12 +55,12 @@ public class DistWeibull extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation > 0)
+        if (x > 0)
         {
-            return this.alpha * Math.pow(this.beta, -this.alpha) * Math.pow(observation, this.alpha - 1)
-                    * Math.exp(Math.pow(-1 * (observation / this.beta), this.alpha));
+            return this.alpha * Math.pow(this.beta, -this.alpha) * Math.pow(x, this.alpha - 1)
+                    * Math.exp(Math.pow(-1 * (x / this.beta), this.alpha));
         }
         return 0.0;
     }

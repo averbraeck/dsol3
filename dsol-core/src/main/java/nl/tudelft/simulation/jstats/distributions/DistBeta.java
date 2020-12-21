@@ -68,11 +68,11 @@ public class DistBeta extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation > 0 && observation < 1)
+        if (x > 0 && x < 1)
         {
-            return (Math.pow(observation, this.alpha1 - 1) * Math.pow(1 - observation, this.alpha2 - 1))
+            return (Math.pow(x, this.alpha1 - 1) * Math.pow(1 - x, this.alpha2 - 1))
                     / Gamma.beta(this.alpha1, this.alpha2);
         }
         return 0;

@@ -21,7 +21,7 @@ import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.gis.GisObject;
 import nl.tudelft.simulation.dsol.animation.gis.GraphicsException;
-import nl.tudelft.simulation.dsol.animation.gis.ScreenPosition;
+import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
 import nl.tudelft.simulation.dsol.animation.gis.SerializablePath;
 import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
 
@@ -35,7 +35,7 @@ import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class Map implements MapInterface
+public class GisMap implements GisMapInterface
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -62,7 +62,7 @@ public class Map implements MapInterface
     private String name;
 
     /** the map units. */
-    private int units;
+    private MapUnits units;
 
     /** draw the background? */
     private boolean drawBackground = true;
@@ -73,7 +73,7 @@ public class Map implements MapInterface
     /**
      * constructs a new Map.
      */
-    public Map()
+    public GisMap()
     {
         super();
     }
@@ -391,7 +391,7 @@ public class Map implements MapInterface
 
     /** {@inheritDoc} */
     @Override
-    public int getUnits()
+    public MapUnits getUnits()
     {
         return this.units;
     }
@@ -420,7 +420,7 @@ public class Map implements MapInterface
 
     /** {@inheritDoc} */
     @Override
-    public void setUnits(final int units)
+    public void setUnits(final MapUnits units)
     {
         this.units = units;
     }

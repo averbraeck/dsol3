@@ -57,7 +57,7 @@ public class DistDiscreteUniform extends DistDiscrete
     @Override
     public double probability(final int observation)
     {
-        if (observation > this.min && observation < this.max)
+        if (observation >= this.min && observation <= this.max)
         {
             return 1 / ((double) this.max - this.min + 1);
         }

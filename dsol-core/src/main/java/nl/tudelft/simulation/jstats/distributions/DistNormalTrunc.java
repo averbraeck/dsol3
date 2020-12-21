@@ -27,7 +27,7 @@ public class DistNormalTrunc extends DistContinuous
     /** mu refers to the mean of the normal distribution. */
     private final double mu;
 
-    /** mu refers to the mean of the normal distribution. */
+    /** sigma refers to the standard deviation of the normal distribution. */
     private final double sigma;
 
     /** minimum x-value of the distribution. */
@@ -37,10 +37,10 @@ public class DistNormalTrunc extends DistContinuous
     private final double max;
 
     /** cumulative distribution value of the minimum. */
-    private final double cumulMin;
+    private final double cumulProbMin;
 
     /** cumulative distribution value difference between max and min. */
-    private final double cumulDiff;
+    private final double cumulProbDiff;
 
     /** factor on probability density to normalize to 1. */
     private final double probDensFactor;
@@ -59,8 +59,8 @@ public class DistNormalTrunc extends DistContinuous
 
     /**
      * constructs a normal distribution with mu and sigma.
-     * @param stream StreamInterface; the numberstream
-     * @param mu double; the medium
+     * @param stream StreamInterface; the random number stream
+     * @param mu double; the mean
      * @param sigma double; the standard deviation
      * @param min double; minimum x-value of the distribution
      * @param max double; maximum x-value of the distribution
@@ -77,16 +77,16 @@ public class DistNormalTrunc extends DistContinuous
         this.sigma = sigma;
         this.min = min;
         this.max = max;
-        this.cumulMin = getCumulativeProbabilityNotTruncated(min);
-        this.cumulDiff = getCumulativeProbabilityNotTruncated(max) - this.cumulMin;
-        this.probDensFactor = 1.0 / this.cumulDiff;
+        this.cumulProbMin = getCumulativeProbabilityNotTruncated(min);
+        this.cumulProbDiff = getCumulativeProbabilityNotTruncated(max) - this.cumulProbMin;
+        this.probDensFactor = 1.0 / this.cumulProbDiff;
     }
 
     /** {@inheritDoc} */
     @Override
     public double draw()
     {
-        return getInverseCumulativeProbabilityNotTruncated(this.cumulMin + this.cumulDiff * this.stream.nextDouble());
+        return getInverseCumulativeProbabilityNotTruncated(this.cumulProbMin + this.cumulProbDiff * this.stream.nextDouble());
     }
 
     /**
@@ -104,7 +104,7 @@ public class DistNormalTrunc extends DistContinuous
         {
             return 1.0;
         }
-        return (getCumulativeProbabilityNotTruncated(x) - this.cumulMin) * this.probDensFactor;
+        return (getCumulativeProbabilityNotTruncated(x) - this.cumulProbMin) * this.probDensFactor;
     }
 
     /**
@@ -159,12 +159,12 @@ public class DistNormalTrunc extends DistContinuous
         {
             return this.max;
         }
-        return getInverseCumulativeProbabilityNotTruncated(this.cumulMin + cumulativeProbability * this.cumulDiff);
+        return getInverseCumulativeProbabilityNotTruncated(this.cumulProbMin + cumulativeProbability * this.cumulProbDiff);
     }
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double x)
+    public double getProbabilityDensity(final double x)
     {
         if (x < this.min || x > this.max)
         {
@@ -231,7 +231,7 @@ public class DistNormalTrunc extends DistContinuous
         double step = (max - min) / 96;
         for (double x = min - 2 * step; x <= max + 2 * step; x += step)
         {
-            double p = dist.probDensity(x);
+            double p = dist.getProbabilityDensity(x);
             System.out.println(String.format(Locale.GERMAN, "%.8f;%.8f", x, p));
             sum += p * step;
         }
@@ -280,8 +280,8 @@ public class DistNormalTrunc extends DistContinuous
             prob = 1 - cumulativeProbability;
         }
         int i = 0;
-        double f = 0.0;
-        while (!located)
+        double f = 0.0; 
+        while (!located) // TODO: change into binary search
         {
             if (CUMULATIVE_NORMAL_PROBABILITIES[i] < prob && CUMULATIVE_NORMAL_PROBABILITIES[i + 1] >= prob)
             {

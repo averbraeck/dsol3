@@ -3,8 +3,6 @@ package nl.tudelft.simulation.dsol.interpreter;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
 /**
  * <p>
  * copyright (c) 2002-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>

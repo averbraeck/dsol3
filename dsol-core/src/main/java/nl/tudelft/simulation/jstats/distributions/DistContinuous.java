@@ -37,9 +37,9 @@ public abstract class DistContinuous extends Dist
     public abstract double draw();
 
     /**
-     * returns the probability density value of an observation.
-     * @param observation double; the observation.
-     * @return double the probability density.
+     * returns the probability density value of a value x.
+     * @param x double; the value for which the density function needs to be calculated
+     * @return double; the probability density for value x
      */
-    public abstract double probDensity(double observation);
+    public abstract double getProbabilityDensity(double x);
 }

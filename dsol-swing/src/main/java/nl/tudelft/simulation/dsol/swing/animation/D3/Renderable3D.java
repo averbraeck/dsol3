@@ -1,25 +1,13 @@
 package nl.tudelft.simulation.dsol.swing.animation.D3;
 
-import java.awt.geom.Point2D;
-import java.rmi.RemoteException;
 import java.util.Enumeration;
 
-import javax.naming.NamingException;
-
-import org.scijava.java3d.BranchGroup;
-import org.scijava.java3d.Group;
-import org.scijava.java3d.Node;
-import org.scijava.java3d.Transform3D;
-import org.scijava.java3d.TransformGroup;
-import org.scijava.vecmath.AxisAngle4d;
-import org.scijava.vecmath.Vector3d;
+import org.djutils.draw.Transform3d;
+import org.djutils.draw.point.DirectedPoint3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
-import nl.tudelft.simulation.naming.context.ContextInterface;
-import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * Renderable3D, a 3d renderable.
@@ -32,7 +20,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * </p>
  * @author <a href="mailto:royc@tbm.tudelft.nl">Roy Chin </a>
  */
-public abstract class Renderable3D extends BranchGroup implements Renderable3DInterface
+public abstract class Renderable3D /* extends BranchGroup */ implements Renderable3DInterface
 {
     /** */
     private static final long serialVersionUID = 20200109L;
@@ -44,7 +32,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     protected SimulatorInterface simulator = null;
 
     /** Rotation group. */
-    protected TransformGroup locationGroup = null;
+    // protected TransformGroup locationGroup = null;
 
     /** Type of renderable (world, static or simulated. */
     protected int type = Renderable3DInterface.DYNAMIC_OBJECT;
@@ -56,19 +44,19 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     protected double scale = 1.0d;
 
     /** translation Used in update; put here to prevent garbage. */
-    private Transform3D translate = new Transform3D();
+    private Transform3d translate = new Transform3d();
 
     /** combined rotation angle Used in update; put here to prevent garbage. */
-    private Transform3D rotate = new Transform3D();
+    private Transform3d rotate = new Transform3d();
 
     /** yaw angle Used in update; put here to prevent garbage. */
-    private Transform3D yaw = new Transform3D();
+    private Transform3d yaw = new Transform3d();
 
     /** pitch angle Used in update; put here to prevent garbage. */
-    private Transform3D pitch = new Transform3D();
+    private Transform3d pitch = new Transform3d();
 
     /** roll angle Used in update; put here to prevent garbage. */
-    private Transform3D roll = new Transform3D();
+    private Transform3d roll = new Transform3d();
 
     /**
      * @param simulator SimulatorInterface; SimulatorInterface
@@ -85,10 +73,10 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * @param staticLocation DirectedPoint; Point3d
+     * @param staticLocation DirectedPoint3d; Point3d
      * @param simulator SimulatorInterface; SimulatorInterface
      */
-    public Renderable3D(final DirectedPoint staticLocation, final SimulatorInterface simulator)
+    public Renderable3D(final DirectedPoint3d staticLocation, final SimulatorInterface simulator)
     {
         super();
         this.source = new StaticLocation(staticLocation, null);
@@ -98,11 +86,12 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
     }
 
     /**
-     * @param staticLocation DirectedPoint; Point3d
+     * @param staticLocation DirectedPoint3d; Point3d
      * @param branchGroup BranchGroup; A branchGroup containing (a part of) the model
      * @param simulator SimulatorInterface; SimulatorInterface
      */
-    public Renderable3D(final DirectedPoint staticLocation, final BranchGroup branchGroup, final SimulatorInterface simulator)
+    /*-
+    public Renderable3D(final DirectedPoint3d staticLocation, final BranchGroup branchGroup, final SimulatorInterface simulator)
     {
         super();
         this.source = new StaticLocation(staticLocation, null);
@@ -123,15 +112,18 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
             this.simulator.getLogger().always().warn(exception, "<init>");
         }
     }
+    */
 
     /**
      * @param staticLocation Point2D; Point2D
      * @param simulator SimulatorInterface; SimulatorInterface
      */
+    /*-
     public Renderable3D(final Point2D staticLocation, final SimulatorInterface simulator)
     {
-        this(new DirectedPoint(staticLocation), simulator);
+        this(new DirectedPoint3d(staticLocation), simulator);
     }
+    */
 
     /**
      * @param source Locatable; LocatableInterface
@@ -150,6 +142,10 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
      */
     private void initialize()
     {
+        //
+    }
+
+    /*-
         // Note: the order of the lines below does matter!
         // AnimationFrame3D wants to draw as soon as it has
         // got the object from the context, so transforms
@@ -171,10 +167,12 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
             this.simulator.getLogger().always().warn(exception, "<init>");
         }
     }
+    */
 
     /**
      * Initialize TransformGroups.
      */
+    /*-
     private void initializeTransformGroups()
     {
         this.setCapability(Group.ALLOW_CHILDREN_READ);
@@ -191,9 +189,9 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
         {
             this.setPickable(false);
         }
-
+    
         this.locationGroup = new TransformGroup();
-
+    
         this.locationGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
         this.locationGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         this.locationGroup.setCapability(Group.ALLOW_CHILDREN_READ);
@@ -205,35 +203,37 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
             this.locationGroup.setCapabilityIsFrequent(TransformGroup.ALLOW_TRANSFORM_READ);
         }
     }
+    */
 
     /**
      * Provide the 3D model and add it to the locationGroup
      * @param locationGroup TransformGroup; The location of the object
      */
-    protected abstract void provideModel(final TransformGroup locationGroup);
+    // protected abstract void provideModel(final TransformGroup locationGroup);
 
     /**
      * updates the renderable
      */
+    /*-
     public void update()
     {
         try
         {
             this.update(this.getAllChildren());
-            DirectedPoint location = this.getSource().getLocation();
+            DirectedPoint3d location = this.getSource().getLocation();
             this.translate.set(new Vector3d(location.x * this.scale, location.y * this.scale, location.z * this.scale));
-
+    
             // Hope the order of the rotations is correct ..
-            this.yaw.setRotation(new AxisAngle4d(0, 0, 1, location.getRotX()));
-            this.pitch.setRotation(new AxisAngle4d(0, 1, 0, location.getRotZ()));
-            this.roll.setRotation(new AxisAngle4d(1, 0, 0, location.getRotY()));
-
+            this.yaw.setRotation(new AxisAngle4d(0, 0, 1, location.getDirX()));
+            this.pitch.setRotation(new AxisAngle4d(0, 1, 0, location.getDirZ()));
+            this.roll.setRotation(new AxisAngle4d(1, 0, 0, location.getDirY()));
+    
             // first translate then rotate
             this.rotate.set(this.translate);
             this.rotate.mul(this.yaw);
             this.rotate.mul(this.pitch);
             this.rotate.mul(this.roll);
-
+    
             this.locationGroup.setTransform(this.rotate);
         }
         catch (RemoteException exception)
@@ -242,6 +242,7 @@ public abstract class Renderable3D extends BranchGroup implements Renderable3DIn
             this.simulator.getLogger().always().warn(exception, "update");
         }
     }
+    */
 
     /**
      * Method update.

@@ -2,14 +2,14 @@ package nl.tudelft.simulation.language.d3;
 
 import java.awt.geom.Rectangle2D;
 
-import org.scijava.java3d.Bounds;
-import org.scijava.java3d.Transform3D;
-import org.scijava.vecmath.Point3d;
-import org.scijava.vecmath.Vector3d;
+import org.djutils.draw.Transform3d;
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.Point3d;
 
 /**
- * A Bounds utility class to help with finding intersections between bounds, to make transformations, and to see if a point lies
- * within a bounds. The static methods can help in animation to see whether a shape needs to be drawn on the screen
+ * A Bounds3d utility class to help with finding intersections between bounds, to make transformations, and to see if a point
+ * lies within a bounds. The static methods can help in animation to see whether a shape needs to be drawn on the screen
  * (3D-viewport) or not.
  * <p>
  * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
@@ -43,53 +43,43 @@ public final class BoundsUtil
      * translated with dx=2 and dy=2. When we ask the zIntersect for z=0 and point (2,2,2) we get null as we 'lifted' the
      * bounding box above the z-value. When center has a direction, the bounds is first rotated around the center after which
      * the translation takes place and the bounds on the z-height are calculated.
-     * @param bounds Bounds; the bounds for which the intersection needs to be calculated. The Bounds are <b>relative to the
+     * @param bounds Bounds; the bounds for which the intersection needs to be calculated. The Bounds3d are <b>relative to the
      *            center</b> that is provided
-     * @param center DirectedPoint; the point relative to which the bounds need to be calculated
+     * @param center DirectedPoint3d; the point relative to which the bounds need to be calculated
      * @param zValue double; the zValue as the 'height' for which the bounds intersection is calculated
      * @return Rectangle2D the resulting rectangle of the intersection
      */
-    public static Rectangle2D zIntersect(final DirectedPoint center, final Bounds bounds, final double zValue)
+    public static Rectangle2D zIntersect(final DirectedPoint3d center, final Bounds3d bounds, final double zValue)
     {
-        BoundingBox box = new BoundingBox((Bounds) bounds.clone());
-        Transform3D transform = new Transform3D();
-        transform.rotZ(center.getRotZ());
-        transform.rotY(center.getRotY());
-        transform.rotX(center.getRotX());
-        transform.setTranslation(new Vector3d(new Point3d(center.x, center.y, center.z)));
-        box.transform(transform);
-
-        Point3d lower = new Point3d();
-        box.getLower(lower);
-        lower.set(lower.x, lower.y, zValue);
-        if (!box.intersect(lower))
+        Transform3d transform = new Transform3d();
+        transform.rotZ(center.getDirZ());
+        transform.rotY(center.getDirY());
+        transform.rotX(center.getDirX());
+        transform.translate(center);
+        Bounds3d box = transform.transform(bounds);
+        Point3d lower = new Point3d(box.getMinX(), box.getMinY(), zValue);
+        if (!box.covers(lower))
         {
             return null;
         }
-        Point3d upper = new Point3d();
-        box.getUpper(upper);
-        return new Rectangle2D.Double(lower.x, lower.y, (upper.x - lower.x), (upper.y - lower.y));
+        return new Rectangle2D.Double(box.getMinX(), box.getMinY(), box.getDeltaX(), box.getDeltaY());
     }
 
     /**
      * Rotates and translates a bound relative to a directed point. Often this point will be the given center point for the
      * animation.
-     * @param point DirectedPoint; the point relative to which the bounds need to be transformed
+     * @param point DirectedPoint3d; the point relative to which the bounds need to be transformed
      * @param bounds Bounds; the bounds that need to be rotated and translated
      * @return the bounds after rotation and translation
      */
-    public static Bounds transform(final Bounds bounds, final DirectedPoint point)
+    public static Bounds3d transform(final Bounds3d bounds, final DirectedPoint3d point)
     {
-        Bounds result = (Bounds) bounds.clone();
-
-        // First we rotate around 0,0,0
-        Transform3D transform = new Transform3D();
-        transform.rotX(point.getRotX());
-        transform.rotY(point.getRotY());
-        transform.rotZ(point.getRotZ());
-        transform.setTranslation(new Vector3d(point));
-        result.transform(transform);
-        return result;
+        Transform3d transform = new Transform3d();
+        transform.rotZ(point.getDirZ());
+        transform.rotY(point.getDirY());
+        transform.rotX(point.getDirX());
+        transform.translate(point);
+        return transform.transform(bounds);
     }
 
     /**
@@ -97,26 +87,20 @@ public final class BoundsUtil
      * the location). Usually the center is in the bounds, but that is not necessary. The center is in many occasions the
      * Location of an animated object, and the bounds indicate the outer values of its animation without translation and
      * rotation (as if center is 0,0,0) and has no direction (rotX, rotY and rotZ are 0.0).
-     * @param center DirectedPoint; the 'center' of the bounds.
+     * @param center DirectedPoint3d; the 'center' of the bounds.
      * @param bounds Bounds; the bounds relative to 0,0,0
      * @param point Point3d; the point that might be in or out of the bounds after they have been rotated and translated
      *            relative to the center.
      * @return whether or not the point is in the bounds
      */
-    public static boolean contains(final DirectedPoint center, final Bounds bounds, final Point3d point)
+    public static boolean contains(final DirectedPoint3d center, final Bounds3d bounds, final Point3d point)
     {
-        BoundingBox box = new BoundingBox((Bounds) bounds.clone());
-        Transform3D transform = new Transform3D();
-        transform.rotZ(center.getRotZ());
-        transform.rotY(center.getRotY());
-        transform.rotX(center.getRotX());
-        transform.setTranslation(new Vector3d(center));
-        box.transform(transform);
-        Point3d lower = new Point3d();
-        box.getLower(lower);
-        Point3d upper = new Point3d();
-        box.getUpper(upper);
-        return (point.x >= lower.x && point.x <= upper.x && point.y >= lower.y && point.y <= upper.y && point.z >= lower.z
-                && point.z <= upper.z);
+        Transform3d transform = new Transform3d();
+        transform.rotZ(center.getDirZ());
+        transform.rotY(center.getDirY());
+        transform.rotX(center.getDirX());
+        transform.translate(center);
+        Bounds3d box = transform.transform(bounds);
+        return box.covers(point);
     }
 }

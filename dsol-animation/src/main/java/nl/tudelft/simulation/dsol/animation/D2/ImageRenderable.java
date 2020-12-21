@@ -15,12 +15,13 @@ import java.util.Map;
 import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
+
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.language.d3.BoundingBox;
 import nl.tudelft.simulation.language.d3.BoundsUtil;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * An abstract class for state-dependent image renderables. .
@@ -119,7 +120,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
 
     /**
      * constructs a new ImageRenderable.
-     * @param staticLocation DirectedPoint; the static location of the set of imageIcons
+     * @param staticLocation DirectedPoint3d; the static location of the set of imageIcons
      * @param size Dimension; the size of the imageIcons in world coordinates.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
      * @param images URL[]; the imageIcons to display.
@@ -127,11 +128,10 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
      * @throws RemoteException when remote context cannot be found
      */
     @SuppressWarnings("unchecked")
-    public ImageRenderable(final DirectedPoint staticLocation, final Dimension size,
+    public ImageRenderable(final DirectedPoint3d staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
-        this((T) new StaticLocation(staticLocation, new BoundingBox(size.getWidth(), size.getHeight(), 0.0)), simulator,
-                images);
+        this((T) new StaticLocation(staticLocation, new Bounds3d(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
     }
 
     /**
@@ -147,8 +147,8 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     public ImageRenderable(final Point2D staticLocation, final Dimension size, final SimulatorInterface<?, ?, ?> simulator,
             final URL[] images) throws RemoteException, NamingException
     {
-        this((T) new StaticLocation(new DirectedPoint(staticLocation), new BoundingBox(size.getWidth(), size.getHeight(), 0.0)),
-                simulator, images);
+        this((T) new StaticLocation(new DirectedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
+                new Bounds3d(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
     }
 
     /** {@inheritDoc} */
@@ -162,7 +162,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
             return;
         }
         Dimension size =
-                BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getLocation().z)
+                BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getLocation().getZ())
                         .getBounds().getSize();
         Point2D origin = this.resolveOrigin(this.orientation, size);
         graphics.translate(origin.getX(), origin.getY());

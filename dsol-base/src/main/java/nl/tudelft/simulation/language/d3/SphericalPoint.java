@@ -67,8 +67,8 @@ public class SphericalPoint implements Serializable
     }
 
     /**
-     * converts a sphericalpoint to a cartesian point.
-     * @return the cartesian point
+     * converts a spherical point to a Cartesian point.
+     * @return the Cartesian point
      */
     public final CartesianPoint toCartesianPoint()
     {
@@ -76,9 +76,9 @@ public class SphericalPoint implements Serializable
     }
 
     /**
-     * converts a sphericalpoint to a cartesian point.
-     * @param point SphericalPoint; the sphericalpoint
-     * @return the cartesian point
+     * converts a spherical point to a Cartesian point.
+     * @param point SphericalPoint; the spherical point
+     * @return the Cartesian point
      */
     public static CartesianPoint toCartesianPoint(final SphericalPoint point)
     {

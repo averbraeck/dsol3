@@ -64,15 +64,15 @@ public class DistTriangular extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation >= this.min && observation <= this.mode)
+        if (x >= this.min && x <= this.mode)
         {
-            return 2 * (observation - this.min) / ((this.max - this.min) * (this.mode - this.min));
+            return 2 * (x - this.min) / ((this.max - this.min) * (this.mode - this.min));
         }
-        if (observation >= this.mode && observation <= this.max)
+        if (x >= this.mode && x <= this.max)
         {
-            return 2 * (this.max - observation) / ((this.max - this.min) * (this.max - this.mode));
+            return 2 * (this.max - x) / ((this.max - this.min) * (this.max - this.mode));
         }
         return 0.0;
     }

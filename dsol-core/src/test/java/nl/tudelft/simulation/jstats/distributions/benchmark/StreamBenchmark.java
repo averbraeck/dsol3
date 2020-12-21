@@ -1,7 +1,9 @@
-package nl.tudelft.simulation.jstats.distributions;
+package nl.tudelft.simulation.jstats.distributions.benchmark;
 
 import java.util.Random;
 
+import nl.tudelft.simulation.jstats.distributions.DistContinuous;
+import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.streams.DX120Generator;
 import nl.tudelft.simulation.jstats.streams.Java2Random;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;

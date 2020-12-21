@@ -4,11 +4,11 @@
   <parent>
     <groupId>dsol</groupId>
     <artifactId>dsol</artifactId>
-    <version>3.04.11-SNAPSHOT</version>
+    <version>3.05.01-SNAPSHOT</version>
     <relativePath>../dsol/pom.xml</relativePath>
   </parent>
 
-  <artifactId>dsol-animation-map</artifactId>
+  <artifactId>dsol-animation-gis</artifactId>
   <name>DSOL Map Animation</name>
   <description>DSOL map animation from ESRI Shapefile, GeoJson, Json, WKB and WKT</description>
   <url>https://simulation.tudelft.nl/dsol/3.0/dsol-animation</url>

@@ -4,13 +4,14 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.point.DirectedPoint3d;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * <p>
@@ -79,11 +80,11 @@ public class DiscreteBall extends Ball
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint getLocation() throws RemoteException
+    public DirectedPoint3d getLocation() throws RemoteException
     {
         double fraction = (this.simulator.getSimulatorTime() - this.startTime) / (this.stopTime - this.startTime);
-        double x = this.origin.x + (this.destination.x - this.origin.x) * fraction;
-        double y = this.origin.y + (this.destination.y - this.origin.y) * fraction;
-        return new DirectedPoint(x, y, 0, 0.0, 0.0, this.theta);
+        double x = this.origin.getX() + (this.destination.getX() - this.origin.getX()) * fraction;
+        double y = this.origin.getY() + (this.destination.getY() - this.origin.getY()) * fraction;
+        return new DirectedPoint3d(x, y, 0, 0.0, 0.0, this.theta);
     }
 }

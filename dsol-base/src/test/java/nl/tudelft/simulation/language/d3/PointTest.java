@@ -2,16 +2,11 @@ package nl.tudelft.simulation.language.d3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.geom.Point2D;
 
 import org.junit.Test;
-import org.scijava.vecmath.Point3d;
-import org.scijava.vecmath.Point3f;
-import org.scijava.vecmath.Tuple3d;
-import org.scijava.vecmath.Tuple3f;
 
 /**
  * PointTest.java.
@@ -23,84 +18,6 @@ import org.scijava.vecmath.Tuple3f;
  */
 public class PointTest
 {
-    /**
-     * Test the DirectedPoint (and all constructors of the CartesianPoint).
-     */
-    @Test
-    public void testDirectedPoint()
-    {
-        DirectedPoint p1 = new DirectedPoint();
-        testDP(p1, 0, 0, 0, 0, 0, 0);
-        p1 = new DirectedPoint(1, 2, 3);
-        testDP(p1, 1, 2, 3, 0, 0, 0);
-        p1 = new DirectedPoint(4, 5, 6, .2, .3, .4);
-        testDP(p1, 4, 5, 6, .2, .3, .4);
-        assertTrue(p1.equals(p1.clone()));
-        DirectedPoint p2 = new DirectedPoint(p1);
-        testDP(p2, 4, 5, 6, .2, .3, .4);
-        assertEquals(p1, p2);
-        assertEquals(p1.hashCode(), p2.hashCode());
-        p1 = new DirectedPoint(new double[] {2, 4, 6});
-        testDP(p1, 2, 4, 6, 0, 0, 0);
-        p1 = new DirectedPoint(new Point2D.Double(3.5, 7.0));
-        testDP(p1, 3.5, 7.0, 0, 0, 0, 0);
-        p1 = new DirectedPoint(new Point2D.Double(3.5, 7.0), 0.707);
-        testDP(p1, 3.5, 7.0, 0, 0, 0, 0.707);
-        p1.setX(10.0);
-        p1.setY(11.0);
-        p1.setZ(12.0);
-        p1.setRotX(0.1);
-        p1.setRotY(0.2);
-        p1.setRotZ(0.3);
-        testDP(p1, 10, 11, 12, .1, .2, .3);
-        p1 = new DirectedPoint(new SphericalPoint(1.0, 0.0, 0.0));
-        testDP(p1, 0, 0, 1, 0, 0, 0);
-        p1 = new DirectedPoint(new Point3d(5, 6, 7));
-        testDP(p1, 5, 6, 7, 0, 0, 0);
-        p1 = new DirectedPoint(new Point3f(3f, 4f, 5f));
-        testDP(p1, 3, 4, 5, 0, 0, 0);
-        p1 = new DirectedPoint((Tuple3d) new Point3d(5, 6, 7));
-        testDP(p1, 5, 6, 7, 0, 0, 0);
-        p1 = new DirectedPoint((Tuple3f) new Point3f(3f, 4f, 5f));
-        testDP(p1, 3, 4, 5, 0, 0, 0);
-        assertTrue(p1.equals(p1));
-        assertFalse(p1.equals(p2));
-        assertFalse(p1.equals(new Point3d(3, 4, 5)));
-        assertFalse(p1.equals(new DirectedPoint(3, 4, 5, 0.1, 0, 0)));
-        assertFalse(p1.equals(new DirectedPoint(3, 4, 5, 0, 0.1, 0)));
-        assertFalse(p1.equals(new DirectedPoint(3, 4, 5, 0, 0, 0.1)));
-        p1 = new DirectedPoint(123, 456, 789, 0.135, 0.246, 0.357);
-        assertTrue(p1.toString().contains("123.0"));
-        assertTrue(p1.toString().contains("456.0"));
-        assertTrue(p1.toString().contains("789.0"));
-        assertTrue(p1.toString().contains("RotX=0.135"));
-        assertTrue(p1.toString().contains("RotY=0.246"));
-        assertTrue(p1.toString().contains("RotZ=0.357"));
-    }
-
-    /**
-     * @param p the point to check
-     * @param x double; expected x
-     * @param y double; expected y
-     * @param z double; expected z
-     * @param rX double; expected rotX
-     * @param rY double; expected rotY
-     * @param rZ double; expected rotZ
-     */
-    private void testDP(DirectedPoint p, double x, double y, double z, double rX, double rY, double rZ)
-    {
-        assertNotNull(p);
-        assertEquals(x, p.x, 0.0001);
-        assertEquals(x, p.getX(), 0.0001);
-        assertEquals(y, p.y, 0.0001);
-        assertEquals(y, p.getY(), 0.0001);
-        assertEquals(z, p.z, 0.0001);
-        assertEquals(z, p.getZ(), 0.0001);
-        assertEquals(rX, p.getRotX(), 0.0001);
-        assertEquals(rY, p.getRotY(), 0.0001);
-        assertEquals(rZ, p.getRotZ(), 0.0001);
-    }
-
     /**
      * Test the CartesianPoint and the SphericalPoint.
      */
@@ -123,9 +40,9 @@ public class PointTest
         assertFalse(sp.equals(cp));
         assertFalse(cp.equals(sp));
         CartesianPoint cp1 = cp.toSphericalPoint().toCartesianPoint();
-        assertEquals(cp.x, cp1.x, 0.001);
-        assertEquals(cp.y, cp1.y, 0.001);
-        assertEquals(cp.z, cp1.z, 0.001);
+        assertEquals(cp.getX(), cp1.getX(), 0.001);
+        assertEquals(cp.getY(), cp1.getY(), 0.001);
+        assertEquals(cp.getZ(), cp1.getZ(), 0.001);
         SphericalPoint sp1 = sp.toCartesianPoint().toSphericalPoint();
         assertEquals(sp.getRadius(), sp1.getRadius(), 0.001);
         assertEquals(sp.getTheta(), sp1.getTheta(), 0.001);
@@ -140,5 +57,17 @@ public class PointTest
         assertTrue(sp.toString().contains("radius=2.5"));
         assertTrue(sp.toString().contains("theta=0.2"));
         assertTrue(sp.toString().contains("phi=1.2"));
+        
+        cp = new CartesianPoint(1.0, 2.0, 3.0);
+        CartesianPoint cp2 = new CartesianPoint(new double[] {1.0, 2.0, 3.0});
+        assertEquals(cp, cp2);
+        cp2 = new CartesianPoint(new Point2D.Double(2.0, 4.0));
+        assertEquals(2.0, cp2.getX(), 0.001);
+        assertEquals(4.0, cp2.getY(), 0.001);
+        assertEquals(0.0, cp2.getZ(), 0.001);
+        String s = cp2.toString();
+        assertTrue(s.contains("x=2.0"));
+        assertTrue(s.contains("y=4.0"));
+        assertTrue(s.contains("z=0.0"));
     }
 }

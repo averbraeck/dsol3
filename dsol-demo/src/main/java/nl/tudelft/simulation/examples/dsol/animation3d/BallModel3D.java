@@ -5,9 +5,10 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.point.DirectedPoint3d;
+
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * BallModel3D, the ball example in 3D.
@@ -50,7 +51,7 @@ public class BallModel3D extends AbstractDSOLModel.TimeDouble<DESSSimulatorInter
                 this.simulator.getLogger().always().error(exception);
             }
         }
-        new World(new DirectedPoint(0, 0, -5.5), this.simulator);
+        new World(new DirectedPoint3d(0, 0, -5.5), this.simulator);
     }
 
     /** {@inheritDoc} */
