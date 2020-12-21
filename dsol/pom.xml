@@ -109,11 +109,11 @@
         </configuration>
       </plugin>
 
-      <dependency>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>${maven.resources.version}</version>
-      </dependency>
+      </plugin>
       
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
