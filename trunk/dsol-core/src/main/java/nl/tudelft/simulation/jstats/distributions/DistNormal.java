@@ -24,7 +24,7 @@ public class DistNormal extends DistContinuous
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final double mu;
 
-    /** mu refers to the mean of the normal distribution. */
+    /** sigma refers to the standard deviation of the normal distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final double sigma;
 
@@ -50,7 +50,7 @@ public class DistNormal extends DistContinuous
     /**
      * constructs a normal distribution with mu=0 and sigma=1.
      * @param stream StreamInterface; the random number stream
-     * @param mu double; the medium
+     * @param mu double; the mean
      * @param sigma double; the standard deviation
      */
     public DistNormal(final StreamInterface stream, final double mu, final double sigma)
@@ -76,7 +76,7 @@ public class DistNormal extends DistContinuous
 
     /**
      * returns the cumulative probability of the x-value.
-     * @param x double; the obsevervation x
+     * @param x double; the observation x
      * @return double the cumulative probability
      */
     public double getCumulativeProbability(final double x)
@@ -112,26 +112,34 @@ public class DistNormal extends DistContinuous
             prob = 1 - cumulativeProbability;
         }
         int i = 0;
-        while (!located)
+        double f = 0.0;
+        while (!located) // TODO: change into binary search
         {
-            if (DistNormal.CUMULATIVE_NORMAL_PROBABILITIES[i] < prob
-                    && DistNormal.CUMULATIVE_NORMAL_PROBABILITIES[i + 1] > prob)
+            if (CUMULATIVE_NORMAL_PROBABILITIES[i] < prob && CUMULATIVE_NORMAL_PROBABILITIES[i + 1] >= prob)
             {
                 located = true;
+                if (CUMULATIVE_NORMAL_PROBABILITIES[i] < CUMULATIVE_NORMAL_PROBABILITIES[i + 1])
+                {
+                    f = (prob - CUMULATIVE_NORMAL_PROBABILITIES[i])
+                            / (CUMULATIVE_NORMAL_PROBABILITIES[i + 1] - CUMULATIVE_NORMAL_PROBABILITIES[i]);
+                }
             }
-            i++;
+            else
+            {
+                i++;
+            }
         }
         if (cumulativeProbability < 0.5)
         {
-            return (0 + i / 100.0) * this.sigma - this.mu;
+            return this.mu - ((f + i) / 100.0) * this.sigma;
         }
-        return (0 + i / 100.0) * this.sigma + this.mu;
+        return ((f + i) / 100.0) * this.sigma + this.mu;
     }
 
     /**
      * Generates the next pseudorandom, Gaussian (normally) distributed double value, with mean 0.0 and standard deviation 1.0
      * see section 3.4.1 of The Art of Computer Programming, Volume 2 by Donald Knuth.
-     * @return double the next gaussian value
+     * @return double the next Gaussian value
      */
     protected synchronized double nextGaussian()
     {
@@ -143,10 +151,8 @@ public class DistNormal extends DistContinuous
         double v1, v2, s;
         do
         {
-            v1 = 2 * this.stream.nextDouble() - 1; // between -1.0
-            // and 1.0
-            v2 = 2 * this.stream.nextDouble() - 1; // between -1.0
-            // and 1.0
+            v1 = 2 * this.stream.nextDouble() - 1; // between -1.0 and 1.0
+            v2 = 2 * this.stream.nextDouble() - 1; // between -1.0 and 1.0
             s = v1 * v1 + v2 * v2;
         }
         while (s >= 1);
@@ -158,7 +164,7 @@ public class DistNormal extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double x)
+    public double getProbabilityDensity(final double x)
     {
         return 1.0 / (Math.sqrt(2 * Math.PI * Math.pow(this.sigma, 2)))
                 * Math.exp(-1 * Math.pow(x - this.mu, 2) / (2 * Math.pow(this.sigma, 2)));

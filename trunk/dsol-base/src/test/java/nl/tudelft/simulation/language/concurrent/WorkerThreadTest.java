@@ -20,6 +20,9 @@ public class WorkerThreadTest
     /** test value that will be incremented by a worker thread. */
     protected int value = 0;
 
+    /** thread. */
+    WorkerThread wt;
+    
     /**
      * Test the WorkerThread.
      */
@@ -27,11 +30,12 @@ public class WorkerThreadTest
     public void testWorkerThread()
     {
         this.value = 0;
-        WorkerThread wt = new WorkerThread("job", new Job());
-        assertTrue(wt.isAlive());
-        assertFalse(wt.isInterrupted());
-        assertEquals("job", wt.getName());
-        wt.interrupt();
+        this.wt = new WorkerThread("job", new Job());
+        assertTrue(this.wt.isAlive());
+        assertFalse(this.wt.isInterrupted());
+        assertFalse(this.wt.isRunning());
+        assertEquals("job", this.wt.getName());
+        this.wt.interrupt();
 
         try
         {
@@ -42,10 +46,10 @@ public class WorkerThreadTest
             // ignore
         }
         
-        wt.cleanUp();
+        this.wt.cleanUp();
 
         long startTime = System.currentTimeMillis();
-        while (wt.isAlive() && System.currentTimeMillis() - startTime < 1000)
+        while (this.wt.isAlive() && System.currentTimeMillis() - startTime < 1000)
         {
             try
             {
@@ -61,7 +65,7 @@ public class WorkerThreadTest
             fail("WorkerThread execution; System.currentTimeMillis() - startTime > 1000");
         }
 
-        assertFalse(wt.isAlive());
+        assertFalse(this.wt.isAlive());
         assertEquals(1, this.value);
     }
 
@@ -71,9 +75,9 @@ public class WorkerThreadTest
     @Test
     public void testWorkerThreadException()
     {
-        WorkerThread wt = new WorkerThread("exception job", new ExceptionJob());
-        assertEquals("exception job", wt.getName());
-        wt.interrupt();
+        this.wt = new WorkerThread("exception job", new ExceptionJob());
+        assertEquals("exception job", this.wt.getName());
+        this.wt.interrupt();
         try
         {
             Thread.sleep(100);
@@ -82,9 +86,9 @@ public class WorkerThreadTest
         {
             // ignore
         }
-        wt.cleanUp();
+        this.wt.cleanUp();
         long startTime = System.currentTimeMillis();
-        while (wt.isAlive() && System.currentTimeMillis() - startTime < 1000)
+        while (this.wt.isAlive() && System.currentTimeMillis() - startTime < 1000)
         {
             try
             {
@@ -99,7 +103,7 @@ public class WorkerThreadTest
         {
             fail("WorkerThread execution; System.currentTimeMillis() - startTime > 1000");
         }
-        assertFalse(wt.isAlive());
+        assertFalse(this.wt.isAlive());
     }
     
     /** The worker job. */
@@ -109,6 +113,7 @@ public class WorkerThreadTest
         @Override
         public void run()
         {
+            assertTrue(WorkerThreadTest.this.wt.isRunning());
             WorkerThreadTest.this.value++;
         }
     }

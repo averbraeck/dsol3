@@ -36,7 +36,6 @@ import java.util.Map;
 
 import org.djutils.logger.CategoryLogger;
 
-import nl.javel.gisbeans.geom.SerializableGeneralPath;
 import nl.tudelft.simulation.dsol.logger.Cat;
 
 /**
@@ -485,12 +484,6 @@ public class HTMLGraphics2D extends Graphics2D
                 addTransformFill("fillRect", rect.x, rect.y, rect.width, rect.height);
             else
                 addTransformDraw("drawRect", rect.x, rect.y, rect.width, rect.height);
-        }
-        else if (shape instanceof SerializableGeneralPath)
-        {
-            SerializableGeneralPath sgp = (SerializableGeneralPath) shape;
-            Path2D.Float path = sgp.getGeneralPath();
-            addTransformPathFloat(path, fill);
         }
         else if (shape instanceof Path2D.Float)
         {

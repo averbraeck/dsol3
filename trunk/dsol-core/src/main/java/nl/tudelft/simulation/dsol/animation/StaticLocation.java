@@ -2,8 +2,8 @@ package nl.tudelft.simulation.dsol.animation;
 
 import java.awt.geom.Point2D;
 
-import org.scijava.java3d.Bounds;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
 
 /**
  * A StaticLocation <br>
@@ -16,13 +16,13 @@ import nl.tudelft.simulation.language.d3.DirectedPoint;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class StaticLocation extends DirectedPoint implements Locatable
+public class StaticLocation extends DirectedPoint3d implements Locatable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /** the bounds. */
-    private Bounds bounds = null;
+    private Bounds3d bounds = null;
 
     /**
      * constructs a new StaticLocation.
@@ -32,10 +32,10 @@ public class StaticLocation extends DirectedPoint implements Locatable
      * @param theta double; theta
      * @param phi double; phi
      * @param rho double; rho
-     * @param bounds Bounds; the bounds
+     * @param bounds Bounds3d; the bounds
      */
     public StaticLocation(final double x, final double y, final double z, final double theta, final double phi,
-            final double rho, final Bounds bounds)
+            final double rho, final Bounds3d bounds)
     {
         super(x, y, z, theta, phi, rho);
         this.bounds = bounds;
@@ -47,33 +47,33 @@ public class StaticLocation extends DirectedPoint implements Locatable
      * @param rotZ double; the rotation in the xy plane
      * @param bounds Bounds; the bounds
      */
-    public StaticLocation(final Point2D point2D, final double rotZ, final Bounds bounds)
+    public StaticLocation(final Point2D point2D, final double rotZ, final Bounds3d bounds)
     {
-        super(point2D, rotZ);
+        super(point2D.getX(), point2D.getY(), 0.0, 0.0, 0.0, rotZ);
         this.bounds = bounds;
     }
 
     /**
      * constructs a new StaticLocation.
-     * @param location DirectedPoint; the location
+     * @param location DirectedPoint3d; the location
      * @param bounds Bounds; the bounds
      */
-    public StaticLocation(final DirectedPoint location, final Bounds bounds)
+    public StaticLocation(final DirectedPoint3d location, final Bounds3d bounds)
     {
-        super(location);
+        super(location.getX(), location.getY(), location.getZ(), location.getDirX(), location.getDirY(), location.getDirZ());
         this.bounds = bounds;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final DirectedPoint getLocation()
+    public final DirectedPoint3d getLocation()
     {
         return this;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Bounds getBounds()
+    public final Bounds3d getBounds()
     {
         return this.bounds;
     }

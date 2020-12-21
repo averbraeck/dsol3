@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.point.DirectedPoint3d;
 import org.djutils.io.URLResource;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -15,7 +16,6 @@ import nl.tudelft.simulation.dsol.animation.interpolation.LinearInterpolation;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistNormal;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * <p>
@@ -66,7 +66,7 @@ public class DiscreteBall extends Ball
         this.origin = this.destination;
         this.rotZ = 2 * Math.PI * Math.random();
         this.destination =
-                new DirectedPoint(new Point2D.Double(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200)), this.rotZ);
+                new DirectedPoint3d(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200), this.rotZ);
         this.startTime = this.simulator.getSimulatorTime();
         this.stopTime = this.startTime + Math.abs(new DistNormal(stream, 9, 1.8).draw());
         this.interpolator = new LinearInterpolation(this.startTime, this.stopTime, this.origin, this.destination);
@@ -75,7 +75,7 @@ public class DiscreteBall extends Ball
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint getLocation() throws RemoteException
+    public DirectedPoint3d getLocation() throws RemoteException
     {
         if (this.interpolator != null)
         {

@@ -21,14 +21,14 @@ public class DistErlang extends DistContinuous
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** k is the k-value of the erlang distribution. */
+    /** k is the k-value of the Erlang distribution. */
     private final int k;
 
-    /** beta is the beta value of the erlang distribution. */
-    private final double beta;
+    /** lambda is the rate of change value of the Erlang distribution. */
+    private final double lambda;
 
-    /** betak is the mean value of the erlang distribution. */
-    private final double betak;
+    /** lambdak is the mean value of the Erlang distribution. */
+    private final double lambdak;
 
     /** distGamma is the underlying gamma distribution. */
     private final DistGamma distGamma;
@@ -37,32 +37,32 @@ public class DistErlang extends DistContinuous
     private static final short GAMMABORDER = 10;
 
     /**
-     * constructs a new Erlang distribution.
+     * Construct a new Erlang distribution.
      * @param stream StreamInterface; the random number stream
-     * @param k int; is the k-parameter
-     * @param beta double; is the beta-parameter
+     * @param k int; the k-parameter
+     * @param lambda double; the rate of change parameter
      */
-    public DistErlang(final StreamInterface stream, final int k, final double beta)
+    public DistErlang(final StreamInterface stream, final int k, final double lambda)
     {
         super(stream);
-        if ((k > 0) && (beta > 0.0))
+        if ((k > 0) && (lambda > 0.0))
         {
             this.k = k;
-            this.beta = beta;
+            this.lambda = lambda;
         }
         else
         {
-            throw new IllegalArgumentException("Error Erlang - k <= 0 or beta < 0");
+            throw new IllegalArgumentException("Error Erlang - k <= 0 or beta <= 0");
         }
         if (this.k <= DistErlang.GAMMABORDER)
         {
-            this.betak = -this.beta / this.k;
+            this.lambdak = -this.lambda / this.k;
             this.distGamma = null;
         }
         else
         {
-            this.distGamma = new DistGamma(stream, this.k, this.beta);
-            this.betak = Double.NaN;
+            this.distGamma = new DistGamma(stream, this.k, this.lambda);
+            this.lambdak = Double.NaN;
         }
     }
 
@@ -79,7 +79,7 @@ public class DistErlang extends DistContinuous
             {
                 product = product * this.stream.nextDouble();
             }
-            return this.betak * Math.log(product);
+            return this.lambdak * Math.log(product);
         }
         // and using the gamma distribution is faster for k>10
         return this.distGamma.draw();
@@ -87,14 +87,13 @@ public class DistErlang extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation < 0)
+        if (x < 0)
         {
             return 0;
         }
-        return this.beta * Math
-                .exp(-this.beta * observation * (Math.pow(this.beta * observation, this.k - 1) / ProbMath.faculty(this.k - 1)));
+        return this.lambda * Math.exp(-this.lambda * x) * Math.pow(this.lambda * x, this.k - 1) / ProbMath.faculty(this.k - 1);
     }
 
     /**
@@ -108,15 +107,15 @@ public class DistErlang extends DistContinuous
     /**
      * @return beta
      */
-    public final double getBeta()
+    public final double getLambda()
     {
-        return this.beta;
+        return this.lambda;
     }
 
     /** {@inheritDoc} */
     @Override
     public String toString()
     {
-        return "Erlang(" + this.k + "," + this.beta + ")";
+        return "Erlang(" + this.k + "," + this.lambda + ")";
     }
 }

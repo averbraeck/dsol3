@@ -7,9 +7,10 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.point.DirectedPoint3d;
+
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * <p>
@@ -59,14 +60,14 @@ public class SingleImageRenderable<T extends Locatable> extends ImageRenderable<
 
     /**
      * constructs a new SingleImageRenderable
-     * @param staticLocation DirectedPoint; the static location
+     * @param staticLocation DirectedPoint3d; the static location
      * @param size Dimension; the size of the image
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @param image URL; the image
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public SingleImageRenderable(final DirectedPoint staticLocation, final Dimension size,
+    public SingleImageRenderable(final DirectedPoint3d staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL image) throws RemoteException, NamingException
     {
         super(staticLocation, size, simulator, new URL[] {image});

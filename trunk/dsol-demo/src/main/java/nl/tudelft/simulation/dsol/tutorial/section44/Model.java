@@ -5,10 +5,11 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.point.DirectedPoint3d;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVDESSSimulator;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * BallModel, the ball example in 3D.
@@ -39,7 +40,7 @@ public class Model extends AbstractDSOLModel.TimeDouble<DEVDESSSimulator.TimeDou
     @Override
     public void constructModel() throws SimRuntimeException
     {
-        new World(new DirectedPoint(0, 0, -5.5), this.simulator);
+        new World(new DirectedPoint3d(0, 0, -5.5), this.simulator);
         for (int i = 0; i < 10; i++)
         {
             try

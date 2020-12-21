@@ -62,11 +62,11 @@ public class DistPearson5 extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation > 0)
+        if (x > 0)
         {
-            return (Math.pow(observation, -1 * (this.alpha + 1)) * Math.exp(-this.beta / observation))
+            return (Math.pow(x, -1 * (this.alpha + 1)) * Math.exp(-this.beta / x))
                     / (Math.pow(this.beta, -this.alpha) * Gamma.gamma(this.alpha));
         }
         return 0;

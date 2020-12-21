@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.djutils.exceptions.Try;
 import org.junit.Test;
 
 /**
@@ -35,6 +36,8 @@ public class FilterTest
         assertFalse(filter.accept("entry"));
         assertTrue(filter.getCriterion().contains("accepts the first MaxPoint"));
         assertTrue(filter.getCriterion().contains("10"));
+        assertTrue(filter.toString().contains("10"));
+        assertTrue(filter.toString().contains("accepts"));
     }
     
     /**
@@ -70,6 +73,17 @@ public class FilterTest
         
         assertEquals(0, CompositeFilter.Operator.AND.getValue());
         assertEquals(1, CompositeFilter.Operator.OR.getValue());
+        
+        // test illegal and/or
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new CompositeFilter(filter1, filter2, null);
+            }
+        }, IllegalArgumentException.class);
+
     }
 
     /**

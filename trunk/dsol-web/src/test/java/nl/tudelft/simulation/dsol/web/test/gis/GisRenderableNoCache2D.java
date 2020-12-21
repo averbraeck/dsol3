@@ -8,20 +8,19 @@ import java.awt.image.ImageObserver;
 import java.net.URL;
 import java.rmi.RemoteException;
 
-import org.scijava.java3d.Bounds;
 import javax.naming.NamingException;
 
-import nl.javel.gisbeans.io.esri.CoordinateTransform;
-import nl.javel.gisbeans.map.MapInterface;
-import nl.javel.gisbeans.map.mapfile.MapFileXMLParser;
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
+
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
+import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
+import nl.tudelft.simulation.dsol.animation.gis.mapfile.MapFileXMLParser;
+import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.language.d3.BoundingBox;
-import nl.tudelft.simulation.language.d3.CartesianPoint;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
@@ -40,14 +39,14 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
 public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderableNoCache2D>, Locatable
 {
     /** the map to display */
-    protected MapInterface map = null;
+    protected GisMapInterface map = null;
 
     /** the location of the map. */
-    protected DirectedPoint location = null;
+    protected DirectedPoint3d location = null;
 
     /** the bounds of the map. */
-    protected Bounds bounds = null;
-    
+    protected Bounds3d bounds = null;
+
     /** the simulator. */
     private final SimulatorInterface<?, ?, ?> simulator;
 
@@ -100,9 +99,8 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         try
         {
             this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
-            this.location = new DirectedPoint(
-                    new CartesianPoint(this.map.getExtent().getCenterX(), this.map.getExtent().getCenterY(), z));
-            this.bounds = new BoundingBox(this.map.getExtent().getWidth(), this.map.getExtent().getHeight(), 0.0);
+            this.location = new DirectedPoint3d(this.map.getExtent().getCenterX(), this.map.getExtent().getCenterY(), z);
+            this.bounds = new Bounds3d(this.map.getExtent().getWidth(), this.map.getExtent().getHeight(), 0.0);
             // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
             // XXX this.map.getExtent());
             this.bind2Context(simulator);
@@ -116,11 +114,11 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
     /**
      * constructs a new GisRenderable2D based on an existing Map.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
-     * @param map MapInterface; the map to use.
+     * @param map GisMapInterface; the map to use.
      * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
      * @param z double; the z-value to use
      */
-    public GisRenderableNoCache2D(final SimulatorInterface<?, ?, ?> simulator, final MapInterface map,
+    public GisRenderableNoCache2D(final SimulatorInterface<?, ?, ?> simulator, final GisMapInterface map,
             final CoordinateTransform coordinateTransform, final double z)
     {
         this.logger = simulator.getLogger();
@@ -132,9 +130,8 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         try
         {
             this.map = map;
-            this.location = new DirectedPoint(
-                    new CartesianPoint(this.map.getExtent().getCenterX(), this.map.getExtent().getCenterY(), z));
-            this.bounds = new BoundingBox(this.map.getExtent().getWidth(), this.map.getExtent().getHeight(), 100.0);
+            this.location = new DirectedPoint3d(this.map.getExtent().getCenterX(), this.map.getExtent().getCenterY(), z);
+            this.bounds = new Bounds3d(this.map.getExtent().getWidth(), this.map.getExtent().getHeight(), 100.0);
             // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
             // XXX this.map.getExtent());
             this.bind2Context(simulator);
@@ -188,14 +185,14 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
 
     /** {@inheritDoc} */
     @Override
-    public Bounds getBounds()
+    public Bounds3d getBounds()
     {
         return this.bounds;
     }
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint getLocation()
+    public DirectedPoint3d getLocation()
     {
         return this.location;
     }
@@ -203,7 +200,7 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
     /**
      * @return map the Shapefile map
      */
-    public final MapInterface getMap()
+    public final GisMapInterface getMap()
     {
         return this.map;
     }

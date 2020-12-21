@@ -2,14 +2,10 @@ package nl.tudelft.simulation.examples.dsol.animation3d;
 
 import java.util.Enumeration;
 
-import org.scijava.java3d.Appearance;
-import org.scijava.java3d.Material;
-import org.scijava.java3d.TransformGroup;
-import org.scijava.vecmath.Color3f;
+import org.djutils.draw.point.DirectedPoint3d;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.animation.D3.Renderable3D;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * World, a simple world for the ball model in 3D.
@@ -27,15 +23,16 @@ public class World extends Renderable3D
 
     /**
      * Construct the world.
-     * @param staticLocation DirectedPoint; Static location
+     * @param staticLocation DirectedPoint3d; Static location
      * @param simulator SimulatorInterface.TimeDouble; Simulator
      */
-    public World(final DirectedPoint staticLocation, final SimulatorInterface.TimeDouble simulator)
+    public World(final DirectedPoint3d staticLocation, final SimulatorInterface.TimeDouble simulator)
     {
         super(staticLocation, simulator);
     }
 
     /** {@inheritDoc} */
+    /*-
     @Override
     public void provideModel(final TransformGroup locationGroup)
     {
@@ -62,11 +59,18 @@ public class World extends Renderable3D
         // Put it together
         // TODO: locationGroup.addChild(model);
     }
+    */
 
     /** {@inheritDoc} */
     @Override
     protected void update(final Enumeration children)
     {
         // Do nothing
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void update()
+    {
     }
 }

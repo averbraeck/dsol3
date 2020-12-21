@@ -121,21 +121,21 @@ public class DistEmpirical extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation < this.observations.get(0).getObservation().doubleValue())
+        if (x < this.observations.get(0).getObservation().doubleValue())
         {
             return 0;
         }
-        if (this.observations.get(this.observations.size() - 1).getObservation().doubleValue() <= observation)
+        if (this.observations.get(this.observations.size() - 1).getObservation().doubleValue() <= x)
         {
             return 1;
         }
         if (this.observations.isGrouped())
         {
-            return this.probDensityGrouped(observation);
+            return this.probDensityGrouped(x);
         }
-        return this.probDensityNonGrouped(observation);
+        return this.probDensityNonGrouped(x);
     }
 
     /**

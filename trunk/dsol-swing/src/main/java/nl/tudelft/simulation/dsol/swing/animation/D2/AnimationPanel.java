@@ -16,11 +16,11 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.Point3d;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
-import org.scijava.java3d.BoundingBox;
-import org.scijava.vecmath.Point3d;
-import org.scijava.vecmath.Point4i;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DComparator;
@@ -30,7 +30,6 @@ import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.animation.D2.mouse.InputListener;
 import nl.tudelft.simulation.language.DSOLException;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
@@ -72,8 +71,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     /** the context with the path /experiment/replication/animation/2D. */
     private ContextInterface context = null;
 
-    /** a line that helps the user to see where he is dragging. */
-    private Point4i dragLine = new Point4i();
+    /** a line that helps the user to see where she/he is dragging. */
+    private int[] dragLine = new int[4];
 
     /** enable drag line. */
     private boolean dragLineEnabled = false;
@@ -147,7 +146,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
         if (this.dragLineEnabled)
         {
             g.setColor(Color.BLACK);
-            g.drawLine(this.dragLine.w, this.dragLine.x, this.dragLine.y, this.dragLine.z);
+            g.drawLine(this.dragLine[0], this.dragLine[1], this.dragLine[2], this.dragLine[3]);
             this.dragLineEnabled = false;
         }
     }
@@ -299,20 +298,16 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
         double maxX = -Double.MAX_VALUE;
         double minY = Double.MAX_VALUE;
         double maxY = -Double.MAX_VALUE;
-        Point3d p3dL = new Point3d();
-        Point3d p3dU = new Point3d();
         try
         {
             for (Renderable2DInterface<? extends Locatable> renderable : this.elementList)
             {
-                DirectedPoint l = renderable.getSource().getLocation();
-                BoundingBox b = new BoundingBox(renderable.getSource().getBounds());
-                b.getLower(p3dL);
-                b.getUpper(p3dU);
-                minX = Math.min(minX, l.x + Math.min(p3dL.x, p3dU.x));
-                minY = Math.min(minY, l.y + Math.min(p3dL.y, p3dU.y));
-                maxX = Math.max(maxX, l.x + Math.max(p3dL.x, p3dU.x));
-                maxY = Math.max(maxY, l.y + Math.max(p3dL.y, p3dU.y));
+                DirectedPoint3d l = renderable.getSource().getLocation();
+                Bounds3d b = new Bounds3d(renderable.getSource().getBounds());
+                minX = Math.min(minX, l.getX() + b.getMinX());
+                minY = Math.min(minY, l.getY() + b.getMinY());
+                maxX = Math.max(maxX, l.getX() + b.getMaxX());
+                maxY = Math.max(maxY, l.getY() + b.getMaxY());
             }
         }
         catch (Exception e)
@@ -398,7 +393,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     /**
      * @return returns the dragLine.
      */
-    public final Point4i getDragLine()
+    public final int[] getDragLine()
     {
         return this.dragLine;
     }

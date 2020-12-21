@@ -64,13 +64,13 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
     public abstract T draw();
 
     /**
-     * returns the probability density value of an observation.
-     * @param observation double; the observation.
-     * @return double the probability density.
+     * returns the probability density for a value x.
+     * @param x double; the value for which to calculate the probability density.
+     * @return double; the probability density for value x
      */
-    public final double probDensity(final double observation)
+    public final double probDensity(final double x)
     {
-        return this.wrappedDistribution.probDensity(observation);
+        return this.wrappedDistribution.getProbabilityDensity(x);
     }
 
     /***********************************************************************************************************/

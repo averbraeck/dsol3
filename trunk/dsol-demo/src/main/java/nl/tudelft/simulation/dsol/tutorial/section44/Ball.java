@@ -1,11 +1,10 @@
 package nl.tudelft.simulation.dsol.tutorial.section44;
 
-import org.scijava.java3d.BoundingSphere;
-import org.scijava.java3d.Bounds;
-import org.scijava.vecmath.Point3d;
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.Point3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * A Ball.
@@ -30,10 +29,10 @@ public abstract class Ball implements Locatable
     private String name = "";
 
     /** the origin. */
-    protected DirectedPoint origin = new DirectedPoint();
+    protected DirectedPoint3d origin = new DirectedPoint3d(0,0,0);
 
     /** the destination. */
-    protected DirectedPoint destination = new DirectedPoint();
+    protected DirectedPoint3d destination = new DirectedPoint3d(0,0,0);
 
     /** the rotation. */
     protected double rotZ = 0.0;
@@ -51,9 +50,9 @@ public abstract class Ball implements Locatable
 
     /** {@inheritDoc} */
     @Override
-    public Bounds getBounds()
+    public Bounds3d getBounds()
     {
-        return new BoundingSphere(new Point3d(0, 0, 0), Ball.RADIUS);
+        return new Bounds3d(-Ball.RADIUS, Ball.RADIUS, -Ball.RADIUS, Ball.RADIUS, -Ball.RADIUS, Ball.RADIUS);
     }
 
     /** {@inheritDoc} */

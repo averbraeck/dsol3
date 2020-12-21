@@ -2,9 +2,8 @@ package nl.tudelft.simulation.dsol.animation;
 
 import java.rmi.RemoteException;
 
-import org.scijava.java3d.Bounds;
-
-import nl.tudelft.simulation.language.d3.DirectedPoint;
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
 
 /**
  * The locatable interface enforces knowledge on position.
@@ -21,15 +20,15 @@ public interface Locatable
 {
     /**
      * returns the location of an object.
-     * @return DirectedPoint the location
+     * @return DirectedPoint3d the location
      * @throws RemoteException on network failure
      */
-    DirectedPoint getLocation() throws RemoteException;
+    DirectedPoint3d getLocation() throws RemoteException;
 
     /**
      * returns the bounds of the locatable object. The bounds is the not rotated bounds around [0;0;0]
      * @return BoundingBox include this.getLocation() as center of the box.
      * @throws RemoteException on network failure
      */
-    Bounds getBounds() throws RemoteException;
+    Bounds3d getBounds() throws RemoteException;
 }

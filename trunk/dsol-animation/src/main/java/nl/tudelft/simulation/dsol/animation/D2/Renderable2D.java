@@ -9,13 +9,14 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.point.DirectedPoint3d;
+
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d2.Shape;
 import nl.tudelft.simulation.language.d3.BoundsUtil;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
@@ -59,13 +60,13 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     private final T source;
 
     /** the naming Context in which to store the Renderable with a pointer to the Locatable object. */
-    private final ContextInterface context;
+    private final ContextInterface context; // TODO: AVOID STORAGE?
 
     /** the unique id. */
-    private final long id;
-    
+    private final long id; // TODO: AVOID STORAGE?
+
     /** the logger for errors / warnings. */
-    private final SimLogger logger;
+    private final SimLogger logger; // TODO: ONE LOGGER PER RENDERABLE?
 
     /** the generator for the unique id. TODO Static for now, should be replaced by a context dependent one. */
     private static long lastGeneratedId = 0;
@@ -198,14 +199,14 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     {
         try
         {
-            DirectedPoint location = this.source.getLocation();
-            Rectangle2D rectangle = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), location.z);
+            DirectedPoint3d location = this.source.getLocation();
+            Rectangle2D rectangle = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), location.getZ());
             if (rectangle == null || (!Shape.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
             }
-            Point2D screenCoordinates =
-                    Renderable2DInterface.Util.getScreenCoordinates(this.source.getLocation().to2D(), extent, screenSize);
+            Point2D screenCoordinates = Renderable2DInterface.Util
+                    .getScreenCoordinates(this.source.getLocation().project().toPoint2D(), extent, screenSize);
             // Let's transform
             if (isTranslate())
             {
@@ -216,7 +217,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
             {
                 graphics.scale(1.0 / scaleFactor, 1.0 / scaleFactor);
             }
-            double angle = -location.getRotZ();
+            double angle = -location.getDirZ();
             if (isFlip() && angle > Math.PI)
             {
                 angle = angle - Math.PI;
@@ -255,7 +256,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         try
         {
             Rectangle2D intersect =
-                    BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getLocation().z);
+                    BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getLocation().getZ());
             if (intersect == null)
             {
                 throw new NullPointerException(

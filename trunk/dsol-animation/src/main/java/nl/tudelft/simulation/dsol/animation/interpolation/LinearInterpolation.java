@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.animation.interpolation;
 
-import nl.tudelft.simulation.language.d3.DirectedPoint;
+import org.djutils.draw.point.DirectedPoint3d;
 
 /**
  * A LinearInterpolation.
@@ -24,22 +24,22 @@ public class LinearInterpolation implements InterpolationInterface
     /**
      * the origin
      */
-    private DirectedPoint origin = null;
+    private DirectedPoint3d origin = null;
 
     /**
      * the destination
      */
-    private DirectedPoint destination = null;
+    private DirectedPoint3d destination = null;
 
     /**
      * constructs a new LinearInterpolation.
      * @param startTime double; the startingTime
      * @param endTime double; the endTime
-     * @param origin DirectedPoint; the origin
-     * @param destination DirectedPoint; the destination
+     * @param origin DirectedPoint3d; the origin
+     * @param destination DirectedPoint3d; the destination
      */
-    public LinearInterpolation(final double startTime, final double endTime, final DirectedPoint origin,
-            final DirectedPoint destination)
+    public LinearInterpolation(final double startTime, final double endTime, final DirectedPoint3d origin,
+            final DirectedPoint3d destination)
     {
         super();
         if (endTime < startTime)
@@ -48,13 +48,13 @@ public class LinearInterpolation implements InterpolationInterface
         }
         this.startTime = startTime;
         this.endTime = endTime;
-        this.origin = (DirectedPoint) origin.clone();
-        this.destination = (DirectedPoint) destination.clone();
+        this.origin = origin; // immutable
+        this.destination = destination; // immutable
     }
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint getLocation(final double time)
+    public DirectedPoint3d getLocation(final double time)
     {
         if (time <= this.startTime)
         {
@@ -65,12 +65,12 @@ public class LinearInterpolation implements InterpolationInterface
             return this.destination;
         }
         double fraction = (time - this.startTime) / (this.endTime - this.startTime);
-        double x = this.origin.x + (this.destination.x - this.origin.x) * fraction;
-        double y = this.origin.y + (this.destination.y - this.origin.y) * fraction;
-        double z = this.origin.z + (this.destination.z - this.origin.z) * fraction;
-        double rotY = this.origin.getRotY() + (this.destination.getRotY() - this.origin.getRotY()) * fraction;
-        double rotZ = this.origin.getRotZ() + (this.destination.getRotZ() - this.origin.getRotZ()) * fraction;
-        double rotX = this.origin.getRotX() + (this.destination.getRotX() - this.origin.getRotX()) * fraction;
-        return new DirectedPoint(x, y, z, rotX, rotY, rotZ);
+        double x = this.origin.getX() + (this.destination.getX() - this.origin.getX()) * fraction;
+        double y = this.origin.getY() + (this.destination.getY() - this.origin.getY()) * fraction;
+        double z = this.origin.getZ() + (this.destination.getZ() - this.origin.getZ()) * fraction;
+        double rotY = this.origin.getDirY() + (this.destination.getDirY() - this.origin.getDirY()) * fraction;
+        double rotZ = this.origin.getDirZ() + (this.destination.getDirZ() - this.origin.getDirZ()) * fraction;
+        double rotX = this.origin.getDirX() + (this.destination.getDirX() - this.origin.getDirX()) * fraction;
+        return new DirectedPoint3d(x, y, z, rotX, rotY, rotZ);
     }
 }

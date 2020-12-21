@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
 import org.djutils.event.TimedEventType;
 import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
-import org.scijava.java3d.Bounds;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.formalisms.flow.Station;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.language.d3.BoundingBox;
-import nl.tudelft.simulation.language.d3.CartesianPoint;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * The CPU example as published in Simulation Modeling and Analysis by A.M. Law &amp; W.D. Kelton section 1.4 and 2.4. .
@@ -61,7 +59,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
     private List<Object> queue = Collections.synchronizedList(new ArrayList<Object>());
 
     /** the location. */
-    private DirectedPoint location = new DirectedPoint(new CartesianPoint(-90, 0, 0));
+    private DirectedPoint3d location = new DirectedPoint3d(-90, 0, 0);
 
     /**
      * constructs a new CPU.
@@ -154,15 +152,15 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint getLocation()
+    public DirectedPoint3d getLocation()
     {
         return this.location;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Bounds getBounds()
+    public Bounds3d getBounds()
     {
-        return new BoundingBox(0, 0, 0);
+        return new Bounds3d(0, 0, 0);
     }
 }

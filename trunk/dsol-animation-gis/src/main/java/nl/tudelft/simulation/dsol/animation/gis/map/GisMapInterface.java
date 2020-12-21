@@ -11,6 +11,7 @@ import org.djutils.immutablecollections.ImmutableList;
 import org.djutils.immutablecollections.ImmutableMap;
 
 import nl.tudelft.simulation.dsol.animation.gis.GraphicsException;
+import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
 import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
 
 /**
@@ -23,38 +24,8 @@ import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public interface MapInterface extends Serializable
+public interface GisMapInterface extends Serializable
 {
-    /** MINX contant. */
-    byte MINX = 0;
-
-    /** MINY contant. */
-    byte MINY = 1;
-
-    /** MAXX contant. */
-    byte MAXX = 2;
-
-    /** MAXY contant. */
-    byte MAXY = 3;
-
-    /** FEET contant. */
-    byte FEET = 0;
-
-    /** INCHES contant. */
-    byte INCHES = 1;
-
-    /** KILOMETERS contant. */
-    byte KILOMETERS = 2;
-
-    /** METERS contant. */
-    byte METERS = 3;
-
-    /** MILES contant. */
-    byte MILES = 4;
-
-    /** DD contant. */
-    byte DD = 5;
-
     /** TEXT. */
     byte TEXT = 0;
 
@@ -91,7 +62,7 @@ public interface MapInterface extends Serializable
     /** MILES_TO_METER. */
     double MILES_TO_METER = 1609.34;
 
-    /** DD_TO_METER. */
+    /** DD_TO_METER (DD stands for decimal degrees). */
     double DD_TO_METER = 111119;
 
     /** CENTIMETER_PER_INCH. */
@@ -171,10 +142,10 @@ public interface MapInterface extends Serializable
 
     /**
      * Getter for property units.
-     * @return int the value of property units.
+     * @return MapUnits the value of property units.
      * @throws RemoteException on network exception
      */
-    int getUnits() throws RemoteException;
+    MapUnits getUnits() throws RemoteException;
 
     /**
      * Setter for property extent.
@@ -242,17 +213,17 @@ public interface MapInterface extends Serializable
 
     /**
      * Setter for property name.
-     * @param name String; New value of property name.
+     * @param name String; new value of property name.
      * @throws RemoteException on network exception
      */
     void setName(String name) throws RemoteException;
 
     /**
      * Setter for property units.
-     * @param units int; New value of property units.
+     * @param units MapUnits; new value of property units.
      * @throws RemoteException on network exception
      */
-    void setUnits(int units) throws RemoteException;
+    void setUnits(MapUnits units) throws RemoteException;
 
     /**
      * zooms the map with a particular factor.

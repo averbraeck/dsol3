@@ -2,9 +2,7 @@ package nl.tudelft.simulation.examples.dsol.animation;
 
 import java.rmi.RemoteException;
 
-import org.scijava.java3d.BoundingSphere;
-import org.scijava.java3d.Bounds;
-import org.scijava.vecmath.Point3d;
+import org.djutils.draw.bounds.Bounds3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 
@@ -46,9 +44,9 @@ public abstract class Ball implements Locatable
 
     /** {@inheritDoc} */
     @Override
-    public Bounds getBounds() throws RemoteException
+    public Bounds3d getBounds() throws RemoteException
     {
-        return new BoundingSphere(new Point3d(0, 0, 0), Ball.RADIUS);
+        return new Bounds3d(2.0 * Ball.RADIUS, 2.0 * Ball.RADIUS, 2.0 * Ball.RADIUS);
     }
 
     /** {@inheritDoc} */

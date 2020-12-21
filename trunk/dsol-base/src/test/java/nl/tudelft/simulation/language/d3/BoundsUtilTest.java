@@ -2,16 +2,16 @@ package nl.tudelft.simulation.language.d3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.geom.Rectangle2D;
 
+import org.djutils.draw.Transform3d;
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.Point3d;
 import org.junit.Test;
-import org.scijava.java3d.BoundingSphere;
-import org.scijava.java3d.Bounds;
-import org.scijava.vecmath.Point3d;
 
 /**
  * BoundsUtilTest.java.
@@ -29,18 +29,33 @@ public class BoundsUtilTest
     @Test
     public void testZIntersect()
     {
-        BoundingBox box000 = new BoundingBox(new Point3d(-2, -2, -2), new Point3d(2, 2, 2));
-        DirectedPoint location = new DirectedPoint(4, 4, 4);
+        Bounds3d box000 = new Bounds3d(new Point3d[] {new Point3d(-2, -2, -2), new Point3d(2, 2, 2)});
+        DirectedPoint3d location = new DirectedPoint3d(4, 4, 4);
         // the box is around (4,4,4), so its real coordinates are (2,2,2, 6,6,6).
         assertNull(BoundsUtil.zIntersect(location, box000, 1));
         assertNull(BoundsUtil.zIntersect(location, box000, 7));
         testRect(BoundsUtil.zIntersect(location, box000, 4), 2, 2, 6, 6);
+    }
 
-        BoundingSphere sphere = new BoundingSphere(new Point3d(0, 0, 0), 2.0);
-        Rectangle2D rsphere0 = BoundsUtil.zIntersect(new DirectedPoint(0, 0, 0), sphere, 0);
-        testRect(rsphere0, -2, -2, 2, 2);
-        Rectangle2D rsphere2 = BoundsUtil.zIntersect(new DirectedPoint(0, 0, 0), sphere, 2.0);
-        testRect(rsphere2, -2, -2, 2, 2);
+    /**
+     * test transform method.
+     */
+    @Test
+    public void testTransform()
+    {
+        Bounds3d box000 = new Bounds3d(new Point3d[] {new Point3d(-2, -2, -2), new Point3d(2, 2, 2)});
+        DirectedPoint3d location = new DirectedPoint3d(4, 4, 4);
+        // rotate 45 degrees around z-axis w.r.t. (0,0,0) ->
+        // bounding box becomes (-2.sqrt(2), -2.sqrt(2), -2), (2.sqrt(2), 2.sqrt(2), 2)
+        // the box is around (4,4,4), so its real coordinates are (4-2.sqrt(2), 4-2.sqrt(2), 2), (4+2.sqrt(2), 4+2.sqrt(2), 6).
+        Transform3d tr45 = new Transform3d();
+        tr45.rotZ(Math.toRadians(45.0));
+        Bounds3d box45 = tr45.transform(box000);
+        Bounds3d box = BoundsUtil.transform(box45, location);
+        double s2 = 2.0 * Math.sqrt(2.0);
+        testRect(box.project().toRectangle2D(), 4.0 - s2, 4.0 - s2, 4.0 + s2, 4.0 + s2);
+        assertEquals(2.0, box.getMinZ(), 0.001);
+        assertEquals(6.0, box.getMaxZ(), 0.001);
     }
 
     /**
@@ -60,26 +75,13 @@ public class BoundsUtilTest
     }
 
     /**
-     * test transform method.
-     */
-    @Test
-    public void testTransform()
-    {
-        BoundingSphere sphere = new BoundingSphere(new Point3d(0, 0, 0), 2.0);
-        Bounds sp2 = BoundsUtil.transform(sphere, new DirectedPoint(0, 0, 0));
-        assertEquals(sphere, sp2);
-        Bounds sp3 = BoundsUtil.transform(sphere, new DirectedPoint(1, 1, 0));
-        assertNotEquals(sphere, sp3);
-    }
-
-    /**
      * test contains method.
      */
     @Test
     public void testContains()
     {
-        BoundingBox bounds = new BoundingBox(new Point3d(-2, -2, -2), new Point3d(2, 2, 2));
-        DirectedPoint center = new DirectedPoint(4, 4, 4);
+        Bounds3d bounds = new Bounds3d(new Point3d[] {new Point3d(-2, -2, -2), new Point3d(2, 2, 2)});
+        DirectedPoint3d center = new DirectedPoint3d(4, 4, 4);
         // the box is around (4,4,4), so its real coordinates are (2,2,2, 6,6,6).
         assertFalse(BoundsUtil.contains(center, bounds, new Point3d(0, 0, 0)));
         assertTrue(BoundsUtil.contains(center, bounds, new Point3d(4, 4, 4)));

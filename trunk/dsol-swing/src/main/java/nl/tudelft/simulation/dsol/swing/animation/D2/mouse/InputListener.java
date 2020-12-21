@@ -19,7 +19,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 
 import org.djutils.logger.CategoryLogger;
-import org.scijava.vecmath.Point4i;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
@@ -288,7 +287,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
             double zValue = -Double.MAX_VALUE;
             for (Locatable next : targets)
             {
-                double z = next.getLocation().z;
+                double z = next.getLocation().getZ();
                 if (z > zValue)
                 {
                     zValue = z;
@@ -311,11 +310,11 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     {
         if ((mousePosition != null) && (this.mouseClicked != null))
         {
-            Point4i dragLine = this.panel.getDragLine();
-            dragLine.w = (int) mousePosition.getX();
-            dragLine.x = (int) mousePosition.getY();
-            dragLine.y = (int) this.mouseClicked.getX();
-            dragLine.z = (int) this.mouseClicked.getY();
+            int[] dragLine = this.panel.getDragLine();
+            dragLine[0] = (int) mousePosition.getX();
+            dragLine[1] = (int) mousePosition.getY();
+            dragLine[2] = (int) this.mouseClicked.getX();
+            dragLine[3] = (int) this.mouseClicked.getY();
             this.panel.setDragLineEnabled(true);
         }
     }

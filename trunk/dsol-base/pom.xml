@@ -4,7 +4,7 @@
   <parent>
     <groupId>dsol</groupId>
     <artifactId>dsol</artifactId>
-    <version>3.04.11-SNAPSHOT</version>
+    <version>3.05.01-SNAPSHOT</version>
     <relativePath>../dsol/pom.xml</relativePath>
   </parent>
 
@@ -14,7 +14,7 @@
   <url>https://simulation.tudelft.nl/dsol/3.0/dsol-base</url>
 
   <dependencies>
-    <dependency>
+    <!-- dependency>
       <groupId>org.scijava</groupId>
       <artifactId>vecmath</artifactId>
     </dependency>
@@ -22,11 +22,16 @@
     <dependency>
       <groupId>org.scijava</groupId>
       <artifactId>j3dcore</artifactId>
-    </dependency>
+    </dependency -->
 
     <dependency>
       <groupId>org.djutils</groupId>
       <artifactId>djutils</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.djutils</groupId>
+      <artifactId>djutils-draw</artifactId>
     </dependency>
 
   </dependencies>

@@ -4,10 +4,11 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.point.DirectedPoint3d;
+
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * An extension of Ball.
@@ -26,10 +27,10 @@ public class Ball3D extends Ball
     private Positioner3D positioner = null;
 
     /** the origin. */
-    private CartesianPoint origin = new CartesianPoint();
+    private CartesianPoint origin = new CartesianPoint(0,0,0);
 
     /** the destination. */
-    private CartesianPoint destination = new CartesianPoint();
+    private CartesianPoint destination = new CartesianPoint(0,0,0);
 
     /** the rotation. */
     private double angle = 0.0;
@@ -62,16 +63,16 @@ public class Ball3D extends Ball
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint getLocation() throws RemoteException
+    public DirectedPoint3d getLocation() throws RemoteException
     {
-        double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[0] + this.origin.x;
-        double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[0] + this.origin.y;
-        if (Math.abs(x - this.origin.x) > Math.abs(this.destination.x - this.origin.x)
-                || Math.abs(y - this.origin.y) > Math.abs(this.destination.y - this.origin.y))
+        double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[0] + this.origin.getX();
+        double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[0] + this.origin.getY();
+        if (Math.abs(x - this.origin.getX()) > Math.abs(this.destination.getX() - this.origin.getX())
+                || Math.abs(y - this.origin.getY()) > Math.abs(this.destination.getY() - this.origin.getY()))
         {
             this.next();
         }
-        return new DirectedPoint(x, y, 0.0, this.theta, 0.0, 0.0);
+        return new DirectedPoint3d(x, y, 0.0, this.theta, 0.0, 0.0);
     }
 
     /**
@@ -84,7 +85,7 @@ public class Ball3D extends Ball
         this.origin = this.destination;
         this.positioner.setValue(0);
         this.destination = new CartesianPoint(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200), 0);
-        this.angle = (this.destination.y - this.origin.y) / (this.destination.x - this.origin.x);
+        this.angle = (this.destination.getY() - this.origin.getY()) / (this.destination.getX() - this.origin.getX());
     }
 
 }

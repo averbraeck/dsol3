@@ -4,15 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint3d;
 import org.djutils.event.EventProducer;
 import org.djutils.io.URLResource;
 import org.djutils.logger.CategoryLogger;
-import org.scijava.java3d.BoundingSphere;
-import org.scijava.java3d.Bounds;
 
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.CartesianPoint;
-import nl.tudelft.simulation.language.d3.DirectedPoint;
 
 /**
  * An Editable object is a simulation object that can be edited by the user. That means that the user is capable of
@@ -62,13 +61,13 @@ public abstract class Editable extends EventProducer implements Locatable
      * the location of the editable.
      */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected DirectedPoint location = null;
+    protected DirectedPoint3d location = null;
 
     /**
      * the location of the bounds.
      */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Bounds bounds = new BoundingSphere();
+    protected Bounds3d bounds = new Bounds3d(1.0, 1.0, 1.0);
 
     /**
      * the vertices.
@@ -88,9 +87,9 @@ public abstract class Editable extends EventProducer implements Locatable
     /**
      * constructs a new Editable.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to schedule on
-     * @param location DirectedPoint; the initial location
+     * @param location DirectedPoint3d; the initial location
      */
-    public Editable(final SimulatorInterface<?, ?, ?> simulator, final DirectedPoint location)
+    public Editable(final SimulatorInterface<?, ?, ?> simulator, final DirectedPoint3d location)
     {
         super();
         this.simulator = simulator;
@@ -107,18 +106,18 @@ public abstract class Editable extends EventProducer implements Locatable
 
     /**
      * sets the bounds of this editable.
-     * @param bounds Bounds; the new bounds of this editable.
+     * @param bounds Bounds3d; the new bounds of this editable.
      */
-    public void setBounds(final Bounds bounds)
+    public void setBounds(final Bounds3d bounds)
     {
         this.bounds = bounds;
     }
 
     /**
      * sets the location of this editable.
-     * @param location DirectedPoint; the new location of this editable
+     * @param location DirectedPoint3d; the new location of this editable
      */
-    public void setLocation(final DirectedPoint location)
+    public void setLocation(final DirectedPoint3d location)
     {
         this.location = location;
     }
@@ -134,14 +133,14 @@ public abstract class Editable extends EventProducer implements Locatable
 
     /** {@inheritDoc} */
     @Override
-    public Bounds getBounds()
+    public Bounds3d getBounds()
     {
         return this.bounds;
     }
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint getLocation()
+    public DirectedPoint3d getLocation()
     {
         return this.location;
     }

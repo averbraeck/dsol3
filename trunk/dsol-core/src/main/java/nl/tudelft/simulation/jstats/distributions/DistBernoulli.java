@@ -25,7 +25,7 @@ public class DistBernoulli extends DistDiscrete
     private final double p;
 
     /**
-     * constructs a new Bernoulli distribution. Random occurence with two possible outcomes; used to generate other discrete
+     * constructs a new Bernoulli distribution. Random occurrence with two possible outcomes; used to generate other discrete
      * random variates.
      * @param stream StreamInterface; is the stream
      * @param p double; the p-value of a Bernoulli distribution

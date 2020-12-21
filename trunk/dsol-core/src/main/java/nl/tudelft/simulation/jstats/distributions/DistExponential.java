@@ -52,11 +52,11 @@ public class DistExponential extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation >= 0)
+        if (x >= 0)
         {
-            return (1 / this.mean) * Math.exp(-observation / this.mean);
+            return (1 / this.mean) * Math.exp(-x / this.mean);
         }
         return 0.0;
     }

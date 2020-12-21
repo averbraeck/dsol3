@@ -56,9 +56,9 @@ public class DistUniform extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
-    public double probDensity(final double observation)
+    public double getProbabilityDensity(final double x)
     {
-        if (observation >= this.min && observation <= this.max)
+        if (x >= this.min && x <= this.max)
         {
             return 1.0 / (this.max - this.min);
         }
