@@ -1,6 +1,7 @@
 package nl.tudelft.simulation.dsol.swing.gui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -80,13 +81,17 @@ public class TablePanel extends JPanel
      */
     public static void main(String[] args)
     {
+        int columns = 5;
+        int rows = 10;
         if (args.length != 2)
         {
-            System.out.println("Usage: java nl.tudelft.simulation.dsol.gui.TablePanel [column] [row]");
-            System.exit(0);
+            System.out.println("Usage: java nl.tudelft.simulation.dsol.gui.TablePanel [#columns] [#rows]");
         }
-        int columns = Integer.valueOf(args[0]).intValue();
-        int rows = Integer.valueOf(args[1]).intValue();
+        else
+        {
+            columns = Integer.valueOf(args[0]).intValue();
+            rows = Integer.valueOf(args[1]).intValue();
+        }
         JFrame app = new JFrame();
         TablePanel content = new TablePanel(columns, rows);
         for (int i = 0; i < columns; i++)
@@ -96,7 +101,10 @@ public class TablePanel extends JPanel
                 content.setCell(new JTextField("x=" + i + " y=" + j), i, j);
             }
         }
+        app.setSize(200,100);
+        app.setMinimumSize(new Dimension(200,100));
         app.setContentPane(content);
+        app.pack();
         app.setVisible(true);
     }
 }
