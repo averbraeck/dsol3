@@ -1,132 +1,182 @@
 package nl.tudelft.simulation.dsol.swing.gui;
 
 import java.awt.BorderLayout;
-import java.io.Serializable;
+import java.awt.Insets;
 import java.rmi.RemoteException;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
-import nl.tudelft.simulation.dsol.simtime.SimTime;
+import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControl;
+import nl.tudelft.simulation.dsol.swing.gui.control.AbstractControlPanel;
 
 /**
+ * Tabbed content panel for the simulation with a control bar on top.
  * <p>
- * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
- * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
+ * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
- * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
- * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
  * </p>
- * @author <a href="http://www.tbm.tudelft.nl/mzhang">Mingxin Zhang </a>
- * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck </a>
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, UnitTimeDouble, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
- *            relative types are the same.
- * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  */
-public class DSOLPanel<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>> extends JPanel
+public class DSOLPanel extends JPanel 
 {
     /** */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 20150617L;
 
-    /** the simulator. */
-    protected final SimulatorInterface<A, R, T> simulator;
+    /** The control panel to control start/stop, speed of the simulation. */
+    private AbstractControlPanel<?, ?, ?, ?> controlPanel;
 
-    /** */
-    protected Console console = new Console();
+    /** The tabbed pane that contains the different (default) screens. */
+    protected final TabbedContentPane tabbedPane;
 
-    /** the model. */
-    private final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model;
-
-    /** */
-    protected SimulatorControlPanel simulatorControlPanel;
-
-    /** */
-    protected TabbedContentPane tabbedPane = new TabbedContentPane(SwingConstants.BOTTOM);
-
-    /** */
-    protected StatusBar statusBar;
-
-    /**
-     * @param model DSOLModel&lt;A, R, T, S&gt;; the model to run in this panel
-     * @param simulator S; the simulator to use for the model
-     * @param <S> the simulator type
-     */
-    public <S extends SimulatorInterface<A, R, T>> DSOLPanel(final DSOLModel<A, R, T, S> model, final S simulator)
+    static
     {
-        this.model = model;
-        this.simulator = simulator;
-
-        try
-        {
-            this.initialize();
-        }
-        catch (Exception exception)
-        {
-            simulator.getLogger().always().error(exception, "DSOLPanel");
-        }
+        // use narrow border for TabbedPane, which cannot be changed afterwards
+        UIManager.put("TabbedPane.contentBorderInsets", new Insets(1, 1, 1, 1));
     }
 
     /**
-     * initialize the panel and the simulator.
-     * @throws RemoteException when simulator cannot be found
-     * @throws SimRuntimeException when model cannot be constructed
+     * Construct a panel for an interactive simulation model.
+     * @param simulator S; the simulator or animator of the model.
+     * @param model DSOLModel&lt;A, R, T, S&gt;; the model with its properties.
+     * @param controlPanel DSOLControlPanel&lt;A, R, T, S&gt;; the control panel to use (especially with relation to time
+     *            control)
+     * @throws RemoteException when communications to a remote machine fails
      */
-    public void initialize() throws RemoteException, SimRuntimeException
+    public DSOLPanel(final AbstractControlPanel<?, ?, ?, ?> controlPanel) throws RemoteException
     {
-        this.createContentPane();
-        // XXX: needed or not? this.model.constructModel(this.simulator);
+        this.tabbedPane = new AppearanceControlTabbedContentPane(SwingConstants.BOTTOM);
+        setLayout(new BorderLayout());
+
+        // add the simulationControl at the top
+        this.controlPanel = controlPanel;
+        add(this.controlPanel, BorderLayout.NORTH);
+
+        // add the tabbed contentPane in the center
+        add(this.tabbedPane, BorderLayout.CENTER);
     }
 
     /**
-     * Method createContentPane.
-     * @throws RemoteException on error
+     * Adds a console tab for the Logger.
      */
-    protected void createContentPane() throws RemoteException
+    public final void addConsoleLogger()
     {
-        this.setLayout(new BorderLayout());
+        this.tabbedPane.addTab("logger", new ConsoleLogger());
+    }
 
-        // Let's add our simulationControl
-        this.simulatorControlPanel = new SimulatorControlPanel(this.simulator);
-        this.add(this.simulatorControlPanel, BorderLayout.NORTH);
+    /**
+     * Adds a console tab for steout and stderr.
+     */
+    public final void addConsolOutput()
+    {
+        this.tabbedPane.addTab("console", new ConsoleOutput());
+    }
 
-        // Let's add our console to our tabbed pane
-        this.tabbedPane.addTab("console", new JScrollPane(this.console));
-
-        // Let's display our tabbed contentPane
-        this.add(this.tabbedPane, BorderLayout.CENTER);
-
-        // put a status bar at the bottom
-        this.statusBar = new StatusBar(this.simulator);
-        this.add(this.statusBar, BorderLayout.SOUTH);
+    /**
+     * Adds a properties tab.
+     * @throws InputParameterException on exception with properties
+     */
+    public final void addPropertiesTab() throws InputParameterException
+    {
+        // TODO: make a tab with the InputParameters
     }
 
     /**
      * @return tabbedPane
      */
-    public TabbedContentPane getTabbedPane()
+    public final TabbedContentPane getTabbedPane()
     {
         return this.tabbedPane;
     }
 
     /**
-     * @return console
+     * @return simulator.
      */
-    public final Console getConsole()
+    public final SimulatorInterface<?, ?, ?> getSimulator()
     {
-        return this.console;
+        return this.controlPanel.getSimulator();
     }
 
     /**
-     * @param console Console; set console
+     * Return the control panel of this SimulationPanel.
+     * @return ControlPanel; the control panel
      */
-    public final void setConsole(Console console)
+    public final AbstractControlPanel<?, ?, ?, ?> getControlPanel()
     {
-        this.console = console;
+        return this.controlPanel;
     }
 
+    /**
+     * @return the Model
+     */
+    public DSOLModel<?, ?, ?, ?> getModel()
+    {
+        return this.controlPanel.getModel();
+    }
+
+    /**
+     * Enable the simulation or animation buttons in the GUI. This method HAS TO BE CALLED in order for the buttons to be
+     * enabled, because the initial state is DISABLED. Typically, this is done after all tabs, statistics, and other user
+     * interface and model components have been constructed and initialized.
+     */
+    public void enableSimulationControlButtons()
+    {
+        this.controlPanel.setControlButtonsState(true);
+    }
+
+    /**
+     * Disable the simulation or animation buttons in the GUI.
+     */
+    public void disableSimulationControlButtons()
+    {
+        this.controlPanel.setControlButtonsState(false);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final String toString()
+    {
+        return "SimulationPanel";
+    }
+
+    /**
+     * TabbedContentPane which ignores appearance (it has too much colors looking ugly / becoming unreadable).
+     * <p>
+     * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
+     * DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+     * </p>
+     * @author <a href="http://www.tbm.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
+     * @author <a href="http://www.transport.citg.tudelft.nl">Wouter Schakel</a>
+     */
+    static class AppearanceControlTabbedContentPane extends TabbedContentPane implements AppearanceControl
+    {
+        /** */
+        private static final long serialVersionUID = 20180206L;
+
+        /**
+         * @param tabPlacement int; tabPlacement
+         */
+        AppearanceControlTabbedContentPane(final int tabPlacement)
+        {
+            super(tabPlacement);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public String toString()
+        {
+            return "AppearanceControlTabbedContentPane []";
+        }
+
+    }
 }
