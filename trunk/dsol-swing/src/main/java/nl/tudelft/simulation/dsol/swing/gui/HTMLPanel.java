@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.swing.gui;
 
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URL;
@@ -7,6 +8,7 @@ import java.net.URL;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 import org.djutils.logger.CategoryLogger;
 
@@ -70,14 +72,20 @@ public class HTMLPanel extends JEditorPane
      */
     public static void main(String[] args) throws Exception
     {
+        String url = "https://simulation.tudelft.nl/dsol/3.0";
         if (args.length != 1)
         {
             System.out.println("Usage: java nl.tudelft.simulation.dsol.gui.HTMLPanel [url]");
-            System.exit(0);
+        }
+        else
+        {
+            url = args[0];
         }
         JFrame app = new JFrame("HTMLPanel, (c) 2003-2020 Delft University of Technology");
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setContentPane(new JScrollPane(new HTMLPanel(new URL(args[0]))));
+        app.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        HTMLPanel htmlPanel = new HTMLPanel(new URL(url));
+        app.setContentPane(new JScrollPane(htmlPanel));
+        app.setExtendedState(Frame.MAXIMIZED_BOTH);
         app.setVisible(true);
     }
 }
