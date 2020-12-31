@@ -1,10 +1,14 @@
 package nl.tudelft.simulation.dsol.swing.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.EnumSet;
 import java.util.Set;
 
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -21,15 +25,19 @@ import org.pmw.tinylog.LogEntry;
 import org.pmw.tinylog.writers.LogEntryValue;
 import org.pmw.tinylog.writers.Writer;
 
+import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControl;
+
 /**
- * The Console for the swing application where the log messages are displayed. <br>
- * <br>
+ * Console for a swing application where the log messages are displayed.
+ * <p>
  * Copyright (c) 2003-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
- * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>. The
- * source code and binary code of this software is proprietary information of Delft University of Technology.
+ * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+ * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>
  */
-public class Console extends JTextPane
+public class ConsoleLogger extends JPanel implements AppearanceControl
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -42,16 +50,27 @@ public class Console extends JTextPane
 
     /** the current logging level. */
     private Level level = Level.INFO;
+    
+    /** the text pane. */
+    private JTextPane textPane;
 
     /**
      * Constructor for Console.
      */
-    public Console()
+    public ConsoleLogger()
     {
-        super();
-        setEditable(false);
-        this.consoleLogWriter = new ConsoleLogWriter(this);
+        setLayout(new BorderLayout());
+        this.textPane = new JTextPane();
+        this.textPane.setEditable(false);
+        this.textPane.setBackground(Color.WHITE);
+        this.textPane.setOpaque(true);
+        this.consoleLogWriter = new ConsoleLogWriter(this.textPane);
         Configurator.currentConfig().addWriter(this.consoleLogWriter, this.level, this.messageFormat).activate();
+        JScrollPane scrollPane = new JScrollPane(this.textPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBackground(Color.WHITE);
+        scrollPane.setOpaque(true);
+        add(scrollPane, BorderLayout.CENTER);
     }
 
     /**
@@ -97,6 +116,14 @@ public class Console extends JTextPane
         this.consoleLogWriter.maxLines = Math.max(1, maxLines);
     }
 
+    
+    /** {@inheritDoc} */
+    @Override
+    public boolean isBackground()
+    {
+        return true;
+    }
+
     /**
      * LogWriter takes care of writing the log records to the console. <br>
      * <br>
@@ -120,7 +147,7 @@ public class Console extends JTextPane
         int nrLines = 0;
 
         /** the maximum number of lines before the first lines will be erased. */
-        protected int maxLines = 1000;
+        protected int maxLines = 20000;
 
         /**
          * @param textPane JTextPane; the text area to write the messages to.
