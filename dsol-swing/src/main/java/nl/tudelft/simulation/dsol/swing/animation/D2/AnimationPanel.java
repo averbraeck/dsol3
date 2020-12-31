@@ -16,9 +16,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.djutils.draw.bounds.Bounds;
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
-import org.djutils.draw.point.Point3d;
+import org.djutils.draw.point.Point;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 
@@ -302,8 +302,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
         {
             for (Renderable2DInterface<? extends Locatable> renderable : this.elementList)
             {
-                DirectedPoint3d l = renderable.getSource().getLocation();
-                Bounds3d b = new Bounds3d(renderable.getSource().getBounds());
+                Point l = renderable.getSource().getLocation();
+                Bounds b = new Bounds3d(renderable.getSource().getBounds());
                 minX = Math.min(minX, l.getX() + b.getMinX());
                 minY = Math.min(minY, l.getY() + b.getMinY());
                 maxX = Math.max(maxX, l.getX() + b.getMaxX());
