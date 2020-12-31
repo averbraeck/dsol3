@@ -76,7 +76,8 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * Easy access interface DSOLModel.TimeDouble.
      * @param <S> the simulator to use
      */
-    public interface TimeDouble<S extends SimulatorInterface.TimeDouble> extends DSOLModel<Double, Double, SimTimeDouble, S>
+    public interface TimeDouble<S extends SimulatorInterface<Double, Double, SimTimeDouble>>
+            extends DSOLModel<Double, Double, SimTimeDouble, S>
     {
         // easy access extension
     }
@@ -85,7 +86,8 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * Easy access interface DSOLModel.TimeFloat.
      * @param <S> the simulator to use
      */
-    public interface TimeFloat<S extends SimulatorInterface.TimeFloat> extends DSOLModel<Float, Float, SimTimeFloat, S>
+    public interface TimeFloat<S extends SimulatorInterface<Float, Float, SimTimeFloat>>
+            extends DSOLModel<Float, Float, SimTimeFloat, S>
     {
         // easy access extension
     }
@@ -94,7 +96,8 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * Easy access interface DSOLModel.TimeLong.
      * @param <S> the simulator to use
      */
-    public interface TimeLong<S extends SimulatorInterface.TimeLong> extends DSOLModel<Long, Long, SimTimeLong, S>
+    public interface TimeLong<S extends SimulatorInterface<Long, Long, SimTimeLong>>
+            extends DSOLModel<Long, Long, SimTimeLong, S>
     {
         // easy access extension
     }
@@ -103,7 +106,7 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * Easy access interface DSOLModel.TimeDoubleUnit.
      * @param <S> the simulator to use
      */
-    public interface TimeDoubleUnit<S extends SimulatorInterface.TimeDoubleUnit>
+    public interface TimeDoubleUnit<S extends SimulatorInterface<Time, Duration, SimTimeDoubleUnit>>
             extends DSOLModel<Time, Duration, SimTimeDoubleUnit, S>
     {
         // easy access extension
@@ -113,7 +116,7 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * Easy access interface DSOLModel.TimeFloatUnit.
      * @param <S> the simulator to use
      */
-    public interface TimeFloatUnit<S extends SimulatorInterface.TimeFloatUnit>
+    public interface TimeFloatUnit<S extends SimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>>
             extends DSOLModel<FloatTime, FloatDuration, SimTimeFloatUnit, S>
     {
         // easy access extension
@@ -123,7 +126,7 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * Easy access interface DSOLModel.TimeCalendarDouble.
      * @param <S> the simulator to use
      */
-    public interface CalendarDouble<S extends SimulatorInterface.CalendarDouble>
+    public interface CalendarDouble<S extends SimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>>
             extends DSOLModel<Calendar, Duration, SimTimeCalendarDouble, S>
     {
         // easy access extension
@@ -133,7 +136,7 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * Easy access interface DSOLModel.TimeCalendarFloat.
      * @param <S> the simulator to use
      */
-    public interface CalendarFloat<S extends SimulatorInterface.CalendarFloat>
+    public interface CalendarFloat<S extends SimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>>
             extends DSOLModel<Calendar, FloatDuration, SimTimeCalendarFloat, S>
     {
         // easy access extension
@@ -143,7 +146,7 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * Easy access interface DSOLModel.TimeCalendarLong.
      * @param <S> the simulator to use
      */
-    public interface CalendarLong<S extends SimulatorInterface.CalendarLong>
+    public interface CalendarLong<S extends SimulatorInterface<Calendar, Long, SimTimeCalendarLong>>
             extends DSOLModel<Calendar, Long, SimTimeCalendarLong, S>
     {
         // easy access extension

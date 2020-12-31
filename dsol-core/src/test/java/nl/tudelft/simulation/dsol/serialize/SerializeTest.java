@@ -13,7 +13,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVDESSAnimator;
 import nl.tudelft.simulation.dsol.simulators.DEVDESSSimulator;
-import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
+import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
@@ -45,7 +45,7 @@ public class SerializeTest
         new MarshalledObject(new DESSSimulator("SerializeTest", 0.1));
         new MarshalledObject(new DEVDESSSimulator("SerializeTest", 0.1));
         new MarshalledObject(new DEVDESSAnimator("SerializeTest", 0.1));
-        new MarshalledObject(new DEVSRealTimeClock.TimeDoubleUnit("SerializeTest"));
+        new MarshalledObject(new DEVSRealTimeAnimator.TimeDoubleUnit("SerializeTest"));
 
         // Now we look at the experiment
         DEVSSimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble("SerializeTest");

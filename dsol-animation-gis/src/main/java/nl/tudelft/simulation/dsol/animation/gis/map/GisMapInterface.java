@@ -47,7 +47,7 @@ public interface GisMapInterface extends Serializable
     /** POINT. */
     byte POINT = 1;
 
-    /** LINe. */
+    /** LINE. */
     byte LINE = 2;
 
     /** FEET_TO_METER. */

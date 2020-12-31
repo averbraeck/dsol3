@@ -74,7 +74,7 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
     private final String id;
 
     /** the experiment to which this replication belongs. */
-    private final Experiment<A, R, T, S> experiment;
+    private final Experiment<A, R, T, ? extends S> experiment;
 
     /** the contextRoot of this replication. */
     private ContextInterface context = null;
@@ -82,10 +82,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
     /**
      * constructs a new Replication.
      * @param id String; the id of the replication, which has to be unique within the experiment
-     * @param experiment Experiment&lt;A, R, T, S&gt;; the experiment to which this replication belongs
+     * @param experiment Experiment&lt;A, R, T, ? extends S&gt;; the experiment to which this replication belongs
      * @throws NamingException in case a context for the replication cannot be created
      */
-    public Replication(final String id, final Experiment<A, R, T, S> experiment) throws NamingException
+    public Replication(final String id, final Experiment<A, R, T, ? extends S> experiment) throws NamingException
     {
         this.id = id;
         this.experiment = experiment;
@@ -96,10 +96,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
     /**
      * constructs a new Replication.
      * @param id int; the id of the replication, which has to be unique within the experiment
-     * @param experiment Experiment&lt;A, R, T, S&gt;; the experiment to which this replication belongs
+     * @param experiment Experiment&lt;A, R, T, ? extends S&gt;; the experiment to which this replication belongs
      * @throws NamingException in case a context for the replication cannot be created
      */
-    public Replication(final int id, final Experiment<A, R, T, S> experiment) throws NamingException
+    public Replication(final int id, final Experiment<A, R, T, ? extends S> experiment) throws NamingException
     {
         this.id = "" + id;
         this.experiment = experiment;
@@ -113,7 +113,7 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
      * @param startTime T; the start time as a time object.
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
-     * @param model DSOLModel&lt;A, R, T, S&gt;; the model for which this is the replication
+     * @param model DSOLModel&lt;A, R, T, ? extends S&gt;; the model for which this is the replication
      * @return a Replication object with corresponding experiment and treatment
      * @throws NamingException in case a context for the replication cannot be created
      * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
@@ -124,7 +124,7 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
      */
     public static <A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
             S extends SimulatorInterface<A, R, T>> Replication<A, R, T, S> create(final String id, final T startTime,
-                    final R warmupPeriod, final R runLength, final DSOLModel<A, R, T, S> model) throws NamingException
+                    final R warmupPeriod, final R runLength, final DSOLModel<A, R, T, ? extends S> model) throws NamingException
     {
         Experiment<A, R, T, S> experiment = new Experiment<>();
         experiment.setModel(model);
@@ -211,7 +211,7 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
     /**
      * @return Returns the experiment.
      */
-    public Experiment<A, R, T, S> getExperiment()
+    public Experiment<A, R, T, ? extends S> getExperiment()
     {
         return this.experiment;
     }
@@ -257,10 +257,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeDouble.
          * @param id String; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeDouble&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeDouble&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDouble(final String id, final Experiment.TimeDouble<S> experiment) throws NamingException
+        public TimeDouble(final String id, final Experiment.TimeDouble<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -268,10 +268,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeDouble.
          * @param id int; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeDouble&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeDouble&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDouble(final int id, final Experiment.TimeDouble<S> experiment) throws NamingException
+        public TimeDouble(final int id, final Experiment.TimeDouble<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -282,14 +282,14 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
          * @param startTime double; the start time
          * @param warmupPeriod double; the warmup period, included in the runlength (!)
          * @param runLength double; the total length of the run, including the warm-up period.
-         * @param model DSOLModel.TimeDouble&lt;S&gt;; the model for which this is the replication
+         * @param model DSOLModel.TimeDouble&lt;? extends S&gt;; the model for which this is the replication
          * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
          * @param <S> the simulator to use
          */
         public static <S extends SimulatorInterface.TimeDouble> Replication.TimeDouble<S> create(final String id,
-                final double startTime, final double warmupPeriod, final double runLength, final DSOLModel.TimeDouble<S> model)
-                throws NamingException
+                final double startTime, final double warmupPeriod, final double runLength,
+                final DSOLModel.TimeDouble<? extends S> model) throws NamingException
         {
             Experiment.TimeDouble<S> experiment = new Experiment.TimeDouble<S>();
             experiment.setModel(model);
@@ -301,9 +301,9 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        public Experiment.TimeDouble<S> getExperiment()
+        public Experiment.TimeDouble<? extends S> getExperiment()
         {
-            return (Experiment.TimeDouble<S>) super.getExperiment();
+            return (Experiment.TimeDouble<? extends S>) super.getExperiment();
         }
 
         /** {@inheritDoc} */
@@ -326,10 +326,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeFloat.
          * @param id String; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeFloat&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeFloat&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloat(final String id, final Experiment.TimeFloat<S> experiment) throws NamingException
+        public TimeFloat(final String id, final Experiment.TimeFloat<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -337,10 +337,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeFloat.
          * @param id int; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeFloat&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeFloat&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloat(final int id, final Experiment.TimeFloat<S> experiment) throws NamingException
+        public TimeFloat(final int id, final Experiment.TimeFloat<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -357,8 +357,8 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
          * @param <S> the simulator to use
          */
         public static <S extends SimulatorInterface.TimeFloat> Replication.TimeFloat<S> create(final String id,
-                final float startTime, final float warmupPeriod, final float runLength, final DSOLModel.TimeFloat<S> model)
-                throws NamingException
+                final float startTime, final float warmupPeriod, final float runLength,
+                final DSOLModel.TimeFloat<? extends S> model) throws NamingException
         {
             Experiment.TimeFloat<S> experiment = new Experiment.TimeFloat<S>();
             experiment.setModel(model);
@@ -370,9 +370,9 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        public Experiment.TimeFloat<S> getExperiment()
+        public Experiment.TimeFloat<? extends S> getExperiment()
         {
-            return (Experiment.TimeFloat<S>) super.getExperiment();
+            return (Experiment.TimeFloat<? extends S>) super.getExperiment();
         }
 
         /** {@inheritDoc} */
@@ -395,10 +395,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeLong.
          * @param id String; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeLong&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeLong&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeLong(final String id, final Experiment.TimeLong<S> experiment) throws NamingException
+        public TimeLong(final String id, final Experiment.TimeLong<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -406,10 +406,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeLong.
          * @param id int; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeLong&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeLong&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeLong(final int id, final Experiment.TimeLong<S> experiment) throws NamingException
+        public TimeLong(final int id, final Experiment.TimeLong<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -420,14 +420,14 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
          * @param startTime long; the start time
          * @param warmupPeriod long; the warmup period, included in the runlength (!)
          * @param runLength long; the total length of the run, including the warm-up period.
-         * @param model DSOLModel.TimeLong&lt;S&gt;; the model for which this is the replication
+         * @param model DSOLModel.TimeLong&lt;? extends S&gt;; the model for which this is the replication
          * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
          * @param <S> the simulator to use
          */
         public static <S extends SimulatorInterface.TimeLong> Replication.TimeLong<S> create(final String id,
-                final long startTime, final long warmupPeriod, final long runLength, final DSOLModel.TimeLong<S> model)
-                throws NamingException
+                final long startTime, final long warmupPeriod, final long runLength,
+                final DSOLModel.TimeLong<? extends S> model) throws NamingException
         {
             Experiment.TimeLong<S> experiment = new Experiment.TimeLong<S>();
             experiment.setModel(model);
@@ -439,9 +439,9 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        public Experiment.TimeLong<S> getExperiment()
+        public Experiment.TimeLong<? extends S> getExperiment()
         {
-            return (Experiment.TimeLong<S>) super.getExperiment();
+            return (Experiment.TimeLong<? extends S>) super.getExperiment();
         }
 
         /** {@inheritDoc} */
@@ -465,10 +465,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeDoubleUnit.
          * @param id String; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeDoubleUnit&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeDoubleUnit&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDoubleUnit(final String id, final Experiment.TimeDoubleUnit<S> experiment) throws NamingException
+        public TimeDoubleUnit(final String id, final Experiment.TimeDoubleUnit<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -476,10 +476,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeDoubleUnit.
          * @param id int; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeDoubleUnit&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeDoubleUnit&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeDoubleUnit(final int id, final Experiment.TimeDoubleUnit<S> experiment) throws NamingException
+        public TimeDoubleUnit(final int id, final Experiment.TimeDoubleUnit<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -490,14 +490,14 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
          * @param startTime Time; the start time
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
-         * @param model DSOLModel.TimeDoubleUnit&lt;S&gt;; the model for which this is the replication
+         * @param model DSOLModel.TimeDoubleUnit&lt;? extends S&gt;; the model for which this is the replication
          * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
          * @param <S> the simulator to use
          */
-        public static <S extends SimulatorInterface.TimeDoubleUnit> Replication.TimeDoubleUnit<S> create(final String id,
-                final Time startTime, final Duration warmupPeriod, final Duration runLength,
-                final DSOLModel.TimeDoubleUnit<S> model) throws NamingException
+        public static <S extends SimulatorInterface.TimeDoubleUnit> Replication.TimeDoubleUnit<S> create(
+                final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength,
+                final DSOLModel.TimeDoubleUnit<? extends S> model) throws NamingException
         {
             Experiment.TimeDoubleUnit<S> experiment = new Experiment.TimeDoubleUnit<S>();
             experiment.setModel(model);
@@ -509,9 +509,9 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        public Experiment.TimeDoubleUnit<S> getExperiment()
+        public Experiment.TimeDoubleUnit<? extends S> getExperiment()
         {
-            return (Experiment.TimeDoubleUnit<S>) super.getExperiment();
+            return (Experiment.TimeDoubleUnit<? extends S>) super.getExperiment();
         }
 
         /** {@inheritDoc} */
@@ -535,10 +535,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeFloatUnit.
          * @param id String; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeFloatUnit&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeFloatUnit&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloatUnit(final String id, final Experiment.TimeFloatUnit<S> experiment) throws NamingException
+        public TimeFloatUnit(final String id, final Experiment.TimeFloatUnit<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -546,10 +546,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.TimeFloatUnit.
          * @param id int; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.TimeFloatUnit&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.TimeFloatUnit&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public TimeFloatUnit(final int id, final Experiment.TimeFloatUnit<S> experiment) throws NamingException
+        public TimeFloatUnit(final int id, final Experiment.TimeFloatUnit<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -560,14 +560,14 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
          * @param startTime FloatTime; the start time
          * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
-         * @param model DSOLModel.TimeFloatUnit&lt;S&gt;; the model for which this is the replication
+         * @param model DSOLModel.TimeFloatUnit&lt;? extends S&gt;; the model for which this is the replication
          * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
          * @param <S> the simulator to use
          */
-        public static <S extends SimulatorInterface.TimeFloatUnit> Replication.TimeFloatUnit<S> create(final String id,
-                final FloatTime startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
-                final DSOLModel.TimeFloatUnit<S> model) throws NamingException
+        public static <S extends SimulatorInterface.TimeFloatUnit> Replication.TimeFloatUnit<S> create(
+                final String id, final FloatTime startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
+                final DSOLModel.TimeFloatUnit<? extends S> model) throws NamingException
         {
             Experiment.TimeFloatUnit<S> experiment = new Experiment.TimeFloatUnit<S>();
             experiment.setModel(model);
@@ -579,9 +579,9 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        public Experiment.TimeFloatUnit<S> getExperiment()
+        public Experiment.TimeFloatUnit<? extends S> getExperiment()
         {
-            return (Experiment.TimeFloatUnit<S>) super.getExperiment();
+            return (Experiment.TimeFloatUnit<? extends S>) super.getExperiment();
         }
 
         /** {@inheritDoc} */
@@ -605,10 +605,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.CalendarDouble.
          * @param id String; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.CalendarDouble&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarDouble&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarDouble(final String id, final Experiment.CalendarDouble<S> experiment) throws NamingException
+        public CalendarDouble(final String id, final Experiment.CalendarDouble<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -616,10 +616,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.CalendarDouble.
          * @param id int; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.CalendarDouble&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarDouble&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarDouble(final int id, final Experiment.CalendarDouble<S> experiment) throws NamingException
+        public CalendarDouble(final int id, final Experiment.CalendarDouble<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -630,14 +630,14 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
          * @param startTime Calendar; the start time
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
-         * @param model DSOLModel.CalendarDouble&lt;S&gt;; the model for which this is the replication
+         * @param model DSOLModel.CalendarDouble&lt;? extends S&gt;; the model for which this is the replication
          * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
          * @param <S> the simulator to use
          */
-        public static <S extends SimulatorInterface.CalendarDouble> Replication.CalendarDouble<S> create(final String id,
-                final Calendar startTime, final Duration warmupPeriod, final Duration runLength,
-                final DSOLModel.CalendarDouble<S> model) throws NamingException
+        public static <S extends SimulatorInterface.CalendarDouble> Replication.CalendarDouble<S> create(
+                final String id, final Calendar startTime, final Duration warmupPeriod, final Duration runLength,
+                final DSOLModel.CalendarDouble<? extends S> model) throws NamingException
         {
             Experiment.CalendarDouble<S> experiment = new Experiment.CalendarDouble<S>();
             experiment.setModel(model);
@@ -649,9 +649,9 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        public Experiment.CalendarDouble<S> getExperiment()
+        public Experiment.CalendarDouble<? extends S> getExperiment()
         {
-            return (Experiment.CalendarDouble<S>) super.getExperiment();
+            return (Experiment.CalendarDouble<? extends S>) super.getExperiment();
         }
 
         /** {@inheritDoc} */
@@ -675,10 +675,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.CalendarFloat.
          * @param id String; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.CalendarFloat&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarFloat&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarFloat(final String id, final Experiment.CalendarFloat<S> experiment) throws NamingException
+        public CalendarFloat(final String id, final Experiment.CalendarFloat<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -686,10 +686,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.CalendarFloat.
          * @param id int; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.CalendarFloat&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarFloat&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarFloat(final int id, final Experiment.CalendarFloat<S> experiment) throws NamingException
+        public CalendarFloat(final int id, final Experiment.CalendarFloat<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -700,14 +700,14 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
          * @param startTime Calendar; the start time
          * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
-         * @param model DSOLModel.CalendarFloat&lt;S&gt;; the model for which this is the replication
+         * @param model DSOLModel.CalendarFloat&lt;? extends S&gt;; the model for which this is the replication
          * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
          * @param <S> the simulator to use
          */
-        public static <S extends SimulatorInterface.CalendarFloat> Replication.CalendarFloat<S> create(final String id,
-                final Calendar startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
-                final DSOLModel.CalendarFloat<S> model) throws NamingException
+        public static <S extends SimulatorInterface.CalendarFloat> Replication.CalendarFloat<S> create(
+                final String id, final Calendar startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
+                final DSOLModel.CalendarFloat<? extends S> model) throws NamingException
         {
             Experiment.CalendarFloat<S> experiment = new Experiment.CalendarFloat<S>();
             experiment.setModel(model);
@@ -719,9 +719,9 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        public Experiment.CalendarFloat<S> getExperiment()
+        public Experiment.CalendarFloat<? extends S> getExperiment()
         {
-            return (Experiment.CalendarFloat<S>) super.getExperiment();
+            return (Experiment.CalendarFloat<? extends S>) super.getExperiment();
         }
 
         /** {@inheritDoc} */
@@ -745,10 +745,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.CalendarLong.
          * @param id String; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.CalendarLong&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarLong&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarLong(final String id, final Experiment.CalendarLong<S> experiment) throws NamingException
+        public CalendarLong(final String id, final Experiment.CalendarLong<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -756,10 +756,10 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
         /**
          * constructs a new Replication.CalendarLong.
          * @param id int; the id of the replication; should be unique within the experiment.
-         * @param experiment Experiment.CalendarLong&lt;S&gt;; the experiment to which this replication belongs
+         * @param experiment Experiment.CalendarLong&lt;? extends S&gt;; the experiment to which this replication belongs
          * @throws NamingException in case a context for the replication cannot be created
          */
-        public CalendarLong(final int id, final Experiment.CalendarLong<S> experiment) throws NamingException
+        public CalendarLong(final int id, final Experiment.CalendarLong<? extends S> experiment) throws NamingException
         {
             super(id, experiment);
         }
@@ -770,14 +770,14 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
          * @param startTime Calendar; the start time
          * @param warmupPeriod long; the warmup period, included in the runlength (!)
          * @param runLength long; the total length of the run, including the warm-up period.
-         * @param model DSOLModel.CalendarLong&lt;S&gt;; the model for which this is the replication
+         * @param model DSOLModel.CalendarLong&lt;? extends S&gt;; the model for which this is the replication
          * @return a Replication object with corresponding experiment and treatment
          * @throws NamingException in case a context for the replication cannot be created
          * @param <S> the simulator to use
          */
         public static <S extends SimulatorInterface.CalendarLong> Replication.CalendarLong<S> create(final String id,
-                final Calendar startTime, final long warmupPeriod, final long runLength, final DSOLModel.CalendarLong<S> model)
-                throws NamingException
+                final Calendar startTime, final long warmupPeriod, final long runLength,
+                final DSOLModel.CalendarLong<? extends S> model) throws NamingException
         {
             Experiment.CalendarLong<S> experiment = new Experiment.CalendarLong<S>();
             experiment.setModel(model);
@@ -789,9 +789,9 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
         /** {@inheritDoc} */
         @Override
-        public Experiment.CalendarLong<S> getExperiment()
+        public Experiment.CalendarLong<? extends S> getExperiment()
         {
-            return (Experiment.CalendarLong<S>) super.getExperiment();
+            return (Experiment.CalendarLong<? extends S>) super.getExperiment();
         }
 
         /** {@inheritDoc} */

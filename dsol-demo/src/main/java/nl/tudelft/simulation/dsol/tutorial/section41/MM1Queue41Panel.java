@@ -1,19 +1,24 @@
 package nl.tudelft.simulation.dsol.tutorial.section41;
 
+import java.awt.Dimension;
+import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 
 import org.djutils.stats.summarizers.event.StatisticsEvents;
 
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.statistics.table.PersistentTableModel;
 import nl.tudelft.simulation.dsol.statistics.table.TallyTableModel;
 import nl.tudelft.simulation.dsol.swing.charts.boxAndWhisker.BoxAndWhiskerChart;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
-import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.dsol.swing.gui.DEVSSimulatorPanel;
 import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
+import nl.tudelft.simulation.dsol.swing.gui.animation.DSOLAnimationPanel;
 import nl.tudelft.simulation.dsol.swing.statistics.StatisticsTable;
+import nl.tudelft.simulation.language.DSOLException;
 
 /**
  * <p>
@@ -25,7 +30,7 @@ import nl.tudelft.simulation.dsol.swing.statistics.StatisticsTable;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
+public class MM1Queue41Panel extends DEVSSimulatorPanel.TimeDouble
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -33,10 +38,12 @@ public class MM1Queue41Panel extends DSOLPanel<Double, Double, SimTimeDouble>
     /**
      * @param model MM1Queue41Model; the model
      * @param simulator DEVSSimulator.TimeDouble; the simulator
+     * @throws DSOLException on error
+     * @throws RemoteException on error
      */
-    public MM1Queue41Panel(final MM1Queue41Model model, final DEVSSimulator.TimeDouble simulator)
+    public MM1Queue41Panel(final MM1Queue41Model model, final DEVSSimulator.TimeDouble simulator) throws RemoteException, DSOLException
     {
-        super(model, simulator);
+        super(simulator, model, controlPanel);
         addTabs(model);
     }
 

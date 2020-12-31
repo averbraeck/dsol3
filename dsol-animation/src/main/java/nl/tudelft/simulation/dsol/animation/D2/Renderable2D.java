@@ -9,15 +9,13 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d2.Shape;
 import nl.tudelft.simulation.language.d3.BoundsUtil;
-import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
@@ -30,9 +28,9 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @param <T> the Locatable class of the source that indicates the location of the Renderable on the screen
+ * @param <L> the Locatable class of the source that indicates the location of the Renderable on the screen
  */
-public abstract class Renderable2D<T extends Locatable> implements Renderable2DInterface<T>
+public abstract class Renderable2D<L extends Locatable> implements Renderable2DInterface<L>
 {
     /** */
     private static final long serialVersionUID = 20200108L;
@@ -55,21 +53,8 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     /** whether to translate the renderable when panning. Flag is 0001 */
     private static final byte TRANSLATE_FLAG = 0x01;
 
-    /** the source of the renderable. TODO Make weak reference and destroy renderable when source ceases to exist. */
-    @SuppressWarnings("checkstyle:visibilitymodifier")
-    private final T source;
-
-    /** the naming Context in which to store the Renderable with a pointer to the Locatable object. */
-    private final ContextInterface context; // TODO: AVOID STORAGE?
-
-    /** the unique id. */
-    private final long id; // TODO: AVOID STORAGE?
-
-    /** the logger for errors / warnings. */
-    private final SimLogger logger; // TODO: ONE LOGGER PER RENDERABLE?
-
-    /** the generator for the unique id. TODO Static for now, should be replaced by a context dependent one. */
-    private static long lastGeneratedId = 0;
+    /** the source of the renderable. */
+    private final L source;
 
     /**
      * constructs a new Renderable2D.
@@ -78,12 +63,9 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public Renderable2D(final T source, final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
+    public Renderable2D(final L source, final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
     {
-        this.id = ++lastGeneratedId;
         this.source = source;
-        this.logger = simulator.getLogger();
-        this.context = ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D");
         if (!(simulator instanceof AnimatorInterface))
         {
             // We are currently running without animation
@@ -96,13 +78,14 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
      * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding the code
      * in the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must
      * be overwritten.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object.
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object into the context
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
     protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
     {
-        this.context.bind(Long.toString(this.id), this);
+        ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+                .bind(Integer.toString(System.identityHashCode(this.source)), this);
     }
 
     /**
@@ -187,7 +170,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
 
     /** {@inheritDoc} */
     @Override
-    public T getSource()
+    public L getSource()
     {
         return this.source;
     }
@@ -199,14 +182,14 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     {
         try
         {
-            DirectedPoint3d location = this.source.getLocation();
-            Rectangle2D rectangle = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), location.getZ());
+            Rectangle2D rectangle =
+                    BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
             if (rectangle == null || (!Shape.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
             }
-            Point2D screenCoordinates = Renderable2DInterface.Util
-                    .getScreenCoordinates(this.source.getLocation().project().toPoint2D(), extent, screenSize);
+            Point2D screenCoordinates =
+                    Renderable2DInterface.Util.getScreenCoordinates(this.source.getLocation(), extent, screenSize);
             // Let's transform
             if (isTranslate())
             {
@@ -217,7 +200,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
             {
                 graphics.scale(1.0 / scaleFactor, 1.0 / scaleFactor);
             }
-            double angle = -location.getDirZ();
+            double angle = -this.source.getDirZ();
             if (isFlip() && angle > Math.PI)
             {
                 angle = angle - Math.PI;
@@ -244,7 +227,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         }
         catch (Exception exception)
         {
-            this.logger.always().warn(exception, "paint");
+            CategoryLogger.always().warn(exception, "paint");
         }
     }
 
@@ -256,7 +239,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         try
         {
             Rectangle2D intersect =
-                    BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getLocation().getZ());
+                    BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
             if (intersect == null)
             {
                 throw new NullPointerException(
@@ -267,7 +250,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
         }
         catch (RemoteException exception)
         {
-            this.logger.always().warn(exception, "contains");
+            CategoryLogger.always().warn(exception, "contains");
             return false;
         }
     }
@@ -275,9 +258,10 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void destroy() throws NamingException, RemoteException
+    public void destroy(final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
     {
-        this.context.unbind(Long.toString(this.id));
+        ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+                .unbind(Integer.toString(System.identityHashCode(this.source)));
     }
 
     /** {@inheritDoc} */
@@ -285,7 +269,7 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
     @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
-        return "Renderable2D [id=" + this.id + ", source=" + this.source + "]";
+        return "Renderable2D [source=" + this.source + "]";
     }
 
     /**
@@ -295,33 +279,5 @@ public abstract class Renderable2D<T extends Locatable> implements Renderable2DI
      * @throws RemoteException on network exception
      */
     public abstract void paint(final Graphics2D graphics, final ImageObserver observer) throws RemoteException;
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("checkstyle:designforextension")
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (this.id ^ (this.id >>> 32));
-        return result;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings({"checkstyle:designforextension", "checkstyle:needbraces"})
-    public boolean equals(final Object obj)
-    {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Renderable2D<?> other = (Renderable2D<?>) obj;
-        if (this.id != other.id)
-            return false;
-        return true;
-    }
 
 }
