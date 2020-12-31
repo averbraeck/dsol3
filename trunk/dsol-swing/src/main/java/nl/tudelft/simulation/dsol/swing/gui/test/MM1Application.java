@@ -9,31 +9,16 @@ import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
+ * MM1Application.java.
  * <p>
- * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following
- * conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- * disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or promote
- * products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties, including,
- * but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no
- * event shall the copyright holder or contributors be liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or
- * profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or
- * tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
+ * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+ * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class MM1Application
@@ -46,10 +31,10 @@ public class MM1Application
      */
     protected MM1Application() throws SimRuntimeException, RemoteException, NamingException
     {
-        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("MM1Application.Simulator");
-        DSOLModel.TimeDouble<DEVSSimulator.TimeDouble> model = new MM1Model(simulator);
-        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("MM1SwingApplication.Simulator");
+        DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new MM1Model(simulator);
+        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
+                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
         simulator.start();
     }

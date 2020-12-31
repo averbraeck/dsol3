@@ -1,52 +1,45 @@
 package nl.tudelft.simulation.dsol.swing.gui.test;
 
-import nl.tudelft.simulation.dsol.model.DSOLModel;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.dsol.swing.charts.histogram.Histogram;
+import java.rmi.RemoteException;
+
+import org.djutils.stats.summarizers.event.StatisticsEvents;
+
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
+import nl.tudelft.simulation.dsol.statistics.table.PersistentTableModel;
+import nl.tudelft.simulation.dsol.statistics.table.TallyTableModel;
+import nl.tudelft.simulation.dsol.swing.charts.boxAndWhisker.BoxAndWhiskerChart;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
+import nl.tudelft.simulation.dsol.swing.gui.ConsoleLogger;
+import nl.tudelft.simulation.dsol.swing.gui.ConsoleOutput;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
+import nl.tudelft.simulation.dsol.swing.gui.control.DEVSControlPanel;
+import nl.tudelft.simulation.dsol.swing.statistics.StatisticsTable;
 
 /**
+ * MM1Panel panel for test model.
  * <p>
- * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following
- * conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- * disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or promote
- * products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties, including,
- * but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no
- * event shall the copyright holder or contributors be liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or
- * profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or
- * tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
+ * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+ * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Panel extends DSOLPanel<Double, Double, SimTimeDouble>
+public class MM1Panel extends DSOLPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
 
     /**
-     * @param model DSOLModel.TimeDouble; the model
-     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
+     * @param controlPanel DEVSControlPanel.TimeDouble; the control panel
+     * @throws RemoteException when communications to a remote machine fails
      */
-    public MM1Panel(DSOLModel.TimeDouble model, DEVSSimulatorInterface.TimeDouble simulator)
+    public MM1Panel(DEVSControlPanel.TimeDouble controlPanel) throws RemoteException
     {
-        super(model, simulator);
+        super(controlPanel);
         addTabs();
+        enableSimulationControlButtons();
     }
 
     /**
@@ -54,14 +47,91 @@ public class MM1Panel extends DSOLPanel<Double, Double, SimTimeDouble>
      */
     protected void addTabs()
     {
-        TablePanel charts = new TablePanel(3, 2);
+        TablePanel charts = new TablePanel(4, 4);
         super.tabbedPane.addTab("statistics", charts);
+        super.tabbedPane.setSelectedIndex(0);
+        MM1Model model = (MM1Model) getModel();
 
-        XYChart xy = new XYChart(this.simulator, "XY");
-        charts.setCell(xy.getSwingPanel(), 0, 0);
+        try
+        {
+            // time in queue
 
-        Histogram hist = new Histogram(this.simulator, "Histogram", new double[] {0.0, 10.0}, 10);
-        charts.setCell(hist.getSwingPanel(), 0, 1);
+            XYChart dNVal = new XYChart(getSimulator(), "time in queue (dN)").setLabelXAxis("time (s)").setLabelYAxis("dN");
+            dNVal.add("dN value", model.tallyTimeInQueue, StatisticsEvents.OBSERVATION_ADDED_EVENT);
+            charts.setCell(dNVal.getSwingPanel(), 0, 0);
+
+            XYChart dN = new XYChart(getSimulator(), "avg time in queue").setLabelXAxis("time (s)").setLabelYAxis("avg dN");
+            dN.add("dN mean", model.tallyTimeInQueue, StatisticsEvents.SAMPLE_MEAN_EVENT);
+            charts.setCell(dN.getSwingPanel(), 1, 0);
+
+            BoxAndWhiskerChart bwdN = new BoxAndWhiskerChart(getSimulator(), "dN boxplot");
+            bwdN.add(model.tallyTimeInQueue);
+            charts.setCell(bwdN.getSwingPanel(), 2, 0);
+
+            StatisticsTable dNTable = new StatisticsTable(new TallyTableModel(model.tallyTimeInQueue));
+            charts.setCell(dNTable.getSwingPanel(), 3, 0);
+
+            // queue length
+
+            XYChart qNVal = new XYChart(getSimulator(), "queue length (qN)").setLabelXAxis("time (s)").setLabelYAxis("qN");
+            qNVal.add("qN value", model.persistentQueueLength, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT);
+            charts.setCell(qNVal.getSwingPanel(), 0, 1);
+
+            XYChart qN = new XYChart(getSimulator(), "avg queue length").setLabelXAxis("time (s)").setLabelYAxis("avg qN");
+            qN.add("qN mean", model.persistentQueueLength, StatisticsEvents.TIMED_WEIGHTED_SAMPLE_MEAN_EVENT);
+            charts.setCell(qN.getSwingPanel(), 1, 1);
+
+            BoxAndWhiskerChart bwqN = new BoxAndWhiskerChart(getSimulator(), "qN boxplot");
+            bwqN.add(model.persistentQueueLength);
+            charts.setCell(bwqN.getSwingPanel(), 2, 1);
+
+            StatisticsTable qNTable = new StatisticsTable(new PersistentTableModel(model.persistentQueueLength));
+            charts.setCell(qNTable.getSwingPanel(), 3, 1);
+
+            // utilization
+
+            XYChart utilization = new XYChart(getSimulator(), "utilization").setLabelXAxis("time (s)").setLabelYAxis("uN");
+            utilization.add("utilization", model.persistentUtilization, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT);
+            charts.setCell(utilization.getSwingPanel(), 0, 2);
+
+            XYChart meanUtilization =
+                    new XYChart(getSimulator(), "avg utilization (uN)").setLabelXAxis("time (s)").setLabelYAxis("avg uN");
+            meanUtilization.add("mean utilization", model.persistentUtilization,
+                    StatisticsEvents.TIMED_WEIGHTED_SAMPLE_MEAN_EVENT);
+            charts.setCell(meanUtilization.getSwingPanel(), 1, 2);
+
+            BoxAndWhiskerChart bwuN = new BoxAndWhiskerChart(getSimulator(), "uN boxplot");
+            bwuN.add(model.persistentUtilization);
+            charts.setCell(bwuN.getSwingPanel(), 2, 2);
+
+            StatisticsTable uNTable = new StatisticsTable(new PersistentTableModel(model.persistentUtilization));
+            charts.setCell(uNTable.getSwingPanel(), 3, 2);
+
+            // time in system
+
+            XYChart tNVal = new XYChart(getSimulator(), "time in system (tN)").setLabelXAxis("time (s)").setLabelYAxis("tN");
+            tNVal.add("tN value", model.tallyTimeInSystem, StatisticsEvents.OBSERVATION_ADDED_EVENT);
+            charts.setCell(tNVal.getSwingPanel(), 0, 3);
+
+            XYChart tN = new XYChart(getSimulator(), "avg time in system").setLabelXAxis("time (s)").setLabelYAxis("avg tN");
+            tN.add("tN mean", model.tallyTimeInSystem, StatisticsEvents.SAMPLE_MEAN_EVENT);
+            charts.setCell(tN.getSwingPanel(), 1, 3);
+
+            BoxAndWhiskerChart bwtN = new BoxAndWhiskerChart(getSimulator(), "tN boxplot");
+            bwtN.add(model.tallyTimeInSystem);
+            charts.setCell(bwtN.getSwingPanel(), 2, 3);
+
+            StatisticsTable tNTable = new StatisticsTable(new TallyTableModel(model.tallyTimeInSystem));
+            charts.setCell(tNTable.getSwingPanel(), 3, 3);
+        }
+        catch (RemoteException exception)
+        {
+            model.getSimulator().getLogger().always().error(exception);
+        }
+
+        ConsoleLogger logConsole = new ConsoleLogger();
+        super.tabbedPane.addTab("logger", logConsole);
+        super.tabbedPane.addTab("console", new ConsoleOutput());
     }
 
 }

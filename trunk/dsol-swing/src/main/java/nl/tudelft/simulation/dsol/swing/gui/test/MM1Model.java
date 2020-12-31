@@ -1,14 +1,18 @@
 package nl.tudelft.simulation.dsol.swing.gui.test;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.djutils.logger.CategoryLogger;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.dist.DistContinuousSimulationTime;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
+import nl.tudelft.simulation.dsol.statistics.SimTally;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.jstats.distributions.DistTriangular;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
@@ -17,31 +21,14 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * Simple M/M/1 queuing model, which can be changed into a X/X/c model by changing the parameters.
  * <p>
- * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
- * <p>
- * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
- * <p>
- * The DSOL project is distributed under the following BSD-style license:<br>
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following
- * conditions are met:
- * <ul>
- * <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- * disclaimer.</li>
- * <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
- * disclaimer in the documentation and/or other materials provided with the distribution.</li>
- * <li>Neither the name of Delft University of Technology, nor the names of its contributors may be used to endorse or promote
- * products derived from this software without specific prior written permission.</li>
- * </ul>
- * This software is provided by the copyright holders and contributors "as is" and any express or implied warranties, including,
- * but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no
- * event shall the copyright holder or contributors be liable for any direct, indirect, incidental, special, exemplary, or
- * consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or
- * profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or
- * tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the
- * possibility of such damage.
+ * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
+ * project is distributed under a three-clause BSD-style license, which can be found at
+ * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+ * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDouble>
+public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble>
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -53,9 +40,9 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     private int busy = 0;
 
     /** the stream. */
-    private StreamInterface stream = new MersenneTwister();
+    private StreamInterface stream = new MersenneTwister(12L);
 
-    /** interarrival time. */
+    /** inter-arrival time. */
     private DistContinuousSimulationTime.TimeDouble interarrivalTime =
             new DistContinuousSimulationTime.TimeDouble(new DistExponential(this.stream, 1.0));
 
@@ -69,14 +56,26 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     /** entity counter for id. */
     private int entityCounter = 0;
 
+    /** statistics for the utilization. */
+    SimPersistent.TimeDouble persistentUtilization;
+
+    /** statistics for the queue length. */
+    SimPersistent.TimeDouble persistentQueueLength;
+
+    /** statistics for the time in queue. */
+    SimTally.TimeDouble tallyTimeInQueue;
+
+    /** statistics for the time in system. */
+    SimTally.TimeDouble tallyTimeInSystem;
+
     /**
      * @param simulator DEVSSimulator.TimeDouble;
      */
-    public MM1Model(DEVSSimulator.TimeDouble simulator)
+    public MM1Model(final DEVSSimulatorInterface.TimeDouble simulator)
     {
         super(simulator);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Serializable getSourceId()
@@ -88,6 +87,18 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     @Override
     public void constructModel() throws SimRuntimeException
     {
+        try
+        {
+            this.persistentUtilization = new SimPersistent.TimeDouble("utilization", this.simulator);
+            this.persistentQueueLength = new SimPersistent.TimeDouble("queue length", this.simulator);
+            this.tallyTimeInQueue = new SimTally.TimeDouble("time in queue", this.simulator);
+            this.tallyTimeInSystem = new SimTally.TimeDouble("time in system", this.simulator);
+        }
+        catch (RemoteException exception)
+        {
+            exception.printStackTrace();
+        }
+
         generate();
     }
 
@@ -97,8 +108,9 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
      */
     protected void generate() throws SimRuntimeException
     {
-        Entity entity = new Entity(this.entityCounter++, this.simulator.getSimTime());
+        Entity entity = new Entity(this.entityCounter++, this.simulator.getSimulatorTime());
         System.out.println("Generated: " + entity);
+        CategoryLogger.always().info("Generated: " + entity);
         synchronized (this.queue)
         {
             if (this.capacity - this.busy >= 1)
@@ -109,7 +121,8 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
             else
             {
                 // queue
-                this.queue.add(new QueueEntry<Entity>(entity, this.simulator.getSimTime()));
+                this.persistentQueueLength.ingest(this.queue.size());
+                this.queue.add(new QueueEntry<Entity>(entity, this.simulator.getSimulatorTime()));
                 System.out.println("In Queue: " + entity);
             }
         }
@@ -120,47 +133,46 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
      * @param entity Entity; entity to process
      * @throws SimRuntimeException on simulation error
      */
-    protected void startProcess(Entity entity) throws SimRuntimeException
+    protected void startProcess(final Entity entity) throws SimRuntimeException
     {
-        synchronized (this.queue)
-        {
-            this.busy++;
-            this.simulator.scheduleEventRel(this.processingTime.draw(), this, this, "endProcess", new Object[] {entity});
-            System.out.println("Start Proc.: " + entity);
-        }
+        System.out.println("Start Process: " + entity);
+        this.persistentUtilization.ingest(this.busy);
+        this.busy++;
+        this.simulator.scheduleEventRel(this.processingTime.draw(), this, this, "endProcess", new Object[] {entity});
+        this.tallyTimeInQueue.ingest(this.simulator.getSimulatorTime() - entity.getCreateTime());
     }
 
     /**
      * @param entity Entity; entity to stop processing
      * @throws SimRuntimeException on simulation error
      */
-    protected void endProcess(Entity entity) throws SimRuntimeException
+    protected void endProcess(final Entity entity) throws SimRuntimeException
     {
         System.out.println("End Process: " + entity);
-        synchronized (this.queue)
+        this.persistentUtilization.ingest(this.busy);
+        this.busy--;
+        if (!this.queue.isEmpty())
         {
-            this.busy--;
-            if (!this.queue.isEmpty())
-            {
-                startProcess(this.queue.remove(0).getObject());
-            }
+            this.persistentQueueLength.ingest(this.queue.size());
+            startProcess(this.queue.remove(0).getEntity());
         }
+        this.tallyTimeInSystem.ingest(this.simulator.getSimulatorTime() - entity.getCreateTime());
     }
 
     /******************************************************************************************************/
     protected class Entity
     {
         /** time of creation for statistics. */
-        private final SimTimeDouble createTime;
+        private final double createTime;
 
         /** id number. */
         private final int id;
 
         /**
          * @param id int; entity id number
-         * @param createTime SimTimeDouble; time of creation for statistics
+         * @param createTime double; time of creation for statistics
          */
-        public Entity(int id, SimTimeDouble createTime)
+        public Entity(final int id, final double createTime)
         {
             super();
             this.id = id;
@@ -170,7 +182,7 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
         /**
          * @return time of creation for statistics
          */
-        public SimTimeDouble getCreateTime()
+        public double getCreateTime()
         {
             return this.createTime;
         }
@@ -195,43 +207,43 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     protected class QueueEntry<E>
     {
         /** time of queue entry for statistics. */
-        private final SimTimeDouble queueInTime;
+        private final double queueInTime;
 
-        /** object in the queue. */
-        final E object;
+        /** entity in the queue. */
+        final E entity;
 
         /**
-         * @param object E; the object to insert in the queue
-         * @param queueInTime SimTimeDouble; the time it gets into the queue
+         * @param entity E; the entity to insert in the queue
+         * @param queueInTime double; the time it gets into the queue
          */
-        public QueueEntry(E object, SimTimeDouble queueInTime)
+        public QueueEntry(E entity, double queueInTime)
         {
             super();
-            this.object = object;
+            this.entity = entity;
             this.queueInTime = queueInTime;
         }
 
         /**
          * @return queueInTime
          */
-        public SimTimeDouble getQueueInTime()
+        public double getQueueInTime()
         {
             return this.queueInTime;
         }
 
         /**
-         * @return object
+         * @return entity
          */
-        public E getObject()
+        public E getEntity()
         {
-            return this.object;
+            return this.entity;
         }
 
         /** {@inheritDoc} */
         @Override
         public String toString()
         {
-            return "QueueEntry [queueInTime=" + this.queueInTime + ", object=" + this.object + "]";
+            return "QueueEntry [queueInTime=" + this.queueInTime + ", entity=" + this.entity + "]";
         }
     }
 

@@ -1,5 +1,5 @@
 /**
- * Generic methods for DSOL Swing.
+ * Control of the appearance of the DSOL tabs and windows, e.g., dark mode, bright mode.
  * <p>
  * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -7,7 +7,5 @@
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @author <a href="https://www.tudelft.nl/pknoppers">Peter Knoppers</a>
- * @author <a href="https://www.transport.citg.tudelft.nl">Wouter Schakel</a>
  */
-package nl.tudelft.simulation.dsol.swing;
+package nl.tudelft.simulation.dsol.swing.gui.appearance;

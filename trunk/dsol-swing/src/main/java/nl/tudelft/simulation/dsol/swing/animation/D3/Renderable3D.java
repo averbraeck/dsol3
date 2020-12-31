@@ -6,7 +6,7 @@ import org.djutils.draw.Transform3d;
 import org.djutils.draw.point.DirectedPoint3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.animation.StaticLocation;
+import nl.tudelft.simulation.dsol.animation.StaticLocation3d;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
@@ -79,7 +79,7 @@ public abstract class Renderable3D /* extends BranchGroup */ implements Renderab
     public Renderable3D(final DirectedPoint3d staticLocation, final SimulatorInterface simulator)
     {
         super();
-        this.source = new StaticLocation(staticLocation, null);
+        this.source = new StaticLocation3d(staticLocation, null);
         this.simulator = simulator;
         this.type = Renderable3DInterface.STATIC_OBJECT;
         this.initialize();
