@@ -49,7 +49,7 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionList;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterSelectionMap;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterString;
-import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
+import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
@@ -151,7 +151,7 @@ public abstract class AbstractTestDemoServer
                 if (!AbstractTestDemoServer.this.sessionModelMap.containsKey(sessionId))
                 {
                     System.out.println("parameters: " + modelId);
-                    DEVSRealTimeClock.TimeDoubleUnit simulator = new DEVSRealTimeClock.TimeDoubleUnit(modelId);
+                    DEVSRealTimeAnimator.TimeDoubleUnit simulator = new DEVSRealTimeAnimator.TimeDoubleUnit(modelId);
                     simulator.setAnimation(false);
                     DSOLModel.TimeDoubleUnit<SimulatorInterface.TimeDoubleUnit> model = instantiateModel(modelId);
                     if (model != null)

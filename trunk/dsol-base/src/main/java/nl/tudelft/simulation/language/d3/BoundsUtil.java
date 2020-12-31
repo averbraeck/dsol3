@@ -2,9 +2,15 @@ package nl.tudelft.simulation.language.d3;
 
 import java.awt.geom.Rectangle2D;
 
+import org.djutils.draw.Transform2d;
 import org.djutils.draw.Transform3d;
+import org.djutils.draw.bounds.Bounds;
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.point.DirectedPoint2d;
 import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.Point;
+import org.djutils.draw.point.Point2d;
 import org.djutils.draw.point.Point3d;
 
 /**
@@ -49,15 +55,56 @@ public final class BoundsUtil
      * @param zValue double; the zValue as the 'height' for which the bounds intersection is calculated
      * @return Rectangle2D the resulting rectangle of the intersection
      */
-    public static Rectangle2D zIntersect(final DirectedPoint3d center, final Bounds3d bounds, final double zValue)
+    public static Rectangle2D zIntersect(final Point<?, ?> center, final Bounds<?, ?> bounds, final double zValue)
     {
-        Transform3d transform = new Transform3d();
-        transform.rotZ(center.getDirZ());
-        transform.rotY(center.getDirY());
-        transform.rotX(center.getDirX());
-        transform.translate(center);
-        Bounds3d box = transform.transform(bounds);
-        Point3d lower = new Point3d(box.getMinX(), box.getMinY(), zValue);
+        if (center instanceof DirectedPoint3d && bounds instanceof Bounds3d)
+        {
+            DirectedPoint3d center3d = (DirectedPoint3d) center;
+            Transform3d transform = new Transform3d();
+            transform.rotZ(center3d.getDirZ());
+            transform.rotY(center3d.getDirY());
+            transform.rotX(center3d.getDirX());
+            transform.translate(center3d);
+            Bounds3d box = transform.transform((Bounds3d) bounds);
+            Point3d lower = new Point3d(box.getMinX(), box.getMinY(), zValue);
+            if (!box.covers(lower))
+            {
+                return null;
+            }
+            return new Rectangle2D.Double(box.getMinX(), box.getMinY(), box.getDeltaX(), box.getDeltaY());
+        }
+        else if (center instanceof Point3d && bounds instanceof Bounds3d)
+        {
+            Point3d center3d = (Point3d) center;
+            Transform3d transform = new Transform3d();
+            transform.translate(center3d);
+            Bounds3d box = transform.transform((Bounds3d) bounds);
+            Point3d lower = new Point3d(box.getMinX(), box.getMinY(), zValue);
+            if (!box.covers(lower))
+            {
+                return null;
+            }
+            return new Rectangle2D.Double(box.getMinX(), box.getMinY(), box.getDeltaX(), box.getDeltaY());
+        }
+        else if (center instanceof DirectedPoint2d)
+        {
+            DirectedPoint2d center2d = (DirectedPoint2d) center;
+            Transform2d transform = new Transform2d();
+            transform.rotation(center2d.getDirZ());
+            transform.translate(center2d);
+            Bounds2d box = transform.transform((Bounds2d) bounds);
+            Point2d lower = new Point2d(box.getMinX(), box.getMinY());
+            if (!box.covers(lower))
+            {
+                return null;
+            }
+            return new Rectangle2D.Double(box.getMinX(), box.getMinY(), box.getDeltaX(), box.getDeltaY());
+        }
+        Point2d center2d = (Point2d) center;
+        Transform2d transform = new Transform2d();
+        transform.translate(center2d);
+        Bounds2d box = transform.transform((Bounds2d) bounds);
+        Point2d lower = new Point2d(box.getMinX(), box.getMinY());
         if (!box.covers(lower))
         {
             return null;

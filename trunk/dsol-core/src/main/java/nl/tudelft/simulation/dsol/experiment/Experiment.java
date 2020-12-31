@@ -76,7 +76,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
                     new ObjectDescriptor[] {new ObjectDescriptor("newSimulator", "New simulator", SimulatorInterface.class)}));
 
     /** replications are the replications of this experiment. */
-    private List<? extends Replication<A, R, T, S>> replications;
+    private List<? extends Replication<A, R, T, ? extends S>> replications;
 
     /** treatment represent the treatment of this experiment. */
     private Treatment<A, R, T> treatment = null;
@@ -85,7 +85,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     private S simulator;
 
     /** model reflects the model. */
-    private DSOLModel<A, R, T, S> model;
+    private DSOLModel<A, R, T, ? extends S> model;
 
     /** the description of this experiment. */
     private String description = null;
@@ -117,7 +117,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * @param model DSOLModel&lt;A, R, T, S&gt;; the model to experiment with
      * @throws NullPointerException when treatment, simulator or model is null
      */
-    public Experiment(final Treatment<A, R, T> treatment, final S simulator, final DSOLModel<A, R, T, S> model)
+    public Experiment(final Treatment<A, R, T> treatment, final S simulator, final DSOLModel<A, R, T, ? extends S> model)
     {
         this.setSimulator(simulator);
         this.setTreatment(treatment);
@@ -159,7 +159,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the model.
      * @return DSOLModel the model
      */
-    public DSOLModel<A, R, T, S> getModel()
+    public DSOLModel<A, R, T, ? extends S> getModel()
     {
         return this.model;
     }
@@ -168,7 +168,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the list of replications.
      * @return List&lt;Replication&lt;A, R, T, S&gt;&gt;; the list of replications
      */
-    public final List<? extends Replication<A, R, T, S>> getReplications()
+    public final List<? extends Replication<A, R, T, ? extends S>> getReplications()
     {
         return this.replications;
     }
@@ -179,7 +179,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * @throws NullPointerException when the list of replications is null
      * @throws IllegalArgumentException when the list of replications is empty
      */
-    public final void setReplications(final List<? extends Replication<A, R, T, S>> replications)
+    public final void setReplications(final List<? extends Replication<A, R, T, ? extends S>> replications)
     {
         Throw.whenNull(replications, "Experiment: list of replications cannot be null");
         Throw.when(replications.isEmpty(), IllegalArgumentException.class, "Experiment: list of replications cannot be empty");
@@ -211,7 +211,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         {
             // we can run the next replication
             this.currentReplication++;
-            Replication<A, R, T, S> replication = this.replications.get(this.currentReplication);
+            Replication<A, R, T, ? extends S> replication = this.replications.get(this.currentReplication);
             this.simulator.addListener(this, Replication.END_REPLICATION_EVENT, ReferenceType.STRONG);
             this.fireEvent(Experiment.START_EXPERIMENT_EVENT, null);
             this.simulator.initialize(replication, this.treatment.getReplicationMode());
@@ -244,7 +244,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * sets the model on the experiment.
      * @param model DSOLModel&lt;A, R, T, S&gt;; the simulator model
      */
-    public final synchronized void setModel(final DSOLModel<A, R, T, S> model)
+    public final synchronized void setModel(final DSOLModel<A, R, T, ? extends S> model)
     {
         Throw.whenNull(model, "Experiment.setModel: model cannot be null");
         if (this.model != null)
@@ -387,16 +387,17 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
          * @param simulator S; the simulator
          * @param model DSOLModel.TimeDouble&lt;S&gt;; the model to experiment with
          */
-        public TimeDouble(final Treatment.TimeDouble treatment, final S simulator, final DSOLModel.TimeDouble<S> model)
+        public TimeDouble(final Treatment.TimeDouble treatment, final S simulator,
+                final DSOLModel.TimeDouble<? extends S> model)
         {
             super(treatment, simulator, model);
         }
 
         /** {@inheritDoc} */
         @Override
-        public DSOLModel.TimeDouble<S> getModel()
+        public DSOLModel.TimeDouble<? extends S> getModel()
         {
-            return (DSOLModel.TimeDouble<S>) super.getModel();
+            return (DSOLModel.TimeDouble<? extends S>) super.getModel();
         }
 
         /** {@inheritDoc} */
@@ -430,16 +431,16 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
          * @param simulator S; the simulator
          * @param model DSOLModel.TimeFloat&lt;S&gt;; the model to experiment with
          */
-        public TimeFloat(final Treatment.TimeFloat treatment, final S simulator, final DSOLModel.TimeFloat<S> model)
+        public TimeFloat(final Treatment.TimeFloat treatment, final S simulator, final DSOLModel.TimeFloat<? extends S> model)
         {
             super(treatment, simulator, model);
         }
 
         /** {@inheritDoc} */
         @Override
-        public DSOLModel.TimeFloat<S> getModel()
+        public DSOLModel.TimeFloat<? extends S> getModel()
         {
-            return (DSOLModel.TimeFloat<S>) super.getModel();
+            return (DSOLModel.TimeFloat<? extends S>) super.getModel();
         }
 
         /** {@inheritDoc} */
@@ -473,16 +474,16 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
          * @param simulator S; the simulator
          * @param model DSOLModel.TimeLong&lt;S&gt;; the model to experiment with
          */
-        public TimeLong(final Treatment.TimeLong treatment, final S simulator, final DSOLModel.TimeLong<S> model)
+        public TimeLong(final Treatment.TimeLong treatment, final S simulator, final DSOLModel.TimeLong<? extends S> model)
         {
             super(treatment, simulator, model);
         }
 
         /** {@inheritDoc} */
         @Override
-        public DSOLModel.TimeLong<S> getModel()
+        public DSOLModel.TimeLong<? extends S> getModel()
         {
-            return (DSOLModel.TimeLong<S>) super.getModel();
+            return (DSOLModel.TimeLong<? extends S>) super.getModel();
         }
 
         /** {@inheritDoc} */
@@ -518,16 +519,16 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
          * @param model DSOLModel.TimeDoubleUnit&lt;S&gt;; the model to experiment with
          */
         public TimeDoubleUnit(final Treatment.TimeDoubleUnit treatment, final S simulator,
-                final DSOLModel.TimeDoubleUnit<S> model)
+                final DSOLModel.TimeDoubleUnit<? extends S> model)
         {
             super(treatment, simulator, model);
         }
 
         /** {@inheritDoc} */
         @Override
-        public DSOLModel.TimeDoubleUnit<S> getModel()
+        public DSOLModel.TimeDoubleUnit<? extends S> getModel()
         {
-            return (DSOLModel.TimeDoubleUnit<S>) super.getModel();
+            return (DSOLModel.TimeDoubleUnit<? extends S>) super.getModel();
         }
 
         /** {@inheritDoc} */
@@ -562,16 +563,17 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
          * @param simulator S; the simulator
          * @param model DSOLModel.TimeFloatUnit&lt;S&gt;; the model to experiment with
          */
-        public TimeFloatUnit(final Treatment.TimeFloatUnit treatment, final S simulator, final DSOLModel.TimeFloatUnit<S> model)
+        public TimeFloatUnit(final Treatment.TimeFloatUnit treatment, final S simulator,
+                final DSOLModel.TimeFloatUnit<? extends S> model)
         {
             super(treatment, simulator, model);
         }
 
         /** {@inheritDoc} */
         @Override
-        public DSOLModel.TimeFloatUnit<S> getModel()
+        public DSOLModel.TimeFloatUnit<? extends S> getModel()
         {
-            return (DSOLModel.TimeFloatUnit<S>) super.getModel();
+            return (DSOLModel.TimeFloatUnit<? extends S>) super.getModel();
         }
 
         /** {@inheritDoc} */
@@ -607,16 +609,16 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
          * @param model DSOLModel.CalendarDouble&lt;S&gt;; the model to experiment with
          */
         public CalendarDouble(final Treatment.CalendarDouble treatment, final S simulator,
-                final DSOLModel.CalendarDouble<S> model)
+                final DSOLModel.CalendarDouble<? extends S> model)
         {
             super(treatment, simulator, model);
         }
 
         /** {@inheritDoc} */
         @Override
-        public DSOLModel.CalendarDouble<S> getModel()
+        public DSOLModel.CalendarDouble<? extends S> getModel()
         {
-            return (DSOLModel.CalendarDouble<S>) super.getModel();
+            return (DSOLModel.CalendarDouble<? extends S>) super.getModel();
         }
 
         /** {@inheritDoc} */
@@ -651,16 +653,17 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
          * @param simulator S; the simulator
          * @param model DSOLModel.CalendarFloat&lt;S&gt;; the model to experiment with
          */
-        public CalendarFloat(final Treatment.CalendarFloat treatment, final S simulator, final DSOLModel.CalendarFloat<S> model)
+        public CalendarFloat(final Treatment.CalendarFloat treatment, final S simulator,
+                final DSOLModel.CalendarFloat<? extends S> model)
         {
             super(treatment, simulator, model);
         }
 
         /** {@inheritDoc} */
         @Override
-        public DSOLModel.CalendarFloat<S> getModel()
+        public DSOLModel.CalendarFloat<? extends S> getModel()
         {
-            return (DSOLModel.CalendarFloat<S>) super.getModel();
+            return (DSOLModel.CalendarFloat<? extends S>) super.getModel();
         }
 
         /** {@inheritDoc} */
@@ -695,16 +698,17 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
          * @param simulator S; the simulator
          * @param model DSOLModel.CalendarLong&lt;S&gt;; the model to experiment with
          */
-        public CalendarLong(final Treatment.CalendarLong treatment, final S simulator, final DSOLModel.CalendarLong<S> model)
+        public CalendarLong(final Treatment.CalendarLong treatment, final S simulator,
+                final DSOLModel.CalendarLong<? extends S> model)
         {
             super(treatment, simulator, model);
         }
 
         /** {@inheritDoc} */
         @Override
-        public DSOLModel.CalendarLong<S> getModel()
+        public DSOLModel.CalendarLong<? extends S> getModel()
         {
-            return (DSOLModel.CalendarLong<S>) super.getModel();
+            return (DSOLModel.CalendarLong<? extends S>) super.getModel();
         }
 
         /** {@inheritDoc} */

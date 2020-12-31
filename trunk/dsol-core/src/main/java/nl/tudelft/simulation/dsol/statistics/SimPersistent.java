@@ -49,8 +49,8 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * @param <R> the relative time type
  * @param <T> the absolute simulation time to use in the warmup event
  */
-public class SimPersistent<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        extends EventBasedTimestampWeightedTally implements StatisticsInterface<A, R, T>
+public abstract class SimPersistent<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends EventBasedTimestampWeightedTally implements StatisticsInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -189,24 +189,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         }
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public double ingest(final Calendar timestamp, final double value)
-    {
-        super.ingest(timestamp, value);
-        fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, this.simulator.getSimulatorTime());
-        return value;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public <TS extends Number & Comparable<TS>> double ingest(final TS timestamp, final double value)
-    {
-        super.ingest(timestamp, value);
-        fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, this.simulator.getSimulatorTime());
-        return value;
-    }
-
     /**
      * endOfReplication is invoked to store the final results. A special Tally is created in the Context of the experiment to
      * tally the average results of all replications. Herewith the confidence interval of the means of the Persistent over the
@@ -282,6 +264,19 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         {
             super(description, simulator, target, eventType);
         }
+
+        /**
+         * Process one observed value.
+         * @param value double; the value to process
+         * @return double; the value
+         */
+        public double ingest(final double value)
+        {
+            Double timestamp = getSimulator().getSimulatorTime();
+            super.ingest(timestamp, value);
+            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+            return value;
+        }
     }
 
     /** Easy access class SimPersistent.TimeFloat. */
@@ -314,6 +309,19 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         {
             super(description, simulator, target, eventType);
         }
+
+        /**
+         * Process one observed value.
+         * @param value double; the value to process
+         * @return double; the value
+         */
+        public double ingest(final double value)
+        {
+            Float timestamp = getSimulator().getSimulatorTime();
+            super.ingest(timestamp, value);
+            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+            return value;
+        }
     }
 
     /** Easy access class SimPersistent.TimeLong. */
@@ -345,6 +353,19 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                 final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
+        }
+
+        /**
+         * Process one observed value.
+         * @param value double; the value to process
+         * @return double; the value
+         */
+        public double ingest(final double value)
+        {
+            Long timestamp = getSimulator().getSimulatorTime();
+            super.ingest(timestamp, value);
+            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+            return value;
         }
     }
 
@@ -379,6 +400,19 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         {
             super(description, simulator, target, eventType);
         }
+
+        /**
+         * Process one observed value.
+         * @param value double; the value to process
+         * @return double; the value
+         */
+        public double ingest(final double value)
+        {
+            Time timestamp = getSimulator().getSimulatorTime();
+            super.ingest(timestamp, value);
+            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+            return value;
+        }
     }
 
     /** Easy access class SimPersistent.TimeFloatUnit. */
@@ -410,6 +444,19 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                 final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
+        }
+
+        /**
+         * Process one observed value.
+         * @param value double; the value to process
+         * @return double; the value
+         */
+        public double ingest(final double value)
+        {
+            FloatTime timestamp = getSimulator().getSimulatorTime();
+            super.ingest(timestamp, value);
+            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+            return value;
         }
     }
 
@@ -444,6 +491,19 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         {
             super(description, simulator, target, eventType);
         }
+
+        /**
+         * Process one observed value.
+         * @param value double; the value to process
+         * @return double; the value
+         */
+        public double ingest(final double value)
+        {
+            Calendar timestamp = getSimulator().getSimulatorTime();
+            super.ingest(timestamp, value);
+            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+            return value;
+        }
     }
 
     /** Easy access class SimPersistent.CalendarFloat. */
@@ -476,6 +536,19 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
         {
             super(description, simulator, target, eventType);
         }
+
+        /**
+         * Process one observed value.
+         * @param value double; the value to process
+         * @return double; the value
+         */
+        public double ingest(final double value)
+        {
+            Calendar timestamp = getSimulator().getSimulatorTime();
+            super.ingest(timestamp, value);
+            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+            return value;
+        }
     }
 
     /** Easy access class SimPersistent.CalendarLong. */
@@ -507,6 +580,19 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                 final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);
+        }
+
+        /**
+         * Process one observed value.
+         * @param value double; the value to process
+         * @return double; the value
+         */
+        public double ingest(final double value)
+        {
+            Calendar timestamp = getSimulator().getSimulatorTime();
+            super.ingest(timestamp, value);
+            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+            return value;
         }
     }
 

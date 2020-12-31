@@ -5,7 +5,13 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.05.00" date="2020-12-21" description="dependences, javadocs, gis, djutils-draw">
+    <release version="3.05.00" date="2020-12-30" description="dependences, javadocs, gis, djutils-draw">
+      <action dev="averbraeck" type="update">
+        Updated the Renderable2D to not contain anymore: a unique pointer to a logger (8 bytes), a unique long id
+        (8 bytes), and the animation context (8 bytes), saving 24 bytes per animation object. The only change
+        in the interface is tha the destroy() method now needs the simulator as an argument to be able to 
+        find the animation context.
+      </action>
       <action dev="averbraeck" type="add">
         The new dsol project dsol.animation.gis is able to read GIS files from ESRI Shape files, GeoJson and WKT
         sources. The footprint is a lot lower than the original implementation since xerces is not needed anymore
@@ -13,7 +19,8 @@
         completed and fully included in version 3.05.01. 
       </action>
       <action dev="averbraeck" type="remove">
-        The ancient gisbeans package has been replaced with a new dsol project dsol.animation.gis.
+        The ancient gisbeans package has been replaced with a new dsol project dsol.animation.gis. 
+        It still contains some of the gisbeans code, but in an updated form.
       </action>
       <action dev="averbraeck" type="update">
         Updated the ancient java3d 1.5.0 to djutils-draw primitives. This is a major change. Points are now
@@ -21,7 +28,7 @@
         as it existed in DSOL is now DirectedPoint3d. DirectedPoint2d also exists in djutils-draw. Affine 
         transformations are done with the Transform2d and Transform3d classes. As a result of these changes,
         the Locatable interface has been changed in terms of the directed point location and the bounds.
-        Return types are now Bounds3d for the bounds of the object and DirectedPoint3d for the location.   
+        Return types are now djutils Bounds for the bounds of the object and djutils Point for the location.   
       </action>
       <action dev="averbraeck" type="fix">
         Fixed an error in the DistNormal getInverseCumulativeProbability function that did not 

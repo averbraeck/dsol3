@@ -43,7 +43,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
  */
-public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
         T extends SimTime<A, R, T>> extends DEVSAnimator<A, R, T> implements DEVSSimulatorInterface<A, R, T>
 {
     /** */
@@ -94,7 +94,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
      * Constructs a new DEVSRealTimeClock.
      * @param id the id of the simulator, used in logging and firing of events.
      */
-    public DEVSRealTimeClock(final Serializable id)
+    public DEVSRealTimeAnimator(final Serializable id)
     {
         super(id);
     }
@@ -432,7 +432,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     /***********************************************************************************************************/
 
     /** Easy access class RealTimeClock.TimeDouble. */
-    public static class TimeDouble extends DEVSRealTimeClock<Double, Double, SimTimeDouble>
+    public static class TimeDouble extends DEVSRealTimeAnimator<Double, Double, SimTimeDouble>
             implements DEVSSimulatorInterface.TimeDouble
     {
         /** */
@@ -473,7 +473,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     }
 
     /** Easy access class RealTimeClock.TimeFloat. */
-    public abstract static class TimeFloat extends DEVSRealTimeClock<Float, Float, SimTimeFloat>
+    public abstract static class TimeFloat extends DEVSRealTimeAnimator<Float, Float, SimTimeFloat>
             implements DEVSSimulatorInterface.TimeFloat
     {
         /** */
@@ -498,7 +498,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     }
 
     /** Easy access class RealTimeClock.TimeLong. */
-    public abstract static class TimeLong extends DEVSRealTimeClock<Long, Long, SimTimeLong>
+    public abstract static class TimeLong extends DEVSRealTimeAnimator<Long, Long, SimTimeLong>
             implements DEVSSimulatorInterface.TimeLong
     {
         /** */
@@ -523,7 +523,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     }
 
     /** Easy access class RealTimeClock.TimeDoubleUnit. */
-    public static class TimeDoubleUnit extends DEVSRealTimeClock<Time, Duration, SimTimeDoubleUnit>
+    public static class TimeDoubleUnit extends DEVSRealTimeAnimator<Time, Duration, SimTimeDoubleUnit>
             implements DEVSSimulatorInterface.TimeDoubleUnit
     {
         /** */
@@ -555,7 +555,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     }
 
     /** Easy access class RealTimeClock.TimeFloatUnit. */
-    public static class TimeFloatUnit extends DEVSRealTimeClock<FloatTime, FloatDuration, SimTimeFloatUnit>
+    public static class TimeFloatUnit extends DEVSRealTimeAnimator<FloatTime, FloatDuration, SimTimeFloatUnit>
             implements DEVSSimulatorInterface.TimeFloatUnit
     {
         /** */
@@ -587,7 +587,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     }
 
     /** Easy access class RealTimeClock.CalendarDouble. */
-    public static class CalendarDouble extends DEVSRealTimeClock<Calendar, Duration, SimTimeCalendarDouble>
+    public static class CalendarDouble extends DEVSRealTimeAnimator<Calendar, Duration, SimTimeCalendarDouble>
             implements DEVSSimulatorInterface.CalendarDouble
     {
         /** */
@@ -619,7 +619,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     }
 
     /** Easy access class RealTimeClock.CalendarFloat. */
-    public static class CalendarFloat extends DEVSRealTimeClock<Calendar, FloatDuration, SimTimeCalendarFloat>
+    public static class CalendarFloat extends DEVSRealTimeAnimator<Calendar, FloatDuration, SimTimeCalendarFloat>
             implements DEVSSimulatorInterface.CalendarFloat
     {
         /** */
@@ -651,7 +651,7 @@ public abstract class DEVSRealTimeClock<A extends Comparable<A> & Serializable, 
     }
 
     /** Easy access class RealTimeClock.CalendarLong. */
-    public static class CalendarLong extends DEVSRealTimeClock<Calendar, Long, SimTimeCalendarLong>
+    public static class CalendarLong extends DEVSRealTimeAnimator<Calendar, Long, SimTimeCalendarLong>
             implements DEVSSimulatorInterface.CalendarLong
     {
         /** */

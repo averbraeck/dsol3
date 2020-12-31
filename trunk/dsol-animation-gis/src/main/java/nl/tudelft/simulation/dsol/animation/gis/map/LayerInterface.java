@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.animation.gis.map;
 
 import java.awt.Color;
-import java.util.List;
 
 import nl.tudelft.simulation.dsol.animation.gis.io.DataSourceInterface;
 
@@ -18,117 +17,98 @@ import nl.tudelft.simulation.dsol.animation.gis.io.DataSourceInterface;
 public interface LayerInterface extends java.io.Serializable
 {
     /**
-     * Getter for property attributes.
-     * @return List the value of property attributes.
+     * Return the fill color for the layer.
+     * @return Color; the rgb(a) fill color for the layer
      */
-    List<? extends AttributeInterface> getAttributes();
+    Color getFillColor();
 
     /**
-     * Getter for property attribute.
-     * @param index int; the index
-     * @return AttributeInterface.
+     * Set the fill color for the layer.
+     * @param fillColor Color; the rgb(a) fill color for the layer
      */
-    AttributeInterface getAttribute(int index);
+    void setFillColor(Color fillColor);
 
     /**
-     * Returns the color of the layer.
-     * @return Color.
-     */
-    Color getColor();
-
-    /**
-     * sets the color of the layer.
-     * @param color Color; the rgb-color
-     */
-    void setColor(Color color);
-
-    /**
-     * gets the outline color.
-     * @return Color the rgb-color
+     * Return the outline (line)  color for the layer.
+     * @return Color; the rgb(a) outline (line) color for the layer
      */
     Color getOutlineColor();
 
     /**
-     * sets the outlineColor of the layer.
-     * @param outlineColor Color; the rgb-color
+     * Set the outline (line) color for the layer.
+     * @param outlineColor Color; the rgb(a) outline (line) color for the layer
      */
     void setOutlineColor(Color outlineColor);
 
     /**
-     * Getter for property name.
-     * @return String of property name.
+     * Return the layer name.
+     * @return String; layer name
      */
     String getName();
 
     /**
-     * Setter for property name.
-     * @param name String; New value of property name.
+     * Set the layer name.
+     * @param name String; layer name
      */
     void setName(String name);
 
     /**
-     * Getter for property dataSource.
-     * @return DataSourceInterface the value of property dataSource.
+     * Return the data source, which contains the location of an ESRI shape datasource for now.
+     * @return DataSourceInterface the data source, contains the location of an ESRI shape datasource for now
      */
     DataSourceInterface getDataSource();
 
     /**
-     * Setter for property attributes.
-     * @param attributes List; the attributes to set
-     */
-    void setAttributes(List<? extends AttributeInterface> attributes);
-
-    /**
-     * Setter for property dataSource.
-     * @param dataSource DataSourceInterface; New value of property dataSource.
+     * Set the data source, which contains the location of an ESRI shape datasource for now.
+     * @param dataSource DataSourceInterface; the data source, contains the location of an ESRI shape datasource for now
      */
     void setDataSource(DataSourceInterface dataSource);
 
     /**
-     * Getter for property minscale.
-     * @return int the value of property minscale.
+     * Return the minimum scale at which this layer has to be drawn. FIXME: how do we define scale?
+     * @return int; the minimum scale at which this layer has to be drawn
      */
     int getMinScale();
 
     /**
-     * Setter for property minscale.
-     * @param minscale int; New value of property minscale.
+     * Set the minimum scale at which this layer has to be drawn.
+     * @param minscale int; the minimum scale at which this layer has to be drawn
      */
     void setMinScale(int minscale);
 
     /**
-     * Getter for property maxScale.
-     * @return int the value of property maxScale.
+     * Return the maximum scale at which this layer has to be drawn. FIXME: how do we define scale?
+     * @return int; the maximum scale at which this layer has to be drawn
      */
     int getMaxScale();
 
     /**
-     * Setter for property maxScale.
-     * @param maxScale int; New value of property maxScale.
+     * Set the maximum scale at which this layer has to be drawn.
+     * @param maxScale int; the maximum scale at which this layer has to be drawn
      */
     void setMaxScale(int maxScale);
 
     /**
-     * Getter for property status.
-     * @return bollean the value of property status
+     * Return the display status of the layer (displayed or not).
+     * @return boolean; the display status of the layer (displayed or not)
      */
-    boolean isStatus();
+    boolean isDisplay();
 
     /**
-     * Setter for property status.
-     * @param status boolean; New value of property status.
+     * Set the display status of the layer (displayed or not).
+     * @param status boolean; the display status of the layer (displayed or not)
      */
-    void setStatus(boolean status);
+    void setDisplay(boolean status);
 
     /**
-     * Getter for property transform.
-     * @return boolean the value of property transform.
+     * Return the status for the transformation: should the transform be used for this layer or not?
+     * @return boolean; the status for the transformation: should the transform be used for this layer or not?
      */
     boolean isTransform();
 
     /**
-     * Setter for property transform.
-     * @param transform boolean; New value of property transform.
+     * Set the status for the transformation: should the transform be used for this layer or not?
+     * @param transform boolean; the status for the transformation: should the transform be used for this layer or not?
      */
     void setTransform(boolean transform);
 }

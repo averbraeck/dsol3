@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.animation.gis.map;
 
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
@@ -9,9 +8,10 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.djutils.immutablecollections.ImmutableArrayList;
 import org.djutils.immutablecollections.ImmutableHashMap;
@@ -33,6 +33,10 @@ import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
  * </p>
+ * <p>
+ * The dsol-animation-gis project is based on the gisbeans project that has been part of DSOL since 2002, originally by Peter
+ * Jacobs and Paul Jacobs.
+ * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
 public class GisMap implements GisMapInterface
@@ -44,7 +48,7 @@ public class GisMap implements GisMapInterface
     private SerializableRectangle2D extent;
 
     /** the map of layer names to layers. */
-    private java.util.Map<String, LayerInterface> layerMap = new HashMap<>();
+    private Map<String, LayerInterface> layerMap = new LinkedHashMap<>();
 
     /** the total list of layers of the map. */
     private List<LayerInterface> allLayers = new ArrayList<>();
@@ -62,7 +66,7 @@ public class GisMap implements GisMapInterface
     private String name;
 
     /** the map units. */
-    private MapUnits units;
+    private MapUnits units = MapUnits.METERS;
 
     /** draw the background? */
     private boolean drawBackground = true;
@@ -205,11 +209,10 @@ public class GisMap implements GisMapInterface
             Layer layer = (Layer) i.next();
             try
             {
-                if (layer.isStatus() && layer.getMaxScale() < scale && layer.getMinScale() > scale)
+                if (layer.isDisplay() && layer.getMaxScale() < scale && layer.getMinScale() > scale)
                 {
                     List<GisObject> shapes = layer.getDataSource().getShapes(this.extent);
                     SerializablePath shape = null;
-                    int shapeNumber = 0;
                     for (Iterator<GisObject> shapeIterator = shapes.iterator(); shapeIterator.hasNext();)
                     {
                         GisObject gisObject = shapeIterator.next();
@@ -228,7 +231,7 @@ public class GisMap implements GisMapInterface
                         {
                             shape.transform(transform);
                         }
-                        graphics.setColor(layer.getColor());
+                        graphics.setColor(layer.getFillColor());
                         if (layer.getDataSource().getType() == POLYGON)
                         {
                             graphics.fill(shape);
@@ -238,85 +241,10 @@ public class GisMap implements GisMapInterface
                             graphics.setColor(layer.getOutlineColor());
                         }
                         graphics.draw(shape);
-                        for (Iterator<? extends AttributeInterface> iA = layer.getAttributes().iterator(); iA.hasNext();)
-                        {
-                            AttributeInterface attribute = iA.next();
-                            if (attribute.getMaxScale() < scale && attribute.getMinScale() > scale)
-                            {
-                                graphics.setColor(attribute.getFontColor());
-                                graphics.setFont(attribute.getFont());
-                                if (layer.isTransform())
-                                {
-                                    graphics.translate(shape.getBounds2D().getCenterX(), shape.getBounds2D().getCenterY());
-                                    graphics.rotate(2 * Math.PI - attribute.getAngle(shapeNumber));
-                                }
-                                FontMetrics fm = graphics.getFontMetrics(attribute.getFont());
-                                int[] xy = new int[2];
-                                switch (attribute.getPosition())
-                                {
-                                    case UpperLeft:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth();
-                                        xy[1] = 0;
-                                        break;
-                                    case UpperCenter:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth()
-                                                / 2;
-                                        xy[1] = 0;
-                                        break;
-                                    case UpperRight:
-                                        xy[0] = 0;
-                                        xy[1] = 0;
-                                        break;
-                                    case CenterLeft:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth();
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getHeight()
-                                                / 2;
-                                        break;
-                                    case CenterCenter:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth()
-                                                / 2;
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getHeight()
-                                                / 2;
-                                        break;
-                                    case CenterRight:
-                                        xy[0] = 0;
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getHeight()
-                                                / 2;
-                                        break;
-                                    case LowerLeft:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth();
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getHeight();
-                                        break;
-                                    case LowerCenter:
-                                        xy[0] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics).getWidth()
-                                                / 2;
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getHeight();
-                                        break;
-                                    case LowerRight:
-                                        xy[0] = 0;
-                                        xy[1] = (int) -fm.getStringBounds(attribute.getValue(shapeNumber), graphics)
-                                                .getHeight();
-                                        break;
-                                    default:
-                                        xy[0] = 0;
-                                        xy[1] = 0;
-                                        break;
-                                }
-                                graphics.drawString(attribute.getValue(shapeNumber), xy[0], xy[1]);
-                                if (layer.isTransform())
-                                {
-                                    graphics.rotate(-(2 * Math.PI - attribute.getAngle(shapeNumber)));
-                                    graphics.translate(-shape.getBounds2D().getCenterX(), -shape.getBounds2D().getCenterY());
-                                }
-                            }
-                        }
                         if (layer.isTransform())
                         {
                             shape.transform(antiTransform);
                         }
-                        shapeNumber++;
                     }
                 }
             }

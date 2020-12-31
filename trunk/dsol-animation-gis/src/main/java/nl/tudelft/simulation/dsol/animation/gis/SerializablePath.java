@@ -29,6 +29,34 @@ public class SerializablePath extends Path2D.Float implements Serializable, Shap
     }
 
     /**
+     * constructs a new SerializablePath with a winding rule.
+     * @param rule int; the windingRule
+     */
+    public SerializablePath(final int rule)
+    {
+        super(rule);
+    }
+
+    /**
+     * constructs a new SerializablePath with a winding rule and a capacity.
+     * @param rule int; the windingRule
+     * @param initialCapacity int; the initial capacity
+     */
+    public SerializablePath(final int rule, final int initialCapacity)
+    {
+        super(rule, initialCapacity);
+    }
+
+    /**
+     * constructs a new SerializablePath based on a shape.
+     * @param s Shape; the shape
+     */
+    public SerializablePath(final Shape s)
+    {
+        super(s);
+    }
+
+    /**
      * writes a float array of points to a stream.
      * @param out ObjectOutputStream; the output stream
      * @param array float[]; the array

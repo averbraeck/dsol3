@@ -29,11 +29,13 @@ public class Renderable2DComparator implements Comparator<Renderable2DInterface<
     {
         try
         {
-            if (r1.getSource().getLocation().getZ() > r2.getSource().getLocation().getZ())
+            double z1 = r1.getSource().getDirZ();
+            double z2 = r2.getSource().getDirZ();
+            if (z1 > z2)
             {
                 return 1;
             }
-            if (r1.getSource().getLocation().getZ() < r2.getSource().getLocation().getZ())
+            if (z1 < z2)
             {
                 return -1;
             }

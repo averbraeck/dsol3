@@ -19,7 +19,7 @@ import org.djutils.draw.bounds.Bounds3d;
 import org.djutils.draw.point.DirectedPoint3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.animation.StaticLocation;
+import nl.tudelft.simulation.dsol.animation.StaticLocation3d;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.BoundsUtil;
 
@@ -131,7 +131,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     public ImageRenderable(final DirectedPoint3d staticLocation, final Dimension size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
-        this((T) new StaticLocation(staticLocation, new Bounds3d(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
+        this((T) new StaticLocation3d(staticLocation, new Bounds3d(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
     }
 
     /**
@@ -147,7 +147,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     public ImageRenderable(final Point2D staticLocation, final Dimension size, final SimulatorInterface<?, ?, ?> simulator,
             final URL[] images) throws RemoteException, NamingException
     {
-        this((T) new StaticLocation(new DirectedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
+        this((T) new StaticLocation3d(new DirectedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
                 new Bounds3d(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
     }
 
@@ -162,7 +162,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
             return;
         }
         Dimension size =
-                BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getLocation().getZ())
+                BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getZ())
                         .getBounds().getSize();
         Point2D origin = this.resolveOrigin(this.orientation, size);
         graphics.translate(origin.getX(), origin.getY());

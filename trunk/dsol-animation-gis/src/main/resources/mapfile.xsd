@@ -4,36 +4,15 @@ http://www.w3.org/2001/XMLSchema.xsd" xmlns:gismap="http://www.simulation.tudelf
 
   <!-- #####################################     TYPE DEFINITION     ######################################### -->
 
-  <!-- the base attribute definition -->
-  <complexType name="abstractAttribute" mixed="false">
+  <!-- Datasources that can be handled -->
+  <complexType name="datasource">
     <sequence>
-      <element maxOccurs="1" minOccurs="0" name="minScale" type="unsignedInt" />
-      <element maxOccurs="1" minOccurs="0" name="maxScale" type="unsignedInt" />
-      <element maxOccurs="1" minOccurs="0" name="position" type="gismap:position" />
-      <choice maxOccurs="1" minOccurs="0">
-        <element name="degreesColumn" type="string" />
-        <element name="radiansColumn" type="string" />
-        <element name="degrees" type="double" />
-        <element name="radians" type="double" />
+      <choice>
+        <element name="shapeFile" type="anyURI" />
       </choice>
     </sequence>
+    <attribute name="caching" default="true" type="boolean" /> 
   </complexType>
-
-
-  <!-- the textAttribute (extends the abstractAttribute) -->
-  <complexType name="attribute" mixed="false">
-    <complexContent>
-      <extension base="gismap:abstractAttribute">
-        <sequence>
-          <choice>
-            <element name="text" type="string" />
-            <element name="textColumn" type="string" />
-          </choice>
-          <element maxOccurs="1" minOccurs="0" name="font" type="gismap:font" />
-        </sequence>
-      </extension>
-    </complexContent>
-  </complexType> 
 
   <!-- RGB color definition -->
   <complexType name="color" mixed="false">
@@ -43,16 +22,6 @@ http://www.w3.org/2001/XMLSchema.xsd" xmlns:gismap="http://www.simulation.tudelf
       <element maxOccurs="1" minOccurs="1" name="b" type="gismap:intColor" />
       <element maxOccurs="1" minOccurs="0" name="a" type="gismap:intColor" />
     </sequence>
-  </complexType>
-
-  <!-- Datasources that can be handled -->
-  <complexType name="datasource">
-    <sequence>
-      <choice>
-        <element name="shapeFile" type="anyURI" />
-      </choice>
-    </sequence>
-    <attribute name="cache" type="boolean" default="true" />
   </complexType>
 
   <!-- the dimension type -->
@@ -73,15 +42,6 @@ http://www.w3.org/2001/XMLSchema.xsd" xmlns:gismap="http://www.simulation.tudelf
     </sequence>
   </complexType>
 
-  <!-- the Font -->
-  <complexType name="font" mixed="false">
-    <sequence>
-      <element maxOccurs="1" minOccurs="1" name="fontName" type="string" />
-      <element maxOccurs="1" minOccurs="1" name="fontSize" type="unsignedInt" />
-      <element maxOccurs="1" minOccurs="0" name="fontColor" type="gismap:color" />
-    </sequence>
-  </complexType>
-
   <!-- the value of either red, green, blue or alpha in a color definition is bounded from 0 to 255 -->
   <simpleType name="intColor">
     <restriction base="integer">
@@ -89,21 +49,6 @@ http://www.w3.org/2001/XMLSchema.xsd" xmlns:gismap="http://www.simulation.tudelf
       <maxInclusive value="255" />
     </restriction>
   </simpleType>
-
-  <!-- the units of a map -->
-  <simpleType name="position">
-    <restriction base="string">
-      <pattern value="ul|uc|ur|cl|cc|cr|ll|lc|lr" />
-    </restriction>
-  </simpleType>
-
-  <!-- the tolerance type -->
-  <complexType name="tolerance" mixed="true">
-    <sequence>
-      <element maxOccurs="1" minOccurs="1" name="amount" type="unsignedInt" />
-      <element maxOccurs="1" minOccurs="1" name="units" type="gismap:units" />
-    </sequence>
-  </complexType>
 
   <!-- the units of a map -->
   <simpleType name="units">
@@ -132,13 +77,10 @@ http://www.w3.org/2001/XMLSchema.xsd" xmlns:gismap="http://www.simulation.tudelf
         <element maxOccurs="1" minOccurs="1" name="data" type="gismap:datasource" />
         <element maxOccurs="1" minOccurs="0" name="minScale" type="unsignedInt" />
         <element maxOccurs="1" minOccurs="0" name="maxScale" type="unsignedInt" />
-        <element maxOccurs="1" minOccurs="0" name="color" type="gismap:color" />
+        <element maxOccurs="1" minOccurs="0" name="fillColor" type="gismap:color" />
         <element maxOccurs="1" minOccurs="0" name="outlineColor" type="gismap:color" />
-        <element maxOccurs="1" minOccurs="0" default="false" name="status" type="boolean" />
-        <element maxOccurs="1" minOccurs="0" name="tolerance" type="gismap:tolerance" />
-        <element maxOccurs="1" minOccurs="0" name="transform" type="boolean" />
-        <element maxOccurs="1" minOccurs="0" name="group" type="string" />
-        <element maxOccurs="unbounded" minOccurs="0" name="attribute" type="gismap:attribute" />
+        <element maxOccurs="1" minOccurs="0" default="true" name="display" type="boolean" />
+        <element maxOccurs="1" minOccurs="0" default="true" name="transform" type="boolean" />
       </sequence>
     </complexType>
   </element>

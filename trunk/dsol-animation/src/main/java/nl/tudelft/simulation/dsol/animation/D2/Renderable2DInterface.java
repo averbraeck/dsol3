@@ -10,7 +10,11 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.point.Point;
+import org.djutils.draw.point.Point2d;
+
 import nl.tudelft.simulation.dsol.animation.Locatable;
+import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
  * The Renderable2D interface defines the basic interface for 2d animation. This is a hard-to-use interface. It is implemented
@@ -54,10 +58,11 @@ public interface Renderable2DInterface<T extends Locatable> extends Serializable
 
     /**
      * destroys this editable. How to do this must be implemented by the modeler.
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for unbinding the object from the context
      * @throws RemoteException RemoteException
      * @throws NamingException NamingException
      */
-    void destroy() throws RemoteException, NamingException;
+    void destroy(SimulatorInterface<?, ?, ?> simulator) throws RemoteException, NamingException;
 
     /**
      * A Utility helper class for transforming between screen coordinates and world coordinates. <br>
@@ -130,12 +135,12 @@ public interface Renderable2DInterface<T extends Locatable> extends Serializable
          * returns the frame xy-coordinates of a point in world coordinates. If parameters are invalid (i.e. screen.size &lt; 0)
          * a null value is returned. If parameter combinations (i.e !extent.contains(point)) are invalid a null value is
          * returned.
-         * @param worldCoordinates Point2D; the world coordinates
+         * @param worldCoordinates Point&lt;?, ?&gt;; the world coordinates
          * @param extent Rectangle2D; the extent of this
          * @param screen Dimension; the screen
          * @return Point2D (x,y) on screen. Can be null
          */
-        public static Point2D getScreenCoordinates(final Point2D worldCoordinates, final Rectangle2D extent,
+        public static Point2D getScreenCoordinates(final Point<?, ?> worldCoordinates, final Rectangle2D extent,
                 final Dimension screen)
         {
             double scale = 1.0 / Renderable2DInterface.Util.getScale(extent, screen);
@@ -151,15 +156,15 @@ public interface Renderable2DInterface<T extends Locatable> extends Serializable
          * @param screenCoordinates Point2D; the screen coordinates
          * @param extent Rectangle2D; the extent of this
          * @param screen Dimension; the screen
-         * @return Point2D (x,y) on screen
+         * @return Point2d (x,y) in the 2D or 3D world
          */
-        public static Point2D getWorldCoordinates(final Point2D screenCoordinates, final Rectangle2D extent,
+        public static Point2d getWorldCoordinates(final Point2D screenCoordinates, final Rectangle2D extent,
                 final Dimension screen)
         {
             double scale = Renderable2DInterface.Util.getScale(extent, screen);
             double x = (screenCoordinates.getX()) * scale + extent.getMinX();
             double y = ((screen.getHeight() - screenCoordinates.getY())) * scale + extent.getMinY();
-            return new Point2D.Double(x, y);
+            return new Point2d(x, y);
         }
     }
 }

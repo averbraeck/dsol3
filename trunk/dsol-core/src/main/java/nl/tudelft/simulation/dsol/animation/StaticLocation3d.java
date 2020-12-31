@@ -6,7 +6,7 @@ import org.djutils.draw.bounds.Bounds3d;
 import org.djutils.draw.point.DirectedPoint3d;
 
 /**
- * A StaticLocation <br>
+ * A StaticLocation in 3 dimensions.
  * <p>
  * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -16,7 +16,7 @@ import org.djutils.draw.point.DirectedPoint3d;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  */
-public class StaticLocation extends DirectedPoint3d implements Locatable
+public class StaticLocation3d extends DirectedPoint3d implements Locatable
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -29,15 +29,15 @@ public class StaticLocation extends DirectedPoint3d implements Locatable
      * @param x double; the x location
      * @param y double; the y location
      * @param z double; the z location
-     * @param theta double; theta
-     * @param phi double; phi
-     * @param rho double; rho
+     * @param rotX double; rotation around x-axis (theta)
+     * @param rotY double; rotation around y-axis (phi)
+     * @param rotZ double; rotation around z-axis (rho)
      * @param bounds Bounds3d; the bounds
      */
-    public StaticLocation(final double x, final double y, final double z, final double theta, final double phi,
-            final double rho, final Bounds3d bounds)
+    public StaticLocation3d(final double x, final double y, final double z, final double rotX, final double rotY,
+            final double rotZ, final Bounds3d bounds)
     {
-        super(x, y, z, theta, phi, rho);
+        super(x, y, z, rotX, rotY, rotZ);
         this.bounds = bounds;
     }
 
@@ -47,7 +47,7 @@ public class StaticLocation extends DirectedPoint3d implements Locatable
      * @param rotZ double; the rotation in the xy plane
      * @param bounds Bounds; the bounds
      */
-    public StaticLocation(final Point2D point2D, final double rotZ, final Bounds3d bounds)
+    public StaticLocation3d(final Point2D point2D, final double rotZ, final Bounds3d bounds)
     {
         super(point2D.getX(), point2D.getY(), 0.0, 0.0, 0.0, rotZ);
         this.bounds = bounds;
@@ -58,7 +58,7 @@ public class StaticLocation extends DirectedPoint3d implements Locatable
      * @param location DirectedPoint3d; the location
      * @param bounds Bounds; the bounds
      */
-    public StaticLocation(final DirectedPoint3d location, final Bounds3d bounds)
+    public StaticLocation3d(final DirectedPoint3d location, final Bounds3d bounds)
     {
         super(location.getX(), location.getY(), location.getZ(), location.getDirX(), location.getDirY(), location.getDirZ());
         this.bounds = bounds;

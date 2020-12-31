@@ -4,7 +4,7 @@ import java.awt.geom.Rectangle2D;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
+import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.web.DSOLWebServer;
 
 /**
@@ -24,7 +24,7 @@ public class BallWebApplication extends DSOLWebServer
      * @param simulator DEVSRealTimeClock.TimeDouble; the simulator
      * @throws Exception on jetty error
      */
-    public BallWebApplication(final String title, final DEVSRealTimeClock.TimeDouble simulator) throws Exception
+    public BallWebApplication(final String title, final DEVSRealTimeAnimator.TimeDouble simulator) throws Exception
     {
         super(title, simulator, new Rectangle2D.Double(-100, -100, 200, 200));
     }
@@ -36,9 +36,9 @@ public class BallWebApplication extends DSOLWebServer
      */
     public static void main(final String[] args) throws Exception
     {
-        DEVSRealTimeClock.TimeDouble simulator = new DEVSRealTimeClock.TimeDouble("BallWebApplication", 0.01);
+        DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("BallWebApplication", 0.01);
         BallModel model = new BallModel(simulator);
-        Replication.TimeDouble<DEVSRealTimeClock.TimeDouble> replication =
+        Replication.TimeDouble<DEVSRealTimeAnimator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
         new BallWebApplication("Ball Animation model", simulator);

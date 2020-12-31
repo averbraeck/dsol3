@@ -1,12 +1,12 @@
 package nl.tudelft.simulation.dsol.animation.gis.map;
 
 import java.awt.Color;
-import java.util.List;
 
 import nl.tudelft.simulation.dsol.animation.gis.io.DataSourceInterface;
 
 /**
- * This interface defines the image as defined in the mapInterface.
+ * This is an implementation of the LayerInterface that just stores the basic metadata for each layer. The actual information of
+ * the layer (points, shapes) is contained in the DataSource.
  * <p>
  * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -20,32 +20,29 @@ public class Layer implements LayerInterface
     /** */
     private static final long serialVersionUID = 20201015L;
 
-    /** the fillColor of the layer. */
-    private Color fillColor = new Color(255, 255, 255, 255);
+    /** the name of the layer. */
+    private String name;
 
     /** the dataSource to use. */
     private DataSourceInterface dataSource;
 
+    /** the minScale. */
+    private int minScale = Integer.MAX_VALUE;
+
     /** the maxScale. */
     private int maxScale = 0;
 
-    /** the minScale. */
-    private int minScale = Integer.MAX_VALUE;
+    /** the fillColor of the layer. */
+    private Color fillColor = Color.WHITE;
 
     /** the outlineColor. */
     private Color outlineColor = Color.BLACK;
 
-    /** the name of the layer. */
-    private String name;
+    /** whether to display the layer. */
+    private boolean display = true;
 
-    /** the status. */
-    private boolean status = true;
-
-    /** whether to transform. */
+    /** whether to transform the layer. */
     private boolean transform = false;
-
-    /** the attributes of the layer. */
-    private List<? extends AttributeInterface> attributes;
 
     /**
      * constructs a new layer.
@@ -57,28 +54,14 @@ public class Layer implements LayerInterface
 
     /** {@inheritDoc} */
     @Override
-    public List<? extends AttributeInterface> getAttributes()
-    {
-        return this.attributes;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public AttributeInterface getAttribute(final int index)
-    {
-        return this.attributes.get(index);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Color getColor()
+    public Color getFillColor()
     {
         return this.fillColor;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setColor(final Color color)
+    public void setFillColor(final Color color)
     {
         this.fillColor = color;
     }
@@ -88,13 +71,6 @@ public class Layer implements LayerInterface
     public DataSourceInterface getDataSource()
     {
         return this.dataSource;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setAttributes(final List<? extends AttributeInterface> attributes)
-    {
-        this.attributes = attributes;
     }
 
     /** {@inheritDoc} */
@@ -162,16 +138,16 @@ public class Layer implements LayerInterface
 
     /** {@inheritDoc} */
     @Override
-    public boolean isStatus()
+    public boolean isDisplay()
     {
-        return this.status;
+        return this.display;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setStatus(final boolean status)
+    public void setDisplay(final boolean status)
     {
-        this.status = status;
+        this.display = status;
     }
 
     /** {@inheritDoc} */

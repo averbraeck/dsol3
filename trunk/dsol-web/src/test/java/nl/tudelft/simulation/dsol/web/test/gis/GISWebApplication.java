@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeClock;
+import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.web.DSOLWebServer;
 
 /**
@@ -37,7 +37,7 @@ public class GISWebApplication extends DSOLWebServer
      * @param simulator DEVSRealTimeClock.TimeDouble; the simulator
      * @throws Exception on jetty error
      */
-    public GISWebApplication(final String title, final DEVSRealTimeClock.TimeDouble simulator) throws Exception
+    public GISWebApplication(final String title, final DEVSRealTimeAnimator.TimeDouble simulator) throws Exception
     {
         super(title, simulator, extent);
         getAnimationPanel().setSize(new Dimension(800, 600));
@@ -49,9 +49,9 @@ public class GISWebApplication extends DSOLWebServer
      */
     public static void main(final String[] args) throws Exception
     {
-        DEVSRealTimeClock.TimeDouble simulator = new DEVSRealTimeClock.TimeDouble("GISWebApplication", 0.01);
+        DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("GISWebApplication", 0.01);
         GISModel model = new GISModel(simulator);
-        Replication.TimeDouble<DEVSRealTimeClock.TimeDouble> replication =
+        Replication.TimeDouble<DEVSRealTimeAnimator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
         new GISWebApplication("GIS Animation model", simulator);

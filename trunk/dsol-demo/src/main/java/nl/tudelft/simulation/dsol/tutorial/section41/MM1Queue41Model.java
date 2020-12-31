@@ -36,14 +36,6 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  */
 public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDouble>
 {
-    /**
-     * @param simulator DEVSSimulator.TimeDouble; the simulator
-     */
-    public MM1Queue41Model(final DEVSSimulator.TimeDouble simulator)
-    {
-        super(simulator);
-    }
-
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
@@ -58,6 +50,14 @@ public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.
     /** utilization uN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     Utilization<Double, Double, SimTimeDouble> uN;
+
+    /**
+     * @param simulator DEVSSimulator.TimeDouble; the simulator
+     */
+    public MM1Queue41Model(final DEVSSimulator.TimeDouble simulator)
+    {
+        super(simulator);
+    }
 
     /** {@inheritDoc} */
     @Override

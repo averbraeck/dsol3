@@ -27,7 +27,7 @@ public enum MapUnits
     /** MILES constant. */
     MILES,
 
-    /** DD constant (DD stands for decimal degrees, = 1/100 of the earth circumference). */
-    DD;
+    /** DECIMAL DEGREES constant. A decimal degree is 1/100 of the earth circumference. */
+    DECIMAL_DEGREES;
 
 }
