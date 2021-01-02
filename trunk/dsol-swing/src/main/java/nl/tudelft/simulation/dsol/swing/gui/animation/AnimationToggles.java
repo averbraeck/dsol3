@@ -30,7 +30,7 @@ public final class AnimationToggles
      * @param panel DSOLAnimationPanel; the DSOLAnimationPanel where the animation of a class has to be switched off
      * @param locatableClass Class&lt;? extends Locatable&gt;; the class for which the animation has to be shown.
      */
-    public static void showAnimationClass(final DSOLAnimationPanel panel, final Class<? extends Locatable> locatableClass)
+    public static void showAnimationClass(final DSOLAnimationTab panel, final Class<? extends Locatable> locatableClass)
     {
         panel.getAnimationPanel().showClass(locatableClass);
         panel.updateAnimationClassCheckBox(locatableClass);
@@ -41,7 +41,7 @@ public final class AnimationToggles
      * @param panel DSOLAnimationPanel; the DSOLAnimationPanel where the animation of a class has to be switched off
      * @param locatableClass Class&lt;? extends Locatable&gt;; the class for which the animation has to be shown.
      */
-    public static void hideAnimationClass(final DSOLAnimationPanel panel, final Class<? extends Locatable> locatableClass)
+    public static void hideAnimationClass(final DSOLAnimationTab panel, final Class<? extends Locatable> locatableClass)
     {
         panel.getAnimationPanel().hideClass(locatableClass);
         panel.updateAnimationClassCheckBox(locatableClass);

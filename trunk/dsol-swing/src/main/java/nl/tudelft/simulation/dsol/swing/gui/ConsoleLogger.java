@@ -55,10 +55,12 @@ public class ConsoleLogger extends JPanel implements AppearanceControl
     private JTextPane textPane;
 
     /**
-     * Constructor for Console.
+     * Constructor for Logger Console.
+     * @param logLevel Level the logLevel to use;
      */
-    public ConsoleLogger()
+    public ConsoleLogger(final Level logLevel)
     {
+        this.level = logLevel;
         setLayout(new BorderLayout());
         this.textPane = new JTextPane();
         this.textPane.setEditable(false);

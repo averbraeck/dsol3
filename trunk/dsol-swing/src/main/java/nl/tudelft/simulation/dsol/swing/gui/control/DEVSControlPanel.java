@@ -43,16 +43,21 @@ public class DEVSControlPanel<A extends Comparable<A> & Serializable, R extends 
     /**
      * Generic control panel with a different set of control buttons. The control panel assumes a DEVSSimulator that can be
      * paused, but it does not assume animation.
-     * @param model DSOLModel<?, ?, ?, ?>; the model
+     * @param model DSOLModel&lt;A, R, T, ? extends DEVSSimulationInterface&lt;A, R, T&gt;&gt;; the model for the control panel,
+     *            to allow a reset of the model
+     * @param simulator S; the simulator. Specified separately, because the model can have been specified with a superclass of
+     *            the simulator that the ControlPanel actually needs (e.g., model has been specified with a DEVSAnimator,
+     *            whereas the panel needs a RealTimeControlAnimator)
      * @throws RemoteException when simulator cannot be accessed for listener attachment
      */
-    public DEVSControlPanel(final DSOLModel<A, R, T, ? extends S> model) throws RemoteException
+    public DEVSControlPanel(final DSOLModel<A, R, T, ? extends DEVSSimulatorInterface<A, R, T>> model, final S simulator)
+            throws RemoteException
     {
-        super(model);
+        super(model, simulator);
 
         // add the buttons to step the simulation
-        getControlButtonsPanel().add(makeButton("stepButton", "/Last_recor.png", "Step", "Execute one event", true));
-        getControlButtonsPanel().add(makeButton("nextTimeButton", "/NextTrack.png", "NextTime",
+        getControlButtonsPanel().add(makeButton("stepButton", "/Step.png", "Step", "Execute one event", true));
+        getControlButtonsPanel().add(makeButton("nextTimeButton", "/StepTime.png", "NextTime",
                 "Execute all events scheduled for the current time", true));
     }
 
@@ -225,13 +230,20 @@ public class DEVSControlPanel<A extends Comparable<A> & Serializable, R extends 
         private static final long serialVersionUID = 20201227L;
 
         /**
-         * @param model DSOLModel<?, ?, ?, ?>; if non-null, the restart button should work
-         * @throws RemoteException
+         * Construct a DEVS control panel for a Double time unit, with a different set of control buttons. The control panel
+         * assumes a DEVSSimulator, but not animation.
+         * @param model DSOLModel.TimeDouble; the model for the control panel, to allow a reset of the model
+         * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator. Specified separately, because the model can have
+         *            been specified with a superclass of the simulator that the ControlPanel actually needs (e.g., model has
+         *            been specified with a DEVSAnimator, whereas the panel needs a RealTimeControlAnimator)
+         * @throws RemoteException when simulator cannot be accessed for listener attachment
          */
-        public TimeDouble(final DSOLModel.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble> model) throws RemoteException
+        public TimeDouble(final DSOLModel.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble> model,
+                final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException
         {
-            super(model);
+            super(model, simulator);
             setClockPanel(new ClockSpeedPanel.TimeDouble(getSimulator()));
+            setRunUntilPanel(new RunUntilPanel.TimeDouble(getSimulator()));
         }
 
     }

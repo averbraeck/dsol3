@@ -9,7 +9,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,6 +17,8 @@ import java.util.List;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 
+import org.djutils.draw.bounds.Bounds2d;
+import org.djutils.draw.point.Point2d;
 import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
@@ -162,9 +163,9 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     @Override
     public void mouseMoved(final MouseEvent mouseEvent)
     {
-        Point2D point = Renderable2DInterface.Util.getWorldCoordinates(mouseEvent.getPoint(), this.panel.getExtent(),
+        Point2d point = Renderable2DInterface.Util.getWorldCoordinates(mouseEvent.getPoint(), this.panel.getExtent(),
                 this.panel.getSize());
-        this.panel.setWorldCoordinate(point);
+        this.panel.setWorldCoordinate(point.toPoint2D());
         this.panel.displayWorldCoordinateToolTip();
     }
 
@@ -222,8 +223,9 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         double dy = mouseReleasedPoint.getY() - mouseClickedPoint.getY();
         double scale = Renderable2DInterface.Util.getScale(this.panel.getExtent(), this.panel.getSize());
 
-        Rectangle2D.Double extent = (Rectangle2D.Double) this.panel.getExtent();
-        extent.setRect((extent.getMinX() - dx * scale), (extent.getMinY() + dy * scale), extent.getWidth(), extent.getHeight());
+        Bounds2d extent = this.panel.getExtent();
+        // TODO: pan to a certain location after drag: extent.setRect((extent.getMinX() - dx * scale), (extent.getMinY() + dy *
+        // scale), extent.getWidth(), extent.getHeight());
     }
 
     /**
@@ -236,12 +238,12 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         List<Locatable> targets = new ArrayList<Locatable>();
         try
         {
-            Point2D point =
+            Point2d point =
                     Renderable2DInterface.Util.getWorldCoordinates(mousePoint, this.panel.getExtent(), this.panel.getSize());
             for (Renderable2DInterface<?> renderable : this.panel.getElements())
             {
                 if (this.panel.isShowElement(renderable)
-                        && renderable.contains(point, this.panel.getExtent(), this.panel.getSize()))
+                        && renderable.contains(point, this.panel.getExtent()))
                 {
                     targets.add(renderable.getSource());
                 }
@@ -287,7 +289,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
             double zValue = -Double.MAX_VALUE;
             for (Locatable next : targets)
             {
-                double z = next.getLocation().getZ();
+                double z = next.getZ();
                 if (z > zValue)
                 {
                     zValue = z;

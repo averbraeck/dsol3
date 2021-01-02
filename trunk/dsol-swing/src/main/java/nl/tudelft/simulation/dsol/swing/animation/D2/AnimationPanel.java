@@ -1,10 +1,8 @@
 package nl.tudelft.simulation.dsol.swing.animation.D2;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +15,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.djutils.draw.bounds.Bounds;
-import org.djutils.draw.bounds.Bounds3d;
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.point.Point;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
@@ -88,19 +86,18 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
 
     /**
      * constructs a new AnimationPanel.
-     * @param extent Rectangle2D; the extent of the panel
-     * @param size Dimension; the size of the panel.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator of which we want to know the events for animation
+     * @param homeExtent Bounds2d; the home (initial) extent of the panel
+     * @param simulator SimulatorInterface&lt;?, ?, ?&gt;; the simulator of which we want to know the events for animation
      * @throws RemoteException on network error for one of the listeners
      * @throws DSOLException when the simulator is not implementing the AnimatorInterface
      */
-    public AnimationPanel(final Rectangle2D extent, final Dimension size, final SimulatorInterface<?, ?, ?> simulator)
+    public AnimationPanel(final Bounds2d homeExtent, final SimulatorInterface<?, ?, ?> simulator)
             throws RemoteException, DSOLException
     {
-        super(extent, size);
+        super(homeExtent);
         if (!(simulator instanceof AnimatorInterface))
         {
-            throw new DSOLException("Simulator is not implementing AnimatorInterface");
+            throw new DSOLException("Simulator must implement the AnimatorInterface");
         }
         super.showGrid = true;
         InputListener listener = new InputListener(this);
@@ -211,7 +208,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     public void notify(final EventInterface event) throws RemoteException
     {
         if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
-                (event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT) && this.isShowing())
+        (event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT) && this.isShowing())
         {
             if (this.getWidth() > 0 || this.getHeight() > 0)
             {
@@ -222,16 +219,16 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
 
         else if (event.getType().equals(ContextInterface.OBJECT_ADDED_EVENT))
         {
-            objectAdded((Renderable2DInterface<? extends Locatable>) ((Object[])event.getContent())[2]);
+            objectAdded((Renderable2DInterface<? extends Locatable>) ((Object[]) event.getContent())[2]);
         }
-        
+
         else if (event.getType().equals(ContextInterface.OBJECT_REMOVED_EVENT))
         {
-            objectRemoved((Renderable2DInterface<? extends Locatable>) ((Object[])event.getContent())[2]);
+            objectRemoved((Renderable2DInterface<? extends Locatable>) ((Object[]) event.getContent())[2]);
         }
-        
+
         else if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
-                (event.getType().equals(Replication.START_REPLICATION_EVENT))
+        (event.getType().equals(Replication.START_REPLICATION_EVENT))
         {
             synchronized (this.elementList)
             {
@@ -250,7 +247,14 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
                     this.context.addListener(this, ContextInterface.OBJECT_REMOVED_EVENT);
                     for (Object element : this.context.values())
                     {
-                        objectAdded((Renderable2DInterface<? extends Locatable>) element);
+                        if (element instanceof Renderable2DInterface)
+                        {
+                            objectAdded((Renderable2DInterface<? extends Locatable>) element);
+                        }
+                        else
+                        {
+                            System.err.println("odd object in context: " + element);
+                        }
                     }
                     this.repaint();
                 }
@@ -290,9 +294,9 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
 
     /**
      * Calculate the full extent based on the current positions of the objects.
-     * @return the full extent of the animation.
+     * @return Bounds2d; the full extent of the animation.
      */
-    public synchronized Rectangle2D fullExtent()
+    public synchronized Bounds2d fullExtent()
     {
         double minX = Double.MAX_VALUE;
         double maxX = -Double.MAX_VALUE;
@@ -302,8 +306,8 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
         {
             for (Renderable2DInterface<? extends Locatable> renderable : this.elementList)
             {
-                Point l = renderable.getSource().getLocation();
-                Bounds b = new Bounds3d(renderable.getSource().getBounds());
+                Point<?, ?> l = renderable.getSource().getLocation();
+                Bounds<?, ?> b = renderable.getSource().getBounds();
                 minX = Math.min(minX, l.getX() + b.getMinX());
                 minY = Math.min(minY, l.getY() + b.getMinY());
                 maxX = Math.max(maxX, l.getX() + b.getMaxX());
@@ -320,7 +324,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
         maxX += EXTENT_MARGIN_FACTOR * Math.abs(maxX - minX);
         maxY += EXTENT_MARGIN_FACTOR * Math.abs(maxY - minY);
 
-        return new Rectangle2D.Double(minX, minY, maxX - minX, maxY - minY);
+        return new Bounds2d(minX, maxX, minY, maxY);
     }
 
     /**
