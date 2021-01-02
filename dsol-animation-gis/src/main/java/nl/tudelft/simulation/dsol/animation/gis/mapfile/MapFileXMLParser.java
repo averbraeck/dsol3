@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.animation.gis.mapfile;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.geom.Rectangle2D;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.io.URLResource;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -22,7 +22,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
-import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
 import nl.tudelft.simulation.dsol.animation.gis.io.esri.ShapeFile;
 import nl.tudelft.simulation.dsol.animation.gis.map.GisMap;
 import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
@@ -143,10 +142,10 @@ public final class MapFileXMLParser
      * Creates the extent for the map, in transformed units.
      * @param node Node; the dom node
      * @param coordinateTransform CoordinateTransform; the transformation to apply on the coordinates
-     * @return Rectangle2D; the extent for the map, in transformed units
+     * @return Bounds2d; the extent for the map, in transformed units
      * @throws IOException on parsing error
      */
-    private static Rectangle2D parseExtent(final Node node, final CoordinateTransform coordinateTransform) throws IOException
+    private static Bounds2d parseExtent(final Node node, final CoordinateTransform coordinateTransform) throws IOException
     {
         try
         {
@@ -161,7 +160,7 @@ public final class MapFileXMLParser
             minY = Math.min(p[1], q[1]);
             maxX = Math.max(p[0], q[0]);
             maxY = Math.max(p[1], q[1]);
-            return new SerializableRectangle2D.Double(minX, minY, (maxX - minX), (maxY - minY));
+            return new Bounds2d(minX, maxX, minY, maxY);
         }
         catch (Exception exception)
         {
@@ -257,6 +256,7 @@ public final class MapFileXMLParser
             {
                 Node layerNode = layerNodeList.item(i);
                 LayerInterface layer = new Layer();
+                layerList.add(layer);
                 layer.setName(nodeText(layerNode, "name"));
 
                 Node dataNode = nodeTagItem(layerNode, "data", 0);

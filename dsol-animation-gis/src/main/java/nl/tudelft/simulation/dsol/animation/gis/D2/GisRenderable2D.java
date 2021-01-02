@@ -2,8 +2,6 @@ package nl.tudelft.simulation.dsol.animation.gis.D2;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.net.URL;
@@ -11,8 +9,10 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
 import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.Point2d;
 import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
@@ -49,7 +49,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
 
     /** the cached extent. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Rectangle2D cachedExtent = new Rectangle2D.Double();
+    protected Bounds2d cachedExtent = new Bounds2d(0, 0, 0, 0);
 
     /** the cached screenSize. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -102,8 +102,9 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         try
         {
             this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
-            this.location = new DirectedPoint3d(this.cachedExtent.getCenterX(), this.cachedExtent.getCenterY(), z);
-            this.bounds = new Bounds3d(this.cachedExtent.getWidth(), this.cachedExtent.getHeight(), 0.0);
+            this.cachedExtent = this.map.getExtent();
+            this.location = new DirectedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(), z);
+            this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
             this.bind2Context(simulator);
         }
         catch (Exception exception)
@@ -129,8 +130,8 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         try
         {
             this.map = map;
-            this.location = new DirectedPoint3d(this.cachedExtent.getCenterX(), this.cachedExtent.getCenterY(), z);
-            this.bounds = new Bounds3d(this.cachedExtent.getWidth(), this.cachedExtent.getHeight(), 0.0);
+            this.location = new DirectedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(), z);
+            this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
             this.bind2Context(simulator);
         }
         catch (Exception exception)
@@ -150,7 +151,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         try
         {
             ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
-                    .bindObject(Integer.toString(System.identityHashCode(this)));
+                    .bindObject(Integer.toString(System.identityHashCode(this)), this);
         }
         catch (NamingException | RemoteException exception)
         {
@@ -160,7 +161,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
 
     /** {@inheritDoc} */
     @Override
-    public void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screen, final ImageObserver observer)
+    public void paint(final Graphics2D graphics, final Bounds2d extent, final Dimension screen, final ImageObserver observer)
     {
         try
         {
@@ -170,7 +171,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
                 graphics.drawImage(this.cachedImage, 0, 0, null);
                 return;
             }
-            this.map.setExtent((Rectangle2D) extent.clone());
+            this.map.setExtent(extent);
             this.map.getImage().setSize(screen);
             this.cacheImage();
             this.paint(graphics, extent, screen, observer);
@@ -223,8 +224,9 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         bg.dispose();
         this.cachedScreenSize = (Dimension) this.map.getImage().getSize().clone();
         this.cachedExtent = this.map.getExtent();
-        this.location = new DirectedPoint3d(this.cachedExtent.getCenterX(), this.cachedExtent.getCenterY(), -Double.MIN_VALUE);
-        this.bounds = new Bounds3d(this.cachedExtent.getWidth(), this.cachedExtent.getHeight(), 0.0);
+        this.location = new DirectedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(),
+                -Double.MIN_VALUE);
+        this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
     }
 
     /**
@@ -246,7 +248,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
 
     /** {@inheritDoc} */
     @Override
-    public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screenSize)
+    public boolean contains(final Point2d pointWorldCoordinates, final Bounds2d extent)
     {
         return false;
     }

@@ -5,7 +5,6 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.immutablecollections.ImmutableArrayList;
 import org.djutils.immutablecollections.ImmutableHashMap;
 import org.djutils.immutablecollections.ImmutableList;
@@ -45,7 +45,7 @@ public class GisMap implements GisMapInterface
     private static final long serialVersionUID = 1L;
 
     /** the extent of the map. */
-    private SerializableRectangle2D extent;
+    private Bounds2d extent;
 
     /** the map of layer names to layers. */
     private Map<String, LayerInterface> layerMap = new LinkedHashMap<>();
@@ -184,9 +184,9 @@ public class GisMap implements GisMapInterface
 
         // We compute the transform of the map
         AffineTransform transform = new AffineTransform();
-        transform.scale(this.getImage().getSize().getWidth() / this.extent.getWidth(),
-                -this.getImage().getSize().getHeight() / this.extent.getHeight());
-        transform.translate(-this.extent.getX(), -this.extent.getY() - this.extent.getHeight());
+        transform.scale(this.getImage().getSize().getWidth() / this.extent.getDeltaX(),
+                -this.getImage().getSize().getHeight() / this.extent.getDeltaY());
+        transform.translate(-this.extent.getMinX(), -this.extent.getMinY() - this.extent.getDeltaY());
         AffineTransform antiTransform = null;
         try
         {
@@ -259,7 +259,7 @@ public class GisMap implements GisMapInterface
 
     /** {@inheritDoc} */
     @Override
-    public SerializableRectangle2D getExtent()
+    public Bounds2d getExtent()
     {
         return this.extent;
     }
@@ -303,7 +303,7 @@ public class GisMap implements GisMapInterface
     @Override
     public double getScale()
     {
-        return (this.getImage().getSize().getWidth() / (2.54 * RESOLUTION)) * this.extent.getWidth();
+        return (this.getImage().getSize().getWidth() / (2.54 * RESOLUTION)) * this.extent.getDeltaX();
     }
 
     /**
@@ -313,8 +313,8 @@ public class GisMap implements GisMapInterface
     @Override
     public double getUnitImageRatio()
     {
-        return Math.min(this.extent.getWidth() / this.image.getSize().getWidth(),
-                this.extent.getHeight() / this.image.getSize().getHeight());
+        return Math.min(this.extent.getDeltaX() / this.image.getSize().getWidth(),
+                this.extent.getDeltaY() / this.image.getSize().getHeight());
     }
 
     /** {@inheritDoc} */
@@ -326,10 +326,9 @@ public class GisMap implements GisMapInterface
 
     /** {@inheritDoc} */
     @Override
-    public void setExtent(final Rectangle2D extent)
+    public void setExtent(final Bounds2d extent)
     {
-        this.extent =
-                new SerializableRectangle2D.Double(extent.getMinX(), extent.getMinY(), extent.getWidth(), extent.getHeight());
+        this.extent = extent;
     }
 
     /** {@inheritDoc} */
@@ -368,7 +367,8 @@ public class GisMap implements GisMapInterface
         double width = (1.0 / correcteddZoomFactor) * (maxX - this.extent.getMinX());
         double height = (1.0 / correcteddZoomFactor) * (maxY - this.extent.getMinY());
 
-        this.extent = new SerializableRectangle2D.Double(centerX - 0.5 * width, centerY - 0.5 * height, width, height);
+        this.extent =
+                new Bounds2d(centerX - 0.5 * width, centerX + 0.5 * width, centerY - 0.5 * height, centerY + 0.5 * height);
     }
 
     /** {@inheritDoc} */
@@ -387,7 +387,8 @@ public class GisMap implements GisMapInterface
         double width = (1.0 / correcteddZoomFactor) * (maxX - this.extent.getMinX());
         double height = (1.0 / correcteddZoomFactor) * (maxY - this.getExtent().getMinY());
 
-        this.extent = new SerializableRectangle2D.Double(centerX - 0.5 * width, centerY - 0.5 * height, width, height);
+        this.extent =
+                new Bounds2d(centerX - 0.5 * width, centerX + 0.5 * width, centerY - 0.5 * height, centerY + 0.5 * height);
     }
 
     /** {@inheritDoc} */
@@ -409,7 +410,7 @@ public class GisMap implements GisMapInterface
         maxX = minX + (rectangle.getWidth() / this.getImage().getSize().getWidth()) * width;
         maxY = minY + ((this.getImage().getSize().getHeight() - rectangle.getHeight()) / this.getImage().getSize().getHeight())
                 * height;
-        this.extent = new SerializableRectangle2D.Double(minX, minY, (maxX - minX), (maxY - minY));
+        this.extent = new Bounds2d(minX, maxX, minY, maxY);
     }
 
     /** {@inheritDoc} */

@@ -2,11 +2,11 @@ package nl.tudelft.simulation.dsol.animation.gis.map;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.immutablecollections.ImmutableList;
 import org.djutils.immutablecollections.ImmutableMap;
 
@@ -79,21 +79,21 @@ public interface GisMapInterface extends Serializable
 
     /**
      * Getter for property extent.
-     * @return the extent of the map
+     * @return Bounds2d; the extent of the map
      * @throws RemoteException on network exception
      */
-    SerializableRectangle2D getExtent() throws RemoteException;
+    Bounds2d getExtent() throws RemoteException;
 
     /**
      * Getter for property image.
-     * @return ImageInterface the value of property image.
+     * @return ImageInterface; the value of property image.
      * @throws RemoteException on network exception
      */
     MapImageInterface getImage() throws RemoteException;
 
     /**
      * Getter for the map of layer names to property layers.
-     * @return List the value of property layers.
+     * @return Bounds2d; the value of property layers.
      * @throws RemoteException on network exception
      */
     ImmutableMap<String, LayerInterface> getLayerMap() throws RemoteException;
@@ -149,10 +149,10 @@ public interface GisMapInterface extends Serializable
 
     /**
      * Setter for property extent.
-     * @param extent Rectangle2D; New value of property extent.
+     * @param extent Bounds2d; New value of the map extent.
      * @throws RemoteException on network exception
      */
-    void setExtent(Rectangle2D extent) throws RemoteException;
+    void setExtent(Bounds2d extent) throws RemoteException;
 
     /**
      * Setter for property image.

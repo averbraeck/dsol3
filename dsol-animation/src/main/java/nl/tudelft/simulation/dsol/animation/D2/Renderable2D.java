@@ -3,18 +3,19 @@ package nl.tudelft.simulation.dsol.animation.D2;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.bounds.Bounds2d;
+import org.djutils.draw.point.Point2d;
 import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.language.d2.Shape;
+import nl.tudelft.simulation.language.d2.Shape2d;
 import nl.tudelft.simulation.language.d3.BoundsUtil;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
@@ -177,14 +178,14 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void paint(final Graphics2D graphics, final Rectangle2D extent, final Dimension screenSize,
+    public synchronized void paint(final Graphics2D graphics, final Bounds2d extent, final Dimension screenSize,
             final ImageObserver observer)
     {
         try
         {
-            Rectangle2D rectangle =
+            Bounds2d rectangle =
                     BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
-            if (rectangle == null || (!Shape.overlaps(extent, rectangle) && isTranslate()))
+            if (rectangle == null || (!Shape2d.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
             }
@@ -234,11 +235,11 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public boolean contains(final Point2D pointWorldCoordinates, final Rectangle2D extent, final Dimension screenSize)
+    public boolean contains(final Point2d pointWorldCoordinates, final Bounds2d extent)
     {
         try
         {
-            Rectangle2D intersect =
+            Bounds2d intersect =
                     BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
             if (intersect == null)
             {

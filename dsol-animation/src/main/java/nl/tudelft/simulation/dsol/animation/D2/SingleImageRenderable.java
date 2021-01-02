@@ -1,13 +1,13 @@
 package nl.tudelft.simulation.dsol.animation.D2;
 
-import java.awt.Dimension;
-import java.awt.geom.Point2D;
 import java.net.URL;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.bounds.Bounds3d;
 import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.Point3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -22,9 +22,9 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
- * @param <T> the Locatable class of the source that indicates the location of the Renderable on the screen
+ * @param <L> the Locatable class of the source that indicates the location of the Renderable on the screen
  */
-public class SingleImageRenderable<T extends Locatable> extends ImageRenderable<T>
+public class SingleImageRenderable<L extends Locatable> extends ImageRenderable<L>
 {
     /** */
     private static final long serialVersionUID = 20200108L;
@@ -37,7 +37,7 @@ public class SingleImageRenderable<T extends Locatable> extends ImageRenderable<
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public SingleImageRenderable(final T source, final SimulatorInterface<?, ?, ?> simulator, final URL image)
+    public SingleImageRenderable(final L source, final SimulatorInterface<?, ?, ?> simulator, final URL image)
             throws RemoteException, NamingException
     {
         super(source, simulator, new URL[] {image});
@@ -45,14 +45,14 @@ public class SingleImageRenderable<T extends Locatable> extends ImageRenderable<
 
     /**
      * constructs a new SingleImageRenderable
-     * @param staticLocation Point2D; the static location
-     * @param size Dimension; the size
+     * @param staticLocation Point3d; the static location
+     * @param size Bounds3d; the size
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @param image URL; the image
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public SingleImageRenderable(final Point2D staticLocation, final Dimension size,
+    public SingleImageRenderable(final Point3d staticLocation, final Bounds3d size,
             final SimulatorInterface<?, ?, ?> simulator, final URL image) throws RemoteException, NamingException
     {
         super(staticLocation, size, simulator, new URL[] {image});
@@ -61,13 +61,13 @@ public class SingleImageRenderable<T extends Locatable> extends ImageRenderable<
     /**
      * constructs a new SingleImageRenderable
      * @param staticLocation DirectedPoint3d; the static location
-     * @param size Dimension; the size of the image
+     * @param size Bounds3d; the size of the image
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @param image URL; the image
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public SingleImageRenderable(final DirectedPoint3d staticLocation, final Dimension size,
+    public SingleImageRenderable(final DirectedPoint3d staticLocation, final Bounds3d size,
             final SimulatorInterface<?, ?, ?> simulator, final URL image) throws RemoteException, NamingException
     {
         super(staticLocation, size, simulator, new URL[] {image});
