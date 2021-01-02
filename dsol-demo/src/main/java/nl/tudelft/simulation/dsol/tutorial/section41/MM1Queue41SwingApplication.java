@@ -10,11 +10,10 @@ import org.pmw.tinylog.Level;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
-import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.dsol.swing.gui.control.DEVSControlPanel;
+import nl.tudelft.simulation.language.DSOLException;
 
 /**
  * M/M/1 queuing model with animation and graphs.
@@ -33,24 +32,22 @@ public class MM1Queue41SwingApplication extends DSOLApplication
     private MM1Queue41Model model;
 
     /**
-     * @param title String; the title
-     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
+     * @param panel DSOLPanel; the panel
      * @param model MM1Queue41Model; the model
-     * @param devsSimulator DEVSSimulatorInterface.TimeDouble; the simulator
+     * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      */
-    public MM1Queue41SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel,
-            final MM1Queue41Model model, final DEVSSimulatorInterface.TimeDouble devsSimulator)
+    public MM1Queue41SwingApplication(final MM1Queue41Panel panel, final MM1Queue41Model model,
+            final DEVSSimulator.TimeDouble simulator)
     {
-        super(title, panel);
+        super(panel, "MM1Queue41SwingApplication");
         this.model = model;
-        panel.getConsole().setLogLevel(Level.TRACE);
         try
         {
-            devsSimulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
+            simulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
         }
         catch (SimRuntimeException exception)
         {
-            devsSimulator.getLogger().always().error(exception, "<init>");
+            simulator.getLogger().always().error(exception, "<init>");
         }
     }
 
@@ -62,25 +59,26 @@ public class MM1Queue41SwingApplication extends DSOLApplication
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
+     * @throws DSOLException on error
      */
-    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
+    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException, DSOLException
     {
         CategoryLogger.setAllLogLevel(Level.TRACE);
-        DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble("MM1Queue41SwingApplication");
-        MM1Queue41Model model = new MM1Queue41Model(devsSimulator);
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("MM1Queue41SwingApplication");
+        MM1Queue41Model model = new MM1Queue41Model(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
-        MM1Queue41Panel panel = new MM1Queue41Panel(model, devsSimulator);
-        new MM1Queue41SwingApplication("MM1 Queue model", panel, model, devsSimulator);
+        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, simulator);
+        new MM1Queue41SwingApplication(new MM1Queue41Panel(controlPanel, model), model, simulator);
     }
 
     /** stop the simulation. */
     protected final void terminate()
     {
-        this.model.getSimulator().getLogger().always().info("average queue length = " + this.model.qN.getWeightedSampleMean());
-        this.model.getSimulator().getLogger().always().info("average queue wait   = " + this.model.dN.getSampleMean());
-        this.model.getSimulator().getLogger().always().info("average utilization  = " + this.model.uN.getWeightedSampleMean());
+        System.out.println("average queue length = " + this.model.qN.getWeightedSampleMean());
+        System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
+        System.out.println("average utilization  = " + this.model.uN.getWeightedSampleMean());
     }
 
 }

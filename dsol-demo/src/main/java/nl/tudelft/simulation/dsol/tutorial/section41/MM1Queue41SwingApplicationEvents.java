@@ -13,11 +13,11 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
-import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.dsol.swing.gui.control.DEVSControlPanel;
+import nl.tudelft.simulation.language.DSOLException;
 
 /**
  * M/M/1 Swing application that shows the events that are fired by the Simulator in the Console.
@@ -34,24 +34,21 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
 {
     /** the model. */
     private MM1Queue41Model model;
-    
+
     /** logger. */
     private SimLogger logger;
 
     /**
-     * @param title String; the title
-     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
+     * @param panel DSOLPanel; the panel
      * @param model MM1Queue41Model; the model
-     * @param devsSimulator DEVSSimulator.TimeDouble; the simulator
+     * @param devsSimulator DEVSSimulatorInterface.TimeDouble; the simulator
      */
-    public MM1Queue41SwingApplicationEvents(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel,
-            final MM1Queue41Model model, final DEVSSimulator.TimeDouble devsSimulator)
+    public MM1Queue41SwingApplicationEvents(final MM1Queue41Panel panel, final MM1Queue41Model model,
+            final DEVSSimulator.TimeDouble devsSimulator)
     {
-        super(title, panel);
+        super(panel, "MM1Queue41SwingApplicationEvents");
         this.model = model;
         this.logger = devsSimulator.getLogger();
-        panel.getConsole().setLogLevel(Level.TRACE);
-        // panel.getConsole().setLogMessageFormat("{message|indent=4}");
         try
         {
             devsSimulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
@@ -70,8 +67,9 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
      * @throws SimRuntimeException on error
      * @throws RemoteException on error
      * @throws NamingException on error
+     * @throws DSOLException on error
      */
-    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
+    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException, DSOLException
     {
         CategoryLogger.setAllLogLevel(Level.TRACE);
         DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble("MM1Queue41SwingApplicationEvents");
@@ -80,16 +78,16 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
         devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
-        MM1Queue41Panel panel = new MM1Queue41Panel(model, devsSimulator);
-        new MM1Queue41SwingApplicationEvents("MM1 Queue model", panel, model, devsSimulator);
+        DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, devsSimulator);
+        new MM1Queue41SwingApplicationEvents(new MM1Queue41Panel(controlPanel, model), model, devsSimulator);
     }
 
     /** stop the simulation. */
     protected final void terminate()
     {
-        this.logger.always().info("average queue length = " + this.model.qN.getWeightedSampleMean());
-        this.logger.always().info("average queue wait   = " + this.model.dN.getSampleMean());
-        this.logger.always().info("average utilization  = " + this.model.uN.getWeightedSampleMean());
+        System.out.println("average queue length = " + this.model.qN.getWeightedSampleMean());
+        System.out.println("average queue wait   = " + this.model.dN.getSampleMean());
+        System.out.println("average utilization  = " + this.model.uN.getWeightedSampleMean());
     }
 
     /**
@@ -99,7 +97,7 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
     {
         /** */
         private static final long serialVersionUID = 1L;
-        
+
         /** */
         private final DEVSSimulator.TimeDouble devsSimulator;
 

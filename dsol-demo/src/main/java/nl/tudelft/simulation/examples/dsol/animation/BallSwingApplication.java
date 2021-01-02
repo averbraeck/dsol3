@@ -1,20 +1,19 @@
 package nl.tudelft.simulation.examples.dsol.animation;
 
-import java.awt.Dimension;
-import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 
-import javax.naming.NamingException;
+import org.djutils.draw.bounds.Bounds2d;
+import org.pmw.tinylog.Level;
 
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
-import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
-import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
+import nl.tudelft.simulation.dsol.swing.gui.ConsoleLogger;
+import nl.tudelft.simulation.dsol.swing.gui.ConsoleOutput;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.dsol.swing.gui.animation.DSOLAnimationApplication;
+import nl.tudelft.simulation.dsol.swing.gui.control.RealTimeControlPanel;
 import nl.tudelft.simulation.language.DSOLException;
 
 /**
@@ -27,15 +26,20 @@ import nl.tudelft.simulation.language.DSOLException;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class BallSwingApplication extends DSOLApplication
+public class BallSwingApplication extends DSOLAnimationApplication
 {
     /**
      * @param title String; the title
-     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
+     * @param panel DSOLPanel; the panel
+     * @throws DSOLException when simulator is not an animator
+     * @throws IllegalArgumentException for illegal bounds
+     * @throws RemoteException on network error
      */
-    public BallSwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
+    public BallSwingApplication(final String title, final DSOLPanel panel)
+            throws RemoteException, IllegalArgumentException, DSOLException
     {
-        super(title, panel);
+        super(panel, title, new Bounds2d(-100, 100, -100, 100));
+        panel.enableSimulationControlButtons();
     }
 
     /** */
@@ -43,22 +47,18 @@ public class BallSwingApplication extends DSOLApplication
 
     /**
      * @param args String[]; arguments, expected to be empty
-     * @throws SimRuntimeException on error
-     * @throws RemoteException on error
-     * @throws NamingException on error
-     * @throws DSOLException when simulator is not an animator
+     * @throws Exception on error
      */
-    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException, DSOLException
+    public static void main(final String[] args) throws Exception
     {
         DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("BallSwingApplication", 0.001);
         BallModel model = new BallModel(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-        DSOLPanel<Double, Double, SimTimeDouble> panel = new DSOLPanel<Double, Double, SimTimeDouble>(model, simulator);
-        panel.getTabbedPane().add("animation",
-                new AnimationPanel(new Rectangle2D.Double(-100, -100, 200, 200), new Dimension(200, 200), simulator));
-        panel.getTabbedPane().setSelectedIndex(1);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
-        new BallSwingApplication("Ball Animation model", panel);
+        DSOLPanel panel = new DSOLPanel(new RealTimeControlPanel.TimeDouble(model, simulator));
+        panel.addTab("logger", new ConsoleLogger(Level.INFO));
+        panel.addTab("console", new ConsoleOutput());
+        new BallSwingApplication("BallSwingApplication", panel);
     }
 }
