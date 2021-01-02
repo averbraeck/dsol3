@@ -5,9 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.geom.Rectangle2D;
-
 import org.djutils.draw.Transform3d;
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
 import org.djutils.draw.point.DirectedPoint3d;
 import org.djutils.draw.point.Point3d;
@@ -53,7 +52,7 @@ public class BoundsUtilTest
         Bounds3d box45 = tr45.transform(box000);
         Bounds3d box = BoundsUtil.transform(box45, location);
         double s2 = 2.0 * Math.sqrt(2.0);
-        testRect(box.project().toRectangle2D(), 4.0 - s2, 4.0 - s2, 4.0 + s2, 4.0 + s2);
+        testRect(box.project(), 4.0 - s2, 4.0 - s2, 4.0 + s2, 4.0 + s2);
         assertEquals(2.0, box.getMinZ(), 0.001);
         assertEquals(6.0, box.getMaxZ(), 0.001);
     }
@@ -66,7 +65,7 @@ public class BoundsUtilTest
      * @param maxx expected maxx
      * @param maxy expected maxy
      */
-    private void testRect(final Rectangle2D rect, final double minx, final double miny, final double maxx, final double maxy)
+    private void testRect(final Bounds2d rect, final double minx, final double miny, final double maxx, final double maxy)
     {
         assertEquals(minx, rect.getMinX(), 0.001);
         assertEquals(miny, rect.getMinY(), 0.001);
