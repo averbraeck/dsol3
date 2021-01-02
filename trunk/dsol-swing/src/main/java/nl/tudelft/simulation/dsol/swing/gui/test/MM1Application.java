@@ -24,7 +24,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 public class MM1Application
 {
     /**
-     * M/M/1 queueing application
+     * M/M/1 queueing application.
      * @throws SimRuntimeException on simulation error
      * @throws RemoteException on remote error
      * @throws NamingException on naming/animation error
