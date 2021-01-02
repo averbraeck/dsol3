@@ -26,17 +26,17 @@ public class PanLeftAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** target of the gridpanel */
-    private GridPanel target = null;
+    /** the panel to pan left. */
+    private GridPanel panel = null;
 
     /**
-     * constructs a new ZoomIn
-     * @param target GridPanel; the target
+     * constructs a new PanLeft.
+     * @param panel GridPanel; the target
      */
-    public PanLeftAction(final GridPanel target)
+    public PanLeftAction(final GridPanel panel)
     {
         super("PanLeft");
-        this.target = target;
+        this.panel = panel;
         this.putValue(Action.SMALL_ICON,
                 new ImageIcon(URLResource.getResource("/toolbarButtonGraphics/navigation/Back16.gif")));
         this.setEnabled(true);
@@ -48,7 +48,7 @@ public class PanLeftAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.pan(GridPanel.LEFT, 0.1);
-        this.target.requestFocus();
+        this.panel.pan(GridPanel.LEFT, 0.1);
+        this.panel.requestFocus();
     }
 }

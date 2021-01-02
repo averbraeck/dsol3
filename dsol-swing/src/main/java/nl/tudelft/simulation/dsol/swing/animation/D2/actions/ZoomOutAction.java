@@ -26,17 +26,17 @@ public class ZoomOutAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** target of the gridpanel. */
-    private GridPanel target = null;
+    /** the panel to zoom out. */
+    private GridPanel panel = null;
 
     /**
-     * constructs a new ZoomIn.
-     * @param target GridPanel; the target
+     * constructs a new ZoomOutAction.
+     * @param panel GridPanel; the target
      */
-    public ZoomOutAction(final GridPanel target)
+    public ZoomOutAction(final GridPanel panel)
     {
         super("ZoomOut");
-        this.target = target;
+        this.panel = panel;
         this.putValue(Action.SMALL_ICON,
                 new ImageIcon(URLResource.getResource("/toolbarButtonGraphics/general/ZoomOut16.gif")));
         this.setEnabled(true);
@@ -48,7 +48,7 @@ public class ZoomOutAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.zoom(GridPanel.ZOOMFACTOR);
-        this.target.requestFocus();
+        this.panel.zoom(GridPanel.ZOOMFACTOR);
+        this.panel.requestFocus();
     }
 }

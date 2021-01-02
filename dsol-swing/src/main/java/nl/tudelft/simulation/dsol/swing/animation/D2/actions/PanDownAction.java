@@ -27,17 +27,17 @@ public class PanDownAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** target of the gridpanel */
-    private GridPanel target = null;
+    /** the panel to pan. */
+    private GridPanel panel = null;
 
     /**
-     * constructs a new ZoomIn
-     * @param target GridPanel; the target
+     * constructs a new PanDown.
+     * @param panel GridPanel; the target
      */
-    public PanDownAction(final GridPanel target)
+    public PanDownAction(final GridPanel panel)
     {
         super("PanDown");
-        this.target = target;
+        this.panel = panel;
         this.putValue(Action.SMALL_ICON,
                 new ImageIcon(URLResource.getResource("/toolbarButtonGraphics/navigation/Down16.gif")));
         this.setEnabled(true);
@@ -49,7 +49,7 @@ public class PanDownAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.pan(GridPanel.DOWN, 0.1);
-        this.target.requestFocus();
+        this.panel.pan(GridPanel.DOWN, 0.1);
+        this.panel.requestFocus();
     }
 }

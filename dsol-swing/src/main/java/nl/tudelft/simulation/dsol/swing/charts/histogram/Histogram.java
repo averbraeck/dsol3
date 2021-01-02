@@ -162,7 +162,7 @@ public class Histogram implements Swingable, Serializable
     }
 
     /**
-     * returns the chart
+     * returns the chart.
      * @return JFreeChart
      */
     public JFreeChart getChart()

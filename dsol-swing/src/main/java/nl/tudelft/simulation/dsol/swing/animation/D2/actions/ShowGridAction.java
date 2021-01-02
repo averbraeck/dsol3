@@ -21,17 +21,17 @@ public class ShowGridAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** target of the gridpanel */
-    private GridPanel target = null;
+    /** the panel to show the grid on. */
+    private GridPanel panel = null;
 
     /**
-     * constructs a new AddRowAction
-     * @param target GridPanel; the target
+     * constructs a new ShowGridAction.
+     * @param panel GridPanel; the target
      */
-    public ShowGridAction(final GridPanel target)
+    public ShowGridAction(final GridPanel panel)
     {
         super("ShowGrid");
-        this.target = target;
+        this.panel = panel;
         this.setEnabled(true);
     }
 
@@ -41,7 +41,7 @@ public class ShowGridAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.showGrid(!this.target.isShowGrid());
-        this.target.requestFocus();
+        this.panel.showGrid(!this.panel.isShowGrid());
+        this.panel.requestFocus();
     }
 }

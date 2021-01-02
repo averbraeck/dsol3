@@ -26,17 +26,17 @@ public class PanUpAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** target of the gridpanel */
-    private GridPanel target = null;
+    /** the panel to pan up. */
+    private GridPanel panel = null;
 
     /**
-     * constructs a new ZoomIn
-     * @param target GridPanel; the target
+     * constructs a new PanUp.
+     * @param panel GridPanel; the target
      */
-    public PanUpAction(final GridPanel target)
+    public PanUpAction(final GridPanel panel)
     {
         super("PanUp");
-        this.target = target;
+        this.panel = panel;
         this.putValue(Action.SMALL_ICON, new ImageIcon(URLResource.getResource("/toolbarButtonGraphics/navigation/Up16.gif")));
         this.setEnabled(true);
     }
@@ -47,7 +47,7 @@ public class PanUpAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.pan(GridPanel.UP, 0.1);
-        this.target.requestFocus();
+        this.panel.pan(GridPanel.UP, 0.1);
+        this.panel.requestFocus();
     }
 }

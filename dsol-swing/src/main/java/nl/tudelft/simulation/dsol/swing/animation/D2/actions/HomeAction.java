@@ -25,17 +25,17 @@ public class HomeAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** target of the gridpanel */
-    private GridPanel target = null;
+    /** target of the gridpanel. */
+    private GridPanel panel = null;
 
     /**
-     * constructs a new ZoomIn
-     * @param target GridPanel; the target
+     * constructs a new ZoomIn.
+     * @param panel GridPanel; the target
      */
-    public HomeAction(final GridPanel target)
+    public HomeAction(final GridPanel panel)
     {
         super("Home");
-        this.target = target;
+        this.panel = panel;
         this.putValue(Action.SMALL_ICON,
                 new ImageIcon(URLResource.getResource("/toolbarButtonGraphics/navigation/Home16.gif")));
         this.setEnabled(true);
@@ -47,7 +47,7 @@ public class HomeAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.home();
-        this.target.requestFocus();
+        this.panel.home();
+        this.panel.requestFocus();
     }
 }
