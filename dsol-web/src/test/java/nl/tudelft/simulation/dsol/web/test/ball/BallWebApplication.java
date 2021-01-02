@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.web.test.ball;
 
-import java.awt.geom.Rectangle2D;
+import org.djutils.draw.bounds.Bounds2d;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -26,7 +26,7 @@ public class BallWebApplication extends DSOLWebServer
      */
     public BallWebApplication(final String title, final DEVSRealTimeAnimator.TimeDouble simulator) throws Exception
     {
-        super(title, simulator, new Rectangle2D.Double(-100, -100, 200, 200));
+        super(title, simulator, new Bounds2d(-100, 100, -100, 100));
     }
 
     

@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.web.animation.D2;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,8 +12,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.bounds.Bounds;
+import org.djutils.draw.bounds.Bounds2d;
+import org.djutils.draw.point.Point;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 
@@ -96,12 +96,12 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
 
     /**
      * constructs a new AnimationPanel.
-     * @param extent Rectangle2D; the extent of the panel
+     * @param extent Bounds2d; the extent of the panel
      * @param size Dimension; the size of the panel.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator of which we want to know the events for animation
      * @throws RemoteException on network error for one of the listeners
      */
-    public HTMLAnimationPanel(final Rectangle2D extent, final Dimension size, final SimulatorInterface<?, ?, ?> simulator)
+    public HTMLAnimationPanel(final Bounds2d extent, final Dimension size, final SimulatorInterface<?, ?, ?> simulator)
             throws RemoteException
     {
         super(extent, size);
@@ -274,7 +274,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * Calculate the full extent based on the current positions of the objects.
      * @return the full extent of the animation.
      */
-    public synchronized Rectangle2D fullExtent()
+    public synchronized Bounds2d fullExtent()
     {
         double minX = Double.MAX_VALUE;
         double maxX = -Double.MAX_VALUE;
@@ -284,8 +284,8 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
         {
             for (Renderable2DInterface<? extends Locatable> renderable : this.elementList)
             {
-                DirectedPoint3d l = renderable.getSource().getLocation();
-                Bounds3d b = new Bounds3d(renderable.getSource().getBounds());
+                Point<?, ?> l = renderable.getSource().getLocation();
+                Bounds<?, ?> b = renderable.getSource().getBounds();
                 minX = Math.min(minX, l.getX() + b.getMinX());
                 minY = Math.min(minY, l.getY() + b.getMinY());
                 maxX = Math.max(maxX, l.getX() + b.getMaxX());
@@ -297,12 +297,12 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
             // ignore
         }
 
-        minX = minX - 0.05 * Math.abs(minX);
-        minY = minY - 0.05 * Math.abs(minY);
-        maxX = maxX + 0.05 * Math.abs(maxX);
-        maxY = maxY + 0.05 * Math.abs(maxY);
+        minX -= 0.05 * Math.abs(maxX - minX);
+        minY -= 0.05 * Math.abs(maxY - minY);
+        maxX += 0.05 * Math.abs(maxX - minX);
+        maxY += 0.05 * Math.abs(maxY - minY);
 
-        return new Rectangle2D.Double(minX, minY, maxX - minX, maxY - minY);
+        return new Bounds2d(minX, maxX, minY, maxY);
     }
 
     /**
