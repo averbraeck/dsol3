@@ -218,10 +218,10 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
     /**
      * Returns the simulation time from the formatted string.
-     * @param simulationTime A; simulation time as a string
+     * @param simulationTimeString A; simulation time as a string
      * @return simulation time contained in the String or null when not valid
      */
-    protected abstract A parseSimulationTime(String simulationTimeString);
+    protected abstract A parseSimulationTime(String simulationTimeString); 
 
     /**
      * @return simulator

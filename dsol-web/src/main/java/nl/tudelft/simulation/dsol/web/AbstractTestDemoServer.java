@@ -413,9 +413,11 @@ public abstract class AbstractTestDemoServer
         /**
          * @param parameter double scalar input parameter
          * @return default value in the unit
+         * @param <U> the unit
+         * @param <T> the scalar type
          */
         private <U extends Unit<U>,
-                T extends AbstractDoubleScalar<U, T>> String getValueInUnit(InputParameterDoubleScalar<U, T> parameter)
+                T extends AbstractDoubleScalar<U, T>> String getValueInUnit(final InputParameterDoubleScalar<U, T> parameter)
         {
             return "" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit());
         }
@@ -423,9 +425,11 @@ public abstract class AbstractTestDemoServer
         /**
          * @param parameter double scalar input parameter
          * @return abbreviations for the units
+         * @param <U> the unit
+         * @param <T> the scalar type
          */
         private <U extends Unit<U>,
-                T extends AbstractDoubleScalar<U, T>> List<String> getUnits(InputParameterDoubleScalar<U, T> parameter)
+                T extends AbstractDoubleScalar<U, T>> List<String> getUnits(final InputParameterDoubleScalar<U, T> parameter)
         {
             List<String> unitList = new ArrayList<>();
             for (String option : parameter.getUnitParameter().getOptions().keySet())
@@ -438,9 +442,11 @@ public abstract class AbstractTestDemoServer
         /**
          * @param parameter double scalar input parameter
          * @return default value in the unit
+         * @param <U> the unit
+         * @param <T> the scalar type
          */
         private <U extends Unit<U>,
-                T extends AbstractFloatScalar<U, T>> String getValueInUnit(InputParameterFloatScalar<U, T> parameter)
+                T extends AbstractFloatScalar<U, T>> String getValueInUnit(final InputParameterFloatScalar<U, T> parameter)
         {
             return "" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit());
         }
@@ -448,9 +454,11 @@ public abstract class AbstractTestDemoServer
         /**
          * @param parameter double scalar input parameter
          * @return abbreviations for the units
+         * @param <U> the unit
+         * @param <T> the scalar type
          */
         private <U extends Unit<U>,
-                T extends AbstractFloatScalar<U, T>> List<String> getUnits(InputParameterFloatScalar<U, T> parameter)
+                T extends AbstractFloatScalar<U, T>> List<String> getUnits(final InputParameterFloatScalar<U, T> parameter)
         {
             List<String> unitList = new ArrayList<>();
             for (String option : parameter.getUnitParameter().getOptions().keySet())
@@ -466,7 +474,7 @@ public abstract class AbstractTestDemoServer
          * @param message the key-value pairs of the set parameters
          * @return the errors if they are detected. If none, errors is set to "OK"
          */
-        private String setParameters(DSOLModel model, String message)
+        private String setParameters(final DSOLModel model, final String message)
         {
             String errors = "OK";
             InputParameterMap inputParameters = model.getInputParameterMap();
