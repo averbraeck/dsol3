@@ -7,7 +7,6 @@ import javax.naming.NamingException;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
@@ -29,9 +28,10 @@ public class DESSSwingApplication extends DSOLApplication
      * @param title String; the title
      * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
      */
-    public DESSSwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
+    public DESSSwingApplication(final String title, final DSOLPanel panel)
     {
-        super(title, panel);
+        super(panel, title);
+        panel.enableSimulationControlButtons();
     }
 
     /** */

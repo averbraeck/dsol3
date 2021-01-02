@@ -95,7 +95,7 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
         {
             while (x > initialX + this.stepSize)
             {
-                initialY = this.integrator.next(initialX, initialY); // this process can adapt the stepSize (!)
+                initialY = this.integrator.next(initialX, initialY); // XXX: this process can adapt the stepSize (!)
                 initialX = initialX + this.stepSize;
             }
         }
@@ -103,12 +103,12 @@ public abstract class DifferentialEquation extends EventProducer implements Diff
         {
             while (x < initialX + this.stepSize)
             {
-                initialY = this.integrator.next(initialX, initialY); // this process can adapt the stepSize (!)
+                initialY = this.integrator.next(initialX, initialY); // XXX: this process can adapt the stepSize (!)
                 initialX = initialX + this.stepSize;
             }
         }
 
-        // We are in our final step.
+        // We are in our final step. // XXX don't understand
         double[] nextValue = this.integrator.next(initialX, initialY);
         double ratio = (x - initialX) / this.stepSize;
         for (int i = 0; i < initialY.length; i++)

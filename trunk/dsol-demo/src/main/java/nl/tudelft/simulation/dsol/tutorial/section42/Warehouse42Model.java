@@ -10,7 +10,6 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDouble;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterLong;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.statistics.SimTally;
@@ -35,15 +34,15 @@ public class Warehouse42Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator
 
     /** ordering costs statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    SimTally<Double, Double, SimTimeDouble> orderingCosts;
+    SimTally.TimeDouble orderingCosts;
 
     /** inventory statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    SimPersistent<Double, Double, SimTimeDouble> inventory;
+    SimPersistent.TimeDouble inventory;
 
     /** backlog statistic. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    SimPersistent<Double, Double, SimTimeDouble> backlog;
+    SimPersistent.TimeDouble backlog;
 
     /**
      * constructs a new BoatModel.
@@ -79,9 +78,11 @@ public class Warehouse42Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator
 
         try
         {
-            this.orderingCosts = new SimTally<>("orderingCosts", this.simulator, retailer, Retailer.TOTAL_ORDERING_COST_EVENT);
-            this.inventory = new SimPersistent<>("inventory level", this.simulator, retailer, Retailer.INVENTORY_LEVEL_EVENT);
-            this.backlog = new SimPersistent<>("backlog level", this.simulator, retailer, Retailer.BACKLOG_LEVEL);
+            this.orderingCosts =
+                    new SimTally.TimeDouble("orderingCosts", this.simulator, retailer, Retailer.TOTAL_ORDERING_COST_EVENT);
+            this.inventory =
+                    new SimPersistent.TimeDouble("inventory level", this.simulator, retailer, Retailer.INVENTORY_LEVEL_EVENT);
+            this.backlog = new SimPersistent.TimeDouble("backlog level", this.simulator, retailer, Retailer.BACKLOG_LEVEL);
         }
         catch (Exception exception)
         {

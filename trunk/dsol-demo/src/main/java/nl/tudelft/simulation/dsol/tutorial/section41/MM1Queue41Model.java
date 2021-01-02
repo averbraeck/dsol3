@@ -70,7 +70,6 @@ public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.
         generator.setInterval(new DistContinuousSimulationTime.TimeDouble(new DistExponential(defaultStream, 1.0)));
         generator.setStartTime(new DistContinuousSimTime.TimeDouble(new DistConstant(defaultStream, 0.0)));
         generator.setBatchSize(new DistDiscreteConstant(defaultStream, 1));
-        generator.setMaxNumber(1000);
 
         // The queue, the resource and the release
         Resource<Double, Double, SimTimeDouble> resource = new Resource<>(this.simulator, 1.0);

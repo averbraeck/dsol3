@@ -49,8 +49,8 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * @param <R> the relative time type
  * @param <T> the absolute simulation time to use in the warmup event
  */
-public abstract class SimPersistent<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
-        T extends SimTime<A, R, T>> extends EventBasedTimestampWeightedTally implements StatisticsInterface<A, R, T>
+public class SimPersistent<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+        extends EventBasedTimestampWeightedTally implements StatisticsInterface<A, R, T>
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -66,6 +66,9 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
     /** INITIALIZED_EVENT is fired whenever a Persistent is (re-)initialized. */
     public static final TimedEventType TIMED_INITIALIZED_EVENT = new TimedEventType(new MetaData("TIMED_INITIALIZED_EVENT",
             "Persistent initialized", new ObjectDescriptor("simPersistent", "Persistent object", SimPersistent.class)));
+
+    /** last stored value. */
+    private double lastValue = Double.NaN;
 
     /**
      * constructs a new SimPersistent.
@@ -113,6 +116,24 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
     {
         this(description, simulator);
         target.addListener(this, eventType, ReferenceType.STRONG);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public double ingest(final Calendar timestamp, final double value)
+    {
+        this.lastValue = value;
+        fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+        return super.ingest(timestamp, value);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public <N extends Number & Comparable<N>> double ingest(final N timestamp, final double value)
+    {
+        this.lastValue = value;
+        fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
+        return super.ingest(timestamp, value);
     }
 
     /** {@inheritDoc} */
@@ -193,10 +214,27 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
      * endOfReplication is invoked to store the final results. A special Tally is created in the Context of the experiment to
      * tally the average results of all replications. Herewith the confidence interval of the means of the Persistent over the
      * different replications can be calculated.
+     * @param <N> helper type for Number
      */
-    @SuppressWarnings("checkstyle:designforextension")
-    protected void endOfReplication()
+    @SuppressWarnings({"checkstyle:designforextension", "unchecked"})
+    protected <N extends Number & Comparable<N>> void endOfReplication()
     {
+        // store final results
+        A simTime = getSimulator().getSimulatorTime();
+        if (simTime instanceof Number)
+        {
+            ingest((N) simTime, this.lastValue);
+        }
+        else if (simTime instanceof Calendar)
+        {
+            ingest((Calendar) simTime, this.lastValue);
+        }
+        else
+        {
+            throw new UnsupportedOperationException("Cannot handle ingest with simulation time type " + simTime.getClass());
+        }
+
+        // create summary statistics
         try
         {
             ContextInterface context = ContextUtil
@@ -212,10 +250,19 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
                 context.bindObject(getDescription(), experimentTally);
                 experimentTally.initialize();
             }
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedSampleMean())));
+            experimentTally.ingest(getWeightedSampleMean());
 
-            // TODO: do this for all statistics of the tally (!)
+            // TODO: make summary statistics for all statistics values
 
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedSampleStDev())));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedSampleVariance())));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedSum())));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedPopulationMean())));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedPopulationStDev())));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedPopulationVariance())));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getMin())));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getMax())));
+            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getN())));
         }
         catch (Exception exception)
         {
@@ -319,7 +366,6 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
         {
             Float timestamp = getSimulator().getSimulatorTime();
             super.ingest(timestamp, value);
-            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
             return value;
         }
     }
@@ -364,7 +410,6 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
         {
             Long timestamp = getSimulator().getSimulatorTime();
             super.ingest(timestamp, value);
-            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
             return value;
         }
     }
@@ -410,7 +455,6 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
         {
             Time timestamp = getSimulator().getSimulatorTime();
             super.ingest(timestamp, value);
-            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
             return value;
         }
     }
@@ -455,7 +499,6 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
         {
             FloatTime timestamp = getSimulator().getSimulatorTime();
             super.ingest(timestamp, value);
-            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
             return value;
         }
     }
@@ -501,7 +544,6 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
         {
             Calendar timestamp = getSimulator().getSimulatorTime();
             super.ingest(timestamp, value);
-            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
             return value;
         }
     }
@@ -546,7 +588,6 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
         {
             Calendar timestamp = getSimulator().getSimulatorTime();
             super.ingest(timestamp, value);
-            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
             return value;
         }
     }
@@ -591,7 +632,6 @@ public abstract class SimPersistent<A extends Comparable<A> & Serializable, R ex
         {
             Calendar timestamp = getSimulator().getSimulatorTime();
             super.ingest(timestamp, value);
-            fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
             return value;
         }
     }

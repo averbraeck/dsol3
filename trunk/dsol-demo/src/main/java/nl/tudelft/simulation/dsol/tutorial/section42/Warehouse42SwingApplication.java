@@ -5,17 +5,19 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import org.djutils.stats.summarizers.event.StatisticsEvents;
+import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
+import nl.tudelft.simulation.dsol.swing.gui.control.DEVSControlPanel;
 import nl.tudelft.simulation.dsol.swing.gui.inputparameters.TabbedParameterDialog;
 
 /**
@@ -34,9 +36,10 @@ public class Warehouse42SwingApplication extends DSOLApplication
      * @param title String; the title
      * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
      */
-    public Warehouse42SwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
+    public Warehouse42SwingApplication(final String title, final DSOLPanel panel)
     {
-        super(title, panel);
+        super(panel, title);
+        panel.enableSimulationControlButtons();
     }
 
     /** */
@@ -69,7 +72,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
      * <br>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      */
-    protected static class Warehouse42Panel extends DSOLPanel<Double, Double, SimTimeDouble>
+    protected static class Warehouse42Panel extends DSOLPanel
     {
         /** */
         private static final long serialVersionUID = 1L;
@@ -77,10 +80,11 @@ public class Warehouse42SwingApplication extends DSOLApplication
         /**
          * @param model Warehouse42Model; the model
          * @param simulator DEVSSimulator.TimeDouble; the simulator
+         * @throws RemoteException on error
          */
-        Warehouse42Panel(final Warehouse42Model model, final DEVSSimulator.TimeDouble simulator)
+        Warehouse42Panel(final Warehouse42Model model, final DEVSSimulator.TimeDouble simulator) throws RemoteException
         {
-            super(model, simulator);
+            super(new DEVSControlPanel.TimeDouble(model, simulator));
             addTabs(model);
         }
 
@@ -92,23 +96,25 @@ public class Warehouse42SwingApplication extends DSOLApplication
         {
             TablePanel charts = new TablePanel(2, 1);
             super.tabbedPane.addTab("statistics", charts);
-            super.tabbedPane.setSelectedIndex(1);
-
+            super.tabbedPane.setSelectedIndex(0);
+            addConsoleLogger(Level.INFO);
+            addConsoleOutput();
+            
             try
             {
-                XYChart chart = new XYChart(this.simulator, "Inventory Levels");
-                chart.add(model.inventory);
-                chart.add(model.backlog);
+                XYChart chart = new XYChart(getSimulator(), "Inventory Levels");
+                chart.add("inventory", model.inventory, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT);
+                chart.add("backlog", model.backlog, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT);
                 charts.setCell(chart.getSwingPanel(), 0, 0);
 
                 XYChart orderChart =
-                        new XYChart(this.simulator, "Ordering costs").setLabelXAxis("time (s)").setLabelYAxis("cost");
+                        new XYChart(getSimulator(), "Ordering costs").setLabelXAxis("time (s)").setLabelYAxis("cost");
                 orderChart.add("ordering costs", model.orderingCosts, StatisticsEvents.OBSERVATION_ADDED_EVENT);
                 charts.setCell(orderChart.getSwingPanel(), 1, 0);
             }
             catch (RemoteException exception)
             {
-                this.simulator.getLogger().always().error(exception);
+                getSimulator().getLogger().always().error(exception);
             }
         }
     }

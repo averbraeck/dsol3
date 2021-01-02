@@ -186,7 +186,7 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
     }
 
     /**
-     * endOfReplication is invoked to store the final results. A special Tally is created in the Context of the experiment to
+     * endOfReplication is invoked to store summary statistics. A special Tally is created in the Context of the experiment to
      * tally the average results of all replications. Herewith the confidence interval of the means over the different
      * replications can be calculated.
      */
@@ -210,8 +210,7 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
             }
             experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(getSampleMean())));
 
-            // TODO: do this for all statistics of the tally (!)
-
+            // TODO: make summary statistics for all statistics values
         }
         catch (Exception exception)
         {
