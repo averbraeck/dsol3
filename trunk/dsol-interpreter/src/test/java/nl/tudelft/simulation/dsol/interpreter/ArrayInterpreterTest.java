@@ -117,17 +117,20 @@ public class ArrayInterpreterTest
     }
 
     /**
+     * @param s String[]; String array data
+     * @param i int; index
      * @return a String index
      */
-    protected String getStringContentAt(String[] s, int i)
+    protected String getStringContentAt(final String[] s, final int i)
     {
         return s[i];
     }
 
     /**
+     * @param s String[]; double array data
      * @return the String length
      */
-    protected int getLength(String[] s)
+    protected int getLength(final String[] s)
     {
         return s.length;
     }
@@ -143,9 +146,11 @@ public class ArrayInterpreterTest
     }
 
     /**
+     * @param a double[]; double array data
+     * @param i int; index
      * @return an array content at location
      */
-    protected double getDoubleContentAt(double[] a, int i)
+    protected double getDoubleContentAt(final double[] a, final int i)
     {
         return a[i];
     }
@@ -161,9 +166,11 @@ public class ArrayInterpreterTest
     }
 
     /**
+     * @param a float[]; float array data
+     * @param i int; index
      * @return an array content at location
      */
-    protected float getFloatContentAt(float[] a, int i)
+    protected float getFloatContentAt(final float[] a, final int i)
     {
         return a[i];
     }
@@ -179,9 +186,11 @@ public class ArrayInterpreterTest
     }
 
     /**
+     * @param a int[]; int array data
+     * @param i int; index
      * @return an array content at location
      */
-    protected int getIntegerContentAt(int[] a, int i)
+    protected int getIntegerContentAt(final int[] a, final int i)
     {
         return a[i];
     }
@@ -197,9 +206,11 @@ public class ArrayInterpreterTest
     }
 
     /**
+     * @param a long[]; long array data
+     * @param i int; index
      * @return an array content at location
      */
-    protected long getLongContentAt(long[] a, int i)
+    protected long getLongContentAt(final long[] a, final int i)
     {
         return a[i];
     }
@@ -215,9 +226,11 @@ public class ArrayInterpreterTest
     }
 
     /**
+     * @param a short[]; short array data
+     * @param i int; index
      * @return an array content at location
      */
-    protected short getShortContentAt(short[] a, int i)
+    protected short getShortContentAt(final short[] a, final int i)
     {
         return a[i];
     }
@@ -233,9 +246,11 @@ public class ArrayInterpreterTest
     }
 
     /**
+     * @param a byte[]; byte array data
+     * @param i int; index
      * @return an array content at location
      */
-    protected byte getByteContentAt(byte[] a, int i)
+    protected byte getByteContentAt(final byte[] a, final int i)
     {
         return a[i];
     }

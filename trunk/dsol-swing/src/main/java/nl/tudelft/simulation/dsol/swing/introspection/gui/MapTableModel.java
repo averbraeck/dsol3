@@ -113,6 +113,7 @@ public class MapTableModel extends AbstractTableModel implements IntrospectingTa
 
     /**
      * Adds a new value to the managed composite property.
+     * @param key Object; the key
      * @param value Object; the value to add
      */
     private void addValue(final Object key, final Object value)

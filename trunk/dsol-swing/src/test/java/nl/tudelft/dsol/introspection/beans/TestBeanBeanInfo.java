@@ -24,22 +24,28 @@ import java.beans.SimpleBeanInfo;
 public class TestBeanBeanInfo extends SimpleBeanInfo
 {
 
-    // Property identifiers //GEN-FIRST:Properties
+    /** Property identifiers //GEN-FIRST:Properties. */
     private static final int PROPERTY_font = 0;
 
+    /** */
     private static final int PROPERTY_testBean2 = 1;
 
+    /** */
     private static final int PROPERTY_intProp = 2;
 
+    /** */
     private static final int PROPERTY_secondProperty = 3;
 
+    /** */
     private static final int PROPERTY_subBean = 4;
 
+    /** */
     private static final int PROPERTY_color = 5;
 
+    /** */
     private static final int PROPERTY_firstProperty = 6;
 
-    // Property array
+    /** Property array. */
     private static PropertyDescriptor[] properties = new PropertyDescriptor[7];
 
     static
@@ -68,7 +74,7 @@ public class TestBeanBeanInfo extends SimpleBeanInfo
 
     // EventSet identifiers//GEN-FIRST:Events
 
-    // EventSet array
+    /** EventSet array. */
     private static EventSetDescriptor[] eventSets = new EventSetDescriptor[0];
 
     // GEN-HEADEREND:Events
@@ -77,10 +83,10 @@ public class TestBeanBeanInfo extends SimpleBeanInfo
 
     // GEN-LAST:Events
 
-    // Method identifiers //GEN-FIRST:Methods
+    /** Method identifiers //GEN-FIRST:Methods. */
     private static final int METHOD_toString0 = 0;
 
-    // Method array
+    /** Method array. */
     private static MethodDescriptor[] methods = new MethodDescriptor[1];
 
     static
@@ -100,22 +106,31 @@ public class TestBeanBeanInfo extends SimpleBeanInfo
 
     }// GEN-LAST:Methods
 
+    /** */
     private static java.awt.Image iconColor16 = null; // GEN-BEGIN:IconsDef
 
+    /** */
     private static java.awt.Image iconColor32 = null;
 
+    /** */
     private static java.awt.Image iconMono16 = null;
 
+    /** */
     private static java.awt.Image iconMono32 = null; // GEN-END:IconsDef
 
+    /** */
     private static String iconNameC16 = null; // GEN-BEGIN:Icons
 
+    /** */
     private static String iconNameC32 = null;
 
+    /** */
     private static String iconNameM16 = null;
 
+    /** */
     private static String iconNameM32 = null; // GEN-END:Icons
 
+    /** */
     private static int defaultPropertyIndex = -1; // GEN-BEGIN:Idx
 
     /**

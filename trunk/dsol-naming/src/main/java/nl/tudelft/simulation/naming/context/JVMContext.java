@@ -310,6 +310,7 @@ public class JVMContext extends EventProducer implements ContextInterface
      * Take a (compound) name such as "sub1/sub2/key" or "key" or "/sub/key" and lookup and/or create all intermediate contexts
      * as well as the final sub-context of the path.
      * @param name the (possibly compound) name
+     * @return the context, possibly built new
      * @throws NamingException as a placeholder overarching exception
      * @throws RemoteException when the JVM context is used over a network and a network error occurs
      * @throws NameNotFoundException when an intermediate context does not exist

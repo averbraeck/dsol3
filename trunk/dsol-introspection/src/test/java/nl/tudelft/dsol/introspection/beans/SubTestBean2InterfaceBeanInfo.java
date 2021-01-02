@@ -8,7 +8,10 @@ import java.beans.SimpleBeanInfo;
 
 /**
  * <p>
- * Copyright (c) 2004-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * (c) 2002-2019-2004 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a>.
+ * <p>
+ * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -21,10 +24,10 @@ import java.beans.SimpleBeanInfo;
 public class SubTestBean2InterfaceBeanInfo extends SimpleBeanInfo
 {
 
-    // Property identifiers //GEN-FIRST:Properties
+    /** Property identifiers //GEN-FIRST:Properties. */
     private static final int PROPERTY_testProp1 = 0;
 
-    // Property array
+    /** Property array. */
     private static PropertyDescriptor[] properties = new PropertyDescriptor[1];
 
     static
@@ -44,7 +47,7 @@ public class SubTestBean2InterfaceBeanInfo extends SimpleBeanInfo
 
     // EventSet identifiers//GEN-FIRST:Events
 
-    // EventSet array
+    /** EventSet array. */
     private static EventSetDescriptor[] eventSets = new EventSetDescriptor[0];
 
     // GEN-HEADEREND:Events
@@ -55,7 +58,7 @@ public class SubTestBean2InterfaceBeanInfo extends SimpleBeanInfo
 
     // Method identifiers //GEN-FIRST:Methods
 
-    // Method array
+    /** Method array. */
     private static MethodDescriptor[] methods = new MethodDescriptor[0];
 
     // GEN-HEADEREND:Methods
@@ -64,23 +67,32 @@ public class SubTestBean2InterfaceBeanInfo extends SimpleBeanInfo
 
     // GEN-LAST:Methods
 
+    /** */
     private static java.awt.Image iconColor16 = null; // GEN-BEGIN:IconsDef
 
+    /** */
     private static java.awt.Image iconColor32 = null;
 
+    /** */
     private static java.awt.Image iconMono16 = null;
 
+    /** */
     private static java.awt.Image iconMono32 = null; // GEN-END:IconsDef
 
-    private static String iconNameC16 = null;// GEN-BEGIN:Icons
+    /** */
+    private static String iconNameC16 = null; // GEN-BEGIN:Icons
 
+    /** */
     private static String iconNameC32 = null;
 
+    /** */
     private static String iconNameM16 = null;
 
-    private static String iconNameM32 = null;// GEN-END:Icons
+    /** */
+    private static String iconNameM32 = null; // GEN-END:Icons
 
-    private static int defaultPropertyIndex = -1;// GEN-BEGIN:Idx
+    /** */
+    private static int defaultPropertyIndex = -1; // GEN-BEGIN:Idx
 
     /**
      * Gets the bean's <code>PropertyDescriptor</code>s.

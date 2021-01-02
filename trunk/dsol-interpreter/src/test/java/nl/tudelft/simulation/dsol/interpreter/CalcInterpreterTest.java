@@ -34,7 +34,7 @@ public class CalcInterpreterTest
         Assert.assertEquals("4.77d ^ 2 == 4.77d ^ 2", d1, d2, 0.0);
 
         boolean b1 = newBool(true);
-        Object ob = Interpreter.invoke(this, "newBool", new Object[] {new Boolean(true)}, new Class<?>[] {boolean.class});
+        Object ob = Interpreter.invoke(this, "newBool", new Object[] {Boolean.valueOf(true)}, new Class<?>[] {boolean.class});
         // boolean is stored on the stack as an int.
         // Assert.assertEquals("boolean return is Boolean class", ob.getClass(), Boolean.class);
         Assert.assertEquals("boolean return is Integer class", ob.getClass(), Integer.class);
@@ -54,7 +54,8 @@ public class CalcInterpreterTest
         Assert.assertEquals("8332L ^ 2 == 8332L ^ 2", l1, l2);
 
         short s1 = newShort((short) 55);
-        Object os = Interpreter.invoke(this, "newShort", new Object[] {Short.valueOf((short) 55)}, new Class<?>[] {short.class});
+        Object os =
+                Interpreter.invoke(this, "newShort", new Object[] {Short.valueOf((short) 55)}, new Class<?>[] {short.class});
         // short is stored on the stack as an int.
         // Assert.assertEquals("short return is Short class", os.getClass(), Short.class);
         Assert.assertEquals("short return is Integer class", os.getClass(), Integer.class);
@@ -193,7 +194,9 @@ public class CalcInterpreterTest
     }
 
     /**
-     * get a double
+     * get a double.
+     * @param d the value to get
+     * @return modified value
      */
     protected double newDouble(final double d)
     {
@@ -201,7 +204,9 @@ public class CalcInterpreterTest
     }
 
     /**
-     * get a float
+     * get a float.
+     * @param f the value to get
+     * @return modified value
      */
     protected float newFloat(final float f)
     {
@@ -209,7 +214,9 @@ public class CalcInterpreterTest
     }
 
     /**
-     * get a float
+     * get an int.
+     * @param i the value to get
+     * @return modified value
      */
     protected int newInt(final int i)
     {
@@ -217,7 +224,9 @@ public class CalcInterpreterTest
     }
 
     /**
-     * get a short
+     * get a short.
+     * @param s the value to get
+     * @return modified value
      */
     protected short newShort(final short s)
     {
@@ -225,7 +234,9 @@ public class CalcInterpreterTest
     }
 
     /**
-     * get a float
+     * get a long.
+     * @param l the value to get
+     * @return modified value
      */
     protected long newLong(final long l)
     {
@@ -233,7 +244,9 @@ public class CalcInterpreterTest
     }
 
     /**
-     * get a float
+     * get a char.
+     * @param c the value to get
+     * @return modified value
      */
     protected char newChar(final char c)
     {
@@ -241,7 +254,9 @@ public class CalcInterpreterTest
     }
 
     /**
-     * get a float
+     * get a boolean.
+     * @param b the value to get
+     * @return modified value
      */
     protected boolean newBool(final boolean b)
     {

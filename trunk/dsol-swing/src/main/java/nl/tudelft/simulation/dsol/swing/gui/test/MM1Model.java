@@ -204,6 +204,11 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
     }
 
     /******************************************************************************************************/
+
+    /**
+     * Queue entry of an entity of type E.
+     * @param <E> the entity type in the queue
+     */
     protected class QueueEntry<E>
     {
         /** time of queue entry for statistics. */
