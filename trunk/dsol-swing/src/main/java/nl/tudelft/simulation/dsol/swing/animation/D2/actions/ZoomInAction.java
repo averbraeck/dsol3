@@ -26,17 +26,17 @@ public class ZoomInAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** target of the gridpanel */
-    private GridPanel target = null;
+    /** the panel to zoom in. */
+    private GridPanel panel = null;
 
     /**
-     * constructs a new AddRowAction
-     * @param target GridPanel; the target
+     * constructs a new ZoomInAction.
+     * @param panel GridPanel; the target
      */
-    public ZoomInAction(final GridPanel target)
+    public ZoomInAction(final GridPanel panel)
     {
         super("ZoomIn");
-        this.target = target;
+        this.panel = panel;
         this.putValue(Action.SMALL_ICON, new ImageIcon(URLResource.getResource("/toolbarButtonGraphics/general/ZoomIn16.gif")));
         this.setEnabled(true);
     }
@@ -47,7 +47,7 @@ public class ZoomInAction extends AbstractAction
     @Override
     public void actionPerformed(final ActionEvent actionEvent)
     {
-        this.target.zoom(1.0 / GridPanel.ZOOMFACTOR);
-        this.target.requestFocus();
+        this.panel.zoom(1.0 / GridPanel.ZOOMFACTOR);
+        this.panel.requestFocus();
     }
 }

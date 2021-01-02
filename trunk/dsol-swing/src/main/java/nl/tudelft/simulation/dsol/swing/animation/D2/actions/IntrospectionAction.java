@@ -24,11 +24,11 @@ public class IntrospectionAction extends AbstractAction
     /** */
     private static final long serialVersionUID = 20140909L;
 
-    /** the target to introspect */
+    /** the target to introspect. */
     private Object target = null;
 
     /**
-     * constructs a new IntrospectionAction
+     * constructs a new IntrospectionAction.
      * @param target Object; the target to introspect
      */
     public IntrospectionAction(final Object target)
