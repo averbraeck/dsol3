@@ -17,7 +17,7 @@ import javax.swing.event.DocumentListener;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControl;
-import nl.tudelft.simulation.dsol.swing.gui.control.AbstractControlPanel;
+import nl.tudelft.simulation.dsol.swing.gui.util.Icons;
 
 /**
  * The search panel. Code based on OpenTrafficSim project component with the same purpose.
@@ -36,7 +36,7 @@ public class SearchPanel extends JPanel implements ActionListener, FocusListener
     private static final long serialVersionUID = 20200127L;
 
     /** The animation panel. */
-    private final DSOLAnimationPanel dsolAnimationPanel;
+    private final DSOLAnimationTab dsolAnimationPanel;
 
     /** The type-of-object-to-search-for selector. */
     private final JComboBox<ObjectKind<?>> typeToSearch;
@@ -51,12 +51,12 @@ public class SearchPanel extends JPanel implements ActionListener, FocusListener
      * Construct a new search panel.
      * @param dsolAnimationPanel DSOLAnimationPanel; the animation panel
      */
-    public SearchPanel(final DSOLAnimationPanel dsolAnimationPanel)
+    public SearchPanel(final DSOLAnimationTab dsolAnimationPanel)
     {
         this.dsolAnimationPanel = dsolAnimationPanel;
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(new JLabel("    ")); // insert some white space in the GUI
-        this.add(new JLabel(AbstractControlPanel.loadIcon("/View.png")));
+        this.add(new JLabel(Icons.loadIcon("/Search.png")));
         ObjectKind<?>[] objectKinds = new ObjectKind[] { new ObjectKind<Locatable>("Person") // XXX: was: Person 
         {
             @Override

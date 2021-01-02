@@ -1,9 +1,10 @@
 package nl.tudelft.simulation.dsol.swing.gui.appearance;
 
-import javax.swing.JLabel;
+import javax.swing.Icon;
+import javax.swing.JButton;
 
 /**
- * Label with appearance control.
+ * Button with appearance control.
  * <p>
  * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -12,38 +13,22 @@ import javax.swing.JLabel;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class AppearanceControlLabel extends JLabel implements AppearanceControl
+public class AppearanceControlButton extends JButton implements AppearanceControl
 {
     /** */
     private static final long serialVersionUID = 20180207L;
 
     /**
-     * Generate an empty label with appearance control.
+     * @param loadIcon Icon; icon
      */
-    public AppearanceControlLabel()
+    public AppearanceControlButton(final Icon loadIcon)
     {
-        super();
-    }
-
-    /**
-     * Generate a label with appearance control with text.
-     * @param text String; the text of the label
-     */
-    public AppearanceControlLabel(final String text)
-    {
-        super(text);
+        super(loadIcon);
     }
 
     /** {@inheritDoc} */
     @Override
-    public boolean isForeground()
-    {
-        return true;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public boolean isBackground()
+    public boolean isFont()
     {
         return true;
     }
@@ -52,6 +37,6 @@ public class AppearanceControlLabel extends JLabel implements AppearanceControl
     @Override
     public String toString()
     {
-        return "AppearanceControlLabel []";
+        return "AppearanceControlButton []";
     }
 }

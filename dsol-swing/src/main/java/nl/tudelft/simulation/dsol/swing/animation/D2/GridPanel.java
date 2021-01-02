@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
 import java.text.NumberFormat;
 
 import javax.swing.JPanel;
+
+import org.djutils.draw.bounds.Bounds2d;
+import org.djutils.draw.point.Point2d;
 
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
 
@@ -21,7 +23,9 @@ import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
- * @author <a href="mailto:nlang@fbk.eur.nl">Niels Lang </a>, <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+ * @author Niels Lang
+ * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
 public class GridPanel extends JPanel
 {
@@ -48,11 +52,11 @@ public class GridPanel extends JPanel
 
     /** the extent of this panel. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Rectangle2D extent = null;
+    protected Bounds2d extent = null;
 
-    /** the extent of this panel. */
+    /** the initial and default extent of this panel. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Rectangle2D homeExtent = null;
+    protected Bounds2d homeExtent = null;
 
     /** show the grid. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -80,33 +84,22 @@ public class GridPanel extends JPanel
 
     /**
      * constructs a new GridPanel.
-     * @param extent Rectangle2D; the extent to show.
+     * @param homeExtent Bounds2d; the initial extent.
      */
-    public GridPanel(final Rectangle2D extent)
-    {
-        this(extent, new Dimension(800, 600));
-    }
-
-    /**
-     * constructs a new GridPanel.
-     * @param extent Rectangle2D; the initial extent.
-     * @param size Dimension; the size of the panel in pixels.
-     */
-    public GridPanel(final Rectangle2D extent, final Dimension size)
+    public GridPanel(final Bounds2d homeExtent)
     {
         super();
-        this.extent = extent;
-        this.homeExtent = (Rectangle2D) extent.clone();
+        this.extent = homeExtent;
+        this.homeExtent = homeExtent;
         this.setBackground(Color.WHITE);
-        this.setPreferredSize(size);
         this.lastDimension = this.getSize();
     }
 
     /**
      * returns the extent of this panel.
-     * @return Rectangle2D
+     * @return Bounds2d
      */
-    public final Rectangle2D getExtent()
+    public final Bounds2d getExtent()
     {
         return this.extent;
     }
@@ -198,20 +191,24 @@ public class GridPanel extends JPanel
         switch (direction)
         {
             case LEFT:
-                this.extent.setRect(this.extent.getMinX() - percentage * this.extent.getWidth(), this.extent.getMinY(),
-                        this.extent.getWidth(), this.extent.getHeight());
+                this.extent = new Bounds2d(this.extent.getMinX() - percentage * this.extent.getDeltaX(),
+                        this.extent.getMaxX() - percentage * this.extent.getDeltaX(), this.extent.getMinY(),
+                        this.extent.getMaxY());
                 break;
             case RIGHT:
-                this.extent.setRect(this.extent.getMinX() + percentage * this.extent.getWidth(), this.extent.getMinY(),
-                        this.extent.getWidth(), this.extent.getHeight());
+                this.extent = new Bounds2d(this.extent.getMinX() + percentage * this.extent.getDeltaX(),
+                        this.extent.getMaxX() + percentage * this.extent.getDeltaX(), this.extent.getMinY(),
+                        this.extent.getMaxY());
                 break;
             case UP:
-                this.extent.setRect(this.extent.getMinX(), this.extent.getMinY() + percentage * this.extent.getHeight(),
-                        this.extent.getWidth(), this.extent.getHeight());
+                this.extent = new Bounds2d(this.extent.getMinX(), this.extent.getMaxX(),
+                        this.extent.getMinY() + percentage * this.extent.getDeltaY(),
+                        this.extent.getMaxY() + percentage * this.extent.getDeltaY());
                 break;
             case DOWN:
-                this.extent.setRect(this.extent.getMinX(), this.extent.getMinY() - percentage * this.extent.getHeight(),
-                        this.extent.getWidth(), this.extent.getHeight());
+                this.extent = new Bounds2d(this.extent.getMinX(), this.extent.getMaxX(),
+                        this.extent.getMinY() - percentage * this.extent.getDeltaY(),
+                        this.extent.getMaxY() - percentage * this.extent.getDeltaY());
                 break;
             default:
                 throw new IllegalArgumentException("direction unkown");
@@ -261,14 +258,14 @@ public class GridPanel extends JPanel
      */
     public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
     {
-        Point2D mwc =
+        Point2d mwc =
                 Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent, this.getSize());
         double minX = mwc.getX() - (mwc.getX() - this.extent.getMinX()) * factor;
         double minY = mwc.getY() - (mwc.getY() - this.extent.getMinY()) * factor;
-        double w = this.extent.getWidth() * factor;
-        double h = this.extent.getHeight() * factor;
+        double w = this.extent.getDeltaX() * factor;
+        double h = this.extent.getDeltaY() * factor;
 
-        this.extent.setRect(minX, minY, w, h);
+        this.extent = new Bounds2d(minX, minX + w, minY, minY + h);
         this.repaint();
     }
 
@@ -317,7 +314,7 @@ public class GridPanel extends JPanel
         int x = (int) -Math.round(mod / scale);
         while (x < this.getWidth())
         {
-            Point2D point =
+            Point2d point =
                     Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent, this.getSize());
             if (point != null)
             {
@@ -337,7 +334,7 @@ public class GridPanel extends JPanel
         int y = (int) Math.round(this.getSize().getHeight() - (mod / scale));
         while (y > 15)
         {
-            Point2D point =
+            Point2d point =
                     Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent, this.getSize());
             if (point != null)
             {

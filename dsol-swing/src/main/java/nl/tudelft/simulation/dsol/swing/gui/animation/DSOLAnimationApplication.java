@@ -1,41 +1,12 @@
 package nl.tudelft.simulation.dsol.swing.gui.animation;
 
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.Properties;
+import java.rmi.RemoteException;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JSlider;
-import javax.swing.MenuElement;
-import javax.swing.MenuSelectionManager;
-import javax.swing.WindowConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import org.djutils.draw.bounds.Bounds2d;
 
-import nl.tudelft.simulation.dsol.model.DSOLModel;
-import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
-import nl.tudelft.simulation.dsol.swing.gui.appearance.Appearance;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.language.DSOLException;
 
 /**
  * Wrap a DSOL simulation model, or any (descendant of a) JPanel in a JFrame (wrap it in a window). The window will be
@@ -54,32 +25,51 @@ public class DSOLAnimationApplication extends DSOLApplication
     /** */
     private static final long serialVersionUID = 20190118L;
 
+    /** the animation panel in a tab. */
+    private DSOLAnimationTab animationTab;
+
     /**
-     * Wrap a DSOL Model in a JFrame.
-     * @param model DSOLModel&lt;?, ?, ?, ?&gt;; the model that will be shown in the JFrame
-     * @param panel JPanel; this should be the JPanel of the simulation
+     * Create a DSOL application with animation. 
+     * @param panel DSOLPanel; this should be the tabbed panel of the simulation
      * @param title String; the title of the window
+     * @param homeExtent Bounds2d; the home extent of the animation
+     * @throws RemoteException on network error
+     * @throws DSOLException when simulator does not implement the AnimatorInterface
      */
-    public DSOLAnimationApplication(final DSOLModel<?, ?, ?, ?> model, final DSOLAnimationPanel panel, final String title)
+    public DSOLAnimationApplication(final DSOLPanel panel, final String title, final Bounds2d homeExtent)
+            throws RemoteException, DSOLException
     {
-        super(model, panel, title);
-        setAppearance(Appearance.BRIGHT); // TODO: leave this to the user
-//        this.animationPanel = panel;
-//        animateNetwork();
-//        setAnimationToggles();
-//        addTabs();
+        super(panel, title);
+        this.animationTab = new DSOLAnimationTab(homeExtent, panel.getSimulator());
+        panel.addTab(0, "animation", this.animationTab);
+        panel.getTabbedPane().setSelectedIndex(0); // select the animation pane as default (can be overridden)
         setAppearance(getAppearance()); // update appearance of added objects
     }
 
     /**
-     * Return the initial 'home' extent for the animation. The 'Home' button returns to this extent. Override this method when a
-     * smaller or larger part of the infra should be shown. In the default setting, all currently visible objects are shown.
-     * @return the initial and 'home' rectangle for the animation. TODO: the
+     * Create a DSOL application with a custom animation tab. 
+     * @param panel DSOLPanel; this should be the tabbed panel of the simulation
+     * @param title String; the title of the window
+     * @param animationTab DSOLAnimationTab; the animation tab to add, e.g. one containing GIS
+     * @throws RemoteException on network error
+     * @throws DSOLException when simulator does not implement the AnimatorInterface
      */
-    @SuppressWarnings("checkstyle:designforextension")
-    protected Rectangle2D makeAnimationRectangle()
+    public DSOLAnimationApplication(final DSOLPanel panel, final String title, final DSOLAnimationTab animationTab)
+            throws RemoteException, DSOLException
     {
-        return new Rectangle2D.Double(0, 0, 200, 100);
+        super(panel, title);
+        this.animationTab = animationTab;
+        panel.addTab(0, "animation", this.animationTab);
+        panel.getTabbedPane().setSelectedIndex(0); // select the animation pane as default (can be overridden)
+        setAppearance(getAppearance()); // update appearance of added objects
+    }
+
+    /**
+     * @return DSOLAnimationPanel; the animationPanel
+     */
+    public final DSOLAnimationTab getAnimationTab()
+    {
+        return this.animationTab;
     }
 
 }

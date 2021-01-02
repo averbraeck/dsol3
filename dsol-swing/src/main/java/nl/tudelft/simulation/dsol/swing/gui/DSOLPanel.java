@@ -1,12 +1,15 @@
 package nl.tudelft.simulation.dsol.swing.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Insets;
 import java.rmi.RemoteException;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+
+import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
@@ -25,7 +28,7 @@ import nl.tudelft.simulation.dsol.swing.gui.control.AbstractControlPanel;
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
  */
-public class DSOLPanel extends JPanel 
+public class DSOLPanel extends JPanel implements AppearanceControl
 {
     /** */
     private static final long serialVersionUID = 20150617L;
@@ -44,9 +47,7 @@ public class DSOLPanel extends JPanel
 
     /**
      * Construct a panel for an interactive simulation model.
-     * @param simulator S; the simulator or animator of the model.
-     * @param model DSOLModel&lt;A, R, T, S&gt;; the model with its properties.
-     * @param controlPanel DSOLControlPanel&lt;A, R, T, S&gt;; the control panel to use (especially with relation to time
+     * @param controlPanel AbstractControlPanel&lt;?, ?, ?, ?&gt;; the control panel to use (especially with relation to time
      *            control)
      * @throws RemoteException when communications to a remote machine fails
      */
@@ -64,19 +65,42 @@ public class DSOLPanel extends JPanel
     }
 
     /**
-     * Adds a console tab for the Logger.
+     * Add a tab to the DSOLPanel as the last tab.
+     * @param tabTitle String; the title of the tab
+     * @param component Component; the swing component to add as this tab
      */
-    public final void addConsoleLogger()
+    public void addTab(final String tabTitle, final Component component)
     {
-        this.tabbedPane.addTab("logger", new ConsoleLogger());
+        this.tabbedPane.addTab(tabTitle, component);
     }
 
     /**
-     * Adds a console tab for steout and stderr.
+     * Add a tab to the DSOLPanel at a given position.
+     * @param position int; the position to insert the tab at (0 is first)
+     * @param tabTitle String; the title of the tab
+     * @param component Component; the swing component to add as this tab
+     * @throws IndexOutOfBoundsException when position is less than zero or larger than the number of tabs
      */
-    public final void addConsolOutput()
+    public void addTab(final int position, final String tabTitle, final Component component)
     {
-        this.tabbedPane.addTab("console", new ConsoleOutput());
+        this.tabbedPane.addTab(position, tabTitle, component);
+    }
+
+    /**
+     * Adds a console tab for the Logger.
+     * @param logLevel Level the logLevel to use;
+     */
+    public final void addConsoleLogger(final Level logLevel)
+    {
+        addTab("logger", new ConsoleLogger(logLevel));
+    }
+
+    /**
+     * Adds a console tab for stdout and stderr.
+     */
+    public final void addConsoleOutput()
+    {
+        addTab("console", new ConsoleOutput());
     }
 
     /**

@@ -3,6 +3,7 @@ package nl.tudelft.simulation.dsol.swing.gui.test;
 import java.rmi.RemoteException;
 
 import org.djutils.stats.summarizers.event.StatisticsEvents;
+import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.statistics.table.PersistentTableModel;
@@ -35,7 +36,7 @@ public class MM1Panel extends DSOLPanel
      * @param controlPanel DEVSControlPanel.TimeDouble; the control panel
      * @throws RemoteException when communications to a remote machine fails
      */
-    public MM1Panel(DEVSControlPanel.TimeDouble controlPanel) throws RemoteException
+    public MM1Panel(final DEVSControlPanel.TimeDouble controlPanel) throws RemoteException
     {
         super(controlPanel);
         addTabs();
@@ -129,7 +130,7 @@ public class MM1Panel extends DSOLPanel
             model.getSimulator().getLogger().always().error(exception);
         }
 
-        ConsoleLogger logConsole = new ConsoleLogger();
+        ConsoleLogger logConsole = new ConsoleLogger(Level.INFO);
         super.tabbedPane.addTab("logger", logConsole);
         super.tabbedPane.addTab("console", new ConsoleOutput());
     }

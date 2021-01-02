@@ -8,10 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.geom.Rectangle2D;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -22,28 +18,22 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.TimedEvent;
 import org.djutils.exceptions.Throw;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
-import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
 import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.model.DSOLModel;
-import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
-import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
-import nl.tudelft.simulation.dsol.swing.gui.control.AbstractControlPanel;
-import nl.tudelft.simulation.dsol.swing.gui.control.SearchPanel;
+import nl.tudelft.simulation.dsol.swing.gui.util.Icons;
 import nl.tudelft.simulation.language.DSOLException;
 
 /**
@@ -57,18 +47,14 @@ import nl.tudelft.simulation.language.DSOLException;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
- *            relative types are the same.
- * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
- * @param <S> the simulator type to use
  */
-public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
-        T extends SimTime<A, R, T>, S extends DEVSSimulatorInterface<A, R, T>> extends DSOLPanel
-        implements ActionListener, WindowListener, EventListenerInterface
+public class DSOLAnimationTab extends JPanel implements ActionListener, EventListenerInterface
 {
     /** */
     private static final long serialVersionUID = 20150617L;
+
+    /** the simulator. */
+    private final SimulatorInterface<?, ?, ?> simulator;
 
     /** The animation panel on tab position 0. */
     private final /* XXX: AutoPan */ AnimationPanel animationPanel;
@@ -87,12 +73,6 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
 
     /** Set of animation classes to toggle buttons. */
     private Map<Class<? extends Locatable>, JToggleButton> toggleButtons = new LinkedHashMap<>();
-
-    /** Set of GIS layer names to toggle GIS layers . */
-    private Map<String, GisMapInterface> toggleGISMap = new LinkedHashMap<>();
-
-    /** Set of GIS layer names to toggle buttons. */
-    private Map<String, JToggleButton> toggleGISButtons = new LinkedHashMap<>();
 
     /** The coordinates of the cursor. */
     private final JLabel coordinateField;
@@ -118,19 +98,19 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
     protected boolean windowExited = false;
 
     /** XXX: Id of object to auto pan to. */
-    private String autoPanId = null;
+    // private String autoPanId = null;
 
     /** XXX: Type of object to auto pan to. */
-    private SearchPanel.ObjectKind<?> autoPanKind = null;
+    // private SearchPanel.ObjectKind<?> autoPanKind = null;
 
-    /** The search panel. */
-    private final SearchPanel searchPanel;
+    /** XXX: The search panel. */
+    // private final SearchPanel searchPanel;
 
     /** XXX: Track auto pan object continuously? */
-    private boolean autoPanTrack = false;
+    // private boolean autoPanTrack = false;
 
     /** XXX: Track auto on the next paintComponent operation; then copy state from autoPanTrack. */
-    private boolean autoPanOnNextPaintComponent = false;
+    // private boolean autoPanOnNextPaintComponent = false;
 
     /** Initialize the formatter. */
     static
@@ -139,29 +119,23 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
     }
 
     /**
-     * Construct a panel for quick building of DSOL applications.
-     * @param extent Rectangle2D; bottom left corner, length and width of the area (world) to animate.
-     * @param size Dimension; the size to be used for the animation.
-     * @param simulator SimpleAnimator; the simulator or animator of the model.
-     * @param model DSOLModel&lt;A, R, T, S&gt;; the builder and rebuilder of the simulation, based on properties.
-     * @param controlPanel DSOLControlPanel; the control panel to use (especially with relation to time control)
+     * Construct a panel for the animation of a DSOLModel.
+     * @param homeExtent Bounds2d; initial extent of the animation
+     * @param simulator SimulatorInterface; the simulator
      * @throws RemoteException when notification of the animation panel fails
-     * @throws DSOLException when simulator does not implement AnimatorInterface
+     * @throws DSOLException when simulator does not implement the AnimatorInterface
      */
-    public DSOLAnimationPanel(final Rectangle2D extent, final Dimension size, final S simulator,
-            final DSOLModel<A, R, T, S> model, final AbstractControlPanel<A, R, T, S> controlPanel)
+    @SuppressWarnings("unchecked")
+    public DSOLAnimationTab(final Bounds2d homeExtent, final SimulatorInterface<?, ?, ?> simulator)
             throws RemoteException, DSOLException
     {
-        super(simulator, model, controlPanel);
-
+        super();
+        this.simulator = simulator;
         // Add the animation panel as a tab.
-
-        this.animationPanel = new /* AutoPan */ AnimationPanel(extent, size, simulator); // XXX
-        this.animationPanel.showGrid(false);
+        this.animationPanel = new /* AutoPan */ AnimationPanel(homeExtent, simulator);
+        this.animationPanel.showGrid(true);
         this.borderPanel = new JPanel(new BorderLayout());
         this.borderPanel.add(this.animationPanel, BorderLayout.CENTER);
-        getTabbedPane().addTab(0, "animation", this.borderPanel);
-        getTabbedPane().setSelectedIndex(0); // Show the animation panel as the default tab
 
         // Include the TogglePanel WEST of the animation.
         this.togglePanel = new JPanel();
@@ -172,7 +146,6 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         this.borderPanel.add(buttonPanel, BorderLayout.NORTH);
-        buttonPanel.add(new JLabel("   "));
         buttonPanel.add(makeButton("allButton", "/Expand.png", "ZoomAll", "Zoom whole network", true));
         buttonPanel.add(makeButton("homeButton", "/Home.png", "Home", "Zoom to original extent", true));
         buttonPanel.add(makeButton("gridButton", "/Grid.png", "Grid", "Toggle grid on/off", true));
@@ -181,13 +154,16 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
         // add info labels next to buttons
         JPanel infoTextPanel = new JPanel();
         buttonPanel.add(infoTextPanel);
-        infoTextPanel.setMinimumSize(new Dimension(250, 20));
-        infoTextPanel.setPreferredSize(new Dimension(250, 20));
+        infoTextPanel.setMinimumSize(new Dimension(250, 35));
+        infoTextPanel.setPreferredSize(new Dimension(250, 35));
         infoTextPanel.setLayout(new BoxLayout(infoTextPanel, BoxLayout.Y_AXIS));
         this.coordinateField = new JLabel("Mouse: ");
         this.coordinateField.setMinimumSize(new Dimension(250, 10));
         this.coordinateField.setPreferredSize(new Dimension(250, 10));
         infoTextPanel.add(this.coordinateField);
+
+        setLayout(new BorderLayout());
+        add(this.borderPanel, BorderLayout.CENTER);
 
         /*-
         // XXX: gtu fields
@@ -205,52 +181,49 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
         setGtuCountText();
         */
 
-        this.searchPanel = new SearchPanel(dsolAnimationPanel);
-        this.add(this.searchPanel, BorderLayout.SOUTH);
+        // XXX: search panel
+        // this.searchPanel = new SearchPanel(dsolAnimationPanel);
+        // this.add(this.searchPanel, BorderLayout.SOUTH);
 
         // Tell the animation to build the list of animation objects.
-        this.animationPanel.notify(new TimedEvent<A>(Replication.START_REPLICATION_EVENT, simulator.getSourceId(), null,
-                getSimulator().getSimulatorTime()));
+        this.animationPanel.notify(new TimedEvent(Replication.START_REPLICATION_EVENT, simulator.getSourceId(), null,
+                simulator.getSimulatorTime()));
 
         // switch off the X and Y coordinates in a tooltip.
         this.animationPanel.setShowToolTip(false);
 
         // run the update task for the mouse coordinate panel
         new UpdateTimer().start();
-
-        // make sure the thread gets killed when the window closes.
-        installWindowCloseHandler();
-
     }
 
-    /**
-     * Provide access to the search panel.
-     * @return SearchPanel; the search panel
-     */
-    public SearchPanel getSearchPanel()
-    {
-        return this.searchPanel;
-    }
-    
-    /**
-     * Change auto pan target.
-     * @param newAutoPanId String; id of object to track (or
-     * @param newAutoPanKind String; kind of object to track
-     * @param newAutoPanTrack boolean; if true; tracking is continuously; if false; tracking is once
-     */
-    public void setAutoPan(final String newAutoPanId, final SearchPanel.ObjectKind<?> newAutoPanKind,
-            final boolean newAutoPanTrack)
-    {
-        this.autoPanId = newAutoPanId;
-        this.autoPanKind = newAutoPanKind;
-        this.autoPanTrack = newAutoPanTrack;
-        this.autoPanOnNextPaintComponent = true;
-        // System.out.println("AutoPan id=" + newAutoPanId + ", kind=" + newAutoPanKind + ", track=" + newAutoPanTrack);
-        if (null != this.autoPanId && this.autoPanId.length() > 0 && null != this.autoPanKind)
-        {
-            DSOLAnimationPanel.this.animationPanel.repaint();
-        }
-    }
+    // /**
+    // * Provide access to the search panel.
+    // * @return SearchPanel; the search panel
+    // */
+    // public SearchPanel getSearchPanel()
+    // {
+    // return this.searchPanel;
+    // }
+    //
+    // /**
+    // * Change auto pan target.
+    // * @param newAutoPanId String; id of object to track (or
+    // * @param newAutoPanKind String; kind of object to track
+    // * @param newAutoPanTrack boolean; if true; tracking is continuously; if false; tracking is once
+    // */
+    // public void setAutoPan(final String newAutoPanId, final SearchPanel.ObjectKind<?> newAutoPanKind,
+    // final boolean newAutoPanTrack)
+    // {
+    // this.autoPanId = newAutoPanId;
+    // this.autoPanKind = newAutoPanKind;
+    // this.autoPanTrack = newAutoPanTrack;
+    // this.autoPanOnNextPaintComponent = true;
+    // // System.out.println("AutoPan id=" + newAutoPanId + ", kind=" + newAutoPanKind + ", track=" + newAutoPanTrack);
+    // if (null != this.autoPanId && this.autoPanId.length() > 0 && null != this.autoPanKind)
+    // {
+    // DSOLAnimationTab.this.animationPanel.repaint();
+    // }
+    // }
 
     /**
      * Create a button.
@@ -264,8 +237,7 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
     private JButton makeButton(final String name, final String iconPath, final String actionCommand, final String toolTipText,
             final boolean enabled)
     {
-        // JButton result = new JButton(new ImageIcon(this.getClass().getResource(iconPath)));
-        JButton result = new JButton(AbstractControlPanel.loadIcon(iconPath));
+        JButton result = new JButton(Icons.loadIcon(iconPath));
         result.setPreferredSize(new Dimension(34, 32));
         result.setName(name);
         result.setEnabled(enabled);
@@ -287,12 +259,12 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
      * @param initiallyVisible boolean; whether the class is initially shown or not
      * @param idButton boolean; id button that needs to be placed next to the previous button
      */
-    public final void addToggleAnimationButtonIcon(final String name, final Class<? extends Locatable> locatableClass,
+    public void addToggleAnimationButtonIcon(final String name, final Class<? extends Locatable> locatableClass,
             final String iconPath, final String toolTipText, final boolean initiallyVisible, final boolean idButton)
     {
         JToggleButton button;
-        Icon icon = AbstractControlPanel.loadIcon(iconPath);
-        Icon unIcon = AbstractControlPanel.loadGrayscaleIcon(iconPath);
+        Icon icon = Icons.loadIcon(iconPath);
+        Icon unIcon = Icons.loadGrayscaleIcon(iconPath);
         button = new JCheckBox();
         button.setSelectedIcon(icon);
         button.setIcon(unIcon);
@@ -338,7 +310,7 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
      * @param toolTipText String; the tool tip text to show when hovering over the button
      * @param initiallyVisible boolean; whether the class is initially shown or not
      */
-    public final void addToggleAnimationButtonText(final String name, final Class<? extends Locatable> locatableClass,
+    public void addToggleAnimationButtonText(final String name, final Class<? extends Locatable> locatableClass,
             final String toolTipText, final boolean initiallyVisible)
     {
         JToggleButton button;
@@ -372,7 +344,7 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
      * Add a text to explain animatable classes.
      * @param text String; the text to show
      */
-    public final void addToggleText(final String text)
+    public void addToggleText(final String text)
     {
         JPanel textBox = new JPanel();
         textBox.setLayout(new BoxLayout(textBox, BoxLayout.X_AXIS));
@@ -381,138 +353,11 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
         textBox.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
-    /**
-     * Add buttons for toggling all GIS layers on or off.
-     * @param header String; the name of the group of layers
-     * @param gisMap GisRenderable2D; the GIS map for which the toggles have to be added
-     * @param toolTipText String; the tool tip text to show when hovering over the button
-     */
-    public final void addAllToggleGISButtonText(final String header, final GisRenderable2D gisMap, final String toolTipText)
-    {
-        addToggleText(" ");
-        addToggleText(header);
-        try
-        {
-            for (String layerName : gisMap.getMap().getLayerMap().keySet())
-            {
-                addToggleGISButtonText(layerName, layerName, gisMap, toolTipText);
-            }
-        }
-        catch (RemoteException exception)
-        {
-            exception.printStackTrace();
-        }
-    }
-
-    /**
-     * Add a button to toggle a GIS Layer on or off.
-     * @param layerName String; the name of the layer
-     * @param displayName String; the name to display next to the tick box
-     * @param gisMap GisRenderable2D; the map
-     * @param toolTipText String; the tool tip text
-     */
-    public final void addToggleGISButtonText(final String layerName, final String displayName, final GisRenderable2D gisMap,
-            final String toolTipText)
-    {
-        JToggleButton button;
-        button = new JCheckBox(displayName);
-        button.setName(layerName);
-        button.setEnabled(true);
-        button.setSelected(true);
-        button.setActionCommand(layerName);
-        button.setToolTipText(toolTipText);
-        button.addActionListener(this);
-
-        JPanel toggleBox = new JPanel();
-        toggleBox.setLayout(new BoxLayout(toggleBox, BoxLayout.X_AXIS));
-        toggleBox.add(button);
-        this.togglePanel.add(toggleBox);
-        toggleBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        this.toggleGISMap.put(layerName, gisMap.getMap());
-        this.toggleGISButtons.put(layerName, button);
-    }
-
-    /**
-     * Set a GIS layer to be shown in the animation to true.
-     * @param layerName String; the name of the GIS-layer that has to be shown.
-     */
-    public final void showGISLayer(final String layerName)
-    {
-        GisMapInterface gisMap = this.toggleGISMap.get(layerName);
-        if (gisMap != null)
-        {
-            try
-            {
-                gisMap.showLayer(layerName);
-                this.toggleGISButtons.get(layerName).setSelected(true);
-                this.animationPanel.repaint();
-            }
-            catch (RemoteException exception)
-            {
-                exception.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Set a GIS layer to be hidden in the animation to true.
-     * @param layerName String; the name of the GIS-layer that has to be hidden.
-     */
-    public final void hideGISLayer(final String layerName)
-    {
-        GisMapInterface gisMap = this.toggleGISMap.get(layerName);
-        if (gisMap != null)
-        {
-            try
-            {
-                gisMap.hideLayer(layerName);
-                this.toggleGISButtons.get(layerName).setSelected(false);
-                this.animationPanel.repaint();
-            }
-            catch (RemoteException exception)
-            {
-                exception.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Toggle a GIS layer to be displayed in the animation to its reverse value.
-     * @param layerName String; the name of the GIS-layer that has to be turned off or vice versa.
-     */
-    public final void toggleGISLayer(final String layerName)
-    {
-        GisMapInterface gisMap = this.toggleGISMap.get(layerName);
-        if (gisMap != null)
-        {
-            try
-            {
-                if (gisMap.getVisibleLayers().contains(gisMap.getLayerMap().get(layerName)))
-                {
-                    gisMap.hideLayer(layerName);
-                    this.toggleGISButtons.get(layerName).setSelected(false);
-                }
-                else
-                {
-                    gisMap.showLayer(layerName);
-                    this.toggleGISButtons.get(layerName).setSelected(true);
-                }
-                this.animationPanel.repaint();
-            }
-            catch (RemoteException exception)
-            {
-                exception.printStackTrace();
-            }
-        }
-    }
-
     /** {@inheritDoc} */
     @Override
-    public final void actionPerformed(final ActionEvent actionEvent)
+    public void actionPerformed(final ActionEvent actionEvent)
     {
         String actionCommand = actionEvent.getActionCommand();
-        // System.out.println("Action command is " + actionCommand);
         try
         {
             if (actionCommand.equals("Home"))
@@ -534,12 +379,6 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
                 this.animationPanel.toggleClass(locatableClass);
                 this.togglePanel.repaint();
             }
-
-            if (this.toggleGISMap.containsKey(actionCommand))
-            {
-                this.toggleGISLayer(actionCommand);
-                this.togglePanel.repaint();
-            }
         }
         catch (Exception exception)
         {
@@ -554,6 +393,14 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
     public final AnimationPanel getAnimationPanel()
     {
         return this.animationPanel;
+    }
+
+    /**
+     * @return togglePanel
+     */
+    public final JPanel getTogglePanel()
+    {
+        return this.togglePanel;
     }
 
     /**
@@ -621,7 +468,7 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
      * Update the checkmark related to a programmatically changed animation state.
      * @param locatableClass Class&lt;? extends Locatable&gt;; class to show the checkmark for
      */
-    public final void updateAnimationClassCheckBox(final Class<? extends Locatable> locatableClass)
+    public void updateAnimationClassCheckBox(final Class<? extends Locatable> locatableClass)
     {
         JToggleButton button = this.toggleButtons.get(locatableClass);
         if (button == null)
@@ -648,123 +495,9 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
             Container parent = this.coordinateField.getParent();
             parent.setPreferredSize(requiredSize);
             parent.setMinimumSize(requiredSize);
-            // System.out.println("Increased minimum width to " + requiredSize.width);
             parent.revalidate();
         }
         this.coordinateField.repaint();
-    }
-
-    /**
-     * Install a handler for the window closed event that stops the simulator (if it is running).
-     */
-    public final void installWindowCloseHandler()
-    {
-        if (this.closeHandlerRegistered)
-        {
-            return;
-        }
-
-        // make sure the root frame gets disposed of when the closing X icon is pressed.
-        new DisposeOnCloseThread(this).start();
-    }
-
-    /** Install the dispose on close when the ControlPanel is registered as part of a frame. */
-    protected class DisposeOnCloseThread extends Thread
-    {
-        /** The current container. */
-        private DSOLAnimationPanel<A, R, T, S> panel;
-
-        /**
-         * @param panel DSOLAnimationPanel; the control panel container.
-         */
-        public DisposeOnCloseThread(final DSOLAnimationPanel<A, R, T, S> panel)
-        {
-            this.panel = panel;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final void run()
-        {
-            Container root = this.panel;
-            while (!(root instanceof JFrame))
-            {
-                try
-                {
-                    Thread.sleep(10);
-                }
-                catch (InterruptedException exception)
-                {
-                    // nothing to do
-                }
-
-                // Search towards the root of the Swing components until we find a JFrame
-                root = this.panel;
-                while (null != root.getParent() && !(root instanceof JFrame))
-                {
-                    root = root.getParent();
-                }
-            }
-            JFrame frame = (JFrame) root;
-            frame.addWindowListener(this.panel);
-            this.panel.closeHandlerRegistered = true;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final String toString()
-        {
-            return "DisposeOnCloseThread of AnimationPanel [panel=" + this.panel + "]";
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void windowOpened(final WindowEvent e)
-    {
-        // No action
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final void windowClosing(final WindowEvent e)
-    {
-        // No action
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final void windowClosed(final WindowEvent e)
-    {
-        this.windowExited = true;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final void windowIconified(final WindowEvent e)
-    {
-        // No action
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final void windowDeiconified(final WindowEvent e)
-    {
-        // No action
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final void windowActivated(final WindowEvent e)
-    {
-        // No action
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final void windowDeactivated(final WindowEvent e)
-    {
-        // No action
     }
 
     /** {@inheritDoc} */
@@ -803,11 +536,11 @@ public class DSOLAnimationPanel<A extends Comparable<A> & Serializable, R extend
         @Override
         public final void run()
         {
-            while (!DSOLAnimationPanel.this.windowExited)
+            while (!DSOLAnimationTab.this.windowExited)
             {
-                if (DSOLAnimationPanel.this.isShowing())
+                if (DSOLAnimationTab.this.isShowing())
                 {
-                    DSOLAnimationPanel.this.updateWorldCoordinate();
+                    DSOLAnimationTab.this.updateWorldCoordinate();
                 }
                 try
                 {

@@ -1,31 +1,24 @@
 package nl.tudelft.simulation.dsol.swing.gui.control;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
-import javax.swing.GrayFilter;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import org.djunits.unit.TimeUnit;
-import org.djunits.value.vdouble.scalar.Time;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
+import org.djutils.exceptions.Throw;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
@@ -33,8 +26,8 @@ import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.RunState;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.dsol.swing.gui.Resource;
-import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControl;
+import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControlButton;
+import nl.tudelft.simulation.dsol.swing.gui.util.Icons;
 
 /**
  * Simulation control panel. Code based on OpenTrafficSim project component with the same purpose.
@@ -63,7 +56,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     private S simulator;
 
     /** The model, needed for its properties. */
-    private final DSOLModel<A, R, T, ? extends S> model;
+    private final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model;
 
     /** The clock. */
     private ClockSpeedPanel<A, R, T> clockPanel;
@@ -91,27 +84,29 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
      * are used by any simulator (continuous, discrete, real-time) and for any type of simulation time (floating point, integer,
      * or calendar based). Specific classes extend this abstract control panel to define the additional features that are
      * necessary for those simulators.
-     * @param model DSOLModel<A, R, T, S>; if non-null, the restart button should work
+     * @param model DSOLModel&lt;A, R, T, ? extends SimulationInterface&lt;A, R, T&gt;&gt;; the model for the control panel, to
+     *            allow a reset of the model
+     * @param simulator S; the simulator. Specified separately, because the model can have been specified with a superclass of
+     *            the simulator that the ControlPanel actually needs (e.g., model has been specified with a DEVSAnimator,
+     *            whereas the panel needs a RealTimeControlAnimator)
      * @throws RemoteException when simulator cannot be accessed for listener attachment
      */
-    public AbstractControlPanel(final DSOLModel<A, R, T, ? extends S> model) throws RemoteException
+    public AbstractControlPanel(final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model, final S simulator)
+            throws RemoteException
     {
+        Throw.whenNull(model, "model cannot be null");
+        Throw.whenNull(simulator, "simulator cannot be null");
         this.model = model;
-        this.simulator = model.getSimulator();
+        this.simulator = simulator;
 
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         this.controlButtonsPanel = new JPanel();
         this.controlButtonsPanel.setLayout(new BoxLayout(this.controlButtonsPanel, BoxLayout.X_AXIS));
-        this.controlButtonsPanel.add(makeButton("resetButton", "/Undo.png", "Reset", "Reset the simulation", false));
-        this.controlButtonsPanel
-                .add(makeButton("runPauseButton", "/Play.png", "RunPause", "Run or pause the simulation", true));
+        this.controlButtonsPanel.add(makeButton("resetButton", "/Reset.png", "Reset", "Reset the simulation", false));
+        this.controlButtonsPanel.add(makeButton("runPauseButton", "/Run.png", "RunPause", "Run or pause the simulation", true));
         this.add(this.controlButtonsPanel);
         fixButtons();
-
-        this.runUntilPanel = new RunUntilPanel.TimeDouble(getSimulator()); // new Time(0, TimeUnit.DEFAULT));
-        this.runUntilPanel.setMaximumSize(new Dimension(133, 35));
-        this.runUntilPanel.addPropertyChangeListener("value", this); // XXX
 
         installWindowCloseHandler();
 
@@ -142,35 +137,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     protected JButton makeButton(final String name, final String iconPath, final String actionCommand, final String toolTipText,
             final boolean enabled)
     {
-        /** Button with appearance control. */
-        class AppearanceControlButton extends JButton implements AppearanceControl
-        {
-            /** */
-            private static final long serialVersionUID = 20180206L;
-
-            /**
-             * @param loadIcon Icon; icon
-             */
-            AppearanceControlButton(final Icon loadIcon)
-            {
-                super(loadIcon);
-            }
-
-            /** {@inheritDoc} */
-            @Override
-            public boolean isFont()
-            {
-                return true;
-            }
-
-            /** {@inheritDoc} */
-            @Override
-            public String toString()
-            {
-                return "AppearanceControlButton []";
-            }
-        }
-        JButton result = new AppearanceControlButton(loadIcon(iconPath));
+        JButton result = new AppearanceControlButton(Icons.loadIcon(iconPath));
         result.setName(name);
         result.setEnabled(enabled);
         result.setActionCommand(actionCommand);
@@ -178,42 +145,6 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
         result.addActionListener(this);
         this.controlButtons.add(result);
         return result;
-    }
-
-    /**
-     * Attempt to load and return an icon.
-     * @param iconPath String; the path that is used to load the icon
-     * @return Icon; or null if loading failed
-     */
-    protected static final Icon loadIcon(final String iconPath)
-    {
-        try
-        {
-            return new ImageIcon(ImageIO.read(Resource.getResourceAsStream(iconPath)));
-        }
-        catch (NullPointerException | IOException npe)
-        {
-            System.err.println("Could not load icon from path " + iconPath);
-            return null;
-        }
-    }
-
-    /**
-     * Attempt to load and return an icon, which will be made gray-scale.
-     * @param iconPath String; the path that is used to load the icon
-     * @return Icon; or null if loading failed
-     */
-    protected static final Icon loadGrayscaleIcon(final String iconPath)
-    {
-        try
-        {
-            return new ImageIcon(GrayFilter.createDisabledImage(ImageIO.read(Resource.getResourceAsStream(iconPath))));
-        }
-        catch (NullPointerException | IOException e)
-        {
-            System.err.println("Could not load icon from path " + iconPath);
-            return null;
-        }
     }
 
     /**
@@ -302,6 +233,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
             }
             else if (actionCommand.equals("Reset"))
             {
+                // FIXME: Reset does not work yet, so button is greyed out for now...
                 if (getSimulator().isStartingOrRunning())
                 {
                     getSimulator().stop();
@@ -395,18 +327,19 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
                 if (this.simulator.isStartingOrRunning())
                 {
                     button.setToolTipText("Pause the simulation");
-                    button.setIcon(AbstractControlPanel.loadIcon("/Pause.png"));
+                    button.setIcon(Icons.loadIcon("/Pause.png"));
                 }
                 else
                 {
                     button.setToolTipText("Run the simulation at the indicated speed");
-                    button.setIcon(loadIcon("/Play.png"));
+                    button.setIcon(Icons.loadIcon("/Run.png"));
                 }
                 button.setEnabled(moreWorkToDo && this.controlButtonsEnabled);
             }
             else if (actionCommand.equals("Reset"))
             {
-                button.setEnabled(true); // FIXME: should be disabled when the simulator was just reset or initialized
+                // FIXME: should be disabled when the simulator was just reset or initialized
+                button.setEnabled(false); // XXX: should be true when "reset" works!
             }
         }
     }
@@ -422,7 +355,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
             if (actionCommand.equals("RunPause"))
             {
                 button.setToolTipText("Run the simulation at the indicated speed");
-                button.setIcon(loadIcon("/Play.png"));
+                button.setIcon(Icons.loadIcon("/Run.png"));
                 button.setEnabled(false);
             }
         }
@@ -431,7 +364,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return model
      */
-    public final DSOLModel<A, R, T, ? extends S> getModel()
+    public final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> getModel()
     {
         return this.model;
     }
@@ -481,6 +414,27 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     public final JPanel getControlButtonsPanel()
     {
         return this.controlButtonsPanel;
+    }
+
+    /**
+     * @return runUntilPanel
+     */
+    public final RunUntilPanel<A, R, T> getRunUntilPanel()
+    {
+        return this.runUntilPanel;
+    }
+
+    /**
+     * @param runUntilPanel set runUntilPanel
+     */
+    public final void setRunUntilPanel(final RunUntilPanel<A, R, T> runUntilPanel)
+    {
+        if (this.runUntilPanel != null)
+        {
+            remove(this.runUntilPanel);
+        }
+        this.runUntilPanel = runUntilPanel;
+        add(this.runUntilPanel);
     }
 
     /**

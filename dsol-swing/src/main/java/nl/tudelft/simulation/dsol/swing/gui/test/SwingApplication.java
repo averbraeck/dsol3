@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.pmw.tinylog.Level;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -50,9 +52,9 @@ public class SwingApplication extends DSOLApplication
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
-        DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model);
+        DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, simulator);
         DSOLPanel panel = new DSOLPanel(controlPanel);
-        panel.addConsoleLogger();
+        panel.addConsoleLogger(Level.INFO);
         new SwingApplication(panel);
     }
 

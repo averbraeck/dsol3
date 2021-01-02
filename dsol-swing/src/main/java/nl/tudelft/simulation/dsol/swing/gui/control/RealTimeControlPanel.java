@@ -14,6 +14,7 @@ import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
+import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.simulators.RunState;
 
 /**
@@ -45,14 +46,19 @@ public class RealTimeControlPanel<A extends Comparable<A> & Serializable, R exte
     private long savedAnimationDelay = 100L;
 
     /**
-     * Generic control panel with a different set of control buttons. The control panel assumes a DEVSSimulator that can be
-     * paused, but it does not assume animation.
-     * @param model DSOLModel<?, ?, ?, ?>; the model
+     * Generic control panel with a different set of control buttons. The control panel assumes a RealTimeDEVSAnimator and
+     * animation, but the model specification is not necessarily specified as "real time"; its execution is.
+     * @param model DSOLModel&lt;A, R, T, ? extends DEVSSimulationInterface&lt;A, R, T&gt;&gt;; the model for the control panel,
+     *            to allow a reset of the model
+     * @param simulator S; the simulator. Specified separately, because the model can have been specified with a superclass of
+     *            the simulator that the ControlPanel actually needs (e.g., model has been specified with a DEVSAnimator,
+     *            whereas the panel needs a RealTimeControlAnimator)
      * @throws RemoteException when simulator cannot be accessed for listener attachment
      */
-    public RealTimeControlPanel(final DSOLModel<A, R, T, ? extends S> model) throws RemoteException
+    public RealTimeControlPanel(final DSOLModel<A, R, T, ? extends DEVSSimulatorInterface<A, R, T>> model, final S simulator)
+            throws RemoteException
     {
-        super(model);
+        super(model, simulator);
 
         getControlButtonsPanel().add(makeButton("fastForwardButton", "/FastForward.png", "FastForward",
                 "Run the simulation as fast as possible", true));
@@ -144,7 +150,7 @@ public class RealTimeControlPanel<A extends Comparable<A> & Serializable, R exte
     }
 
     /**
-     * DEVS ControlPanel for a Double timeunit.
+     * DEVS Real Time ControlPanel for a Double timeunit.
      * <p>
      * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
@@ -159,13 +165,21 @@ public class RealTimeControlPanel<A extends Comparable<A> & Serializable, R exte
         private static final long serialVersionUID = 20201227L;
 
         /**
-         * @param model DSOLModel<?, ?, ?, ? extends S>; if non-null, the restart button should work
-         * @throws RemoteException
+         * Construct a real time control panel for a Double time unit, with a different set of control buttons. The control
+         * panel assumes a DEVSSimulator and animation. The model specification is not necessarily specified as "real time"; its
+         * execution is.
+         * @param model DSOLModel.TimeDouble; the model for the control panel, to allow a reset of the model
+         * @param simulator DEVSRealTimeAnimator.TimeDouble; the simulator. Specified separately, because the model can have
+         *            been specified with a superclass of the simulator that the ControlPanel actually needs (e.g., model has
+         *            been specified with a DEVSAnimator, whereas the panel needs a RealTimeControlAnimator)
+         * @throws RemoteException when simulator cannot be accessed for listener attachment
          */
-        public TimeDouble(final DSOLModel.TimeDouble<? extends DEVSRealTimeAnimator.TimeDouble> model) throws RemoteException
+        public TimeDouble(final DSOLModel.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble> model,
+                final DEVSRealTimeAnimator.TimeDouble simulator) throws RemoteException
         {
-            super(model);
+            super(model, simulator);
             setClockPanel(new ClockSpeedPanel.TimeDouble(getSimulator()));
+            setRunUntilPanel(new RunUntilPanel.TimeDouble(getSimulator()));
         }
 
     }

@@ -1,4 +1,4 @@
-package nl.tudelft.simulation.dsol.swing.gui;
+package nl.tudelft.simulation.dsol.swing.gui.util;
 
 import java.io.InputStream;
 
