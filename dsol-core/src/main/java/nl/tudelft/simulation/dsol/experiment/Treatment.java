@@ -24,7 +24,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * The treatment is comprises the specification of input data, the runControl and the specification of output data. (Sol:1982,
  * Oeren &amp; Zeigler:1979).
  * <p>
- * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">

@@ -9,7 +9,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * The EventListInterface defines the required methods for discrete event lists. A number of competitive algoritms can be used
  * to implement such eventlist. Among these implementations are the Red-Black, the SplayTree, and others.
  * <p>
- * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">

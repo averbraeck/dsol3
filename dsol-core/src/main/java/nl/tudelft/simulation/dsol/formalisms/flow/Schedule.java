@@ -35,7 +35,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * distribution function, or use DistConstant(stream, 1E20) to indicate that the next drawing will take place <i>after </i> the
  * end of the interval.
  * <p>
- * Copyright (c) 2002-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
