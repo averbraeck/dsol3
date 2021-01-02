@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.djunits.value.vdouble.scalar.base.AbstractDoubleScalar;
 import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
+import org.djutils.draw.bounds.Bounds2d;
+import org.djutils.draw.point.Point2d;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.TimedEvent;
@@ -71,7 +73,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
      * @param extent Rectangle2D.Double; the extent to use for the graphics (min/max coordinates)
      * @throws Exception in case jetty crashes
      */
-    public DSOLWebServer(final String title, final SimulatorInterface<?, ?, ?> simulator, final Rectangle2D.Double extent)
+    public DSOLWebServer(final String title, final SimulatorInterface<?, ?, ?> simulator, final Bounds2d extent)
             throws Exception
     {
         this.title = title;
@@ -388,9 +390,10 @@ public abstract class DSOLWebServer implements EventListenerInterface
                             int dy = Integer.parseInt(parts[2]);
                             double scale =
                                     Renderable2DInterface.Util.getScale(animationPanel.getExtent(), animationPanel.getSize());
-                            Rectangle2D.Double extent = (Rectangle2D.Double) animationPanel.getExtent();
-                            extent.setRect((extent.getMinX() - dx * scale), (extent.getMinY() + dy * scale), extent.getWidth(),
-                                    extent.getHeight());
+                            Bounds2d extent = animationPanel.getExtent();
+                            // TODO: probably use the animatinPanel.pan()
+                            extent = new Bounds2d(new Bounds2d(extent.getMinX() - dx * scale, extent.getMinX() + dx * scale, extent.getMinY() - dy * scale,
+                                    extent.getMinY() + dy * scale));
                         }
                         break;
                     }
@@ -404,12 +407,12 @@ public abstract class DSOLWebServer implements EventListenerInterface
                             List<Locatable> targets = new ArrayList<Locatable>();
                             try
                             {
-                                Point2D point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, y),
+                                Point2d point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, y),
                                         animationPanel.getExtent(), animationPanel.getSize());
                                 for (Renderable2DInterface<?> renderable : animationPanel.getElements())
                                 {
                                     if (animationPanel.isShowElement(renderable)
-                                            && renderable.contains(point, animationPanel.getExtent(), animationPanel.getSize()))
+                                            && renderable.contains(point, animationPanel.getExtent()))
                                     {
                                         targets.add(renderable.getSource());
                                     }

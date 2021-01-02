@@ -1,7 +1,8 @@
 package nl.tudelft.simulation.dsol.web.test.gis;
 
 import java.awt.Dimension;
-import java.awt.geom.Rectangle2D;
+
+import org.djutils.draw.bounds.Bounds2d;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -21,15 +22,15 @@ import nl.tudelft.simulation.dsol.web.DSOLWebServer;
 public class GISWebApplication extends DSOLWebServer
 {
     /** the default extent. */
-    private static Rectangle2D.Double extent;
+    private static Bounds2d extent;
 
     static
     {
-        double x = 115.637;
-        double y = 39.247;
-        double w = 117.099 - x;
-        double h = 40.408 - y;
-        extent = new Rectangle2D.Double(x, y, w, h);
+        double x1 = 115.637;
+        double y1 = 39.247;
+        double x2 = 117.099;
+        double y2 = 40.408;
+        extent = new Bounds2d(x1, x2, y1, y2);
     }
 
     /**
