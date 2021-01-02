@@ -4,15 +4,17 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.pmw.tinylog.Level;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
+import nl.tudelft.simulation.dsol.swing.gui.control.DEVSControlPanel;
 import nl.tudelft.simulation.dsol.swing.gui.inputparameters.TabbedParameterDialog;
 
 /**
@@ -29,11 +31,12 @@ public class MM1QueueSwingApplication extends DSOLApplication
 {
     /**
      * @param title String; the title
-     * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
+     * @param panel DSOLPanel; the panel
      */
-    public MM1QueueSwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
+    public MM1QueueSwingApplication(final String title, final DSOLPanel panel)
     {
-        super(title, panel);
+        super(panel, title);
+        panel.enableSimulationControlButtons();
     }
 
     /** */
@@ -66,7 +69,7 @@ public class MM1QueueSwingApplication extends DSOLApplication
      * <br>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
      */
-    protected static class MM1QueuePanel extends DSOLPanel<Double, Double, SimTimeDouble>
+    protected static class MM1QueuePanel extends DSOLPanel
     {
         /** */
         private static final long serialVersionUID = 1L;
@@ -74,11 +77,14 @@ public class MM1QueueSwingApplication extends DSOLApplication
         /**
          * @param model MM1QueueModel; the model
          * @param simulator DEVSSimulator.TimeDouble; the simulator
+         * @throws RemoteException on error
          */
-        MM1QueuePanel(final MM1QueueModel model, final DEVSSimulator.TimeDouble simulator)
+        MM1QueuePanel(final MM1QueueModel model, final DEVSSimulator.TimeDouble simulator) throws RemoteException
         {
-            super(model, simulator);
+            super(new DEVSControlPanel.TimeDouble(model, simulator));
             addTabs(model);
+            addConsoleLogger(Level.INFO);
+            addConsoleOutput();
         }
 
         /**
@@ -89,7 +95,7 @@ public class MM1QueueSwingApplication extends DSOLApplication
         {
             TablePanel charts = new TablePanel(2, 1);
             super.tabbedPane.addTab("statistics", charts);
-            super.tabbedPane.setSelectedIndex(1);
+            super.tabbedPane.setSelectedIndex(0);
             charts.setCell(model.serviceTimeChart.getSwingPanel(), 0, 0);
             charts.setCell(model.serviceTimeBWChart.getSwingPanel(), 1, 0);
         }

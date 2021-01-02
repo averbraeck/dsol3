@@ -2,11 +2,11 @@ package nl.tudelft.simulation.examples.dsol.dess;
 
 import java.rmi.RemoteException;
 
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.table.PersistentTableModel;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
+import nl.tudelft.simulation.dsol.swing.gui.control.GenericControlPanel;
 import nl.tudelft.simulation.dsol.swing.statistics.StatisticsTable;
 
 /**
@@ -19,7 +19,7 @@ import nl.tudelft.simulation.dsol.swing.statistics.StatisticsTable;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DESSPanel extends DSOLPanel<Double, Double, SimTimeDouble>
+public class DESSPanel extends DSOLPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -31,12 +31,12 @@ public class DESSPanel extends DSOLPanel<Double, Double, SimTimeDouble>
      */
     public DESSPanel(final DESSModel model, final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException
     {
-        super(model, simulator);
+        super(new GenericControlPanel<>(model, simulator));
 
         // add a chart for the demo.
         TablePanel charts = new TablePanel(2, 1);
         super.tabbedPane.addTab("statistics", charts);
-        super.tabbedPane.setSelectedIndex(1);
+        super.tabbedPane.setSelectedIndex(0);
         charts.setCell(model.getDistanceChart().getSwingPanel(), 0, 0);
         StatisticsTable distanceTable = new StatisticsTable(new PersistentTableModel(model.getDistancePersistent()));
         charts.setCell(distanceTable.getSwingPanel(), 1, 0);

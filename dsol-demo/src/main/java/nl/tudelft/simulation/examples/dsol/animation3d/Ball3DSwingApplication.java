@@ -1,20 +1,20 @@
 package nl.tudelft.simulation.examples.dsol.animation3d;
 
-import java.awt.Dimension;
-import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
+import org.djutils.draw.bounds.Bounds2d;
+
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
-import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
+import nl.tudelft.simulation.dsol.simulators.DEVDESSAnimator;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
+import nl.tudelft.simulation.dsol.swing.gui.animation.DSOLAnimationTab;
+import nl.tudelft.simulation.dsol.swing.gui.control.GenericControlPanel;
 import nl.tudelft.simulation.language.DSOLException;
 
 /**
@@ -33,9 +33,10 @@ public class Ball3DSwingApplication extends DSOLApplication
      * @param title String; the title
      * @param panel DSOLPanel&lt;Double,Double,SimTimeDouble&gt;; the panel
      */
-    public Ball3DSwingApplication(final String title, final DSOLPanel<Double, Double, SimTimeDouble> panel)
+    public Ball3DSwingApplication(final String title, final DSOLPanel panel)
     {
-        super(title, panel);
+        super(panel, title);
+        panel.enableSimulationControlButtons();
     }
 
     /** */
@@ -51,15 +52,15 @@ public class Ball3DSwingApplication extends DSOLApplication
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException, DSOLException
     {
         // TODO: Make 3D examples work with Java-8 and provide good instructions
-        DESSSimulator.TimeDouble simulator = new DESSSimulator.TimeDouble("Ball3DSwingApplication", 0.01);
+        DEVDESSAnimator.TimeDouble simulator = new DEVDESSAnimator.TimeDouble("Ball3DSwingApplication", 0.01);
         BallModel3D model = new BallModel3D(simulator);
         Replication.TimeDouble<DESSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-        DSOLPanel<Double, Double, SimTimeDouble> panel = new DSOLPanel<Double, Double, SimTimeDouble>(model, simulator);
-        panel.getTabbedPane().add("animation",
-                new AnimationPanel(new Rectangle2D.Double(-100, -100, 200, 200), new Dimension(200, 200), simulator));
-        panel.getTabbedPane().setSelectedIndex(1);
         simulator.initialize(replication, ReplicationMode.TERMINATING);
+
+        DSOLPanel panel = new DSOLPanel(new GenericControlPanel.TimeDouble(model, simulator));
+        panel.getTabbedPane().add("animation",
+                new DSOLAnimationTab(new Bounds2d(-100, 100, -100, 100), simulator));
         new Ball3DSwingApplication("Ball 3D Animation model", panel);
     }
 

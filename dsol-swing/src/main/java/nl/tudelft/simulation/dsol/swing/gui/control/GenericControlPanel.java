@@ -70,7 +70,7 @@ public class GenericControlPanel<A extends Comparable<A> & Serializable, R exten
          *            specified with a DEVSAnimator, whereas the panel needs a RealTimeControlAnimator)
          * @throws RemoteException when simulator cannot be accessed for listener attachment
          */
-        public TimeDouble(final DSOLModel.TimeDouble<SimulatorInterface.TimeDouble> model,
+        public TimeDouble(final DSOLModel.TimeDouble<? extends SimulatorInterface.TimeDouble> model,
                 final SimulatorInterface.TimeDouble simulator) throws RemoteException
         {
             super(model, simulator);
