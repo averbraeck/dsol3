@@ -1,22 +1,18 @@
 package nl.tudelft.simulation.dsol.tutorial.section41;
 
-import java.awt.Dimension;
-import java.awt.geom.Rectangle2D;
 import java.rmi.RemoteException;
 
 import org.djutils.stats.summarizers.event.StatisticsEvents;
+import org.pmw.tinylog.Level;
 
-import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.statistics.table.PersistentTableModel;
 import nl.tudelft.simulation.dsol.statistics.table.TallyTableModel;
 import nl.tudelft.simulation.dsol.swing.charts.boxAndWhisker.BoxAndWhiskerChart;
 import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
-import nl.tudelft.simulation.dsol.swing.gui.DEVSSimulatorPanel;
+import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 import nl.tudelft.simulation.dsol.swing.gui.TablePanel;
-import nl.tudelft.simulation.dsol.swing.gui.animation.DSOLAnimationPanel;
+import nl.tudelft.simulation.dsol.swing.gui.control.DEVSControlPanel;
 import nl.tudelft.simulation.dsol.swing.statistics.StatisticsTable;
 import nl.tudelft.simulation.language.DSOLException;
 
@@ -30,21 +26,23 @@ import nl.tudelft.simulation.language.DSOLException;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class MM1Queue41Panel extends DEVSSimulatorPanel.TimeDouble
+public class MM1Queue41Panel extends DSOLPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
 
     /**
+     * @param controlPanel DEVSControlPanel; the control panel
      * @param model MM1Queue41Model; the model
-     * @param simulator DEVSSimulator.TimeDouble; the simulator
      * @throws DSOLException on error
      * @throws RemoteException on error
      */
-    public MM1Queue41Panel(final MM1Queue41Model model, final DEVSSimulator.TimeDouble simulator) throws RemoteException, DSOLException
+    public MM1Queue41Panel(final DEVSControlPanel.TimeDouble controlPanel, final MM1Queue41Model model)
+            throws RemoteException, DSOLException
     {
-        super(simulator, model, controlPanel);
+        super(controlPanel);
         addTabs(model);
+        enableSimulationControlButtons();
     }
 
     /**
@@ -55,21 +53,23 @@ public class MM1Queue41Panel extends DEVSSimulatorPanel.TimeDouble
     {
         TablePanel charts = new TablePanel(4, 3);
         super.tabbedPane.addTab("statistics", charts);
-        super.tabbedPane.setSelectedIndex(1);
+        super.tabbedPane.setSelectedIndex(0);
+        addConsoleLogger(Level.TRACE);
+        addConsoleOutput();
 
         try
         {
             // dN
 
-            XYChart dNVal = new XYChart(this.simulator, "time in queue (dN)").setLabelXAxis("time (s)").setLabelYAxis("dN");
+            XYChart dNVal = new XYChart(getSimulator(), "time in queue (dN)").setLabelXAxis("time (s)").setLabelYAxis("dN");
             dNVal.add("dN value", model.dN, StatisticsEvents.OBSERVATION_ADDED_EVENT);
             charts.setCell(dNVal.getSwingPanel(), 0, 0);
 
-            XYChart dN = new XYChart(this.simulator, "avg time in queue").setLabelXAxis("time (s)").setLabelYAxis("avg dN");
+            XYChart dN = new XYChart(getSimulator(), "avg time in queue").setLabelXAxis("time (s)").setLabelYAxis("avg dN");
             dN.add("dN mean", model.dN, StatisticsEvents.SAMPLE_MEAN_EVENT);
             charts.setCell(dN.getSwingPanel(), 1, 0);
 
-            BoxAndWhiskerChart bwdN = new BoxAndWhiskerChart(this.simulator, "dN boxplot");
+            BoxAndWhiskerChart bwdN = new BoxAndWhiskerChart(getSimulator(), "dN boxplot");
             bwdN.add(model.dN);
             charts.setCell(bwdN.getSwingPanel(), 2, 0);
 
@@ -78,15 +78,15 @@ public class MM1Queue41Panel extends DEVSSimulatorPanel.TimeDouble
 
             // qN
 
-            XYChart qNVal = new XYChart(this.simulator, "queue length (qN)").setLabelXAxis("time (s)").setLabelYAxis("qN");
+            XYChart qNVal = new XYChart(getSimulator(), "queue length (qN)").setLabelXAxis("time (s)").setLabelYAxis("qN");
             qNVal.add("qN value", model.qN, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT);
             charts.setCell(qNVal.getSwingPanel(), 0, 1);
 
-            XYChart qN = new XYChart(this.simulator, "avg queue length").setLabelXAxis("time (s)").setLabelYAxis("avg qN");
+            XYChart qN = new XYChart(getSimulator(), "avg queue length").setLabelXAxis("time (s)").setLabelYAxis("avg qN");
             qN.add("qN mean", model.qN, StatisticsEvents.TIMED_WEIGHTED_SAMPLE_MEAN_EVENT);
             charts.setCell(qN.getSwingPanel(), 1, 1);
 
-            BoxAndWhiskerChart bwqN = new BoxAndWhiskerChart(this.simulator, "qN boxplot");
+            BoxAndWhiskerChart bwqN = new BoxAndWhiskerChart(getSimulator(), "qN boxplot");
             bwqN.add(model.qN);
             charts.setCell(bwqN.getSwingPanel(), 2, 1);
 
@@ -95,16 +95,16 @@ public class MM1Queue41Panel extends DEVSSimulatorPanel.TimeDouble
 
             // uN
 
-            XYChart utilization = new XYChart(this.simulator, "utilization").setLabelXAxis("time (s)").setLabelYAxis("uN");
+            XYChart utilization = new XYChart(getSimulator(), "utilization").setLabelXAxis("time (s)").setLabelYAxis("uN");
             utilization.add("utilization", model.uN, SimPersistent.TIMED_OBSERVATION_ADDED_EVENT);
             charts.setCell(utilization.getSwingPanel(), 0, 2);
 
             XYChart meanUtilization =
-                    new XYChart(this.simulator, "avg utilization (uN)").setLabelXAxis("time (s)").setLabelYAxis("avg uN");
+                    new XYChart(getSimulator(), "avg utilization (uN)").setLabelXAxis("time (s)").setLabelYAxis("avg uN");
             meanUtilization.add("mean utilization", model.uN, StatisticsEvents.TIMED_WEIGHTED_SAMPLE_MEAN_EVENT);
             charts.setCell(meanUtilization.getSwingPanel(), 1, 2);
 
-            BoxAndWhiskerChart bwuN = new BoxAndWhiskerChart(this.simulator, "uN boxplot");
+            BoxAndWhiskerChart bwuN = new BoxAndWhiskerChart(getSimulator(), "uN boxplot");
             bwuN.add(model.uN);
             charts.setCell(bwuN.getSwingPanel(), 2, 2);
 

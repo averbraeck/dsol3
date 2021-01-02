@@ -43,7 +43,7 @@ public class MM1Queue41Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator.
     @SuppressWarnings("checkstyle:visibilitymodifier")
     SimTally.TimeDouble dN;
 
-    /** tally qN. */
+    /** persistent qN. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     SimPersistent.TimeDouble qN;
 
