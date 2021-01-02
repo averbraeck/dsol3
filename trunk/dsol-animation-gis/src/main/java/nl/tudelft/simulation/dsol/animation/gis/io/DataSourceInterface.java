@@ -5,8 +5,9 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
+import org.djutils.draw.bounds.Bounds2d;
+
 import nl.tudelft.simulation.dsol.animation.gis.GisObject;
-import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
 
 /**
  * DataSourceInterface is the connector between the reader of a GIS file and the display in the DSOL animation.
@@ -64,11 +65,11 @@ public interface DataSourceInterface extends Serializable
 
     /**
      * returns the shapes of the particular data source in a particular extent.
-     * @param rectangle SerializableRectangle2D; the extent of the box (in geo-coordinates)
+     * @param rectangle Bounds2d; the extent of the box (in geo-coordinates)
      * @return List the resulting ArrayList of <code>nl.javel.gisbeans.geom.GisObject</code>
      * @throws IOException on IOFailure
      */
-    List<GisObject> getShapes(SerializableRectangle2D rectangle) throws IOException;
+    List<GisObject> getShapes(Bounds2d rectangle) throws IOException;
 
     /**
      * returns the shapes based on a particular value of the attributes.

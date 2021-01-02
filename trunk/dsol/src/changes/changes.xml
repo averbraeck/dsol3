@@ -6,6 +6,10 @@
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
     <release version="3.05.00" date="2020-12-30" description="dependences, javadocs, gis, djutils-draw">
+      <action dev="averbraeck" type="fix">
+        The DEVSRealTimeAnimator did not fire a SimulatorInterface.TIME_CHANGED_EVENT on every occasion when
+        the simulator time was changed. This has been repaired.
+      </action> 
       <action dev="averbraeck" type="update">
         Updated the Renderable2D to not contain anymore: a unique pointer to a logger (8 bytes), a unique long id
         (8 bytes), and the animation context (8 bytes), saving 24 bytes per animation object. The only change

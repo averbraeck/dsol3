@@ -1,6 +1,5 @@
 package nl.tudelft.simulation.dsol.animation.D2;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.MediaTracker;
 import java.awt.geom.Point2D;
@@ -15,8 +14,10 @@ import java.util.Map;
 import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 
+import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
 import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.Point3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation3d;
@@ -34,9 +35,9 @@ import nl.tudelft.simulation.language.d3.BoundsUtil;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
- * @param <T> the Locatable class of the source that indicates the location of the Renderable on the screen
+ * @param <L> the Locatable class of the source that indicates the location of the Renderable on the screen
  */
-public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<T>
+public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<L>
 {
     /** */
     private static final long serialVersionUID = 20200108L;
@@ -88,7 +89,7 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public ImageRenderable(final T source, final SimulatorInterface<?, ?, ?> simulator, final URL[] images)
+    public ImageRenderable(final L source, final SimulatorInterface<?, ?, ?> simulator, final URL[] images)
             throws RemoteException, NamingException
     {
         super(source, simulator);
@@ -121,34 +122,34 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     /**
      * constructs a new ImageRenderable.
      * @param staticLocation DirectedPoint3d; the static location of the set of imageIcons
-     * @param size Dimension; the size of the imageIcons in world coordinates.
+     * @param size Bounds3; the size of the imageIcons in world coordinates.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
      * @param images URL[]; the imageIcons to display.
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
     @SuppressWarnings("unchecked")
-    public ImageRenderable(final DirectedPoint3d staticLocation, final Dimension size,
+    public ImageRenderable(final DirectedPoint3d staticLocation, final Bounds3d size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
-        this((T) new StaticLocation3d(staticLocation, new Bounds3d(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
+        this((L) new StaticLocation3d(staticLocation, size), simulator, images);
     }
 
     /**
      * constructs a new ImageRenderable.
-     * @param staticLocation Point2D; the static location of the set of imageIcons
-     * @param size Dimension; the size of the imageIcons in world coordinates.
+     * @param staticLocation Point3d; the static location of the set of imageIcons
+     * @param size Bounds3d; the size of the imageIcons in world coordinates.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
      * @param images URL[]; the imageIcons to display.
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
     @SuppressWarnings("unchecked")
-    public ImageRenderable(final Point2D staticLocation, final Dimension size, final SimulatorInterface<?, ?, ?> simulator,
+    public ImageRenderable(final Point3d staticLocation, final Bounds3d size, final SimulatorInterface<?, ?, ?> simulator,
             final URL[] images) throws RemoteException, NamingException
     {
-        this((T) new StaticLocation3d(new DirectedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
-                new Bounds3d(size.getWidth(), size.getHeight(), 0.0)), simulator, images);
+        this((L) new StaticLocation3d(new DirectedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
+                new Bounds3d(size.getDeltaX(), size.getDeltaY(), 0.0)), simulator, images);
     }
 
     /** {@inheritDoc} */
@@ -161,14 +162,12 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
         {
             return;
         }
-        Dimension size =
-                BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getZ())
-                        .getBounds().getSize();
+        Bounds2d size = BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getZ());
         Point2D origin = this.resolveOrigin(this.orientation, size);
         graphics.translate(origin.getX(), origin.getY());
         graphics.scale(0.001, 0.001);
-        graphics.drawImage(this.imageIcons[image].getImage(), 0, 0, (int) (1000 * size.getWidth()),
-                (int) (1000 * size.getHeight()), observer);
+        graphics.drawImage(this.imageIcons[image].getImage(), 0, 0, (int) (1000 * size.getDeltaX()),
+                (int) (1000 * size.getDeltaY()), observer);
         graphics.scale(1000, 1000);
         graphics.translate(-origin.getX(), -origin.getY());
     }
@@ -199,42 +198,42 @@ public abstract class ImageRenderable<T extends Locatable> extends Renderable2D<
     /**
      * resolves the origin of the image
      * @param _orientation short; the orientation (CC,..)
-     * @return Point2D the location
+     * @return Bounds2d the location
      * @param size Dimension; the size of the image.
      */
-    protected Point2D resolveOrigin(final short _orientation, final Dimension size)
+    protected Point2D resolveOrigin(final short _orientation, final Bounds2d size)
     {
         Point2D imageOrigin = new Point2D.Double(0.0, 0.0);
         switch (_orientation)
         {
             case ImageRenderable.LB:
-                imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY() - size.getHeight());
+                imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY() - size.getDeltaY());
                 return imageOrigin;
             case ImageRenderable.CB:
-                imageOrigin.setLocation(imageOrigin.getX() - 0.5 * size.getWidth(), imageOrigin.getY() - size.getHeight());
+                imageOrigin.setLocation(imageOrigin.getX() - 0.5 * size.getDeltaX(), imageOrigin.getY() - size.getDeltaY());
                 return imageOrigin;
             case ImageRenderable.RB:
-                imageOrigin.setLocation(imageOrigin.getX() - 1.0 * size.getWidth(), imageOrigin.getY() - size.getHeight());
+                imageOrigin.setLocation(imageOrigin.getX() - 1.0 * size.getDeltaX(), imageOrigin.getY() - size.getDeltaY());
                 return imageOrigin;
             case ImageRenderable.LC:
-                imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY() - 0.5 * size.getHeight());
+                imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY() - 0.5 * size.getDeltaY());
                 return imageOrigin;
             case ImageRenderable.CC:
-                imageOrigin.setLocation(imageOrigin.getX() - 0.5 * size.getWidth(),
-                        imageOrigin.getY() - 0.5 * size.getHeight());
+                imageOrigin.setLocation(imageOrigin.getX() - 0.5 * size.getDeltaX(),
+                        imageOrigin.getY() - 0.5 * size.getDeltaY());
                 return imageOrigin;
             case ImageRenderable.RC:
-                imageOrigin.setLocation(imageOrigin.getX() - 1.0 * size.getWidth(),
-                        imageOrigin.getY() - 0.5 * size.getHeight());
+                imageOrigin.setLocation(imageOrigin.getX() - 1.0 * size.getDeltaX(),
+                        imageOrigin.getY() - 0.5 * size.getDeltaY());
                 return imageOrigin;
             case ImageRenderable.LT:
                 imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY());
                 return imageOrigin;
             case ImageRenderable.CT:
-                imageOrigin.setLocation(imageOrigin.getX() - 0.5 * size.getWidth(), imageOrigin.getY());
+                imageOrigin.setLocation(imageOrigin.getX() - 0.5 * size.getDeltaX(), imageOrigin.getY());
                 return imageOrigin;
             case ImageRenderable.RT:
-                imageOrigin.setLocation(imageOrigin.getX() - 1.0 * size.getWidth(), imageOrigin.getY());
+                imageOrigin.setLocation(imageOrigin.getX() - 1.0 * size.getDeltaX(), imageOrigin.getY());
                 return imageOrigin;
             default:
                 throw new IllegalArgumentException("unknown origin location");
