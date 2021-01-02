@@ -15,7 +15,7 @@ import org.djutils.event.ref.ReferenceType;
  * indicates for which part of the tree notifications will be triggered. The listeners will be subscribed to three events for
  * the part of the context: OBJECT_ADDED_EVENT, OBJECT_REMOVED_EVENT and OBJECT_CHANGED_EVENT.
  * <p>
- * Copyright (c) 2020-2020 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
