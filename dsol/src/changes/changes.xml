@@ -5,7 +5,31 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.05.00" date="2020-12-30" description="dependences, javadocs, gis, djutils-draw">
+    <release version="3.05.01" date="2020-12-21" description="dependences, javadocs, gis, djutils-draw">
+      <action dev="averbraeck" type="add">
+        All gui code in dsol-swing has been updated to allow for easier control of the simulation model. This is
+        a major change that needs all interactive code to be changed. See the examples in dsol-demo.
+      </action>
+      <action dev="averbraeck" type="update">
+        The gui code in dsol-swing has been partitioned into a number of packages. 
+      </action>
+      <action dev="averbraeck" type="add">
+        A logger console and a stdout/stderr console have been added to dsol-swing.
+      </action>
+      <action dev="averbraeck" type="update">
+        All interactive examples in dsol-demo have been updated to comply with the changes in dsol-swing. 
+      </action>
+      <action dev="averbraeck" type="fix">
+        All code in dsol-animation-gis has been updated to comply with the changes in dsol-swing. 
+      </action>
+      <action dev="averbraeck" type="fix">
+        The GIS map code that was not yet working in version 3.05.00 has been updated to the latest version. See the
+        GUI demo in dsol-demo for an example of its use. 
+      </action>
+      <action dev="averbraeck" type="fix">
+        In dsol animation, world coordinates are now using djutils-draw primitives. Screen coordinates use 
+        awt/swing primitives.
+      </action>
       <action dev="averbraeck" type="fix">
         The DEVSRealTimeAnimator did not fire a SimulatorInterface.TIME_CHANGED_EVENT on every occasion when
         the simulator time was changed. This has been repaired.
@@ -16,6 +40,16 @@
         in the interface is tha the destroy() method now needs the simulator as an argument to be able to 
         find the animation context.
       </action>
+      <action dev="averbraeck" type="fix">
+        The SimPersistent statistic has been updated to always fire the TIMED_OBSERVATION_ADDED_EVENT event when a new 
+        value is ingested. 
+      </action>
+      <action dev="averbraeck" type="update">
+        The dsol checkstyle is more strict on javadoc, to comply with JDK8+ requirements.
+      </action>
+    </release>
+    
+    <release version="3.05.00" date="2020-12-30" description="dependences, javadocs, gis, djutils-draw">
       <action dev="averbraeck" type="add">
         The new dsol project dsol.animation.gis is able to read GIS files from ESRI Shape files, GeoJson and WKT
         sources. The footprint is a lot lower than the original implementation since xerces is not needed anymore

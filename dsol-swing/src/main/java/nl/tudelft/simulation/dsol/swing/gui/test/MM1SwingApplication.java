@@ -42,7 +42,7 @@ public class MM1SwingApplication extends DSOLApplication
      * @throws RemoteException on remote error
      * @throws NamingException on naming/animation error
      */
-    public static void main(String[] args) throws SimRuntimeException, RemoteException, NamingException
+    public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("MM1SwingApplication.Simulator");
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new MM1Model(simulator);

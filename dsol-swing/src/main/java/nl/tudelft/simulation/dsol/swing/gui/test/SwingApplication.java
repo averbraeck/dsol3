@@ -45,7 +45,7 @@ public class SwingApplication extends DSOLApplication
      * @throws NamingException on error with the context
      * @throws RemoteException on error with remote components
      */
-    public static void main(String[] args) throws NamingException, RemoteException
+    public static void main(final String[] args) throws NamingException, RemoteException
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("simulator");
         MyModel model = new MyModel(simulator);
@@ -67,7 +67,7 @@ public class SwingApplication extends DSOLApplication
         /**
          * @param simulator
          */
-        public MyModel(DEVSSimulator.TimeDouble simulator)
+        MyModel(final DEVSSimulator.TimeDouble simulator)
         {
             super(simulator);
         }

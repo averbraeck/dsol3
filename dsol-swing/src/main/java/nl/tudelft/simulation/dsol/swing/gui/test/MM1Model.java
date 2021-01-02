@@ -57,15 +57,19 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
     private int entityCounter = 0;
 
     /** statistics for the utilization. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     SimPersistent.TimeDouble persistentUtilization;
 
     /** statistics for the queue length. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     SimPersistent.TimeDouble persistentQueueLength;
 
     /** statistics for the time in queue. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     SimTally.TimeDouble tallyTimeInQueue;
 
     /** statistics for the time in system. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     SimTally.TimeDouble tallyTimeInSystem;
 
     /**
@@ -138,6 +142,7 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         System.out.println("Start Process: " + entity);
         this.persistentUtilization.ingest(this.busy);
         this.busy++;
+        this.persistentUtilization.ingest(this.busy);
         this.simulator.scheduleEventRel(this.processingTime.draw(), this, this, "endProcess", new Object[] {entity});
         this.tallyTimeInQueue.ingest(this.simulator.getSimulatorTime() - entity.getCreateTime());
     }
@@ -151,6 +156,7 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         System.out.println("End Process: " + entity);
         this.persistentUtilization.ingest(this.busy);
         this.busy--;
+        this.persistentUtilization.ingest(this.busy);
         if (!this.queue.isEmpty())
         {
             this.persistentQueueLength.ingest(this.queue.size());
@@ -215,13 +221,13 @@ public class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         private final double queueInTime;
 
         /** entity in the queue. */
-        final E entity;
+        private final E entity;
 
         /**
          * @param entity E; the entity to insert in the queue
          * @param queueInTime double; the time it gets into the queue
          */
-        public QueueEntry(E entity, double queueInTime)
+        public QueueEntry(final E entity, final double queueInTime)
         {
             super();
             this.entity = entity;
