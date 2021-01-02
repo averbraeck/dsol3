@@ -161,10 +161,14 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                         if (absSyncTime.lt(eventTime))
                         {
                             this.simulatorTime.set(absSyncTime.get());
+                            fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                                    this.simulatorTime);
                         }
                         else
                         {
                             this.simulatorTime.set(eventTime.get());
+                            fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                                    this.simulatorTime);
                         }
                     }
                 }
@@ -232,6 +236,8 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             if (nextEventSimTime.compareTo(this.simulatorTime.get()) > 0) // don't go back in time
                             {
                                 this.simulatorTime.set(nextEventSimTime);
+                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                                        this.simulatorTime);
                             }
                             wallMillisNextEventSinceBaseline = 0.0; // force breakout of the loop
                         }
@@ -240,6 +246,8 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             if (currentWallSimTime.compareTo(this.simulatorTime.get()) > 0) // don't go back in time
                             {
                                 this.simulatorTime.set(currentWallSimTime);
+                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                                        this.simulatorTime);
                             }
                         }
                     }
@@ -270,6 +278,8 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             {
                                 this.simulatorTime.set(this.runUntilTime);
                                 this.runState = RunState.STOPPING;
+                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                                        this.simulatorTime);
                                 break;
                             }
                             int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
@@ -277,6 +287,8 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             {
                                 this.simulatorTime.set(this.runUntilTime);
                                 this.runState = RunState.STOPPING;
+                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
+                                        this.simulatorTime);
                                 break;
                             }
                         }

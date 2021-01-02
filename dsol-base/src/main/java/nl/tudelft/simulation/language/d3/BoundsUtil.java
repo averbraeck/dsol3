@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.language.d3;
 
-import java.awt.geom.Rectangle2D;
-
 import org.djutils.draw.Transform2d;
 import org.djutils.draw.Transform3d;
 import org.djutils.draw.bounds.Bounds;
@@ -49,13 +47,13 @@ public final class BoundsUtil
      * translated with dx=2 and dy=2. When we ask the zIntersect for z=0 and point (2,2,2) we get null as we 'lifted' the
      * bounding box above the z-value. When center has a direction, the bounds is first rotated around the center after which
      * the translation takes place and the bounds on the z-height are calculated.
+     * @param center Point; the point relative to which the bounds need to be calculated
      * @param bounds Bounds; the bounds for which the intersection needs to be calculated. The Bounds3d are <b>relative to the
      *            center</b> that is provided
-     * @param center DirectedPoint3d; the point relative to which the bounds need to be calculated
      * @param zValue double; the zValue as the 'height' for which the bounds intersection is calculated
-     * @return Rectangle2D the resulting rectangle of the intersection
+     * @return Bounds2d the resulting rectangle of the intersection
      */
-    public static Rectangle2D zIntersect(final Point<?, ?> center, final Bounds<?, ?> bounds, final double zValue)
+    public static Bounds2d zIntersect(final Point<?, ?> center, final Bounds<?, ?> bounds, final double zValue)
     {
         if (center instanceof DirectedPoint3d && bounds instanceof Bounds3d)
         {
@@ -71,7 +69,7 @@ public final class BoundsUtil
             {
                 return null;
             }
-            return new Rectangle2D.Double(box.getMinX(), box.getMinY(), box.getDeltaX(), box.getDeltaY());
+            return box.project();
         }
         else if (center instanceof Point3d && bounds instanceof Bounds3d)
         {
@@ -84,7 +82,7 @@ public final class BoundsUtil
             {
                 return null;
             }
-            return new Rectangle2D.Double(box.getMinX(), box.getMinY(), box.getDeltaX(), box.getDeltaY());
+            return box.project();
         }
         else if (center instanceof DirectedPoint2d)
         {
@@ -98,7 +96,7 @@ public final class BoundsUtil
             {
                 return null;
             }
-            return new Rectangle2D.Double(box.getMinX(), box.getMinY(), box.getDeltaX(), box.getDeltaY());
+            return box;
         }
         Point2d center2d = (Point2d) center;
         Transform2d transform = new Transform2d();
@@ -109,7 +107,7 @@ public final class BoundsUtil
         {
             return null;
         }
-        return new Rectangle2D.Double(box.getMinX(), box.getMinY(), box.getDeltaX(), box.getDeltaY());
+        return box;
     }
 
     /**
