@@ -10,7 +10,7 @@ import javax.naming.NamingException;
 
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point2d;
 import org.djutils.logger.CategoryLogger;
 
@@ -41,7 +41,7 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
     protected GisMapInterface map = null;
 
     /** the location of the map. */
-    protected DirectedPoint3d location = null;
+    protected OrientedPoint3d location = null;
 
     /** the bounds of the map. */
     protected Bounds3d bounds = null;
@@ -85,7 +85,7 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         try
         {
             this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
-            this.location = new DirectedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
+            this.location = new OrientedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
             this.bounds = new Bounds3d(this.map.getExtent().getDeltaX(), this.map.getExtent().getDeltaY(), 0.0);
             // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
             // XXX this.map.getExtent());
@@ -114,7 +114,7 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         try
         {
             this.map = map;
-            this.location = new DirectedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
+            this.location = new OrientedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
             this.bounds = new Bounds3d(this.map.getExtent().getDeltaX(), this.map.getExtent().getDeltaY(), 100.0);
             // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
             // XXX this.map.getExtent());
@@ -176,7 +176,7 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint3d getLocation()
+    public OrientedPoint3d getLocation()
     {
         return this.location;
     }

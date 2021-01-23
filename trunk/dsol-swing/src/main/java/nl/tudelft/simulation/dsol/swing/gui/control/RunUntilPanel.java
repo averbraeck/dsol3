@@ -49,7 +49,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     private static final long serialVersionUID = 20141211L;
 
     /** the simulator. */
-    final SimulatorInterface<A, R, T> simulator;
+    private final SimulatorInterface<A, R, T> simulator;
 
     /** the input field. */
     private final JFormattedTextField textField;

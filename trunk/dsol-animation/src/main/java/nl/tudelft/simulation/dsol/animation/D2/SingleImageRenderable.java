@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
@@ -60,14 +60,14 @@ public class SingleImageRenderable<L extends Locatable> extends ImageRenderable<
 
     /**
      * constructs a new SingleImageRenderable
-     * @param staticLocation DirectedPoint3d; the static location
+     * @param staticLocation OrientedPoint3d; the static location
      * @param size Bounds3d; the size of the image
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @param image URL; the image
      * @throws NamingException when animation context cannot be created or retrieved
      * @throws RemoteException when remote context cannot be found
      */
-    public SingleImageRenderable(final DirectedPoint3d staticLocation, final Bounds3d size,
+    public SingleImageRenderable(final OrientedPoint3d staticLocation, final Bounds3d size,
             final SimulatorInterface<?, ?, ?> simulator, final URL image) throws RemoteException, NamingException
     {
         super(staticLocation, size, simulator, new URL[] {image});
