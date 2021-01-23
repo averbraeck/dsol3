@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.animation;
 
 import java.rmi.RemoteException;
 
-import org.djutils.draw.Directed;
+import org.djutils.draw.Oriented;
 import org.djutils.draw.bounds.Bounds;
 import org.djutils.draw.point.Point;
 import org.djutils.draw.point.Point3d;
@@ -22,7 +22,7 @@ public interface Locatable
 {
     /**
      * returns the location of an object.
-     * @return DirectedPoint3d the location
+     * @return OrientedPoint3d the location
      * @throws RemoteException on network failure
      */
     Point<?, ?> getLocation() throws RemoteException;
@@ -46,7 +46,7 @@ public interface Locatable
     default double getDirZ() throws RemoteException
     {
         Point<?, ?> p = getLocation();
-        return p instanceof Directed ? ((Directed<?>) p).getDirZ() : 0.0;
+        return p instanceof Oriented ? ((Oriented<?>) p).getDirZ() : 0.0;
     }
 
     /**

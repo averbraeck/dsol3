@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point3d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
@@ -121,7 +121,7 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
 
     /**
      * constructs a new ImageRenderable.
-     * @param staticLocation DirectedPoint3d; the static location of the set of imageIcons
+     * @param staticLocation OrientedPoint3d; the static location of the set of imageIcons
      * @param size Bounds3; the size of the imageIcons in world coordinates.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
      * @param images URL[]; the imageIcons to display.
@@ -129,7 +129,7 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
      * @throws RemoteException when remote context cannot be found
      */
     @SuppressWarnings("unchecked")
-    public ImageRenderable(final DirectedPoint3d staticLocation, final Bounds3d size,
+    public ImageRenderable(final OrientedPoint3d staticLocation, final Bounds3d size,
             final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
     {
         this((L) new StaticLocation3d(staticLocation, size), simulator, images);
@@ -148,7 +148,7 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
     public ImageRenderable(final Point3d staticLocation, final Bounds3d size, final SimulatorInterface<?, ?, ?> simulator,
             final URL[] images) throws RemoteException, NamingException
     {
-        this((L) new StaticLocation3d(new DirectedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
+        this((L) new StaticLocation3d(new OrientedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
                 new Bounds3d(size.getDeltaX(), size.getDeltaY(), 0.0)), simulator, images);
     }
 

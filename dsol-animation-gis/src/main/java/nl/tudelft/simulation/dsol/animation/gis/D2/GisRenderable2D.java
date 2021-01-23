@@ -11,7 +11,7 @@ import javax.naming.NamingException;
 
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point2d;
 import org.djutils.logger.CategoryLogger;
 
@@ -57,7 +57,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
 
     /** the location of the map. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected DirectedPoint3d location = null;
+    protected OrientedPoint3d location = null;
 
     /** the bounds of the map. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -103,7 +103,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         {
             this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
             this.cachedExtent = this.map.getExtent();
-            this.location = new DirectedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(), z);
+            this.location = new OrientedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(), z);
             this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
             this.bind2Context(simulator);
         }
@@ -130,7 +130,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         try
         {
             this.map = map;
-            this.location = new DirectedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(), z);
+            this.location = new OrientedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(), z);
             this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
             this.bind2Context(simulator);
         }
@@ -198,7 +198,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint3d getLocation()
+    public OrientedPoint3d getLocation()
     {
         return this.location;
     }
@@ -224,7 +224,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
         bg.dispose();
         this.cachedScreenSize = (Dimension) this.map.getImage().getSize().clone();
         this.cachedExtent = this.map.getExtent();
-        this.location = new DirectedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(),
+        this.location = new OrientedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(),
                 -Double.MIN_VALUE);
         this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
     }

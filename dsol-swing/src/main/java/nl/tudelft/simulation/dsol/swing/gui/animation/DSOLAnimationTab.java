@@ -681,7 +681,7 @@ public class DSOLAnimationTab extends JPanel implements ActionListener, EventLis
     // {
     // try
     // {
-    // DirectedPoint3d point = locatable.getLocation();
+    // OrientedPoint3d point = locatable.getLocation();
     // if (point != null) // Center extent around point
     // {
     // double w = this.extent.getWidth();

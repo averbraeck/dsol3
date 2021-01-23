@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.event.EventProducer;
 import org.djutils.io.URLResource;
 import org.djutils.logger.CategoryLogger;
@@ -61,7 +61,7 @@ public abstract class Editable extends EventProducer implements Locatable
      * the location of the editable.
      */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected DirectedPoint3d location = null;
+    protected OrientedPoint3d location = null;
 
     /**
      * the location of the bounds.
@@ -87,9 +87,9 @@ public abstract class Editable extends EventProducer implements Locatable
     /**
      * constructs a new Editable.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to schedule on
-     * @param location DirectedPoint3d; the initial location
+     * @param location OrientedPoint3d; the initial location
      */
-    public Editable(final SimulatorInterface<?, ?, ?> simulator, final DirectedPoint3d location)
+    public Editable(final SimulatorInterface<?, ?, ?> simulator, final OrientedPoint3d location)
     {
         super();
         this.simulator = simulator;
@@ -115,9 +115,9 @@ public abstract class Editable extends EventProducer implements Locatable
 
     /**
      * sets the location of this editable.
-     * @param location DirectedPoint3d; the new location of this editable
+     * @param location OrientedPoint3d; the new location of this editable
      */
-    public void setLocation(final DirectedPoint3d location)
+    public void setLocation(final OrientedPoint3d location)
     {
         this.location = location;
     }
@@ -140,7 +140,7 @@ public abstract class Editable extends EventProducer implements Locatable
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint3d getLocation()
+    public OrientedPoint3d getLocation()
     {
         return this.location;
     }

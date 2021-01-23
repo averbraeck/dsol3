@@ -5,7 +5,22 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.05.01" date="2020-12-21" description="dependences, javadocs, gis, djutils-draw">
+    <release version="3.05.02" date="2021-01-03" description="connectors for maps and graphs">
+      <action dev="averbraeck" type="add">
+        Instead of a fixed connection to maps and graphs, a "loose" connector has been made that allows different
+        graph and map packages to be wrapped and displayed in a DSOL simulation or animation. Several of the map and
+        graph interfaces have been created or moved to dsol-animation.
+      </action>
+      <action dev="averbraeck" type="remove">
+        3d animation has been removed for now, as java3d is not used anymore in DSOL, and there is no good 
+        internal alternative. Possibly an external alternative such as Unity can be explored later. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Update to the latest version of djutils-draw caused DirectedPoint to be renamed to OrientedPoint. 
+      </action>
+    </release>
+    
+    <release version="3.05.01" date="2021-01-02" description="dsol gui for swing re-implemented">
       <action dev="averbraeck" type="add">
         All gui code in dsol-swing has been updated to allow for easier control of the simulation model. This is
         a major change that needs all interactive code to be changed. See the examples in dsol-demo.

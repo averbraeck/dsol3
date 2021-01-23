@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.animation.interpolation;
 
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 
 /**
  * A LinearInterpolation.
@@ -24,22 +24,22 @@ public class LinearInterpolation implements InterpolationInterface
     /**
      * the origin
      */
-    private DirectedPoint3d origin = null;
+    private OrientedPoint3d origin = null;
 
     /**
      * the destination
      */
-    private DirectedPoint3d destination = null;
+    private OrientedPoint3d destination = null;
 
     /**
      * constructs a new LinearInterpolation.
      * @param startTime double; the startingTime
      * @param endTime double; the endTime
-     * @param origin DirectedPoint3d; the origin
-     * @param destination DirectedPoint3d; the destination
+     * @param origin OrientedPoint3d; the origin
+     * @param destination OrientedPoint3d; the destination
      */
-    public LinearInterpolation(final double startTime, final double endTime, final DirectedPoint3d origin,
-            final DirectedPoint3d destination)
+    public LinearInterpolation(final double startTime, final double endTime, final OrientedPoint3d origin,
+            final OrientedPoint3d destination)
     {
         super();
         if (endTime < startTime)
@@ -54,7 +54,7 @@ public class LinearInterpolation implements InterpolationInterface
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint3d getLocation(final double time)
+    public OrientedPoint3d getLocation(final double time)
     {
         if (time <= this.startTime)
         {
@@ -71,6 +71,6 @@ public class LinearInterpolation implements InterpolationInterface
         double rotY = this.origin.getDirY() + (this.destination.getDirY() - this.origin.getDirY()) * fraction;
         double rotZ = this.origin.getDirZ() + (this.destination.getDirZ() - this.origin.getDirZ()) * fraction;
         double rotX = this.origin.getDirX() + (this.destination.getDirX() - this.origin.getDirX()) * fraction;
-        return new DirectedPoint3d(x, y, z, rotX, rotY, rotZ);
+        return new OrientedPoint3d(x, y, z, rotX, rotY, rotZ);
     }
 }

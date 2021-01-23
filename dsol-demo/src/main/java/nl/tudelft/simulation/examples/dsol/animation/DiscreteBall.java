@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -80,11 +80,11 @@ public class DiscreteBall extends Ball
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint3d getLocation() throws RemoteException
+    public OrientedPoint3d getLocation() throws RemoteException
     {
         double fraction = (this.simulator.getSimulatorTime() - this.startTime) / (this.stopTime - this.startTime);
         double x = this.origin.getX() + (this.destination.getX() - this.origin.getX()) * fraction;
         double y = this.origin.getY() + (this.destination.getY() - this.origin.getY()) * fraction;
-        return new DirectedPoint3d(x, y, 0, 0.0, 0.0, this.theta);
+        return new OrientedPoint3d(x, y, 0, 0.0, 0.0, this.theta);
     }
 }

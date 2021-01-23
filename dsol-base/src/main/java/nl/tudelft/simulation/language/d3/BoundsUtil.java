@@ -5,8 +5,8 @@ import org.djutils.draw.Transform3d;
 import org.djutils.draw.bounds.Bounds;
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint2d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint2d;
+import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point;
 import org.djutils.draw.point.Point2d;
 import org.djutils.draw.point.Point3d;
@@ -55,9 +55,9 @@ public final class BoundsUtil
      */
     public static Bounds2d zIntersect(final Point<?, ?> center, final Bounds<?, ?> bounds, final double zValue)
     {
-        if (center instanceof DirectedPoint3d && bounds instanceof Bounds3d)
+        if (center instanceof OrientedPoint3d && bounds instanceof Bounds3d)
         {
-            DirectedPoint3d center3d = (DirectedPoint3d) center;
+            OrientedPoint3d center3d = (OrientedPoint3d) center;
             Transform3d transform = new Transform3d();
             transform.rotZ(center3d.getDirZ());
             transform.rotY(center3d.getDirY());
@@ -84,9 +84,9 @@ public final class BoundsUtil
             }
             return box.project();
         }
-        else if (center instanceof DirectedPoint2d)
+        else if (center instanceof OrientedPoint2d)
         {
-            DirectedPoint2d center2d = (DirectedPoint2d) center;
+            OrientedPoint2d center2d = (OrientedPoint2d) center;
             Transform2d transform = new Transform2d();
             transform.rotation(center2d.getDirZ());
             transform.translate(center2d);
@@ -113,11 +113,11 @@ public final class BoundsUtil
     /**
      * Rotates and translates a bound relative to a directed point. Often this point will be the given center point for the
      * animation.
-     * @param point DirectedPoint3d; the point relative to which the bounds need to be transformed
+     * @param point OrientedPoint3d; the point relative to which the bounds need to be transformed
      * @param bounds Bounds; the bounds that need to be rotated and translated
      * @return the bounds after rotation and translation
      */
-    public static Bounds3d transform(final Bounds3d bounds, final DirectedPoint3d point)
+    public static Bounds3d transform(final Bounds3d bounds, final OrientedPoint3d point)
     {
         Transform3d transform = new Transform3d();
         transform.rotZ(point.getDirZ());
@@ -132,13 +132,13 @@ public final class BoundsUtil
      * the location). Usually the center is in the bounds, but that is not necessary. The center is in many occasions the
      * Location of an animated object, and the bounds indicate the outer values of its animation without translation and
      * rotation (as if center is 0,0,0) and has no direction (rotX, rotY and rotZ are 0.0).
-     * @param center DirectedPoint3d; the 'center' of the bounds.
+     * @param center OrientedPoint3d; the 'center' of the bounds.
      * @param bounds Bounds; the bounds relative to 0,0,0
      * @param point Point3d; the point that might be in or out of the bounds after they have been rotated and translated
      *            relative to the center.
      * @return whether or not the point is in the bounds
      */
-    public static boolean contains(final DirectedPoint3d center, final Bounds3d bounds, final Point3d point)
+    public static boolean contains(final OrientedPoint3d center, final Bounds3d bounds, final Point3d point)
     {
         Transform3d transform = new Transform3d();
         transform.rotZ(center.getDirZ());

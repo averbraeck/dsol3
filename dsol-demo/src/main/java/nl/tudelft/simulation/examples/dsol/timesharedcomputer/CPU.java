@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.event.TimedEventType;
 import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
@@ -59,7 +59,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
     private List<Object> queue = Collections.synchronizedList(new ArrayList<Object>());
 
     /** the location. */
-    private DirectedPoint3d location = new DirectedPoint3d(-90, 0, 0);
+    private OrientedPoint3d location = new OrientedPoint3d(-90, 0, 0);
 
     /**
      * constructs a new CPU.
@@ -152,7 +152,7 @@ public class CPU extends Station<Double, Double, SimTimeDouble> implements Locat
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint3d getLocation()
+    public OrientedPoint3d getLocation()
     {
         return this.location;
     }

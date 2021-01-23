@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.djutils.draw.Transform3d;
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point3d;
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ public class BoundsUtilTest
     public void testZIntersect()
     {
         Bounds3d box000 = new Bounds3d(new Point3d[] {new Point3d(-2, -2, -2), new Point3d(2, 2, 2)});
-        DirectedPoint3d location = new DirectedPoint3d(4, 4, 4);
+        OrientedPoint3d location = new OrientedPoint3d(4, 4, 4);
         // the box is around (4,4,4), so its real coordinates are (2,2,2, 6,6,6).
         assertNull(BoundsUtil.zIntersect(location, box000, 1));
         assertNull(BoundsUtil.zIntersect(location, box000, 7));
@@ -43,7 +43,7 @@ public class BoundsUtilTest
     public void testTransform()
     {
         Bounds3d box000 = new Bounds3d(new Point3d[] {new Point3d(-2, -2, -2), new Point3d(2, 2, 2)});
-        DirectedPoint3d location = new DirectedPoint3d(4, 4, 4);
+        OrientedPoint3d location = new OrientedPoint3d(4, 4, 4);
         // rotate 45 degrees around z-axis w.r.t. (0,0,0) ->
         // bounding box becomes (-2.sqrt(2), -2.sqrt(2), -2), (2.sqrt(2), 2.sqrt(2), 2)
         // the box is around (4,4,4), so its real coordinates are (4-2.sqrt(2), 4-2.sqrt(2), 2), (4+2.sqrt(2), 4+2.sqrt(2), 6).
@@ -80,7 +80,7 @@ public class BoundsUtilTest
     public void testContains()
     {
         Bounds3d bounds = new Bounds3d(new Point3d[] {new Point3d(-2, -2, -2), new Point3d(2, 2, 2)});
-        DirectedPoint3d center = new DirectedPoint3d(4, 4, 4);
+        OrientedPoint3d center = new OrientedPoint3d(4, 4, 4);
         // the box is around (4,4,4), so its real coordinates are (2,2,2, 6,6,6).
         assertFalse(BoundsUtil.contains(center, bounds, new Point3d(0, 0, 0)));
         assertTrue(BoundsUtil.contains(center, bounds, new Point3d(4, 4, 4)));

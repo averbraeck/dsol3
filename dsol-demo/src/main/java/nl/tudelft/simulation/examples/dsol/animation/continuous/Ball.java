@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
-import org.djutils.draw.point.DirectedPoint3d;
+import org.djutils.draw.point.OrientedPoint3d;
 
 import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.examples.dsol.animation.BallAnimation;
@@ -60,7 +60,7 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
 
     /** {@inheritDoc} */
     @Override
-    public DirectedPoint3d getLocation() throws RemoteException
+    public OrientedPoint3d getLocation() throws RemoteException
     {
         double x = Math.cos(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[1] + this.origin.getX();
         double y = Math.sin(this.angle) * this.positioner.y(this.simulator.getSimulatorTime())[1] + this.origin.getY();
@@ -69,7 +69,7 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
         {
             this.next();
         }
-        return new DirectedPoint3d(x, y, 0, 0.0, 0.0, this.theta);
+        return new OrientedPoint3d(x, y, 0, 0.0, 0.0, this.theta);
     }
 
     /**

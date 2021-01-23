@@ -180,14 +180,14 @@ public abstract class ClockSpeedPanel<A extends Comparable<A> & Serializable, R 
      * @param simulationTime A; simulation time
      * @return simulation speed
      */
-    protected abstract String formatSpeed(final A simulationTime);
+    protected abstract String formatSpeed(A simulationTime);
 
     /**
      * Returns the formatted simulation time.
      * @param simulationTime A; simulation time
      * @return formatted simulation time
      */
-    protected abstract String formatSimulationTime(final A simulationTime);
+    protected abstract String formatSimulationTime(A simulationTime);
 
     /** {@inheritDoc} */
     @Override
