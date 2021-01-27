@@ -104,6 +104,15 @@ public class GridPanel extends JPanel
         return this.extent;
     }
 
+    /**
+     * set a new extent for this panel.
+     * @param extent Bounds2d; set a new extent
+     */
+    public final void setExtent(final Bounds2d extent)
+    {
+        this.extent = extent;
+    }
+
     /** {@inheritDoc} */
     @Override
     public void paintComponent(final Graphics g)

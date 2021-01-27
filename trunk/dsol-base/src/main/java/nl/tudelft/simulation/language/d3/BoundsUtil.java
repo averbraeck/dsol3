@@ -59,10 +59,10 @@ public final class BoundsUtil
         {
             OrientedPoint3d center3d = (OrientedPoint3d) center;
             Transform3d transform = new Transform3d();
-            transform.rotZ(center3d.getDirZ());
-            transform.rotY(center3d.getDirY());
+            transform.translate(center3d); // note: opposite order of how it should be carried out (!) 
             transform.rotX(center3d.getDirX());
-            transform.translate(center3d);
+            transform.rotY(center3d.getDirY());
+            transform.rotZ(center3d.getDirZ());
             Bounds3d box = transform.transform((Bounds3d) bounds);
             Point3d lower = new Point3d(box.getMinX(), box.getMinY(), zValue);
             if (!box.covers(lower))
@@ -88,8 +88,8 @@ public final class BoundsUtil
         {
             OrientedPoint2d center2d = (OrientedPoint2d) center;
             Transform2d transform = new Transform2d();
-            transform.rotation(center2d.getDirZ());
             transform.translate(center2d);
+            transform.rotation(center2d.getDirZ());
             Bounds2d box = transform.transform((Bounds2d) bounds);
             Point2d lower = new Point2d(box.getMinX(), box.getMinY());
             if (!box.covers(lower))
@@ -120,10 +120,10 @@ public final class BoundsUtil
     public static Bounds3d transform(final Bounds3d bounds, final OrientedPoint3d point)
     {
         Transform3d transform = new Transform3d();
-        transform.rotZ(point.getDirZ());
-        transform.rotY(point.getDirY());
-        transform.rotX(point.getDirX());
         transform.translate(point);
+        transform.rotX(point.getDirX());
+        transform.rotY(point.getDirY());
+        transform.rotZ(point.getDirZ());
         return transform.transform(bounds);
     }
 
@@ -141,10 +141,10 @@ public final class BoundsUtil
     public static boolean contains(final OrientedPoint3d center, final Bounds3d bounds, final Point3d point)
     {
         Transform3d transform = new Transform3d();
-        transform.rotZ(center.getDirZ());
-        transform.rotY(center.getDirY());
-        transform.rotX(center.getDirX());
         transform.translate(center);
+        transform.rotX(center.getDirX());
+        transform.rotY(center.getDirY());
+        transform.rotZ(center.getDirZ());
         Bounds3d box = transform.transform(bounds);
         return box.covers(point);
     }
