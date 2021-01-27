@@ -196,7 +196,7 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
     }
 
     /**
-     * resolves the origin of the image
+     * resolves the origin of the image.
      * @param _orientation short; the orientation (CC,..)
      * @return Bounds2d the location
      * @param size Dimension; the size of the image.
@@ -264,6 +264,7 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
      * reads a serializable object from stream.
      * @param in java.io.ObjectInputStream; the inputstream
      * @throws IOException on IOException
+     * @throws ClassNotFoundException if the class of a serialized objectcould not be found
      */
     private synchronized void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException
     {

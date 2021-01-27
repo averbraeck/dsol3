@@ -65,7 +65,7 @@ public class SwingApplication extends DSOLApplication
         private static final long serialVersionUID = 1L;
 
         /**
-         * @param simulator
+         * @param simulator the simulator
          */
         MyModel(final DEVSSimulator.TimeDouble simulator)
         {

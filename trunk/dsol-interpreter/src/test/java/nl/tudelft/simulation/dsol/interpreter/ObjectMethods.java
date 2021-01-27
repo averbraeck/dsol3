@@ -10,13 +10,13 @@ package nl.tudelft.simulation.dsol.interpreter;
  */
 public class ObjectMethods
 {
-    /** value to use in the test */
+    /** value to use in the test. */
     private Object value;
 
     /**
-     * @param value
+     * @param value value to use in the test
      */
-    public ObjectMethods(Object value)
+    public ObjectMethods(final Object value)
     {
         super();
         this.value = value;
@@ -33,7 +33,7 @@ public class ObjectMethods
     /**
      * @param value set value
      */
-    public final void set(Object value)
+    public final void set(final Object value)
     {
         this.value = value;
     }
@@ -50,7 +50,8 @@ public class ObjectMethods
 
     /** {@inheritDoc} */
     @Override
-    public boolean equals(Object obj)
+    @SuppressWarnings("checkstyle:needbraces")
+    public boolean equals(final Object obj)
     {
         if (this == obj)
             return true;
@@ -70,36 +71,38 @@ public class ObjectMethods
     }
 
     /**
-     * @param obj
+     * @param obj object to compare with
      * @return hashcode equal or not
      */
-    public boolean equalsHC(Object obj)
+    public boolean equalsHC(final Object obj)
     {
         if (obj == null)
+        {
             return false;
+        }
         return this.hashCode() == obj.hashCode();
     }
 
     /**
      * Concat 5 objects.
-     * @param s1
-     * @param s2
-     * @param s3
-     * @param s4
-     * @param s5
+     * @param s1 String; string nr 1
+     * @param s2 String; string nr 2
+     * @param s3 String; string nr 3
+     * @param s4 String; string nr 4
+     * @param s5 String; string nr 5
      * @return concatenation of the toString of the objects.
      */
-    public static String concat5(Object s1, Object s2, Object s3, Object s4, Object s5)
+    public static String concat5(final Object s1, final Object s2, final Object s3, final Object s4, final Object s5)
     {
         return s1.toString() + s2.toString() + s3.toString() + s4.toString() + s5.toString();
     }
 
     /**
      * Concat N objects.
-     * @param objects
+     * @param objects the string objects to concat
      * @return the concatenation of the toString of the objects.
      */
-    public static String concatN(Object... objects)
+    public static String concatN(final Object... objects)
     {
         String ret = "";
         for (Object s : objects)

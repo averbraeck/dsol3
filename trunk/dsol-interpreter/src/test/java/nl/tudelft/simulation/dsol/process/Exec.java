@@ -23,15 +23,15 @@ public class Exec
     }
 
     /**
-     * @param process
+     * @param process a process to resume
      */
-    private static void elaborate(InterpretableProcess process)
+    private static void elaborate(final InterpretableProcess process)
     {
         process.resumeProcess();
     }
 
     /**
-     * @param args
+     * @param args String[]; not used
      */
     public static void main(String[] args)
     {

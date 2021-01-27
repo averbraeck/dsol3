@@ -53,8 +53,9 @@ public class FileContext extends JVMContext
     }
 
     /**
-     * saves this object to file
-     * @throws NamingException, RemoteException on ioException
+     * saves this object to file.
+     * @throws NamingException on ioException
+     * @throws RemoteException on network failure
      */
     private synchronized void save() throws NamingException, RemoteException
     {

@@ -362,7 +362,7 @@ public class ShapeFile implements DataSourceInterface
      * @param fixedType int; shape type; if -1, read from input
      * @param skipBox boolean;
      * @return the shape
-     * @throws IOException
+     * @throws IOException on I/O error reading from the shape file
      */
     private Object readShape(final ObjectEndianInputStream input, final int fixedShapeNumber, final int fixedContentLength,
             final int fixedType, final boolean skipBox) throws IOException
