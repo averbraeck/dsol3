@@ -62,7 +62,6 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * constructs a new Renderable2D.
      * @param source T; the source
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
-     * @throws RemoteException on network error
      */
     public Renderable2D(final L source, final SimulatorInterface<?, ?, ?> simulator)
     {
@@ -80,7 +79,6 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * in the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must
      * be overwritten.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object into the context
-     * @throws RemoteException on network error
      */
     protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
     {

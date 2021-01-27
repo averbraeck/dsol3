@@ -10,15 +10,16 @@ import nl.tudelft.simulation.dsol.interpreter.process.InterpretableProcess;
 public class Test
 {
     /**
-     * executes the test
+     * executes the test.
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(final String[] args)
     {
         // You can play with the log level to see the interpretation take place.
         new Test().doIt();
     }
 
+    /** process to test. */
     private void doIt()
     {
         // Now we create a process and resume its operation.
@@ -27,50 +28,55 @@ public class Test
     }
 
     /**
-     * counts the links
+     * counts the links.
      * @param link the link
      * @return the number of links
      */
-    public static int countLinks(Link link)
+    public static int countLinks(final Link link)
     {
         if (link == null)
+        {
             return 0;
+        }
         return 1 + countLinks(link.next);
     }
 
     /**
-     * A link class
+     * A link class.
      */
     private class Link
     {
-        /** the next in the chain */
+        /** the next in the chain. */
         public Link next;
 
         /**
-         * constructs a new Link
+         * constructs a new Link.
          * @param next the next
          */
-        public Link(Link next)
+        Link(final Link next)
         {
             this.next = next;
         }
     }
 
     /**
-     * the Process
+     * the Process.
      */
     private class MyProcess extends InterpretableProcess
     {
+        /** */
+        private static final long serialVersionUID = 1L;
+
         /**
-         * constructs a Process
+         * constructs a Process.
          */
-        public MyProcess()
+        MyProcess()
         {
             super();
         }
 
         /**
-         * the process method
+         * the process method.
          */
         public void process()
         {

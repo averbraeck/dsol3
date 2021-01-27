@@ -14,6 +14,9 @@
         The ImageRenderable does not throw exceptions anymore at constructions but rather logs a warning and 
         exits gracefully.
       </action>
+      <action dev="averbraeck" type="add">
+        Built in very strict javadoc checking in each .project file, and repaired javadoc where needed.
+      </action>
     </release>
     
     <release version="3.05.02" date="2021-01-23" description="new drawing primitives">

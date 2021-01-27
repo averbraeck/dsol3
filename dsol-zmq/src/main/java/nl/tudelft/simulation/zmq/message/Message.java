@@ -451,7 +451,7 @@ public class Message
 
     /**
      * Decode an int.
-     * @param content the ZeroMQ byte array to decode
+     * @param message the ZeroMQ byte array to decode
      * @param pointer int; the first byte to consider
      * @return the integer value
      * @throws ZeroMQException when data type is not integer
@@ -472,7 +472,7 @@ public class Message
 
     /**
      * Decode a Big Endian int.
-     * @param content the ZeroMQ byte array to decode
+     * @param message the ZeroMQ byte array to decode
      * @param pointer int; the first byte to consider
      * @return the integer value
      */
@@ -484,7 +484,7 @@ public class Message
 
     /**
      * Decode a Little Endian int.
-     * @param content the ZeroMQ byte array to decode
+     * @param message the ZeroMQ byte array to decode
      * @param pointer int; the first byte to consider
      * @return the integer value
      */
@@ -496,7 +496,7 @@ public class Message
 
     /**
      * Decode a Big Endian long.
-     * @param content the ZeroMQ byte array to decode
+     * @param message the ZeroMQ byte array to decode
      * @param pointer int; the first byte to consider
      * @return the long value
      */
@@ -510,7 +510,7 @@ public class Message
 
     /**
      * Decode a Little Endian long.
-     * @param content the ZeroMQ byte array to decode
+     * @param message the ZeroMQ byte array to decode
      * @param pointer int; the first byte to consider
      * @return the long value
      */

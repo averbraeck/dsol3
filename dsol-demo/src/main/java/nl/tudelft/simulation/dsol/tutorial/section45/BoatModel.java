@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.tutorial.section45;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
 
@@ -53,7 +52,6 @@ public class BoatModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDo
      * schedules the creation of a boat.
      * @param time double; the time when the boat should arrive
      * @param port Port; the port
-     * @throws RemoteException on network failuer
      * @throws SimRuntimeException on simulation exception
      */
     private void scheduleBoatArrival(final double time, final Port port) throws SimRuntimeException

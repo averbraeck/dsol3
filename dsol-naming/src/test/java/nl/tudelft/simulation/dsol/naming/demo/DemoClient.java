@@ -42,8 +42,8 @@ public class DemoClient extends RMIObject implements RemoteEventListenerInterfac
     private RemoteEventContextInterface remoteContext;
 
     /**
-     * @throws RemoteException
-     * @throws AlreadyBoundException
+     * @throws RemoteException on network error
+     * @throws AlreadyBoundException when object was aleady registered in RMI
      * @throws NamingException on context error
      * @throws IOException on error reading from stdin
      * @throws NotBoundException when server is not running
@@ -93,9 +93,9 @@ public class DemoClient extends RMIObject implements RemoteEventListenerInterfac
      * @throws IOException on error reading from stdin
      * @throws NotBoundException when server is not running
      * @throws InterruptedException for sleep
-     * @throws AlreadyBoundException
+     * @throws AlreadyBoundException when object was already registered in RMI
      */
-    public static void main(String[] args)
+    public static void main(final String[] args)
             throws NamingException, IOException, NotBoundException, InterruptedException, AlreadyBoundException
     {
         new DemoClient();
