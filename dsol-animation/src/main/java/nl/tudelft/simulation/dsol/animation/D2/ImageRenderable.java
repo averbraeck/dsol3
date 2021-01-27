@@ -11,13 +11,13 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.naming.NamingException;
 import javax.swing.ImageIcon;
 
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.bounds.Bounds3d;
 import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point3d;
+import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation3d;
@@ -25,7 +25,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d3.BoundsUtil;
 
 /**
- * An abstract class for state-dependent image renderables. .
+ * An abstract class for state-dependent image renderables.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -86,11 +86,8 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
      * @param source T; the source to be animated.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used.
      * @param images URL[]; the image urls.
-     * @throws NamingException when animation context cannot be created or retrieved
-     * @throws RemoteException when remote context cannot be found
      */
     public ImageRenderable(final L source, final SimulatorInterface<?, ?, ?> simulator, final URL[] images)
-            throws RemoteException, NamingException
     {
         super(source, simulator);
         this.setOrientation(ImageRenderable.CC);
@@ -125,12 +122,10 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
      * @param size Bounds3; the size of the imageIcons in world coordinates.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
      * @param images URL[]; the imageIcons to display.
-     * @throws NamingException when animation context cannot be created or retrieved
-     * @throws RemoteException when remote context cannot be found
      */
     @SuppressWarnings("unchecked")
     public ImageRenderable(final OrientedPoint3d staticLocation, final Bounds3d size,
-            final SimulatorInterface<?, ?, ?> simulator, final URL[] images) throws RemoteException, NamingException
+            final SimulatorInterface<?, ?, ?> simulator, final URL[] images)
     {
         this((L) new StaticLocation3d(staticLocation, size), simulator, images);
     }
@@ -141,12 +136,10 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
      * @param size Bounds3d; the size of the imageIcons in world coordinates.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
      * @param images URL[]; the imageIcons to display.
-     * @throws NamingException when animation context cannot be created or retrieved
-     * @throws RemoteException when remote context cannot be found
      */
     @SuppressWarnings("unchecked")
     public ImageRenderable(final Point3d staticLocation, final Bounds3d size, final SimulatorInterface<?, ?, ?> simulator,
-            final URL[] images) throws RemoteException, NamingException
+            final URL[] images)
     {
         this((L) new StaticLocation3d(new OrientedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
                 new Bounds3d(size.getDeltaX(), size.getDeltaY(), 0.0)), simulator, images);
@@ -154,22 +147,29 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
 
     /** {@inheritDoc} */
     @Override
-    public void paint(final Graphics2D graphics, final ImageObserver observer) throws RemoteException
+    public void paint(final Graphics2D graphics, final ImageObserver observer)
     {
-        int image = this.selectImage();
-        if (this.imageIcons == null || this.imageIcons[image] == null
-                || this.imageIcons[image].getImageLoadStatus() != MediaTracker.COMPLETE)
+        try
         {
-            return;
+            int image = this.selectImage();
+            if (this.imageIcons == null || this.imageIcons[image] == null
+                    || this.imageIcons[image].getImageLoadStatus() != MediaTracker.COMPLETE)
+            {
+                return;
+            }
+            Bounds2d size = BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getZ());
+            Point2D origin = this.resolveOrigin(this.orientation, size);
+            graphics.translate(origin.getX(), origin.getY());
+            graphics.scale(0.001, 0.001);
+            graphics.drawImage(this.imageIcons[image].getImage(), 0, 0, (int) (1000 * size.getDeltaX()),
+                    (int) (1000 * size.getDeltaY()), observer);
+            graphics.scale(1000, 1000);
+            graphics.translate(-origin.getX(), -origin.getY());
         }
-        Bounds2d size = BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getZ());
-        Point2D origin = this.resolveOrigin(this.orientation, size);
-        graphics.translate(origin.getX(), origin.getY());
-        graphics.scale(0.001, 0.001);
-        graphics.drawImage(this.imageIcons[image].getImage(), 0, 0, (int) (1000 * size.getDeltaX()),
-                (int) (1000 * size.getDeltaY()), observer);
-        graphics.scale(1000, 1000);
-        graphics.translate(-origin.getX(), -origin.getY());
+        catch (RemoteException exception)
+        {
+            CategoryLogger.always().warn(exception);
+        }
     }
 
     /**

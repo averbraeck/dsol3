@@ -4,19 +4,31 @@
   <body>
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
-
-    <release version="3.05.02" date="2021-01-03" description="connectors for maps and graphs">
-      <action dev="averbraeck" type="add">
-        Instead of a fixed connection to maps and graphs, a "loose" connector has been made that allows different
-        graph and map packages to be wrapped and displayed in a DSOL simulation or animation. Several of the map and
-        graph interfaces have been created or moved to dsol-animation.
+    
+    <release version="3.05.03" date="2021-01-27" description="repaired sevreal GUI primitives">
+      <action dev="averbraeck" type="fix">
+        In AnimationPanel and InputListener in dsol-swing, fixed introspection, dragging, and visible extend using
+        the new Bounds3d classes from djutils-draw.
       </action>
+      <action dev="averbraeck" type="update">
+        The ImageRenderable does not throw exceptions anymore at constructions but rather logs a warning and 
+        exits gracefully.
+      </action>
+    </release>
+    
+    <release version="3.05.02" date="2021-01-23" description="new drawing primitives">
       <action dev="averbraeck" type="remove">
         3d animation has been removed for now, as java3d is not used anymore in DSOL, and there is no good 
         internal alternative. Possibly an external alternative such as Unity can be explored later. 
       </action>
       <action dev="averbraeck" type="update">
         Update to the latest version of djutils-draw caused DirectedPoint to be renamed to OrientedPoint. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Code for Maps in dsol-animation-gis severely upgraded to match code standards. 
+      </action>
+      <action dev="averbraeck" type="add">
+        GIS demo added for testing purposes in dsol-demo.
       </action>
     </release>
     

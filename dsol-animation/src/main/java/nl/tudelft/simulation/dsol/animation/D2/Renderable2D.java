@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.animation.D2;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
 import java.rmi.RemoteException;
@@ -61,10 +62,9 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * constructs a new Renderable2D.
      * @param source T; the source
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
-     * @throws NamingException when animation context cannot be created or retrieved
-     * @throws RemoteException when remote context cannot be found
+     * @throws RemoteException on network error
      */
-    public Renderable2D(final L source, final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
+    public Renderable2D(final L source, final SimulatorInterface<?, ?, ?> simulator)
     {
         this.source = source;
         if (!(simulator instanceof AnimatorInterface))
@@ -80,13 +80,19 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * in the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must
      * be overwritten.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object into the context
-     * @throws NamingException when animation context cannot be created or retrieved
-     * @throws RemoteException when remote context cannot be found
+     * @throws RemoteException on network error
      */
-    protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
+    protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
     {
-        ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
-                .bind(Integer.toString(System.identityHashCode(this.source)), this);
+        try
+        {
+            ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+                    .bind(Integer.toString(System.identityHashCode(this.source)), this);
+        }
+        catch (NamingException | RemoteException exception)
+        {
+            CategoryLogger.always().warn(exception);
+        }
     }
 
     /**
@@ -183,8 +189,9 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     {
         try
         {
-            Bounds2d rectangle =
-                    BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
+            // TODO: test whether getTransform / setTransform is faster than undoing the transform operations
+            AffineTransform transform = graphics.getTransform();
+            Bounds2d rectangle = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
             if (rectangle == null || (!Shape2d.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
@@ -210,21 +217,12 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
             {
                 graphics.rotate(angle);
             }
+
             // Now we paint
             this.paint(graphics, observer);
+
             // Let's untransform
-            if (isRotate() && angle != 0.0)
-            {
-                graphics.rotate(-angle);
-            }
-            if (isScale())
-            {
-                graphics.scale(scaleFactor, scaleFactor);
-            }
-            if (isTranslate())
-            {
-                graphics.translate(-screenCoordinates.getX(), -screenCoordinates.getY());
-            }
+            graphics.setTransform(transform);
         }
         catch (Exception exception)
         {
@@ -239,15 +237,14 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     {
         try
         {
-            Bounds2d intersect =
-                    BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
+            Bounds2d intersect = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
             if (intersect == null)
             {
                 throw new NullPointerException(
-                        "empty intersect!: location.z is not in bounds. This is probably due to a modeling error. "
+                        "empty intersect: location.z is not in bounds. This is probably due to a modeling error. "
                                 + "See the javadoc of LocatableInterface.");
             }
-            return intersect.contains(pointWorldCoordinates);
+            return intersect.contains(pointWorldCoordinates); 
         }
         catch (RemoteException exception)
         {
@@ -259,10 +256,18 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:designforextension")
-    public void destroy(final SimulatorInterface<?, ?, ?> simulator) throws NamingException, RemoteException
+    public void destroy(final SimulatorInterface<?, ?, ?> simulator)
     {
-        ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
-                .unbind(Integer.toString(System.identityHashCode(this.source)));
+        try
+        {
+            ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+                    .unbind(Integer.toString(System.identityHashCode(this.source)));
+        }
+        catch (NamingException | RemoteException exception)
+        {
+            CategoryLogger.always().warn(exception);
+        }
+
     }
 
     /** {@inheritDoc} */
@@ -277,8 +282,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * draws an animation on a world coordinates around [x,y=0,0].
      * @param graphics Graphics2D; the graphics object
      * @param observer ImageObserver; the observer
-     * @throws RemoteException on network exception
      */
-    public abstract void paint(final Graphics2D graphics, final ImageObserver observer) throws RemoteException;
+    public abstract void paint(Graphics2D graphics, ImageObserver observer);
 
 }

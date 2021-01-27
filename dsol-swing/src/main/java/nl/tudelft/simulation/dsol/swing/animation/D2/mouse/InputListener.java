@@ -46,10 +46,10 @@ import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialog;
 public class InputListener implements MouseListener, MouseWheelListener, MouseMotionListener, KeyListener
 {
     /** the panel to use. */
-    protected AnimationPanel panel;
+    private AnimationPanel panel;
 
     /** the mouseClicked point in screen coordinates. */
-    protected Point2D mouseClicked = null;
+    private Point2D mouseClicked = null;
 
     /**
      * constructs a new InputListener.
@@ -131,15 +131,6 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         int amount = e.getUnitsToScroll();
         if (amount > 0)
         {
-            /*- 
-            Set the center of the map to the current position of the mouse when zooming in
-            double scale = Renderable2DInterface.Util.getScale(this.panel.getExtent(), this.panel.getSize());
-            Rectangle2D.Double extent = (Rectangle2D.Double) this.panel.getExtent();
-            double dx = e.getX() - this.panel.getWidth() / 2;
-            double dy = e.getY() + this.panel.getHeight() / 2;
-            extent.setRect((extent.getMinX() + dx * scale), (extent.getMinY() + dy * scale), 
-                extent.getWidth(), extent.getHeight()); 
-             */
             this.panel.zoom(GridPanel.ZOOMFACTOR, e.getX(), e.getY());
         }
         else if (amount < 0)
@@ -222,10 +213,9 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         double dx = mouseReleasedPoint.getX() - mouseClickedPoint.getX();
         double dy = mouseReleasedPoint.getY() - mouseClickedPoint.getY();
         double scale = Renderable2DInterface.Util.getScale(this.panel.getExtent(), this.panel.getSize());
-
         Bounds2d extent = this.panel.getExtent();
-        // TODO: pan to a certain location after drag: extent.setRect((extent.getMinX() - dx * scale), (extent.getMinY() + dy *
-        // scale), extent.getWidth(), extent.getHeight());
+        this.panel.setExtent(new Bounds2d(extent.getMinX() - dx * scale, extent.getMinX() - dx * scale + extent.getDeltaX(),
+                extent.getMinY() + dy * scale, extent.getMinY() + dy * scale + extent.getDeltaY()));
     }
 
     /**
@@ -242,8 +232,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
                     Renderable2DInterface.Util.getWorldCoordinates(mousePoint, this.panel.getExtent(), this.panel.getSize());
             for (Renderable2DInterface<?> renderable : this.panel.getElements())
             {
-                if (this.panel.isShowElement(renderable)
-                        && renderable.contains(point, this.panel.getExtent()))
+                if (this.panel.isShowElement(renderable) && renderable.contains(point, this.panel.getExtent()))
                 {
                     targets.add(renderable.getSource());
                 }
