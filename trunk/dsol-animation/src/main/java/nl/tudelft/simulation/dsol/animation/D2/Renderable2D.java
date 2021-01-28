@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.ImageObserver;
 import java.rmi.RemoteException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.naming.NamingException;
 
@@ -58,6 +59,12 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     /** the source of the renderable. */
     private final L source;
 
+    /** the object number counter for a unique id. */
+    private static AtomicInteger animationObjectCounter = new AtomicInteger(0);
+
+    /** the unique id of this animation object. */
+    private int id;
+
     /**
      * constructs a new Renderable2D.
      * @param source T; the source
@@ -84,8 +91,9 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     {
         try
         {
+            this.id = animationObjectCounter.incrementAndGet();
             ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
-                    .bind(Integer.toString(System.identityHashCode(this.source)), this);
+                    .bind(Integer.toString(this.id), this);
         }
         catch (NamingException | RemoteException exception)
         {
@@ -242,7 +250,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
                         "empty intersect: location.z is not in bounds. This is probably due to a modeling error. "
                                 + "See the javadoc of LocatableInterface.");
             }
-            return intersect.contains(pointWorldCoordinates); 
+            return intersect.contains(pointWorldCoordinates);
         }
         catch (RemoteException exception)
         {
@@ -259,7 +267,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
         try
         {
             ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
-                    .unbind(Integer.toString(System.identityHashCode(this.source)));
+                    .unbind(Integer.toString(this.id));
         }
         catch (NamingException | RemoteException exception)
         {
