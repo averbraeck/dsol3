@@ -118,7 +118,7 @@ public class RenderableScaleTest
         for (double scale = 0.5; scale <= 2; scale += 0.5)
         {
             RenderableScale renderableScale = new RenderableScale(scale);
-            assertEquals(scale, renderableScale.getYScaleFactor(), 0.0001);
+            assertEquals(scale, renderableScale.getYScaleRatio(), 0.0001);
             for (int deltax = 50; deltax < 200; deltax += 50)
             {
                 for (int deltay = 50; deltay < 200; deltay += 50)
@@ -168,6 +168,9 @@ public class RenderableScaleTest
         assertEquals(Double.NaN, scale.getXScale(extent, new Dimension(10, -10)), 0.001);
         assertEquals(Double.NaN, scale.getYScale(extent, new Dimension(10, -10)), 0.001);
         
+        scale = new RenderableScale(1.0, 0.5);
+        assertEquals(0.5, scale.getObjectScaleFactor(), 0.0001);
+        
         Try.testFail(new Try.Execution()
         {
             @Override
@@ -182,6 +185,22 @@ public class RenderableScaleTest
             public void execute() throws Throwable
             {
                 new RenderableScale(-10.0);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new RenderableScale(1.0, 0.0);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new RenderableScale(1.0, -10.0);
             }
         }, IllegalArgumentException.class);
     }

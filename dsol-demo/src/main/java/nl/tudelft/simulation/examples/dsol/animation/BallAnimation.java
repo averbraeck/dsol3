@@ -27,7 +27,7 @@ public class BallAnimation extends Renderable2D<Ball>
 {
     /** */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * the color of the ballAnimation.
      */
@@ -44,7 +44,10 @@ public class BallAnimation extends Renderable2D<Ball>
             throws RemoteException, NamingException
     {
         super(source, simulator);
-        setScaleY(true);
+        // even numbered balls are vertically scaled; odd numbered balls not. Balls 6-10 are twice as small.
+        int nr = Integer.parseInt(source.toString());
+        setScaleObject(nr > 5);
+        setScaleY(nr % 2 == 1);
     }
 
     /** {@inheritDoc} */

@@ -88,20 +88,25 @@ public class Renderable2DTest
                         for (boolean scaleY : new boolean[] {true, false})
                         {
                             renderable.setScaleY(scaleY);
-                            assertEquals(translate, renderable.isTranslate());
-                            assertEquals(flip, renderable.isFlip());
-                            assertEquals(rotate, renderable.isRotate());
-                            assertEquals(scale, renderable.isScale());
-                            assertEquals(scaleY, renderable.isScaleY());
-
-                            for (double angle : new double[] {0.0, Math.PI / 4.0, 1.5 * Math.PI})
+                            for (boolean scaleObject : new boolean[] {true, false})
                             {
-                                // test if no exceptions happen when we paint
-                                // if an exception occurred, the transform will not have been reset
-                                AffineTransform transform = graphics.getTransform();
-                                locatable.setAngle(angle);
-                                renderable.paintComponent(graphics, extent, screenSize, renderableScale, null);
-                                assertEquals(transform, graphics.getTransform());
+                                renderable.setScaleObject(scaleObject);
+                                assertEquals(translate, renderable.isTranslate());
+                                assertEquals(flip, renderable.isFlip());
+                                assertEquals(rotate, renderable.isRotate());
+                                assertEquals(scale, renderable.isScale());
+                                assertEquals(scaleY, renderable.isScaleY());
+                                assertEquals(scaleObject, renderable.isScaleObject());
+
+                                for (double angle : new double[] {0.0, Math.PI / 4.0, 1.5 * Math.PI})
+                                {
+                                    // test if no exceptions happen when we paint
+                                    // if an exception occurred, the transform will not have been reset
+                                    AffineTransform transform = graphics.getTransform();
+                                    locatable.setAngle(angle);
+                                    renderable.paintComponent(graphics, extent, screenSize, renderableScale, null);
+                                    assertEquals(transform, graphics.getTransform());
+                                }
                             }
                         }
                     }
@@ -140,7 +145,7 @@ public class Renderable2DTest
     {
         /** the angle. */
         private double angle;
-        
+
         @Override
         public Point<?, ?> getLocation() throws RemoteException
         {
@@ -152,7 +157,7 @@ public class Renderable2DTest
         {
             return new Bounds3d(4, 4, 4);
         }
-        
+
         /**
          * Set the angle.
          * @param angle double; the new angle
