@@ -154,7 +154,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
     @Override
     public void mouseMoved(final MouseEvent mouseEvent)
     {
-        Point2d point = Renderable2DInterface.Util.getWorldCoordinates(mouseEvent.getPoint(), this.panel.getExtent(),
+        Point2d point = this.panel.getRenderableScale().getWorldCoordinates(mouseEvent.getPoint(), this.panel.getExtent(),
                 this.panel.getSize());
         this.panel.setWorldCoordinate(point.toPoint2D());
         this.panel.displayWorldCoordinateToolTip();
@@ -212,10 +212,11 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         // Drag extend to new location
         double dx = mouseReleasedPoint.getX() - mouseClickedPoint.getX();
         double dy = mouseReleasedPoint.getY() - mouseClickedPoint.getY();
-        double scale = Renderable2DInterface.Util.getScale(this.panel.getExtent(), this.panel.getSize());
+        double scaleX = this.panel.getRenderableScale().getXScale(this.panel.getExtent(), this.panel.getSize());
+        double scaleY = this.panel.getRenderableScale().getYScale(this.panel.getExtent(), this.panel.getSize());
         Bounds2d extent = this.panel.getExtent();
-        this.panel.setExtent(new Bounds2d(extent.getMinX() - dx * scale, extent.getMinX() - dx * scale + extent.getDeltaX(),
-                extent.getMinY() + dy * scale, extent.getMinY() + dy * scale + extent.getDeltaY()));
+        this.panel.setExtent(new Bounds2d(extent.getMinX() - dx * scaleX, extent.getMinX() - dx * scaleX + extent.getDeltaX(),
+                extent.getMinY() + dy * scaleY, extent.getMinY() + dy * scaleY + extent.getDeltaY()));
     }
 
     /**
@@ -228,8 +229,8 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
         List<Locatable> targets = new ArrayList<Locatable>();
         try
         {
-            Point2d point =
-                    Renderable2DInterface.Util.getWorldCoordinates(mousePoint, this.panel.getExtent(), this.panel.getSize());
+            Point2d point = this.panel.getRenderableScale().getWorldCoordinates(mousePoint, this.panel.getExtent(),
+                    this.panel.getSize());
             for (Renderable2DInterface<?> renderable : this.panel.getElements())
             {
                 if (this.panel.isShowElement(renderable) && renderable.contains(point, this.panel.getExtent()))

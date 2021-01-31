@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.web;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -90,8 +89,8 @@ public class DSOLWebModel implements EventListenerInterface
         {
             this.animationPanel = new HTMLAnimationPanel(extent, new Dimension(800, 600), this.simulator);
             // get the already created elements in context(/animation/D2)
-            this.animationPanel.notify(new TimedEvent(Replication.START_REPLICATION_EVENT, this.simulator.getSourceId(),
-                    null, this.simulator.getSimulatorTime()));
+            this.animationPanel.notify(new TimedEvent(Replication.START_REPLICATION_EVENT, this.simulator.getSourceId(), null,
+                    this.simulator.getSimulatorTime()));
         }
     }
 
@@ -326,14 +325,17 @@ public class DSOLWebModel implements EventListenerInterface
                 {
                     if (parts.length == 3)
                     {
+                        // TODO: probably use the animatinPanel.pan()
                         int dx = Integer.parseInt(parts[1]);
                         int dy = Integer.parseInt(parts[2]);
-                        double scale =
-                                Renderable2DInterface.Util.getScale(animationPanel.getExtent(), animationPanel.getSize());
+                        double scaleX = animationPanel.getRenderableScale().getXScale(animationPanel.getExtent(),
+                                animationPanel.getSize());
+                        double scaleY = animationPanel.getRenderableScale().getYScale(animationPanel.getExtent(),
+                                animationPanel.getSize());
                         Bounds2d extent = animationPanel.getExtent();
-                        // TODO: probably use the animatinPanel.pan()
-                        extent = new Bounds2d(new Bounds2d(extent.getMinX() - dx * scale, extent.getMinX() + dx * scale, extent.getMinY() - dy * scale,
-                                extent.getMinY() + dy * scale));
+                        animationPanel.setExtent(new Bounds2d(extent.getMinX() - dx * scaleX,
+                                extent.getMinX() - dx * scaleX + extent.getDeltaX(), extent.getMinY() + dy * scaleY,
+                                extent.getMinY() + dy * scaleY + extent.getDeltaY()));
                     }
                     break;
                 }
@@ -347,7 +349,7 @@ public class DSOLWebModel implements EventListenerInterface
                         List<Locatable> targets = new ArrayList<Locatable>();
                         try
                         {
-                            Point2d point = Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, y),
+                            Point2d point = animationPanel.getRenderableScale().getWorldCoordinates(new Point2D.Double(x, y),
                                     animationPanel.getExtent(), animationPanel.getSize());
                             for (Renderable2DInterface<?> renderable : animationPanel.getElements())
                             {

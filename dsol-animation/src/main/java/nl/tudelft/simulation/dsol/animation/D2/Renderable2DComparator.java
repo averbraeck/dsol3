@@ -16,7 +16,7 @@ import java.util.Comparator;
 public class Renderable2DComparator implements Comparator<Renderable2DInterface<?>>
 {
     /**
-     * constructs a new Renderable2DComparator
+     * constructs a new Renderable2DComparator.
      */
     public Renderable2DComparator()
     {
@@ -45,6 +45,6 @@ public class Renderable2DComparator implements Comparator<Renderable2DInterface<
             // ignore as this can happen when the source is in the process of deletion
             // and therefore it cannot return a proper location.
         }
-        return Integer.valueOf(r1.hashCode()).compareTo(Integer.valueOf(r2.hashCode()));
+        return Integer.compare(r1.getId(), r2.getId());
     }
 }

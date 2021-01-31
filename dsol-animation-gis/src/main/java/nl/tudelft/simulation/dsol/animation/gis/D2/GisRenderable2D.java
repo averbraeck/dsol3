@@ -17,6 +17,7 @@ import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
+import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.mapfile.MapFileXMLParser;
 import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
@@ -161,7 +162,8 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
 
     /** {@inheritDoc} */
     @Override
-    public void paint(final Graphics2D graphics, final Bounds2d extent, final Dimension screen, final ImageObserver observer)
+    public void paintComponent(final Graphics2D graphics, final Bounds2d extent, final Dimension screen,
+            final RenderableScale renderableScale, final ImageObserver observer)
     {
         try
         {
@@ -174,7 +176,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
             this.map.setExtent(extent);
             this.map.getImage().setSize(screen);
             this.cacheImage();
-            this.paint(graphics, extent, screen, observer);
+            this.paintComponent(graphics, extent, screen, renderableScale, observer);
         }
         catch (Exception exception)
         {
@@ -252,4 +254,12 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
     {
         return false;
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public int getId()
+    {
+        return -1; // drawn before the rest in case all z-values are the same
+    }
+
 }

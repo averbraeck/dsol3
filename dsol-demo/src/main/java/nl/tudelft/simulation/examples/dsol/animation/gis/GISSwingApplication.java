@@ -10,6 +10,7 @@ import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.io.URLResource;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
@@ -47,6 +48,7 @@ public class GISSwingApplication extends DSOLAnimationApplication
             throws RemoteException, IllegalArgumentException, DSOLException
     {
         super(panel, title, animationTab);
+        getAnimationTab().getAnimationPanel().setRenderableScale(new RenderableScale(2.0));
         panel.enableSimulationControlButtons();
     }
 

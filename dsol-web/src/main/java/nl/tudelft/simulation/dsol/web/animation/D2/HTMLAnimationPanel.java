@@ -133,7 +133,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
         {
             if (isShowElement(element))
             {
-                element.paint(g2, this.getExtent(), this.getSize(), this);
+                element.paintComponent(g2, this.getExtent(), this.getSize(), getRenderableScale(), this);
             }
         }
 
@@ -310,7 +310,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      */
     public synchronized void zoomAll()
     {
-        this.extent = Renderable2DInterface.Util.computeVisibleExtent(fullExtent(), this.getSize());
+        this.extent = getRenderableScale().computeVisibleExtent(fullExtent(), this.getSize());
         this.repaint();
     }
 
