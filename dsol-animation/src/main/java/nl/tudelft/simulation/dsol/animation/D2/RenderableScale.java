@@ -25,18 +25,39 @@ public class RenderableScale
      * the Y-scale factor with respect to the X-scale; 1 means X and Y scales are the same; A number larger than 1 means the
      * y-axis is compressed.
      */
-    private final double yScaleFactor;
+    private final double yScaleRatio;
+
+    /**
+     * the scale factor for the object, e.g., to get 1 pixel unit to equal 1 meter on a map. A scale factor smaller than 1 means
+     * that the object will be drawn smaller on the screen.
+     */
+    private final double objectScaleFactor;
 
     /**
      * Construct a translator between world coordinates and screen coordinates that uses a different scale factor for x and y.
-     * @param yScaleFactor double; the Y-scale ratio with respect to the X-scale (when yScale &lt; 1 it results in a condensed
+     * @param yScaleRatio double; the Y-scale ratio with respect to the X-scale (when yScale &lt; 1 it results in a condensed
+     *            Y-axis, where yScale &gt; 1 results in an expanded Y-axis
+     * @param objectScaleFactor double; the scale factor for the object, e.g., to get 1 pixel unit to equal 1 meter on a map. A
+     *            scale factor smaller than 1 means that the object will be drawn smaller on the screen.
+     * @throws IllegalArgumentException when yScale &lt;= 0
+     */
+    public RenderableScale(final double yScaleRatio, final double objectScaleFactor)
+    {
+        Throw.when(yScaleRatio <= 0, IllegalArgumentException.class, "yScaleRatio should be larger than 0");
+        Throw.when(objectScaleFactor <= 0, IllegalArgumentException.class, "objectScaleFactor should be larger than 0");
+        this.yScaleRatio = yScaleRatio;
+        this.objectScaleFactor = objectScaleFactor;
+    }
+
+    /**
+     * Construct a translator between world coordinates and screen coordinates that uses a different scale factor for x and y.
+     * @param yScaleRatio double; the Y-scale ratio with respect to the X-scale (when yScale &lt; 1 it results in a condensed
      *            Y-axis, where yScale &gt; 1 results in an expanded Y-axis
      * @throws IllegalArgumentException when yScale &lt;= 0
      */
-    public RenderableScale(final double yScaleFactor)
+    public RenderableScale(final double yScaleRatio)
     {
-        Throw.when(yScaleFactor <= 0, IllegalArgumentException.class, "yScaleFactor should be larger than 0");
-        this.yScaleFactor = yScaleFactor;
+        this(yScaleRatio, 1.0);
     }
 
     /**
@@ -45,7 +66,7 @@ public class RenderableScale
      */
     public RenderableScale()
     {
-        this(1.0);
+        this(1.0, 1.0);
     }
 
     /**
@@ -93,7 +114,7 @@ public class RenderableScale
             return null;
         }
         double xScale = extent.getDeltaX() / screen.getWidth();
-        double yScale = extent.getDeltaY() / (this.yScaleFactor * screen.getHeight());
+        double yScale = extent.getDeltaY() / (this.yScaleRatio * screen.getHeight());
         Bounds2d result;
         if (xScale < yScale)
         {
@@ -103,8 +124,8 @@ public class RenderableScale
         else
         {
             result = new Bounds2d(extent.getMinX(), extent.getMaxX(),
-                    extent.midPoint().getY() - 0.5 * screen.getHeight() * xScale * this.yScaleFactor,
-                    extent.midPoint().getY() + 0.5 * screen.getHeight() * xScale * this.yScaleFactor);
+                    extent.midPoint().getY() - 0.5 * screen.getHeight() * xScale * this.yScaleRatio,
+                    extent.midPoint().getY() + 0.5 * screen.getHeight() * xScale * this.yScaleRatio);
         }
         return result;
     }
@@ -140,12 +161,22 @@ public class RenderableScale
     }
 
     /**
-     * Return the y-scale factor. A number larger than 1 means the y-axis is compressed.
-     * @return double; the y-scale factor. A number larger than 1 means the y-axis is compressed
+     * Return the y-scale ratio. A number larger than 1 means the y-axis is compressed.
+     * @return double; the y-scale ratio. A number larger than 1 means the y-axis is compressed
      */
-    public final double getYScaleFactor()
+    public final double getYScaleRatio()
     {
-        return this.yScaleFactor;
+        return this.yScaleRatio;
+    }
+
+    /**
+     * Return the scale factor for the object, e.g., to get 1 pixel unit to equal 1 meter on a map. A scale factor smaller than
+     * 1 means that the object will be drawn smaller on the screen.
+     * @return double; the scale factor for the object, e.g., to get 1 pixel unit to equal 1 meter on a map
+     */
+    public final double getObjectScaleFactor()
+    {
+        return this.objectScaleFactor;
     }
 
 }

@@ -22,7 +22,12 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The Renderable2D provides an easy accessible renderable object that can be drawn on an absolute or relative position, scaled,
- * flipped, and rotated.
+ * flipped, and rotated. For scaling, several options exist:<br>
+ * - scale: whether to scale the drawing at all; e.g. for a legend, absolute coordinates might be used (scale = false);<br>
+ * - scaleY: whether to scale differently in X and Y direction, e.g. for a map at higher latitudes (scaleY = true);<br>
+ * - scaleObject: whether to scale the drawing larger or smaller than the scale factor of the extent (e.g., to draw an object on
+ * a map where the units of the object are in meters, while the map is in lat / lon degrees).<br>
+ * The default values are: translate = true; scale = true; flip = false; rotate = true; scaleY = false; scaleObject = false.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -40,9 +45,12 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
 
     /**
      * Storage of the boolean flags, to prevent each flag from taking 32 bits... The initial value is binary 1011 = 0B: rotate =
-     * true, flip = false, scale = true, translate = true.
+     * true, flip = false, scale = true, translate = true, scaleY = false; scaleObject = false.
      */
     private byte flags = 0x0B;
+
+    /** whether to scale the X/Y-value with the value of RenderableScale.OnjectScaleFactor. Flag is 00100000 */
+    private static final byte SCALE_OBJECT_FLAG = 0x20;
 
     /** whether to scale the Y-value in case of a compressed Y-axis. Flag is 00010000 */
     private static final byte SCALE_Y_FLAG = 0x10;
@@ -180,6 +188,30 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     }
 
     /**
+     * Set whether to scale the renderable in the X/Y-direction with the value of RenderableScale.objectScaleFactor or not.
+     * @param scaleY boolean; whether to scale the renderable in the X/Y-direction with the value of
+     *            RenderableScale.objectScaleFactor or not
+     */
+    @SuppressWarnings("checkstyle:needbraces")
+    public final void setScaleObject(final boolean scaleY)
+    {
+        if (scaleY)
+            this.flags |= SCALE_OBJECT_FLAG;
+        else
+            this.flags &= (~SCALE_OBJECT_FLAG);
+    }
+
+    /**
+     * Return whether to scale the renderable in the X/Y-direction with the value of RenderableScale.objectScaleFactor or not.
+     * @return boolean; whether to scale the renderable in the X/Y-direction with the value of RenderableScale.objectScaleFactor
+     *         or not
+     */
+    public boolean isScaleObject()
+    {
+        return (this.flags & SCALE_OBJECT_FLAG) != 0;
+    }
+
+    /**
      * Set whether to scale the renderable in the Y-direction when there is a compressed Y-axis or not.
      * @param scaleY boolean; whether to scale the renderable in the Y-direction when there is a compressed Y-axis or not
      */
@@ -258,15 +290,16 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
             }
             if (isScale())
             {
+                double objectScaleFactor = isScaleObject() ? renderableScale.getObjectScaleFactor() : 1.0;
                 if (isScaleY())
                 {
-                    graphics.scale(1.0 / renderableScale.getXScale(extent, screenSize),
-                        1.0 / renderableScale.getYScale(extent, screenSize));
+                    graphics.scale(objectScaleFactor / renderableScale.getXScale(extent, screenSize),
+                            objectScaleFactor / renderableScale.getYScale(extent, screenSize));
                 }
                 else
                 {
-                    graphics.scale(1.0 / renderableScale.getXScale(extent, screenSize),
-                            renderableScale.getYScaleFactor() / renderableScale.getYScale(extent, screenSize));
+                    graphics.scale(objectScaleFactor / renderableScale.getXScale(extent, screenSize), objectScaleFactor
+                            * renderableScale.getYScaleRatio() / renderableScale.getYScale(extent, screenSize));
                 }
             }
             double angle = -this.source.getDirZ();
