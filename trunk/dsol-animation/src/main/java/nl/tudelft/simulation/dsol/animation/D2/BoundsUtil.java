@@ -1,4 +1,4 @@
-package nl.tudelft.simulation.language.d3;
+package nl.tudelft.simulation.dsol.animation.D2;
 
 import org.djutils.draw.Transform2d;
 import org.djutils.draw.Transform3d;
@@ -10,6 +10,7 @@ import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point;
 import org.djutils.draw.point.Point2d;
 import org.djutils.draw.point.Point3d;
+import org.djutils.logger.CategoryLogger;
 
 /**
  * A Bounds3d utility class to help with finding intersections between bounds, to make transformations, and to see if a point
@@ -31,7 +32,6 @@ public final class BoundsUtil
      */
     private BoundsUtil()
     {
-        super();
         // unreachable code
     }
 
@@ -46,12 +46,12 @@ public final class BoundsUtil
      * bounds on height z=2). When we ask the zIntersect for z=0 and point (2,2,0) we get [(1,1), (3,3)] -- the box is
      * translated with dx=2 and dy=2. When we ask the zIntersect for z=0 and point (2,2,2) we get null as we 'lifted' the
      * bounding box above the z-value. When center has a direction, the bounds is first rotated around the center after which
-     * the translation takes place and the bounds on the z-height are calculated.
+     * the translation takes place and the bounds on the z-height are calculated. For 2D, a box is always returned.
      * @param center Point; the point relative to which the bounds need to be calculated
      * @param bounds Bounds; the bounds for which the intersection needs to be calculated. The Bounds3d are <b>relative to the
      *            center</b> that is provided
      * @param zValue double; the zValue as the 'height' for which the bounds intersection is calculated
-     * @return Bounds2d the resulting rectangle of the intersection
+     * @return Bounds2d the projected rectangle of the intersection, or null if there is no intersection
      */
     public static Bounds2d zIntersect(final Point<?, ?> center, final Bounds<?, ?> bounds, final double zValue)
     {
@@ -59,62 +59,57 @@ public final class BoundsUtil
         {
             OrientedPoint3d center3d = (OrientedPoint3d) center;
             Transform3d transform = new Transform3d();
-            transform.translate(center3d); // note: opposite order of how it should be carried out (!) 
+            transform.translate(center3d); // note: opposite order of how it should be carried out (!)
             transform.rotX(center3d.getDirX());
             transform.rotY(center3d.getDirY());
             transform.rotZ(center3d.getDirZ());
             Bounds3d box = transform.transform((Bounds3d) bounds);
-            Point3d lower = new Point3d(box.getMinX(), box.getMinY(), zValue);
-            if (!box.covers(lower))
+            if (zValue < box.getMinZ() || zValue > box.getMaxZ())
             {
                 return null;
             }
             return box.project();
         }
-        else if (center instanceof Point3d && bounds instanceof Bounds3d)
+
+        if (center instanceof Point3d && bounds instanceof Bounds3d)
         {
             Point3d center3d = (Point3d) center;
             Transform3d transform = new Transform3d();
             transform.translate(center3d);
             Bounds3d box = transform.transform((Bounds3d) bounds);
-            Point3d lower = new Point3d(box.getMinX(), box.getMinY(), zValue);
-            if (!box.covers(lower))
+            if (zValue < box.getMinZ() || zValue > box.getMaxZ())
             {
                 return null;
             }
             return box.project();
         }
-        else if (center instanceof OrientedPoint2d)
+
+        if (center instanceof OrientedPoint2d)
         {
             OrientedPoint2d center2d = (OrientedPoint2d) center;
             Transform2d transform = new Transform2d();
             transform.translate(center2d);
             transform.rotation(center2d.getDirZ());
-            Bounds2d box = transform.transform((Bounds2d) bounds);
-            Point2d lower = new Point2d(box.getMinX(), box.getMinY());
-            if (!box.covers(lower))
-            {
-                return null;
-            }
-            return box;
+            return transform.transform((Bounds2d) bounds);
         }
-        Point2d center2d = (Point2d) center;
-        Transform2d transform = new Transform2d();
-        transform.translate(center2d);
-        Bounds2d box = transform.transform((Bounds2d) bounds);
-        Point2d lower = new Point2d(box.getMinX(), box.getMinY());
-        if (!box.covers(lower))
+
+        if (center instanceof Point2d)
         {
-            return null;
+            Point2d center2d = (Point2d) center;
+            Transform2d transform = new Transform2d();
+            transform.translate(center2d);
+            return transform.transform((Bounds2d) bounds);
         }
-        return box;
+
+        CategoryLogger.always().warn("BoundsUtil.zIntersect: inconsistent dimensionality of bounds and point");
+        return null; // inconsistent dimensionality of bounds and point
     }
 
     /**
-     * Rotates and translates a bound relative to a directed point. Often this point will be the given center point for the
+     * Rotates and translates a bound relative to an oriented point. Often this point will be the given center point for the
      * animation.
+     * @param bounds Bounds3d; the bounds that need to be rotated and translated
      * @param point OrientedPoint3d; the point relative to which the bounds need to be transformed
-     * @param bounds Bounds; the bounds that need to be rotated and translated
      * @return the bounds after rotation and translation
      */
     public static Bounds3d transform(final Bounds3d bounds, final OrientedPoint3d point)
@@ -128,12 +123,27 @@ public final class BoundsUtil
     }
 
     /**
+     * Rotates and translates a bound relative to an oriented point. Often this point will be the given center point for the
+     * animation.
+     * @param bounds Bound2ds; the bounds that need to be rotated and translated
+     * @param point OrientedPoint2d; the point relative to which the bounds need to be transformed
+     * @return the bounds after rotation and translation
+     */
+    public static Bounds2d transform(final Bounds2d bounds, final OrientedPoint2d point)
+    {
+        Transform2d transform = new Transform2d();
+        transform.translate(point);
+        transform.rotation(point.getDirZ());
+        return transform.transform(bounds);
+    }
+
+    /**
      * Check whether a point is in the bounds, after transforming the bounds relative to the center point (in animation that is
      * the location). Usually the center is in the bounds, but that is not necessary. The center is in many occasions the
      * Location of an animated object, and the bounds indicate the outer values of its animation without translation and
      * rotation (as if center is 0,0,0) and has no direction (rotX, rotY and rotZ are 0.0).
      * @param center OrientedPoint3d; the 'center' of the bounds.
-     * @param bounds Bounds; the bounds relative to 0,0,0
+     * @param bounds Bounds3d; the bounds relative to 0,0,0
      * @param point Point3d; the point that might be in or out of the bounds after they have been rotated and translated
      *            relative to the center.
      * @return whether or not the point is in the bounds
@@ -146,6 +156,26 @@ public final class BoundsUtil
         transform.rotY(center.getDirY());
         transform.rotZ(center.getDirZ());
         Bounds3d box = transform.transform(bounds);
+        return box.covers(point);
+    }
+
+    /**
+     * Check whether a point is in the bounds, after transforming the bounds relative to the center point (in animation that is
+     * the location). Usually the center is in the bounds, but that is not necessary. The center is in many occasions the
+     * Location of an animated object, and the bounds indicate the outer values of its animation without translation and
+     * rotation (as if center is 0,0) and has no direction (rotation 0.0).
+     * @param center OrientedPoint2d; the 'center' of the bounds.
+     * @param bounds Bounds2d; the bounds relative to 0,0
+     * @param point Point2d; the point that might be in or out of the bounds after they have been rotated and translated
+     *            relative to the center.
+     * @return whether or not the point is in the bounds
+     */
+    public static boolean contains(final OrientedPoint2d center, final Bounds2d bounds, final Point2d point)
+    {
+        Transform2d transform = new Transform2d();
+        transform.translate(center);
+        transform.rotation(center.getDirZ());
+        Bounds2d box = transform.transform(bounds);
         return box.covers(point);
     }
 }

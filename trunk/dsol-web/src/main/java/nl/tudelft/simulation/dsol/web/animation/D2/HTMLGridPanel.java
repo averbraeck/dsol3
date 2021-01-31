@@ -15,7 +15,7 @@ import java.text.NumberFormat;
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.point.Point2d;
 
-import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
+import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 import nl.tudelft.simulation.dsol.web.animation.HTMLGraphics2D;
 
 /**
@@ -61,9 +61,13 @@ public class HTMLGridPanel implements ImageObserver
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected boolean showGrid = true;
 
-    /** the gridSize in world Units. */
+    /** the gridSize for the X-direction in world Units. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected double gridSize = 100.0;
+    protected double gridSizeX = 100.0;
+
+    /** the gridSize for the Y-direction in world Units. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected double gridSizeY = 100.0;
 
     /** the formatter to use. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -105,10 +109,14 @@ public class HTMLGridPanel implements ImageObserver
     private Canvas canvas = new Canvas();
 
     /** the HTMLGraphics2D 'shadow' canvas. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected HTMLGraphics2D htmlGraphics2D;
 
     /** dirty flag. */
     private boolean dirty = false;
+
+    /** the renderable scale (X/Y ratio) to use. */
+    private RenderableScale renderableScale;
 
     /**
      * constructs a new GridPanel.
@@ -126,7 +134,7 @@ public class HTMLGridPanel implements ImageObserver
      */
     public HTMLGridPanel(final Bounds2d extent, final Dimension size)
     {
-        super();
+        this.renderableScale = new RenderableScale();
         this.htmlGraphics2D = new HTMLGraphics2D();
         this.extent = extent;
         this.homeExtent = extent;
@@ -156,7 +164,7 @@ public class HTMLGridPanel implements ImageObserver
         if (!this.getSize().equals(this.lastDimension))
         {
             this.lastDimension = this.getSize();
-            this.extent = Renderable2DInterface.Util.computeVisibleExtent(this.extent, this.getSize());
+            this.extent = this.renderableScale.computeVisibleExtent(this.extent, this.getSize());
         }
         if (this.showGrid)
         {
@@ -176,11 +184,20 @@ public class HTMLGridPanel implements ImageObserver
 
     /**
      * returns the extent of this panel.
-     * @return Rectangle2D
+     * @return Bounds2d
      */
     public final Bounds2d getExtent()
     {
         return this.extent;
+    }
+
+    /**
+     * returns the extent of this panel.
+     * @param extent Bounds2d; the new extent
+     */
+    public final void setExtent(final Bounds2d extent)
+    {
+        this.extent = extent;
     }
 
     /**
@@ -273,7 +290,7 @@ public class HTMLGridPanel implements ImageObserver
      */
     public final synchronized void home()
     {
-        this.extent = Renderable2DInterface.Util.computeVisibleExtent(this.homeExtent, this.getSize());
+        this.extent = this.renderableScale.computeVisibleExtent(this.homeExtent, this.getSize());
         this.repaint();
     }
 
@@ -310,8 +327,7 @@ public class HTMLGridPanel implements ImageObserver
      */
     public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
     {
-        Point2d mwc =
-                Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent, this.getSize());
+        Point2d mwc = this.renderableScale.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent, this.getSize());
         double minX = mwc.getX() - (mwc.getX() - this.extent.getMinX()) * factor;
         double minY = mwc.getY() - (mwc.getY() - this.extent.getMinY()) * factor;
         double w = this.extent.getDeltaX() * factor;
@@ -332,35 +348,71 @@ public class HTMLGridPanel implements ImageObserver
         // we prepare the graphics object for the grid
         g.setFont(g.getFont().deriveFont(11.0f));
         g.setColor(GRIDCOLOR);
-        double scale = Renderable2DInterface.Util.getScale(this.extent, this.getSize());
+        double scaleX = this.renderableScale.getXScale(this.extent, this.getSize());
+        double scaleY = this.renderableScale.getYScale(this.extent, this.getSize());
 
-        int gridSizePixels = (int) Math.round(this.gridSize / scale);
-        if (gridSizePixels < 40)
+        int count = 0;
+        int gridSizePixelsX = (int) Math.round(this.gridSizeX / scaleX);
+        while (gridSizePixelsX < 40)
         {
-            this.gridSize = 10 * this.gridSize;
-            int maximumNumberOfDigits = (int) Math.max(0, 1 + Math.ceil(Math.log(1 / this.gridSize) / Math.log(10)));
+            this.gridSizeX = 10 * this.gridSizeX;
+            int maximumNumberOfDigits = (int) Math.max(0, 1 + Math.ceil(Math.log(1 / this.gridSizeX) / Math.log(10)));
             this.formatter.setMaximumFractionDigits(maximumNumberOfDigits);
-            this.drawGrid(g);
-            return;
+            gridSizePixelsX = (int) Math.round(this.gridSizeX / scaleX);
+            if (count++ > 10)
+            {
+                break;
+            }
         }
-        if (gridSizePixels > 10 * 40)
+
+        count = 0;
+        while (gridSizePixelsX > 10 * 40)
         {
-            int maximumNumberOfDigits = (int) Math.max(0, 2 + Math.ceil(Math.log(1 / this.gridSize) / Math.log(10)));
+            int maximumNumberOfDigits = (int) Math.max(0, 2 + Math.ceil(Math.log(1 / this.gridSizeX) / Math.log(10)));
             this.formatter.setMaximumFractionDigits(maximumNumberOfDigits);
-            this.gridSize = this.gridSize / 10;
-            this.drawGrid(g);
-            return;
+            this.gridSizeX = this.gridSizeX / 10;
+            gridSizePixelsX = (int) Math.round(this.gridSizeX / scaleX);
+            if (count++ > 10)
+            {
+                break;
+            }
         }
+
+        int gridSizePixelsY = (int) Math.round(this.gridSizeY / scaleY);
+        while (gridSizePixelsY < 40)
+        {
+            this.gridSizeY = 10 * this.gridSizeY;
+            int maximumNumberOfDigits = (int) Math.max(0, 1 + Math.ceil(Math.log(1 / this.gridSizeY) / Math.log(10)));
+            this.formatter.setMaximumFractionDigits(maximumNumberOfDigits);
+            gridSizePixelsY = (int) Math.round(this.gridSizeY / scaleY);
+            if (count++ > 10)
+            {
+                break;
+            }
+        }
+
+        count = 0;
+        while (gridSizePixelsY > 10 * 40)
+        {
+            int maximumNumberOfDigits = (int) Math.max(0, 2 + Math.ceil(Math.log(1 / this.gridSizeY) / Math.log(10)));
+            this.formatter.setMaximumFractionDigits(maximumNumberOfDigits);
+            this.gridSizeY = this.gridSizeY / 10;
+            gridSizePixelsY = (int) Math.round(this.gridSizeY / scaleY);
+            if (count++ > 10)
+            {
+                break;
+            }
+        }
+
         // Let's draw the vertical lines
-        double mod = this.extent.getMinX() % this.gridSize;
-        int x = (int) -Math.round(mod / scale);
+        double mod = this.extent.getMinX() % this.gridSizeX;
+        int x = (int) -Math.round(mod / scaleX);
         while (x < this.getWidth())
         {
-            Point2d point =
-                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(x, 0), this.extent, this.getSize());
+            Point2d point = this.renderableScale.getWorldCoordinates(new Point2D.Double(x, 0), this.extent, this.getSize());
             if (point != null)
             {
-                String label = this.formatter.format(Math.round(point.getX() / this.gridSize) * this.gridSize);
+                String label = this.formatter.format(Math.round(point.getX() / this.gridSizeX) * this.gridSizeX);
                 double labelWidth = this.getFontMetrics(this.getFont()).getStringBounds(label, g).getWidth();
                 if (x > labelWidth + 4)
                 {
@@ -368,23 +420,23 @@ public class HTMLGridPanel implements ImageObserver
                     g.drawString(label, (int) Math.round(x - 0.5 * labelWidth), 11);
                 }
             }
-            x = x + gridSizePixels;
+            x = x + gridSizePixelsX;
         }
+
         // Let's draw the horizontal lines
-        mod = Math.abs(this.extent.getMinY()) % this.gridSize;
-        int y = (int) Math.round(this.getSize().getHeight() - (mod / scale));
+        mod = Math.abs(this.extent.getMinY()) % this.gridSizeY;
+        int y = (int) Math.round(this.getSize().getHeight() - (mod / scaleY));
         while (y > 15)
         {
-            Point2d point =
-                    Renderable2DInterface.Util.getWorldCoordinates(new Point2D.Double(0, y), this.extent, this.getSize());
+            Point2d point = this.renderableScale.getWorldCoordinates(new Point2D.Double(0, y), this.extent, this.getSize());
             if (point != null)
             {
-                String label = this.formatter.format(Math.round(point.getY() / this.gridSize) * this.gridSize);
+                String label = this.formatter.format(Math.round(point.getY() / this.gridSizeY) * this.gridSizeY);
                 RectangularShape labelBounds = this.getFontMetrics(this.getFont()).getStringBounds(label, g);
                 g.drawLine((int) Math.round(labelBounds.getWidth() + 4), y, this.getWidth(), y);
                 g.drawString(label, 2, (int) Math.round(y + labelBounds.getHeight() * 0.3));
             }
-            y = y - gridSizePixels;
+            y = y - gridSizePixelsY;
         }
     }
 
@@ -408,7 +460,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param size Dimension; set size
      */
-    public final void setSize(Dimension size)
+    public final void setSize(final Dimension size)
     {
         this.size = size;
     }
@@ -424,7 +476,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param background Color; set background
      */
-    public final void setBackground(Color background)
+    public final void setBackground(final Color background)
     {
         this.background = background;
     }
@@ -456,7 +508,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param preferredSize Dimension; set preferredSize
      */
-    public final void setPreferredSize(Dimension preferredSize)
+    public final void setPreferredSize(final Dimension preferredSize)
     {
         this.preferredSize = preferredSize;
     }
@@ -472,7 +524,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param toolTipText String; set toolTipText
      */
-    public final void setToolTipText(String toolTipText)
+    public final void setToolTipText(final String toolTipText)
     {
         this.toolTipText = toolTipText;
     }
@@ -488,7 +540,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param showing boolean; set showing
      */
-    public final void setShowing(boolean showing)
+    public final void setShowing(final boolean showing)
     {
         this.showing = showing;
     }
@@ -504,7 +556,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param font Font; set font
      */
-    public final void setFont(Font font)
+    public final void setFont(final Font font)
     {
         this.currentFont = font;
     }
@@ -513,7 +565,7 @@ public class HTMLGridPanel implements ImageObserver
      * @param font Font; the font to calculate the fontmetrics for
      * @return fontMetrics
      */
-    public final FontMetrics getFontMetrics(Font font)
+    public final FontMetrics getFontMetrics(final Font font)
     {
         return this.canvas.getFontMetrics(font);
     }
@@ -528,9 +580,26 @@ public class HTMLGridPanel implements ImageObserver
 
     /** {@inheritDoc} */
     @Override
-    public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height)
+    public boolean imageUpdate(final Image img, final int infoflags, final int x, final int y, final int width,
+            final int height)
     {
         return false;
+    }
+
+    /**
+     * @return renderableScale
+     */
+    public final RenderableScale getRenderableScale()
+    {
+        return this.renderableScale;
+    }
+
+    /**
+     * @param renderableScale set renderableScale
+     */
+    public final void setRenderableScale(final RenderableScale renderableScale)
+    {
+        this.renderableScale = renderableScale;
     }
 
 }

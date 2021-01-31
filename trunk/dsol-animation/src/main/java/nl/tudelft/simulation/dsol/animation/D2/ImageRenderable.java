@@ -22,7 +22,6 @@ import org.djutils.logger.CategoryLogger;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation3d;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.language.d3.BoundsUtil;
 
 /**
  * An abstract class for state-dependent image renderables.
@@ -73,12 +72,15 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
     public static final short RT = 4;
 
     /** the imageIcons to use. */
-    protected URL[] images = null;
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected URL[] imageUrls = null;
 
     /** the imageIcons to be used. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected transient ImageIcon[] imageIcons = null;
 
     /** the origin of the image. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected short orientation = ImageRenderable.CC;
 
     /**
@@ -96,22 +98,22 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
 
     /**
      * reads and caches the images.
-     * @param _images URL[]; the images
+     * @param images URL[]; the images
      */
-    private void readImages(final URL[] _images)
+    private void readImages(final URL[] images)
     {
-        this.images = _images;
-        this.imageIcons = new ImageIcon[_images.length];
-        for (int i = 0; i < _images.length; i++)
+        this.imageUrls = images;
+        this.imageIcons = new ImageIcon[images.length];
+        for (int i = 0; i < images.length; i++)
         {
-            if (ImageRenderable.cache.containsKey(_images[i]))
+            if (ImageRenderable.cache.containsKey(images[i]))
             {
-                this.imageIcons[i] = ImageRenderable.cache.get(_images[i]);
+                this.imageIcons[i] = ImageRenderable.cache.get(images[i]);
             }
             else
             {
-                this.imageIcons[i] = new ImageIcon(_images[i]);
-                ImageRenderable.cache.put(_images[i], this.imageIcons[i]);
+                this.imageIcons[i] = new ImageIcon(images[i]);
+                ImageRenderable.cache.put(images[i], this.imageIcons[i]);
             }
         }
     }
@@ -197,14 +199,14 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
 
     /**
      * resolves the origin of the image.
-     * @param _orientation short; the orientation (CC,..)
+     * @param forOrientation short; the orientation (CC,..)
      * @return Bounds2d the location
      * @param size Dimension; the size of the image.
      */
-    protected Point2D resolveOrigin(final short _orientation, final Bounds2d size)
+    protected Point2D resolveOrigin(final short forOrientation, final Bounds2d size)
     {
         Point2D imageOrigin = new Point2D.Double(0.0, 0.0);
-        switch (_orientation)
+        switch (forOrientation)
         {
             case ImageRenderable.LB:
                 imageOrigin.setLocation(imageOrigin.getX(), imageOrigin.getY() - size.getDeltaY());
@@ -273,6 +275,6 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
         {
             ImageRenderable.cache = new HashMap<URL, ImageIcon>();
         }
-        this.readImages(this.images);
+        this.readImages(this.imageUrls);
     }
 }

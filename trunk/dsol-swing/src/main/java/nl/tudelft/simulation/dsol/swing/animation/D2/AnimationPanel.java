@@ -130,12 +130,12 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
             }
         }
 
-        // draw the animation elements.
+        // draw the animation elements
         for (Renderable2DInterface<? extends Locatable> element : this.elementList)
         {
             if (isShowElement(element))
             {
-                element.paint(g2, this.getExtent(), this.getSize(), this);
+                element.paintComponent(g2, this.getExtent(), this.getSize(), getRenderableScale(), this);
             }
         }
 
@@ -332,8 +332,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
      */
     public synchronized void zoomAll()
     {
-        this.extent = Renderable2DInterface.Util.computeVisibleExtent(fullExtent(), this.getSize());
-        this.repaint();
+        setExtent(getRenderableScale().computeVisibleExtent(fullExtent(), this.getSize()));
     }
 
     /**
@@ -417,4 +416,5 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     {
         this.dragLineEnabled = dragLineEnabled;
     }
+
 }

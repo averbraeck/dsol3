@@ -5,7 +5,25 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
     
-    <release version="3.05.03" date="2021-01-27" description="repaired sevreal GUI primitives">
+    <release version="3.05.04" date="2021-01-31" description="separate x/y scaling in animation">
+      <action dev="averbraeck" type="add">
+        X and Y can be scaled separately using the RenderableScale class in dsol-animation. An extra flag has been
+        added to Renderable2D to indicate if the vertical scaling has to be applied (so, e.g., a map can be vertically
+        scaled at higher latitudes, but the symbols on the map are not scaled).
+      </action>
+      <action dev="averbraeck" type="fix">
+        Error in Renerable2D for flipping repaired.
+      </action>
+      <action dev="averbraeck" type="update">
+        BoundsUtil has been moved from dsol-base to dsol-animation as it is only used there.
+      </action>
+      <action dev="averbraeck" type="update">
+        Several actions in AnimationPanel, GridPanel, InputListener in dsol-swing updated, for instance to make
+        independent X/Y scaling possible.
+      </action>
+    </release>
+    
+    <release version="3.05.03" date="2021-01-27" description="repaired several GUI primitives">
       <action dev="averbraeck" type="fix">
         In AnimationPanel and InputListener in dsol-swing, fixed introspection, dragging, and visible extend using
         the new Bounds3d classes from djutils-draw.

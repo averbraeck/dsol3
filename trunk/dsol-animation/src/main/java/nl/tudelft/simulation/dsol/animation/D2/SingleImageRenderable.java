@@ -13,6 +13,7 @@ import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
+ * Render an image on screen where there is only a single image. 
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -30,7 +31,7 @@ public class SingleImageRenderable<L extends Locatable> extends ImageRenderable<
     private static final long serialVersionUID = 20200108L;
 
     /**
-     * constructs a new SingleImageRenderable
+     * constructs a new SingleImageRenderable.
      * @param source T; the moving source
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      * @param image URL; the image to animate
@@ -44,7 +45,7 @@ public class SingleImageRenderable<L extends Locatable> extends ImageRenderable<
     }
 
     /**
-     * constructs a new SingleImageRenderable
+     * constructs a new SingleImageRenderable.
      * @param staticLocation Point3d; the static location
      * @param size Bounds3d; the size
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
@@ -59,7 +60,7 @@ public class SingleImageRenderable<L extends Locatable> extends ImageRenderable<
     }
 
     /**
-     * constructs a new SingleImageRenderable
+     * constructs a new SingleImageRenderable.
      * @param staticLocation OrientedPoint3d; the static location
      * @param size Bounds3d; the size of the image
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator

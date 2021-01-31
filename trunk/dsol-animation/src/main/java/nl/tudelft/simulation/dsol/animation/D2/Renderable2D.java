@@ -18,11 +18,11 @@ import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d2.Shape2d;
-import nl.tudelft.simulation.language.d3.BoundsUtil;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
- * The Renderable2D provides an easy accessible renderable object.
+ * The Renderable2D provides an easy accessible renderable object that can be drawn on an absolute or relative position, scaled,
+ * flipped, and rotated.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -31,7 +31,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
- * @param <L> the Locatable class of the source that indicates the location of the Renderable on the screen
+ * @param <L> the Locatable class of the source that can return the location of the Renderable on the screen
  */
 public abstract class Renderable2D<L extends Locatable> implements Renderable2DInterface<L>
 {
@@ -43,6 +43,9 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * true, flip = false, scale = true, translate = true.
      */
     private byte flags = 0x0B;
+
+    /** whether to scale the Y-value in case of a compressed Y-axis. Flag is 00010000 */
+    private static final byte SCALE_Y_FLAG = 0x10;
 
     /** whether to rotate the renderable. Flag is 1000 */
     private static final byte ROTATE_FLAG = 0x08;
@@ -66,7 +69,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     private int id;
 
     /**
-     * constructs a new Renderable2D.
+     * Constructs a new Renderable2D.
      * @param source T; the source
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
      */
@@ -82,9 +85,9 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     }
 
     /**
-     * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding the code
-     * in the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must
-     * be overwritten.
+     * Bind a renderable2D to the context. The reason for specifying this in an independent method instead of adding the code in
+     * the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must be
+     * overwritten.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object into the context
      */
     protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
@@ -102,15 +105,17 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     }
 
     /**
-     * @return Returns the flip.
+     * Return whether to flip the renderable, if the direction is 'left' or not.
+     * @return boolean; whether to flip the renderable, if the direction is 'left' or not
      */
-    public final boolean isFlip()
+    public boolean isFlip()
     {
         return (this.flags & FLIP_FLAG) != 0;
     }
 
     /**
-     * @param flip boolean; The flip to set.
+     * Set whether to flip the renderable, if the direction is 'left' or not.
+     * @param flip boolean; whether to flip the renderable, if the direction is 'left' or not
      */
     @SuppressWarnings("checkstyle:needbraces")
     public final void setFlip(final boolean flip)
@@ -122,15 +127,17 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     }
 
     /**
-     * @return Returns the rotate.
+     * Return whether to rotate the renderable or not.
+     * @return boolean; whether to rotate the renderable or not
      */
-    public final boolean isRotate()
+    public boolean isRotate()
     {
         return (this.flags & ROTATE_FLAG) != 0;
     }
 
     /**
-     * @param rotate boolean; The rotate to set.
+     * Set whether to rotate the renderable or not.
+     * @param rotate boolean; whether to rotate the renderable or not
      */
     @SuppressWarnings("checkstyle:needbraces")
     public final void setRotate(final boolean rotate)
@@ -142,15 +149,17 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     }
 
     /**
-     * @return Returns the scale.
+     * Return whether to scale the renderable or not.
+     * @return boolean; whether to scale the renderable or not
      */
-    public final boolean isScale()
+    public boolean isScale()
     {
         return (this.flags & SCALE_FLAG) != 0;
     }
 
     /**
-     * @param scale boolean; The scale to set.
+     * Set whether to scale the renderable or not.
+     * @param scale boolean; whether to scale the renderable or not
      */
     @SuppressWarnings("checkstyle:needbraces")
     public final void setScale(final boolean scale)
@@ -162,15 +171,39 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     }
 
     /**
-     * @return Returns the translate.
+     * Return whether to scale the renderable in the Y-direction when there is a compressed Y-axis or not.
+     * @return boolean; whether to scale the renderable in the Y-direction when there is a compressed Y-axis or not
      */
-    public final boolean isTranslate()
+    public boolean isScaleY()
+    {
+        return (this.flags & SCALE_Y_FLAG) != 0;
+    }
+
+    /**
+     * Set whether to scale the renderable in the Y-direction when there is a compressed Y-axis or not.
+     * @param scaleY boolean; whether to scale the renderable in the Y-direction when there is a compressed Y-axis or not
+     */
+    @SuppressWarnings("checkstyle:needbraces")
+    public final void setScaleY(final boolean scaleY)
+    {
+        if (scaleY)
+            this.flags |= SCALE_Y_FLAG;
+        else
+            this.flags &= (~SCALE_Y_FLAG);
+    }
+
+    /**
+     * Return whether to translate the renderable to its position or not (false means absolute position).
+     * @return boolean; whether to translate the renderable to its position or not (false means absolute position)
+     */
+    public boolean isTranslate()
     {
         return (this.flags & TRANSLATE_FLAG) != 0;
     }
 
     /**
-     * @param translate boolean; The translate to set.
+     * Set whether to translate the renderable to its position or not (false means absolute position).
+     * @param translate boolean; whether to translate the renderable to its position or not (false means absolute position)
      */
     @SuppressWarnings("checkstyle:needbraces")
     public final void setTranslate(final boolean translate)
@@ -190,38 +223,63 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
 
     /** {@inheritDoc} */
     @Override
-    public synchronized void paint(final Graphics2D graphics, final Bounds2d extent, final Dimension screenSize,
-            final ImageObserver observer)
+    public void paintComponent(final Graphics2D graphics, final Bounds2d extent, final Dimension screenSize,
+            final RenderableScale renderableScale, final ImageObserver observer)
+    {
+        // by default: delegate to the paint() method.
+        paint(graphics, extent, screenSize, renderableScale, observer);
+    }
+
+    /**
+     * The methods that actually paints the object at the right scale, rotation, and position on the screen using the
+     * user-implemented <code>paint(graphics, observer)</code> method to do the actual work.
+     * @param graphics Graphics2D; the graphics object
+     * @param extent Bounds2d; the extent of the panel
+     * @param screenSize Dimension; the screen of the panel
+     * @param renderableScale RenderableScale; the scale to use (usually RenderableScaleDefault where X/Y ratio is 1)
+     * @param observer ImageObserver; the observer of the renderableInterface
+     */
+    protected synchronized void paint(final Graphics2D graphics, final Bounds2d extent, final Dimension screenSize,
+            final RenderableScale renderableScale, final ImageObserver observer)
     {
         try
         {
-            // TODO: test whether getTransform / setTransform is faster than undoing the transform operations
             AffineTransform transform = graphics.getTransform();
             Bounds2d rectangle = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
             if (rectangle == null || (!Shape2d.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
             }
-            Point2D screenCoordinates =
-                    Renderable2DInterface.Util.getScreenCoordinates(this.source.getLocation(), extent, screenSize);
             // Let's transform
             if (isTranslate())
             {
+                Point2D screenCoordinates = renderableScale.getScreenCoordinates(this.source.getLocation(), extent, screenSize);
                 graphics.translate(screenCoordinates.getX(), screenCoordinates.getY());
             }
-            double scaleFactor = Renderable2DInterface.Util.getScale(extent, screenSize);
             if (isScale())
             {
-                graphics.scale(1.0 / scaleFactor, 1.0 / scaleFactor);
+                if (isScaleY())
+                {
+                    graphics.scale(1.0 / renderableScale.getXScale(extent, screenSize),
+                        1.0 / renderableScale.getYScale(extent, screenSize));
+                }
+                else
+                {
+                    graphics.scale(1.0 / renderableScale.getXScale(extent, screenSize),
+                            renderableScale.getYScaleFactor() / renderableScale.getYScale(extent, screenSize));
+                }
             }
             double angle = -this.source.getDirZ();
-            if (isFlip() && angle > Math.PI)
+            if (angle != 0.0)
             {
-                angle = angle - Math.PI;
-            }
-            if (isRotate() && angle != 0.0)
-            {
-                graphics.rotate(angle);
+                if (isFlip() && angle < -Math.PI)
+                {
+                    angle = angle + Math.PI;
+                }
+                if (isRotate())
+                {
+                    graphics.rotate(angle);
+                }
             }
 
             // Now we paint
@@ -246,9 +304,9 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
             Bounds2d intersect = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
             if (intersect == null)
             {
-                throw new NullPointerException(
+                throw new IllegalStateException(
                         "empty intersect: location.z is not in bounds. This is probably due to a modeling error. "
-                                + "See the javadoc of LocatableInterface.");
+                                + "See the javadoc of the Locatable interface.");
             }
             return intersect.contains(pointWorldCoordinates);
         }
@@ -273,7 +331,13 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
         {
             CategoryLogger.always().warn(exception);
         }
+    }
 
+    /** {@inheritDoc} */
+    @Override
+    public int getId()
+    {
+        return this.id;
     }
 
     /** {@inheritDoc} */
@@ -285,7 +349,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     }
 
     /**
-     * draws an animation on a world coordinates around [x,y=0,0].
+     * Draws an animation on a world coordinate around [x,y] = [0,0].
      * @param graphics Graphics2D; the graphics object
      * @param observer ImageObserver; the observer
      */

@@ -44,6 +44,7 @@ public class BallAnimation extends Renderable2D<Ball>
             throws RemoteException, NamingException
     {
         super(source, simulator);
+        setScaleY(true);
     }
 
     /** {@inheritDoc} */

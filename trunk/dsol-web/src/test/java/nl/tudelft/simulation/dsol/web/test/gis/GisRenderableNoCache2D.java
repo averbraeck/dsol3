@@ -16,6 +16,7 @@ import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
+import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.mapfile.MapFileXMLParser;
 import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
@@ -37,7 +38,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  */
 public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderableNoCache2D>, Locatable
 {
-    /** the map to display */
+    /** the map to display. */
     protected GisMapInterface map = null;
 
     /** the location of the map. */
@@ -85,7 +86,8 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         try
         {
             this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
-            this.location = new OrientedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
+            this.location =
+                    new OrientedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
             this.bounds = new Bounds3d(this.map.getExtent().getDeltaX(), this.map.getExtent().getDeltaY(), 0.0);
             // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
             // XXX this.map.getExtent());
@@ -114,7 +116,8 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         try
         {
             this.map = map;
-            this.location = new OrientedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
+            this.location =
+                    new OrientedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
             this.bounds = new Bounds3d(this.map.getExtent().getDeltaX(), this.map.getExtent().getDeltaY(), 100.0);
             // XXX simulator.getReplication().getTreatment().getProperties().put("animationPanel.extent",
             // XXX this.map.getExtent());
@@ -147,7 +150,8 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
 
     /** {@inheritDoc} */
     @Override
-    public void paint(final Graphics2D graphics, final Bounds2d extent, final Dimension screen, final ImageObserver observer)
+    public void paintComponent(final Graphics2D graphics, final Bounds2d extent, final Dimension screen,
+            final RenderableScale renderableScale, final ImageObserver observer)
     {
         try
         {
@@ -211,5 +215,12 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
     public boolean contains(final Point2d pointWorldCoordinates, final Bounds2d extent)
     {
         return false;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public int getId()
+    {
+        return -1; // in case of same z-values make sure map is drawn first
     }
 }
