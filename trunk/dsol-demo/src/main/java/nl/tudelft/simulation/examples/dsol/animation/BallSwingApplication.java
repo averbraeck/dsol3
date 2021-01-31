@@ -40,7 +40,7 @@ public class BallSwingApplication extends DSOLAnimationApplication
             throws RemoteException, IllegalArgumentException, DSOLException
     {
         super(panel, title, new Bounds2d(-100, 100, -100, 100));
-        getAnimationTab().getAnimationPanel().setRenderableScale(new RenderableScale(2.0));
+        getAnimationTab().getAnimationPanel().setRenderableScale(new RenderableScale(2.0, 0.5));
         panel.enableSimulationControlButtons();
     }
 

@@ -7,9 +7,14 @@
     
     <release version="3.05.04" date="2021-01-31" description="separate x/y scaling in animation">
       <action dev="averbraeck" type="add">
-        X and Y can be scaled separately using the RenderableScale class in dsol-animation. An extra flag has been
-        added to Renderable2D to indicate if the vertical scaling has to be applied (so, e.g., a map can be vertically
-        scaled at higher latitudes, but the symbols on the map are not scaled).
+        For scaling a Renderable2D, several options exist from this version onward:
+        scale: whether to scale the drawing at all; e.g. for a legend, absolute coordinates might be used (scale = false);
+        scaleY: whether to scale differently in X and Y direction, e.g. for a map at higher latitudes (scaleY = true);
+        scaleObject: whether to scale the drawing larger or smaller than the scale factor of the extent (e.g., to draw 
+        an object on a map where the units of the object are in meters, while the map is in lat / lon degrees).
+        The default values are: translate = true; scale = true; flip = false; rotate = true; scaleY = false; scaleObject = false.
+        The settings for scaling are stored in the RenderableScale object. Different RenderableScale objects could exist
+        in one simulation.
       </action>
       <action dev="averbraeck" type="fix">
         Error in Renerable2D for flipping repaired.
