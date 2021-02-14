@@ -181,7 +181,6 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
     /**
      * resets the streams.
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public synchronized void reset()
     {
         for (StreamInterface stream : this.streams.values())
@@ -234,7 +233,6 @@ public class Replication<A extends Comparable<A> & Serializable, R extends Numbe
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "Replication " + this.getDescription();

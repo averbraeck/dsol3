@@ -82,7 +82,6 @@ public class CartesianPoint extends Point3d
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "CartesianPoint [x=" + this.getX() + ", y=" + this.getY() + ", z=" + this.getZ() + "]";

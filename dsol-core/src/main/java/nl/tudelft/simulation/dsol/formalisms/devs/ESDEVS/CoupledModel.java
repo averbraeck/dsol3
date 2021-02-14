@@ -442,7 +442,6 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void printModel(final String space)
     {
         System.out.println(space + "================");

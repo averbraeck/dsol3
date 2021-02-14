@@ -12,10 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import org.djutils.draw.bounds.Bounds2d;
+import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
 import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
+import nl.tudelft.simulation.dsol.swing.animation.D2.AutoPanAnimationPanel;
+import nl.tudelft.simulation.dsol.swing.gui.animation.panel.SearchPanel;
 import nl.tudelft.simulation.language.DSOLException;
 
 /**
@@ -41,7 +45,7 @@ public class DSOLAnimationGisTab extends DSOLAnimationTab
     private Map<String, JToggleButton> toggleGISButtons = new LinkedHashMap<>();
 
     /**
-     * Construct a panel for the animation of a DSOLModel, including GIS layers.
+     * Construct a tab with an AnimationPane for the animation of a DSOLModel, including GIS layers.
      * @param homeExtent Bounds2d; initial extent of the animation
      * @param simulator SimulatorInterface; the simulator
      * @throws RemoteException when notification of the animation panel fails
@@ -51,6 +55,36 @@ public class DSOLAnimationGisTab extends DSOLAnimationTab
             throws RemoteException, DSOLException
     {
         super(homeExtent, simulator);
+    }
+
+    /**
+     * Construct a tab with an AnimationPane for the animation of a DSOLModel, including GIS layers.
+     * @param simulator SimulatorInterface; the simulator
+     * @param animationPanel AnimationPanel; the animation panel to use, e.g. the AutoPanAnimationPanel
+     * @throws RemoteException when notification of the animation panel fails
+     * @throws DSOLException when simulator does not implement the AnimatorInterface
+     */
+    public DSOLAnimationGisTab(final SimulatorInterface<?, ?, ?> simulator, final AnimationPanel animationPanel)
+            throws RemoteException, DSOLException
+    {
+        super(simulator, animationPanel);
+    }
+
+    /**
+     * Construct a tab with an AutoPanAnimationPanel and a linked SearchPanel for the animation of a DSOLModel, including GIS
+     * layers.
+     * @param homeExtent Bounds2d; initial extent of the animation
+     * @param simulator SimulatorInterface; the simulator
+     * @return DSOLAnimationTab; a tab with an AutoPanAnimationPanel and a linked SearchPanel
+     * @throws RemoteException when notification of the animation panel fails
+     * @throws DSOLException when simulator does not implement the AnimatorInterface
+     */
+    public static DSOLAnimationTab createAutoPanTab(final Bounds2d homeExtent, final SimulatorInterface<?, ?, ?> simulator)
+            throws RemoteException, DSOLException
+    {
+        DSOLAnimationTab tab = new DSOLAnimationTab(simulator, new AutoPanAnimationPanel(homeExtent, simulator));
+        tab.setSearchPanel(new SearchPanel());
+        return tab;
     }
 
     /**
@@ -195,7 +229,7 @@ public class DSOLAnimationGisTab extends DSOLAnimationTab
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
+            CategoryLogger.always().warn(exception);
         }
     }
 

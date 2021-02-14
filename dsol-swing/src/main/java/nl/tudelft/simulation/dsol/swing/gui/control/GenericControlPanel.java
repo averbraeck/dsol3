@@ -74,7 +74,7 @@ public class GenericControlPanel<A extends Comparable<A> & Serializable, R exten
                 final SimulatorInterface.TimeDouble simulator) throws RemoteException
         {
             super(model, simulator);
-            setClockPanel(new ClockSpeedPanel.TimeDouble(getSimulator()));
+            setClockSpeedPanel(new ClockSpeedPanel.TimeDouble(getSimulator()));
             setRunUntilPanel(new RunUntilPanel.TimeDouble(getSimulator()));
         }
     }

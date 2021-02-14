@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.swing.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -41,17 +40,14 @@ public class ConsoleOutput extends JPanel
     public ConsoleOutput()
     {
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
         this.textArea = new JTextArea();
         this.textArea.setEditable(false);
-        this.textArea.setBackground(Color.WHITE);
         this.standardOut = System.out;
         this.standardErr = System.err;
         System.setOut(new PrintStream(new CustomOutputStream(this.textArea, this.standardOut)));
         System.setErr(new PrintStream(new CustomErrorStream(this.textArea, this.standardErr)));
         JScrollPane scrollPane = new JScrollPane(this.textArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
     }
 

@@ -33,7 +33,7 @@ public class InputFieldLong extends InputFieldString
     }
 
     /**
-     * Return the numeric value of the field
+     * Return the numeric value of the field.
      * @return the long value of the field in the gui.
      * @throws InputParameterException on invalid input
      */
@@ -43,7 +43,7 @@ public class InputFieldLong extends InputFieldString
     }
 
     /**
-     * Return the numeric value of the field
+     * Return the numeric value of the field.
      * @param s String; the String to test
      * @param shortName String; the name of the field to test
      * @return the long value of the field in the gui.

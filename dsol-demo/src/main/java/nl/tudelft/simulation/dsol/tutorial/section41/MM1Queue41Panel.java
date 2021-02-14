@@ -52,8 +52,8 @@ public class MM1Queue41Panel extends DSOLPanel
     protected final void addTabs(final MM1Queue41Model model)
     {
         TablePanel charts = new TablePanel(4, 3);
-        super.tabbedPane.addTab("statistics", charts);
-        super.tabbedPane.setSelectedIndex(0);
+        getTabbedPane().addTab("statistics", charts);
+        getTabbedPane().setSelectedIndex(0);
         addConsoleLogger(Level.TRACE);
         addConsoleOutput();
 

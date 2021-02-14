@@ -82,7 +82,6 @@ public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends N
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
         AnimationThread animationThread = new AnimationThread(this);

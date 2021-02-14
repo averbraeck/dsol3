@@ -84,7 +84,6 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
         while (!isStoppingOrStopped() && !this.eventList.isEmpty()

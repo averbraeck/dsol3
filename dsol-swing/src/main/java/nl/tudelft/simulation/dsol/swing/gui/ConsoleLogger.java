@@ -43,6 +43,7 @@ public class ConsoleLogger extends JPanel implements AppearanceControl
     private static final long serialVersionUID = 1L;
 
     /** */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected ConsoleLogWriter consoleLogWriter;
 
     /** current message format. */
@@ -89,22 +90,22 @@ public class ConsoleLogger extends JPanel implements AppearanceControl
      * - {method} Method name from where the logging request is issued<br>
      * - {package} Package where the logging request is issued<br>
      * @see <a href="https://tinylog.org/configuration#format">https://tinylog.org/configuration</a>
-     * @param messageFormat String; the new formatting pattern to use
+     * @param newMessageFormat String; the new formatting pattern to use
      */
-    public void setLogMessageFormat(final String messageFormat)
+    public void setLogMessageFormat(final String newMessageFormat)
     {
         Configurator.currentConfig().removeWriter(this.consoleLogWriter).activate();
-        this.messageFormat = messageFormat;
+        this.messageFormat = newMessageFormat;
         Configurator.currentConfig().addWriter(this.consoleLogWriter, this.level, this.messageFormat).activate();
     }
 
     /**
-     * @param level Level; the new log level for the Console
+     * @param newLevel Level; the new log level for the Console
      */
-    public void setLogLevel(final Level level)
+    public void setLogLevel(final Level newLevel)
     {
         Configurator.currentConfig().removeWriter(this.consoleLogWriter).activate();
-        this.level = level;
+        this.level = newLevel;
         Configurator.currentConfig().addWriter(this.consoleLogWriter, this.level, this.messageFormat).activate();
     }
 
@@ -137,18 +138,23 @@ public class ConsoleLogger extends JPanel implements AppearanceControl
     public static class ConsoleLogWriter implements Writer
     {
         /** the text pane. */
+        @SuppressWarnings("checkstyle:visibilitymodifier")
         JTextPane textPane;
 
         /** the document to write to. */
+        @SuppressWarnings("checkstyle:visibilitymodifier")
         StyledDocument doc;
 
         /** the color style. */
+        @SuppressWarnings("checkstyle:visibilitymodifier")
         Style style;
 
         /** number of lines. */
+        @SuppressWarnings("checkstyle:visibilitymodifier")
         int nrLines = 0;
 
         /** the maximum number of lines before the first lines will be erased. */
+        @SuppressWarnings("checkstyle:visibilitymodifier")
         protected int maxLines = 20000;
 
         /**
@@ -170,14 +176,14 @@ public class ConsoleLogger extends JPanel implements AppearanceControl
 
         /** {@inheritDoc} */
         @Override
-        public void init(Configuration configuration) throws Exception
+        public void init(final Configuration configuration) throws Exception
         {
             // nothing to do
         }
 
         /** {@inheritDoc} */
         @Override
-        public synchronized void write(LogEntry logEntry) throws Exception
+        public synchronized void write(final LogEntry logEntry) throws Exception
         {
             Runnable runnable = new Runnable()
             {

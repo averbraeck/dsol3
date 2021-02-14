@@ -37,12 +37,15 @@ public abstract class ClockSpeedPanel<A extends Comparable<A> & Serializable, R 
     private static final long serialVersionUID = 20141211L;
 
     /** The JLabel that displays the time. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final JLabel timeLabel;
 
     /** The JLabel that displays the simulation speed. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected final JLabel speedLabel;
 
     /** the simulator. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     final SimulatorInterface<A, R, T> simulator;
 
     /** Font used to display the clock. */

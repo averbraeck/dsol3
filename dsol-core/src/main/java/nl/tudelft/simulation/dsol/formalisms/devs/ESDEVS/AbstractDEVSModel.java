@@ -170,7 +170,6 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
     }
 
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return this.fullName;
@@ -226,7 +225,6 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
      * change of all state variables. The intelligence to detect real state changes then has to be built in at the receiver's
      * side.
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected void fireUpdatedState()
     {
         for (Field field : this.stateFieldSet)

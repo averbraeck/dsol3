@@ -13,7 +13,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * <p>
  * This version of the normal distribution uses the numerically approached inverse cumulative distribution.
  * <p>
- * (c) copyright 2002-2019 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * (c) copyright 2002-2021 <a href="http://www.simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="http://www.simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/lesser.html">Lesser General Public License (LGPL) </a>, no warranty.
  * @author <a href="mailto:a.verbraeck@tudelft.nl"> Alexander Verbraeck </a> <br>

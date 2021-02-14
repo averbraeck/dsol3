@@ -120,7 +120,7 @@ public class InputFieldDistDiscrete extends AbstractInputField implements ItemLi
 
     /** {@inheritDoc} */
     @Override
-    public void itemStateChanged(ItemEvent event)
+    public void itemStateChanged(final ItemEvent event)
     {
         CardLayout cardLayout = (CardLayout) (this.distPanel.getLayout());
         cardLayout.show(this.distPanel, (String) event.getItem());

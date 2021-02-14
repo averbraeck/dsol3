@@ -43,13 +43,14 @@ public class DiscreteBall extends Ball
 
     /**
      * constructs a new Ball.
+     * @param nr int; the ball number
      * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
      * @throws RemoteException on remote failure
      * @throws SimRuntimeException on schedule failure
      */
-    public DiscreteBall(final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException, SimRuntimeException
+    public DiscreteBall(final int nr, final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException, SimRuntimeException
     {
-        super();
+        super(nr);
         this.simulator = simulator;
         // URL image = URLResource.getResource("/nl/tudelft/simulation/examples/dsol/animation/images/customer.jpg");
         // new SingleImageRenderable(this, simulator, image);

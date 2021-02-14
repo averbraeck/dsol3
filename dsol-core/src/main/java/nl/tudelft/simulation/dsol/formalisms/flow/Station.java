@@ -73,7 +73,6 @@ public abstract class Station<A extends Comparable<A> & Serializable, R extends 
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void receiveObject(final Object object)
     {
         this.fireTimedEvent(StationInterface.RECEIVE_EVENT, 1.0, this.simulator.getSimulatorTime());
@@ -90,7 +89,6 @@ public abstract class Station<A extends Comparable<A> & Serializable, R extends 
      * releases an object.
      * @param object Object; is the entity
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected synchronized void releaseObject(final Object object)
     {
         this.fireTimedEvent(StationInterface.RELEASE_EVENT, 0.0, this.simulator.getSimulatorTime());

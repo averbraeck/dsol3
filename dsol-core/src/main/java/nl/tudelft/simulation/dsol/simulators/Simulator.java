@@ -194,7 +194,6 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public final void step() throws SimRuntimeException
     {
         Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot step a running simulator");
@@ -230,7 +229,6 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public final void stop() throws SimRuntimeException
     {
         Throw.when(isStoppingOrStopped(), SimRuntimeException.class, "Cannot stop an already stopped simulator");

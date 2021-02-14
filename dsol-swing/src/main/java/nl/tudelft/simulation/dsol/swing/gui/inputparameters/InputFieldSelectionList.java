@@ -25,6 +25,7 @@ public class InputFieldSelectionList<T> extends AbstractInputField
     protected JComboBox<String> selectField;
 
     /** mapping from String value to original class. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Map<String, T> selectionMap = new HashMap<>();
 
     /**

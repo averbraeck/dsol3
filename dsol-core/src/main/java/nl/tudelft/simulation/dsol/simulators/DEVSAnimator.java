@@ -80,7 +80,6 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
         AnimationThread animationThread = new AnimationThread(this);

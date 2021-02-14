@@ -342,7 +342,6 @@ public class HTMLGridPanel implements ImageObserver
      * 'paintComponent' render method.
      * @param g Graphics; the graphics object
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected synchronized void drawGrid(final Graphics g)
     {
         // we prepare the graphics object for the grid

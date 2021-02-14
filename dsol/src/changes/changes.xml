@@ -5,6 +5,31 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
     
+    <release version="3.05.05" date="2021-02-09" description="dsol-animation and dsol-swing further enhanced">
+      <action dev="averbraeck" type="add">
+        All elements of the AnimationTab have been coded in separate classes. Panels that are not standard communicate
+        through events, to enable a flexible interface that is dependent on the panels present. An example is handling of
+        shift/mouse click or ctrl/mouse click for specific applications or when certain panels are present. 
+      </action>
+      <action dev="averbraeck" type="add">
+        InputParametersTab displays the input parameters in a ScrollPane.
+      </action>
+      <action dev="averbraeck" type="update">
+        Renderable2DComparator compares on long values, while the implementation of a Renderable2D can generate the value,
+        or use an int internally to conserve memory.
+      </action>
+      <action dev="averbraeck" type="update">
+        The organization of the dsol-swing components has been severely tightened with a very clear hierarchy: The core 
+        DSOLApplication class contains a DSOLPanel for the interaction. DSOLPanel consists of two components: (1) at the top a
+        ControlPanel that contains the ClockSpeedPanel, ControlButtonsPanel, RunUntilPanel, and possible other controls.
+        (2) A TabbedContentPane that can have e.g., console tabs, statistics tabs, an InputParametersTab, and a DSOLAnimationTab.
+        The DSOLAnimationTab consists of a AnimationSettingsPanel at the top, a TogglePanel on the left, a PropertiesPanel
+        on the right, and an AnimationPanel at the center. Of all these panels, different versions can be created and linked 
+        to the component one level up. One example is the AutoPanAnimationPanel that can track a simulation object. This now
+        just replaces the center component in the DSOLAnimationTab. All panels are accessible for making adaptations.
+      </action>
+    </release>
+    
     <release version="3.05.04" date="2021-01-31" description="separate x/y scaling in animation">
       <action dev="averbraeck" type="add">
         For scaling a Renderable2D, several options exist from this version onward:

@@ -14,6 +14,8 @@ import nl.tudelft.simulation.dsol.swing.gui.ConsoleLogger;
 import nl.tudelft.simulation.dsol.swing.gui.ConsoleOutput;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 import nl.tudelft.simulation.dsol.swing.gui.animation.DSOLAnimationApplication;
+import nl.tudelft.simulation.dsol.swing.gui.animation.DSOLAnimationTab;
+import nl.tudelft.simulation.dsol.swing.gui.animation.panel.SearchPanel.ObjectKind;
 import nl.tudelft.simulation.dsol.swing.gui.control.RealTimeControlPanel;
 import nl.tudelft.simulation.language.DSOLException;
 
@@ -29,6 +31,9 @@ import nl.tudelft.simulation.language.DSOLException;
  */
 public class BallSwingApplication extends DSOLAnimationApplication
 {
+    /** */
+    private static final long serialVersionUID = 1L;
+
     /**
      * @param title String; the title
      * @param panel DSOLPanel; the panel
@@ -39,13 +44,33 @@ public class BallSwingApplication extends DSOLAnimationApplication
     public BallSwingApplication(final String title, final DSOLPanel panel)
             throws RemoteException, IllegalArgumentException, DSOLException
     {
-        super(panel, title, new Bounds2d(-100, 100, -100, 100));
+        super(panel, title, DSOLAnimationTab.createAutoPanTab(new Bounds2d(-100, 100, -100, 100), panel.getSimulator()));
         getAnimationTab().getAnimationPanel().setRenderableScale(new RenderableScale(2.0, 0.5));
+
+        ObjectKind<Ball> objectKind = new ObjectKind<Ball>("Ball")
+        {
+            @Override
+            public Ball searchObject(final String id)
+            {
+                if (id == null || id.length() == 0)
+                {
+                    return null;
+                }
+                try
+                {
+                    return ((BallModel) panel.getModel()).getBall(Integer.valueOf(id));
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
+            }
+
+        };
+        getAnimationTab().getSearchPanel().addObjectKind(objectKind);
+
         panel.enableSimulationControlButtons();
     }
-
-    /** */
-    private static final long serialVersionUID = 1L;
 
     /**
      * @param args String[]; arguments, expected to be empty

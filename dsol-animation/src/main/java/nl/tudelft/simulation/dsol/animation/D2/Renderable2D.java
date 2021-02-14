@@ -274,9 +274,9 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     protected synchronized void paint(final Graphics2D graphics, final Bounds2d extent, final Dimension screenSize,
             final RenderableScale renderableScale, final ImageObserver observer)
     {
+        AffineTransform transform = graphics.getTransform();
         try
         {
-            AffineTransform transform = graphics.getTransform();
             Bounds2d rectangle = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
             if (rectangle == null || (!Shape2d.overlaps(extent, rectangle) && isTranslate()))
             {
@@ -317,19 +317,20 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
 
             // Now we paint
             this.paint(graphics, observer);
-
-            // Let's untransform
-            graphics.setTransform(transform);
         }
         catch (Exception exception)
         {
             CategoryLogger.always().warn(exception, "paint");
         }
+        finally
+        {
+            // Let's untransform
+            graphics.setTransform(transform);
+        }
     }
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public boolean contains(final Point2d pointWorldCoordinates, final Bounds2d extent)
     {
         try
@@ -352,7 +353,6 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void destroy(final SimulatorInterface<?, ?, ?> simulator)
     {
         try
@@ -368,14 +368,13 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
 
     /** {@inheritDoc} */
     @Override
-    public int getId()
+    public long getId()
     {
         return this.id;
     }
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "Renderable2D [source=" + this.source + "]";

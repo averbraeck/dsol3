@@ -38,13 +38,14 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
 
     /**
      * constructs a new Ball.
+     * @param nr int; the ball number
      * @param simulator DESSSimulatorInterface.TimeDouble; the simulator
      * @throws RemoteException on network exception
      * @throws NamingException on animation error
      */
-    public Ball(final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException, NamingException
+    public Ball(final int nr, final DESSSimulatorInterface.TimeDouble simulator) throws RemoteException, NamingException
     {
-        super();
+        super(nr);
         this.simulator = simulator;
         this.positioner = new Positioner(simulator);
         new BallAnimation(this, simulator);

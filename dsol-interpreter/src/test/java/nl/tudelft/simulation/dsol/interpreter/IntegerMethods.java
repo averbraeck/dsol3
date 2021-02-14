@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.interpreter;
 /**
  * A number of integer methods to test the interpreted bytecode for integers.
  * <p>
- * copyright (c) 2002-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+ * copyright (c) 2002-2021 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
  * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>. <br>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs</a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>

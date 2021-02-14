@@ -65,7 +65,7 @@ public class DSOLAnimationApplication extends DSOLApplication
     }
 
     /**
-     * @return DSOLAnimationPanel; the animationPanel
+     * @return DSOLAnimationTab; the animationTab
      */
     public final DSOLAnimationTab getAnimationTab()
     {

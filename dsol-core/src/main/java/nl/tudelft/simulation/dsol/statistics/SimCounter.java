@@ -134,7 +134,6 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void notify(final EventInterface event)
     {
         if (this.stopped)
@@ -184,7 +183,6 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
      * tally the counters of all replications. Herewith the confidence interval of the average counter results over the
      * different replications can be calculated.
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected void endOfReplication()
     {
         try

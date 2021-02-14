@@ -2,6 +2,8 @@ package nl.tudelft.simulation.examples.dsol.animation;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
@@ -21,6 +23,9 @@ public class BallModel extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfa
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
+    /** the balls for 'search'. */
+    private List<Ball> ballList = new ArrayList<>();
+
     /**
      * constructs a new BallModel.
      * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
@@ -34,16 +39,33 @@ public class BallModel extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfa
     @Override
     public void constructModel() throws SimRuntimeException
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 1; i <= 10; i++)
         {
             try
             {
-                new DiscreteBall(this.simulator);
+                this.ballList.add(new DiscreteBall(i, this.simulator));
             }
             catch (RemoteException exception)
             {
                 getSimulator().getLogger().always().error(exception);
             }
+        }
+    }
+
+    /**
+     * Return the ball with number 'i', or null when it is above or below the available balls.
+     * @param i int; the ball number to return
+     * @return the ball with number 'i'
+     */
+    public Ball getBall(final int i)
+    {
+        try
+        {
+            return this.ballList.get(i);
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            return null;
         }
     }
 
