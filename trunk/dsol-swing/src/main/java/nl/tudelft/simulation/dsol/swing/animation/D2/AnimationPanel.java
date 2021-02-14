@@ -49,26 +49,24 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The AnimationPanel to display animated (Locatable) objects. Added the possibility to witch layers on and off. By default all
- * layers will be drawn, so no changes to existing software need to be made.
- * <p>
+ * layers will be drawn, so no changes to existing software need to be made. <br>
+ * <br>
  * <b>Asynchronous and synchronous calls:</b><br>
  * The internal functions of the AnimationPanel are handled in a synchronous way inside the animation panel, possibly through
  * (mouse or keyboard) listeners and handlers that implement the functions.There are several exceptions, though:
  * <ul>
  * <li><i>Clicking on one or more objects:</i> what has to happen is very much dependent on the implementation. Therefore, the
  * click on an object will lead to firing of an event, where the listener(s), if any, can decide what to do. This can be
- * dependent on which mouse button was pressed, and whether CTRL, SHIFT, or ALT were pressed at the same time as the mouse
- * click. Example behaviors could be: pop-up with properties of the object; showing properties in a special pane; highlighting
- * the object; or setting the auto-pan on the clicked object. The event to use is the ANIMATION_MOUSE_CLICK_EVENT.</li>
- * <li><i>Moving the mouse:</i> there can be one or more places where the mouse cursor needs to be known or where it has to be
- * displayed. In case of mouse movement, the last position is asynchronously sent to subscribers, with a maximum frequency that
- * can be set. The event to use is the ANIMATION_MOUSE_MOVE_EVENT (left mouse button) or the ANIMATION_MOUSE_POPUP_EVENT (right
- * mouse button). The events will not be fired when dragging the mouse.</li>
+ * dependent on whether CTRL, SHIFT, or ALT were pressed at the same time as the mouse button. Example behaviors could be:
+ * pop-up with properties of the object; showing properties in a special pane; highlighting the object; or setting the auto-pan
+ * on the clicked object. The event to use is the ANIMATION_MOUSE_CLICK_EVENT.</li>
+ * <li><i>Right click on one or more objects:</i> what has to happen is very much dependent on the implementation. Therefore,
+ * the click on an object will lead to firing of an event, where the listener(s), if any, can decide what to do. The event to
+ * use is the ANIMATION_MOUSE_POPUP_EVENT.</li>
  * </ul>
  * Furthermore, the AnimationPanel is an event listener, and listens, e.g., to the event of a searched object: the
  * ANIMATION_SEARCH_OBJECT_EVENT to highlight the object, or, in case of an AutoPanAnimationPanel, to keep the object in the
  * middle of the screen.
- * </p>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -448,20 +446,20 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         displayWorldCoordinateToolTip();
     }
 
-//    public static final EventType ANIMATION_MOUSE_CLICK_EVENT = new EventType(new MetaData("ANIMATION_MOUSE_CLICK_EVENT",
-//            "ANIMATION_MOUSE_CLICK_EVENT",
-//            new ObjectDescriptor("worldCoordinate", "x and y position in world coordinates", Point2d.class),
-//            new ObjectDescriptor("screenCoordinate", "x and y position in screen coordinates", java.awt.Point.class),
-//            new ObjectDescriptor("shiftCtrlAlt", "shift[0], ctrl[1], and/or alt[2] pressed", boolean[].class),
-//            new ObjectDescriptor("objectList", "List of objects whose bounding box includes the coordinate", List.class)));
-//
-//    public static final EventType ANIMATION_MOUSE_POPUP_EVENT = new EventType(new MetaData("ANIMATION_MOUSE_POPUP_EVENT",
-//            "ANIMATION_MOUSE_POPUP_EVENT",
-//            new ObjectDescriptor("worldCoordinate", "x and y position in world coordinates", Point2d.class),
-//            new ObjectDescriptor("screenCoordinate", "x and y position in screen coordinates", java.awt.Point.class),
-//            new ObjectDescriptor("shiftCtrlAlt", "shift[0], ctrl[1], and/or alt[2] pressed", boolean[].class),
-//            new ObjectDescriptor("object", "Selected object whose bounding box includes the coordinate", Object.class)));
-    
+    // public static final EventType ANIMATION_MOUSE_CLICK_EVENT = new EventType(new MetaData("ANIMATION_MOUSE_CLICK_EVENT",
+    // "ANIMATION_MOUSE_CLICK_EVENT",
+    // new ObjectDescriptor("worldCoordinate", "x and y position in world coordinates", Point2d.class),
+    // new ObjectDescriptor("screenCoordinate", "x and y position in screen coordinates", java.awt.Point.class),
+    // new ObjectDescriptor("shiftCtrlAlt", "shift[0], ctrl[1], and/or alt[2] pressed", boolean[].class),
+    // new ObjectDescriptor("objectList", "List of objects whose bounding box includes the coordinate", List.class)));
+    //
+    // public static final EventType ANIMATION_MOUSE_POPUP_EVENT = new EventType(new MetaData("ANIMATION_MOUSE_POPUP_EVENT",
+    // "ANIMATION_MOUSE_POPUP_EVENT",
+    // new ObjectDescriptor("worldCoordinate", "x and y position in world coordinates", Point2d.class),
+    // new ObjectDescriptor("screenCoordinate", "x and y position in screen coordinates", java.awt.Point.class),
+    // new ObjectDescriptor("shiftCtrlAlt", "shift[0], ctrl[1], and/or alt[2] pressed", boolean[].class),
+    // new ObjectDescriptor("object", "Selected object whose bounding box includes the coordinate", Object.class)));
+
     /**
      * What to do if the left mouse button was released after a drag.
      * @param mouseClickedPoint Point2D; the point where the mouse was clicked
@@ -489,8 +487,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         List<Locatable> targets = new ArrayList<Locatable>();
         try
         {
-            Point2d point = getRenderableScale().getWorldCoordinates(mousePoint, getExtent(),
-                    getSize());
+            Point2d point = getRenderableScale().getWorldCoordinates(mousePoint, getExtent(), getSize());
             for (Renderable2DInterface<?> renderable : getElements())
             {
                 if (isShowElement(renderable) && renderable.contains(point, getExtent()))
