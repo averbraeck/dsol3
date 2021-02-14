@@ -67,8 +67,7 @@ public interface Renderable2DInterface<L extends Locatable> extends Serializable
 
     /**
      * return the id of the renderable component.
-     * @return int; the id of the renderable component
+     * @return long; the id of the renderable component
      */
-    int getId();
-
+    long getId();
 }

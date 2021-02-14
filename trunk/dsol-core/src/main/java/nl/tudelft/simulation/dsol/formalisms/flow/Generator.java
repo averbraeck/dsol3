@@ -174,7 +174,6 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * returns the interarrival interval.
      * @return DistContinuous
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public DistContinuousSimulationTime<R> getInterval()
     {
         return this.interval;
@@ -202,7 +201,6 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * sets the interarrival distribution.
      * @param interval DistContinuousSimulationTime&lt;R&gt;; is the interarrival time
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public void setInterval(final DistContinuousSimulationTime<R> interval)
     {
         this.interval = interval;
@@ -221,7 +219,6 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * returns the startTime of the generator.
      * @return DistContinuous
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public DistContinuousSimTime<A, R, T> getStartTime()
     {
         return this.startTime;
@@ -231,7 +228,6 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * sets the startTime.
      * @param startTime DistContinuousSimTime&lt;A,R,T&gt;; is the absolute startTime
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public synchronized void setStartTime(final DistContinuousSimTime<A, R, T> startTime)
     {
         this.startTime = startTime;

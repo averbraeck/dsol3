@@ -208,7 +208,6 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return this.getClass().toString() + "[" + this.seed + "]";

@@ -205,7 +205,7 @@ public class IntrospectionDialog extends JDialog
          * @param model DynamicTableModel; the model to control
          * @param viewer JTable; the viewer to control
          */
-        public ButtonPanel(final DynamicTableModel model, final JTable viewer)
+        ButtonPanel(final DynamicTableModel model, final JTable viewer)
         {
             this.model = model;
             this.viewer = viewer;

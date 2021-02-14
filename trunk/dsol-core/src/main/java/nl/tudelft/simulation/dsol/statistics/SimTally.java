@@ -190,7 +190,6 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
      * tally the average results of all replications. Herewith the confidence interval of the means over the different
      * replications can be calculated.
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected void endOfReplication()
     {
         try

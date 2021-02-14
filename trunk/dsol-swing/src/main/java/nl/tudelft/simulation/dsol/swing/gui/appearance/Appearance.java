@@ -25,6 +25,9 @@ public enum Appearance
     /** Bright. */
     BRIGHT("Bright", Color.LIGHT_GRAY, Color.BLACK, Color.WHITE, "Verdana"),
 
+    /** Light. */
+    LIGHT("Light", Color.WHITE, Color.BLACK, Color.WHITE, "Verdana"),
+
     /** Legacy, as the initial DSOL applications had. */
     LEGACY("Legacy", new Color(238, 238, 238), Color.BLACK, Color.WHITE, "Dialog"),
 
@@ -53,11 +56,11 @@ public enum Appearance
     private final String font;
 
     /**
-     * Constructor.
+     * Constructor for Appearance.
      * @param name String; name
      * @param background Color; background color
      * @param foreground Color; foreground color
-     * @param backdrop Color; backdrop color (network panel)
+     * @param backdrop Color; backdrop color (animation panel)
      * @param font String; font name
      */
     Appearance(final String name, final Color background, final Color foreground, final Color backdrop, final String font)

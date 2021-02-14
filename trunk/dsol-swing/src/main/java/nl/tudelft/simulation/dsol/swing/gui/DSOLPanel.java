@@ -12,7 +12,6 @@ import javax.swing.UIManager;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.model.DSOLModel;
-import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControl;
 import nl.tudelft.simulation.dsol.swing.gui.control.AbstractControlPanel;
@@ -37,7 +36,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
     private AbstractControlPanel<?, ?, ?, ?> controlPanel;
 
     /** The tabbed pane that contains the different (default) screens. */
-    protected final TabbedContentPane tabbedPane;
+    private final TabbedContentPane tabbedPane;
 
     static
     {
@@ -105,11 +104,10 @@ public class DSOLPanel extends JPanel implements AppearanceControl
 
     /**
      * Adds a properties tab.
-     * @throws InputParameterException on exception with properties
      */
-    public final void addPropertiesTab() throws InputParameterException
+    public final void addInputParametersTab()
     {
-        // TODO: make a tab with the InputParameters
+        addTab("parameters", new InputParametersTab(getModel()));
     }
 
     /**

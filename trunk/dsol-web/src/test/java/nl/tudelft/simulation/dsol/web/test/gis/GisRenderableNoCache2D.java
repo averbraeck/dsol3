@@ -219,7 +219,7 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
 
     /** {@inheritDoc} */
     @Override
-    public int getId()
+    public long getId()
     {
         return -1; // in case of same z-values make sure map is drawn first
     }

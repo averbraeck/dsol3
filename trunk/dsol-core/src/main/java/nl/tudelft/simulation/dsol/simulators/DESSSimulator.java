@@ -62,7 +62,6 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
             final ReplicationMode replicationMode) throws SimRuntimeException
     {
@@ -108,7 +107,6 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
         while (this.simulatorTime.get().compareTo(this.runUntilTime) < 0 && !isStoppingOrStopped())

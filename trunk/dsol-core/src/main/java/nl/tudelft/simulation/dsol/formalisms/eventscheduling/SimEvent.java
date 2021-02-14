@@ -94,7 +94,6 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public synchronized void execute() throws SimRuntimeException
     {
         try
@@ -166,7 +165,6 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; source=" + this.source

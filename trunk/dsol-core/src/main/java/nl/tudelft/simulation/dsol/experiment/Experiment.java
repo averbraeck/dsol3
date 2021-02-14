@@ -226,7 +226,6 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void notify(final EventInterface event) throws RemoteException
     {
         if (!this.subscribed)
@@ -274,7 +273,6 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         String result = "Experiment[" + this.description + " ; treatment=" + this.treatment.toString() + "; simulator="
@@ -285,7 +283,6 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     /**
      * resets the experiment.
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public void reset()
     {
         this.currentReplication = -1;

@@ -11,6 +11,7 @@ import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstants;
 
 /**
+ * A simple swing component to show a Swing table.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -37,7 +38,7 @@ public class TablePanel extends JPanel
      * @param columns int; number of columns
      * @param rows int; number of rows
      */
-    public TablePanel(int columns, int rows)
+    public TablePanel(final int columns, final int rows)
     {
         super();
         this.rows = rows;
@@ -53,7 +54,7 @@ public class TablePanel extends JPanel
      * @param row int; the row number
      * @param column int; the column number
      */
-    public void setCell(Component container, int column, int row)
+    public void setCell(final Component container, final int column, final int row)
     {
         this.add(container, "" + column + "," + row + ",C,C");
     }
@@ -63,23 +64,25 @@ public class TablePanel extends JPanel
      * @param value int; the number of cells to be used
      * @return double[] the double factors corresponding to 1/value
      */
-    private double[] refractor(int value)
+    private double[] refractor(final int value)
     {
         double[] result = new double[value];
         for (int i = 0; i < result.length; i++)
         {
             result[i] = 1.0 / value;
             if (result[i] == 1.0)
+            {
                 result[i] = TableLayoutConstants.FILL;
+            }
         }
         return result;
     }
 
     /**
-     * tests the TablePanel
+     * tests the TablePanel.
      * @param args String[]; arguments
      */
-    public static void main(String[] args)
+    public static void main(final String[] args)
     {
         int columns = 5;
         int rows = 10;
@@ -101,8 +104,8 @@ public class TablePanel extends JPanel
                 content.setCell(new JTextField("x=" + i + " y=" + j), i, j);
             }
         }
-        app.setSize(200,100);
-        app.setMinimumSize(new Dimension(200,100));
+        app.setSize(200, 100);
+        app.setMinimumSize(new Dimension(200, 100));
         app.setContentPane(content);
         app.pack();
         app.setVisible(true);

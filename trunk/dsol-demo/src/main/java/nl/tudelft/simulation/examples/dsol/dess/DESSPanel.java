@@ -35,8 +35,8 @@ public class DESSPanel extends DSOLPanel
 
         // add a chart for the demo.
         TablePanel charts = new TablePanel(2, 1);
-        super.tabbedPane.addTab("statistics", charts);
-        super.tabbedPane.setSelectedIndex(0);
+        getTabbedPane().addTab("statistics", charts);
+        getTabbedPane().setSelectedIndex(0);
         charts.setCell(model.getDistanceChart().getSwingPanel(), 0, 0);
         StatisticsTable distanceTable = new StatisticsTable(new PersistentTableModel(model.getDistancePersistent()));
         charts.setCell(distanceTable.getSwingPanel(), 1, 0);

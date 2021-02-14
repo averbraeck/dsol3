@@ -242,7 +242,7 @@ public class DEVSControlPanel<A extends Comparable<A> & Serializable, R extends 
                 final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException
         {
             super(model, simulator);
-            setClockPanel(new ClockSpeedPanel.TimeDouble(getSimulator()));
+            setClockSpeedPanel(new ClockSpeedPanel.TimeDouble(getSimulator()));
             setRunUntilPanel(new RunUntilPanel.TimeDouble(getSimulator()));
         }
 

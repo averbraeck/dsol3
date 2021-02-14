@@ -65,7 +65,6 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public int compareTo(final T simTime)
     {
         return get().compareTo(simTime.get());
@@ -252,7 +251,6 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "" + get();

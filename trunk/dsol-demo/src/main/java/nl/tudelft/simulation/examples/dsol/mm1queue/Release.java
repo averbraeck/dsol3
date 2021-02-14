@@ -12,7 +12,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
  * The Seize is an extended Seize block which computes the servicetime. <br>
- * Copyright (c) 2003-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * Copyright (c) 2003-2021 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a> <br>
  * License of use: <a href="http://www.gnu.org/copyleft/gpl.html">General Public License (GPL) </a>, no warranty <br>
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>

@@ -34,7 +34,6 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public synchronized SimEventInterface<T> removeFirst()
     {
         SimEventInterface<T> first = this.first();
@@ -44,7 +43,6 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public synchronized SimEventInterface<T> removeLast()
     {
         SimEventInterface<T> last = this.last();
@@ -58,7 +56,6 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
      * @return the first SimEvent in the tree.
      */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public SimEventInterface<T> first()
     {
         try
@@ -77,7 +74,6 @@ public class RedBlackTree<T extends SimTime<?, ?, T>> extends TreeSet<SimEventIn
      * @return the last SimEvent in the tree.
      */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public SimEventInterface<T> last()
     {
         try

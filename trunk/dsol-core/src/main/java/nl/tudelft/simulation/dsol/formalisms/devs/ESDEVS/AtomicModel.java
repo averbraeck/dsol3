@@ -169,7 +169,6 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
      * definition of 'e'.
      * @param e R; elapsed time since the last state transition
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final R e)
     {
         if (this.timeAdvance().doubleValue() != Double.POSITIVE_INFINITY)
@@ -202,7 +201,6 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
      * @return the elapsed time (e) since the last event.
      * @throws RemoteException a remote exception occurred
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected R elapsedTime(final T eventTime) throws RemoteException
     {
         return (eventTime.diff(this.timeLastEvent));
@@ -245,7 +243,6 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
      * @param e R; the elapsed time since the last state transition
      * @param value Object; the value that is passed through the port, which triggered the external event
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected void deltaExternalEventHandler(final R e, final Object value)
     {
         this.deltaExternal(e, value);
@@ -257,7 +254,6 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
      * @param e R; the elapsed time since the last state transition
      * @param value Object; the value that is passed through the port, which triggered the external event
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected void deltaConfluent(final R e, final Object value)
     {
         this.simulator.getLogger().filter(Cat.DSOL).debug("deltaConfluent: CONFLUENT");
@@ -279,7 +275,6 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
      * This method handles an internal event. As part of its function, it calls the deltaInternal method that is defined in an
      * extension of this class.
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected void deltaInternalEventHandler()
     {
         this.lambda();
@@ -292,7 +287,6 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void printModel(final String space)
     {
         System.out.println(space + "Atomicmodel: " + this.getClass().getName());
@@ -305,7 +299,6 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
     /**
      * @return the next simulation event for this atomic model.
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public SimEvent<T> getNextEvent()
     {
         return this.nextEvent;

@@ -3,22 +3,38 @@ package nl.tudelft.simulation.dsol.swing.animation.D2;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
+
 import org.djutils.draw.bounds.Bounds;
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.point.Point;
+import org.djutils.draw.point.Point2d;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
+import org.djutils.event.EventProducer;
+import org.djutils.event.EventProducerInterface;
+import org.djutils.event.EventType;
+import org.djutils.event.EventTypeInterface;
+import org.djutils.event.ref.ReferenceType;
+import org.djutils.logger.CategoryLogger;
+import org.djutils.metadata.MetaData;
+import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DComparator;
@@ -26,16 +42,33 @@ import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
-import nl.tudelft.simulation.dsol.swing.animation.D2.mouse.InputListener;
+import nl.tudelft.simulation.dsol.swing.animation.D2.actions.IntrospectionAction;
 import nl.tudelft.simulation.language.DSOLException;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * The AnimationPanel to display animated (Locatable) objects. Added the possibility to witch layers on and off. By default all
- * layers will be drawn, so no changes to existing software need to be made.<br>
- * copyright (c) 2002-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
- * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a>.
+ * layers will be drawn, so no changes to existing software need to be made.
+ * <p>
+ * <b>Asynchronous and synchronous calls:</b><br>
+ * The internal functions of the AnimationPanel are handled in a synchronous way inside the animation panel, possibly through
+ * (mouse or keyboard) listeners and handlers that implement the functions.There are several exceptions, though:
+ * <ul>
+ * <li><i>Clicking on one or more objects:</i> what has to happen is very much dependent on the implementation. Therefore, the
+ * click on an object will lead to firing of an event, where the listener(s), if any, can decide what to do. This can be
+ * dependent on which mouse button was pressed, and whether CTRL, SHIFT, or ALT were pressed at the same time as the mouse
+ * click. Example behaviors could be: pop-up with properties of the object; showing properties in a special pane; highlighting
+ * the object; or setting the auto-pan on the clicked object. The event to use is the ANIMATION_MOUSE_CLICK_EVENT.</li>
+ * <li><i>Moving the mouse:</i> there can be one or more places where the mouse cursor needs to be known or where it has to be
+ * displayed. In case of mouse movement, the last position is asynchronously sent to subscribers, with a maximum frequency that
+ * can be set. The event to use is the ANIMATION_MOUSE_MOVE_EVENT (left mouse button) or the ANIMATION_MOUSE_POPUP_EVENT (right
+ * mouse button). The events will not be fired when dragging the mouse.</li>
+ * </ul>
+ * Furthermore, the AnimationPanel is an event listener, and listens, e.g., to the event of a searched object: the
+ * ANIMATION_SEARCH_OBJECT_EVENT to highlight the object, or, in case of an AutoPanAnimationPanel, to keep the object in the
+ * middle of the screen.
+ * </p>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -43,9 +76,10 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
+ * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
-public class AnimationPanel extends GridPanel implements EventListenerInterface
+public class AnimationPanel extends GridPanel implements EventListenerInterface, EventProducerInterface
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -81,8 +115,27 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     /** dirty flag for the list. */
     private boolean dirty = false;
 
+    /** delegate class to do handle event producing. */
+    private final AnimationEventProducer animationEventProducer;
+
     /** the margin factor 'around' the extent. */
     public static final double EXTENT_MARGIN_FACTOR = 0.05;
+
+    /** the event when the user clicked ith the left mouse button, possibly on one or more objects. */
+    public static final EventType ANIMATION_MOUSE_CLICK_EVENT = new EventType(new MetaData("ANIMATION_MOUSE_CLICK_EVENT",
+            "ANIMATION_MOUSE_CLICK_EVENT",
+            new ObjectDescriptor("worldCoordinate", "x and y position in world coordinates", Point2d.class),
+            new ObjectDescriptor("screenCoordinate", "x and y position in screen coordinates", java.awt.Point.class),
+            new ObjectDescriptor("shiftCtrlAlt", "shift[0], ctrl[1], and/or alt[2] pressed", boolean[].class),
+            new ObjectDescriptor("objectList", "List of objects whose bounding box includes the coordinate", List.class)));
+
+    /** the event when the user clicked with the right mouse button, selecting from on one or more objects. */
+    public static final EventType ANIMATION_MOUSE_POPUP_EVENT = new EventType(new MetaData("ANIMATION_MOUSE_POPUP_EVENT",
+            "ANIMATION_MOUSE_POPUP_EVENT",
+            new ObjectDescriptor("worldCoordinate", "x and y position in world coordinates", Point2d.class),
+            new ObjectDescriptor("screenCoordinate", "x and y position in screen coordinates", java.awt.Point.class),
+            new ObjectDescriptor("shiftCtrlAlt", "shift[0], ctrl[1], and/or alt[2] pressed", boolean[].class),
+            new ObjectDescriptor("object", "Selected object whose bounding box includes the coordinate", Object.class)));
 
     /**
      * constructs a new AnimationPanel.
@@ -99,6 +152,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
         {
             throw new DSOLException("Simulator must implement the AnimatorInterface");
         }
+        this.animationEventProducer = new AnimationEventProducer();
         super.showGrid = true;
         InputListener listener = new InputListener(this);
         this.simulator = simulator;
@@ -207,8 +261,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     @Override
     public void notify(final EventInterface event) throws RemoteException
     {
-        if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
-        (event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT) && this.isShowing())
+        if (event.getType().equals(AnimatorInterface.UPDATE_ANIMATION_EVENT) && this.isShowing())
         {
             if (this.getWidth() > 0 || this.getHeight() > 0)
             {
@@ -227,8 +280,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
             objectRemoved((Renderable2DInterface<? extends Locatable>) ((Object[]) event.getContent())[2]);
         }
 
-        else if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
-        (event.getType().equals(Replication.START_REPLICATION_EVENT))
+        else if (event.getType().equals(Replication.START_REPLICATION_EVENT))
         {
             synchronized (this.elementList)
             {
@@ -386,11 +438,139 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     }
 
     /**
-     * @return the set of animation elements.
+     * Handle the movement of the mouse.
+     * @param point Point; the location of the mouse relative to the AnimationPanel
      */
-    public final SortedSet<Renderable2DInterface<? extends Locatable>> getElements()
+    public void mouseMoved(final java.awt.Point point)
     {
-        return this.elements;
+        Point2d world = getRenderableScale().getWorldCoordinates(point, getExtent(), getSize());
+        setWorldCoordinate(world);
+        displayWorldCoordinateToolTip();
+    }
+
+//    public static final EventType ANIMATION_MOUSE_CLICK_EVENT = new EventType(new MetaData("ANIMATION_MOUSE_CLICK_EVENT",
+//            "ANIMATION_MOUSE_CLICK_EVENT",
+//            new ObjectDescriptor("worldCoordinate", "x and y position in world coordinates", Point2d.class),
+//            new ObjectDescriptor("screenCoordinate", "x and y position in screen coordinates", java.awt.Point.class),
+//            new ObjectDescriptor("shiftCtrlAlt", "shift[0], ctrl[1], and/or alt[2] pressed", boolean[].class),
+//            new ObjectDescriptor("objectList", "List of objects whose bounding box includes the coordinate", List.class)));
+//
+//    public static final EventType ANIMATION_MOUSE_POPUP_EVENT = new EventType(new MetaData("ANIMATION_MOUSE_POPUP_EVENT",
+//            "ANIMATION_MOUSE_POPUP_EVENT",
+//            new ObjectDescriptor("worldCoordinate", "x and y position in world coordinates", Point2d.class),
+//            new ObjectDescriptor("screenCoordinate", "x and y position in screen coordinates", java.awt.Point.class),
+//            new ObjectDescriptor("shiftCtrlAlt", "shift[0], ctrl[1], and/or alt[2] pressed", boolean[].class),
+//            new ObjectDescriptor("object", "Selected object whose bounding box includes the coordinate", Object.class)));
+    
+    /**
+     * What to do if the left mouse button was released after a drag.
+     * @param mouseClickedPoint Point2D; the point where the mouse was clicked
+     * @param mouseReleasedPoint Point2D; the point where the mouse was released
+     */
+    protected void pan(final Point2D mouseClickedPoint, final Point2D mouseReleasedPoint)
+    {
+        // Drag extend to new location
+        double dx = mouseReleasedPoint.getX() - mouseClickedPoint.getX();
+        double dy = mouseReleasedPoint.getY() - mouseClickedPoint.getY();
+        double scaleX = getRenderableScale().getXScale(getExtent(), getSize());
+        double scaleY = getRenderableScale().getYScale(getExtent(), getSize());
+        Bounds2d extent = getExtent();
+        setExtent(new Bounds2d(extent.getMinX() - dx * scaleX, extent.getMinX() - dx * scaleX + extent.getDeltaX(),
+                extent.getMinY() + dy * scaleY, extent.getMinY() + dy * scaleY + extent.getDeltaY()));
+    }
+
+    /**
+     * returns the list of selected objects at a certain mousePoint.
+     * @param mousePoint Point2D; the mousePoint
+     * @return the selected objects
+     */
+    protected List<Locatable> getSelectedObjects(final Point2D mousePoint)
+    {
+        List<Locatable> targets = new ArrayList<Locatable>();
+        try
+        {
+            Point2d point = getRenderableScale().getWorldCoordinates(mousePoint, getExtent(),
+                    getSize());
+            for (Renderable2DInterface<?> renderable : getElements())
+            {
+                if (isShowElement(renderable) && renderable.contains(point, getExtent()))
+                {
+                    targets.add(renderable.getSource());
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            CategoryLogger.always().warn(exception, "getSelectedObjects");
+        }
+        return targets;
+    }
+
+    /**
+     * popup on a mouseEvent.
+     * @param e MouseEvent; the mouseEvent
+     */
+    protected void popup(final MouseEvent e)
+    {
+        List<Locatable> targets = this.getSelectedObjects(e.getPoint());
+        if (targets.size() > 0)
+        {
+            JPopupMenu popupMenu = new JPopupMenu();
+            popupMenu.add("Introspect");
+            popupMenu.add(new JSeparator());
+            for (Iterator<Locatable> i = targets.iterator(); i.hasNext();)
+            {
+                popupMenu.add(new IntrospectionAction(i.next()));
+            }
+            popupMenu.show(this, e.getX(), e.getY());
+        }
+    }
+
+    /**
+     * Returns the clicked Renderable2D with the highest z-value.
+     * @param targets List&lt;Locatable&gt;; which are selected by the mouse.
+     * @return the selected Object (e.g. the one with the highest zValue).
+     */
+    protected Object getSelectedObject(final List<Locatable> targets)
+    {
+        Object selectedObject = null;
+        try
+        {
+            double zValue = -Double.MAX_VALUE;
+            for (Locatable next : targets)
+            {
+                double z = next.getZ();
+                if (z > zValue)
+                {
+                    zValue = z;
+                    selectedObject = next;
+                }
+            }
+        }
+        catch (RemoteException exception)
+        {
+            CategoryLogger.always().warn(exception, "edit");
+        }
+        return selectedObject;
+    }
+
+    /**
+     * set the drag line: a line that shows where the user is dragging.
+     * @param mousePosition Point2D; the position of the mouse pointer
+     * @param mouseClicked Point2D; the position where the mouse was clicked before dragging
+     */
+    protected void setDragLine(final Point2D mousePosition, final Point2D mouseClicked)
+    {
+        if ((mousePosition != null) && (mouseClicked != null))
+        {
+            setDragLineEnabled(false); // to avoid problems with concurrency
+            this.dragLine = new int[4];
+            this.dragLine[0] = (int) mousePosition.getX();
+            this.dragLine[1] = (int) mousePosition.getY();
+            this.dragLine[2] = (int) mouseClicked.getX();
+            this.dragLine[3] = (int) mouseClicked.getY();
+            setDragLineEnabled(true);
+        }
     }
 
     /**
@@ -415,6 +595,120 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface
     public final void setDragLineEnabled(final boolean dragLineEnabled)
     {
         this.dragLineEnabled = dragLineEnabled;
+    }
+
+    /**
+     * @return the set of animation elements.
+     */
+    public final SortedSet<Renderable2DInterface<? extends Locatable>> getElements()
+    {
+        return this.elements;
+    }
+
+    /**
+     * EventProducer to which to delegate the event producing methods.
+     * <p>
+     * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
+     * DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+     * </p>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     */
+    class AnimationEventProducer extends EventProducer
+    {
+        /** */
+        private static final long serialVersionUID = 20210213L;
+
+        /** {@inheritDoc} */
+        @Override
+        public Serializable getSourceId()
+        {
+            return "AnimationPanel.EventProducer";
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void fireEvent(final EventInterface event)
+        {
+            super.fireEvent(event);
+        }
+    }
+
+    /**
+     * Return the delegate event producer.
+     * @return AnimationEventProducer; the delegate event producer
+     */
+    public final AnimationEventProducer getAnimationEventProducer()
+    {
+        return this.animationEventProducer;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Serializable getSourceId()
+    {
+        return this.animationEventProducer.getSourceId();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType) throws RemoteException
+    {
+        return this.animationEventProducer.addListener(listener, eventType);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
+            final ReferenceType referenceType) throws RemoteException
+    {
+        return this.animationEventProducer.addListener(listener, eventType, referenceType);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType, final int position)
+            throws RemoteException
+    {
+        return this.animationEventProducer.addListener(listener, eventType, position);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType, final int position,
+            final ReferenceType referenceType) throws RemoteException
+    {
+        return this.animationEventProducer.addListener(listener, eventType, position, referenceType);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean removeListener(final EventListenerInterface listener, final EventTypeInterface eventType)
+            throws RemoteException
+    {
+        return this.animationEventProducer.removeListener(listener, eventType);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean hasListeners() throws RemoteException
+    {
+        return this.animationEventProducer.hasListeners();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public int numberOfListeners(final EventTypeInterface eventType) throws RemoteException
+    {
+        return this.animationEventProducer.numberOfListeners(eventType);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Set<EventTypeInterface> getEventTypesWithListeners() throws RemoteException
+    {
+        return this.animationEventProducer.getEventTypesWithListeners();
     }
 
 }

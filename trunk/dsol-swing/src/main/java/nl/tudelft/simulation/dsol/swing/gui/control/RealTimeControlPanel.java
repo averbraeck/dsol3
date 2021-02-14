@@ -132,7 +132,7 @@ public class RealTimeControlPanel<A extends Comparable<A> & Serializable, R exte
 
     /** {@inheritDoc} */
     @Override
-    public void propertyChange(PropertyChangeEvent evt)
+    public void propertyChange(final PropertyChangeEvent evt)
     {
         // TODO: when external change on speed -- update the slider panel
     }
@@ -178,7 +178,7 @@ public class RealTimeControlPanel<A extends Comparable<A> & Serializable, R exte
                 final DEVSRealTimeAnimator.TimeDouble simulator) throws RemoteException
         {
             super(model, simulator);
-            setClockPanel(new ClockSpeedPanel.TimeDouble(getSimulator()));
+            setClockSpeedPanel(new ClockSpeedPanel.TimeDouble(getSimulator()));
             setRunUntilPanel(new RunUntilPanel.TimeDouble(getSimulator()));
         }
 

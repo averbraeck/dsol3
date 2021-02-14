@@ -49,8 +49,8 @@ public class MM1Panel extends DSOLPanel
     protected void addTabs()
     {
         TablePanel charts = new TablePanel(4, 4);
-        super.tabbedPane.addTab("statistics", charts);
-        super.tabbedPane.setSelectedIndex(0);
+        getTabbedPane().addTab("statistics", charts);
+        getTabbedPane().setSelectedIndex(0);
         MM1Model model = (MM1Model) getModel();
 
         try
@@ -131,8 +131,8 @@ public class MM1Panel extends DSOLPanel
         }
 
         ConsoleLogger logConsole = new ConsoleLogger(Level.INFO);
-        super.tabbedPane.addTab("logger", logConsole);
-        super.tabbedPane.addTab("console", new ConsoleOutput());
+        getTabbedPane().addTab("logger", logConsole);
+        getTabbedPane().addTab("console", new ConsoleOutput());
     }
 
 }

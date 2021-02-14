@@ -17,7 +17,7 @@ import org.jfree.chart.ui.RectangleEdge;
 /**
  * The histogram domainAxis defines the x-Axis of a histogram.
  * <p>
- * copyright (c) 2002-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
+ * copyright (c) 2002-2021 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a>.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See

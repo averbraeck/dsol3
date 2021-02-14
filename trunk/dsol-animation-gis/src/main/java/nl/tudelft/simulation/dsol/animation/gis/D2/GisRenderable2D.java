@@ -257,7 +257,7 @@ public class GisRenderable2D implements Renderable2DInterface<GisRenderable2D>, 
 
     /** {@inheritDoc} */
     @Override
-    public int getId()
+    public long getId()
     {
         return -1; // drawn before the rest in case all z-values are the same
     }

@@ -68,7 +68,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public synchronized void execute() throws SimRuntimeException
     {
         try
@@ -83,7 +82,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; executable=" + this.executable

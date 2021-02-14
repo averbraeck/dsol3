@@ -90,7 +90,6 @@ public class SphericalPoint implements Serializable
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public int hashCode()
     {
         final int prime = 31;
@@ -128,7 +127,6 @@ public class SphericalPoint implements Serializable
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         return "SphericalPoint [radius=" + this.radius + ", phi=" + this.phi + ", theta=" + this.theta + "]";

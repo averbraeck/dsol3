@@ -123,7 +123,6 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void receiveObject(final Object object)
     {
         this.receiveObject(object, this.requestedCapacity);
@@ -142,7 +141,6 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
      * returns the queue.
      * @return List the queue
      */
-    @SuppressWarnings("checkstyle:designforextension")
     public List<Request<A, R, T>> getQueue()
     {
         return this.queue;

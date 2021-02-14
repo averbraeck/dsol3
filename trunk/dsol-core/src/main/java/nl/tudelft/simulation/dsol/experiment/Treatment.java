@@ -203,7 +203,6 @@ public class Treatment<A extends Comparable<A> & Serializable, R extends Number 
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public String toString()
     {
         String result = "[Treatment; warmup=" + this.warmupPeriod + " ; runLength=" + this.runLength + "]";

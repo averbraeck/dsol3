@@ -60,7 +60,6 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A> & Serializab
      * @param <TYPE> the type of variable of the input port
      * @throws PortAlreadyDefinedException in case the port name already exist for the model
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected <TYPE> void addInputPort(final String name, final InputPortInterface<A, R, T, TYPE> inputPort)
             throws PortAlreadyDefinedException
     {
@@ -79,7 +78,6 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A> & Serializab
      * @param <TYPE> the type of variable of the output port
      * @throws PortAlreadyDefinedException in case the port name already exist for the model
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected <TYPE> void addOutputPort(final String name, final OutputPortInterface<A, R, T, TYPE> outputPort)
             throws PortAlreadyDefinedException
     {
@@ -97,7 +95,6 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A> & Serializab
      * @param name String; the name of the input port to be removed
      * @throws PortNotFoundException in case the port name does not exist for the model
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected void removeInputPort(final String name) throws PortNotFoundException
     {
         if (!this.inputPortMap.containsKey(name))
@@ -114,7 +111,6 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A> & Serializab
      * @param name String; the name of the output port to be removed
      * @throws PortNotFoundException in case the port name does not exist for the model
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected void removeOutputPort(final String name) throws PortNotFoundException
     {
         if (!this.outputPortMap.containsKey(name))

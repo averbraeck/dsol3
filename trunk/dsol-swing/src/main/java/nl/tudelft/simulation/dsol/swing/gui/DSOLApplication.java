@@ -59,6 +59,7 @@ public class DSOLApplication extends JFrame
     protected boolean closed = false;
 
     /** Properties for the frame appearance (not simulation related). */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Properties frameProperties;
 
     /** Current appearance. */

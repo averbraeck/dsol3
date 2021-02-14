@@ -43,7 +43,8 @@ public class InputFieldFloatScalar<U extends Unit<U>, T extends AbstractFloatSca
         super(parameter);
         JLabel label = new JLabel(parameter.getShortName());
         this.floatField = new JTextField(20);
-        this.floatField.setText("" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit()));
+        this.floatField
+                .setText("" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit()));
         JLabel explanation = new JLabel(parameter.getDescription());
 
         String[] selections = new String[parameter.getUnitParameter().getOptions().size()];
@@ -80,7 +81,7 @@ public class InputFieldFloatScalar<U extends Unit<U>, T extends AbstractFloatSca
     }
 
     /**
-     * Return the numeric value of the field
+     * Return the numeric value of the field.
      * @return the float value of the field in the gui.
      * @throws InputParameterException on invalid input
      */
@@ -115,7 +116,7 @@ public class InputFieldFloatScalar<U extends Unit<U>, T extends AbstractFloatSca
     }
 
     /**
-     * Return the numeric value of the field
+     * Return the numeric value of the field.
      * @param s String; the String to test
      * @param shortName String; the name of the field to test
      * @return the float value of the field in the gui.

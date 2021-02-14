@@ -43,7 +43,8 @@ public class InputFieldDoubleScalar<U extends Unit<U>, T extends AbstractDoubleS
         super(parameter);
         JLabel label = new JLabel(parameter.getShortName());
         this.doubleField = new JTextField(20);
-        this.doubleField.setText("" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit()));
+        this.doubleField
+                .setText("" + parameter.getDefaultTypedValue().getInUnit(parameter.getDefaultTypedValue().getDisplayUnit()));
         JLabel explanation = new JLabel(parameter.getDescription());
 
         String[] selections = new String[parameter.getUnitParameter().getOptions().size()];
@@ -80,7 +81,7 @@ public class InputFieldDoubleScalar<U extends Unit<U>, T extends AbstractDoubleS
     }
 
     /**
-     * Return the numeric value of the field
+     * Return the numeric value of the field.
      * @return the double value of the field in the gui.
      * @throws InputParameterException on invalid input
      */
@@ -115,7 +116,7 @@ public class InputFieldDoubleScalar<U extends Unit<U>, T extends AbstractDoubleS
     }
 
     /**
-     * Return the numeric value of the field
+     * Return the numeric value of the field.
      * @param s String; the String to test
      * @param shortName String; the name of the field to test
      * @return the double value of the field in the gui.

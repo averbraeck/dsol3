@@ -75,8 +75,8 @@ public class LotkaVolterraSwingApplication extends DSOLApplication
 
             // add a chart for the demo.
             TablePanel charts = new TablePanel(1, 1);
-            super.tabbedPane.addTab("statistics", charts);
-            super.tabbedPane.setSelectedIndex(0);
+            getTabbedPane().addTab("statistics", charts);
+            getTabbedPane().setSelectedIndex(0);
             charts.setCell(model.getChart().getSwingPanel(), 0, 0);
         }
     }

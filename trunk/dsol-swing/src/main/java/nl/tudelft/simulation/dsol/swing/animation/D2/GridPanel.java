@@ -15,7 +15,8 @@ import org.djutils.draw.point.Point2d;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 
 /**
- * The GridPanel introduces the gridPanel.
+ * The GridPanel implements the basic functions to show animations: toggle grid on/off, zooming, panning, translation between 
+ * world coordinates and screen coordinates, and changing the displayed extent such as the home extent.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -27,7 +28,7 @@ import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
  * @author Niels Lang
  * @author <a href="http://www.peter-jacobs.com">Peter Jacobs </a>
  */
-public class GridPanel extends JPanel
+public abstract class GridPanel extends JPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -80,7 +81,7 @@ public class GridPanel extends JPanel
 
     /** the last known world coordinate of the mouse. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Point2D worldCoordinate = new Point2D.Double();
+    protected Point2d worldCoordinate = new Point2d(0.0, 0.0);
 
     /** whether to show a tooltip with the coordinates or not. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -152,7 +153,7 @@ public class GridPanel extends JPanel
      * Set the world coordinates based on a mouse move.
      * @param point Point2D; the x,y world coordinates
      */
-    public final synchronized void setWorldCoordinate(final Point2D point)
+    public final synchronized void setWorldCoordinate(final Point2d point)
     {
         this.worldCoordinate = point;
     }
@@ -160,7 +161,7 @@ public class GridPanel extends JPanel
     /**
      * @return worldCoordinate
      */
-    public final synchronized Point2D getWorldCoordinate()
+    public final synchronized Point2d getWorldCoordinate()
     {
         return this.worldCoordinate;
     }
@@ -287,7 +288,6 @@ public class GridPanel extends JPanel
      * 'paintComponent' render method.
      * @param g Graphics; the graphics object
      */
-    @SuppressWarnings("checkstyle:designforextension")
     protected synchronized void drawGrid(final Graphics g)
     {
         // we prepare the graphics object for the grid

@@ -15,6 +15,7 @@ import org.djutils.logger.CategoryLogger;
 import nl.tudelft.simulation.dsol.logger.Cat;
 
 /**
+ * A simple Swing component to show HTML content from a URL. 
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -70,9 +71,9 @@ public class HTMLPanel extends JEditorPane
      * @param args String[]; arguments for main
      * @throws Exception on error
      */
-    public static void main(String[] args) throws Exception
+    public static void main(final String[] args) throws Exception
     {
-        String url = "https://simulation.tudelft.nl/dsol/3.0";
+        String url = "https://simulation.tudelft.nl/dsol/3.05.04/dsol-core/jacoco/index.html";
         if (args.length != 1)
         {
             System.out.println("Usage: java nl.tudelft.simulation.dsol.gui.HTMLPanel [url]");

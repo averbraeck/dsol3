@@ -67,7 +67,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
 
     /**
      * <p>
-     * copyright (c) 2002-2019 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
+     * copyright (c) 2002-2021 <a href="https://simulation.tudelft.nl">Delft University of Technology</a>. <br>
      * BSD-style license. See <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank"> DSOL License</a>.
      * <br>
      * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
@@ -95,8 +95,8 @@ public class Warehouse42SwingApplication extends DSOLApplication
         protected final void addTabs(final Warehouse42Model model)
         {
             TablePanel charts = new TablePanel(2, 1);
-            super.tabbedPane.addTab("statistics", charts);
-            super.tabbedPane.setSelectedIndex(0);
+            getTabbedPane().addTab("statistics", charts);
+            getTabbedPane().setSelectedIndex(0);
             addConsoleLogger(Level.INFO);
             addConsoleOutput();
             

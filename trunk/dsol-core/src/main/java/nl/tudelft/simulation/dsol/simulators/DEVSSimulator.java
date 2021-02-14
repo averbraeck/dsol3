@@ -83,7 +83,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
             final ReplicationMode replicationMode) throws SimRuntimeException
     {
@@ -299,7 +298,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void run()
     {
         while (!isStoppingOrStopped())
@@ -353,7 +351,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    @SuppressWarnings("checkstyle:designforextension")
     public void endReplication()
     {
         System.out.println("END_REPLICATION");
