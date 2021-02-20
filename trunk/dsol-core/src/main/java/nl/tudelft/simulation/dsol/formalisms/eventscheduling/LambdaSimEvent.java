@@ -1,15 +1,10 @@
 package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 
-import java.util.Calendar;
-
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -229,90 +224,6 @@ public class LambdaSimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent
         public TimeFloatUnit(final FloatTime executionTime, final short priority, final Executable executable)
         {
             super(new SimTimeFloatUnit(executionTime), priority, executable);
-        }
-    }
-
-    /** Easy access class SimEvent.CalendarDouble. */
-    public static class CalendarDouble extends LambdaSimEvent<SimTimeCalendarDouble> implements SimEventInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param executable Executable; the lambda method to invoke
-         */
-        public CalendarDouble(final Calendar executionTime, final Executable executable)
-        {
-            super(new SimTimeCalendarDouble(executionTime), executable);
-        }
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param priority short; the priority of the event
-         * @param executable Executable; the lambda method to invoke
-         */
-        public CalendarDouble(final Calendar executionTime, final short priority, final Executable executable)
-        {
-            super(new SimTimeCalendarDouble(executionTime), priority, executable);
-        }
-    }
-
-    /** Easy access class SimEvent.CalendarFloat. */
-    public static class CalendarFloat extends LambdaSimEvent<SimTimeCalendarFloat> implements SimEventInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param executable Executable; the lambda method to invoke
-         */
-        public CalendarFloat(final Calendar executionTime, final Executable executable)
-        {
-            super(new SimTimeCalendarFloat(executionTime), executable);
-        }
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param priority short; the priority of the event
-         * @param executable Executable; the lambda method to invoke
-         */
-        public CalendarFloat(final Calendar executionTime, final short priority, final Executable executable)
-        {
-            super(new SimTimeCalendarFloat(executionTime), priority, executable);
-        }
-    }
-
-    /** Easy access class SimEvent.CalendarLong. */
-    public static class CalendarLong extends LambdaSimEvent<SimTimeCalendarLong> implements SimEventInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param executable Executable; the lambda method to invoke
-         */
-        public CalendarLong(final Calendar executionTime, final Executable executable)
-        {
-            super(new SimTimeCalendarLong(executionTime), executable);
-        }
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param priority short; the priority of the event
-         * @param executable Executable; the lambda method to invoke
-         */
-        public CalendarLong(final Calendar executionTime, final short priority, final Executable executable)
-        {
-            super(new SimTimeCalendarLong(executionTime), priority, executable);
         }
     }
 

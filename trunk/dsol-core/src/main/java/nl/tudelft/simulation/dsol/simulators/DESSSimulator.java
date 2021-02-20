@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -12,9 +11,6 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -247,84 +243,6 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
         public Replication.TimeFloatUnit<? extends DESSSimulatorInterface.TimeFloatUnit> getReplication()
         {
             return (Replication.TimeFloatUnit<? extends DESSSimulatorInterface.TimeFloatUnit>) super.getReplication();
-        }
-    }
-
-    /** Easy access class DESSSimulator.CalendarDouble. */
-    public static class CalendarDouble extends DESSSimulator<Calendar, Duration, SimTimeCalendarDouble>
-            implements DESSSimulatorInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep Duration; the initial time step to use in the integration.
-         * @param id the id of the simulator, used in logging and firing of events.
-         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
-         */
-        public CalendarDouble(final Serializable id, final Duration initialTimeStep) throws SimRuntimeException
-        {
-            super(id, initialTimeStep);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Replication.CalendarDouble<? extends DESSSimulatorInterface.CalendarDouble> getReplication()
-        {
-            return (Replication.CalendarDouble<? extends DESSSimulatorInterface.CalendarDouble>) super.getReplication();
-        }
-    }
-
-    /** Easy access class DESSSimulator.CalendarFloat. */
-    public static class CalendarFloat extends DESSSimulator<Calendar, FloatDuration, SimTimeCalendarFloat>
-            implements DESSSimulatorInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep FloatDuration; the initial time step to use in the integration.
-         * @param id the id of the simulator, used in logging and firing of events.
-         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
-         */
-        public CalendarFloat(final Serializable id, final FloatDuration initialTimeStep) throws SimRuntimeException
-        {
-            super(id, initialTimeStep);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Replication.CalendarFloat<? extends DESSSimulatorInterface.CalendarFloat> getReplication()
-        {
-            return (Replication.CalendarFloat<? extends DESSSimulatorInterface.CalendarFloat>) super.getReplication();
-        }
-    }
-
-    /** Easy access class DESSSimulator.CalendarLong. */
-    public static class CalendarLong extends DESSSimulator<Calendar, Long, SimTimeCalendarLong>
-            implements DESSSimulatorInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param initialTimeStep Long; the initial time step to use in the integration.
-         * @param id the id of the simulator, used in logging and firing of events.
-         * @throws SimRuntimeException when initialTimeStep &lt;=0, NaN, or Infinity
-         */
-        public CalendarLong(final Serializable id, final Long initialTimeStep) throws SimRuntimeException
-        {
-            super(id, initialTimeStep);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Replication.CalendarLong<? extends DESSSimulatorInterface.CalendarLong> getReplication()
-        {
-            return (Replication.CalendarLong<? extends DESSSimulatorInterface.CalendarLong>) super.getReplication();
         }
     }
 

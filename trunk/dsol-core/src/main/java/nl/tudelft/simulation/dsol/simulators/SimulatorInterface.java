@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.Serializable;
 import java.rmi.Remote;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -18,9 +17,6 @@ import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -209,7 +205,7 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
     }
 
     /**
-     * isStoppingOrStopped is true for all states where it has not been started or it is not running. It includes all states 
+     * isStoppingOrStopped is true for all states where it has not been started or it is not running. It includes all states
      * except the STARTING state and the STARTED state.
      * @return boolean; whether the Simulator has not been started and is not running
      */
@@ -254,24 +250,6 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
 
     /** Easy access interface SimulatorInterface.FloatUnit. */
     public interface TimeFloatUnit extends SimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>
-    {
-        // typed extension
-    }
-
-    /** Easy access interface SimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble extends SimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>
-    {
-        // typed extension
-    }
-
-    /** Easy access interface SimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends SimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>
-    {
-        // typed extension
-    }
-
-    /** Easy access interface SimulatorInterface.CalendarLong. */
-    public interface CalendarLong extends SimulatorInterface<Calendar, Long, SimTimeCalendarLong>
     {
         // typed extension
     }

@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -11,9 +10,6 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -101,33 +97,6 @@ public interface OutputPortInterface<A extends Comparable<A> & Serializable, R e
      * @param <P> The type of message the input port accepts
      */
     public interface TimeFloatUnit<P> extends OutputPortInterface<FloatTime, FloatDuration, SimTimeFloatUnit, P>
-    {
-        // typed extension
-    }
-
-    /**
-     * Easy access interface OutputPortInterface.CalendarDouble.
-     * @param <P> The type of message the input port accepts
-     */
-    public interface CalendarDouble<P> extends OutputPortInterface<Calendar, Duration, SimTimeCalendarDouble, P>
-    {
-        // typed extension
-    }
-
-    /**
-     * Easy access interface OutputPortInterface.CalendarFloat.
-     * @param <P> The type of message the input port accepts
-     */
-    public interface CalendarFloat<P> extends OutputPortInterface<Calendar, FloatDuration, SimTimeCalendarFloat, P>
-    {
-        // typed extension
-    }
-
-    /**
-     * Easy access interface OutputPortInterface.CalendarLong.
-     * @param <P> The type of message the input port accepts
-     */
-    public interface CalendarLong<P> extends OutputPortInterface<Calendar, Long, SimTimeCalendarLong, P>
     {
         // typed extension
     }

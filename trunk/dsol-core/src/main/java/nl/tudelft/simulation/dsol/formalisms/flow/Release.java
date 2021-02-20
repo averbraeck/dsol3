@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -10,9 +9,6 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -256,102 +252,4 @@ public class Release<A extends Comparable<A> & Serializable, R extends Number & 
         }
     }
 
-    /** Easy access class Release.CalendarDouble. */
-    public static class CalendarDouble extends Release<Calendar, Duration, SimTimeCalendarDouble>
-            implements StationInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for Release.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
-         * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is released
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Resource<Calendar, Duration, SimTimeCalendarDouble> resource)
-        {
-            super(id, simulator, resource);
-        }
-
-        /**
-         * Constructor for Release.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
-         * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is released
-         * @param amount double; of resource which is released
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Resource<Calendar, Duration, SimTimeCalendarDouble> resource, final double amount)
-        {
-            super(id, simulator, resource, amount);
-        }
-    }
-
-    /** Easy access class Release.CalendarFloat. */
-    public static class CalendarFloat extends Release<Calendar, FloatDuration, SimTimeCalendarFloat>
-            implements StationInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for Release.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
-         * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is released
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource)
-        {
-            super(id, simulator, resource);
-        }
-
-        /**
-         * Constructor for Release.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
-         * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is released
-         * @param amount double; of resource which is released
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource, final double amount)
-        {
-            super(id, simulator, resource, amount);
-        }
-    }
-
-    /** Easy access class Release.CalendarLong. */
-    public static class CalendarLong extends Release<Calendar, Long, SimTimeCalendarLong>
-            implements StationInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for Release.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
-         * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is released
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
-                final Resource<Calendar, Long, SimTimeCalendarLong> resource)
-        {
-            super(id, simulator, resource);
-        }
-
-        /**
-         * Constructor for Release.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
-         * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is released
-         * @param amount double; of resource which is released
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
-                final Resource<Calendar, Long, SimTimeCalendarLong> resource, final double amount)
-        {
-            super(id, simulator, resource, amount);
-        }
-    }
 }

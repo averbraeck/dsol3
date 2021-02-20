@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.statistics;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.Calendar;
 
 import javax.naming.NamingException;
 
@@ -22,9 +21,6 @@ import org.djutils.stats.summarizers.event.EventBasedTally;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -374,103 +370,6 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
          * @throws RemoteException on network error for one of the listeners
          */
         public TimeFloatUnit(final String description, final SimulatorInterface.TimeFloatUnit simulator,
-                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
-        {
-            super(description, simulator, target, eventType);
-        }
-    }
-
-    /** Easy access class SimCounter.CalendarDouble. */
-    public static class CalendarDouble extends SimCounter<Calendar, Duration, SimTimeCalendarDouble>
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * constructs a new SimCounter.
-         * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface.CalendarDouble; the simulator
-         * @throws RemoteException on network error for one of the listeners
-         */
-        public CalendarDouble(final String description, final SimulatorInterface.CalendarDouble simulator)
-                throws RemoteException
-        {
-            super(description, simulator);
-        }
-
-        /**
-         * constructs a new SimCounter.
-         * @param description String; the description
-         * @param simulator SimulatorInterface.CalendarDouble; the simulator of this model
-         * @param target EventProducerInterface; the target on which to count
-         * @param eventType TimedEventType; the EventType for which counting takes place
-         * @throws RemoteException on network error for one of the listeners
-         */
-        public CalendarDouble(final String description, final SimulatorInterface.CalendarDouble simulator,
-                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
-        {
-            super(description, simulator, target, eventType);
-        }
-    }
-
-    /** Easy access class SimCounter.CalendarFloat. */
-    public static class CalendarFloat extends SimCounter<Calendar, FloatDuration, SimTimeCalendarFloat>
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * constructs a new SimCounter.
-         * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface.CalendarFloat; the simulator
-         * @throws RemoteException on network error for one of the listeners
-         */
-        public CalendarFloat(final String description, final SimulatorInterface.CalendarFloat simulator) throws RemoteException
-        {
-            super(description, simulator);
-        }
-
-        /**
-         * constructs a new SimCounter.
-         * @param description String; the description
-         * @param simulator SimulatorInterface.CalendarFloat; the simulator of this model
-         * @param target EventProducerInterface; the target on which to count
-         * @param eventType TimedEventType; the EventType for which counting takes place
-         * @throws RemoteException on network error for one of the listeners
-         */
-        public CalendarFloat(final String description, final SimulatorInterface.CalendarFloat simulator,
-                final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
-        {
-            super(description, simulator, target, eventType);
-        }
-    }
-
-    /** Easy access class SimCounter.CalendarLong. */
-    public static class CalendarLong extends SimCounter<Calendar, Long, SimTimeCalendarLong>
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * constructs a new SimCounter.
-         * @param description String; refers to the description of this counter
-         * @param simulator SimulatorInterface.CalendarLong; the simulator
-         * @throws RemoteException on network error for one of the listeners
-         */
-        public CalendarLong(final String description, final SimulatorInterface.CalendarLong simulator) throws RemoteException
-        {
-            super(description, simulator);
-        }
-
-        /**
-         * constructs a new SimCounter.
-         * @param description String; the description
-         * @param simulator SimulatorInterface.CalendarLong; the simulator of this model
-         * @param target EventProducerInterface; the target on which to count
-         * @param eventType TimedEventType; the EventType for which counting takes place
-         * @throws RemoteException on network error for one of the listeners
-         */
-        public CalendarLong(final String description, final SimulatorInterface.CalendarLong simulator,
                 final EventProducerInterface target, final TimedEventType eventType) throws RemoteException
         {
             super(description, simulator, target, eventType);

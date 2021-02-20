@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -18,9 +17,6 @@ import nl.tudelft.simulation.dsol.formalisms.eventscheduling.LambdaSimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -496,81 +492,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
         public Replication.TimeFloatUnit<? extends DEVSSimulatorInterface.TimeFloatUnit> getReplication()
         {
             return (Replication.TimeFloatUnit<? extends DEVSSimulatorInterface.TimeFloatUnit>) super.getReplication();
-        }
-    }
-
-    /** Easy access class DEVSSimulator.CalendarDouble. */
-    public static class CalendarDouble extends DEVSSimulator<Calendar, Duration, SimTimeCalendarDouble>
-            implements DEVSSimulatorInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * Constructs a new DEVSSimulator.CalendarDouble.
-         * @param id the id of the simulator, used in logging and firing of events.
-         */
-        public CalendarDouble(final Serializable id)
-        {
-            super(id);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Replication.CalendarDouble<? extends DEVSSimulatorInterface.CalendarDouble> getReplication()
-        {
-            return (Replication.CalendarDouble<? extends DEVSSimulatorInterface.CalendarDouble>) super.getReplication();
-        }
-    }
-
-    /** Easy access class DEVSSimulator.CalendarFloat. */
-    public static class CalendarFloat extends DEVSSimulator<Calendar, FloatDuration, SimTimeCalendarFloat>
-            implements DEVSSimulatorInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * Constructs a new DEVSSimulator.CalendarFloat.
-         * @param id the id of the simulator, used in logging and firing of events.
-         */
-        public CalendarFloat(final Serializable id)
-        {
-            super(id);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Replication.CalendarFloat<? extends DEVSSimulatorInterface.CalendarFloat> getReplication()
-        {
-            return (Replication.CalendarFloat<? extends DEVSSimulatorInterface.CalendarFloat>) super.getReplication();
-        }
-    }
-
-    /** Easy access class DEVSSimulator.CalendarLong. */
-    public static class CalendarLong extends DEVSSimulator<Calendar, Long, SimTimeCalendarLong>
-            implements DEVSSimulatorInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * Constructs a new DEVSSimulator.CalendarLong.
-         * @param id the id of the simulator, used in logging and firing of events.
-         */
-        public CalendarLong(final Serializable id)
-        {
-            super(id);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Replication.CalendarLong<? extends DEVSSimulatorInterface.CalendarLong> getReplication()
-        {
-            return (Replication.CalendarLong<? extends DEVSSimulatorInterface.CalendarLong>) super.getReplication();
         }
     }
 

@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -10,9 +9,6 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventProducer;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -199,60 +195,6 @@ public abstract class Station<A extends Comparable<A> & Serializable, R extends 
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; is the simulator on which behavior is scheduled
          */
         public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator)
-        {
-            super(id, simulator);
-        }
-    }
-
-    /** Easy access class Station.CalendarDouble. */
-    public static class CalendarDouble extends Station<Calendar, Duration, SimTimeCalendarDouble>
-            implements StationInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new Station.CalendarDouble.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; is the simulator on which behavior is scheduled
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator)
-        {
-            super(id, simulator);
-        }
-    }
-
-    /** Easy access class Station.CalendarFloat. */
-    public static class CalendarFloat extends Station<Calendar, FloatDuration, SimTimeCalendarFloat>
-            implements StationInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new Station.CalendarFloat.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; is the simulator on which behavior is scheduled
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator)
-        {
-            super(id, simulator);
-        }
-    }
-
-    /** Easy access class Station.CalendarLong. */
-    public static class CalendarLong extends Station<Calendar, Long, SimTimeCalendarLong>
-            implements StationInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new Station.CalendarLong.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; is the simulator on which behavior is scheduled
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator)
         {
             super(id, simulator);
         }

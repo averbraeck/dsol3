@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -23,9 +22,6 @@ import org.djutils.metadata.ObjectDescriptor;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -578,141 +574,6 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         public Treatment.TimeFloatUnit getTreatment()
         {
             return (Treatment.TimeFloatUnit) super.getTreatment();
-        }
-    }
-
-    /**
-     * Easy access class Experiment.CalendarDouble.
-     * @param <S> the simulator to use
-     */
-    public static class CalendarDouble<S extends SimulatorInterface.CalendarDouble>
-            extends Experiment<Calendar, Duration, SimTimeCalendarDouble, S>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new Experiment.
-         */
-        public CalendarDouble()
-        {
-            super();
-        }
-
-        /**
-         * constructs a new Experiment.CalendarDouble.
-         * @param treatment Treatment.CalendarDouble; the treatment for this experiment
-         * @param simulator S; the simulator
-         * @param model DSOLModel.CalendarDouble&lt;S&gt;; the model to experiment with
-         */
-        public CalendarDouble(final Treatment.CalendarDouble treatment, final S simulator,
-                final DSOLModel.CalendarDouble<? extends S> model)
-        {
-            super(treatment, simulator, model);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public DSOLModel.CalendarDouble<? extends S> getModel()
-        {
-            return (DSOLModel.CalendarDouble<? extends S>) super.getModel();
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public Treatment.CalendarDouble getTreatment()
-        {
-            return (Treatment.CalendarDouble) super.getTreatment();
-        }
-    }
-
-    /**
-     * Easy access class Experiment.CalendarFloat.
-     * @param <S> the simulator to use
-     */
-    public static class CalendarFloat<S extends SimulatorInterface.CalendarFloat>
-            extends Experiment<Calendar, FloatDuration, SimTimeCalendarFloat, S>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new Experiment.
-         */
-        public CalendarFloat()
-        {
-            super();
-        }
-
-        /**
-         * constructs a new Experiment.CalendarFloat.
-         * @param treatment Treatment.CalendarFloat; the treatment for this experiment
-         * @param simulator S; the simulator
-         * @param model DSOLModel.CalendarFloat&lt;S&gt;; the model to experiment with
-         */
-        public CalendarFloat(final Treatment.CalendarFloat treatment, final S simulator,
-                final DSOLModel.CalendarFloat<? extends S> model)
-        {
-            super(treatment, simulator, model);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public DSOLModel.CalendarFloat<? extends S> getModel()
-        {
-            return (DSOLModel.CalendarFloat<? extends S>) super.getModel();
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public Treatment.CalendarFloat getTreatment()
-        {
-            return (Treatment.CalendarFloat) super.getTreatment();
-        }
-    }
-
-    /**
-     * Easy access class Experiment.CalendarLong.
-     * @param <S> the simulator to use
-     */
-    public static class CalendarLong<S extends SimulatorInterface.CalendarLong>
-            extends Experiment<Calendar, Long, SimTimeCalendarLong, S>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a new Experiment.
-         */
-        public CalendarLong()
-        {
-            super();
-        }
-
-        /**
-         * constructs a new Experiment.CalendarLong.
-         * @param treatment Treatment.CalendarLong; the treatment for this experiment
-         * @param simulator S; the simulator
-         * @param model DSOLModel.CalendarLong&lt;S&gt;; the model to experiment with
-         */
-        public CalendarLong(final Treatment.CalendarLong treatment, final S simulator,
-                final DSOLModel.CalendarLong<? extends S> model)
-        {
-            super(treatment, simulator, model);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public DSOLModel.CalendarLong<? extends S> getModel()
-        {
-            return (DSOLModel.CalendarLong<? extends S>) super.getModel();
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public Treatment.CalendarLong getTreatment()
-        {
-            return (Treatment.CalendarLong) super.getTreatment();
         }
     }
 

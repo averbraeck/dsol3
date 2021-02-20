@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,9 +17,6 @@ import org.djutils.event.ref.Reference;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS.exceptions.PortNotFoundException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -667,117 +663,6 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
          * @param simulator DEVSSimulatorInterface.TimeFloatUnit; the simulator to schedule events on.
          */
         public TimeFloatUnit(final String modelName, final DEVSSimulatorInterface.TimeFloatUnit simulator)
-        {
-            super(modelName, simulator);
-
-        }
-    }
-
-    /** Easy access class CoupledModel.CalendarDouble. */
-    public abstract static class CalendarDouble extends CoupledModel<Calendar, Duration, SimTimeCalendarDouble>
-    {
-        /** */
-        private static final long serialVersionUID = 20180929L;
-
-        /**
-         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName String; the name of this component
-         */
-        public CalendarDouble(final String modelName)
-        {
-            super(modelName);
-        }
-
-        /**
-         * The constructor of a coupled model within another coupled model.
-         * @param modelName String; the name of this component
-         * @param parentModel CoupledModel.CalendarDouble; the parent coupled model for this model.
-         */
-        public CalendarDouble(final String modelName, final CoupledModel.CalendarDouble parentModel)
-        {
-            super(modelName, parentModel);
-        }
-
-        /**
-         * Constructor of a high-level coupled model without a parent model.
-         * @param modelName String; the name of this component
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; the simulator to schedule events on.
-         */
-        public CalendarDouble(final String modelName, final DEVSSimulatorInterface.CalendarDouble simulator)
-        {
-            super(modelName, simulator);
-
-        }
-    }
-
-    /** Easy access class CoupledModel.CalendarFloat. */
-    public abstract static class CalendarFloat extends CoupledModel<Calendar, FloatDuration, SimTimeCalendarFloat>
-    {
-        /** */
-        private static final long serialVersionUID = 20180929L;
-
-        /**
-         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName String; the name of this component
-         */
-        public CalendarFloat(final String modelName)
-        {
-            super(modelName);
-        }
-
-        /**
-         * The constructor of a coupled model within another coupled model.
-         * @param modelName String; the name of this component
-         * @param parentModel CoupledModel.CalendarFloat; the parent coupled model for this model.
-         */
-        public CalendarFloat(final String modelName, final CoupledModel.CalendarFloat parentModel)
-        {
-            super(modelName, parentModel);
-        }
-
-        /**
-         * Constructor of a high-level coupled model without a parent model.
-         * @param modelName String; the name of this component
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; the simulator to schedule events on.
-         */
-        public CalendarFloat(final String modelName, final DEVSSimulatorInterface.CalendarFloat simulator)
-        {
-            super(modelName, simulator);
-
-        }
-    }
-
-    /** Easy access class CoupledModel.CalendarLong. */
-    public abstract static class CalendarLong extends CoupledModel<Calendar, Long, SimTimeCalendarLong>
-    {
-        /** */
-        private static final long serialVersionUID = 20180929L;
-
-        /**
-         * The constructor of the top model when the simulator is still unknown (e.g. in the constructModel() method).
-         * @param modelName String; the name of this component
-         */
-        public CalendarLong(final String modelName)
-        {
-            super(modelName);
-        }
-
-        /**
-         * The constructor of a coupled model within another coupled model.
-         * @param modelName String; the name of this component
-         * @param parentModel CoupledModel.CalendarLong; the parent coupled model for this model.
-         */
-        public CalendarLong(final String modelName, final CoupledModel.CalendarLong parentModel)
-        {
-            super(modelName, parentModel);
-        }
-
-        /**
-         * Constructor of a high-level coupled model without a parent model.
-         * @param modelName String; the name of this component
-         * @param simulator DEVSSimulatorInterface.CalendarLong; the simulator to schedule events on.
-         */
-        public CalendarLong(final String modelName, final DEVSSimulatorInterface.CalendarLong simulator)
         {
             super(modelName, simulator);
 

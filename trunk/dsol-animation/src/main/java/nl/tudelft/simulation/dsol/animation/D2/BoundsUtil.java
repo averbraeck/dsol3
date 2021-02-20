@@ -53,7 +53,7 @@ public final class BoundsUtil
      * @param zValue double; the zValue as the 'height' for which the bounds intersection is calculated
      * @return Bounds2d the projected rectangle of the intersection, or null if there is no intersection
      */
-    public static Bounds2d zIntersect(final Point<?, ?> center, final Bounds<?, ?> bounds, final double zValue)
+    public static Bounds2d zIntersect(final Point<?, ?> center, final Bounds<?, ?, ?> bounds, final double zValue)
     {
         if (center instanceof OrientedPoint3d && bounds instanceof Bounds3d)
         {

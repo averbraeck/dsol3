@@ -59,7 +59,10 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     private final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model;
 
     /** The clock. */
-    private ClockSpeedPanel<A, R, T> clockSpeedPanel;
+    private ClockPanel<A, R, T> clockPanel;
+
+    /** The speed. */
+    private SpeedPanel<A, R, T> speedPanel;
 
     /** the Time editing panel. */
     private RunUntilPanel<A, R, T> runUntilPanel;
@@ -300,9 +303,13 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
                     getSimulator().getReplication().getExperiment().removeFromContext(); // clean up the context
                 }
 
-                if (this.clockSpeedPanel != null)
+                if (this.clockPanel != null)
                 {
-                    this.clockSpeedPanel.cancelTimer(); // cancel the timer on the clock panel.
+                    this.clockPanel.cancelTimer(); // cancel the timer on the clock panel.
+                }
+                if (this.speedPanel != null)
+                {
+                    this.speedPanel.cancelTimer(); // cancel the timer on the speed panel.
                 }
             }
             catch (Throwable exception)
@@ -380,24 +387,54 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return clockPanel
      */
-    public final ClockSpeedPanel<A, R, T> getClockSpeedPanel()
+    public final ClockPanel<A, R, T> getClockPanel()
     {
-        return this.clockSpeedPanel;
+        return this.clockPanel;
     }
 
     /**
      * @param clockPanel set clockPanel
      */
-    public void setClockSpeedPanel(final ClockSpeedPanel<A, R, T> clockPanel)
+    public void setClockPanel(final ClockPanel<A, R, T> clockPanel)
     {
-        if (this.clockSpeedPanel != null)
+        if (this.clockPanel != null)
         {
             // remove old clock panel from screen and stop its timer
-            remove(this.clockSpeedPanel);
-            this.clockSpeedPanel.cancelTimer();
+            remove(this.clockPanel);
+            this.clockPanel.cancelTimer();
         }
-        this.clockSpeedPanel = clockPanel;
-        add(this.clockSpeedPanel, 1); // after the buttons
+        this.clockPanel = clockPanel;
+        add(this.clockPanel, 1); // after the buttons
+    }
+
+    /**
+     * @return speedPanel
+     */
+    public final SpeedPanel<A, R, T> getSpeedPanel()
+    {
+        return this.speedPanel;
+    }
+
+    /**
+     * @param speedPanel set speedPanel
+     */
+    public void setSpeedPanel(final SpeedPanel<A, R, T> speedPanel)
+    {
+        if (this.speedPanel != null)
+        {
+            // remove old clock panel from screen and stop its timer
+            remove(this.speedPanel);
+            this.speedPanel.cancelTimer();
+        }
+        this.speedPanel = speedPanel;
+        if (this.clockPanel != null)
+        {
+            add(this.speedPanel, 2); // place after the clockPanel
+        }
+        else
+        {
+            add(this.speedPanel, 1); // place after the buttons
+        }
     }
 
     /**

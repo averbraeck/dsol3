@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -13,9 +12,6 @@ import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -98,24 +94,6 @@ public interface StationInterface<A extends Comparable<A> & Serializable, R exte
 
     /** Easy access interface StationInterface.FloatUnit. */
     public interface TimeFloatUnit extends StationInterface<FloatTime, FloatDuration, SimTimeFloatUnit>
-    {
-        // typed extension
-    }
-
-    /** Easy access interface StationInterface.CalendarDouble. */
-    public interface CalendarDouble extends StationInterface<Calendar, Duration, SimTimeCalendarDouble>
-    {
-        // typed extension
-    }
-
-    /** Easy access interface StationInterface.CalendarFloat. */
-    public interface CalendarFloat extends StationInterface<Calendar, FloatDuration, SimTimeCalendarFloat>
-    {
-        // typed extension
-    }
-
-    /** Easy access interface StationInterface.CalendarLong. */
-    public interface CalendarLong extends StationInterface<Calendar, Long, SimTimeCalendarLong>
     {
         // typed extension
     }

@@ -5,7 +5,11 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
     
-    <release version="3.05.05" date="2021-02-09" description="dsol-animation and dsol-swing further enhanced">
+    <release version="3.06.01" date="2021-02-20" description="calendar time types removed; dsol-swing further enhanced">
+      <action dev="averbraeck" type="remove">
+        Simplified the time units and removed the Calendar ones, as these easily create offset problems, and can
+        better be implemented with a Time/Duration or a double time unit and a display with an offset. 
+      </action>
       <action dev="averbraeck" type="add">
         All elements of the AnimationTab have been coded in separate classes. Panels that are not standard communicate
         through events, to enable a flexible interface that is dependent on the panels present. An example is handling of

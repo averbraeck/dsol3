@@ -153,7 +153,7 @@ public class Renderable2DTest
         }
 
         @Override
-        public Bounds<?, ?> getBounds() throws RemoteException
+        public Bounds<?, ?, ?> getBounds() throws RemoteException
         {
             return new Bounds3d(4, 4, 4);
         }
@@ -182,7 +182,7 @@ public class Renderable2DTest
             }
 
             @Override
-            public Bounds<?, ?> getBounds() throws RemoteException
+            public Bounds<?, ?, ?> getBounds() throws RemoteException
             {
                 return new Bounds3d(4, 4, 4);
             }

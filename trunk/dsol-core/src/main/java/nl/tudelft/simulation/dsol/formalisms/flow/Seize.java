@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,9 +16,6 @@ import org.djutils.metadata.ObjectDescriptor;
 import nl.tudelft.simulation.dsol.formalisms.Resource;
 import nl.tudelft.simulation.dsol.formalisms.ResourceRequestorInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -395,101 +391,4 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
         }
     }
 
-    /** Easy access class Seize.CalendarDouble. */
-    public static class CalendarDouble extends Seize<Calendar, Duration, SimTimeCalendarDouble>
-            implements StationInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for Seize.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which behavior is scheduled
-         * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is claimed
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Resource<Calendar, Duration, SimTimeCalendarDouble> resource)
-        {
-            super(id, simulator, resource);
-        }
-
-        /**
-         * Constructor for Seize.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which behavior is scheduled
-         * @param resource Resource&lt;Calendar,Duration,SimTimeCalendarDouble&gt;; which is claimed
-         * @param requestedCapacity double; is the amount which is claimed by the seize
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Resource<Calendar, Duration, SimTimeCalendarDouble> resource, final double requestedCapacity)
-        {
-            super(id, simulator, resource, requestedCapacity);
-        }
-    }
-
-    /** Easy access class Seize.CalendarFloat. */
-    public static class CalendarFloat extends Seize<Calendar, FloatDuration, SimTimeCalendarFloat>
-            implements StationInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for Seize.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which behavior is scheduled
-         * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is claimed
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource)
-        {
-            super(id, simulator, resource);
-        }
-
-        /**
-         * Constructor for Seize.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which behavior is scheduled
-         * @param resource Resource&lt;Calendar,FloatDuration,SimTimeCalendarFloat&gt;; which is claimed
-         * @param requestedCapacity double; is the amount which is claimed by the seize
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Resource<Calendar, FloatDuration, SimTimeCalendarFloat> resource, final double requestedCapacity)
-        {
-            super(id, simulator, resource, requestedCapacity);
-        }
-    }
-
-    /** Easy access class Seize.CalendarLong. */
-    public static class CalendarLong extends Seize<Calendar, Long, SimTimeCalendarLong> implements StationInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for Seize.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; on which behavior is scheduled
-         * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is claimed
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
-                final Resource<Calendar, Long, SimTimeCalendarLong> resource)
-        {
-            super(id, simulator, resource);
-        }
-
-        /**
-         * Constructor for Seize.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; on which behavior is scheduled
-         * @param resource Resource&lt;Calendar,Long,SimTimeCalendarLong&gt;; which is claimed
-         * @param requestedCapacity double; is the amount which is claimed by the seize
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
-                final Resource<Calendar, Long, SimTimeCalendarLong> resource, final double requestedCapacity)
-        {
-            super(id, simulator, resource, requestedCapacity);
-        }
-    }
 }
