@@ -3,7 +3,6 @@ package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatTime;
@@ -11,9 +10,6 @@ import org.djutils.reflection.ClassUtil;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -352,114 +348,6 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
                 final String method, final Object[] args)
         {
             super(new SimTimeFloatUnit(executionTime), priority, source, target, method, args);
-        }
-    }
-
-    /** Easy access class SimEvent.CalendarDouble. */
-    public static class CalendarDouble extends SimEvent<SimTimeCalendarDouble> implements SimEventInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the absolute time the event has to be executed.
-         * @param source Object; the source that created the method
-         * @param target Object; the object on which the method must be invoked.
-         * @param method String; the method to invoke
-         * @param args Object[]; the arguments the method to invoke with
-         */
-        public CalendarDouble(final Calendar executionTime, final Object source, final Object target, final String method,
-                final Object[] args)
-        {
-            super(new SimTimeCalendarDouble(executionTime), source, target, method, args);
-        }
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param priority short; the priority of the event
-         * @param source Object; the source that created the method
-         * @param target Object; the object on which the method must be invoked.
-         * @param method String; the method to invoke
-         * @param args Object[]; the arguments the method to invoke with
-         */
-        public CalendarDouble(final Calendar executionTime, final short priority, final Object source, final Object target,
-                final String method, final Object[] args)
-        {
-            super(new SimTimeCalendarDouble(executionTime), priority, source, target, method, args);
-        }
-    }
-
-    /** Easy access class SimEvent.CalendarFloat. */
-    public static class CalendarFloat extends SimEvent<SimTimeCalendarFloat> implements SimEventInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the absolute time the event has to be executed.
-         * @param source Object; the source that created the method
-         * @param target Object; the object on which the method must be invoked.
-         * @param method String; the method to invoke
-         * @param args Object[]; the arguments the method to invoke with
-         */
-        public CalendarFloat(final Calendar executionTime, final Object source, final Object target, final String method,
-                final Object[] args)
-        {
-            super(new SimTimeCalendarFloat(executionTime), source, target, method, args);
-        }
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param priority short; the priority of the event
-         * @param source Object; the source that created the method
-         * @param target Object; the object on which the method must be invoked.
-         * @param method String; the method to invoke
-         * @param args Object[]; the arguments the method to invoke with
-         */
-        public CalendarFloat(final Calendar executionTime, final short priority, final Object source, final Object target,
-                final String method, final Object[] args)
-        {
-            super(new SimTimeCalendarFloat(executionTime), priority, source, target, method, args);
-        }
-    }
-
-    /** Easy access class SimEvent.CalendarLong. */
-    public static class CalendarLong extends SimEvent<SimTimeCalendarLong> implements SimEventInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the absolute time the event has to be executed.
-         * @param source Object; the source that created the method
-         * @param target Object; the object on which the method must be invoked.
-         * @param method String; the method to invoke
-         * @param args Object[]; the arguments the method to invoke with
-         */
-        public CalendarLong(final Calendar executionTime, final Object source, final Object target, final String method,
-                final Object[] args)
-        {
-            super(new SimTimeCalendarLong(executionTime), source, target, method, args);
-        }
-
-        /**
-         * The constructor of the event stores the time the event must be executed and the object and method to invoke.
-         * @param executionTime Calendar; the time the event has to be executed.
-         * @param priority short; the priority of the event
-         * @param source Object; the source that created the method
-         * @param target Object; the object on which the method must be invoked.
-         * @param method String; the method to invoke
-         * @param args Object[]; the arguments the method to invoke with
-         */
-        public CalendarLong(final Calendar executionTime, final short priority, final Object source, final Object target,
-                final String method, final Object[] args)
-        {
-            super(new SimTimeCalendarLong(executionTime), priority, source, target, method, args);
         }
     }
 

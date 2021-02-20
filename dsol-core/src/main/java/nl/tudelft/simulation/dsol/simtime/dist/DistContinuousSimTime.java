@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.simtime.dist;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.unit.TimeUnit;
 import org.djunits.value.vdouble.scalar.Duration;
@@ -10,9 +9,6 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -194,85 +190,6 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
         public final SimTimeFloatUnit draw()
         {
             return new SimTimeFloatUnit(new FloatTime((float) super.wrappedDistribution.draw(), this.unit));
-        }
-    }
-
-    /** Easy access class DistContinuousSimTime.CalendarDouble. */
-    public static class CalendarDouble extends DistContinuousSimTime<Calendar, Duration, SimTimeCalendarDouble>
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /** the time unit. */
-        private final TimeUnit unit;
-
-        /**
-         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
-         * @param unit TimeUnit; the unit for the parameters (and drawn values) of the wrapped distribution
-         */
-        public CalendarDouble(final DistContinuous wrappedDistribution, final TimeUnit unit)
-        {
-            super(wrappedDistribution);
-            this.unit = unit;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final SimTimeCalendarDouble draw()
-        {
-            double ms = new Time(super.wrappedDistribution.draw(), this.unit).si * 1000.0;
-            return new SimTimeCalendarDouble(ms);
-        }
-    }
-
-    /** Easy access class DistContinuousSimTime.CalendarFloat. */
-    public static class CalendarFloat extends DistContinuousSimTime<Calendar, FloatDuration, SimTimeCalendarFloat>
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /** the time unit. */
-        private final TimeUnit unit;
-
-        /**
-         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
-         * @param unit TimeUnit; the unit for the parameters (and drawn values) of the wrapped distribution
-         */
-        public CalendarFloat(final DistContinuous wrappedDistribution, final TimeUnit unit)
-        {
-            super(wrappedDistribution);
-            this.unit = unit;
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final SimTimeCalendarFloat draw()
-        {
-            float ms = new FloatTime((float) super.wrappedDistribution.draw(), this.unit).si * 1000.0f;
-            return new SimTimeCalendarFloat(ms);
-        }
-    }
-
-    /** Easy access class DistContinuousSimTime.CalendarLong. */
-    public static class CalendarLong extends DistContinuousSimTime<Calendar, Long, SimTimeCalendarLong>
-    {
-        /** */
-        private static final long serialVersionUID = 20140805L;
-
-        /**
-         * @param wrappedDistribution DistContinuous; the wrapped continuous distribution
-         */
-        public CalendarLong(final DistContinuous wrappedDistribution)
-        {
-            super(wrappedDistribution);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final SimTimeCalendarLong draw()
-        {
-            long ms = (long) super.wrappedDistribution.draw();
-            return new SimTimeCalendarLong(ms);
         }
     }
 

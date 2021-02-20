@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -15,9 +14,6 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.Cat;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -404,180 +400,6 @@ public class Schedule<A extends Comparable<A> & Serializable, R extends Number &
         public final DistContinuousSimTime.TimeFloatUnit getStartTime()
         {
             return (DistContinuousSimTime.TimeFloatUnit) this.startTime;
-        }
-    }
-
-    /** Easy access class Schedule.CalendarDouble. */
-    public static class CalendarDouble extends Schedule<Calendar, Duration, SimTimeCalendarDouble>
-            implements StationInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
-         * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
-         * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; is the on which the construction of the objects must be
-         *            scheduled.
-         * @param myClass Class&lt;?&gt;; is the class of which entities are created
-         * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
-         * @throws SimRuntimeException on constructor invocation.
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final Class<?> myClass, final Object[] constructorArguments) throws SimRuntimeException
-        {
-            super(id, simulator, myClass, constructorArguments);
-        }
-
-        /**
-         * sets the interarrival distribution.
-         * @param interval DistContinuousSimulationTime.CalendarDouble; is the interarrival time
-         */
-        public final void setInterval(final DistContinuousSimulationTime.CalendarDouble interval)
-        {
-            super.setInterval(interval);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final DistContinuousSimulationTime.CalendarDouble getInterval()
-        {
-            return (DistContinuousSimulationTime.CalendarDouble) this.interval;
-        }
-
-        /**
-         * sets the startTime.
-         * @param startTime DistContinuousSimTime.CalendarDouble; is the absolute startTime
-         */
-        public final synchronized void setStartTime(final DistContinuousSimTime.CalendarDouble startTime)
-        {
-            super.setStartTime(startTime);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final DistContinuousSimTime.CalendarDouble getStartTime()
-        {
-            return (DistContinuousSimTime.CalendarDouble) this.startTime;
-        }
-    }
-
-    /** Easy access class Schedule.CalendarFloat. */
-    public static class CalendarFloat extends Schedule<Calendar, FloatDuration, SimTimeCalendarFloat>
-            implements StationInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
-         * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
-         * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; is the on which the construction of the objects must be
-         *            scheduled.
-         * @param myClass Class&lt;?&gt;; is the class of which entities are created
-         * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
-         * @throws SimRuntimeException on constructor invocation.
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final Class<?> myClass, final Object[] constructorArguments) throws SimRuntimeException
-        {
-            super(id, simulator, myClass, constructorArguments);
-        }
-
-        /**
-         * sets the interarrival distribution.
-         * @param interval DistContinuousSimulationTime.CalendarFloat; is the interarrival time
-         */
-        public final void setInterval(final DistContinuousSimulationTime.CalendarFloat interval)
-        {
-            super.setInterval(interval);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final DistContinuousSimulationTime.CalendarFloat getInterval()
-        {
-            return (DistContinuousSimulationTime.CalendarFloat) this.interval;
-        }
-
-        /**
-         * sets the startTime.
-         * @param startTime DistContinuousSimTime.CalendarFloat; is the absolute startTime
-         */
-        public final synchronized void setStartTime(final DistContinuousSimTime.CalendarFloat startTime)
-        {
-            super.setStartTime(startTime);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final DistContinuousSimTime.CalendarFloat getStartTime()
-        {
-            return (DistContinuousSimTime.CalendarFloat) this.startTime;
-        }
-    }
-
-    /** Easy access class Schedule.CalendarLong. */
-    public static class CalendarLong extends Schedule<Calendar, Long, SimTimeCalendarLong>
-            implements StationInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructs a new generator for objects in a simulation. Constructed objects are sent to the 'destination' of the
-         * Schedule when a destination has been indicated with the setDestination method. This constructor has a maximum number
-         * of entities generated, which results in stopping the generator when the maximum number of entities has been reached.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; is the on which the construction of the objects must be
-         *            scheduled.
-         * @param myClass Class&lt;?&gt;; is the class of which entities are created
-         * @param constructorArguments Object[]; are the parameters for the constructor of myClass. of arguments.
-         *            <code>constructorArgument[n]=Integer.valueOf(12)</code> may have constructorArgumentClasses[n]=int.class;
-         * @throws SimRuntimeException on constructor invocation.
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator, final Class<?> myClass,
-                final Object[] constructorArguments) throws SimRuntimeException
-        {
-            super(id, simulator, myClass, constructorArguments);
-        }
-
-        /**
-         * sets the interarrival distribution.
-         * @param interval DistContinuousSimulationTime.CalendarLong; is the interarrival time
-         */
-        public final void setInterval(final DistContinuousSimulationTime.CalendarLong interval)
-        {
-            super.setInterval(interval);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final DistContinuousSimulationTime.CalendarLong getInterval()
-        {
-            return (DistContinuousSimulationTime.CalendarLong) this.interval;
-        }
-
-        /**
-         * sets the startTime.
-         * @param startTime DistContinuousSimTime.CalendarLong; is the absolute startTime
-         */
-        public final synchronized void setStartTime(final DistContinuousSimTime.CalendarLong startTime)
-        {
-            super.setStartTime(startTime);
-        }
-
-        /** {@inheritDoc} */
-        @Override
-        public final DistContinuousSimTime.CalendarLong getStartTime()
-        {
-            return (DistContinuousSimTime.CalendarLong) this.startTime;
         }
     }
 

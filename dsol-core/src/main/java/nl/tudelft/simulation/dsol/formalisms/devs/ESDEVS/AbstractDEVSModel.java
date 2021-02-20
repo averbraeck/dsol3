@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -19,9 +18,6 @@ import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.reflection.ClassUtil;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -414,63 +410,4 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
         }
     }
 
-    /** Easy access class AbstractDEVSModel.CalendarDouble. */
-    public abstract static class CalendarDouble extends AbstractDEVSModel<Calendar, Duration, SimTimeCalendarDouble>
-    {
-        /** */
-        private static final long serialVersionUID = 20180929L;
-
-        /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
-         * model we are part of. A parent model of null means that we are the top model.
-         * @param modelName String; the name of this component
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; the simulator to schedule the events on.
-         * @param parentModel CoupledModel.CalendarDouble; the parent model we are part of.
-         */
-        public CalendarDouble(final String modelName, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final CoupledModel.CalendarDouble parentModel)
-        {
-            super(modelName, simulator, parentModel);
-        }
-    }
-
-    /** Easy access class AbstractDEVSModel.CalendarFloat. */
-    public abstract static class CalendarFloat extends AbstractDEVSModel<Calendar, FloatDuration, SimTimeCalendarFloat>
-    {
-        /** */
-        private static final long serialVersionUID = 20180929L;
-
-        /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
-         * model we are part of. A parent model of null means that we are the top model.
-         * @param modelName String; the name of this component
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; the simulator to schedule the events on.
-         * @param parentModel CoupledModel.CalendarFloat; the parent model we are part of.
-         */
-        public CalendarFloat(final String modelName, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final CoupledModel.CalendarFloat parentModel)
-        {
-            super(modelName, simulator, parentModel);
-        }
-    }
-
-    /** Easy access class AbstractDEVSModel.CalendarLong. */
-    public abstract static class CalendarLong extends AbstractDEVSModel<Calendar, Long, SimTimeCalendarLong>
-    {
-        /** */
-        private static final long serialVersionUID = 20180929L;
-
-        /**
-         * Constructor for an abstract DEVS model: we have to indicate the simulator to schedule the events on, and the parent
-         * model we are part of. A parent model of null means that we are the top model.
-         * @param modelName String; the name of this component
-         * @param simulator DEVSSimulatorInterface.CalendarLong; the simulator to schedule the events on.
-         * @param parentModel CoupledModel.CalendarLong; the parent model we are part of.
-         */
-        public CalendarLong(final String modelName, final DEVSSimulatorInterface.CalendarLong simulator,
-                final CoupledModel.CalendarLong parentModel)
-        {
-            super(modelName, simulator, parentModel);
-        }
-    }
 }

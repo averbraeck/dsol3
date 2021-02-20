@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -13,9 +12,6 @@ import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -94,27 +90,6 @@ public interface DESSSimulatorInterface<A extends Comparable<A> & Serializable, 
     /** Easy access interface DESSSimulatorInterface.TimeFloatUnit. */
     public interface TimeFloatUnit
             extends DESSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>, SimulatorInterface.TimeFloatUnit
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DESSSimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble
-            extends DESSSimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>, SimulatorInterface.CalendarDouble
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DESSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat
-            extends DESSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>, SimulatorInterface.CalendarFloat
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DESSSimulatorInterface.CalendarLong. */
-    public interface CalendarLong
-            extends DESSSimulatorInterface<Calendar, Long, SimTimeCalendarLong>, SimulatorInterface.CalendarLong
     {
         // typed extension
     }

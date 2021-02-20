@@ -14,12 +14,6 @@
  * The following SimTime types are available:
  * <ul>
  * <li>SimTime: the abstract time from which the other classes are extended</li>
- * <li>SimTimeCalendarDouble: a simulation time that takes Calendar values with an underlying double to store the time in
- * milliseconds</li>
- * <li>SimTimeCalendarFloat: a simulation time that takes Calendar values with an underlying float to store the time in
- * milliseconds</li>
- * <li>SimTimeCalendarLong: a simulation time that takes Calendar values with an underlying long to store the time in
- * milliseconds</li>
  * <li>SimTimeDouble: a simulation time based on a double</li>
  * <li>SimTimeDoubleUnit: a simulation time based on a double, with a time unit</li>
  * <li>SimTimeFloat: a simulation time based on a float</li>

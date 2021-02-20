@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -88,21 +85,4 @@ public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializa
         // no extra methods
     }
 
-    /** Easy access class SimEvent.CalendarDouble. */
-    public interface CalendarDouble extends SimEventInterface<SimTimeCalendarDouble>
-    {
-        // no extra methods
-    }
-
-    /** Easy access class SimEvent.CalendarFloat. */
-    public interface CalendarFloat extends SimEventInterface<SimTimeCalendarFloat>
-    {
-        // no extra methods
-    }
-
-    /** Easy access class SimEvent.CalendarLong. */
-    public interface CalendarLong extends SimEventInterface<SimTimeCalendarLong>
-    {
-        // no extra methods
-    }
 }

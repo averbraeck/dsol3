@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.djunits.value.vdouble.scalar.Duration;
@@ -16,9 +15,6 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.model.outputstatistics.OutputStatistic;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -211,66 +207,6 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
          * @param simulator S; the simulator to use for this model
          */
         public TimeFloatUnit(final S simulator)
-        {
-            super(simulator);
-        }
-    }
-
-    /**
-     * Easy access class AbstractDSOLModel.TimeCalendarDouble.
-     * @param <S> the simulator type to use
-     */
-    public abstract static class CalendarDouble<S extends SimulatorInterface.CalendarDouble>
-            extends AbstractDSOLModel<Calendar, Duration, SimTimeCalendarDouble, S> implements DSOLModel.CalendarDouble<S>
-    {
-        /** */
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * Construct an abstract DSOL model and set the simulator.
-         * @param simulator S; the simulator to use for this model
-         */
-        public CalendarDouble(final S simulator)
-        {
-            super(simulator);
-        }
-    }
-
-    /**
-     * Easy access class AbstractDSOLModel.TimeCalendarFloat.
-     * @param <S> the simulator type to use
-     */
-    public abstract static class CalendarFloat<S extends SimulatorInterface.CalendarFloat>
-            extends AbstractDSOLModel<Calendar, FloatDuration, SimTimeCalendarFloat, S> implements DSOLModel.CalendarFloat<S>
-    {
-        /** */
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * Construct an abstract DSOL model and set the simulator.
-         * @param simulator S; the simulator to use for this model
-         */
-        public CalendarFloat(final S simulator)
-        {
-            super(simulator);
-        }
-    }
-
-    /**
-     * Easy access class AbstractDSOLModel.TimeCalendarLong.
-     * @param <S> the simulator type to use
-     */
-    public abstract static class CalendarLong<S extends SimulatorInterface.CalendarLong>
-            extends AbstractDSOLModel<Calendar, Long, SimTimeCalendarLong, S> implements DSOLModel.CalendarLong<S>
-    {
-        /** */
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * Construct an abstract DSOL model and set the simulator.
-         * @param simulator S; the simulator to use for this model
-         */
-        public CalendarLong(final S simulator)
         {
             super(simulator);
         }

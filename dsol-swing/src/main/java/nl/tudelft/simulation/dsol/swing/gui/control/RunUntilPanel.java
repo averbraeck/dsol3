@@ -7,20 +7,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.text.ParseException;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
-import javax.swing.text.MaskFormatter;
 
+import org.djunits.value.vdouble.scalar.Duration;
+import org.djunits.value.vdouble.scalar.Time;
+import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
+import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
+import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControl;
 import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControlButton;
@@ -57,7 +63,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     /** Font used to display the edit field. */
     private Font timeFont = new Font("SansSerif", Font.BOLD, 18);
 
-    /** the initial / reset value of the tumeUntil field. */
+    /** the initial / reset value of the timeUntil field. */
     private String initialValue;
 
     /** the apply or cancel button. */
@@ -74,10 +80,8 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
      * @param simulator SimulatorInterface&lt;A, R, T&gt;; the simulator
      * @param initialValue String; the initial value of the time to display
      * @param regex String; the regular expression to which the entered text needs to adhere
-     * @param mask Sting; the mask to display the time
      */
-    public RunUntilPanel(final SimulatorInterface<A, R, T> simulator, final String initialValue, final String regex,
-            final String mask)
+    public RunUntilPanel(final SimulatorInterface<A, R, T> simulator, final String initialValue, final String regex)
     {
         this.simulator = simulator;
         this.initialValue = initialValue;
@@ -87,21 +91,6 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
         this.textField = new JFormattedTextField(new RegexFormatter(regex));
         this.textField.setFont(getTimeFont());
         this.textField.setPreferredSize(new Dimension(120, 20));
-
-        MaskFormatter mf = null;
-        try
-        {
-            mf = new MaskFormatter(mask);
-            mf.setPlaceholderCharacter('0');
-            mf.setAllowsInvalid(false);
-            mf.setCommitsOnValidEdit(true);
-            mf.setOverwriteMode(true);
-            mf.install(this.textField);
-        }
-        catch (ParseException exception)
-        {
-            exception.printStackTrace();
-        }
         this.textField.setValue(this.initialValue);
 
         Icon runUntilIcon = Icons.loadIcon("/Apply.png");
@@ -221,7 +210,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
      * @param simulationTimeString A; simulation time as a string
      * @return simulation time contained in the String or null when not valid
      */
-    protected abstract A parseSimulationTime(String simulationTimeString); 
+    protected abstract A parseSimulationTime(String simulationTimeString);
 
     /**
      * @return simulator
@@ -274,7 +263,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
          */
         public TimeDouble(final SimulatorInterface.TimeDouble simulator)
         {
-            super(simulator, "0.0", "^([0-9]+([.][0-9]*)?|[.][0-9]+)$", "#.##");
+            super(simulator, "0.0", "^([0-9]+([.][0-9]*)?|[.][0-9]+)$");
         }
 
         /** {@inheritDoc} */
@@ -300,24 +289,198 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
         }
     }
 
-    // double now = simulationTime == null ? 0.0 : Math.round(simulationTime * 1000) / 1000d;
-    // int seconds = (int) Math.floor(now);
-    // int fractionalSeconds = (int) Math.floor(1000 * (now - seconds));
-    // return String.format(" %02d:%02d:%02d.%03d ", seconds / 3600, seconds / 60 % 60, seconds % 60, fractionalSeconds);
+    /**
+     * RunUntilPanel for a float time. The time formatter and time display can be adjusted.
+     * <p>
+     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
+     * DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+     * </p>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     */
+    public static class TimeFloat extends RunUntilPanel<Float, Float, SimTimeFloat>
+    {
+        /** */
+        private static final long serialVersionUID = 20201227L;
 
-    // regex: "\\d\\d\\d\\d:[0-5]\\d:[0-5]\\d\\.\\d\\d\\d"
-    // mask: "####:##:##.###"
+        /**
+         * Construct a clock panel with a float time.
+         * @param simulator SimulatorInterface&lt;A, R, T&gt;; the simulator
+         */
+        public TimeFloat(final SimulatorInterface.TimeFloat simulator)
+        {
+            super(simulator, "0.0", "^([0-9]+([.][0-9]*)?|[.][0-9]+)$");
+        }
 
-    // double v = newValue.getSI();
-    // int integerPart = (int) Math.floor(v);
-    // int fraction = (int) Math.floor((v - integerPart) * 1000);
-    // String text =
-    // String.format("%04d:%02d:%02d.%03d", integerPart / 3600, integerPart / 60 % 60, integerPart % 60, fraction);
+        /** {@inheritDoc} */
+        @Override
+        protected String formatSimulationTime(final Float simulationTime)
+        {
+            return String.format("%s", simulationTime);
+        }
 
-    // String newValue = (String) evt.getNewValue();
-    // String[] fields = newValue.split("[:\\.]");
-    // int hours = Integer.parseInt(fields[0]);
-    // int minutes = Integer.parseInt(fields[1]);
-    // int seconds = Integer.parseInt(fields[2]);
-    // int fraction = Integer.parseInt(fields[3]);
+        /** {@inheritDoc} */
+        @Override
+        protected Float parseSimulationTime(final String simulationTimeString)
+        {
+            try
+            {
+                float t = Float.parseFloat(simulationTimeString);
+                return t > 0.0f ? t : null;
+            }
+            catch (Exception exception)
+            {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * RunUntilPanel for a long time. The time formatter and time display can be adjusted.
+     * <p>
+     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
+     * DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+     * </p>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     */
+    public static class TimeLong extends RunUntilPanel<Long, Long, SimTimeLong>
+    {
+        /** */
+        private static final long serialVersionUID = 20201227L;
+
+        /**
+         * Construct a clock panel with a long time.
+         * @param simulator SimulatorInterface&lt;A, R, T&gt;; the simulator
+         */
+        public TimeLong(final SimulatorInterface.TimeLong simulator)
+        {
+            super(simulator, "0", "[0-9]+");
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected String formatSimulationTime(final Long simulationTime)
+        {
+            return String.format("%s", simulationTime);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected Long parseSimulationTime(final String simulationTimeString)
+        {
+            try
+            {
+                long t = Long.parseLong(simulationTimeString);
+                return t > 0L ? t : null;
+            }
+            catch (Exception exception)
+            {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * RunUntilPanel for a double djunits Time. The time formatter and time display can be adjusted.
+     * <p>
+     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
+     * DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+     * </p>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     */
+    public static class TimeDoubleUnit extends RunUntilPanel<Time, Duration, SimTimeDoubleUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20201227L;
+
+        /**
+         * Construct a clock panel with a double djunits Time.
+         * @param simulator SimulatorInterface&lt;A, R, T&gt;; the simulator
+         */
+        public TimeDoubleUnit(final SimulatorInterface.TimeDoubleUnit simulator)
+        {
+            super(simulator, "0.0 s",
+                    "^[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\s*(s|sec|Ys|Ysec|Zs|Zsec|Es|Esec|Ps|Psec|Ts|Tsec|Gs|Gsec"
+                            + "|Ms|Msec|ks|ksec|hs|hsec|das|dasec|ds|dsec|cs|csec|ms|\\u03BCs|mus|\\u03BCsec|musec"
+                            + "|ns|nsec|ps|psec|fs|fsec|as|asec|zs|zsec|ys|ysec|day|h|hr|hour|min|wk|week)");
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected String formatSimulationTime(final Time simulationTime)
+        {
+            return String.format("%s", simulationTime.toString());
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected Time parseSimulationTime(final String simulationTimeString)
+        {
+            try
+            {
+                Time t = Time.valueOf(simulationTimeString);
+                return t.gt(Time.ZERO) ? t : null;
+            }
+            catch (Exception exception)
+            {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * RunUntilPanel for a float djunits Time. The time formatter and time display can be adjusted.
+     * <p>
+     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
+     * DSOL project is distributed under a three-clause BSD-style license, which can be found at
+     * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
+     * </p>
+     * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
+     */
+    public static class TimeFloatUnit extends RunUntilPanel<FloatTime, FloatDuration, SimTimeFloatUnit>
+    {
+        /** */
+        private static final long serialVersionUID = 20201227L;
+
+        /**
+         * Construct a clock panel with a djunits FloatTime.
+         * @param simulator SimulatorInterface&lt;A, R, T&gt;; the simulator
+         */
+        public TimeFloatUnit(final SimulatorInterface.TimeFloatUnit simulator)
+        {
+            super(simulator, "0.0 s",
+                    "^[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\s*(s|sec|Ys|Ysec|Zs|Zsec|Es|Esec|Ps|Psec|Ts|Tsec|Gs|Gsec"
+                            + "|Ms|Msec|ks|ksec|hs|hsec|das|dasec|ds|dsec|cs|csec|ms|\\u03BCs|mus|\\u03BCsec|musec"
+                            + "|ns|nsec|ps|psec|fs|fsec|as|asec|zs|zsec|ys|ysec|day|h|hr|hour|min|wk|week)");
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected String formatSimulationTime(final FloatTime simulationTime)
+        {
+            return String.format("%s", simulationTime.toString());
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected FloatTime parseSimulationTime(final String simulationTimeString)
+        {
+            try
+            {
+                FloatTime t = FloatTime.valueOf(simulationTimeString);
+                return t.gt(FloatTime.ZERO) ? t : null;
+            }
+            catch (Exception exception)
+            {
+                return null;
+            }
+        }
+    }
+
 }

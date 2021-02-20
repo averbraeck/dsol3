@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.List;
 
 import org.djunits.value.vdouble.scalar.Duration;
@@ -13,9 +12,6 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.model.outputstatistics.OutputStatistic;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -122,33 +118,4 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
         // easy access extension
     }
 
-    /**
-     * Easy access interface DSOLModel.TimeCalendarDouble.
-     * @param <S> the simulator to use
-     */
-    public interface CalendarDouble<S extends SimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>>
-            extends DSOLModel<Calendar, Duration, SimTimeCalendarDouble, S>
-    {
-        // easy access extension
-    }
-
-    /**
-     * Easy access interface DSOLModel.TimeCalendarFloat.
-     * @param <S> the simulator to use
-     */
-    public interface CalendarFloat<S extends SimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>>
-            extends DSOLModel<Calendar, FloatDuration, SimTimeCalendarFloat, S>
-    {
-        // easy access extension
-    }
-
-    /**
-     * Easy access interface DSOLModel.TimeCalendarLong.
-     * @param <S> the simulator to use
-     */
-    public interface CalendarLong<S extends SimulatorInterface<Calendar, Long, SimTimeCalendarLong>>
-            extends DSOLModel<Calendar, Long, SimTimeCalendarLong, S>
-    {
-        // easy access extension
-    }
 }

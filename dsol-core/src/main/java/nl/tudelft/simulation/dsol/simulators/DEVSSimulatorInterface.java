@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -15,9 +14,6 @@ import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.Executable;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -299,27 +295,6 @@ public interface DEVSSimulatorInterface<A extends Comparable<A> & Serializable, 
     /** Easy access interface DEVSSimulatorInterface.TimeFloatUnit. */
     public interface TimeFloatUnit
             extends DEVSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>, SimulatorInterface.TimeFloatUnit
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DEVSSimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble
-            extends DEVSSimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>, SimulatorInterface.CalendarDouble
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DEVSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat
-            extends DEVSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>, SimulatorInterface.CalendarFloat
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DEVSSimulatorInterface.CalendarLong. */
-    public interface CalendarLong
-            extends DEVSSimulatorInterface<Calendar, Long, SimTimeCalendarLong>, SimulatorInterface.CalendarLong
     {
         // typed extension
     }

@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.simulators;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -9,9 +8,6 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -78,27 +74,6 @@ public interface DEVDESSSimulatorInterface<A extends Comparable<A> & Serializabl
     /** Easy access interface DEVDESSSimulatorInterface.TimeFloatUnit. */
     public interface TimeFloatUnit extends DEVDESSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>,
             DEVSSimulatorInterface.TimeFloatUnit, DESSSimulatorInterface.TimeFloatUnit
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DEVDESSSimulatorInterface.CalendarDouble. */
-    public interface CalendarDouble extends DEVDESSSimulatorInterface<Calendar, Duration, SimTimeCalendarDouble>,
-            DEVSSimulatorInterface.CalendarDouble, DESSSimulatorInterface.CalendarDouble
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DEVDESSSimulatorInterface.CalendarFloat. */
-    public interface CalendarFloat extends DEVDESSSimulatorInterface<Calendar, FloatDuration, SimTimeCalendarFloat>,
-            DEVSSimulatorInterface.CalendarFloat, DESSSimulatorInterface.CalendarFloat
-    {
-        // typed extension
-    }
-
-    /** Easy access interface DEVDESSSimulatorInterface.CalendarLong. */
-    public interface CalendarLong extends DEVDESSSimulatorInterface<Calendar, Long, SimTimeCalendarLong>,
-            DEVSSimulatorInterface.CalendarLong, DESSSimulatorInterface.CalendarLong
     {
         // typed extension
     }

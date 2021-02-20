@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -9,9 +8,6 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -175,62 +171,4 @@ public class Delay<A extends Comparable<A> & Serializable, R extends Number & Co
         }
     }
 
-    /** Easy access class Delay.CalendarDouble. */
-    public static class CalendarDouble extends Delay<Calendar, Duration, SimTimeCalendarDouble>
-            implements StationInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for CalendarDouble Delay.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; is the simulator
-         * @param delayDistribution DistContinuousSimulationTime.CalendarDouble; is the delayDistribution
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final DistContinuousSimulationTime.CalendarDouble delayDistribution)
-        {
-            super(id, simulator, delayDistribution);
-        }
-    }
-
-    /** Easy access class Delay.CalendarFloat. */
-    public static class CalendarFloat extends Delay<Calendar, FloatDuration, SimTimeCalendarFloat>
-            implements StationInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for CalendarFloat Delay.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; is the simulator
-         * @param delayDistribution DistContinuousSimulationTime.CalendarFloat; is the delayDistribution
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final DistContinuousSimulationTime.CalendarFloat delayDistribution)
-        {
-            super(id, simulator, delayDistribution);
-        }
-    }
-
-    /** Easy access class Delay.CalendarLong. */
-    public static class CalendarLong extends Delay<Calendar, Long, SimTimeCalendarLong> implements StationInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Constructor for CalendarLong Delay.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; is the simulator
-         * @param delayDistribution DistContinuousSimulationTime.CalendarLong; is the delayDistribution
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
-                final DistContinuousSimulationTime.CalendarLong delayDistribution)
-        {
-            super(id, simulator, delayDistribution);
-        }
-    }
 }

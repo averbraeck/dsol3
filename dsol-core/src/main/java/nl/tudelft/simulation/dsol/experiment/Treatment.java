@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -10,9 +9,6 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -458,152 +454,4 @@ public class Treatment<A extends Comparable<A> & Serializable, R extends Number 
         }
     }
 
-    /**
-     * Easy access class Treatment.CalendarDouble.
-     */
-    public static class CalendarDouble extends Treatment<Calendar, Duration, SimTimeCalendarDouble>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a Treatment.CalendarDouble.
-         * @param experiment Experiment.CalendarDouble&lt;? extends SimulatorInterface.CalendarDouble&gt;; reflects the
-         *            experiment
-         * @param id String; an id to recognize the treatment
-         * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
-         *            runLength
-         * @param runLength Duration; the run length of a run (relative to the start time)
-         * @param replicationMode ReplicationMode; the replication mode of this treatment
-         */
-        public CalendarDouble(final Experiment.CalendarDouble<? extends SimulatorInterface.CalendarDouble> experiment,
-                final String id, final Calendar startTime, final Duration warmupPeriod, final Duration runLength,
-                final ReplicationMode replicationMode)
-        {
-            super(experiment, id, new SimTimeCalendarDouble(startTime), warmupPeriod, runLength, replicationMode);
-        }
-
-        /**
-         * constructs a Treatment.CalendarDouble.
-         * @param experiment Experiment.CalendarDouble&lt;? extends SimulatorInterface.CalendarDouble&gt;; reflects the
-         *            experiment
-         * @param id String; an id to recognize the treatment
-         * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Duration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
-         *            runLength
-         * @param runLength Duration; the run length of a run (relative to the start time)
-         */
-        public CalendarDouble(final Experiment.CalendarDouble<? extends SimulatorInterface.CalendarDouble> experiment,
-                final String id, final Calendar startTime, final Duration warmupPeriod, final Duration runLength)
-        {
-            super(experiment, id, new SimTimeCalendarDouble(startTime), warmupPeriod, runLength);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Experiment.CalendarDouble<? extends SimulatorInterface.CalendarDouble> getExperiment()
-        {
-            return (Experiment.CalendarDouble<? extends SimulatorInterface.CalendarDouble>) super.getExperiment();
-        }
-    }
-
-    /**
-     * Easy access class Treatment.CalendarFloat.
-     */
-    public static class CalendarFloat extends Treatment<Calendar, FloatDuration, SimTimeCalendarFloat>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a Treatment.CalendarFloat.
-         * @param experiment Experiment.CalendarFloat&lt;? extends SimulatorInterface.CalendarFloat&gt;; reflects the experiment
-         * @param id String; an id to recognize the treatment
-         * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
-         * @param runLength FloatDuration; the run length of a run (relative to the start time)
-         * @param replicationMode ReplicationMode; the replication mode of this treatment
-         */
-        public CalendarFloat(final Experiment.CalendarFloat<? extends SimulatorInterface.CalendarFloat> experiment,
-                final String id, final Calendar startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
-                final ReplicationMode replicationMode)
-        {
-            super(experiment, id, new SimTimeCalendarFloat(startTime), warmupPeriod, runLength, replicationMode);
-        }
-
-        /**
-         * constructs a Treatment.CalendarFloat.
-         * @param experiment Experiment.CalendarFloat&lt;? extends SimulatorInterface.CalendarFloat&gt;; reflects the experiment
-         * @param id String; an id to recognize the treatment
-         * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod FloatDuration; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in
-         *            the runLength
-         * @param runLength FloatDuration; the run length of a run (relative to the start time)
-         */
-        public CalendarFloat(final Experiment.CalendarFloat<? extends SimulatorInterface.CalendarFloat> experiment,
-                final String id, final Calendar startTime, final FloatDuration warmupPeriod, final FloatDuration runLength)
-        {
-            super(experiment, id, new SimTimeCalendarFloat(startTime), warmupPeriod, runLength);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Experiment.CalendarFloat<? extends SimulatorInterface.CalendarFloat> getExperiment()
-        {
-            return (Experiment.CalendarFloat<? extends SimulatorInterface.CalendarFloat>) super.getExperiment();
-        }
-    }
-
-    /**
-     * Easy access class Treatment.CalendarLong.
-     */
-    public static class CalendarLong extends Treatment<Calendar, Long, SimTimeCalendarLong>
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * constructs a Treatment.CalendarLong.
-         * @param experiment Experiment.CalendarLong&lt;? extends SimulatorInterface.CalendarLong&gt;; reflects the experiment
-         * @param id String; an id to recognize the treatment
-         * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
-         *            runLength
-         * @param runLength Long; the run length of a run (relative to the start time)
-         * @param replicationMode ReplicationMode; the replication mode of this treatment
-         */
-        public CalendarLong(final Experiment.CalendarLong<? extends SimulatorInterface.CalendarLong> experiment,
-                final String id, final Calendar startTime, final Long warmupPeriod, final Long runLength,
-                final ReplicationMode replicationMode)
-        {
-            super(experiment, id, new SimTimeCalendarLong(startTime), warmupPeriod, runLength, replicationMode);
-        }
-
-        /**
-         * constructs a Treatment.CalendarLong.
-         * @param experiment Experiment.CalendarLong&lt;? extends SimulatorInterface.CalendarLong&gt;; reflects the experiment
-         * @param id String; an id to recognize the treatment
-         * @param startTime Calendar; the absolute start time of a run (can be zero)
-         * @param warmupPeriod Long; the relative warmup time of a run (can be zero), &lt;i&gt;included&lt;/i&gt; in the
-         *            runLength
-         * @param runLength Long; the run length of a run (relative to the start time)
-         */
-        public CalendarLong(final Experiment.CalendarLong<? extends SimulatorInterface.CalendarLong> experiment,
-                final String id, final Calendar startTime, final Long warmupPeriod, final Long runLength)
-        {
-            super(experiment, id, new SimTimeCalendarLong(startTime), warmupPeriod, runLength);
-        }
-
-        /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
-        @Override
-        public Experiment.CalendarLong<? extends SimulatorInterface.CalendarLong> getExperiment()
-        {
-            return (Experiment.CalendarLong<? extends SimulatorInterface.CalendarLong>) super.getExperiment();
-        }
-    }
 }

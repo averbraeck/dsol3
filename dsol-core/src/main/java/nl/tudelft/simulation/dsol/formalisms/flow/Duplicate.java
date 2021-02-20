@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.formalisms.flow;
 
 import java.io.Serializable;
 import java.rmi.MarshalledObject;
-import java.util.Calendar;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -10,9 +9,6 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarDouble;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarFloat;
-import nl.tudelft.simulation.dsol.simtime.SimTimeCalendarLong;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
@@ -265,105 +261,6 @@ public class Duplicate<A extends Comparable<A> & Serializable, R extends Number 
          */
         public TimeFloatUnit(final Serializable id, final DEVSSimulatorInterface.TimeFloatUnit simulator,
                 final StationInterface.TimeFloatUnit duplicateDestination, final int numberCopies)
-        {
-            super(id, simulator, duplicateDestination, numberCopies);
-        }
-    }
-
-    /** Easy access class Duplicate.CalendarDouble. */
-    public static class CalendarDouble extends Duplicate<Calendar, Duration, SimTimeCalendarDouble>
-            implements StationInterface.CalendarDouble
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Creates a new Duplicate that makes 1 copy.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
-         * @param duplicateDestination StationInterface.CalendarDouble; the duplicate destination
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final StationInterface.CalendarDouble duplicateDestination)
-        {
-            super(id, simulator, duplicateDestination);
-        }
-
-        /**
-         * Create a new Duplicate that makes numberCopies copies.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarDouble; on which is scheduled
-         * @param duplicateDestination StationInterface.CalendarDouble; which is the duplicate definition
-         * @param numberCopies int; the number of copies
-         */
-        public CalendarDouble(final Serializable id, final DEVSSimulatorInterface.CalendarDouble simulator,
-                final StationInterface.CalendarDouble duplicateDestination, final int numberCopies)
-        {
-            super(id, simulator, duplicateDestination, numberCopies);
-        }
-    }
-
-    /** Easy access class Duplicate.CalendarFloat. */
-    public static class CalendarFloat extends Duplicate<Calendar, FloatDuration, SimTimeCalendarFloat>
-            implements StationInterface.CalendarFloat
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Creates a new Duplicate that makes 1 copy.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
-         * @param duplicateDestination StationInterface.CalendarFloat; the duplicate destination
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final StationInterface.CalendarFloat duplicateDestination)
-        {
-            super(id, simulator, duplicateDestination);
-        }
-
-        /**
-         * Create a new Duplicate that makes numberCopies copies.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarFloat; on which is scheduled
-         * @param duplicateDestination StationInterface.CalendarFloat; which is the duplicate definition
-         * @param numberCopies int; the number of copies
-         */
-        public CalendarFloat(final Serializable id, final DEVSSimulatorInterface.CalendarFloat simulator,
-                final StationInterface.CalendarFloat duplicateDestination, final int numberCopies)
-        {
-            super(id, simulator, duplicateDestination, numberCopies);
-        }
-    }
-
-    /** Easy access class Duplicate.CalendarLong. */
-    public static class CalendarLong extends Duplicate<Calendar, Long, SimTimeCalendarLong>
-            implements StationInterface.CalendarLong
-    {
-        /** */
-        private static final long serialVersionUID = 20150422L;
-
-        /**
-         * Creates a new Duplicate that makes 1 copy.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
-         * @param duplicateDestination StationInterface.CalendarLong; the duplicate destination
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
-                final StationInterface.CalendarLong duplicateDestination)
-        {
-            super(id, simulator, duplicateDestination);
-        }
-
-        /**
-         * Create a new Duplicate that makes numberCopies copies.
-         * @param id Serializable; the id of the Station
-         * @param simulator DEVSSimulatorInterface.CalendarLong; on which is scheduled
-         * @param duplicateDestination StationInterface.CalendarLong; which is the duplicate definition
-         * @param numberCopies int; the number of copies
-         */
-        public CalendarLong(final Serializable id, final DEVSSimulatorInterface.CalendarLong simulator,
-                final StationInterface.CalendarLong duplicateDestination, final int numberCopies)
         {
             super(id, simulator, duplicateDestination, numberCopies);
         }
