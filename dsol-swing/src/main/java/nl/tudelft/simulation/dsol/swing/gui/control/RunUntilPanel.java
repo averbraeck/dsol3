@@ -405,7 +405,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
         public TimeDoubleUnit(final SimulatorInterface.TimeDoubleUnit simulator)
         {
             super(simulator, "0.0 s",
-                    "^[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\s*(s|sec|Ys|Ysec|Zs|Zsec|Es|Esec|Ps|Psec|Ts|Tsec|Gs|Gsec"
+                    "^[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\\s*(s|sec|Ys|Ysec|Zs|Zsec|Es|Esec|Ps|Psec|Ts|Tsec|Gs|Gsec"
                             + "|Ms|Msec|ks|ksec|hs|hsec|das|dasec|ds|dsec|cs|csec|ms|\\u03BCs|mus|\\u03BCsec|musec"
                             + "|ns|nsec|ps|psec|fs|fsec|as|asec|zs|zsec|ys|ysec|day|h|hr|hour|min|wk|week)");
         }
@@ -455,7 +455,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
         public TimeFloatUnit(final SimulatorInterface.TimeFloatUnit simulator)
         {
             super(simulator, "0.0 s",
-                    "^[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\s*(s|sec|Ys|Ysec|Zs|Zsec|Es|Esec|Ps|Psec|Ts|Tsec|Gs|Gsec"
+                    "^[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\\s*(s|sec|Ys|Ysec|Zs|Zsec|Es|Esec|Ps|Psec|Ts|Tsec|Gs|Gsec"
                             + "|Ms|Msec|ks|ksec|hs|hsec|das|dasec|ds|dsec|cs|csec|ms|\\u03BCs|mus|\\u03BCsec|musec"
                             + "|ns|nsec|ps|psec|fs|fsec|as|asec|zs|zsec|ys|ysec|day|h|hr|hour|min|wk|week)");
         }
