@@ -30,24 +30,26 @@ public interface Locatable
 
     /**
      * Return the z-value of the location, or 0.0 when the location is in 2 dimensions.
-     * @return double; the z-value of the location, or 0.0 when the location is in 2 dimensions
+     * @return double; the z-value of the location, or 0.0 when the location is in 2 dimensions, or when getLocation() returns
+     *         null
      * @throws RemoteException on network failure
      */
     default double getZ() throws RemoteException
     {
         Point<?, ?> p = getLocation();
-        return p instanceof Point3d ? ((Point3d) p).getZ() : 0.0;
+        return p == null ? 0.0 : p instanceof Point3d ? ((Point3d) p).getZ() : 0.0;
     }
 
     /**
      * Return the z-direction of the location in radians, or 0.0 when the location has no direction.
-     * @return double; the z-direction of the location in radians, or 0.0 when the location has no direction
+     * @return double; the z-direction of the location in radians, or 0.0 when the location has no direction, or when
+     *         getLocation() returns null
      * @throws RemoteException on network failure
      */
     default double getDirZ() throws RemoteException
     {
         Point<?, ?> p = getLocation();
-        return p instanceof Oriented ? ((Oriented<?>) p).getDirZ() : 0.0;
+        return p == null ? 0.0 : p instanceof Oriented ? ((Oriented<?>) p).getDirZ() : 0.0;
     }
 
     /**
