@@ -357,7 +357,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
             for (Renderable2DInterface<? extends Locatable> renderable : this.elementList)
             {
                 Point<?, ?> l = renderable.getSource().getLocation();
-                Bounds<?, ?, ?> b = renderable.getSource().getBounds();
+                Bounds<?, ?, ?, ?> b = renderable.getSource().getBounds();
                 minX = Math.min(minX, l.getX() + b.getMinX());
                 minY = Math.min(minY, l.getY() + b.getMinY());
                 maxX = Math.max(maxX, l.getX() + b.getMaxX());
