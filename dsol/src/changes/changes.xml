@@ -5,6 +5,13 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
     
+    <release version="3.06.03" date="2021-02-24" description="BoundsUtil.zIntersect simplified">
+      <action dev="averbraeck" type="fix">
+        Some extra safeguards have been built into the Renderable2DComparator and the Locatable interface
+        in case the getLocation() method returns null.
+      </action>
+    </release>
+    
     <release version="3.06.03" date="2021-02-23" description="BoundsUtil.zIntersect simplified">
       <action dev="averbraeck" type="update">
         The BoundsUtil.zIntersect() method worked in a very intricate way that turned out to be counterproductive.
