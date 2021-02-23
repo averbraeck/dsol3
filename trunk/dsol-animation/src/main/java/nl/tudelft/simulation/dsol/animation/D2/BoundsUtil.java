@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.animation.D2;
 
+import org.djutils.draw.Oriented;
 import org.djutils.draw.Transform2d;
 import org.djutils.draw.Transform3d;
 import org.djutils.draw.bounds.Bounds;
@@ -10,7 +11,6 @@ import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point;
 import org.djutils.draw.point.Point2d;
 import org.djutils.draw.point.Point3d;
-import org.djutils.logger.CategoryLogger;
 
 /**
  * A Bounds3d utility class to help with finding intersections between bounds, to make transformations, and to see if a point
@@ -36,104 +36,70 @@ public final class BoundsUtil
     }
 
     /**
-     * Computes the intersect of the bounding box of the provided bounds with the plane spanned by the zValue. Note that the
-     * bounds are <b>relative to the center</b> and provided without the translation and rotation of the center directed point!
-     * Usually the center is in the bounds, but that is not necessary. The center is in many occasions the Location of an
-     * animated object, and the bounds indicate the outer values of its animation relative to (0,0,0). When the bounding box has
-     * no values on the given z-height, null is returned. As an example: suppose the bounding box has corner coordinates
-     * (-1,-1,-1) and (1,1,1) (all relative to 0,0,0), and the current center location is (0,0,0) and we ask the zIntersect for
-     * z=0, we get a rectangle [(-1,-1), (1,1)]. When we ask the zInterzect for z=2 and center point (2,2,0) we get null (no
-     * bounds on height z=2). When we ask the zIntersect for z=0 and point (2,2,0) we get [(1,1), (3,3)] -- the box is
-     * translated with dx=2 and dy=2. When we ask the zIntersect for z=0 and point (2,2,2) we get null as we 'lifted' the
-     * bounding box above the z-value. When center has a direction, the bounds is first rotated around the center after which
-     * the translation takes place and the bounds on the z-height are calculated. For 2D, a box is always returned.
+     * Computes s new bounding box based on the projection of the original bounding box on the XY-plane, translated by the
+     * center point coordinates, and possibly rotated by the orientation of the center point.
      * @param center Point; the point relative to which the bounds need to be calculated
      * @param bounds Bounds; the bounds for which the intersection needs to be calculated. The Bounds3d are <b>relative to the
      *            center</b> that is provided
-     * @param zValue double; the zValue as the 'height' for which the bounds intersection is calculated
      * @return Bounds2d the projected rectangle of the intersection, or null if there is no intersection
      */
-    public static Bounds2d zIntersect(final Point<?, ?> center, final Bounds<?, ?, ?, ?> bounds, final double zValue)
+    public static Bounds2d projectBounds(final Point<?, ?> center, final Bounds<?, ?, ?, ?> bounds)
     {
-        if (center instanceof OrientedPoint3d && bounds instanceof Bounds3d)
+        if (center == null)
         {
-            OrientedPoint3d center3d = (OrientedPoint3d) center;
-            Transform3d transform = new Transform3d();
-            transform.translate(center3d); // note: opposite order of how it should be carried out (!)
-            transform.rotX(center3d.getDirX());
-            transform.rotY(center3d.getDirY());
-            transform.rotZ(center3d.getDirZ());
-            Bounds3d box = transform.transform((Bounds3d) bounds);
-            if (zValue < box.getMinZ() || zValue > box.getMaxZ())
-            {
-                return null;
-            }
-            return box.project();
+            return new Bounds2d(bounds.getMinX(), bounds.getMaxX(), bounds.getMinY(), bounds.getMaxY());
         }
-
-        if (center instanceof Point3d && bounds instanceof Bounds3d)
+        if (center instanceof Oriented)
         {
-            Point3d center3d = (Point3d) center;
-            Transform3d transform = new Transform3d();
-            transform.translate(center3d);
-            Bounds3d box = transform.transform((Bounds3d) bounds);
-            if (zValue < box.getMinZ() || zValue > box.getMaxZ())
-            {
-                return null;
-            }
-            return box.project();
+            Bounds2d b = new Bounds2d(bounds.getMinX(), bounds.getMaxX(), bounds.getMinY(), bounds.getMaxY());
+            Point2d c = new Point2d(center.getX(), center.getY());
+            Oriented<?> o = (Oriented<?>) center;
+            Transform2d transformation = new Transform2d();
+            transformation.translate(c);
+            transformation.rotation(o.getDirZ());
+            return transformation.transform(b);
         }
-
-        if (center instanceof OrientedPoint2d)
-        {
-            OrientedPoint2d center2d = (OrientedPoint2d) center;
-            Transform2d transform = new Transform2d();
-            transform.translate(center2d);
-            transform.rotation(center2d.getDirZ());
-            return transform.transform((Bounds2d) bounds);
-        }
-
-        if (center instanceof Point2d)
-        {
-            Point2d center2d = (Point2d) center;
-            Transform2d transform = new Transform2d();
-            transform.translate(center2d);
-            return transform.transform((Bounds2d) bounds);
-        }
-
-        CategoryLogger.always().warn("BoundsUtil.zIntersect: inconsistent dimensionality of bounds and point");
-        return null; // inconsistent dimensionality of bounds and point
+        return new Bounds2d(bounds.getMinX() + center.getX(), bounds.getMaxX() + center.getX(),
+                bounds.getMinY() + center.getY(), bounds.getMaxY() + center.getY());
     }
 
     /**
      * Rotates and translates a bound relative to an oriented point. Often this point will be the given center point for the
      * animation.
+     * @param center OrientedPoint3d; the point relative to which the bounds need to be transformed
      * @param bounds Bounds3d; the bounds that need to be rotated and translated
-     * @param point OrientedPoint3d; the point relative to which the bounds need to be transformed
      * @return the bounds after rotation and translation
      */
-    public static Bounds3d transform(final Bounds3d bounds, final OrientedPoint3d point)
+    public static Bounds3d transform(final OrientedPoint3d center, final Bounds3d bounds)
     {
+        if (center == null)
+        {
+            return bounds;
+        }
         Transform3d transform = new Transform3d();
-        transform.translate(point);
-        transform.rotX(point.getDirX());
-        transform.rotY(point.getDirY());
-        transform.rotZ(point.getDirZ());
+        transform.translate(center); // note: opposite order of how it should be carried out (!)
+        transform.rotX(center.getDirX());
+        transform.rotY(center.getDirY());
+        transform.rotZ(center.getDirZ());
         return transform.transform(bounds);
     }
 
     /**
      * Rotates and translates a bound relative to an oriented point. Often this point will be the given center point for the
      * animation.
+     * @param center OrientedPoint2d; the point relative to which the bounds need to be transformed
      * @param bounds Bound2ds; the bounds that need to be rotated and translated
-     * @param point OrientedPoint2d; the point relative to which the bounds need to be transformed
      * @return the bounds after rotation and translation
      */
-    public static Bounds2d transform(final Bounds2d bounds, final OrientedPoint2d point)
+    public static Bounds2d transform(final OrientedPoint2d center, final Bounds2d bounds)
     {
+        if (center == null)
+        {
+            return bounds;
+        }
         Transform2d transform = new Transform2d();
-        transform.translate(point);
-        transform.rotation(point.getDirZ());
+        transform.translate(center); // note: opposite order of how it should be carried out (!)
+        transform.rotation(center.getDirZ());
         return transform.transform(bounds);
     }
 
@@ -150,6 +116,10 @@ public final class BoundsUtil
      */
     public static boolean contains(final OrientedPoint3d center, final Bounds3d bounds, final Point3d point)
     {
+        if (center == null)
+        {
+            return false;
+        }
         Transform3d transform = new Transform3d();
         transform.translate(center);
         transform.rotX(center.getDirX());
@@ -172,6 +142,10 @@ public final class BoundsUtil
      */
     public static boolean contains(final OrientedPoint2d center, final Bounds2d bounds, final Point2d point)
     {
+        if (center == null)
+        {
+            return false;
+        }
         Transform2d transform = new Transform2d();
         transform.translate(center);
         transform.rotation(center.getDirZ());

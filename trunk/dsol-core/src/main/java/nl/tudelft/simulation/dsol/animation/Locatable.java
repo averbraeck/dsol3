@@ -21,14 +21,15 @@ import org.djutils.draw.point.Point3d;
 public interface Locatable
 {
     /**
-     * returns the location of an object.
-     * @return OrientedPoint3d the location
+     * returns the location of an object. This value may be null, e.g., when the object is still being constructed or being
+     * destroyed.
+     * @return Point&lt;?, ?&gt;; the location
      * @throws RemoteException on network failure
      */
     Point<?, ?> getLocation() throws RemoteException;
-    
+
     /**
-     * Return the z-value of the location, or 0.0 when the location is in 2 dimensions. 
+     * Return the z-value of the location, or 0.0 when the location is in 2 dimensions.
      * @return double; the z-value of the location, or 0.0 when the location is in 2 dimensions
      * @throws RemoteException on network failure
      */
@@ -39,7 +40,7 @@ public interface Locatable
     }
 
     /**
-     * Return the z-direction of the location in radians, or 0.0 when the location has no direction. 
+     * Return the z-direction of the location in radians, or 0.0 when the location has no direction.
      * @return double; the z-direction of the location in radians, or 0.0 when the location has no direction
      * @throws RemoteException on network failure
      */
@@ -50,8 +51,9 @@ public interface Locatable
     }
 
     /**
-     * returns the bounds of the locatable object. The bounds is the not rotated bounds around [0;0;0]
-     * @return BoundingBox include this.getLocation() as center of the box.
+     * returns the bounds of the locatable object. The bounds is the not rotated bounds around [0;0;0]. In contrast to the
+     * getLocation() method the getBounds() method should never return null.
+     * @return Bounds&lt;?, ?, ?, ?&gt;; the bounds of the object around getLocation() as center of the box.
      * @throws RemoteException on network failure
      */
     Bounds<?, ?, ?, ?> getBounds() throws RemoteException;

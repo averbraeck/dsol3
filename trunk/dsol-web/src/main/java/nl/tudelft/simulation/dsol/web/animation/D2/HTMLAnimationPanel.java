@@ -204,16 +204,16 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     {
         if (event.getType().equals(ContextInterface.OBJECT_ADDED_EVENT))
         {
-            objectAdded((Renderable2DInterface<? extends Locatable>) ((Object[])event.getContent())[2]);
+            objectAdded((Renderable2DInterface<? extends Locatable>) ((Object[]) event.getContent())[2]);
         }
-        
+
         else if (event.getType().equals(ContextInterface.OBJECT_REMOVED_EVENT))
         {
-            objectRemoved((Renderable2DInterface<? extends Locatable>) ((Object[])event.getContent())[2]);
+            objectRemoved((Renderable2DInterface<? extends Locatable>) ((Object[]) event.getContent())[2]);
         }
-        
+
         else if // (this.simulator.getSourceId().equals(event.getSourceId()) && // TODO: improve check
-                (event.getType().equals(Replication.START_REPLICATION_EVENT))
+        (event.getType().equals(Replication.START_REPLICATION_EVENT))
         {
             synchronized (this.elementList)
             {
@@ -285,11 +285,14 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
             for (Renderable2DInterface<? extends Locatable> renderable : this.elementList)
             {
                 Point<?, ?> l = renderable.getSource().getLocation();
-                Bounds<?, ?, ?, ?> b = renderable.getSource().getBounds();
-                minX = Math.min(minX, l.getX() + b.getMinX());
-                minY = Math.min(minY, l.getY() + b.getMinY());
-                maxX = Math.max(maxX, l.getX() + b.getMaxX());
-                maxY = Math.max(maxY, l.getY() + b.getMaxY());
+                if (l != null)
+                {
+                    Bounds<?, ?, ?, ?> b = renderable.getSource().getBounds();
+                    minX = Math.min(minX, l.getX() + b.getMinX());
+                    minY = Math.min(minY, l.getY() + b.getMinY());
+                    maxX = Math.max(maxX, l.getX() + b.getMaxX());
+                    maxY = Math.max(maxY, l.getY() + b.getMaxY());
+                }
             }
         }
         catch (Exception e)
@@ -424,7 +427,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     {
         showClass(this.toggleLocatableMap.get(name));
     }
-    
+
     /**
      * Hide a Locatable class based on the name.
      * @param name the name of the class to hide
@@ -433,7 +436,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     {
         hideClass(this.toggleLocatableMap.get(name));
     }
-    
+
     /**
      * Add a text to explain animatable classes.
      * @param text String; the text to show
