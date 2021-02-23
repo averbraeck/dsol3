@@ -4,6 +4,11 @@
   <body>
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
+    <release version="3.06.02" date="2021-02-23" description="error in Renderable2DComparator fixed">
+      <action dev="averbraeck" type="fix">
+        The Renderable2DComparator used getDirZ() for comparison of the z-order instead of getDirZ().
+      </action>
+    </release>
     
     <release version="3.06.01" date="2021-02-20" description="calendar time types removed; dsol-swing further enhanced">
       <action dev="averbraeck" type="remove">

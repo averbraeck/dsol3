@@ -30,8 +30,8 @@ public class Renderable2DComparator implements Comparator<Renderable2DInterface<
     {
         try
         {
-            double z1 = r1.getSource().getDirZ();
-            double z2 = r2.getSource().getDirZ();
+            double z1 = r1.getSource().getZ();
+            double z2 = r2.getSource().getZ();
             if (z1 > z2)
             {
                 return 1;
