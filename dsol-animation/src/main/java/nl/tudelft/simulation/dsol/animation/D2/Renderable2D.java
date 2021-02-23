@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.naming.NamingException;
 
 import org.djutils.draw.bounds.Bounds2d;
+import org.djutils.draw.point.Point;
 import org.djutils.draw.point.Point2d;
 import org.djutils.logger.CategoryLogger;
 
@@ -277,15 +278,22 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
         AffineTransform transform = graphics.getTransform();
         try
         {
-            Bounds2d rectangle = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
+            Point<?, ?> center = this.source.getLocation();
+            if (center == null)
+            {
+                return;
+            }
+    
+            Bounds2d rectangle = BoundsUtil.projectBounds(center, this.source.getBounds());
             if (rectangle == null || (!Shape2d.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
             }
+            
             // Let's transform
             if (isTranslate())
             {
-                Point2D screenCoordinates = renderableScale.getScreenCoordinates(this.source.getLocation(), extent, screenSize);
+                Point2D screenCoordinates = renderableScale.getScreenCoordinates(center, extent, screenSize);
                 graphics.translate(screenCoordinates.getX(), screenCoordinates.getY());
             }
             if (isScale())
@@ -333,15 +341,13 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     @Override
     public boolean contains(final Point2d pointWorldCoordinates, final Bounds2d extent)
     {
+        if (pointWorldCoordinates == null)
+        {
+            return false;
+        }
         try
         {
-            Bounds2d intersect = BoundsUtil.zIntersect(this.source.getLocation(), this.source.getBounds(), this.source.getZ());
-            if (intersect == null)
-            {
-                throw new IllegalStateException(
-                        "empty intersect: location.z is not in bounds. This is probably due to a modeling error. "
-                                + "See the javadoc of the Locatable interface.");
-            }
+            Bounds2d intersect = BoundsUtil.projectBounds(this.source.getLocation(), this.source.getBounds());
             return intersect.contains(pointWorldCoordinates);
         }
         catch (RemoteException exception)

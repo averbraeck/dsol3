@@ -153,13 +153,17 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
     {
         try
         {
+            if (getSource().getLocation() == null)
+            {
+                return;
+            }
             int image = this.selectImage();
             if (this.imageIcons == null || this.imageIcons[image] == null
                     || this.imageIcons[image].getImageLoadStatus() != MediaTracker.COMPLETE)
             {
                 return;
             }
-            Bounds2d size = BoundsUtil.zIntersect(getSource().getLocation(), getSource().getBounds(), getSource().getZ());
+            Bounds2d size = BoundsUtil.projectBounds(getSource().getLocation(), getSource().getBounds());
             Point2D origin = this.resolveOrigin(this.orientation, size);
             graphics.translate(origin.getX(), origin.getY());
             graphics.scale(0.001, 0.001);

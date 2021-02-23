@@ -4,6 +4,20 @@
   <body>
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
+    
+    <release version="3.06.03" date="2021-02-23" description="BoundsUtil.zIntersect simplified">
+      <action dev="averbraeck" type="update">
+        The BoundsUtil.zIntersect() method worked in a very intricate way that turned out to be counterproductive.
+        Instead of using the location.getZ() of an object t lift that object it was used to 'slice' through the 3D object,
+        determine the bounds of the slice, and return a bounds based on that operation. The zIntersect method has been
+        replaced with a much simpler method where the bounds projection on the XY-plane is used, possibly transformed
+        by the translation and orientation of the location of the object.
+      </action>
+      <action dev="averbraeck" type="update">
+        The value of getLocation() may now return null, e.g., when the object is still being constructed or being destroyed.
+      </action>
+    </release>
+    
     <release version="3.06.02" date="2021-02-23" description="error in Renderable2DComparator fixed">
       <action dev="averbraeck" type="fix">
         The Renderable2DComparator used getDirZ() for comparison of the z-order instead of getDirZ().

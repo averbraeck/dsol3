@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.animation.D2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.rmi.RemoteException;
@@ -46,7 +45,7 @@ public class BoundsUtilTest
         Transform3d tr45 = new Transform3d();
         tr45.rotZ(Math.toRadians(45.0));
         Bounds3d box45 = tr45.transform(box000);
-        Bounds3d box = BoundsUtil.transform(box45, location);
+        Bounds3d box = BoundsUtil.transform(location, box45);
         double s2 = 2.0 * Math.sqrt(2.0);
         testRect(box.project(), 4.0 - s2, 4.0 - s2, 4.0 + s2, 4.0 + s2);
         assertEquals(2.0, box.getMinZ(), 0.001);
@@ -85,19 +84,16 @@ public class BoundsUtilTest
     }
 
     /**
-     * Test the zIntersect and bounds transformation for an OrientedPoint3d.
+     * Test the projectBounds and bounds transformation for an OrientedPoint3d.
      * @throws RemoteException on network error
      */
     @Test
-    public void testZIntersectOrientedPoint3d() throws RemoteException
+    public void testProjectBoundsOrientedPoint3d() throws RemoteException
     {
         Bounds3d box000 = new Bounds3d(new Point3d[] {new Point3d(-2, -2, -2), new Point3d(2, 2, 2)});
         OrientedPoint3d location = new OrientedPoint3d(4, 4, 4);
         // the box is around (4,4,4), so its real coordinates are (2,2,2, 6,6,6).
-        assertNull(BoundsUtil.zIntersect(location, box000, 1));
-        assertNull(BoundsUtil.zIntersect(location, box000, 7));
-        assertNull(BoundsUtil.zIntersect(new OrientedPoint3d(-4, -4, -4), box000, 4)); // point outside box
-        testRect(BoundsUtil.zIntersect(location, box000, 4), 2, 2, 6, 6);
+        testRect(BoundsUtil.projectBounds(location, box000), 2, 2, 6, 6);
 
         class L implements Locatable
         {
@@ -125,7 +121,7 @@ public class BoundsUtilTest
         }
 
         L l = new L(0.0, 0.0, 0.0);
-        Bounds3d b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        Bounds3d b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(-4, b.getMinX(), 0.001);
         assertEquals(+4, b.getMaxX(), 0.001);
         assertEquals(-4, b.getMinY(), 0.001);
@@ -134,7 +130,7 @@ public class BoundsUtilTest
         assertEquals(+4, b.getMaxZ(), 0.001);
 
         l = new L(20.0, 10.0, 0.0);
-        b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(20 - 4, b.getMinX(), 0.001);
         assertEquals(20 + 4, b.getMaxX(), 0.001);
         assertEquals(10 - 4, b.getMinY(), 0.001);
@@ -143,7 +139,7 @@ public class BoundsUtilTest
         assertEquals(+4, b.getMaxZ(), 0.001);
 
         l = new L(20.0, 10.0, Math.toRadians(90.0));
-        b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(20 - 4, b.getMinX(), 0.001);
         assertEquals(20 + 4, b.getMaxX(), 0.001);
         assertEquals(10 - 4, b.getMinY(), 0.001);
@@ -153,7 +149,7 @@ public class BoundsUtilTest
 
         l = new L(0.0, 0.0, Math.toRadians(45.0));
         double d = 4.0 * Math.sqrt(2.0);
-        b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(-d, b.getMinX(), 0.001);
         assertEquals(d, b.getMaxX(), 0.001);
         assertEquals(-d, b.getMinY(), 0.001);
@@ -162,7 +158,7 @@ public class BoundsUtilTest
 
         l = new L(20.0, 10.0, Math.toRadians(45.0));
         d = 4.0 * Math.sqrt(2.0);
-        b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(20 - d, b.getMinX(), 0.001);
         assertEquals(20 + d, b.getMaxX(), 0.001);
         assertEquals(10 - d, b.getMinY(), 0.001);
@@ -172,32 +168,29 @@ public class BoundsUtilTest
     }
 
     /**
-     * Test the zIntersect and bounds transformation for a Point3d.
+     * Test the projectBounds and bounds transformation for a Point3d.
      * @throws RemoteException on network error
      */
     @Test
-    public void testZIntersectPoint3d() throws RemoteException
+    public void testProjectBoundsPoint3d() throws RemoteException
     {
         Bounds3d box000 = new Bounds3d(new Point3d[] {new Point3d(-2, -2, -2), new Point3d(2, 2, 2)});
         Point3d location = new Point3d(4, 4, 4);
         // the box is around (4,4,4), so its real coordinates are (2,2,2, 6,6,6).
-        assertNull(BoundsUtil.zIntersect(location, box000, 1));
-        assertNull(BoundsUtil.zIntersect(location, box000, 7));
-        assertNull(BoundsUtil.zIntersect(new OrientedPoint3d(-4, -4, -4), box000, 4)); // point outside box
-        testRect(BoundsUtil.zIntersect(location, box000, 4), 2, 2, 6, 6);
+        testRect(BoundsUtil.projectBounds(location, box000), 2, 2, 6, 6);
     }
 
     /**
-     * Test the zIntersect and bounds transformation for an OrientedPoint2d.
+     * Test the projectBounds and bounds transformation for an OrientedPoint2d.
      * @throws RemoteException on network error
      */
     @Test
-    public void testZIntersectOrientedPoint2d() throws RemoteException
+    public void testProjectBoundsOrientedPoint2d() throws RemoteException
     {
         Bounds2d box00 = new Bounds2d(new Point2d[] {new Point2d(-2, -2), new Point2d(2, 2)});
         OrientedPoint2d location = new OrientedPoint2d(4, 4);
         // the box is around (4,4), so its real coordinates are (2,2, 6,6).
-        testRect(BoundsUtil.zIntersect(location, box00, 4), 2, 2, 6, 6);
+        testRect(BoundsUtil.projectBounds(location, box00), 2, 2, 6, 6);
 
         class L implements Locatable
         {
@@ -225,21 +218,21 @@ public class BoundsUtilTest
         }
 
         L l = new L(0.0, 0.0, 0.0);
-        Bounds2d b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        Bounds2d b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(-4, b.getMinX(), 0.001);
         assertEquals(+4, b.getMaxX(), 0.001);
         assertEquals(-4, b.getMinY(), 0.001);
         assertEquals(+4, b.getMaxY(), 0.001);
 
         l = new L(20.0, 10.0, 0.0);
-        b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(20 - 4, b.getMinX(), 0.001);
         assertEquals(20 + 4, b.getMaxX(), 0.001);
         assertEquals(10 - 4, b.getMinY(), 0.001);
         assertEquals(10 + 4, b.getMaxY(), 0.001);
 
         l = new L(20.0, 10.0, Math.toRadians(90.0));
-        b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(20 - 4, b.getMinX(), 0.001);
         assertEquals(20 + 4, b.getMaxX(), 0.001);
         assertEquals(10 - 4, b.getMinY(), 0.001);
@@ -247,7 +240,7 @@ public class BoundsUtilTest
 
         l = new L(0.0, 0.0, Math.toRadians(45.0));
         double d = 4.0 * Math.sqrt(2.0);
-        b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(-d, b.getMinX(), 0.001);
         assertEquals(d, b.getMaxX(), 0.001);
         assertEquals(-d, b.getMinY(), 0.001);
@@ -255,7 +248,7 @@ public class BoundsUtilTest
 
         l = new L(20.0, 10.0, Math.toRadians(45.0));
         d = 4.0 * Math.sqrt(2.0);
-        b = BoundsUtil.transform(l.getBounds(), l.getLocation());
+        b = BoundsUtil.transform(l.getLocation(), l.getBounds());
         assertEquals(20 - d, b.getMinX(), 0.001);
         assertEquals(20 + d, b.getMaxX(), 0.001);
         assertEquals(10 - d, b.getMinY(), 0.001);
@@ -263,19 +256,16 @@ public class BoundsUtilTest
     }
 
     /**
-     * Test the zIntersect and bounds transformation for a Point2d.
+     * Test the projectBounds and bounds transformation for a Point2d.
      * @throws RemoteException on network error
      */
     @Test
-    public void testZIntersectPoint2d() throws RemoteException
+    public void testProjectBoundsPoint2d() throws RemoteException
     {
         Bounds2d box00 = new Bounds2d(new Point2d[] {new Point2d(-2, -2), new Point2d(2, 2)});
         Point2d location = new Point2d(4, 4);
         // the box is around (4,4), so its real coordinates are (2,2, 6,6).
-        testRect(BoundsUtil.zIntersect(location, box00, 4), 2, 2, 6, 6);
-
-        // test illegal combination of dimensions
-        assertNull(BoundsUtil.zIntersect(new OrientedPoint3d(1, 1, 1), new Bounds2d(0, 2, 0, 2), 1.0));
+        testRect(BoundsUtil.projectBounds(location, box00), 2, 2, 6, 6);
     }
 
 }

@@ -19,7 +19,6 @@ import org.djutils.draw.point.OrientedPoint3d;
 import org.djutils.draw.point.Point;
 import org.djutils.draw.point.Point2d;
 import org.djutils.draw.point.Point3d;
-import org.djutils.exceptions.Try;
 import org.junit.Test;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -118,26 +117,6 @@ public class Renderable2DTest
         assertFalse(renderable.contains(new Point2d(5, 10), new Bounds2d(0, 40, 0, 80)));
         renderable.contains(new Point2d(10, 20), new Bounds2d(0, 5, 0, 10));
         renderable.destroy(simulator);
-
-        // Test if contains fails when there is no z-intersect. We give the Locatable a fake getZ() method.
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new Renderable2D<Locatable>(createLocatable3dFakeZ(), createAnimator())
-                {
-                    /** */
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void paint(final Graphics2D g, final ImageObserver o)
-                    {
-                        // placeholder
-                    }
-                }.contains(new Point2d(10, 20), new Bounds2d(0, 5, 0, 10));
-            }
-        }, IllegalStateException.class);
     }
 
     /** Locatable with a settable dirZ. */
