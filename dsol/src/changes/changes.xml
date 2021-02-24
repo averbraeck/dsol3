@@ -5,10 +5,14 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
     
-    <release version="3.06.04" date="2021-02-24" description="BoundsUtil.zIntersect simplified">
+    <release version="3.06.04" date="2021-02-24" description="made Renderable2D.destroy() method more robust">
       <action dev="averbraeck" type="fix">
         Some extra safeguards have been built into the Renderable2DComparator and the Locatable interface
         in case the getLocation() method returns null.
+      </action>
+      <action dev="averbraeck" type="fix">
+        When an Renderable2D animation object is removed, its source is set to null to (1) indicate to 
+        the paint() method that the object shouldn't be painted, and (2) allow the source to be destroyed by the GC. 
       </action>
     </release>
     
