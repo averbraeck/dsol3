@@ -275,6 +275,10 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     protected synchronized void paint(final Graphics2D graphics, final Bounds2d extent, final Dimension screenSize,
             final RenderableScale renderableScale, final ImageObserver observer)
     {
+        if (this.source == null)
+        {
+            return;
+        }
         AffineTransform transform = graphics.getTransform();
         try
         {
@@ -283,13 +287,13 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
             {
                 return;
             }
-    
+
             Bounds2d rectangle = BoundsUtil.projectBounds(center, this.source.getBounds());
             if (rectangle == null || (!Shape2d.overlaps(extent, rectangle) && isTranslate()))
             {
                 return;
             }
-            
+
             // Let's transform
             if (isTranslate())
             {
@@ -341,12 +345,12 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     @Override
     public boolean contains(final Point2d pointWorldCoordinates, final Bounds2d extent)
     {
-        if (pointWorldCoordinates == null)
-        {
-            return false;
-        }
         try
         {
+            if (pointWorldCoordinates == null || this.source == null || this.source.getLocation() == null)
+            {
+                return false;
+            }
             Bounds2d intersect = BoundsUtil.projectBounds(this.source.getLocation(), this.source.getBounds());
             return intersect.contains(pointWorldCoordinates);
         }

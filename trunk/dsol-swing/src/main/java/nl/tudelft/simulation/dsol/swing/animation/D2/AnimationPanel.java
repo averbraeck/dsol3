@@ -212,7 +212,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      */
     public boolean isShowElement(final Renderable2DInterface<? extends Locatable> element)
     {
-        return isShowClass(element.getSource().getClass());
+        return element.getSource() == null ? false : isShowClass(element.getSource().getClass());
     }
 
     /**
@@ -361,6 +361,10 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         {
             for (Renderable2DInterface<? extends Locatable> renderable : this.elementList)
             {
+                if (renderable.getSource() == null)
+                {
+                    continue;
+                }
                 Point<?, ?> l = renderable.getSource().getLocation();
                 if (l != null)
                 {
@@ -554,7 +558,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         }
         catch (RemoteException exception)
         {
-            CategoryLogger.always().warn(exception, "edit");
+            CategoryLogger.always().warn(exception, "getSelectedObject");
         }
         return selectedObject;
     }
