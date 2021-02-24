@@ -69,7 +69,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     private static final byte TRANSLATE_FLAG = 0x01;
 
     /** the source of the renderable. */
-    private final L source;
+    private L source;
 
     /** the object number counter for a unique id. */
     private static AtomicInteger animationObjectCounter = new AtomicInteger(0);
@@ -365,6 +365,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
         {
             ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
                     .unbind(Integer.toString(this.id));
+            this.source = null; // to indicate the animation is destroyed. Remove pointer to source for GC.
         }
         catch (NamingException | RemoteException exception)
         {

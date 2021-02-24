@@ -185,7 +185,12 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
         // draw the animation elements
         for (Renderable2DInterface<? extends Locatable> element : this.elementList)
         {
-            if (isShowElement(element))
+            // destroy has been called?
+            if (element.getSource() == null) 
+            {
+                objectRemoved(element);
+            }
+            else if (isShowElement(element))
             {
                 element.paintComponent(g2, this.getExtent(), this.getSize(), getRenderableScale(), this);
             }
