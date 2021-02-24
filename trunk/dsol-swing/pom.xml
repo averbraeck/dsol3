@@ -3,7 +3,7 @@
   <parent>
     <groupId>dsol</groupId>
     <artifactId>dsol</artifactId>
-    <version>3.06.05-SNAPSHOT</version>
+    <version>3.06.04</version>
     <relativePath>../dsol/pom.xml</relativePath>
   </parent>
 
