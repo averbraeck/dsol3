@@ -56,7 +56,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** The runUntil time in case we want to stop before the end of the replication time. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected A runUntilTime;
+    protected T runUntilTime;
 
     /** whether the runUntilTime should carry out the calculation(s) for that time or not. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -157,14 +157,14 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @Override
     public final void start() throws SimRuntimeException
     {
-        this.runUntilTime = this.replication.getTreatment().getEndTime();
+        this.runUntilTime = this.replication.getTreatment().getEndSimTime();
         this.runUntilIncluding = true;
         startImpl();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void runUpTo(final A stopTime) throws SimRuntimeException
+    public void runUpTo(final T stopTime) throws SimRuntimeException
     {
         this.runUntilTime = stopTime;
         this.runUntilIncluding = false;
@@ -173,7 +173,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    public void runUpToAndIncluding(final A stopTime) throws SimRuntimeException
+    public void runUpToAndIncluding(final T stopTime) throws SimRuntimeException
     {
         this.runUntilTime = stopTime;
         this.runUntilIncluding = true;
@@ -285,7 +285,8 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
      * Make sure that:<br>
      * - SimulatorInterface.TIME_CHANGED_EVENT is fired when the time of the simulator changes<br>
      * - the warmup() method is called when the warmup period has expired (through an event or based on simulation time)<br>
-     * - the endReplication() method is called when the replication has ended
+     * - the endReplication() method is called when the replication has ended<br>
+     * - the simulator runs until the runUntil time, which is also set by the start() method.
      */
     @Override
     public abstract void run();

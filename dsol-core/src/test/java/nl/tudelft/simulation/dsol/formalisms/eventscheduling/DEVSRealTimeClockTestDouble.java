@@ -15,6 +15,7 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -117,7 +118,7 @@ public class DEVSRealTimeClockTestDouble implements EventListenerInterface
                 for (double t = 0.0; t < 1000.0; t += 1.0)
                 {
                     System.out.println(t);
-                    sim.runUpTo(t);
+                    sim.runUpTo(new SimTimeDouble(t));
                     while (sim.isStartingOrRunning())
                     {
                         try

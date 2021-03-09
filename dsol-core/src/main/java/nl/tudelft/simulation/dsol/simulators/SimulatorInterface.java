@@ -132,7 +132,8 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
 
     /**
      * Starts the simulator, and fire a START_EVENT that the simulator was started. Note that when the simulator was already
-     * started an exception will be thrown, and no event will be fired.
+     * started an exception will be thrown, and no event will be fired. The start uses the RunUntil property with a value of the
+     * end time of the replication whenstarting the simulator.
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting an already started simulator
      */
     void start() throws SimRuntimeException;
@@ -154,18 +155,18 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
     /**
      * Runs the simulator up to a certain time; any events at that time, or the solving of the differential equation at that
      * timestep, will not yet be executed.
-     * @param stopTime A; the absolute time till when we want to run the simulation
+     * @param stopTime T; the absolute time till when we want to run the simulation, coded as a SimTime object
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      */
-    void runUpTo(A stopTime) throws SimRuntimeException;
+    void runUpTo(T stopTime) throws SimRuntimeException;
 
     /**
      * Runs the simulator up to a certain time; all events at that time, or the solving of the differential equation at that
      * timestep, will be executed.
-     * @param stopTime A; the absolute time till when we want to run the simulation
+     * @param stopTime T; the absolute time till when we want to run the simulation, coded as a SimTime object
      * @throws SimRuntimeException whenever starting fails. Possible occasions include starting a started simulator
      */
-    void runUpToAndIncluding(A stopTime) throws SimRuntimeException;
+    void runUpToAndIncluding(T stopTime) throws SimRuntimeException;
 
     /**
      * Get the logger for a simulator. Since the loggers display the simulator time, each logger that runs in the same JVM needs
