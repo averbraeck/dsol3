@@ -82,7 +82,7 @@ public final class DistributionsBenchmark
         System.out.println("DistConstant : " + DistributionsBenchmark.benchmark(new DistConstant(stream, 0.23)));
         System.out.println("DistDiscreteConstant : " + DistributionsBenchmark.benchmark(new DistDiscreteConstant(stream, 14)));
         System.out.println("DistDiscreteUniform : " + DistributionsBenchmark.benchmark(new DistDiscreteUniform(stream, 0, 1)));
-        System.out.println("DistErlang : " + DistributionsBenchmark.benchmark(new DistErlang(stream, 1, 0.1)));
+        System.out.println("DistErlang : " + DistributionsBenchmark.benchmark(new DistErlang(stream, 0.1, 2)));
         System.out.println("DistExponential : " + DistributionsBenchmark.benchmark(new DistExponential(stream, 0.1)));
         System.out.println("DistGamma : " + DistributionsBenchmark.benchmark(new DistGamma(stream, 0.1, 0.5)));
         System.out.println("DistGeometric : " + DistributionsBenchmark.benchmark(new DistGeometric(stream, 0.1)));

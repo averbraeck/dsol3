@@ -4,7 +4,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Bernouilli distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/BernouilliDistribution.html"> http://mathworld.wolfram.com/BernouilliDistribution.html
+ * <a href="https://mathworld.wolfram.com/BernouilliDistribution.html"> https://mathworld.wolfram.com/BernouilliDistribution.html
  * </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
@@ -45,7 +45,7 @@ public class DistBernoulli extends DistDiscrete
 
     /**
      * draws the next value from the Bernoulli distribution. More information on this distribution can be found at <br>
-     * <a href="http://mathworld.wolfram.com/BernoulliDistribution.html">http://mathworld.wolfram.com/
+     * <a href="https://mathworld.wolfram.com/BernoulliDistribution.html">https://mathworld.wolfram.com/
      * BernoulliDistribution.html</a>.
      * @return the next value {0,1}.
      */

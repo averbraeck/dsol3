@@ -9,7 +9,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Normal Truncated distribution. For more information on the normal distribution see
- * <a href="http://mathworld.wolfram.com/NormalDistribution.html"> http://mathworld.wolfram.com/NormalDistribution.html </a>
+ * <a href="https://mathworld.wolfram.com/NormalDistribution.html"> https://mathworld.wolfram.com/NormalDistribution.html </a>
  * <p>
  * This version of the normal distribution uses the numerically approached inverse cumulative distribution.
  * <p>

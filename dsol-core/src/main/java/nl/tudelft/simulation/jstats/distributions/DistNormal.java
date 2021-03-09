@@ -1,10 +1,11 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Normal distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/NormalDistribution.html"> http://mathworld.wolfram.com/NormalDistribution.html </a>
+ * <a href="https://mathworld.wolfram.com/NormalDistribution.html"> https://mathworld.wolfram.com/NormalDistribution.html </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -36,8 +37,8 @@ public class DistNormal extends DistContinuous
     protected boolean haveNextNextGaussian;
 
     /**
-     * constructs a normal distribution with mu=0 and sigma=1. Errors of various types, e.g., in the impact point of a bomb;
-     * quantities that are the sum of a large number of other quantities by the virtue of the central limit theorem.
+     * constructs a standard normal distribution with mu=0 and sigma=1. Models probabilities that are the sum of a large number
+     * of other probabilities by the virtue of the central limit theorem.
      * @param stream StreamInterface; the random number stream
      */
     public DistNormal(final StreamInterface stream)
@@ -48,7 +49,7 @@ public class DistNormal extends DistContinuous
     }
 
     /**
-     * constructs a normal distribution with mu=0 and sigma=1.
+     * constructs a normal distribution with provided mu and sigma.
      * @param stream StreamInterface; the random number stream
      * @param mu double; the mean
      * @param sigma double; the standard deviation
@@ -56,14 +57,14 @@ public class DistNormal extends DistContinuous
     public DistNormal(final StreamInterface stream, final double mu, final double sigma)
     {
         super(stream);
-        if (sigma >= 0.0)
+        if (sigma > 0.0)
         {
             this.sigma = sigma;
             this.mu = mu;
         }
         else
         {
-            throw new IllegalArgumentException("Error - sigma<0.0");
+            throw new IllegalArgumentException("Error - sigma<=0.0");
         }
     }
 
@@ -81,17 +82,7 @@ public class DistNormal extends DistContinuous
      */
     public double getCumulativeProbability(final double x)
     {
-        int z = (int) Math.rint((x - this.mu) / this.sigma * 100);
-        int absZ = Math.abs(z);
-        if (absZ > 1000)
-        {
-            absZ = 1000;
-        }
-        if (z >= 0)
-        {
-            return DistNormal.CUMULATIVE_NORMAL_PROBABILITIES[absZ];
-        }
-        return 1 - DistNormal.CUMULATIVE_NORMAL_PROBABILITIES[absZ];
+        return 0.5 + 0.5 * ProbMath.erf((x - this.mu) / (Math.sqrt(2.0) * this.sigma));
     }
 
     /**
@@ -101,39 +92,7 @@ public class DistNormal extends DistContinuous
      */
     public double getInverseCumulativeProbability(final double cumulativeProbability)
     {
-        if (cumulativeProbability < 0 || cumulativeProbability > 1)
-        {
-            throw new IllegalArgumentException("1<cumulativeProbability<0 ?");
-        }
-        boolean located = false;
-        double prob = cumulativeProbability;
-        if (cumulativeProbability < 0.5)
-        {
-            prob = 1 - cumulativeProbability;
-        }
-        int i = 0;
-        double f = 0.0;
-        while (!located) // TODO: change into binary search
-        {
-            if (CUMULATIVE_NORMAL_PROBABILITIES[i] < prob && CUMULATIVE_NORMAL_PROBABILITIES[i + 1] >= prob)
-            {
-                located = true;
-                if (CUMULATIVE_NORMAL_PROBABILITIES[i] < CUMULATIVE_NORMAL_PROBABILITIES[i + 1])
-                {
-                    f = (prob - CUMULATIVE_NORMAL_PROBABILITIES[i])
-                            / (CUMULATIVE_NORMAL_PROBABILITIES[i + 1] - CUMULATIVE_NORMAL_PROBABILITIES[i]);
-                }
-            }
-            else
-            {
-                i++;
-            }
-        }
-        if (cumulativeProbability < 0.5)
-        {
-            return this.mu - ((f + i) / 100.0) * this.sigma;
-        }
-        return ((f + i) / 100.0) * this.sigma + this.mu;
+        return this.mu + this.sigma * Math.sqrt(2.0) * ProbMath.erfInv(2.0 * cumulativeProbability - 1.0);
     }
 
     /**
@@ -166,8 +125,7 @@ public class DistNormal extends DistContinuous
     @Override
     public double getProbabilityDensity(final double x)
     {
-        return 1.0 / (Math.sqrt(2 * Math.PI * Math.pow(this.sigma, 2)))
-                * Math.exp(-1 * Math.pow(x - this.mu, 2) / (2 * Math.pow(this.sigma, 2)));
+        return 1.0 / (this.sigma * Math.sqrt(2.0 * Math.PI)) * Math.exp(-0.5 * Math.pow((x - this.mu) / this.sigma, 2));
     }
 
     /**

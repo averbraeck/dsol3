@@ -1,11 +1,16 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Erlang distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/ErlangDistribution.html"> http://mathworld.wolfram.com/ErlangDistribution.html </a>
+ * <a href="https://mathworld.wolfram.com/ErlangDistribution.html"> http://mathworld.wolfram.com/ErlangDistribution.html
+ * </a><br>
+ * The Erlang distribution is the distribution of a sum of k independent exponential variables with the scale parameter as the
+ * mean. The scale parameter is equal to 1/rate or 1/&lambda;, giving the entire Erlang distribution a mean of k*scale.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -21,56 +26,51 @@ public class DistErlang extends DistContinuous
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** k is the k-value of the Erlang distribution. */
+    /**
+     * k is the shape parameter of the Erlang distribution. The shape k is the number of times a drawing is done from the
+     * exponential distribution, where the Erlang distribution is the sum of these k independent exponential variables.
+     */
     private final int k;
 
-    /** lambda is the rate of change value of the Erlang distribution. */
-    private final double lambda;
+    /** scale is the mean of a single exponential distribution (1/rate), of which k are summed. */
+    private final double scale;
 
-    /** lambdak is the mean value of the Erlang distribution. */
-    private final double lambdak;
+    /** the rate value of the Erlang distribution (1 / scale). */
+    private final double lambda;
 
     /** distGamma is the underlying gamma distribution. */
     private final DistGamma distGamma;
 
-    /** GAMMABORDER is the borber above which we use a gamma function and below repeated drawing. */
-    private static final short GAMMABORDER = 10;
+    /** GAMMATHRESHOLD is the threshold above which we use a gamma function and below repeated drawing. */
+    private static final short GAMMATHRESHOLD = 10;
 
     /**
-     * Construct a new Erlang distribution.
+     * Construct a new Erlang distribution with k and a mean (so not k and a rate) as parameters. It is the distribution of a
+     * sum of k independent exponential variables with the scale parameter as the mean. The scale parameter is equal to 1/rate
+     * or 1/&lambda;, giving the entire Erlang distribution a mean of k*scale.
      * @param stream StreamInterface; the random number stream
-     * @param k int; the k-parameter
-     * @param lambda double; the rate of change parameter
+     * @param scale double; the mean of a single sample from the exponential distribution, of which k are summed. Equal to
+     *            1/rate or 1/&lambda;.
+     * @param k int; the shape parameter of the Erlang distribution. The shape k is the number of times a drawing is done from
+     *            the exponential distribution, where the Erlang distribution is the sum of these k independent exponential
+     *            variables.
+     * @throws IllegalArgumentException when k &lt;= 0 or scale &lt;= 0
      */
-    public DistErlang(final StreamInterface stream, final int k, final double lambda)
+    public DistErlang(final StreamInterface stream, final double scale, final int k)
     {
         super(stream);
-        if ((k > 0) && (lambda > 0.0))
-        {
-            this.k = k;
-            this.lambda = lambda;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error Erlang - k <= 0 or beta <= 0");
-        }
-        if (this.k <= DistErlang.GAMMABORDER)
-        {
-            this.lambdak = -this.lambda / this.k;
-            this.distGamma = null;
-        }
-        else
-        {
-            this.distGamma = new DistGamma(stream, this.k, this.lambda);
-            this.lambdak = Double.NaN;
-        }
+        Throw.when(k <= 0 || scale <= 0.0, IllegalArgumentException.class, "Error Erlang - k <= 0 or scale <= 0");
+        this.k = k;
+        this.scale = scale;
+        this.lambda = 1.0 / scale;
+        this.distGamma = this.k <= DistErlang.GAMMATHRESHOLD ? null : new DistGamma(stream, this.k, this.scale);
     }
 
     /** {@inheritDoc} */
     @Override
     public double draw()
     {
-        if (this.k <= DistErlang.GAMMABORDER)
+        if (this.k <= DistErlang.GAMMATHRESHOLD)
         {
             // according to Law and Kelton, Simulation Modeling and Analysis
             // repeated drawing and composition is usually faster for k<=10
@@ -79,7 +79,7 @@ public class DistErlang extends DistContinuous
             {
                 product = product * this.stream.nextDouble();
             }
-            return this.lambdak * Math.log(product);
+            return -this.scale * Math.log(product);
         }
         // and using the gamma distribution is faster for k>10
         return this.distGamma.draw();
@@ -93,7 +93,7 @@ public class DistErlang extends DistContinuous
         {
             return 0;
         }
-        return this.lambda * Math.exp(-this.lambda * x) * Math.pow(this.lambda * x, this.k - 1) / ProbMath.faculty(this.k - 1);
+        return this.lambda * Math.exp(-this.lambda * x) * Math.pow(this.lambda * x, this.k - 1) / ProbMath.factorial(this.k - 1);
     }
 
     /**
@@ -105,17 +105,17 @@ public class DistErlang extends DistContinuous
     }
 
     /**
-     * @return beta
+     * @return scale parameter
      */
-    public final double getLambda()
+    public final double getScale()
     {
-        return this.lambda;
+        return this.scale;
     }
 
     /** {@inheritDoc} */
     @Override
     public String toString()
     {
-        return "Erlang(" + this.k + "," + this.lambda + ")";
+        return "Erlang(" + this.scale + "," + this.k + ")";
     }
 }

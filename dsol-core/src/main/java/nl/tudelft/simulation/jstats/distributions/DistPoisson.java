@@ -5,7 +5,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Poisson distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/PoissonDistribution.html"> http://mathworld.wolfram.com/PoissonDistribution.html </a>
+ * <a href="https://mathworld.wolfram.com/PoissonDistribution.html"> https://mathworld.wolfram.com/PoissonDistribution.html </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -68,7 +68,7 @@ public class DistPoisson extends DistDiscrete
     {
         if (observation >= 0)
         {
-            return (Math.exp(-this.lambda) * Math.pow(this.lambda, observation)) / ProbMath.faculty(observation);
+            return (Math.exp(-this.lambda) * Math.pow(this.lambda, observation)) / ProbMath.factorial(observation);
         }
         return 0;
     }
