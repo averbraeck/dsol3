@@ -15,6 +15,7 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
@@ -126,7 +127,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
                         w.fail(exception);
                     }
 
-                    sim.runUpTo(t);
+                    sim.runUpTo(new SimTimeDouble(t));
                     while (sim.isStartingOrRunning())
                     {
                         try

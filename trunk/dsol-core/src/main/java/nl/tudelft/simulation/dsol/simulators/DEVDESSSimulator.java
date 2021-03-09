@@ -91,10 +91,10 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                 while (!this.eventList.isEmpty() && !isStoppingOrStopped()
                         && runUntil.ge(this.eventList.first().getAbsoluteExecutionTime()))
                 {
-                    int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
+                    int cmp = this.eventList.first().getAbsoluteExecutionTime().compareTo(this.runUntilTime);
                     if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
                     {
-                        this.simulatorTime.set(this.runUntilTime);
+                        this.simulatorTime.set(this.runUntilTime.get());
                         this.runState = RunState.STOPPING;
                         break;
                     }
@@ -111,7 +111,7 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                         event.execute();
                         if (this.eventList.isEmpty())
                         {
-                            this.simulatorTime.set(this.runUntilTime);
+                            this.simulatorTime.set(this.runUntilTime.get());
                             this.runState = RunState.STOPPING;
                             break;
                         }

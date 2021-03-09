@@ -121,8 +121,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
         /* wall clock milliseconds per 1 simulation clock millisecond. */
         double msec1 = simulatorTimeForWallClockMillis(1.0).doubleValue();
 
-        while (!isStoppingOrStopped() && !this.eventList.isEmpty()
-                && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
+        while (!isStoppingOrStopped() && !this.eventList.isEmpty() && this.simulatorTime.le(this.runUntilTime))
         {
             // check if speedFactor has changed. If yes: re-baseline.
             if (currentSpeedFactor != this.speedFactor)
@@ -147,14 +146,18 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                 }
                 else
                 {
-                    // jump to the required wall-clock related time or to the time of the next event, whichever comes
-                    // first
+                    // jump to the required wall-clock related time or to the time of the next event, or to the runUntil time,
+                    // whichever comes first
                     synchronized (super.semaphore)
                     {
                         R delta = simulatorTimeForWallClockMillis((wantedSimTime - simTimeSinceBaseline) / msec1);
                         T absSyncTime = this.simulatorTime.plus(delta);
-                        T eventTime = this.eventList.first().getAbsoluteExecutionTime();
-                        if (absSyncTime.lt(eventTime))
+                        T eventOrUntilTime = this.eventList.first().getAbsoluteExecutionTime();
+                        if (this.runUntilTime.lt(eventOrUntilTime))
+                        {
+                            eventOrUntilTime = this.runUntilTime;
+                        }
+                        if (absSyncTime.lt(eventOrUntilTime))
                         {
                             this.simulatorTime.set(absSyncTime.get());
                             fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
@@ -162,7 +165,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                         }
                         else
                         {
-                            this.simulatorTime.set(eventTime.get());
+                            this.simulatorTime.set(eventOrUntilTime.get());
                             fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
                                     this.simulatorTime);
                         }
@@ -173,8 +176,15 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
             // peek at the first event and determine the time difference relative to RT speed; that determines
             // how long we have to wait.
             SimEventInterface<T> nextEvent = this.eventList.first();
+            T nextEventOrUntilTime = nextEvent.getAbsoluteExecutionTime();
+            boolean isRunUntil = false;
+            if (this.runUntilTime.lt(nextEventOrUntilTime))
+            {
+                nextEventOrUntilTime = this.runUntilTime;
+                isRunUntil = true;
+            }
             double wallMillisNextEventSinceBaseline =
-                    (nextEvent.getAbsoluteExecutionTime().diff(simTime0)).doubleValue() / (msec1 * currentSpeedFactor);
+                    (nextEventOrUntilTime.diff(simTime0)).doubleValue() / (msec1 * currentSpeedFactor);
 
             // wallMillisNextEventSinceBaseline gives the number of milliseconds on the wall clock since baselining for the
             // expected execution time of the next event on the event list .
@@ -207,23 +217,30 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                         wallTime0 = System.currentTimeMillis();
                         simTime0.set(this.simulatorTime.get());
                         currentSpeedFactor = this.speedFactor;
-                        wallMillisNextEventSinceBaseline = (nextEvent.getAbsoluteExecutionTime().diff(simTime0)).doubleValue()
-                                / (msec1 * currentSpeedFactor);
+                        wallMillisNextEventSinceBaseline =
+                                (nextEventOrUntilTime.diff(simTime0)).doubleValue() / (msec1 * currentSpeedFactor);
                     }
 
                     // check if an event has been inserted. In a real-time situation this can be done by other threads
                     if (!nextEvent.equals(this.eventList.first())) // event inserted by a thread...
                     {
                         nextEvent = this.eventList.first();
-                        wallMillisNextEventSinceBaseline = (nextEvent.getAbsoluteExecutionTime().diff(simTime0)).doubleValue()
-                                / (msec1 * currentSpeedFactor);
+                        nextEventOrUntilTime = nextEvent.getAbsoluteExecutionTime();
+                        isRunUntil = false;
+                        if (this.runUntilTime.lt(nextEventOrUntilTime))
+                        {
+                            nextEventOrUntilTime = this.runUntilTime;
+                            isRunUntil = true;
+                        }
+                        wallMillisNextEventSinceBaseline =
+                                (nextEventOrUntilTime.diff(simTime0)).doubleValue() / (msec1 * currentSpeedFactor);
                     }
 
                     // make a small time step for the animation during wallclock waiting, but never beyond the next event
                     // time. Changed 2019-04-30: this is now recalculated based on latest system time after the 'sleep'.
                     synchronized (super.semaphore)
                     {
-                        A nextEventSimTime = nextEvent.getAbsoluteExecutionTime().get();
+                        A nextEventSimTime = nextEventOrUntilTime.get();
                         R deltaToWall0inSimTime =
                                 simulatorTimeForWallClockMillis((System.currentTimeMillis() - wallTime0) * currentSpeedFactor);
                         A currentWallSimTime = simTime0.plus(deltaToWall0inSimTime).get();
@@ -250,8 +267,12 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                 }
             }
 
-            // only execute an event if we are still running...
-            if (!isStoppingOrStopped())
+            // only execute an event if we are still running, and if we do not 'run until'...
+            if (isRunUntil)
+            {
+                this.simulatorTime = nextEventOrUntilTime;
+            }
+            else if (!isStoppingOrStopped())
             {
                 synchronized (super.semaphore)
                 {
@@ -272,16 +293,16 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             nextEvent.execute();
                             if (this.eventList.isEmpty())
                             {
-                                this.simulatorTime.set(this.runUntilTime);
+                                this.simulatorTime.set(this.runUntilTime.get());
                                 this.runState = RunState.STOPPING;
                                 fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
                                         this.simulatorTime);
                                 break;
                             }
-                            int cmp = this.eventList.first().getAbsoluteExecutionTime().get().compareTo(this.runUntilTime);
+                            int cmp = this.eventList.first().getAbsoluteExecutionTime().compareTo(this.runUntilTime);
                             if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
                             {
-                                this.simulatorTime.set(this.runUntilTime);
+                                this.simulatorTime.set(this.runUntilTime.get());
                                 this.runState = RunState.STOPPING;
                                 fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
                                         this.simulatorTime);
@@ -307,6 +328,13 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                         {
                             // peek at next event for while loop.
                             nextEvent = this.eventList.first();
+                            nextEventOrUntilTime = nextEvent.getAbsoluteExecutionTime();
+                            isRunUntil = false;
+                            if (this.runUntilTime.lt(nextEventOrUntilTime))
+                            {
+                                nextEventOrUntilTime = this.runUntilTime;
+                                isRunUntil = true;
+                            }
                         }
                     }
                 }

@@ -105,7 +105,7 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @Override
     public void run()
     {
-        while (this.simulatorTime.get().compareTo(this.runUntilTime) < 0 && !isStoppingOrStopped())
+        while (this.simulatorTime.compareTo(this.runUntilTime) < 0 && !isStoppingOrStopped())
         {
             synchronized (super.semaphore)
             {
