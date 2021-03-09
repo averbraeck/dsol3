@@ -645,7 +645,7 @@ public final class ReadInputParameters
                     return new DistBeta(stream, args[0], args[1]);
 
                 case "ERLANG":
-                    return new DistErlang(stream, (int) args[0], args[1]);
+                    return new DistErlang(stream, args[0], (int) args[1]);
 
                 case "GAMMA":
                     return new DistGamma(stream, args[0], args[1]);

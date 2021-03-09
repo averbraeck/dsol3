@@ -68,7 +68,7 @@ public class CartesianPoint extends Point3d
     }
 
     /**
-     * converts a cartesian point to a sperical point. See http://mathworld.wolfram.com/SphericalCoordinates.html
+     * converts a cartesian point to a sperical point. See https://mathworld.wolfram.com/SphericalCoordinates.html
      * @param point CartesianPoint; the cartesian point
      * @return the spherical point
      */
