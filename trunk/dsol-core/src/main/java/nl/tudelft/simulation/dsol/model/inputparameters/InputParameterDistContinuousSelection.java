@@ -196,21 +196,21 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         public Erlang() throws InputParameterException
         {
             super("Erlang", "Erlang", "Erlang distribution", 1.0);
-            add(new InputParameterInteger("k", "k", "k value, number of subsequent exponentail processes", 1, 0,
-                    Integer.MAX_VALUE, "%f", 1.0));
-            add(new InputParameterDouble("beta", "beta", "beta value, mean of the exponential distribution", 1.0, 0.0,
+            add(new InputParameterDouble("scale", "scale", "scale value, mean of the exponential distribution", 1.0, 0.0,
                     Double.MAX_VALUE, false, false, "%f", 1.0));
+            add(new InputParameterInteger("k", "k", "k value, number of subsequent exponential processes", 1, 0,
+                    Integer.MAX_VALUE, "%f", 1.0));
         }
 
         /** {@inheritDoc} */
         @Override
         public void setDist() throws InputParameterException
         {
+            Throw.when((Double) get("scale").getValue() <= 0.0, InputParameterException.class, "DistErlang: scale <= 0.0");
             Throw.when((Integer) get("k").getValue() <= 0, InputParameterException.class, "DistErlang: k <= 0");
-            Throw.when((Double) get("beta").getValue() <= 0.0, InputParameterException.class, "DistErlang: beta <= 0.0");
             try
             {
-                this.dist = new DistErlang(getStream(), (Integer) get("k").getValue(), (Double) get("beta").getValue());
+                this.dist = new DistErlang(getStream(), (Double) get("scale").getValue(), (Integer) get("k").getValue());
             }
             catch (Exception exception)
             {

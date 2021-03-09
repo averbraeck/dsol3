@@ -3,8 +3,8 @@ package nl.tudelft.simulation.language.d3;
 import java.io.Serializable;
 
 /**
- * A spherical point as defined in <a href="http://mathworld.wolfram.com/SphericalCoordinates.html">
- * http://mathworld.wolfram.com/SphericalCoordinates.html </a>. Also according to ISO 31-11
+ * A spherical point as defined in <a href="https://mathworld.wolfram.com/SphericalCoordinates.html">
+ * https://mathworld.wolfram.com/SphericalCoordinates.html </a>. Also according to ISO 31-11
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
