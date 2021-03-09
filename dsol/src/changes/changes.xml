@@ -4,7 +4,56 @@
   <body>
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
-    
+
+    <release version="3.06.05" date="2021-03-09" description="runUntil; some distribution functions recoded">
+      <action dev="averbraeck" type="update">
+        The RunUntilPanel now works with the Simulator.runUpTo method to stop at the exact right time.
+      </action>
+      <action dev="averbraeck" type="fix">
+        The simulator.run() methods have been updated to not execute till the time of the next event or time tick, 
+        but till the minimum of the runUntil time and the time of the next event or time tick.
+      </action>
+      <action dev="averbraeck" type="update">
+        The Erlang distribution has been changed to accept parameters k and scale that are in line with 
+        literature: scale is the mean of a single exponential distribution (rate or lambda is 1 / mean), and the Erlang 
+        distribution models the sum of k independent drawings from this distribution, with a mean of k * scale.
+        Note: this breaks upward compatibility, therefore the parameters k and scale have been swapped.
+      </action>
+      <action dev="averbraeck" type="update">
+        For several distribution functions it was unclear what the parameters mean, as many distributions have 
+        two forms: a parameter either indicates the rate, or the average (1/rate). Most distributions have been 
+        described in much more detail, and the unit tests for these distribution have been switched on. The ones
+        covered are: Bernoulli, Beta, Binomial, Constant, Erlang, Exponential, Gamma, Geometric, LogNormal, and
+        Normal. The others will be done in the next minor release.  
+      </action>
+      <action dev="averbraeck" type="fix">
+        Code for permutations has been fixed in ProbMath class (the code calculated combinations).
+      </action>
+      <action dev="averbraeck" type="add">
+        Code for combinations added to ProbMath class.
+      </action>
+      <action dev="averbraeck" type="add">
+        Code for error function erf(z) added to ProbMath class, using three different Taylor expansions,
+        which are used depending on the interval of the argument. For most of the interval, the error is
+        less than 1E-10, with a relative error cutoff for the Taylor expansions of 1E-16. 
+      </action>
+      <action dev="averbraeck" type="add">
+        Code for inverse error function erfInv(z) added to ProbMath class, using three different approximations,
+        which are used depending on the interval of the argument. For most of the interval, the error is
+        less than 1E-9.
+      </action>
+      <action dev="averbraeck" type="update">
+        The Normal cumulative probability and inverse cumulative probability functions now use erf() and erfInv()
+        functions instead of a lookup table, and thereby became much more precise.
+      </action>
+      <action dev="averbraeck" type="fix">
+        Fixed a problem in the Renderable2D class. The original affine transform is stored, so it can be reset after 
+        the transformations, rotations, and translations for the drawing the locatable object have been carried out.
+        But because the AffineTransform is MUTABLE, it has to be cloned, in order to store the original transformation
+        matrix. The cloning has now been implemented.    
+      </action>
+    </release>
+        
     <release version="3.06.04" date="2021-02-24" description="made Renderable2D.destroy() method more robust">
       <action dev="averbraeck" type="fix">
         Some extra safeguards have been built into the Renderable2DComparator and the Locatable interface
