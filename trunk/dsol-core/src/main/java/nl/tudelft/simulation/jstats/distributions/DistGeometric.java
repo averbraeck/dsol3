@@ -4,7 +4,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Geometric distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/GeometricDistribution.html"> http://mathworld.wolfram.com/GeometricDistribution.html
+ * <a href="https://mathworld.wolfram.com/GeometricDistribution.html"> https://mathworld.wolfram.com/GeometricDistribution.html
  * </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See

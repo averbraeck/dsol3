@@ -5,7 +5,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Binomial distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/BinomialDistribution.html"> http://mathworld.wolfram.com/BinomialDistribution.html </a>
+ * <a href="https://mathworld.wolfram.com/BinomialDistribution.html"> https://mathworld.wolfram.com/BinomialDistribution.html </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -69,7 +69,7 @@ public class DistBinomial extends DistDiscrete
     {
         if (observation <= this.n && observation >= 0)
         {
-            return ProbMath.permutations((int) this.n, observation) * Math.pow(this.p, observation)
+            return ProbMath.combinations((int) this.n, observation) * Math.pow(this.p, observation)
                     * Math.pow(1 - this.p, this.n - observation);
         }
         return 0.0;

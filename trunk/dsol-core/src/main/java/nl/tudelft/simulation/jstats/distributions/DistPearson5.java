@@ -5,7 +5,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Pearson5 distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/Pearson5Distribution.html"> http://mathworld.wolfram.com/Pearson5Distribution.html </a>
+ * <a href="https://mathworld.wolfram.com/Pearson5Distribution.html"> https://mathworld.wolfram.com/Pearson5Distribution.html </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL

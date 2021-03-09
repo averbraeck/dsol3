@@ -7,7 +7,9 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Gamma distribution. For more information on this distribution see
- * <a href="http://mathworld.wolfram.com/GammaDistribution.html"> http://mathworld.wolfram.com/GammaDistribution.html </a>
+ * <a href="https://mathworld.wolfram.com/GammaDistribution.html"> https://mathworld.wolfram.com/GammaDistribution.html </a><br>
+ * The parameters are not rate-related, but average-related, so the mean is shape*scale (or &alpha;&theta;), and the variance is
+ * &alpha;&theta;<sup>2</sup>.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -23,18 +25,19 @@ public class DistGamma extends DistContinuous
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** the shape parameter of the distribution. */
+    /** the shape parameter of the distribution, also often called &alpha; or k. */
     private final double shape;
 
-    /** the scale parameter of the distribution, also often called theta. */
+    /** the scale parameter of the distribution, also often called &theta;. */
     private final double scale;
 
     /**
      * constructs a new gamma distribution. The gamma distribution represents the time to complete some task, e.g. customer
-     * service or machine repair
+     * service or machine repair. The parameters are not rate-related, but average-related, so the mean is shape*scale (or
+     * &alpha;&theta; or k&theta;), and the variance is &alpha;&theta;<sup>2</sup>.
      * @param stream StreamInterface; the random number stream
-     * @param shape double; is the shape parameter &gt; 0, also known as beta in combination with scale parameter is theta
-     * @param scale double; is the scale parameter&gt; 0, also known as theta
+     * @param shape double; is the shape parameter &gt; 0, also known as &alpha; or k
+     * @param scale double; is the scale parameter&gt; 0, also known as &theta;
      */
     public DistGamma(final StreamInterface stream, final double shape, final double scale)
     {
