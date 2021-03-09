@@ -18,8 +18,6 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.EventInterface;
-import org.djutils.event.EventListenerInterface;
 
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -49,7 +47,7 @@ import nl.tudelft.simulation.dsol.swing.gui.util.RegexFormatter;
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
 public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
-        T extends SimTime<A, R, T>> extends JPanel implements AppearanceControl, ActionListener, EventListenerInterface
+        T extends SimTime<A, R, T>> extends JPanel implements AppearanceControl, ActionListener
 {
     /** */
     private static final long serialVersionUID = 20141211L;
@@ -73,7 +71,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     private boolean applyState = false;
 
     /** the "run until" time, or null when not set. */
-    private A runUntilTime = null;
+    private T runUntilTime = null;
 
     /**
      * Construct a clock panel.
@@ -123,8 +121,8 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
                 this.textField.commitEdit();
                 String stopTimeValue = (String) this.textField.getValue();
                 this.runUntilTime = parseSimulationTime(stopTimeValue);
-                if (this.runUntilTime == null || getSimulator().getSimulatorTime().compareTo(this.runUntilTime) >= 0
-                        || getSimulator().getReplication().getTreatment().getEndTime().compareTo(this.runUntilTime) < 0)
+                if (this.runUntilTime == null || getSimulator().getSimTime().compareTo(this.runUntilTime) >= 0
+                        || getSimulator().getReplication().getTreatment().getEndSimTime().compareTo(this.runUntilTime) < 0)
                 {
                     cancel();
                     return;
@@ -157,7 +155,18 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
             this.textField.setBackground(Color.GREEN);
             this.runUntilButton.setIcon(Icons.loadIcon("/Cancel.png"));
             this.textField.validate();
-            getSimulator().addListener(this, SimulatorInterface.TIME_CHANGED_EVENT);
+            // getSimulator().addListener(this, SimulatorInterface.TIME_CHANGED_EVENT);
+            synchronized (this)
+            {
+                if (getSimulator().isStartingOrRunning())
+                {
+                    getSimulator().stop();
+                }
+                if (getSimulator().getSimTime().compareTo(this.runUntilTime) < 0)
+                {
+                    getSimulator().runUpTo(this.runUntilTime);
+                }
+            }
             this.applyState = true;
         }
     }
@@ -175,26 +184,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
             this.textField.setBackground(Color.WHITE);
             this.runUntilButton.setIcon(Icons.loadIcon("/Apply.png"));
             this.textField.validate();
-            getSimulator().removeListener(this, SimulatorInterface.TIME_CHANGED_EVENT);
             this.applyState = false;
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void notify(final EventInterface event) throws RemoteException
-    {
-        if (event.getType().equals(SimulatorInterface.TIME_CHANGED_EVENT))
-        {
-            synchronized (this.textField)
-            {
-                if (this.runUntilTime == null || getSimulator().getSimulatorTime().compareTo(this.runUntilTime) < 0)
-                {
-                    return;
-                }
-                this.simulator.stop();
-                cancel();
-            }
         }
     }
 
@@ -207,10 +197,10 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
     /**
      * Returns the simulation time from the formatted string.
-     * @param simulationTimeString A; simulation time as a string
-     * @return simulation time contained in the String or null when not valid
+     * @param simulationTimeString String; simulation time as a string
+     * @return T; simulation time contained in the String or null when not valid
      */
-    protected abstract A parseSimulationTime(String simulationTimeString);
+    protected abstract T parseSimulationTime(String simulationTimeString);
 
     /**
      * @return simulator
@@ -275,12 +265,12 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
         /** {@inheritDoc} */
         @Override
-        protected Double parseSimulationTime(final String simulationTimeString)
+        protected SimTimeDouble parseSimulationTime(final String simulationTimeString)
         {
             try
             {
                 double t = Double.parseDouble(simulationTimeString);
-                return t > 0.0 ? t : null;
+                return t > 0.0 ? new SimTimeDouble(t) : null;
             }
             catch (Exception exception)
             {
@@ -322,12 +312,12 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
         /** {@inheritDoc} */
         @Override
-        protected Float parseSimulationTime(final String simulationTimeString)
+        protected SimTimeFloat parseSimulationTime(final String simulationTimeString)
         {
             try
             {
                 float t = Float.parseFloat(simulationTimeString);
-                return t > 0.0f ? t : null;
+                return t > 0.0f ? new SimTimeFloat(t) : null;
             }
             catch (Exception exception)
             {
@@ -369,12 +359,12 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
         /** {@inheritDoc} */
         @Override
-        protected Long parseSimulationTime(final String simulationTimeString)
+        protected SimTimeLong parseSimulationTime(final String simulationTimeString)
         {
             try
             {
                 long t = Long.parseLong(simulationTimeString);
-                return t > 0L ? t : null;
+                return t > 0L ? new SimTimeLong(t) : null;
             }
             catch (Exception exception)
             {
@@ -419,12 +409,12 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
         /** {@inheritDoc} */
         @Override
-        protected Time parseSimulationTime(final String simulationTimeString)
+        protected SimTimeDoubleUnit parseSimulationTime(final String simulationTimeString)
         {
             try
             {
                 Time t = Time.valueOf(simulationTimeString);
-                return t.gt(Time.ZERO) ? t : null;
+                return t.gt(Time.ZERO) ? new SimTimeDoubleUnit(t) : null;
             }
             catch (Exception exception)
             {
@@ -469,12 +459,12 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
         /** {@inheritDoc} */
         @Override
-        protected FloatTime parseSimulationTime(final String simulationTimeString)
+        protected SimTimeFloatUnit parseSimulationTime(final String simulationTimeString)
         {
             try
             {
                 FloatTime t = FloatTime.valueOf(simulationTimeString);
-                return t.gt(FloatTime.ZERO) ? t : null;
+                return t.gt(FloatTime.ZERO) ? new SimTimeFloatUnit(t) : null;
             }
             catch (Exception exception)
             {
