@@ -699,12 +699,6 @@
       </dependency>
 
       <dependency>
-        <groupId>colt</groupId>
-        <artifactId>colt</artifactId>
-        <version>${colt.version}</version>
-      </dependency>
-
-      <dependency>
         <groupId>dsol</groupId>
         <artifactId>dsol-base</artifactId>
         <version>${project.version}</version>

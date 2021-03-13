@@ -5,6 +5,36 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.06.06" date="2021-03-12" description="rest of distribution functions recoded">
+      <action dev="averbraeck" type="remove">
+        The dependency on the Cern colt library has been taken out since the library is so old, and it is
+        not totally clear what algorithms are used for each function. 
+      </action>
+      <action dev="averbraeck" type="add">
+        Since the dependency on the Cern colt library has been taken out, ProbMath now defines the Gamma and
+        the Beta function for positive reals, as well as the gammaln function ln(gamma(x)). 
+      </action>
+      <action dev="averbraeck" type="update">
+        For several distribution functions it was unclear what the parameters mean, as many distributions have 
+        two forms: a parameter either indicates the rate, or the average (1/rate). Most distributions have been 
+        described in much more detail, and the unit tests for these distribution have been switched on. The ones
+        clarified in this version are: NegBinomial, DistPearson5, DistPearson6, Poisson, Triangular, Uniform,
+        and Weibull.
+      </action>
+      <action dev="averbraeck" type="fix">
+        The DistPearson6 draw function has been changed, since it is described wrongly in Law &amp; Kelton (2ed),
+        and in Banks (2000); a factor beta in the draw() method was missing.  
+      </action>
+      <action dev="averbraeck" type="update">
+        The DistEmpirical functions have been updated and recoded, since the interface of the distributions
+        themselves and the interface of the Observations class were not clear. Unit tests have been created 
+        for the functions. 
+      </action>
+      <action dev="averbraeck" type="update">
+        The RunUntilPanel has been updated to work more intuitively from a GUI perspective.
+      </action>
+    </release>
+    
     <release version="3.06.05" date="2021-03-09" description="runUntil; some distribution functions recoded">
       <action dev="averbraeck" type="update">
         The RunUntilPanel now works with the Simulator.runUpTo method to stop at the exact right time.
@@ -80,7 +110,7 @@
     
     <release version="3.06.02" date="2021-02-23" description="error in Renderable2DComparator fixed">
       <action dev="averbraeck" type="fix">
-        The Renderable2DComparator used getDirZ() for comparison of the z-order instead of getDirZ().
+        The Renderable2DComparator used getDirZ() for comparison of the z-order instead of getZ().
       </action>
     </release>
     
