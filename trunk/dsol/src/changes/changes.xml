@@ -5,7 +5,7 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.06.06" date="2021-03-12" description="rest of distribution functions recoded">
+    <release version="3.06.06" date="2021-03-13" description="more distribution functions recoded">
       <action dev="averbraeck" type="remove">
         The dependency on the Cern colt library has been taken out since the library is so old, and it is
         not totally clear what algorithms are used for each function. 
@@ -25,13 +25,10 @@
         The DistPearson6 draw function has been changed, since it is described wrongly in Law &amp; Kelton (2ed),
         and in Banks (2000); a factor beta in the draw() method was missing.  
       </action>
-      <action dev="averbraeck" type="update">
-        The DistEmpirical functions have been updated and recoded, since the interface of the distributions
-        themselves and the interface of the Observations class were not clear. Unit tests have been created 
-        for the functions. 
-      </action>
-      <action dev="averbraeck" type="update">
-        The RunUntilPanel has been updated to work more intuitively from a GUI perspective.
+      <action dev="averbraeck" type="fix">
+        The DistNormalTrunc has been extensively tested, and several corner cases have been repaired, such as 
+        one-sided sampling and rounding errors close to the max value. Funrthermore, the interpolation from the
+        Z-values table has been replaced by the more precise usage of the erf() and erfInv() functions.   
       </action>
     </release>
     
