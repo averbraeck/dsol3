@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.jstats.distributions;
 
-import org.junit.Test;
-
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -15,12 +13,11 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DistEmpiricalTest
+public class EmpiricalDistributionTest
 {
     /**
      * Test the DistDiscreteEmpirical.
      */
-    @Test
     public void testDistDiscreteEmpirical()
     {
         StreamInterface stream = new MersenneTwister(20L);
