@@ -159,7 +159,7 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
             Throw.when((Double) get("p").getValue() >= 1.0, InputParameterException.class, "DistBinomial: p >= 1.0");
             try
             {
-                this.dist = new DistBinomial(getStream(), (Long) get("n").getValue(), (Double) get("p").getValue());
+                this.dist = new DistBinomial(getStream(), (Integer) get("n").getValue(), (Double) get("p").getValue());
             }
             catch (Exception exception)
             {
@@ -298,7 +298,7 @@ public class InputParameterDistDiscreteSelection extends InputParameterSelection
             Throw.when((Double) get("p").getValue() >= 1.0, InputParameterException.class, "DistNegBinomial: p >= 1.0");
             try
             {
-                this.dist = new DistNegBinomial(getStream(), (Long) get("n").getValue(), (Double) get("p").getValue());
+                this.dist = new DistNegBinomial(getStream(), (Integer) get("n").getValue(), (Double) get("p").getValue());
             }
             catch (Exception exception)
             {

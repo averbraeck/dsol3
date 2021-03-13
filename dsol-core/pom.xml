@@ -15,11 +15,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>colt</groupId>
-      <artifactId>colt</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>dsol</groupId>
       <artifactId>dsol-base</artifactId>
     </dependency>
