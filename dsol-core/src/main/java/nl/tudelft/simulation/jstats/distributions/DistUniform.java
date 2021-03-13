@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -36,15 +38,9 @@ public class DistUniform extends DistContinuous
     public DistUniform(final StreamInterface stream, final double min, final double max)
     {
         super(stream);
+        Throw.when(max <= min, IllegalArgumentException.class, "Error Uniform - max <= min");
         this.min = min;
-        if (max > min)
-        {
-            this.max = max;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error Uniform - a >= b");
-        }
+        this.max = max;
     }
 
     /** {@inheritDoc} */

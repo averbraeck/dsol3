@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -40,14 +42,8 @@ public class DistGeometric extends DistDiscrete
     public DistGeometric(final StreamInterface stream, final double p)
     {
         super(stream);
-        if ((p > 0.0) && (p < 1.0))
-        {
-            this.p = p;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error Geometric - p<=0 or p>=1");
-        }
+        Throw.when(p <= 0.0 || p >= 1.0, IllegalArgumentException.class, "Error Geometric - p <= 0 or p >= 1");
+        this.p = p;
         this.lnp = Math.log(1.0 - this.p);
     }
 

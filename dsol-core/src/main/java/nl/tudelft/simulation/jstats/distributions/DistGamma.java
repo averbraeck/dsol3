@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
 import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.jstats.math.ProbMath;
@@ -38,19 +39,14 @@ public class DistGamma extends DistContinuous
      * @param stream StreamInterface; the random number stream
      * @param shape double; is the shape parameter &gt; 0, also known as &alpha; or k
      * @param scale double; is the scale parameter&gt; 0, also known as &theta;
+     * @throws IllegalArgumentException when shape &lt;= 0.0 or scale &lt;= 0.0
      */
     public DistGamma(final StreamInterface stream, final double shape, final double scale)
     {
         super(stream);
-        if ((shape > 0.0) && (scale > 0.0))
-        {
-            this.shape = shape;
-            this.scale = scale;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error Gamma - alpha <= 0.0 or beta <= 0.0");
-        }
+        Throw.when(shape <= 0.0 || scale <= 0.0, IllegalArgumentException.class, "Error Gamma - shape <= 0.0 or scale <= 0.0");
+        this.shape = shape;
+        this.scale = scale;
     }
 
     /** {@inheritDoc} */

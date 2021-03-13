@@ -659,6 +659,226 @@ public class DistributionTestContinuous
         }, IllegalArgumentException.class);
     }
 
+    /**
+     * Test the Triangular distribution.
+     */
+    @Test
+    public void testTriangular()
+    {
+        this.stream = new MersenneTwister(10L);
+        DistTriangular dist = new DistTriangular(this.stream, 1, 2, 4);
+        assertEquals(this.stream, dist.getStream());
+        assertEquals(1, dist.getMin(), 0.0001);
+        assertEquals(2, dist.getMode(), 0.0001);
+        assertEquals(4, dist.getMax(), 0.0001);
+        assertTrue(dist.toString().contains("Triangular"));
+        assertTrue(dist.toString().contains("1"));
+        assertTrue(dist.toString().contains("2"));
+        assertTrue(dist.toString().contains("4"));
+        double value = dist.draw();
+        assertTrue(value >= 1 && value <= 4);
+        assertEquals(0.0, dist.getProbabilityDensity(-1.0), 0.0001);
+        assertEquals(0.0, dist.getProbabilityDensity(1.0), 0.0001);
+        assertEquals(0.0, dist.getProbabilityDensity(4.0), 0.0001);
+        assertEquals(0.0, dist.getProbabilityDensity(5.0), 0.0001);
+
+        for (double x = 0; x <= 5; x += 0.02)
+        {
+            if (x <= 2 && x >= 1)
+            {
+                assertEquals(2 * (x - 1) / ((4 - 1) * (2 - 1)), dist.getProbabilityDensity(x), 0.0001);
+            }
+            else if (x >= 2 && x <= 4)
+            {
+                assertEquals(2 * (4 - x) / ((4 - 1) * (4 - 2)), dist.getProbabilityDensity(x), 0.0001);
+            }
+            else
+            {
+                assertEquals(0, dist.getProbabilityDensity(x), 0.0001);
+            }
+        }
+
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistTriangular(null, 1.0, 2.0, 3.0);
+            }
+        }, NullPointerException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistTriangular(DistributionTestContinuous.this.stream, 2, 1, 3);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistTriangular(DistributionTestContinuous.this.stream, 2, 2, 2);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistTriangular(DistributionTestContinuous.this.stream, 2, 4, 3);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistTriangular(DistributionTestContinuous.this.stream, 5, 5, 2);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistTriangular(DistributionTestContinuous.this.stream, 5, 2, 2);
+            }
+        }, IllegalArgumentException.class);
+    }
+
+    /**
+     * Test the Uniform distribution.
+     */
+    @Test
+    public void testUniform()
+    {
+        this.stream = new MersenneTwister(10L);
+        DistUniform dist = new DistUniform(this.stream, 1, 4);
+        assertEquals(this.stream, dist.getStream());
+        assertEquals(1, dist.getMin(), 0.0001);
+        assertEquals(4, dist.getMax(), 0.0001);
+        assertTrue(dist.toString().contains("Uniform"));
+        assertTrue(dist.toString().contains("1"));
+        assertTrue(dist.toString().contains("4"));
+        double value = dist.draw();
+        assertTrue(value >= 1 && value <= 4);
+        assertEquals(0.0, dist.getProbabilityDensity(-1.0), 0.0001);
+        assertEquals(1. / 3., dist.getProbabilityDensity(1), 0.0001);
+        assertEquals(1. / 3., dist.getProbabilityDensity(4), 0.0001);
+        assertEquals(0.0, dist.getProbabilityDensity(0.9999), 0.0001);
+        assertEquals(0.0, dist.getProbabilityDensity(4.0001), 0.0001);
+        assertEquals(0.0, dist.getProbabilityDensity(5.0), 0.0001);
+
+        for (double x = 0; x <= 5; x += 0.02)
+        {
+            if (x >= 1 && x <= 4)
+            {
+                assertEquals(1.0 / (4 - 1), dist.getProbabilityDensity(x), 0.0001);
+            }
+            else
+            {
+                assertEquals(0, dist.getProbabilityDensity(x), 0.0001);
+            }
+        }
+
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistUniform(null, 1.0, 2.0);
+            }
+        }, NullPointerException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistUniform(DistributionTestContinuous.this.stream, 2, 2);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistUniform(DistributionTestContinuous.this.stream, 3, 2);
+            }
+        }, IllegalArgumentException.class);
+    }
+
+    /**
+     * Test the Weibull distribution.
+     */
+    @Test
+    public void testWeibull()
+    {
+        this.stream = new MersenneTwister(10L);
+        DistWeibull dist = new DistWeibull(this.stream, 3, 1);
+        assertEquals(this.stream, dist.getStream());
+        assertEquals(3, dist.getAlpha(), 0.0001);
+        assertEquals(1, dist.getBeta(), 0.0001);
+        assertTrue(dist.toString().contains("Weibull"));
+        assertTrue(dist.toString().contains("3"));
+        assertTrue(dist.toString().contains("1"));
+        double value = dist.draw();
+        assertTrue(value >= 0);
+        assertEquals(0.0, dist.getProbabilityDensity(-1.0), 0.0001);
+        assertEquals(0.0, dist.getProbabilityDensity(0.0), 0.0001);
+
+        dist = new DistWeibull(this.stream, 3, 2);
+        double a = 3;
+        double b = 2;
+        for (double x = 0; x <= 10; x += 0.02)
+        {
+            assertEquals(a * Math.pow(b, -a) * Math.pow(x, a - 1) * Math.exp(-Math.pow(x / b, a)),
+                    dist.getProbabilityDensity(x), 0.0001);
+        }
+
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistWeibull(null, 1.0, 2.0);
+            }
+        }, NullPointerException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistWeibull(DistributionTestContinuous.this.stream, 0, 2);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistWeibull(DistributionTestContinuous.this.stream, -1, 2);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistWeibull(DistributionTestContinuous.this.stream, 1, 0);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistWeibull(DistributionTestContinuous.this.stream, 1, -2);
+            }
+        }, IllegalArgumentException.class);
+    }
+
     /* ************************************************************************************************************** */
     /* ************************************************************************************************************** */
     /* ************************************************************************************************************** */

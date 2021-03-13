@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -34,14 +36,8 @@ public class DistBernoulli extends DistDiscrete
     public DistBernoulli(final StreamInterface stream, final double p)
     {
         super(stream);
-        if ((p >= 0.0) && (p <= 1.0))
-        {
-            this.p = p;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error Exponential - p<0 or p>1 (p=" + p + ")");
-        }
+        Throw.when(p < 0.0 || p > 1.0, IllegalArgumentException.class, "Error Bernoulli - p<0 or p>1 (p=" + p + ")");
+        this.p = p;
     }
 
     /**
