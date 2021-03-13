@@ -21,7 +21,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DistributionTestDiscrete
+public class DiscreteDistributionTest
 {
     /** the random stream to use. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -112,7 +112,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistBernoulli(DistributionTestDiscrete.this.stream, -0.1);
+                new DistBernoulli(DiscreteDistributionTest.this.stream, -0.1);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -120,7 +120,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistBernoulli(DistributionTestDiscrete.this.stream, 2.0);
+                new DistBernoulli(DiscreteDistributionTest.this.stream, 2.0);
             }
         }, IllegalArgumentException.class);
     }
@@ -162,7 +162,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistBinomial(DistributionTestDiscrete.this.stream, -4, 0.1);
+                new DistBinomial(DiscreteDistributionTest.this.stream, -4, 0.1);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -170,7 +170,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistBinomial(DistributionTestDiscrete.this.stream, 2, -0.1);
+                new DistBinomial(DiscreteDistributionTest.this.stream, 2, -0.1);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -178,7 +178,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistBinomial(DistributionTestDiscrete.this.stream, 2, 1.1);
+                new DistBinomial(DiscreteDistributionTest.this.stream, 2, 1.1);
             }
         }, IllegalArgumentException.class);
     }
@@ -248,7 +248,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistDiscreteUniform(DistributionTestDiscrete.this.stream, 4, 2);
+                new DistDiscreteUniform(DiscreteDistributionTest.this.stream, 4, 2);
             }
         }, IllegalArgumentException.class);
     }
@@ -281,7 +281,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistGeometric(DistributionTestDiscrete.this.stream, 0.0);
+                new DistGeometric(DiscreteDistributionTest.this.stream, 0.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -289,7 +289,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistGeometric(DistributionTestDiscrete.this.stream, -1.0);
+                new DistGeometric(DiscreteDistributionTest.this.stream, -1.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -297,7 +297,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistGeometric(DistributionTestDiscrete.this.stream, 1.01);
+                new DistGeometric(DiscreteDistributionTest.this.stream, 1.01);
             }
         }, IllegalArgumentException.class);
     }
@@ -336,7 +336,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistNegBinomial(DistributionTestDiscrete.this.stream, 0, 2.0);
+                new DistNegBinomial(DiscreteDistributionTest.this.stream, 0, 2.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -344,7 +344,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistNegBinomial(DistributionTestDiscrete.this.stream, -1, 2.0);
+                new DistNegBinomial(DiscreteDistributionTest.this.stream, -1, 2.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -352,7 +352,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistNegBinomial(DistributionTestDiscrete.this.stream, 2, 0.0);
+                new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, 0.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -360,7 +360,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistNegBinomial(DistributionTestDiscrete.this.stream, 2, -1.0);
+                new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, -1.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -368,7 +368,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistNegBinomial(DistributionTestDiscrete.this.stream, 2, 1.01);
+                new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, 1.01);
             }
         }, IllegalArgumentException.class);
     }
@@ -401,7 +401,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistPoisson(DistributionTestDiscrete.this.stream, 0.0);
+                new DistPoisson(DiscreteDistributionTest.this.stream, 0.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -409,7 +409,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistPoisson(DistributionTestDiscrete.this.stream, -1.0);
+                new DistPoisson(DiscreteDistributionTest.this.stream, -1.0);
             }
         }, IllegalArgumentException.class);
     }

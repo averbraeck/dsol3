@@ -40,7 +40,7 @@ public class EventListTest
     }
 
     /**
-     * tests the TreeMapEventListOld
+     * tests the TreeMapEventListOld.
      */
     @Test
     public void testEventList()

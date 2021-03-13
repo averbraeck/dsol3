@@ -20,7 +20,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DistributionTestContinuous
+public class ContinuousDistributionTest
 {
     /** the random stream to use. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -123,7 +123,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistBeta(DistributionTestContinuous.this.stream, -0.1, 1.0);
+                new DistBeta(ContinuousDistributionTest.this.stream, -0.1, 1.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -131,7 +131,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistBeta(DistributionTestContinuous.this.stream, 2.0, -1.0);
+                new DistBeta(ContinuousDistributionTest.this.stream, 2.0, -1.0);
             }
         }, IllegalArgumentException.class);
     }
@@ -205,7 +205,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistErlang(DistributionTestContinuous.this.stream, 1.0, 0);
+                new DistErlang(ContinuousDistributionTest.this.stream, 1.0, 0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -213,7 +213,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistErlang(DistributionTestContinuous.this.stream, -1.0, 5);
+                new DistErlang(ContinuousDistributionTest.this.stream, -1.0, 5);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -221,7 +221,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistErlang(DistributionTestContinuous.this.stream, 0.0, 5);
+                new DistErlang(ContinuousDistributionTest.this.stream, 0.0, 5);
             }
         }, IllegalArgumentException.class);
     }
@@ -261,7 +261,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistExponential(DistributionTestContinuous.this.stream, -0.1);
+                new DistExponential(ContinuousDistributionTest.this.stream, -0.1);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -269,7 +269,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistExponential(DistributionTestContinuous.this.stream, 0.0);
+                new DistExponential(ContinuousDistributionTest.this.stream, 0.0);
             }
         }, IllegalArgumentException.class);
     }
@@ -332,7 +332,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistGamma(DistributionTestContinuous.this.stream, -0.1, 1.0);
+                new DistGamma(ContinuousDistributionTest.this.stream, -0.1, 1.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -340,7 +340,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistGamma(DistributionTestContinuous.this.stream, 2.0, -1.0);
+                new DistGamma(ContinuousDistributionTest.this.stream, 2.0, -1.0);
             }
         }, IllegalArgumentException.class);
     }
@@ -434,7 +434,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson5(DistributionTestContinuous.this.stream, -0.1, 2);
+                new DistPearson5(ContinuousDistributionTest.this.stream, -0.1, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -442,7 +442,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson5(DistributionTestContinuous.this.stream, 0.0, 2);
+                new DistPearson5(ContinuousDistributionTest.this.stream, 0.0, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -450,7 +450,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson5(DistributionTestContinuous.this.stream, 4, -2);
+                new DistPearson5(ContinuousDistributionTest.this.stream, 4, -2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -458,7 +458,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson5(DistributionTestContinuous.this.stream, 4, 0);
+                new DistPearson5(ContinuousDistributionTest.this.stream, 4, 0);
             }
         }, IllegalArgumentException.class);
     }
@@ -614,7 +614,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson6(DistributionTestContinuous.this.stream, -0.1, 2, 3);
+                new DistPearson6(ContinuousDistributionTest.this.stream, -0.1, 2, 3);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -622,7 +622,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson6(DistributionTestContinuous.this.stream, 0.0, 2, 3);
+                new DistPearson6(ContinuousDistributionTest.this.stream, 0.0, 2, 3);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -630,7 +630,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson6(DistributionTestContinuous.this.stream, 4, -2, 3);
+                new DistPearson6(ContinuousDistributionTest.this.stream, 4, -2, 3);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -638,7 +638,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson6(DistributionTestContinuous.this.stream, 4, 0, 3);
+                new DistPearson6(ContinuousDistributionTest.this.stream, 4, 0, 3);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -646,7 +646,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson6(DistributionTestContinuous.this.stream, 4, 2, -3);
+                new DistPearson6(ContinuousDistributionTest.this.stream, 4, 2, -3);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -654,7 +654,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistPearson6(DistributionTestContinuous.this.stream, 4, 3, 0);
+                new DistPearson6(ContinuousDistributionTest.this.stream, 4, 3, 0);
             }
         }, IllegalArgumentException.class);
     }
@@ -711,7 +711,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistTriangular(DistributionTestContinuous.this.stream, 2, 1, 3);
+                new DistTriangular(ContinuousDistributionTest.this.stream, 2, 1, 3);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -719,7 +719,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistTriangular(DistributionTestContinuous.this.stream, 2, 2, 2);
+                new DistTriangular(ContinuousDistributionTest.this.stream, 2, 2, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -727,7 +727,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistTriangular(DistributionTestContinuous.this.stream, 2, 4, 3);
+                new DistTriangular(ContinuousDistributionTest.this.stream, 2, 4, 3);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -735,7 +735,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistTriangular(DistributionTestContinuous.this.stream, 5, 5, 2);
+                new DistTriangular(ContinuousDistributionTest.this.stream, 5, 5, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -743,7 +743,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistTriangular(DistributionTestContinuous.this.stream, 5, 2, 2);
+                new DistTriangular(ContinuousDistributionTest.this.stream, 5, 2, 2);
             }
         }, IllegalArgumentException.class);
     }
@@ -796,7 +796,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistUniform(DistributionTestContinuous.this.stream, 2, 2);
+                new DistUniform(ContinuousDistributionTest.this.stream, 2, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -804,7 +804,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistUniform(DistributionTestContinuous.this.stream, 3, 2);
+                new DistUniform(ContinuousDistributionTest.this.stream, 3, 2);
             }
         }, IllegalArgumentException.class);
     }
@@ -850,7 +850,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistWeibull(DistributionTestContinuous.this.stream, 0, 2);
+                new DistWeibull(ContinuousDistributionTest.this.stream, 0, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -858,7 +858,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistWeibull(DistributionTestContinuous.this.stream, -1, 2);
+                new DistWeibull(ContinuousDistributionTest.this.stream, -1, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -866,7 +866,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistWeibull(DistributionTestContinuous.this.stream, 1, 0);
+                new DistWeibull(ContinuousDistributionTest.this.stream, 1, 0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -874,7 +874,7 @@ public class DistributionTestContinuous
             @Override
             public void execute() throws Throwable
             {
-                new DistWeibull(DistributionTestContinuous.this.stream, 1, -2);
+                new DistWeibull(ContinuousDistributionTest.this.stream, 1, -2);
             }
         }, IllegalArgumentException.class);
     }

@@ -30,6 +30,9 @@
         one-sided sampling and rounding errors close to the max value. Funrthermore, the interpolation from the
         Z-values table has been replaced by the more precise usage of the erf() and erfInv() functions.   
       </action>
+      <action dev="averbraeck" type="fix">
+        Some of the names of the test classes did not start or end with "Test" and were therefore skipped. 
+      </action>
     </release>
     
     <release version="3.06.05" date="2021-03-09" description="runUntil; some distribution functions recoded">

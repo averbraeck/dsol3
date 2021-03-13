@@ -22,7 +22,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DistributionTestNormal
+public class NormalDistributionTest
 {
     /** the random stream to use. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -146,7 +146,7 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistLogNormal(DistributionTestNormal.this.stream, 2.0, 0.0);
+                new DistLogNormal(NormalDistributionTest.this.stream, 2.0, 0.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -154,7 +154,7 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistLogNormal(DistributionTestNormal.this.stream, 2.0, -1.0);
+                new DistLogNormal(NormalDistributionTest.this.stream, 2.0, -1.0);
             }
         }, IllegalArgumentException.class);
     }
@@ -245,7 +245,7 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistNormal(DistributionTestNormal.this.stream, 2.0, 0.0);
+                new DistNormal(NormalDistributionTest.this.stream, 2.0, 0.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -253,7 +253,7 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistNormal(DistributionTestNormal.this.stream, 2.0, -1.0);
+                new DistNormal(NormalDistributionTest.this.stream, 2.0, -1.0);
             }
         }, IllegalArgumentException.class);
     }
@@ -462,7 +462,7 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 0.0, 1, 2);
+                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 0.0, 1, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -470,7 +470,7 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, -1.0, 1, 2);
+                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, -1.0, 1, 2);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -478,7 +478,7 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 1.0, 1, 1);
+                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 1.0, 1, 1);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -486,7 +486,7 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 1.0, 1, 0);
+                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 1.0, 1, 0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -494,11 +494,11 @@ public class DistributionTestNormal
             @Override
             public void execute() throws Throwable
             {
-                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 0.1, 20, 21);
+                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 0.1, 20, 21);
             }
         }, IllegalArgumentException.class);
         
-        DistNormalTrunc dist = new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 0.1, 1.0, 2.0);
+        DistNormalTrunc dist = new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 0.1, 1.0, 2.0);
         assertEquals(1.0, dist.getInverseCumulativeProbability(0), 0.0001);
         assertEquals(2.0, dist.getInverseCumulativeProbability(1), 0.0001);
         Try.testFail(new Try.Execution()

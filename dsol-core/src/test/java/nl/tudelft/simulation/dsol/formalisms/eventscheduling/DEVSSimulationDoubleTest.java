@@ -26,7 +26,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DEVSSimulationTestDouble implements EventListenerInterface
+public class DEVSSimulationDoubleTest implements EventListenerInterface
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -116,7 +116,7 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
                 }
                 for (double t = 0.0; t < 1000.0; t += 1.0)
                 {
-                    System.out.println(t);
+                    // System.out.println(t);
                     try
                     {
                         Thread.sleep(1);
@@ -201,8 +201,8 @@ public class DEVSSimulationTestDouble implements EventListenerInterface
                 @Override
                 public void execute()
                 {
-                    DEVSSimulationTestDouble.this.waiter
-                            .assertTrue(DEVSSimulationTestDouble.this.devsSimulator.getSimulatorTime() <= 10.0);
+                    DEVSSimulationDoubleTest.this.waiter
+                            .assertTrue(DEVSSimulationDoubleTest.this.devsSimulator.getSimulatorTime() <= 10.0);
                 }
             });
         }

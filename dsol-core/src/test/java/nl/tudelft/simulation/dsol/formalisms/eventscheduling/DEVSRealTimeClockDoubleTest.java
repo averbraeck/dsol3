@@ -27,7 +27,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DEVSRealTimeClockTestDouble implements EventListenerInterface
+public class DEVSRealTimeClockDoubleTest implements EventListenerInterface
 {
     /** */
     private static final long serialVersionUID = 1L;
@@ -117,13 +117,23 @@ public class DEVSRealTimeClockTestDouble implements EventListenerInterface
                 }
                 for (double t = 0.0; t < 1000.0; t += 1.0)
                 {
-                    System.out.println(t);
+                    // System.out.println(t);
+                    try
+                    {
+                        Thread.sleep(1, 0);
+                    }
+                    catch (InterruptedException exception)
+                    {
+                        System.err.println("Interrupt run!");
+                        w.fail(exception);
+                    }
+
                     sim.runUpTo(new SimTimeDouble(t));
                     while (sim.isStartingOrRunning())
                     {
                         try
                         {
-                            Thread.sleep(0, 1);
+                            Thread.sleep(1, 0);
                         }
                         catch (InterruptedException exception)
                         {
@@ -191,8 +201,8 @@ public class DEVSRealTimeClockTestDouble implements EventListenerInterface
                 @Override
                 public void execute()
                 {
-                    DEVSRealTimeClockTestDouble.this.waiter
-                            .assertTrue(DEVSRealTimeClockTestDouble.this.devsSimulator.getSimulatorTime() <= 10.0);
+                    DEVSRealTimeClockDoubleTest.this.waiter
+                            .assertTrue(DEVSRealTimeClockDoubleTest.this.devsSimulator.getSimulatorTime() <= 10.0);
                 }
             });
         }

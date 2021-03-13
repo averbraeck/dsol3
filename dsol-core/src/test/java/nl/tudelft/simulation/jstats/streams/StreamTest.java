@@ -25,7 +25,7 @@ public class StreamTest
     @Test
     public final void testStreamDouble()
     {
-        System.out.println("\nDOUBLE");
+        // System.out.println("\nDOUBLE");
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (StreamInterface stream : streams)
@@ -42,8 +42,9 @@ public class StreamTest
                 min = Math.min(min, value);
                 max = Math.max(max, value);
             }
-            System.out.println(String.format("%-18s double sum=%6d, min=%10.8f, max=%10.8f", stream.getClass().getSimpleName(),
-                    (long) sum, min, max));
+            // System.out.println(String.format("%-18s double sum=%6d, min=%10.8f, max=%10.8f",
+            // stream.getClass().getSimpleName(),
+            // (long) sum, min, max));
             assertEquals(0.5, sum / (1.0 * nr), 0.01);
             assertEquals(0.0, min, 0.01);
             assertEquals(1.0, max, 0.01);
@@ -56,7 +57,7 @@ public class StreamTest
     @Test
     public final void testStreamFloat()
     {
-        System.out.println("\nFLOAT");
+        // System.out.println("\nFLOAT");
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (StreamInterface stream : streams)
@@ -73,8 +74,9 @@ public class StreamTest
                 min = Math.min(min, value);
                 max = Math.max(max, value);
             }
-            System.out.println(String.format("%-18s float sum=%6d, min=%10.8f, max=%10.8f", stream.getClass().getSimpleName(),
-                    (long) sum, min, max));
+            // System.out.println(String.format("%-18s float sum=%6d, min=%10.8f, max=%10.8f",
+            // stream.getClass().getSimpleName(),
+            // (long) sum, min, max));
             assertEquals(0.5f, sum / (1.0f * nr), 0.01);
             assertEquals(0.0f, min, 0.01);
             assertEquals(1.0f, max, 0.01);
@@ -87,7 +89,7 @@ public class StreamTest
     @Test
     public final void testStreamInt()
     {
-        System.out.println("\nINT");
+        // System.out.println("\nINT");
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (StreamInterface stream : streams)
@@ -105,8 +107,9 @@ public class StreamTest
             double avg = (1.0 * sum) / (1.0d * nr);
             double dMin = (1.0d * min) / (1.0d * Integer.MAX_VALUE);
             double dMax = (1.0d * max) / (1.0d * Integer.MAX_VALUE);
-            System.out.println(String.format("%-18s int avg=%10.8f, min=%10.8f, max=%10.8f", stream.getClass().getSimpleName(),
-                    avg, dMin, dMax));
+            // System.out.println(String.format("%-18s int avg=%10.8f, min=%10.8f, max=%10.8f",
+            // stream.getClass().getSimpleName(),
+            // avg, dMin, dMax));
             assertEquals(0.0, avg, 0.01);
             assertEquals(-1.0, dMin, 0.01);
             assertEquals(1.0, dMax, 0.01);
@@ -119,7 +122,7 @@ public class StreamTest
     @Test
     public final void testStreamIntEqualBits()
     {
-        System.out.println("\nINT EQUAL NUMBER OF BITS");
+        // System.out.println("\nINT EQUAL NUMBER OF BITS");
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (StreamInterface stream : streams)
@@ -147,13 +150,14 @@ public class StreamTest
             double avg = (1.0 * sum) / (1.0d * nr);
             double dMin = (1.0d * min) / (1.0d * Integer.MAX_VALUE);
             double dMax = (1.0d * max) / (1.0d * Integer.MAX_VALUE);
-            System.out.println(String.format("%-18s int avg=%10.8f, min=%10.8f, max=%10.8f", stream.getClass().getSimpleName(),
-                    avg, dMin, dMax));
-            for (int i = 0; i < NRBINS; i++)
-            {
-                double frac = 1.0 * bins[i] / (1.0 * nr);
-                System.out.println(String.format("    fraction in bin %2d = %10.8f", i, frac));
-            }
+            // System.out.println(String.format("%-18s int avg=%10.8f, min=%10.8f, max=%10.8f",
+            // stream.getClass().getSimpleName(),
+            // avg, dMin, dMax));
+            // for (int i = 0; i < NRBINS; i++)
+            // {
+            // double frac = 1.0 * bins[i] / (1.0 * nr);
+            // System.out.println(String.format(" fraction in bin %2d = %10.8f", i, frac));
+            // }
             for (int i = 0; i < NRBINS; i++)
             {
                 double frac = 1.0 * bins[i] / (1.0 * nr);
@@ -168,7 +172,7 @@ public class StreamTest
     @Test
     public final void testStreamInt0to10()
     {
-        System.out.println("\nINT 0 - 10");
+        // System.out.println("\nINT 0 - 10");
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (StreamInterface stream : streams)
@@ -187,13 +191,13 @@ public class StreamTest
                 max = Math.max(max, value);
             }
             double avg = (1.0 * sum) / (1.0d * nr);
-            System.out.println(
-                    String.format("%-18s int avg=%10.8f, min=%2d, max=%2d", stream.getClass().getSimpleName(), avg, min, max));
-            for (int i = 0; i < NRBINS; i++)
-            {
-                double perc = 100.0 * bins[i] / (1.0 * nr);
-                System.out.println(String.format("    number in bin %2d = %8.5f perc", i, perc));
-            }
+            // System.out.println(
+            // String.format("%-18s int avg=%10.8f, min=%2d, max=%2d", stream.getClass().getSimpleName(), avg, min, max));
+            // for (int i = 0; i < NRBINS; i++)
+            // {
+            // double perc = 100.0 * bins[i] / (1.0 * nr);
+            // System.out.println(String.format(" number in bin %2d = %8.5f perc", i, perc));
+            // }
             for (int i = 0; i < NRBINS; i++)
             {
                 double perc = 100.0 * bins[i] / (1.0 * nr);
@@ -211,7 +215,7 @@ public class StreamTest
     @Test
     public final void testStreamBoolean()
     {
-        System.out.println("\nBOOLEAN");
+        // System.out.println("\nBOOLEAN");
         int nr = 100000;
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (StreamInterface stream : streams)
@@ -223,7 +227,7 @@ public class StreamTest
                 sum += value ? 1.0 : 0.0;
             }
             double avg = sum / (1.0 * nr);
-            System.out.println(String.format("%-18s boolean avg = %8.6f", stream.getClass().getSimpleName(), avg));
+            // System.out.println(String.format("%-18s boolean avg = %8.6f", stream.getClass().getSimpleName(), avg));
             assertEquals(0.5, avg, 0.01);
         }
     }
@@ -234,7 +238,7 @@ public class StreamTest
     @Test
     public final void testStreamLong()
     {
-        System.out.println("\nLONG");
+        // System.out.println("\nLONG");
         long nr = 1000000;
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (StreamInterface stream : streams)
@@ -252,8 +256,9 @@ public class StreamTest
             double avg = (1.0d * sum) / (1.0d * nr);
             double dMin = (1.0d * min) / (1.0d * Long.MAX_VALUE);
             double dMax = (1.0d * max) / (1.0d * Long.MAX_VALUE);
-            System.out.println(String.format("%-18s long avg=%10.8f, min=%10.8f, max=%10.8f", stream.getClass().getSimpleName(),
-                    avg, dMin, dMax));
+            // System.out.println(String.format("%-18s long avg=%10.8f, min=%10.8f, max=%10.8f",
+            // stream.getClass().getSimpleName(),
+            // avg, dMin, dMax));
             assertEquals(0.0, avg, 0.01);
             assertEquals(-1.0, dMin, 0.01);
             assertEquals(1.0, dMax, 0.01);
@@ -266,7 +271,7 @@ public class StreamTest
     @Test
     public final void testStreamLongEqualBits()
     {
-        System.out.println("\nLONG EQUAL NUMBER OF BITS");
+        // System.out.println("\nLONG EQUAL NUMBER OF BITS");
         long nr = 1000000;
         StreamInterface[] streams = {new Java2Random(), new MersenneTwister(), new DX120Generator()};
         for (StreamInterface stream : streams)
@@ -294,13 +299,14 @@ public class StreamTest
             double avg = (1.0d * sum) / (1.0d * nr);
             double dMin = (1.0d * min) / (1.0d * Long.MAX_VALUE);
             double dMax = (1.0d * max) / (1.0d * Long.MAX_VALUE);
-            System.out.println(String.format("%-18s long avg=%10.8f, min=%10.8f, max=%10.8f", stream.getClass().getSimpleName(),
-                    avg, dMin, dMax));
-            for (int i = 0; i < NRBINS; i++)
-            {
-                double frac = 1.0 * bins[i] / (1.0 * nr);
-                System.out.println(String.format("    fraction in bin %2d = %10.8f", i, frac));
-            }
+            // System.out.println(String.format("%-18s long avg=%10.8f, min=%10.8f, max=%10.8f",
+            // stream.getClass().getSimpleName(),
+            // avg, dMin, dMax));
+            // for (int i = 0; i < NRBINS; i++)
+            // {
+            // double frac = 1.0 * bins[i] / (1.0 * nr);
+            // System.out.println(String.format(" fraction in bin %2d = %10.8f", i, frac));
+            // }
             for (int i = 0; i < NRBINS; i++)
             {
                 double frac = 1.0d * bins[i] / (1.0 * nr);
