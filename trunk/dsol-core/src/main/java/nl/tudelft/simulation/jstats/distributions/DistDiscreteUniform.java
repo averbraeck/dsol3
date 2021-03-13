@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -27,23 +29,19 @@ public class DistDiscreteUniform extends DistDiscrete
     private final long max;
 
     /**
-     * constructs a new uniform distribution. Random occurence with several possible outcomes, each of which is equally likely.
+     * constructs a new discrete uniform distribution, such as throwing dice with possible outcomes 1..6. Random occurrence with
+     * several possible outcomes, each of which is equally likely.
      * @param stream StreamInterface; the random number stream
      * @param min long; the minimal value
      * @param max long; the maximum value
+     * @throws IllegalArgumentException when min &gt;= max
      */
     public DistDiscreteUniform(final StreamInterface stream, final long min, final long max)
     {
         super(stream);
+        Throw.when(min >= max, IllegalArgumentException.class, "Error Discrete Uniform - min >= max");
         this.min = min;
-        if (max >= this.min)
-        {
-            this.max = max;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error Discrete Uniform - min >= max");
-        }
+        this.max = max;
     }
 
     /** {@inheritDoc} */

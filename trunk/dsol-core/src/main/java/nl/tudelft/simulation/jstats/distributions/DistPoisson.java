@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -31,18 +33,13 @@ public class DistPoisson extends DistDiscrete
      * constructs a new Poisson distribution.
      * @param stream StreamInterface; the random number stream
      * @param lambda double; the lambda parameter
+     * @throws IllegalArgumentException when lambda &lt;= 0
      */
     public DistPoisson(final StreamInterface stream, final double lambda)
     {
         super(stream);
-        if (lambda > 0.0)
-        {
-            this.lambda = lambda;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error Poisson - lambda<=0");
-        }
+        Throw.when(lambda <= 0.0, IllegalArgumentException.class, "Error Poisson - lambda<=0");
+        this.lambda = lambda;
         this.expl = Math.exp(-this.lambda);
     }
 

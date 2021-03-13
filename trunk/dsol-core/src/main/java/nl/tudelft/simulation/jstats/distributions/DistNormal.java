@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -53,19 +55,14 @@ public class DistNormal extends DistContinuous
      * @param stream StreamInterface; the random number stream
      * @param mu double; the mean
      * @param sigma double; the standard deviation
+     * @throws IllegalArgumentException when sigma &lt;= 0
      */
     public DistNormal(final StreamInterface stream, final double mu, final double sigma)
     {
         super(stream);
-        if (sigma > 0.0)
-        {
-            this.sigma = sigma;
-            this.mu = mu;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error - sigma<=0.0");
-        }
+        Throw.when(sigma <= 0.0, IllegalArgumentException.class, "Error Normal distribution - sigma<=0.0");
+        this.sigma = sigma;
+        this.mu = mu;
     }
 
     /** {@inheritDoc} */

@@ -46,7 +46,7 @@ public class DistributionTestDiscrete
                 0.05);
         testDist("DistNegBinomial", new DistNegBinomial(this.stream, 10, 0.25), 10 * (1.0 - 0.25) / 0.25,
                 10 * (1.0 - 0.25) / (0.25 * 0.25), 0.0, nan, 0.05);
-        // testDist("DistPoisson", new DistPoisson(this.stream, 23.21), 0.25, 0.25, 0.0, 1.0, 0.01);
+        testDist("DistPoisson", new DistPoisson(this.stream, 8.21), 8.21, 8.21, 0.0, nan, 0.01);
     }
 
     /**
@@ -336,7 +336,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistGeometric(DistributionTestDiscrete.this.stream, 0.0);
+                new DistNegBinomial(DistributionTestDiscrete.this.stream, 0, 2.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -344,7 +344,7 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistGeometric(DistributionTestDiscrete.this.stream, -1.0);
+                new DistNegBinomial(DistributionTestDiscrete.this.stream, -1, 2.0);
             }
         }, IllegalArgumentException.class);
         Try.testFail(new Try.Execution()
@@ -352,7 +352,64 @@ public class DistributionTestDiscrete
             @Override
             public void execute() throws Throwable
             {
-                new DistGeometric(DistributionTestDiscrete.this.stream, 1.01);
+                new DistNegBinomial(DistributionTestDiscrete.this.stream, 2, 0.0);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistNegBinomial(DistributionTestDiscrete.this.stream, 2, -1.0);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistNegBinomial(DistributionTestDiscrete.this.stream, 2, 1.01);
+            }
+        }, IllegalArgumentException.class);
+    }
+
+    /**
+     * Test the Poisson distribution.
+     */
+    @Test
+    public void testPoisson()
+    {
+        this.stream = new MersenneTwister(10L);
+        for (double lambda = 0.1; lambda <= 20; lambda += 0.3)
+        {
+            DistPoisson dist = new DistPoisson(this.stream, lambda);
+            assertEquals(this.stream, dist.getStream());
+            assertEquals(lambda, dist.getLambda(), 0.0001);
+            assertTrue(dist.toString().contains("Poisson"));
+            assertTrue(dist.toString().contains("" + lambda));
+            long value = dist.draw();
+            assertTrue(value >= 0);
+            assertEquals(0.0, dist.probability(-1), 0.01);
+            for (int x = 0; x < 50; x++)
+            {
+                assertEquals(Math.exp(-lambda) * Math.pow(lambda, x) / ProbMath.factorial(x), dist.probability(x), 0.001);
+            }
+        }
+
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistPoisson(DistributionTestDiscrete.this.stream, 0.0);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistPoisson(DistributionTestDiscrete.this.stream, -1.0);
             }
         }, IllegalArgumentException.class);
     }

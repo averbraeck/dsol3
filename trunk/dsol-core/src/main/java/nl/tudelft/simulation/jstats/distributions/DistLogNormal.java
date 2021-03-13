@@ -34,6 +34,7 @@ public class DistLogNormal extends DistNormal
      * @param stream StreamInterface; the random number stream
      * @param normalMean double; the mean (mu) for the underlying normal distribution
      * @param normalStDev double; the standard deviation (sigma) for the underlying normal distribution
+     * @throws IllegalArgumentException when normalStDev &lt;= 0
      */
     public DistLogNormal(final StreamInterface stream, final double normalMean, final double normalStDev)
     {

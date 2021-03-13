@@ -53,7 +53,8 @@ public class DistDiscreteConstant extends DistDiscrete
     }
 
     /**
-     * @return constant
+     * Return the constant.
+     * @return double; the constant
      */
     public final long getConstant()
     {

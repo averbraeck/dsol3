@@ -1,10 +1,13 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The Weibull distribution. For more information on this distribution see
- * <a href="https://mathworld.wolfram.com/WeibullDistribution.html"> https://mathworld.wolfram.com/WeibullDistribution.html </a>
+ * The Weibull distribution with a shape parameter &alpha; and a scale parameter &beta;. For more information on this
+ * distribution see <a href="https://mathworld.wolfram.com/WeibullDistribution.html">
+ * https://mathworld.wolfram.com/WeibullDistribution.html </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -20,30 +23,24 @@ public class DistWeibull extends DistContinuous
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** alpha is the alpha parameter. */
+    /** alpha is the shape parameter &alpha;. */
     private final double alpha;
 
-    /** beta is the beta parameter. */
+    /** beta is the scale parameter &beta;. */
     private final double beta;
 
     /**
      * constructs a new Weibull distribution.
      * @param stream StreamInterface; the random number stream
-     * @param alpha double; (shape)
-     * @param beta double; (scale)
+     * @param alpha double; the shape parameter &alpha;
+     * @param beta double; the scale parameter &beta;
      */
     public DistWeibull(final StreamInterface stream, final double alpha, final double beta)
     {
         super(stream);
-        if ((alpha > 0.0) && (beta > 0.0))
-        {
-            this.alpha = alpha;
-            this.beta = beta;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error Weibull - alpha <= 0.0 or beta <= 0.0");
-        }
+        Throw.when(alpha <= 0.0 || beta <= 0.0, IllegalArgumentException.class, "Error Weibull - alpha <= 0.0 or beta <= 0.0");
+        this.alpha = alpha;
+        this.beta = beta;
     }
 
     /** {@inheritDoc} */
@@ -66,7 +63,8 @@ public class DistWeibull extends DistContinuous
     }
 
     /**
-     * @return alpha
+     * Return the shape parameter &alpha;.
+     * @return double; the shape parameter &alpha;
      */
     public final double getAlpha()
     {
@@ -74,7 +72,8 @@ public class DistWeibull extends DistContinuous
     }
 
     /**
-     * @return beta
+     * Return the scale parameter &beta;.
+     * @return double; the scale parameter &beta;
      */
     public final double getBeta()
     {

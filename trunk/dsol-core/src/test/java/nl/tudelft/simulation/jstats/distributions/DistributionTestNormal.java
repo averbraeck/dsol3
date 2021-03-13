@@ -171,7 +171,7 @@ public class DistributionTestNormal
         assertTrue(dist.toString().contains("5.0"));
         assertTrue(dist.toString().contains("0.5"));
 
-        DistNormal stdDist = new DistNormal(this.stream, 0.0, 1.0);
+        DistNormal stdDist = new DistNormal(this.stream);
         assertEquals(1.0 / Math.sqrt(2.0 * Math.PI), stdDist.getProbabilityDensity(0.0), 0.0001);
         assertEquals(0.5, stdDist.getCumulativeProbability(0.0), 0.0001);
         assertEquals(normpdf(0.0, 1.0, 0.5), stdDist.getProbabilityDensity(0.5), 0.0001);

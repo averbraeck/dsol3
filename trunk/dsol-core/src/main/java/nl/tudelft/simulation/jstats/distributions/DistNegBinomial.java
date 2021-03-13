@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -43,15 +45,10 @@ public class DistNegBinomial extends DistDiscrete
     public DistNegBinomial(final StreamInterface stream, final int s, final double p)
     {
         super(stream);
-        if ((s > 0) && (p > 0) && (p < 1))
-        {
-            this.s = s;
-            this.p = p;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error NegBinomial - s<=0 or p<=0.0 or p>=1.0");
-        }
+        Throw.when(s <= 0 || p <= 0.0 || p >= 1.0, IllegalArgumentException.class,
+                "Error NegBinomial - s<=0 or p<=0.0 or p>=1.0");
+        this.s = s;
+        this.p = p;
         this.lnp = Math.log(1.0 - this.p);
     }
 

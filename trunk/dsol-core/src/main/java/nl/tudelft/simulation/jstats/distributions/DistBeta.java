@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.jstats.distributions;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -37,21 +39,16 @@ public class DistBeta extends DistContinuous
     /**
      * constructs a new beta distribution.
      * @param stream StreamInterface; the stream.
-     * @param alpha1 double; the first alpha parameter for the distribution.
-     * @param alpha2 double; the second alpha parameter for the distribution.
+     * @param alpha1 double; the first shape parameter &alpha;<sub>1</sub> for the distribution
+     * @param alpha2 double; the second shape parameter &alpha;<sub>2</sub>for the distribution
+     * @throws IllegalArgumentException when alpha1 &lt;= 0.0 or alpha2 &lt;= 0.0
      */
     public DistBeta(final StreamInterface stream, final double alpha1, final double alpha2)
     {
         super(stream);
-        if ((alpha1 > 0.0) && (alpha2 > 0.0))
-        {
-            this.alpha1 = alpha1;
-            this.alpha2 = alpha2;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error alpha1 <= 0.0 or alpha2 <= 0.0");
-        }
+        Throw.when(alpha1 <= 0.0 || alpha2 <= 0.0, IllegalArgumentException.class, "Error alpha1 <= 0.0 or alpha2 <= 0.0");
+        this.alpha1 = alpha1;
+        this.alpha2 = alpha2;
         this.dist1 = new DistGamma(stream, this.alpha1, 1.0);
         this.dist2 = new DistGamma(stream, this.alpha2, 1.0);
     }
@@ -78,7 +75,8 @@ public class DistBeta extends DistContinuous
     }
 
     /**
-     * @return alpha1
+     * Return the first shape parameter &alpha;<sub>1</sub> for the distribution.
+     * @return double; the first shape parameter &alpha;<sub>1</sub> for the distribution
      */
     public final double getAlpha1()
     {
@@ -86,7 +84,8 @@ public class DistBeta extends DistContinuous
     }
 
     /**
-     * @return alpha2
+     * Return the second shape parameter &alpha;<sub>2</sub>for the distribution.
+     * @return double; the second shape parameter &alpha;<sub>2</sub>for the distribution
      */
     public final double getAlpha2()
     {

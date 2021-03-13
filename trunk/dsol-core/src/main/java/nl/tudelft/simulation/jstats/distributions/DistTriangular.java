@@ -33,18 +33,18 @@ public class DistTriangular extends DistContinuous
     private final double max;
 
     /**
-     * constructs a new triangular distribution.
+     * constructs a new triangular distribution with a minimum, mode, and maximum.
      * @param stream StreamInterface; the random number stream
      * @param min double; the minimum
      * @param mode double; the mode
      * @param max double; the maximum
+     * @throws IllegalArgumentException when mode &lt; min or mode &gt; max or min == max
      */
     public DistTriangular(final StreamInterface stream, final double min, final double mode, final double max)
     {
         super(stream);
-        Throw.when(mode < min, IllegalArgumentException.class, "Triangular distribution, mode < min");
-        Throw.when(mode > max, IllegalArgumentException.class, "Triangular distribution, mode > max");
-        Throw.when(min == max, IllegalArgumentException.class, "Triangular distribution, min == max");
+        Throw.when(mode < min || mode > max || min == max, IllegalArgumentException.class,
+                "Triangular distribution, mode < min or mode > max or min == max");
         this.min = min;
         this.mode = mode;
         this.max = max;
@@ -68,17 +68,18 @@ public class DistTriangular extends DistContinuous
     {
         if (x >= this.min && x <= this.mode)
         {
-            return 2 * (x - this.min) / ((this.max - this.min) * (this.mode - this.min));
+            return 2.0 * (x - this.min) / ((this.max - this.min) * (this.mode - this.min));
         }
         if (x >= this.mode && x <= this.max)
         {
-            return 2 * (this.max - x) / ((this.max - this.min) * (this.max - this.mode));
+            return 2.0 * (this.max - x) / ((this.max - this.min) * (this.max - this.mode));
         }
         return 0.0;
     }
 
     /**
-     * @return min
+     * Return the minimum value of the distribution.
+     * @return double; the minimum value of the distribution
      */
     public final double getMin()
     {
@@ -86,7 +87,8 @@ public class DistTriangular extends DistContinuous
     }
 
     /**
-     * @return mode
+     * Return the mode of the distribution.
+     * @return double; the mode of the distribution
      */
     public final double getMode()
     {
@@ -94,7 +96,8 @@ public class DistTriangular extends DistContinuous
     }
 
     /**
-     * @return max
+     * Return the maximum value of the distribution.
+     * @return double; the maximum value of the distribution.
      */
     public final double getMax()
     {
