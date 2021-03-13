@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.jstats.math;
 
-import cern.colt.function.DoubleFunction;
+import java.util.function.DoubleFunction;
 
 /**
  * Erf function precision test.
@@ -211,7 +211,7 @@ public final class ErfPrecision
      * Test the precision of the erf() inplementations.
      * @param erfFunction DoubleFunction; the function to use for erf
      */
-    private static void erfTest(final DoubleFunction erfFunction)
+    private static void erfTest(final DoubleFunction<Double> erfFunction)
     {
         System.out.println("v\treal erf(v)\tcalc erf(v)\treal-calc\t(r-c)/r");
         for (int i = 0; i < TESTDATA.length / 3; i++)
@@ -228,7 +228,7 @@ public final class ErfPrecision
      * Test the precision of the erf() inplementations.
      * @param erfInvFunction DoubleFunction; the function to use for erf
      */
-    private static void erfInvTest(final DoubleFunction erfInvFunction)
+    private static void erfInvTest(final DoubleFunction<Double> erfInvFunction)
     {
         System.out.println("v\treal erf-1(v)\tcalc erf-1(v)\treal-calc\t(r-c)/r");
         for (int i = 0; i < TESTDATA.length / 3; i++)
@@ -467,14 +467,21 @@ public final class ErfPrecision
      */
     public static void main(final String[] args)
     {
-        /*
-         * erfTest(new DoubleFunction() {
-         * @Override public double apply(final double x) { return erf(x); } }); System.out.println("\n\n");
-         */
-        erfInvTest(new DoubleFunction()
+        erfTest(new DoubleFunction<Double>()
         {
             @Override
-            public double apply(final double x)
+            public Double apply(final double x)
+            {
+                return erf(x);
+            }
+        });
+        
+        System.out.println("\n\n");
+
+        erfInvTest(new DoubleFunction<Double>()
+        {
+            @Override
+            public Double apply(final double x)
             {
                 return inverseErf(x);
             }
