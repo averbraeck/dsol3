@@ -698,7 +698,7 @@ public final class ReadInputParameters
                     return new DistBernoulli(stream, args[0]);
 
                 case "BINOMIAL":
-                    return new DistBinomial(stream, (long) args[0], args[1]);
+                    return new DistBinomial(stream, (int) args[0], args[1]);
 
                 case "DISCRETECONSTANT":
                     return new DistDiscreteConstant(stream, (long) args[0]);
@@ -710,7 +710,7 @@ public final class ReadInputParameters
                     return new DistGeometric(stream, args[0]);
 
                 case "NEGBINOMIAL":
-                    return new DistNegBinomial(stream, (long) args[0], args[1]);
+                    return new DistNegBinomial(stream, (int) args[0], args[1]);
 
                 case "POIS":
                 case "POISSON":
