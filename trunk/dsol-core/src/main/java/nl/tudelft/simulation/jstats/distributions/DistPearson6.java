@@ -1,11 +1,14 @@
 package nl.tudelft.simulation.jstats.distributions;
 
-import cern.jet.stat.Gamma;
+import org.djutils.exceptions.Throw;
+
+import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The Pearson6 distribution. For more information on this distribution see
- * <a href="https://mathworld.wolfram.com/Pearson6Distribution.html"> https://mathworld.wolfram.com/Pearson6Distribution.html </a>
+ * <a href="https://mathworld.wolfram.com/Pearson6Distribution.html"> https://mathworld.wolfram.com/Pearson6Distribution.html
+ * </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -42,20 +45,16 @@ public class DistPearson6 extends DistContinuous
      * @param alpha1 double; the first shape parameter
      * @param alpha2 double; the second shape parameter
      * @param beta double; the scale parameter
+     * @throws IllegalArgumentException when alpha1 &lt;= 0 or alpha2 &lt;= 0 or beta &lt;= 0
      */
     public DistPearson6(final StreamInterface stream, final double alpha1, final double alpha2, final double beta)
     {
         super(stream);
-        if ((alpha1 > 0.0) && (alpha2 > 0.0) && (beta > 0.0))
-        {
-            this.alpha1 = alpha1;
-            this.alpha2 = alpha2;
-            this.beta = beta;
-        }
-        else
-        {
-            throw new IllegalArgumentException("Error alpha1 <= 0.0 or alpha2 <= 0.0 or beta <= 0.0");
-        }
+        Throw.when(alpha1 <= 0.0 || alpha2 <= 0.0 || beta <= 0.0, IllegalArgumentException.class,
+                "Pearson6 distribution cannot be created with alpha1 <= 0.0 or alpha2 <= 0 or beta <= 0.0");
+        this.alpha1 = alpha1;
+        this.alpha2 = alpha2;
+        this.beta = beta;
         this.dist1 = new DistGamma(super.stream, this.alpha1, this.beta);
         this.dist2 = new DistGamma(super.stream, this.alpha2, this.beta);
     }
@@ -64,8 +63,10 @@ public class DistPearson6 extends DistContinuous
     @Override
     public double draw()
     {
-        // according to Law and Kelton, Simulation Modeling and Analysis, 1991, page 494
-        return this.dist1.draw() / this.dist2.draw();
+        // according to Law and Kelton, Simulation Modeling and Analysis, 1991, page 494.
+        // but since dist1 and dist2 are both scaled by beta, the result is beta/beta = 1, without the scale parameter
+        // So, in contrast with Law & Kelton and Banks (2000), a multiplication with beta is added
+        return this.beta * this.dist1.draw() / this.dist2.draw();
     }
 
     /** {@inheritDoc} */
@@ -74,14 +75,15 @@ public class DistPearson6 extends DistContinuous
     {
         if (x > 0)
         {
-            return Math.pow(x / this.beta, this.alpha1 - 1) / (this.beta * Gamma.beta(this.alpha1, this.alpha2)
-                    * Math.pow(1 + (x / this.beta), (this.alpha1 + this.alpha2)));
+            return Math.pow(x / this.beta, this.alpha1 - 1) / (this.beta * ProbMath.beta(this.alpha1, this.alpha2)
+                    * Math.pow(1 + x / this.beta, this.alpha1 + this.alpha2));
         }
         return 0;
     }
 
     /**
-     * @return alpha1
+     * Return the first shape parameter &alpha;1.
+     * @return double; the first shape parameter &alpha;1
      */
     public final double getAlpha1()
     {
@@ -89,7 +91,8 @@ public class DistPearson6 extends DistContinuous
     }
 
     /**
-     * @return alpha2
+     * Return the second shape parameter &alpha;2.
+     * @return double; the second shape parameter &alpha;2
      */
     public final double getAlpha2()
     {
@@ -97,7 +100,8 @@ public class DistPearson6 extends DistContinuous
     }
 
     /**
-     * @return beta
+     * Return the scale parameter &beta;.
+     * @return double; the scale parameter &beta;
      */
     public final double getBeta()
     {
@@ -108,6 +112,7 @@ public class DistPearson6 extends DistContinuous
     @Override
     public String toString()
     {
-        return "Pesrson6(" + this.alpha1 + "," + this.alpha2 + "," + this.beta + ")";
+        return "Pearson6(" + this.alpha1 + "," + this.alpha2 + "," + this.beta + ")";
     }
+
 }
