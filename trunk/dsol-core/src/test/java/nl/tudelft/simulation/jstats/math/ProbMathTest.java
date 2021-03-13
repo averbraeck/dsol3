@@ -25,6 +25,8 @@ public class ProbMathTest
     @Test
     public void testFactorial()
     {
+        // Int
+        
         assertEquals(1.0, ProbMath.factorial(0), 0.00001);
         assertEquals(3628800.0, ProbMath.factorial(10), 0.00001);
         assertEquals(1L, ProbMath.fac(0));
@@ -32,7 +34,7 @@ public class ProbMathTest
 
         assertTrue(ProbMath.factorial(170) > 0.0);
         assertTrue(ProbMath.fac(20) > 0L);
-
+        
         Try.testFail(new Try.Execution()
         {
             @Override
@@ -65,6 +67,50 @@ public class ProbMathTest
                 ProbMath.fac(21);
             }
         }, "fac(21)", IllegalArgumentException.class);
+        
+        // Long
+        
+        assertEquals(1.0, ProbMath.factorial(0L), 0.00001);
+        assertEquals(3628800.0, ProbMath.factorial(10L), 0.00001);
+        assertEquals(1L, ProbMath.fac(0L));
+        assertEquals(3628800L, ProbMath.fac(10L));
+
+        assertTrue(ProbMath.factorial(170L) > 0.0);
+        assertTrue(ProbMath.fac(20L) > 0L);
+
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.factorial(-1L);
+            }
+        }, "factorial(-1)", IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.fac(-1L);
+            }
+        }, "fac(-1)", IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.factorial(171L);
+            }
+        }, "factorial(171)", IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.fac(21L);
+            }
+        }, "fac(21)", IllegalArgumentException.class);
+
     }
 
     /**
@@ -73,6 +119,8 @@ public class ProbMathTest
     @Test
     public void testPermutation()
     {
+        // Int
+        
         assertEquals(336.0, ProbMath.permutations(8, 3), 0.0001);
         assertEquals(336L, ProbMath.perm(8, 3));
 
@@ -92,6 +140,28 @@ public class ProbMathTest
                 ProbMath.perm(2, 5);
             }
         }, "perm(2, 5)", IllegalArgumentException.class);
+        
+        // Long
+
+        assertEquals(336.0, ProbMath.permutations(8L, 3L), 0.0001);
+        assertEquals(336L, ProbMath.perm(8L, 3L));
+
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.permutations(2L, 5L);
+            }
+        }, "permutations(2, 5)", IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.perm(2L, 5L);
+            }
+        }, "perm(2, 5)", IllegalArgumentException.class);
     }
 
     /**
@@ -100,6 +170,8 @@ public class ProbMathTest
     @Test
     public void testCombination()
     {
+        // Int
+        
         assertEquals(56.0, ProbMath.combinations(8, 3), 0.0001);
         assertEquals(56L, ProbMath.comb(8, 3));
 
@@ -119,10 +191,32 @@ public class ProbMathTest
                 ProbMath.comb(2, 5);
             }
         }, "comb(2, 5)", IllegalArgumentException.class);
+        
+        // Long
+
+        assertEquals(56.0, ProbMath.combinations(8L, 3L), 0.0001);
+        assertEquals(56L, ProbMath.comb(8L, 3L));
+
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.combinations(2L, 5L);
+            }
+        }, "combinations(2, 5)", IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.comb(2L, 5L);
+            }
+        }, "comb(2, 5)", IllegalArgumentException.class);
     }
 
     /**
-     * Test the erf(z)and erf2(z) functions.
+     * Test the erf(z)and erfInv(z) functions.
      */
     @Test
     public void testErf()
@@ -136,6 +230,7 @@ public class ProbMathTest
         assertEquals(1.0, ProbMath.erf(4.0), 0.0001);
         assertEquals(-1.0, ProbMath.erf(-4.0), 0.0001);
         assertEquals(0.47693672, ProbMath.erfInv(0.5), 0.0001);
+        assertEquals(Double.POSITIVE_INFINITY, ProbMath.erfInv(1), 0.0001);
 
         double[] testWikipedia = new double[] {0.02, 0.022564575, 0.04, 0.045111106, 0.06, 0.067621594, 0.08, 0.090078126, 0.1,
                 0.112462916, 0.2, 0.222702589, 0.3, 0.328626759, 0.4, 0.428392355, 0.5, 0.520499878, 0.6, 0.603856091, 0.7,
@@ -150,5 +245,64 @@ public class ProbMathTest
             assertEquals("erfInv(" + testWikipedia[2 * i + 1] + ") for value " + testWikipedia[2 * i], testWikipedia[2 * i],
                     ProbMath.erfInv(testWikipedia[2 * i + 1]), 0.0001);
         }
+    }
+
+    /**
+     * Test the gammaln, gamma, and beta functions.
+     */
+    @Test
+    public void testGammaBeta()
+    {
+        for (int i = 1; i < 20; i++)
+        {
+            double x = ProbMath.factorial(i - 1);
+            assertEquals(x, ProbMath.gamma(i), x * 0.0001);
+            assertEquals(Math.log(x), ProbMath.gammaln(i), 1E-6);
+        }
+        assertEquals(Double.POSITIVE_INFINITY, ProbMath.gamma(0), 1E-6);
+        assertEquals(Math.sqrt(Math.PI), ProbMath.gamma(0.5), 1E-6);
+        assertEquals(0.5 * Math.sqrt(Math.PI), ProbMath.gamma(1.5), 1E-6);
+        assertEquals(0.75 * Math.sqrt(Math.PI), ProbMath.gamma(2.5), 1E-6);
+        assertEquals((15.0 / 8.0) * Math.sqrt(Math.PI), ProbMath.gamma(3.5), 1E-6);
+        assertEquals(2.6789385347077476337, ProbMath.gamma(1.0 / 3.0), 1E-6);
+        // local minimum
+        assertEquals(0.88560319441088870027881590058258, ProbMath.gamma(1.46163214496836234126265954232572), 1E-6);
+
+        for (int i = 1; i < 20; i++)
+        {
+            for (int j = 1; j < 20; j++)
+            {
+                double x = ProbMath.factorial(i - 1);
+                double y = ProbMath.factorial(j - 1);
+                double z = ProbMath.factorial(i + j - 1);
+                assertEquals(x * y / z, ProbMath.beta(i, j), 0.0001 * x * y / z);
+            }
+        }
+
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.gamma(-1);
+            }
+        }, "gamma(-1)", IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.beta(-1, 1);
+            }
+        }, "beta(-1, 1)", IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                ProbMath.beta(1, -1);
+            }
+        }, "beta(1, -1)", IllegalArgumentException.class);
+
     }
 }

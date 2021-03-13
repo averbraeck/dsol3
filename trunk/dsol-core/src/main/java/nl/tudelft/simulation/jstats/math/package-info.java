@@ -1,5 +1,6 @@
 /**
- * Provides classes for basic mathematical functions.
+ * Provides classes for basic mathematical functions, such as factorial, permutations, combinations, error function, inverse
+ * error function, gamma function, and beta functionimplementations.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL

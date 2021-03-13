@@ -84,6 +84,18 @@ public final class ProbMath
     }
 
     /**
+     * Compute n factorial as a double. fac(n) = n * (n-1) * (n-2) * ... 2 * 1.
+     * @param n long; the value to calculate n! for
+     * @return double; n factorial
+     */
+    public static double factorial(final long n)
+    {
+        Throw.when(n < 0, IllegalArgumentException.class, "n! with n<0 is invalid");
+        Throw.when(n > 170, IllegalArgumentException.class, "n! with n>170 is larger than Double.MAX_VALUE");
+        return FACTORIAL_DOUBLE[(int) n];
+    }
+
+    /**
      * Compute n factorial as a long. fac(n) = n * (n-1) * (n-2) * ... 2 * 1.
      * @param n int; the value to calculate n! for
      * @return double; n factorial
@@ -96,12 +108,39 @@ public final class ProbMath
     }
 
     /**
+     * Compute n factorial as a long. fac(n) = n * (n-1) * (n-2) * ... 2 * 1.
+     * @param n long; the value to calculate n! for
+     * @return double; n factorial
+     */
+    public static long fac(final long n)
+    {
+        Throw.when(n < 0, IllegalArgumentException.class, "n! with n<0 is invalid");
+        Throw.when(n > 20, IllegalArgumentException.class, "n! with n>20 is more than 64 bits long");
+        return FACTORIAL_LONG[(int) n];
+    }
+
+    /**
      * Compute the k-permutations of n.
      * @param n int; the first parameter
      * @param k int; the second parameter
      * @return the k-permutations of n
      */
     public static double permutations(final int n, final int k)
+    {
+        if (k > n)
+        {
+            throw new IllegalArgumentException("permutations of (n,k) with k>n");
+        }
+        return factorial(n) / factorial(n - k);
+    }
+
+    /**
+     * Compute the k-permutations of n.
+     * @param n long; the first parameter
+     * @param k long; the second parameter
+     * @return the k-permutations of n
+     */
+    public static double permutations(final long n, final long k)
     {
         if (k > n)
         {
@@ -126,6 +165,21 @@ public final class ProbMath
     }
 
     /**
+     * Computes the k-permutations of n as a long.
+     * @param n long; the first parameter
+     * @param k long; the second parameter
+     * @return the k-permutations of n
+     */
+    public static long perm(final long n, final long k)
+    {
+        if (k > n)
+        {
+            throw new IllegalArgumentException("permutations of (n,k) with k>n");
+        }
+        return fac(n) / fac(n - k);
+    }
+
+    /**
      * computes the combinations of n over k.
      * @param n int; the first parameter
      * @param k int; the second parameter
@@ -141,12 +195,42 @@ public final class ProbMath
     }
 
     /**
+     * computes the combinations of n over k.
+     * @param n long; the first parameter
+     * @param k long; the second parameter
+     * @return the combinations of n over k
+     */
+    public static double combinations(final long n, final long k)
+    {
+        if (k > n)
+        {
+            throw new IllegalArgumentException("combinations of (n,k) with k>n");
+        }
+        return factorial(n) / (factorial(k) * factorial(n - k));
+    }
+
+    /**
      * computes the combinations of n over k as a long.
      * @param n int; the first parameter
      * @param k int; the second parameter
      * @return the combinations of n over k
      */
     public static long comb(final int n, final int k)
+    {
+        if (k > n)
+        {
+            throw new IllegalArgumentException("combinations of (n,k) with k>n");
+        }
+        return fac(n) / (fac(k) * fac(n - k));
+    }
+
+    /**
+     * computes the combinations of n over k as a long.
+     * @param n long; the first parameter
+     * @param k long; the second parameter
+     * @return the combinations of n over k
+     */
+    public static long comb(final long n, final long k)
     {
         if (k > n)
         {
@@ -328,4 +412,54 @@ public final class ProbMath
         return Math.signum(y) * ret;
     }
 
+    /** Coefficients for the ln(gamma(x)) function. */
+    private static final double[] GAMMALN_COF = {76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155,
+            0.1208650973866179e-2, -0.5395239384953e-5};
+
+    /**
+     * Calculates ln(gamma(x)). Java version of gammln function in Numerical Recipes in C, p.214.
+     * @param xx double; the value to calculate the gamma function for
+     * @return double; gamma(x)
+     * @throws IllegalArgumentException when x is &lt; 0
+     */
+    public static double gammaln(final double xx)
+    {
+        Throw.when(xx < 0, IllegalArgumentException.class, "gamma function not defined for real values < 0");
+        double x, y, tmp, ser;
+        x = xx;
+        y = x;
+        tmp = x + 5.5;
+        tmp -= (x + 0.5) * Math.log(tmp);
+        ser = 1.000000000190015;
+        for (int j = 0; j <= 5; j++)
+        {
+            ser += GAMMALN_COF[j] / ++y;
+        }
+        return -tmp + Math.log(2.5066282746310005 * ser / x);
+    }
+
+    /**
+     * Calculates gamma(x). Based on the gammln function in Numerical Recipes in C, p.214.
+     * @param x double; the value to calculate the gamma function for
+     * @return double; gamma(x)
+     * @throws IllegalArgumentException when x is &lt; 0
+     */
+    public static double gamma(final double x)
+    {
+        return Math.exp(gammaln(x));
+    }
+
+    /**
+     * Calculates Beta(z, w) where Beta(z, w) = &Gamma;(z) &Gamma;(w) / &Gamma;(z + w).
+     * @param z double; beta function parameter 1
+     * @param w ; beta function parameter 2
+     * @return double; beta(z, w)
+     * @throws IllegalArgumentException when one of the parameters is &lt; 0
+     */
+    public static double beta(final double z, final double w)
+    {
+        Throw.when(z < 0 || w < 0, IllegalArgumentException.class, "beta function not defined for negative arguments");
+        return Math.exp(gammaln(z) + gammaln(w) - gammaln(z + w));
+    }
+    
 }
