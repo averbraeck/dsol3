@@ -1,15 +1,13 @@
 package nl.tudelft.simulation.jstats.distributions;
 
-import static nl.tudelft.simulation.jstats.distributions.DistNormal.CUMULATIVE_NORMAL_PROBABILITIES;
+import org.djutils.exceptions.Throw;
 
-import java.util.Locale;
-
-import nl.tudelft.simulation.jstats.streams.MersenneTwister;
+import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The Normal Truncated distribution. For more information on the normal distribution see
- * <a href="https://mathworld.wolfram.com/NormalDistribution.html"> https://mathworld.wolfram.com/NormalDistribution.html </a>
+ * The Normal Truncated distribution. For more information on the truncated normal distribution see <a href=
+ * "https://en.wikipedia.org/wiki/Truncated_normal_distribution">https://en.wikipedia.org/wiki/Truncated_normal_distribution</a>
  * <p>
  * This version of the normal distribution uses the numerically approached inverse cumulative distribution.
  * <p>
@@ -64,21 +62,24 @@ public class DistNormalTrunc extends DistContinuous
      * @param sigma double; the standard deviation
      * @param min double; minimum x-value of the distribution
      * @param max double; maximum x-value of the distribution
+     * @throws IllegalArgumentException when sigma &lt;= 0 or when max &lt;= min, or when the probabilities are so small that
+     *             drawing becomes impossible. The cutoff point is at an interval with an overall probability of less than 1E-6
      */
     public DistNormalTrunc(final StreamInterface stream, final double mu, final double sigma, final double min,
             final double max)
     {
         super(stream);
-        if (max < min)
-        {
-            throw new IllegalArgumentException("Error Normal Truncated - max < min");
-        }
+        Throw.when(max < min, IllegalArgumentException.class, "Error Normal Truncated - max < min");
+        Throw.when(sigma <= 0, IllegalArgumentException.class, "Error Normal Truncated - sigma <= 0");
         this.mu = mu;
         this.sigma = sigma;
         this.min = min;
         this.max = max;
         this.cumulProbMin = getCumulativeProbabilityNotTruncated(min);
         this.cumulProbDiff = getCumulativeProbabilityNotTruncated(max) - this.cumulProbMin;
+        Throw.when(this.cumulProbDiff < 1E-6, IllegalArgumentException.class,
+                "Error " + toString() + ": the indicated interval on this normal distribution has a very low probability of "
+                        + this.cumulProbDiff);
         this.probDensFactor = 1.0 / this.cumulProbDiff;
     }
 
@@ -86,7 +87,35 @@ public class DistNormalTrunc extends DistContinuous
     @Override
     public double draw()
     {
-        return getInverseCumulativeProbabilityNotTruncated(this.cumulProbMin + this.cumulProbDiff * this.stream.nextDouble());
+        double d =
+                getInverseCumulativeProbabilityNotTruncated(this.cumulProbMin + this.cumulProbDiff * this.stream.nextDouble());
+        if (Double.isInfinite(d))
+        {
+            // if inverse cumulative probability gets close to 1, Infinity is returned.
+            // This corresponds to a value of 'max' for the truncated distribution.
+            d = d < 0 ? this.min : this.max;
+        }
+        if (d < this.min)
+        {
+            // rounding error?
+            if (Math.abs(d - this.min) < 1.0E-6 * Math.abs(this.min))
+            {
+                return this.min;
+            }
+            throw new IllegalStateException(toString() + ": drawn value outside of interval [min, max]: value " + d
+                    + " not in [" + this.min + ", " + this.max + "]");
+        }
+        if (d > this.max)
+        {
+            // rounding error?
+            if (Math.abs(d - this.max) < 1.0E-6 * Math.abs(this.max))
+            {
+                return this.min;
+            }
+            throw new IllegalStateException(toString() + ": drawn value outside of interval [min, max]: value " + d
+                    + " not in [" + this.min + ", " + this.max + "]");
+        }
+        return d;
     }
 
     /**
@@ -96,11 +125,11 @@ public class DistNormalTrunc extends DistContinuous
      */
     public double getCumulativeProbability(final double x)
     {
-        if (x < this.min)
+        if (x <= this.min)
         {
             return 0.0;
         }
-        if (x > this.max)
+        if (x >= this.max)
         {
             return 1.0;
         }
@@ -114,24 +143,17 @@ public class DistNormalTrunc extends DistContinuous
      */
     private double getCumulativeProbabilityNotTruncated(final double x)
     {
-        double z = (x - this.mu) / this.sigma * 100;
-        double absZ = Math.abs(z);
-        int intZ = (int) absZ;
-        double f = 0.0;
-        if (intZ >= 1000)
-        {
-            intZ = 999;
-            f = 1.0;
-        }
-        else
-        {
-            f = absZ - intZ;
-        }
-        if (z >= 0)
-        {
-            return (1 - f) * CUMULATIVE_NORMAL_PROBABILITIES[intZ] + f * CUMULATIVE_NORMAL_PROBABILITIES[intZ + 1];
-        }
-        return 1 - ((1 - f) * CUMULATIVE_NORMAL_PROBABILITIES[intZ] + f * CUMULATIVE_NORMAL_PROBABILITIES[intZ + 1]);
+        return 0.5 + 0.5 * ProbMath.erf((x - this.mu) / (Math.sqrt(2.0) * this.sigma));
+    }
+
+    /**
+     * returns the x-value of the given cumulativeProbability.
+     * @param cumulativeProbability double; reflects cum prob
+     * @return double the inverse cumulative probability
+     */
+    private double getInverseCumulativeProbabilityNotTruncated(final double cumulativeProbability)
+    {
+        return this.mu + this.sigma * Math.sqrt(2.0) * ProbMath.erfInv(2.0 * cumulativeProbability - 1.0);
     }
 
     /**
@@ -211,97 +233,6 @@ public class DistNormalTrunc extends DistContinuous
     public String toString()
     {
         return "NormalTrunc(" + this.mu + "," + this.sigma + "," + this.min + "," + this.max + ")";
-    }
-
-    /**
-     * Test.
-     * @param args String[]; args
-     */
-    public static void main(final String[] args)
-    {
-        StreamInterface stream = new MersenneTwister();
-        double mu = 2.0;
-        double sigma = 3.0;
-        double min = -5.0;
-        double max = 4.0;
-        DistNormalTrunc dist = new DistNormalTrunc(stream, mu, sigma, min, max);
-
-        System.out.println("<< probability density >>");
-        double sum = 0.0;
-        double step = (max - min) / 96;
-        for (double x = min - 2 * step; x <= max + 2 * step; x += step)
-        {
-            double p = dist.getProbabilityDensity(x);
-            System.out.println(String.format(Locale.GERMAN, "%.8f;%.8f", x, p));
-            sum += p * step;
-        }
-        System.out.println(String.format(Locale.GERMAN, "Approx. sum = %.8f", sum));
-        System.out.println("");
-
-        System.out.println("<< cumulative density >>");
-        for (double x = min - 2 * step; x <= max + 2 * step; x += step)
-        {
-            double c = dist.getCumulativeProbability(x);
-            System.out.println(String.format(Locale.GERMAN, "%.8f;%.8f", x, c));
-        }
-        System.out.println("");
-
-        System.out.println("<< inverse cumulative density >>");
-        for (double c = 0.0; c < 1.005; c += 0.01)
-        {
-            double x = dist.getInverseCumulativeProbability(Math.min(c, 1.0)); // want to include 1.0, also if 1.0000000000001
-            System.out.println(String.format(Locale.GERMAN, "%.8f;%.8f", c, x));
-        }
-        System.out.println("");
-
-        System.out.println("<< 10000 random numbers. >>");
-        for (int i = 1; i < 10000; i++)
-        {
-            System.out.println(String.format(Locale.GERMAN, "%,8f", dist.draw()));
-        }
-
-    }
-
-    /**
-     * returns the x-value of the given cumulativePropability.
-     * @param cumulativeProbability double; reflects cum prob
-     * @return double the inverse cumulative probability
-     */
-    private double getInverseCumulativeProbabilityNotTruncated(final double cumulativeProbability)
-    {
-        if (cumulativeProbability < 0 || cumulativeProbability > 1)
-        {
-            throw new IllegalArgumentException("1<cumulativeProbability<0 ?");
-        }
-        boolean located = false;
-        double prob = cumulativeProbability;
-        if (cumulativeProbability < 0.5)
-        {
-            prob = 1 - cumulativeProbability;
-        }
-        int i = 0;
-        double f = 0.0;
-        while (!located) // TODO: change into binary search
-        {
-            if (CUMULATIVE_NORMAL_PROBABILITIES[i] < prob && CUMULATIVE_NORMAL_PROBABILITIES[i + 1] >= prob)
-            {
-                located = true;
-                if (CUMULATIVE_NORMAL_PROBABILITIES[i] < CUMULATIVE_NORMAL_PROBABILITIES[i + 1])
-                {
-                    f = (prob - CUMULATIVE_NORMAL_PROBABILITIES[i])
-                            / (CUMULATIVE_NORMAL_PROBABILITIES[i + 1] - CUMULATIVE_NORMAL_PROBABILITIES[i]);
-                }
-            }
-            else
-            {
-                i++;
-            }
-        }
-        if (cumulativeProbability < 0.5)
-        {
-            return this.mu - ((f + i) / 100.0) * this.sigma;
-        }
-        return ((f + i) / 100.0) * this.sigma + this.mu;
     }
 
 }
