@@ -7,6 +7,7 @@ import org.djutils.exceptions.Try;
 import org.djutils.stats.summarizers.Tally;
 import org.junit.Test;
 
+import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -39,8 +40,10 @@ public class DistributionTestNormal
                 (Math.exp(0.5 * 0.5) - 1.0) * Math.exp(0.5 * 0.5), 0.0, nan, 0.01);
         testDist("DistLogNormal", new DistLogNormal(this.stream, 5.0, 0.5), Math.exp(5.0 + 0.5 * 0.5 / 2.0),
                 (Math.exp(0.5 * 0.5) - 1.0) * Math.exp(2 * 5.0 + 0.5 * 0.5), 0.0, nan, 0.5);
-        testDist("DistNormal", new DistNormal(this.stream, 0.0, 1.0), 0.0, 1.0, nan, nan, 0.01);
+        testDist("DistNormal", new DistNormal(this.stream), 0.0, 1.0, nan, nan, 0.01);
         testDist("DistNormal", new DistNormal(this.stream, 5.0, 2.0), 5.0, 4.0, nan, nan, 0.01);
+
+        // truncated distributions are covered later because of functions needed
     }
 
     /**
@@ -63,11 +66,11 @@ public class DistributionTestNormal
             double d = dist.draw();
             if (!Double.isNaN(expectedMin))
             {
-                assertTrue(name + " min", d >= expectedMin);
+                assertTrue(name + " min: " + d + ">=" + expectedMin, d >= expectedMin);
             }
             if (!Double.isNaN(expectedMax))
             {
-                assertTrue(name + " max", d <= expectedMax);
+                assertTrue(name + " max: " + d + "<=" + expectedMax, d <= expectedMax);
             }
             tally.ingest(d);
         }
@@ -255,6 +258,289 @@ public class DistributionTestNormal
         }, IllegalArgumentException.class);
     }
 
+    /**
+     * Test the truncated standard normal distribution.
+     */
+    @Test
+    public void testTruncatedStandardNormal()
+    {
+        this.stream = new MersenneTwister(10L);
+
+        // standard normal truncated to -2, 2
+        DistNormalTrunc dist = new DistNormalTrunc(this.stream, -2, 2);
+        assertTrue(dist.toString().contains("NormalTrunc("));
+        double a = -2;
+        double b = 2;
+        double mu = 0;
+        double sigma = 1;
+        double alpha = (a - mu) / sigma;
+        double beta = (b - mu) / sigma;
+        double z = PHI(beta) - PHI(alpha);
+        for (double x = -20; x <= 20; x += 0.2)
+        {
+            double xi = (x - mu) / sigma;
+            if (x < a || x > b)
+            {
+                assertEquals("pdf(x,m,s,a,b)=pdf(" + x + "," + mu + "," + sigma + "," + a + "," + b + ")", 0.0,
+                        dist.getProbabilityDensity(x), 0.0001);
+            }
+            else
+            {
+                assertEquals("pdf(x,m,s,a,b)=pdf(" + x + "," + mu + "," + sigma + "," + a + "," + b + ")",
+                        phi(xi) / (sigma * z), dist.getProbabilityDensity(x), 0.0001);
+            }
+        }
+        double expectedMean = mu + sigma * (phi(alpha) - phi(beta)) / z;
+        double expectedVariance =
+                sigma * sigma * (1 + ((alpha * phi(alpha) - beta * phi(beta)) / z - Math.pow((phi(alpha) - phi(beta)) / z, 2)));
+        testDist("TruncatedStandardNormal", dist, expectedMean, expectedVariance, a, b, 0.01);
+    }
+
+    /**
+     * Test the truncated normal distribution for a large interval (equaling the underlying normal distribution).
+     */
+    @Test
+    public void testTruncatedNormalLargeInterval()
+    {
+        this.stream = new MersenneTwister(10L);
+        DistNormalTrunc dist = new DistNormalTrunc(this.stream, -10, 10);
+        for (int i = 0; i < Z_VALUES.length / 2; i++)
+        {
+            double p = Z_VALUES[2 * i];
+            double c = Z_VALUES[2 * i + 1];
+            assertEquals(c, dist.getCumulativeProbability(p), 0.0001);
+            assertEquals(p, dist.getInverseCumulativeProbability(c), 0.0001);
+        }
+        for (double x = -8; x <= 8; x += 0.1)
+        {
+            assertEquals(normpdf(0.0, 1.0, x), dist.getProbabilityDensity(x), 0.0001);
+        }
+
+        dist = new DistNormalTrunc(this.stream, 2, 0.2, -10, 10);
+        for (double x = -8; x <= 8; x += 0.1)
+        {
+            assertEquals("x=" + x, normpdf(2, 0.2, x), dist.getProbabilityDensity(x), 0.0001);
+            assertEquals("x=" + x, normcdf(2, 0.2, x), dist.getCumulativeProbability(x), 0.0001);
+        }
+    }
+
+    /**
+     * Test the PDF and CDF for the truncated normal distribution.
+     */
+    @Test
+    public void testTruncatedNormalPDFandCDF()
+    {
+        this.stream = new MersenneTwister(10L);
+
+        for (double mu = -2; mu <= 2; mu += 0.5)
+        {
+            for (double sigma = 0.1; sigma <= 4; sigma += 0.5)
+            {
+                for (double a = -10; a <= 10; a += 5)
+                {
+                    for (double width = 1; width < 20; width += 4)
+                    {
+                        double b = a + width;
+
+                        // see if the density is enough
+                        double cumulProbMin = 0.5 + 0.5 * ProbMath.erf((a - mu) / (Math.sqrt(2.0) * sigma));
+                        double cumulProbDiff = 0.5 + 0.5 * ProbMath.erf((b - mu) / (Math.sqrt(2.0) * sigma)) - cumulProbMin;
+                        if (cumulProbDiff < 1E-6)
+                        {
+                            // too small
+                            continue;
+                        }
+
+                        DistNormalTrunc dist = new DistNormalTrunc(this.stream, mu, sigma, a, b);
+                        assertEquals(mu, dist.getMu(), 0.0001);
+                        assertEquals(sigma, dist.getSigma(), 0.0001);
+                        assertEquals(a, dist.getMin(), 0.0001);
+                        assertEquals(b, dist.getMax(), 0.0001);
+                        double alpha = (a - mu) / sigma;
+                        double beta = (b - mu) / sigma;
+                        double z = PHI(beta) - PHI(alpha);
+
+                        for (double x = -20; x <= 20; x += 0.2)
+                        {
+                            double xi = (x - mu) / sigma;
+                            if (x < a || x > b)
+                            {
+                                assertEquals("pdf(x,m,s,a,b)=pdf(" + x + "," + mu + "," + sigma + "," + a + "," + b + ")", 0.0,
+                                        dist.getProbabilityDensity(x), 0.0001);
+                                assertEquals("CDF(x,m,s,a,b)=CDF(" + x + "," + mu + "," + sigma + "," + a + "," + b + ")",
+                                        x < a ? 0 : 1, dist.getCumulativeProbability(x), 0.0001);
+                            }
+                            else
+                            {
+                                assertEquals("pdf(x,m,s,a,b)=pdf(" + x + "," + mu + "," + sigma + "," + a + "," + b + ")",
+                                        phi(xi) / (sigma * z), dist.getProbabilityDensity(x), 0.0001);
+                                assertEquals("CDF(x,m,s,a,b)=CDF(" + x + "," + mu + "," + sigma + "," + a + "," + b + ")",
+                                        (PHI(xi) - PHI(alpha)) / z, dist.getCumulativeProbability(x), 0.0001);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Test sampling for the truncated normal distribution, also for one-sided truncation.
+     */
+    @Test
+    public void testTruncatedNormalSamples()
+    {
+        assertEquals(0.0, phi(Double.POSITIVE_INFINITY), 0.001);
+        assertEquals(0.0, phi(Double.NEGATIVE_INFINITY), 0.001);
+        assertEquals(1.0, PHI(Double.POSITIVE_INFINITY), 0.001);
+        assertEquals(0.0, PHI(Double.NEGATIVE_INFINITY), 0.001);
+
+        this.stream = new MersenneTwister(10L);
+        for (double[] params : new double[][] {{0.0, 1.0, -1.0, 1.0}, {2.0, 0.5, -1.0, 1.0}, {2.0, 0.5, 0.0, 1.0},
+                {2.0, 0.5, 0.0, 1.0}, {2.0, 0.5, 0.0, Double.POSITIVE_INFINITY}, {2.0, 0.5, Double.NEGATIVE_INFINITY, 1.0},
+                {2.0, 0.5, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY}})
+        {
+            double mu = params[0];
+            double sigma = params[1];
+            double a = params[2];
+            double b = params[3];
+            DistNormalTrunc dist = new DistNormalTrunc(this.stream, mu, sigma, a, b);
+
+            double alpha = (a - mu) / sigma;
+            double beta = (b - mu) / sigma;
+            double z = PHI(beta) - PHI(alpha);
+            if (Double.isFinite(a) && Double.isFinite(b))
+            {
+                double expectedMean = mu + sigma * (phi(alpha) - phi(beta)) / z;
+                double expectedVariance = sigma * sigma
+                        * (1 + ((alpha * phi(alpha) - beta * phi(beta)) / z - Math.pow((phi(alpha) - phi(beta)) / z, 2)));
+                testDist("TruncatedStandardNormal(m,s,a,b)=(" + mu + ", " + sigma + ", " + a + ", " + b + ")", dist,
+                        expectedMean, expectedVariance, a, b, 0.05);
+            }
+            else if (Double.isFinite(b)) // upper tail truncation only
+            {
+                double pbPB = phi(beta) / PHI(beta);
+                double expectedMean = mu - sigma * pbPB;
+                double expectedVariance = sigma * sigma * (1 - beta * pbPB - Math.pow(pbPB, 2));
+                testDist("TruncatedStandardNormal(m,s,a,b)=(" + mu + ", " + sigma + ", " + a + ", " + b + ")", dist,
+                        expectedMean, expectedVariance, a, b, 0.05);
+            }
+            else if (Double.isFinite(a)) // lower tail truncation only
+            {
+                double expectedMean = mu + sigma * phi(alpha) / z;
+                double expectedVariance = sigma * sigma * (1 + alpha * phi(alpha) / z - Math.pow(phi(alpha) / z, 2));
+                testDist("TruncatedStandardNormal(m,s,a,b)=(" + mu + ", " + sigma + ", " + a + ", " + b + ")", dist,
+                        expectedMean, expectedVariance, a, b, 0.05);
+            }
+            else // no truncation
+            {
+                double expectedMean = mu;
+                double expectedVariance = sigma * sigma;
+                testDist("TruncatedStandardNormal(m,s,a,b)=(" + mu + ", " + sigma + ", " + a + ", " + b + ")", dist,
+                        expectedMean, expectedVariance, a, b, 0.05);
+            }
+        }
+    }
+
+    /**
+     * Test the exceptions for the truncated normal distribution.
+     */
+    @Test
+    public void testTruncatedNormalExceptions()
+    {
+        this.stream = new MersenneTwister(20L);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistNormalTrunc(null, 1.0, 2.0);
+            }
+        }, NullPointerException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 0.0, 1, 2);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, -1.0, 1, 2);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 1.0, 1, 1);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 1.0, 1, 0);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 0.1, 20, 21);
+            }
+        }, IllegalArgumentException.class);
+        
+        DistNormalTrunc dist = new DistNormalTrunc(DistributionTestNormal.this.stream, 2.0, 0.1, 1.0, 2.0);
+        assertEquals(1.0, dist.getInverseCumulativeProbability(0), 0.0001);
+        assertEquals(2.0, dist.getInverseCumulativeProbability(1), 0.0001);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                dist.getInverseCumulativeProbability(-0.1);
+            }
+        }, IllegalArgumentException.class);
+        Try.testFail(new Try.Execution()
+        {
+            @Override
+            public void execute() throws Throwable
+            {
+                dist.getInverseCumulativeProbability(1.1);
+            }
+        }, IllegalArgumentException.class);
+
+    }
+    
+    /**
+     * phi function is the pdf for the standard normal distribution.
+     * @param xi double; value to calculate the pdf for
+     * @return double; phi(xi)
+     */
+    private static double phi(final double xi)
+    {
+        return Math.exp(-0.5 * xi * xi) / Math.sqrt(2.0 * Math.PI);
+    }
+
+    /**
+     * PHI function is the CDF for the standard normal distribution.
+     * @param x double; value to calculate the CDF for
+     * @return double; PHI(x)
+     */
+    @SuppressWarnings("checkstyle:methodname")
+    private static double PHI(final double x)
+    {
+        return 0.5 + 0.5 * ProbMath.erf(x / Math.sqrt(2));
+    }
+
     /* ************************************************************************************************************** */
     /* ************************************************************************************************************** */
     /* ************************************************************************************************************** */
@@ -352,7 +638,7 @@ public class DistributionTestNormal
      */
     private static double normcdf(final double mu, final double sigma, final double x)
     {
-        return 0.5 + 0.5 * erf((x - mu) / (Math.sqrt(2.0) * sigma));
+        return 0.5 + 0.5 * ProbMath.erf((x - mu) / (Math.sqrt(2.0) * sigma));
     }
 
     // @formatter:off
