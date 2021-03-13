@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.jstats.distributions;
 
-import cern.jet.stat.Gamma;
+import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -72,8 +72,7 @@ public class DistBeta extends DistContinuous
     {
         if (x > 0 && x < 1)
         {
-            return (Math.pow(x, this.alpha1 - 1) * Math.pow(1 - x, this.alpha2 - 1))
-                    / Gamma.beta(this.alpha1, this.alpha2);
+            return (Math.pow(x, this.alpha1 - 1) * Math.pow(1 - x, this.alpha2 - 1)) / ProbMath.beta(this.alpha1, this.alpha2);
         }
         return 0;
     }

@@ -66,7 +66,8 @@ public class DistUniform extends DistContinuous
     }
 
     /**
-     * @return min
+     * Return the minimum value.
+     * @return double; the minimum value
      */
     public final double getMin()
     {
@@ -74,7 +75,8 @@ public class DistUniform extends DistContinuous
     }
 
     /**
-     * @return max
+     * Return the maximum value.
+     * @return double; the maximum value
      */
     public final double getMax()
     {

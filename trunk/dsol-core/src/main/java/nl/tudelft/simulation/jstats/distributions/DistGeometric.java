@@ -3,9 +3,12 @@ package nl.tudelft.simulation.jstats.distributions;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The Geometric distribution. For more information on this distribution see
- * <a href="https://mathworld.wolfram.com/GeometricDistribution.html"> https://mathworld.wolfram.com/GeometricDistribution.html
- * </a>
+ * The Geometric distribution. The geometric distribution is the only discrete memoryless random distribution. It is a discrete
+ * analog of the exponential distribution. There are two variants, one that indicates the number of Bernoulli trials to get the
+ * first success (1, 2, 3, ...), and one that indicates the number of failures before the first success (0, 1, 2, ...). In line
+ * with Law &amp; Kelton, the version of the number of failures before the first success is modeled here, so X ={0, 1, 2, ...}.
+ * For more information on this distribution see <a href="https://mathworld.wolfram.com/GeometricDistribution.html">
+ * https://mathworld.wolfram.com/GeometricDistribution.html </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -21,16 +24,18 @@ public class DistGeometric extends DistDiscrete
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** p is the p-value of the geometric distribution. */
+    /** p is the the probability of success for each individual trial. */
     private final double p;
 
-    /** lnp is a helper variable to avoid repetitive calculation. */
+    /** lnp is a helper variable with value ln(1-p) to avoid repetitive calculation. */
     private final double lnp;
 
     /**
-     * constructs a new geometric distribution.
+     * Construct a new geometric distribution for a repeated set of Bernoulli trials, indicating the number of failures before
+     * the first success.
      * @param stream StreamInterface; the random number stream
-     * @param p double; is the p-value
+     * @param p double; the probability of success for each individual trial
+     * @throws IllegalArgumentException when p &lt;= 0 or p &gt;= 1
      */
     public DistGeometric(final StreamInterface stream, final double p)
     {
@@ -66,7 +71,8 @@ public class DistGeometric extends DistDiscrete
     }
 
     /**
-     * @return p
+     * Return the probability of success for each individual trial.
+     * @return double; the probability of success for each individual trial
      */
     public final double getP()
     {

@@ -143,8 +143,8 @@ public class DistLogNormalTrunc extends DistLogNormal
         {
             // System.out.println(tln10.draw());
         }
-        
-        DistLogNormalTrunc dl = new DistLogNormalTrunc(stream, 1.0,  0.75, 0, 10);
+
+        DistLogNormalTrunc dl = new DistLogNormalTrunc(stream, 1.0, 0.75, 0, 10);
         System.out.println(dl.getProbabilityDensity(2.0) + "   " + dl.getProbabilityDensity(4.0));
         System.out.println(dl.getCumulativeProbability(2.0) + "   " + dl.getCumulativeProbability(4.0));
         System.out.println(dl.getInverseCumulativeProbability(0.5));

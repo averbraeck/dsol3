@@ -93,7 +93,8 @@ public class DistErlang extends DistContinuous
         {
             return 0;
         }
-        return this.lambda * Math.exp(-this.lambda * x) * Math.pow(this.lambda * x, this.k - 1) / ProbMath.factorial(this.k - 1);
+        return this.lambda * Math.exp(-this.lambda * x) * Math.pow(this.lambda * x, this.k - 1)
+                / ProbMath.factorial(this.k - 1);
     }
 
     /**

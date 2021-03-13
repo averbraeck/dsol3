@@ -3,9 +3,9 @@ package nl.tudelft.simulation.jstats.distributions;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * The Bernouilli distribution. For more information on this distribution see
- * <a href="https://mathworld.wolfram.com/BernouilliDistribution.html"> https://mathworld.wolfram.com/BernouilliDistribution.html
- * </a>
+ * The Bernoulli distribution, with p as the probability for success. For more information on this distribution see
+ * <a href="https://mathworld.wolfram.com/BernouilliDistribution.html">
+ * https://mathworld.wolfram.com/BernouilliDistribution.html </a>
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -21,14 +21,15 @@ public class DistBernoulli extends DistDiscrete
     /** */
     private static final long serialVersionUID = 1L;
 
-    /** p is the p-value of the Bernouilli distribution. */
+    /** p is the probability for success (X=1) of the Bernouilli distribution. */
     private final double p;
 
     /**
-     * constructs a new Bernoulli distribution. Random occurrence with two possible outcomes; used to generate other discrete
-     * random variates.
+     * constructs a new Bernoulli distribution, with p as the probability for success (X=1), where failure is associated with
+     * X=0.
      * @param stream StreamInterface; is the stream
-     * @param p double; the p-value of a Bernoulli distribution
+     * @param p double; the probability for success of the Bernoulli distribution
+     * @throws IllegalArgumentException when p &lt; 0 or p &gt; 1
      */
     public DistBernoulli(final StreamInterface stream, final double p)
     {
@@ -47,7 +48,7 @@ public class DistBernoulli extends DistDiscrete
      * draws the next value from the Bernoulli distribution. More information on this distribution can be found at <br>
      * <a href="https://mathworld.wolfram.com/BernoulliDistribution.html">https://mathworld.wolfram.com/
      * BernoulliDistribution.html</a>.
-     * @return the next value {0,1}.
+     * @return the next value {0,1}, where 1 denotes success (probability p), and 0 denotes failure (probability (1-p).
      */
     @Override
     public long draw()
@@ -75,7 +76,8 @@ public class DistBernoulli extends DistDiscrete
     }
 
     /**
-     * @return p
+     * Return p, the probability for success (X=1), where failure is associated with X=0.
+     * @return double; p, the probability for success (X=1)
      */
     public final double getP()
     {
