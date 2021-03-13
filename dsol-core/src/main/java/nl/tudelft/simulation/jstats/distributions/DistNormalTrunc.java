@@ -280,7 +280,7 @@ public class DistNormalTrunc extends DistContinuous
             prob = 1 - cumulativeProbability;
         }
         int i = 0;
-        double f = 0.0; 
+        double f = 0.0;
         while (!located) // TODO: change into binary search
         {
             if (CUMULATIVE_NORMAL_PROBABILITIES[i] < prob && CUMULATIVE_NORMAL_PROBABILITIES[i + 1] >= prob)

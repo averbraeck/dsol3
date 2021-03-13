@@ -78,7 +78,7 @@ public final class DistributionsBenchmark
         StreamInterface stream = new Java2Random();
         System.out.println("DistBernoulli : " + DistributionsBenchmark.benchmark(new DistBernoulli(stream, 1.0)));
         System.out.println("DistBeta : " + DistributionsBenchmark.benchmark(new DistBeta(stream, 1.0, 2.0)));
-        System.out.println("DistBinomial : " + DistributionsBenchmark.benchmark(new DistBinomial(stream, 3L, 0.23)));
+        System.out.println("DistBinomial : " + DistributionsBenchmark.benchmark(new DistBinomial(stream, 3, 0.23)));
         System.out.println("DistConstant : " + DistributionsBenchmark.benchmark(new DistConstant(stream, 0.23)));
         System.out.println("DistDiscreteConstant : " + DistributionsBenchmark.benchmark(new DistDiscreteConstant(stream, 14)));
         System.out.println("DistDiscreteUniform : " + DistributionsBenchmark.benchmark(new DistDiscreteUniform(stream, 0, 1)));

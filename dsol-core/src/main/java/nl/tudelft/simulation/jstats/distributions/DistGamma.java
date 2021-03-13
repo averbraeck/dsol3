@@ -2,7 +2,7 @@ package nl.tudelft.simulation.jstats.distributions;
 
 import org.djutils.logger.CategoryLogger;
 
-import cern.jet.stat.Gamma;
+import nl.tudelft.simulation.jstats.math.ProbMath;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -144,7 +144,7 @@ public class DistGamma extends DistContinuous
             return 0.0;
         }
         return (Math.pow(this.scale, -this.shape) * Math.pow(x, this.shape - 1) * Math.exp(-1 * x / this.scale))
-                / Gamma.gamma(this.shape);
+                / ProbMath.gamma(this.shape);
     }
 
     /**
