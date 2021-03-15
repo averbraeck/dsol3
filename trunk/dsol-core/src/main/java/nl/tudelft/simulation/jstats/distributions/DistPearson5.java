@@ -91,6 +91,14 @@ public class DistPearson5 extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
+    public void setStream(final StreamInterface stream)
+    {
+        super.setStream(stream);
+        this.dist.setStream(stream);
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public String toString()
     {
         return "Pearson5(" + this.alpha + "," + this.beta + ")";

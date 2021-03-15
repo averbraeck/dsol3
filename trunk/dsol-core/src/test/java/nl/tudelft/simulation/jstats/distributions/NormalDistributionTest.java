@@ -133,30 +133,16 @@ public class NormalDistributionTest
         assertEquals(4.0, dist.getInverseCumulativeProbability(dist.getCumulativeProbability(4.0)), 0.05);
         assertEquals(8.0, dist.getInverseCumulativeProbability(dist.getCumulativeProbability(8.0)), 0.05);
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistLogNormal(null, 1.0, 2.0);
-            }
-        }, NullPointerException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistLogNormal(NormalDistributionTest.this.stream, 2.0, 0.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistLogNormal(NormalDistributionTest.this.stream, 2.0, -1.0);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistLogNormal(null, 1.0, 2.0); }, NullPointerException.class);
+        Try.testFail(() -> { new DistLogNormal(NormalDistributionTest.this.stream, 2.0, 0.0); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistLogNormal(NormalDistributionTest.this.stream, 2.0, -1.0); },
+                IllegalArgumentException.class);
+        
+        DistLogNormal dist1 = new DistLogNormal(new MersenneTwister(10L), 1, 2);
+        double v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw(), 1E-6);
     }
 
     /**
@@ -232,30 +218,14 @@ public class NormalDistributionTest
             assertEquals(p, stdDist.getInverseCumulativeProbability(c), 0.0001);
         }
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormal(null, 1.0, 2.0);
-            }
-        }, NullPointerException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormal(NormalDistributionTest.this.stream, 2.0, 0.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormal(NormalDistributionTest.this.stream, 2.0, -1.0);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNormal(null, 1.0, 2.0); }, NullPointerException.class);
+        Try.testFail(() -> { new DistNormal(NormalDistributionTest.this.stream, 2.0, 0.0); }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNormal(NormalDistributionTest.this.stream, 2.0, -1.0); }, IllegalArgumentException.class);
+
+        DistNormal dist1 = new DistNormal(new MersenneTwister(10L), 1, 2);
+        double v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw(), 1E-6);
     }
 
     /**
@@ -294,6 +264,11 @@ public class NormalDistributionTest
         double expectedVariance =
                 sigma * sigma * (1 + ((alpha * phi(alpha) - beta * phi(beta)) / z - Math.pow((phi(alpha) - phi(beta)) / z, 2)));
         testDist("TruncatedStandardNormal", dist, expectedMean, expectedVariance, a, b, 0.01);
+
+        DistNormalTrunc dist1 = new DistNormalTrunc(new MersenneTwister(10L), 1, 2);
+        double v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw(), 1E-6);
     }
 
     /**
@@ -449,77 +424,26 @@ public class NormalDistributionTest
     public void testTruncatedNormalExceptions()
     {
         this.stream = new MersenneTwister(20L);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormalTrunc(null, 1.0, 2.0);
-            }
-        }, NullPointerException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 0.0, 1, 2);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, -1.0, 1, 2);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 1.0, 1, 1);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 1.0, 1, 0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 0.1, 20, 21);
-            }
-        }, IllegalArgumentException.class);
-        
+        Try.testFail(() -> { new DistNormalTrunc(null, 1.0, 2.0); }, NullPointerException.class);
+        Try.testFail(() -> { new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 0.0, 1, 2); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, -1.0, 1, 2); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 1.0, 1, 1); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 1.0, 1, 0); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 0.1, 20, 21); },
+                IllegalArgumentException.class);
+
         DistNormalTrunc dist = new DistNormalTrunc(NormalDistributionTest.this.stream, 2.0, 0.1, 1.0, 2.0);
         assertEquals(1.0, dist.getInverseCumulativeProbability(0), 0.0001);
         assertEquals(2.0, dist.getInverseCumulativeProbability(1), 0.0001);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                dist.getInverseCumulativeProbability(-0.1);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                dist.getInverseCumulativeProbability(1.1);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { dist.getInverseCumulativeProbability(-0.1); }, IllegalArgumentException.class);
+        Try.testFail(() -> { dist.getInverseCumulativeProbability(1.1); }, IllegalArgumentException.class);
 
     }
-    
+
     /**
      * phi function is the pdf for the standard normal distribution.
      * @param xi double; value to calculate the pdf for

@@ -143,6 +143,14 @@ public class DistNormal extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
+    public void setStream(final StreamInterface stream)
+    {
+        super.setStream(stream);
+        this.haveNextNextGaussian = false;
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public String toString()
     {
         return "Normal(" + this.mu + "," + this.sigma + ")";

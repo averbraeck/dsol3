@@ -99,30 +99,14 @@ public class DiscreteDistributionTest
         assertEquals(0.25, dist.probability(1), 0.0001);
         assertEquals(0.0, dist.probability(2), 0.0001);
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistBernoulli(null, 0.1);
-            }
-        }, NullPointerException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistBernoulli(DiscreteDistributionTest.this.stream, -0.1);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistBernoulli(DiscreteDistributionTest.this.stream, 2.0);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistBernoulli(null, 0.1); }, NullPointerException.class);
+        Try.testFail(() -> { new DistBernoulli(DiscreteDistributionTest.this.stream, -0.1); }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistBernoulli(DiscreteDistributionTest.this.stream, 2.0); }, IllegalArgumentException.class);
+
+        DistBernoulli dist1 = new DistBernoulli(new MersenneTwister(10L), 0.75);
+        long v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw());
     }
 
     /**
@@ -149,38 +133,17 @@ public class DiscreteDistributionTest
         assertEquals(0.0, dist.probability(5), 0.0001);
         assertEquals(0.0, dist.probability(-1), 0.0001);
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistBinomial(null, 4, 0.1);
-            }
-        }, NullPointerException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistBinomial(DiscreteDistributionTest.this.stream, -4, 0.1);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistBinomial(DiscreteDistributionTest.this.stream, 2, -0.1);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistBinomial(DiscreteDistributionTest.this.stream, 2, 1.1);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistBinomial(null, 4, 0.1); }, NullPointerException.class);
+        Try.testFail(() -> { new DistBinomial(DiscreteDistributionTest.this.stream, -4, 0.1); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistBinomial(DiscreteDistributionTest.this.stream, 2, -0.1); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistBinomial(DiscreteDistributionTest.this.stream, 2, 1.1); }, IllegalArgumentException.class);
+
+        DistBinomial dist1 = new DistBinomial(new MersenneTwister(10L), 5, 0.75);
+        long v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw());
     }
 
     /**
@@ -201,14 +164,12 @@ public class DiscreteDistributionTest
         assertEquals(0.0, dist.probability(1), 0.0001);
         assertEquals(1.0, dist.probability(7), 0.0001);
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistDiscreteConstant(null, 2);
-            }
-        }, NullPointerException.class);
+        Try.testFail(() -> { new DistDiscreteConstant(null, 2); }, NullPointerException.class);
+
+        DistDiscreteConstant dist1 = new DistDiscreteConstant(new MersenneTwister(10L), 8L);
+        long v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw());
     }
 
     /**
@@ -235,22 +196,14 @@ public class DiscreteDistributionTest
         assertEquals(1. / 6., dist.probability(6), 0.0001);
         assertEquals(0.0, dist.probability(7), 0.0001);
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistDiscreteUniform(null, 2, 4);
-            }
-        }, NullPointerException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistDiscreteUniform(DiscreteDistributionTest.this.stream, 4, 2);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistDiscreteUniform(null, 2, 4); }, NullPointerException.class);
+        Try.testFail(() -> { new DistDiscreteUniform(DiscreteDistributionTest.this.stream, 4, 2); },
+                IllegalArgumentException.class);
+
+        DistDiscreteUniform dist1 = new DistDiscreteUniform(new MersenneTwister(10L), 5, 10);
+        long v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw());
     }
 
     /**
@@ -276,30 +229,14 @@ public class DiscreteDistributionTest
             }
         }
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistGeometric(DiscreteDistributionTest.this.stream, 0.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistGeometric(DiscreteDistributionTest.this.stream, -1.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistGeometric(DiscreteDistributionTest.this.stream, 1.01);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistGeometric(DiscreteDistributionTest.this.stream, 0.0); }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistGeometric(DiscreteDistributionTest.this.stream, -1.0); }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistGeometric(DiscreteDistributionTest.this.stream, 1.01); }, IllegalArgumentException.class);
+
+        DistGeometric dist1 = new DistGeometric(new MersenneTwister(10L), 0.75);
+        long v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw());
     }
 
     /**
@@ -331,46 +268,21 @@ public class DiscreteDistributionTest
             }
         }
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNegBinomial(DiscreteDistributionTest.this.stream, 0, 2.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNegBinomial(DiscreteDistributionTest.this.stream, -1, 2.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, 0.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, -1.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, 1.01);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNegBinomial(DiscreteDistributionTest.this.stream, 0, 2.0); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNegBinomial(DiscreteDistributionTest.this.stream, -1, 2.0); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, 0.0); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, -1.0); },
+                IllegalArgumentException.class);
+        Try.testFail(() -> { new DistNegBinomial(DiscreteDistributionTest.this.stream, 2, 1.01); },
+                IllegalArgumentException.class);
+
+        DistNegBinomial dist1 = new DistNegBinomial(new MersenneTwister(10L), 10, 0.75);
+        long v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw());
     }
 
     /**
@@ -396,22 +308,13 @@ public class DiscreteDistributionTest
             }
         }
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistPoisson(DiscreteDistributionTest.this.stream, 0.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new DistPoisson(DiscreteDistributionTest.this.stream, -1.0);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistPoisson(DiscreteDistributionTest.this.stream, 0.0); }, IllegalArgumentException.class);
+        Try.testFail(() -> { new DistPoisson(DiscreteDistributionTest.this.stream, -1.0); }, IllegalArgumentException.class);
+
+        DistPoisson dist1 = new DistPoisson(new MersenneTwister(10L), 8.3);
+        long v = dist1.draw();
+        dist1.setStream(new MersenneTwister(10L));
+        assertEquals(v, dist1.draw());
     }
 
     /* ************************************************************************************************************** */

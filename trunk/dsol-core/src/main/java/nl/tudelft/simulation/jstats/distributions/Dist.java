@@ -23,11 +23,12 @@ public abstract class Dist implements java.io.Serializable
 
     /** stream is the random number generator from which to draw. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final StreamInterface stream;
+    protected StreamInterface stream;
 
     /**
      * Constructs a new Distribution.
      * @param stream StreamInterface; the stream for this mathematical distribution.
+     * @throws NullPointerException when stream is null
      */
     public Dist(final StreamInterface stream)
     {
@@ -36,10 +37,23 @@ public abstract class Dist implements java.io.Serializable
     }
 
     /**
-     * @return stream
+     * Return the random number stream.
+     * @return StreamInterface; the random number stream
      */
-    public StreamInterface getStream()
+    public final StreamInterface getStream()
     {
         return this.stream;
     }
+
+    /**
+     * Replace the random number stream.
+     * @param stream StreamInterface; the new random number stream
+     * @throws NullPointerException when stream is null
+     */
+    public void setStream(final StreamInterface stream)
+    {
+        Throw.whenNull(stream, "stream for a distribution cannot be null");
+        this.stream = stream;
+    }
+
 }
