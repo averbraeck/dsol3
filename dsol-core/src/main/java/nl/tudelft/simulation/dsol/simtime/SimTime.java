@@ -47,15 +47,14 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
     public abstract void subtract(R relativeTime);
 
     /**
-     * add a number of simtimes.
-     * @param absTime T; the absolute time to add the values to.
+     * add a number of simtimes to the current time and return a clean copy with the results.
      * @param relativeTimes R...; the relative times to add.
      * @return the sum of the absolute time and the relative times.
      */
     @SuppressWarnings("unchecked")
-    public final T sum(final T absTime, final R... relativeTimes)
+    public final T sum(final R... relativeTimes)
     {
-        T ret = absTime.copy();
+        T ret = copy();
         for (R relTime : relativeTimes)
         {
             ret.add(relTime);
@@ -253,6 +252,6 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
     @Override
     public String toString()
     {
-        return "" + get();
+        return get().toString();
     }
 }
