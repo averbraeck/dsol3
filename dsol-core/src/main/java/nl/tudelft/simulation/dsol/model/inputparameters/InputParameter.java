@@ -44,6 +44,7 @@ public interface InputParameter<VT, CT> extends Serializable, Cloneable
     /**
      * Change the default value of the input parameter.
      * @param newValue VT; the new default value for the input parameter
+     * @throws NullPointerException when newValue is null
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
     void setDefaultValue(VT newValue) throws InputParameterException;
@@ -99,7 +100,6 @@ public interface InputParameter<VT, CT> extends Serializable, Cloneable
     /**
      * Provide the clone() method to make a deep copy.
      * @return a deep copy of the InputParameter
-     * @throws CloneNotSupportedException in case cloning not implemented
      */
-    InputParameter<?, ?> clone() throws CloneNotSupportedException;
+    InputParameter<?, ?> clone();
 }

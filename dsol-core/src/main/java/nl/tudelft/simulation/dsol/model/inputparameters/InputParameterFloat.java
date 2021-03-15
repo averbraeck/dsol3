@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.model.inputparameters;
 
+import org.djutils.exceptions.Throw;
+
 /**
  * InputParameterFloat.java. <br>
  * <br>
@@ -35,6 +37,8 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
      * @param description String; float description of the input parameter (may use HTML markup)
      * @param defaultValue float; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      */
     public InputParameterFloat(final String key, final String shortName, final String description, final float defaultValue,
             final double displayPriority)
@@ -54,6 +58,8 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
      * @param format String; the format to use in displaying the float
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, description, or format is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      */
     @SuppressWarnings("checkstyle:parameternumber")
     public InputParameterFloat(final String key, final String shortName, final String description, final float defaultValue,
@@ -61,6 +67,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
             final String format, final double displayPriority)
     {
         super(key, shortName, description, defaultValue, displayPriority);
+        Throw.whenNull(format, "format cannot be null");
         this.minimumValue = minimumValue;
         this.maximumValue = maximumValue;
         this.format = format;
@@ -101,9 +108,11 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
 
     /**
      * @param format String; set format
+     * @throws NullPointerException when format is null
      */
     public final void setFormat(final String format)
     {
+        Throw.whenNull(format, "format cannot be null");
         this.format = format;
     }
 
@@ -173,7 +182,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
 
     /** {@inheritDoc} */
     @Override
-    public InputParameterFloat clone() throws CloneNotSupportedException
+    public InputParameterFloat clone()
     {
         return (InputParameterFloat) super.clone();
     }

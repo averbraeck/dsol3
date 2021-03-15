@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.model.inputparameters;
 
+import org.djutils.exceptions.Throw;
+
 /**
  * InputParameterBoolean.java. <br>
  * <br>
@@ -20,11 +22,14 @@ public class InputParameterString extends AbstractInputParameter<String, String>
      * @param description String; long description of the input parameter (may use HTML markup)
      * @param defaultValue String; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, description, or defaultValue is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      */
     public InputParameterString(final String key, final String shortName, final String description, final String defaultValue,
             final double displayPriority)
     {
         super(key, shortName, description, defaultValue, displayPriority);
+        Throw.whenNull(defaultValue, "defaultValue cannot be null");
     }
 
     /** {@inheritDoc} */
@@ -46,7 +51,7 @@ public class InputParameterString extends AbstractInputParameter<String, String>
 
     /** {@inheritDoc} */
     @Override
-    public InputParameterString clone() throws CloneNotSupportedException
+    public InputParameterString clone()
     {
         return (InputParameterString) super.clone();
     }

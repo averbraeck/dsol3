@@ -31,6 +31,8 @@ public abstract class InputParameterMapDistContinuous extends InputParameterMap
      * @param shortName String; concise description of the input parameter
      * @param description String; long description of the input parameter (may use HTML markup)
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      */
     public InputParameterMapDistContinuous(final String key, final String shortName, final String description,
             final double displayPriority)
@@ -74,7 +76,7 @@ public abstract class InputParameterMapDistContinuous extends InputParameterMap
 
     /** {@inheritDoc} */
     @Override
-    public InputParameterMapDistContinuous clone() throws CloneNotSupportedException
+    public InputParameterMapDistContinuous clone()
     {
         InputParameterMapDistContinuous clonedMap = (InputParameterMapDistContinuous) super.clone();
         clonedMap.dist = this.dist;

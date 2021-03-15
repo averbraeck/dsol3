@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.djunits.unit.Unit;
 import org.djunits.value.vfloat.scalar.base.AbstractFloatScalar;
+import org.djutils.exceptions.Throw;
 import org.djutils.reflection.ClassUtil;
 
 /**
@@ -43,6 +44,8 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      * @param description String; float description of the input parameter (may use HTML markup)
      * @param defaultValue T; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
     public InputParameterFloatScalar(final String key, final String shortName, final String description, final T defaultValue,
@@ -63,6 +66,9 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
      * @param format String; the format to use in displaying the float
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, description, format, minimumValue, maximumValue, or
+     *             defaultValue is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
     @SuppressWarnings("checkstyle:parameternumber")
@@ -72,6 +78,10 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     {
         this(key, shortName, description, defaultValue, minimumValue.si, maximumValue.si, minIncluded, maxIncluded, format,
                 displayPriority);
+        Throw.whenNull(format, "format cannot be null");
+        Throw.whenNull(defaultValue, "defaultValue cannot be null");
+        Throw.whenNull(minimumValue, "minimumValue cannot be null");
+        Throw.whenNull(maximumValue, "maximumValue cannot be null");
     }
 
     /**
@@ -86,6 +96,8 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      * @param maxIncluded boolean; is the maximum value included or excluded in the allowed interval?
      * @param format String; the format to use in displaying the float
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, description, format, or defaultValue is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
     @SuppressWarnings("checkstyle:parameternumber")
@@ -94,6 +106,8 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
             final String format, final double displayPriority) throws InputParameterException
     {
         super(key, shortName, description, defaultValue, displayPriority);
+        Throw.whenNull(format, "format cannot be null");
+        Throw.whenNull(defaultValue, "defaultValue cannot be null");
         add(new InputParameterFloat("value", "value", "float value in the given unit", defaultValue.getInUnit(),
                 -Float.MAX_VALUE, Float.MAX_VALUE, false, false, format, 1.0));
         add(new InputParameterUnit<U>("unit", "unit", "unit for the value", defaultValue.getDisplayUnit(), 2.0));
@@ -245,7 +259,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
-    public InputParameterFloatScalar<U, T> clone() throws CloneNotSupportedException
+    public InputParameterFloatScalar<U, T> clone()
     {
         InputParameterFloatScalar<U, T> clonedMap = (InputParameterFloatScalar<U, T>) super.clone();
         clonedMap.minimumValueSI = this.minimumValueSI;

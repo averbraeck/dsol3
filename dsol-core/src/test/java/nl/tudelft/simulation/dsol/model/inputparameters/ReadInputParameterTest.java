@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.model.inputparameters;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import org.djunits.value.vdouble.scalar.Length;
 import org.djunits.value.vdouble.scalar.Speed;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
+import org.djutils.exceptions.Try;
 import org.junit.Test;
 
 import nl.tudelft.simulation.dsol.model.inputparameters.reader.ReadInputParameters;
@@ -85,16 +85,9 @@ public class ReadInputParameterTest
         ReadInputParameters.loadFromArgs(args, map);
         assertEquals(5, ip5.getCalculatedValue().intValue());
 
-        args = new String[] {"int=-10"};
-        try
-        {
-            ReadInputParameters.loadFromArgs(args, map);
-            fail("int=-10 should have given an error");
-        }
-        catch (InputParameterException exception)
-        {
-            // expected behavior
-        }
+        final String[] args1 = new String[] {"int=-10"};
+        Try.testFail(() -> { ReadInputParameters.loadFromArgs(args1, map); }, "int=-10 should have given an error",
+                InputParameterException.class);
         assertEquals(5, ip5.getCalculatedValue().intValue()); // value should be unchanged
 
         InputParameterLong ip6 =
@@ -105,16 +98,9 @@ public class ReadInputParameterTest
         ReadInputParameters.loadFromArgs(args, map);
         assertEquals(-5L, ip6.getCalculatedValue().intValue());
 
-        args = new String[] {"int=200"};
-        try
-        {
-            ReadInputParameters.loadFromArgs(args, map);
-            fail("int=200 should have given an error");
-        }
-        catch (InputParameterException exception)
-        {
-            // expected behavior
-        }
+        final String[] args2 = new String[] {"int=200"};
+        Try.testFail(() -> { ReadInputParameters.loadFromArgs(args2, map); }, "int=200 should have given an error",
+                InputParameterException.class);
         assertEquals(-5L, ip6.getCalculatedValue().intValue()); // value should be unchanged
     }
 
@@ -169,16 +155,9 @@ public class ReadInputParameterTest
         ReadInputParameters.loadFromArgs(args, map);
         assertEquals("NL", ip.getCalculatedValue());
 
-        args = new String[] {"list=XY"};
-        try
-        {
-            ReadInputParameters.loadFromArgs(args, map);
-            fail("list=XY should have given an error");
-        }
-        catch (InputParameterException exception)
-        {
-            // expected behavior
-        }
+        final String[] args1 = new String[] {"list=XY"};
+        Try.testFail(() -> { ReadInputParameters.loadFromArgs(args1, map); }, "list=XY should have given an error",
+                InputParameterException.class);
         assertEquals("NL", ip.getCalculatedValue()); // value should be unchanged
 
     }
@@ -236,16 +215,8 @@ public class ReadInputParameterTest
         assertEquals(30.0, dt.getMax(), 0.0001);
 
         // wrong nr of args
-        args = new String[] {"dc=TRIA(10,20)"};
-        try
-        {
-            ReadInputParameters.loadFromArgs(args, map);
-            fail("dc=TRIA(10,20) should have given an error");
-        }
-        catch (Exception e)
-        {
-            // ok!
-        }
+        final String[] args1 = new String[] {"dc=TRIA(10,20)"};
+        Try.testFail(() -> { ReadInputParameters.loadFromArgs(args1, map); }, "dc=TRIA(10,20) should have given an error");
     }
 
     /**

@@ -34,6 +34,8 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
      * @param options List&lt;T&gt;; the list of selection options
      * @param defaultValue T; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      * @throws InputParameterException in case the default value is not part of the list
      */
     public InputParameterSelectionList(final String key, final String shortName, final String description,
@@ -56,6 +58,8 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
      * @param options T[]; the array of selection options
      * @param defaultValue T; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      * @throws InputParameterException in case the default value is not part of the list
      */
     public InputParameterSelectionList(final String key, final String shortName, final String description, final T[] options,
@@ -127,7 +131,7 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
-    public InputParameterSelectionList<T> clone() throws CloneNotSupportedException
+    public InputParameterSelectionList<T> clone()
     {
         InputParameterSelectionList<T> ipsl = (InputParameterSelectionList<T>) super.clone();
         List<T> clonedList = new ArrayList<>();

@@ -27,6 +27,8 @@ public class InputParameterUnit<U extends Unit<U>> extends InputParameterSelecti
      * @param description String; double description of the input parameter (may use HTML markup)
      * @param defaultValue U; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      * @throws InputParameterException when unit for the default value cannot be found in the unit definition
      */
     public InputParameterUnit(final String key, final String shortName, final String description, final U defaultValue,
@@ -55,7 +57,7 @@ public class InputParameterUnit<U extends Unit<U>> extends InputParameterSelecti
 
     /** {@inheritDoc} */
     @Override
-    public InputParameterUnit<U> clone() throws CloneNotSupportedException
+    public InputParameterUnit<U> clone()
     {
         return (InputParameterUnit<U>) super.clone();
     }

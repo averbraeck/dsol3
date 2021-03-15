@@ -20,6 +20,8 @@ public class InputParameterBoolean extends AbstractInputParameter<Boolean, Boole
      * @param description String; long description of the input parameter (may use HTML markup)
      * @param defaultValue boolean; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      */
     public InputParameterBoolean(final String key, final String shortName, final String description, final boolean defaultValue,
             final double displayPriority)
@@ -46,7 +48,7 @@ public class InputParameterBoolean extends AbstractInputParameter<Boolean, Boole
 
     /** {@inheritDoc} */
     @Override
-    public InputParameterBoolean clone() throws CloneNotSupportedException
+    public InputParameterBoolean clone()
     {
         return (InputParameterBoolean) super.clone();
     }
