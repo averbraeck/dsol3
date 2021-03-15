@@ -35,6 +35,8 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
      * @param options SortedMap&lt;K,T&gt;; the list of selection options
      * @param defaultValue T; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      * @throws InputParameterException in case the default value is not part of the list
      */
     public InputParameterSelectionMap(final String key, final String shortName, final String description,
@@ -135,7 +137,7 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
-    public InputParameterSelectionMap<K, T> clone() throws CloneNotSupportedException
+    public InputParameterSelectionMap<K, T> clone()
     {
         InputParameterSelectionMap<K, T> ipsm = (InputParameterSelectionMap<K, T>) super.clone();
         SortedMap<K, T> clonedMap = new TreeMap<>(this.options.comparator());

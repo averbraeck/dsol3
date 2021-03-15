@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.model.inputparameters;
 
+import org.djutils.exceptions.Throw;
+
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -28,12 +30,15 @@ public class InputParameterDistContinuous extends AbstractInputParameter<DistCon
      * @param defaultValue DistContinuous; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
      * @throws InputParameterException in case the default value is not part of the list
+     * @throws NullPointerException when key, shortName, defaultValue, description, or stream is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      */
     public InputParameterDistContinuous(final String key, final String shortName, final String description,
             final StreamInterface stream, final DistContinuous defaultValue, final double displayPriority)
             throws InputParameterException
     {
         super(key, shortName, description, defaultValue, displayPriority);
+        Throw.whenNull(stream, "stream cannot be null");
         this.stream = stream;
     }
 
@@ -54,25 +59,31 @@ public class InputParameterDistContinuous extends AbstractInputParameter<DistCon
 
     /**
      * @param stream StreamInterface; set stream
+     * @throws NullPointerException when stream is null
      */
     public final void setStream(final StreamInterface stream)
     {
+        Throw.whenNull(stream, "stream cannot be null");
         this.stream = stream;
+        getDefaultValue().setStream(stream);
+        getValue().setStream(stream);
     }
 
     /**
      * Set the value of the distribution.
      * @param dist DistContinuous; the distribution to set the value to
-     * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
+     * @throws NullPointerException when dist is null
+     * @throws InputParameterException when this InputParameter is read-only, or dist is not valid
      */
     public final void setDistValue(final DistContinuous dist) throws InputParameterException
     {
+        Throw.whenNull(dist, "dist cannot be null");
         setValue(dist);
     }
 
     /** {@inheritDoc} */
     @Override
-    public InputParameterDistContinuous clone() throws CloneNotSupportedException
+    public InputParameterDistContinuous clone()
     {
         return (InputParameterDistContinuous) super.clone();
     }

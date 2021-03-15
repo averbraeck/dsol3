@@ -35,6 +35,8 @@ public abstract class AbstractInputParameterTypedMap<T> extends AbstractInputPar
      * @param description String; long description of the input parameter (may use HTML markup)
      * @param defaultTypedValue T; the default value in the corresponding type
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      */
     public AbstractInputParameterTypedMap(final String key, final String shortName, final String description,
             final T defaultTypedValue, final double displayPriority)
@@ -69,7 +71,7 @@ public abstract class AbstractInputParameterTypedMap<T> extends AbstractInputPar
 
     /** {@inheritDoc} */
     @Override
-    public AbstractInputParameterTypedMap<T> clone() throws CloneNotSupportedException
+    public AbstractInputParameterTypedMap<T> clone()
     {
         @SuppressWarnings("unchecked")
         AbstractInputParameterTypedMap<T> clonedMap = (AbstractInputParameterTypedMap<T>) super.clone();

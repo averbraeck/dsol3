@@ -1,5 +1,7 @@
 package nl.tudelft.simulation.dsol.model.inputparameters;
 
+import org.djutils.exceptions.Throw;
+
 /**
  * Abstract input parameter.
  * <p>
@@ -48,10 +50,18 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
      * @param description String; long description of the input parameter (may use HTML markup)
      * @param defaultValue VT; the default value of this input parameter
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, or description is null
+     * @throws IllegalArgumentException when displayPriority is NaN, or when key contains a period
      */
     public AbstractInputParameter(final String key, final String shortName, final String description, final VT defaultValue,
             final double displayPriority)
     {
+        Throw.whenNull(key, "key should not be null");
+        Throw.when(key.contains("."), IllegalArgumentException.class, "key should not contain a period");
+        Throw.whenNull(shortName, "shortName should not be null");
+        Throw.whenNull(description, "description should not be null");
+        Throw.whenNull(defaultValue, "description should not be null");
+        Throw.when(Double.isNaN(displayPriority), IllegalArgumentException.class, "displayPriority shouldnot be NaN");
         this.key = key;
         this.shortName = shortName;
         this.description = description;
@@ -87,10 +97,12 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
      * the actual setting of the value happen. In case the setValue(...) method would be non-final and public, it would be too
      * easy to forget to call super.setValue(...).
      * @param newValue VT; the new value for the input parameter
+     * @throws NullPointerException when newValue is null
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
     protected final void setValue(final VT newValue) throws InputParameterException
     {
+        Throw.whenNull(newValue, "InputParameter.setValue not allowed with null argument");
         if (isReadOnly())
         {
             throw new InputParameterException("The InputParameter with key " + getExtendedKey() + " is read-only");
@@ -109,6 +121,7 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
     @Override
     public void setDefaultValue(final VT newValue) throws InputParameterException
     {
+        Throw.whenNull(newValue, "InputParameter.setDefaultValue not allowed with null argument");
         this.defaultValue = newValue;
     }
 
@@ -172,9 +185,16 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
 
     /** {@inheritDoc} */
     @Override
-    public AbstractInputParameter<?, ?> clone() throws CloneNotSupportedException
+    public AbstractInputParameter<?, ?> clone()
     {
-        return (AbstractInputParameter<?, ?>) super.clone();
+        try
+        {
+            return (AbstractInputParameter<?, ?>) super.clone();
+        }
+        catch (CloneNotSupportedException cnse)
+        {
+            throw new RuntimeException("Clone AbstractInputParameter", cnse);
+        }
     }
 
 }

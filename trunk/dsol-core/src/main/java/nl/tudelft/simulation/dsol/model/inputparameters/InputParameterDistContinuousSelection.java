@@ -72,12 +72,15 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
      * @param description String; long description of the input parameter (may use HTML markup)
      * @param stream StreamInterface; the random number stream to use for the distribution
      * @param displayPriority double; sorting order when properties are displayed to the user
+     * @throws NullPointerException when key, shortName, defaultValue, description, or stream is null
+     * @throws IllegalArgumentException when displayPriority is NaN
      * @throws InputParameterException in case the default value is not part of the list; should not happen
      */
     public InputParameterDistContinuousSelection(final String key, final String shortName, final String description,
             final StreamInterface stream, final double displayPriority) throws InputParameterException
     {
         super(key, shortName, description, distOptions, distOptions.get("Exponential"), displayPriority);
+        Throw.whenNull(stream, "stream cannot be null");
         this.stream = stream;
         for (InputParameterMapDistContinuous dist : getOptions().values())
         {
@@ -140,14 +143,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         {
             Throw.when((Double) get("alpha1").getValue() <= 0.0, InputParameterException.class, "DistBeta: alpha1 <= 0.0");
             Throw.when((Double) get("alpha2").getValue() <= 0.0, InputParameterException.class, "DistBeta: alpha2 <= 0.0");
-            try
-            {
-                this.dist = new DistBeta(getStream(), (Double) get("alpha1").getValue(), (Double) get("alpha2").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistBeta: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistBeta(getStream(), (Double) get("alpha1").getValue(), (Double) get("alpha2").getValue());
         }
     }
 
@@ -172,14 +168,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         @Override
         public void setDist() throws InputParameterException
         {
-            try
-            {
-                this.dist = new DistConstant(getStream(), (Double) get("c").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistConstant: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistConstant(getStream(), (Double) get("c").getValue());
         }
     }
 
@@ -208,14 +197,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         {
             Throw.when((Double) get("scale").getValue() <= 0.0, InputParameterException.class, "DistErlang: scale <= 0.0");
             Throw.when((Integer) get("k").getValue() <= 0, InputParameterException.class, "DistErlang: k <= 0");
-            try
-            {
-                this.dist = new DistErlang(getStream(), (Double) get("scale").getValue(), (Integer) get("k").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistErlang: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistErlang(getStream(), (Double) get("scale").getValue(), (Integer) get("k").getValue());
         }
     }
 
@@ -242,14 +224,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         {
             Throw.when((Double) get("lambda").getValue() <= 0.0, InputParameterException.class,
                     "DistExponential: lambda <= 0.0");
-            try
-            {
-                this.dist = new DistExponential(getStream(), (Double) get("lambda").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistExponential: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistExponential(getStream(), (Double) get("lambda").getValue());
         }
     }
 
@@ -266,24 +241,19 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         public Gamma() throws InputParameterException
         {
             super("Gamma", "Gamma", "Gamma distribution", 1.0);
-            add(new InputParameterDouble("alpha", "alpha", "alpha value", 1.0, 0.0, Double.MAX_VALUE, false, false, "%f", 1.0));
-            add(new InputParameterDouble("beta", "beta", "beta value", 1.0, 0.0, Double.MAX_VALUE, false, false, "%f", 2.0));
+            add(new InputParameterDouble("shape", "shape", "shape (alpha) value", 1.0, 0.0, Double.MAX_VALUE, false, false,
+                    "%f", 1.0));
+            add(new InputParameterDouble("scale", "scale", "scale (beta) value", 1.0, 0.0, Double.MAX_VALUE, false, false, "%f",
+                    2.0));
         }
 
         /** {@inheritDoc} */
         @Override
         public void setDist() throws InputParameterException
         {
-            Throw.when((Double) get("alpha").getValue() <= 0.0, InputParameterException.class, "DistGamma: alpha <= 0.0");
-            Throw.when((Double) get("beta").getValue() <= 0.0, InputParameterException.class, "DistGamma: beta <= 0.0");
-            try
-            {
-                this.dist = new DistGamma(getStream(), (Double) get("alpha").getValue(), (Double) get("beta").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistGamma: " + exception.getMessage(), exception);
-            }
+            Throw.when((Double) get("shape").getValue() <= 0.0, InputParameterException.class, "DistGamma: shape <= 0.0");
+            Throw.when((Double) get("scale").getValue() <= 0.0, InputParameterException.class, "DistGamma: scale <= 0.0");
+            this.dist = new DistGamma(getStream(), (Double) get("shape").getValue(), (Double) get("scale").getValue());
         }
     }
 
@@ -300,10 +270,11 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         public LogNormal() throws InputParameterException
         {
             super("LogNormal", "LogNormal", "LogNormal distribution", 1.0);
-            add(new InputParameterDouble("mu", "mu", "mu value, mean of the LogNormal distribution", 0.0, -Double.MAX_VALUE,
-                    Double.MAX_VALUE, false, false, "%f", 1.0));
-            add(new InputParameterDouble("sigma", "sigma", "sigma value, standard deviation of the LogNormal distribution", 1.0,
-                    0.0, Double.MAX_VALUE, false, false, "%f", 2.0));
+            add(new InputParameterDouble("mu", "mu", "mu value, mean of the underlying Normal distribution", 0.0,
+                    -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 1.0));
+            add(new InputParameterDouble("sigma", "sigma",
+                    "sigma value, standard deviation of the underlying Normal distribution", 1.0, 0.0, Double.MAX_VALUE, false,
+                    false, "%f", 2.0));
         }
 
         /** {@inheritDoc} */
@@ -311,14 +282,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         public void setDist() throws InputParameterException
         {
             Throw.when((Double) get("sigma").getValue() <= 0.0, InputParameterException.class, "DistLogNormal: sigma <= 0.0");
-            try
-            {
-                this.dist = new DistLogNormal(getStream(), (Double) get("mu").getValue(), (Double) get("sigma").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistLogNormal: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistLogNormal(getStream(), (Double) get("mu").getValue(), (Double) get("sigma").getValue());
         }
     }
 
@@ -346,14 +310,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         public void setDist() throws InputParameterException
         {
             Throw.when((Double) get("sigma").getValue() < 0.0, InputParameterException.class, "DistNormal: sigma < 0.0");
-            try
-            {
-                this.dist = new DistNormal(getStream(), (Double) get("mu").getValue(), (Double) get("sigma").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistNormal: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistNormal(getStream(), (Double) get("mu").getValue(), (Double) get("sigma").getValue());
         }
     }
 
@@ -380,14 +337,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         {
             Throw.when((Double) get("alpha").getValue() <= 0.0, InputParameterException.class, "DistPearson5: alpha <= 0.0");
             Throw.when((Double) get("beta").getValue() <= 0.0, InputParameterException.class, "DistPearson5: beta <= 0.0");
-            try
-            {
-                this.dist = new DistPearson5(getStream(), (Double) get("alpha").getValue(), (Double) get("beta").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistPearson5: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistPearson5(getStream(), (Double) get("alpha").getValue(), (Double) get("beta").getValue());
         }
     }
 
@@ -418,15 +368,8 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
             Throw.when((Double) get("alpha1").getValue() <= 0.0, InputParameterException.class, "DistPearson6: alpha1 <= 0.0");
             Throw.when((Double) get("alpha2").getValue() <= 0.0, InputParameterException.class, "DistPearson6: alpha2 <= 0.0");
             Throw.when((Double) get("beta").getValue() <= 0.0, InputParameterException.class, "DistPearson6: beta <= 0.0");
-            try
-            {
-                this.dist = new DistPearson6(getStream(), (Double) get("alpha1").getValue(), (Double) get("alpha2").getValue(),
-                        (Double) get("beta").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistPearson6: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistPearson6(getStream(), (Double) get("alpha1").getValue(), (Double) get("alpha2").getValue(),
+                    (Double) get("beta").getValue());
         }
     }
 
@@ -443,11 +386,11 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         public Triangular() throws InputParameterException
         {
             super("Triangular", "Triangular", "Triangular distribution", 1.0);
-            add(new InputParameterDouble("a", "min", "a value, lowest value of the Triangular distribution", 0.0,
+            add(new InputParameterDouble("min", "min", "minimum value, lowest value of the Triangular distribution", 0.0,
                     -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 1.0));
-            add(new InputParameterDouble("b", "mode", "b value, mode value of the Triangular distribution", 1.0,
+            add(new InputParameterDouble("mode", "mode", "mode value of the Triangular distribution", 1.0,
                     -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 2.0));
-            add(new InputParameterDouble("c", "max", "c value, highest value of the Triangular distribution", 2.0,
+            add(new InputParameterDouble("max", "max", "max value, highest value of the Triangular distribution", 2.0,
                     -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 3.0));
         }
 
@@ -455,23 +398,16 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         @Override
         public void setDist() throws InputParameterException
         {
-            Throw.when((Double) get("a").getValue() > (Double) get("b").getValue(), InputParameterException.class,
-                    "DistTriangular: a > b");
-            Throw.when((Double) get("b").getValue() > (Double) get("c").getValue(), InputParameterException.class,
-                    "DistTriangular: b > c");
+            Throw.when((Double) get("min").getValue() > (Double) get("mode").getValue(), InputParameterException.class,
+                    "DistTriangular: min > mode");
+            Throw.when((Double) get("mode").getValue() > (Double) get("max").getValue(), InputParameterException.class,
+                    "DistTriangular: mode > max");
             Throw.when(
-                    ((Double) get("a").getValue()).equals(get("b").getValue())
-                            && ((Double) get("b").getValue()).equals(get("c").getValue()),
-                    InputParameterException.class, "DistTriangular: a == b == c");
-            try
-            {
-                this.dist = new DistTriangular(getStream(), (Double) get("a").getValue(), (Double) get("b").getValue(),
-                        (Double) get("c").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistTriangular: " + exception.getMessage(), exception);
-            }
+                    ((Double) get("min").getValue()).equals(get("mode").getValue())
+                            && ((Double) get("mode").getValue()).equals(get("max").getValue()),
+                    InputParameterException.class, "DistTriangular: min == mode == max");
+            this.dist = new DistTriangular(getStream(), (Double) get("min").getValue(), (Double) get("mode").getValue(),
+                    (Double) get("max").getValue());
         }
     }
 
@@ -488,9 +424,9 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         public Uniform() throws InputParameterException
         {
             super("Uniform", "Uniform", "Uniform distribution", 1.0);
-            add(new InputParameterDouble("a", "min", "a value, lowest value of the Uniform distribution", 0.0,
+            add(new InputParameterDouble("min", "min", "min value, lowest value of the Uniform distribution", 0.0,
                     -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 1.0));
-            add(new InputParameterDouble("b", "max", "b value, highest value of the Uniform distribution", 1.0,
+            add(new InputParameterDouble("max", "max", "max value, highest value of the Uniform distribution", 1.0,
                     -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 2.0));
         }
 
@@ -498,16 +434,9 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         @Override
         public void setDist() throws InputParameterException
         {
-            Throw.when((Double) get("a").getValue() >= (Double) get("b").getValue(), InputParameterException.class,
+            Throw.when((Double) get("min").getValue() >= (Double) get("max").getValue(), InputParameterException.class,
                     "DistUniform: a >= b");
-            try
-            {
-                this.dist = new DistUniform(getStream(), (Double) get("a").getValue(), (Double) get("b").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistUniform: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistUniform(getStream(), (Double) get("min").getValue(), (Double) get("max").getValue());
         }
     }
 
@@ -534,14 +463,7 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
         {
             Throw.when((Double) get("alpha").getValue() <= 0.0, InputParameterException.class, "DistWeibull: alpha <= 0.0");
             Throw.when((Double) get("beta").getValue() <= 0.0, InputParameterException.class, "DistWeibull: beta <= 0.0");
-            try
-            {
-                this.dist = new DistWeibull(getStream(), (Double) get("alpha").getValue(), (Double) get("beta").getValue());
-            }
-            catch (Exception exception)
-            {
-                throw new InputParameterException("DistWeibull: " + exception.getMessage(), exception);
-            }
+            this.dist = new DistWeibull(getStream(), (Double) get("alpha").getValue(), (Double) get("beta").getValue());
         }
     }
 
