@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import org.djutils.draw.bounds.Bounds2d;
 import org.junit.Test;
 
 import nl.tudelft.simulation.language.d2.DirectionalLine.Side;
@@ -143,7 +144,7 @@ public class D2Test
     }
 
     /**
-     * Shape test.
+     * Shape test (screen coordinates).
      */
     @Test
     public final void shapeTest()
@@ -170,5 +171,35 @@ public class D2Test
         assertFalse(Shape.contains(r2244, r0033));
         assertFalse(Shape.contains(r0033, r2244));
         assertTrue(Shape.intersects(r2244, r0033));
+    }
+    
+    /**
+     * Shape2d test (world coordinates).
+     */
+    @Test
+    public final void shape2dTest()
+    {
+        Bounds2d r0011 = new Bounds2d(0.0, 1.0, 0.0, 1.0);
+        Bounds2d r1122 = new Bounds2d(1.0, 2.0, 1.0, 2.0);
+        Bounds2d r0033 = new Bounds2d(0.0, 3.0, 0.0, 3.0);
+        assertTrue(Shape2d.contains(r1122, r0033));
+        assertFalse(Shape2d.contains(r0033, r1122));
+        assertTrue(Shape2d.contains(r0011, r0033));
+        assertFalse(Shape2d.contains(r0033, r0011));
+        assertFalse(Shape2d.intersects(r1122, r0033));
+        assertFalse(Shape2d.intersects(r0033, r1122));
+        assertTrue(Shape2d.overlaps(r1122, r0033));
+        assertTrue(Shape2d.overlaps(r0033, r1122));
+        assertTrue(Shape2d.overlaps(r0011, r1122)); // one point in common...
+        assertTrue(Shape2d.intersects(r0011, r1122)); // one point in common...
+        Bounds2d r4455 = new Bounds2d(4.0, 5.0, 4.0, 5.0);
+        assertFalse(Shape2d.overlaps(r0011, r4455));
+        assertFalse(Shape2d.contains(r0011, r4455));
+        assertFalse(Shape2d.intersects(r0011, r4455));
+        Bounds2d r2244 = new Bounds2d(2.0, 4.0, 2.0, 4.0);
+        assertTrue(Shape2d.overlaps(r2244, r0033));
+        assertFalse(Shape2d.contains(r2244, r0033));
+        assertFalse(Shape2d.contains(r0033, r2244));
+        assertTrue(Shape2d.intersects(r2244, r0033));
     }
 }
