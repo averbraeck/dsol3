@@ -115,6 +115,17 @@ public class DistErlang extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
+    public void setStream(final StreamInterface stream)
+    {
+        super.setStream(stream);
+        if (this.distGamma != null)
+        {
+            this.distGamma.setStream(stream);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public String toString()
     {
         return "Erlang(" + this.scale + "," + this.k + ")";

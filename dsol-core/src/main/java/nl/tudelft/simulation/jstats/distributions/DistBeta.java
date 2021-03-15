@@ -94,6 +94,15 @@ public class DistBeta extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
+    public void setStream(final StreamInterface stream)
+    {
+        super.setStream(stream);
+        this.dist1.setStream(stream);
+        this.dist2.setStream(stream);
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public String toString()
     {
         return "Beta(" + this.alpha1 + "," + this.alpha2 + ")";

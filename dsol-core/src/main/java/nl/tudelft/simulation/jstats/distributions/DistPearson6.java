@@ -110,6 +110,15 @@ public class DistPearson6 extends DistContinuous
 
     /** {@inheritDoc} */
     @Override
+    public void setStream(final StreamInterface stream)
+    {
+        super.setStream(stream);
+        this.dist1.setStream(stream);
+        this.dist2.setStream(stream);
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public String toString()
     {
         return "Pearson6(" + this.alpha1 + "," + this.alpha2 + "," + this.beta + ")";
