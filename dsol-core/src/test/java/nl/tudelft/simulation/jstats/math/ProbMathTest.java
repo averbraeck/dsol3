@@ -26,7 +26,7 @@ public class ProbMathTest
     public void testFactorial()
     {
         // Int
-        
+
         assertEquals(1.0, ProbMath.factorial(0), 0.00001);
         assertEquals(3628800.0, ProbMath.factorial(10), 0.00001);
         assertEquals(1L, ProbMath.fac(0));
@@ -34,42 +34,14 @@ public class ProbMathTest
 
         assertTrue(ProbMath.factorial(170) > 0.0);
         assertTrue(ProbMath.fac(20) > 0L);
-        
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.factorial(-1);
-            }
-        }, "factorial(-1)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.fac(-1);
-            }
-        }, "fac(-1)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.factorial(171);
-            }
-        }, "factorial(171)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.fac(21);
-            }
-        }, "fac(21)", IllegalArgumentException.class);
-        
+
+        Try.testFail(() -> { ProbMath.factorial(-1); }, "factorial(-1)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.fac(-1); }, "fac(-1)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.factorial(171); }, "factorial(171)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.fac(21); }, "fac(21)", IllegalArgumentException.class);
+
         // Long
-        
+
         assertEquals(1.0, ProbMath.factorial(0L), 0.00001);
         assertEquals(3628800.0, ProbMath.factorial(10L), 0.00001);
         assertEquals(1L, ProbMath.fac(0L));
@@ -78,38 +50,10 @@ public class ProbMathTest
         assertTrue(ProbMath.factorial(170L) > 0.0);
         assertTrue(ProbMath.fac(20L) > 0L);
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.factorial(-1L);
-            }
-        }, "factorial(-1)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.fac(-1L);
-            }
-        }, "fac(-1)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.factorial(171L);
-            }
-        }, "factorial(171)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.fac(21L);
-            }
-        }, "fac(21)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.factorial(-1L); }, "factorial(-1)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.fac(-1L); }, "fac(-1)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.factorial(171L); }, "factorial(171)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.fac(21L); }, "fac(21)", IllegalArgumentException.class);
 
     }
 
@@ -120,48 +64,20 @@ public class ProbMathTest
     public void testPermutation()
     {
         // Int
-        
+
         assertEquals(336.0, ProbMath.permutations(8, 3), 0.0001);
         assertEquals(336L, ProbMath.perm(8, 3));
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.permutations(2, 5);
-            }
-        }, "permutations(2, 5)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.perm(2, 5);
-            }
-        }, "perm(2, 5)", IllegalArgumentException.class);
-        
+        Try.testFail(() -> { ProbMath.permutations(2, 5); }, "permutations(2, 5)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.perm(2, 5); }, "perm(2, 5)", IllegalArgumentException.class);
+
         // Long
 
         assertEquals(336.0, ProbMath.permutations(8L, 3L), 0.0001);
         assertEquals(336L, ProbMath.perm(8L, 3L));
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.permutations(2L, 5L);
-            }
-        }, "permutations(2, 5)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.perm(2L, 5L);
-            }
-        }, "perm(2, 5)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.permutations(2L, 5L); }, "permutations(2, 5)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.perm(2L, 5L); }, "perm(2, 5)", IllegalArgumentException.class);
     }
 
     /**
@@ -171,48 +87,20 @@ public class ProbMathTest
     public void testCombination()
     {
         // Int
-        
+
         assertEquals(56.0, ProbMath.combinations(8, 3), 0.0001);
         assertEquals(56L, ProbMath.comb(8, 3));
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.combinations(2, 5);
-            }
-        }, "combinations(2, 5)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.comb(2, 5);
-            }
-        }, "comb(2, 5)", IllegalArgumentException.class);
-        
+        Try.testFail(() -> { ProbMath.combinations(2, 5); }, "combinations(2, 5)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.comb(2, 5); }, "comb(2, 5)", IllegalArgumentException.class);
+
         // Long
 
         assertEquals(56.0, ProbMath.combinations(8L, 3L), 0.0001);
         assertEquals(56L, ProbMath.comb(8L, 3L));
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.combinations(2L, 5L);
-            }
-        }, "combinations(2, 5)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.comb(2L, 5L);
-            }
-        }, "comb(2, 5)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.combinations(2L, 5L); }, "combinations(2, 5)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.comb(2L, 5L); }, "comb(2, 5)", IllegalArgumentException.class);
     }
 
     /**
@@ -279,30 +167,9 @@ public class ProbMathTest
             }
         }
 
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.gamma(-1);
-            }
-        }, "gamma(-1)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.beta(-1, 1);
-            }
-        }, "beta(-1, 1)", IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                ProbMath.beta(1, -1);
-            }
-        }, "beta(1, -1)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.gamma(-1); }, "gamma(-1)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.beta(-1, 1); }, "beta(-1, 1)", IllegalArgumentException.class);
+        Try.testFail(() -> { ProbMath.beta(1, -1); }, "beta(1, -1)", IllegalArgumentException.class);
 
     }
 }

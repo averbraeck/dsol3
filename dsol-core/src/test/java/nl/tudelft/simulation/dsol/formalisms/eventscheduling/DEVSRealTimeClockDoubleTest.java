@@ -120,7 +120,7 @@ public class DEVSRealTimeClockDoubleTest implements EventListenerInterface
                     // System.out.println(t);
                     try
                     {
-                        Thread.sleep(1, 0);
+                        Thread.sleep(5, 0);
                     }
                     catch (InterruptedException exception)
                     {
@@ -133,7 +133,7 @@ public class DEVSRealTimeClockDoubleTest implements EventListenerInterface
                     {
                         try
                         {
-                            Thread.sleep(1, 0);
+                            Thread.sleep(0, 1);
                         }
                         catch (InterruptedException exception)
                         {

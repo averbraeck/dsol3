@@ -39,7 +39,7 @@ public class FilterTest
         assertTrue(filter.toString().contains("10"));
         assertTrue(filter.toString().contains("accepts"));
     }
-    
+
     /**
      * tests the ZeroFilter and the CompositeFilter.
      */
@@ -70,19 +70,12 @@ public class FilterTest
         assertTrue(filter.accept("entry"));
         assertTrue(filter.getCriterion().contains("accepts every entry"));
         assertTrue(filter.getCriterion().contains("OR"));
-        
+
         assertEquals(0, CompositeFilter.Operator.AND.getValue());
         assertEquals(1, CompositeFilter.Operator.OR.getValue());
-        
+
         // test illegal and/or
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new CompositeFilter(filter1, filter2, null);
-            }
-        }, IllegalArgumentException.class);
+        Try.testFail(() -> { new CompositeFilter(filter1, filter2, null); }, IllegalArgumentException.class);
 
     }
 

@@ -162,47 +162,19 @@ public class RenderableScaleTest
         scale = new RenderableScale(2.0);
         assertEquals(20.0, scale.getXScale(extent, screen), 0.001);
         assertEquals(20.0, scale.getYScale(extent, screen), 0.001);
-        
+
         assertEquals(Double.NaN, scale.getXScale(extent, new Dimension(-10, 10)), 0.001);
         assertEquals(Double.NaN, scale.getYScale(extent, new Dimension(-10, 10)), 0.001);
         assertEquals(Double.NaN, scale.getXScale(extent, new Dimension(10, -10)), 0.001);
         assertEquals(Double.NaN, scale.getYScale(extent, new Dimension(10, -10)), 0.001);
-        
+
         scale = new RenderableScale(1.0, 0.5);
         assertEquals(0.5, scale.getObjectScaleFactor(), 0.0001);
-        
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new RenderableScale(0.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new RenderableScale(-10.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new RenderableScale(1.0, 0.0);
-            }
-        }, IllegalArgumentException.class);
-        Try.testFail(new Try.Execution()
-        {
-            @Override
-            public void execute() throws Throwable
-            {
-                new RenderableScale(1.0, -10.0);
-            }
-        }, IllegalArgumentException.class);
+
+        Try.testFail(() -> { new RenderableScale(0.0); }, IllegalArgumentException.class);
+        Try.testFail(() -> { new RenderableScale(-10.0); }, IllegalArgumentException.class);
+        Try.testFail(() -> { new RenderableScale(1.0, 0.0); }, IllegalArgumentException.class);
+        Try.testFail(() -> { new RenderableScale(1.0, -10.0); }, IllegalArgumentException.class);
     }
 
     /**
@@ -214,11 +186,11 @@ public class RenderableScaleTest
         Bounds2d extent = new Bounds2d(-100, 100, -50, 50);
         Dimension screen = new Dimension(200, 100);
         RenderableScale scale = new RenderableScale();
-        
+
         // halfway
         assertEquals(new Point2D.Double(100, 50), scale.getScreenCoordinates(new Point2d(0, 0), extent, screen));
         assertEquals(new Point2d(0, 0), scale.getWorldCoordinates(new Point2D.Double(100, 50), extent, screen));
-        
+
         // note that y is down
         assertEquals(new Point2D.Double(0, 100), scale.getScreenCoordinates(new Point2d(-100, -50), extent, screen));
         assertEquals(new Point2d(-100, -50), scale.getWorldCoordinates(new Point2D.Double(0, 100), extent, screen));
