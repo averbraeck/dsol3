@@ -95,4 +95,37 @@ public class SimTimeFloatUnit extends SimTime<FloatTime, FloatDuration, SimTimeF
         return FloatDuration.ZERO;
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.time == null) ? 0 : this.time.hashCode());
+        return result;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:needbraces")
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SimTimeFloatUnit other = (SimTimeFloatUnit) obj;
+        if (this.time == null)
+        {
+            if (other.time != null)
+                return false;
+        }
+        else if (!this.time.equals(other.time))
+            return false;
+        return true;
+    }
+
+    
 }

@@ -91,4 +91,33 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
         return 0.0d;
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(this.time);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:needbraces")
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SimTimeDouble other = (SimTimeDouble) obj;
+        if (Double.doubleToLongBits(this.time) != Double.doubleToLongBits(other.time))
+            return false;
+        return true;
+    }
+
 }

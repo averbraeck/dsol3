@@ -91,4 +91,31 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
         return 0.0f;
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Float.floatToIntBits(this.time);
+        return result;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:needbraces")
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SimTimeFloat other = (SimTimeFloat) obj;
+        if (Float.floatToIntBits(this.time) != Float.floatToIntBits(other.time))
+            return false;
+        return true;
+    }
+
 }

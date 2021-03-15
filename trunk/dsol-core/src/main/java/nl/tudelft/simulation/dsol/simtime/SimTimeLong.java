@@ -91,4 +91,31 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
         return 0L;
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (this.time ^ (this.time >>> 32));
+        return result;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    @SuppressWarnings("checkstyle:needbraces")
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SimTimeLong other = (SimTimeLong) obj;
+        if (this.time != other.time)
+            return false;
+        return true;
+    }
+    
 }
