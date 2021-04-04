@@ -53,7 +53,7 @@ public class DistDiscreteUniform extends DistDiscrete
 
     /** {@inheritDoc} */
     @Override
-    public double probability(final int observation)
+    public double probability(final long observation)
     {
         if (observation >= this.min && observation <= this.max)
         {
