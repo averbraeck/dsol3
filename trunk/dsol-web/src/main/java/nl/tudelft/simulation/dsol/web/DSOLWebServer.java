@@ -34,7 +34,7 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -93,7 +93,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
             this.animationPanel = new HTMLAnimationPanel(extent, new Dimension(800, 600), this.simulator);
 
             // get the already created elements in context(/animation/D2)
-            this.animationPanel.notify(new TimedEvent(Replication.START_REPLICATION_EVENT, this.simulator.getSourceId(), null,
+            this.animationPanel.notify(new TimedEvent(ReplicationInterface.START_REPLICATION_EVENT, this.simulator.getSourceId(), null,
                     this.simulator.getSimulatorTime()));
         }
 

@@ -16,7 +16,6 @@ import org.djutils.draw.point.Point;
 import org.djutils.draw.point.Point2d;
 import org.djutils.event.EventInterface;
 import org.djutils.logger.CategoryLogger;
-import org.djutils.metadata.ObjectDescriptor;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;

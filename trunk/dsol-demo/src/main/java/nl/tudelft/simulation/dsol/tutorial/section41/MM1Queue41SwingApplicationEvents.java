@@ -11,7 +11,7 @@ import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -107,11 +107,11 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
         SimulatorEventLogger(final DEVSSimulator.TimeDouble devsSimulator)
         {
             this.devsSimulator = devsSimulator;
-            devsSimulator.addListener(this, Replication.START_REPLICATION_EVENT);
-            devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
+            devsSimulator.addListener(this, ReplicationInterface.START_REPLICATION_EVENT);
+            devsSimulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT);
             devsSimulator.addListener(this, SimulatorInterface.START_EVENT);
             devsSimulator.addListener(this, SimulatorInterface.STOP_EVENT);
-            devsSimulator.addListener(this, Replication.WARMUP_EVENT);
+            devsSimulator.addListener(this, ReplicationInterface.WARMUP_EVENT);
             devsSimulator.addListener(this, SimulatorInterface.TIME_CHANGED_EVENT);
         }
 

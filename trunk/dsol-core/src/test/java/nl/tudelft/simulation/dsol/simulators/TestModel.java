@@ -6,7 +6,7 @@ import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.ref.ReferenceType;
 
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 
 /**
@@ -41,8 +41,8 @@ public class TestModel extends AbstractDSOLModel.TimeDouble<SimulatorInterface.T
     {
         try
         {
-            getSimulator().addListener(this, Replication.END_REPLICATION_EVENT, ReferenceType.STRONG);
-            getSimulator().addListener(this, Replication.START_REPLICATION_EVENT, ReferenceType.STRONG);
+            getSimulator().addListener(this, ReplicationInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
+            getSimulator().addListener(this, ReplicationInterface.START_REPLICATION_EVENT, ReferenceType.STRONG);
             getSimulator().addListener(this, SimulatorInterface.START_EVENT, ReferenceType.STRONG);
             getSimulator().addListener(this, SimulatorInterface.STOP_EVENT, ReferenceType.STRONG);
             getSimulator().addListener(this, SimulatorInterface.TIME_CHANGED_EVENT, ReferenceType.STRONG);
