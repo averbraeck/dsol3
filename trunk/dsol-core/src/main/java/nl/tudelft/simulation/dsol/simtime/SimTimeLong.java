@@ -117,5 +117,5 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
             return false;
         return true;
     }
-    
+
 }
