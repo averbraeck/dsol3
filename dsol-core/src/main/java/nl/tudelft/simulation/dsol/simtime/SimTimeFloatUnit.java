@@ -127,5 +127,4 @@ public class SimTimeFloatUnit extends SimTime<FloatTime, FloatDuration, SimTimeF
         return true;
     }
 
-    
 }

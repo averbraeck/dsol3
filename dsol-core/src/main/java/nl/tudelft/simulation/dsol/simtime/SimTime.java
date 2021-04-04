@@ -12,12 +12,12 @@ import java.io.Serializable;
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @param <A> the absolute storage type, e.g. Calendar for the absolute time to ensure type safety. This is the <i>absolute</i>
- *            number, e.g., a Calendar for a simulation time. For simple calendar types such as a double for simulation time,
- *            the internal (relative) and external (absolute) storage types are the same.
+ * @param <A> the absolute storage type, e.g. Time for the absolute time to ensure type safety. This is an <i>absolute</i>
+ *            number. For simple time types such as a double for simulation time, the internal (relative) and external
+ *            (absolute) storage types are the same.
  * @param <R> the relative number type, e.g. Double for the internal storage type to ensure type safety. This is the
- *            <i>relative</i> number, so in case of a Calendar for a simulation time, the relative storage type is a relative
- *            time with a unit.
+ *            <i>relative</i> number, so in case of a Time with unit for a simulation time, the relative storage type is
+ *            Duration with a unit.
  * @param <T> the extended type itself to be able to implement a comparator, and to ease the use of extension return types.
  */
 public abstract class SimTime<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
