@@ -160,14 +160,12 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                         if (absSyncTime.lt(eventOrUntilTime))
                         {
                             this.simulatorTime.set(absSyncTime.get());
-                            fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                                    this.simulatorTime);
+                            fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
                         }
                         else
                         {
                             this.simulatorTime.set(eventOrUntilTime.get());
-                            fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                                    this.simulatorTime);
+                            fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
                         }
                     }
                 }
@@ -249,8 +247,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             if (nextEventSimTime.compareTo(this.simulatorTime.get()) > 0) // don't go back in time
                             {
                                 this.simulatorTime.set(nextEventSimTime);
-                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                                        this.simulatorTime);
+                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
                             }
                             wallMillisNextEventSinceBaseline = 0.0; // force breakout of the loop
                         }
@@ -259,8 +256,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             if (currentWallSimTime.compareTo(this.simulatorTime.get()) > 0) // don't go back in time
                             {
                                 this.simulatorTime.set(currentWallSimTime);
-                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                                        this.simulatorTime);
+                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
                             }
                         }
                     }
@@ -278,7 +274,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                 {
                     if (nextEvent.getAbsoluteExecutionTime().ne(this.simulatorTime))
                     {
-                        fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, nextEvent.getAbsoluteExecutionTime(),
+                        fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null,
                                 nextEvent.getAbsoluteExecutionTime().get());
                     }
                     this.simulatorTime.set(nextEvent.getAbsoluteExecutionTime().get());
@@ -295,8 +291,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             {
                                 this.simulatorTime.set(this.runUntilTime.get());
                                 this.runState = RunState.STOPPING;
-                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                                        this.simulatorTime);
+                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
                                 break;
                             }
                             int cmp = this.eventList.first().getAbsoluteExecutionTime().compareTo(this.runUntilTime);
@@ -304,8 +299,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                             {
                                 this.simulatorTime.set(this.runUntilTime.get());
                                 this.runState = RunState.STOPPING;
-                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, this.simulatorTime,
-                                        this.simulatorTime);
+                                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, this.simulatorTime.get());
                                 break;
                             }
                         }
