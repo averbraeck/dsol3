@@ -8,7 +8,8 @@ import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 
 /**
@@ -39,9 +40,8 @@ public class MM1Queue41Application
     {
         this.simulator = new DEVSSimulator.TimeDouble("MM1Queue41Application");
         this.model = new MM1Queue41Model(this.simulator);
-        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, this.model);
-        this.simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000.0);
+        this.simulator.initialize(this.model, replication);
         this.simulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
         this.simulator.start();
     }

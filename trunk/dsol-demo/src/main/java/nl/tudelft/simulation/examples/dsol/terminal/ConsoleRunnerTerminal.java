@@ -8,12 +8,12 @@ import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterInteger;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 
 /**
@@ -45,13 +45,12 @@ public final class ConsoleRunnerTerminal implements EventListenerInterface
         double runtime = 40 * 60;
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("ConsoleRunnerTerminal");
         Terminal model = new Terminal(simulator, rep);
-        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, runtime, model);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, runtime);
         replication.getStreams().put("default", new MersenneTwister(seed++));
         InputParameterMap parameters = model.getInputParameterMap();
         ((InputParameterInteger) parameters.get("numQC")).setIntValue(numQC);
         ((InputParameterInteger) parameters.get("numAGV")).setIntValue(numAGV);
-        simulator.initialize(replication);
+        simulator.initialize(model, replication);
         simulator.scheduleEventAbs(runtime - 0.00001, this, this, "terminate", new Object[] {simulator, numQC, numAGV, rep});
         model.addListener(this, Terminal.READY_EVENT);
         simulator.start();

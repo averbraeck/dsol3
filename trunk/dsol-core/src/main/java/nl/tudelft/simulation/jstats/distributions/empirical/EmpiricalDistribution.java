@@ -46,10 +46,10 @@ public class EmpiricalDistribution implements EmpiricalDistributionInterface
      * @throws IllegalArgumentException when cumulativeProbabilities array or values array are empty, or have unequal length, or
      *             when cumulativeProbabilities are not between 0 and 1, or when cumulativeProbabilities are not in ascending
      *             order, or when values are not in ascending order, or when the last cumulative probability is not 1.0, or
-     *             there is no interpolation but the first cumulative probability is zero, or there is only one value when
-     *             interpolation is used
+     *             there is no interpolation but the first cumulative probability is zero, or there is interpolation but the
+     *             first cumulative probability is not zero, or there is only one value when interpolation is used
      */
-    protected EmpiricalDistribution(final Number[] values, final double[] cumulativeProbabilities, final boolean interpolated)
+    public EmpiricalDistribution(final Number[] values, final double[] cumulativeProbabilities, final boolean interpolated)
     {
         Throw.when(values.length == 0, IllegalArgumentException.class, "values array cannot be empty");
         Throw.when(cumulativeProbabilities.length == 0, IllegalArgumentException.class,
@@ -58,6 +58,8 @@ public class EmpiricalDistribution implements EmpiricalDistributionInterface
                 "values array and cumulativeProbabilities array should have the same length");
         Throw.when(cumulativeProbabilities[0] == 0.0 && !interpolated, IllegalArgumentException.class,
                 "no interpolation, but first cumulative probability is zero");
+        Throw.when(cumulativeProbabilities[0] != 0.0 && interpolated, IllegalArgumentException.class,
+                "interpolation, but first cumulative probability is not zero");
         Throw.when(cumulativeProbabilities.length < 2 && interpolated, IllegalArgumentException.class,
                 "interpolation needs at least two cumulative probability values");
         double prevCP = -1.0;
@@ -232,8 +234,7 @@ public class EmpiricalDistribution implements EmpiricalDistributionInterface
      * @param values Number[] the values
      * @param densities double[]; the densities for the corresponding values
      * @param interpolated boolean; indicated whether the values will be interpolated or not. When the values are interpolated,
-     *            the first entry has to have a cumulative probability of zero. When the values are not interpolated, the first
-     *            cumulative probability has to be larger than 0.0.
+     *            the first entry will get a cumulative probability of zero.
      * @return the cumulative distribution object belonging to the given distribution arrays
      * @throws NullPointerException when densities array is null or values array is null, or when one of the values is null
      * @throws IllegalArgumentException when densities array or values array are empty, or have unequal length, or when

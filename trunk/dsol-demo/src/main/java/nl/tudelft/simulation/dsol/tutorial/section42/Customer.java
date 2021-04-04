@@ -49,7 +49,7 @@ public class Customer implements BuyerInterface
         this.retailer = retailer;
         StreamInterface stream = this.simulator.getReplication().getStream("default");
         this.intervalTime = new DistExponential(stream, 0.1);
-        EmpiricalDistribution empDist = EmpiricalDistribution.createFromDensities(new double[] {1, 2, 3, 4},
+        EmpiricalDistribution empDist = EmpiricalDistribution.createFromDensities(new long[] {1, 2, 3, 4},
                 new double[] {1.0 / 6.0, 1.0 / 3.0, 1.0 / 3.0, 1.0 / 6.0}, false);
         this.orderBatchSize = new DistDiscreteEmpirical(stream, empDist);
         this.createOrder();

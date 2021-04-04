@@ -13,9 +13,9 @@ import org.djutils.event.TimedEventType;
 import org.djutils.metadata.MetaData;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -72,13 +72,11 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ * @param <A> the absolute storage type for the simulation time, e.g. Time, Float, or Double.
+ * @param <R> the relative type for time storage, e.g. Duration for absolute Time. For most non-unit types, the absolute and
  *            relative types are the same.
- * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
- * @since 1.5
+ * @param <T> the extended simulation time type to be able to implement a comparator on the simulation time.
  */
 @SuppressWarnings("checkstyle:linelength")
 public interface SimulatorInterface<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
@@ -112,22 +110,30 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
     T getSimTime();
 
     /**
-     * Returns the currently executed replication.
-     * @return the current replication
+     * Returns the currently executed replication, or null when the initialize method has not yet been called.
+     * @return ReplicationInterface&lt;A, R, T&gt;; the current replication, or null when the model has not yet been initialized
      */
-    Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> getReplication();
+    ReplicationInterface<A, R, T> getReplication();
 
     /**
-     * Initializes the simulator with a specified replication. It immediately fires a START_REPLICATION_EVENT and a
+     * Returns the currently executed model, or null when the initialize method has not yet been called.
+     * @return DSOLModel&lt;A, R, T, ? extends SimulatorInterface&gt;; the currently executed model, or null when the model has
+     *         not yet been initialized
+     */
+    DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> getModel();
+
+    /**
+     * Initializes the simulator with a replication for a model. It immediately fires a START_REPLICATION_EVENT and a
      * TIME_CHANGED_EVENT with the starting time. It does not yet fire a WARMUP_EVENT in case the warmup time is zero; this will
      * only be done after the simulator has been started. Note that the listeners of all statistics objects are removed when the
      * simulator is initialized with the replication. Connecting the statistics objects to the simulation should be done between
      * the initialize(...) method and starting the simulator, or could even be delayed till the WARMUP_EVENT has been fired.
-     * @param replication Replication&lt;A, R, T, ? extends SimulatorInterface&lt;A, R, T&gt;&gt;; the replication
-     * @param replicationMode ReplicationMode; the replication mode, i.e. steady state or terminating
+     * @param model DSOLModel&lt;A, R, T, S&gt;; the model to initialize
+     * @param replication Replication&lt;A, R, T, ? extends SimulatorInterface&lt;A, R, T&gt;&gt;; the replication to use for
+     *            running the model
      * @throws SimRuntimeException when the simulator is running
      */
-    void initialize(Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> replication, ReplicationMode replicationMode)
+    void initialize(DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model, ReplicationInterface<A, R, T> replication)
             throws SimRuntimeException;
 
     /**

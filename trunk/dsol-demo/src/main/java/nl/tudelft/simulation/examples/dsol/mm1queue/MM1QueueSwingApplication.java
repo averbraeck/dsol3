@@ -7,7 +7,8 @@ import javax.naming.NamingException;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
@@ -54,9 +55,8 @@ public class MM1QueueSwingApplication extends DSOLApplication
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("MM1QueueSwingApplication");
         MM1QueueModel model = new MM1QueueModel(simulator);
-        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 100.0);
+        simulator.initialize(model, replication);
         new TabbedParameterDialog(model.getInputParameterMap());
         new MM1QueueSwingApplication("MM1 Queue model", new MM1QueuePanel(model, simulator));
     }

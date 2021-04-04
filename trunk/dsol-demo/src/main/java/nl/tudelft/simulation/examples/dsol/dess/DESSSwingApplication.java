@@ -5,9 +5,9 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
-import nl.tudelft.simulation.dsol.simulators.DESSSimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
 
@@ -46,9 +46,8 @@ public class DESSSwingApplication extends DSOLApplication
     {
         DESSSimulator.TimeDouble simulator = new DESSSimulator.TimeDouble("DESSSwingApplication", 0.1);
         DESSModel model = new DESSModel(simulator);
-        Replication.TimeDouble<DESSSimulatorInterface.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 100.0);
+        simulator.initialize(model, replication);
         new DESSSwingApplication("DESS model", new DESSPanel(model, simulator));
     }
 

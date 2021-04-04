@@ -12,7 +12,8 @@ import org.djutils.io.URLResource;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -65,13 +66,11 @@ public class GISSwingApplication extends DSOLAnimationApplication
     {
         DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("GISSwingApplication", 0.001);
         EmptyModel model = new EmptyModel(simulator);
-        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000000.0);
+        simulator.initialize(model, replication);
 
         DSOLPanel panel = new DSOLPanel(new RealTimeControlPanel.TimeDouble(model, simulator));
-        DSOLAnimationGisTab animationTab =
-                new DSOLAnimationGisTab(new Bounds2d(-122.065, -121.997, 37.402, 37.433), simulator);
+        DSOLAnimationGisTab animationTab = new DSOLAnimationGisTab(new Bounds2d(-122.065, -121.997, 37.402, 37.433), simulator);
         animationTab.addAllToggleGISButtonText("MAP LAYERS", model.getGisMap(), "hide or show this GIS layer");
         new GISSwingApplication("GISSwingApplication", panel, animationTab);
     }

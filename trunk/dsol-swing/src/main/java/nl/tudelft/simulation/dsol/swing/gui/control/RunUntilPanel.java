@@ -122,7 +122,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
                 String stopTimeValue = (String) this.textField.getValue();
                 this.runUntilTime = parseSimulationTime(stopTimeValue);
                 if (this.runUntilTime == null || getSimulator().getSimTime().compareTo(this.runUntilTime) >= 0
-                        || getSimulator().getReplication().getTreatment().getEndSimTime().compareTo(this.runUntilTime) < 0)
+                        || getSimulator().getReplication().getEndSimTime().compareTo(this.runUntilTime) < 0)
                 {
                     cancel();
                     return;

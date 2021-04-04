@@ -56,7 +56,7 @@ public class DistConstant extends DistContinuous
 
     /**
      * Return the constant.
-     * @return double; the constant 
+     * @return double; the constant
      */
     public final double getConstant()
     {

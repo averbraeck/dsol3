@@ -8,7 +8,8 @@ import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.control.DEVSControlPanel;
@@ -65,9 +66,8 @@ public class MM1Queue41SwingApplication extends DSOLApplication
         CategoryLogger.setAllLogLevel(Level.TRACE);
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("MM1Queue41SwingApplication");
         MM1Queue41Model model = new MM1Queue41Model(simulator);
-        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000.0);
+        simulator.initialize(model, replication);
         DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, simulator);
         new MM1Queue41SwingApplication(new MM1Queue41Panel(controlPanel, model), model, simulator);
     }

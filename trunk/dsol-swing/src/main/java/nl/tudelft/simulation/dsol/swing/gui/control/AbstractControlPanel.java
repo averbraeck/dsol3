@@ -296,11 +296,11 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
                     {
                         getSimulator().getReplication().getContext().destroySubcontext("statistics");
                     }
-                    if (getSimulator().getReplication().getExperiment().getContext().hasKey("statistics"))
+                    if (getSimulator().getReplication().getContext().hasKey("statistics"))
                     {
-                        getSimulator().getReplication().getExperiment().getContext().destroySubcontext("statistics");
+                        getSimulator().getReplication().getContext().destroySubcontext("statistics");
                     }
-                    getSimulator().getReplication().getExperiment().removeFromContext(); // clean up the context
+                    // TODO: getSimulator().getReplication().getExperiment().removeFromContext(); // clean up the context
                 }
 
                 if (this.clockPanel != null)

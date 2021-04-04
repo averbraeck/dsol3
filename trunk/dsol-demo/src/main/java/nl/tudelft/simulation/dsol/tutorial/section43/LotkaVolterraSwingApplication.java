@@ -5,7 +5,8 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.simulators.DESSSimulator;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLPanel;
@@ -48,9 +49,8 @@ public class LotkaVolterraSwingApplication extends DSOLApplication
     {
         DESSSimulator.TimeDouble simulator = new DESSSimulator.TimeDouble("LotkaVolterraSwingApplication", 0.01);
         PredatorPreyModel model = new PredatorPreyModel(simulator);
-        Replication.TimeDouble<DESSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 100.0);
+        simulator.initialize(model, replication);
 
         GenericControlPanel.TimeDouble controlPanel = new GenericControlPanel.TimeDouble(model, simulator);
         new LotkaVolterraSwingApplication("DESS model", new LotkaVolterraPanel(model, controlPanel));

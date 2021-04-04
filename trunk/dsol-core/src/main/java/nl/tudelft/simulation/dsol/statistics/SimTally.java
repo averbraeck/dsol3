@@ -19,7 +19,7 @@ import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
 import org.djutils.stats.summarizers.event.EventBasedTally;
 
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -72,15 +72,15 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
     {
         super(description);
         this.simulator = simulator;
-        if (this.simulator.getSimTime().gt(this.simulator.getReplication().getTreatment().getWarmupSimTime()))
+        if (this.simulator.getSimTime().gt(this.simulator.getReplication().getWarmupSimTime()))
         {
             this.initialize();
         }
         else
         {
-            this.simulator.addListener(this, Replication.WARMUP_EVENT, ReferenceType.STRONG);
+            this.simulator.addListener(this, ReplicationInterface.WARMUP_EVENT, ReferenceType.STRONG);
         }
-        this.simulator.addListener(this, Replication.END_REPLICATION_EVENT, ReferenceType.STRONG);
+        this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
         try
         {
             ContextInterface context =
@@ -123,11 +123,11 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
     {
         if (event.getSourceId().equals(this.simulator.getSourceId()))
         {
-            if (event.getType().equals(Replication.WARMUP_EVENT))
+            if (event.getType().equals(ReplicationInterface.WARMUP_EVENT))
             {
                 try
                 {
-                    this.simulator.removeListener(this, Replication.WARMUP_EVENT);
+                    this.simulator.removeListener(this, ReplicationInterface.WARMUP_EVENT);
                 }
                 catch (RemoteException exception)
                 {
@@ -137,11 +137,11 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
                 initialize();
                 return;
             }
-            if (event.getType().equals(Replication.END_REPLICATION_EVENT))
+            if (event.getType().equals(ReplicationInterface.END_REPLICATION_EVENT))
             {
                 try
                 {
-                    this.simulator.removeListener(this, Replication.END_REPLICATION_EVENT);
+                    this.simulator.removeListener(this, ReplicationInterface.END_REPLICATION_EVENT);
                 }
                 catch (RemoteException exception)
                 {
@@ -190,8 +190,10 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
     {
         try
         {
+            // TODO: do only if replication is part of an experiment or a series of replications
+            // TODO: store one level higher than the replication itself
             ContextInterface context = ContextUtil
-                    .lookupOrCreateSubContext(this.simulator.getReplication().getExperiment().getContext(), "statistics");
+                    .lookupOrCreateSubContext(this.simulator.getReplication().getContext(), "statistics");
             EventBasedTally experimentTally;
             if (context.hasKey(getDescription()))
             {

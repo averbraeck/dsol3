@@ -96,19 +96,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
         }
         else
         {
-            Object simTime = this.simulator.getSimulatorTime();
-            if (simTime instanceof Number)
-            {
-                timeStamp = (Number) simTime;
-            }
-            else if (simTime instanceof Calendar)
-            {
-                timeStamp = ((Calendar) simTime).getTimeInMillis();
-            }
-            else
-            {
-                throw new IllegalArgumentException("Simulator has simulator time other than Number or Calendar");
-            }
+            timeStamp = (Number) this.simulator.getSimulatorTime();
         }
 
         // We have chosen to simply neglect <=0.0 values on logarithmic axis

@@ -5,6 +5,34 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.07.01" date="2021-04-04" description="Experiments and replications completely redesigned">
+      <action dev="averbraeck" type="update">
+        A simpler version of the ExperimentalFrame - Experiment - Treatment - Replication framework has
+        been implemented. For many purposes, this framework is way too complicated and rigid. It is now possible
+        to quickly tell the simulator: run 1 replication of the current model; or run n replications of the current
+        model. The order in which simulator and experiment need to be created is now totally free; when the 
+        simulator.initialize(replication) method is called, both the simulator and the replication need to
+        fully specified, of course. Note that the ReplicationMode has DISAPPEARED from the call to 
+        simulator.initialize(...). It was not used and not stored, and belongs in the Experiment rather than
+        in the call to initialize().   
+      </action>
+      <action dev="averbraeck" type="update">
+        The Replication.START_REPLICATION_EVENT, Replication.END_REPLICATION_EVENT, and Replication.WARMUP_EVENT
+        have been moved to ReplicationInterface.START_REPLICATION_EVENT, ReplicationInterface.END_REPLICATION_EVENT 
+        and ReplicationInterface.WARMUP_EVENT.
+      </action>
+      <action dev="averbraeck" type="remove">
+        The ExperimentalFrame class has been removed from DSOL. Instead, a new Experiment class has been introduced. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Some further optimizations have been made to the EmpiricalDistribution. One is how to properly transform
+        densities, frequencies and weights (in essence these are all density functions) to a cumulative distribution.
+      </action>
+      <action dev="averbraeck" type="update">
+        Unit tests for the EmpiricalDistribution have been expanded.
+      </action>
+    </release>
+    
     <release version="3.06.07" date="2021-04-03" description="empirical distributions, TIME_CHANGED_EVENT">
       <action dev="averbraeck" type="update">
         The DistEmpirical functions have been completely recoded, since the interface of the distributions

@@ -10,8 +10,8 @@ import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -75,9 +75,8 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
         DEVSSimulator.TimeDouble devsSimulator = new DEVSSimulator.TimeDouble("MM1Queue41SwingApplicationEvents");
         MM1Queue41Model model = new MM1Queue41Model(devsSimulator);
         new SimulatorEventLogger(devsSimulator);
-        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        devsSimulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000.0);
+        devsSimulator.initialize(model, replication);
         DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, devsSimulator);
         new MM1Queue41SwingApplicationEvents(new MM1Queue41Panel(controlPanel, model), model, devsSimulator);
     }

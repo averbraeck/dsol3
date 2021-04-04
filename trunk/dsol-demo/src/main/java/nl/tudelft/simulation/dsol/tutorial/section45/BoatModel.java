@@ -5,7 +5,8 @@ import java.io.Serializable;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
@@ -68,9 +69,8 @@ public class BoatModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDo
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("BoatModel");
         DSOLModel.TimeDouble<DEVSSimulator.TimeDouble> model = new BoatModel(simulator);
-        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 100.0);
+        simulator.initialize(model, replication);
         simulator.start();
     }
 

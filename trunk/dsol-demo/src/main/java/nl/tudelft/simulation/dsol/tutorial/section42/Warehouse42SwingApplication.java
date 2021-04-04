@@ -8,7 +8,8 @@ import org.djutils.stats.summarizers.event.StatisticsEvents;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
@@ -57,9 +58,8 @@ public class Warehouse42SwingApplication extends DSOLApplication
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("Warehouse42SwingApplication");
         Warehouse42Model model = new Warehouse42Model(simulator);
-        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 5 * 24.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 5 * 24.0);
+        simulator.initialize(model, replication);
         new TabbedParameterDialog(model.getInputParameterMap());
         new Warehouse42SwingApplication("MM1 Queue model", new Warehouse42Panel(model, simulator));
     }
@@ -98,7 +98,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
             getTabbedPane().setSelectedIndex(0);
             addConsoleLogger(Level.INFO);
             addConsoleOutput();
-            
+
             try
             {
                 XYChart chart = new XYChart(getSimulator(), "Inventory Levels");

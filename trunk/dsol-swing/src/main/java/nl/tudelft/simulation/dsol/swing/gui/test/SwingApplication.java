@@ -8,7 +8,8 @@ import javax.naming.NamingException;
 import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.swing.gui.DSOLApplication;
@@ -48,9 +49,8 @@ public class SwingApplication extends DSOLApplication
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("simulator");
         MyModel model = new MyModel(simulator);
-        Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000.0);
+        simulator.initialize(model, replication);
         DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, simulator);
         DSOLPanel panel = new DSOLPanel(controlPanel);
         panel.addConsoleLogger(Level.INFO);

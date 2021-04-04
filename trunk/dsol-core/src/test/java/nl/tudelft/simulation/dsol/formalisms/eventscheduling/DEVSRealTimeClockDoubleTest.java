@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import net.jodah.concurrentunit.Waiter;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
@@ -55,9 +55,8 @@ public class DEVSRealTimeClockDoubleTest implements EventListenerInterface
         this.devsSimulator = new DEVSRealTimeAnimator.TimeDouble("testDEVSSimulationDouble", 0.1);
         this.devsSimulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
-        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        this.devsSimulator.initialize(rep);
+        ReplicationInterface.TimeDouble rep = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 100.0);
+        this.devsSimulator.initialize(model, rep);
         this.devsSimulator.scheduleEventAbs(1.0, this, this, "step1", new Object[] {1.0});
         this.devsSimulator.start();
         this.waiter.await(10000);
@@ -96,9 +95,8 @@ public class DEVSRealTimeClockDoubleTest implements EventListenerInterface
         this.devsSimulator = new DEVSRealTimeAnimator.TimeDouble("testRunUpTo", 0.1);
         this.devsSimulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
-        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        this.devsSimulator.initialize(rep);
+        ReplicationInterface.TimeDouble rep = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000.0);
+        this.devsSimulator.initialize(model, rep);
         final DEVSSimulatorInterface.TimeDouble sim = this.devsSimulator;
         final Waiter w = this.waiter;
         final Object target = this;
@@ -190,9 +188,8 @@ public class DEVSRealTimeClockDoubleTest implements EventListenerInterface
         this.devsSimulator = new DEVSSimulator.TimeDouble("testSimLambda");
         this.devsSimulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
-        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        this.devsSimulator.initialize(rep);
+        ReplicationInterface.TimeDouble rep = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 100.0);
+        this.devsSimulator.initialize(model, rep);
 
         for (int i = 0; i < 10; i++)
         {

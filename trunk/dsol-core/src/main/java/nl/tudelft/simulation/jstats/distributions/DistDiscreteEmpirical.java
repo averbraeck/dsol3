@@ -64,7 +64,7 @@ public class DistDiscreteEmpirical extends DistDiscrete
         }
         double c1 = entry1.getCumulativeProbability();
         DistributionEntry entry0 = this.empiricalDistribution.getPrevEntry(c1);
-        return (entry0 == null) ? c1 : c1 - entry0.getCumulativeProbability();  
+        return (entry0 == null) ? c1 : c1 - entry0.getCumulativeProbability();
     }
 
 }

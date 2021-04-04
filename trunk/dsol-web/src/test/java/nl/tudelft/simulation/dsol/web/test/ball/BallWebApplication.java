@@ -2,7 +2,8 @@ package nl.tudelft.simulation.dsol.web.test.ball;
 
 import org.djutils.draw.bounds.Bounds2d;
 
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.web.DSOLWebServer;
 
@@ -28,7 +29,6 @@ public class BallWebApplication extends DSOLWebServer
         super(title, simulator, new Bounds2d(-100, 100, -100, 100));
     }
 
-    
     /**
      * @param args String[]; arguments, expected to be empty
      * @throws Exception on error
@@ -37,9 +37,8 @@ public class BallWebApplication extends DSOLWebServer
     {
         DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("BallWebApplication", 0.01);
         BallModel model = new BallModel(simulator);
-        Replication.TimeDouble<DEVSRealTimeAnimator.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000000.0);
+        simulator.initialize(model, replication);
         new BallWebApplication("Ball Animation model", simulator);
     }
 

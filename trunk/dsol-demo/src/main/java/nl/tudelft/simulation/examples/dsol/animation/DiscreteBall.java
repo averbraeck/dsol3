@@ -48,7 +48,8 @@ public class DiscreteBall extends Ball
      * @throws RemoteException on remote failure
      * @throws SimRuntimeException on schedule failure
      */
-    public DiscreteBall(final int nr, final DEVSSimulatorInterface.TimeDouble simulator) throws RemoteException, SimRuntimeException
+    public DiscreteBall(final int nr, final DEVSSimulatorInterface.TimeDouble simulator)
+            throws RemoteException, SimRuntimeException
     {
         super(nr);
         this.simulator = simulator;

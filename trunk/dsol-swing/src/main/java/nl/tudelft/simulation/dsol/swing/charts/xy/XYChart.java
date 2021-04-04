@@ -157,7 +157,7 @@ public class XYChart implements Swingable, Serializable
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title)
     {
-        this(simulator, title, new double[] {0, simulator.getReplication().getTreatment().getRunLength().doubleValue()});
+        this(simulator, title, new double[] {0, simulator.getReplication().getRunLength().doubleValue()});
     }
 
     /**
@@ -168,8 +168,7 @@ public class XYChart implements Swingable, Serializable
      */
     public XYChart(final SimulatorInterface<?, ?, ?> simulator, final String title, final short axisType)
     {
-        this(simulator, title, new double[] {0, simulator.getReplication().getTreatment().getRunLength().doubleValue()},
-                axisType);
+        this(simulator, title, new double[] {0, simulator.getReplication().getRunLength().doubleValue()}, axisType);
     }
 
     /**
