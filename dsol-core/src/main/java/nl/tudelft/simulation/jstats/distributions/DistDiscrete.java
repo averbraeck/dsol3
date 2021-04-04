@@ -38,8 +38,8 @@ public abstract class DistDiscrete extends Dist
 
     /**
      * returns the probability of the observation in this particular distribution.
-     * @param observation int; the discrete observation.
+     * @param observation long; the discrete observation.
      * @return double the probability.
      */
-    public abstract double probability(int observation);
+    public abstract double probability(long observation);
 }

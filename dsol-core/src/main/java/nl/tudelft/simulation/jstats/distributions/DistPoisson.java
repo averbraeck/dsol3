@@ -61,7 +61,7 @@ public class DistPoisson extends DistDiscrete
 
     /** {@inheritDoc} */
     @Override
-    public double probability(final int observation)
+    public double probability(final long observation)
     {
         if (observation >= 0)
         {
