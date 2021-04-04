@@ -13,7 +13,6 @@ import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
 import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;

@@ -21,7 +21,7 @@ import org.djutils.event.EventListenerInterface;
 import org.djutils.exceptions.Throw;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.RunState;
@@ -113,7 +113,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
 
         installWindowCloseHandler();
 
-        this.simulator.addListener(this, Replication.END_REPLICATION_EVENT);
+        this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT);
         this.simulator.addListener(this, SimulatorInterface.START_EVENT);
         this.simulator.addListener(this, SimulatorInterface.STOP_EVENT);
     }
@@ -568,7 +568,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
         {
             fixButtons();
         }
-        if (event.getType().equals(Replication.END_REPLICATION_EVENT))
+        if (event.getType().equals(ReplicationInterface.END_REPLICATION_EVENT))
         {
             invalidateButtons();
         }

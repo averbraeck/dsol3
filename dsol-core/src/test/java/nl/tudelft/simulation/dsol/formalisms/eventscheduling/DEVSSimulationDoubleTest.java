@@ -13,6 +13,7 @@ import org.junit.Test;
 import net.jodah.concurrentunit.Waiter;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
@@ -51,7 +52,7 @@ public class DEVSSimulationDoubleTest implements EventListenerInterface
     {
         this.waiter = new Waiter();
         this.devsSimulator = new DEVSSimulator.TimeDouble("testDEVSSimulationDouble");
-        this.devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
+        this.devsSimulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
@@ -92,7 +93,7 @@ public class DEVSSimulationDoubleTest implements EventListenerInterface
     {
         this.waiter = new Waiter();
         this.devsSimulator = new DEVSSimulator.TimeDouble("testRunUpTo");
-        this.devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
+        this.devsSimulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
@@ -187,7 +188,7 @@ public class DEVSSimulationDoubleTest implements EventListenerInterface
     {
         this.waiter = new Waiter();
         this.devsSimulator = new DEVSSimulator.TimeDouble("testSimLambda");
-        this.devsSimulator.addListener(this, Replication.END_REPLICATION_EVENT);
+        this.devsSimulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT);
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);

@@ -3,7 +3,6 @@ package nl.tudelft.simulation.dsol.web.test.ball;
 import org.djutils.draw.bounds.Bounds2d;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.web.DSOLWebServer;
 
