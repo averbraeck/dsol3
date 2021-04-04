@@ -475,7 +475,7 @@ public final class ErfPrecision
                 return erf(x);
             }
         });
-        
+
         System.out.println("\n\n");
 
         erfInvTest(new DoubleFunction<Double>()

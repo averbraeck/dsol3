@@ -40,7 +40,7 @@ public class BallWebApplication extends DSOLWebServer
         BallModel model = new BallModel(simulator);
         Replication.TimeDouble<DEVSRealTimeAnimator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         new BallWebApplication("Ball Animation model", simulator);
     }
 

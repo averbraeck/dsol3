@@ -60,7 +60,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
         Warehouse42Model model = new Warehouse42Model(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 5 * 24.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         new TabbedParameterDialog(model.getInputParameterMap());
         new Warehouse42SwingApplication("MM1 Queue model", new Warehouse42Panel(model, simulator));
     }

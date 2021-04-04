@@ -71,7 +71,7 @@ public class BoatModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDo
         DSOLModel.TimeDouble<DEVSSimulator.TimeDouble> model = new BoatModel(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         simulator.start();
     }
 

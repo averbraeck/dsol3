@@ -20,7 +20,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#assertEquals(Object, Object)
-     * 
      * @param expected the expected value
      * @param actual the actual value
      * @throws AssertionError when the assertion fails
@@ -31,9 +30,7 @@ public abstract class ConcurrentTestCase
     }
 
     /**
-     * @see Waiter#assertTrue(boolean)
-     * 
-     * Asserts that the {@code condition} is false.
+     * @see Waiter#assertTrue(boolean) Asserts that the {@code condition} is false.
      * @param b boolean to test to be false
      * @throws AssertionError when the assertion fails
      */
@@ -44,7 +41,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#assertNotNull(Object)
-     * 
      * @param object the object to test
      * @throws AssertionError when the assertion fails
      */
@@ -55,7 +51,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#assertNull(Object)
-     * 
      * @param x the object to test
      * @throws AssertionError when the assertion fails
      */
@@ -66,7 +61,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#assertTrue(boolean)
-     * 
      * @param b boolean to test to be true
      * @throws AssertionError when the assertion fails
      */
@@ -85,7 +79,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#fail(String)
-     * 
      * @param reason the reason for failure
      * @throws AssertionError when the assertion fails
      */
@@ -96,7 +89,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#fail(Throwable)
-     * 
      * @param reason the reason for failure
      * @throws AssertionError wrapping the {@code reason}
      */
@@ -107,9 +99,7 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#rethrow(Throwable)
-     * 
-     * @param reason the reason for failure
-     * throws Throwable the {@code failure}
+     * @param reason the reason for failure throws Throwable the {@code failure}
      */
     public void rethrow(final Throwable reason)
     {
@@ -118,7 +108,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#await()
-     * 
      * @throws TimeoutException if the operation times out while waiting
      * @throws InterruptedException if the operations is interrupted while waiting
      * @throws AssertionError if any assertion fails while waiting
@@ -130,7 +119,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#await(long)
-     * 
      * @param delay Delay to wait for
      * @throws TimeoutException if the operation times out while waiting
      * @throws InterruptedException if the operations is interrupted while waiting
@@ -143,7 +131,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#await(long, int)
-     * 
      * @param delay Delay to wait for
      * @param expectedResumes Number of times {@link #resume()} is expected to be called before the awaiting thread is resumed
      * @throws TimeoutException if the operation times out while waiting
@@ -157,7 +144,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#await(long, TimeUnit)
-     * 
      * @param delay Delay to wait for
      * @param timeUnit TimeUnit to delay for
      * @throws TimeoutException if the operation times out while waiting
@@ -171,7 +157,6 @@ public abstract class ConcurrentTestCase
 
     /**
      * @see Waiter#await(long, TimeUnit, int)
-     * 
      * @param delay Delay to wait for
      * @param timeUnit TimeUnit to delay for
      * @param expectedResumes Number of times {@link #resume()} is expected to be called before the awaiting thread is resumed
@@ -179,7 +164,8 @@ public abstract class ConcurrentTestCase
      * @throws InterruptedException if the operations is interrupted while waiting
      * @throws AssertionError if any assertion fails while waiting
      */
-    protected void await(final long delay, final TimeUnit timeUnit, final int expectedResumes) throws TimeoutException, InterruptedException
+    protected void await(final long delay, final TimeUnit timeUnit, final int expectedResumes)
+            throws TimeoutException, InterruptedException
     {
         this.waiter.await(delay, timeUnit, expectedResumes);
     }

@@ -68,7 +68,7 @@ public class GISSwingApplication extends DSOLAnimationApplication
         EmptyModel model = new EmptyModel(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
 
         DSOLPanel panel = new DSOLPanel(new RealTimeControlPanel.TimeDouble(model, simulator));
         DSOLAnimationGisTab animationTab =

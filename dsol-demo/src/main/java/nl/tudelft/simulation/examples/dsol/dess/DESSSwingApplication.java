@@ -49,7 +49,7 @@ public class DESSSwingApplication extends DSOLApplication
         DESSModel model = new DESSModel(simulator);
         Replication.TimeDouble<DESSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         new DESSSwingApplication("DESS model", new DESSPanel(model, simulator));
     }
 

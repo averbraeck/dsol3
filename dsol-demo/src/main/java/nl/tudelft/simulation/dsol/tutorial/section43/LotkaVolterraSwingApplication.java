@@ -51,7 +51,7 @@ public class LotkaVolterraSwingApplication extends DSOLApplication
         PredatorPreyModel model = new PredatorPreyModel(simulator);
         Replication.TimeDouble<DESSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
 
         GenericControlPanel.TimeDouble controlPanel = new GenericControlPanel.TimeDouble(model, simulator);
         new LotkaVolterraSwingApplication("DESS model", new LotkaVolterraPanel(model, controlPanel));

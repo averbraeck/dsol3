@@ -203,7 +203,7 @@ public class Renderable2DTest
                     };
             Replication.TimeDouble<SimulatorInterface.TimeDouble> replication =
                     Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-            simulator.initialize(replication, ReplicationMode.TERMINATING);
+            simulator.initialize(replication);
             return simulator;
         }
         catch (Exception e)
@@ -240,7 +240,7 @@ public class Renderable2DTest
                     };
             Replication.TimeDouble<SimulatorInterface.TimeDouble> replication =
                     Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-            simulator.initialize(replication, ReplicationMode.TERMINATING);
+            simulator.initialize(replication);
             return simulator;
         }
         catch (Exception e)

@@ -35,7 +35,7 @@ public class MM1Application
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new MM1Model(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         simulator.start();
     }
 

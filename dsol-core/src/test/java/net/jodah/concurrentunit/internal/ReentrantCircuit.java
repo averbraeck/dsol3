@@ -104,7 +104,7 @@ public class ReentrantCircuit
      * @param waitDuration the maximum time
      * @param timeUnit the unit of the time
      * @return {@code true} if acquired; {@code false} if timed out
-     * @throws InterruptedException  when wait is interrupted
+     * @throws InterruptedException when wait is interrupted
      */
     public boolean await(final long waitDuration, final TimeUnit timeUnit) throws InterruptedException
     {

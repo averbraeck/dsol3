@@ -48,7 +48,7 @@ public class MM1SwingApplication extends DSOLApplication
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new MM1Model(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, simulator);
         new MM1SwingApplication(new MM1Panel(controlPanel));
     }

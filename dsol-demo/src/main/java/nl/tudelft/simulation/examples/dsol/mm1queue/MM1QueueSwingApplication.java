@@ -57,7 +57,7 @@ public class MM1QueueSwingApplication extends DSOLApplication
         MM1QueueModel model = new MM1QueueModel(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         new TabbedParameterDialog(model.getInputParameterMap());
         new MM1QueueSwingApplication("MM1 Queue model", new MM1QueuePanel(model, simulator));
     }

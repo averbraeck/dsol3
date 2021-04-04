@@ -97,45 +97,6 @@ public class DistEmpiricalTest
         }
         assertEquals(0.0, dist.getProbabilityDensity(-0.1), 1E-6);
         assertEquals(0.0, dist.getProbabilityDensity(6.1), 1E-6);
-        
-        double[] cpd2 = {0.1, 0.5, 0.8, 1.0};
-        double[] vd2 = {1.0, 2.0, 3.0, 4.0};
-        EmpiricalDistribution empDist2 = EmpiricalDistribution.createFromCumulativeProbabilities(vd2, cpd2, true);
-        DistEmpirical dist2 = new DistEmpirical(stream, empDist2);
-        bins = new int[4];
-        for (int i = 0; i < 1_000_000; i++)
-        {
-            double d = dist2.draw();
-            assertTrue(d >= 0.0 && d <= 4.0);
-            if (d == 1.0)
-                bins[0]++;
-            else if (d > 1.0 && d < 2.0)
-                bins[1]++;
-            else if (d >= 2.0 && d < 3.0)
-                bins[2]++;
-            else if (d >= 3.0 && d <= 4.0)
-                bins[3]++;
-        }
-        density = new double[] {0.1, 0.4, 0.3, 0.2};
-        for (int i = 0; i < 4; i++)
-        {
-            assertEquals(density[i], 1.0 * bins[i] / 1_000_000.0, 1E-3);
-        }
-        assertEquals(0.0, dist2.getProbabilityDensity(0.09), 1E-6);
-        for (double x = -1.0; x < 5.0; x += 0.1)
-        {
-            if (x == 1.0)
-                assertEquals("value = " + x, 0.1, dist2.getProbabilityDensity(x), 1E-6);
-            else if (x > 1.0 && x < 2.0)
-                assertEquals("value = " + x, 0.4, dist2.getProbabilityDensity(x), 1E-6);
-            else if (x >= 2.0 && x < 3.0)
-                assertEquals("value = " + x, 0.3, dist2.getProbabilityDensity(x), 1E-6);
-            else if (x >= 3.0 && x <= 4.0)
-                assertEquals("value = " + x, 0.2, dist2.getProbabilityDensity(x), 1E-6);
-            else
-                assertEquals("value = " + x, 0.0, dist2.getProbabilityDensity(x), 1E-6);
-        }
-
     }
 
     /**

@@ -83,7 +83,7 @@ public final class ExperimentRunnerTerminal implements EventListenerInterface
                     InputParameterMap parameters = model.getInputParameterMap();
                     ((InputParameterInteger) parameters.get("numQC")).setIntValue(numQC);
                     ((InputParameterInteger) parameters.get("numAGV")).setIntValue(numAGV);
-                    simulator.initialize(replication, ReplicationMode.TERMINATING);
+                    simulator.initialize(replication);
                     model.addListener(this, Terminal.READY_EVENT);
                     this.numruns++;
                     simulator.start();
