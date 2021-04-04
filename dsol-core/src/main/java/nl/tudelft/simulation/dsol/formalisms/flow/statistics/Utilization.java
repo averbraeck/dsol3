@@ -109,8 +109,10 @@ public class Utilization<A extends Comparable<A> & Serializable, R extends Numbe
     {
         try
         {
+            // TODO: do only if replication is part of an experiment or a series of replications
+            // TODO: store one level higher than the replication itself
             ContextInterface context = ContextUtil
-                    .lookupOrCreateSubContext(this.simulator.getReplication().getExperiment().getContext(), "statistics");
+                    .lookupOrCreateSubContext(this.simulator.getReplication().getContext(), "statistics");
             EventBasedTally experimentTally;
             if (context.hasKey(getDescription()))
             {

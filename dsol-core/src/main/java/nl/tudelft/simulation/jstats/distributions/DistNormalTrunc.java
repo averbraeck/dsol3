@@ -77,9 +77,8 @@ public class DistNormalTrunc extends DistContinuous
         this.max = max;
         this.cumulProbMin = getCumulativeProbabilityNotTruncated(min);
         this.cumulProbDiff = getCumulativeProbabilityNotTruncated(max) - this.cumulProbMin;
-        Throw.when(this.cumulProbDiff < 1E-6, IllegalArgumentException.class,
-                "Error " + toString() + ": the indicated interval on this normal distribution has a very low probability of "
-                        + this.cumulProbDiff);
+        Throw.when(this.cumulProbDiff < 1E-6, IllegalArgumentException.class, "Error " + toString()
+                + ": the indicated interval on this normal distribution has a very low probability of " + this.cumulProbDiff);
         this.probDensFactor = 1.0 / this.cumulProbDiff;
     }
 

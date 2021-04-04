@@ -70,7 +70,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
 
         try
         {
-            InputParameterMap parameters = this.simulator.getReplication().getTreatment().getInputParameterMap();
+            InputParameterMap parameters = this.simulator.getModel().getInputParameterMap();
             this.numQC = (Integer) parameters.get("numQC").getCalculatedValue();
             this.numAGV = (Integer) parameters.get("numAGV").getCalculatedValue();
         }
@@ -138,7 +138,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
     {
         return "Terminal";
     }
-    
+
     /** */
     public static class Output implements Serializable
     {

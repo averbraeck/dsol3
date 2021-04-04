@@ -32,7 +32,8 @@ import org.eclipse.jetty.server.session.SessionDataStore;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.util.resource.Resource;
 
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameter;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterBoolean;
@@ -173,9 +174,9 @@ public abstract class AbstractTestDemoServer
                     SimulatorInterface.TimeDoubleUnit simulator = model.getSimulator();
                     try
                     {
-                        Replication.TimeDoubleUnit newReplication = Replication.TimeDoubleUnit.create("rep 1", Time.ZERO,
-                                Duration.ZERO, Duration.instantiateSI(3600.0), model);
-                        simulator.initialize(newReplication);
+                        ReplicationInterface.TimeDoubleUnit newReplication = new SingleReplication.TimeDoubleUnit("rep 1",
+                                Time.ZERO, Duration.ZERO, Duration.instantiateSI(3600.0));
+                        simulator.initialize(model, newReplication);
                         DSOLWebModel webModel = new DSOLWebModel(model.toString(), simulator);
                         AbstractTestDemoServer.this.sessionWebModelMap.put(sessionId, webModel);
                     }

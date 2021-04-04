@@ -21,16 +21,16 @@ public enum RunState
 
     /** The Simulator has been started, but the run() thread did not start yet. */
     STARTING,
-    
+
     /** The Simulator run() thread has started; the simulation is running. */
     STARTED,
-    
+
     /** The stopping of the simulator has been initiated, but the run() thread is still running. */
     STOPPING,
-    
+
     /** The Simulator run() thread has been stopped; the simulator is not running. */
     STOPPED,
-    
+
     /** The replication has ended, and the simulator cannot be restarted. */
     ENDED;
 }

@@ -81,7 +81,7 @@ public class MM1QueueModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.Ti
 
         try
         {
-            InputParameterMap parameters = this.simulator.getReplication().getTreatment().getInputParameterMap();
+            InputParameterMap parameters = this.simulator.getModel().getInputParameterMap();
 
             // The Generator
             Generator.TimeDouble generator = new Generator.TimeDouble("Generator", this.simulator, Customer.class, null);
@@ -126,7 +126,7 @@ public class MM1QueueModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.Ti
             histogram.add("histogram on service time", persistent, StatisticsEvents.SAMPLE_MEAN_EVENT);
 
             this.serviceTimeChart = new XYChart(this.simulator, "XY chart of service time",
-                    new double[] {0, this.simulator.getReplication().getTreatment().getRunLength()}, new double[] {-2, 30});
+                    new double[] {0, this.simulator.getReplication().getRunLength()}, new double[] {-2, 30});
             this.serviceTimeChart.add(persistent);
 
             this.serviceTimeBWChart = new BoxAndWhiskerChart(this.simulator, "BoxAndWhisker on serviceTime");

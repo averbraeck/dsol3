@@ -8,7 +8,7 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -28,8 +28,8 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ * @param <A> the absolute storage type for the simulation time, e.g. Time, Float, or Double.
+ * @param <R> the relative type for time storage, e.g. Duration for absolute Time. For most non-unit types, the absolute and
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @since 1.5
@@ -82,8 +82,7 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
     @Override
     public void run()
     {
-        while (!isStoppingOrStopped() && !this.eventList.isEmpty()
-                && this.simulatorTime.le(this.replication.getTreatment().getEndSimTime()))
+        while (!isStoppingOrStopped() && !this.eventList.isEmpty() && this.simulatorTime.le(this.replication.getEndSimTime()))
         {
             synchronized (super.semaphore)
             {
@@ -164,11 +163,10 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeDouble<? extends DEVDESSSimulatorInterface.TimeDouble> getReplication()
+        public ReplicationInterface.TimeDouble getReplication()
         {
-            return (Replication.TimeDouble<? extends DEVDESSSimulatorInterface.TimeDouble>) super.getReplication();
+            return (ReplicationInterface.TimeDouble) super.getReplication();
         }
     }
 
@@ -190,11 +188,10 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeFloat<? extends DEVDESSSimulatorInterface.TimeFloat> getReplication()
+        public ReplicationInterface.TimeFloat getReplication()
         {
-            return (Replication.TimeFloat<? extends DEVDESSSimulatorInterface.TimeFloat>) super.getReplication();
+            return (ReplicationInterface.TimeFloat) super.getReplication();
         }
     }
 
@@ -215,11 +212,10 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeLong<? extends DEVDESSSimulatorInterface.TimeLong> getReplication()
+        public ReplicationInterface.TimeLong getReplication()
         {
-            return (Replication.TimeLong<? extends DEVDESSSimulatorInterface.TimeLong>) super.getReplication();
+            return (ReplicationInterface.TimeLong) super.getReplication();
         }
     }
 
@@ -241,11 +237,10 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeDoubleUnit<DEVDESSSimulatorInterface.TimeDoubleUnit> getReplication()
+        public ReplicationInterface.TimeDoubleUnit getReplication()
         {
-            return (Replication.TimeDoubleUnit<DEVDESSSimulatorInterface.TimeDoubleUnit>) super.getReplication();
+            return (ReplicationInterface.TimeDoubleUnit) super.getReplication();
         }
     }
 
@@ -267,11 +262,10 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeFloatUnit<? extends DEVDESSSimulatorInterface.TimeFloatUnit> getReplication()
+        public ReplicationInterface.TimeFloatUnit getReplication()
         {
-            return (Replication.TimeFloatUnit<? extends DEVDESSSimulatorInterface.TimeFloatUnit>) super.getReplication();
+            return (ReplicationInterface.TimeFloatUnit) super.getReplication();
         }
     }
 

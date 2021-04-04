@@ -44,8 +44,8 @@ public class IntResource<A extends Comparable<A> & Serializable, R extends Numbe
     static AtomicLong counter = new AtomicLong(0); // XXX: OUCH
 
     /** UTILIZATION_EVENT is fired on activity. */
-    public static final TimedEventType UTILIZATION_EVENT = new TimedEventType(new MetaData("UTILIZATION_EVENT", "Utilization changed",
-            new ObjectDescriptor("newUtilization", "new utilization", double.class)));
+    public static final TimedEventType UTILIZATION_EVENT = new TimedEventType(new MetaData("UTILIZATION_EVENT",
+            "Utilization changed", new ObjectDescriptor("newUtilization", "new utilization", double.class)));
 
     /** RESOURCE_REQUESTED_QUEUE_LENGTH fired on changes in queue length. */
     public static final TimedEventType RESOURCE_REQUESTED_QUEUE_LENGTH =
@@ -198,7 +198,8 @@ public class IntResource<A extends Comparable<A> & Serializable, R extends Numbe
         if ((this.claimedCapacity + amount) <= this.capacity)
         {
             this.alterClaimedCapacity(amount);
-            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource", new Object[] {Long.valueOf(amount), this});
+            this.simulator.scheduleEventNow(this, requestor, "receiveRequestedResource",
+                    new Object[] {Long.valueOf(amount), this});
         }
         else
         {
@@ -256,7 +257,7 @@ public class IntResource<A extends Comparable<A> & Serializable, R extends Numbe
     {
         return "IntResource";
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString()
@@ -299,7 +300,8 @@ public class IntResource<A extends Comparable<A> & Serializable, R extends Numbe
      * @param <R> the relative time type
      * @param <T> the simulation time type to use.
      */
-    public static class Request<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
+    public static class Request<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+            T extends SimTime<A, R, T>>
     {
         /** the priority of the request. */
         private int priority = 5;

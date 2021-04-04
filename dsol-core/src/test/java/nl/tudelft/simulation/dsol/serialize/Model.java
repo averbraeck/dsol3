@@ -5,11 +5,8 @@ import java.rmi.MarshalledObject;
 import java.rmi.RemoteException;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.ExperimentalFrame;
-import nl.tudelft.simulation.dsol.formalisms.process.ExperimentalFrameUtil;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
@@ -64,18 +61,6 @@ public class Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterface.T
         {
             this.simulator.getLogger().always().warn(exception, "pause");
         }
-    }
-
-    /**
-     * executes the Model.
-     * @param args the command line arguments
-     * @throws RemoteException on networ error when using RMI
-     */
-    public static void main(final String[] args) throws RemoteException
-    {
-        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("Model");
-        ExperimentalFrame experimentalFrame = ExperimentalFrameUtil.createExperimentalFrame(simulator, new Model(simulator));
-        experimentalFrame.start();
     }
 
     /** {@inheritDoc} */

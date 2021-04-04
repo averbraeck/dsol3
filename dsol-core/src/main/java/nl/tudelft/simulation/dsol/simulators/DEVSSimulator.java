@@ -10,12 +10,12 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
 import nl.tudelft.simulation.dsol.eventlists.RedBlackTree;
-import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.Executable;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.LambdaSimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -35,9 +35,9 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * </p>
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, such as Double or
- *            Long, the absolute and relative types are the same.
+ * @param <A> the absolute storage type for the simulation time, e.g. Time, Float, or Double.
+ * @param <R> the relative type for time storage, e.g. Duration. For most non-unit types, such as Double or Long, the absolute
+ *            and relative types are the same.
  * @param <T> the simulation time type based on the absolute and relative time.
  * @since 1.5
  */
@@ -79,16 +79,17 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
-            final ReplicationMode replicationMode) throws SimRuntimeException
+    @SuppressWarnings({"hiding", "checkstyle:hiddenfield"})
+    public void initialize(final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model,
+            final ReplicationInterface<A, R, T> replication) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
             this.eventList.clear();
-            super.initialize(initReplication, replicationMode);
-            this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getEndSimTime(),
+            super.initialize(model, replication);
+            this.scheduleEvent(new SimEvent<T>(this.getReplication().getEndSimTime(),
                     (short) (SimEventInterface.MIN_PRIORITY - 1), this, this, "endReplication", null));
-            this.scheduleEvent(new SimEvent<T>(this.getReplication().getTreatment().getWarmupSimTime(),
+            this.scheduleEvent(new SimEvent<T>(this.getReplication().getWarmupSimTime(),
                     (short) (SimEventInterface.MAX_PRIORITY + 1), this, this, "warmup", null));
         }
     }
@@ -389,11 +390,10 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble> getReplication()
+        public ReplicationInterface.TimeDouble getReplication()
         {
-            return (Replication.TimeDouble<? extends DEVSSimulatorInterface.TimeDouble>) super.getReplication();
+            return (ReplicationInterface.TimeDouble) super.getReplication();
         }
     }
 
@@ -413,11 +413,10 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeFloat<? extends DEVSSimulatorInterface.TimeFloat> getReplication()
+        public ReplicationInterface.TimeFloat getReplication()
         {
-            return (Replication.TimeFloat<? extends DEVSSimulatorInterface.TimeFloat>) super.getReplication();
+            return (ReplicationInterface.TimeFloat) super.getReplication();
         }
     }
 
@@ -437,11 +436,10 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeLong<? extends DEVSSimulatorInterface.TimeLong> getReplication()
+        public ReplicationInterface.TimeLong getReplication()
         {
-            return (Replication.TimeLong<? extends DEVSSimulatorInterface.TimeLong>) super.getReplication();
+            return (ReplicationInterface.TimeLong) super.getReplication();
         }
     }
 
@@ -462,11 +460,10 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeDoubleUnit<? extends DEVSSimulatorInterface.TimeDoubleUnit> getReplication()
+        public ReplicationInterface.TimeDoubleUnit getReplication()
         {
-            return (Replication.TimeDoubleUnit<? extends DEVSSimulatorInterface.TimeDoubleUnit>) super.getReplication();
+            return (ReplicationInterface.TimeDoubleUnit) super.getReplication();
         }
     }
 
@@ -487,11 +484,10 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeFloatUnit<? extends DEVSSimulatorInterface.TimeFloatUnit> getReplication()
+        public ReplicationInterface.TimeFloatUnit getReplication()
         {
-            return (Replication.TimeFloatUnit<? extends DEVSSimulatorInterface.TimeFloatUnit>) super.getReplication();
+            return (ReplicationInterface.TimeFloatUnit) super.getReplication();
         }
     }
 

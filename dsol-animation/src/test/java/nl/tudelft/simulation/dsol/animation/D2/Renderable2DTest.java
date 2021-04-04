@@ -23,8 +23,8 @@ import org.junit.Test;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSAnimator;
@@ -201,9 +201,8 @@ public class Renderable2DTest
                             return "model";
                         }
                     };
-            Replication.TimeDouble<SimulatorInterface.TimeDouble> replication =
-                    Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-            simulator.initialize(replication);
+            ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000000.0);
+            simulator.initialize(model, replication);
             return simulator;
         }
         catch (Exception e)
@@ -238,9 +237,8 @@ public class Renderable2DTest
                             return "model";
                         }
                     };
-            Replication.TimeDouble<SimulatorInterface.TimeDouble> replication =
-                    Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-            simulator.initialize(replication);
+            ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000000.0);
+            simulator.initialize(model, replication);
             return simulator;
         }
         catch (Exception e)

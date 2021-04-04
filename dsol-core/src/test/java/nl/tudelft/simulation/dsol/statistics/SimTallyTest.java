@@ -17,7 +17,8 @@ import org.djutils.event.TimedEventType;
 import org.djutils.stats.ConfidenceInterval;
 import org.junit.Test;
 
-import nl.tudelft.simulation.dsol.experiment.Replication;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -59,9 +60,8 @@ public class SimTallyTest extends EventProducer
     {
         DEVSSimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble("sim");
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new DummyModel(simulator);
-        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 10.0, model);
-        simulator.initialize(replication);
+        SingleReplication.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 10.0);
+        simulator.initialize(model, replication);
 
         String description = "THIS TALLY IS TESTED";
         SimTally.TimeDouble tally = new SimTally.TimeDouble(description, simulator);
@@ -92,9 +92,8 @@ public class SimTallyTest extends EventProducer
     {
         DEVSSimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble("sim");
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new DummyModel(simulator);
-        Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
-                Replication.TimeDouble.create("rep1", 0.0, 0.0, 10.0, model);
-        simulator.initialize(replication);
+        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 10.0);
+        simulator.initialize(model, replication);
 
         String description = "THIS TALLY IS TESTED";
         SimTally.TimeDouble tally = new SimTally.TimeDouble(description, simulator, this, UPDATE_EVENT);

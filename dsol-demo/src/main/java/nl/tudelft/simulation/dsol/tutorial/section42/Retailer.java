@@ -77,7 +77,7 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
         this.orderingPolicy = new StationaryPolicy(simulator);
         try
         {
-            InputParameterMap parameters = simulator.getReplication().getTreatment().getInputParameterMap();
+            InputParameterMap parameters = simulator.getModel().getInputParameterMap();
             this.backlogCosts = (Double) parameters.get("retailer.backlogCosts").getCalculatedValue();
             this.holdingCosts = (Double) parameters.get("retailer.holdingCosts").getCalculatedValue();
             this.marginalCosts = (Double) parameters.get("retailer.marginalCosts").getCalculatedValue();

@@ -16,9 +16,9 @@ import org.djutils.logger.CategoryLogger;
 import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
+import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
+import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -36,13 +36,11 @@ import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
- * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ * @param <A> the absolute storage type for the simulation time, e.g. Time, Float, or Double.
+ * @param <R> the relative type for time storage, e.g. Duration for absolute Time. For most non-unit types, the absolute and
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
- * @since 1.5
  */
 public abstract class Simulator<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
         T extends SimTime<A, R, T>> extends EventProducer implements SimulatorInterface<A, R, T>, Runnable
@@ -70,9 +68,13 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected ReplicationState replicationState = ReplicationState.NOT_INITIALIZED;
 
-    /** replication represents the currently active replication. */
+    /** The currently active replication; is null before initialize() has been called. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> replication = null;
+    protected ReplicationInterface<A, R, T> replication = null;
+
+    /** The model that is currently active; is null before initialize() has been called. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model = null;
 
     /** a worker. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -101,19 +103,21 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     }
 
     /** {@inheritDoc} */
+    @SuppressWarnings({"hiding", "checkstyle:hiddenfield"})
     @Override
-    public void initialize(final Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> initReplication,
-            final ReplicationMode replicationMode) throws SimRuntimeException
+    public void initialize(final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model,
+            final ReplicationInterface<A, R, T> replication) throws SimRuntimeException
     {
-        Throw.whenNull(initReplication, "Simulator.initialize: replication cannot be null");
-        Throw.whenNull(replicationMode, "Simulator.initialize: replicationMode cannot be null");
+        Throw.whenNull(model, "Simulator.initialize: model cannot be null");
+        Throw.whenNull(replication, "Simulator.initialize: replication cannot be null");
         Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot initialize a running simulator");
         synchronized (this.semaphore)
         {
             this.removeAllListeners(StatisticsInterface.class);
-            this.replication = initReplication;
-            this.simulatorTime = initReplication.getTreatment().getStartSimTime().copy();
-            this.replication.getTreatment().getExperiment().getModel().constructModel();
+            this.replication = replication;
+            this.model = model;
+            this.simulatorTime = replication.getStartSimTime().copy();
+            model.constructModel();
             this.runState = RunState.INITIALIZED;
             this.replicationState = ReplicationState.INITIALIZED;
         }
@@ -131,14 +135,14 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         Throw.when(
                 !(this.replicationState == ReplicationState.INITIALIZED || this.replicationState == ReplicationState.STARTED),
                 SimRuntimeException.class, "State of the replication should be INITIALIZED or STARTED to run a simulationF");
-        Throw.when(this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()), SimRuntimeException.class,
+        Throw.when(this.simulatorTime.ge(this.replication.getEndSimTime()), SimRuntimeException.class,
                 "Cannot start simulator : simulatorTime >= runLength");
         synchronized (this.semaphore)
         {
             this.runState = RunState.STARTING;
             if (this.replicationState == ReplicationState.INITIALIZED)
             {
-                fireTimedEvent(Replication.START_REPLICATION_EVENT, null, getSimulatorTime());
+                fireTimedEvent(ReplicationInterface.START_REPLICATION_EVENT, null, getSimulatorTime());
                 this.replicationState = ReplicationState.STARTED;
             }
             this.fireEvent(SimulatorInterface.STARTING_EVENT, null);
@@ -157,7 +161,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     @Override
     public final void start() throws SimRuntimeException
     {
-        this.runUntilTime = this.replication.getTreatment().getEndSimTime();
+        this.runUntilTime = this.replication.getEndSimTime();
         this.runUntilIncluding = true;
         startImpl();
     }
@@ -197,7 +201,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         Throw.when(
                 !(this.replicationState == ReplicationState.INITIALIZED || this.replicationState == ReplicationState.STARTED),
                 SimRuntimeException.class, "State of the replication should be INITIALIZED or STARTED to run a simulationF");
-        Throw.when(this.simulatorTime.ge(this.replication.getTreatment().getEndSimTime()), SimRuntimeException.class,
+        Throw.when(this.simulatorTime.ge(this.replication.getEndSimTime()), SimRuntimeException.class,
                 "Cannot step simulator : simulatorTime >= runLength");
         try
         {
@@ -239,7 +243,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
      */
     public void warmup()
     {
-        fireTimedEvent(Replication.WARMUP_EVENT, null, getSimulatorTime());
+        fireTimedEvent(ReplicationInterface.WARMUP_EVENT, null, getSimulatorTime());
     }
 
     /**
@@ -271,11 +275,11 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     protected void endReplication()
     {
         this.replicationState = ReplicationState.ENDING;
-        if (this.simulatorTime.lt(this.getReplication().getTreatment().getEndSimTime()))
+        if (this.simulatorTime.lt(this.getReplication().getEndSimTime()))
         {
             Logger.warn("The simulator executes the endReplication method, but the simulation time " + this.simulatorTime.get()
-                    + " is earlier than the replication length " + this.getReplication().getTreatment().getEndSimTime());
-            this.simulatorTime = this.getReplication().getTreatment().getEndSimTime().copy();
+                    + " is earlier than the replication length " + this.getReplication().getEndSimTime());
+            this.simulatorTime = this.getReplication().getEndSimTime().copy();
         }
     }
 
@@ -307,9 +311,16 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    public Replication<A, R, T, ? extends SimulatorInterface<A, R, T>> getReplication()
+    public ReplicationInterface<A, R, T> getReplication()
     {
         return this.replication;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> getModel()
+    {
+        return this.model;
     }
 
     /** {@inheritDoc} */
@@ -373,7 +384,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         {
             this.id = (Serializable) in.readObject();
             this.simulatorTime = (T) in.readObject();
-            this.replication = (Replication<A, R, T, ? extends SimulatorInterface<A, R, T>>) in.readObject();
+            this.replication = (ReplicationInterface<A, R, T>) in.readObject();
             this.semaphore = new Object();
             this.worker = new SimulatorWorkerThread(this.id.toString(), this);
             this.logger = new SimLogger(this);
@@ -451,7 +462,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
                         {
                             if (this.job.replicationState == ReplicationState.INITIALIZED)
                             {
-                                this.job.fireTimedEvent(Replication.START_REPLICATION_EVENT);
+                                this.job.fireTimedEvent(ReplicationInterface.START_REPLICATION_EVENT);
                                 this.job.replicationState = ReplicationState.STARTED;
                             }
                             this.job.fireTimedEvent(SimulatorInterface.START_EVENT);
@@ -469,7 +480,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
                         this.running.set(false);
                         if (this.job.replicationState == ReplicationState.ENDING)
                         {
-                            this.job.fireTimedEvent(Replication.END_REPLICATION_EVENT);
+                            this.job.fireTimedEvent(ReplicationInterface.END_REPLICATION_EVENT);
                             this.job.replicationState = ReplicationState.ENDED;
                             this.job.runState = RunState.ENDED;
                         }
@@ -501,11 +512,10 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeDouble<? extends SimulatorInterface.TimeDouble> getReplication()
+        public ReplicationInterface.TimeDouble getReplication()
         {
-            return (Replication.TimeDouble<? extends SimulatorInterface.TimeDouble>) super.getReplication();
+            return (ReplicationInterface.TimeDouble) super.getReplication();
         }
     }
 
@@ -525,11 +535,10 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeFloat<? extends SimulatorInterface.TimeFloat> getReplication()
+        public ReplicationInterface.TimeFloat getReplication()
         {
-            return (Replication.TimeFloat<? extends SimulatorInterface.TimeFloat>) super.getReplication();
+            return (ReplicationInterface.TimeFloat) super.getReplication();
         }
     }
 
@@ -549,11 +558,10 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeLong<? extends SimulatorInterface.TimeLong> getReplication()
+        public ReplicationInterface.TimeLong getReplication()
         {
-            return (Replication.TimeLong<? extends SimulatorInterface.TimeLong>) super.getReplication();
+            return (ReplicationInterface.TimeLong) super.getReplication();
         }
     }
 
@@ -574,11 +582,10 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit> getReplication()
+        public ReplicationInterface.TimeDoubleUnit getReplication()
         {
-            return (Replication.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit>) super.getReplication();
+            return (ReplicationInterface.TimeDoubleUnit) super.getReplication();
         }
     }
 
@@ -599,11 +606,10 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
 
         /** {@inheritDoc} */
-        @SuppressWarnings("unchecked")
         @Override
-        public Replication.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit> getReplication()
+        public ReplicationInterface.TimeFloatUnit getReplication()
         {
-            return (Replication.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit>) super.getReplication();
+            return (ReplicationInterface.TimeFloatUnit) super.getReplication();
         }
     }
 

@@ -32,7 +32,7 @@ public class StationaryPolicy implements OrderingPolicy
         super();
         try
         {
-            InputParameterMap parameters = simulator.getReplication().getTreatment().getInputParameterMap();
+            InputParameterMap parameters = simulator.getModel().getInputParameterMap();
             this.lowerBound = (Long) parameters.get("policy.lowerBound").getCalculatedValue();
             this.upperBound = (Long) parameters.get("policy.upperBound").getCalculatedValue();
         }
