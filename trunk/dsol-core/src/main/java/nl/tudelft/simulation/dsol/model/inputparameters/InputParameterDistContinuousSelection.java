@@ -388,8 +388,8 @@ public class InputParameterDistContinuousSelection extends InputParameterSelecti
             super("Triangular", "Triangular", "Triangular distribution", 1.0);
             add(new InputParameterDouble("min", "min", "minimum value, lowest value of the Triangular distribution", 0.0,
                     -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 1.0));
-            add(new InputParameterDouble("mode", "mode", "mode value of the Triangular distribution", 1.0,
-                    -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 2.0));
+            add(new InputParameterDouble("mode", "mode", "mode value of the Triangular distribution", 1.0, -Double.MAX_VALUE,
+                    Double.MAX_VALUE, false, false, "%f", 2.0));
             add(new InputParameterDouble("max", "max", "max value, highest value of the Triangular distribution", 2.0,
                     -Double.MAX_VALUE, Double.MAX_VALUE, false, false, "%f", 3.0));
         }

@@ -461,5 +461,5 @@ public final class ProbMath
         Throw.when(z < 0 || w < 0, IllegalArgumentException.class, "beta function not defined for negative arguments");
         return Math.exp(gammaln(z) + gammaln(w) - gammaln(z + w));
     }
-    
+
 }

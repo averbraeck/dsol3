@@ -24,7 +24,7 @@ public class StreamsGuiInspector extends JPanel
 {
     /** */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * the stream of the frame.
      */

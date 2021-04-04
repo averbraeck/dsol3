@@ -13,7 +13,6 @@ import org.junit.Test;
 import net.jodah.concurrentunit.Waiter;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
@@ -56,7 +55,7 @@ public class DEVSSimulationDoubleTest implements EventListenerInterface
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        this.devsSimulator.initialize(rep, ReplicationMode.TERMINATING);
+        this.devsSimulator.initialize(rep);
         this.devsSimulator.scheduleEventAbs(1.0, this, this, "step1", new Object[] {1.0});
         this.devsSimulator.start();
         this.waiter.await(1000);
@@ -97,7 +96,7 @@ public class DEVSSimulationDoubleTest implements EventListenerInterface
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        this.devsSimulator.initialize(rep, ReplicationMode.TERMINATING);
+        this.devsSimulator.initialize(rep);
         final DEVSSimulatorInterface.TimeDouble sim = this.devsSimulator;
         final Waiter w = this.waiter;
         final Object target = this;
@@ -192,7 +191,7 @@ public class DEVSSimulationDoubleTest implements EventListenerInterface
         ModelDouble model = new ModelDouble(this.devsSimulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> rep =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        this.devsSimulator.initialize(rep, ReplicationMode.TERMINATING);
+        this.devsSimulator.initialize(rep);
 
         for (int i = 0; i < 10; i++)
         {

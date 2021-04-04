@@ -27,7 +27,7 @@ public class DEVSSimulatorTest implements EventListenerInterface
 {
     /** */
     private static final long serialVersionUID = 1L;
-    
+
     /** the Waiter from ConcurrentUnit that catches AssertionErrors in other threads. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected Waiter waiter;

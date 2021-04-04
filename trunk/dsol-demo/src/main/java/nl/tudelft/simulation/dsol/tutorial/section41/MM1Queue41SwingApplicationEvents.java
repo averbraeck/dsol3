@@ -77,7 +77,7 @@ public class MM1Queue41SwingApplicationEvents extends DSOLApplication
         new SimulatorEventLogger(devsSimulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        devsSimulator.initialize(replication, ReplicationMode.TERMINATING);
+        devsSimulator.initialize(replication);
         DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, devsSimulator);
         new MM1Queue41SwingApplicationEvents(new MM1Queue41Panel(controlPanel, model), model, devsSimulator);
     }

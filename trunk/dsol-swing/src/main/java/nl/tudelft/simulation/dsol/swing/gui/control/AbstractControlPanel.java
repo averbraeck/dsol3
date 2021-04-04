@@ -39,8 +39,8 @@ import nl.tudelft.simulation.dsol.swing.gui.util.Icons;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  * @author <a href="http://www.tudelft.nl/pknoppers">Peter Knoppers</a>
- * @param <A> the absolute storage type for the simulation time, e.g. Calendar, Duration, or Double.
- * @param <R> the relative type for time storage, e.g. Long for the Calendar. For most non-calendar types, the absolute and
+ * @param <A> the absolute storage type for the simulation time, e.g. Time, Float, or Double.
+ * @param <R> the relative type for time storage, e.g. Duration for absolute Time. For most non-unit types, the absolute and
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  * @param <S> the simulator type to use
@@ -85,7 +85,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * Define a generic control panel with a different set of control buttons. This abstract class defines those features that
      * are used by any simulator (continuous, discrete, real-time) and for any type of simulation time (floating point, integer,
-     * or calendar based). Specific classes extend this abstract control panel to define the additional features that are
+     * or unit based). Specific classes extend this abstract control panel to define the additional features that are
      * necessary for those simulators.
      * @param model DSOLModel&lt;A, R, T, ? extends SimulationInterface&lt;A, R, T&gt;&gt;; the model for the control panel, to
      *            allow a reset of the model

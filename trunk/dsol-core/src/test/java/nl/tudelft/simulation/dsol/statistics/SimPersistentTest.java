@@ -15,7 +15,6 @@ import org.djutils.event.TimedEvent;
 import org.junit.Test;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -44,7 +43,7 @@ public class SimPersistentTest extends EventProducer
     {
         return "SimPersistentTest";
     }
-    
+
     /**
      * Test the SimPersistent.
      * @throws NamingException for failure to register the statistics in the context
@@ -57,7 +56,7 @@ public class SimPersistentTest extends EventProducer
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new DummyModel(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 10.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
 
         String description = "THIS PERSISTENT IS TESTED";
         SimPersistent.TimeDouble persistent = new SimPersistent.TimeDouble(description, simulator);

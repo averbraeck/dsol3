@@ -55,7 +55,7 @@ public class DummyModel implements DSOLModel.TimeDouble<DEVSSimulatorInterface.T
     }
 
     /** {@inheritDoc} */
-        @Override
+    @Override
     public final List<OutputStatistic<?>> getOutputStatistics()
     {
         return new ArrayList<>();

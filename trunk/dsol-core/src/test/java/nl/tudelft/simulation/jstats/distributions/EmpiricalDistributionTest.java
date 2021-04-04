@@ -143,7 +143,7 @@ public class EmpiricalDistributionTest
         assertEquals(new DistributionEntry(3.0, 0.8), de.getFloorEntryForValue(3.5));
         assertEquals(new DistributionEntry(4.0, 1.0), de.getCeilingEntryForValue(3.5));
         EmpiricalDistribution.createFromCumulativeProbabilities(new Double[] {10.0}, new double[] {1.0}, false);
-        
+
         Try.testFail(() -> {
             EmpiricalDistribution.createFromCumulativeProbabilities(vd, new double[] {0.1, 0.2, 0.2, 1.0}, false);
         });

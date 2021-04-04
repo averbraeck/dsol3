@@ -82,7 +82,7 @@ public class BallSwingApplication extends DSOLAnimationApplication
         BallModel model = new BallModel(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         DSOLPanel panel = new DSOLPanel(new RealTimeControlPanel.TimeDouble(model, simulator));
         panel.addTab("logger", new ConsoleLogger(Level.INFO));
         panel.addTab("console", new ConsoleOutput());

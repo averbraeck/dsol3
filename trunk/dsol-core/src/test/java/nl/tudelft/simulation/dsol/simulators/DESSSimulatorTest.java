@@ -27,7 +27,7 @@ public class DESSSimulatorTest implements EventListenerInterface
 {
     /** */
     private static final long serialVersionUID = 1L;
-    
+
     /** the Waiter from ConcurrentUnit that catches AssertionErrors in other threads. */
     protected Waiter waiter;
 

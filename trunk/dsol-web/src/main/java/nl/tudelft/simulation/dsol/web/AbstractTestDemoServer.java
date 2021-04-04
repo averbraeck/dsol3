@@ -176,7 +176,7 @@ public abstract class AbstractTestDemoServer
                     {
                         Replication.TimeDoubleUnit newReplication = Replication.TimeDoubleUnit.create("rep 1", Time.ZERO,
                                 Duration.ZERO, Duration.instantiateSI(3600.0), model);
-                        simulator.initialize(newReplication, ReplicationMode.TERMINATING);
+                        simulator.initialize(newReplication);
                         DSOLWebModel webModel = new DSOLWebModel(model.toString(), simulator);
                         AbstractTestDemoServer.this.sessionWebModelMap.put(sessionId, webModel);
                     }

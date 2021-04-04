@@ -51,7 +51,7 @@ public class SwingApplication extends DSOLApplication
         MyModel model = new MyModel(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         DEVSControlPanel.TimeDouble controlPanel = new DEVSControlPanel.TimeDouble(model, simulator);
         DSOLPanel panel = new DSOLPanel(controlPanel);
         panel.addConsoleLogger(Level.INFO);

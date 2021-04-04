@@ -37,7 +37,7 @@ public final class CustomerOrderApp implements EventListenerInterface
         CustomerOrderModel model = new CustomerOrderModel(simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 100.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         simulator.addListener(this, Replication.END_REPLICATION_EVENT);
         simulator.start();
     }

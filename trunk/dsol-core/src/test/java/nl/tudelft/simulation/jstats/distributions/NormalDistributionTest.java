@@ -138,7 +138,7 @@ public class NormalDistributionTest
                 IllegalArgumentException.class);
         Try.testFail(() -> { new DistLogNormal(NormalDistributionTest.this.stream, 2.0, -1.0); },
                 IllegalArgumentException.class);
-        
+
         DistLogNormal dist1 = new DistLogNormal(new MersenneTwister(10L), 1, 2);
         double v = dist1.draw();
         dist1.setStream(new MersenneTwister(10L));

@@ -400,7 +400,7 @@ public class InputParameterTest
         InputParameterString ipClone = ip.clone();
         assertFalse(ip == ipClone);
         assertEquals(ip.getCalculatedValue(), ipClone.getCalculatedValue());
-        
+
         Try.testFail(() -> { new InputParameterString("s", "string", "string value", null, 2.0); });
     }
 

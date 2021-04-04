@@ -55,7 +55,7 @@ public class WebMM1Queue41Application
         this.model = new WebMM1Queue41Model(this.simulator);
         Replication.TimeDouble<DEVSSimulator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000.0, this.model);
-        this.simulator.initialize(replication, ReplicationMode.TERMINATING);
+        this.simulator.initialize(replication);
         this.simulator.scheduleEventAbs(1000.0, this, this, "terminate", null);
         this.simulator.start();
     }

@@ -18,7 +18,6 @@ import org.djutils.stats.ConfidenceInterval;
 import org.junit.Test;
 
 import nl.tudelft.simulation.dsol.experiment.Replication;
-import nl.tudelft.simulation.dsol.experiment.ReplicationMode;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
@@ -62,7 +61,7 @@ public class SimTallyTest extends EventProducer
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new DummyModel(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 10.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
 
         String description = "THIS TALLY IS TESTED";
         SimTally.TimeDouble tally = new SimTally.TimeDouble(description, simulator);
@@ -95,7 +94,7 @@ public class SimTallyTest extends EventProducer
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new DummyModel(simulator);
         Replication.TimeDouble<DEVSSimulatorInterface.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 10.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
 
         String description = "THIS TALLY IS TESTED";
         SimTally.TimeDouble tally = new SimTally.TimeDouble(description, simulator, this, UPDATE_EVENT);

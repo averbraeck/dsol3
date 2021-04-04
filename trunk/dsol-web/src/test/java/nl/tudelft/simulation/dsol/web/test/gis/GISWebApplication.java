@@ -54,7 +54,7 @@ public class GISWebApplication extends DSOLWebServer
         GISModel model = new GISModel(simulator);
         Replication.TimeDouble<DEVSRealTimeAnimator.TimeDouble> replication =
                 Replication.TimeDouble.create("rep1", 0.0, 0.0, 1000000.0, model);
-        simulator.initialize(replication, ReplicationMode.TERMINATING);
+        simulator.initialize(replication);
         new GISWebApplication("GIS Animation model", simulator);
     }
 
