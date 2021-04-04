@@ -8,7 +8,7 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistDiscrete;
 import nl.tudelft.simulation.jstats.distributions.DistDiscreteEmpirical;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
-import nl.tudelft.simulation.jstats.distributions.empirical.Observations;
+import nl.tudelft.simulation.jstats.distributions.empirical.EmpiricalDistribution;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -49,9 +49,9 @@ public class Customer implements BuyerInterface
         this.retailer = retailer;
         StreamInterface stream = this.simulator.getReplication().getStream("default");
         this.intervalTime = new DistExponential(stream, 0.1);
-        Observations observations =
-                new Observations(new Number[][] {{1, 1.0 / 6.0}, {2, 1.0 / 3.0}, {3, 1.0 / 3.0}, {4, 1.0 / 6.0}}, false);
-        this.orderBatchSize = new DistDiscreteEmpirical(stream, observations);
+        EmpiricalDistribution empDist = EmpiricalDistribution.createFromDensities(new double[] {1, 2, 3, 4},
+                new double[] {1.0 / 6.0, 1.0 / 3.0, 1.0 / 3.0, 1.0 / 6.0}, false);
+        this.orderBatchSize = new DistDiscreteEmpirical(stream, empDist);
         this.createOrder();
     }
 

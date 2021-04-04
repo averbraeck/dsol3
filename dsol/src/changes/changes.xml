@@ -5,6 +5,36 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.06.07" date="2021-04-03" description="empirical distributions, TIME_CHANGED_EVENT">
+      <action dev="averbraeck" type="update">
+        The DistEmpirical functions have been completely recoded, since the interface of the distributions
+        themselves and the interface of the Observations class were not clear. Unit tests have been created 
+        for the new classes. Coverage is not yet 100% -- this will be addressed in the next release. 
+      </action>
+      <action dev="averbraeck" type="add">
+        The distributions now have a setter for the random stream. When an experiment changes, a new
+        random stream can be allocated. Alternatively, the random stream can be retrieved, and the seed
+        can be reset. Distributions that have underlying other distributions need to take care that these also
+        change their stream, and when parameters need to be initialized when the stream is set (e.g., in the 
+        Normal distribution), the setStream(..) method also needs to take care of that.
+      </action>
+      <action dev="averbraeck" type="add">
+        Unit tests for SimTime classes. SimTime classes got equals() and hashCode() methods.
+      </action>
+      <action dev="averbraeck" type="add">
+        Unit tests for InputParameter classes. Small changes to some of the InputParameter classes, e.g., to
+        align to changes made in the distributions classes.
+      </action>
+      <action dev="averbraeck" type="fix">
+        The TIME_CHANGED_EVENT should have a null payload, as it is already a TimedEvent that contains the absolute
+        simulation time. In several cases, the time was also added as the payload. This has been repaired. 
+      </action>
+      <action dev="averbraeck" type="fix">
+        The 'observation' parameter in the double probability(observation) function has been changed to long
+        to be consistent with the type of the draw() function. 
+      </action>
+    </release>
+    
     <release version="3.06.06" date="2021-03-13" description="more distribution functions recoded">
       <action dev="averbraeck" type="remove">
         The dependency on the Cern colt library has been taken out since the library is so old, and it is
