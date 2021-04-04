@@ -98,7 +98,7 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
                     SimEventInterface<T> event = this.eventList.removeFirst();
                     if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
                     {
-                        super.fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, event.getAbsoluteExecutionTime(),
+                        super.fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null,
                                 event.getAbsoluteExecutionTime().get());
                     }
                     this.simulatorTime = event.getAbsoluteExecutionTime();
