@@ -10,7 +10,6 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventProducerInterface;
 import org.djutils.event.TimedEvent;
@@ -18,7 +17,6 @@ import org.djutils.event.TimedEventType;
 import org.djutils.event.ref.ReferenceType;
 import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
-import org.djutils.stats.summarizers.event.EventBasedTally;
 import org.djutils.stats.summarizers.event.EventBasedTimestampWeightedTally;
 
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
