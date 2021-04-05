@@ -1,12 +1,9 @@
 package nl.tudelft.simulation.dsol.statistics;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
-import nl.tudelft.simulation.dsol.model.DSOLModel;
-import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
-import nl.tudelft.simulation.dsol.model.outputstatistics.OutputStatistic;
+import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 
 /**
@@ -17,20 +14,17 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * <p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
  */
-public class DummyModel implements DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble>
+public class DummyModel extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble>
 {
     /** */
     private static final long serialVersionUID = 1L;
-
-    /** the simulator. */
-    private final DEVSSimulatorInterface.TimeDouble simulator;
 
     /**
      * @param simulator the simulator
      */
     public DummyModel(final DEVSSimulatorInterface.TimeDouble simulator)
     {
-        this.simulator = simulator;
+        super(simulator);
     }
 
     /** {@inheritDoc} */
@@ -42,22 +36,9 @@ public class DummyModel implements DSOLModel.TimeDouble<DEVSSimulatorInterface.T
 
     /** {@inheritDoc} */
     @Override
-    public final DEVSSimulatorInterface.TimeDouble getSimulator()
+    public Serializable getSourceId()
     {
-        return this.simulator;
+        return "model";
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public final InputParameterMap getInputParameterMap()
-    {
-        return new InputParameterMap("roor", "root", "root", 1.0);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public final List<OutputStatistic<?>> getOutputStatistics()
-    {
-        return new ArrayList<>();
-    }
 }

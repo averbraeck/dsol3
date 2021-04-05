@@ -47,7 +47,7 @@ public class Customer implements BuyerInterface
         super();
         this.simulator = simulator;
         this.retailer = retailer;
-        StreamInterface stream = this.simulator.getReplication().getStream("default");
+        StreamInterface stream = this.simulator.getModel().getStream("default");
         this.intervalTime = new DistExponential(stream, 0.1);
         EmpiricalDistribution empDist = EmpiricalDistribution.createFromDensities(new long[] {1, 2, 3, 4},
                 new double[] {1.0 / 6.0, 1.0 / 3.0, 1.0 / 3.0, 1.0 / 6.0}, false);

@@ -79,7 +79,7 @@ public class Ball extends nl.tudelft.simulation.examples.dsol.animation.Ball
      */
     public void next() throws RemoteException
     {
-        StreamInterface stream = this.simulator.getReplication().getStream("default");
+        StreamInterface stream = this.simulator.getModel().getStream("default");
         this.origin = this.destination;
         this.positioner.setValue(0);
         this.destination = new CartesianPoint(-100 + stream.nextInt(0, 200), -100 + stream.nextInt(0, 200), 0);

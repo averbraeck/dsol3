@@ -66,7 +66,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
     @Override
     public final void constructModel() throws SimRuntimeException
     {
-        StreamInterface defaultStream = this.simulator.getReplication().getStream("default");
+        StreamInterface defaultStream = this.simulator.getModel().getStream("default");
 
         try
         {

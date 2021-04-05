@@ -54,7 +54,7 @@ public class Computer extends AbstractDSOLModel.TimeDouble<DEVSSimulator.TimeDou
     @Override
     public void constructModel() throws SimRuntimeException
     {
-        StreamInterface stream = this.simulator.getReplication().getStream("default");
+        StreamInterface stream = this.simulator.getModel().getStream("default");
 
         CPU cpu = new CPU(this.simulator);
         DistContinuous thinkDelay = new DistExponential(stream, 25);

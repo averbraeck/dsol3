@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -18,6 +19,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * The model interface defines the model object. Since version 2.1.0 of DSOL, the DSOLModel now knows its simulator and can
@@ -64,9 +66,34 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      */
     List<OutputStatistic<?>> getOutputStatistics();
 
-    /***********************************************************************************************************/
-    /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
-    /***********************************************************************************************************/
+    /**
+     * Set the initial streams of the model. This method has to be called from the constructor, so the random streams can be
+     * used in the constructModel() method, and the seed values can be changed by the experiment for subsequent replications,
+     * prior to calling constructModel().
+     */
+    void setInitialStreams();
+
+    /**
+     * Return the streams of this model, mapping stream ids to streams.
+     * @return Map&lt;String, StreamInterface&gt;; the streams of this model
+     */
+    Map<String, StreamInterface> getStreams();
+
+    /**
+     * Return a specific stream of this model, based on a stream id.
+     * @param streamId String; the id of the stream to be retrieved
+     * @return StreamInterface the stream
+     */
+    StreamInterface getStream(String streamId);
+
+    /**
+     * Reset the streams to their original seed values.
+     */
+    void resetStreams();
+
+    /* ********************************************************************************************************* */
+    /* ********************************** EASY ACCESS INTERFACE EXTENSIONS ************************************* */
+    /* ********************************************************************************************************* */
 
     /**
      * Easy access interface DSOLModel.TimeDouble.

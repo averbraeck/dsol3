@@ -20,12 +20,15 @@ public abstract class RandomNumberGenerator implements StreamInterface
     /** */
     private static final long serialVersionUID = 20150426L;
 
-    /** the seed of the generator. */
+    /** The seed of the generator. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected long seed = -1;
+    protected long seed;
+
+    /** The original seed of the generator. */
+    private final long originalSeed;
 
     /**
-     * constructs a new RandomNumberGenerator. The seed value used in the rng is set to System.currentTimeMillis();
+     * Construct a new RandomNumberGenerator. The seed value used in the rng is set to System.currentTimeMillis();
      */
     public RandomNumberGenerator()
     {
@@ -33,17 +36,17 @@ public abstract class RandomNumberGenerator implements StreamInterface
     }
 
     /**
-     * constructs a new RandomNumberGenerator.
+     * Construct a new RandomNumberGenerator.
      * @param seed long; the seed of the generator.
      */
     public RandomNumberGenerator(final long seed)
     {
-        super();
         if (seed <= 0)
         {
             throw new IllegalArgumentException("seed(" + seed + ")<=0");
         }
         this.setSeed(seed);
+        this.originalSeed = seed;
     }
 
     /** {@inheritDoc} */
@@ -60,41 +63,14 @@ public abstract class RandomNumberGenerator implements StreamInterface
      */
     protected abstract long next(int bits);
 
-    /**
-     * Returns the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
-     * sequence. The general contract of <code>nextBoolean</code> is that one <code>boolean</code> value is pseudorandomly
-     * generated and returned. The values <code>true</code> and <code>false</code> are produced with (approximately) equal
-     * probability. The method <code>nextBoolean</code> is implemented by class <code>Random</code> as follows: <blockquote>
-     * 
-     * <pre>
-     * public boolean nextBoolean()
-     * {
-     *     return next(1) != 0;
-     * }
-     * </pre>
-     * 
-     * </blockquote>
-     * @return the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
-     *         sequence.
-     * @since 1.5
-     */
+    /** {@inheritDoc} */
     @Override
     public final boolean nextBoolean()
     {
         return next(1) != 0;
     }
 
-    /**
-     * Returns the next pseudorandom, uniformly distributed <code>double</code> value between <code>0.0</code> and
-     * <code>1.0</code> from this random number generator's sequence.
-     * <p>
-     * The general contract of <code>nextDouble</code> is that one <code>double</code> value, chosen (approximately) uniformly
-     * from the range <code>0.0d</code> (inclusive) to <code>1.0d</code> (exclusive), is pseudorandomly generated and returned.
-     * All 2 <sup>64 </sup> possible <code>float</code> values of the form <i>m&nbsp;x&nbsp; </i>2 <sup>-64 </sup>, where <i>m
-     * </i> is a positive integer less than 2 <sup>64 </sup>, are produced with (approximately) equal probability.
-     * @return the next pseudorandom, uniformly distributed <code>double</code> value between <code>0.0</code> and
-     *         <code>1.0</code> from this random number generator's sequence.
-     */
+    /** {@inheritDoc} */
     @Override
     public final double nextDouble()
     {
@@ -102,29 +78,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
         return l / (double) (1L << 53);
     }
 
-    /**
-     * Returns the next pseudorandom, uniformly distributed <code>float</code> value between <code>0.0</code> and
-     * <code>1.0</code> from this random number generator's sequence.
-     * <p>
-     * The general contract of <code>nextFloat</code> is that one <code>float</code> value, chosen (approximately) uniformly
-     * from the range <code>0.0f</code> (inclusive) to <code>1.0f</code> (exclusive), is pseudorandomly generated and returned.
-     * All 2<sup>24</sup> possible <code>float</code> values of the form <i>m&nbsp;x&nbsp;</i>2<sup>-24</sup>, where <i>m </i>
-     * is a positive integer less than 2 <sup>24 </sup>, are produced with (approximately) equal probability. The method
-     * <code>nextFloat</code> is implemented by class <code>Random</code> as follows: <blockquote>
-     * 
-     * <pre>
-     *            public float nextFloat() {
-     *            return next(24) / ((float)(1 &lt; &lt; 24));
-     *            }
-     * </pre>
-     * 
-     * </blockquote> The hedge "approximately" is used in the foregoing description only because the next method is only
-     * approximately an unbiased source of independently chosen bits. If it were a perfect source or randomly chosen bits, then
-     * the algorithm shown would choose <code>float</code> values from the stated range with perfect uniformity.
-     * <p>
-     * @return the next pseudorandom, uniformly distributed <code>float</code> value between <code>0.0</code> and
-     *         <code>1.0</code> from this random number generator's sequence.
-     */
+    /** {@inheritDoc} */
     @Override
     public final float nextFloat()
     {
@@ -132,37 +86,14 @@ public abstract class RandomNumberGenerator implements StreamInterface
         return i / ((float) (1 << 24));
     }
 
-    /**
-     * Returns the next pseudorandom, uniformly distributed <code>int</code> value from this random number generator's sequence.
-     * The general contract of <code>nextInt</code> is that one <code>int</code> value is pseudorandomly generated and returned.
-     * All 2 <sup>32 </sup> possible <code>int</code> values are produced with (approximately) equal probability. The method
-     * <code>nextInt</code> is implemented by class <code>Random</code> as follows: <blockquote>
-     * 
-     * <pre>
-     * public int nextInt()
-     * {
-     *     return next(32);
-     * }
-     * </pre>
-     * 
-     * </blockquote>
-     * @return the next pseudorandom, uniformly distributed <code>int</code> value from this random number generator's sequence.
-     */
+    /** {@inheritDoc} */
     @Override
     public final int nextInt()
     {
         return (int) this.next(32);
     }
 
-    /**
-     * Returns a pseudorandom, uniformly distributed <code>int</code> value between i (inclusive) and j, drawn from this random
-     * number generator's sequence. The general contract of <code>nextInt</code> is that one <code>int</code> value in the
-     * specified range is pseudorandomly generated and returned. All <code>n</code> possible <code>int</code> values are
-     * produced with (approximately) equal probability.
-     * @param i int; the lower value
-     * @param j int; the higher value
-     * @return the result
-     */
+    /** {@inheritDoc} */
     @Override
     public final synchronized int nextInt(final int i, final int j)
     {
@@ -173,22 +104,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
         return i + (int) Math.floor((j - i + 1) * this.nextDouble());
     }
 
-    /**
-     * Returns the next pseudorandom, uniformly distributed <code>long</code> value from this random number generator's
-     * sequence. The general contract of <code>nextLong</code> is that one long value is pseudorandomly generated and returned.
-     * All 2 <sup>64 </sup> possible <code>long</code> values are produced with (approximately) equal probability. The method
-     * <code>nextLong</code> is implemented by class <code>Random</code> as follows: <blockquote>
-     * 
-     * <pre>
-     *            public long nextLong() {
-     *            return ((long)next(32) &lt; &lt; 32) + next(32);
-     *            }
-     * </pre>
-     * 
-     * </blockquote>
-     * @return the next pseudorandom, uniformly distributed <code>long</code> value from this random number generator's
-     *         sequence.
-     */
+    /** {@inheritDoc} */
     @Override
     public final long nextLong()
     {
@@ -204,6 +120,13 @@ public abstract class RandomNumberGenerator implements StreamInterface
     public final long getSeed()
     {
         return this.seed;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final long getOriginalSeed()
+    {
+        return this.originalSeed;
     }
 
     /** {@inheritDoc} */

@@ -23,13 +23,16 @@ public class Java2Random extends Random implements StreamInterface
     private static final long serialVersionUID = 20140831L;
 
     /**
-     * seed is a link to the seed value. The reason to store the seed in this variable is that there is no getSeed() on the
-     * Java2Random
+     * Seed is a link to the current seed value. The reason to store the seed in this variable is that there is no getSeed() on
+     * the Random class in Java.
      */
     private long seed;
 
+    /** The original seed of the generator. */
+    private final long originalSeed;
+
     /**
-     * creates a new Java2Random and in initializes with System.currentTimeMillis constructs a new Java2Random.
+     * Create a new Java2Random and initializes with System.currentTimeMillis.
      */
     public Java2Random()
     {
@@ -37,13 +40,14 @@ public class Java2Random extends Random implements StreamInterface
     }
 
     /**
-     * reates a new Java2Random and in initializes with a given seed.
+     * Create a new Java2Random and initialize with a given seed.
      * @param seed long; the seed to use.
      */
     public Java2Random(final long seed)
     {
         super(seed);
         this.seed = seed;
+        this.originalSeed = seed;
     }
 
     /** {@inheritDoc} */
@@ -51,6 +55,13 @@ public class Java2Random extends Random implements StreamInterface
     public final void reset()
     {
         this.setSeed(this.seed);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public long getOriginalSeed()
+    {
+        return this.originalSeed;
     }
 
     /** {@inheritDoc} */
