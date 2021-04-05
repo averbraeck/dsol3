@@ -1,15 +1,11 @@
 package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.djutils.exceptions.Throw;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
-import nl.tudelft.simulation.jstats.streams.MersenneTwister;
-import nl.tudelft.simulation.jstats.streams.StreamInterface;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 
 /**
