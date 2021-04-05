@@ -2,6 +2,7 @@ package nl.tudelft.simulation.dsol.experiment;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -16,6 +17,7 @@ import org.djutils.event.EventProducer;
 import org.djutils.event.EventType;
 import org.djutils.event.ref.ReferenceType;
 import org.djutils.exceptions.Throw;
+import org.djutils.logger.CategoryLogger;
 import org.djutils.metadata.MetaData;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -48,7 +50,8 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * @param <S> the simulator to use
  */
 public class Experiment<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
-        S extends SimulatorInterface<A, R, T>> extends EventProducer implements EventListenerInterface, Serializable
+        S extends SimulatorInterface<A, R, T>> extends EventProducer
+        implements EventListenerInterface, RunControlInterface<A, R, T>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -61,8 +64,8 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     public static final EventType END_EXPERIMENT_EVENT =
             new EventType(new MetaData("END_EXPERIMENT_EVENT", "End of experiment"));
 
-    /** The replications of this experiment. */
-    private List<? extends ReplicationInterface<A, R, T>> replications;
+    /** The started replications of this experiment. */
+    private List<ExperimentReplication<A, R, T>> startedReplications = new ArrayList<>();
 
     /** The simulator that will execute the replications. */
     private final S simulator;
@@ -80,7 +83,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     private final int numberOfReplications;
 
     /** The current replication. */
-    private int currentReplication = -1;
+    private int currentReplicationNumber = -1;
 
     /** the start time of the simulation for all replications. */
     private final T startTime;
@@ -90,12 +93,18 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
     /** the warmup time of the simulation for all replications (included in the total run length). */
     private final T warmupTime;
-    
-    /** Are we already subscribed to the END_REPLICATION_EVENT. */
-    private boolean subscribed = false;
 
     /** The Experiment context. */
     private ContextInterface context;
+    
+    /** the class that updates the seeds of the streams between replications. */
+    private StreamUpdater streamUpdater = new SimpleStreamUpdater();
+
+    /** the worker thread to carry out the experiment. */
+    private ExperimentThread experimentThread;
+    
+    /** is the simulation experiment running? */
+    private boolean running = false;
 
     /**
      * Construct a new Experiment.
@@ -124,6 +133,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         Throw.when(numberOfReplications <= 0, SimRuntimeException.class, "number of replications can not be zero or negative");
 
         this.id = id;
+        this.description = id;
         this.simulator = simulator;
         this.model = model;
         this.startTime = startTime;
@@ -141,7 +151,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
     /**
      * Return the simulator.
-     * @return SimulatorInterface
+     * @return S; the simulator
      */
     public final S getSimulator()
     {
@@ -150,7 +160,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
     /**
      * Return the model.
-     * @return DSOLModel the model
+     * @return DSOLModel; the model
      */
     public DSOLModel<A, R, T, ? extends S> getModel()
     {
@@ -158,126 +168,223 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     }
 
     /**
-     * Return the list of replications.
-     * @return List&lt;Replication&lt;A, R, T, S&gt;&gt;; the list of replications
+     * Return the list of started replications. Not all replications might have finished yet.
+     * @return List&lt;Replication&lt;A, R, T, S&gt;&gt;; the list of started replications
      */
-    public final List<? extends ReplicationInterface<A, R, T>> getReplications()
+    public final List<? extends ExperimentReplication<A, R, T>> getStartedReplications()
     {
-        return this.replications;
+        return this.startedReplications;
     }
 
     /**
-     * starts the experiment on a simulator.
-     * @throws RemoteException on netowrk error if started by RMI
+     * Start the extire experiment on a simulator, and execute ehe replications one by one.
+     * @throws RemoteException on network error if started by RMI
      * @throws SimRuntimeException when there are no more replications to run, or when the simulator is already running
      */
     public synchronized void start() throws RemoteException
     {
-        Throw.when(this.currentReplication >= this.replications.size(), SimRuntimeException.class,
+        Throw.when(this.currentReplicationNumber >= this.numberOfReplications - 1, SimRuntimeException.class,
                 "Experiment: No more replications");
         Throw.when(this.simulator.isStartingOrRunning(), SimRuntimeException.class,
                 "Simulator for experiment running -- Experiment cannot be started");
-        startNextReplication();
+        this.fireEvent(Experiment.START_EXPERIMENT_EVENT, null);
+        this.experimentThread = new ExperimentThread(this);
+        this.running = true;
+        this.experimentThread.start();
     }
 
     /**
      * Start the next replication from the list of replications, or fire END_EXPERIMENT_EVENT when there are no more
      * non-executed replications.
-     * @throws RemoteException on netowrk error if started by RMI
+     * @throws RemoteException on network error if started by RMI
      */
-    private void startNextReplication() throws RemoteException
+    protected void startNextReplication() throws RemoteException
     {
-        if (this.currentReplication < (this.replications.size() - 1))
-        {
-            // we can run the next replication
-            this.currentReplication++;
-            ReplicationInterface<A, R, T> replication = this.replications.get(this.currentReplication);
-            this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
-            this.fireEvent(Experiment.START_EXPERIMENT_EVENT, null);
-            this.simulator.initialize(getModel(), replication);
-            this.simulator.start();
-        }
-        else
-        {
-            // There is no experiment to run anymore
-            this.fireEvent(Experiment.END_EXPERIMENT_EVENT, null);
-        }
+        Throw.when(this.currentReplicationNumber >= this.numberOfReplications - 1, SimRuntimeException.class,
+                "Trying to run replication beyond given number");
+        this.currentReplicationNumber++;
+        ExperimentReplication<A, R, T> replication = makeExperimentReplication();
+        this.startedReplications.add(replication);
+        this.streamUpdater.updateSeeds(this.model.getStreams(), this.currentReplicationNumber++);
+        this.simulator.initialize(getModel(), replication);
+        this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
+        this.simulator.start();
+    }
+
+    /**
+     * Fire the end Experiment event.
+     */
+    protected void endExperiment()
+    {
+        this.fireEvent(Experiment.END_EXPERIMENT_EVENT, null);
+        this.running = false;
+    }
+
+    /**
+     * Create a new replication for an experiment. This method can be overridden in the inner classes.
+     * @return ExperimentReplication; a new replication for an experiment
+     */
+    protected ExperimentReplication<A, R, T> makeExperimentReplication()
+    {
+        return new ExperimentReplication<A, R, T>("Replication " + this.currentReplicationNumber, this.startTime,
+                getWarmupPeriod(), getRunLength(), this);
     }
 
     /** {@inheritDoc} */
     @Override
     public void notify(final EventInterface event) throws RemoteException
     {
-        if (!this.subscribed)
-        {
-            this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
-            this.subscribed = true;
-        }
         if (event.getType().equals(ReplicationInterface.END_REPLICATION_EVENT))
         {
-            startNextReplication();
+            this.experimentThread.interrupt();
         }
     }
 
     /**
-     * resets the experiment.
+     * Reset the experiment so it can be run again.
      */
     public void reset()
     {
-        this.currentReplication = -1;
+        this.currentReplicationNumber = -1;
+        for (ExperimentReplication<A, R, T> replication : this.startedReplications)
+        {
+            replication.removeFromContext();
+        }
+        this.startedReplications.clear();
     }
 
-    /**
-     * @return Returns the experiment description.
-     */
+    /** {@inheritDoc} */
+    @Override
+    public final String getId()
+    {
+        return this.id;
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public final String getDescription()
     {
         return this.description;
     }
 
-    /**
-     * @param description String; The description to set.
-     */
+    /** {@inheritDoc} */
+    @Override
     public final void setDescription(final String description)
     {
         this.description = description;
     }
 
     /**
-     * @return currentReplication
+     * Return the current (running or finished) replication.
+     * @return int; the current replication (still running or finished in case of last replication)
      */
     public final int getCurrentReplication()
     {
-        return this.currentReplication;
+        return this.currentReplicationNumber;
     }
 
-    /**
-     * @return the context of the experiment, based on the hashCode.
-     * @throws NamingException if context could not be found or created.
-     * @throws RemoteException on RMI error
-     */
-    public final ContextInterface getContext() throws NamingException, RemoteException
+    /** {@inheritDoc} */
+    @Override
+    public final ContextInterface getContext()
     {
-        if (this.context == null)
+        try
         {
-            ContextInterface rootContext = InitialEventContext.instantiate("root");
-            this.context = ContextUtil.lookupOrCreateSubContext(rootContext, String.valueOf(hashCode()));
+            if (this.context == null)
+            {
+                ContextInterface rootContext = InitialEventContext.instantiate("root");
+                this.context = ContextUtil.lookupOrCreateSubContext(rootContext, this.id);
+            }
+            return this.context;
         }
-        return this.context;
+        catch (RemoteException | NamingException exception)
+        {
+            throw new SimRuntimeException("Cannot destroy context for replication. Error is: " + exception.getMessage());
+        }
     }
 
     /**
      * Remove the entire experiment tree from the context.
-     * @throws NamingException if context could not be found or removed.
-     * @throws RemoteException on RMI error
      */
-    public final void removeFromContext() throws NamingException, RemoteException
+    public final void removeFromContext()
     {
-        if (this.context != null)
+        try
         {
-            ContextInterface rootContext = InitialEventContext.instantiate("root");
-            ContextUtil.destroySubContext(rootContext, String.valueOf(hashCode()));
+            if (this.context != null)
+            {
+                ContextInterface rootContext = InitialEventContext.instantiate("root");
+                ContextUtil.destroySubContext(rootContext, this.id);
+            }
         }
+        catch (RemoteException | NamingException exception)
+        {
+            throw new SimRuntimeException("Cannot destroy context for replication. Error is: " + exception.getMessage());
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public T getStartSimTime()
+    {
+        return this.startTime;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public T getEndSimTime()
+    {
+        return this.endTime;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public T getWarmupSimTime()
+    {
+        return this.warmupTime;
+    }
+
+    /**
+     * Return the current stream updater.
+     * @return streamUpdater StreamUpdater; the current stream updater
+     */
+    public final StreamUpdater getStreamUpdater()
+    {
+        return this.streamUpdater;
+    }
+
+    /**
+     * Set a new StreamUpdater to update the random seeds between replications.
+     * @param streamUpdater StreamUpdater; the new stream updater
+     */
+    public final void setStreamUpdater(final StreamUpdater streamUpdater)
+    {
+        this.streamUpdater = streamUpdater;
+    }
+
+    /**
+     * Return the current replication number, which is -1 if the experiment has not yet started.
+     * @return int; the current replication number
+     */
+    public final int getCurrentReplicationNumber()
+    {
+        return this.currentReplicationNumber;
+    }
+
+    /**
+     * Return the total number of replications to execute.
+     * @return int; the total number of replications to execute
+     */
+    public final int getNumberOfReplications()
+    {
+        return this.numberOfReplications;
+    }
+
+    /**
+     * Return whether the experiment is running or not.
+     * @return boolean; whether the experiment is running or not
+     */
+    public final boolean isRunning()
+    {
+        return this.running;
     }
 
     /** {@inheritDoc} */
@@ -287,153 +394,280 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         return "Experiment[" + this.description + " ; simulator=" + this.simulator.getClass().getTypeName() + "]";
     }
 
-    /***********************************************************************************************************/
-    /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
-    /***********************************************************************************************************/
+    /* ********************************************************************************************************* */
+    /* ************************************** EXPERIMENT RUNNER CLASS ****************************************** */
+    /* ********************************************************************************************************* */
 
-//    /**
-//     * Easy access class Experiment.TimeDouble.
-//     * @param <S> the simulator to use
-//     */
-//    public static class TimeDouble<S extends SimulatorInterface.TimeDouble> extends Experiment<Double, Double, SimTimeDouble, S>
-//    {
-//        /** */
-//        private static final long serialVersionUID = 20150422L;
-//
-//        /**
-//         * constructs a new Experiment.TimeDouble.
-//         * @param treatment Treatment.TimeDouble; the treatment for this experiment
-//         * @param simulator S; the simulator
-//         * @param model DSOLModel.TimeDouble&lt;S&gt;; the model to experiment with
-//         */
-//        public TimeDouble(final Treatment.TimeDouble treatment, final S simulator,
-//                final DSOLModel.TimeDouble<? extends S> model)
-//        {
-//            super(treatment, simulator, model);
-//        }
-//
-//        /** {@inheritDoc} */
-//        @Override
-//        public DSOLModel.TimeDouble<? extends S> getModel()
-//        {
-//            return (DSOLModel.TimeDouble<? extends S>) super.getModel();
-//        }
-//    }
-//
-//    /**
-//     * Easy access class Experiment.TimeFloat.
-//     * @param <S> the simulator to use
-//     */
-//    public static class TimeFloat<S extends SimulatorInterface.TimeFloat> extends Experiment<Float, Float, SimTimeFloat, S>
-//    {
-//        /** */
-//        private static final long serialVersionUID = 20150422L;
-//
-//        /**
-//         * constructs a new Experiment.TimeFloat.
-//         * @param treatment Treatment.TimeFloat; the treatment for this experiment
-//         * @param simulator S; the simulator
-//         * @param model DSOLModel.TimeFloat&lt;S&gt;; the model to experiment with
-//         */
-//        public TimeFloat(final Treatment.TimeFloat treatment, final S simulator, final DSOLModel.TimeFloat<? extends S> model)
-//        {
-//            super(treatment, simulator, model);
-//        }
-//
-//        /** {@inheritDoc} */
-//        @Override
-//        public DSOLModel.TimeFloat<? extends S> getModel()
-//        {
-//            return (DSOLModel.TimeFloat<? extends S>) super.getModel();
-//        }
-//    }
-//
-//    /**
-//     * Easy access class Experiment.TimeLong.
-//     * @param <S> the simulator to use
-//     */
-//    public static class TimeLong<S extends SimulatorInterface.TimeLong> extends Experiment<Long, Long, SimTimeLong, S>
-//    {
-//        /** */
-//        private static final long serialVersionUID = 20150422L;
-//
-//        /**
-//         * constructs a new Experiment.TimeLong.
-//         * @param treatment Treatment.TimeLong; the treatment for this experiment
-//         * @param simulator S; the simulator
-//         * @param model DSOLModel.TimeLong&lt;S&gt;; the model to experiment with
-//         */
-//        public TimeLong(final Treatment.TimeLong treatment, final S simulator, final DSOLModel.TimeLong<? extends S> model)
-//        {
-//            super(treatment, simulator, model);
-//        }
-//
-//        /** {@inheritDoc} */
-//        @Override
-//        public DSOLModel.TimeLong<? extends S> getModel()
-//        {
-//            return (DSOLModel.TimeLong<? extends S>) super.getModel();
-//        }
-//    }
-//
-//    /**
-//     * Easy access class Experiment.TimeDoubleUnit.
-//     * @param <S> the simulator to use
-//     */
-//    public static class TimeDoubleUnit<S extends SimulatorInterface.TimeDoubleUnit>
-//            extends Experiment<Time, Duration, SimTimeDoubleUnit, S>
-//    {
-//        /** */
-//        private static final long serialVersionUID = 20150422L;
-//
-//        /**
-//         * constructs a new Experiment.TimeDoubleUnit.
-//         * @param treatment Treatment.TimeDoubleUnit; the treatment for this experiment
-//         * @param simulator S; the simulator
-//         * @param model DSOLModel.TimeDoubleUnit&lt;S&gt;; the model to experiment with
-//         */
-//        public TimeDoubleUnit(final Treatment.TimeDoubleUnit treatment, final S simulator,
-//                final DSOLModel.TimeDoubleUnit<? extends S> model)
-//        {
-//            super(treatment, simulator, model);
-//        }
-//
-//        /** {@inheritDoc} */
-//        @Override
-//        public DSOLModel.TimeDoubleUnit<? extends S> getModel()
-//        {
-//            return (DSOLModel.TimeDoubleUnit<? extends S>) super.getModel();
-//        }
-//    }
-//
-//    /**
-//     * Easy access class Experiment.TimeFloatUnit.
-//     * @param <S> the simulator to use
-//     */
-//    public static class TimeFloatUnit<S extends SimulatorInterface.TimeFloatUnit>
-//            extends Experiment<FloatTime, FloatDuration, SimTimeFloatUnit, S>
-//    {
-//        /** */
-//        private static final long serialVersionUID = 20150422L;
-//
-//        /**
-//         * constructs a new Experiment.TimeFloatUnit.
-//         * @param treatment Treatment.TimeFloatUnit; the treatment for this experiment
-//         * @param simulator S; the simulator
-//         * @param model DSOLModel.TimeFloatUnit&lt;S&gt;; the model to experiment with
-//         */
-//        public TimeFloatUnit(final Treatment.TimeFloatUnit treatment, final S simulator,
-//                final DSOLModel.TimeFloatUnit<? extends S> model)
-//        {
-//            super(treatment, simulator, model);
-//        }
-//
-//        /** {@inheritDoc} */
-//        @Override
-//        public DSOLModel.TimeFloatUnit<? extends S> getModel()
-//        {
-//            return (DSOLModel.TimeFloatUnit<? extends S>) super.getModel();
-//        }
-//    }
+    /** The ExperimentRunner job. */
+    protected static class ExperimentThread extends Thread
+    {
+        /** the experiment. */
+        private final Experiment<?, ?, ?, ?> experiment;
+
+        /**
+         * Construct the ExperimentRunner with a pointer to the Experiment.
+         * @param experiment Experiment; the experiment
+         */
+        public ExperimentThread(final Experiment<?, ?, ?, ?> experiment)
+        {
+            this.experiment = experiment;
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void run()
+        {
+            synchronized (this)
+            {
+                while (this.experiment.getCurrentReplicationNumber() < this.experiment.getNumberOfReplications() - 1)
+                {
+                    try
+                    {
+                        this.experiment.startNextReplication();
+                        wait(); // wait for END_REPLICATION event
+                    }
+                    catch (RemoteException e)
+                    {
+                        CategoryLogger.always().error(e);
+                        break;
+                    }
+                    catch (InterruptedException ie)
+                    {
+                        Thread.interrupted(); // clear the interrupted flag
+                        // start next experiment.
+                    }
+                }
+                this.experiment.endExperiment();
+            }
+        }
+
+    }
+
+    /* ********************************************************************************************************* */
+    /* ************************************ EASY ACCESS CLASS EXTENSIONS *************************************** */
+    /* ********************************************************************************************************* */
+
+    /**
+     * Easy access class Experiment.TimeDouble.
+     * @param <S> the simulator to use
+     */
+    public static class TimeDouble<S extends SimulatorInterface.TimeDouble> extends Experiment<Double, Double, SimTimeDouble, S>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Construct a new Experiment.
+         * @param id String; the id of the experiment
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeDouble; the model to experiment with
+         * @param startTime double; the start time as a time object.
+         * @param warmupPeriod double; the warmup period, included in the runlength (!)
+         * @param runLength double; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or a context for the
+         *             experiment cannot be created
+         */
+        public TimeDouble(final String id, final S simulator, final DSOLModel.TimeDouble<? extends S> model,
+                final double startTime, final double warmupPeriod, final double runLength, final int numberOfReplications)
+        {
+            super(id, simulator, model, new SimTimeDouble(startTime), warmupPeriod, runLength, numberOfReplications);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeDouble<? extends S> getModel()
+        {
+            return (DSOLModel.TimeDouble<? extends S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected ExperimentReplication.TimeDouble makeExperimentReplication()
+        {
+            return new ExperimentReplication.TimeDouble("Replication " + getCurrentReplicationNumber(), getStartTime(),
+                    getWarmupPeriod(), getRunLength(), this);
+        }
+    }
+
+    /**
+     * Easy access class Experiment.TimeFloat.
+     * @param <S> the simulator to use
+     */
+    public static class TimeFloat<S extends SimulatorInterface.TimeFloat> extends Experiment<Float, Float, SimTimeFloat, S>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Construct a new Experiment.
+         * @param id String; the id of the experiment
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeFloat; the model to experiment with
+         * @param startTime float; the start time as a time object.
+         * @param warmupPeriod float; the warmup period, included in the runlength (!)
+         * @param runLength float; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or a context for the
+         *             experiment cannot be created
+         */
+        public TimeFloat(final String id, final S simulator, final DSOLModel.TimeFloat<? extends S> model,
+                final float startTime, final float warmupPeriod, final float runLength, final int numberOfReplications)
+        {
+            super(id, simulator, model, new SimTimeFloat(startTime), warmupPeriod, runLength, numberOfReplications);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeFloat<? extends S> getModel()
+        {
+            return (DSOLModel.TimeFloat<? extends S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected ExperimentReplication.TimeFloat makeExperimentReplication()
+        {
+            return new ExperimentReplication.TimeFloat("Replication " + getCurrentReplicationNumber(), getStartTime(),
+                    getWarmupPeriod(), getRunLength(), this);
+        }
+    }
+
+    /**
+     * Easy access class Experiment.TimeLong.
+     * @param <S> the simulator to use
+     */
+    public static class TimeLong<S extends SimulatorInterface.TimeLong> extends Experiment<Long, Long, SimTimeLong, S>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Construct a new Experiment.
+         * @param id String; the id of the experiment
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeLong; the model to experiment with
+         * @param startTime long; the start time as a time object.
+         * @param warmupPeriod long; the warmup period, included in the runlength (!)
+         * @param runLength long; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or a context for the
+         *             experiment cannot be created
+         */
+        public TimeLong(final String id, final S simulator, final DSOLModel.TimeLong<? extends S> model, final long startTime,
+                final long warmupPeriod, final long runLength, final int numberOfReplications)
+        {
+            super(id, simulator, model, new SimTimeLong(startTime), warmupPeriod, runLength, numberOfReplications);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeLong<? extends S> getModel()
+        {
+            return (DSOLModel.TimeLong<? extends S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected ExperimentReplication.TimeLong makeExperimentReplication()
+        {
+            return new ExperimentReplication.TimeLong("Replication " + getCurrentReplicationNumber(), getStartTime(),
+                    getWarmupPeriod(), getRunLength(), this);
+        }
+    }
+
+    /**
+     * Easy access class Experiment.TimeDoubleUnit.
+     * @param <S> the simulator to use
+     */
+    public static class TimeDoubleUnit<S extends SimulatorInterface.TimeDoubleUnit>
+            extends Experiment<Time, Duration, SimTimeDoubleUnit, S>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Construct a new Experiment.
+         * @param id String; the id of the experiment
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeDoubleUnit; the model to experiment with
+         * @param startTime Time; the start time as a time object.
+         * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
+         * @param runLength Duration; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or a context for the
+         *             experiment cannot be created
+         */
+        public TimeDoubleUnit(final String id, final S simulator, final DSOLModel.TimeDoubleUnit<? extends S> model,
+                final Time startTime, final Duration warmupPeriod, final Duration runLength, final int numberOfReplications)
+        {
+            super(id, simulator, model, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength, numberOfReplications);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeDoubleUnit<? extends S> getModel()
+        {
+            return (DSOLModel.TimeDoubleUnit<? extends S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected ExperimentReplication.TimeDoubleUnit makeExperimentReplication()
+        {
+            return new ExperimentReplication.TimeDoubleUnit("Replication " + getCurrentReplicationNumber(), getStartTime(),
+                    getWarmupPeriod(), getRunLength(), this);
+        }
+    }
+
+    /**
+     * Easy access class Experiment.TimeFloatUnit.
+     * @param <S> the simulator to use
+     */
+    public static class TimeFloatUnit<S extends SimulatorInterface.TimeFloatUnit>
+            extends Experiment<FloatTime, FloatDuration, SimTimeFloatUnit, S>
+    {
+        /** */
+        private static final long serialVersionUID = 20150422L;
+
+        /**
+         * Construct a new Experiment.
+         * @param id String; the id of the experiment
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeFloatUnit; the model to experiment with
+         * @param startTime FloatTime; the start time as a time object.
+         * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
+         * @param runLength FloatDuration; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or a context for the
+         *             experiment cannot be created
+         */
+        public TimeFloatUnit(final String id, final S simulator, final DSOLModel.TimeFloatUnit<? extends S> model,
+                final FloatTime startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
+                final int numberOfReplications)
+        {
+            super(id, simulator, model, new SimTimeFloatUnit(startTime), warmupPeriod, runLength, numberOfReplications);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public DSOLModel.TimeFloatUnit<? extends S> getModel()
+        {
+            return (DSOLModel.TimeFloatUnit<? extends S>) super.getModel();
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        protected ExperimentReplication.TimeFloatUnit makeExperimentReplication()
+        {
+            return new ExperimentReplication.TimeFloatUnit("Replication " + getCurrentReplicationNumber(), getStartTime(),
+                    getWarmupPeriod(), getRunLength(), this);
+        }
+    }
 
 }

@@ -350,7 +350,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @Override
     public void endReplication()
     {
-        System.out.println("END_REPLICATION");
         super.endReplication();
         this.eventList.clear();
     }

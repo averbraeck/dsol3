@@ -137,6 +137,11 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
             throws SimRuntimeException;
 
     /**
+     * Clean up the simulator after a replication. Remove the worker thread.
+     */
+    void cleanUp();
+
+    /**
      * Starts the simulator, and fire a START_EVENT that the simulator was started. Note that when the simulator was already
      * started an exception will be thrown, and no event will be fired. The start uses the RunUntil property with a value of the
      * end time of the replication whenstarting the simulator.

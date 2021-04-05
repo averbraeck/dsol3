@@ -25,7 +25,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
 
 /**
  * The Simulator class is an abstract implementation of the SimulatorInterface.
@@ -98,7 +97,6 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     {
         Throw.whenNull(id, "id cannot be null");
         this.id = id;
-        this.worker = new SimulatorWorkerThread(this.id.toString(), this);
         this.logger = new SimLogger(this);
     }
 
@@ -113,7 +111,11 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot initialize a running simulator");
         synchronized (this.semaphore)
         {
-            this.removeAllListeners(StatisticsInterface.class);
+            if (this.worker != null)
+            {
+                cleanUp();
+            }
+            this.worker = new SimulatorWorkerThread(this.id.toString(), this);
             this.replication = replication;
             this.model = model;
             this.simulatorTime = replication.getStartSimTime().copy();
@@ -246,9 +248,8 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         fireTimedEvent(ReplicationInterface.WARMUP_EVENT, null, getSimulatorTime());
     }
 
-    /**
-     * Clean up the simulator. Remove the worker thread.
-     */
+    /** {@inheritDoc} */
+    @Override
     public final void cleanUp()
     {
         stopImpl();
@@ -259,8 +260,8 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         if (this.worker != null)
         {
             this.worker.cleanUp();
+            this.worker = null;
         }
-        this.worker = null;
         this.runState = RunState.NOT_INITIALIZED;
         this.replicationState = ReplicationState.NOT_INITIALIZED;
     }
@@ -275,6 +276,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     protected void endReplication()
     {
         this.replicationState = ReplicationState.ENDING;
+        this.worker.interrupt(); // just to be sure
         if (this.simulatorTime.lt(this.getReplication().getEndSimTime()))
         {
             Logger.warn("The simulator executes the endReplication method, but the simulation time " + this.simulatorTime.get()
@@ -432,7 +434,6 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
             {
                 this.notify(); // in case it is in the 'wait' state
             }
-            this.job = null;
         }
 
         /**
@@ -457,32 +458,36 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
                 {
                     if (!this.finalized)
                     {
-                        this.running.set(true);
-                        try
+                        if (this.job.replicationState != ReplicationState.ENDING)
                         {
-                            if (this.job.replicationState == ReplicationState.INITIALIZED)
+                            this.running.set(true);
+                            try
                             {
-                                this.job.fireTimedEvent(ReplicationInterface.START_REPLICATION_EVENT);
-                                this.job.replicationState = ReplicationState.STARTED;
+                                if (this.job.replicationState == ReplicationState.INITIALIZED)
+                                {
+                                    this.job.fireTimedEvent(ReplicationInterface.START_REPLICATION_EVENT);
+                                    this.job.replicationState = ReplicationState.STARTED;
+                                }
+                                this.job.fireTimedEvent(SimulatorInterface.START_EVENT);
+                                this.job.runState = RunState.STARTED;
+                                this.job.run();
+                                this.job.stopImpl();
+                                this.job.fireTimedEvent(SimulatorInterface.STOP_EVENT);
+                                this.job.runState = RunState.STOPPED;
                             }
-                            this.job.fireTimedEvent(SimulatorInterface.START_EVENT);
-                            this.job.runState = RunState.STARTED;
-                            this.job.run();
-                            this.job.stopImpl();
-                            this.job.fireTimedEvent(SimulatorInterface.STOP_EVENT);
-                            this.job.runState = RunState.STOPPED;
-                        }
-                        catch (Exception exception)
-                        {
-                            CategoryLogger.always().error(exception);
-                            exception.printStackTrace();
+                            catch (Exception exception)
+                            {
+                                CategoryLogger.always().error(exception);
+                                exception.printStackTrace();
+                            }
                         }
                         this.running.set(false);
                         if (this.job.replicationState == ReplicationState.ENDING)
                         {
-                            this.job.fireTimedEvent(ReplicationInterface.END_REPLICATION_EVENT);
                             this.job.replicationState = ReplicationState.ENDED;
                             this.job.runState = RunState.ENDED;
+                            this.job.fireTimedEvent(ReplicationInterface.END_REPLICATION_EVENT);
+                            this.finalized = true;
                         }
                     }
                     Thread.interrupted(); // clear the interrupted flag
