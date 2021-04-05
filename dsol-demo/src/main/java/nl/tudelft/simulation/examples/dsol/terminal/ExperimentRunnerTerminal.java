@@ -77,7 +77,7 @@ public final class ExperimentRunnerTerminal implements EventListenerInterface
                     DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("ExperimentRunnerTerminal");
                     Terminal model = new Terminal(simulator, rep);
                     ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, runtime);
-                    replication.getStreams().put("default", new MersenneTwister(seed++));
+                    model.getStreams().put("default", new MersenneTwister(seed++));
                     InputParameterMap parameters = model.getInputParameterMap();
                     ((InputParameterInteger) parameters.get("numQC")).setIntValue(numQC);
                     ((InputParameterInteger) parameters.get("numAGV")).setIntValue(numAGV);

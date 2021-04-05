@@ -1,8 +1,6 @@
 package nl.tudelft.simulation.dsol.tutorial.section42;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
@@ -13,8 +11,6 @@ import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.statistics.SimTally;
-import nl.tudelft.simulation.jstats.streams.MersenneTwister;
-import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * A BoatModel.
@@ -68,10 +64,6 @@ public class Warehouse42Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator
     @Override
     public final void constructModel() throws SimRuntimeException
     {
-        Map<String, StreamInterface> streams = new HashMap<>();
-        streams.put("default", new MersenneTwister());
-        this.simulator.getReplication().setStreams(streams);
-
         SellerInterface warehouse = new Warehouse(this.simulator);
         Retailer retailer = new Retailer(this.simulator, warehouse);
         new Customer(this.simulator, retailer);

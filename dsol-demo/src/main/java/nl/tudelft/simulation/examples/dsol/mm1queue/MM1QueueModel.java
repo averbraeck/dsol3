@@ -77,7 +77,7 @@ public class MM1QueueModel extends AbstractDSOLModel.TimeDouble<DEVSSimulator.Ti
     @Override
     public final void constructModel() throws SimRuntimeException
     {
-        StreamInterface defaultStream = this.simulator.getReplication().getStream("default");
+        StreamInterface defaultStream = getStream("default");
 
         try
         {

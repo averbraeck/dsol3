@@ -2,7 +2,9 @@ package nl.tudelft.simulation.dsol.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -21,6 +23,8 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.jstats.streams.MersenneTwister;
+import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
  * AbstractDSOLModel, an abstract helper class to easily construct a DSOLModel. The model automatically acts as an
@@ -55,14 +59,55 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected List<OutputStatistic<?>> outputStatistics = new ArrayList<>();
 
+    /** streams used in the replication. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected final Map<String, StreamInterface> streams = new HashMap<String, StreamInterface>();
+
     /**
      * Construct a DSOL model and set the simulator.
      * @param simulator S; the simulator to use for this model
      */
     public AbstractDSOLModel(final S simulator)
     {
-        super();
         this.simulator = simulator;
+        setInitialStreams();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void setInitialStreams()
+    {
+        this.streams.put("default", new MersenneTwister(10L));
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Map<String, StreamInterface> getStreams()
+    {
+        return this.streams;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public StreamInterface getStream(final String streamId)
+    {
+        synchronized (this.streams)
+        {
+            return this.streams.get(streamId);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void resetStreams()
+    {
+        synchronized (this.streams)
+        {
+            for (StreamInterface stream : getStreams().values())
+            {
+                stream.reset();
+            }
+        }
     }
 
     /** {@inheritDoc} */

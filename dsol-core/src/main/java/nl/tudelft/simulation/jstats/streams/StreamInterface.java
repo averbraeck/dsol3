@@ -18,85 +18,77 @@ import java.io.Serializable;
 public interface StreamInterface extends Serializable
 {
     /**
-     * Returns the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
-     * sequence. The general contract of <code>nextBoolean</code> is that one <code>boolean</code> value is pseudorandomly
-     * generated and returned. The values <code>true</code> and <code>false</code> are produced with (approximately) equal
-     * probability. The method <code>nextBoolean</code> is implemented by class <code>Random</code> as follows: <blockquote>
-     * 
-     * <pre>
-     * public boolean nextBoolean()
-     * {
-     *     return next(1) != 0;
-     * }
-     * </pre>
-     * 
-     * </blockquote>
-     * @return the next pseudorandom, uniformly distributed <code>boolean</code> value from this random number generator's
-     *         sequence.
-     * @since 1.5
+     * Return the next pseudo-random, uniformly distributed boolean value.
+     * @return boolean; a pseudo-random boolean with 50/50 chance for true or false
      */
     boolean nextBoolean();
 
     /**
-     * Method return a (pseudo)random number from the stream over the interval (0,1) using this stream, after advancing its
+     * Return a pseudo-random number from the stream over the interval (0,1) using this stream, after advancing its
      * state by one step.
-     * @return double the (pseudo)random number
+     * @return double; the pseudo-random number
      */
     double nextDouble();
 
     /**
-     * Method return a (pseudo)random number from the stream over the interval (0,1) using this stream, after advancing its
+     * Return a pseudo-random number from the stream over the interval (0,1) using this stream, after advancing its
      * state by one step.
-     * @return float the (pseudo)random number
+     * @return float; the pseudo-random number
      */
     float nextFloat();
 
     /**
-     * Method return a (pseudo)random number from the stream over using this stream, after advancing its state by one step.
-     * @return int the (pseudo)random number
+     * Return a pseudo-random number from the stream over using this stream, after advancing its state by one step.
+     * @return int; the pseudo-random number
      */
     int nextInt();
 
     /**
-     * Method returns (pseudo)random number from the stream over the integers i and j .
+     * Return pseudo-random number from the stream between the integers i (inclusive) and j (inclusive).
      * @param i int; the minimal value
      * @param j int; the maximum value
-     * @return int
+     * @return int; a value between i and j
      */
     int nextInt(int i, int j);
 
     /**
-     * Method return a (pseudo)random number from the stream over using this stream, after advancing its state by one step.
-     * @return long the (pseudo)random number
+     * Return a pseudo-random number from the stream over using this stream, after advancing its state by one step.
+     * @return long; the pseudo-random number
      */
     long nextLong();
 
     /**
-     * returns the seed of the generator.
-     * @return long the seed
+     * Return the seed of the generator.
+     * @return long; the seed
      */
     long getSeed();
 
     /**
-     * sets the seed of the generator.
+     * Return the original seed of the generator with which it has been first initialized.
+     * @return long; the original seed of the generator when it was first initialized
+     */
+    long getOriginalSeed();
+
+    /**
+     * Set the seed of the generator.
      * @param seed long; the new seed
      */
     void setSeed(long seed);
 
     /**
-     * resets the stream.
+     * Reset the stream to use the original seed with which it was initialized.
      */
     void reset();
 
     /**
-     * save the state of the RNG into an object, e.g. to roll it back to this state.
+     * Save the state of the RNG into an object, e.g. to roll it back to this state.
      * @return the state as an object specific to the RNG.
      * @throws StreamException when getting the state fails.
      */
     byte[] saveState() throws StreamException;
 
     /**
-     * restore the state to an earlier saved state object.
+     * Restore the state to an earlier saved state object.
      * @param state Object; the earlier saved state to which the RNG rolls back.
      * @throws StreamException when resetting the state fails.
      */

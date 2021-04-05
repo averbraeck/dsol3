@@ -34,7 +34,7 @@ public class Warehouse implements SellerInterface
         super();
         this.simulator = simulator;
 
-        StreamInterface stream = this.simulator.getReplication().getStream("default");
+        StreamInterface stream = this.simulator.getModel().getStream("default");
         this.leadTime = new DistUniform(stream, 0.5, 1.0);
     }
 
