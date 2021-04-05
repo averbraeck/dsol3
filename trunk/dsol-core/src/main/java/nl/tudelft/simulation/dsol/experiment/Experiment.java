@@ -205,7 +205,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         this.currentReplicationNumber++;
         ExperimentReplication<A, R, T> replication = makeExperimentReplication();
         this.startedReplications.add(replication);
-        this.streamUpdater.updateSeeds(this.model.getStreams(), this.currentReplicationNumber++);
+        this.streamUpdater.updateSeeds(this.model.getStreams(), this.currentReplicationNumber);
         this.simulator.initialize(getModel(), replication);
         this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
         this.simulator.start();
