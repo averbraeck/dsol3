@@ -37,13 +37,6 @@ public interface EmpiricalDistributionInterface extends Serializable
     List<Double> getCumulativeProbabilities();
 
     /**
-     * Return whether the values will be interpolated or not. When the values will be interpolated, the first cumulative
-     * probability has to be 0.0. When the values are not interpolated, the first cumulative probability has to be &gt;= 0.0.
-     * @return boolean; whether the values will be interpolated or not
-     */
-    boolean isInterpolated();
-
-    /**
      * Return the cumulative probability and number below or at the given probability, or null when the cumulative probability
      * is smaller than the lowest cumulative probability.
      * @param cumulativeProbability double; the cumulative probability to look up

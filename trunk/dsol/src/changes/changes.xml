@@ -1,9 +1,23 @@
-<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 changes.xsd" xml:space="preserve">
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 changes.xsd" xml:space="preserve">
   
   <body>
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
+
+    <release version="3.07.02" date="2021-04-06" description="Data collectors for multiple replications">
+      <action dev="averbraeck" type="update">
+        The way data is collected after a replication is completely changed. There are two paths towards
+        statistics over multiple replications: (1) the OutputStatistics of a DSOLModel, and (2) all statistics
+        that are stored in the Context. Both have been made available through methods of the Experiment.
+      </action>
+      <action dev="averbraeck" type="update">
+        Some further optimizations have been made to the EmpiricalDistribution. One is how to properly transform
+        density functions to a cumulative distribution that uses interpolation. 
+      </action>
+      <action dev="averbraeck" type="update">
+        Unit tests for the EmpiricalDistribution have been expanded.
+      </action>    
+    </release>
 
     <release version="3.07.01" date="2021-04-04" description="Experiments and replications completely redesigned">
       <action dev="averbraeck" type="update">

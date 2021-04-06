@@ -1,4 +1,4 @@
-package nl.tudelft.simulation.jstats.distributions;
+package nl.tudelft.simulation.jstats.distributions.empirical;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,13 +6,15 @@ import static org.junit.Assert.assertTrue;
 import org.djutils.exceptions.Try;
 import org.junit.Test;
 
-import nl.tudelft.simulation.jstats.distributions.empirical.EmpiricalDistribution;
+import nl.tudelft.simulation.jstats.distributions.DistEmpiricalDiscreteDouble;
+import nl.tudelft.simulation.jstats.distributions.DistEmpiricalDiscreteLong;
+import nl.tudelft.simulation.jstats.distributions.DistEmpiricalInterpolated;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
- * DistEmpiricalTest tests the DistEmpirical and the DistDiscreteEmpirical, based on several ways of constructing the underlying
- * EmpiricalDistribution.
+ * DistEmpiricalTest tests the DistEmpirical and the DistEmpiricalDiscreteLong, based on several ways of constructing the
+ * underlying EmpiricalDistribution.
  * <p>
  * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -32,8 +34,8 @@ public class DistEmpiricalTest
         StreamInterface stream = new MersenneTwister(12L);
         double[] cpd = {0.1, 0.5, 0.8, 1.0};
         double[] vd = {1.0, 2.0, 3.0, 4.0};
-        EmpiricalDistribution empDist = EmpiricalDistribution.createFromCumulativeProbabilities(vd, cpd, false);
-        DistEmpirical dist = new DistEmpirical(stream, empDist);
+        DiscreteEmpiricalDistribution empDist = CumulativeProbabilities.createDiscreteDistribution(vd, cpd);
+        DistEmpiricalDiscreteDouble dist = new DistEmpiricalDiscreteDouble(stream, empDist);
         int[] bins = new int[4];
         for (int i = 0; i < 100_000; i++)
         {
@@ -61,8 +63,8 @@ public class DistEmpiricalTest
         StreamInterface stream = new MersenneTwister(12L);
         double[] cpd = {0.0, 0.1, 0.5, 0.8, 1.0};
         double[] vd = {0.0, 1.0, 2.0, 3.0, 4.0};
-        EmpiricalDistribution empDist = EmpiricalDistribution.createFromCumulativeProbabilities(vd, cpd, true);
-        DistEmpirical dist = new DistEmpirical(stream, empDist);
+        InterpolatedEmpiricalDistribution empDist = CumulativeProbabilities.createInterpolatedDistribution(vd, cpd);
+        DistEmpiricalInterpolated dist = new DistEmpiricalInterpolated(stream, empDist);
         int[] bins = new int[4];
         for (int i = 0; i < 100_000; i++)
         {
@@ -108,8 +110,8 @@ public class DistEmpiricalTest
         StreamInterface stream = new MersenneTwister(12L);
         double[] cpd = {0.1, 0.5, 0.8, 1.0};
         long[] vl = {1, 2, 3, 4};
-        EmpiricalDistribution empDist = EmpiricalDistribution.createFromCumulativeProbabilities(vl, cpd, false);
-        DistDiscreteEmpirical dist = new DistDiscreteEmpirical(stream, empDist);
+        DiscreteEmpiricalDistribution empDist = CumulativeProbabilities.createDiscreteDistribution(vl, cpd);
+        DistEmpiricalDiscreteLong dist = new DistEmpiricalDiscreteLong(stream, empDist);
         int[] bins = new int[4];
         for (int i = 0; i < 100_000; i++)
         {
@@ -127,12 +129,12 @@ public class DistEmpiricalTest
         assertEquals(0.0, dist.probability(5L), 1E-6);
 
         double[] vd = {1.0, 2.0, 3.0, 4.0};
-        EmpiricalDistribution empDist2 = EmpiricalDistribution.createFromCumulativeProbabilities(vd, cpd, false);
-        Try.testFail(() -> { new DistDiscreteEmpirical(stream, empDist2); });
+        DiscreteEmpiricalDistribution empDist2 = CumulativeProbabilities.createDiscreteDistribution(vd, cpd);
+        Try.testFail(() -> { new DistEmpiricalDiscreteLong(stream, empDist2); });
 
         Number[] vf = {1.0f, 2.0f, 3.0f, 4.0f};
-        EmpiricalDistribution empDist3 = EmpiricalDistribution.createFromCumulativeProbabilities(vf, cpd, false);
-        Try.testFail(() -> { new DistDiscreteEmpirical(stream, empDist3); });
+        DiscreteEmpiricalDistribution empDist3 = CumulativeProbabilities.createDiscreteDistribution(vf, cpd);
+        Try.testFail(() -> { new DistEmpiricalDiscreteLong(stream, empDist3); });
     }
 
 }
