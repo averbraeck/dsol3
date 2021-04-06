@@ -3,18 +3,14 @@ package nl.tudelft.simulation.dsol.formalisms.flow.statistics;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.ref.ReferenceType;
-import org.djutils.stats.summarizers.event.EventBasedTally;
 
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.formalisms.flow.StationInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.SimPersistent;
-import nl.tudelft.simulation.naming.context.ContextInterface;
-import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * A Utilization statistic for the flow components.
@@ -82,53 +78,10 @@ public class Utilization<A extends Comparable<A> & Serializable, R extends Numbe
                 super.initialize();
                 return;
             }
-            if (event.getType().equals(ReplicationInterface.END_REPLICATION_EVENT))
-            {
-                try
-                {
-                    this.simulator.removeListener(this, ReplicationInterface.END_REPLICATION_EVENT);
-                }
-                catch (RemoteException exception)
-                {
-                    this.simulator.getLogger().always().warn(exception,
-                            "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
-                }
-                this.endOfReplication();
-                return;
-            }
         }
         else if (this.initialized)
         {
             super.notify(event);
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    protected void endOfReplication()
-    {
-        try
-        {
-            // TODO: do only if replication is part of an experiment or a series of replications
-            // TODO: store one level higher than the replication itself
-            ContextInterface context = ContextUtil
-                    .lookupOrCreateSubContext(this.simulator.getReplication().getContext(), "statistics");
-            EventBasedTally experimentTally;
-            if (context.hasKey(getDescription()))
-            {
-                experimentTally = (EventBasedTally) context.getObject(getDescription());
-            }
-            else
-            {
-                experimentTally = new EventBasedTally(getDescription());
-                context.bindObject(getDescription(), experimentTally);
-                experimentTally.initialize();
-            }
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(getWeightedSampleMean())));
-        }
-        catch (Exception exception)
-        {
-            this.simulator.getLogger().always().warn(exception, "endOfReplication");
         }
     }
 }

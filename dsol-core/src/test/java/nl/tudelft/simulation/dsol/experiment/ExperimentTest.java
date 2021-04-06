@@ -6,7 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -25,6 +27,11 @@ import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
+import nl.tudelft.simulation.dsol.statistics.SimCounter;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
+import nl.tudelft.simulation.dsol.statistics.SimTally;
+import nl.tudelft.simulation.jstats.distributions.DistContinuous;
+import nl.tudelft.simulation.jstats.distributions.DistExponential;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 
 /**
@@ -244,7 +251,7 @@ public class ExperimentTest
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new CountModel(simulator, dataCollector);
         Experiment.TimeDouble<DEVSSimulatorInterface.TimeDouble> expd =
                 new Experiment.TimeDouble<>("Exp 1", simulator, model, 10.0, 1.0, 12.0, 10);
-        
+
         expd.start();
         int count = 0;
         while (expd.isRunning() && count < 1000)
@@ -253,7 +260,7 @@ public class ExperimentTest
             Sleep.sleep(1);
         }
         assertTrue(count < 1000);
-        
+
         assertEquals(10, dataCollector.size());
         for (int i = 0; i < 10; i++)
         {
@@ -280,6 +287,31 @@ public class ExperimentTest
         {
             assertEquals(13, dataCollector.get(i).intValue());
         }
+    }
+
+    /**
+     * test the calculation of a summary statistic foran experiment with 10 replications.
+     * @throws RemoteException on error
+     */
+    @Test
+    public void testSummaryStatistics() throws RemoteException
+    {
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("simulator");
+        DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new MM1Model(simulator);
+        Experiment.TimeDouble<DEVSSimulatorInterface.TimeDouble> expd =
+                new Experiment.TimeDouble<>("Exp 1", simulator, model, 10.0, 10.0, 20.0, 10);
+
+        expd.start();
+        int count = 0;
+        while (expd.isRunning() && count < 1000)
+        {
+            count++;
+            Sleep.sleep(1);
+        }
+        assertTrue(count < 2000);
+
+        assertEquals(3, expd.getSummaryStatistics().size());
+        System.out.println(expd.getSummaryStatistics());
     }
 
     /**
@@ -334,4 +366,113 @@ public class ExperimentTest
         }
     }
 
+    /**
+     * Quick and dirty MM1 queuing system Model class.
+     */
+    public static class MM1Model extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble>
+    {
+        /** */
+        private static final long serialVersionUID = 1L;
+
+        /** queue. */
+        private List<Entity> queue;
+
+        /** generator: every 1 time unit on average. */
+        private DistContinuous iatDist;
+
+        /** processing : 0.8 time units on average. */
+        private DistContinuous procDist;
+
+        /** a counter of the number of arrivals. */
+        private SimCounter.TimeDouble count;
+
+        /** a tally of the waiting time. */
+        private SimTally.TimeDouble queueTimeTally;
+
+        /** a persistent of the time in queue. */
+        private SimPersistent.TimeDouble nrInQueuePersistent;
+
+        /**
+         * @param simulator the simulator
+         */
+        public MM1Model(final DEVSSimulatorInterface.TimeDouble simulator)
+        {
+            super(simulator);
+            this.iatDist = new DistExponential(getStream("default"), 1.0);
+            this.procDist = new DistExponential(getStream("default"), 0.8);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public void constructModel() throws SimRuntimeException
+        {
+            try
+            {
+                this.queue = new ArrayList<>();
+                this.outputStatistics.clear();
+                this.count = new SimCounter.TimeDouble("arrivals", this.simulator);
+                this.count.initialize();
+                this.outputStatistics.add(this.count);
+                this.queueTimeTally = new SimTally.TimeDouble("timeInQueue", this.simulator);
+                this.queueTimeTally.initialize();
+                this.outputStatistics.add(this.queueTimeTally);
+                this.nrInQueuePersistent = new SimPersistent.TimeDouble("nrInQueue", this.simulator);
+                this.nrInQueuePersistent.initialize();
+                this.outputStatistics.add(this.nrInQueuePersistent);
+            }
+            catch (RemoteException rme)
+            {
+                throw new SimRuntimeException(rme);
+            }
+
+            next();
+        }
+
+        /** next method. */
+        public void next()
+        {
+            this.count.ingest(1);
+            Entity entity = new Entity(this.simulator.getSimulatorTime());
+            this.queue.add(entity);
+            this.nrInQueuePersistent.ingest(this.queue.size());
+            getSimulator().scheduleEventRel(this.iatDist.draw(), this, this, "next", null);
+            getSimulator().scheduleEventRel(this.procDist.draw(), this, this, "endWait", new Object[] {entity});
+        }
+
+        /** @param entity the entity that is ready */
+        protected void endWait(final Entity entity)
+        {
+            this.queue.remove(entity);
+            this.nrInQueuePersistent.ingest(this.queue.size());
+            this.queueTimeTally.ingest(this.simulator.getSimulatorTime() - entity.getCreateTime());
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public Serializable getSourceId()
+        {
+            return "MM1";
+        }
+    }
+
+    /** the entity class. */
+    static class Entity
+    {
+        /** the of creation of the entity. */
+        private final double createTime;
+
+        /**
+         * @param createTime the create time of the entity.
+         */
+        Entity(final double createTime)
+        {
+            this.createTime = createTime;
+        }
+
+        /** @return the createTime of the entity. */
+        double getCreateTime()
+        {
+            return this.createTime;
+        }
+    }
 }

@@ -142,7 +142,9 @@ public class InitialEventContext implements EventContext
             throws NamingException, RemoteException
     {
         if (INSTANCE != null)
+        {
             return INSTANCE;
+        }
 
         INSTANCE = new InitialEventContext(environment, atomicName);
         INSTANCE.init(environment == null ? null : (Hashtable<?, ?>) environment.clone(), atomicName);

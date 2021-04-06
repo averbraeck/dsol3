@@ -9,7 +9,6 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
-import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventProducerInterface;
 import org.djutils.event.TimedEvent;
@@ -80,7 +79,6 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
         {
             this.simulator.addListener(this, ReplicationInterface.WARMUP_EVENT, ReferenceType.STRONG);
         }
-        this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
         try
         {
             ContextInterface context =
@@ -137,20 +135,6 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
                 initialize();
                 return;
             }
-            if (event.getType().equals(ReplicationInterface.END_REPLICATION_EVENT))
-            {
-                try
-                {
-                    this.simulator.removeListener(this, ReplicationInterface.END_REPLICATION_EVENT);
-                }
-                catch (RemoteException exception)
-                {
-                    this.simulator.getLogger().always().warn(exception,
-                            "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
-                }
-                this.endOfReplication();
-                return;
-            }
         }
         else if (event instanceof TimedEvent<?>)
         {
@@ -179,40 +163,6 @@ public class SimTally<A extends Comparable<A> & Serializable, R extends Number &
         super.ingest(value);
         fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, this.simulator.getSimulatorTime());
         return value;
-    }
-
-    /**
-     * endOfReplication is invoked to store summary statistics. A special Tally is created in the Context of the experiment to
-     * tally the average results of all replications. Herewith the confidence interval of the means over the different
-     * replications can be calculated.
-     */
-    protected void endOfReplication()
-    {
-        try
-        {
-            // TODO: do only if replication is part of an experiment or a series of replications
-            // TODO: store one level higher than the replication itself
-            ContextInterface context = ContextUtil
-                    .lookupOrCreateSubContext(this.simulator.getReplication().getContext(), "statistics");
-            EventBasedTally experimentTally;
-            if (context.hasKey(getDescription()))
-            {
-                experimentTally = (EventBasedTally) context.getObject(getDescription());
-            }
-            else
-            {
-                experimentTally = new EventBasedTally(getDescription());
-                context.bindObject(getDescription(), experimentTally);
-                experimentTally.initialize();
-            }
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(getSampleMean())));
-
-            // TODO: make summary statistics for all statistics values
-        }
-        catch (Exception exception)
-        {
-            this.simulator.getLogger().always().warn(exception, "endOfReplication");
-        }
     }
 
     /** {@inheritDoc} */

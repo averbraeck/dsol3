@@ -4,11 +4,13 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.07.02" date="2021-04-06" description="Data collectors for multiple replications">
+    <release version="3.07.02" date="2021-04-06" description="Statistics summarizers for multiple replications">
       <action dev="averbraeck" type="update">
         The way data is collected after a replication is completely changed. There are two paths towards
         statistics over multiple replications: (1) the OutputStatistics of a DSOLModel, and (2) all statistics
-        that are stored in the Context. Both have been made available through methods of the Experiment.
+        that are stored in the Context. The Experiment now contains summary statistics for the statistics
+        that have been included in the model's OutputStatistics. The original statistics for each replication
+        remain available in the Context until the experiment is cleared.
       </action>
       <action dev="averbraeck" type="update">
         Some further optimizations have been made to the EmpiricalDistribution. One is how to properly transform
@@ -16,7 +18,15 @@
       </action>
       <action dev="averbraeck" type="update">
         Unit tests for the EmpiricalDistribution have been expanded.
-      </action>    
+      </action>
+      <action dev="averbraeck" type="update">
+        Made it possible to completely replace the random streams in a model by making the streams protected and 
+        removing the final qualifier. This way, the streams can also be set by a main program, or point to a set
+        of streams elsewhere. 
+      </action>
+      <action dev="averbraeck" type="remove">
+        Removes the OutputStatistic class and replace usage by the StatisticsInterface class.
+      </action>
     </release>
 
     <release version="3.07.01" date="2021-04-04" description="Experiments and replications completely redesigned">

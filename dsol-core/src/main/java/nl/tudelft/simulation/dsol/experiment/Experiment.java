@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.naming.NamingException;
 
@@ -19,6 +21,7 @@ import org.djutils.event.ref.ReferenceType;
 import org.djutils.exceptions.Throw;
 import org.djutils.logger.CategoryLogger;
 import org.djutils.metadata.MetaData;
+import org.djutils.stats.summarizers.Tally;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
@@ -29,6 +32,10 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.statistics.SimCounter;
+import nl.tudelft.simulation.dsol.statistics.SimPersistent;
+import nl.tudelft.simulation.dsol.statistics.SimTally;
+import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 import nl.tudelft.simulation.naming.context.event.InitialEventContext;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
@@ -79,32 +86,43 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     /** The description of this experiment; when not set, the id will be used. */
     private String description = null;
 
-    /** the number of replications to execute. */
+    /** The number of replications to execute. */
     private final int numberOfReplications;
 
     /** The current replication. */
     private int currentReplicationNumber = -1;
 
-    /** the start time of the simulation for all replications. */
+    /** The start time of the simulation for all replications. */
     private final T startTime;
 
-    /** the end time of the simulation for all replications. */
+    /** The end time of the simulation for all replications. */
     private final T endTime;
 
-    /** the warmup time of the simulation for all replications (included in the total run length). */
+    /** The warmup time of the simulation for all replications (included in the total run length). */
     private final T warmupTime;
 
     /** The Experiment context. */
     private ContextInterface context;
-    
-    /** the class that updates the seeds of the streams between replications. */
+
+    /** The class that updates the seeds of the streams between replications. */
     private StreamUpdater streamUpdater = new SimpleStreamUpdater();
 
-    /** the worker thread to carry out the experiment. */
+    /** The worker thread to carry out the experiment. */
     private ExperimentThread experimentThread;
-    
+
     /** is the simulation experiment running? */
     private boolean running = false;
+
+    /**
+     * The summary statistics over multiple replications. The table maps the name of the statistic to a map of fields to tallies
+     * that contain the statistics of the tallied values. Suppose we run a model with 10 replications, which has a tally named
+     * "waiting time". Then there will be an entry in this table called "waiting time" as well. This "waiting time" maps to
+     * several sub-maps, such as "N", "Population mean", "Population variance", "Min", "Max", etc. Each of these is a Tally for
+     * which the final values of the replications for that value have been tallied. The "Population Mean" for "waiting time" in
+     * this example therefore contains the average of the 10 average waiting times that have been alculated in the 10
+     * replications.
+     */
+    private SortedMap<String, SortedMap<String, Tally>> summaryStatistics = new TreeMap<>();
 
     /**
      * Construct a new Experiment.
@@ -236,6 +254,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     {
         if (event.getType().equals(ReplicationInterface.END_REPLICATION_EVENT))
         {
+            endReplication();
             this.experimentThread.interrupt();
         }
     }
@@ -251,6 +270,105 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
             replication.removeFromContext();
         }
         this.startedReplications.clear();
+        this.summaryStatistics = new TreeMap<>();
+    }
+
+    /**
+     * Create or update summary statistics for the experiment based on the statistics of the just completed replication.
+     */
+    protected void endReplication()
+    {
+        for (StatisticsInterface<A, R, T> stat : this.model.getOutputStatistics())
+        {
+            if (stat instanceof SimCounter)
+            {
+                SimCounter<A, R, T> counter = (SimCounter<A, R, T>) stat;
+                addSummaryStatistic(counter.getDescription(), "N", counter.getN());
+                addSummaryStatistic(counter.getDescription(), "Count", counter.getCount());
+            }
+            else if (stat instanceof SimTally)
+            {
+                SimTally<A, R, T> tally = (SimTally<A, R, T>) stat;
+                addSummaryStatistic(tally.getDescription(), "N", tally.getN());
+                addSummaryStatistic(tally.getDescription(), "Max", tally.getMax());
+                addSummaryStatistic(tally.getDescription(), "Min", tally.getMin());
+                addSummaryStatistic(tally.getDescription(), "PopulationExcessKurtosis", tally.getPopulationExcessKurtosis());
+                addSummaryStatistic(tally.getDescription(), "PopulationKurtosis", tally.getPopulationKurtosis());
+                addSummaryStatistic(tally.getDescription(), "PopulationMean", tally.getPopulationMean());
+                addSummaryStatistic(tally.getDescription(), "PopulationSkewness", tally.getPopulationSkewness());
+                addSummaryStatistic(tally.getDescription(), "PopulationStDev", tally.getPopulationStDev());
+                addSummaryStatistic(tally.getDescription(), "PopulationVariance", tally.getPopulationVariance());
+                addSummaryStatistic(tally.getDescription(), "SampleExcessKurtosis", tally.getSampleExcessKurtosis());
+                addSummaryStatistic(tally.getDescription(), "SampleKurtosis", tally.getSampleKurtosis());
+                addSummaryStatistic(tally.getDescription(), "SampleMean", tally.getSampleMean());
+                addSummaryStatistic(tally.getDescription(), "SampleSkewness", tally.getSampleSkewness());
+                addSummaryStatistic(tally.getDescription(), "SampleStDev", tally.getSampleStDev());
+                addSummaryStatistic(tally.getDescription(), "SampleVariance", tally.getSampleVariance());
+                addSummaryStatistic(tally.getDescription(), "Sum", tally.getSum());
+            }
+            else if (stat instanceof SimPersistent) // includes Utilization
+            {
+                SimPersistent<A, R, T> persistent = (SimPersistent<A, R, T>) stat;
+                // note that the last value has to be stored for the end simulation time, otherwise we have a 'gap' at the end
+                persistent.endObservations((Number) this.simulator.getSimulatorTime());
+                addSummaryStatistic(persistent.getDescription(), "N", persistent.getN());
+                addSummaryStatistic(persistent.getDescription(), "Max", persistent.getMax());
+                addSummaryStatistic(persistent.getDescription(), "Min", persistent.getMin());
+                addSummaryStatistic(persistent.getDescription(), "WeightedPopulationMean",
+                        persistent.getWeightedPopulationMean());
+                addSummaryStatistic(persistent.getDescription(), "WeightedPopulationStDev",
+                        persistent.getWeightedPopulationStDev());
+                addSummaryStatistic(persistent.getDescription(), "WeightedPopulationVariance",
+                        persistent.getWeightedPopulationVariance());
+                addSummaryStatistic(persistent.getDescription(), "WeightedSampleMean", persistent.getWeightedSampleMean());
+                addSummaryStatistic(persistent.getDescription(), "WeightedSampleStDev", persistent.getWeightedSampleStDev());
+                addSummaryStatistic(persistent.getDescription(), "WeightedSampleVariance",
+                        persistent.getWeightedSampleVariance());
+                addSummaryStatistic(persistent.getDescription(), "WeightedSum", persistent.getWeightedSum());
+            }
+            else
+            {
+                CategoryLogger.always().warn("Unknown statistic for summary statistics: " + stat.getClass().getSimpleName());
+            }
+        }
+    }
+
+    /**
+     * Tally a value in a summary statistic over multiple replications.
+     * @param statistic String; the name of the statistic
+     * @param field String; the name of the field for the summary statistic
+     * @param value double; the value to tally by the summary statistic
+     */
+    protected void addSummaryStatistic(final String statistic, final String field, final double value)
+    {
+        SortedMap<String, Tally> fieldMap = this.summaryStatistics.get(statistic);
+        if (fieldMap == null)
+        {
+            fieldMap = new TreeMap<>();
+            this.summaryStatistics.put(statistic, fieldMap);
+        }
+        Tally summaryTally = fieldMap.get(field);
+        if (summaryTally == null)
+        {
+            summaryTally = new Tally(field);
+            fieldMap.put(field, summaryTally);
+        }
+        summaryTally.ingest(value);
+    }
+
+    /**
+     * The summary statistics over multiple replications. The table maps the name of the statistic to a map of fields to tallies
+     * that contain the statistics of the tallied values. Suppose we run a model with 10 replications, which has a tally named
+     * "waiting time". Then there will be an entry in this table called "waiting time" as well. This "waiting time" maps to
+     * several sub-maps, such as "N", "Population mean", "Population variance", "Min", "Max", etc. Each of these is a Tally for
+     * which the final values of the replications for that value have been tallied. The "Population Mean" for "waiting time" in
+     * this example therefore contains the average of the 10 average waiting times that have been alculated in the 10
+     * replications.
+     * @return summaryStatistics SortedMap&lt;String, SortedMap&lt;String, Tally&gt;&gt;; the summary statistics
+     */
+    public final SortedMap<String, SortedMap<String, Tally>> getSummaryStatistics()
+    {
+        return this.summaryStatistics;
     }
 
     /** {@inheritDoc} */

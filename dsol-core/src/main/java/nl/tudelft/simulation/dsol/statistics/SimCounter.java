@@ -81,7 +81,6 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
         {
             this.simulator.addListener(this, ReplicationInterface.WARMUP_EVENT, ReferenceType.STRONG);
         }
-        this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT, ReferenceType.STRONG);
         try
         {
             ContextInterface context =
@@ -150,60 +149,11 @@ public class SimCounter<A extends Comparable<A> & Serializable, R extends Number
                 super.initialize();
                 return;
             }
-            if (event.getType().equals(ReplicationInterface.END_REPLICATION_EVENT))
-            {
-                this.stopped = true;
-                try
-                {
-                    this.simulator.removeListener(this, ReplicationInterface.END_REPLICATION_EVENT);
-                }
-                catch (RemoteException exception)
-                {
-                    this.simulator.getLogger().always().warn(exception,
-                            "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
-                }
-                this.endOfReplication();
-                return;
-            }
         }
         else
         {
             super.notify(event);
         }
-    }
-
-    /**
-     * endOfReplication is invoked to store the final results. A special Tally is created in the Context of the Experiment to
-     * tally the counters of all replications. Herewith the confidence interval of the average counter results over the
-     * different replications can be calculated.
-     */
-    protected void endOfReplication()
-    {
-        /*-
-        try
-        {
-            // TODO: do only if replication is part of an experiment or a series of replications
-            // TODO: store one level higher than the replication itself
-            ContextInterface context = ContextUtil
-                    .lookupOrCreateSubContext(this.simulator.getReplication().getContext(), "statistics");
-            EventBasedTally experimentTally;
-            if (context.hasKey(getDescription()))
-            {
-                experimentTally = (EventBasedTally) context.getObject(getDescription());
-            }
-            else
-            {
-                experimentTally = new EventBasedTally(getDescription());
-                context.bindObject(getDescription(), experimentTally);
-                experimentTally.initialize();
-            }
-            experimentTally.notify(new Event(null, getSourceId(), Long.valueOf(getCount())));
-        }
-        catch (Exception exception)
-        {
-            this.simulator.getLogger().always().warn(exception, "endOfReplication");
-        }
-        */
     }
 
     /** {@inheritDoc} */
