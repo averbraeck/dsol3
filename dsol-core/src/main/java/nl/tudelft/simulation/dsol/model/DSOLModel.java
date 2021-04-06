@@ -11,7 +11,6 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
-import nl.tudelft.simulation.dsol.model.outputstatistics.OutputStatistic;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -19,6 +18,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -62,9 +62,9 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
 
     /**
      * Get the output statistics for this model.
-     * @return List&lt;OutputStatistic&gt; the output statistics for this model
+     * @return List&lt;StatisticsInterface&gt; the output statistics for this model
      */
-    List<OutputStatistic<?>> getOutputStatistics();
+    List<StatisticsInterface<A, R, T>> getOutputStatistics();
 
     /**
      * Set the initial streams of the model. This method has to be called from the constructor, so the random streams can be
