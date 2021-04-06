@@ -56,7 +56,7 @@ public abstract class AbstractReplication<A extends Comparable<A> & Serializable
      * @param runLength R; the total length of the run, including the warm-up period.
      * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
      * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for the
-     *             replication cannot be created
+     *             replication cannot be created, or when the warmup time is longer than or equal to the runlength
      */
     public AbstractReplication(final String id, final T startTime, final R warmupPeriod, final R runLength)
     {
@@ -66,6 +66,8 @@ public abstract class AbstractReplication<A extends Comparable<A> & Serializable
         Throw.whenNull(runLength, "runLength should not be null");
         Throw.when(warmupPeriod.doubleValue() < 0.0, SimRuntimeException.class, "warmup period should not be negative");
         Throw.when(runLength.doubleValue() <= 0.0, SimRuntimeException.class, "run length should not be zero or negative");
+        Throw.when(warmupPeriod.doubleValue() >= runLength.doubleValue(), IllegalArgumentException.class,
+                "the warmup time is longer than or equal to the runlength");
 
         this.id = id;
         this.description = id;

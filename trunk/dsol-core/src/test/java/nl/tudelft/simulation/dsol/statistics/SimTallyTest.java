@@ -17,7 +17,6 @@ import org.djutils.event.TimedEventType;
 import org.djutils.stats.ConfidenceInterval;
 import org.junit.Test;
 
-import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
@@ -80,6 +79,9 @@ public class SimTallyTest extends EventProducer
 
         // Now we check the tally
         check(tally);
+
+        // remove the tally from he statistics
+        replication.removeFromContext();
     }
 
     /**
@@ -92,7 +94,7 @@ public class SimTallyTest extends EventProducer
     {
         DEVSSimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble("sim");
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new DummyModel(simulator);
-        ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 10.0);
+        SingleReplication.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 10.0);
         simulator.initialize(model, replication);
 
         String description = "THIS TALLY IS TESTED";
@@ -112,6 +114,9 @@ public class SimTallyTest extends EventProducer
 
         // Now we check the tally
         check(tally);
+
+        // remove the tally from he statistics
+        replication.removeFromContext();
     }
 
     /**

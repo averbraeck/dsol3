@@ -25,4 +25,17 @@ public interface StatisticsInterface<A extends Comparable<A> & Serializable, R e
      * @return SimulatorInterface; the simulator for this dsol statistic
      */
     SimulatorInterface<A, R, T> getSimulator();
+    
+    /**
+     * Return the description of this statistic.
+     * @return String; the description of this statistic
+     */
+    String getDescription();
+
+    /**
+     * Return the number of samples for this statistic.
+     * @return int; the number of samples of this statistic
+     */
+    long getN();
+
 }

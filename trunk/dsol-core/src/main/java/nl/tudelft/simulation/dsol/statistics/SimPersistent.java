@@ -62,9 +62,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
     public static final TimedEventType TIMED_INITIALIZED_EVENT = new TimedEventType(new MetaData("TIMED_INITIALIZED_EVENT",
             "Persistent initialized", new ObjectDescriptor("simPersistent", "Persistent object", SimPersistent.class)));
 
-    /** last stored value. */
-    private double lastValue = Double.NaN;
-
     /**
      * constructs a new SimPersistent.
      * @param description String; refers to the description of this SimPersistent
@@ -84,8 +81,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
             this.simulator.addListener(this, ReplicationInterface.WARMUP_EVENT, EventProducerInterface.FIRST_POSITION,
                     ReferenceType.STRONG);
         }
-        this.simulator.addListener(this, ReplicationInterface.END_REPLICATION_EVENT, EventProducerInterface.FIRST_POSITION,
-                ReferenceType.STRONG);
         try
         {
             ContextInterface context =
@@ -117,7 +112,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
     @Override
     public double ingest(final Calendar timestamp, final double value)
     {
-        this.lastValue = value;
         fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
         return super.ingest(timestamp, value);
     }
@@ -126,7 +120,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
     @Override
     public <N extends Number & Comparable<N>> double ingest(final N timestamp, final double value)
     {
-        this.lastValue = value;
         fireTimedEvent(TIMED_OBSERVATION_ADDED_EVENT, value, timestamp);
         return super.ingest(timestamp, value);
     }
@@ -153,34 +146,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                 super.initialize();
                 return;
             }
-            if (event.getType().equals(ReplicationInterface.END_REPLICATION_EVENT))
-            {
-                Object endTime = this.simulator.getSimulatorTime();
-                if (endTime instanceof Calendar)
-                {
-                    endObservations((Calendar) endTime);
-                }
-                else if (endTime instanceof Number)
-                {
-                    endObservations((Number) endTime);
-                }
-                else
-                {
-                    this.simulator.getLogger().always()
-                            .warn("END_REPLICATION_EVENT received, but simulator time implements neither Calendar nor Number");
-                }
-                try
-                {
-                    this.simulator.removeListener(this, ReplicationInterface.END_REPLICATION_EVENT);
-                }
-                catch (RemoteException exception)
-                {
-                    this.simulator.getLogger().always().warn(exception,
-                            "problem removing Listener for SimulatorIterface.END_OF_REPLICATION_EVENT");
-                }
-                this.endOfReplication();
-                return;
-            }
         }
         else if (isActive())
         {
@@ -203,59 +168,6 @@ public class SimPersistent<A extends Comparable<A> & Serializable, R extends Num
                 this.simulator.getLogger().always().warn("SimPersistent: event not a TimedEvent");
             }
         }
-    }
-
-    /**
-     * endOfReplication is invoked to store the final results. A special Tally is created in the Context of the experiment to
-     * tally the average results of all replications. Herewith the confidence interval of the means of the Persistent over the
-     * different replications can be calculated.
-     * @param <N> helper type for Number
-     */
-    @SuppressWarnings({"checkstyle:designforextension", "unchecked"})
-    protected <N extends Number & Comparable<N>> void endOfReplication()
-    {
-        // store final results
-        A simTime = getSimulator().getSimulatorTime();
-        ingest((N) simTime, this.lastValue);
-
-        /*-
-        // create summary statistics
-        try
-        {
-            // TODO: do only if replication is part of an experiment or a series of replications
-            // TODO: store one level higher than the replication itself
-            ContextInterface context =
-                    ContextUtil.lookupOrCreateSubContext(this.simulator.getReplication().getContext(), "statistics");
-            EventBasedTally experimentTally;
-            if (context.hasKey(getDescription()))
-            {
-                experimentTally = (EventBasedTally) context.getObject(getDescription());
-            }
-            else
-            {
-                experimentTally = new EventBasedTally(getDescription());
-                context.bindObject(getDescription(), experimentTally);
-                experimentTally.initialize();
-            }
-            experimentTally.ingest(getWeightedSampleMean());
-        
-            // TODO: make summary statistics for all statistics values
-        
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedSampleStDev())));
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedSampleVariance())));
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedSum())));
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedPopulationMean())));
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedPopulationStDev())));
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getWeightedPopulationVariance())));
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getMin())));
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getMax())));
-            experimentTally.notify(new Event(null, getSourceId(), Double.valueOf(this.getN())));
-        }
-        catch (Exception exception)
-        {
-            this.simulator.getLogger().always().warn("endOfReplication", exception);
-        }
-        */
     }
 
     /** {@inheritDoc} */

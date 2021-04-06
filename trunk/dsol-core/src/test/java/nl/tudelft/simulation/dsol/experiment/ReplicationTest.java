@@ -58,6 +58,8 @@ public class ReplicationTest
         Try.testFail(() -> { new SingleReplication.TimeDouble("xyz", 10.0, -1.0, 20.0); });
         Try.testFail(() -> { new SingleReplication.TimeDouble("xyz", 10.0, 1.0, 0.0); });
         Try.testFail(() -> { new SingleReplication.TimeDouble("xyz", 10.0, 1.0, -20.0); });
+        Try.testFail(() -> { new SingleReplication.TimeDouble("xyz", 10.0, 10.0, 5.0); });
+        Try.testFail(() -> { new SingleReplication.TimeDouble("xyz", 10.0, 10.0, 10.0); });
 
         // other types
         SingleReplication.TimeFloat srf = new SingleReplication.TimeFloat("srf", 10.0f, 1.0f, 12.0f);

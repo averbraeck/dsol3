@@ -76,6 +76,25 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
         }
     }
 
+    /**
+     * Remove the context for this replication.
+     */
+    public final void removeFromContext()
+    {
+        try
+        {
+            if (this.context != null)
+            {
+                ContextInterface rootContext = InitialEventContext.instantiate("root");
+                ContextUtil.destroySubContext(rootContext, getId());
+            }
+        }
+        catch (RemoteException | NamingException exception)
+        {
+            throw new SimRuntimeException("Cannot destroy context for replication. Error is: " + exception.getMessage());
+        }
+    }
+
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
