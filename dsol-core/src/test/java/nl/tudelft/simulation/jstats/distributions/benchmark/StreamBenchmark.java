@@ -10,6 +10,7 @@ import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
+ * Benchmark the random generators of DSOL.
  * <p>
  * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -70,23 +71,6 @@ public final class StreamBenchmark
             dist.draw();
         }
         System.out.println("1000000x DistNormal() with DX120 takes " + (System.currentTimeMillis() - timeMs) + " msec.");
-
-        timeMs = System.currentTimeMillis();
-        double z = 0.0;
-        for (double a = 0; a < 1000000; a += 1)
-        {
-            z += Math.exp(a);
-        }
-        System.out.println("1000000x Math.exp(a) takes " + (System.currentTimeMillis() - timeMs) + " msec.");
-
-        timeMs = System.currentTimeMillis();
-        z = 0.0;
-        for (double a = 0; a < 1000000; a += 1)
-        {
-            z += Math.sqrt(a);
-        }
-        System.out.println("1000000x Math.sqrt(a) takes " + (System.currentTimeMillis() - timeMs) + " msec.");
-
     }
 
 }

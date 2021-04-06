@@ -2,8 +2,8 @@ package nl.tudelft.simulation.jstats.distributions;
 
 import org.djutils.exceptions.Throw;
 
+import nl.tudelft.simulation.jstats.distributions.empirical.DiscreteEmpiricalDistribution;
 import nl.tudelft.simulation.jstats.distributions.empirical.DistributionEntry;
-import nl.tudelft.simulation.jstats.distributions.empirical.EmpiricalDistributionInterface;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -18,25 +18,24 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class DistDiscreteEmpirical extends DistDiscrete
+public class DistEmpiricalDiscreteLong extends DistDiscrete
 {
     /** */
     private static final long serialVersionUID = 20210403L;
 
     /** the empirical distribution. */
-    private final EmpiricalDistributionInterface empiricalDistribution;
+    private final DiscreteEmpiricalDistribution empiricalDistribution;
 
     /**
      * constructs a new DistEmpirical distribution.
      * @param stream StreamInterface; the stream to use
      * @param empiricalDistribution EmpiricalDistributionInterface; the cumulative distribution to use
+     * @throws IllegalArgumentException when the empirical distribution has non-integer values
      */
-    public DistDiscreteEmpirical(final StreamInterface stream, final EmpiricalDistributionInterface empiricalDistribution)
+    public DistEmpiricalDiscreteLong(final StreamInterface stream, final DiscreteEmpiricalDistribution empiricalDistribution)
     {
         super(stream);
         // check that the values in the distribution are integer valued and we do not interpolate
-        Throw.when(empiricalDistribution.isInterpolated(), IllegalArgumentException.class,
-                "interpolation is not supported for discrete empirical distributions");
         for (Number n : empiricalDistribution.getValues())
         {
             Throw.when(n instanceof Double || n instanceof Float, IllegalArgumentException.class,
