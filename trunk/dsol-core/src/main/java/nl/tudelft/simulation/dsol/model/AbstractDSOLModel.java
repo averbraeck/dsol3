@@ -15,7 +15,6 @@ import org.djutils.event.EventProducer;
 import nl.tudelft.simulation.dsol.model.inputparameters.AbstractInputParameter;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
-import nl.tudelft.simulation.dsol.model.outputstatistics.OutputStatistic;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -23,6 +22,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
 import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
@@ -57,11 +57,11 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
 
     /** the output statistics. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected List<OutputStatistic<?>> outputStatistics = new ArrayList<>();
+    protected List<StatisticsInterface<A, R, T>> outputStatistics = new ArrayList<>();
 
     /** streams used in the replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final Map<String, StreamInterface> streams = new HashMap<String, StreamInterface>();
+    protected Map<String, StreamInterface> streams = new HashMap<String, StreamInterface>();
 
     /**
      * Construct a DSOL model and set the simulator.
@@ -148,7 +148,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
 
     /** {@inheritDoc} */
     @Override
-    public List<OutputStatistic<?>> getOutputStatistics()
+    public List<StatisticsInterface<A, R, T>> getOutputStatistics()
     {
         return this.outputStatistics;
     }
