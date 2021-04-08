@@ -283,7 +283,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
         AffineTransform transform = (AffineTransform) graphics.getTransform().clone();
         try
         {
-            Point<?, ?> center = this.source.getLocation();
+            Point<?> center = this.source.getLocation();
             if (center == null)
             {
                 return;

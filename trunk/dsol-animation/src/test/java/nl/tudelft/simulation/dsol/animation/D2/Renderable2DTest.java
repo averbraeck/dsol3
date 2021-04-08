@@ -126,13 +126,13 @@ public class Renderable2DTest
         private double angle;
 
         @Override
-        public Point<?, ?> getLocation() throws RemoteException
+        public Point<?> getLocation() throws RemoteException
         {
             return new OrientedPoint3d(10, 20, 0, 0, 0, this.angle);
         }
 
         @Override
-        public Bounds<?, ?, ?, ?> getBounds() throws RemoteException
+        public Bounds<?, ?, ?> getBounds() throws RemoteException
         {
             return new Bounds3d(4, 4, 4);
         }
@@ -155,13 +155,13 @@ public class Renderable2DTest
         return new Locatable()
         {
             @Override
-            public Point<?, ?> getLocation() throws RemoteException
+            public Point<?> getLocation() throws RemoteException
             {
                 return new Point3d(10, 20, 10);
             }
 
             @Override
-            public Bounds<?, ?, ?, ?> getBounds() throws RemoteException
+            public Bounds<?, ?, ?> getBounds() throws RemoteException
             {
                 return new Bounds3d(4, 4, 4);
             }

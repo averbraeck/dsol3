@@ -171,7 +171,7 @@ public class AutoPanAnimationPanel extends AnimationPanel
             {
                 try
                 {
-                    Point<?, ?> point = locatable.getLocation();
+                    Point<?> point = locatable.getLocation();
                     if (point != null) // Center extent around point
                     {
                         double w = getExtent().getDeltaX();

@@ -138,7 +138,7 @@ public class RenderableScale
      * @param screen Dimension; the screen dimentsions
      * @return Point2D (x,y) on screen. Can be null.
      */
-    public Point2D getScreenCoordinates(final Point<?, ?> worldCoordinates, final Bounds2d extent, final Dimension screen)
+    public Point2D getScreenCoordinates(final Point<?> worldCoordinates, final Bounds2d extent, final Dimension screen)
     {
         double x = (worldCoordinates.getX() - extent.getMinX()) * (1.0 / getXScale(extent, screen));
         double y = screen.getHeight() - (worldCoordinates.getY() - extent.getMinY()) * (1.0 / getYScale(extent, screen));

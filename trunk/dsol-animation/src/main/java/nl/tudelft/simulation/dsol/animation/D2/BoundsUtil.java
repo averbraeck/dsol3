@@ -43,7 +43,7 @@ public final class BoundsUtil
      *            center</b> that is provided
      * @return Bounds2d the projected rectangle of the intersection, or null if there is no intersection
      */
-    public static Bounds2d projectBounds(final Point<?, ?> center, final Bounds<?, ?, ?, ?> bounds)
+    public static Bounds2d projectBounds(final Point<?> center, final Bounds<?, ?, ?> bounds)
     {
         if (center == null)
         {

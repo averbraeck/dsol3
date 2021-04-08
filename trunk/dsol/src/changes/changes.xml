@@ -4,6 +4,18 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.07.03" date="2021-04-08" description="Observations class linked to djutils accumulators">
+      <action dev="averbraeck" type="add">
+        A class in stream management (dsol-core experiment package) has been added to store predefined seeds
+        for replications. A StreamUpdater has been created that can take these pre-defined seeds and use the
+        SimpleStreamUpdater as a backup when the information in the StreamSeedInformation class is missing.
+      </action>
+      <action dev="averbraeck" type="update">
+        DSOL has been updated to the 1.06.24 version of djunits where the Space2d and Space3d tagging interfaces have
+        been removed. This caused several generics (Point and Bounds) to be slightly updated.
+      </action>
+    </release>
+      
     <release version="3.07.02" date="2021-04-06" description="Statistics summarizers for multiple replications">
       <action dev="averbraeck" type="update">
         The way data is collected after a replication is completely changed. There are two paths towards

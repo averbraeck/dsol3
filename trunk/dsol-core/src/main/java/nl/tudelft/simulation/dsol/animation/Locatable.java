@@ -26,7 +26,7 @@ public interface Locatable
      * @return Point&lt;?, ?&gt;; the location
      * @throws RemoteException on network failure
      */
-    Point<?, ?> getLocation() throws RemoteException;
+    Point<?> getLocation() throws RemoteException;
 
     /**
      * Return the z-value of the location, or 0.0 when the location is in 2 dimensions.
@@ -36,7 +36,7 @@ public interface Locatable
      */
     default double getZ() throws RemoteException
     {
-        Point<?, ?> p = getLocation();
+        Point<?> p = getLocation();
         return p == null ? 0.0 : p instanceof Point3d ? ((Point3d) p).getZ() : 0.0;
     }
 
@@ -48,7 +48,7 @@ public interface Locatable
      */
     default double getDirZ() throws RemoteException
     {
-        Point<?, ?> p = getLocation();
+        Point<?> p = getLocation();
         return p == null ? 0.0 : p instanceof Oriented ? ((Oriented<?>) p).getDirZ() : 0.0;
     }
 
@@ -58,5 +58,5 @@ public interface Locatable
      * @return Bounds&lt;?, ?, ?, ?&gt;; the bounds of the object around getLocation() as center of the box.
      * @throws RemoteException on network failure
      */
-    Bounds<?, ?, ?, ?> getBounds() throws RemoteException;
+    Bounds<?, ?, ?> getBounds() throws RemoteException;
 }
