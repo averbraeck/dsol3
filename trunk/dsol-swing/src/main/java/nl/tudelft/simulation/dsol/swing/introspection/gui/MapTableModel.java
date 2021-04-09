@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.swing.introspection.gui;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +33,10 @@ public class MapTableModel extends AbstractTableModel implements IntrospectingTa
     private static final long serialVersionUID = 20140831L;
 
     /** the keys of the map entries. */
-    protected Map<Integer, Object> keyMap = Collections.synchronizedMap(new HashMap<Integer, Object>(20));
+    protected Map<Integer, Object> keyMap = Collections.synchronizedMap(new LinkedHashMap<Integer, Object>(20));
 
     /** the values of the map entries. */
-    protected Map<Integer, Object> valueMap = Collections.synchronizedMap(new HashMap<Integer, Object>(20));
+    protected Map<Integer, Object> valueMap = Collections.synchronizedMap(new LinkedHashMap<Integer, Object>(20));
 
     /** the keys identifying specific instances. */
     protected List<Integer> rowKeys = Collections.synchronizedList(new ArrayList<Integer>(20));
@@ -82,7 +82,7 @@ public class MapTableModel extends AbstractTableModel implements IntrospectingTa
         }
         catch (Exception e)
         {
-            values = new HashMap<>();
+            values = new LinkedHashMap<>();
         }
         if (values instanceof Map)
         {

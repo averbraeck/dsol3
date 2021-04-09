@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -53,7 +53,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
             new TreeSet<Renderable2DInterface<? extends Locatable>>(new Renderable2DComparator());
 
     /** filter for types to be shown or not. */
-    private Map<Class<? extends Locatable>, Boolean> visibilityMap = new HashMap<>();
+    private Map<Class<? extends Locatable>, Boolean> visibilityMap = new LinkedHashMap<>();
 
     /** cache of the classes that are hidden. */
     private Set<Class<? extends Locatable>> hiddenClasses = new HashSet<>();
@@ -80,16 +80,16 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     private boolean dirtyElements = false;
 
     /** Map of toggle names to toggle animation classes. */
-    private Map<String, Class<? extends Locatable>> toggleLocatableMap = new HashMap<>();
+    private Map<String, Class<? extends Locatable>> toggleLocatableMap = new LinkedHashMap<>();
 
     /** Set of animation classes to toggle buttons. */
-    private Map<Class<? extends Locatable>, ToggleButtonInfo> toggleButtonMap = new HashMap<>();
+    private Map<Class<? extends Locatable>, ToggleButtonInfo> toggleButtonMap = new LinkedHashMap<>();
 
     /** Set of GIS layer names to toggle GIS layers . */
-    private Map<String, GisMapInterface> toggleGISMap = new HashMap<>();
+    private Map<String, GisMapInterface> toggleGISMap = new LinkedHashMap<>();
 
     /** Set of GIS layer names to toggle buttons. */
-    private Map<String, ToggleButtonInfo> toggleGISButtonMap = new HashMap<>();
+    private Map<String, ToggleButtonInfo> toggleGISButtonMap = new LinkedHashMap<>();
 
     /** List of buttons in the right order. */
     private List<ToggleButtonInfo> toggleButtons = new ArrayList<>();

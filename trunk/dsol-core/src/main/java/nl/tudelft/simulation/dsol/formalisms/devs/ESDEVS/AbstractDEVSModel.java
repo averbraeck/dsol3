@@ -2,8 +2,8 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -71,7 +71,7 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
             new ObjectDescriptor("stateUpdate", "State update", StateUpdate.class)));
 
     /** map of call classes and fields for which the state will be reported. */
-    private static Map<Class<?>, Set<Field>> stateFieldMap = new HashMap<Class<?>, Set<Field>>();
+    private static Map<Class<?>, Set<Field>> stateFieldMap = new LinkedHashMap<Class<?>, Set<Field>>();
 
     /** set of fields for this class which the state will be reported. */
     private Set<Field> stateFieldSet = null;

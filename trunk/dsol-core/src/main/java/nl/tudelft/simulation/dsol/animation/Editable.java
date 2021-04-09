@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.animation;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -32,7 +32,7 @@ public abstract class Editable extends EventProducer implements Locatable
     private static final long serialVersionUID = 1L;
 
     /** the static map of editables. */
-    private static Map<Object, Object> editables = new HashMap<Object, Object>();
+    private static Map<Object, Object> editables = new LinkedHashMap<Object, Object>();
 
     // We read editables from a file called editable.properties
     // Editables read from this file will be made available to the user

@@ -4,8 +4,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +38,7 @@ public class ImmutableCollectionTableModel extends AbstractTableModel implements
     private static final long serialVersionUID = 20140831L;
 
     /** the instances of the collection. */
-    protected Map<Integer, Object> instances = Collections.synchronizedMap(new HashMap<Integer, Object>(20));
+    protected Map<Integer, Object> instances = Collections.synchronizedMap(new LinkedHashMap<Integer, Object>(20));
 
     /** the keys identifying specific instances. */
     protected List<Integer> keys = Collections.synchronizedList(new ArrayList<Integer>(20));

@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.interpreter.operations;
 
 import java.io.DataInput;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import nl.tudelft.simulation.dsol.interpreter.LocalVariable;
@@ -31,7 +31,7 @@ public class LOOKUPSWITCH extends JumpOperation
     private int byteLength = 0;
 
     /** the offset table. */
-    private Map<Object, Integer> offsets = new HashMap<Object, Integer>();
+    private Map<Object, Integer> offsets = new LinkedHashMap<Object, Integer>();
 
     /**
      * constructs a new LOOKUPSWITCH.

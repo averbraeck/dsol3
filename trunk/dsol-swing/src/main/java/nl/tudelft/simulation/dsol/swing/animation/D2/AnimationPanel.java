@@ -9,9 +9,9 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -87,7 +87,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
             new TreeSet<Renderable2DInterface<? extends Locatable>>(new Renderable2DComparator());
 
     /** filter for types to be shown or not. */
-    private Map<Class<? extends Locatable>, Boolean> visibilityMap = Collections.synchronizedMap(new HashMap<>());
+    private Map<Class<? extends Locatable>, Boolean> visibilityMap = Collections.synchronizedMap(new LinkedHashMap<>());
 
     /** cache of the classes that are hidden. */
     private Set<Class<? extends Locatable>> hiddenClasses = new HashSet<>();

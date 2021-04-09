@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.web;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,10 +63,10 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 public abstract class AbstractTestDemoServer
 {
     /** the map of sessionIds to DSOLModel that handles the animation and updates for the started model. */
-    final Map<String, DSOLModel.TimeDoubleUnit<SimulatorInterface.TimeDoubleUnit>> sessionModelMap = new HashMap<>();
+    final Map<String, DSOLModel.TimeDoubleUnit<SimulatorInterface.TimeDoubleUnit>> sessionModelMap = new LinkedHashMap<>();
 
     /** the map of sessionIds to DSOLWebModel that handles the animation and updates for the started model. */
-    final Map<String, DSOLWebModel> sessionWebModelMap = new HashMap<>();
+    final Map<String, DSOLWebModel> sessionWebModelMap = new LinkedHashMap<>();
 
     /**
      * @throws Exception in case jetty crashes
@@ -479,7 +479,7 @@ public abstract class AbstractTestDemoServer
             String errors = "OK";
             InputParameterMap inputParameters = model.getInputParameterMap();
             String[] parts = message.split("\\|");
-            Map<String, String> unitMap = new HashMap<>();
+            Map<String, String> unitMap = new LinkedHashMap<>();
             for (int i = 1; i < parts.length - 3; i += 3)
             {
                 String id = parts[i].trim().replaceFirst("model.", "");
