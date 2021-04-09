@@ -2,7 +2,7 @@ package nl.tudelft.simulation.introspection.beans;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import nl.tudelft.simulation.introspection.DelegateIntrospection;
@@ -41,7 +41,7 @@ public class BeanIntrospector implements Introspector
         {
             introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
         }
-        Set<Property> props = new HashSet<Property>();
+        Set<Property> props = new LinkedHashSet<Property>();
         try
         {
             BeanInfo info = java.beans.Introspector.getBeanInfo(introspected.getClass());
@@ -96,7 +96,7 @@ public class BeanIntrospector implements Introspector
         {
             introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
         }
-        Set<String> props = new HashSet<String>();
+        Set<String> props = new LinkedHashSet<String>();
         try
         {
             BeanInfo info = java.beans.Introspector.getBeanInfo(introspected.getClass());
