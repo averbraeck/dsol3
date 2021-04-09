@@ -1,7 +1,7 @@
 package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS.exceptions.PortAlreadyDefinedException;
@@ -34,11 +34,11 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A> & Serializab
 
     /** the map of input port names to input ports. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Map<String, InputPortInterface<A, R, T, ?>> inputPortMap = new HashMap<>();
+    protected Map<String, InputPortInterface<A, R, T, ?>> inputPortMap = new LinkedHashMap<>();
 
     /** the map of output port names to output ports. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Map<String, OutputPortInterface<A, R, T, ?>> outputPortMap = new HashMap<>();
+    protected Map<String, OutputPortInterface<A, R, T, ?>> outputPortMap = new LinkedHashMap<>();
 
     /**
      * Constructor for an abstract DEVS model with ports: we have to indicate the simulator to schedule the events on, and the

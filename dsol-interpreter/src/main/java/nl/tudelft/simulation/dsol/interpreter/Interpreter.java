@@ -5,7 +5,7 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Stack;
@@ -46,7 +46,7 @@ import nl.tudelft.simulation.dsol.interpreter.operations.custom.InterpreterOracl
 public final class Interpreter
 {
     /** the cache. */
-    private static final Map<AccessibleObject, Frame> CACHE = new HashMap<AccessibleObject, Frame>();
+    private static final Map<AccessibleObject, Frame> CACHE = new LinkedHashMap<AccessibleObject, Frame>();
 
     /** the interpreter factory class name. */
     private static FactoryInterface interpreterFactory = null;

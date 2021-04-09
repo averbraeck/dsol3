@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -42,7 +42,7 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
     private static final long serialVersionUID = 20200108L;
 
     /** the cache of imageIcons. */
-    private static transient Map<URL, ImageIcon> cache = new HashMap<URL, ImageIcon>();
+    private static transient Map<URL, ImageIcon> cache = new LinkedHashMap<URL, ImageIcon>();
 
     /** LEFT-BOTTOM location. */
     public static final short LB = -4;
@@ -277,7 +277,7 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
         in.defaultReadObject();
         if (ImageRenderable.cache == null)
         {
-            ImageRenderable.cache = new HashMap<URL, ImageIcon>();
+            ImageRenderable.cache = new LinkedHashMap<URL, ImageIcon>();
         }
         this.readImages(this.imageUrls);
     }

@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +11,9 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.EventProducer;
+import org.djutils.exceptions.Throw;
 
+import nl.tudelft.simulation.dsol.experiment.StreamInformation;
 import nl.tudelft.simulation.dsol.model.inputparameters.AbstractInputParameter;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
@@ -61,7 +63,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
 
     /** streams used in the replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Map<String, StreamInterface> streams = new HashMap<String, StreamInterface>();
+    protected Map<String, StreamInterface> streams = new LinkedHashMap<String, StreamInterface>();
 
     /**
      * Construct a DSOL model and set the simulator.
@@ -78,6 +80,25 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
     public void setInitialStreams()
     {
         this.streams.put("default", new MersenneTwister(10L));
+    }
+
+    /**
+     * Set the initial streams of the model based on a StreamInformation object. This method can be called right after the
+     * construction of the model, or just before the model is constructed. <br>
+     * <u>Note 1:</u> If a model is run as part of an Experiment, the seeds of the random streams will be reset just before the
+     * call to constructModel(), so <b>do not call this method from constructModel()</b>, as it will reset the seeds to their
+     * initial values, and undo the seed management of the Experiment.<br>
+     * <u>Note 2:</u> The original streams are copied into the model, so they are not cloned (as the streams do not implement
+     * cloneable, and as they have inner state that needs to be preserved). So be careful with manipulating the streams in the
+     * streamInformation object afterward.
+     * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
+     * @throws NullPointerException when streamInformation is null
+     */
+    public void setInitialStreams(final StreamInformation streamInformation)
+    {
+        Throw.whenNull(streamInformation, "streamInformation cannot be null");
+        this.streams.clear();
+        this.streams.putAll(streamInformation.getStreams());
     }
 
     /** {@inheritDoc} */

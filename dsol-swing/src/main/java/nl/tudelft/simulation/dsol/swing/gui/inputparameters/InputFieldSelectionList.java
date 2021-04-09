@@ -1,6 +1,6 @@
 package nl.tudelft.simulation.dsol.swing.gui.inputparameters;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.JComboBox;
@@ -26,7 +26,7 @@ public class InputFieldSelectionList<T> extends AbstractInputField
 
     /** mapping from String value to original class. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Map<String, T> selectionMap = new HashMap<>();
+    protected Map<String, T> selectionMap = new LinkedHashMap<>();
 
     /**
      * Create a string field on the screen.

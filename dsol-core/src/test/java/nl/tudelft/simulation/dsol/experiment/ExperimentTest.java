@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -54,7 +54,7 @@ public class ExperimentTest
     public void testDoubleExperiment()
     {
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("simulator");
-        DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new CountModel(simulator, new HashMap<>());
+        DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new CountModel(simulator, new LinkedHashMap<>());
         Experiment.TimeDouble<DEVSSimulatorInterface.TimeDouble> expd =
                 new Experiment.TimeDouble<>("Exp 1", simulator, model, 10.0, 1.0, 12.0, 10);
 

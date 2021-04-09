@@ -5,8 +5,8 @@
 package nl.tudelft.simulation.dsol.swing.introspection.mapping;
 
 import java.awt.Component;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.JLabel;
@@ -37,7 +37,7 @@ public class ImmutableMapRenderer extends DefaultTableCellRenderer
             int column)
     {
         @SuppressWarnings("unchecked")
-        Map<Object, Object> map = new HashMap<Object, Object>(((ImmutableMap<Object, Object>) value).toMap());
+        Map<Object, Object> map = new LinkedHashMap<Object, Object>(((ImmutableMap<Object, Object>) value).toMap());
         String content = "ImmutableMap of <";
         if (map.size() > 0)
         {

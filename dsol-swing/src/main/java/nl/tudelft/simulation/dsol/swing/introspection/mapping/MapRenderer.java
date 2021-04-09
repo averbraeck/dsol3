@@ -5,8 +5,8 @@
 package nl.tudelft.simulation.dsol.swing.introspection.mapping;
 
 import java.awt.Component;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.JLabel;
@@ -34,7 +34,7 @@ public class MapRenderer extends DefaultTableCellRenderer
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
             int column)
     {
-        Map<Object, Object> map = new HashMap<Object, Object>((Map<?, ?>) value);
+        Map<Object, Object> map = new LinkedHashMap<Object, Object>((Map<?, ?>) value);
         String content = "Map of <";
         if (map.size() > 0)
         {

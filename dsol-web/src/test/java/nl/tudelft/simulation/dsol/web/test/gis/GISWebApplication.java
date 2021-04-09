@@ -6,7 +6,6 @@ import org.djutils.draw.bounds.Bounds2d;
 
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.experiment.SingleReplication;
-import nl.tudelft.simulation.dsol.experiment.SingleReplication.TimeDouble;
 import nl.tudelft.simulation.dsol.simulators.DEVSRealTimeAnimator;
 import nl.tudelft.simulation.dsol.web.DSOLWebServer;
 

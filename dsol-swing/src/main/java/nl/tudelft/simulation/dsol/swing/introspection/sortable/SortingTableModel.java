@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.swing.introspection.sortable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ import nl.tudelft.simulation.dsol.logger.Cat;
 public class SortingTableModel implements TableModel, Sortable
 {
     /** the listeners. */
-    protected Map<ProxyListener, TableModelListener> proxyListeners = new HashMap<ProxyListener, TableModelListener>(5);
+    protected Map<ProxyListener, TableModelListener> proxyListeners = new LinkedHashMap<ProxyListener, TableModelListener>(5);
 
     /** the source. */
     protected TableModel source;

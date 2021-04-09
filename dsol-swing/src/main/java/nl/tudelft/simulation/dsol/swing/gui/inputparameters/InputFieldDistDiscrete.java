@@ -4,7 +4,7 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.Box;
@@ -39,11 +39,11 @@ public class InputFieldDistDiscrete extends AbstractInputField implements ItemLi
 
     /** fields for the parameters. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Map<String, JTextField[]> textFields = new HashMap<>();
+    protected Map<String, JTextField[]> textFields = new LinkedHashMap<>();
 
     /** mapping from String value to original class. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Map<String, InputParameterMapDistDiscrete> selectionMap = new HashMap<>();
+    protected Map<String, InputParameterMapDistDiscrete> selectionMap = new LinkedHashMap<>();
 
     /** cards for the distributions. */
     @SuppressWarnings("checkstyle:visibilitymodifier")

@@ -4,7 +4,7 @@ import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.lang.reflect.AccessibleObject;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -23,13 +23,13 @@ import java.util.Map;
 public final class ClassDescriptor
 {
     /** the repository which caches descriptors. */
-    private static final Map<Class<?>, ClassDescriptor> CACHE = new HashMap<Class<?>, ClassDescriptor>();
+    private static final Map<Class<?>, ClassDescriptor> CACHE = new LinkedHashMap<Class<?>, ClassDescriptor>();
 
     /** the constantPool. */
     private Constant[] constantPool = null;
 
     /** the localVariables. */
-    private Map<AccessibleObject, MethodDescriptor> methods = new HashMap<AccessibleObject, MethodDescriptor>();
+    private Map<AccessibleObject, MethodDescriptor> methods = new LinkedHashMap<AccessibleObject, MethodDescriptor>();
 
     /** the javaClass we are reading. */
     private final Class<?> javaClass;
