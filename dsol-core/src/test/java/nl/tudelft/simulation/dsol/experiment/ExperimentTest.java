@@ -32,6 +32,7 @@ import nl.tudelft.simulation.dsol.statistics.SimPersistent;
 import nl.tudelft.simulation.dsol.statistics.SimTally;
 import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 import nl.tudelft.simulation.jstats.distributions.DistExponential;
+import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 
 /**
@@ -290,6 +291,48 @@ public class ExperimentTest
     }
 
     /**
+     * test the execution of an experiment with 10 replications and the use of a seed updater.
+     * @throws RemoteException on error
+     */
+    @Test
+    public void testExperimentRunSeedUpdater() throws RemoteException
+    {
+        SortedMap<Integer, Integer> dataCollector = new TreeMap<>();
+        DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("simulator");
+        DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new CountModel(simulator, dataCollector);
+        StreamSeedInformation streamInformation = new StreamSeedInformation();
+        streamInformation.putStream("default", new MersenneTwister(10L));
+        streamInformation.putStream("iatStream", new MersenneTwister(20L));
+        streamInformation.putStream("procStream", new MersenneTwister(30L));
+        streamInformation.putSeedArray("iatStream", new long[] {1, 2, 3, 4, 5, 6, 7, 8});
+        List<Long> seedList = List.of(10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L);
+        streamInformation.putSeedArray("procStream", seedList);
+        Map<Integer, Long> seedMap = new LinkedHashMap<>();
+        seedMap.put(0, 100L);
+        seedMap.put(1, 200L);
+        streamInformation.putSeedMap("default", seedMap);
+        model.setInitialStreams(streamInformation);
+        Experiment.TimeDouble<DEVSSimulatorInterface.TimeDouble> expd =
+                new Experiment.TimeDouble<>("Exp 1", simulator, model, 10.0, 1.0, 12.0, 10);
+        expd.setStreamUpdater(new StreamSeedUpdater(streamInformation.getStreamSeedMap()));
+
+        expd.start();
+        int count = 0;
+        while (expd.isRunning() && count < 1000)
+        {
+            count++;
+            Sleep.sleep(1);
+        }
+        assertTrue(count < 1000);
+
+        assertEquals(10, dataCollector.size());
+        for (int i = 0; i < 10; i++)
+        {
+            assertEquals(13, dataCollector.get(i).intValue());
+        }
+    }
+
+    /**
      * test the calculation of a summary statistic foran experiment with 10 replications.
      * @throws RemoteException on error
      */
@@ -400,6 +443,17 @@ public class ExperimentTest
             super(simulator);
             this.iatDist = new DistExponential(getStream("default"), 1.0);
             this.procDist = new DistExponential(getStream("default"), 0.8);
+        }
+
+        /**
+         * @param simulator the simulator
+         * @param streamInformation the streams to use
+         */
+        public MM1Model(final DEVSSimulatorInterface.TimeDouble simulator, final StreamInformation streamInformation)
+        {
+            super(simulator, streamInformation);
+            this.iatDist = new DistExponential(getStream("iatStream"), 1.0);
+            this.procDist = new DistExponential(getStream("procStream"), 0.8);
         }
 
         /** {@inheritDoc} */

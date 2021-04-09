@@ -72,5 +72,8 @@ public class ReplicationTest
         SingleReplication.TimeFloatUnit srfu = new SingleReplication.TimeFloatUnit("srfu",
                 new FloatTime(10.0f, TimeUnit.BASE_HOUR), FloatDuration.ZERO, new FloatDuration(12.0f, DurationUnit.HOUR));
         assertEquals(new FloatDuration(22.0f, DurationUnit.HOUR).si, srfu.getEndTime().si, 1E-6);
+        
+        // remove from context
+        srd.removeFromContext();
     }
 }

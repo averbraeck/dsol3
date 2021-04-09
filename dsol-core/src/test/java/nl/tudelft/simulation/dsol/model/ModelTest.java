@@ -9,6 +9,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.experiment.StreamInformation;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterDouble;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterException;
 import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
@@ -71,6 +72,15 @@ public class ModelTest
         streamMap.put("stream1", new MersenneTwister(1L));
         assertNotNull(model.getStream("stream1"));
         
+        // initial streams
+        StreamInformation streamInfo = new StreamInformation();
+        streamInfo.putStream("default", new MersenneTwister(20L));
+        streamInfo.putStream("extra", new MersenneTwister(10L));
+        model.setInitialStreams(streamInfo);
+        assertEquals(2, model.getStreams().size());
+        assertEquals(20, model.getStream("default").getSeed());
+        assertEquals(10, model.getStream("extra").getSeed());
+                
         // input parameter management
         assertNotNull(model.getInputParameterMap());
         model.getInputParameterMap().add(new InputParameterDouble("double", "double", "double", 10.0, 1.0));

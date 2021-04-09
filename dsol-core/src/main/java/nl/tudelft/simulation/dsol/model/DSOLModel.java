@@ -10,6 +10,7 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
+import nl.tudelft.simulation.dsol.experiment.StreamInformation;
 import nl.tudelft.simulation.dsol.model.inputparameters.InputParameterMap;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
@@ -19,6 +20,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
+import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -71,7 +73,26 @@ public interface DSOLModel<A extends Comparable<A> & Serializable, R extends Num
      * used in the constructModel() method, and the seed values can be changed by the experiment for subsequent replications,
      * prior to calling constructModel().
      */
-    void setInitialStreams();
+    default void setInitialStreams()
+    {
+        StreamInformation streamInformation = new StreamInformation();
+        streamInformation.putStream("default", new MersenneTwister(10L));
+        setInitialStreams(streamInformation);
+    }
+
+    /**
+     * Set the initial streams of the model based on a StreamInformation object. This method can be called right after the
+     * construction of the model, or just before the model is constructed. <br>
+     * <u>Note 1:</u> If a model is run as part of an Experiment, the seeds of the random streams will be reset just before the
+     * call to constructModel(), so <b>do not call this method from constructModel()</b>, as it will reset the seeds to their
+     * initial values, and undo the seed management of the Experiment.<br>
+     * <u>Note 2:</u> The original streams are copied into the model, so they are not cloned (as the streams do not implement
+     * cloneable, and as they have inner state that needs to be preserved). So be careful with manipulating the streams in the
+     * streamInformation object afterward.
+     * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
+     * @throws NullPointerException when streamInformation is null
+     */
+    void setInitialStreams(StreamInformation streamInformation);
 
     /**
      * Return the streams of this model, mapping stream ids to streams.
