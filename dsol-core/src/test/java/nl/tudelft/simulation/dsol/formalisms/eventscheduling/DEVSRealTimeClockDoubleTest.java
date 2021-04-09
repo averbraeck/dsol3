@@ -118,7 +118,7 @@ public class DEVSRealTimeClockDoubleTest implements EventListenerInterface
                     // System.out.println(t);
                     try
                     {
-                        Thread.sleep(5, 0);
+                        Thread.sleep(2, 0);
                     }
                     catch (InterruptedException exception)
                     {
@@ -157,13 +157,13 @@ public class DEVSRealTimeClockDoubleTest implements EventListenerInterface
     protected void doWork(final double time)
     {
         this.waiter.assertEquals(time, this.devsSimulator.getSimulatorTime(), 0.0001);
-        // sometimes the work takes time: 1 in 1000 events takes 0.1 sec
-        // there are 100000 events; 100 * 0.1 sec = 10 sec
+        // sometimes the work takes time: 1 in 1000 events takes 0.05 sec
+        // there are 100000 events; 100 * 0.05 sec = 5 sec
         try
         {
             if ((int) this.workTimeDist.draw() == 500)
             {
-                Thread.sleep(100);
+                Thread.sleep(50);
             }
         }
         catch (InterruptedException exception)
