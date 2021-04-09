@@ -3,7 +3,7 @@ package nl.tudelft.simulation.introspection.fields;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -62,7 +62,7 @@ public class FieldIntrospector implements Introspector
         {
             introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
         }
-        Set<Property> props = new HashSet<Property>();
+        Set<Property> props = new LinkedHashSet<Property>();
         try
         {
             Field[] fields = collectFields(introspected.getClass());
@@ -141,7 +141,7 @@ public class FieldIntrospector implements Introspector
         {
             introspected = ((DelegateIntrospection) introspected).getParentIntrospectionObject();
         }
-        Set<String> props = new HashSet<String>();
+        Set<String> props = new LinkedHashSet<String>();
         try
         {
             Field[] fields = collectFields(introspected.getClass());

@@ -16,7 +16,7 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Properties;
 
 import javax.naming.NameAlreadyBoundException;
@@ -381,7 +381,7 @@ public class ContextTest
         // build a normal tree
         ContextInterface level1 = context.createSubcontext("level1");
         assertFalse(context.isEmpty());
-        assertEquals(new HashSet<String>(Arrays.asList("level1")), context.keySet());
+        assertEquals(new LinkedHashSet<String>(Arrays.asList("level1")), context.keySet());
         assertEquals(level1, context.get("level1"));
         assertTrue(level1.isEmpty());
 

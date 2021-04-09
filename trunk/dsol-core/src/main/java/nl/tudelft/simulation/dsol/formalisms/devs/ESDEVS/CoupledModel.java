@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,19 +50,19 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
 
     /** the internal couplings (from internal models to internal models). */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Set<IC<A, R, T, ?>> internalCouplingSet = new HashSet<IC<A, R, T, ?>>();
+    protected Set<IC<A, R, T, ?>> internalCouplingSet = new LinkedHashSet<IC<A, R, T, ?>>();
 
     /** the couplings from the internal models to the output of this coupled model. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Set<EOC<A, R, T, ?>> externalOutputCouplingSet = new HashSet<EOC<A, R, T, ?>>();
+    protected Set<EOC<A, R, T, ?>> externalOutputCouplingSet = new LinkedHashSet<EOC<A, R, T, ?>>();
 
     /** the couplings from the outside world to the internal models of this coupled model. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Set<EIC<A, R, T, ?>> externalInputCouplingSet = new HashSet<EIC<A, R, T, ?>>();
+    protected Set<EIC<A, R, T, ?>> externalInputCouplingSet = new LinkedHashSet<EIC<A, R, T, ?>>();
 
     /** the models within this coupled model. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Set<AbstractDEVSModel<A, R, T>> modelComponents = new HashSet<>();
+    protected Set<AbstractDEVSModel<A, R, T>> modelComponents = new LinkedHashSet<>();
 
     // ///////////////////////////////////////////////////////////////////////////
     // CONSTRUCTORS AND INITIALIZATION

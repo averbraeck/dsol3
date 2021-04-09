@@ -2,7 +2,7 @@ package nl.tudelft.simulation.dsol.swing.introspection.mapping;
 
 import java.awt.Color;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,10 +50,10 @@ public class DefaultConfiguration implements CellPresentationConfiguration
     }
 
     /** the renderers. */
-    private Set<Class<?>[]> renderers = new HashSet<Class<?>[]>();
+    private Set<Class<?>[]> renderers = new LinkedHashSet<Class<?>[]>();
 
     /** the editors. */
-    private Set<Class<?>[]> editors = new HashSet<Class<?>[]>();
+    private Set<Class<?>[]> editors = new LinkedHashSet<Class<?>[]>();
 
     /**
      * @return Returns the defaultConfiguration

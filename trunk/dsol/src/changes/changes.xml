@@ -8,16 +8,16 @@
       <action dev="averbraeck" type="add">
         A class in stream management (dsol-core experiment package) has been added to store predefined seeds
         for replications. A StreamUpdater has been created that can take these pre-defined seeds and use the
-        SimpleStreamUpdater as a backup when the information in the StreamSeedInformation class is missing.
+        SimpleStreamUpdater as a fallback when the information in the StreamSeedInformation class is missing.
       </action>
       <action dev="averbraeck" type="update">
         DSOL has been updated to the 1.06.24 version of djunits where the Space2d and Space3d tagging interfaces have
         been removed. This caused several generics (Point and Bounds) to be slightly updated.
       </action>
       <action dev="averbraeck" type="update">
-        Replaced HashMap by LinkedHashMap in all instances of the DSOL code to increase full reproducibility of the
-        iterators over a HashMap, making them independent of the memory locations of objects in case the hasCode()
-        function is not implemented for the objects in the HashMap.   
+        Replaced HashMap and HashSet by LinkedHashMap and LinkedHashSet in all instances of the DSOL code to 
+        increase full reproducibility of the iterators over a HashMap, making them independent of the memory 
+        locations of objects in case the hasCode() function is not implemented for the objects in the HashMap.   
       </action>
     </release>
       

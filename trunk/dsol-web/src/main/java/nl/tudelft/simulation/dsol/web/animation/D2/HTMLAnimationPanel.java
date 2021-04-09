@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,10 +56,10 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     private Map<Class<? extends Locatable>, Boolean> visibilityMap = new LinkedHashMap<>();
 
     /** cache of the classes that are hidden. */
-    private Set<Class<? extends Locatable>> hiddenClasses = new HashSet<>();
+    private Set<Class<? extends Locatable>> hiddenClasses = new LinkedHashSet<>();
 
     /** cache of the classes that are shown. */
-    private Set<Class<? extends Locatable>> shownClasses = new HashSet<>();
+    private Set<Class<? extends Locatable>> shownClasses = new LinkedHashSet<>();
 
     /** the simulator. */
     private SimulatorInterface<?, ?, ?> simulator;

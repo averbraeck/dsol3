@@ -2,8 +2,8 @@ package nl.tudelft.simulation.dsol.formalisms.devs.ESDEVS;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -77,16 +77,16 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
     private Set<Field> stateFieldSet = null;
 
     /** the fields of the AtomicModel. */
-    private static Set<Field> atomicFields = new HashSet<Field>();
+    private static Set<Field> atomicFields = new LinkedHashSet<Field>();
 
     /** the fields of the CoupledModel. */
-    private static Set<Field> coupledFields = new HashSet<Field>();
+    private static Set<Field> coupledFields = new LinkedHashSet<Field>();
 
     /** the fields of the AbstractEntity. */
-    private static Set<Field> entityFields = new HashSet<Field>();
+    private static Set<Field> entityFields = new LinkedHashSet<Field>();
 
     /** the fields of the AbstractDEVSMOdel. */
-    private static Set<Field> abstractDEVSFields = new HashSet<Field>();
+    private static Set<Field> abstractDEVSFields = new LinkedHashSet<Field>();
 
     /**
      * Static constructor. Takes care of filling the static constants the first time an extension of the AbstractDEVSModel is
