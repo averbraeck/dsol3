@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.dsol.experiment;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
@@ -14,13 +15,29 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public interface StreamUpdater
+public interface StreamUpdater extends Serializable
 {
     /**
-     * Update the seeds for the given replication number. The method should be fully reproducible, and based on the previous
-     * seed values, possibly the String representation, and the replication number.
+     * Update all seeds for the given replication number. The method should be fully reproducible, and can be based on the
+     * previous seed values, possibly the String representation, and the replication number.
      * @param streams Map&lt;String, StreamIterface&gt;; the map of the streams for the replication
-     * @param replicationnumber int; the replication number for which to set the seed values
+     * @param replicationNumber int; the replication number for which to set the seed values
      */
-    void updateSeeds(Map<String, StreamInterface> streams, int replicationnumber);
+    default void updateSeeds(Map<String, StreamInterface> streams, int replicationNumber)
+    {
+        for (Map.Entry<String, StreamInterface> entry : streams.entrySet())
+        {
+            updateSeed(entry.getKey(), entry.getValue(), replicationNumber);
+        }
+    }
+
+    /**
+     * Update one seed for the given streamId and replication number. The method should be fully reproducible, and can be based
+     * on the previous seed value of the stream, possibly the String representation, and the replication number.
+     * @param streamId String; the id of the stream to update
+     * @param stream StreamInterface; the stream to update for this replication
+     * @param replicationNumber int; the replication number for which to set the seed value
+     */
+    void updateSeed(String streamId, StreamInterface stream, int replicationNumber);
+
 }

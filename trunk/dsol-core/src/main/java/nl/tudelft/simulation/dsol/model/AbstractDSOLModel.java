@@ -25,7 +25,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
-import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -68,32 +67,31 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
     /**
      * Construct a DSOL model and set the simulator.
      * @param simulator S; the simulator to use for this model
+     * @throws NullPointerException when simulator is null
      */
     public AbstractDSOLModel(final S simulator)
     {
+        Throw.whenNull(simulator, "simulator cannot be null");
         this.simulator = simulator;
         setInitialStreams();
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public void setInitialStreams()
+    /**
+     * Construct a DSOL model and set the simulator as well as the initial streams, so they can be used in the constructor of
+     * the model.
+     * @param simulator S; the simulator to use for this model
+     * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
+     * @throws NullPointerException when simulator or streamInformation is null
+     */
+    public AbstractDSOLModel(final S simulator, final StreamInformation streamInformation)
     {
-        this.streams.put("default", new MersenneTwister(10L));
+        Throw.whenNull(simulator, "simulator cannot be null");
+        this.simulator = simulator;
+        setInitialStreams(streamInformation);
     }
 
-    /**
-     * Set the initial streams of the model based on a StreamInformation object. This method can be called right after the
-     * construction of the model, or just before the model is constructed. <br>
-     * <u>Note 1:</u> If a model is run as part of an Experiment, the seeds of the random streams will be reset just before the
-     * call to constructModel(), so <b>do not call this method from constructModel()</b>, as it will reset the seeds to their
-     * initial values, and undo the seed management of the Experiment.<br>
-     * <u>Note 2:</u> The original streams are copied into the model, so they are not cloned (as the streams do not implement
-     * cloneable, and as they have inner state that needs to be preserved). So be careful with manipulating the streams in the
-     * streamInformation object afterward.
-     * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
-     * @throws NullPointerException when streamInformation is null
-     */
+    /** {@inheritDoc} */
+    @Override
     public void setInitialStreams(final StreamInformation streamInformation)
     {
         Throw.whenNull(streamInformation, "streamInformation cannot be null");
@@ -191,10 +189,23 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
         /**
          * Construct an abstract DSOL model and set the simulator.
          * @param simulator S; the simulator to use for this model
+         * @throws NullPointerException when simulator is null
          */
         public TimeDouble(final S simulator)
         {
             super(simulator);
+        }
+
+        /**
+         * Construct an abstract DSOL model and set the simulator as well as the initial streams, so they can be used in the
+         * constructor of the model.
+         * @param simulator S; the simulator to use for this model
+         * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
+         * @throws NullPointerException when simulator or streamInformation is null
+         */
+        public TimeDouble(final S simulator, final StreamInformation streamInformation)
+        {
+            super(simulator, streamInformation);
         }
     }
 
@@ -211,10 +222,23 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
         /**
          * Construct an abstract DSOL model and set the simulator.
          * @param simulator S; the simulator to use for this model
+         * @throws NullPointerException when simulator is null
          */
         public TimeFloat(final S simulator)
         {
             super(simulator);
+        }
+
+        /**
+         * Construct an abstract DSOL model and set the simulator as well as the initial streams, so they can be used in the
+         * constructor of the model.
+         * @param simulator S; the simulator to use for this model
+         * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
+         * @throws NullPointerException when simulator or streamInformation is null
+         */
+        public TimeFloat(final S simulator, final StreamInformation streamInformation)
+        {
+            super(simulator, streamInformation);
         }
     }
 
@@ -231,10 +255,23 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
         /**
          * Construct an abstract DSOL model and set the simulator.
          * @param simulator S; the simulator to use for this model
+         * @throws NullPointerException when simulator is null
          */
         public TimeLong(final S simulator)
         {
             super(simulator);
+        }
+
+        /**
+         * Construct an abstract DSOL model and set the simulator as well as the initial streams, so they can be used in the
+         * constructor of the model.
+         * @param simulator S; the simulator to use for this model
+         * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
+         * @throws NullPointerException when simulator or streamInformation is null
+         */
+        public TimeLong(final S simulator, final StreamInformation streamInformation)
+        {
+            super(simulator, streamInformation);
         }
     }
 
@@ -251,10 +288,23 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
         /**
          * Construct an abstract DSOL model and set the simulator.
          * @param simulator S; the simulator to use for this model
+         * @throws NullPointerException when simulator is null
          */
         public TimeDoubleUnit(final S simulator)
         {
             super(simulator);
+        }
+
+        /**
+         * Construct an abstract DSOL model and set the simulator as well as the initial streams, so they can be used in the
+         * constructor of the model.
+         * @param simulator S; the simulator to use for this model
+         * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
+         * @throws NullPointerException when simulator or streamInformation is null
+         */
+        public TimeDoubleUnit(final S simulator, final StreamInformation streamInformation)
+        {
+            super(simulator, streamInformation);
         }
     }
 
@@ -271,10 +321,23 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
         /**
          * Construct an abstract DSOL model and set the simulator.
          * @param simulator S; the simulator to use for this model
+         * @throws NullPointerException when simulator is null
          */
         public TimeFloatUnit(final S simulator)
         {
             super(simulator);
+        }
+
+        /**
+         * Construct an abstract DSOL model and set the simulator as well as the initial streams, so they can be used in the
+         * constructor of the model.
+         * @param simulator S; the simulator to use for this model
+         * @param streamInformation StreamInformation; the streams that have been prepared in a StreamInformation class
+         * @throws NullPointerException when simulator or streamInformation is null
+         */
+        public TimeFloatUnit(final S simulator, final StreamInformation streamInformation)
+        {
+            super(simulator, streamInformation);
         }
     }
 

@@ -1,7 +1,5 @@
 package nl.tudelft.simulation.dsol.experiment;
 
-import java.util.Map;
-
 import nl.tudelft.simulation.jstats.streams.StreamInterface;
 
 /**
@@ -16,15 +14,14 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  */
 public class SimpleStreamUpdater implements StreamUpdater
 {
+    /** */
+    private static final long serialVersionUID = 20210405L;
+
     /** {@inheritDoc} */
     @Override
-    public void updateSeeds(final Map<String, StreamInterface> streams, final int replicationNumber)
+    public void updateSeed(final String streamId, final StreamInterface stream, final int replicationNumber)
     {
-        for (Map.Entry<String, StreamInterface> entry : streams.entrySet())
-        {
-            StreamInterface stream = entry.getValue();
-            entry.getValue().setSeed(stream.getOriginalSeed() + replicationNumber * (1_000_037L + entry.getKey().hashCode()));
-        }
+        stream.setSeed(stream.getOriginalSeed() + replicationNumber * (1_000_037L + streamId.hashCode()));
     }
 
 }
