@@ -29,27 +29,16 @@ public abstract class AbstractReplication<A extends Comparable<A> & Serializable
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20210404L;
 
-    /** the id of the replication. */
-    private final String id;
-
-    /** the description of the replication (if not set, the id will be used). */
-    private String description;
-
-    /** the start time of the simulation. */
-    private final T startTime;
-
-    /** the end time of the simulation. */
-    private final T endTime;
-
-    /** the warmup time of the simulation (included in the total run length). */
-    private final T warmupTime;
+    /** the run control for the replication. */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected final RunControlInterface<A, R, T> runControl;
 
     /** the context root of this replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected ContextInterface context;
 
     /**
-     * construct a stand-alone replication.
+     * Construct a stand-alone replication. Checking the validity of the arguments is left to the RunControl object.
      * @param id String; the id of the replication; should be unique within the experiment.
      * @param startTime T; the start time as a time object.
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
@@ -60,20 +49,18 @@ public abstract class AbstractReplication<A extends Comparable<A> & Serializable
      */
     public AbstractReplication(final String id, final T startTime, final R warmupPeriod, final R runLength)
     {
-        Throw.whenNull(id, "id should not be null");
-        Throw.whenNull(startTime, "startTime should not be null");
-        Throw.whenNull(warmupPeriod, "warmupPeriod should not be null");
-        Throw.whenNull(runLength, "runLength should not be null");
-        Throw.when(warmupPeriod.doubleValue() < 0.0, SimRuntimeException.class, "warmup period should not be negative");
-        Throw.when(runLength.doubleValue() <= 0.0, SimRuntimeException.class, "run length should not be zero or negative");
-        Throw.when(warmupPeriod.doubleValue() >= runLength.doubleValue(), IllegalArgumentException.class,
-                "the warmup time is longer than or equal to the runlength");
+        this(new RunControl<>(id, startTime, warmupPeriod, runLength));
+    }
 
-        this.id = id;
-        this.description = id;
-        this.startTime = startTime;
-        this.endTime = startTime.plus(runLength);
-        this.warmupTime = startTime.plus(warmupPeriod);
+    /**
+     * Construct a stand-alone replication using a RunControl to store the run information.
+     * @param runControl RunControlInterface; the run control for the replication
+     * @throws NullPointerException when runControl is null
+     */
+    public AbstractReplication(final RunControlInterface<A, R, T> runControl)
+    {
+        Throw.whenNull(runControl, "runControl should not be null");
+        this.runControl = runControl;
     }
 
     /** {@inheritDoc} */
@@ -81,48 +68,6 @@ public abstract class AbstractReplication<A extends Comparable<A> & Serializable
     public final ContextInterface getContext()
     {
         return this.context;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getId()
-    {
-        return this.id;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setDescription(final String description)
-    {
-        this.description = description;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getDescription()
-    {
-        return this.description;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public T getStartSimTime()
-    {
-        return this.startTime;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public T getEndSimTime()
-    {
-        return this.endTime;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public T getWarmupSimTime()
-    {
-        return this.warmupTime;
     }
 
     /** {@inheritDoc} */

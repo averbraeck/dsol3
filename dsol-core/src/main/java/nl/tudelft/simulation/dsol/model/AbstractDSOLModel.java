@@ -2,9 +2,7 @@ package nl.tudelft.simulation.dsol.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
@@ -25,7 +23,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.statistics.StatisticsInterface;
-import nl.tudelft.simulation.jstats.streams.StreamInterface;
+import nl.tudelft.simulation.jstats.streams.MersenneTwister;
 
 /**
  * AbstractDSOLModel, an abstract helper class to easily construct a DSOLModel. The model automatically acts as an
@@ -46,7 +44,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
         implements DSOLModel<A, R, T, S>
 {
     /** */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 20181117L;
 
     /** the simulator. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -62,7 +60,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
 
     /** streams used in the replication. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected Map<String, StreamInterface> streams = new LinkedHashMap<String, StreamInterface>();
+    protected StreamInformation streamInformation;
 
     /**
      * Construct a DSOL model and set the simulator.
@@ -71,9 +69,7 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
      */
     public AbstractDSOLModel(final S simulator)
     {
-        Throw.whenNull(simulator, "simulator cannot be null");
-        this.simulator = simulator;
-        setInitialStreams();
+        this(simulator, new StreamInformation(new MersenneTwister(10L)));
     }
 
     /**
@@ -87,46 +83,22 @@ public abstract class AbstractDSOLModel<A extends Comparable<A> & Serializable, 
     {
         Throw.whenNull(simulator, "simulator cannot be null");
         this.simulator = simulator;
-        setInitialStreams(streamInformation);
+        setStreamInformation(streamInformation);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setInitialStreams(final StreamInformation streamInformation)
+    public void setStreamInformation(final StreamInformation streamInformation)
     {
         Throw.whenNull(streamInformation, "streamInformation cannot be null");
-        this.streams.clear();
-        this.streams.putAll(streamInformation.getStreams());
+        this.streamInformation = streamInformation;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Map<String, StreamInterface> getStreams()
+    public StreamInformation getStreamInformation()
     {
-        return this.streams;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public StreamInterface getStream(final String streamId)
-    {
-        synchronized (this.streams)
-        {
-            return this.streams.get(streamId);
-        }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void resetStreams()
-    {
-        synchronized (this.streams)
-        {
-            for (StreamInterface stream : getStreams().values())
-            {
-                stream.reset();
-            }
-        }
+        return this.streamInformation;
     }
 
     /** {@inheritDoc} */

@@ -90,7 +90,7 @@ public class StreamSeedInformation extends StreamInformation
      * @throws NullPointerException when streamId is null or seedList is null
      * @throws IllegalArgumentException when streamId is not present in the stream map
      */
-    public void putSeedArray(final String streamId, final List<Long> seedList)
+    public void putSeedList(final String streamId, final List<Long> seedList)
     {
         Throw.whenNull(streamId, "streamId cannot be null");
         Throw.whenNull(seedList, "seedList cannot be null");

@@ -301,17 +301,17 @@ public class ExperimentTest
         DEVSSimulator.TimeDouble simulator = new DEVSSimulator.TimeDouble("simulator");
         DSOLModel.TimeDouble<DEVSSimulatorInterface.TimeDouble> model = new CountModel(simulator, dataCollector);
         StreamSeedInformation streamInformation = new StreamSeedInformation();
-        streamInformation.putStream("default", new MersenneTwister(10L));
-        streamInformation.putStream("iatStream", new MersenneTwister(20L));
-        streamInformation.putStream("procStream", new MersenneTwister(30L));
+        streamInformation.addStream("default", new MersenneTwister(10L));
+        streamInformation.addStream("iatStream", new MersenneTwister(20L));
+        streamInformation.addStream("procStream", new MersenneTwister(30L));
         streamInformation.putSeedArray("iatStream", new long[] {1, 2, 3, 4, 5, 6, 7, 8});
         List<Long> seedList = List.of(10L, 20L, 30L, 40L, 50L, 60L, 70L, 80L, 90L, 100L);
-        streamInformation.putSeedArray("procStream", seedList);
+        streamInformation.putSeedList("procStream", seedList);
         Map<Integer, Long> seedMap = new LinkedHashMap<>();
         seedMap.put(0, 100L);
         seedMap.put(1, 200L);
         streamInformation.putSeedMap("default", seedMap);
-        model.setInitialStreams(streamInformation);
+        model.setStreamInformation(streamInformation);
         Experiment.TimeDouble<DEVSSimulatorInterface.TimeDouble> expd =
                 new Experiment.TimeDouble<>("Exp 1", simulator, model, 10.0, 1.0, 12.0, 10);
         expd.setStreamUpdater(new StreamSeedUpdater(streamInformation.getStreamSeedMap()));
