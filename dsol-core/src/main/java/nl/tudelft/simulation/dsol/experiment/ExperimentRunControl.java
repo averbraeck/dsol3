@@ -16,8 +16,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 
 /**
- * RunControl is a data object that contains off-line run control information. It can be fed to an Experiment or a Replication
- * to set the run control parameters for a simulation run.
+ * ExperimentRunControl.java.
  * <p>
  * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -30,96 +29,43 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  *            relative types are the same.
  * @param <T> the simulation time type to be able to implement a comparator on the simulation time.
  */
-public class RunControl<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>>
-        implements RunControlInterface<A, R, T>
+public class ExperimentRunControl<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
+        T extends SimTime<A, R, T>> extends RunControl<A, R, T>
 {
     /** */
-    private static final long serialVersionUID = 20210409L;
+    private static final long serialVersionUID = 20210410L;
 
-    /** the id of the replication. */
-    private final String id;
-
-    /** the description of the replication (if not set, the id will be used). */
-    private String description;
-
-    /** the start time of the simulation. */
-    private final T startTime;
-
-    /** the end time of the simulation. */
-    private final T endTime;
-
-    /** the warmup time of the simulation (included in the total run length). */
-    private final T warmupTime;
+    /** The number of replications to execute. */
+    private final int numberOfReplications;
 
     /**
-     * Construct an object with off-line run control information.
+     * Construct an object with off-line run control information for an experiment.
      * @param id String; the id of the run control that will be used as the id for the replication; should be unique within the
      *            experiment.
      * @param startTime T; the start time as a time object.
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
+     * @param numberOfReplications int; the number of replications to execute
      * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
      * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
-     *             time is longer than or equal to the runlength
+     *             time is longer than or equal to the runlength, or when number of replications is zero or negative
      */
-    public RunControl(final String id, final T startTime, final R warmupPeriod, final R runLength)
+    public ExperimentRunControl(final String id, final T startTime, final R warmupPeriod, final R runLength,
+            final int numberOfReplications)
     {
-        Throw.whenNull(id, "id should not be null");
-        Throw.whenNull(startTime, "startTime should not be null");
-        Throw.whenNull(warmupPeriod, "warmupPeriod should not be null");
-        Throw.whenNull(runLength, "runLength should not be null");
-        Throw.when(warmupPeriod.doubleValue() < 0.0, IllegalArgumentException.class, "warmup period should not be negative");
-        Throw.when(runLength.doubleValue() <= 0.0, IllegalArgumentException.class, "run length should not be zero or negative");
-        Throw.when(warmupPeriod.doubleValue() >= runLength.doubleValue(), IllegalArgumentException.class,
-                "the warmup time is longer than or equal to the runlength");
-
-        this.id = id;
-        this.description = id;
-        this.startTime = startTime;
-        this.endTime = startTime.plus(runLength);
-        this.warmupTime = startTime.plus(warmupPeriod);
+        super(id, startTime, warmupPeriod, runLength);
+        Throw.when(numberOfReplications <= 0, IllegalArgumentException.class,
+                "number of replications can not be zero or negative");
+        this.numberOfReplications = numberOfReplications;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public String getId()
+    /**
+     * Return the total number of replications to execute.
+     * @return int; the total number of replications to execute
+     */
+    public final int getNumberOfReplications()
     {
-        return this.id;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setDescription(final String description)
-    {
-        this.description = description;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String getDescription()
-    {
-        return this.description;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public T getStartSimTime()
-    {
-        return this.startTime;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public T getEndSimTime()
-    {
-        return this.endTime;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public T getWarmupSimTime()
-    {
-        return this.warmupTime;
+        return this.numberOfReplications;
     }
 
     /** {@inheritDoc} */
@@ -127,11 +73,8 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
     public int hashCode()
     {
         final int prime = 31;
-        int result = 1;
-        result = prime * result + this.endTime.hashCode();
-        result = prime * result + this.id.hashCode();
-        result = prime * result + this.startTime.hashCode();
-        result = prime * result + this.warmupTime.hashCode();
+        int result = super.hashCode();
+        result = prime * result + this.numberOfReplications;
         return result;
     }
 
@@ -142,18 +85,10 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
     {
         if (this == obj)
             return true;
-        if (obj == null)
+        if (!super.equals(obj))
             return false;
-        if (getClass() != obj.getClass())
-            return false;
-        RunControl<?, ?, ?> other = (RunControl<?, ?, ?>) obj;
-        if (!this.startTime.equals(other.startTime))
-            return false;
-        if (!this.endTime.equals(other.endTime))
-            return false;
-        if (!this.id.equals(other.id))
-            return false;
-        if (!this.warmupTime.equals(other.warmupTime))
+        ExperimentRunControl<?, ?, ?> other = (ExperimentRunControl<?, ?, ?>) obj;
+        if (this.numberOfReplications != other.numberOfReplications)
             return false;
         return true;
     }
@@ -162,7 +97,7 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
     @Override
     public String toString()
     {
-        return "RunControl " + this.getId();
+        return "ExperimentRunControl " + this.getId() + ", NumberOfReplications=" + this.numberOfReplications;
     }
 
     /***********************************************************************************************************/
@@ -170,9 +105,9 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
     /***********************************************************************************************************/
 
     /**
-     * Easy access class RunControl.TimeDouble.
+     * Easy access class ExperimentRunControl.TimeDouble.
      */
-    public static class TimeDouble extends RunControl<Double, Double, SimTimeDouble> implements RunControlInterface.TimeDouble
+    public static class TimeDouble extends ExperimentRunControl<Double, Double, SimTimeDouble>
     {
         /** */
         private static final long serialVersionUID = 20210404;
@@ -183,19 +118,22 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
          * @param startTime double; the start time
          * @param warmupPeriod double; the warmup period, included in the runlength (!)
          * @param runLength double; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when number of
+         *             replications is zero or negative
          */
-        public TimeDouble(final String id, final double startTime, final double warmupPeriod, final double runLength)
+        public TimeDouble(final String id, final double startTime, final double warmupPeriod, final double runLength,
+                final int numberOfReplications)
         {
-            super(id, new SimTimeDouble(startTime), warmupPeriod, runLength);
+            super(id, new SimTimeDouble(startTime), warmupPeriod, runLength, numberOfReplications);
         }
     }
 
     /**
-     * Easy access class RunControl.TimeFloat.
+     * Easy access class ExperimentRunControl.TimeFloat.
      */
-    public static class TimeFloat extends RunControl<Float, Float, SimTimeFloat> implements RunControlInterface.TimeFloat
+    public static class TimeFloat extends ExperimentRunControl<Float, Float, SimTimeFloat>
     {
         /** */
         private static final long serialVersionUID = 20210404;
@@ -206,19 +144,22 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
          * @param startTime float; the start time
          * @param warmupPeriod float; the warmup period, included in the runlength (!)
          * @param runLength float; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when number of
+         *             replications is zero or negative
          */
-        public TimeFloat(final String id, final float startTime, final float warmupPeriod, final float runLength)
+        public TimeFloat(final String id, final float startTime, final float warmupPeriod, final float runLength,
+                final int numberOfReplications)
         {
-            super(id, new SimTimeFloat(startTime), warmupPeriod, runLength);
+            super(id, new SimTimeFloat(startTime), warmupPeriod, runLength, numberOfReplications);
         }
     }
 
     /**
-     * Easy access class RunControl.TimeLong.
+     * Easy access class ExperimentRunControl.TimeLong.
      */
-    public static class TimeLong extends RunControl<Long, Long, SimTimeLong> implements RunControlInterface.TimeLong
+    public static class TimeLong extends ExperimentRunControl<Long, Long, SimTimeLong>
     {
         /** */
         private static final long serialVersionUID = 20210404;
@@ -229,20 +170,22 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
          * @param startTime long; the start time
          * @param warmupPeriod long; the warmup period, included in the runlength (!)
          * @param runLength long; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when number of
+         *             replications is zero or negative
          */
-        public TimeLong(final String id, final long startTime, final long warmupPeriod, final long runLength)
+        public TimeLong(final String id, final long startTime, final long warmupPeriod, final long runLength,
+                final int numberOfReplications)
         {
-            super(id, new SimTimeLong(startTime), warmupPeriod, runLength);
+            super(id, new SimTimeLong(startTime), warmupPeriod, runLength, numberOfReplications);
         }
     }
 
     /**
-     * Easy access class RunControl.TimeDoubleUnit.
+     * Easy access class ExperimentRunControl.TimeDoubleUnit.
      */
-    public static class TimeDoubleUnit extends RunControl<Time, Duration, SimTimeDoubleUnit>
-            implements RunControlInterface.TimeDoubleUnit
+    public static class TimeDoubleUnit extends ExperimentRunControl<Time, Duration, SimTimeDoubleUnit>
     {
         /** */
         private static final long serialVersionUID = 20210404;
@@ -253,20 +196,22 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
          * @param startTime Time; the start time
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when number of
+         *             replications is zero or negative
          */
-        public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength)
+        public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength,
+                final int numberOfReplications)
         {
-            super(id, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength);
+            super(id, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength, numberOfReplications);
         }
     }
 
     /**
-     * Easy access class RunControl.TimeDoubleUnit.
+     * Easy access class ExperimentRunControl.TimeDoubleUnit.
      */
-    public static class TimeFloatUnit extends RunControl<FloatTime, FloatDuration, SimTimeFloatUnit>
-            implements RunControlInterface.TimeFloatUnit
+    public static class TimeFloatUnit extends ExperimentRunControl<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         /** */
         private static final long serialVersionUID = 20210404;
@@ -277,13 +222,15 @@ public class RunControl<A extends Comparable<A> & Serializable, R extends Number
          * @param startTime FloatTime; the start time
          * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
+         * @param numberOfReplications int; the number of replications to execute
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when number of
+         *             replications is zero or negative
          */
         public TimeFloatUnit(final String id, final FloatTime startTime, final FloatDuration warmupPeriod,
-                final FloatDuration runLength)
+                final FloatDuration runLength, final int numberOfReplications)
         {
-            super(id, new SimTimeFloatUnit(startTime), warmupPeriod, runLength);
+            super(id, new SimTimeFloatUnit(startTime), warmupPeriod, runLength, numberOfReplications);
         }
 
     }

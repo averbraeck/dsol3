@@ -4,6 +4,15 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.07.05" date="2021-04-10" description="ExperimentRunControl added">
+      <action dev="averbraeck" type="add">
+        An ExperimentRunControl object to more easily store offline data for the run control of the experiment 
+        has been created. Internally in the experiment, this object, rather than individual fields, are used 
+        to store the information for the experiment. This makes parsing an experiment from an external source
+        much easier, since the information can be stored in a data object.  
+      </action>
+    </release>
+
     <release version="3.07.04" date="2021-04-09" description="Offline run control and seed information objects">
       <action dev="averbraeck" type="add">
         A RunControl object to more easily store offline data for the RunControl has been created.
