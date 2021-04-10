@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.djutils.exceptions.Throw;
 
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.naming.context.ContextInterface;
 
@@ -44,8 +43,8 @@ public abstract class AbstractReplication<A extends Comparable<A> & Serializable
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
      * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for the
-     *             replication cannot be created, or when the warmup time is longer than or equal to the runlength
+     * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when a context for
+     *             the replication cannot be created, or when the warmup time is longer than or equal to the runlength
      */
     public AbstractReplication(final String id, final T startTime, final R warmupPeriod, final R runLength)
     {

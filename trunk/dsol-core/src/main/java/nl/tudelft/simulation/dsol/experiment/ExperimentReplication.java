@@ -11,7 +11,6 @@ import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.exceptions.Throw;
 
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -55,8 +54,8 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
      * @param runLength R; the total length of the run, including the warm-up period.
      * @param experiment Experiment; the experiment to which this replication belongs
      * @throws NullPointerException when id, startTime, warmupPeriod, runLength or experiment is null
-     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup time is
-     *             longer than or equal to the runlength, or when a context for the replication cannot be created
+     * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
+     *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
      */
     public ExperimentReplication(final String id, final T startTime, final R warmupPeriod, final R runLength,
             final Experiment<A, R, T, S> experiment)
@@ -80,7 +79,7 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
 
     /**
      * Set the context for this replication.
-     * @throws SimRuntimeException in case a context for the replication cannot be created
+     * @throws IllegalArgumentException in case a context for the replication cannot be created
      */
     protected void setContext()
     {
@@ -91,7 +90,7 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
         }
         catch (RemoteException | NamingException exception)
         {
-            throw new SimRuntimeException(
+            throw new IllegalArgumentException(
                     "Cannot lookup or create context for replication. Error is: " + exception.getMessage());
         }
     }
@@ -111,7 +110,7 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
         }
         catch (RemoteException | NamingException exception)
         {
-            throw new SimRuntimeException("Cannot destroy context for replication. Error is: " + exception.getMessage());
+            throw new IllegalArgumentException("Cannot destroy context for replication. Error is: " + exception.getMessage());
         }
     }
 
@@ -144,8 +143,9 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
          * @param runLength double; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
          * @throws NullPointerException when id or experiment is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeDouble(final String id, final double startTime, final double warmupPeriod, final double runLength,
                 final Experiment.TimeDouble<S> experiment)
@@ -190,8 +190,9 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
          * @param runLength float; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
          * @throws NullPointerException when id or experiment is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeFloat(final String id, final float startTime, final float warmupPeriod, final float runLength,
                 final Experiment.TimeFloat<S> experiment)
@@ -236,8 +237,9 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
          * @param runLength long; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
          * @throws NullPointerException when id or experiment is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeLong(final String id, final long startTime, final long warmupPeriod, final long runLength,
                 final Experiment.TimeLong<S> experiment)
@@ -282,8 +284,9 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
          * @param runLength Duration; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
          * @throws NullPointerException when id, startTime, warmupPeriod, runLength or experiment is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength,
                 final Experiment.TimeDoubleUnit<S> experiment)
@@ -329,8 +332,9 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
          * @throws NullPointerException NullPointerException when id, startTime, warmupPeriod, runLength or experiment is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeFloatUnit(final String id, final FloatTime startTime, final FloatDuration warmupPeriod,
                 final FloatDuration runLength, final Experiment.TimeFloatUnit<S> experiment)

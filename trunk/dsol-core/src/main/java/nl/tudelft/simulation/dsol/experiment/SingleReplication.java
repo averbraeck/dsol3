@@ -10,7 +10,6 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -49,7 +48,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
      * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup time is
+     * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup time is
      *             longer than or equal to the runlength, or when a context for the replication cannot be created
      */
     public SingleReplication(final String id, final T startTime, final R warmupPeriod, final R runLength)
@@ -70,7 +69,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
 
     /**
      * Set the context for this replication.
-     * @throws SimRuntimeException in case a context for the replication cannot be created
+     * @throws IllegalArgumentException in case a context for the replication cannot be created
      */
     protected void setContext()
     {
@@ -81,7 +80,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
         }
         catch (RemoteException | NamingException exception)
         {
-            throw new SimRuntimeException(
+            throw new IllegalArgumentException(
                     "Cannot lookup or create context for experiment. Error is: " + exception.getMessage());
         }
     }
@@ -101,7 +100,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
         }
         catch (RemoteException | NamingException exception)
         {
-            throw new SimRuntimeException("Cannot destroy context for replication. Error is: " + exception.getMessage());
+            throw new IllegalArgumentException("Cannot destroy context for replication. Error is: " + exception.getMessage());
         }
     }
 
@@ -132,7 +131,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod double; the warmup period, included in the runlength (!)
          * @param runLength double; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
          *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeDouble(final String id, final double startTime, final double warmupPeriod, final double runLength)
@@ -174,7 +173,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod float; the warmup period, included in the runlength (!)
          * @param runLength float; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
          *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeFloat(final String id, final float startTime, final float warmupPeriod, final float runLength)
@@ -215,7 +214,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod long; the warmup period, included in the runlength (!)
          * @param runLength long; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
          *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeLong(final String id, final long startTime, final long warmupPeriod, final long runLength)
@@ -257,7 +256,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
          *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength)
@@ -299,8 +298,9 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeFloatUnit(final String id, final FloatTime startTime, final FloatDuration warmupPeriod,
                 final FloatDuration runLength)

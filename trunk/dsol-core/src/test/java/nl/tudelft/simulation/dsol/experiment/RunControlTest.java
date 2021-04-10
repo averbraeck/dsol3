@@ -97,4 +97,83 @@ public class RunControlTest
         Try.testFail(() -> { new RunControl.TimeDouble("rc", 10.0, 5.0, -15.0); });
         Try.testFail(() -> { new RunControl.TimeDouble("rc", 10.0, 5.0, 0.0); });
     }
+
+    /**
+     * test the ExperimentRunControl object.
+     */
+    @Test
+    public void testExperimentRunControl()
+    {
+        ExperimentRunControl<Double, Double, SimTimeDouble> rcdg =
+                new ExperimentRunControl<>("rcdg", new SimTimeDouble(10.0), 5.0, 20.0, 10);
+        assertEquals("rcdg", rcdg.getId());
+        assertEquals("rcdg", rcdg.getDescription());
+        rcdg.setDescription("description");
+        assertEquals("description", rcdg.getDescription());
+        assertEquals(new SimTimeDouble(10.0), rcdg.getStartSimTime());
+        assertEquals(new SimTimeDouble(30.0), rcdg.getEndSimTime());
+        assertEquals(new SimTimeDouble(15.0), rcdg.getWarmupSimTime());
+        assertEquals(10.0, rcdg.getStartTime(), 1E-6);
+        assertEquals(30.0, rcdg.getEndTime(), 1E-6);
+        assertEquals(15.0, rcdg.getWarmupTime(), 1E-6);
+        assertEquals(20.0, rcdg.getRunLength(), 1E-6);
+        assertEquals(5.0, rcdg.getWarmupPeriod(), 1E-6);
+        assertEquals(10, rcdg.getNumberOfReplications());
+
+        // types
+        ExperimentRunControl.TimeDouble rcd = new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, 20.0, 10);
+        assertEquals(30.0, rcd.getEndTime(), 1E-6);
+        ExperimentRunControl.TimeFloat rcf = new ExperimentRunControl.TimeFloat("rc", 10.0f, 5.0f, 20.0f, 10);
+        assertEquals(30.0f, rcf.getEndTime(), 1E-6);
+        ExperimentRunControl.TimeLong rcl = new ExperimentRunControl.TimeLong("rc", 10L, 5L, 20L, 10);
+        assertEquals(30L, rcl.getEndTime().longValue());
+        ExperimentRunControl.TimeDoubleUnit rcdu =
+                new ExperimentRunControl.TimeDoubleUnit("rc", new Time(10.0, TimeUnit.BASE_HOUR),
+                        new Duration(5.0, DurationUnit.HOUR), new Duration(20.0, DurationUnit.HOUR), 10);
+        assertEquals(30.0, rcdu.getEndTime().getInUnit(), 1E-6);
+        ExperimentRunControl.TimeFloatUnit rcdf =
+                new ExperimentRunControl.TimeFloatUnit("rc", new FloatTime(10.0f, TimeUnit.BASE_HOUR),
+                        new FloatDuration(5.0f, DurationUnit.HOUR), new FloatDuration(20.0f, DurationUnit.HOUR), 10);
+        assertEquals(30.0f, rcdf.getEndTime().getInUnit(), 1E-6);
+
+        // equals and hashCode
+        assertTrue(rcd.equals(rcd));
+        assertNotEquals(rcd, rcf);
+        assertTrue(rcd.hashCode() == rcd.hashCode());
+        assertFalse(rcd.hashCode() == rcf.hashCode());
+        assertNotEquals(rcd, null);
+        assertNotEquals(rcd, new ExperimentRunControl.TimeDouble("rc2", 10.0, 5.0, 20.0, 10));
+        assertNotEquals(rcd, new ExperimentRunControl.TimeDouble("rc", 11.0, 5.0, 20.0, 10));
+        assertNotEquals(rcd, new ExperimentRunControl.TimeDouble("rc", 10.0, 15.0, 20.0, 10));
+        assertNotEquals(rcd, new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, 21.0, 10));
+        assertNotEquals(rcd, new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, 20.0, 11));
+        assertNotEquals(rcd, new Object());
+        assertEquals(rcd, new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, 20.0, 10));
+        assertTrue(rcd.toString().contains("rc"));
+
+        // errors
+        Try.testFail(() -> {
+            new ExperimentRunControl.TimeDoubleUnit(null, new Time(10.0, TimeUnit.BASE_HOUR),
+                    new Duration(5.0, DurationUnit.DAY), new Duration(20.0, DurationUnit.HOUR), 10);
+        });
+        Try.testFail(() -> {
+            new ExperimentRunControl.TimeDoubleUnit("rc", null, new Duration(5.0, DurationUnit.DAY),
+                    new Duration(20.0, DurationUnit.HOUR), 10);
+        });
+        Try.testFail(() -> {
+            new ExperimentRunControl.TimeDoubleUnit("rc", new Time(10.0, TimeUnit.BASE_HOUR), null,
+                    new Duration(20.0, DurationUnit.HOUR), 10);
+        });
+        Try.testFail(() -> {
+            new ExperimentRunControl.TimeDoubleUnit("rc", new Time(10.0, TimeUnit.BASE_HOUR),
+                    new Duration(5.0, DurationUnit.DAY), null, 10);
+        });
+        Try.testFail(() -> { new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, 5.0, 10); });
+        Try.testFail(() -> { new ExperimentRunControl.TimeDouble("rc", 10.0, -1.0, 15.0, 10); });
+        Try.testFail(() -> { new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, -15.0, 10); });
+        Try.testFail(() -> { new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, 0.0, 10); });
+        Try.testFail(() -> { new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, 15.0, 0); });
+        Try.testFail(() -> { new ExperimentRunControl.TimeDouble("rc", 10.0, 5.0, 15.0, -1); });
+    }
+
 }

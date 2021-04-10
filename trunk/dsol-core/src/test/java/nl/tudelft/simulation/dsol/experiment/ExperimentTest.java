@@ -73,6 +73,7 @@ public class ExperimentTest
         assertEquals(11.0, expd.getWarmupSimTime().get(), 1E-9);
         assertEquals(12.0, expd.getRunLength(), 1E-9);
         assertEquals(1.0, expd.getWarmupPeriod(), 1E-9);
+        assertNotNull(expd.getStreamUpdater());
         assertTrue(expd.toString().contains("Experiment 1"));
         ContextInterface c1 = expd.getContext();
         assertNotNull(c1);
