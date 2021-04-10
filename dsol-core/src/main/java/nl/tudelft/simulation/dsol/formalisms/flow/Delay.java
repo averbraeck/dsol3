@@ -43,9 +43,9 @@ public class Delay<A extends Comparable<A> & Serializable, R extends Number & Co
     private DistContinuousSimulationTime<R> delayDistribution;
 
     /**
-     * Constructor for Delay. * @param id Serializable; the id of the Station
-     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; is the simulator
+     * Constructor for Delay. 
      * @param id Serializable; the id of the Station
+     * @param simulator DEVSSimulatorInterface&lt;A,R,T&gt;; is the simulator
      * @param delayDistribution DistContinuousSimulationTime&lt;R&gt;; is the delayDistribution
      */
     public Delay(final Serializable id, final DEVSSimulatorInterface<A, R, T> simulator,
