@@ -9,6 +9,7 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.exceptions.Throw;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -35,31 +36,44 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * @param <R> the relative type for time storage, e.g. Duration for absolute Time. For most non-unit types, the absolute and
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
+ * @param <S> the simulator type
  */
 public class ExperimentReplication<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
-        T extends SimTime<A, R, T>> extends AbstractReplication<A, R, T>
+        T extends SimTime<A, R, T>, S extends SimulatorInterface<A, R, T>> extends AbstractReplication<A, R, T>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 20210404L;
 
     /** the experiment to which this replication belongs. */
-    private final Experiment<A, R, T, ? extends SimulatorInterface<A, R, T>> experiment;
+    private final Experiment<A, R, T, S> experiment;
 
     /**
-     * construct a stand-alone replication.
+     * Construct a replication to be used in an experiment.
      * @param id String; the id of the replication; should be unique within the experiment.
      * @param startTime T; the start time as a time object.
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
      * @param experiment Experiment; the experiment to which this replication belongs
-     * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for the
-     *             replication cannot be created
+     * @throws NullPointerException when id, startTime, warmupPeriod, runLength or experiment is null
+     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup time is
+     *             longer than or equal to the runlength, or when a context for the replication cannot be created
      */
     public ExperimentReplication(final String id, final T startTime, final R warmupPeriod, final R runLength,
-            final Experiment<A, R, T, ? extends SimulatorInterface<A, R, T>> experiment)
+            final Experiment<A, R, T, S> experiment)
     {
-        super(id, startTime, warmupPeriod, runLength);
+        this(new RunControl<>(id, startTime, warmupPeriod, runLength), experiment);
+    }
+
+    /**
+     * Construct a replication to be used in an experiment, using a RunControl to store the run information.
+     * @param runControl RunControlInterface; the run control for the replication
+     * @param experiment Experiment; the experiment to which this replication belongs
+     * @throws NullPointerException when runControl or experiment is null
+     */
+    public ExperimentReplication(final RunControlInterface<A, R, T> runControl, final Experiment<A, R, T, S> experiment)
+    {
+        super(runControl);
+        Throw.whenNull(experiment, "experiment cannot be null");
         this.experiment = experiment;
         setContext();
     }
@@ -101,142 +115,245 @@ public class ExperimentReplication<A extends Comparable<A> & Serializable, R ext
         }
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public RunControlInterface<A, R, T> getRunControl()
+    {
+        return this.runControl;
+    }
+
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
 
     /**
      * Easy access class Replication.TimeDouble.
+     * @param <S> the simulator type
      */
-    public static class TimeDouble extends ExperimentReplication<Double, Double, SimTimeDouble>
-            implements ReplicationInterface.TimeDouble
+    public static class TimeDouble<S extends SimulatorInterface.TimeDouble>
+            extends ExperimentReplication<Double, Double, SimTimeDouble, S> implements ReplicationInterface.TimeDouble
     {
         /** */
         private static final long serialVersionUID = 20210404;
 
         /**
-         * Construct a stand-alone Replication.
+         * Construct a replication to be used in an experiment.
          * @param id String; the id of the replication.
          * @param startTime double; the start time
          * @param warmupPeriod double; the warmup period, included in the runlength (!)
          * @param runLength double; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
-         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws NullPointerException when id or experiment is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeDouble(final String id, final double startTime, final double warmupPeriod, final double runLength,
-                final Experiment.TimeDouble<? extends SimulatorInterface.TimeDouble> experiment)
+                final Experiment.TimeDouble<S> experiment)
         {
-            super(id, new SimTimeDouble(startTime), warmupPeriod, runLength, experiment);
+            this(new RunControl.TimeDouble(id, startTime, warmupPeriod, runLength), experiment);
+        }
+
+        /**
+         * Construct a replication to be used in an experiment, using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @param experiment Experiment; the experiment to which this replication belongs
+         * @throws NullPointerException when runControl or experiment is null
+         */
+        public TimeDouble(final RunControlInterface.TimeDouble runControl, final Experiment.TimeDouble<S> experiment)
+        {
+            super(runControl, experiment);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeDouble getRunControl()
+        {
+            return (RunControlInterface.TimeDouble) super.getRunControl();
         }
     }
 
     /**
      * Easy access class Replication.TimeFloat.
+     * @param <S> the simulator type
      */
-    public static class TimeFloat extends ExperimentReplication<Float, Float, SimTimeFloat>
-            implements ReplicationInterface.TimeFloat
+    public static class TimeFloat<S extends SimulatorInterface.TimeFloat>
+            extends ExperimentReplication<Float, Float, SimTimeFloat, S> implements ReplicationInterface.TimeFloat
     {
         /** */
         private static final long serialVersionUID = 20210404;
 
         /**
-         * Construct a stand-alone Replication.
+         * Construct a replication to be used in an experiment.
          * @param id String; the id of the replication.
          * @param startTime float; the start time
          * @param warmupPeriod float; the warmup period, included in the runlength (!)
          * @param runLength float; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
-         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws NullPointerException when id or experiment is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeFloat(final String id, final float startTime, final float warmupPeriod, final float runLength,
-                final Experiment.TimeFloat<? extends SimulatorInterface.TimeFloat> experiment)
+                final Experiment.TimeFloat<S> experiment)
         {
-            super(id, new SimTimeFloat(startTime), warmupPeriod, runLength, experiment);
+            this(new RunControl.TimeFloat(id, startTime, warmupPeriod, runLength), experiment);
+        }
+
+        /**
+         * Construct a replication to be used in an experiment, using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @param experiment Experiment; the experiment to which this replication belongs
+         * @throws NullPointerException when runControl or experiment is null
+         */
+        public TimeFloat(final RunControlInterface.TimeFloat runControl, final Experiment.TimeFloat<S> experiment)
+        {
+            super(runControl, experiment);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeFloat getRunControl()
+        {
+            return (RunControlInterface.TimeFloat) super.getRunControl();
         }
     }
 
     /**
      * Easy access class Replication.TimeLong.
+     * @param <S> the simulator type
      */
-    public static class TimeLong extends ExperimentReplication<Long, Long, SimTimeLong> implements ReplicationInterface.TimeLong
+    public static class TimeLong<S extends SimulatorInterface.TimeLong>
+            extends ExperimentReplication<Long, Long, SimTimeLong, S> implements ReplicationInterface.TimeLong
     {
         /** */
         private static final long serialVersionUID = 20210404;
 
         /**
-         * Construct a stand-alone Replication.
+         * Construct a replication to be used in an experiment.
          * @param id String; the id of the replication.
          * @param startTime long; the start time
          * @param warmupPeriod long; the warmup period, included in the runlength (!)
          * @param runLength long; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
-         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws NullPointerException when id or experiment is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeLong(final String id, final long startTime, final long warmupPeriod, final long runLength,
-                final Experiment.TimeLong<? extends SimulatorInterface.TimeLong> experiment)
+                final Experiment.TimeLong<S> experiment)
         {
-            super(id, new SimTimeLong(startTime), warmupPeriod, runLength, experiment);
+            this(new RunControl.TimeLong(id, startTime, warmupPeriod, runLength), experiment);
+        }
+
+        /**
+         * Construct a replication to be used in an experiment, using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @param experiment Experiment; the experiment to which this replication belongs
+         * @throws NullPointerException when runControl or experiment is null
+         */
+        public TimeLong(final RunControlInterface.TimeLong runControl, final Experiment.TimeLong<S> experiment)
+        {
+            super(runControl, experiment);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeLong getRunControl()
+        {
+            return (RunControlInterface.TimeLong) super.getRunControl();
         }
     }
 
     /**
      * Easy access class Replication.TimeDoubleUnit.
+     * @param <S> the simulator type
      */
-    public static class TimeDoubleUnit extends ExperimentReplication<Time, Duration, SimTimeDoubleUnit>
-            implements ReplicationInterface.TimeDoubleUnit
+    public static class TimeDoubleUnit<S extends SimulatorInterface.TimeDoubleUnit>
+            extends ExperimentReplication<Time, Duration, SimTimeDoubleUnit, S> implements ReplicationInterface.TimeDoubleUnit
     {
         /** */
         private static final long serialVersionUID = 20210404;
 
         /**
-         * Construct a stand-alone Replication.
+         * Construct a replication to be used in an experiment.
          * @param id String; the id of the replication.
          * @param startTime Time; the start time
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
-         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws NullPointerException when id, startTime, warmupPeriod, runLength or experiment is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength,
-                final Experiment.TimeDoubleUnit<? extends SimulatorInterface.TimeDoubleUnit> experiment)
+                final Experiment.TimeDoubleUnit<S> experiment)
         {
-            super(id, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength, experiment);
+            this(new RunControl.TimeDoubleUnit(id, startTime, warmupPeriod, runLength), experiment);
+        }
+
+        /**
+         * Construct a replication to be used in an experiment, using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @param experiment Experiment; the experiment to which this replication belongs
+         * @throws NullPointerException when runControl or experiment is null
+         */
+        public TimeDoubleUnit(final RunControlInterface.TimeDoubleUnit runControl,
+                final Experiment.TimeDoubleUnit<S> experiment)
+        {
+            super(runControl, experiment);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeDoubleUnit getRunControl()
+        {
+            return (RunControlInterface.TimeDoubleUnit) super.getRunControl();
         }
     }
 
     /**
-     * Easy access class Replication.TimeDoubleUnit.
+     * Easy access class Replication.TimeFloatUnit.
+     * @param <S> the simulator type
      */
-    public static class TimeFloatUnit extends ExperimentReplication<FloatTime, FloatDuration, SimTimeFloatUnit>
-            implements ReplicationInterface.TimeFloatUnit
+    public static class TimeFloatUnit<S extends SimulatorInterface.TimeFloatUnit> extends
+            ExperimentReplication<FloatTime, FloatDuration, SimTimeFloatUnit, S> implements ReplicationInterface.TimeFloatUnit
     {
         /** */
         private static final long serialVersionUID = 20210404;
 
         /**
-         * Construct a stand-alone Replication.
+         * Construct a replication to be used in an experiment.
          * @param id String; the id of the replication.
          * @param startTime FloatTime; the start time
          * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
          * @param experiment Experiment; the experiment to which this replication belongs
-         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws NullPointerException NullPointerException when id, startTime, warmupPeriod, runLength or experiment is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeFloatUnit(final String id, final FloatTime startTime, final FloatDuration warmupPeriod,
-                final FloatDuration runLength,
-                final Experiment.TimeFloatUnit<? extends SimulatorInterface.TimeFloatUnit> experiment)
+                final FloatDuration runLength, final Experiment.TimeFloatUnit<S> experiment)
         {
-            super(id, new SimTimeFloatUnit(startTime), warmupPeriod, runLength, experiment);
+            this(new RunControl.TimeFloatUnit(id, startTime, warmupPeriod, runLength), experiment);
+        }
+
+        /**
+         * Construct a replication to be used in an experiment, using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @param experiment Experiment; the experiment to which this replication belongs
+         * @throws NullPointerException when runControl or experiment is null
+         */
+        public TimeFloatUnit(final RunControlInterface.TimeFloatUnit runControl, final Experiment.TimeFloatUnit<S> experiment)
+        {
+            super(runControl, experiment);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeFloatUnit getRunControl()
+        {
+            return (RunControlInterface.TimeFloatUnit) super.getRunControl();
         }
 
     }

@@ -23,6 +23,7 @@ import org.djutils.logger.CategoryLogger;
 import org.djutils.metadata.MetaData;
 import org.djutils.stats.summarizers.Tally;
 
+import nl.tudelft.simulation.dsol.Contextualized;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -58,7 +59,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  */
 public class Experiment<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>, T extends SimTime<A, R, T>,
         S extends SimulatorInterface<A, R, T>> extends EventProducer
-        implements EventListenerInterface, RunControlInterface<A, R, T>
+        implements EventListenerInterface, RunControlInterface<A, R, T>, Contextualized
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
@@ -72,16 +73,13 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
             new EventType(new MetaData("END_EXPERIMENT_EVENT", "End of experiment"));
 
     /** The started replications of this experiment. */
-    private List<ExperimentReplication<A, R, T>> startedReplications = new ArrayList<>();
+    private List<ExperimentReplication<A, R, T, S>> startedReplications = new ArrayList<>();
 
     /** The simulator that will execute the replications. */
     private final S simulator;
 
     /** The model that has to be executed. */
     private final DSOLModel<A, R, T, ? extends S> model;
-
-    /** The id of this experiment. */
-    private final String id;
 
     /** The description of this experiment; when not set, the id will be used. */
     private String description = null;
@@ -92,14 +90,8 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     /** The current replication. */
     private int currentReplicationNumber = -1;
 
-    /** The start time of the simulation for all replications. */
-    private final T startTime;
-
-    /** The end time of the simulation for all replications. */
-    private final T endTime;
-
-    /** The warmup time of the simulation for all replications (included in the total run length). */
-    private final T warmupTime;
+    /** the run control for the replication. */
+    private final RunControlInterface<A, R, T> runControl;
 
     /** The Experiment context. */
     private ContextInterface context;
@@ -134,29 +126,36 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * @param runLength R; the total length of the run, including the warm-up period.
      * @param numberOfReplications int; the number of replications to execute
      * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or a context for the
-     *             experiment cannot be created
+     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup time is
+     *             longer than or equal to the runlength, or a context for the experiment cannot be created
      */
     public Experiment(final String id, final S simulator, final DSOLModel<A, R, T, ? extends S> model, final T startTime,
             final R warmupPeriod, final R runLength, final int numberOfReplications)
     {
-        Throw.whenNull(simulator, "Experiment.setSimulator: simulator cannot be null");
-        Throw.whenNull(model, "Experiment.setModel: model cannot be null");
-        Throw.whenNull(id, "id should not be null");
-        Throw.whenNull(startTime, "startTime should not be null");
-        Throw.whenNull(warmupPeriod, "warmupPeriod should not be null");
-        Throw.whenNull(runLength, "runLength should not be null");
-        Throw.when(warmupPeriod.doubleValue() < 0.0, SimRuntimeException.class, "warmup period should not be negative");
-        Throw.when(runLength.doubleValue() <= 0.0, SimRuntimeException.class, "run length should not be zero or negative");
-        Throw.when(numberOfReplications <= 0, SimRuntimeException.class, "number of replications can not be zero or negative");
+        this(simulator, model, new RunControl<>(id, startTime, warmupPeriod, runLength), numberOfReplications);
+    }
 
-        this.id = id;
-        this.description = id;
+    /**
+     * Construct a new Experiment, using a RunControl to store the run control information.
+     * @param simulator S; the simulator
+     * @param model DSOLModel&lt;A, R, T, S&gt;; the model to experiment with
+     * @param runControl RunControlInterface; the run control information
+     * @param numberOfReplications int; the number of replications to execute
+     * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup time is
+     *             longer than or equal to the runlength, or a context for the experiment cannot be created
+     */
+    public Experiment(final S simulator, final DSOLModel<A, R, T, ? extends S> model,
+            final RunControlInterface<A, R, T> runControl, final int numberOfReplications)
+    {
+        Throw.whenNull(simulator, "simulator cannot be null");
+        Throw.whenNull(model, "model cannot be null");
+        Throw.whenNull(runControl, "runControl cannot be null");
+        Throw.when(numberOfReplications <= 0, SimRuntimeException.class, "number of replications can not be zero or negative");
+        this.runControl = runControl;
+        this.description = runControl.getId();
         this.simulator = simulator;
         this.model = model;
-        this.startTime = startTime;
-        this.endTime = startTime.plus(runLength);
-        this.warmupTime = startTime.plus(warmupPeriod);
         this.numberOfReplications = numberOfReplications;
     }
 
@@ -164,7 +163,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     @Override
     public Serializable getSourceId()
     {
-        return this.id;
+        return this.runControl.getId();
     }
 
     /**
@@ -189,7 +188,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the list of started replications. Not all replications might have finished yet.
      * @return List&lt;Replication&lt;A, R, T, S&gt;&gt;; the list of started replications
      */
-    public final List<? extends ExperimentReplication<A, R, T>> getStartedReplications()
+    public final List<? extends ExperimentReplication<A, R, T, S>> getStartedReplications()
     {
         return this.startedReplications;
     }
@@ -221,7 +220,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         Throw.when(this.currentReplicationNumber >= this.numberOfReplications - 1, SimRuntimeException.class,
                 "Trying to run replication beyond given number");
         this.currentReplicationNumber++;
-        ExperimentReplication<A, R, T> replication = makeExperimentReplication();
+        ExperimentReplication<A, R, T, S> replication = makeExperimentReplication();
         this.startedReplications.add(replication);
         this.streamUpdater.updateSeeds(this.model.getStreams(), this.currentReplicationNumber);
         this.simulator.initialize(getModel(), replication);
@@ -242,9 +241,9 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Create a new replication for an experiment. This method can be overridden in the inner classes.
      * @return ExperimentReplication; a new replication for an experiment
      */
-    protected ExperimentReplication<A, R, T> makeExperimentReplication()
+    protected ExperimentReplication<A, R, T, S> makeExperimentReplication()
     {
-        return new ExperimentReplication<A, R, T>("Replication " + this.currentReplicationNumber, this.startTime,
+        return new ExperimentReplication<A, R, T, S>("Replication " + this.currentReplicationNumber, getStartSimTime(),
                 getWarmupPeriod(), getRunLength(), this);
     }
 
@@ -265,7 +264,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     public void reset()
     {
         this.currentReplicationNumber = -1;
-        for (ExperimentReplication<A, R, T> replication : this.startedReplications)
+        for (ExperimentReplication<A, R, T, S> replication : this.startedReplications)
         {
             replication.removeFromContext();
         }
@@ -375,7 +374,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     @Override
     public final String getId()
     {
-        return this.id;
+        return this.runControl.getId();
     }
 
     /** {@inheritDoc} */
@@ -410,7 +409,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
             if (this.context == null)
             {
                 ContextInterface rootContext = InitialEventContext.instantiate("root");
-                this.context = ContextUtil.lookupOrCreateSubContext(rootContext, this.id);
+                this.context = ContextUtil.lookupOrCreateSubContext(rootContext, this.runControl.getId());
             }
             return this.context;
         }
@@ -430,7 +429,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
             if (this.context != null)
             {
                 ContextInterface rootContext = InitialEventContext.instantiate("root");
-                ContextUtil.destroySubContext(rootContext, this.id);
+                ContextUtil.destroySubContext(rootContext, this.runControl.getId());
             }
         }
         catch (RemoteException | NamingException exception)
@@ -443,21 +442,21 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     @Override
     public T getStartSimTime()
     {
-        return this.startTime;
+        return this.runControl.getStartSimTime();
     }
 
     /** {@inheritDoc} */
     @Override
     public T getEndSimTime()
     {
-        return this.endTime;
+        return this.runControl.getEndSimTime();
     }
 
     /** {@inheritDoc} */
     @Override
     public T getWarmupSimTime()
     {
-        return this.warmupTime;
+        return this.runControl.getWarmupSimTime();
     }
 
     /**
@@ -590,7 +589,23 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         public TimeDouble(final String id, final S simulator, final DSOLModel.TimeDouble<? extends S> model,
                 final double startTime, final double warmupPeriod, final double runLength, final int numberOfReplications)
         {
-            super(id, simulator, model, new SimTimeDouble(startTime), warmupPeriod, runLength, numberOfReplications);
+            this(simulator, model, new RunControl.TimeDouble(id, startTime, warmupPeriod, runLength), numberOfReplications);
+        }
+
+        /**
+         * Construct a new Experiment, using a RunControl to store the run control information.
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeDouble; the model to experiment with
+         * @param runControl RunControlInterface; the run control information
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or a context for the experiment cannot be created
+         */
+        public TimeDouble(final S simulator, final DSOLModel.TimeDouble<? extends S> model,
+                final RunControlInterface.TimeDouble runControl, final int numberOfReplications)
+        {
+            super(simulator, model, runControl, numberOfReplications);
         }
 
         /** {@inheritDoc} */
@@ -602,9 +617,9 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
         /** {@inheritDoc} */
         @Override
-        protected ExperimentReplication.TimeDouble makeExperimentReplication()
+        protected ExperimentReplication.TimeDouble<S> makeExperimentReplication()
         {
-            return new ExperimentReplication.TimeDouble("Replication " + getCurrentReplicationNumber(), getStartTime(),
+            return new ExperimentReplication.TimeDouble<S>("Replication " + getCurrentReplicationNumber(), getStartTime(),
                     getWarmupPeriod(), getRunLength(), this);
         }
     }
@@ -634,7 +649,23 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         public TimeFloat(final String id, final S simulator, final DSOLModel.TimeFloat<? extends S> model,
                 final float startTime, final float warmupPeriod, final float runLength, final int numberOfReplications)
         {
-            super(id, simulator, model, new SimTimeFloat(startTime), warmupPeriod, runLength, numberOfReplications);
+            this(simulator, model, new RunControl.TimeFloat(id, startTime, warmupPeriod, runLength), numberOfReplications);
+        }
+
+        /**
+         * Construct a new Experiment, using a RunControl to store the run control information.
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeFloat; the model to experiment with
+         * @param runControl RunControlInterface; the run control information
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or a context for the experiment cannot be created
+         */
+        public TimeFloat(final S simulator, final DSOLModel.TimeFloat<? extends S> model,
+                final RunControlInterface.TimeFloat runControl, final int numberOfReplications)
+        {
+            super(simulator, model, runControl, numberOfReplications);
         }
 
         /** {@inheritDoc} */
@@ -646,9 +677,9 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
         /** {@inheritDoc} */
         @Override
-        protected ExperimentReplication.TimeFloat makeExperimentReplication()
+        protected ExperimentReplication.TimeFloat<S> makeExperimentReplication()
         {
-            return new ExperimentReplication.TimeFloat("Replication " + getCurrentReplicationNumber(), getStartTime(),
+            return new ExperimentReplication.TimeFloat<S>("Replication " + getCurrentReplicationNumber(), getStartTime(),
                     getWarmupPeriod(), getRunLength(), this);
         }
     }
@@ -678,7 +709,23 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         public TimeLong(final String id, final S simulator, final DSOLModel.TimeLong<? extends S> model, final long startTime,
                 final long warmupPeriod, final long runLength, final int numberOfReplications)
         {
-            super(id, simulator, model, new SimTimeLong(startTime), warmupPeriod, runLength, numberOfReplications);
+            this(simulator, model, new RunControl.TimeLong(id, startTime, warmupPeriod, runLength), numberOfReplications);
+        }
+
+        /**
+         * Construct a new Experiment, using a RunControl to store the run control information.
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeLong; the model to experiment with
+         * @param runControl RunControlInterface; the run control information
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or a context for the experiment cannot be created
+         */
+        public TimeLong(final S simulator, final DSOLModel.TimeLong<? extends S> model,
+                final RunControlInterface.TimeLong runControl, final int numberOfReplications)
+        {
+            super(simulator, model, runControl, numberOfReplications);
         }
 
         /** {@inheritDoc} */
@@ -690,9 +737,9 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
         /** {@inheritDoc} */
         @Override
-        protected ExperimentReplication.TimeLong makeExperimentReplication()
+        protected ExperimentReplication.TimeLong<S> makeExperimentReplication()
         {
-            return new ExperimentReplication.TimeLong("Replication " + getCurrentReplicationNumber(), getStartTime(),
+            return new ExperimentReplication.TimeLong<S>("Replication " + getCurrentReplicationNumber(), getStartTime(),
                     getWarmupPeriod(), getRunLength(), this);
         }
     }
@@ -723,7 +770,23 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
         public TimeDoubleUnit(final String id, final S simulator, final DSOLModel.TimeDoubleUnit<? extends S> model,
                 final Time startTime, final Duration warmupPeriod, final Duration runLength, final int numberOfReplications)
         {
-            super(id, simulator, model, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength, numberOfReplications);
+            this(simulator, model, new RunControl.TimeDoubleUnit(id, startTime, warmupPeriod, runLength), numberOfReplications);
+        }
+
+        /**
+         * Construct a new Experiment, using a RunControl to store the run control information.
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeDoubleUnit; the model to experiment with
+         * @param runControl RunControlInterface; the run control information
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or a context for the experiment cannot be created
+         */
+        public TimeDoubleUnit(final S simulator, final DSOLModel.TimeDoubleUnit<? extends S> model,
+                final RunControlInterface.TimeDoubleUnit runControl, final int numberOfReplications)
+        {
+            super(simulator, model, runControl, numberOfReplications);
         }
 
         /** {@inheritDoc} */
@@ -735,9 +798,9 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
         /** {@inheritDoc} */
         @Override
-        protected ExperimentReplication.TimeDoubleUnit makeExperimentReplication()
+        protected ExperimentReplication.TimeDoubleUnit<S> makeExperimentReplication()
         {
-            return new ExperimentReplication.TimeDoubleUnit("Replication " + getCurrentReplicationNumber(), getStartTime(),
+            return new ExperimentReplication.TimeDoubleUnit<S>("Replication " + getCurrentReplicationNumber(), getStartTime(),
                     getWarmupPeriod(), getRunLength(), this);
         }
     }
@@ -769,7 +832,23 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
                 final FloatTime startTime, final FloatDuration warmupPeriod, final FloatDuration runLength,
                 final int numberOfReplications)
         {
-            super(id, simulator, model, new SimTimeFloatUnit(startTime), warmupPeriod, runLength, numberOfReplications);
+            this(simulator, model, new RunControl.TimeFloatUnit(id, startTime, warmupPeriod, runLength), numberOfReplications);
+        }
+
+        /**
+         * Construct a new Experiment, using a RunControl to store the run control information.
+         * @param simulator S; the simulator
+         * @param model DSOLModel.TimeFloatUnit; the model to experiment with
+         * @param runControl RunControlInterface; the run control information
+         * @param numberOfReplications int; the number of replications to execute
+         * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or a context for the experiment cannot be created
+         */
+        public TimeFloatUnit(final S simulator, final DSOLModel.TimeFloatUnit<? extends S> model,
+                final RunControlInterface.TimeFloatUnit runControl, final int numberOfReplications)
+        {
+            super(simulator, model, runControl, numberOfReplications);
         }
 
         /** {@inheritDoc} */
@@ -781,9 +860,9 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
 
         /** {@inheritDoc} */
         @Override
-        protected ExperimentReplication.TimeFloatUnit makeExperimentReplication()
+        protected ExperimentReplication.TimeFloatUnit<S> makeExperimentReplication()
         {
-            return new ExperimentReplication.TimeFloatUnit("Replication " + getCurrentReplicationNumber(), getStartTime(),
+            return new ExperimentReplication.TimeFloatUnit<S>("Replication " + getCurrentReplicationNumber(), getStartTime(),
                     getWarmupPeriod(), getRunLength(), this);
         }
     }

@@ -4,6 +4,22 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.07.04" date="2021-04-09" description="Offline run control and seed information objects">
+      <action dev="averbraeck" type="add">
+        A RunControl object to more easily store offline data for the RunControl has been created.
+        These objects can now be passed to the constructor of experiments and replications. Internally,
+        these objects, rather than their individual fields, are used to store the information.  
+      </action>
+      <action dev="averbraeck" type="update">
+        The stream management of the DSOLModel interface and AbstractDSOLModel have been streamlined. Within the
+        model, the information about streams is stored in a StreamInfofrmation object rather than in an individual
+        map. This abstracts the implementation from the function of the streams. 
+      </action>
+      <action dev="averbraeck" type="add">
+        A method getDefaultStream() has been added to the model to make it easier to use the streams in easy cases.  
+      </action>
+    </release>
+    
     <release version="3.07.03" date="2021-04-08" description="Stream management expanded">
       <action dev="averbraeck" type="add">
         A class in stream management (dsol-core experiment package) has been added to store predefined seeds

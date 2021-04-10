@@ -49,12 +49,22 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
      * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for the
-     *             replication cannot be created
+     * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup time is
+     *             longer than or equal to the runlength, or when a context for the replication cannot be created
      */
     public SingleReplication(final String id, final T startTime, final R warmupPeriod, final R runLength)
     {
-        super(id, startTime, warmupPeriod, runLength);
+        this(new RunControl<>(id, startTime, warmupPeriod, runLength));
+    }
+
+    /**
+     * Construct a stand-alone replication using a RunControl to store the run information.
+     * @param runControl RunControlInterface; the run control for the replication
+     * @throws NullPointerException when runControl is null
+     */
+    public SingleReplication(final RunControlInterface<A, R, T> runControl)
+    {
+        super(runControl);
         setContext();
     }
 
@@ -95,6 +105,13 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
         }
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public RunControlInterface<A, R, T> getRunControl()
+    {
+        return this.runControl;
+    }
+
     /***********************************************************************************************************/
     /************************************* EASY ACCESS CLASS EXTENSIONS ****************************************/
     /***********************************************************************************************************/
@@ -115,12 +132,29 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod double; the warmup period, included in the runlength (!)
          * @param runLength double; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeDouble(final String id, final double startTime, final double warmupPeriod, final double runLength)
         {
-            super(id, new SimTimeDouble(startTime), warmupPeriod, runLength);
+            this(new RunControl.TimeDouble(id, startTime, warmupPeriod, runLength));
+        }
+
+        /**
+         * Construct a stand-alone replication using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @throws NullPointerException when runControl is null
+         */
+        public TimeDouble(final RunControlInterface.TimeDouble runControl)
+        {
+            super(runControl);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeDouble getRunControl()
+        {
+            return (RunControlInterface.TimeDouble) super.getRunControl();
         }
     }
 
@@ -140,12 +174,29 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod float; the warmup period, included in the runlength (!)
          * @param runLength float; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeFloat(final String id, final float startTime, final float warmupPeriod, final float runLength)
         {
-            super(id, new SimTimeFloat(startTime), warmupPeriod, runLength);
+            this(new RunControl.TimeFloat(id, startTime, warmupPeriod, runLength));
+        }
+
+        /**
+         * Construct a stand-alone replication using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @throws NullPointerException when runControl is null
+         */
+        public TimeFloat(final RunControlInterface.TimeFloat runControl)
+        {
+            super(runControl);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeFloat getRunControl()
+        {
+            return (RunControlInterface.TimeFloat) super.getRunControl();
         }
     }
 
@@ -164,12 +215,29 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod long; the warmup period, included in the runlength (!)
          * @param runLength long; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeLong(final String id, final long startTime, final long warmupPeriod, final long runLength)
         {
-            super(id, new SimTimeLong(startTime), warmupPeriod, runLength);
+            this(new RunControl.TimeLong(id, startTime, warmupPeriod, runLength));
+        }
+
+        /**
+         * Construct a stand-alone replication using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @throws NullPointerException when runControl is null
+         */
+        public TimeLong(final RunControlInterface.TimeLong runControl)
+        {
+            super(runControl);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeLong getRunControl()
+        {
+            return (RunControlInterface.TimeLong) super.getRunControl();
         }
     }
 
@@ -189,12 +257,29 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength)
         {
-            super(id, new SimTimeDoubleUnit(startTime), warmupPeriod, runLength);
+            this(new RunControl.TimeDoubleUnit(id, startTime, warmupPeriod, runLength));
+        }
+
+        /**
+         * Construct a stand-alone replication using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @throws NullPointerException when runControl is null
+         */
+        public TimeDoubleUnit(final RunControlInterface.TimeDoubleUnit runControl)
+        {
+            super(runControl);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeDoubleUnit getRunControl()
+        {
+            return (RunControlInterface.TimeDoubleUnit) super.getRunControl();
         }
     }
 
@@ -214,13 +299,30 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod FloatDuration; the warmup period, included in the runlength (!)
          * @param runLength FloatDuration; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when a context for
-         *             the replication cannot be created
+         * @throws SimRuntimeException when warmup period is negative, or run length is zero or negative, or when the warmup
+         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
          */
         public TimeFloatUnit(final String id, final FloatTime startTime, final FloatDuration warmupPeriod,
                 final FloatDuration runLength)
         {
-            super(id, new SimTimeFloatUnit(startTime), warmupPeriod, runLength);
+            this(new RunControl.TimeFloatUnit(id, startTime, warmupPeriod, runLength));
+        }
+
+        /**
+         * Construct a stand-alone replication using a RunControl to store the run information.
+         * @param runControl RunControlInterface; the run control for the replication
+         * @throws NullPointerException when runControl is null
+         */
+        public TimeFloatUnit(final RunControlInterface.TimeFloatUnit runControl)
+        {
+            super(runControl);
+        }
+
+        /** {@inheritDoc} */
+        @Override
+        public RunControlInterface.TimeFloatUnit getRunControl()
+        {
+            return (RunControlInterface.TimeFloatUnit) super.getRunControl();
         }
 
     }

@@ -42,7 +42,8 @@ public class StreamInformation implements Serializable
      */
     public StreamInformation(final StreamInterface defaultStream)
     {
-        this.streams.put("default", new MersenneTwister(10L));
+        Throw.whenNull(defaultStream, "defaultStream cannot be null");
+        this.streams.put("default", defaultStream);
     }
 
     /**
@@ -52,7 +53,7 @@ public class StreamInformation implements Serializable
      * @param stream StreamInterface; the stream
      * @throws NullPointerException when streamId is null or stream is null
      */
-    public void putStream(final String streamId, final StreamInterface stream)
+    public void addStream(final String streamId, final StreamInterface stream)
     {
         Throw.whenNull(streamId, "streamId cannot be null");
         Throw.whenNull(stream, "stream cannot be null");
@@ -69,7 +70,7 @@ public class StreamInformation implements Serializable
     }
 
     /**
-     * Return a specific stream, based on a stream id, or null when no stream with that id is present. 
+     * Return a specific stream, based on a stream id, or null when no stream with that id is present.
      * @param streamId String; the id of the stream to be retrieved
      * @return StreamInterface; the stream, or null when no stream with that id is present
      * @throws NullPointerException when streamId is null

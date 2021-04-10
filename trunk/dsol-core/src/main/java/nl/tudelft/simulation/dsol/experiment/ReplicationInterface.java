@@ -9,6 +9,7 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.TimedEventType;
 import org.djutils.metadata.MetaData;
 
+import nl.tudelft.simulation.dsol.Contextualized;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
@@ -32,9 +33,8 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  *            relative types are the same.
  * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
  */
-@SuppressWarnings("checkstyle:interfaceistype")
 public interface ReplicationInterface<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
-        T extends SimTime<A, R, T>> extends RunControlInterface<A, R, T>
+        T extends SimTime<A, R, T>> extends RunControlInterface<A, R, T>, Contextualized
 {
     /** START_REPLICATION_EVENT is fired when a replication is started. */
     TimedEventType START_REPLICATION_EVENT = new TimedEventType(new MetaData("START_REPLICATION_EVENT", "Replication started"));
@@ -45,6 +45,54 @@ public interface ReplicationInterface<A extends Comparable<A> & Serializable, R 
     /** WARMUP_EVENT is fired when the warmup period is over, and statistics have to be reset. */
     TimedEventType WARMUP_EVENT = new TimedEventType(new MetaData("WARMUP_EVENT", "warmup time"));
 
+    /**
+     * Return the RunControl object.
+     * @return RunControlInterface the RunControl object
+     */
+    RunControlInterface<A, R, T> getRunControl();
+
+    /** {@inheritDoc} */
+    @Override
+    default String getId()
+    {
+        return getRunControl().getId();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    default void setDescription(final String description)
+    {
+        getRunControl().setDescription(description);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    default String getDescription()
+    {
+        return getRunControl().getDescription();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    default T getStartSimTime()
+    {
+        return getRunControl().getStartSimTime();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    default T getEndSimTime()
+    {
+        return getRunControl().getEndSimTime();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    default T getWarmupSimTime()
+    {
+        return getRunControl().getWarmupSimTime();
+    }
+
     /* ********************************************************************************************************* */
     /* ********************************** EASY ACCESS INTERFACE EXTENSIONS ************************************* */
     /* ********************************************************************************************************* */
@@ -54,7 +102,9 @@ public interface ReplicationInterface<A extends Comparable<A> & Serializable, R 
      */
     public interface TimeDouble extends ReplicationInterface<Double, Double, SimTimeDouble>, RunControlInterface.TimeDouble
     {
-        // tagging interface
+        /** {@inheritDoc} */
+        @Override
+        RunControlInterface.TimeDouble getRunControl();
     }
 
     /**
@@ -62,7 +112,9 @@ public interface ReplicationInterface<A extends Comparable<A> & Serializable, R 
      */
     public interface TimeFloat extends ReplicationInterface<Float, Float, SimTimeFloat>, RunControlInterface.TimeFloat
     {
-        // tagging interface
+        /** {@inheritDoc} */
+        @Override
+        RunControlInterface.TimeFloat getRunControl();
     }
 
     /**
@@ -70,7 +122,9 @@ public interface ReplicationInterface<A extends Comparable<A> & Serializable, R 
      */
     public interface TimeLong extends ReplicationInterface<Long, Long, SimTimeLong>, RunControlInterface.TimeLong
     {
-        // tagging interface
+        /** {@inheritDoc} */
+        @Override
+        RunControlInterface.TimeLong getRunControl();
     }
 
     /**
@@ -79,7 +133,9 @@ public interface ReplicationInterface<A extends Comparable<A> & Serializable, R 
     public interface TimeDoubleUnit
             extends ReplicationInterface<Time, Duration, SimTimeDoubleUnit>, RunControlInterface.TimeDoubleUnit
     {
-        // tagging interface
+        /** {@inheritDoc} */
+        @Override
+        RunControlInterface.TimeDoubleUnit getRunControl();
     }
 
     /**
@@ -88,7 +144,9 @@ public interface ReplicationInterface<A extends Comparable<A> & Serializable, R 
     public interface TimeFloatUnit
             extends ReplicationInterface<FloatTime, FloatDuration, SimTimeFloatUnit>, RunControlInterface.TimeFloatUnit
     {
-        // tagging interface
+        /** {@inheritDoc} */
+        @Override
+        RunControlInterface.TimeFloatUnit getRunControl();
     }
 
 }

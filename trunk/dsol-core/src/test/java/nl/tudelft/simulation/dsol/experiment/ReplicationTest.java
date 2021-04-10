@@ -13,6 +13,8 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.exceptions.Try;
 import org.junit.Test;
 
+import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
+
 /**
  * ReplicationTest tests the SingleReplication and AbstractReplication objects.
  * <p>
@@ -72,7 +74,19 @@ public class ReplicationTest
         SingleReplication.TimeFloatUnit srfu = new SingleReplication.TimeFloatUnit("srfu",
                 new FloatTime(10.0f, TimeUnit.BASE_HOUR), FloatDuration.ZERO, new FloatDuration(12.0f, DurationUnit.HOUR));
         assertEquals(new FloatDuration(22.0f, DurationUnit.HOUR).si, srfu.getEndTime().si, 1E-6);
-        
+
+        // Generic type
+        SingleReplication<Double, Double, SimTimeDouble> sr =
+                new SingleReplication<>("srd", new SimTimeDouble(10.0), 1.0, 12.0);
+        assertEquals(10.0, sr.getStartTime(), 1E-9);
+        assertEquals(10.0, sr.getStartSimTime().get(), 1E-9);
+        assertEquals(22.0, sr.getEndTime(), 1E-9);
+        assertEquals(22.0, sr.getEndSimTime().get(), 1E-9);
+        assertEquals(11.0, sr.getWarmupTime(), 1E-9);
+        assertEquals(11.0, sr.getWarmupSimTime().get(), 1E-9);
+        assertEquals(12.0, sr.getRunLength(), 1E-9);
+        assertEquals(1.0, sr.getWarmupPeriod(), 1E-9);
+
         // remove from context
         srd.removeFromContext();
     }

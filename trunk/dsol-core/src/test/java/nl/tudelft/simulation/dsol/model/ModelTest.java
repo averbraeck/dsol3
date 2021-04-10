@@ -61,7 +61,9 @@ public class ModelTest
         
         // stream management
         assertNotNull(model.getStream("default"));
-        StreamInterface stream = model.getStream("default");
+        assertNotNull(model.getDefaultStream());
+        assertEquals(model.getDefaultStream(), model.getStream("default"));
+        StreamInterface stream = model.getDefaultStream();
         double rand = stream.nextDouble();
         stream.nextDouble();
         stream.nextDouble();
@@ -74,9 +76,9 @@ public class ModelTest
         
         // initial streams
         StreamInformation streamInfo = new StreamInformation();
-        streamInfo.putStream("default", new MersenneTwister(20L));
-        streamInfo.putStream("extra", new MersenneTwister(10L));
-        model.setInitialStreams(streamInfo);
+        streamInfo.addStream("default", new MersenneTwister(20L));
+        streamInfo.addStream("extra", new MersenneTwister(10L));
+        model.setStreamInformation(streamInfo);
         assertEquals(2, model.getStreams().size());
         assertEquals(20, model.getStream("default").getSeed());
         assertEquals(10, model.getStream("extra").getSeed());

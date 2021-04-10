@@ -13,7 +13,6 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
-import nl.tudelft.simulation.naming.context.ContextInterface;
 
 /**
  * The interface for a run control as used in the Experiment and in the Replication.
@@ -28,7 +27,7 @@ import nl.tudelft.simulation.naming.context.ContextInterface;
  * @param <A> the absolute storage type for the simulation time, e.g. Time, Float, or Double.
  * @param <R> the relative type for time storage, e.g. Duration for absolute Time. For most non-unit types, the absolute and
  *            relative types are the same.
- * @param <T> the extended type itself to be able to implement a comparator on the simulation time.
+ * @param <T> the simulation time type to be able to implement a comparator on the simulation time.
  */
 public interface RunControlInterface<A extends Comparable<A> & Serializable, R extends Number & Comparable<R>,
         T extends SimTime<A, R, T>> extends Serializable
@@ -50,13 +49,6 @@ public interface RunControlInterface<A extends Comparable<A> & Serializable, R e
      * @return String; the description of this replication
      */
     String getDescription();
-
-    /**
-     * Return the specific context for this replication, e.g. to store statistics and animation uniquely beloging to this
-     * replication.
-     * @return ContextInterface; the specific context for this replication
-     */
-    ContextInterface getContext();
 
     /**
      * Return the run length of this replication in relative units.
