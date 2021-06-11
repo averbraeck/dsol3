@@ -23,9 +23,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>${jdk.version}</maven.compiler.source>
     <maven.compiler.target>${jdk.version}</maven.compiler.target>
-    <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
-    <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
-    <maven.wagon.http.ssl.ignore.validity.dates>true</maven.wagon.http.ssl.ignore.validity.dates>
     
     <dsol-version>${project.version}</dsol-version>
     <junit.version>4.12</junit.version>
@@ -821,19 +818,19 @@
     <repository>
       <name>DSOL Public Repository</name>
       <id>dsol</id>
-      <url>https://simulation.tudelft.nl/maven</url>
+      <url>http://simulation.tudelft.nl/maven</url>
     </repository>
 
     <repository>
       <name>DJUNITS Public Repository</name>
       <id>djunits</id>
-      <url>https://djunits.org/maven</url>
+      <url>http://djunits.org/maven</url>
     </repository>
 
     <repository>
       <name>DJUTILS Public Repository</name>
       <id>djutils</id>
-      <url>https://djutils.org/maven</url>
+      <url>http://djutils.org/maven</url>
     </repository>
 
     <repository>
