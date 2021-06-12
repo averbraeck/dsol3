@@ -818,19 +818,19 @@
     <repository>
       <name>DSOL Public Repository</name>
       <id>dsol</id>
-      <url>http://simulation.tudelft.nl/maven</url>
+      <url>https://simulation.tudelft.nl/maven</url>
     </repository>
 
     <repository>
       <name>DJUNITS Public Repository</name>
       <id>djunits</id>
-      <url>http://djunits.org/maven</url>
+      <url>https://djunits.org/maven</url>
     </repository>
 
     <repository>
       <name>DJUTILS Public Repository</name>
       <id>djutils</id>
-      <url>http://djutils.org/maven</url>
+      <url>https://djutils.org/maven</url>
     </repository>
 
     <repository>
@@ -839,7 +839,7 @@
       </snapshots>
       <id>apache</id>
       <name>apache</name>
-      <url>https://repo.maven.apache.org/maven2</url>
+      <url>https://repo1.maven.org/maven2</url>
     </repository>
 
     <repository>
