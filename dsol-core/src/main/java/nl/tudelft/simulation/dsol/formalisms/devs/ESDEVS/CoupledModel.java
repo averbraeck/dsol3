@@ -193,7 +193,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
         {
             if (ic.getFromPort().getModel() == fromPort && ic.getToPort().getModel() == toPort)
             {
-                this.externalInputCouplingSet.remove(ic);
+                this.internalCouplingSet.remove(ic);
             }
         }
 
@@ -332,7 +332,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
         {
             if (ic.getFromPort().getModel() == model || ic.getToPort().getModel() == model)
             {
-                this.externalInputCouplingSet.remove(ic);
+                this.internalCouplingSet.remove(ic);
             }
         }
 
@@ -363,7 +363,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
         {
             if (ic.getToPort() == inputPort)
             {
-                this.externalInputCouplingSet.remove(ic);
+                this.internalCouplingSet.remove(ic);
             }
         }
     }
@@ -389,7 +389,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
         {
             if (ic.getFromPort() == outputPort)
             {
-                this.externalInputCouplingSet.remove(ic);
+                this.internalCouplingSet.remove(ic);
             }
         }
     }

@@ -165,6 +165,7 @@ public abstract class AbstractDEVSModel<A extends Comparable<A> & Serializable, 
         return this.fullName;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString()
     {
