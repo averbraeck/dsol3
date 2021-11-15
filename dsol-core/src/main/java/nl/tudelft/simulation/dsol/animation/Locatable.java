@@ -23,7 +23,7 @@ public interface Locatable
     /**
      * returns the location of an object. This value may be null, e.g., when the object is still being constructed or being
      * destroyed.
-     * @return Point&lt;?, ?&gt;; the location
+     * @return Point&lt;?&gt;; the location
      * @throws RemoteException on network failure
      */
     Point<?> getLocation() throws RemoteException;
