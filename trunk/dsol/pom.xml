@@ -121,7 +121,7 @@
           <relativizeDecorationLinks>false</relativizeDecorationLinks>
           <inputEncoding>UTF-8</inputEncoding>
           <outputEncoding>UTF-8</outputEncoding>
-          <templateFile>eFile>src/site/site.vm</templateFile>
+          <templateFile>src/site/site.vm</templateFile>
         </configuration>
         <executions>
           <execution>
@@ -229,10 +229,10 @@
           <links>
             <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
             <link>https://download.java.net/media/java3d/javadoc/1.5.1/</link>
-            <link>http://www.jfree.org/jcommon/api/</link>
-            <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
+            <link>https://www.jfree.org/jcommon/api/</link>
+            <link>https://www.jfree.org/jfreechart/api/javadoc/</link>
             <link>https://x-stream.github.io/javadoc/</link>
-            <link>https://tinylog.org/javadoc/</link>
+            <link>https://tinylog.org/v1/javadoc/</link>
             <link>https://djunits.org/docs/current/apidocs/</link>
             <link>https://djutils.org/docs/current/djutils/apidocs//</link>
             <link>https://djutils.org/docs/current/djutils-cli/apidocs/</link>
@@ -427,10 +427,10 @@
           <links>
             <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
             <link>https://download.java.net/media/java3d/javadoc/1.5.1/</link>
-            <link>http://www.jfree.org/jcommon/api/</link>
-            <link>http://www.jfree.org/jfreechart/api/javadoc/</link>
+            <link>https://www.jfree.org/jcommon/api/</link>
+            <link>https://www.jfree.org/jfreechart/api/javadoc/</link>
             <link>https://x-stream.github.io/javadoc/</link>
-            <link>https://tinylog.org/javadoc/</link>
+            <link>https://tinylog.org/v1/javadoc/</link>
             <link>https://djunits.org/docs/current/apidocs/</link>
             <link>https://djutils.org/docs/current/djutils/apidocs//</link>
             <link>https://djutils.org/docs/current/djutils-cli/apidocs/</link>
