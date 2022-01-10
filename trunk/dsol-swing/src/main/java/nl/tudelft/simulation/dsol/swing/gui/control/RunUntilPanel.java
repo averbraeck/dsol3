@@ -35,7 +35,7 @@ import nl.tudelft.simulation.dsol.swing.gui.util.RegexFormatter;
 /**
  * Panel that enables a panel that allows editing of the "run until" time.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -106,7 +106,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
     /** {@inheritDoc} */
     @Override
-    public final void actionPerformed(final ActionEvent actionEvent)
+    public void actionPerformed(final ActionEvent actionEvent)
     {
         String actionCommand = actionEvent.getActionCommand();
         try
@@ -205,7 +205,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     /**
      * @return simulator
      */
-    public final SimulatorInterface<A, R, T> getSimulator()
+    public SimulatorInterface<A, R, T> getSimulator()
     {
         return this.simulator;
     }
@@ -213,7 +213,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     /**
      * @return timeFont.
      */
-    protected final Font getTimeFont()
+    public Font getTimeFont()
     {
         return this.timeFont;
     }
@@ -227,7 +227,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
 
     /** {@inheritDoc} */
     @Override
-    public final String toString()
+    public String toString()
     {
         return "RunUntilPanel [time=" + this.textField.getText() + "]";
     }
@@ -235,7 +235,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     /**
      * RunUntilPanel for a double time. The time formatter and time display can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -282,7 +282,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     /**
      * RunUntilPanel for a float time. The time formatter and time display can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -329,7 +329,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     /**
      * RunUntilPanel for a long time. The time formatter and time display can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -376,7 +376,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     /**
      * RunUntilPanel for a double djunits Time. The time formatter and time display can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -426,7 +426,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
     /**
      * RunUntilPanel for a float djunits Time. The time formatter and time display can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.

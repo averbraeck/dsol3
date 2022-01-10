@@ -39,7 +39,7 @@ import nl.tudelft.simulation.dsol.swing.gui.util.Icons;
  * A search panel for a single object type. The Search panel allows to search for an object with a certain Id, for which the
  * code to locate the object must be specified. The code is based on OpenTrafficSim project component with the same purpose.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -172,35 +172,35 @@ public class SearchPanel extends JPanel implements ActionListener, FocusListener
 
     /** {@inheritDoc} */
     @Override
-    public final void focusGained(final FocusEvent e)
+    public void focusGained(final FocusEvent e)
     {
         actionPerformed(null);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void focusLost(final FocusEvent e)
+    public void focusLost(final FocusEvent e)
     {
         // Do nothing
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void insertUpdate(final DocumentEvent e)
+    public void insertUpdate(final DocumentEvent e)
     {
         actionPerformed(null);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void removeUpdate(final DocumentEvent e)
+    public void removeUpdate(final DocumentEvent e)
     {
         actionPerformed(null);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void changedUpdate(final DocumentEvent e)
+    public void changedUpdate(final DocumentEvent e)
     {
         actionPerformed(null);
     }
@@ -252,7 +252,7 @@ public class SearchPanel extends JPanel implements ActionListener, FocusListener
     /**
      * EventProducer to which to delegate the event producing methods.
      * <p>
-     * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2021-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -283,7 +283,7 @@ public class SearchPanel extends JPanel implements ActionListener, FocusListener
      * Return the delegate event producer.
      * @return SearchPanelEventProducer; the delegate event producer
      */
-    public final SearchPanelEventProducer getSearchPanelEventProducer()
+    public SearchPanelEventProducer getSearchPanelEventProducer()
     {
         return this.searchPanelEventProducer;
     }

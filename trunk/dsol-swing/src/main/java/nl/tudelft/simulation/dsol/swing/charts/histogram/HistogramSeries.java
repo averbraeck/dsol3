@@ -10,7 +10,7 @@ import org.jfree.data.general.AbstractDataset;
  * copyright (c) 2002-2021 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -59,7 +59,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * returns the name of the serie
+     * returns the name of the series.
      * @return String the name
      */
     public String getName()
@@ -68,7 +68,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * returns the maxX value for bin
+     * returns the maxX value for bin.
      * @param bin int; the bin number
      * @return Number
      */
@@ -78,7 +78,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * returns the maxY value
+     * returns the maxY value.
      * @param bin int; the bin number
      * @return Number
      */
@@ -88,7 +88,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * returns the minimumX value
+     * returns the minimumX value.
      * @param bin int; the bin number
      * @return Number
      */
@@ -98,7 +98,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * returns the minimumY value
+     * returns the minimumY value.
      * @param bin int; the bin number
      * @return Number
      */
@@ -108,7 +108,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * returns the number of bins in the histogram
+     * returns the number of bins in the histogram.
      * @return int
      */
     public int getBinCount()
@@ -117,7 +117,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * returns the x value
+     * returns the x value.
      * @param bin int; the bin number
      * @return Number
      */
@@ -127,7 +127,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * returns the Y value
+     * returns the Y value.
      * @param bin int; the bin number
      * @return Number
      */
@@ -146,7 +146,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
     }
 
     /**
-     * resolves the bin for a particular value
+     * resolves the bin for a particular value.
      * @param value double; the value of the incomming event
      * @return int the bin number
      */
@@ -188,7 +188,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
          * @param domain double[]; the domain of the bin
          * @param range double[]; the range of the bin
          */
-        public Bin(final double[] domain, final double[] range)
+        Bin(final double[] domain, final double[] range)
         {
             this.domain = domain;
             if (range == null)
@@ -203,7 +203,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         }
 
         /**
-         * increases the value of the bin with 1
+         * increases the value of the bin with 1.
          */
         public void increase()
         {
@@ -215,7 +215,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         }
 
         /**
-         * returns the minimum x value
+         * returns the minimum x value.
          * @return Number
          */
         public double getStartXValue()
@@ -224,7 +224,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         }
 
         /**
-         * returns the minimum y value
+         * returns the minimum y value.
          * @return Number
          */
         public double getStartYValue()
@@ -233,7 +233,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         }
 
         /**
-         * returns the maximum X value
+         * returns the maximum X value.
          * @return Number
          */
         public double getEndXValue()
@@ -242,7 +242,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         }
 
         /**
-         * returns the maximum Y value
+         * returns the maximum Y value.
          * @return Number
          */
         public double getEndYValue()
@@ -251,7 +251,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         }
 
         /**
-         * returns the x value
+         * returns the x value.
          * @return Number
          */
         public synchronized double getXValue()
@@ -260,7 +260,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         }
 
         /**
-         * returns the y value
+         * returns the y value.
          * @return Number
          */
         public int getYValue()
@@ -269,7 +269,7 @@ public class HistogramSeries extends AbstractDataset implements EventListenerInt
         }
 
         /**
-         * sets the fixed attributed
+         * sets the fixed attributed.
          * @param fixed boolean; is the bin fixed in range
          */
         public void setFixed(final boolean fixed)

@@ -12,7 +12,7 @@ import org.djutils.exceptions.Throw;
  * extends AbstractInputParameter&lt;T&gt; and not AbstractInputParameter&lt;List&lt;T&gt;&gt; because the value it can return
  * is the item in the list and not the list itself.<br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -70,7 +70,7 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
 
     /** {@inheritDoc} */
     @Override
-    public final T getCalculatedValue()
+    public T getCalculatedValue()
     {
         return getValue();
     }
@@ -78,7 +78,7 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
     /**
      * @return the options for the selection
      */
-    public final List<T> getOptions()
+    public List<T> getOptions()
     {
         return this.options;
     }
@@ -87,7 +87,7 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
      * Return the index of the current value.
      * @return int; the index of the current value, or -1 if the list does not contain the value
      */
-    public final int getIndex()
+    public int getIndex()
     {
         return getIndex(getValue());
     }
@@ -97,7 +97,7 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
      * @param value T; the value to calculate the index for
      * @return int; the index of the given value, or -1 if the list does not contain the value
      */
-    public final int getIndex(final T value)
+    public int getIndex(final T value)
     {
         return this.options.indexOf(value);
     }
@@ -121,7 +121,7 @@ public class InputParameterSelectionList<T> extends AbstractInputParameter<T, T>
      * @param index int; the index of the new value
      * @throws InputParameterException when index out of bounds
      */
-    public final void setIndex(final int index) throws InputParameterException
+    public void setIndex(final int index) throws InputParameterException
     {
         Throw.when(index < 0 || index >= this.options.size(), InputParameterException.class,
                 "InputParameterSelectionList.setIndex() - index out of bounds");

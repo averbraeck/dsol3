@@ -105,7 +105,7 @@ public class DistLogNormalTrunc extends DistLogNormal
     /**
      * @return min
      */
-    public final double getMin()
+    public double getMin()
     {
         return this.min;
     }
@@ -113,7 +113,7 @@ public class DistLogNormalTrunc extends DistLogNormal
     /**
      * @return max
      */
-    public final double getMax()
+    public double getMax()
     {
         return this.max;
     }

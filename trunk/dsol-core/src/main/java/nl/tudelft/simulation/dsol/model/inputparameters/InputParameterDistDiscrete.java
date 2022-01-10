@@ -8,7 +8,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * InputParameterDistDiscrete provides a choice for a discrete distribution.<br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -53,7 +53,7 @@ public class InputParameterDistDiscrete extends AbstractInputParameter<DistDiscr
     /**
      * @return stream
      */
-    public final StreamInterface getStream()
+    public StreamInterface getStream()
     {
         return this.stream;
     }
@@ -62,7 +62,7 @@ public class InputParameterDistDiscrete extends AbstractInputParameter<DistDiscr
      * @param stream StreamInterface; set stream
      * @throws NullPointerException when stream is null
      */
-    public final void setStream(final StreamInterface stream)
+    public void setStream(final StreamInterface stream)
     {
         Throw.whenNull(stream, "stream cannot be null");
         this.stream = stream;
@@ -76,7 +76,7 @@ public class InputParameterDistDiscrete extends AbstractInputParameter<DistDiscr
      * @throws NullPointerException when dist is null
      * @throws InputParameterException when this InputParameter is read-only, or dist is not valid
      */
-    public final void setDistValue(final DistDiscrete dist) throws InputParameterException
+    public void setDistValue(final DistDiscrete dist) throws InputParameterException
     {
         Throw.whenNull(dist, "dist cannot be null");
         setValue(dist);

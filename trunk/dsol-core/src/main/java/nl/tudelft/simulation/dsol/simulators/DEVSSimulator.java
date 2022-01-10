@@ -27,7 +27,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * The DEVS defines the interface of the DEVS simulator. DEVS stands for the Discrete Event System Specification. More
  * information on Discrete Event Simulation can be found in "Theory of Modeling and Simulation" by Bernard Zeigler et.al.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -65,14 +65,14 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final boolean cancelEvent(final SimEventInterface<T> event)
+    public boolean cancelEvent(final SimEventInterface<T> event)
     {
         return this.eventList.remove(event);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final EventListInterface<T> getEventList()
+    public EventListInterface<T> getEventList()
     {
         return this.eventList;
     }
@@ -96,7 +96,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEvent(final SimEventInterface<T> event) throws SimRuntimeException
+    public SimEventInterface<T> scheduleEvent(final SimEventInterface<T> event) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
@@ -112,7 +112,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final short priority, final Object source,
+    public SimEventInterface<T> scheduleEventRel(final R relativeDelay, final short priority, final Object source,
             final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
         synchronized (super.semaphore)
@@ -125,7 +125,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Object source, final Object target,
+    public SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
         return scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
@@ -133,7 +133,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final short priority, final Object source,
+    public SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final short priority, final Object source,
             final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
         return scheduleEvent(new SimEvent<T>(absoluteTime, priority, source, target, method, args));
@@ -141,7 +141,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Object source, final Object target,
+    public SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
         return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
@@ -149,7 +149,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final short priority, final Object source,
+    public SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final short priority, final Object source,
             final Object target, final String method, final Object[] args) throws SimRuntimeException
     {
         synchronized (super.semaphore)
@@ -162,7 +162,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Object source, final Object target,
+    public SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
         return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
@@ -170,7 +170,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventNow(final short priority, final Object source, final Object target,
+    public SimEventInterface<T> scheduleEventNow(final short priority, final Object source, final Object target,
             final String method, final Object[] args) throws SimRuntimeException
     {
         synchronized (super.semaphore)
@@ -182,7 +182,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventNow(final Object source, final Object target, final String method,
+    public SimEventInterface<T> scheduleEventNow(final Object source, final Object target, final String method,
             final Object[] args) throws SimRuntimeException
     {
         return scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, source, target, method, args);
@@ -190,7 +190,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final short priority, final Executable executable)
+    public SimEventInterface<T> scheduleEventRel(final R relativeDelay, final short priority, final Executable executable)
             throws SimRuntimeException
     {
         synchronized (super.semaphore)
@@ -203,7 +203,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Executable executable)
+    public SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Executable executable)
             throws SimRuntimeException
     {
         return scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, executable);
@@ -211,7 +211,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final short priority, final Executable executable)
+    public SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final short priority, final Executable executable)
             throws SimRuntimeException
     {
         synchronized (super.semaphore)
@@ -224,7 +224,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Executable executable)
+    public SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Executable executable)
             throws SimRuntimeException
     {
         return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
@@ -232,7 +232,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final short priority, final Executable executable)
+    public SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final short priority, final Executable executable)
             throws SimRuntimeException
     {
         return scheduleEvent(new LambdaSimEvent<T>(absoluteTime, priority, executable));
@@ -240,7 +240,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Executable executable)
+    public SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Executable executable)
             throws SimRuntimeException
     {
         return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
@@ -248,7 +248,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventNow(final short priority, final Executable executable)
+    public SimEventInterface<T> scheduleEventNow(final short priority, final Executable executable)
             throws SimRuntimeException
     {
         synchronized (super.semaphore)
@@ -260,14 +260,14 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final SimEventInterface<T> scheduleEventNow(final Executable executable) throws SimRuntimeException
+    public SimEventInterface<T> scheduleEventNow(final Executable executable) throws SimRuntimeException
     {
         return scheduleEventNow(SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void setEventList(final EventListInterface<T> eventList)
+    public synchronized void setEventList(final EventListInterface<T> eventList)
     {
         this.eventList = eventList;
         this.fireEvent(EVENTLIST_CHANGED_EVENT);
@@ -356,14 +356,14 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public final boolean isPauseOnError()
+    public boolean isPauseOnError()
     {
         return this.pauseOnError;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void setPauseOnError(final boolean pauseOnError)
+    public void setPauseOnError(final boolean pauseOnError)
     {
         this.pauseOnError = pauseOnError;
     }

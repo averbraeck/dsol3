@@ -69,7 +69,7 @@ import nl.tudelft.simulation.naming.context.ContextInterface;
  * "/simulation1/sub1(/.*)?". The context "sub1" itself is also included, with or without a forward slash at the end.</li>
  * </ul>
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -388,7 +388,7 @@ public class ContextEventProducerImpl extends EventProducer implements EventList
     /**
      * Pair of regular expression pattern and event listener.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>.
      * The DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -396,7 +396,7 @@ public class ContextEventProducerImpl extends EventProducer implements EventList
      * </p>
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
      */
-    protected final class PatternListener implements Serializable
+    public class PatternListener implements Serializable
     {
         /** */
         private static final long serialVersionUID = 20200210L;
@@ -423,7 +423,7 @@ public class ContextEventProducerImpl extends EventProducer implements EventList
          * return the compiled pattern.
          * @return Pattern; the compiled pattern
          */
-        public final Pattern getPattern()
+        public Pattern getPattern()
         {
             return this.pattern;
         }
@@ -432,7 +432,7 @@ public class ContextEventProducerImpl extends EventProducer implements EventList
          * Return the registered listener for this pattern.
          * @return EventListenerInterface; the registered listener for this pattern
          */
-        public final EventListenerInterface getListener()
+        public EventListenerInterface getListener()
         {
             return this.listener;
         }

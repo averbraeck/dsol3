@@ -39,7 +39,7 @@ import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControl;
  * of the simulation. It does not have animation -- the DSOLAnimationApplication adds the DSOLAnimationPAnel for that specific
  * purpose.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -315,7 +315,7 @@ public class DSOLApplication extends JFrame
      * Set the behavior on closing the window.
      * @param exitOnClose boolean; set exitOnClose
      */
-    public final void setExitOnClose(final boolean exitOnClose)
+    public void setExitOnClose(final boolean exitOnClose)
     {
         if (exitOnClose)
         {
@@ -331,7 +331,7 @@ public class DSOLApplication extends JFrame
      * Return the panel with the controls and the tabbed content pane.
      * @return DSOLPanel; the panel with the controls and the tabbed content pane
      */
-    public final DSOLPanel getDSOLPanel()
+    public DSOLPanel getDSOLPanel()
     {
         return this.panel;
     }
@@ -340,7 +340,7 @@ public class DSOLApplication extends JFrame
      * Return whether the window has been closed.
      * @return boolean; whether the window has been closed
      */
-    public final boolean isClosed()
+    public boolean isClosed()
     {
         return this.closed;
     }
@@ -348,7 +348,7 @@ public class DSOLApplication extends JFrame
     /**
      * Mouse listener which shows the submenu when the mouse enters the button.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -390,7 +390,7 @@ public class DSOLApplication extends JFrame
     /**
      * Check box item that keeps the popup menu visible after clicking, so the user can click and try some options.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.

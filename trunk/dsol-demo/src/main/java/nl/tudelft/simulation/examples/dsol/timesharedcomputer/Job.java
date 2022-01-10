@@ -35,7 +35,7 @@ public class Job
     }
 
     /**
-     * gets the creationTime of the Job
+     * gets the creationTime of the Job.
      * @return double the time of creation
      */
     public double getCreationTime()
@@ -44,7 +44,7 @@ public class Job
     }
 
     /**
-     * returns the serviceTime
+     * returns the serviceTime.
      * @return double the time
      */
     public double getServiceTime()
@@ -53,7 +53,7 @@ public class Job
     }
 
     /**
-     * sets the serviceTime
+     * sets the serviceTime.
      * @param serviceTime double; the time
      */
     public void setServiceTime(final double serviceTime)
@@ -62,7 +62,7 @@ public class Job
     }
 
     /**
-     * returns the source
+     * returns the source.
      * @return StationInterface the owning terminal
      */
     public StationInterface getOwner()

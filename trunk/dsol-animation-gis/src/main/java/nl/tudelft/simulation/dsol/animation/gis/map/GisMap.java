@@ -28,7 +28,7 @@ import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
 /**
  * Provides the implementation of a Map.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -415,14 +415,14 @@ public class GisMap implements GisMapInterface
 
     /** {@inheritDoc} */
     @Override
-    public final boolean isDrawBackground()
+    public boolean isDrawBackground()
     {
         return this.drawBackground;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void setDrawBackground(final boolean drawBackground)
+    public void setDrawBackground(final boolean drawBackground)
     {
         this.drawBackground = drawBackground;
     }

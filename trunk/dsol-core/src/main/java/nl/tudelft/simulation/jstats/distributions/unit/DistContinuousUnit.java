@@ -9,7 +9,7 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
 /**
  * DistContinuousUnit is the abstract class defining a distribution for a scalar with a unit. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -23,11 +23,11 @@ public abstract class DistContinuousUnit<U extends Unit<U>, S extends AbstractDo
 
     /** the wrapped distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final DistContinuous wrappedDistribution;
+    public DistContinuous wrappedDistribution;
 
     /** the unit for the values of the distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final U unit;
+    public U unit;
 
     /**
      * constructs a new continuous distribution.
@@ -52,7 +52,7 @@ public abstract class DistContinuousUnit<U extends Unit<U>, S extends AbstractDo
      * @param scalar S; the value for which to calculate the probability density.
      * @return double; the probability density for value scalar
      */
-    public final double probDensity(final S scalar)
+    public double probDensity(final S scalar)
     {
         return this.wrappedDistribution.getProbabilityDensity(scalar.getInUnit(this.unit));
     }
@@ -61,7 +61,7 @@ public abstract class DistContinuousUnit<U extends Unit<U>, S extends AbstractDo
      * Return the wrapped distribution.
      * @return DistContinuous; the wrapped distribution
      */
-    public final DistContinuous getWrappedDistribution()
+    public DistContinuous getWrappedDistribution()
     {
         return this.wrappedDistribution;
     }
@@ -70,7 +70,7 @@ public abstract class DistContinuousUnit<U extends Unit<U>, S extends AbstractDo
      * Return the unit in which the samples from the wrapped distribution are returned.
      * @return U; the unit in which the samples from the wrapped distribution are returned
      */
-    public final U getUnit()
+    public U getUnit()
     {
         return this.unit;
     }

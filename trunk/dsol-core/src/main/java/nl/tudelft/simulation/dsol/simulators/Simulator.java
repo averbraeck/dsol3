@@ -29,7 +29,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * The Simulator class is an abstract implementation of the SimulatorInterface.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -129,7 +129,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
      * Implementation of the start method. Checks preconditions for running and fires the right events.
      * @throws SimRuntimeException when the simulator is already running, or when the replication is missing or has ended
      */
-    protected final void startImpl() throws SimRuntimeException
+    public void startImpl() throws SimRuntimeException
     {
         Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot start a running simulator");
         Throw.when(this.replication == null, SimRuntimeException.class, "Cannot start a simulator without replication details");
@@ -161,7 +161,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    public final void start() throws SimRuntimeException
+    public void start() throws SimRuntimeException
     {
         this.runUntilTime = this.replication.getEndSimTime();
         this.runUntilIncluding = true;
@@ -196,7 +196,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    public final void step() throws SimRuntimeException
+    public void step() throws SimRuntimeException
     {
         Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot step a running simulator");
         Throw.when(!isInitialized(), SimRuntimeException.class, "Cannot start an uninitialized simulator");
@@ -231,7 +231,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    public final void stop() throws SimRuntimeException
+    public void stop() throws SimRuntimeException
     {
         Throw.when(isStoppingOrStopped(), SimRuntimeException.class, "Cannot stop an already stopped simulator");
         this.fireEvent(SimulatorInterface.STOPPING_EVENT, null);
@@ -250,7 +250,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    public final void cleanUp()
+    public void cleanUp()
     {
         stopImpl();
         if (hasListeners())
@@ -299,7 +299,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** {@inheritDoc} */
     @Override
-    public final A getSimulatorTime()
+    public A getSimulatorTime()
     {
         return this.simulatorTime == null ? null : this.simulatorTime.get();
     }
@@ -426,7 +426,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         /**
          * Clean up the worker thread. synchronized method, otherwise it does not own the Monitor on the wait.
          */
-        public final synchronized void cleanUp()
+        public synchronized void cleanUp()
         {
             this.running.set(false);
             this.finalized = true;
@@ -439,14 +439,14 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         /**
          * @return whether the run method of the job is running or not
          */
-        public final synchronized boolean isRunning()
+        public synchronized boolean isRunning()
         {
             return this.running.get();
         }
 
         /** {@inheritDoc} */
         @Override
-        public final synchronized void run()
+        public synchronized void run()
         {
             while (!this.finalized) // always until finalized
             {

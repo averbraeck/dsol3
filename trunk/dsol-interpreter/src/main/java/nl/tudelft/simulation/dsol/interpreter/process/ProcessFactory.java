@@ -15,7 +15,7 @@ import nl.tudelft.simulation.dsol.interpreter.operations.reflection.INVOKEVIRTUA
 /**
  * An InterpreterFactory for processes that can be suspended without threads.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -59,7 +59,7 @@ public class ProcessFactory extends CustomFactory
      * @throws IOException on IO exception
      */
     @Override
-    public final Operation readOperation(final int operand, final DataInput dataInput, final int startBytePostion)
+    public Operation readOperation(final int operand, final DataInput dataInput, final int startBytePostion)
             throws IOException
     {
         switch (operand)

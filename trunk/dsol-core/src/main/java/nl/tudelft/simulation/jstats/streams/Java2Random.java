@@ -8,7 +8,7 @@ import nl.tudelft.simulation.language.reflection.StateSaver;
 /**
  * The Java2Random is an extension of the <code>java.util.Random</code> class which implements the StreamInterface.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -52,7 +52,7 @@ public class Java2Random extends Random implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final void reset()
+    public void reset()
     {
         this.setSeed(this.seed);
     }
@@ -66,14 +66,14 @@ public class Java2Random extends Random implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final int nextInt(final int i, final int j)
+    public int nextInt(final int i, final int j)
     {
         return i + (int) Math.floor((j - i + 1) * this.nextDouble());
     }
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void setSeed(final long seed)
+    public synchronized void setSeed(final long seed)
     {
         this.seed = seed;
         super.setSeed(seed);
@@ -81,14 +81,14 @@ public class Java2Random extends Random implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final long getSeed()
+    public long getSeed()
     {
         return this.seed;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final byte[] saveState() throws StreamException
+    public byte[] saveState() throws StreamException
     {
         try
         {
@@ -102,7 +102,7 @@ public class Java2Random extends Random implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final void restoreState(final byte[] state) throws StreamException
+    public void restoreState(final byte[] state) throws StreamException
     {
         try
         {

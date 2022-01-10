@@ -9,7 +9,7 @@ import java.io.InputStream;
  * This class enables the object inputstream to be switched from big endian (default in Java) to little endian. The class works
  * exactly like an ObjectInputStream.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -42,7 +42,7 @@ public class ObjectEndianInputStream implements DataInput
 
     /** {@inheritDoc} */
     @Override
-    public final short readShort() throws IOException
+    public short readShort() throws IOException
     {
         if (this.endianness.equals(Endianness.BIG_ENDIAN))
         {
@@ -54,7 +54,7 @@ public class ObjectEndianInputStream implements DataInput
 
     /** {@inheritDoc} */
     @Override
-    public final int readUnsignedShort() throws IOException
+    public int readUnsignedShort() throws IOException
     {
         if (this.endianness.equals(Endianness.BIG_ENDIAN))
         {
@@ -66,7 +66,7 @@ public class ObjectEndianInputStream implements DataInput
 
     /** {@inheritDoc} */
     @Override
-    public final char readChar() throws IOException
+    public char readChar() throws IOException
     {
         if (this.endianness.equals(Endianness.BIG_ENDIAN))
         {
@@ -78,7 +78,7 @@ public class ObjectEndianInputStream implements DataInput
 
     /** {@inheritDoc} */
     @Override
-    public final int readInt() throws IOException
+    public int readInt() throws IOException
     {
         if (this.endianness.equals(Endianness.BIG_ENDIAN))
         {
@@ -90,7 +90,7 @@ public class ObjectEndianInputStream implements DataInput
 
     /** {@inheritDoc} */
     @Override
-    public final long readLong() throws IOException
+    public long readLong() throws IOException
     {
         if (this.endianness.equals(Endianness.BIG_ENDIAN))
         {
@@ -104,7 +104,7 @@ public class ObjectEndianInputStream implements DataInput
 
     /** {@inheritDoc} */
     @Override
-    public final float readFloat() throws IOException
+    public float readFloat() throws IOException
     {
         if (this.endianness.equals(Endianness.BIG_ENDIAN))
         {
@@ -115,7 +115,7 @@ public class ObjectEndianInputStream implements DataInput
 
     /** {@inheritDoc} */
     @Override
-    public final double readDouble() throws IOException
+    public double readDouble() throws IOException
     {
         if (this.endianness.equals(Endianness.BIG_ENDIAN))
         {
@@ -130,7 +130,7 @@ public class ObjectEndianInputStream implements DataInput
      * @return in the value
      * @throws IOException on failure
      */
-    public final int read(final byte[] b) throws IOException
+    public int read(final byte[] b) throws IOException
     {
         return this.inputStream.read(b);
     }
@@ -143,63 +143,63 @@ public class ObjectEndianInputStream implements DataInput
      * @return in the value
      * @throws IOException on failure
      */
-    public final int read(final byte[] b, final int off, final int len) throws IOException
+    public int read(final byte[] b, final int off, final int len) throws IOException
     {
         return this.inputStream.read(b, off, len);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void readFully(final byte[] b) throws IOException
+    public void readFully(final byte[] b) throws IOException
     {
         this.dataInputStream.readFully(b, 0, b.length);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void readFully(final byte[] b, final int off, final int len) throws IOException
+    public void readFully(final byte[] b, final int off, final int len) throws IOException
     {
         this.dataInputStream.readFully(b, off, len);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final int skipBytes(final int n) throws IOException
+    public int skipBytes(final int n) throws IOException
     {
         return this.dataInputStream.skipBytes(n);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final boolean readBoolean() throws IOException
+    public boolean readBoolean() throws IOException
     {
         return this.dataInputStream.readBoolean();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final byte readByte() throws IOException
+    public byte readByte() throws IOException
     {
         return this.dataInputStream.readByte();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final int readUnsignedByte() throws IOException
+    public int readUnsignedByte() throws IOException
     {
         return this.dataInputStream.readUnsignedByte();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final String readUTF() throws IOException
+    public String readUTF() throws IOException
     {
         return this.dataInputStream.readUTF();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final String readLine()
+    public String readLine()
     {
         throw new UnsupportedOperationException("Binary reading does not support readLine method");
     }
@@ -218,7 +218,7 @@ public class ObjectEndianInputStream implements DataInput
     /**
      * @throws IOException on close failure
      */
-    public final void close() throws IOException
+    public void close() throws IOException
     {
         this.dataInputStream.close();
     }
@@ -227,7 +227,7 @@ public class ObjectEndianInputStream implements DataInput
      * Return the Endianness, i.e., big endian or little endian encoding.
      * @return Endianness; big endian or little endian encoding
      */
-    public final Endianness getEndianness()
+    public Endianness getEndianness()
     {
         return this.endianness;
     }
@@ -236,7 +236,7 @@ public class ObjectEndianInputStream implements DataInput
      * Set the Endianness, i.e., big endian or little endian encoding.
      * @param endianness Endianness; big endian or little endian encoding
      */
-    public final void setEndianness(final Endianness endianness)
+    public void setEndianness(final Endianness endianness)
     {
         this.endianness = endianness;
     }

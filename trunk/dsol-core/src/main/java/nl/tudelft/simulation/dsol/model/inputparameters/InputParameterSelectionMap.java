@@ -12,7 +12,7 @@ import org.djutils.exceptions.Throw;
  * not AbstractInputParameter&lt;Map&lt;K,&nbsp;T&gt;&gt; because the value it can return is the value-item in the map and not
  * the map itself.<br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -53,7 +53,7 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
 
     /** {@inheritDoc} */
     @Override
-    public final T getCalculatedValue()
+    public T getCalculatedValue()
     {
         return getValue();
     }
@@ -61,7 +61,7 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
     /**
      * @return the options for the selection
      */
-    public final SortedMap<K, T> getOptions()
+    public SortedMap<K, T> getOptions()
     {
         return this.options;
     }
@@ -70,7 +70,7 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
      * Return the index of the current value.
      * @return K; the key in the options belonging to the current value, or null if the list does not contain the value
      */
-    public final K getKeyforValue()
+    public K getKeyforValue()
     {
         return getKeyforValue(getValue());
     }
@@ -80,7 +80,7 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
      * @param value T; the value to calculate the index for
      * @return K; the key in the options belonging to the given value, or null if the list does not contain the value
      */
-    public final K getKeyforValue(final T value)
+    public K getKeyforValue(final T value)
     {
         for (K key : this.options.keySet())
         {
@@ -127,7 +127,7 @@ public class InputParameterSelectionMap<K, T> extends AbstractInputParameter<T, 
      * @param key K; the index of the new value
      * @throws InputParameterException when index out of bounds
      */
-    public final void setKeyforValue(final K key) throws InputParameterException
+    public void setKeyforValue(final K key) throws InputParameterException
     {
         Throw.when(key == null || !this.options.containsKey(key), InputParameterException.class,
                 "InputParameterSelectionMap.setKeyforValue() - key not part of options");

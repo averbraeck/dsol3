@@ -113,7 +113,7 @@ public class LongMethods
     /**
      * @return value
      */
-    public final long getValue()
+    public long getValue()
     {
         return this.value;
     }

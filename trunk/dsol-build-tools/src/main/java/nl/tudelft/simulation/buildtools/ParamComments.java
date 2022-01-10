@@ -22,7 +22,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
  * Utility to add or update the type foe each parameter in the javadoc of all java files in /src/main/java in all or in selected
  * projects in the workspace. Run this utility only from Eclipse!<br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -111,7 +111,7 @@ public class ParamComments
     /**
      * @return changed
      */
-    public final boolean isChanged()
+    public boolean isChanged()
     {
         return this.changed;
     }
@@ -119,7 +119,7 @@ public class ParamComments
     /**
      * @param changed boolean; set changed
      */
-    public final void setChanged(final boolean changed)
+    public void setChanged(final boolean changed)
     {
         this.changed = changed;
     }
@@ -127,7 +127,7 @@ public class ParamComments
     /**
      * @return lines
      */
-    public final List<String> getLines()
+    public List<String> getLines()
     {
         return this.lines;
     }

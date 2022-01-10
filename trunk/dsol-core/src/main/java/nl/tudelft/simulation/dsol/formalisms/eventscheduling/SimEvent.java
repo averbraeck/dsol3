@@ -21,7 +21,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * bundle the object on which the method is planned to be invoked together with the arguments and the name of the method in a
  * simEvent. The SimEvent is then stored in the eventList and executed.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -130,7 +130,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /**
      * @return Returns the args.
      */
-    public final Object[] getArgs()
+    public Object[] getArgs()
     {
         return this.args;
     }
@@ -138,7 +138,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /**
      * @return Returns the method.
      */
-    public final String getMethod()
+    public String getMethod()
     {
         return this.methodName;
     }
@@ -146,7 +146,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /**
      * @return Returns the source.
      */
-    public final Object getSource()
+    public Object getSource()
     {
         return this.source;
     }
@@ -154,7 +154,7 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
     /**
      * @return Returns the target.
      */
-    public final Object getTarget()
+    public Object getTarget()
     {
         return this.target;
     }

@@ -15,7 +15,7 @@ import nl.tudelft.simulation.dsol.tutorial.section42.policies.StationaryPolicy;
 /**
  * A Retailer.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -93,7 +93,7 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
 
     /** {@inheritDoc} */
     @Override
-    public final void receiveProduct(final long amount)
+    public void receiveProduct(final long amount)
     {
         long served = this.backLog - Math.max(0, this.backLog - amount);
         this.backLog = Math.max(0, this.backLog - amount);
@@ -128,7 +128,7 @@ public class Retailer extends EventProducer implements BuyerInterface, SellerInt
 
     /** {@inheritDoc} */
     @Override
-    public final void order(final BuyerInterface buyer, final long amount)
+    public void order(final BuyerInterface buyer, final long amount)
     {
         long actualOrderSize = Math.min(amount, this.inventory);
         this.inventory = this.inventory - actualOrderSize;

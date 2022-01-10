@@ -32,7 +32,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * ReadInputParameterTest.java. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -45,7 +45,7 @@ public class ReadInputParameterTest
      * @throws InputParameterException on uncaught error
      */
     @Test
-    public final void testReadInputParametersArgs() throws InputParameterException
+    public void testReadInputParametersArgs() throws InputParameterException
     {
         InputParameterBoolean ip1 = new InputParameterBoolean("bool", "boolean", "boolean value", true, 1.0);
         InputParameterDouble ip2 = new InputParameterDouble("double", "double", "double value", 0.0, 2.0);
@@ -109,7 +109,7 @@ public class ReadInputParameterTest
      * @throws InputParameterException on uncaught error
      */
     @Test
-    public final void testReadNestedInputParametersArgs() throws InputParameterException
+    public void testReadNestedInputParametersArgs() throws InputParameterException
     {
         InputParameterBoolean ip1 = new InputParameterBoolean("bool", "boolean", "boolean value", true, 1.0);
         InputParameterFloat ip2 = new InputParameterFloat("float", "float", "float value", 0.0f, 2.0);
@@ -142,7 +142,7 @@ public class ReadInputParameterTest
      * @throws InputParameterException on uncaught error
      */
     @Test
-    public final void testReadInputParametersArgsList() throws InputParameterException
+    public void testReadInputParametersArgsList() throws InputParameterException
     {
         String[] options = new String[] {"US", "GB", "NL", "DE", "BE", "FR"};
         InputParameterSelectionList<String> ip =
@@ -167,7 +167,7 @@ public class ReadInputParameterTest
      * @throws InputParameterException on uncaught error
      */
     @Test
-    public final void testReadInputParametersArgsDist() throws InputParameterException
+    public void testReadInputParametersArgsDist() throws InputParameterException
     {
         StreamInterface stream = new MersenneTwister(1234L);
         DistDiscrete dddefault = new DistDiscreteConstant(stream, 0L);
@@ -226,7 +226,7 @@ public class ReadInputParameterTest
      * @throws FileNotFoundException on file error
      */
     @Test
-    public final void testReadInputParametersFile() throws InputParameterException, FileNotFoundException, IOException
+    public void testReadInputParametersFile() throws InputParameterException, FileNotFoundException, IOException
     {
         InputParameterMap map = new InputParameterMap("map", "map", "map", 1.0);
         InputParameterDoubleScalar<TimeUnit, Time> ipStartTime =

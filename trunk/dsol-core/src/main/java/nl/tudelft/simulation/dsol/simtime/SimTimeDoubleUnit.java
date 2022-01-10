@@ -7,7 +7,7 @@ import org.djunits.value.vdouble.scalar.Time;
  * The SimTime class with a Time as the absolute time, and a Duration as the relative time. The units are defined in the djunits
  * package. More information can be found at <a href="https://djunits.org">https://djunits.org</a>.
  * <p>
- * Copyright (c) 2016-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -33,14 +33,14 @@ public class SimTimeDoubleUnit extends SimTime<Time, Duration, SimTimeDoubleUnit
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final Duration relativeTime)
+    public void add(final Duration relativeTime)
     {
         this.time = this.time.plus(relativeTime);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final Duration relativeTime)
+    public void subtract(final Duration relativeTime)
     {
         this.time = this.time.minus(relativeTime);
     }
@@ -54,7 +54,7 @@ public class SimTimeDoubleUnit extends SimTime<Time, Duration, SimTimeDoubleUnit
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeDoubleUnit setZero()
+    public SimTimeDoubleUnit setZero()
     {
         this.time = Time.ZERO;
         return this;
@@ -62,21 +62,21 @@ public class SimTimeDoubleUnit extends SimTime<Time, Duration, SimTimeDoubleUnit
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeDoubleUnit copy()
+    public SimTimeDoubleUnit copy()
     {
         return new SimTimeDoubleUnit(this.time);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void set(final Time absoluteTime)
+    public void set(final Time absoluteTime)
     {
         this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Time get()
+    public Time get()
     {
         return this.time;
     }

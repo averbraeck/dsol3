@@ -10,7 +10,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * <a href="https://mathworld.wolfram.com/Pearson6Distribution.html"> https://mathworld.wolfram.com/Pearson6Distribution.html
  * </a>
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -85,7 +85,7 @@ public class DistPearson6 extends DistContinuous
      * Return the first shape parameter &alpha;1.
      * @return double; the first shape parameter &alpha;1
      */
-    public final double getAlpha1()
+    public double getAlpha1()
     {
         return this.alpha1;
     }
@@ -94,7 +94,7 @@ public class DistPearson6 extends DistContinuous
      * Return the second shape parameter &alpha;2.
      * @return double; the second shape parameter &alpha;2
      */
-    public final double getAlpha2()
+    public double getAlpha2()
     {
         return this.alpha2;
     }
@@ -103,7 +103,7 @@ public class DistPearson6 extends DistContinuous
      * Return the scale parameter &beta;.
      * @return double; the scale parameter &beta;
      */
-    public final double getBeta()
+    public double getBeta()
     {
         return this.beta;
     }

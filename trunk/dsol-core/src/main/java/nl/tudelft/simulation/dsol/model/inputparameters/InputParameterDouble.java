@@ -5,7 +5,7 @@ import org.djutils.exceptions.Throw;
 /**
  * InputParameterDouble.java. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -77,7 +77,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
 
     /** {@inheritDoc} */
     @Override
-    public final Double getCalculatedValue()
+    public Double getCalculatedValue()
     {
         return getValue();
     }
@@ -101,7 +101,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @return format
      */
-    public final String getFormat()
+    public String getFormat()
     {
         return this.format;
     }
@@ -109,7 +109,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @param format String; set format
      */
-    public final void setFormat(final String format)
+    public void setFormat(final String format)
     {
         Throw.whenNull(format, "format cannot be null");
         this.format = format;
@@ -118,7 +118,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @return minimumValue
      */
-    public final Double getMinimumValue()
+    public Double getMinimumValue()
     {
         return this.minimumValue;
     }
@@ -126,7 +126,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @param minimumValue double; set minimumValue
      */
-    public final void setMinimumValue(final double minimumValue)
+    public void setMinimumValue(final double minimumValue)
     {
         this.minimumValue = minimumValue;
     }
@@ -134,7 +134,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @return maximumValue
      */
-    public final Double getMaximumValue()
+    public Double getMaximumValue()
     {
         return this.maximumValue;
     }
@@ -142,7 +142,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @param maximumValue double; set maximumValue
      */
-    public final void setMaximumValue(final double maximumValue)
+    public void setMaximumValue(final double maximumValue)
     {
         this.maximumValue = maximumValue;
     }
@@ -150,7 +150,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @return minIncluded
      */
-    public final boolean isMinIncluded()
+    public boolean isMinIncluded()
     {
         return this.minIncluded;
     }
@@ -158,7 +158,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @param minIncluded boolean; set minIncluded
      */
-    public final void setMinIncluded(final boolean minIncluded)
+    public void setMinIncluded(final boolean minIncluded)
     {
         this.minIncluded = minIncluded;
     }
@@ -166,7 +166,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @return maxIncluded
      */
-    public final boolean isMaxIncluded()
+    public boolean isMaxIncluded()
     {
         return this.maxIncluded;
     }
@@ -174,7 +174,7 @@ public class InputParameterDouble extends AbstractInputParameter<Double, Double>
     /**
      * @param maxIncluded boolean; set maxIncluded
      */
-    public final void setMaxIncluded(final boolean maxIncluded)
+    public void setMaxIncluded(final boolean maxIncluded)
     {
         this.maxIncluded = maxIncluded;
     }

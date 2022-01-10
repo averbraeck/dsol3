@@ -19,7 +19,7 @@ import nl.tudelft.simulation.dsol.swing.gui.control.AbstractControlPanel;
 /**
  * Tabbed content panel for the simulation with a control bar on top.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -89,7 +89,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
      * Adds a console tab for the Logger.
      * @param logLevel Level the logLevel to use;
      */
-    public final void addConsoleLogger(final Level logLevel)
+    public void addConsoleLogger(final Level logLevel)
     {
         addTab("logger", new ConsoleLogger(logLevel));
     }
@@ -97,7 +97,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
     /**
      * Adds a console tab for stdout and stderr.
      */
-    public final void addConsoleOutput()
+    public void addConsoleOutput()
     {
         addTab("console", new ConsoleOutput());
     }
@@ -105,7 +105,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
     /**
      * Adds a properties tab.
      */
-    public final void addInputParametersTab()
+    public void addInputParametersTab()
     {
         addTab("parameters", new InputParametersTab(getModel()));
     }
@@ -113,7 +113,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
     /**
      * @return tabbedPane
      */
-    public final TabbedContentPane getTabbedPane()
+    public TabbedContentPane getTabbedPane()
     {
         return this.tabbedPane;
     }
@@ -121,7 +121,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
     /**
      * @return simulator.
      */
-    public final SimulatorInterface<?, ?, ?> getSimulator()
+    public SimulatorInterface<?, ?, ?> getSimulator()
     {
         return this.controlPanel.getSimulator();
     }
@@ -130,7 +130,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
      * Return the control panel of this SimulationPanel.
      * @return ControlPanel; the control panel
      */
-    public final AbstractControlPanel<?, ?, ?, ?> getControlPanel()
+    public AbstractControlPanel<?, ?, ?, ?> getControlPanel()
     {
         return this.controlPanel;
     }
@@ -163,7 +163,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
 
     /** {@inheritDoc} */
     @Override
-    public final String toString()
+    public String toString()
     {
         return "SimulationPanel";
     }
@@ -171,7 +171,7 @@ public class DSOLPanel extends JPanel implements AppearanceControl
     /**
      * TabbedContentPane which ignores appearance (it has too much colors looking ugly / becoming unreadable).
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.

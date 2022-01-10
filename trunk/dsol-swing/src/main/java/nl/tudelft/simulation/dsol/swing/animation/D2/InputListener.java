@@ -20,7 +20,7 @@ import nl.tudelft.simulation.dsol.swing.introspection.gui.IntrospectionDialog;
  * The InputListener for the AnimationPanel. Some of the actions are delegated to the AnimationPanel or to other panels through
  * firing an event.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -157,7 +157,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
      * Return the minimum time between two successive animation mouse move events in milliseconds.
      * @return long; the minimum time between two successive animation mouse move events in milliseconds
      */
-    public final long getTimeBetweenAnimationMouseMoveEventsMs()
+    public long getTimeBetweenAnimationMouseMoveEventsMs()
     {
         return this.timeBetweenAnimationMouseMoveEventsMs;
     }
@@ -167,7 +167,7 @@ public class InputListener implements MouseListener, MouseWheelListener, MouseMo
      * @param timeBetweenAnimationMouseMoveEventsMs long; set the minimum time between two successive animation mouse move
      *            events in milliseconds
      */
-    public final void setTimeBetweenAnimationMouseMoveEventsMs(final long timeBetweenAnimationMouseMoveEventsMs)
+    public void setTimeBetweenAnimationMouseMoveEventsMs(final long timeBetweenAnimationMouseMoveEventsMs)
     {
         this.timeBetweenAnimationMouseMoveEventsMs = timeBetweenAnimationMouseMoveEventsMs;
     }

@@ -15,7 +15,7 @@ import nl.tudelft.simulation.dsol.statistics.SimTally;
 /**
  * A BoatModel.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -62,7 +62,7 @@ public class Warehouse42Model extends AbstractDSOLModel.TimeDouble<DEVSSimulator
 
     /** {@inheritDoc} */
     @Override
-    public final void constructModel() throws SimRuntimeException
+    public void constructModel() throws SimRuntimeException
     {
         SellerInterface warehouse = new Warehouse(this.simulator);
         Retailer retailer = new Retailer(this.simulator, warehouse);

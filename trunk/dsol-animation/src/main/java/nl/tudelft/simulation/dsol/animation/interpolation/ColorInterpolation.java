@@ -9,7 +9,7 @@ import java.awt.Color;
  * copyright (c) 2004-2021 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl"> www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -41,7 +41,7 @@ public class ColorInterpolation
     private double endTime = Double.NaN;
 
     /**
-     * constructs a new SimulatedLinearInterpolation
+     * constructs a new SimulatedLinearInterpolation.
      * @param originalStartingColor Color; the origin
      * @param originalDestinationColor Color; the destination
      * @param startTime double; the startTime for the interpolation
@@ -76,7 +76,7 @@ public class ColorInterpolation
     }
 
     /**
-     * returns a color based on the interpolation between the original and end destination
+     * returns a color based on the interpolation between the original and end destination.
      * @param time double; the time
      * @return the color to return
      */

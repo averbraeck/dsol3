@@ -5,7 +5,7 @@ import javax.swing.table.TableModel;
 /**
  * An interface that defines methods for adding and deleting rows from a tablemodel.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -36,7 +36,7 @@ public interface DynamicTableModel extends TableModel
     void createRow();
 
     /**
-     * Creates a number of new rows at the end of the TableModel
+     * Creates a number of new rows at the end of the TableModel.
      * @param amount int; The number of rows to be created.
      */
     void createRows(int amount);
@@ -45,5 +45,5 @@ public interface DynamicTableModel extends TableModel
      * @return whether or not the rows in this model can be edited. If false, calls to create and delete methods will have no
      *         final result.
      */
-    public boolean isRowEditable();
+    boolean isRowEditable();
 }

@@ -20,7 +20,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * A resource defines a shared and limited amount.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -115,7 +115,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
      * returns the maximum, and thus original capacity of the resource.
      * @return capacity the maximum, and thus original capacity of the resource.
      */
-    public final double getCapacity()
+    public double getCapacity()
     {
         return this.capacity;
     }
@@ -124,7 +124,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
      * returns the amount of currently claimed capacity.
      * @return the amount of currently claimed capacity.
      */
-    public final double getClaimedCapacity()
+    public double getClaimedCapacity()
     {
         return this.claimedCapacity;
     }
@@ -134,7 +134,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
      * <code>return this.getCapacity()-this.getClaimedCapacity()</code>
      * @return the currently available capacity on this resource.
      */
-    public final double getAvailableCapacity()
+    public double getAvailableCapacity()
     {
         return this.capacity - this.claimedCapacity;
     }
@@ -143,7 +143,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
      * returns the number of instances currently waiting for this resource.
      * @return the number of instances currently waiting for this resource
      */
-    public final int getQueueLength()
+    public int getQueueLength()
     {
         return this.requests.size();
     }
@@ -163,7 +163,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
      * sets the capacity of the resource.
      * @param capacity double; the new maximal capacity
      */
-    public final void setCapacity(final double capacity)
+    public void setCapacity(final double capacity)
     {
         this.capacity = capacity;
         try
@@ -184,7 +184,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on other failures
      */
-    public final synchronized void requestCapacity(final double amount, final ResourceRequestorInterface<A, R, T> requestor)
+    public synchronized void requestCapacity(final double amount, final ResourceRequestorInterface<A, R, T> requestor)
             throws RemoteException, SimRuntimeException
     {
         this.requestCapacity(amount, requestor, Resource.DEFAULT_REQUEST_PRIORITY);
@@ -198,7 +198,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
      * @throws RemoteException on network failure
      * @throws SimRuntimeException on other failures
      */
-    public final synchronized void requestCapacity(final double amount, final ResourceRequestorInterface<A, R, T> requestor,
+    public synchronized void requestCapacity(final double amount, final ResourceRequestorInterface<A, R, T> requestor,
             final int priority) throws RemoteException, SimRuntimeException
     {
         if (amount < 0.0)
@@ -227,7 +227,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
      * @param amount double; the amount to release
      * @throws RemoteException on network failure
      */
-    public final void releaseCapacity(final double amount) throws RemoteException
+    public void releaseCapacity(final double amount) throws RemoteException
     {
         if (amount < 0.0)
         {
@@ -275,7 +275,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
     {
         /** {@inheritDoc} */
         @Override
-        public final int compare(final Request<A, R, T> arg0, final Request<A, R, T> arg1)
+        public int compare(final Request<A, R, T> arg0, final Request<A, R, T> arg1)
         {
             if (arg0.getPriority() > arg1.getPriority())
             {
@@ -337,7 +337,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
          * gets the requested amount.
          * @return the requested amount
          */
-        public final double getAmount()
+        public double getAmount()
         {
             return this.amount;
         }
@@ -346,7 +346,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
          * gets the requestor.
          * @return the Requestor.
          */
-        public final ResourceRequestorInterface<A, R, T> getRequestor()
+        public ResourceRequestorInterface<A, R, T> getRequestor()
         {
             return this.requestor;
         }
@@ -355,7 +355,7 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
          * returns the priority of the request.
          * @return the priority
          */
-        public final int getPriority()
+        public int getPriority()
         {
             return this.priority;
         }
@@ -364,14 +364,14 @@ public class Resource<A extends Comparable<A> & Serializable, R extends Number &
          * returns the id of the request.
          * @return the id
          */
-        public final long getId()
+        public long getId()
         {
             return this.id;
         }
 
         /** {@inheritDoc} */
         @Override
-        public final String toString()
+        public String toString()
         {
             return "RequestForResource[requestor=" + this.requestor + ";amount=" + this.amount + ";priority=" + this.priority
                     + "]";

@@ -9,7 +9,7 @@ import org.junit.Test;
 /**
  * The test script for the random generator classes.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -23,7 +23,7 @@ public class StreamTest
      * Test the Random Number Generator classes for double.
      */
     @Test
-    public final void testStreamDouble()
+    public void testStreamDouble()
     {
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(100L), new MersenneTwister(101L), new DX120Generator(102L)};
@@ -51,7 +51,7 @@ public class StreamTest
      * Test the Random Number Generator classes for float.
      */
     @Test
-    public final void testStreamFloat()
+    public void testStreamFloat()
     {
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(100L), new MersenneTwister(101L), new DX120Generator(102L)};
@@ -79,7 +79,7 @@ public class StreamTest
      * Test the Random Number Generator classes for int.
      */
     @Test
-    public final void testStreamInt()
+    public void testStreamInt()
     {
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(100L), new MersenneTwister(101L), new DX120Generator(102L)};
@@ -108,7 +108,7 @@ public class StreamTest
      * Test the Random Number Generator classes for int.
      */
     @Test
-    public final void testStreamIntEqualBits()
+    public void testStreamIntEqualBits()
     {
         // System.out.println("\nINT EQUAL NUMBER OF BITS");
         int nr = 1000000;
@@ -141,7 +141,7 @@ public class StreamTest
      * Test the Random Number Generator classes for int.
      */
     @Test
-    public final void testStreamInt0to10()
+    public void testStreamInt0to10()
     {
         int nr = 1000000;
         StreamInterface[] streams = {new Java2Random(100L), new MersenneTwister(101L), new DX120Generator(102L)};
@@ -176,7 +176,7 @@ public class StreamTest
      * Test the Random Number Generator classes for boolean.
      */
     @Test
-    public final void testStreamBoolean()
+    public void testStreamBoolean()
     {
         int nr = 100000;
         StreamInterface[] streams = {new Java2Random(100L), new MersenneTwister(101L), new DX120Generator(102L)};
@@ -198,7 +198,7 @@ public class StreamTest
      * Test the Random Number Generator classes for long.
      */
     @Test
-    public final void testStreamLong()
+    public void testStreamLong()
     {
         long nr = 1000000;
         StreamInterface[] streams = {new Java2Random(100L), new MersenneTwister(101L), new DX120Generator(102L)};
@@ -227,7 +227,7 @@ public class StreamTest
      * Test the Random Number Generator classes for long.
      */
     @Test
-    public final void testStreamLongEqualBits()
+    public void testStreamLongEqualBits()
     {
         long nr = 1000000;
         StreamInterface[] streams = {new Java2Random(100L), new MersenneTwister(101L), new DX120Generator(102L)};
@@ -259,7 +259,7 @@ public class StreamTest
      * Test the seed management for the Random Number Generator classes.
      */
     @Test
-    public final void testSeedManagement()
+    public void testSeedManagement()
     {
         StreamInterface[] streams = {new Java2Random(14L), new MersenneTwister(14L), new DX120Generator(14L)};
         for (StreamInterface stream : streams)

@@ -28,7 +28,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * CoupledModel class. This class implements the classic parallel DEVS coupled model with ports conform Zeigler et al. (2000),
  * section 4.3.
  * <p>
- * Copyright (c) 2009-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -109,7 +109,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * @param et EventType; the event type.
      * @return success or failure of adding the listener to all submodels.
      */
-    public final boolean addHierarchicalListener(final EventListenerInterface eli, final EventType et)
+    public boolean addHierarchicalListener(final EventListenerInterface eli, final EventType et)
     {
         boolean returnBoolean = true;
         returnBoolean &= super.addListener(eli, et);
@@ -135,7 +135,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * @throws SimRuntimeException simulation run time exception
      */
     @SuppressWarnings("unchecked")
-    protected final <TYPE> void transfer(final OutputPortInterface<A, R, T, TYPE> x, final TYPE y)
+    public <TYPE> void transfer(final OutputPortInterface<A, R, T, TYPE> x, final TYPE y)
             throws RemoteException, SimRuntimeException
     {
         for (IC<A, R, T, ?> o : this.internalCouplingSet)
@@ -165,7 +165,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * @param toPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of an internal component that receives a message /
      *            event from the other componet (end of the coupling)
      */
-    public final <TYPE> void addInternalCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
+    public <TYPE> void addInternalCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
             final InputPortInterface<A, R, T, TYPE> toPort)
     {
         try
@@ -186,7 +186,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * @param toPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of an internal component that receives a message /
      *            event from the other componet (end of the coupling)
      */
-    public final <TYPE> void removeInternalCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
+    public <TYPE> void removeInternalCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
             final InputPortInterface<A, R, T, TYPE> toPort)
     {
         for (IC<A, R, T, ?> ic : this.internalCouplingSet)
@@ -207,7 +207,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * @param toPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of the internal component that receives a message /
      *            event from the overarching coupled model (end of the coupling)
      */
-    public final <TYPE> void addExternalInputCoupling(final InputPortInterface<A, R, T, TYPE> fromPort,
+    public <TYPE> void addExternalInputCoupling(final InputPortInterface<A, R, T, TYPE> fromPort,
             final InputPortInterface<A, R, T, TYPE> toPort)
     {
         try
@@ -228,7 +228,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * @param toPort InputPortInterface&lt;A,R,T,TYPE&gt;; the input port of the internal component that receives a message /
      *            event from the overarching coupled model (end of the coupling)
      */
-    public final <TYPE> void removeExternalInputCoupling(final InputPortInterface<A, R, T, TYPE> fromPort,
+    public <TYPE> void removeExternalInputCoupling(final InputPortInterface<A, R, T, TYPE> fromPort,
             final InputPortInterface<A, R, T, TYPE> toPort)
     {
         for (EIC<A, R, T, ?> eic : this.externalInputCouplingSet)
@@ -248,7 +248,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * @param toPort OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port of this coupled model that transfers the message /
      *            event to the outside (end of the coupling)
      */
-    public final <TYPE> void addExternalOutputCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
+    public <TYPE> void addExternalOutputCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
             final OutputPortInterface<A, R, T, TYPE> toPort)
     {
         try
@@ -269,7 +269,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * @param toPort OutputPortInterface&lt;A,R,T,TYPE&gt;; the output port of this coupled model that transfers the message /
      *            event to the outside (end of the coupling)
      */
-    public final <TYPE> void removeExternalOutputCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
+    public <TYPE> void removeExternalOutputCoupling(final OutputPortInterface<A, R, T, TYPE> fromPort,
             final OutputPortInterface<A, R, T, TYPE> toPort)
     {
         for (EOC<A, R, T, ?> eoc : this.externalOutputCouplingSet)
@@ -289,7 +289,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * Add a model component to this coupled model.
      * @param model AbstractDEVSModel&lt;A,R,T&gt;; the component to add.
      */
-    public final void addModelComponent(final AbstractDEVSModel<A, R, T> model)
+    public void addModelComponent(final AbstractDEVSModel<A, R, T> model)
     {
         this.modelComponents.add(model);
 
@@ -310,7 +310,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * Remove a model component from a coupled model, including all its couplings (internal, external in, and external out).
      * @param model AbstractDEVSModel&lt;A,R,T&gt;; the component to remove.
      */
-    public final void removeModelComponent(final AbstractDEVSModel<A, R, T> model)
+    public void removeModelComponent(final AbstractDEVSModel<A, R, T> model)
     {
         for (EOC<A, R, T, ?> eoc : this.externalOutputCouplingSet)
         {
@@ -346,7 +346,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * {@inheritDoc}
      */
     @Override
-    protected final void removeInputPort(final String name) throws PortNotFoundException
+    public void removeInputPort(final String name) throws PortNotFoundException
     {
         InputPortInterface<A, R, T, ?> inputPort = this.inputPortMap.get(name);
         super.removeInputPort(name); // throws exception in case nonexistent
@@ -372,7 +372,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
      * {@inheritDoc}
      */
     @Override
-    protected final void removeOutputPort(final String name) throws PortNotFoundException
+    public void removeOutputPort(final String name) throws PortNotFoundException
     {
         OutputPortInterface<A, R, T, ?> outputPort = this.outputPortMap.get(name);
         super.removeOutputPort(name); // throws exception in case nonexistent
@@ -401,7 +401,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
     /**
      * @return internalCouplingSet; the internal couplings (from internal models to internal models)
      */
-    public final Set<IC<A, R, T, ?>> getInternalCouplingSet()
+    public Set<IC<A, R, T, ?>> getInternalCouplingSet()
     {
         return this.internalCouplingSet;
     }
@@ -409,7 +409,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
     /**
      * @return externalOutputCouplingSet; the couplings from the internal models to the output of this coupled model
      */
-    public final Set<EOC<A, R, T, ?>> getExternalOutputCouplingSet()
+    public Set<EOC<A, R, T, ?>> getExternalOutputCouplingSet()
     {
         return this.externalOutputCouplingSet;
     }
@@ -417,7 +417,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
     /**
      * @return externalInputCouplingSet; the couplings from the outside world to the internal models of this coupled model
      */
-    public final Set<EIC<A, R, T, ?>> getExternalInputCouplingSet()
+    public Set<EIC<A, R, T, ?>> getExternalInputCouplingSet()
     {
         return this.externalInputCouplingSet;
     }
@@ -425,7 +425,7 @@ public abstract class CoupledModel<A extends Comparable<A> & Serializable, R ext
     /**
      * @return modelComponents; the models within the coupled model
      */
-    public final Set<AbstractDEVSModel<A, R, T>> getModelComponents()
+    public Set<AbstractDEVSModel<A, R, T>> getModelComponents()
     {
         return this.modelComponents;
     }

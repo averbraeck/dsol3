@@ -12,7 +12,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * <a href="https://mathworld.wolfram.com/NegativeBinomialDistribution.html">
  * https://mathworld.wolfram.com/NegativeBinomialDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -81,7 +81,7 @@ public class DistNegBinomial extends DistDiscrete
      * Return the number of successes in the sequence of (x+n) trials, where trial (x+n) is a success.
      * @return int; the number of successes in the sequence of (x+n) trials, where trial (x+n) is a success
      */
-    public final int getS()
+    public int getS()
     {
         return this.s;
     }
@@ -90,7 +90,7 @@ public class DistNegBinomial extends DistDiscrete
      * Return the probability of success for each individual trial in the negative binomial distribution.
      * @return double; the probability of success for each individual trial in the negative binomial distribution
      */
-    public final double getP()
+    public double getP()
     {
         return this.p;
     }

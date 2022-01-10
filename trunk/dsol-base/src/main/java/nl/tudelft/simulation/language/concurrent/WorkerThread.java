@@ -8,7 +8,7 @@ import org.djutils.logger.CategoryLogger;
  * The WorkerThread is a working thread. The thread sleeps while not interrupted. If interrupted the job.run operation is
  * invoked.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -46,7 +46,7 @@ public class WorkerThread extends Thread
     /**
      * Clean up the worker thread. synchronized method, otherwise it does not own the Monitor on the wait.
      */
-    public final synchronized void cleanUp()
+    public synchronized void cleanUp()
     {
         this.running.set(false);
         this.finalized = true;
@@ -60,14 +60,14 @@ public class WorkerThread extends Thread
     /**
      * @return whether the run method of the job is running or not
      */
-    public final synchronized boolean isRunning()
+    public synchronized boolean isRunning()
     {
         return this.running.get();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void run()
+    public synchronized void run()
     {
         while (!this.finalized) // always until finalized
         {

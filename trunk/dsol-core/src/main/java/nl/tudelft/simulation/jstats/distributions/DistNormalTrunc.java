@@ -198,7 +198,7 @@ public class DistNormalTrunc extends DistContinuous
     /**
      * @return mu
      */
-    public final double getMu()
+    public double getMu()
     {
         return this.mu;
     }
@@ -206,7 +206,7 @@ public class DistNormalTrunc extends DistContinuous
     /**
      * @return sigma
      */
-    public final double getSigma()
+    public double getSigma()
     {
         return this.sigma;
     }
@@ -214,7 +214,7 @@ public class DistNormalTrunc extends DistContinuous
     /**
      * @return min
      */
-    public final double getMin()
+    public double getMin()
     {
         return this.min;
     }
@@ -222,7 +222,7 @@ public class DistNormalTrunc extends DistContinuous
     /**
      * @return max
      */
-    public final double getMax()
+    public double getMax()
     {
         return this.max;
     }

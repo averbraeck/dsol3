@@ -19,7 +19,7 @@ import nl.tudelft.simulation.language.filters.ZeroFilter;
 /**
  * The xySerie specifies an xySerie for XY Plots in DSOL.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -142,7 +142,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     }
 
     /**
-     * returns the number of items in this seris
+     * returns the number of items in this series.
      * @return int the number
      */
     public int getItemCount()
@@ -151,7 +151,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     }
 
     /**
-     * returns the X value
+     * returns the X value.
      * @param item int; the item
      * @return Number the xValue
      */
@@ -162,7 +162,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     }
 
     /**
-     * returns the yValue
+     * returns the yValue.
      * @param item int; the item
      * @return Number
      */
@@ -173,7 +173,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     }
 
     /**
-     * returns the name of this series
+     * returns the name of this series.
      * @return String name
      */
     public String getSeriesName()
@@ -182,7 +182,7 @@ public class XYSeries extends AbstractDataset implements EventListenerInterface
     }
 
     /**
-     * applies a filter on the chart
+     * applies a filter on the chart.
      * @param filter FilterInterface; the filter to apply
      */
     public void setFilter(final FilterInterface filter)

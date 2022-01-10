@@ -9,7 +9,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * The Seize is an extended Seize block whic sets delay times on arriving customers..
  * <p>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -49,7 +49,7 @@ public class Seize extends nl.tudelft.simulation.dsol.formalisms.flow.Seize.Time
 
     /** {@inheritDoc} */
     @Override
-    public final void receiveObject(final Object object)
+    public void receiveObject(final Object object)
     {
         Customer customer = (Customer) object;
         customer.setEntranceTime(this.simulator.getSimulatorTime());

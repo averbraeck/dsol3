@@ -6,7 +6,7 @@ import java.io.Serializable;
  * A spherical point as defined in <a href="https://mathworld.wolfram.com/SphericalCoordinates.html">
  * https://mathworld.wolfram.com/SphericalCoordinates.html </a>. Also according to ISO 31-11
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -45,7 +45,7 @@ public class SphericalPoint implements Serializable
     /**
      * @return phi
      */
-    public final double getPhi()
+    public double getPhi()
     {
         return this.phi;
     }
@@ -53,7 +53,7 @@ public class SphericalPoint implements Serializable
     /**
      * @return radius
      */
-    public final double getRadius()
+    public double getRadius()
     {
         return this.radius;
     }
@@ -61,7 +61,7 @@ public class SphericalPoint implements Serializable
     /**
      * @return theta
      */
-    public final double getTheta()
+    public double getTheta()
     {
         return this.theta;
     }
@@ -70,7 +70,7 @@ public class SphericalPoint implements Serializable
      * converts a spherical point to a Cartesian point.
      * @return the Cartesian point
      */
-    public final CartesianPoint toCartesianPoint()
+    public CartesianPoint toCartesianPoint()
     {
         return SphericalPoint.toCartesianPoint(this);
     }

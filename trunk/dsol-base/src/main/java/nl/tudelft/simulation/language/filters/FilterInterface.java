@@ -6,7 +6,7 @@ import java.io.Serializable;
  * The FilterInterface is a general interface for all filters in DSOL. Filters can be based on xY combinations, class
  * information ,etc. etc. The API of implementing filters will explain what it expects as input.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -18,14 +18,14 @@ import java.io.Serializable;
 public interface FilterInterface extends Serializable
 {
     /**
-     * a filter defines whether to accept a value in a chart
+     * a filter defines whether to accept a value in a chart.
      * @param entry Object; the entry to filter
      * @return whether to accept this entry
      */
     boolean accept(Object entry);
 
     /**
-     * inverts the filter
+     * inverts the filter.
      * @param inverted boolean; whether to invert the filter
      */
     void setInverted(boolean inverted);
@@ -37,20 +37,20 @@ public interface FilterInterface extends Serializable
     boolean isInverted();
 
     /**
-     * returns a string representation of the criterion
+     * returns a string representation of the criterion.
      * @return the string representing the criterion
      */
     String getCriterion();
 
     /**
-     * adds filter to this filter and returns the composed filter
+     * adds filter to this filter and returns the composed filter.
      * @param filter FilterInterface; the filter to add
      * @return the composed filter
      */
     FilterInterface and(FilterInterface filter);
 
     /**
-     * creates a new composite filter which is one or two
+     * creates a new composite filter which is one or two.
      * @param filter FilterInterface; the filter to add
      * @return the composed filter
      */

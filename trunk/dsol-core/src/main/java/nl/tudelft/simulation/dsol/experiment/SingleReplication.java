@@ -23,7 +23,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
 /**
  * A single replication that is executed outside of an Experiment.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -88,7 +88,7 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
     /**
      * Remove the context for this replication.
      */
-    public final void removeFromContext()
+    public void removeFromContext()
     {
         try
         {

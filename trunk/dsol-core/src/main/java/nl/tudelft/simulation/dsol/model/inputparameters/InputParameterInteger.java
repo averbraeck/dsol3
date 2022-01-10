@@ -5,7 +5,7 @@ import org.djutils.exceptions.Throw;
 /**
  * InputParameterInteger.java. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -66,7 +66,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
 
     /** {@inheritDoc} */
     @Override
-    public final Integer getCalculatedValue()
+    public Integer getCalculatedValue()
     {
         return getValue();
     }
@@ -76,7 +76,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
      * @param newValue int; the new value for the input parameter
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
-    public final void setIntValue(final int newValue) throws InputParameterException
+    public void setIntValue(final int newValue) throws InputParameterException
     {
         if (this.minimumValue > newValue || this.maximumValue < newValue)
         {
@@ -89,7 +89,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     /**
      * @return format
      */
-    public final String getFormat()
+    public String getFormat()
     {
         return this.format;
     }
@@ -98,7 +98,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
      * @param format String; set format
      * @throws NullPointerException when format is null
      */
-    public final void setFormat(final String format)
+    public void setFormat(final String format)
     {
         Throw.whenNull(format, "format cannot be null");
         this.format = format;
@@ -107,7 +107,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     /**
      * @return minimumValue
      */
-    public final Integer getMinimumValue()
+    public Integer getMinimumValue()
     {
         return this.minimumValue;
     }
@@ -115,7 +115,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     /**
      * @param minimumValue int; set minimumValue
      */
-    public final void setMinimumValue(final int minimumValue)
+    public void setMinimumValue(final int minimumValue)
     {
         this.minimumValue = minimumValue;
     }
@@ -123,7 +123,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     /**
      * @return maximumValue
      */
-    public final Integer getMaximumValue()
+    public Integer getMaximumValue()
     {
         return this.maximumValue;
     }
@@ -131,7 +131,7 @@ public class InputParameterInteger extends AbstractInputParameter<Integer, Integ
     /**
      * @param maximumValue int; set maximumValue
      */
-    public final void setMaximumValue(final int maximumValue)
+    public void setMaximumValue(final int maximumValue)
     {
         this.maximumValue = maximumValue;
     }

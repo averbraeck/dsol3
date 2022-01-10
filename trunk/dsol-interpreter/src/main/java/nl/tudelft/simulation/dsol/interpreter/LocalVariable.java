@@ -15,7 +15,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.LocalVariableDescriptor;
  * variable array.
  * </p>
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -45,7 +45,7 @@ public class LocalVariable implements Cloneable
     /**
      * @return Returns the localVariableDescriptor.
      */
-    public final LocalVariableDescriptor getLocalVariableDescriptor()
+    public LocalVariableDescriptor getLocalVariableDescriptor()
     {
         return this.localVariableDescriptor;
     }
@@ -53,7 +53,7 @@ public class LocalVariable implements Cloneable
     /**
      * @return Returns the value.
      */
-    public final synchronized Object getValue()
+    public synchronized Object getValue()
     {
         return this.value;
     }
@@ -61,7 +61,7 @@ public class LocalVariable implements Cloneable
     /**
      * @param value Object; The value to set.
      */
-    public final synchronized void setValue(final Object value)
+    public synchronized void setValue(final Object value)
     {
         this.value = value;
     }

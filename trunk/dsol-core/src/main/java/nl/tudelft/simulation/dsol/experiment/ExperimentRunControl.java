@@ -18,7 +18,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
 /**
  * ExperimentRunControl.java.
  * <p>
- * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2021-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -63,7 +63,7 @@ public class ExperimentRunControl<A extends Comparable<A> & Serializable, R exte
      * Return the total number of replications to execute.
      * @return int; the total number of replications to execute
      */
-    public final int getNumberOfReplications()
+    public int getNumberOfReplications()
     {
         return this.numberOfReplications;
     }

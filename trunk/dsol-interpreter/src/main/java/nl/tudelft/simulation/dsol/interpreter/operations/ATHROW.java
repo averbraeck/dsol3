@@ -8,7 +8,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.ExceptionEntry;
  * The ATHROW operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -40,7 +40,7 @@ public class ATHROW extends Operation
      * @param frame Frame; the frame
      * @return the frame
      */
-    public final Frame execute(final Frame frame)
+    public Frame execute(final Frame frame)
     {
         Throwable throwable = new NullPointerException();
         if (!frame.getOperandStack().isEmpty())
@@ -60,14 +60,14 @@ public class ATHROW extends Operation
 
     /** {@inheritDoc} */
     @Override
-    public final int getByteLength()
+    public int getByteLength()
     {
         return OPCODE_BYTE_LENGTH;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final int getOpcode()
+    public int getOpcode()
     {
         return ATHROW.OP;
     }
@@ -75,7 +75,7 @@ public class ATHROW extends Operation
     /**
      * @return the bytePosition
      */
-    public final int getBytePosition()
+    public int getBytePosition()
     {
         return this.bytePosition;
     }
@@ -84,7 +84,7 @@ public class ATHROW extends Operation
      * As an exception, the Interpreter class needs to be able to set the byte position.
      * @param bytePosition int; set bytePosition
      */
-    public final void setBytePosition(final int bytePosition)
+    public void setBytePosition(final int bytePosition)
     {
         this.bytePosition = bytePosition;
     }

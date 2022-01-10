@@ -41,7 +41,7 @@ import nl.tudelft.simulation.language.DSOLException;
  * Animation panel with various controls. Code based on OpenTrafficSim project and Meslabs project component with the same
  * purpose.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -343,7 +343,7 @@ public class DSOLAnimationTab extends JPanel implements ActionListener, EventLis
      * Return the animation panel at the center of the screen.
      * @return AnimationPanel; the animation panel at the center of the screen
      */
-    public final AnimationPanel getAnimationPanel()
+    public AnimationPanel getAnimationPanel()
     {
         return this.animationPanel;
     }
@@ -352,7 +352,7 @@ public class DSOLAnimationTab extends JPanel implements ActionListener, EventLis
      * Return the toggle panel to turn objects or layers on the screen on or off.
      * @return togglePanel TogglePanel; the toggle panel to turn objects or layers on the screen on or off
      */
-    public final JPanel getTogglePanel()
+    public JPanel getTogglePanel()
     {
         return this.togglePanel;
     }
@@ -361,7 +361,7 @@ public class DSOLAnimationTab extends JPanel implements ActionListener, EventLis
      * Return the search panel; can be null.
      * @return SearchPanel the search panel; can be null
      */
-    public final SearchPanel getSearchPanel()
+    public SearchPanel getSearchPanel()
     {
         return this.searchPanel;
     }
@@ -384,7 +384,7 @@ public class DSOLAnimationTab extends JPanel implements ActionListener, EventLis
      * Return the simulator.
      * @return SimulatorInterface; the simulator
      */
-    public final SimulatorInterface<?, ?, ?> getSimulator()
+    public SimulatorInterface<?, ?, ?> getSimulator()
     {
         return this.simulator;
     }

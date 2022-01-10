@@ -6,7 +6,7 @@ import java.awt.Color;
  * Enum that contains a background color, foreground color and a font name, to be set throughout all components. Code based on
  * OpenTrafficSim project component with the same purpose.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -76,7 +76,7 @@ public enum Appearance
      * Returns the name.
      * @return String; name
      */
-    public final String getName()
+    public String getName()
     {
         return this.name;
     }
@@ -85,7 +85,7 @@ public enum Appearance
      * Returns the background color.
      * @return Color; color
      */
-    public final Color getBackground()
+    public Color getBackground()
     {
         return this.background;
     }
@@ -94,7 +94,7 @@ public enum Appearance
      * Returns the foreground color.
      * @return Color; color
      */
-    public final Color getForeground()
+    public Color getForeground()
     {
         return this.foreground;
     }
@@ -103,7 +103,7 @@ public enum Appearance
      * Returns the backdrop color.
      * @return Color; color
      */
-    public final Color getBackdrop()
+    public Color getBackdrop()
     {
         return this.backdrop;
     }
@@ -112,7 +112,7 @@ public enum Appearance
      * Returns the font name.
      * @return String; font name
      */
-    public final String getFont()
+    public String getFont()
     {
         return this.font;
     }

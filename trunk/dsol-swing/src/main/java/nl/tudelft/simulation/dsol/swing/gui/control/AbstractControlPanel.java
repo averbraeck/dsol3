@@ -32,7 +32,7 @@ import nl.tudelft.simulation.dsol.swing.gui.util.Icons;
 /**
  * Simulation control panel. Code based on OpenTrafficSim project component with the same purpose.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -153,7 +153,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * Install a handler for the window closed event that stops the simulator (if it is running).
      */
-    protected final void installWindowCloseHandler()
+    public void installWindowCloseHandler()
     {
         if (this.closeHandlerRegistered)
         {
@@ -180,7 +180,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
 
         /** {@inheritDoc} */
         @Override
-        public final void run()
+        public void run()
         {
             Container root = this.panel;
             while (!(root instanceof JFrame))
@@ -208,7 +208,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
 
         /** {@inheritDoc} */
         @Override
-        public final String toString()
+        public String toString()
         {
             return "DisposeOnCloseThread [panel=" + this.panel + "]";
         }
@@ -371,7 +371,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return model
      */
-    public final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> getModel()
+    public DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> getModel()
     {
         return this.model;
     }
@@ -379,7 +379,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return simulator.
      */
-    public final S getSimulator()
+    public S getSimulator()
     {
         return this.simulator;
     }
@@ -387,7 +387,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return clockPanel
      */
-    public final ClockPanel<A, R, T> getClockPanel()
+    public ClockPanel<A, R, T> getClockPanel()
     {
         return this.clockPanel;
     }
@@ -410,7 +410,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return speedPanel
      */
-    public final SpeedPanel<A, R, T> getSpeedPanel()
+    public SpeedPanel<A, R, T> getSpeedPanel()
     {
         return this.speedPanel;
     }
@@ -440,7 +440,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return controlButtons
      */
-    public final ArrayList<JButton> getControlButtons()
+    public ArrayList<JButton> getControlButtons()
     {
         return this.controlButtons;
     }
@@ -448,7 +448,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return controlButtonsPanel
      */
-    public final JPanel getControlButtonsPanel()
+    public JPanel getControlButtonsPanel()
     {
         return this.controlButtonsPanel;
     }
@@ -456,7 +456,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return runUntilPanel
      */
-    public final RunUntilPanel<A, R, T> getRunUntilPanel()
+    public RunUntilPanel<A, R, T> getRunUntilPanel()
     {
         return this.runUntilPanel;
     }
@@ -464,7 +464,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @param runUntilPanel set runUntilPanel
      */
-    public final void setRunUntilPanel(final RunUntilPanel<A, R, T> runUntilPanel)
+    public void setRunUntilPanel(final RunUntilPanel<A, R, T> runUntilPanel)
     {
         if (this.runUntilPanel != null)
         {
@@ -477,7 +477,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return closeHandlerRegistered
      */
-    public final boolean isCloseHandlerRegistered()
+    public boolean isCloseHandlerRegistered()
     {
         return this.closeHandlerRegistered;
     }
@@ -485,7 +485,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @return controlButtonsEnabled
      */
-    public final boolean isControlButtonsEnabled()
+    public boolean isControlButtonsEnabled()
     {
         return this.controlButtonsEnabled;
     }
@@ -493,7 +493,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
     /**
      * @param closeHandlerRegistered set closeHandlerRegistered
      */
-    public final void setCloseHandlerRegistered(final boolean closeHandlerRegistered)
+    public void setCloseHandlerRegistered(final boolean closeHandlerRegistered)
     {
         this.closeHandlerRegistered = closeHandlerRegistered;
     }

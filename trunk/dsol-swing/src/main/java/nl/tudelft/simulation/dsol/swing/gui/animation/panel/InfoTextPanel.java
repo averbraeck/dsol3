@@ -17,7 +17,7 @@ import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
 /**
  * A panel with info in the north bar of the animation tab. This version show the mouse position.
  * <p>
- * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2021-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -79,7 +79,7 @@ public class InfoTextPanel extends JPanel
     /**
      * Display the latest world coordinate based on the mouse position on the screen.
      */
-    protected final void updateWorldCoordinate()
+    public void updateWorldCoordinate()
     {
         String worldPoint = "(x=" + this.coordinateFormatter.format(this.animationPanel.getWorldCoordinate().getX()) + " ; y="
                 + this.coordinateFormatter.format(this.animationPanel.getWorldCoordinate().getY()) + ")";
@@ -102,7 +102,7 @@ public class InfoTextPanel extends JPanel
      * Return the coordinate formatter for x and y of the world coordinates.
      * @return NumberFormat; the coordinate formatter
      */
-    public final NumberFormat getCoordinateFormatter()
+    public NumberFormat getCoordinateFormatter()
     {
         return this.coordinateFormatter;
     }
@@ -111,7 +111,7 @@ public class InfoTextPanel extends JPanel
      * Set the coordinate formatter for x and y of the world coordinates.
      * @param coordinateFormatter NumberFormat; the new coordinate formatter
      */
-    public final void setCoordinateFormatter(final NumberFormat coordinateFormatter)
+    public void setCoordinateFormatter(final NumberFormat coordinateFormatter)
     {
         this.coordinateFormatter = coordinateFormatter;
     }
@@ -127,7 +127,7 @@ public class InfoTextPanel extends JPanel
 
         /** {@inheritDoc} */
         @Override
-        public final void run()
+        public void run()
         {
             Window window = null;
             while (!this.closing)
@@ -169,7 +169,7 @@ public class InfoTextPanel extends JPanel
 
         /** {@inheritDoc} */
         @Override
-        public final String toString()
+        public String toString()
         {
             return "UpdateTimer thread for InfoTextPanel";
         }

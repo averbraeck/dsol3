@@ -15,7 +15,7 @@ import javax.swing.table.TableCellEditor;
 /**
  * Starts up a default {see javax.swing.JColorChooser}panel to edit the color value.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -38,7 +38,7 @@ public class MyColorEditor extends AbstractCellEditor implements TableCellEditor
     protected JPanel cellPanel = new JPanel();
 
     /**
-     * The OK listener
+     * The OK listener.
      */
     private class OKListener implements ActionListener
     {
@@ -49,14 +49,14 @@ public class MyColorEditor extends AbstractCellEditor implements TableCellEditor
          * constructs a new OKListener.
          * @param chooser JColorChooser; the color chooser.
          */
-        public OKListener(JColorChooser chooser)
+        OKListener(final JColorChooser chooser)
         {
             this.chooser = chooser;
         }
 
         /** {@inheritDoc} */
         @Override
-        public synchronized void actionPerformed(ActionEvent event)
+        public synchronized void actionPerformed(final ActionEvent event)
         {
             MyColorEditor.this.color = this.chooser.getColor();
             MyColorEditor.this.stopCellEditing();
@@ -72,7 +72,7 @@ public class MyColorEditor extends AbstractCellEditor implements TableCellEditor
     {
         /** {@inheritDoc} */
         @Override
-        public void actionPerformed(ActionEvent e)
+        public void actionPerformed(final ActionEvent e)
         {
             MyColorEditor.this.cancelCellEditing();
         }

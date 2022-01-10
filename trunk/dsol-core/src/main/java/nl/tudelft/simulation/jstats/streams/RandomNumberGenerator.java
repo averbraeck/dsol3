@@ -6,7 +6,7 @@ import nl.tudelft.simulation.language.reflection.StateSaver;
 /**
  * The RandomNumberGenerator class provides an abstract basis for all pseudo random number generators.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -51,7 +51,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final void reset()
+    public void reset()
     {
         this.setSeed(this.seed);
     }
@@ -65,14 +65,14 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final boolean nextBoolean()
+    public boolean nextBoolean()
     {
         return next(1) != 0;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final double nextDouble()
+    public double nextDouble()
     {
         long l = ((next(26)) << 27) + next(27);
         return l / (double) (1L << 53);
@@ -80,7 +80,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final float nextFloat()
+    public float nextFloat()
     {
         int i = (int) this.next(24);
         return i / ((float) (1 << 24));
@@ -88,14 +88,14 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final int nextInt()
+    public int nextInt()
     {
         return (int) this.next(32);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized int nextInt(final int i, final int j)
+    public synchronized int nextInt(final int i, final int j)
     {
         if (i < 0 || j <= 0 || i >= j)
         {
@@ -106,7 +106,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final long nextLong()
+    public long nextLong()
     {
         return ((next(32)) << 32) + next(32);
     }
@@ -117,14 +117,14 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final long getSeed()
+    public long getSeed()
     {
         return this.seed;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final long getOriginalSeed()
+    public long getOriginalSeed()
     {
         return this.originalSeed;
     }
@@ -138,7 +138,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final byte[] saveState() throws StreamException
+    public byte[] saveState() throws StreamException
     {
         try
         {
@@ -152,7 +152,7 @@ public abstract class RandomNumberGenerator implements StreamInterface
 
     /** {@inheritDoc} */
     @Override
-    public final void restoreState(final byte[] state) throws StreamException
+    public void restoreState(final byte[] state) throws StreamException
     {
         try
         {

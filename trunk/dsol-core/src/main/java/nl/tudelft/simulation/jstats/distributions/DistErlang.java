@@ -12,7 +12,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * The Erlang distribution is the distribution of a sum of k independent exponential variables with the scale parameter as the
  * mean. The scale parameter is equal to 1/rate or 1/&lambda;, giving the entire Erlang distribution a mean of k*scale.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -100,7 +100,7 @@ public class DistErlang extends DistContinuous
     /**
      * @return k
      */
-    public final int getK()
+    public int getK()
     {
         return this.k;
     }
@@ -108,7 +108,7 @@ public class DistErlang extends DistContinuous
     /**
      * @return scale parameter
      */
-    public final double getScale()
+    public double getScale()
     {
         return this.scale;
     }

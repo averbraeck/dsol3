@@ -10,7 +10,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * StreamSeedUpdater updates the streams based on a stored map of replication numbers to seed numbers.
  * <p>
- * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2021-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -58,7 +58,7 @@ public class StreamSeedUpdater implements StreamUpdater
      * @return fallbackStreamUpdater StreamUpdater; the fallback stream updater in case the stream or the replication is not in
      *         the seed map.
      */
-    public final StreamUpdater getFallbackStreamUpdater()
+    public StreamUpdater getFallbackStreamUpdater()
     {
         return this.fallbackStreamUpdater;
     }
@@ -69,7 +69,7 @@ public class StreamSeedUpdater implements StreamUpdater
      *            in the seed map.
      * @throws NullPointerException when fallbackStreamUpdater is null
      */
-    public final void setFallbackStreamUpdater(final StreamUpdater fallbackStreamUpdater)
+    public void setFallbackStreamUpdater(final StreamUpdater fallbackStreamUpdater)
     {
         Throw.whenNull(fallbackStreamUpdater, "fallbackStreamUpdater cannot be null");
         this.fallbackStreamUpdater = fallbackStreamUpdater;
@@ -79,7 +79,7 @@ public class StreamSeedUpdater implements StreamUpdater
      * Return the available seed maps for all stored streams, mapping stream ids to seed maps.
      * @return Map&lt;String, Map&lt;Integer, Long&gt;&gt;; the stored seed maps
      */
-    public final Map<String, Map<Integer, Long>> getStreamSeedMap()
+    public Map<String, Map<Integer, Long>> getStreamSeedMap()
     {
         return this.streamSeedMap;
     }

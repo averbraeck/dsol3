@@ -30,7 +30,7 @@ import nl.tudelft.simulation.language.reflection.SerializableConstructor;
 /**
  * This class defines a generator.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -114,7 +114,7 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * generates a new entity with the basic constructorArguments.
      * @throws SimRuntimeException on construction failure
      */
-    public final void generate() throws SimRuntimeException
+    public void generate() throws SimRuntimeException
     {
         this.generate(this.constructorArguments);
     }
@@ -124,7 +124,7 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * @param specialConstructorArguments Object[]; are the parameters used in the constructor.
      * @throws SimRuntimeException on construction failure
      */
-    public final synchronized void generate(final Object[] specialConstructorArguments) throws SimRuntimeException
+    public synchronized void generate(final Object[] specialConstructorArguments) throws SimRuntimeException
     {
         try
         {
@@ -152,7 +152,7 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
 
     /** {@inheritDoc} */
     @Override
-    public final void receiveObject(final Object object)
+    public void receiveObject(final Object object)
     {
         this.releaseObject(object);
     }
@@ -161,7 +161,7 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * returns the batchSize.
      * @return DistDiscrete
      */
-    public final DistDiscrete getBatchSize()
+    public DistDiscrete getBatchSize()
     {
         return this.batchSize;
     }
@@ -179,7 +179,7 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * returns the maximum number of entities to be created.
      * @return long the maxNumber
      */
-    public final long getMaxNumber()
+    public long getMaxNumber()
     {
         return this.maxNumber;
     }
@@ -188,7 +188,7 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * sets the batchsize of the generator.
      * @param batchSize DistDiscrete; is the number of entities simultaneously constructed
      */
-    public final void setBatchSize(final DistDiscrete batchSize)
+    public void setBatchSize(final DistDiscrete batchSize)
     {
         this.batchSize = batchSize;
     }
@@ -206,7 +206,7 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
      * sets the maximum number of entities to be created.
      * @param maxNumber long; is the maxNumber
      */
-    public final void setMaxNumber(final long maxNumber)
+    public void setMaxNumber(final long maxNumber)
     {
         this.maxNumber = maxNumber;
     }
@@ -270,14 +270,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the interarrival distribution.
          * @param interval DistContinuousSimulationTime.TimeDouble; is the interarrival time
          */
-        public final void setInterval(final DistContinuousSimulationTime.TimeDouble interval)
+        public void setInterval(final DistContinuousSimulationTime.TimeDouble interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimulationTime.TimeDouble getInterval()
+        public DistContinuousSimulationTime.TimeDouble getInterval()
         {
             return (DistContinuousSimulationTime.TimeDouble) this.interval;
         }
@@ -286,14 +286,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the startTime.
          * @param startTime DistContinuousSimTime.TimeDouble; is the absolute startTime
          */
-        public final synchronized void setStartTime(final DistContinuousSimTime.TimeDouble startTime)
+        public synchronized void setStartTime(final DistContinuousSimTime.TimeDouble startTime)
         {
             super.setStartTime(startTime);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimTime.TimeDouble getStartTime()
+        public DistContinuousSimTime.TimeDouble getStartTime()
         {
             return (DistContinuousSimTime.TimeDouble) this.startTime;
         }
@@ -326,14 +326,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the interarrival distribution.
          * @param interval DistContinuousSimulationTime.TimeFloat; is the interarrival time
          */
-        public final void setInterval(final DistContinuousSimulationTime.TimeFloat interval)
+        public void setInterval(final DistContinuousSimulationTime.TimeFloat interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimulationTime.TimeFloat getInterval()
+        public DistContinuousSimulationTime.TimeFloat getInterval()
         {
             return (DistContinuousSimulationTime.TimeFloat) this.interval;
         }
@@ -342,14 +342,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the startTime.
          * @param startTime DistContinuousSimTime.TimeFloat; is the absolute startTime
          */
-        public final synchronized void setStartTime(final DistContinuousSimTime.TimeFloat startTime)
+        public synchronized void setStartTime(final DistContinuousSimTime.TimeFloat startTime)
         {
             super.setStartTime(startTime);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimTime.TimeFloat getStartTime()
+        public DistContinuousSimTime.TimeFloat getStartTime()
         {
             return (DistContinuousSimTime.TimeFloat) this.startTime;
         }
@@ -382,14 +382,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the interarrival distribution.
          * @param interval DistContinuousSimulationTime.TimeLong; is the interarrival time
          */
-        public final void setInterval(final DistContinuousSimulationTime.TimeLong interval)
+        public void setInterval(final DistContinuousSimulationTime.TimeLong interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimulationTime.TimeLong getInterval()
+        public DistContinuousSimulationTime.TimeLong getInterval()
         {
             return (DistContinuousSimulationTime.TimeLong) this.interval;
         }
@@ -398,14 +398,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the startTime.
          * @param startTime DistContinuousSimTime.TimeLong; is the absolute startTime
          */
-        public final synchronized void setStartTime(final DistContinuousSimTime.TimeLong startTime)
+        public synchronized void setStartTime(final DistContinuousSimTime.TimeLong startTime)
         {
             super.setStartTime(startTime);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimTime.TimeLong getStartTime()
+        public DistContinuousSimTime.TimeLong getStartTime()
         {
             return (DistContinuousSimTime.TimeLong) this.startTime;
         }
@@ -440,14 +440,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the interarrival distribution.
          * @param interval DistContinuousSimulationTime.TimeDoubleUnit; is the interarrival time
          */
-        public final void setInterval(final DistContinuousSimulationTime.TimeDoubleUnit interval)
+        public void setInterval(final DistContinuousSimulationTime.TimeDoubleUnit interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimulationTime.TimeDoubleUnit getInterval()
+        public DistContinuousSimulationTime.TimeDoubleUnit getInterval()
         {
             return (DistContinuousSimulationTime.TimeDoubleUnit) this.interval;
         }
@@ -456,14 +456,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the startTime.
          * @param startTime DistContinuousSimTime.TimeDoubleUnit; is the absolute startTime
          */
-        public final synchronized void setStartTime(final DistContinuousSimTime.TimeDoubleUnit startTime)
+        public synchronized void setStartTime(final DistContinuousSimTime.TimeDoubleUnit startTime)
         {
             super.setStartTime(startTime);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimTime.TimeDoubleUnit getStartTime()
+        public DistContinuousSimTime.TimeDoubleUnit getStartTime()
         {
             return (DistContinuousSimTime.TimeDoubleUnit) this.startTime;
         }
@@ -498,14 +498,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the interarrival distribution.
          * @param interval DistContinuousSimulationTime.TimeFloatUnit; is the interarrival time
          */
-        public final void setInterval(final DistContinuousSimulationTime.TimeFloatUnit interval)
+        public void setInterval(final DistContinuousSimulationTime.TimeFloatUnit interval)
         {
             super.setInterval(interval);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimulationTime.TimeFloatUnit getInterval()
+        public DistContinuousSimulationTime.TimeFloatUnit getInterval()
         {
             return (DistContinuousSimulationTime.TimeFloatUnit) this.interval;
         }
@@ -514,14 +514,14 @@ public class Generator<A extends Comparable<A> & Serializable, R extends Number 
          * sets the startTime.
          * @param startTime DistContinuousSimTime.TimeFloatUnit; is the absolute startTime
          */
-        public final synchronized void setStartTime(final DistContinuousSimTime.TimeFloatUnit startTime)
+        public synchronized void setStartTime(final DistContinuousSimTime.TimeFloatUnit startTime)
         {
             super.setStartTime(startTime);
         }
 
         /** {@inheritDoc} */
         @Override
-        public final DistContinuousSimTime.TimeFloatUnit getStartTime()
+        public DistContinuousSimTime.TimeFloatUnit getStartTime()
         {
             return (DistContinuousSimTime.TimeFloatUnit) this.startTime;
         }

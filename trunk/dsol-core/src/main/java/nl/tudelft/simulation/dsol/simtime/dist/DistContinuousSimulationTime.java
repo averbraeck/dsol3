@@ -11,7 +11,7 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  * Definitions of distributions over relative time. The distributions wrap a ContinuousDist from the
  * nl.tudelft.simulation.jstats.distributions package in dsol-core.
  * <p>
- * Copyright (c) 2016-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -27,7 +27,7 @@ public abstract class DistContinuousSimulationTime<R extends Number & Comparable
 
     /** the wrapped distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final DistContinuous wrappedDistribution;
+    public DistContinuous wrappedDistribution;
 
     /**
      * constructs a new continuous distribution.
@@ -50,7 +50,7 @@ public abstract class DistContinuousSimulationTime<R extends Number & Comparable
      * @param x double; the value for which to calculate the probability density.
      * @return double; the probability density for value x
      */
-    public final double probDensity(final double x)
+    public double probDensity(final double x)
     {
         return this.wrappedDistribution.getProbabilityDensity(x);
     }
@@ -75,7 +75,7 @@ public abstract class DistContinuousSimulationTime<R extends Number & Comparable
 
         /** {@inheritDoc} */
         @Override
-        public final Double draw()
+        public Double draw()
         {
             return super.wrappedDistribution.draw();
         }
@@ -97,7 +97,7 @@ public abstract class DistContinuousSimulationTime<R extends Number & Comparable
 
         /** {@inheritDoc} */
         @Override
-        public final Float draw()
+        public Float draw()
         {
             return (float) super.wrappedDistribution.draw();
         }
@@ -119,7 +119,7 @@ public abstract class DistContinuousSimulationTime<R extends Number & Comparable
 
         /** {@inheritDoc} */
         @Override
-        public final Long draw()
+        public Long draw()
         {
             return (long) super.wrappedDistribution.draw();
         }
@@ -146,7 +146,7 @@ public abstract class DistContinuousSimulationTime<R extends Number & Comparable
 
         /** {@inheritDoc} */
         @Override
-        public final Duration draw()
+        public Duration draw()
         {
             return new Duration(super.wrappedDistribution.draw(), this.unit);
         }
@@ -173,7 +173,7 @@ public abstract class DistContinuousSimulationTime<R extends Number & Comparable
 
         /** {@inheritDoc} */
         @Override
-        public final FloatDuration draw()
+        public FloatDuration draw()
         {
             return new FloatDuration((float) super.wrappedDistribution.draw(), this.unit);
         }
