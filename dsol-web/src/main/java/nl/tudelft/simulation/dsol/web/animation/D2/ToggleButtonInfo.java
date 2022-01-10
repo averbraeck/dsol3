@@ -5,7 +5,7 @@ import nl.tudelft.simulation.dsol.animation.Locatable;
 /**
  * ToggleButtonInfo.java. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -32,7 +32,7 @@ public class ToggleButtonInfo
     /**
      * @return visible
      */
-    public final boolean isVisible()
+    public boolean isVisible()
     {
         return this.visible;
     }
@@ -40,7 +40,7 @@ public class ToggleButtonInfo
     /**
      * @param visible set visible
      */
-    public final void setVisible(boolean visible)
+    public void setVisible(boolean visible)
     {
         this.visible = visible;
     }
@@ -48,7 +48,7 @@ public class ToggleButtonInfo
     /**
      * @return name
      */
-    public final String getName()
+    public String getName()
     {
         return this.name;
     }
@@ -56,7 +56,7 @@ public class ToggleButtonInfo
     /**
      * ToggleButtonInfo.LocatableClass. <br>
      * <br>
-     * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>.
      * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -85,7 +85,7 @@ public class ToggleButtonInfo
         /**
          * @return locatableClass
          */
-        public final Class<? extends Locatable> getLocatableClass()
+        public Class<? extends Locatable> getLocatableClass()
         {
             return this.locatableClass;
         }
@@ -93,7 +93,7 @@ public class ToggleButtonInfo
         /**
          * @return toolTipText
          */
-        public final String getToolTipText()
+        public String getToolTipText()
         {
             return this.toolTipText;
         }
@@ -102,7 +102,7 @@ public class ToggleButtonInfo
     /**
      * ToggleButtonInfo.Text. <br>
      * <br>
-     * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>.
      * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -122,7 +122,7 @@ public class ToggleButtonInfo
     /**
      * ToggleButtonInfo.Gis. <br>
      * <br>
-     * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>.
      * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -151,7 +151,7 @@ public class ToggleButtonInfo
         /**
          * @return layerName
          */
-        public final String getLayerName()
+        public String getLayerName()
         {
             return this.layerName;
         }
@@ -159,7 +159,7 @@ public class ToggleButtonInfo
         /**
          * @return toolTipText
          */
-        public final String getToolTipText()
+        public String getToolTipText()
         {
             return this.toolTipText;
         }

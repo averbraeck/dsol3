@@ -18,7 +18,7 @@ import nl.tudelft.simulation.introspection.fields.FieldIntrospector;
 public final class FieldIntrospectionBeansTest
 {
     /**
-     * constructs a new PTestFieldIntrospector
+     * constructs a new PTestFieldIntrospector.
      */
     private FieldIntrospectionBeansTest()
     {
@@ -27,7 +27,7 @@ public final class FieldIntrospectionBeansTest
     }
 
     /**
-     * executes the PTestFieldIntrospector
+     * executes the PTestFieldIntrospector.
      * @param args the command line arguments
      */
     public static void main(final String[] args)

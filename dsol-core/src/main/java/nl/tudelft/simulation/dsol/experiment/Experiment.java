@@ -43,7 +43,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
 /**
  * The Experiment specifies the parameters for a number of simulation replications, and can execute a series of replications.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -157,7 +157,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the simulator.
      * @return S; the simulator
      */
-    public final S getSimulator()
+    public S getSimulator()
     {
         return this.simulator;
     }
@@ -175,7 +175,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the list of started replications. Not all replications might have finished yet.
      * @return List&lt;Replication&lt;A, R, T, S&gt;&gt;; the list of started replications
      */
-    public final List<? extends ExperimentReplication<A, R, T, S>> getStartedReplications()
+    public List<? extends ExperimentReplication<A, R, T, S>> getStartedReplications()
     {
         return this.startedReplications;
     }
@@ -352,28 +352,28 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * replications.
      * @return summaryStatistics SortedMap&lt;String, SortedMap&lt;String, Tally&gt;&gt;; the summary statistics
      */
-    public final SortedMap<String, SortedMap<String, Tally>> getSummaryStatistics()
+    public SortedMap<String, SortedMap<String, Tally>> getSummaryStatistics()
     {
         return this.summaryStatistics;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final String getId()
+    public String getId()
     {
         return this.runControl.getId();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final String getDescription()
+    public String getDescription()
     {
         return this.runControl.getDescription();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void setDescription(final String description)
+    public void setDescription(final String description)
     {
         this.runControl.setDescription(description);
     }
@@ -382,14 +382,14 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the current (running or finished) replication.
      * @return int; the current replication (still running or finished in case of last replication)
      */
-    public final int getCurrentReplication()
+    public int getCurrentReplication()
     {
         return this.currentReplicationNumber;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final ContextInterface getContext()
+    public ContextInterface getContext()
     {
         try
         {
@@ -409,7 +409,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
     /**
      * Remove the entire experiment tree from the context.
      */
-    public final void removeFromContext()
+    public void removeFromContext()
     {
         try
         {
@@ -450,7 +450,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the current stream updater.
      * @return streamUpdater StreamUpdater; the current stream updater
      */
-    public final StreamUpdater getStreamUpdater()
+    public StreamUpdater getStreamUpdater()
     {
         return this.streamUpdater;
     }
@@ -459,7 +459,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Set a new StreamUpdater to update the random seeds between replications.
      * @param streamUpdater StreamUpdater; the new stream updater
      */
-    public final void setStreamUpdater(final StreamUpdater streamUpdater)
+    public void setStreamUpdater(final StreamUpdater streamUpdater)
     {
         this.streamUpdater = streamUpdater;
     }
@@ -468,7 +468,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the current replication number, which is -1 if the experiment has not yet started.
      * @return int; the current replication number
      */
-    public final int getCurrentReplicationNumber()
+    public int getCurrentReplicationNumber()
     {
         return this.currentReplicationNumber;
     }
@@ -477,7 +477,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return the total number of replications to execute.
      * @return int; the total number of replications to execute
      */
-    public final int getNumberOfReplications()
+    public int getNumberOfReplications()
     {
         return this.runControl.getNumberOfReplications();
     }
@@ -486,7 +486,7 @@ public class Experiment<A extends Comparable<A> & Serializable, R extends Number
      * Return whether the experiment is running or not.
      * @return boolean; whether the experiment is running or not
      */
-    public final boolean isRunning()
+    public boolean isRunning()
     {
         return this.running;
     }

@@ -13,7 +13,7 @@ import org.junit.Test;
 /**
  * BitSetTest.java.
  * <p>
- * Copyright (c) 2019-2021 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2019-2022 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="https://djunits.org/docs/license.html">DJUNITS License</a>.
  * <p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -30,14 +30,14 @@ public class BitSetTest
         assertEquals(true, bs1.get(0));
         bs1 = BitUtil.fromBoolean(false);
         assertEquals(false, bs1.get(0));
-        
+
         bs1 = BitUtil.fromInt(0, 31);
-        for (int i=0; i<31; i++)
+        for (int i = 0; i < 31; i++)
         {
             assertFalse(bs1.get(i));
         }
         bs1 = BitUtil.fromInt(Integer.MAX_VALUE, 31);
-        for (int i=0; i<31; i++)
+        for (int i = 0; i < 31; i++)
         {
             assertTrue(bs1.get(i));
         }
@@ -51,12 +51,12 @@ public class BitSetTest
         assertFalse(bs1.get(5));
         assertTrue(bs1.get(6));
         assertFalse(bs1.get(7));
-        
+
         assertEquals(bs1, BitUtil.fromByteArray(bs1.toByteArray()));
         assertEquals(bs1, BitUtil.fromByteArray(BitUtil.toByteArray(bs1)));
         assertEquals(bs1, BitUtil.fromString(bs1.toString()));
         assertEquals(bs1, BitUtil.fromInt(BitUtil.toInt(bs1, 8), 8));
-        
+
         String s = "10101010";
         BitSet bs2 = BitUtil.fromString(s);
         assertEquals(bs1, bs2);
@@ -68,7 +68,7 @@ public class BitSetTest
         assertEquals(bs1, bs2);
         bs2 = BitUtil.fromString("{}");
         assertEquals(0, BitUtil.toInt(bs2, 8));
-        
+
         Try.testFail(new Execution()
         {
             @Override
@@ -86,7 +86,7 @@ public class BitSetTest
                 BitUtil.toInt(BitUtil.fromString("1001"), 0);
             }
         }, "BitUtil.toInt positive number of bits");
-        
+
         Try.testFail(new Execution()
         {
             @Override
@@ -104,7 +104,7 @@ public class BitSetTest
                 BitUtil.fromInt(10, 0);
             }
         }, "BitUtil.fromInt positive number of bits");
-        
+
         Try.testFail(new Execution()
         {
             @Override
@@ -113,7 +113,7 @@ public class BitSetTest
                 BitUtil.fromInt(-1, 30);
             }
         }, "BitUtil.fromInt positive value only");
-        
+
         Try.testFail(new Execution()
         {
             @Override
@@ -122,7 +122,7 @@ public class BitSetTest
                 BitUtil.fromString("{1,3,5");
             }
         }, "BitUtil.fromInt positive value only");
-        
+
         Try.testFail(new Execution()
         {
             @Override
@@ -131,6 +131,6 @@ public class BitSetTest
                 BitUtil.fromString("0012001");
             }
         }, "BitUtil.fromInt positive value only");
-        
+
     }
 }

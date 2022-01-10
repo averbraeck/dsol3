@@ -26,7 +26,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * The Seize requests a resource and releases an entity whenever this resource is actually claimed.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -97,7 +97,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
      * @param object Object; the object
      * @param pRequestedCapacity double; the requested capacity
      */
-    public final synchronized void receiveObject(final Object object, final double pRequestedCapacity)
+    public synchronized void receiveObject(final Object object, final double pRequestedCapacity)
 
     {
         super.receiveObject(object);
@@ -128,7 +128,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
      * sets the queue to this seize. This enables seize blocks to share one queue.
      * @param queue List&lt;Request&lt;A,R,T&gt;&gt;; is a new queue.
      */
-    public final void setQueue(final List<Request<A, R, T>> queue)
+    public void setQueue(final List<Request<A, R, T>> queue)
     {
         this.queue = queue;
     }
@@ -144,7 +144,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
 
     /** {@inheritDoc} */
     @Override
-    public final void receiveRequestedResource(final double pRequestedCapacity, final Resource<A, R, T> pResource)
+    public void receiveRequestedResource(final double pRequestedCapacity, final Resource<A, R, T> pResource)
 
     {
         for (Request<A, R, T> request : this.queue)
@@ -200,7 +200,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
          * Returns the amount.
          * @return double
          */
-        public final double getAmount()
+        public double getAmount()
         {
             return this.amount;
         }
@@ -209,7 +209,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
          * Returns the entity.
          * @return Object
          */
-        public final Object getEntity()
+        public Object getEntity()
         {
             return this.entity;
         }
@@ -218,7 +218,7 @@ public class Seize<A extends Comparable<A> & Serializable, R extends Number & Co
          * Returns the creationTime.
          * @return double
          */
-        public final T getCreationTime()
+        public T getCreationTime()
         {
             return this.creationTime;
         }

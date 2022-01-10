@@ -21,7 +21,7 @@ import nl.tudelft.simulation.dsol.web.animation.HTMLGraphics2D;
 /**
  * The GridPanel introduces the gridPanel.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -176,7 +176,7 @@ public class HTMLGridPanel implements ImageObserver
      * show the grid?
      * @param bool boolean; true/false
      */
-    public final synchronized void showGrid(final boolean bool)
+    public synchronized void showGrid(final boolean bool)
     {
         this.showGrid = bool;
         this.repaint();
@@ -186,7 +186,7 @@ public class HTMLGridPanel implements ImageObserver
      * returns the extent of this panel.
      * @return Bounds2d
      */
-    public final Bounds2d getExtent()
+    public Bounds2d getExtent()
     {
         return this.extent;
     }
@@ -195,7 +195,7 @@ public class HTMLGridPanel implements ImageObserver
      * returns the extent of this panel.
      * @param extent Bounds2d; the new extent
      */
-    public final void setExtent(final Bounds2d extent)
+    public void setExtent(final Bounds2d extent)
     {
         this.extent = extent;
     }
@@ -204,7 +204,7 @@ public class HTMLGridPanel implements ImageObserver
      * Set the world coordinates based on a mouse move.
      * @param point Point2D; the x,y world coordinates
      */
-    public final synchronized void setWorldCoordinate(final Point2d point)
+    public synchronized void setWorldCoordinate(final Point2d point)
     {
         this.worldCoordinate = point;
     }
@@ -212,7 +212,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return worldCoordinate
      */
-    public final synchronized Point2d getWorldCoordinate()
+    public synchronized Point2d getWorldCoordinate()
     {
         return this.worldCoordinate;
     }
@@ -220,7 +220,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * Display a tooltip with the last known world coordinates of the mouse, in case the tooltip should be displayed.
      */
-    public final synchronized void displayWorldCoordinateToolTip()
+    public synchronized void displayWorldCoordinateToolTip()
     {
         if (this.showToolTip)
         {
@@ -233,7 +233,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return showToolTip
      */
-    public final synchronized boolean isShowToolTip()
+    public synchronized boolean isShowToolTip()
     {
         return this.showToolTip;
     }
@@ -241,7 +241,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param showToolTip boolean; set showToolTip
      */
-    public final synchronized void setShowToolTip(final boolean showToolTip)
+    public synchronized void setShowToolTip(final boolean showToolTip)
     {
         this.showToolTip = showToolTip;
     }
@@ -251,7 +251,7 @@ public class HTMLGridPanel implements ImageObserver
      * @param direction int; the direction
      * @param percentage double; the percentage
      */
-    public final synchronized void pan(final int direction, final double percentage)
+    public synchronized void pan(final int direction, final double percentage)
     {
         if (percentage <= 0 || percentage > 1.0)
         {
@@ -288,7 +288,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * resets the panel to its original extent.
      */
-    public final synchronized void home()
+    public synchronized void home()
     {
         this.extent = this.renderableScale.computeVisibleExtent(this.homeExtent, this.getSize());
         this.repaint();
@@ -297,7 +297,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return Returns the showGrid.
      */
-    public final boolean isShowGrid()
+    public boolean isShowGrid()
     {
         return this.showGrid;
     }
@@ -305,7 +305,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param showGrid boolean; The showGrid to set.
      */
-    public final void setShowGrid(final boolean showGrid)
+    public void setShowGrid(final boolean showGrid)
     {
         this.showGrid = showGrid;
     }
@@ -314,7 +314,7 @@ public class HTMLGridPanel implements ImageObserver
      * zooms in/out.
      * @param factor double; The zoom factor
      */
-    public final synchronized void zoom(final double factor)
+    public synchronized void zoom(final double factor)
     {
         zoom(factor, (int) (this.getWidth() / 2.0), (int) (this.getHeight() / 2.0));
     }
@@ -325,7 +325,7 @@ public class HTMLGridPanel implements ImageObserver
      * @param mouseX int; x-position of the mouse around which we zoom
      * @param mouseY int; y-position of the mouse around which we zoom
      */
-    public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
+    public synchronized void zoom(final double factor, final int mouseX, final int mouseY)
     {
         Point2d mwc = this.renderableScale.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent, this.getSize());
         double minX = mwc.getX() - (mwc.getX() - this.extent.getMinX()) * factor;
@@ -451,7 +451,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return size
      */
-    public final Dimension getSize()
+    public Dimension getSize()
     {
         return this.size;
     }
@@ -459,7 +459,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param size Dimension; set size
      */
-    public final void setSize(final Dimension size)
+    public void setSize(final Dimension size)
     {
         this.size = size;
     }
@@ -467,7 +467,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return background
      */
-    public final Color getBackground()
+    public Color getBackground()
     {
         return this.background;
     }
@@ -475,7 +475,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param background Color; set background
      */
-    public final void setBackground(final Color background)
+    public void setBackground(final Color background)
     {
         this.background = background;
     }
@@ -483,7 +483,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return width
      */
-    public final int getWidth()
+    public int getWidth()
     {
         return this.size.width;
     }
@@ -491,7 +491,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return height
      */
-    public final int getHeight()
+    public int getHeight()
     {
         return this.size.height;
     }
@@ -499,7 +499,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return preferredSize
      */
-    public final Dimension getPreferredSize()
+    public Dimension getPreferredSize()
     {
         return this.preferredSize;
     }
@@ -507,7 +507,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param preferredSize Dimension; set preferredSize
      */
-    public final void setPreferredSize(final Dimension preferredSize)
+    public void setPreferredSize(final Dimension preferredSize)
     {
         this.preferredSize = preferredSize;
     }
@@ -515,7 +515,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return toolTipText
      */
-    public final String getToolTipText()
+    public String getToolTipText()
     {
         return this.toolTipText;
     }
@@ -523,7 +523,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param toolTipText String; set toolTipText
      */
-    public final void setToolTipText(final String toolTipText)
+    public void setToolTipText(final String toolTipText)
     {
         this.toolTipText = toolTipText;
     }
@@ -531,7 +531,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return showing
      */
-    public final boolean isShowing()
+    public boolean isShowing()
     {
         return this.showing;
     }
@@ -539,7 +539,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param showing boolean; set showing
      */
-    public final void setShowing(final boolean showing)
+    public void setShowing(final boolean showing)
     {
         this.showing = showing;
     }
@@ -547,7 +547,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return font
      */
-    public final Font getFont()
+    public Font getFont()
     {
         return this.currentFont;
     }
@@ -555,7 +555,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param font Font; set font
      */
-    public final void setFont(final Font font)
+    public void setFont(final Font font)
     {
         this.currentFont = font;
     }
@@ -564,7 +564,7 @@ public class HTMLGridPanel implements ImageObserver
      * @param font Font; the font to calculate the fontmetrics for
      * @return fontMetrics
      */
-    public final FontMetrics getFontMetrics(final Font font)
+    public FontMetrics getFontMetrics(final Font font)
     {
         return this.canvas.getFontMetrics(font);
     }
@@ -572,7 +572,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return dirty
      */
-    public final boolean isDirty()
+    public boolean isDirty()
     {
         return this.dirty;
     }
@@ -588,7 +588,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @return renderableScale
      */
-    public final RenderableScale getRenderableScale()
+    public RenderableScale getRenderableScale()
     {
         return this.renderableScale;
     }
@@ -596,7 +596,7 @@ public class HTMLGridPanel implements ImageObserver
     /**
      * @param renderableScale set renderableScale
      */
-    public final void setRenderableScale(final RenderableScale renderableScale)
+    public void setRenderableScale(final RenderableScale renderableScale)
     {
         this.renderableScale = renderableScale;
     }

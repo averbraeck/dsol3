@@ -35,7 +35,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * InitialContext in the Java JNDI package, but creates a lightweight Context that implements the DSOL ContextInterface. The
  * InitialEventContext is a singleton class.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -43,7 +43,8 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class InitialEventContext implements EventContext
+@SuppressWarnings("checkstyle:needbraces")
+public final class InitialEventContext implements EventContext
 {
     /** */
     private static final long serialVersionUID = 20200101L;
@@ -100,7 +101,7 @@ public class InitialEventContext implements EventContext
     protected boolean gotDefault = false;
 
     /** The event producer to which context events will be delegated for handling. */
-    protected final ContextEventProducerImpl contextEventProducerImpl;
+    public ContextEventProducerImpl contextEventProducerImpl;
 
     /**
      * Constructs an initial context. No environment properties are supplied. Equivalent to
@@ -584,7 +585,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType)
+    public synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType)
             throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -594,7 +595,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
+    public synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final ReferenceType referenceType) throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -604,7 +605,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
+    public synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final int position) throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -614,7 +615,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
+    public synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final int position, final ReferenceType referenceType) throws RemoteException
     {
         if (this.defaultInitCtx != null)
@@ -624,7 +625,7 @@ public class InitialEventContext implements EventContext
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean removeListener(final EventListenerInterface listener, final EventTypeInterface eventType)
+    public synchronized boolean removeListener(final EventListenerInterface listener, final EventTypeInterface eventType)
             throws RemoteException
     {
         if (this.defaultInitCtx != null)

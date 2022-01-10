@@ -21,7 +21,7 @@ import org.junit.Test;
 /**
  * InputParameterTest.java. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -34,7 +34,7 @@ public class InputParameterTest
      * @throws InputParameterException on setting error
      */
     @Test
-    public final void testInputParameterBoolean() throws InputParameterException
+    public void testInputParameterBoolean() throws InputParameterException
     {
         InputParameterBoolean ip = new InputParameterBoolean("bool", "boolean", "boolean value", true, 1.0);
         assertEquals("bool", ip.getKey());
@@ -113,7 +113,7 @@ public class InputParameterTest
      * @throws InputParameterException on setValue that did not work
      */
     @Test
-    public final void testInputParameterDouble() throws InputParameterException
+    public void testInputParameterDouble() throws InputParameterException
     {
         InputParameterDouble ip = new InputParameterDouble("d", "double", "double value", 12.34, 2.0);
         InputParameterMap map = makeInputParameterMap();
@@ -195,7 +195,7 @@ public class InputParameterTest
      * @throws InputParameterException on setValue that did not work
      */
     @Test
-    public final void testInputParameterFloat() throws InputParameterException
+    public void testInputParameterFloat() throws InputParameterException
     {
         InputParameterFloat ip = new InputParameterFloat("f", "float", "float value", 12.34f, 2.0);
         InputParameterMap map = makeInputParameterMap();
@@ -277,7 +277,7 @@ public class InputParameterTest
      * @throws InputParameterException on setValue that did not work
      */
     @Test
-    public final void testInputParameterInteger() throws InputParameterException
+    public void testInputParameterInteger() throws InputParameterException
     {
         InputParameterInteger ip = new InputParameterInteger("i", "int", "int value", 12, 2.0);
         InputParameterMap map = makeInputParameterMap();
@@ -325,7 +325,7 @@ public class InputParameterTest
      * @throws InputParameterException on setValue that did not work
      */
     @Test
-    public final void testInputParameterLong() throws InputParameterException
+    public void testInputParameterLong() throws InputParameterException
     {
         InputParameterLong ip = new InputParameterLong("L", "long", "long value", 12L, 2.0);
         InputParameterMap map = makeInputParameterMap();
@@ -373,7 +373,7 @@ public class InputParameterTest
      * @throws InputParameterException on setValue that did not work
      */
     @Test
-    public final void testInputParameterString() throws InputParameterException
+    public void testInputParameterString() throws InputParameterException
     {
         InputParameterString ip = new InputParameterString("s", "string", "string value", "abc", 2.0);
         InputParameterMap map = makeInputParameterMap();
@@ -410,7 +410,7 @@ public class InputParameterTest
      */
     @Test
     @SuppressWarnings("checkstyle:methodlength")
-    public final void testInputParameterDoubleScalar() throws InputParameterException
+    public void testInputParameterDoubleScalar() throws InputParameterException
     {
         InputParameterDoubleScalar<LengthUnit, Length> ip = new InputParameterDoubleScalar<>("len", "length", "length value",
                 new Length(12.34, LengthUnit.CENTIMETER), 2.0);
@@ -660,7 +660,7 @@ public class InputParameterTest
      */
     @Test
     @SuppressWarnings("checkstyle:methodlength")
-    public final void testInputParameterFloatScalar() throws InputParameterException
+    public void testInputParameterFloatScalar() throws InputParameterException
     {
         InputParameterFloatScalar<LengthUnit, FloatLength> ip = new InputParameterFloatScalar<>("len", "length", "length value",
                 new FloatLength(12.34f, LengthUnit.CENTIMETER), 2.0);
@@ -910,7 +910,7 @@ public class InputParameterTest
      * @throws InputParameterException on setValue that did not work
      */
     @Test
-    public final void testInputParameterUnit() throws InputParameterException
+    public void testInputParameterUnit() throws InputParameterException
     {
         InputParameterUnit<DurationUnit> ip =
                 new InputParameterUnit<>("unit", "duration", "duration unit", DurationUnit.HOUR, 2.0);

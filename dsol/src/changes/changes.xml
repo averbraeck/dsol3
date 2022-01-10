@@ -4,6 +4,16 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.07.06" date="2022-01-10" description="Final methods removed">
+      <action dev="averbraeck" type="update">
+        The 'final' keyword with methods has been removed. It turned out to be a nuisance time after time that methods
+        could not be extended, e.g., to return an object with narrower scope.  
+      </action>
+      <action dev="averbraeck" type="update">
+        The copyright notice has been updated to 2022.
+      </action>
+    </release>
+    
     <release version="3.07.05" date="2021-04-10" description="ExperimentRunControl added">
       <action dev="averbraeck" type="add">
         An ExperimentRunControl object to more easily store offline data for the run control of the experiment 

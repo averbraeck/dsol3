@@ -29,7 +29,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
 /**
  * The xyChart specifies the xyChart in DSOL.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -242,7 +242,7 @@ public class XYChart implements Swingable, Serializable
     }
 
     /**
-     * adds a tally to the xyChart
+     * adds a tally to the xyChart.
      * @param persistent Persistent; the persistent
      */
     public void add(final SimPersistent<?, ?, ?> persistent)
@@ -253,7 +253,7 @@ public class XYChart implements Swingable, Serializable
     }
 
     /**
-     * adds an eventProducer to the xyChart
+     * adds an eventProducer to the xyChart.
      * @param description String; the description of the eventProducer
      * @param source EventProducerInterface; the source
      * @param eventType EventType; the event
@@ -290,7 +290,7 @@ public class XYChart implements Swingable, Serializable
     }
 
     /**
-     * returns the chart
+     * returns the chart.
      * @return JFreeChart
      */
     public JFreeChart getChart()
@@ -309,7 +309,7 @@ public class XYChart implements Swingable, Serializable
     }
 
     /**
-     * returns the dataset of a xyChart
+     * returns the dataset of a xyChart.
      * @return HistogramSeries
      */
     public XYDataset getDataset()
@@ -318,7 +318,7 @@ public class XYChart implements Swingable, Serializable
     }
 
     /**
-     * applies a filter on the chart
+     * applies a filter on the chart.
      * @param filter FilterInterface; the filter to apply
      */
     public void setFilter(final FilterInterface filter)

@@ -5,7 +5,7 @@ import org.djutils.exceptions.Throw;
 /**
  * InputParameterFloat.java. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -77,7 +77,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
 
     /** {@inheritDoc} */
     @Override
-    public final Float getCalculatedValue()
+    public Float getCalculatedValue()
     {
         return getValue();
     }
@@ -87,7 +87,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
      * @param newValue float; the new value for the input parameter
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
-    public final void setFloatValue(final float newValue) throws InputParameterException
+    public void setFloatValue(final float newValue) throws InputParameterException
     {
         if (this.minimumValue > newValue || this.maximumValue < newValue || (this.minimumValue == newValue && !this.minIncluded)
                 || (this.maximumValue == newValue && !this.maxIncluded) || Float.isNaN(newValue))
@@ -101,7 +101,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @return format
      */
-    public final String getFormat()
+    public String getFormat()
     {
         return this.format;
     }
@@ -110,7 +110,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
      * @param format String; set format
      * @throws NullPointerException when format is null
      */
-    public final void setFormat(final String format)
+    public void setFormat(final String format)
     {
         Throw.whenNull(format, "format cannot be null");
         this.format = format;
@@ -119,7 +119,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @return minimumValue
      */
-    public final Float getMinimumValue()
+    public Float getMinimumValue()
     {
         return this.minimumValue;
     }
@@ -127,7 +127,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @param minimumValue float; set minimumValue
      */
-    public final void setMinimumValue(final float minimumValue)
+    public void setMinimumValue(final float minimumValue)
     {
         this.minimumValue = minimumValue;
     }
@@ -135,7 +135,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @return maximumValue
      */
-    public final Float getMaximumValue()
+    public Float getMaximumValue()
     {
         return this.maximumValue;
     }
@@ -143,7 +143,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @param maximumValue float; set maximumValue
      */
-    public final void setMaximumValue(final float maximumValue)
+    public void setMaximumValue(final float maximumValue)
     {
         this.maximumValue = maximumValue;
     }
@@ -151,7 +151,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @return minIncluded
      */
-    public final boolean isMinIncluded()
+    public boolean isMinIncluded()
     {
         return this.minIncluded;
     }
@@ -159,7 +159,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @param minIncluded boolean; set minIncluded
      */
-    public final void setMinIncluded(final boolean minIncluded)
+    public void setMinIncluded(final boolean minIncluded)
     {
         this.minIncluded = minIncluded;
     }
@@ -167,7 +167,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @return maxIncluded
      */
-    public final boolean isMaxIncluded()
+    public boolean isMaxIncluded()
     {
         return this.maxIncluded;
     }
@@ -175,7 +175,7 @@ public class InputParameterFloat extends AbstractInputParameter<Float, Float>
     /**
      * @param maxIncluded boolean; set maxIncluded
      */
-    public final void setMaxIncluded(final boolean maxIncluded)
+    public void setMaxIncluded(final boolean maxIncluded)
     {
         this.maxIncluded = maxIncluded;
     }

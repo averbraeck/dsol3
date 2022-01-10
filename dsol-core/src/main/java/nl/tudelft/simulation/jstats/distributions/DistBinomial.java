@@ -11,7 +11,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * distribution see <a href="https://mathworld.wolfram.com/BinomialDistribution.html">
  * https://mathworld.wolfram.com/BinomialDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -78,7 +78,7 @@ public class DistBinomial extends DistDiscrete
      * Return the number of independent experiments for the Binomial distribution.
      * @return int; the number of independent experiments for the Binomial distribution
      */
-    public final int getN()
+    public int getN()
     {
         return this.n;
     }
@@ -87,7 +87,7 @@ public class DistBinomial extends DistDiscrete
      * Return the probability of success for each individual trial in the binomial distribution.
      * @return double; the probability of success for each individual trial in the binomial distribution
      */
-    public final double getP()
+    public double getP()
     {
         return this.p;
     }

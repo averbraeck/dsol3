@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.simtime;
 /**
  * The SimTime class with a double as the absolute time, and a double as the relative time. No units are used.
  * <p>
- * Copyright (c) 2016-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -29,42 +29,42 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final Double relativeTime)
+    public void add(final Double relativeTime)
     {
         this.time += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final Double relativeTime)
+    public void subtract(final Double relativeTime)
     {
         this.time -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Double diff(final Double simTime)
+    public Double diff(final Double simTime)
     {
         return this.time - simTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void set(final Double absoluteTime)
+    public void set(final Double absoluteTime)
     {
         this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Double get()
+    public Double get()
     {
         return this.time;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeDouble setZero()
+    public SimTimeDouble setZero()
     {
         this.time = 0.0d;
         return this;
@@ -72,7 +72,7 @@ public class SimTimeDouble extends SimTime<Double, Double, SimTimeDouble>
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeDouble copy()
+    public SimTimeDouble copy()
     {
         return new SimTimeDouble(this.time);
     }

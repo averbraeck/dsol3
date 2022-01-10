@@ -12,7 +12,7 @@ import org.djutils.reflection.ClassUtil;
  * InputParameterFloatScalar: float parameter with a unit. The number and the value are stored in an InputParameterMap as two
  * input variables of type InputFieldFloat (name: value), and InputFieldUnit (name: unit). <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -161,7 +161,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
      *             or when the scalar does not have a constructor Scalar(float, unit)
      */
     @Override
-    public final void setCalculatedValue() throws InputParameterException
+    public void setCalculatedValue() throws InputParameterException
     {
         float floatValue = ((InputParameterFloat) get("value")).getValue();
         @SuppressWarnings("unchecked")
@@ -195,7 +195,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /**
      * @return minimumValue (SI units)
      */
-    public final Float getMinimumValueSI()
+    public Float getMinimumValueSI()
     {
         return this.minimumValueSI;
     }
@@ -203,7 +203,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /**
      * @param minimumValueSI float; set minimumValue (SI units)
      */
-    public final void setMinimumValueSI(final float minimumValueSI)
+    public void setMinimumValueSI(final float minimumValueSI)
     {
         this.minimumValueSI = minimumValueSI;
     }
@@ -211,7 +211,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /**
      * @return maximumValue (SI units)
      */
-    public final Float getMaximumValueSI()
+    public Float getMaximumValueSI()
     {
         return this.maximumValueSI;
     }
@@ -219,7 +219,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /**
      * @param maximumValueSI float; set maximumValue (SI units)
      */
-    public final void setMaximumValueSI(final float maximumValueSI)
+    public void setMaximumValueSI(final float maximumValueSI)
     {
         this.maximumValueSI = maximumValueSI;
     }
@@ -227,7 +227,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /**
      * @return minIncluded
      */
-    public final boolean isMinIncluded()
+    public boolean isMinIncluded()
     {
         return this.minIncluded;
     }
@@ -235,7 +235,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /**
      * @param minIncluded boolean; set minIncluded
      */
-    public final void setMinIncluded(final boolean minIncluded)
+    public void setMinIncluded(final boolean minIncluded)
     {
         this.minIncluded = minIncluded;
     }
@@ -243,7 +243,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /**
      * @return maxIncluded
      */
-    public final boolean isMaxIncluded()
+    public boolean isMaxIncluded()
     {
         return this.maxIncluded;
     }
@@ -251,7 +251,7 @@ public class InputParameterFloatScalar<U extends Unit<U>, T extends AbstractFloa
     /**
      * @param maxIncluded boolean; set maxIncluded
      */
-    public final void setMaxIncluded(final boolean maxIncluded)
+    public void setMaxIncluded(final boolean maxIncluded)
     {
         this.maxIncluded = maxIncluded;
     }

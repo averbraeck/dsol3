@@ -30,7 +30,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * a map where the units of the object are in meters, while the map is in lat / lon degrees).<br>
  * The default values are: translate = true; scale = true; flip = false; rotate = true; scaleY = false; scaleObject = false.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -99,7 +99,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * overwritten.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object into the context
      */
-    protected final void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
+    public void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
     {
         try
         {
@@ -127,7 +127,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * @param flip boolean; whether to flip the renderable, if the direction is 'left' or not
      */
     @SuppressWarnings("checkstyle:needbraces")
-    public final void setFlip(final boolean flip)
+    public void setFlip(final boolean flip)
     {
         if (flip)
             this.flags |= FLIP_FLAG;
@@ -149,7 +149,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * @param rotate boolean; whether to rotate the renderable or not
      */
     @SuppressWarnings("checkstyle:needbraces")
-    public final void setRotate(final boolean rotate)
+    public void setRotate(final boolean rotate)
     {
         if (rotate)
             this.flags |= ROTATE_FLAG;
@@ -171,7 +171,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * @param scale boolean; whether to scale the renderable or not
      */
     @SuppressWarnings("checkstyle:needbraces")
-    public final void setScale(final boolean scale)
+    public void setScale(final boolean scale)
     {
         if (scale)
             this.flags |= SCALE_FLAG;
@@ -194,7 +194,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      *            RenderableScale.objectScaleFactor or not
      */
     @SuppressWarnings("checkstyle:needbraces")
-    public final void setScaleObject(final boolean scaleY)
+    public void setScaleObject(final boolean scaleY)
     {
         if (scaleY)
             this.flags |= SCALE_OBJECT_FLAG;
@@ -217,7 +217,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * @param scaleY boolean; whether to scale the renderable in the Y-direction when there is a compressed Y-axis or not
      */
     @SuppressWarnings("checkstyle:needbraces")
-    public final void setScaleY(final boolean scaleY)
+    public void setScaleY(final boolean scaleY)
     {
         if (scaleY)
             this.flags |= SCALE_Y_FLAG;
@@ -239,7 +239,7 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
      * @param translate boolean; whether to translate the renderable to its position or not (false means absolute position)
      */
     @SuppressWarnings("checkstyle:needbraces")
-    public final void setTranslate(final boolean translate)
+    public void setTranslate(final boolean translate)
     {
         if (translate)
             this.flags |= TRANSLATE_FLAG;

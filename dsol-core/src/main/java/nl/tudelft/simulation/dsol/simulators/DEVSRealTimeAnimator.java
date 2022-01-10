@@ -26,7 +26,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * The reference implementation of the realTimeClock. The realTime clock is a DEVS simulator which runs at a ratio of realTime.
  * If the executionTime exceeds the timeStep, a catchup mechanism can be triggered to make up lost time in consecutive steps.
  * <p>
- * Copyright (c) 2004-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2004-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -381,7 +381,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
     /**
      * @return animation boolean; whether we support animation or not
      */
-    public final boolean isAnimation()
+    public boolean isAnimation()
     {
         return this.animation;
     }
@@ -389,7 +389,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
     /**
      * @return speedFactor
      */
-    public final double getSpeedFactor()
+    public double getSpeedFactor()
     {
         return this.speedFactor;
     }
@@ -399,7 +399,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
      * @param newSpeedFactor double; the new speed factor to set
      * @param fireChangeSpeedFactorEvent boolean; whether to fire a CHANGE_SPEED_FACTOR event or not
      */
-    public final void setSpeedFactor(final double newSpeedFactor, final boolean fireChangeSpeedFactorEvent)
+    public void setSpeedFactor(final double newSpeedFactor, final boolean fireChangeSpeedFactorEvent)
     {
         this.speedFactor = newSpeedFactor;
         if (fireChangeSpeedFactorEvent)
@@ -412,7 +412,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
      * Set the speedFactor, and send a CHANGE_SPEED_FACTOR event.
      * @param newSpeedFactor double; set speedFactor
      */
-    public final void setSpeedFactor(final double newSpeedFactor)
+    public void setSpeedFactor(final double newSpeedFactor)
     {
         setSpeedFactor(newSpeedFactor, true);
     }
@@ -420,7 +420,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
     /**
      * @return catchup
      */
-    public final boolean isCatchup()
+    public boolean isCatchup()
     {
         return this.catchup;
     }
@@ -428,7 +428,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
     /**
      * @param catchup boolean; set catchup
      */
-    public final void setCatchup(final boolean catchup)
+    public void setCatchup(final boolean catchup)
     {
         this.catchup = catchup;
     }
@@ -439,7 +439,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
      * events.
      * @return the relative update delay in milliseconds
      */
-    public final int getUpdateMsec()
+    public int getUpdateMsec()
     {
         return this.updateMsec;
     }
@@ -452,7 +452,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
      * so 1 kHz can be too fine grained in some situations.
      * @param updateMsec int; set the relative update delay in milliseconds
      */
-    public final void setUpdateMsec(final int updateMsec)
+    public void setUpdateMsec(final int updateMsec)
     {
         this.updateMsec = updateMsec;
     }
@@ -488,7 +488,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
 
         /** {@inheritDoc} */
         @Override
-        protected final Double simulatorTimeForWallClockMillis(final double wallMilliseconds)
+        public Double simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
             return this.msecWallClockToSimTimeUnit * wallMilliseconds;
         }
@@ -567,7 +567,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
 
         /** {@inheritDoc} */
         @Override
-        protected final Duration simulatorTimeForWallClockMillis(final double wallMilliseconds)
+        public Duration simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
             return new Duration(wallMilliseconds, DurationUnit.MILLISECOND);
         }
@@ -598,7 +598,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
 
         /** {@inheritDoc} */
         @Override
-        protected final FloatDuration simulatorTimeForWallClockMillis(final double wallMilliseconds)
+        public FloatDuration simulatorTimeForWallClockMillis(final double wallMilliseconds)
         {
             return new FloatDuration((float) wallMilliseconds, DurationUnit.MILLISECOND);
         }

@@ -10,7 +10,7 @@ import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 
 /**
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
  * <p>
  * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
  * <p>
@@ -60,7 +60,7 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
     /**
      * @return chart
      */
-    public final XYChart getDistanceChart()
+    public XYChart getDistanceChart()
     {
         return this.distanceChart;
     }
@@ -68,7 +68,7 @@ public class DESSModel extends AbstractDSOLModel.TimeDouble<DESSSimulatorInterfa
     /**
      * @return distancePersistent
      */
-    public final SimPersistent<Double, Double, SimTimeDouble> getDistancePersistent()
+    public SimPersistent<Double, Double, SimTimeDouble> getDistancePersistent()
     {
         return this.distancePersistent;
     }

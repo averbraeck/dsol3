@@ -8,7 +8,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * EIC class. EIC stands for External Input Coupling, which is a coupling between the outside of a coupled model and a component
  * within that coupled model. The definition can be found in Zeigler et al. (2000), p. 86-87.
  * <p>
- * Copyright (c) 2009-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -50,7 +50,7 @@ public class EIC<A extends Comparable<A> & Serializable, R extends Number & Comp
     /**
      * @return the output port of the sending component.
      */
-    public final InputPortInterface<A, R, T, P> getFromPort()
+    public InputPortInterface<A, R, T, P> getFromPort()
     {
         return this.fromPort;
     }
@@ -58,7 +58,7 @@ public class EIC<A extends Comparable<A> & Serializable, R extends Number & Comp
     /**
      * @return the input port of the receiving component.
      */
-    public final InputPortInterface<A, R, T, P> getToPort()
+    public InputPortInterface<A, R, T, P> getToPort()
     {
         return this.toPort;
     }

@@ -12,7 +12,7 @@ import org.djutils.exceptions.Throw;
  * A helper class for transforming between screen coordinates and world coordinates. The x-axis and y-axis can be scaled
  * independently from each other, causing expansion or compression of the y-axis relative to the x-axis.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -164,7 +164,7 @@ public class RenderableScale
      * Return the y-scale ratio. A number larger than 1 means the y-axis is compressed.
      * @return double; the y-scale ratio. A number larger than 1 means the y-axis is compressed
      */
-    public final double getYScaleRatio()
+    public double getYScaleRatio()
     {
         return this.yScaleRatio;
     }
@@ -174,7 +174,7 @@ public class RenderableScale
      * 1 means that the object will be drawn smaller on the screen.
      * @return double; the scale factor for the object, e.g., to get 1 pixel unit to equal 1 meter on a map
      */
-    public final double getObjectScaleFactor()
+    public double getObjectScaleFactor()
     {
         return this.objectScaleFactor;
     }

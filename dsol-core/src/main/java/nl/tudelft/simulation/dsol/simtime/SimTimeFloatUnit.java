@@ -7,7 +7,7 @@ import org.djunits.value.vfloat.scalar.FloatTime;
  * The SimTime class with a FloatTime as the absolute time, and a FloatDuration as the relative time. The units are defined in
  * the djunits package. More information can be found at <a href="https://djunits.org">https://djunits.org</a>.
  * <p>
- * Copyright (c) 2016-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -33,14 +33,14 @@ public class SimTimeFloatUnit extends SimTime<FloatTime, FloatDuration, SimTimeF
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final FloatDuration relativeTime)
+    public void add(final FloatDuration relativeTime)
     {
         this.time = this.time.plus(relativeTime);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final FloatDuration relativeTime)
+    public void subtract(final FloatDuration relativeTime)
     {
         this.time = this.time.minus(relativeTime);
     }
@@ -54,7 +54,7 @@ public class SimTimeFloatUnit extends SimTime<FloatTime, FloatDuration, SimTimeF
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeFloatUnit setZero()
+    public SimTimeFloatUnit setZero()
     {
         this.time = FloatTime.ZERO;
         return this;
@@ -62,21 +62,21 @@ public class SimTimeFloatUnit extends SimTime<FloatTime, FloatDuration, SimTimeF
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeFloatUnit copy()
+    public SimTimeFloatUnit copy()
     {
         return new SimTimeFloatUnit(this.time);
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void set(final FloatTime absoluteTime)
+    public void set(final FloatTime absoluteTime)
     {
         this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final FloatTime get()
+    public FloatTime get()
     {
         return this.time;
     }

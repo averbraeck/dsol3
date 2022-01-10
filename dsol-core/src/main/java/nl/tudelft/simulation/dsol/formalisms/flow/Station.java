@@ -19,7 +19,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * A station is an object which can accept other objects.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -76,7 +76,7 @@ public abstract class Station<A extends Comparable<A> & Serializable, R extends 
 
     /** {@inheritDoc} */
     @Override
-    public final void setDestination(final StationInterface<A, R, T> destination)
+    public void setDestination(final StationInterface<A, R, T> destination)
     {
         this.destination = destination;
     }
@@ -96,7 +96,7 @@ public abstract class Station<A extends Comparable<A> & Serializable, R extends 
 
     /** {@inheritDoc} */
     @Override
-    public final StationInterface<A, R, T> getDestination()
+    public StationInterface<A, R, T> getDestination()
     {
         return this.destination;
     }
@@ -104,7 +104,7 @@ public abstract class Station<A extends Comparable<A> & Serializable, R extends 
     /**
      * @return simulator
      */
-    public final DEVSSimulatorInterface<A, R, T> getSimulator()
+    public DEVSSimulatorInterface<A, R, T> getSimulator()
     {
         return this.simulator;
     }

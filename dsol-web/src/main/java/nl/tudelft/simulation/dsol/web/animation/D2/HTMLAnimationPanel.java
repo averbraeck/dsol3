@@ -35,7 +35,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * copyright (c) 2002-2021 <a href="https://simulation.tudelft.nl">Delft University of Technology </a>, the Netherlands. <br>
  * See for project information <a href="https://simulation.tudelft.nl">www.simulation.tudelft.nl </a>.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -361,7 +361,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     /**
      * @return the set of animation elements.
      */
-    public final SortedSet<Renderable2DInterface<? extends Locatable>> getElements()
+    public SortedSet<Renderable2DInterface<? extends Locatable>> getElements()
     {
         return this.elements;
     }
@@ -369,7 +369,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     /**
      * @return returns the dragLine.
      */
-    public final int[] getDragLine()
+    public int[] getDragLine()
     {
         return this.dragLine;
     }
@@ -377,7 +377,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     /**
      * @return returns the dragLineEnabled.
      */
-    public final boolean isDragLineEnabled()
+    public boolean isDragLineEnabled()
     {
         return this.dragLineEnabled;
     }
@@ -385,7 +385,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     /**
      * @param dragLineEnabled boolean; the dragLineEnabled to set.
      */
-    public final void setDragLineEnabled(final boolean dragLineEnabled)
+    public void setDragLineEnabled(final boolean dragLineEnabled)
     {
         this.dragLineEnabled = dragLineEnabled;
     }
@@ -401,7 +401,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * @param toolTipText String; the tool tip text to show when hovering over the button
      * @param initiallyVisible boolean; whether the class is initially shown or not
      */
-    public final void addToggleAnimationButtonText(final String name, final Class<? extends Locatable> locatableClass,
+    public void addToggleAnimationButtonText(final String name, final Class<? extends Locatable> locatableClass,
             final String toolTipText, final boolean initiallyVisible)
     {
         ToggleButtonInfo.LocatableClass buttonInfo =
@@ -423,7 +423,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * Show a Locatable class based on the name.
      * @param name the name of the class to show
      */
-    public final void showClass(final String name)
+    public void showClass(final String name)
     {
         showClass(this.toggleLocatableMap.get(name));
     }
@@ -432,7 +432,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * Hide a Locatable class based on the name.
      * @param name the name of the class to hide
      */
-    public final void hideClass(final String name)
+    public void hideClass(final String name)
     {
         hideClass(this.toggleLocatableMap.get(name));
     }
@@ -441,7 +441,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * Add a text to explain animatable classes.
      * @param text String; the text to show
      */
-    public final void addToggleText(final String text)
+    public void addToggleText(final String text)
     {
         this.toggleButtons.add(new ToggleButtonInfo.Text(text, true));
     }
@@ -452,7 +452,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * @param gisMap GisRenderable2D; the GIS map for which the toggles have to be added
      * @param toolTipText String; the tool tip text to show when hovering over the button
      */
-    public final void addAllToggleGISButtonText(final String header, final GisRenderable2D gisMap, final String toolTipText)
+    public void addAllToggleGISButtonText(final String header, final GisRenderable2D gisMap, final String toolTipText)
     {
         addToggleText(" ");
         addToggleText(header);
@@ -476,7 +476,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * @param gisMap GisRenderable2D; the map
      * @param toolTipText String; the tool tip text
      */
-    public final void addToggleGISButtonText(final String layerName, final String displayName, final GisRenderable2D gisMap,
+    public void addToggleGISButtonText(final String layerName, final String displayName, final GisRenderable2D gisMap,
             final String toolTipText)
     {
         ToggleButtonInfo.Gis buttonInfo = new ToggleButtonInfo.Gis(displayName, layerName, toolTipText, true);
@@ -489,7 +489,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * Set a GIS layer to be shown in the animation to true.
      * @param layerName String; the name of the GIS-layer that has to be shown.
      */
-    public final void showGISLayer(final String layerName)
+    public void showGISLayer(final String layerName)
     {
         GisMapInterface gisMap = this.toggleGISMap.get(layerName);
         if (gisMap != null)
@@ -510,7 +510,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * Set a GIS layer to be hidden in the animation to true.
      * @param layerName String; the name of the GIS-layer that has to be hidden.
      */
-    public final void hideGISLayer(final String layerName)
+    public void hideGISLayer(final String layerName)
     {
         GisMapInterface gisMap = this.toggleGISMap.get(layerName);
         if (gisMap != null)
@@ -531,7 +531,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
      * Toggle a GIS layer to be displayed in the animation to its reverse value.
      * @param layerName String; the name of the GIS-layer that has to be turned off or vice versa.
      */
-    public final void toggleGISLayer(final String layerName)
+    public void toggleGISLayer(final String layerName)
     {
         GisMapInterface gisMap = this.toggleGISMap.get(layerName);
         if (gisMap != null)
@@ -559,7 +559,7 @@ public class HTMLAnimationPanel extends HTMLGridPanel implements EventListenerIn
     /**
      * @return toggleButtons
      */
-    public final List<ToggleButtonInfo> getToggleButtons()
+    public List<ToggleButtonInfo> getToggleButtons()
     {
         return this.toggleButtons;
     }

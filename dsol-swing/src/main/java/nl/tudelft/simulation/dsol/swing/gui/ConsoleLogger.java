@@ -30,7 +30,7 @@ import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControl;
 /**
  * Console for a swing application where the log messages are displayed.
  * <p>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -114,7 +114,7 @@ public class ConsoleLogger extends JPanel implements AppearanceControl
      * least 1. If the provided number of lines is less than 1, it wil be set to 1.
      * @param maxLines int; set the maximum number of lines before the first lines will be erased
      */
-    public final void setMaxLines(final int maxLines)
+    public void setMaxLines(final int maxLines)
     {
         this.consoleLogWriter.maxLines = Math.max(1, maxLines);
     }
@@ -130,7 +130,7 @@ public class ConsoleLogger extends JPanel implements AppearanceControl
     /**
      * LogWriter takes care of writing the log records to the console. <br>
      * <br>
-     * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://www.simulation.tudelft.nl/" target="_blank"> www.simulation.tudelft.nl</a>.
      * The source code and binary code of this software is proprietary information of Delft University of Technology.
      * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank"> Alexander Verbraeck</a>

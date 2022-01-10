@@ -24,7 +24,7 @@ public class Customer
      * sets the entrance time of the customer to the queue.
      * @param time double; the entranceTime
      */
-    public final void setEntranceTime(final double time)
+    public void setEntranceTime(final double time)
     {
         this.entranceTime = time;
     }
@@ -33,7 +33,7 @@ public class Customer
      * returns the time this customer entered the queue.
      * @return double the entranceTime
      */
-    public final double getEntranceTime()
+    public double getEntranceTime()
     {
         return this.entranceTime;
     }

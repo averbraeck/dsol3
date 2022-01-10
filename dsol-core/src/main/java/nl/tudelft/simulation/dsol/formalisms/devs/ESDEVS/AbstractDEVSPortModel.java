@@ -12,7 +12,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
 /**
  * AbstractDEVSPortModel class. Adds named ports to the abstract DEVS model.
  * <p>
- * Copyright (c) 2009-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -124,7 +124,7 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A> & Serializab
     /**
      * @return inputPortMap; the map of input port names to input ports.
      */
-    public final Map<String, InputPortInterface<A, R, T, ?>> getInputPortMap()
+    public Map<String, InputPortInterface<A, R, T, ?>> getInputPortMap()
     {
         return this.inputPortMap;
     }
@@ -132,7 +132,7 @@ public abstract class AbstractDEVSPortModel<A extends Comparable<A> & Serializab
     /**
      * @return outputPortMap; the map of output port names to output ports
      */
-    public final Map<String, OutputPortInterface<A, R, T, ?>> getOutputPortMap()
+    public Map<String, OutputPortInterface<A, R, T, ?>> getOutputPortMap()
     {
         return this.outputPortMap;
     }

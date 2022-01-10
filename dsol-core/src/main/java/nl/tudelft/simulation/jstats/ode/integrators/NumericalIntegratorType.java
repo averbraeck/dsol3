@@ -9,7 +9,7 @@ import nl.tudelft.simulation.language.DSOLRuntimeException;
 /**
  * NumericalIntegratorType is an enum with the currently implemented integrators.
  * <p>
- * Copyright (c) 2019-2021 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2019-2022 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="https://djunits.org/docs/license.html">DJUNITS License</a>.
  * <p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -64,7 +64,7 @@ public enum NumericalIntegratorType
      * Returns the value from DSOL-1 before enum was introduced.
      * @return int; the value from DSOL-1 before enum was introduced
      */
-    public final int getValue()
+    public int getValue()
     {
         return this.value;
     }
@@ -73,7 +73,7 @@ public enum NumericalIntegratorType
      * Get the integrator class belonging to the name.
      * @return Class&lt;? extends NumericalIntegrator&gt;; the class of the integrator
      */
-    public final Class<? extends NumericalIntegrator> getIntegratorClass()
+    public Class<? extends NumericalIntegrator> getIntegratorClass()
     {
         return this.integratorClass;
     }
@@ -84,7 +84,7 @@ public enum NumericalIntegratorType
      * @param equation DifferentialEquationInterface; the differential equation
      * @return the integrator
      */
-    public final NumericalIntegrator getInstance(final double stepSize, final DifferentialEquationInterface equation)
+    public NumericalIntegrator getInstance(final double stepSize, final DifferentialEquationInterface equation)
     {
         try
         {

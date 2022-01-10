@@ -12,7 +12,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * For more information on this distribution see <a href="https://mathworld.wolfram.com/GeometricDistribution.html">
  * https://mathworld.wolfram.com/GeometricDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -70,7 +70,7 @@ public class DistGeometric extends DistDiscrete
      * Return the probability of success for each individual trial.
      * @return double; the probability of success for each individual trial
      */
-    public final double getP()
+    public double getP()
     {
         return this.p;
     }

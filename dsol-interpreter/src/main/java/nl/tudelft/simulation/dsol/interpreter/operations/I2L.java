@@ -10,7 +10,7 @@ import nl.tudelft.simulation.dsol.interpreter.classfile.Constant;
  * The I2L operation as defined in <a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5">
  * https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-6.html#jvms-6.5 </a>.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -34,7 +34,7 @@ public class I2L extends VoidOperation
 
     /** {@inheritDoc} */
     @Override
-    public final void execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
+    public void execute(final OperandStack stack, final Constant[] constantPool, final LocalVariable[] localVariables)
     {
         int i = Primitive.toInteger(stack.pop()).intValue();
         stack.push(Long.valueOf(i));
@@ -42,14 +42,14 @@ public class I2L extends VoidOperation
 
     /** {@inheritDoc} */
     @Override
-    public final int getByteLength()
+    public int getByteLength()
     {
         return OPCODE_BYTE_LENGTH;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final int getOpcode()
+    public int getOpcode()
     {
         return I2L.OP;
     }

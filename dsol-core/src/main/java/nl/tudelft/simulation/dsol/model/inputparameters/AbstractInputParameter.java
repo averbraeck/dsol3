@@ -5,7 +5,7 @@ import org.djutils.exceptions.Throw;
 /**
  * Abstract input parameter.
  * <p>
- * Copyright (c) 2013-2021 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2013-2022 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="http://opentrafficsim.org/docs/license.html">OpenTrafficSim License</a>.
  * <p>
  * $LastChangedDate: 2016-05-28 11:33:31 +0200 (Sat, 28 May 2016) $, @version $Revision: 2051 $, by $Author: averbraeck $,
@@ -72,21 +72,21 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
 
     /** {@inheritDoc} */
     @Override
-    public final String getKey()
+    public String getKey()
     {
         return this.key;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final String getExtendedKey()
+    public String getExtendedKey()
     {
         return (getParent() == null) ? getKey() : getParent().getExtendedKey() + "." + getKey();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final VT getValue()
+    public VT getValue()
     {
         return this.value;
     }
@@ -100,7 +100,7 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
      * @throws NullPointerException when newValue is null
      * @throws InputParameterException when this InputParameter is read-only, or newValue is not valid
      */
-    protected final void setValue(final VT newValue) throws InputParameterException
+    public void setValue(final VT newValue) throws InputParameterException
     {
         Throw.whenNull(newValue, "InputParameter.setValue not allowed with null argument");
         if (isReadOnly())
@@ -127,35 +127,35 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
 
     /** {@inheritDoc} */
     @Override
-    public final void setReadOnly(final boolean readOnly)
+    public void setReadOnly(final boolean readOnly)
     {
         this.readOnly = readOnly;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final double getDisplayPriority()
+    public double getDisplayPriority()
     {
         return this.displayPriority;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final String getShortName()
+    public String getShortName()
     {
         return this.shortName;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final String getDescription()
+    public String getDescription()
     {
         return this.description;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final boolean isReadOnly()
+    public boolean isReadOnly()
     {
         return this.readOnly;
     }
@@ -164,14 +164,14 @@ public abstract class AbstractInputParameter<VT, CT> implements InputParameter<V
      * Set the parent of this AbstractInputParameter.
      * @param newParent AbstractInputParameterMap&lt;?&gt;; the new parent of this AbstractInputParameter
      */
-    protected final void setParent(final AbstractInputParameterMap<?> newParent)
+    public void setParent(final AbstractInputParameterMap<?> newParent)
     {
         this.parent = newParent;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final AbstractInputParameterMap<?> getParent()
+    public AbstractInputParameterMap<?> getParent()
     {
         return this.parent;
     }

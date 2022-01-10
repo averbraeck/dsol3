@@ -28,7 +28,7 @@ import org.jfree.chart.plot.PlotState;
 /**
  * The Summary chart class defines a summary chart..
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -72,7 +72,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /**
-     * adds a tally to the array of targets;
+     * adds a tally to the array of targets.
      * @param tally Tally; the tally to be summarized
      */
     public synchronized void add(final EventBasedTally tally)
@@ -82,7 +82,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /**
-     * adds a tally to the array of targets;
+     * adds a tally to the array of targets.
      * @param tally EventBasedWeightedTally; the tally to be summarized
      */
     public synchronized void add(final EventBasedWeightedTally tally)
@@ -92,7 +92,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /**
-     * adds a tally to the array of targets;
+     * adds a tally to the array of targets.
      * @param tally EventBasedTimestampWeightedTally; the tally to be summarized
      */
     public synchronized void add(final EventBasedTimestampWeightedTally tally)
@@ -118,7 +118,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     /** ************ PRIVATE METHODS *********************** */
 
     /**
-     * computes the extent of the targets
+     * computes the extent of the targets.
      * @param tallies Tally[]; the range of tallies
      * @return double[min,max]
      */
@@ -140,7 +140,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /**
-     * determines the borders on the left and right side of the tally
+     * determines the borders on the left and right side of the tally.
      * @param g2 Graphics2D; the graphics object
      * @param context FontRenderContext; the context
      * @param tallyList Tally[]; tallies
@@ -168,7 +168,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /**
-     * returns the bounding box
+     * returns the bounding box.
      * @param word String; the word
      * @param context FontRenderContext; the context
      * @return Rectangle2D the bounds
@@ -179,7 +179,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /**
-     * fills a rectangle
+     * fills a rectangle.
      * @param g2 Graphics2D; the graphics object
      * @param rectangle Rectangle2D; the area
      * @param color Color; the color
@@ -191,7 +191,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /**
-     * paints a tally
+     * paints a tally.
      * @param g2 Graphics2D; the graphics object
      * @param rectangle Rectangle2D; the rectangle on which to paint
      * @param tally Tally; the tally
@@ -278,7 +278,7 @@ public class BoxAndWhiskerPlot extends Plot implements EventListenerInterface
     }
 
     /**
-     * Returns the confidence interval of the BoxAndWhiskerPlot
+     * Returns the confidence interval of the BoxAndWhiskerPlot.
      * @return the confidence interval of the BoxAndWhiskerPlot
      */
     public double getConfidenceInterval()

@@ -11,7 +11,7 @@ import nl.tudelft.simulation.jstats.ode.integrators.NumericalIntegratorType;
 /**
  * The population differential equation.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -56,7 +56,7 @@ public class Population extends DifferentialEquation<Double, Double, SimTimeDoub
 
     /** {@inheritDoc} */
     @Override
-    public final double[] dy(final double time, final double[] y)
+    public double[] dy(final double time, final double[] y)
     {
         double[] dy = new double[2];
         dy[0] = -this.a * y[0] + this.b * y[0] * y[1];

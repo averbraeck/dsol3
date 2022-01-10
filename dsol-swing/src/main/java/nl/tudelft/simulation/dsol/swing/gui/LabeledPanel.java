@@ -6,7 +6,7 @@ import javax.swing.border.TitledBorder;
 /**
  * JPanel with an outline and a name. Code based on OpenTrafficSim project component with the same purpose.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -30,7 +30,7 @@ public class LabeledPanel extends JPanel
 
     /** {@inheritDoc} */
     @Override
-    public final String toString()
+    public String toString()
     {
         return "LabeledPanel [caption=" + ((TitledBorder) getBorder()).getTitle() + "]";
     }

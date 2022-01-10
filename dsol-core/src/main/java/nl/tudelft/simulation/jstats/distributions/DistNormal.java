@@ -9,7 +9,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * The Normal distribution. For more information on this distribution see
  * <a href="https://mathworld.wolfram.com/NormalDistribution.html"> https://mathworld.wolfram.com/NormalDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -25,11 +25,11 @@ public class DistNormal extends DistContinuous
 
     /** mu refers to the mean of the normal distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final double mu;
+    public double mu;
 
     /** sigma refers to the standard deviation of the normal distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final double sigma;
+    public double sigma;
 
     /** nextNextGaussian is a helper attribute. */
     private double nextNextGaussian;
@@ -128,7 +128,7 @@ public class DistNormal extends DistContinuous
     /**
      * @return mu
      */
-    public final double getMu()
+    public double getMu()
     {
         return this.mu;
     }
@@ -136,7 +136,7 @@ public class DistNormal extends DistContinuous
     /**
      * @return sigma
      */
-    public final double getSigma()
+    public double getSigma()
     {
         return this.sigma;
     }

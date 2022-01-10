@@ -21,7 +21,7 @@ import nl.tudelft.simulation.introspection.beans.BeanIntrospector;
 /**
  * A tablemodel used to manage and present the instances of a composite property.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -271,7 +271,7 @@ public class ImmutableCollectionTableModel extends AbstractTableModel implements
      */
     class ImmutableCollectionProperty extends AbstractProperty implements Property
     {
-        /** the key of this property */
+        /** the key of this property. */
         private final Integer key;
 
         /** the name. */
@@ -283,7 +283,7 @@ public class ImmutableCollectionTableModel extends AbstractTableModel implements
          * @param key Integer; the key
          * @param name String; the name
          */
-        public ImmutableCollectionProperty(Integer key, String name)
+        ImmutableCollectionProperty(final Integer key, final String name)
         {
             this.key = key;
             this.name = name;

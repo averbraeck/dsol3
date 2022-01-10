@@ -32,7 +32,7 @@ public class StreamStateSaveRestoreTest
      * tests the classes in the reference class.
      */
     // TODO: @Test testStreamStateSaveRestore
-    public final void testStreamStateSaveRestore()
+    public void testStreamStateSaveRestore()
     {
         StreamInterface[] streams = {new Java2Random(10), new MersenneTwister(10), new DX120Generator(10)};
         for (int j = 0; j < streams.length; j++)

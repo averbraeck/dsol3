@@ -11,7 +11,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * OutputPort class. The output port transfers the event (message) to the next receiver. In case there is no next receiver (e.g.
  * in case of the model being the highest coupled model in the simulation, the event is currently not transferred.
  * <p>
- * Copyright (c) 2009-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -53,7 +53,7 @@ public class OutputPort<A extends Comparable<A> & Serializable, R extends Number
      * {@inheritDoc}
      */
     @Override
-    public final void send(final TYPE value)
+    public void send(final TYPE value)
     {
         if (this.model.parentModel != null)
         {
@@ -75,7 +75,7 @@ public class OutputPort<A extends Comparable<A> & Serializable, R extends Number
      * {@inheritDoc}
      */
     @Override
-    public final AbstractDEVSModel<A, R, T> getModel()
+    public AbstractDEVSModel<A, R, T> getModel()
     {
         return this.model;
     }

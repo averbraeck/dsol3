@@ -12,7 +12,7 @@ import org.djutils.reflection.ClassUtil;
  * InputParameterDoubleScalar: double parameter with a unit. The number and the value are stored in an InputParameterMap as two
  * input variables of type InputFieldDouble (name: value), and InputFieldUnit (name: unit). <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -162,7 +162,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
      *             or when the scalar does not have a constructor Scalar(double, unit)
      */
     @Override
-    public final void setCalculatedValue() throws InputParameterException
+    public void setCalculatedValue() throws InputParameterException
     {
         double doubleValue = getDoubleParameter().getValue();
         U unit = getUnitParameter().getValue();
@@ -195,7 +195,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     /**
      * @return minimumValue (SI units)
      */
-    public final Double getMinimumValueSI()
+    public Double getMinimumValueSI()
     {
         return this.minimumValueSI;
     }
@@ -203,7 +203,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     /**
      * @param minimumValueSI double; set minimumValue (SI units)
      */
-    public final void setMinimumValueSI(final double minimumValueSI)
+    public void setMinimumValueSI(final double minimumValueSI)
     {
         this.minimumValueSI = minimumValueSI;
     }
@@ -211,7 +211,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     /**
      * @return maximumValue (SI units)
      */
-    public final Double getMaximumValueSI()
+    public Double getMaximumValueSI()
     {
         return this.maximumValueSI;
     }
@@ -219,7 +219,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     /**
      * @param maximumValueSI double; set maximumValue (SI units)
      */
-    public final void setMaximumValueSI(final double maximumValueSI)
+    public void setMaximumValueSI(final double maximumValueSI)
     {
         this.maximumValueSI = maximumValueSI;
     }
@@ -227,7 +227,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     /**
      * @return minIncluded
      */
-    public final boolean isMinIncluded()
+    public boolean isMinIncluded()
     {
         return this.minIncluded;
     }
@@ -235,7 +235,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     /**
      * @param minIncluded boolean; set minIncluded
      */
-    public final void setMinIncluded(final boolean minIncluded)
+    public void setMinIncluded(final boolean minIncluded)
     {
         this.minIncluded = minIncluded;
     }
@@ -243,7 +243,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     /**
      * @return maxIncluded
      */
-    public final boolean isMaxIncluded()
+    public boolean isMaxIncluded()
     {
         return this.maxIncluded;
     }
@@ -251,7 +251,7 @@ public class InputParameterDoubleScalar<U extends Unit<U>, T extends AbstractDou
     /**
      * @param maxIncluded boolean; set maxIncluded
      */
-    public final void setMaxIncluded(final boolean maxIncluded)
+    public void setMaxIncluded(final boolean maxIncluded)
     {
         this.maxIncluded = maxIncluded;
     }

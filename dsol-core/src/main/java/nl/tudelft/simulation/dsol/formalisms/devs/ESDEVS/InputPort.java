@@ -14,7 +14,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * coupled model. For a coupled model, the input message is passed on to the external input couplings (EIC), for an atomic
  * model, the external event handler is called (or the confluent event handler in case of a conflict).
  * <p>
- * Copyright (c) 2009-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -62,7 +62,7 @@ public class InputPort<A extends Comparable<A> & Serializable, R extends Number 
      */
     @SuppressWarnings("unchecked")
     @Override
-    public final synchronized void receive(final TYPE value, final T time) throws RemoteException, SimRuntimeException
+    public synchronized void receive(final TYPE value, final T time) throws RemoteException, SimRuntimeException
     {
         if (this.atomic)
         {
@@ -168,7 +168,7 @@ public class InputPort<A extends Comparable<A> & Serializable, R extends Number 
      * {@inheritDoc}
      */
     @Override
-    public final AbstractDEVSModel<A, R, T> getModel()
+    public AbstractDEVSModel<A, R, T> getModel()
     {
         return this.model;
     }

@@ -25,7 +25,7 @@ public class ObjectMethods
     /**
      * @return value
      */
-    public final Object get()
+    public Object get()
     {
         return this.value;
     }
@@ -33,7 +33,7 @@ public class ObjectMethods
     /**
      * @param value set value
      */
-    public final void set(final Object value)
+    public void set(final Object value)
     {
         this.value = value;
     }

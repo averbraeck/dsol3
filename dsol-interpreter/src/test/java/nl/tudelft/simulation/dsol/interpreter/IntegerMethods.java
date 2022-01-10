@@ -113,7 +113,7 @@ public class IntegerMethods
     /**
      * @return value
      */
-    public final int getValue()
+    public int getValue()
     {
         return this.value;
     }

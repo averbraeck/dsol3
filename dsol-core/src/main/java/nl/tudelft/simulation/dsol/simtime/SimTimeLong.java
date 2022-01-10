@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.simtime;
 /**
  * The SimTime class with a long as the absolute time, and a long as the relative time. No units are used.
  * <p>
- * Copyright (c) 2016-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -29,42 +29,42 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final Long relativeTime)
+    public void add(final Long relativeTime)
     {
         this.time += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final Long relativeTime)
+    public void subtract(final Long relativeTime)
     {
         this.time -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Long diff(final Long simTime)
+    public Long diff(final Long simTime)
     {
         return this.get().longValue() - simTime.longValue();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void set(final Long absoluteTime)
+    public void set(final Long absoluteTime)
     {
         this.time = absoluteTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Long get()
+    public Long get()
     {
         return this.time;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeLong setZero()
+    public SimTimeLong setZero()
     {
         this.time = 0L;
         return this;
@@ -72,7 +72,7 @@ public class SimTimeLong extends SimTime<Long, Long, SimTimeLong>
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeLong copy()
+    public SimTimeLong copy()
     {
         return new SimTimeLong(this.time);
     }

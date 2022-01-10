@@ -13,7 +13,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulatorInterface;
  * AtomicModel class. Implements the Classic Parallel DEVS Atomic Model with Ports cf Zeigler et al (2000), section 4.2.2. and
  * section 4.3 (pp. 84 ff). The algorithms for parallel DEVS are explained in Chapters 6 and 7.
  * <p>
- * Copyright (c) 2009-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -307,7 +307,7 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
     /**
      * @return the timestamp of the last executed simulation event.
      */
-    public final T getTimeLastEvent()
+    public T getTimeLastEvent()
     {
         return this.timeLastEvent;
     }
@@ -315,7 +315,7 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
     /**
      * @return the timestamp of the simulation event to execute next.
      */
-    public final T getTimeNextEvent()
+    public T getTimeNextEvent()
     {
         return this.timeNextEvent;
     }
@@ -323,7 +323,7 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
     /**
      * @return if there is a conflict between an intenal event and an external event that take place at the same time.
      */
-    protected final boolean isConflict()
+    public boolean isConflict()
     {
         return this.conflict;
     }
@@ -332,7 +332,7 @@ public abstract class AtomicModel<A extends Comparable<A> & Serializable, R exte
      * @param conflict boolean; indicate whether there is a conflict between an intenal event and an external event that take
      *            place at the same time.
      */
-    protected final void setConflict(final boolean conflict)
+    public void setConflict(final boolean conflict)
     {
         this.conflict = conflict;
     }

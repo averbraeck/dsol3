@@ -28,7 +28,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
 /**
  * Context that exists on another computer.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -347,7 +347,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType)
+    public synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType)
             throws RemoteException
     {
         return this.embeddedContext.addListener(listener, eventType);
@@ -355,7 +355,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
+    public synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final ReferenceType referenceType) throws RemoteException
     {
         return this.embeddedContext.addListener(listener, eventType, referenceType);
@@ -363,7 +363,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
+    public synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final int position) throws RemoteException
     {
         return this.embeddedContext.addListener(listener, eventType, position);
@@ -371,7 +371,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
+    public synchronized boolean addListener(final EventListenerInterface listener, final EventTypeInterface eventType,
             final int position, final ReferenceType referenceType) throws RemoteException
     {
         return this.embeddedContext.addListener(listener, eventType, position, referenceType);
@@ -401,7 +401,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean removeListener(final EventListenerInterface listener, final EventTypeInterface eventType)
+    public synchronized boolean removeListener(final EventListenerInterface listener, final EventTypeInterface eventType)
             throws RemoteException
     {
         return this.embeddedContext.removeListener(listener, eventType);
@@ -449,7 +449,7 @@ public class RemoteContext extends RMIObject implements RemoteContextInterface
      * The RemoteChangeEventProducer is a RemoteEventProducer that can fire an OBJECT_CHANGED_EVENT on behalf of an object that
      * was changed, but does not extend an EventProducer itself.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>.
      * The DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">

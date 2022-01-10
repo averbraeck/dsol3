@@ -3,7 +3,7 @@ package nl.tudelft.simulation.dsol.simtime;
 /**
  * The SimTime class with a float as the absolute time, and a float as the relative time. No units are used.
  * <p>
- * Copyright (c) 2016-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -29,42 +29,42 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
 
     /** {@inheritDoc} */
     @Override
-    public final void add(final Float relativeTime)
+    public void add(final Float relativeTime)
     {
         this.time += relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void subtract(final Float relativeTime)
+    public void subtract(final Float relativeTime)
     {
         this.time -= relativeTime;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Float diff(final Float simTime)
+    public Float diff(final Float simTime)
     {
         return this.get().floatValue() - simTime.floatValue();
     }
 
     /** {@inheritDoc} */
     @Override
-    public final void set(final Float absoluteValue)
+    public void set(final Float absoluteValue)
     {
         this.time = absoluteValue;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final Float get()
+    public Float get()
     {
         return this.time;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeFloat setZero()
+    public SimTimeFloat setZero()
     {
         this.time = 0.0f;
         return this;
@@ -72,7 +72,7 @@ public class SimTimeFloat extends SimTime<Float, Float, SimTimeFloat>
 
     /** {@inheritDoc} */
     @Override
-    public final SimTimeFloat copy()
+    public SimTimeFloat copy()
     {
         return new SimTimeFloat(this.time);
     }

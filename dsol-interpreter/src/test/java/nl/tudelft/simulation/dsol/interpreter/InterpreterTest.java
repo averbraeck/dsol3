@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 /**
  * The InterpreterTest.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -15,7 +15,7 @@ import java.rmi.RemoteException;
  * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @since 1.5
  */
-public class InterpreterTest
+public final class InterpreterTest
 {
     /**
      * constructs a new InterpreterTest.
@@ -27,7 +27,7 @@ public class InterpreterTest
     }
 
     /**
-     * we do method c
+     * we do method c.
      */
     public void doC()
     {
@@ -51,7 +51,7 @@ public class InterpreterTest
     }
 
     /**
-     * we do method b
+     * we do method b.
      * @throws RemoteException to trigger a remoteException
      */
     public void doB() throws RemoteException
@@ -61,7 +61,7 @@ public class InterpreterTest
     }
 
     /**
-     * we do method a
+     * we do method a.
      */
     public void doA()
     {
@@ -84,7 +84,7 @@ public class InterpreterTest
     }
 
     /**
-     * executes the application
+     * executes the application.
      * @param args the commandline arguments
      */
     public static void main(final String[] args)

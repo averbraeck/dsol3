@@ -24,7 +24,7 @@ import nl.tudelft.simulation.introspection.DelegateIntrospection;
  * A GUI element for presentation and manipulation of an introspected object. The dialog is 'powered' by an instance of {see
  * ObjectJTable}. The dialog is positioned to a 'parent' window, or displayed centered if no parent window is available.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -164,7 +164,7 @@ public class IntrospectionDialog extends JDialog
     /**
      * Reformats this dialog to reflect changes in the table displayed.
      */
-    protected final void formatDialog()
+    public void formatDialog()
     {
         // NB PropertyChanges of height are not broadcasted by the dialog!
         // Therefore, a static check is used instead.
@@ -181,7 +181,7 @@ public class IntrospectionDialog extends JDialog
     /**
      * Initializes the location of this dialog relative to its parent window if any.
      */
-    protected final void setRelativeLocation()
+    public void setRelativeLocation()
     {
         setLocationRelativeTo(this.parent);
     }

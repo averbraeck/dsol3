@@ -21,7 +21,7 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * Generic ControlPanel container for the different types of control panel, with different clocks. These control panels do not
  * assume a DEVSSimulator, nor animation.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -58,7 +58,7 @@ public class GenericControlPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * Generic ControlPanel for a Double time unit. The control panel does not assume a DEVSSimulator, nor animation.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -92,7 +92,7 @@ public class GenericControlPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * Generic ControlPanel for a Float time unit. The control panel does not assume a DEVSSimulator, nor animation.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -126,7 +126,7 @@ public class GenericControlPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * Generic ControlPanel for a Long time unit. The control panel does not assume a DEVSSimulator, nor animation.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -160,7 +160,7 @@ public class GenericControlPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * Generic ControlPanel for a djunits double time unit. The control panel does not assume a DEVSSimulator, nor animation.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -195,7 +195,7 @@ public class GenericControlPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * Generic ControlPanel for a djunits float time unit. The control panel does not assume a DEVSSimulator, nor animation.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.

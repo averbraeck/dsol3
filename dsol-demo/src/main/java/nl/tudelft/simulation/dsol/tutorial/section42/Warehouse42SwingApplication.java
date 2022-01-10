@@ -22,7 +22,7 @@ import nl.tudelft.simulation.dsol.swing.gui.inputparameters.TabbedParameterDialo
 
 /**
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -91,7 +91,7 @@ public class Warehouse42SwingApplication extends DSOLApplication
          * add a number of charts for the demo.
          * @param model Warehouse42Model; the model from which to take the statistics
          */
-        protected final void addTabs(final Warehouse42Model model)
+        public void addTabs(final Warehouse42Model model)
         {
             TablePanel charts = new TablePanel(2, 1);
             getTabbedPane().addTab("statistics", charts);

@@ -113,7 +113,7 @@ public class DoubleMethods
     /**
      * @return value
      */
-    public final double getValue()
+    public double getValue()
     {
         return this.value;
     }

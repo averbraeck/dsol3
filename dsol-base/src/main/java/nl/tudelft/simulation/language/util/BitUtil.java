@@ -9,7 +9,7 @@ import org.djutils.exceptions.Throw;
 /**
  * Utilities for the BitSet class.
  * <p>
- * Copyright (c) 2009-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2009-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -69,7 +69,7 @@ public final class BitUtil implements Serializable
      * @param length int; the length of
      * @return the BitSet
      */
-    public static BitSet fromInteger(Integer value, final int length)
+    public static BitSet fromInteger(final Integer value, final int length) 
     {
         Throw.when(length <= 0, IllegalArgumentException.class, "BitUtil.fromInt should have a positive number of bits");
         Throw.when(length > 31, IllegalArgumentException.class, "BitUtil.fromInt can have maximum 31 bits");

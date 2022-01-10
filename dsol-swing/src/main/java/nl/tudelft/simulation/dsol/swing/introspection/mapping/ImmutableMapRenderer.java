@@ -18,7 +18,7 @@ import org.djutils.immutablecollections.ImmutableMap;
 /**
  * Renders Map values in a human-readable manner.
  * <p>
- * Copyright (c) 2018-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2018-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -33,8 +33,8 @@ public class ImmutableMapRenderer extends DefaultTableCellRenderer
 
     /** {@inheritDoc} */
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
-            int column)
+    public Component getTableCellRendererComponent(final JTable table, final Object value, final boolean isSelected,
+            final boolean hasFocus, final int row, final int column)
     {
         @SuppressWarnings("unchecked")
         Map<Object, Object> map = new LinkedHashMap<Object, Object>(((ImmutableMap<Object, Object>) value).toMap());
@@ -61,7 +61,7 @@ public class ImmutableMapRenderer extends DefaultTableCellRenderer
      * @param clasz Class&lt;?&gt;; the class
      * @return the short name
      */
-    private static String getShortName(Class<?> clasz)
+    private static String getShortName(final Class<?> clasz)
     {
         String name = clasz.getName();
         return name.substring(name.lastIndexOf('.') + 1);

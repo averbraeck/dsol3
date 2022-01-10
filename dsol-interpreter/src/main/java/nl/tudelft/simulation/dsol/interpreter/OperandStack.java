@@ -22,7 +22,7 @@ import java.util.Arrays;
  * resulting in values that can be used by the encompassing computation.
  * </p>
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -53,7 +53,7 @@ public class OperandStack implements Cloneable
     /**
      * clears the operand stack.
      */
-    public final void clear()
+    public void clear()
     {
         this.pointer = 0;
     }
@@ -62,7 +62,7 @@ public class OperandStack implements Cloneable
      * is the OperandStack empty.
      * @return whether the operandStack is empty
      */
-    public final boolean isEmpty()
+    public boolean isEmpty()
     {
         return this.pointer == 0;
     }
@@ -71,7 +71,7 @@ public class OperandStack implements Cloneable
      * pops the first object from the operandstack.
      * @return the top object from the stack
      */
-    public final Object pop()
+    public Object pop()
     {
         synchronized (this.stack)
         {
@@ -83,7 +83,7 @@ public class OperandStack implements Cloneable
      * peeks the first object from the stack. This is a pop without remove.
      * @return Object the first object
      */
-    public final Object peek()
+    public Object peek()
     {
         synchronized (this.stack)
         {
@@ -96,7 +96,7 @@ public class OperandStack implements Cloneable
      * @param depth int; the depth-object
      * @return the depth object.
      */
-    public final Object peek(final int depth)
+    public Object peek(final int depth)
     {
         synchronized (this.stack)
         {
@@ -108,7 +108,7 @@ public class OperandStack implements Cloneable
      * pushes object on the stack.
      * @param object Object; the object to be pushed to the stack
      */
-    public final void push(final Object object)
+    public void push(final Object object)
     {
         synchronized (this.stack)
         {
@@ -132,7 +132,7 @@ public class OperandStack implements Cloneable
      * @param oldObject Object; the oldObject
      * @param newObject Object; the newObject
      */
-    public final void replace(final Object oldObject, final Object newObject)
+    public void replace(final Object oldObject, final Object newObject)
     {
         synchronized (this.stack)
         {

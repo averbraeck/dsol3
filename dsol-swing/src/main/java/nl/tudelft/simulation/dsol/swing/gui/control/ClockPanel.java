@@ -28,7 +28,7 @@ import nl.tudelft.simulation.dsol.swing.gui.appearance.AppearanceControlLabel;
 /**
  * Panel that displays the simulation time.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -47,7 +47,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
 
     /** The JLabel that displays the time. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final JLabel timeLabel;
+    public JLabel timeLabel;
 
     /** the simulator. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
@@ -113,7 +113,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
 
         /** {@inheritDoc} */
         @Override
-        public final String toString()
+        public String toString()
         {
             return "TimeUpdateTask of ClockPanel";
         }
@@ -122,7 +122,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * @return timeLabel
      */
-    protected final JLabel getTimeLabel()
+    public JLabel getTimeLabel()
     {
         return this.timeLabel;
     }
@@ -130,7 +130,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * @return simulator
      */
-    public final SimulatorInterface<A, R, T> getSimulator()
+    public SimulatorInterface<A, R, T> getSimulator()
     {
         return this.simulator;
     }
@@ -138,7 +138,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * @return timeFont.
      */
-    protected final Font getTimeFont()
+    public Font getTimeFont()
     {
         return this.timeFont;
     }
@@ -146,7 +146,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * @return updateInterval
      */
-    protected final long getUpdateInterval()
+    public long getUpdateInterval()
     {
         return this.updateInterval;
     }
@@ -154,7 +154,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * @return prevSimTime
      */
-    protected final A getPrevSimTime()
+    public A getPrevSimTime()
     {
         return this.prevSimTime;
     }
@@ -184,7 +184,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
 
     /** {@inheritDoc} */
     @Override
-    public final String toString()
+    public String toString()
     {
         return "ClockPanel";
     }
@@ -192,7 +192,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * ClockLabel for a double time. The formatter can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -225,7 +225,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * ClockLabel for a float time. The formatter can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -258,7 +258,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * ClockLabel for a long time. The formatter can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -291,7 +291,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * ClockLabel for a djunits Time. The formatter can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -324,7 +324,7 @@ public abstract class ClockPanel<A extends Comparable<A> & Serializable, R exten
     /**
      * ClockLabel for a djunits FloatTime. The formatter can be adjusted.
      * <p>
-     * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.

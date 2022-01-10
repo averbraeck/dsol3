@@ -20,7 +20,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * Test.java. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -32,7 +32,7 @@ public class Test
      * @param args String[]; empty
      * @throws InputParameterException on error
      */
-    public static void main(String[] args) throws InputParameterException
+    public static void main(final String[] args) throws InputParameterException
     {
         InputParameterMap ipMap = new InputParameterMap("model", "Model data", "Input variables for the model", 1.0);
 
@@ -52,7 +52,7 @@ public class Test
         ipMap.add(trMap);
         for (String tgsbf : new String[] {"Textile", "Garment", "Steel", "Brick", "Food"})
         {
-            for (String rrw : new String[] {"Road", "Rail", "Water",})
+            for (String rrw : new String[] {"Road", "Rail", "Water"})
             {
                 InputParameterDouble paramDouble = new InputParameterDouble(tgsbf + rrw, tgsbf + " " + rrw,
                         tgsbf + " " + rrw + " in tonnes per year", 100000.0, 0.0, 1.0E12, true, true, "%f", 1.0);

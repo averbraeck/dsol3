@@ -5,7 +5,7 @@ package nl.tudelft.simulation.jstats.streams;
  * <a href="http://www.cs.memphis.edu/~dengl/dx-rng/dengxu2002.pdf"> A System of High-dimensional, Efficient, Long-cycle and
  * Portable Uniform Random Number Generators </a>.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -86,7 +86,7 @@ public class DX120Generator extends RandomNumberGenerator
 
     /** {@inheritDoc} */
     @Override
-    protected final synchronized long next(final int bits)
+    public synchronized long next(final int bits)
     {
         // u_dx4 (BB4) variant of http://www.cs.memphis.edu/~dengl/dx-rng/dx-120.c
         // note that the DX120 RNG provides 31 bits max.
@@ -115,7 +115,7 @@ public class DX120Generator extends RandomNumberGenerator
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void setSeed(final long seed)
+    public synchronized void setSeed(final long seed)
     {
         this.seed = seed;
         this.initialize();

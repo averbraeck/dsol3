@@ -18,7 +18,7 @@ import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
  * The GridPanel implements the basic functions to show animations: toggle grid on/off, zooming, panning, translation between 
  * world coordinates and screen coordinates, and changing the displayed extent such as the home extent.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -107,7 +107,7 @@ public abstract class GridPanel extends JPanel
      * returns the extent of this panel.
      * @return Bounds2d
      */
-    public final Bounds2d getExtent()
+    public Bounds2d getExtent()
     {
         return this.extent;
     }
@@ -116,7 +116,7 @@ public abstract class GridPanel extends JPanel
      * set a new extent for this panel.
      * @param extent Bounds2d; set a new extent
      */
-    public final void setExtent(final Bounds2d extent)
+    public void setExtent(final Bounds2d extent)
     {
         this.extent = extent;
         this.repaint();
@@ -143,7 +143,7 @@ public abstract class GridPanel extends JPanel
      * show the grid?
      * @param bool boolean; true/false
      */
-    public final synchronized void showGrid(final boolean bool)
+    public synchronized void showGrid(final boolean bool)
     {
         this.showGrid = bool;
         this.repaint();
@@ -153,7 +153,7 @@ public abstract class GridPanel extends JPanel
      * Set the world coordinates based on a mouse move.
      * @param point Point2D; the x,y world coordinates
      */
-    public final synchronized void setWorldCoordinate(final Point2d point)
+    public synchronized void setWorldCoordinate(final Point2d point)
     {
         this.worldCoordinate = point;
     }
@@ -161,7 +161,7 @@ public abstract class GridPanel extends JPanel
     /**
      * @return worldCoordinate
      */
-    public final synchronized Point2d getWorldCoordinate()
+    public synchronized Point2d getWorldCoordinate()
     {
         return this.worldCoordinate;
     }
@@ -169,7 +169,7 @@ public abstract class GridPanel extends JPanel
     /**
      * Display a tooltip with the last known world coordinates of the mouse, in case the tooltip should be displayed.
      */
-    public final synchronized void displayWorldCoordinateToolTip()
+    public synchronized void displayWorldCoordinateToolTip()
     {
         if (this.showToolTip)
         {
@@ -182,7 +182,7 @@ public abstract class GridPanel extends JPanel
     /**
      * @return showToolTip
      */
-    public final synchronized boolean isShowToolTip()
+    public synchronized boolean isShowToolTip()
     {
         return this.showToolTip;
     }
@@ -190,7 +190,7 @@ public abstract class GridPanel extends JPanel
     /**
      * @param showToolTip boolean; set showToolTip
      */
-    public final synchronized void setShowToolTip(final boolean showToolTip)
+    public synchronized void setShowToolTip(final boolean showToolTip)
     {
         this.showToolTip = showToolTip;
     }
@@ -200,7 +200,7 @@ public abstract class GridPanel extends JPanel
      * @param direction int; the direction
      * @param percentage double; the percentage
      */
-    public final synchronized void pan(final int direction, final double percentage)
+    public synchronized void pan(final int direction, final double percentage)
     {
         if (percentage <= 0 || percentage > 1.0)
         {
@@ -236,7 +236,7 @@ public abstract class GridPanel extends JPanel
     /**
      * resets the panel to its original extent.
      */
-    public final synchronized void home()
+    public synchronized void home()
     {
         setExtent(this.renderableScale.computeVisibleExtent(this.homeExtent, this.getSize()));
     }
@@ -244,7 +244,7 @@ public abstract class GridPanel extends JPanel
     /**
      * @return Returns the showGrid.
      */
-    public final boolean isShowGrid()
+    public boolean isShowGrid()
     {
         return this.showGrid;
     }
@@ -252,7 +252,7 @@ public abstract class GridPanel extends JPanel
     /**
      * @param showGrid boolean; The showGrid to set.
      */
-    public final void setShowGrid(final boolean showGrid)
+    public void setShowGrid(final boolean showGrid)
     {
         this.showGrid = showGrid;
     }
@@ -261,7 +261,7 @@ public abstract class GridPanel extends JPanel
      * zooms in/out.
      * @param factor double; The zoom factor
      */
-    public final synchronized void zoom(final double factor)
+    public synchronized void zoom(final double factor)
     {
         zoom(factor, (int) (this.getWidth() / 2.0), (int) (this.getHeight() / 2.0));
     }
@@ -272,7 +272,7 @@ public abstract class GridPanel extends JPanel
      * @param mouseX int; x-position of the mouse around which we zoom
      * @param mouseY int; y-position of the mouse around which we zoom
      */
-    public final synchronized void zoom(final double factor, final int mouseX, final int mouseY)
+    public synchronized void zoom(final double factor, final int mouseX, final int mouseY)
     {
         Point2d mwc = this.renderableScale.getWorldCoordinates(new Point2D.Double(mouseX, mouseY), this.extent, this.getSize());
         double minX = mwc.getX() - (mwc.getX() - this.extent.getMinX()) * factor;
@@ -388,7 +388,7 @@ public abstract class GridPanel extends JPanel
     /**
      * @return renderableScale
      */
-    public final RenderableScale getRenderableScale()
+    public RenderableScale getRenderableScale()
     {
         return this.renderableScale;
     }
@@ -396,7 +396,7 @@ public abstract class GridPanel extends JPanel
     /**
      * @param renderableScale set renderableScale
      */
-    public final void setRenderableScale(final RenderableScale renderableScale)
+    public void setRenderableScale(final RenderableScale renderableScale)
     {
         this.renderableScale = renderableScale;
     }

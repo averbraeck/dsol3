@@ -113,7 +113,7 @@ public class FloatMethods
     /**
      * @return value
      */
-    public final float getValue()
+    public float getValue()
     {
         return this.value;
     }

@@ -8,7 +8,7 @@ import nl.tudelft.simulation.dsol.animation.gis.io.DataSourceInterface;
  * This is an implementation of the LayerInterface that just stores the basic metadata for each layer. The actual information of
  * the layer (points, shapes) is contained in the DataSource.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.

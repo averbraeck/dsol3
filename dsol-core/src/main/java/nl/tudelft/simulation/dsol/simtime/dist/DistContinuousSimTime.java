@@ -21,7 +21,7 @@ import nl.tudelft.simulation.jstats.distributions.DistContinuous;
  * Definitions of distributions over SimTime. The distributions wrap a ContinuousDist from the
  * nl.tudelft.simulation.jstats.distributions package in dsol-core.
  * <p>
- * Copyright (c) 2016-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -41,7 +41,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
 
     /** the wrapped distribution. */
     @SuppressWarnings("checkstyle:visibilitymodifier")
-    protected final DistContinuous wrappedDistribution;
+    public DistContinuous wrappedDistribution;
 
     /**
      * constructs a new continuous distribution.
@@ -64,7 +64,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
      * @param x double; the value for which to calculate the probability density.
      * @return double; the probability density for value x
      */
-    public final double probDensity(final double x)
+    public double probDensity(final double x)
     {
         return this.wrappedDistribution.getProbabilityDensity(x);
     }
@@ -89,7 +89,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
 
         /** {@inheritDoc} */
         @Override
-        public final SimTimeDouble draw()
+        public SimTimeDouble draw()
         {
             return new SimTimeDouble(super.wrappedDistribution.draw());
         }
@@ -111,7 +111,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
 
         /** {@inheritDoc} */
         @Override
-        public final SimTimeFloat draw()
+        public SimTimeFloat draw()
         {
             return new SimTimeFloat((float) super.wrappedDistribution.draw());
         }
@@ -133,7 +133,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
 
         /** {@inheritDoc} */
         @Override
-        public final SimTimeLong draw()
+        public SimTimeLong draw()
         {
             return new SimTimeLong((long) super.wrappedDistribution.draw());
         }
@@ -160,7 +160,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
 
         /** {@inheritDoc} */
         @Override
-        public final SimTimeDoubleUnit draw()
+        public SimTimeDoubleUnit draw()
         {
             return new SimTimeDoubleUnit(new Time(super.wrappedDistribution.draw(), this.unit));
         }
@@ -187,7 +187,7 @@ public abstract class DistContinuousSimTime<A extends Comparable<A> & Serializab
 
         /** {@inheritDoc} */
         @Override
-        public final SimTimeFloatUnit draw()
+        public SimTimeFloatUnit draw()
         {
             return new SimTimeFloatUnit(new FloatTime((float) super.wrappedDistribution.draw(), this.unit));
         }

@@ -11,7 +11,7 @@ import nl.tudelft.simulation.dsol.animation.gis.io.ObjectEndianInputStream;
 /**
  * This class reads a dbf file (in dBase III format), as used in ESRI ShapeFiles.
  * <p>
- * Copyright (c) 2020-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -85,7 +85,9 @@ public class DbfReader implements Serializable
             {
                 byte b = dbfInput.readByte();
                 if (b > 31)
+                {
                     buffer.append((char) b);
+                }
             }
             this.columnNames[i] = buffer.toString();
             dbfInput.setEndianness(Endianness.BIG_ENDIAN);
@@ -95,7 +97,9 @@ public class DbfReader implements Serializable
 
             this.columnLength[i] = dbfInput.readByte();
             if (this.columnLength[i] < 0)
+            {
                 this.columnLength[i] += 256;
+            }
             dbfInput.skipBytes(15);
         }
         dbfInput.close();
@@ -117,7 +121,7 @@ public class DbfReader implements Serializable
      * @throws IOException on read failure
      * @throws IndexOutOfBoundsException whenever the rowNumber &gt; numRecords
      */
-    public String[] getRow(int rowNumber) throws IOException, IndexOutOfBoundsException
+    public String[] getRow(final int rowNumber) throws IOException, IndexOutOfBoundsException
     {
         if (rowNumber > this.numRecords)
         {
@@ -190,18 +194,20 @@ public class DbfReader implements Serializable
      * @return int[] the array of shape numbers.
      * @throws IOException on read failure
      */
-    public int[] getRowNumbers(String attribute, String columnName) throws IOException
+    public int[] getRowNumbers(final String attribute, final String columnName) throws IOException
     {
         ArrayList result = new ArrayList();
         String[][] rows = this.getRows();
         for (int col = 0; col < this.numColumns; col++)
         {
-            if (this.columnNames[col].equals(columnName))
+            if (this.columnNames[col].equals(columnName)) 
             {
                 for (int row = 0; row < this.numRecords; row++)
                 {
                     if (rows[row][col].equals(attribute))
+                    {
                         result.add(Integer.valueOf(row));
+                    }
                 }
             }
         }

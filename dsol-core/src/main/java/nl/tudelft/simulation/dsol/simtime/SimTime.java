@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The abstract SimTime class that implements the majority of the operators on a SimTime.
  * <p>
- * Copyright (c) 2016-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2016-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -52,7 +52,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @return the sum of the absolute time and the relative times.
      */
     @SuppressWarnings("unchecked")
-    public final T sum(final R... relativeTimes)
+    public T sum(final R... relativeTimes)
     {
         T ret = copy();
         for (R relTime : relativeTimes)
@@ -96,7 +96,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param relativeTime R; the time to add.
      * @return a copy of the time with the relative time added.
      */
-    public final T plus(final R relativeTime)
+    public T plus(final R relativeTime)
     {
         T ret = copy();
         ret.add(relativeTime);
@@ -108,7 +108,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param relativeTime R; the time to subtract.
      * @return a copy of the time with the relative time subtracted.
      */
-    public final T minus(final R relativeTime)
+    public T minus(final R relativeTime)
     {
         T ret = copy();
         ret.subtract(relativeTime);
@@ -120,7 +120,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param simTime T; the time to subtract.
      * @return the relative time difference between this SimTime object and the provided absoluteTime argument.
      */
-    public final R diff(final T simTime)
+    public R diff(final T simTime)
     {
         return diff(simTime.get());
     }
@@ -150,7 +150,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param simTime T; the time to compare to
      * @return true if greater than simTime
      */
-    public final boolean gt(final T simTime)
+    public boolean gt(final T simTime)
     {
         return this.compareTo(simTime) > 0;
     }
@@ -159,7 +159,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param simTime T; the time to compare to
      * @return true if greater than or equal to simTime
      */
-    public final boolean ge(final T simTime)
+    public boolean ge(final T simTime)
     {
         return this.compareTo(simTime) >= 0;
     }
@@ -168,7 +168,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param simTime T; the time to compare to
      * @return true if less than simTime
      */
-    public final boolean lt(final T simTime)
+    public boolean lt(final T simTime)
     {
         return this.compareTo(simTime) < 0;
     }
@@ -177,7 +177,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param simTime T; the time to compare to
      * @return true if less than or equal to simTime
      */
-    public final boolean le(final T simTime)
+    public boolean le(final T simTime)
     {
         return this.compareTo(simTime) <= 0;
     }
@@ -186,7 +186,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param simTime T; the time to compare to
      * @return true if contents equal to simTime's contents
      */
-    public final boolean eq(final T simTime)
+    public boolean eq(final T simTime)
     {
         return this.compareTo(simTime) == 0;
     }
@@ -195,7 +195,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
      * @param simTime T; the time to compare to
      * @return true if contents not equal to simTime's contents
      */
-    public final boolean ne(final T simTime)
+    public boolean ne(final T simTime)
     {
         return this.compareTo(simTime) != 0;
     }
@@ -203,7 +203,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
     /**
      * @return whether this simTime equals the zero SimTime.
      */
-    public final boolean eq0()
+    public boolean eq0()
     {
         return eq(this.copy().setZero());
     }
@@ -211,7 +211,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public final boolean ne0()
+    public boolean ne0()
     {
         return ne(this.copy().setZero());
     }
@@ -219,7 +219,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public final boolean lt0()
+    public boolean lt0()
     {
         return lt(this.copy().setZero());
     }
@@ -227,7 +227,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public final boolean le0()
+    public boolean le0()
     {
         return le(this.copy().setZero());
     }
@@ -235,7 +235,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public final boolean gt0()
+    public boolean gt0()
     {
         return gt(this.copy().setZero());
     }
@@ -243,7 +243,7 @@ public abstract class SimTime<A extends Comparable<A> & Serializable, R extends 
     /**
      * @return whether this simTime is not equal to the zero SimTime.
      */
-    public final boolean ge0()
+    public boolean ge0()
     {
         return ge(this.copy().setZero());
     }

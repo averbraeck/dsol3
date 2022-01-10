@@ -64,7 +64,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
 
     /** {@inheritDoc} */
     @Override
-    public final void constructModel() throws SimRuntimeException
+    public void constructModel() throws SimRuntimeException
     {
         StreamInterface defaultStream = this.simulator.getModel().getStream("default");
 
@@ -192,7 +192,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         /**
          * @return numQC
          */
-        public final int getNumQC()
+        public int getNumQC()
         {
             return this.numQC;
         }
@@ -200,7 +200,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         /**
          * @return numAGV
          */
-        public final int getNumAGV()
+        public int getNumAGV()
         {
             return this.numAGV;
         }
@@ -208,7 +208,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         /**
          * @return rep
          */
-        public final int getRep()
+        public int getRep()
         {
             return this.rep;
         }
@@ -216,7 +216,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         /**
          * @return delayHours
          */
-        public final double getDelayHours()
+        public double getDelayHours()
         {
             return this.delayHours;
         }
@@ -224,7 +224,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         /**
          * @return costs
          */
-        public final double getCosts()
+        public double getCosts()
         {
             return this.costs;
         }
@@ -232,7 +232,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         /**
          * @return ready
          */
-        public final double getReady()
+        public double getReady()
         {
             return this.ready;
         }
@@ -240,7 +240,7 @@ public class Terminal extends AbstractDSOLModel.TimeDouble<DEVSSimulatorInterfac
         /**
          * @return nrCont
          */
-        public final int getNrCont()
+        public int getNrCont()
         {
             return this.nrCont;
         }

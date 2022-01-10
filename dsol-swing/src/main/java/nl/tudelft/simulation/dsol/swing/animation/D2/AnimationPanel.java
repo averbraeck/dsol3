@@ -68,7 +68,7 @@ import nl.tudelft.simulation.naming.context.util.ContextUtil;
  * ANIMATION_SEARCH_OBJECT_EVENT to highlight the object, or, in case of an AutoPanAnimationPanel, to keep the object in the
  * middle of the screen.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -585,7 +585,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * @return returns the dragLine.
      */
-    public final int[] getDragLine()
+    public int[] getDragLine()
     {
         return this.dragLine;
     }
@@ -593,7 +593,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * @return returns the dragLineEnabled.
      */
-    public final boolean isDragLineEnabled()
+    public boolean isDragLineEnabled()
     {
         return this.dragLineEnabled;
     }
@@ -601,7 +601,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * @param dragLineEnabled boolean; the dragLineEnabled to set.
      */
-    public final void setDragLineEnabled(final boolean dragLineEnabled)
+    public void setDragLineEnabled(final boolean dragLineEnabled)
     {
         this.dragLineEnabled = dragLineEnabled;
     }
@@ -609,7 +609,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * @return the set of animation elements.
      */
-    public final SortedSet<Renderable2DInterface<? extends Locatable>> getElements()
+    public SortedSet<Renderable2DInterface<? extends Locatable>> getElements()
     {
         return this.elements;
     }
@@ -617,7 +617,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
     /**
      * EventProducer to which to delegate the event producing methods.
      * <p>
-     * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
+     * Copyright (c) 2021-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved.
      * See for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The
      * DSOL project is distributed under a three-clause BSD-style license, which can be found at
      * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -648,7 +648,7 @@ public class AnimationPanel extends GridPanel implements EventListenerInterface,
      * Return the delegate event producer.
      * @return AnimationEventProducer; the delegate event producer
      */
-    public final AnimationEventProducer getAnimationEventProducer()
+    public AnimationEventProducer getAnimationEventProducer()
     {
         return this.animationEventProducer;
     }

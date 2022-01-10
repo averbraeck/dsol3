@@ -14,7 +14,7 @@ import nl.tudelft.simulation.dsol.interpreter.InterpreterException;
 /**
  * The Process class is an abstract Process which can be suspended and resumed.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -68,7 +68,7 @@ public abstract class InterpretableProcess extends EventProducer
     /**
      * resumes this process.
      */
-    public final void resumeProcess()
+    public void resumeProcess()
     {
         if (this.frameStack.isEmpty() || this.state == DEAD)
         {
@@ -94,7 +94,7 @@ public abstract class InterpretableProcess extends EventProducer
     /**
      * cancels this process entirely. After the process.cancelProcess() is invoked a process can no longer be resumed.
      */
-    public final void cancelProcess()
+    public void cancelProcess()
     {
         boolean executing = this.state == EXECUTING;
         if (executing)
@@ -111,7 +111,7 @@ public abstract class InterpretableProcess extends EventProducer
     /**
      * suspends a process.
      */
-    public final void suspendProcess()
+    public void suspendProcess()
     {
         throw new IllegalStateException(
                 "suspend should be interpreted." + " One may not invoke this method directly. If this exception occurs, "
@@ -122,7 +122,7 @@ public abstract class InterpretableProcess extends EventProducer
      * sets the state of the process.
      * @param state short; the new state
      */
-    protected final void setState(final short state)
+    public void setState(final short state)
     {
         // Let's check for a reliable order
         if (this.state == InterpretableProcess.SUSPENDED && state == InterpretableProcess.SUSPENDED)
@@ -137,7 +137,7 @@ public abstract class InterpretableProcess extends EventProducer
      * Returns the state of a process.
      * @return the state
      */
-    protected final short getState()
+    public short getState()
     {
         return this.state;
     }

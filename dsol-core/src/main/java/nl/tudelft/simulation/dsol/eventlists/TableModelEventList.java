@@ -16,7 +16,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * A TableModel implementation of an eventlist is an extionsion of the eventlist which upholds its own TableModel. This
  * implementation is used to graphically display the events in the tree.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -61,7 +61,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
      * returns the TreeMapEventList.
      * @return EventListenerInterface
      */
-    public final synchronized EventListInterface<T> getOrigin()
+    public synchronized EventListInterface<T> getOrigin()
     {
         RedBlackTree<T> result = new RedBlackTree<T>();
         // TODO make a copy first?
@@ -73,7 +73,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
      * returns the tableModel.
      * @return TableModel result
      */
-    public final TableModel getTableModel()
+    public TableModel getTableModel()
     {
         return this.tableModel;
     }
@@ -129,14 +129,14 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
      * sets the showPackage.
      * @param showPackage boolean; The showPackage to set.
      */
-    public final void setShowPackage(final boolean showPackage)
+    public void setShowPackage(final boolean showPackage)
     {
         this.showPackage = showPackage;
     }
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean addAll(final Collection<? extends SimEventInterface<T>> collection)
+    public synchronized boolean addAll(final Collection<? extends SimEventInterface<T>> collection)
     {
         synchronized (this.tableModel)
         {
@@ -148,7 +148,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void clear()
+    public synchronized void clear()
     {
         synchronized (this.tableModel)
         {
@@ -159,7 +159,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized boolean removeAll(final Collection<?> collection)
+    public synchronized boolean removeAll(final Collection<?> collection)
     {
         synchronized (this.tableModel)
         {
@@ -171,7 +171,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized SimEventInterface<T> removeFirst()
+    public synchronized SimEventInterface<T> removeFirst()
     {
         synchronized (this.tableModel)
         {
@@ -183,7 +183,7 @@ public class TableModelEventList<T extends SimTime<?, ?, T>> extends RedBlackTre
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized SimEventInterface<T> removeLast()
+    public synchronized SimEventInterface<T> removeLast()
     {
         synchronized (this.tableModel)
         {

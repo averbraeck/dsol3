@@ -21,7 +21,7 @@ import nl.tudelft.simulation.language.DSOLException;
 /**
  * SerializableTest.java.
  * <p>
- * Copyright (c) 2019-2021 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
+ * Copyright (c) 2019-2022 Delft University of Technology, PO Box 5, 2600 AA, Delft, the Netherlands. All rights reserved. <br>
  * BSD-style license. See <a href="https://djunits.org/docs/license.html">DJUNITS License</a>.
  * <p>
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -128,7 +128,7 @@ public class SerializableTest
             @Override
             public void execute() throws Throwable
             {
-                byte[] wrong = new byte[] {1,2,3};
+                byte[] wrong = new byte[] {1, 2, 3};
                 TestClass tc3 = new TestClass(1);
                 StateSaver.restoreState(tc3, wrong);
             }
@@ -173,7 +173,7 @@ public class SerializableTest
         /**
          * @return self
          */
-        public final TestClass getSelf()
+        public TestClass getSelf()
         {
             return this.self;
         }
@@ -181,7 +181,7 @@ public class SerializableTest
         /**
          * @return value
          */
-        public final int getValue()
+        public int getValue()
         {
             return this.value;
         }
@@ -189,7 +189,7 @@ public class SerializableTest
         /**
          * @param value set value
          */
-        public final void setValue(int value)
+        public void setValue(final int value)
         {
             this.value = value;
         }
@@ -207,7 +207,8 @@ public class SerializableTest
 
         /** {@inheritDoc} */
         @Override
-        public boolean equals(Object obj)
+        @SuppressWarnings("checkstyle:needbraces")
+        public boolean equals(final Object obj)
         {
             if (this == obj)
                 return true;

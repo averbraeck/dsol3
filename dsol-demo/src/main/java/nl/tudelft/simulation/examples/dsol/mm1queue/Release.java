@@ -53,7 +53,7 @@ public class Release extends nl.tudelft.simulation.dsol.formalisms.flow.Release.
 
     /** {@inheritDoc} */
     @Override
-    public final synchronized void releaseObject(final Object object)
+    public synchronized void releaseObject(final Object object)
     {
         if (object instanceof Customer)
         {

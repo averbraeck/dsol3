@@ -3,7 +3,6 @@ package nl.tudelft.simulation.dsol.tutorial.section43;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import org.djutils.event.Event;
 import org.djutils.event.EventInterface;
 import org.djutils.event.EventListenerInterface;
 import org.djutils.event.EventProducer;
@@ -17,7 +16,7 @@ import nl.tudelft.simulation.dsol.swing.charts.xy.XYChart;
 /**
  * A Predator-Prey model with a graph.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -44,7 +43,7 @@ public class PredatorPreyModel extends AbstractDSOLModel.TimeDouble<DESSSimulato
 
     /** {@inheritDoc} */
     @Override
-    public final void constructModel() throws SimRuntimeException
+    public void constructModel() throws SimRuntimeException
     {
         try
         {
@@ -85,7 +84,7 @@ public class PredatorPreyModel extends AbstractDSOLModel.TimeDouble<DESSSimulato
     /**
      * @return chart
      */
-    public final XYChart getChart()
+    public XYChart getChart()
     {
         return this.chart;
     }
@@ -130,7 +129,7 @@ public class PredatorPreyModel extends AbstractDSOLModel.TimeDouble<DESSSimulato
                 }
                 else
                 {
-                    fireEvent((Event) event);
+                    fireEvent(event);
                 }
                 this.count = 0;
             }

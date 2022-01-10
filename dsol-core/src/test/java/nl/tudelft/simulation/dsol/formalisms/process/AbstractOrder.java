@@ -12,7 +12,7 @@ import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
 import nl.tudelft.simulation.dsol.simulators.Simulator;
 
 /**
- * An abstract order
+ * An abstract order.
  * @author peter
  */
 public class AbstractOrder extends Process

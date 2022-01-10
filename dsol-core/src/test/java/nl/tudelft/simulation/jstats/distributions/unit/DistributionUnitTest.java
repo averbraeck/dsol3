@@ -105,7 +105,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * DistributionUnitTest tests the distributions of scalars with a unit.
  * <p>
- * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2021-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">DSOL License</a>.
@@ -243,7 +243,7 @@ public class DistributionUnitTest
         /**
          * @return scalarClass
          */
-        public final Class<? extends AbstractDoubleScalar<?, ?>> getScalarClass()
+        public Class<? extends AbstractDoubleScalar<?, ?>> getScalarClass()
         {
             return this.scalarClass;
         }
@@ -251,7 +251,7 @@ public class DistributionUnitTest
         /**
          * @return distClass
          */
-        public final Class<? extends DistContinuousUnit<?, ?>> getDistClass()
+        public Class<? extends DistContinuousUnit<?, ?>> getDistClass()
         {
             return this.distClass;
         }
@@ -259,7 +259,7 @@ public class DistributionUnitTest
         /**
          * @return unit
          */
-        public final Unit<?> getUnit()
+        public Unit<?> getUnit()
         {
             return this.unit;
         }

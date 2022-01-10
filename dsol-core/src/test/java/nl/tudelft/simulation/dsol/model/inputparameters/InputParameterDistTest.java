@@ -32,7 +32,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
 /**
  * InputParameterTest for Distributions. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -44,7 +44,7 @@ public class InputParameterDistTest
      * @throws InputParameterException on setting error
      */
     @Test
-    public final void testInputParameterDistContinuous() throws InputParameterException
+    public void testInputParameterDistContinuous() throws InputParameterException
     {
         StreamInterface stream = new MersenneTwister(20L);
         InputParameterDistContinuous ip = new InputParameterDistContinuous("dist", "distribution", "continuous distribution",
@@ -101,7 +101,7 @@ public class InputParameterDistTest
      * @throws InputParameterException on setting error
      */
     @Test
-    public final void testInputParameterDistDiscrete() throws InputParameterException
+    public void testInputParameterDistDiscrete() throws InputParameterException
     {
         StreamInterface stream = new MersenneTwister(20L);
         InputParameterDistDiscrete ip = new InputParameterDistDiscrete("dist", "distribution", "discrete distribution", stream,
@@ -158,7 +158,7 @@ public class InputParameterDistTest
      */
     @Test
     @SuppressWarnings("checkstyle:methodlength")
-    public final void testInputParameterDistContinuousSelection() throws InputParameterException
+    public void testInputParameterDistContinuousSelection() throws InputParameterException
     {
         StreamInterface stream = new MersenneTwister(20L);
         InputParameterDistContinuousSelection ip =
@@ -376,7 +376,7 @@ public class InputParameterDistTest
      */
     @Test
     @SuppressWarnings("checkstyle:methodlength")
-    public final void testInputParameterDistDiscreteSelection() throws InputParameterException
+    public void testInputParameterDistDiscreteSelection() throws InputParameterException
     {
         StreamInterface stream = new MersenneTwister(20L);
         InputParameterDistDiscreteSelection ip =

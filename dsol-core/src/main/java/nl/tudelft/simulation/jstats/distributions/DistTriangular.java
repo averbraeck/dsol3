@@ -9,7 +9,7 @@ import nl.tudelft.simulation.jstats.streams.StreamInterface;
  * <a href="https://mathworld.wolfram.com/TriangularDistribution.html">
  * https://mathworld.wolfram.com/TriangularDistribution.html </a>
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -81,7 +81,7 @@ public class DistTriangular extends DistContinuous
      * Return the minimum value of the distribution.
      * @return double; the minimum value of the distribution
      */
-    public final double getMin()
+    public double getMin()
     {
         return this.min;
     }
@@ -90,7 +90,7 @@ public class DistTriangular extends DistContinuous
      * Return the mode of the distribution.
      * @return double; the mode of the distribution
      */
-    public final double getMode()
+    public double getMode()
     {
         return this.mode;
     }
@@ -99,7 +99,7 @@ public class DistTriangular extends DistContinuous
      * Return the maximum value of the distribution.
      * @return double; the maximum value of the distribution.
      */
-    public final double getMax()
+    public double getMax()
     {
         return this.max;
     }

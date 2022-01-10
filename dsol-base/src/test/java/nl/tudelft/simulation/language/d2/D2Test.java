@@ -16,7 +16,7 @@ import nl.tudelft.simulation.language.d2.DirectionalLine.Side;
 /**
  * D2Test.java. <br>
  * <br>
- * Copyright (c) 2003-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2003-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://www.simulation.tudelft.nl/" target="_blank">www.simulation.tudelft.nl</a>. The
  * source code and binary code of this software is proprietary information of Delft University of Technology.
  * @author <a href="https://www.tudelft.nl/averbraeck" target="_blank">Alexander Verbraeck</a>
@@ -28,7 +28,7 @@ public class D2Test
      * Angle test.
      */
     @Test
-    public final void angleTest()
+    public void angleTest()
     {
         assertEquals(0.0, Angle.normalize2Pi(0.0), 0.001);
         assertEquals(0.0, Angle.normalizePi(0.0), 0.001);
@@ -48,7 +48,7 @@ public class D2Test
      * Circle test.
      */
     @Test
-    public final void circleTest()
+    public void circleTest()
     {
         Point2D p00 = new Point2D.Double(0.0, 0.0);
         Point2D p20 = new Point2D.Double(2.0, 0.0);
@@ -74,7 +74,7 @@ public class D2Test
      * DirectionalLine test.
      */
     @Test
-    public final void directionalLineTest()
+    public void directionalLineTest()
     {
         DirectionalLine l0010 = new DirectionalLine(0.0, 0.0, 1.0, 0.0);
         assertEquals(0.0, l0010.x1, 0.001);
@@ -147,7 +147,7 @@ public class D2Test
      * Shape test (screen coordinates).
      */
     @Test
-    public final void shapeTest()
+    public void shapeTest()
     {
         Rectangle2D r0011 = new Rectangle2D.Double(0.0, 0.0, 1.0, 1.0);
         Rectangle2D r1122 = new Rectangle2D.Double(1.0, 1.0, 1.0, 1.0);
@@ -177,7 +177,7 @@ public class D2Test
      * Shape2d test (world coordinates).
      */
     @Test
-    public final void shape2dTest()
+    public void shape2dTest()
     {
         Bounds2d r0011 = new Bounds2d(0.0, 1.0, 0.0, 1.0);
         Bounds2d r1122 = new Bounds2d(1.0, 2.0, 1.0, 2.0);

@@ -7,7 +7,7 @@ import org.djutils.draw.point.Point3d;
 /**
  * The Point3D class with utilities to convert to point2D where the z-axis is neglected.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -53,7 +53,7 @@ public class CartesianPoint extends Point3d
      * returns the 2D representation of the point.
      * @return Point2D the result
      */
-    public final Point2D to2D()
+    public Point2D to2D()
     {
         return new Point2D.Double(this.getX(), this.getY());
     }
@@ -62,7 +62,7 @@ public class CartesianPoint extends Point3d
      * converts the point to a sperical point.
      * @return the spherical point
      */
-    public final SphericalPoint toSphericalPoint()
+    public SphericalPoint toSphericalPoint()
     {
         return CartesianPoint.toSphericalPoint(this);
     }

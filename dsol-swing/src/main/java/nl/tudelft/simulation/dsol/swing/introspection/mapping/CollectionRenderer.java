@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * Renders Collection values in a human-readable manner.
  * <p>
- * Copyright (c) 2002-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
+ * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
  * project is distributed under a three-clause BSD-style license, which can be found at
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
@@ -33,23 +33,31 @@ public class CollectionRenderer extends DefaultTableCellRenderer
 
     /** {@inheritDoc} */
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row,
-            int column)
+    public Component getTableCellRendererComponent(final JTable table, final Object value, final boolean isSelected,
+            final boolean hasFocus, final int row, final int column)
     {
         List<Object> coll = new ArrayList<Object>((Collection<?>) value);
         StringBuilder content = new StringBuilder();
         content.append("Collection of ");
         if (coll.size() > 0)
+        {
             content.append(getShortName(coll.get(0).getClass()));
+        }
         else
+        {
             content.append("?");
+        }
         content.append(": ");
         for (int i = 0; i < coll.size(); i++)
         {
             if (coll.get(i) == null)
+            {
                 content.append("null; ");
+            }
             else
+            {
                 content.append(coll.get(i).toString() + "; ");
+            }
         }
         return new JLabel(content.toString());
     }
@@ -59,7 +67,7 @@ public class CollectionRenderer extends DefaultTableCellRenderer
      * @param clasz Class&lt;?&gt;; the class
      * @return the short name
      */
-    private static String getShortName(Class<?> clasz)
+    private static String getShortName(final Class<?> clasz)
     {
         String name = clasz.getName();
         return name.substring(name.lastIndexOf('.') + 1);
