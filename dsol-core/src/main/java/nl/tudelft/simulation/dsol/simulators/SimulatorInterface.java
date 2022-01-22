@@ -123,6 +123,18 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
     DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> getModel();
 
     /**
+     * Add a method call that has to be performed at the end if initialize, and before the model starts. This can, for instance,
+     * be used to schedule the execution of simulation events before initialize has been called, and solved the problem that,
+     * for discrete event simulators, the scheduleEvent(...) methods cannot be called before initialize().
+     * @param source Object; the object that added the scheduled method call, for debugging purposes (typically 'this')
+     * @param target Object; the target on which the method needs to be executed
+     * @param method String; the name of the method to call on initialization of the model
+     * @param args Object[]; the arguments of the method. Use <code>new Object[] {}</code> for no arguments.
+     * @throws SimRuntimeException whenever the event is scheduled in the past.
+     */
+    void addScheduledMethodOnInitialize(Object source, Object target, String method, Object[] args) throws SimRuntimeException;
+
+    /**
      * Initializes the simulator with a replication for a model. It immediately fires a START_REPLICATION_EVENT and a
      * TIME_CHANGED_EVENT with the starting time. It does not yet fire a WARMUP_EVENT in case the warmup time is zero; this will
      * only be done after the simulator has been started. Note that the listeners of all statistics objects are removed when the
