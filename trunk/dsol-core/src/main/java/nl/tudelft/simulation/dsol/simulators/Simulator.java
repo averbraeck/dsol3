@@ -3,6 +3,8 @@ package nl.tudelft.simulation.dsol.simulators;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.djunits.value.vdouble.scalar.Duration;
@@ -17,6 +19,7 @@ import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
+import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEvent;
 import nl.tudelft.simulation.dsol.logger.SimLogger;
 import nl.tudelft.simulation.dsol.model.DSOLModel;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -89,6 +92,9 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     /** the simulator id. */
     private Serializable id;
 
+    /** the methods to execute after model initialization, e.g., to set-up the initial events. */
+    private final List<SimEvent.TimeLong> initialmethodCalls = new ArrayList<>();
+
     /**
      * Constructs a new Simulator.
      * @param id the id of the simulator, used in logging and firing of events.
@@ -122,7 +128,20 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
             model.constructModel();
             this.runState = RunState.INITIALIZED;
             this.replicationState = ReplicationState.INITIALIZED;
+
+            for (SimEvent.TimeLong initialMethodCall : this.initialmethodCalls)
+            {
+                initialMethodCall.execute();
+            }
         }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void addScheduledMethodOnInitialize(final Object source, final Object target, final String method,
+            final Object[] args) throws SimRuntimeException
+    {
+        this.initialmethodCalls.add(new SimEvent.TimeLong(0L, source, target, method, args));
     }
 
     /**
