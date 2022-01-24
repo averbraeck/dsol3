@@ -2,7 +2,8 @@ package nl.tudelft.simulation.dsol.formalisms.eventscheduling;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatTime;
@@ -103,7 +104,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
                 Constructor<?> constructor = ClassUtil.resolveConstructor((Class<?>) this.target, this.args);
                 if (!ClassUtil.isVisible(constructor, this.source.getClass()))
                 {
-                    throw new SimRuntimeException(this.methodName + " is not accessible for " + this.source);
+                    throw new SimRuntimeException(
+                            printTarget() + "." + this.methodName + " is not accessible for " + this.source);
                 }
                 constructor.setAccessible(true);
                 constructor.newInstance(this.args);
@@ -113,7 +115,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
                 Method method = ClassUtil.resolveMethod(this.target, this.methodName, this.args);
                 if (!ClassUtil.isVisible(method, this.source.getClass()))
                 {
-                    throw new SimRuntimeException(this.methodName + " is not accessible for " + this.source);
+                    throw new SimRuntimeException(
+                            printTarget() + "." + this.methodName + " is not accessible for " + this.source);
                 }
                 method.setAccessible(true);
                 method.invoke(this.target, this.args);
@@ -121,8 +124,8 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
         }
         catch (Exception exception)
         {
-            System.err.println(exception.toString() + " calling " + this.target + "." + this.methodName + " with arguments "
-                    + Arrays.toString(this.getArgs()));
+            System.err.println(exception.toString() + " calling " + printTarget() + "." + this.methodName + " with arguments "
+                    + printArgs());
             throw new SimRuntimeException(exception);
         }
     }
@@ -159,12 +162,57 @@ public class SimEvent<T extends SimTime<?, ?, T>> extends AbstractSimEvent<T>
         return this.target;
     }
 
+    /**
+     * Retrieve the target in a human readable way.
+     * @return String; the target in a human readable way
+     */
+    public String printTarget()
+    {
+        String s = "{" + this.target.getClass().getSimpleName() + ":";
+        try
+        {
+            s += this.target.toString() + "}";
+        }
+        catch (Exception e)
+        {
+            s += "Error in toString()}";
+        }
+        return s;
+    }
+
+    /**
+     * Retrieve the arguments in a human readable way.
+     * @return String; the arguments in a human readable way
+     */
+    public String printArgs()
+    {
+        if (getArgs() == null)
+        {
+            return "null";
+        }
+        List<String> argsList = new ArrayList<>();
+        for (int i = 0; i < this.getArgs().length; i++)
+        {
+            String s = "{" + this.getArgs()[i].getClass().getSimpleName() + ":";
+            try
+            {
+                s += this.getArgs()[i].toString() + "}";
+            }
+            catch (Exception e)
+            {
+                s += "Error in toString()}";
+            }
+            argsList.add(s);
+        }
+        return argsList.toString();
+    }
+
     /** {@inheritDoc} */
     @Override
     public String toString()
     {
         return "SimEvent[time=" + this.absoluteExecutionTime + "; priority=" + this.priority + "; source=" + this.source
-                + "; target=" + this.target + "; method=" + this.methodName + "; args=" + this.args + "]";
+                + "; target=" + printTarget() + "; method=" + this.methodName + "; args=" + printArgs() + "]";
     }
 
     /***********************************************************************************************************/
