@@ -4,9 +4,14 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.07.08" date="2022-01-XX" description="SimEvent errors improved">
+      <action dev="averbraeck" type="update">
+        The error messages and toString() method of the SimEvent have been improved with clear target and args printing.
+      </action>
+    </release>
 
     <release version="3.07.07" date="2022-01-22" description="addScheduledMethodOnInitialize(...) added">
-      <action dev="averbraeck" type="update">
+      <action dev="averbraeck" type="add">
         The addScheduledMethodOnInitialize(...) method has been added that adds a method call that has to be performed 
         at the end if initialize, and before the model starts. This can, for instance, be used to schedule the 
         execution of simulation events before initialize has been called, and solved the problem that, for discrete
