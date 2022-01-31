@@ -4,22 +4,22 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.07.08" date="2022-01-XX" description="SimEvent errors improved">
+    <release version="3.07.07" date="2022-01-XX" description="SimEvent errors improved; OSM files for GIS maps">
+      <action dev="averbraeck" type="add">
+        Map display in dsol-animation-gis can now also parse and display OpenStreetMap files (.pbf, .osm, .osm.gz and .osm.bz2).
+      </action>
       <action dev="averbraeck" type="update">
         The error messages and toString() method of the SimEvent have been improved with clear target and args printing.
       </action>
     </release>
 
-    <release version="3.07.07" date="2022-01-22" description="addScheduledMethodOnInitialize(...) added">
+    <release version="3.07.06" date="2022-01-22" description="addScheduledMethodOnInitialize(...) added; final methods removed">
       <action dev="averbraeck" type="add">
         The addScheduledMethodOnInitialize(...) method has been added that adds a method call that has to be performed 
-        at the end if initialize, and before the model starts. This can, for instance, be used to schedule the 
+        at the end of initialize, and before the model starts. This can, for instance, be used to schedule the 
         execution of simulation events before initialize has been called, and solved the problem that, for discrete
         event simulators, the scheduleEvent(...) methods cannot be called before initialize().
       </action>
-    </release>
-    
-    <release version="3.07.06" date="2022-01-10" description="Final methods removed">
       <action dev="averbraeck" type="update">
         The 'final' keyword with methods has been removed. It turned out to be a nuisance time after time that methods
         could not be extended, e.g., to return an object with narrower scope.  
