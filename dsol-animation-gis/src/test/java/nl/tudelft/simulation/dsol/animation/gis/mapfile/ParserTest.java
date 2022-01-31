@@ -7,8 +7,9 @@ import java.io.IOException;
 import org.djutils.io.URLResource;
 import org.junit.Test;
 
+import nl.tudelft.simulation.dsol.animation.gis.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
-import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
+import nl.tudelft.simulation.dsol.animation.gis.esri.EsriFileXmlParser;
 
 /**
  * ParserTest.java.
@@ -29,8 +30,8 @@ public class ParserTest
     @Test
     public void testParser() throws IOException
     {
-        GisMapInterface map = MapFileXMLParser.parseMapFile(URLResource.getResource("/gis/map.xml"));
-        assertEquals("sunnyvale", map.getName());
+        GisMapInterface map = EsriFileXmlParser.parseMapFile(URLResource.getResource("/esri/tudelft.xml"));
+        assertEquals("tudelft", map.getName());
         assertEquals(MapUnits.DECIMAL_DEGREES, map.getUnits());
     }
 }
