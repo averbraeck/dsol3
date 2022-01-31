@@ -17,8 +17,8 @@ import org.djutils.logger.CategoryLogger;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
-import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
-import nl.tudelft.simulation.dsol.animation.gis.mapfile.MapFileXMLParser;
+import nl.tudelft.simulation.dsol.animation.gis.GisMapInterface;
+import nl.tudelft.simulation.dsol.animation.gis.esri.EsriFileXmlParser;
 import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
@@ -85,7 +85,7 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         }
         try
         {
-            this.map = MapFileXMLParser.parseMapFile(mapFile, coordinateTransform);
+            this.map = EsriFileXmlParser.parseMapFile(mapFile, coordinateTransform);
             this.location =
                     new OrientedPoint3d(this.map.getExtent().midPoint().getX(), this.map.getExtent().midPoint().getY(), z);
             this.bounds = new Bounds3d(this.map.getExtent().getDeltaX(), this.map.getExtent().getDeltaY(), 0.0);

@@ -14,8 +14,8 @@ import javax.swing.JToggleButton;
 import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.logger.CategoryLogger;
 
-import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
-import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
+import nl.tudelft.simulation.dsol.animation.gis.GisMapInterface;
+import nl.tudelft.simulation.dsol.animation.gis.GisRenderable2D;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.dsol.swing.animation.D2.AnimationPanel;
 import nl.tudelft.simulation.dsol.swing.animation.D2.AutoPanAnimationPanel;
