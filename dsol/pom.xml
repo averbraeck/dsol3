@@ -271,6 +271,14 @@
               <location>${project.build.directory}/../../dsol-animation-gis/target/apidocs</location>
             </offlineLink>
             <offlineLink>
+              <url>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-animation-gis-esri/apidocs/</url>
+              <location>${project.build.directory}/../../dsol-animation-gis-esri/target/apidocs</location>
+            </offlineLink>
+            <offlineLink>
+              <url>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-animation-gis-osm/apidocs/</url>
+              <location>${project.build.directory}/../../dsol-animation-gis-osm/target/apidocs</location>
+            </offlineLink>
+            <offlineLink>
               <url>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-swing/apidocs/</url>
               <location>${project.build.directory}/../../dsol-swing/target/apidocs</location>
             </offlineLink>
@@ -467,6 +475,14 @@
             <offlineLink>
               <url>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-animation-gis/apidocs/</url>
               <location>${project.build.directory}/../../dsol-animation-gis/target/apidocs</location>
+            </offlineLink>
+            <offlineLink>
+              <url>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-animation-gis-esri/apidocs/</url>
+              <location>${project.build.directory}/../../dsol-animation-gis-esri/target/apidocs</location>
+            </offlineLink>
+            <offlineLink>
+              <url>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-animation-gis-osm/apidocs/</url>
+              <location>${project.build.directory}/../../dsol-animation-gis-osm/target/apidocs</location>
             </offlineLink>
             <offlineLink>
               <url>https://sg-3.tbm.tudelft.nl/dsol/3.0/dsol-swing/apidocs/</url>
@@ -730,6 +746,18 @@
       <dependency>
         <groupId>dsol</groupId>
         <artifactId>dsol-animation-gis</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>dsol</groupId>
+        <artifactId>dsol-animation-gis-esri</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>dsol</groupId>
+        <artifactId>dsol-animation-gis-osm</artifactId>
         <version>${project.version}</version>
       </dependency>
 
