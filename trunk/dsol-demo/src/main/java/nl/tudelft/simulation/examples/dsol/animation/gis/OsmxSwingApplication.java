@@ -11,8 +11,8 @@ import org.djutils.io.URLResource;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
-import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
-import nl.tudelft.simulation.dsol.animation.gis.D2.OsmRenderable2D;
+import nl.tudelft.simulation.dsol.animation.gis.GisRenderable2D;
+import nl.tudelft.simulation.dsol.animation.gis.osm.OsmRenderable2D;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
@@ -25,7 +25,7 @@ import nl.tudelft.simulation.dsol.swing.gui.control.RealTimeControlPanel;
 import nl.tudelft.simulation.language.DSOLException;
 
 /**
- * GIS demo to show a map.
+ * GIS demo to show a map using an OpenStreepMap PBF file.
  * <p>
  * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -35,7 +35,7 @@ import nl.tudelft.simulation.language.DSOLException;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class OSMSwingApplication extends DSOLAnimationApplication
+public class OsmxSwingApplication extends DSOLAnimationApplication
 {
     /**
      * @param title String; the title
@@ -45,7 +45,7 @@ public class OSMSwingApplication extends DSOLAnimationApplication
      * @throws IllegalArgumentException for illegal bounds
      * @throws RemoteException on network error
      */
-    public OSMSwingApplication(final String title, final DSOLPanel panel, final DSOLAnimationGisTab animationTab)
+    public OsmxSwingApplication(final String title, final DSOLPanel panel, final DSOLAnimationGisTab animationTab)
             throws RemoteException, IllegalArgumentException, DSOLException
     {
         super(panel, title, animationTab);
@@ -64,18 +64,18 @@ public class OSMSwingApplication extends DSOLAnimationApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException, DSOLException
     {
-        DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("GISSwingApplication", 0.001);
+        DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("OSMSwingApplication", 0.001);
         EmptyModel model = new EmptyModel(simulator);
         ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000000.0);
         simulator.initialize(model, replication);
 
         DSOLPanel panel = new DSOLPanel(new RealTimeControlPanel.TimeDouble(model, simulator));
-        Bounds2d mapBounds = new Bounds2d(4.202, 4.482, 52.011, 52.133); // new Bounds2d(-122.065, -121.997, 37.402, 37.433); 
+        Bounds2d mapBounds = new Bounds2d(4.355, 4.386, 51.995, 52.005);
         DSOLAnimationGisTab animationTab = new DSOLAnimationGisTab(mapBounds, simulator);
         animationTab.getAnimationPanel().setRenderableScale(
                 new RenderableScale(Math.cos(Math.toRadians(mapBounds.midPoint().getY())), 1.0 / 111319.24));
         animationTab.addAllToggleGISButtonText("MAP LAYERS", model.getOsmMap(), "hide or show this GIS layer");
-        new OSMSwingApplication("GISSwingApplication", panel, animationTab);
+        new OsmxSwingApplication("OSMSwingApplication", panel, animationTab);
     }
 
     /** The empty model -- this demo is just to show a map on the screen. */
@@ -100,7 +100,7 @@ public class OSMSwingApplication extends DSOLAnimationApplication
         @Override
         public void constructModel() throws SimRuntimeException
         {
-            URL gisURL = URLResource.getResource("file:E:/java/medlabs/workspace/thehague.osm.pbf");
+            URL gisURL = URLResource.getResource("/osm/tudelft.osm.pbf");
             System.out.println("GIS-map file: " + gisURL.toString());
             this.gisMap = new OsmRenderable2D(getSimulator(), gisURL);
         }
