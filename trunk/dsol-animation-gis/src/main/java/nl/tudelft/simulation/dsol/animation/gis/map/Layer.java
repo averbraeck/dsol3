@@ -2,7 +2,8 @@ package nl.tudelft.simulation.dsol.animation.gis.map;
 
 import java.awt.Color;
 
-import nl.tudelft.simulation.dsol.animation.gis.io.DataSourceInterface;
+import nl.tudelft.simulation.dsol.animation.gis.DataSourceInterface;
+import nl.tudelft.simulation.dsol.animation.gis.LayerInterface;
 
 /**
  * This is an implementation of the LayerInterface that just stores the basic metadata for each layer. The actual information of

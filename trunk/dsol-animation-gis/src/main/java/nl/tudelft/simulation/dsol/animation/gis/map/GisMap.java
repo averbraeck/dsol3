@@ -19,8 +19,11 @@ import org.djutils.immutablecollections.ImmutableList;
 import org.djutils.immutablecollections.ImmutableMap;
 import org.djutils.logger.CategoryLogger;
 
+import nl.tudelft.simulation.dsol.animation.gis.DSOLGisException;
+import nl.tudelft.simulation.dsol.animation.gis.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.GisObject;
-import nl.tudelft.simulation.dsol.animation.gis.GraphicsException;
+import nl.tudelft.simulation.dsol.animation.gis.LayerInterface;
+import nl.tudelft.simulation.dsol.animation.gis.MapImageInterface;
 import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
 import nl.tudelft.simulation.dsol.animation.gis.SerializablePath;
 import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
@@ -173,7 +176,7 @@ public class GisMap implements GisMapInterface
     /** {@inheritDoc} */
     @Override
     @SuppressWarnings("checkstyle:methodlength")
-    public Graphics2D drawMap(final Graphics2D graphics) throws GraphicsException
+    public Graphics2D drawMap(final Graphics2D graphics) throws DSOLGisException
     {
         if (this.drawBackground)
         {
@@ -199,6 +202,7 @@ public class GisMap implements GisMapInterface
 
         // we cache the scale
         double scale = this.getScale();
+        System.out.println("scale = " + scale);
 
         // we set the rendering hints
         graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -213,7 +217,6 @@ public class GisMap implements GisMapInterface
                 {
                     List<GisObject> shapes = layer.getDataSource().getShapes(this.extent);
                     SerializablePath shape = null;
-                    int counter = 0; // TODO: remove
                     for (Iterator<GisObject> shapeIterator = shapes.iterator(); shapeIterator.hasNext();)
                     {
                         GisObject gisObject = shapeIterator.next();
@@ -246,17 +249,13 @@ public class GisMap implements GisMapInterface
                         {
                             shape.transform(antiTransform);
                         }
-                        if (counter++ > 10000) // TODO: REMOVE
-                        {
-                            break;
-                        }
                     }
                 }
             }
             catch (Exception exception)
             {
                 CategoryLogger.always().error(exception);
-                throw new GraphicsException(exception.getMessage());
+                throw new DSOLGisException(exception.getMessage());
             }
         }
         return graphics;
