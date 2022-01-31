@@ -19,6 +19,8 @@
       <item name="dsol-swing" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-swing/index.html" />
       <item name="dsol-animation" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-animation/index.html" />
       <item name="dsol-animation-gis" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-animation-gis/index.html" />
+      <item name="dsol-animation-gis-esri" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-animation-gis-esri/index.html" />
+      <item name="dsol-animation-gis-osm" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-animation-gis-osm/index.html" />
       <item name="dsol-web" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-web/index.html" />
       <item name="dsol-demo" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-demo/index.html" />
       <!-- item name="dsol-akka" href="https://simulation.tudelft.nl/dsol/${project.version}/dsol-akka/index.html" / -->
