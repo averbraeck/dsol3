@@ -81,8 +81,7 @@ public class SerializablePath extends Path2D.Float implements Serializable, Shap
         out.writeInt(getWindingRule());
         float[] coords = new float[6];
         PathIterator i = getPathIterator(null);
-        // Now the Path iterator is present, we simply walk along the shape and
-        // serialize the points..
+        // Now the Path iterator is present, we simply walk along the shape and serialize the points.
         while (!i.isDone())
         {
             int segment = i.currentSegment(coords);
@@ -91,8 +90,7 @@ public class SerializablePath extends Path2D.Float implements Serializable, Shap
             {
                 case PathIterator.SEG_CLOSE:
                     writeFloatArray(out, coords, 0);
-                    // no float is serialized.. Keeps the bytestream as
-                    // minimal as possible
+                    // no float is serialized.. Keeps the bytestream as minimal as possible
                     break;
                 case PathIterator.SEG_CUBICTO:
                     writeFloatArray(out, coords, 6);
@@ -100,21 +98,18 @@ public class SerializablePath extends Path2D.Float implements Serializable, Shap
                     break;
                 case PathIterator.SEG_LINETO:
                     writeFloatArray(out, coords, 2);
-                    // 2 floats are used and serialized.. Keeps the
-                    // bytestream as minimal as possible
+                    // 2 floats are used and serialized. Keeps the bytestream as minimal as possible
                     break;
                 case PathIterator.SEG_MOVETO:
                     writeFloatArray(out, coords, 2);
-                    // 2 floats are used and serialized.. Keeps the
-                    // bytestream as minimal as possible
+                    // 2 floats are used and serialized. Keeps the bytestream as minimal as possible
                     break;
                 case PathIterator.SEG_QUADTO:
                     writeFloatArray(out, coords, 4);
-                    // 2 floats are used and serialized.. Keeps the
-                    // bytestream as minimal as possible
+                    // 2 floats are used and serialized.. Keeps the bytestream as minimal as possible
                     break;
                 default:
-                    throw new RuntimeException("unkown segment");
+                    throw new RuntimeException("unknown segment");
             }
             i.next();
         }
@@ -130,7 +125,7 @@ public class SerializablePath extends Path2D.Float implements Serializable, Shap
     {
         int segment;
         while ((segment = in.readInt()) != -1)
-        // The -1 value was our ending point..
+        // The -1 value was our ending point.
         {
             switch (segment)
             {
@@ -150,7 +145,7 @@ public class SerializablePath extends Path2D.Float implements Serializable, Shap
                     quadTo(in.readFloat(), in.readFloat(), in.readFloat(), in.readFloat());
                     break;
                 default:
-                    throw new RuntimeException("unkown segment");
+                    throw new RuntimeException("unknown segment");
             }
         }
     }

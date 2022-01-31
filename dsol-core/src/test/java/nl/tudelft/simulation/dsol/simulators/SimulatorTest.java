@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.concurrent.TimeoutException;
 
 import org.junit.Test;
 
@@ -16,7 +14,7 @@ import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 
 /**
- * SimulatorTest.java.
+ * SimulatorTest tests the simulator.addScheduledMethodOnInitialize method.
  * <p>
  * Copyright (c) 2021-2021 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -28,12 +26,10 @@ import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
 public class SimulatorTest
 {
     /**
-     * @throws TimeoutException on error
-     * @throws InterruptedException on error
-     * @throws RemoteException on error
+     * Test the simulator.addScheduledMethodOnInitialize method.
      */
     @Test
-    public void testScheduledInitMethods() throws TimeoutException, InterruptedException, RemoteException
+    public void testScheduledInitMethods()
     {
         new TestScheduledInitMethods();
     }

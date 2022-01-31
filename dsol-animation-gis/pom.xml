@@ -20,11 +20,30 @@
       <artifactId>dsol-animation</artifactId>
     </dependency>
 
-    <!-- dependency>
-      <groupId>com.esri.geometry</groupId>
-      <artifactId>esri-geometry-api</artifactId>
-      <version>2.2.4</version>
-    </dependency -->
+    <dependency>
+      <groupId>org.openstreetmap.osmosis</groupId>
+      <artifactId>osmosis-set</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openstreetmap.osmosis</groupId>
+      <artifactId>osmosis-xml</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openstreetmap.osmosis</groupId>
+      <artifactId>osmosis-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openstreetmap.osmosis</groupId>
+      <artifactId>osmosis-osm-binary</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openstreetmap.osmosis</groupId>
+      <artifactId>osmosis-pbf</artifactId>
+    </dependency>
 
   </dependencies>
 </project>

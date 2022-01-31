@@ -11,8 +11,8 @@ import org.djutils.io.URLResource;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
-import nl.tudelft.simulation.dsol.animation.gis.D2.EsriRenderable2D;
 import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
+import nl.tudelft.simulation.dsol.animation.gis.D2.OsmRenderable2D;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
@@ -35,7 +35,7 @@ import nl.tudelft.simulation.language.DSOLException;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class GISSwingApplication extends DSOLAnimationApplication
+public class OSMSwingApplication extends DSOLAnimationApplication
 {
     /**
      * @param title String; the title
@@ -45,7 +45,7 @@ public class GISSwingApplication extends DSOLAnimationApplication
      * @throws IllegalArgumentException for illegal bounds
      * @throws RemoteException on network error
      */
-    public GISSwingApplication(final String title, final DSOLPanel panel, final DSOLAnimationGisTab animationTab)
+    public OSMSwingApplication(final String title, final DSOLPanel panel, final DSOLAnimationGisTab animationTab)
             throws RemoteException, IllegalArgumentException, DSOLException
     {
         super(panel, title, animationTab);
@@ -74,8 +74,8 @@ public class GISSwingApplication extends DSOLAnimationApplication
         DSOLAnimationGisTab animationTab = new DSOLAnimationGisTab(mapBounds, simulator);
         animationTab.getAnimationPanel().setRenderableScale(
                 new RenderableScale(Math.cos(Math.toRadians(mapBounds.midPoint().getY())), 1.0 / 111319.24));
-        animationTab.addAllToggleGISButtonText("MAP LAYERS", model.getGisMap(), "hide or show this GIS layer");
-        new GISSwingApplication("GISSwingApplication", panel, animationTab);
+        animationTab.addAllToggleGISButtonText("MAP LAYERS", model.getOsmMap(), "hide or show this GIS layer");
+        new OSMSwingApplication("GISSwingApplication", panel, animationTab);
     }
 
     /** The empty model -- this demo is just to show a map on the screen. */
@@ -85,14 +85,14 @@ public class GISSwingApplication extends DSOLAnimationApplication
         private static final long serialVersionUID = 1L;
 
         /** the GIS map. */
-        private GisRenderable2D gisMap;
+        private OsmRenderable2D gisMap;
 
         /**
          * constructs a new EmptyModel.
          * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
          */
         EmptyModel(final DEVSSimulatorInterface.TimeDouble simulator)
-        {
+        { 
             super(simulator);
         }
 
@@ -100,10 +100,9 @@ public class GISSwingApplication extends DSOLAnimationApplication
         @Override
         public void constructModel() throws SimRuntimeException
         {
-            // URL gisURL = URLResource.getResource("/gis/map.xml");
-            URL gisURL = URLResource.getResource("/map-thehague.xml");
+            URL gisURL = URLResource.getResource("file:E:/java/medlabs/workspace/thehague.osm.pbf");
             System.out.println("GIS-map file: " + gisURL.toString());
-            this.gisMap = new EsriRenderable2D(getSimulator(), gisURL);
+            this.gisMap = new OsmRenderable2D(getSimulator(), gisURL);
         }
 
         /** {@inheritDoc} */
@@ -116,7 +115,7 @@ public class GISSwingApplication extends DSOLAnimationApplication
         /**
          * @return gisMap
          */
-        public GisRenderable2D getGisMap()
+        public GisRenderable2D getOsmMap()
         {
             return this.gisMap;
         }
