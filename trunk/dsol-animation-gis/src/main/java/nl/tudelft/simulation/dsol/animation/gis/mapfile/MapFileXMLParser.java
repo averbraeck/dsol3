@@ -22,7 +22,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
-import nl.tudelft.simulation.dsol.animation.gis.io.esri.ShapeFile;
+import nl.tudelft.simulation.dsol.animation.gis.io.esri.ShapeFileReader;
 import nl.tudelft.simulation.dsol.animation.gis.map.GisMap;
 import nl.tudelft.simulation.dsol.animation.gis.map.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.map.Layer;
@@ -268,7 +268,7 @@ public final class MapFileXMLParser
                     {
                         throw new IOException("Cannot locate shapeFile: " + resourceName);
                     }
-                    ShapeFile dataSource = new ShapeFile(resource, coordinateTransform);
+                    ShapeFileReader dataSource = new ShapeFileReader(resource, coordinateTransform);
                     String cache = ((Element) dataNode).getAttribute("cache");
                     if (cache != null && (cache.toLowerCase().startsWith("f") || cache.toLowerCase().startsWith("n")
                             || cache.equals("0")))

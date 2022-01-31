@@ -36,7 +36,7 @@ import nl.tudelft.simulation.language.d2.Shape;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class ShapeFile implements DataSourceInterface
+public class ShapeFileReader implements DataSourceInterface
 {
     /** */
     private static final long serialVersionUID = 20201223L;
@@ -111,12 +111,12 @@ public class ShapeFile implements DataSourceInterface
     private final CoordinateTransform coordinateTransform;
 
     /**
-     * constructs a new ESRI ShapeFile.
+     * Construct a reader for an ESRI ShapeFile.
      * @param url URL; URL may or may not end with their extension.
      * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
-     * @throws IOException throws an IOException if the shxFile is not accessable
+     * @throws IOException throws an IOException if the shxFile is not accessible
      */
-    public ShapeFile(final URL url, final CoordinateTransform coordinateTransform) throws IOException
+    public ShapeFileReader(final URL url, final CoordinateTransform coordinateTransform) throws IOException
     {
         this.coordinateTransform = coordinateTransform;
         String fileName = url.toString();
@@ -192,7 +192,7 @@ public class ShapeFile implements DataSourceInterface
     {
         if (index > this.numShapes || index < 0)
         {
-            throw new IndexOutOfBoundsException("Index =" + index + " number of shapes in layer :" + this.numShapes);
+            throw new IndexOutOfBoundsException("Index =" + index + ", while number of shapes in layer :" + this.numShapes);
         }
 
         // May we use the cache?
@@ -229,7 +229,11 @@ public class ShapeFile implements DataSourceInterface
         String[][] attributes = this.dbfReader.getRows();
         for (int i = 0; i < this.numShapes; i++)
         {
-            results.add(new GisObject(this.readShape(shapeInput), attributes[i]));
+            Object shape = this.readShape(shapeInput);
+            if (shape != null) // skip Null Shape type 0
+            {
+                results.add(new GisObject(shape, attributes[i]));
+            }
         }
         shapeInput.close();
 
@@ -290,6 +294,8 @@ public class ShapeFile implements DataSourceInterface
             int shapeNumber = shapeInput.readInt();
             int contentLength = shapeInput.readInt();
             shapeInput.setEndianness(Endianness.LITTLE_ENDIAN);
+            
+            // the null type is properly skipped
             int type = shapeInput.readInt();
             if (type != 0 && type != 1 && type != 11 && type != 21)
             {
@@ -312,7 +318,6 @@ public class ShapeFile implements DataSourceInterface
             }
             else if (type != 0)
             {
-
                 Point2D temp = (Point2D) this.readShape(shapeInput, shapeNumber, contentLength, type, false);
                 if (extent.toRectangle2D().contains(temp))
                 {
@@ -345,10 +350,10 @@ public class ShapeFile implements DataSourceInterface
     }
 
     /**
-     * reads a shape.
+     * Read a shape.
      * @param input ObjectEndianInputStream; the inputStream
-     * @return the shape
-     * @throws IOException on IOException
+     * @return Object; the shape
+     * @throws IOException on file IO or database connection failure
      */
     private Object readShape(final ObjectEndianInputStream input) throws IOException
     {
@@ -360,12 +365,12 @@ public class ShapeFile implements DataSourceInterface
      * @param fixedShapeNumber int; the shape number, if -1, read from input
      * @param fixedContentLength int; the length of the content, if -1, read from input
      * @param fixedType int; shape type; if -1, read from input
-     * @param skipBox boolean;
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the shape
      * @throws IOException on I/O error reading from the shape file
      */
     private Object readShape(final ObjectEndianInputStream input, final int fixedShapeNumber, final int fixedContentLength,
-            final int fixedType, final boolean skipBox) throws IOException
+            final int fixedType, final boolean skipBoundingBox) throws IOException
     {
         input.setEndianness(Endianness.BIG_ENDIAN);
         @SuppressWarnings("unused")
@@ -383,54 +388,66 @@ public class ShapeFile implements DataSourceInterface
             case 1:
                 return readPoint(input);
             case 3:
-                return readPolyLine(input, skipBox);
+                return readPolyLine(input, skipBoundingBox);
             case 5:
-                return readPolygon(input, skipBox);
+                return readPolygon(input, skipBoundingBox);
             case 8:
-                return readMultiPoint(input, skipBox);
+                return readMultiPoint(input, skipBoundingBox);
             case 11:
                 return readPointZ(input, contentLength);
             case 13:
-                return readPolyLineZ(input, contentLength, skipBox);
+                return readPolyLineZ(input, contentLength, skipBoundingBox);
             case 15:
-                return readPolygonZ(input, contentLength, skipBox);
+                return readPolygonZ(input, contentLength, skipBoundingBox);
             case 18:
-                return readMultiPointZ(input, contentLength, skipBox);
+                return readMultiPointZ(input, contentLength, skipBoundingBox);
             case 21:
                 return readPointM(input, contentLength);
             case 23:
-                return readPolyLineM(input, contentLength, skipBox);
+                return readPolyLineM(input, contentLength, skipBoundingBox);
             case 25:
-                return readPolygonM(input, contentLength, skipBox);
+                return readPolygonM(input, contentLength, skipBoundingBox);
             case 28:
-                return readMultiPointM(input, contentLength, skipBox);
+                return readMultiPointM(input, contentLength, skipBoundingBox);
             case 31:
-                return readMultiPatch(input, contentLength, skipBox);
+                return readMultiPatch(input, contentLength, skipBoundingBox);
             default:
                 throw new IOException("Unknown shape type or shape type not supported");
         }
     }
 
     /**
-     * reads a nullshape.
+     * Read a Null Shape.
+     * <p>
+     * A shape type of 0 indicates a null shape, with no geometric data for the shape. Each feature type (point, line, polygon,
+     * etc.) supports nulls¾it is valid to have points and null points in the same shapefile. Often null shapes are place
+     * holders; they are used during shapefile creation and are populated with geometric data soon after they are created.
+     * </p>
      * @param input ObjectEndianInputStream; the inputStream
-     * @return a nullobject
-     * @throws IOException on IOException
+     * @return null to indicate this is not a valid shape
      */
-    private synchronized Object readNullShape(final ObjectEndianInputStream input) throws IOException
+    private synchronized Object readNullShape(final ObjectEndianInputStream input)
     {
-        if (input != null)
-        {
-            throw new IOException("readNullShape inputStream is is not null");
-        }
         return null;
     }
 
     /**
-     * reads a Point.
+     * Read a Point.
+     * <p>
+     * A point consists of a pair of double-precision coordinates in the order X,Y.
+     * </p>
+     * <pre>
+     *   All byte orders are Little Endian.
+     *   Integer ShapeType  // byte  0; Value 1 for Point
+     *   Point
+     *   {
+     *     Double X         // byte  4; X coordinate (8 bytes)
+     *     Double Y         // byte 12; Y coordinate (8 bytes)
+     *   }
+     * </pre>
      * @param input ObjectEndianInputStream; the inputStream
-     * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @return Point2D.Double; the point
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readPoint(final ObjectEndianInputStream input) throws IOException
     {
@@ -441,16 +458,44 @@ public class ShapeFile implements DataSourceInterface
     }
 
     /**
-     * reads a PolyLine.
+     * Read a PolyLine.
+     * <p>
+     * A PolyLine is an ordered set of vertices that consists of one or more parts. A part is a connected sequence of two or
+     * more points. Parts may or may not be connected to one another. Parts may or may not intersect one another. Because this
+     * specification does not forbid consecutive points with identical coordinates, shapefile readers must handle such cases. On
+     * the other hand, the degenerate, zero length parts that might result are not allowed.
+     * </p>
+     * 
+     * <pre>
+     *   All byte orders are Little Endian.
+     *   Integer ShapeType         // byte  0; Value 8 for PolyLine
+     *   PolyLine
+     *   {
+     *     Double[4] Box           // byte  4; Bounding Box, consisting of {Xmin, Ymin, Xmax, Ymax} (32 bytes)
+     *     Integer NumParts        // byte 36; Number of Parts in the PolyLine (4 bytes)
+     *     Integer NumPoints       // byte 40; Total Number of Points, summed for all parts (4 bytes)
+     *     Integer[NumParts] Parts // byte 44; Index array to first point in in the points array (4 * NumParts)
+     *     Point[NumPoints] Points // Points for all parts; no delimiter between points of different parts (16 * NumPoints)
+     *   }
+     *   
+     *   where a point consists of a pair of double-precision coordinates in the order X,Y.
+     *   Point
+     *   {
+     *     Double X                // X coordinate (8 bytes)
+     *     Double Y                // Y coordinate (8 bytes)
+     *   }
+     * </pre>
+     * 
      * @param input ObjectEndianInputStream; the inputStream
-     * @param skipBox boolean; whether to skip the box
-     * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
+     * @return the shape as a SerializablePath
+     * @throws IOException on file IO or database connection failure
      */
-    private synchronized Object readPolyLine(final ObjectEndianInputStream input, final boolean skipBox) throws IOException
+    private synchronized Object readPolyLine(final ObjectEndianInputStream input, final boolean skipBoundingBox)
+            throws IOException
     {
         this.currentType = GisMapInterface.LINE;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -483,14 +528,15 @@ public class ShapeFile implements DataSourceInterface
     /**
      * reads a Polygon.
      * @param input ObjectEndianInputStream; the inputStream
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
-    private synchronized Object readPolygon(final ObjectEndianInputStream input, final boolean skipBox) throws IOException
+    private synchronized Object readPolygon(final ObjectEndianInputStream input, final boolean skipBoundingBox)
+            throws IOException
     {
         this.currentType = GisMapInterface.POLYGON;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -523,14 +569,15 @@ public class ShapeFile implements DataSourceInterface
     /**
      * reads a readMultiPoint.
      * @param input ObjectEndianInputStream; the inputStream
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
-    private synchronized Object readMultiPoint(final ObjectEndianInputStream input, final boolean skipBox) throws IOException
+    private synchronized Object readMultiPoint(final ObjectEndianInputStream input, final boolean skipBoundingBox)
+            throws IOException
     {
         this.currentType = GisMapInterface.POINT;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -549,7 +596,7 @@ public class ShapeFile implements DataSourceInterface
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readPointZ(final ObjectEndianInputStream input, final int contentLength) throws IOException
     {
@@ -564,15 +611,15 @@ public class ShapeFile implements DataSourceInterface
      * reads a readPolyLineZ.
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readPolyLineZ(final ObjectEndianInputStream input, final int contentLength,
-            final boolean skipBox) throws IOException
+            final boolean skipBoundingBox) throws IOException
     {
         this.currentType = GisMapInterface.LINE;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -611,15 +658,15 @@ public class ShapeFile implements DataSourceInterface
      * reads a readPolygonZ.
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readPolygonZ(final ObjectEndianInputStream input, final int contentLength,
-            final boolean skipBox) throws IOException
+            final boolean skipBoundingBox) throws IOException
     {
         this.currentType = GisMapInterface.POLYGON;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -657,15 +704,15 @@ public class ShapeFile implements DataSourceInterface
      * reads a readMultiPointZ.
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readMultiPointZ(final ObjectEndianInputStream input, final int contentLength,
-            final boolean skipBox) throws IOException
+            final boolean skipBoundingBox) throws IOException
     {
         this.currentType = GisMapInterface.POINT;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -687,7 +734,7 @@ public class ShapeFile implements DataSourceInterface
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readPointM(final ObjectEndianInputStream input, final int contentLength) throws IOException
     {
@@ -701,15 +748,15 @@ public class ShapeFile implements DataSourceInterface
      * reads a readPolyLineM.
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readPolyLineM(final ObjectEndianInputStream input, final int contentLength,
-            final boolean skipBox) throws IOException
+            final boolean skipBoundingBox) throws IOException
     {
         this.currentType = GisMapInterface.LINE;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -746,15 +793,15 @@ public class ShapeFile implements DataSourceInterface
      * reads a readPolyLineM.
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readPolygonM(final ObjectEndianInputStream input, final int contentLength,
-            final boolean skipBox) throws IOException
+            final boolean skipBoundingBox) throws IOException
     {
         this.currentType = GisMapInterface.POLYGON;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -792,15 +839,15 @@ public class ShapeFile implements DataSourceInterface
      * reads a readMultiPointM.
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readMultiPointM(final ObjectEndianInputStream input, final int contentLength,
-            final boolean skipBox) throws IOException
+            final boolean skipBoundingBox) throws IOException
     {
         this.currentType = GisMapInterface.POINT;
-        if (skipBox)
+        if (skipBoundingBox)
         {
             input.skipBytes(32);
         }
@@ -818,17 +865,17 @@ public class ShapeFile implements DataSourceInterface
     }
 
     /**
-     * reads a readMultiPointM.
+     * reads a readMultiPatch.
      * @param input ObjectEndianInputStream; the inputStream
      * @param contentLength int; the contentLength
-     * @param skipBox boolean; whether to skip the box
+     * @param skipBoundingBox boolean; whether to skip the bytes of the bounding box because they have not yet been read
      * @return the java2D PointShape
-     * @throws IOException on IOException
+     * @throws IOException on file IO or database connection failure
      */
     private synchronized Object readMultiPatch(final ObjectEndianInputStream input, final int contentLength,
-            final boolean skipBox) throws IOException
+            final boolean skipBoundingBox) throws IOException
     {
-        if (input != null || contentLength != 0 || skipBox)
+        if (input != null || contentLength != 0 || skipBoundingBox)
         {
             throw new IOException(
                     "Please inform <a href=\"mailto:support@javel.nl\">support@javel.nl</a> that you need MultiPatch support");

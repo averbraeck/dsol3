@@ -213,6 +213,7 @@ public class GisMap implements GisMapInterface
                 {
                     List<GisObject> shapes = layer.getDataSource().getShapes(this.extent);
                     SerializablePath shape = null;
+                    int counter = 0; // TODO: remove
                     for (Iterator<GisObject> shapeIterator = shapes.iterator(); shapeIterator.hasNext();)
                     {
                         GisObject gisObject = shapeIterator.next();
@@ -244,6 +245,10 @@ public class GisMap implements GisMapInterface
                         if (layer.isTransform())
                         {
                             shape.transform(antiTransform);
+                        }
+                        if (counter++ > 10000) // TODO: REMOVE
+                        {
+                            break;
                         }
                     }
                 }
