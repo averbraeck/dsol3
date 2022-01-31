@@ -21,7 +21,12 @@
 
     <dependency>
       <groupId>dsol</groupId>
-      <artifactId>dsol-animation-gis</artifactId>
+      <artifactId>dsol-animation-gis-esri</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>dsol</groupId>
+      <artifactId>dsol-animation-gis-osm</artifactId>
     </dependency>
 
     <dependency>
