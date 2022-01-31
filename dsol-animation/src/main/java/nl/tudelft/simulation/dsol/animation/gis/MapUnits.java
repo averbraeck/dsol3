@@ -1,7 +1,7 @@
 package nl.tudelft.simulation.dsol.animation.gis;
 
 /**
- * MapUnits indicates the units for a map.
+ * MapUnits indicates the units for a map. If two coordinates are "1" apart, what does that "1" stand for? 
  * <p>
  * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -26,6 +26,9 @@ public enum MapUnits
 
     /** MILES constant. */
     MILES,
+    
+    /** DEGREES constant, e.g., for WGS84. */
+    DEGREES,
 
     /** DECIMAL DEGREES constant. A decimal degree is 1/100 of the earth circumference. */
     DECIMAL_DEGREES;

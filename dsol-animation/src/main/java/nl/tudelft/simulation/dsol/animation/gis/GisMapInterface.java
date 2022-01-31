@@ -10,6 +10,10 @@ import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.immutablecollections.ImmutableList;
 import org.djutils.immutablecollections.ImmutableMap;
 
+import nl.tudelft.simulation.dsol.animation.gis.DSOLGisException;
+import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
+import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
+
 /**
  * This interface defines the map.
  * <p>
@@ -22,73 +26,122 @@ import org.djutils.immutablecollections.ImmutableMap;
  */
 public interface GisMapInterface extends Serializable
 {
-    /**
-     * Draw the map on a graphics object.
-     * @param graphics Graphics2D; the graphics object
-     * @return Graphics2D; the graphics object for command chaining
-     * @throws GraphicsException on drawing failure
-     * @throws RemoteException on network failure
-     */
-    Graphics2D drawMap(Graphics2D graphics) throws GraphicsException, RemoteException;
+    /** TEXT. */
+    byte TEXT = 0;
+
+    /** ANGLEDEg. */
+    byte ANGLEDEG = 1;
+
+    /** ANGLERAd. */
+    byte ANGLERAD = 2;
+
+    /** IMAGe. */
+    byte IMAGE = 3;
+
+    /** AIRPHOTO. */
+    byte AIRPHOTO = 4;
+
+    /** POLYGON. */
+    byte POLYGON = 0;
+
+    /** POINT. */
+    byte POINT = 1;
+
+    /** LINE. */
+    byte LINE = 2;
+
+    /** FEET_TO_METER. */
+    double FEET_TO_METER = 0.3048;
+
+    /** INCH_TO_METER. */
+    double INCH_TO_METER = 0.0254;
+
+    /** KILOMETER_TO_METER. */
+    double KILOMETER_TO_METER = 1000;
+
+    /** MILES_TO_METER. */
+    double MILES_TO_METER = 1609.34;
+
+    /** DD_TO_METER (DD stands for decimal degrees). */
+    double DD_TO_METER = 111119;
+
+    /** CENTIMETER_PER_INCH. */
+    double CENTIMETER_PER_INCH = 2.54;
 
     /**
-     * Return the extent of the map in world coordinates.
-     * @return Bounds2d; the extent of the map in world coordinates
+     * draws the map on a graphics object.
+     * @param graphics Graphics2D; the graphics object
+     * @return Graphics2D
+     * @throws DSOLGisException on drawing failure
+     * @throws RemoteException on network failure
+     */
+    Graphics2D drawMap(Graphics2D graphics) throws DSOLGisException, RemoteException;
+
+    /**
+     * Getter for property extent.
+     * @return Bounds2d; the extent of the map
      * @throws RemoteException on network exception
      */
     Bounds2d getExtent() throws RemoteException;
 
     /**
-     * Return the map of layer names to layers.
-     * @return ImmutableMap&lt;LayerInterface, String&gt;; the the map of layer names to layers
+     * Getter for property image.
+     * @return ImageInterface; the value of property image.
+     * @throws RemoteException on network exception
+     */
+    MapImageInterface getImage() throws RemoteException;
+
+    /**
+     * Getter for the map of layer names to property layers.
+     * @return Bounds2d; the value of property layers.
      * @throws RemoteException on network exception
      */
     ImmutableMap<String, LayerInterface> getLayerMap() throws RemoteException;
 
     /**
-     * Return a list with all layers for the map.
-     * @return ImmutableList&lt;LayerInterface&gt;; a list with all layers
+     * Getter for all the property layers.
+     * @return List the value of property layers.
      * @throws RemoteException on network exception
      */
     ImmutableList<LayerInterface> getAllLayers() throws RemoteException;
 
     /**
-     * Return a list with all visible layers for the map.
-     * @return ImmutableList&lt;LayerInterface&gt;; a list with all visible layers
+     * Getter for all the visible property layers.
+     * @return List the value of property layers.
      * @throws RemoteException on network exception
      */
     ImmutableList<LayerInterface> getVisibleLayers() throws RemoteException;
 
     /**
-     * Return whether the map has not been changed, and reset the internal parameter to true.
-     * @return boolean; whether the map has not been changed, and reset the internal parameter to true
+     * Return whether the map has not been changed, and reset the same parameter to true.
+     * @return whether the map has not been changed, and reset the same parameter to true
      * @throws RemoteException on network exception
      */
     boolean isSame() throws RemoteException;
 
     /**
-     * Return the name of the map.
-     * @return String; the name of the map
+     * Getter for property name.
+     * @return String the value of property extent.
      * @throws RemoteException on network exception
      */
     String getName() throws RemoteException;
 
     /**
-     * Return the scale of the map.
+     * returns the scale of the map.
      * @return double the scale of the map in its units
      * @throws RemoteException on network exception
      */
     double getScale() throws RemoteException;
 
     /**
-     * Return the scale of the Image.
+     * returns the scale of the Image.
      * @return double the unitPerPixel
      * @throws RemoteException on network exception
      */
     double getUnitImageRatio() throws RemoteException;
 
     /**
-     * Return property units.
+     * Getter for property units.
      * @return MapUnits the value of property units.
      * @throws RemoteException on network exception
      */
@@ -100,6 +153,14 @@ public interface GisMapInterface extends Serializable
      * @throws RemoteException on network exception
      */
     void setExtent(Bounds2d extent) throws RemoteException;
+
+    /**
+     * Setter for the map image, which acts as the basic 'canvas' for the drawing process. The image has a background color, but
+     * could also have a background picture or watermark.
+     * @param image ImageInterface; New value of the map image, which acts as the basic 'canvas' for the drawing process.
+     * @throws RemoteException on network exception
+     */
+    void setImage(MapImageInterface image) throws RemoteException;
 
     /**
      * Setter for property layers.

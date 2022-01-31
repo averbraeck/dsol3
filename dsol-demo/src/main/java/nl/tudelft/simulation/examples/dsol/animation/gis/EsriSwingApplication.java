@@ -11,8 +11,8 @@ import org.djutils.io.URLResource;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
-import nl.tudelft.simulation.dsol.animation.gis.D2.EsriRenderable2D;
-import nl.tudelft.simulation.dsol.animation.gis.D2.GisRenderable2D;
+import nl.tudelft.simulation.dsol.animation.gis.GisRenderable2D;
+import nl.tudelft.simulation.dsol.animation.gis.esri.EsriRenderable2D;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.experiment.SingleReplication;
 import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
@@ -35,7 +35,7 @@ import nl.tudelft.simulation.language.DSOLException;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class GISSwingApplication extends DSOLAnimationApplication
+public class EsriSwingApplication extends DSOLAnimationApplication
 {
     /**
      * @param title String; the title
@@ -45,7 +45,7 @@ public class GISSwingApplication extends DSOLAnimationApplication
      * @throws IllegalArgumentException for illegal bounds
      * @throws RemoteException on network error
      */
-    public GISSwingApplication(final String title, final DSOLPanel panel, final DSOLAnimationGisTab animationTab)
+    public EsriSwingApplication(final String title, final DSOLPanel panel, final DSOLAnimationGisTab animationTab)
             throws RemoteException, IllegalArgumentException, DSOLException
     {
         super(panel, title, animationTab);
@@ -64,18 +64,18 @@ public class GISSwingApplication extends DSOLAnimationApplication
      */
     public static void main(final String[] args) throws SimRuntimeException, RemoteException, NamingException, DSOLException
     {
-        DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("GISSwingApplication", 0.001);
+        DEVSRealTimeAnimator.TimeDouble simulator = new DEVSRealTimeAnimator.TimeDouble("EsriSwingApplication", 0.001);
         EmptyModel model = new EmptyModel(simulator);
         ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000000.0);
         simulator.initialize(model, replication);
 
         DSOLPanel panel = new DSOLPanel(new RealTimeControlPanel.TimeDouble(model, simulator));
-        Bounds2d mapBounds = new Bounds2d(4.202, 4.482, 52.011, 52.133); // new Bounds2d(-122.065, -121.997, 37.402, 37.433); 
+        Bounds2d mapBounds = new Bounds2d(4.355, 4.386, 51.995, 52.005);
         DSOLAnimationGisTab animationTab = new DSOLAnimationGisTab(mapBounds, simulator);
         animationTab.getAnimationPanel().setRenderableScale(
                 new RenderableScale(Math.cos(Math.toRadians(mapBounds.midPoint().getY())), 1.0 / 111319.24));
         animationTab.addAllToggleGISButtonText("MAP LAYERS", model.getGisMap(), "hide or show this GIS layer");
-        new GISSwingApplication("GISSwingApplication", panel, animationTab);
+        new EsriSwingApplication("EsriSwingApplication", panel, animationTab);
     }
 
     /** The empty model -- this demo is just to show a map on the screen. */
@@ -100,9 +100,8 @@ public class GISSwingApplication extends DSOLAnimationApplication
         @Override
         public void constructModel() throws SimRuntimeException
         {
-            // URL gisURL = URLResource.getResource("/gis/map.xml");
-            URL gisURL = URLResource.getResource("/map-thehague.xml");
-            System.out.println("GIS-map file: " + gisURL.toString());
+            URL gisURL = URLResource.getResource("/esri/tudelft.xml");
+            System.out.println("ESRI-map file: " + gisURL.toString());
             this.gisMap = new EsriRenderable2D(getSimulator(), gisURL);
         }
 

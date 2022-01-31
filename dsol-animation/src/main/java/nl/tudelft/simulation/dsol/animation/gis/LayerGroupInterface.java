@@ -1,7 +1,6 @@
 package nl.tudelft.simulation.dsol.animation.gis;
 
 import java.awt.Color;
-import java.io.Serializable;
 
 /**
  * This interface defines the layer of the map.
@@ -13,7 +12,7 @@ import java.io.Serializable;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public interface LayerInterface extends Serializable
+public interface LayerGroupInterface extends java.io.Serializable
 {
     /**
      * Return the fill color for the layer.
