@@ -48,12 +48,6 @@ public class DbfReader implements Serializable
     /** the length of the records. */
     private int recordLength = 0;
 
-    /** the cachedContent. */
-    private transient String[][] cachedContent = null;
-
-    /** may we cache parsed data?.. */
-    private boolean cache = true;
-
     /**
      * Construct a DbfReader.
      * @param dbfFile URL; the URL of the dbfFile
@@ -64,7 +58,9 @@ public class DbfReader implements Serializable
         this.dbfFile = dbfFile;
         ObjectEndianInputStream dbfInput = new ObjectEndianInputStream(dbfFile.openStream());
         if (dbfInput.readByte() != 3)
+        {
             throw new IOException("dbf file does not seem to be a Dbase III file");
+        }
 
         dbfInput.skipBytes(3);
         dbfInput.setEndianness(Endianness.LITTLE_ENDIAN);
@@ -128,12 +124,6 @@ public class DbfReader implements Serializable
             throw new IndexOutOfBoundsException("dbfFile : rowNumber > numRecords");
         }
 
-        // Let's see if we may cache.
-        if (this.cachedContent != null && this.cache)
-        {
-            return this.cachedContent[rowNumber];
-        }
-
         // Either we may not cache of the cache is still empty
         String[] row = new String[this.numColumns];
 
@@ -157,12 +147,6 @@ public class DbfReader implements Serializable
      */
     public String[][] getRows() throws IOException
     {
-        // Let's see if we may cache.
-        if (this.cachedContent != null && this.cache)
-        {
-            return this.cachedContent;
-        }
-
         String[][] result = new String[this.numRecords][this.numColumns];
         ObjectEndianInputStream dbfInput = new ObjectEndianInputStream(this.dbfFile.openStream());
         dbfInput.skipBytes(this.headerLength + 1);
@@ -180,10 +164,6 @@ public class DbfReader implements Serializable
             }
         }
         dbfInput.close();
-        if (this.cache)
-        {
-            this.cachedContent = result;
-        }
         return result;
     }
 
@@ -196,11 +176,11 @@ public class DbfReader implements Serializable
      */
     public int[] getRowNumbers(final String attribute, final String columnName) throws IOException
     {
-        ArrayList result = new ArrayList();
+        ArrayList<Integer> result = new ArrayList<>();
         String[][] rows = this.getRows();
         for (int col = 0; col < this.numColumns; col++)
         {
-            if (this.columnNames[col].equals(columnName)) 
+            if (this.columnNames[col].equals(columnName))
             {
                 for (int row = 0; row < this.numRecords; row++)
                 {
@@ -214,26 +194,9 @@ public class DbfReader implements Serializable
         int[] array = new int[result.size()];
         for (int i = 0; i < array.length; i++)
         {
-            array[i] = ((Integer) result.get(i)).intValue();
+            array[i] = result.get(i).intValue();
         }
         return array;
     }
 
-    /**
-     * may we cache parsed data for a session. If false, every getRows results in IO activity. If true data is stored inMemory
-     * @return Returns the cache.
-     */
-    public boolean isCache()
-    {
-        return this.cache;
-    }
-
-    /**
-     * Set whether caching is allowed or not.
-     * @param cache boolean; The caching preference to set
-     */
-    public void setCache(final boolean cache)
-    {
-        this.cache = cache;
-    }
 }

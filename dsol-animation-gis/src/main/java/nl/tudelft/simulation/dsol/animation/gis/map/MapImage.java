@@ -22,7 +22,7 @@ public class MapImage implements MapImageInterface
     private static final long serialVersionUID = 20201015L;
 
     /** background color; default is fully transparent. */
-    private Color backgroundColor = new Color(0, 0, 255, 255);
+    private Color backgroundColor = new Color(255, 255, 255, 127);
 
     /** canvas image size; default is HD screen size. */
     private Dimension size = new Dimension(1920, 1080);

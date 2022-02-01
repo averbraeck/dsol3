@@ -4,12 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.io.URLResource;
 import org.openstreetmap.osmosis.core.task.v0_6.RunnableSource;
 import org.openstreetmap.osmosis.xml.common.CompressionMethod;
@@ -17,7 +13,7 @@ import org.openstreetmap.osmosis.xml.v0_6.XmlReader;
 
 import crosby.binary.osmosis.OsmosisReader;
 import nl.tudelft.simulation.dsol.animation.gis.DataSourceInterface;
-import nl.tudelft.simulation.dsol.animation.gis.GisObject;
+import nl.tudelft.simulation.dsol.animation.gis.FeatureInterface;
 import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
 
 /**
@@ -37,39 +33,44 @@ public class OsmFileReader implements DataSourceInterface
     private static final long serialVersionUID = 20220130L;
 
     /** the URL for the osm file to be read. */
-    private URL osmFile = null;
-
-    /** the number of shapes we have read until now. */
-    private int numShapes = 0;
-
-    /** may we cache parsed data? */
-    private boolean cache = true;
-
-    /** the cachedContent. */
-    private List<GisObject> cachedContent = new ArrayList<>();
+    private URL osmURL = null;
 
     /** an optional transformation of the lat/lon (or other) coordinates. */
     private final CoordinateTransform coordinateTransform;
 
-    /** the sink that handles the actual reading of the OSM data. */
-    private OsmLayerSink sinkImplementation = null;
+    /** the features to read by this OpenStreeetMap reader. */
+    private final List<FeatureInterface> featuresToRead;
 
     /**
      * Constructs a new reader for a layer in an OSM shape file.
-     * @param url URL; URL can have several valid extensions: .pbf, .osm, .osm.gz, and .osm.bz2
+     * @param osmURL URL; URL can have several valid extensions: .pbf, .osm, .osm.gz, and .osm.bz2
      * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
-     * @param featuresToRead the key - value pairs to read. There can be multiple values per key, or '*' for all
+     * @param featuresToRead the features to read
      * @throws IOException throws an IOException if the url is not accessible
      */
-    public OsmFileReader(final URL url, final CoordinateTransform coordinateTransform,
-            final Map<String, Set<String>> featuresToRead) throws IOException
+    public OsmFileReader(final URL osmURL, final CoordinateTransform coordinateTransform,
+            final List<FeatureInterface> featuresToRead) throws IOException
     {
-        this.osmFile = url;
+        this.osmURL = osmURL;
         this.coordinateTransform = coordinateTransform;
-        String filename = url.toString();
+        this.featuresToRead = featuresToRead;
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public List<FeatureInterface> getFeatures()
+    {
+        return this.featuresToRead;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void populateShapes() throws IOException
+    {
+        String filename = this.osmURL.toString();
         InputStream fis = URLResource.getResourceAsStream(filename);
 
-        this.sinkImplementation = new OsmLayerSink(featuresToRead, this.cachedContent, coordinateTransform);
+        OsmLayerSink sinkImplementation = new OsmLayerSink(this.featuresToRead, this.coordinateTransform);
         CompressionMethod compression = CompressionMethod.None;
         boolean pbf = false;
         RunnableSource reader = null;
@@ -115,7 +116,7 @@ public class OsmFileReader implements DataSourceInterface
             System.out.println("osm map to read: " + file.getAbsolutePath());
         }
 
-        reader.setSink(this.sinkImplementation);
+        reader.setSink(sinkImplementation);
 
         Thread readerThread = new Thread(reader);
         readerThread.start();
@@ -133,8 +134,6 @@ public class OsmFileReader implements DataSourceInterface
             }
         }
 
-        this.numShapes = this.cachedContent.size();
-        
         System.out.println("OSM layer has been read");
     }
 
@@ -151,67 +150,16 @@ public class OsmFileReader implements DataSourceInterface
 
     /** {@inheritDoc} */
     @Override
-    public String[] getAttributeKeyNames()
+    public URL getURL()
     {
-        return new String[0]; // for now, we don't make the OSM file reader return specifics about the location
+        return this.osmURL;
     }
 
     /** {@inheritDoc} */
     @Override
-    public URL getDataSource()
+    public boolean isDynamic()
     {
-        return this.osmFile;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getNumShapes() throws IOException
-    {
-        return this.numShapes;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public GisObject getShape(final int index) throws IOException, IndexOutOfBoundsException
-    {
-        return null; // TODO: implement or see if needed in interface... 
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public List<GisObject> getShapes() throws IOException
-    {
-        return this.cachedContent;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public List<GisObject> getShapes(final Bounds2d rectangle) throws IOException
-    {
-        return this.cachedContent; // TODO: filter on rectangle
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public List<GisObject> getShapes(final String attribute, final String columnName) throws IOException
-    {
-        return this.cachedContent; // TODO: filter on attribute
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getType() throws IOException
-    {
-        return 0; // XXX: remove from interface
-    }
-
-    /**
-     * Set whether caching is allowed or not.
-     * @param cache boolean; The caching preference to set
-     */
-    public void setCache(final boolean cache)
-    {
-        this.cache = cache;
+        return false; // OSM data is static
     }
 
 }

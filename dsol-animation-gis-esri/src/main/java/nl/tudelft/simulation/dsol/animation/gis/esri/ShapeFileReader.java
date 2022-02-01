@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.djutils.draw.bounds.Bounds2d;
-import org.djutils.logger.CategoryLogger;
+import org.djutils.exceptions.Throw;
 
 import nl.tudelft.simulation.dsol.animation.gis.DataSourceInterface;
+import nl.tudelft.simulation.dsol.animation.gis.FeatureInterface;
 import nl.tudelft.simulation.dsol.animation.gis.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.GisObject;
 import nl.tudelft.simulation.dsol.animation.gis.SerializablePath;
@@ -49,9 +49,6 @@ public class ShapeFileReader implements DataSourceInterface
 
     /** the URL for the dbase-III format file with texts to be read. */
     private URL dbfFile = null;
-
-    /** the number of shapes we have read until now. */
-    private int numShapes = 0;
 
     /** the type of shape we are working on. */
     private int currentType = GisMapInterface.POLYGON;
@@ -101,25 +98,28 @@ public class ShapeFileReader implements DataSourceInterface
     /** the MULTIPATCH as defined by ESRI. */
     public static final int MULTIPATCH = 31;
 
-    /** may we cache parsed data? */
-    private boolean caching = true;
-
-    /** the cachedContent. */
-    private List<GisObject> cachedContent = null;
+    /** number of shapes in the current file. */
+    private final int numShapes;
 
     /** an optional transformation of the lat/lon (or other) coordinates. */
     private final CoordinateTransform coordinateTransform;
 
+    /** the features to read by this OpenStreeetMap reader. */
+    private final List<FeatureInterface> featuresToRead;
+
     /**
      * Construct a reader for an ESRI ShapeFile.
-     * @param url URL; URL may or may not end with their extension.
+     * @param shapeUrl URL; URL may or may not end with their extension.
      * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
+     * @param featuresToRead the features to read
      * @throws IOException throws an IOException if the shxFile is not accessible
      */
-    public ShapeFileReader(final URL url, final CoordinateTransform coordinateTransform) throws IOException
+    public ShapeFileReader(final URL shapeUrl, final CoordinateTransform coordinateTransform,
+            final List<FeatureInterface> featuresToRead) throws IOException
     {
         this.coordinateTransform = coordinateTransform;
-        String fileName = url.toString();
+        this.featuresToRead = featuresToRead;
+        String fileName = shapeUrl.toString();
         if (fileName.endsWith(".shp") || fileName.endsWith(".shx") || fileName.endsWith(".dbf"))
         {
             fileName = fileName.substring(0, fileName.length() - 4);
@@ -140,59 +140,35 @@ public class ShapeFileReader implements DataSourceInterface
         }
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public List<FeatureInterface> getFeatures()
+    {
+        return this.featuresToRead;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void populateShapes() throws IOException
+    {
+        Throw.when(this.featuresToRead.size() != 1, IOException.class,
+                "Trying to read ESROI shapes, but number of features is not 1");
+        List<GisObject> shapes = readAllShapes();
+        this.featuresToRead.get(0).getShapes().clear();
+        this.featuresToRead.get(0).getShapes().addAll(shapes);
+    }
+
     /**
-     * Return whether we cache content or not.
-     * @return boolean; whether we cache content or not
+     * Read a particular shape directly from the shape file, without caching (the cache is stored at the Features).
+     * @param index int; the index of the shape to read from the shape file, without using any caching
+     * @return GisObject; the shape belonging to the index
+     * @throws IOException when there is a problem reading the ESRI files.
      */
-    public boolean isCaching()
-    {
-        return this.caching;
-    }
-
-    /**
-     * Set whether caching is allowed or not.
-     * @param cache boolean; The caching preference to set
-     */
-    public void setCache(final boolean cache)
-    {
-        this.caching = cache;
-        this.dbfReader.setCache(cache);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public String[] getAttributeKeyNames()
-    {
-        return this.dbfReader.getColumnNames();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public URL getDataSource()
-    {
-        return this.shpFile;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getNumShapes()
-    {
-        return this.numShapes;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public synchronized GisObject getShape(final int index) throws IOException
+    public synchronized GisObject readShape(final int index) throws IOException
     {
         if (index > this.numShapes || index < 0)
         {
             throw new IndexOutOfBoundsException("Index =" + index + ", while number of shapes in layer :" + this.numShapes);
-        }
-
-        // May we use the cache?
-        if (this.caching && this.cachedContent != null)
-        {
-            return this.cachedContent.get(index);
         }
 
         ObjectEndianInputStream indexInput = new ObjectEndianInputStream(this.shxFile.openStream());
@@ -206,16 +182,13 @@ public class ShapeFileReader implements DataSourceInterface
         return new GisObject(shape, this.dbfReader.getRow(index));
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public synchronized List<GisObject> getShapes() throws IOException
+    /**
+     * Read all shapes directly from the shape file, without caching (the cache is stored at the Features).
+     * @return List&lt;GisObject&gt;; the shapes that are directly read from the shape file
+     * @throws IOException when there is a problem reading the ESRI files.
+     */
+    public synchronized List<GisObject> readAllShapes() throws IOException
     {
-        // May we use the cache?
-        if (this.caching && this.cachedContent != null)
-        {
-            return this.cachedContent;
-        }
-
         ObjectEndianInputStream shapeInput = new ObjectEndianInputStream(this.shpFile.openStream());
 
         shapeInput.skipBytes(100);
@@ -230,52 +203,17 @@ public class ShapeFileReader implements DataSourceInterface
             }
         }
         shapeInput.close();
-
-        // May we use the cache?
-        if (this.caching)
-        {
-            this.cachedContent = results;
-        }
         return results;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public synchronized List<GisObject> getShapes(final Bounds2d extent) throws IOException
+    /**
+     * Read all shapes for a certain extent directly from the shape file, without caching (the cache is stored at the Features).
+     * @param extent Bounds2d; the extent for which to read the shapes
+     * @return List&lt;GisObject&gt;; the shapes for the given extent that are directly read from the shape file
+     * @throws IOException when there is a problem reading the ESRI files.
+     */
+    public synchronized List<GisObject> readShapes(final Bounds2d extent) throws IOException
     {
-        // May we use the cache?
-        if (this.caching)
-        {
-            if (this.cachedContent == null)
-            {
-                this.getShapes();
-            }
-            List<GisObject> result = new ArrayList<>();
-            for (Iterator<GisObject> i = this.cachedContent.iterator(); i.hasNext();)
-            {
-                GisObject shape = i.next();
-                if (shape.getShape() instanceof SerializablePath)
-                {
-                    if (Shape.overlaps(extent.toRectangle2D(), ((SerializablePath) shape.getShape()).getBounds2D()))
-                    {
-                        result.add(shape);
-                    }
-                }
-                else if (shape.getShape() instanceof Point2D)
-                {
-                    if (extent.toRectangle2D().contains((Point2D) shape.getShape()))
-                    {
-                        result.add(shape);
-                    }
-                }
-                else
-                {
-                    CategoryLogger.always().error("unknown shape in cached content " + shape);
-                }
-            }
-            return result;
-        }
-
         ObjectEndianInputStream shapeInput = new ObjectEndianInputStream(this.shpFile.openStream());
 
         shapeInput.skipBytes(100);
@@ -288,7 +226,7 @@ public class ShapeFileReader implements DataSourceInterface
             int shapeNumber = shapeInput.readInt();
             int contentLength = shapeInput.readInt();
             shapeInput.setEndianness(Endianness.LITTLE_ENDIAN);
-            
+
             // the null type is properly skipped
             int type = shapeInput.readInt();
             if (type != 0 && type != 1 && type != 11 && type != 21)
@@ -323,24 +261,22 @@ public class ShapeFileReader implements DataSourceInterface
         return results;
     }
 
-    /** {@inheritDoc} */
-    @Override
+    /**
+     * Return the shapes based on a particular value of the attributes.
+     * @param attribute String; the value of the attribute
+     * @param columnName String; the columnName
+     * @return List the resulting ArrayList of <code>nl.tudelft.simulation.dsol.animation.gis.GisObject</code>
+     * @throws IOException on file IO or database connection failure
+     */
     public synchronized List<GisObject> getShapes(final String attribute, final String columnName) throws IOException
     {
         List<GisObject> result = new ArrayList<>();
         int[] shapeNumbers = this.dbfReader.getRowNumbers(attribute, columnName);
         for (int i = 0; i < shapeNumbers.length; i++)
         {
-            result.add(this.getShape(i));
+            result.add(this.readShape(i));
         }
         return result;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getType()
-    {
-        return this.currentType;
     }
 
     /**
@@ -430,6 +366,7 @@ public class ShapeFileReader implements DataSourceInterface
      * <p>
      * A point consists of a pair of double-precision coordinates in the order X,Y.
      * </p>
+     * 
      * <pre>
      *   All byte orders are Little Endian.
      *   Integer ShapeType  // byte  0; Value 1 for Point
@@ -439,6 +376,7 @@ public class ShapeFileReader implements DataSourceInterface
      *     Double Y         // byte 12; Y coordinate (8 bytes)
      *   }
      * </pre>
+     * 
      * @param input ObjectEndianInputStream; the inputStream
      * @return Point2D.Double; the point
      * @throws IOException on file IO or database connection failure
@@ -876,4 +814,28 @@ public class ShapeFileReader implements DataSourceInterface
         }
         return null;
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean isDynamic()
+    {
+        return false; // OSM data is static
+    }
+
+    /**
+     * Return the key names of the attribute data. The attribute values are stored in the GisObject together with the shape.
+     * @return String[]; the key names of the attribute data
+     */
+    public String[] getAttributeKeyNames()
+    {
+        return this.dbfReader.getColumnNames();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public URL getURL()
+    {
+        return this.shpFile;
+    }
+
 }

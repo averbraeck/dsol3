@@ -20,6 +20,7 @@ import org.djutils.immutablecollections.ImmutableMap;
 import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.gis.DSOLGisException;
+import nl.tudelft.simulation.dsol.animation.gis.FeatureInterface;
 import nl.tudelft.simulation.dsol.animation.gis.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.GisObject;
 import nl.tudelft.simulation.dsol.animation.gis.LayerInterface;
@@ -63,7 +64,7 @@ public class GisMap implements GisMapInterface
     private boolean same = false;
 
     /** the mapfileImage. */
-    private MapImageInterface image;
+    private MapImageInterface image = new MapImage();
 
     /** the name of the mapFile. */
     private String name;
@@ -202,7 +203,7 @@ public class GisMap implements GisMapInterface
 
         // we cache the scale
         double scale = this.getScale();
-        System.out.println("scale = " + scale);
+        // XXX: define how we use this -- System.out.println("scale = " + scale);
 
         // we set the rendering hints
         graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -213,41 +214,44 @@ public class GisMap implements GisMapInterface
             Layer layer = (Layer) i.next();
             try
             {
-                if (layer.isDisplay() && layer.getMaxScale() < scale && layer.getMinScale() > scale)
+                if (layer.isDisplay()) // TODO: && layer.getMaxScale() < scale && layer.getMinScale() > scale)
                 {
-                    List<GisObject> shapes = layer.getDataSource().getShapes(this.extent);
-                    SerializablePath shape = null;
-                    for (Iterator<GisObject> shapeIterator = shapes.iterator(); shapeIterator.hasNext();)
+                    for (FeatureInterface feature : layer.getFeatures())
                     {
-                        GisObject gisObject = shapeIterator.next();
-                        if (layer.getDataSource().getType() == POINT)
+                        List<GisObject> shapes = feature.getShapes(this.extent);
+                        SerializablePath shape = null;
+                        for (Iterator<GisObject> shapeIterator = shapes.iterator(); shapeIterator.hasNext();)
                         {
-                            shape = new SerializablePath();
-                            Point2D point = (Point2D) gisObject.getShape();
-                            shape.moveTo((float) point.getX(), (float) point.getY());
-
-                        }
-                        else
-                        {
-                            shape = (SerializablePath) gisObject.getShape();
-                        }
-                        if (layer.isTransform())
-                        {
-                            shape.transform(transform);
-                        }
-                        graphics.setColor(layer.getFillColor());
-                        if (layer.getDataSource().getType() == POLYGON)
-                        {
-                            graphics.fill(shape);
-                        }
-                        if (layer.getOutlineColor() != null)
-                        {
-                            graphics.setColor(layer.getOutlineColor());
-                        }
-                        graphics.draw(shape);
-                        if (layer.isTransform())
-                        {
-                            shape.transform(antiTransform);
+                            GisObject gisObject = shapeIterator.next();
+//                            if (feature.getDataSource().getType() == POINT)
+//                            {
+//                                shape = new SerializablePath();
+//                                Point2D point = (Point2D) gisObject.getShape();
+//                                shape.moveTo((float) point.getX(), (float) point.getY());
+//                                // TODO: points are not drawn -- we have to do this differently
+//                            }
+//                            else
+//                            {
+                                shape = (SerializablePath) gisObject.getShape();
+//                            }
+                            if (layer.isTransform())
+                            {
+                                shape.transform(transform);
+                            }
+                            if (/*feature.getDataSource().getType() == POLYGON &&*/ feature.getFillColor() != null)
+                            {
+                                graphics.setColor(feature.getFillColor());
+                                graphics.fill(shape);
+                            }
+                            if (feature.getOutlineColor() != null)
+                            {
+                                graphics.setColor(feature.getOutlineColor());
+                                graphics.draw(shape);
+                            }
+                            if (layer.isTransform())
+                            {
+                                shape.transform(antiTransform);
+                            }
                         }
                     }
                 }
