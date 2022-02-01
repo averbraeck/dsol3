@@ -1,13 +1,15 @@
 package nl.tudelft.simulation.dsol.animation.gis.map;
 
-import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
-import nl.tudelft.simulation.dsol.animation.gis.DataSourceInterface;
+import nl.tudelft.simulation.dsol.animation.gis.FeatureInterface;
 import nl.tudelft.simulation.dsol.animation.gis.LayerInterface;
 
 /**
- * This is an implementation of the LayerInterface that just stores the basic metadata for each layer. The actual information of
- * the layer (points, shapes) is contained in the DataSource.
+ * This is an implementation of the LayerInterface that just stores the basic metadata for each layer. The elements to draw are
+ * defined by a set of key - value pairs in the Feature. The Map implementation is a LinkedHashMap to enforce a reproducible
+ * order. The actual information of the objects in the layer (points, shapes) is contained in the DataSource.
  * <p>
  * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -24,89 +26,34 @@ public class Layer implements LayerInterface
     /** the name of the layer. */
     private String name;
 
-    /** the dataSource to use. */
-    private DataSourceInterface dataSource;
-
-    /** the minScale. */
-    private int minScale = Integer.MAX_VALUE;
-
-    /** the maxScale. */
-    private int maxScale = 0;
-
-    /** the fillColor of the layer. */
-    private Color fillColor = Color.WHITE;
-
-    /** the outlineColor. */
-    private Color outlineColor = Color.BLACK;
-
     /** whether to display the layer. */
     private boolean display = true;
 
     /** whether to transform the layer. */
     private boolean transform = false;
 
-    /**
-     * constructs a new layer.
-     */
-    public Layer()
+    /** the feature map, implemented by a LinkedHashMap to guarantee a reproducible order. */
+    private List<FeatureInterface> features = new ArrayList<>();
+
+    /** {@inheritDoc} */
+    @Override
+    public List<FeatureInterface> getFeatures()
     {
-        super();
+        return this.features;
     }
 
     /** {@inheritDoc} */
     @Override
-    public Color getFillColor()
+    public void setFeatures(final List<FeatureInterface> features)
     {
-        return this.fillColor;
+        this.features = features;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setFillColor(final Color color)
+    public void addFeature(final FeatureInterface feature)
     {
-        this.fillColor = color;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public DataSourceInterface getDataSource()
-    {
-        return this.dataSource;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setDataSource(final DataSourceInterface dataSource)
-    {
-        this.dataSource = dataSource;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getMaxScale()
-    {
-        return this.maxScale;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setMaxScale(final int maxScale)
-    {
-        this.maxScale = maxScale;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getMinScale()
-    {
-        return this.minScale;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setMinScale(final int minScale)
-    {
-        this.minScale = minScale;
+        this.features.add(feature);
     }
 
     /** {@inheritDoc} */
@@ -121,20 +68,6 @@ public class Layer implements LayerInterface
     public void setName(final String name)
     {
         this.name = name;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Color getOutlineColor()
-    {
-        return this.outlineColor;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setOutlineColor(final Color outlineColor)
-    {
-        this.outlineColor = outlineColor;
     }
 
     /** {@inheritDoc} */

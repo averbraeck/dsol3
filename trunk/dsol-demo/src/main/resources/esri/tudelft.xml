@@ -24,16 +24,29 @@
 	</image>
 
 	<!-- Now we get the layers -->
+  <layer>
+    <name>natural</name>
+    <data>
+      <shapeFile>/esri/tudelft/natural.shp</shapeFile>
+    </data>
+    <fillColor>
+      <r>127</r>
+      <g>255</g>
+      <b>197</b>
+    </fillColor>
+    <outlineColor>
+      <r>0</r>
+      <g>255</g>
+      <b>0</b>
+    </outlineColor>
+    <display>true</display>
+    <transform>true</transform>
+  </layer>
 	<layer>
 		<name>roads</name>
 		<data>
 			<shapeFile>/esri/tudelft/roads.shp</shapeFile>
 		</data>
-		<fillColor>
-			<r>120</r>
-			<g>120</g>
-			<b>120</b>
-		</fillColor>
 		<outlineColor>
 			<r>120</r>
 			<g>120</g>
@@ -61,33 +74,10 @@
 		<transform>true</transform>
 	</layer>
 	<layer>
-		<name>natural</name>
-		<data>
-			<shapeFile>/esri/tudelft/natural.shp</shapeFile>
-		</data>
-		<fillColor>
-			<r>127</r>
-			<g>255</g>
-			<b>197</b>
-		</fillColor>
-		<outlineColor>
-			<r>0</r>
-			<g>255</g>
-			<b>0</b>
-		</outlineColor>
-		<display>true</display>
-		<transform>true</transform>
-	</layer>
-	<layer>
 		<name>railways</name>
 		<data>
 			<shapeFile>/esri/tudelft/railways.shp</shapeFile>
 		</data>
-		<fillColor>
-			<r>0</r>
-			<g>19</g>
-			<b>127</b>
-		</fillColor>
 		<outlineColor>
 			<r>0</r>
 			<g>19</g>
@@ -101,11 +91,6 @@
 		<data>
 			<shapeFile>/esri/tudelft/waterways.shp</shapeFile>
 		</data>
-		<fillColor>
-			<r>0</r>
-			<g>148</g>
-			<b>255</b>
-		</fillColor>
 		<outlineColor>
 			<r>0</r>
 			<g>148</g>

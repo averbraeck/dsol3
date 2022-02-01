@@ -1,7 +1,7 @@
 package nl.tudelft.simulation.dsol.animation.gis;
 
-import java.awt.Color;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * This interface defines the layer of the map.
@@ -16,28 +16,22 @@ import java.io.Serializable;
 public interface LayerInterface extends Serializable
 {
     /**
-     * Return the fill color for the layer.
-     * @return Color; the rgb(a) fill color for the layer
+     * Return the feature definitions for elements that belong to this Layer.
+     * @return List&lt;Feature&gt;; the feature definitions for elements that belong to this Layer
      */
-    Color getFillColor();
+    List<FeatureInterface> getFeatures();
 
     /**
-     * Set the fill color for the layer.
-     * @param fillColor Color; the rgb(a) fill color for the layer
+     * Set the feature definitions for elements that belong to this Layer. T
+     * @param features List&lt;Feature&gt;; the feature definitions for elements that belong to this Layer
      */
-    void setFillColor(Color fillColor);
+    void setFeatures(List<FeatureInterface> features);
 
     /**
-     * Return the outline (line)  color for the layer.
-     * @return Color; the rgb(a) outline (line) color for the layer
+     * Add a feature to the feature list.
+     * @param feature Feature; the feature to addd to the list of features to draw
      */
-    Color getOutlineColor();
-
-    /**
-     * Set the outline (line) color for the layer.
-     * @param outlineColor Color; the rgb(a) outline (line) color for the layer
-     */
-    void setOutlineColor(Color outlineColor);
+    void addFeature(FeatureInterface feature);
 
     /**
      * Return the layer name.
@@ -50,42 +44,6 @@ public interface LayerInterface extends Serializable
      * @param name String; layer name
      */
     void setName(String name);
-
-    /**
-     * Return the data source, which contains the location of an ESRI shape datasource for now.
-     * @return DataSourceInterface the data source, contains the location of an ESRI shape datasource for now
-     */
-    DataSourceInterface getDataSource();
-
-    /**
-     * Set the data source, which contains the location of an ESRI shape datasource for now.
-     * @param dataSource DataSourceInterface; the data source, contains the location of an ESRI shape datasource for now
-     */
-    void setDataSource(DataSourceInterface dataSource);
-
-    /**
-     * Return the minimum scale at which this layer has to be drawn. FIXME: how do we define scale?
-     * @return int; the minimum scale at which this layer has to be drawn
-     */
-    int getMinScale();
-
-    /**
-     * Set the minimum scale at which this layer has to be drawn.
-     * @param minscale int; the minimum scale at which this layer has to be drawn
-     */
-    void setMinScale(int minscale);
-
-    /**
-     * Return the maximum scale at which this layer has to be drawn. FIXME: how do we define scale?
-     * @return int; the maximum scale at which this layer has to be drawn
-     */
-    int getMaxScale();
-
-    /**
-     * Set the maximum scale at which this layer has to be drawn.
-     * @param maxScale int; the maximum scale at which this layer has to be drawn
-     */
-    void setMaxScale(int maxScale);
 
     /**
      * Return the display status of the layer (displayed or not).

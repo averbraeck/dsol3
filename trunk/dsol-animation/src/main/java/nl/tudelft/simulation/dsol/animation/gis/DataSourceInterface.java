@@ -5,14 +5,12 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
-import org.djutils.draw.bounds.Bounds2d;
-
-import nl.tudelft.simulation.dsol.animation.gis.GisObject;
-
 /**
  * DataSourceInterface is the connector between the reader of a GIS file and the display in the DSOL animation. Note that the
- * data source can be a 'live' data source, with updates between queries for the shapes! Often, the data source will be static
- * and cache the shapes.
+ * data source can be a 'live' data source, with updates between queries for the shapes! Often, the data source will not do any
+ * updates and retrieve the shapes only once. There can be one overall data source (all Features point to the same data source,
+ * such as with OSM files), one data source per layer (such as with ESRI shape files), or even individual data sources per
+ * feature (e.g., when we have a geo-file per bus line that needs to be colored differently on the map).
  * <p>
  * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -24,62 +22,34 @@ import nl.tudelft.simulation.dsol.animation.gis.GisObject;
 public interface DataSourceInterface extends Serializable
 {
     /**
-     * Return the key names of the attribute data. The attribute values are stored in the GisObject together with the shape.
-     * @return String[]; the key names of the attribute data
-     */
-    String[] getAttributeKeyNames();
-
-    /**
      * Return the URL of the data source. Note that the data source can be a 'live' data source, with updates between queries
      * for the shapes! Often, the data source will be static and cache the shapes.
      * @return URL; the URL of the data source
      */
-    URL getDataSource();
+    URL getURL();
 
     /**
-     * Return the number of shapes in the data source at this moment.
-     * @return int; the number of shapes in the data source
-     * @throws IOException on file IO or database connection failure
+     * Return the list of Features for which this data source is responsible. There can be one overall data source (all Features
+     * point to the same data source, such as with OSM files), one data source per layer (such as with ESRI shape files), or
+     * even individual data sources per feature (e.g., when we have a geo-file per bus line that needs to be colored differently
+     * on the map).
+     * @return List&ltFeature&gt;; the Features that the data source should populate when asked
      */
-    int getNumShapes() throws IOException;
+    List<FeatureInterface> getFeatures();
 
     /**
-     * Return a GisObject.
-     * @param index int; the number of the shape to be returned
-     * @return GisObject returns a <code>nl.tudelft.simulation.dsol.animation.gis.GisObject</code>
-     * @throws IndexOutOfBoundsException whenever index &gt; numShapes or index &lt; 0
-     * @throws IOException on file IO or database connection failure
+     * Populate the shape information in the Features. When the data source is not dynamic, this is only done once after
+     * construction, so this method does not need to be called again in this case. When it is called again, it will be ignored.
+     * When the data source is dynamic, it can re-fill the shapes in the feature cache periodically or when the data has
+     * received updates.
+     * @throws IOException when there is an issue with reading the data from the data source
      */
-    GisObject getShape(int index) throws IOException, IndexOutOfBoundsException;
+    void populateShapes() throws IOException;
 
     /**
-     * Return all the shapes of the particular data source.
-     * @return List the resulting ArrayList of <code>nl.tudelft.simulation.dsol.animation.gis.GisObject</code>
-     * @throws IOException on file IO or database connection failure
+     * Return whether the data source is dynamic or not. If the data source is not dynamic, data is collected only once.
+     * @return boolean; whether the data source is dynamic or not
      */
-    List<GisObject> getShapes() throws IOException;
+    boolean isDynamic();
 
-    /**
-     * Return the shapes of the particular data source in a particular extent.
-     * @param rectangle Bounds2d; the extent of the box (in geo-coordinates)
-     * @return List the resulting ArrayList of <code>nl.tudelft.simulation.dsol.animation.gis.GisObject</code>
-     * @throws IOException on file IO or database connection failure
-     */
-    List<GisObject> getShapes(Bounds2d rectangle) throws IOException;
-
-    /**
-     * Return the shapes based on a particular value of the attributes.
-     * @param attribute String; the value of the attribute
-     * @param columnName String; the columnName
-     * @return List the resulting ArrayList of <code>nl.tudelft.simulation.dsol.animation.gis.GisObject</code>
-     * @throws IOException on file IO or database connection failure
-     */
-    List<GisObject> getShapes(String attribute, String columnName) throws IOException;
-
-    /**
-     * Return the type of this dataSouce.
-     * @return int the type of this dataSouce.
-     * @throws IOException on file IO or database connection failure
-     */
-    int getType() throws IOException;
 }

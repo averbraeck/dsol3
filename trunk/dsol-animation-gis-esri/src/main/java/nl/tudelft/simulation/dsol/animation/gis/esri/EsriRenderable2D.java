@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.net.URL;
 import java.rmi.RemoteException;
 
 import javax.naming.NamingException;
@@ -65,58 +64,30 @@ public class EsriRenderable2D implements GisRenderable2D
     /**
      * constructs a new GisRenderable2D.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
-     * @param mapFile URL; the mapfile to use.
+     * @param map MapInterface; the parsed map to use
      */
-    public EsriRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile)
+    public EsriRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final GisMapInterface map)
     {
-        this(simulator, mapFile, new CoordinateTransform.NoTransform());
+        this(simulator, map, new CoordinateTransform.NoTransform());
     }
 
     /**
      * constructs a new GisRenderable2D.
      * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
-     * @param mapFile URL; the mapfile to use.
+     * @param map MapInterface; the parsed map to use
      * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
      */
-    public EsriRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile,
+    public EsriRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final GisMapInterface map,
             final CoordinateTransform coordinateTransform)
     {
-        this(simulator, mapFile, coordinateTransform, -Double.MAX_VALUE);
+        this(simulator, map, coordinateTransform, -Double.MAX_VALUE);
     }
 
     /**
-     * constructs a new GisRenderable2D.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
-     * @param mapFile URL; the mapfile to use.
-     * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
-     * @param z double; the z-value to use
-     */
-    public EsriRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final URL mapFile,
-            final CoordinateTransform coordinateTransform, final double z)
-    {
-        if (!(simulator instanceof AnimatorInterface))
-        {
-            return;
-        }
-        try
-        {
-            this.map = EsriFileXmlParser.parseMapFile(mapFile, coordinateTransform);
-            this.cachedExtent = this.map.getExtent();
-            this.location = new OrientedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(), z);
-            this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
-            this.bind2Context(simulator);
-        }
-        catch (Exception exception)
-        {
-            simulator.getLogger().always().warn(exception, "<init>");
-        }
-    }
-
-    /**
-     * constructs a new GisRenderable2D based on an existing Map.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
-     * @param map MapInterface; the map to use.
-     * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
+     * constructs a new GisRenderable2D based on a parsed Map.
+     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
+     * @param map MapInterface; the parsed map to use
+     * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates
      * @param z double; the z-value to use
      */
     public EsriRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final GisMapInterface map,

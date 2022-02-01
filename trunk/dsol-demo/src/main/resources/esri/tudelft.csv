@@ -1,0 +1,6 @@
+layerName,shapeFile,outlineColor,fillColor,display,transform
+natural,/esri/tudelft/natural.shp,"rgb(0,255,0)","rgb(127,255,197)",true,true
+roads,/esri/tudelft/roads.shp,#787878,null,true,true
+railways,/esri/tudelft/railways.shp,"rgb(0,19,127)",null,true,true
+waterways,/esri/tudelft/waterways.shp,"rgb(0,148,255)",null,true,true
+buildings,/esri/tudelft/buildings.shp,"rgb(200,200,200)","rgb(200,200,200)",true,true

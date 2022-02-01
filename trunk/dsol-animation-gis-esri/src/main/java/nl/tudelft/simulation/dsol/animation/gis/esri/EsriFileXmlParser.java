@@ -25,13 +25,14 @@ import nl.tudelft.simulation.dsol.animation.gis.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.LayerInterface;
 import nl.tudelft.simulation.dsol.animation.gis.MapImageInterface;
 import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
+import nl.tudelft.simulation.dsol.animation.gis.map.Feature;
 import nl.tudelft.simulation.dsol.animation.gis.map.GisMap;
 import nl.tudelft.simulation.dsol.animation.gis.map.Layer;
 import nl.tudelft.simulation.dsol.animation.gis.map.MapImage;
 import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
 
 /**
- * This class parses an XML-mapfile that contains and constructs appropriate map objects.
+ * This class parses an XML file that defines which elements of shape file(s) need to be drawn and what format to use.
  * <p>
  * Copyright (c) 2020-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/dsol/manual/" target="_blank">DSOL Manual</a>. The DSOL
@@ -257,6 +258,8 @@ public final class EsriFileXmlParser
                 LayerInterface layer = new Layer();
                 layerList.add(layer);
                 layer.setName(nodeText(layerNode, "name"));
+                Feature feature = new Feature();
+                layer.addFeature(feature); // key and value remain at * and *
 
                 Node dataNode = nodeTagItem(layerNode, "data", 0);
                 if (nodeTagExists(dataNode, "shapeFile"))
@@ -267,20 +270,11 @@ public final class EsriFileXmlParser
                     {
                         throw new IOException("Cannot locate shapeFile: " + resourceName);
                     }
-                    ShapeFileReader dataSource = new ShapeFileReader(resource, coordinateTransform);
-                    String cache = ((Element) dataNode).getAttribute("cache");
-                    if (cache != null && (cache.toLowerCase().startsWith("f") || cache.toLowerCase().startsWith("n")
-                            || cache.equals("0")))
-                    {
-                        dataSource.setCache(false);
-                    }
-                    else
-                    {
-                        dataSource.setCache(true);
-                    }
-                    layer.setDataSource(dataSource);
+                    ShapeFileReader dataSource = new ShapeFileReader(resource, coordinateTransform, layer.getFeatures());
+                    dataSource.populateShapes();
                 }
 
+                /*-
                 if (nodeTagExists(layerNode, "minScale"))
                 {
                     layer.setMinScale(nodeInt(layerNode, "minscale"));
@@ -289,13 +283,14 @@ public final class EsriFileXmlParser
                 {
                     layer.setMaxScale(nodeInt(layerNode, "maxscale"));
                 }
+                */
                 if (nodeTagExists(layerNode, "fillColor"))
                 {
-                    layer.setFillColor(parseColor(nodeTagItem(layerNode, "fillColor", 0)));
+                    feature.setFillColor(parseColor(nodeTagItem(layerNode, "fillColor", 0)));
                 }
                 if (nodeTagExists(layerNode, "outlineColor"))
                 {
-                    layer.setOutlineColor(parseColor(nodeTagItem(layerNode, "outlineColor", 0)));
+                    feature.setOutlineColor(parseColor(nodeTagItem(layerNode, "outlineColor", 0)));
                 }
                 if (nodeTagExists(layerNode, "display"))
                 {

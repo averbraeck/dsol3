@@ -1,5 +1,6 @@
 package nl.tudelft.simulation.examples.dsol.animation.gis;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -12,6 +13,7 @@ import org.djutils.io.URLResource;
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 import nl.tudelft.simulation.dsol.animation.gis.GisRenderable2D;
+import nl.tudelft.simulation.dsol.animation.gis.esri.EsriFileCsvParser;
 import nl.tudelft.simulation.dsol.animation.gis.esri.EsriRenderable2D;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.experiment.SingleReplication;
@@ -35,7 +37,7 @@ import nl.tudelft.simulation.language.DSOLException;
  * </p>
  * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraeck</a>
  */
-public class EsriSwingApplication extends DSOLAnimationApplication
+public class EsriCsvSwingApplication extends DSOLAnimationApplication
 {
     /**
      * @param title String; the title
@@ -45,7 +47,7 @@ public class EsriSwingApplication extends DSOLAnimationApplication
      * @throws IllegalArgumentException for illegal bounds
      * @throws RemoteException on network error
      */
-    public EsriSwingApplication(final String title, final DSOLPanel panel, final DSOLAnimationGisTab animationTab)
+    public EsriCsvSwingApplication(final String title, final DSOLPanel panel, final DSOLAnimationGisTab animationTab)
             throws RemoteException, IllegalArgumentException, DSOLException
     {
         super(panel, title, animationTab);
@@ -75,7 +77,7 @@ public class EsriSwingApplication extends DSOLAnimationApplication
         animationTab.getAnimationPanel().setRenderableScale(
                 new RenderableScale(Math.cos(Math.toRadians(mapBounds.midPoint().getY())), 1.0 / 111319.24));
         animationTab.addAllToggleGISButtonText("MAP LAYERS", model.getGisMap(), "hide or show this GIS layer");
-        new EsriSwingApplication("EsriSwingApplication", panel, animationTab);
+        new EsriCsvSwingApplication("EsriSwingApplication", panel, animationTab);
     }
 
     /** The empty model -- this demo is just to show a map on the screen. */
@@ -100,9 +102,16 @@ public class EsriSwingApplication extends DSOLAnimationApplication
         @Override
         public void constructModel() throws SimRuntimeException
         {
-            URL gisURL = URLResource.getResource("/esri/tudelft.xml");
-            System.out.println("ESRI-map file: " + gisURL.toString());
-            this.gisMap = new EsriRenderable2D(getSimulator(), gisURL);
+            URL csvUrl = URLResource.getResource("/esri/tudelft.csv");
+            System.out.println("ESRI-map file: " + csvUrl.toString());
+            try
+            {
+                this.gisMap = new EsriRenderable2D(getSimulator(), EsriFileCsvParser.parseMapFile(csvUrl, "TU Delft")); 
+            }
+            catch (IOException e)
+            {
+                throw new SimRuntimeException(e);
+            }
         }
 
         /** {@inheritDoc} */

@@ -10,10 +10,6 @@ import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.immutablecollections.ImmutableList;
 import org.djutils.immutablecollections.ImmutableMap;
 
-import nl.tudelft.simulation.dsol.animation.gis.DSOLGisException;
-import nl.tudelft.simulation.dsol.animation.gis.MapUnits;
-import nl.tudelft.simulation.dsol.animation.gis.SerializableRectangle2D;
-
 /**
  * This interface defines the map.
  * <p>
@@ -29,13 +25,13 @@ public interface GisMapInterface extends Serializable
     /** TEXT. */
     byte TEXT = 0;
 
-    /** ANGLEDEg. */
+    /** ANGLEDEG. */
     byte ANGLEDEG = 1;
 
-    /** ANGLERAd. */
+    /** ANGLERAD. */
     byte ANGLERAD = 2;
 
-    /** IMAGe. */
+    /** IMAGE. */
     byte IMAGE = 3;
 
     /** AIRPHOTO. */

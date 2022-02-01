@@ -4,7 +4,18 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.07.07" date="2022-01-XX" description="SimEvent errors improved; OSM files for GIS maps">
+    <release version="3.08.00" date="2022-02-01" description="GIS overhaul; OSM files for GIS maps; SimEvent errors">
+      <action dev="averbraeck" type="update">
+        The dsol-animation-gis project has been completely reorganized. The GisFileXMLParser has a new location and is renamed 
+        to EsriFileXmlParser. Generic GIS interfaces have been moved to the dsol-animation project, so the dependency between 
+        dsol-swing and dsol-animation-gis is  not needed anymore. The actual implementation of the shape file parser and the 
+        osm parser have been moved to two new projects: dsol-animation-gis-esri and dsol-animation-gis-osm. This means that 
+        when dsol-swing is loaded, no osmosis or esri dependencies are used, and the osmosis libraries are only included when
+        an OSM file has to be parsed.
+      </action>
+      <action dev="averbraeck" type="update">
+        Code for the ESRI shape parser has been rewritten, with a much lower memory footprint.
+      </action>
       <action dev="averbraeck" type="add">
         Map display in a new dsol-animation-gis-osm project can now also parse and display OpenStreetMap files 
         (.pbf, .osm, .osm.gz and .osm.bz2).
@@ -14,13 +25,8 @@
         CSV or TSV file rather than the verbose XML file to specify what has to be read. The XML file still works for 
         upward compatibility (but is already for a long time not dependent on the relatively heavy Xerces library anymore).
       </action>
-      <action dev="averbraeck" type="update">
-        The dsol-animation-gis project has been completely reorganized. The GisFileXMLParser has a new location and is renamed 
-        to EsriFileXmlParser. Generic GIS interfaces have been moved to the dsol-animation project, so the dependency between 
-        dsol-swing and dsol-animation-gis is  not needed anymore. The actual implementation of the shape file parser and the 
-        osm parser have been moved to two new projects: dsol-animation-gis-esri and dsol-animation-gis-osm. This means that 
-        when dsol-swing is loaded, no osmosis or esri dependencies are used, and the osmosis libraries are only included when
-        an OSM file has to be parsed.  
+      <action dev="averbraeck" type="add">
+        Demos for the XML parsers have beem added to the dsol-demo project, in the n.t.s.dsol.animation.gis package.
       </action>
       <action dev="averbraeck" type="update">
         The error messages and toString() method of the SimEvent have been improved with clear target and args printing.
