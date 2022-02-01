@@ -33,7 +33,7 @@ public interface DataSourceInterface extends Serializable
      * point to the same data source, such as with OSM files), one data source per layer (such as with ESRI shape files), or
      * even individual data sources per feature (e.g., when we have a geo-file per bus line that needs to be colored differently
      * on the map).
-     * @return List&ltFeature&gt;; the Features that the data source should populate when asked
+     * @return List&lt;Feature&gt;; the Features that the data source should populate when asked
      */
     List<FeatureInterface> getFeatures();
 
