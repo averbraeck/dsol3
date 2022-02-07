@@ -67,7 +67,7 @@ public class OsmFileReader implements DataSourceInterface
     @Override
     public void populateShapes() throws IOException
     {
-        String filename = this.osmURL.toString();
+        String filename = this.osmURL.toString(); // TODO: toLower()
         InputStream fis = URLResource.getResourceAsStream(filename);
 
         OsmLayerSink sinkImplementation = new OsmLayerSink(this.featuresToRead, this.coordinateTransform);

@@ -10,7 +10,7 @@ import org.djutils.draw.point.Point2d;
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.D2.Renderable2DInterface;
 import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.naming.context.Contextualized;
 
 /**
  * This renderable draws CAD/GIS objects.
@@ -45,7 +45,7 @@ public interface GisRenderable2D extends Renderable2DInterface<GisRenderable2D>,
      * destroys an RenderableObject by unsubscribing it from the context.
      */
     @Override
-    void destroy(SimulatorInterface<?, ?, ?> simulator);
+    void destroy(Contextualized contextProvider);
 
     /** {@inheritDoc} */
     @Override

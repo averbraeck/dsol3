@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import javax.naming.NamingException;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.animation.D2.Renderable2D;
+import nl.tudelft.simulation.dsol.animation.SimRenderable2D;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 
 /**
@@ -24,8 +24,11 @@ import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
  * @author <a href="http://www.tbm.tudelft.nl/webstaf/peterja/index.htm">Peter Jacobs </a>
  * @since 1.4
  */
-public class BallAnimation extends Renderable2D<Locatable>
+public class BallAnimation extends SimRenderable2D<Locatable>
 {
+    /** */
+    private static final long serialVersionUID = 20220201L;
+    
     /**
      * the color of the ballAnimation.
      */

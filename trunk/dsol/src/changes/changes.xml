@@ -4,6 +4,20 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.08.01" date="2022-02-XX" description="">
+      <action dev="averbraeck" type="update">
+        The animation has been decoupled from dsol-core, and can now be used to display maps or animations without 
+        having a DSOL simulator present. The animation package is still dependent on dsol-naming, which provides
+        the (remote, file or memory) context in which the animation objects are registered and possibly transferred.  
+      </action>
+      <action dev="averbraeck" type="update">
+        Because of the decoupling of animation from simulation, the Renderable2D classes for simulation objects
+        now have to specify the simulator.getReplication() as the Context. Either they can do so directly, or these
+        classes can extend the SimRenderable2D instead, which takes a simulator as the parameter to indicate where to 
+        find the context.
+      </action>
+    </release>
+    
     <release version="3.08.00" date="2022-02-01" description="GIS overhaul; OSM files for GIS maps; SimEvent errors">
       <action dev="averbraeck" type="update">
         The dsol-animation-gis project has been completely reorganized. The GisFileXMLParser has a new location and is renamed 
@@ -26,7 +40,7 @@
         upward compatibility (but is already for a long time not dependent on the relatively heavy Xerces library anymore).
       </action>
       <action dev="averbraeck" type="add">
-        Demos for the XML parsers have beem added to the dsol-demo project, in the n.t.s.dsol.animation.gis package.
+        Demos for the XML parsers have been added to the dsol-demo project, in the n.t.s.dsol.animation.gis package.
       </action>
       <action dev="averbraeck" type="update">
         The error messages and toString() method of the SimEvent have been improved with clear target and args printing.

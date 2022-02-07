@@ -1,5 +1,6 @@
 /**
- * The SimRenderable2D, which binds the animation objects to the context in simulator.getReplication().
+ * Generic classes for animation in DSOL. The most important interface is Locatable, which indicates the location of the
+ * simulation object in 3D.
  * <p>
  * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL

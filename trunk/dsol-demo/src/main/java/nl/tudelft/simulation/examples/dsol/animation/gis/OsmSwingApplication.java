@@ -94,7 +94,7 @@ public class OsmSwingApplication extends DSOLAnimationApplication
          * @param simulator DEVSSimulatorInterface.TimeDouble; the simulator
          */
         EmptyModel(final DEVSSimulatorInterface.TimeDouble simulator)
-        { 
+        {
             super(simulator);
         }
 
@@ -108,7 +108,8 @@ public class OsmSwingApplication extends DSOLAnimationApplication
             System.out.println("GIS data file: " + osmUrl.toString());
             try
             {
-                this.gisMap = new OsmRenderable2D(getSimulator(), OsmFileCsvParser.parseMapFile(csvUrl, osmUrl, "TU Delft"));
+                this.gisMap = new OsmRenderable2D(getSimulator().getReplication(),
+                        OsmFileCsvParser.parseMapFile(csvUrl, osmUrl, "TU Delft"));
             }
             catch (IOException exception)
             {

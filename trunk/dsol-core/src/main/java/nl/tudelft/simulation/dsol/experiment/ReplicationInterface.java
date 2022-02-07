@@ -9,13 +9,13 @@ import org.djunits.value.vfloat.scalar.FloatTime;
 import org.djutils.event.TimedEventType;
 import org.djutils.metadata.MetaData;
 
-import nl.tudelft.simulation.dsol.Contextualized;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDouble;
 import nl.tudelft.simulation.dsol.simtime.SimTimeDoubleUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloat;
 import nl.tudelft.simulation.dsol.simtime.SimTimeFloatUnit;
 import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
+import nl.tudelft.simulation.naming.context.Contextualized;
 
 /**
  * The interface for a replication. Several types of replications exist, such as the SingleReplication and the

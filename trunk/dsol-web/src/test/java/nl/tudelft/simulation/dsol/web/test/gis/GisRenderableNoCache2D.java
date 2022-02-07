@@ -22,6 +22,7 @@ import nl.tudelft.simulation.dsol.animation.gis.esri.EsriFileXmlParser;
 import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
 import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
 import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.naming.context.Contextualized;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
@@ -193,21 +194,28 @@ public class GisRenderableNoCache2D implements Renderable2DInterface<GisRenderab
         return this.map;
     }
 
-    /**
-     * destroys an RenderableObject by unsubscribing it from the context.
-     */
+    /** {@inheritDoc} */
     @Override
-    public void destroy(final SimulatorInterface<?, ?, ?> simulator)
+    public void destroy(final Contextualized contextProvider)
     {
         try
         {
-            ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+            ContextUtil.lookupOrCreateSubContext(contextProvider.getContext(), "animation/2D")
                     .unbindObject(Integer.toString(System.identityHashCode(this)));
         }
         catch (Throwable throwable)
         {
             CategoryLogger.always().warn(throwable, "finalize");
         }
+    }
+
+    /**
+     * destroys an RenderableObject by unsubscribing it from the context.
+     * @param simulator the simulator
+     */
+    public void destroy(final SimulatorInterface<?, ?, ?> simulator)
+    {
+        destroy(simulator.getReplication());
     }
 
     /** {@inheritDoc} */

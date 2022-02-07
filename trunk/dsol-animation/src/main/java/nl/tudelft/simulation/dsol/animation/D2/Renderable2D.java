@@ -16,9 +16,8 @@ import org.djutils.draw.point.Point2d;
 import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
 import nl.tudelft.simulation.language.d2.Shape2d;
+import nl.tudelft.simulation.naming.context.Contextualized;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
@@ -80,31 +79,26 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
     /**
      * Constructs a new Renderable2D.
      * @param source T; the source
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      */
-    public Renderable2D(final L source, final SimulatorInterface<?, ?, ?> simulator)
+    public Renderable2D(final L source, final Contextualized contextProvider)
     {
         this.source = source;
-        if (!(simulator instanceof AnimatorInterface))
-        {
-            // We are currently running without animation
-            return;
-        }
-        this.bind2Context(simulator);
+        this.bind2Context(contextProvider);
     }
 
     /**
      * Bind a renderable2D to the context. The reason for specifying this in an independent method instead of adding the code in
      * the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must be
      * overwritten.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object into the context
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      */
-    public void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
+    public void bind2Context(final Contextualized contextProvider)
     {
         try
         {
             this.id = animationObjectCounter.incrementAndGet();
-            ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+            ContextUtil.lookupOrCreateSubContext(contextProvider.getContext(), "animation/2D")
                     .bind(Integer.toString(this.id), this);
         }
         catch (NamingException | RemoteException exception)
@@ -364,11 +358,11 @@ public abstract class Renderable2D<L extends Locatable> implements Renderable2DI
 
     /** {@inheritDoc} */
     @Override
-    public void destroy(final SimulatorInterface<?, ?, ?> simulator)
+    public void destroy(final Contextualized contextProvider)
     {
         try
         {
-            ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+            ContextUtil.lookupOrCreateSubContext(contextProvider.getContext(), "animation/2D")
                     .unbind(Integer.toString(this.id));
             this.source = null; // to indicate the animation is destroyed. Remove pointer to source for GC.
         }
