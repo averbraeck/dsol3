@@ -106,7 +106,8 @@ public class EsriCsvSwingApplication extends DSOLAnimationApplication
             System.out.println("ESRI-map file: " + csvUrl.toString());
             try
             {
-                this.gisMap = new EsriRenderable2D(getSimulator(), EsriFileCsvParser.parseMapFile(csvUrl, "TU Delft")); 
+                this.gisMap = new EsriRenderable2D(
+                        getSimulator().getReplication(), EsriFileCsvParser.parseMapFile(csvUrl, "TU Delft")); 
             }
             catch (IOException e)
             {

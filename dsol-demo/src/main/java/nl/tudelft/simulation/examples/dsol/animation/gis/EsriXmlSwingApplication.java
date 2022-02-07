@@ -106,7 +106,7 @@ public class EsriXmlSwingApplication extends DSOLAnimationApplication
             System.out.println("ESRI-map file: " + gisURL.toString());
             try
             {
-                this.gisMap = new EsriRenderable2D(getSimulator(), EsriFileXmlParser.parseMapFile(gisURL));
+                this.gisMap = new EsriRenderable2D(getSimulator().getReplication(), EsriFileXmlParser.parseMapFile(gisURL));
             }
             catch (IOException e)
             {

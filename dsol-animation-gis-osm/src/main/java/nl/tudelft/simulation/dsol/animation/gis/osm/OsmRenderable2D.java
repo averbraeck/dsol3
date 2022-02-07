@@ -18,8 +18,7 @@ import nl.tudelft.simulation.dsol.animation.D2.RenderableScale;
 import nl.tudelft.simulation.dsol.animation.gis.GisMapInterface;
 import nl.tudelft.simulation.dsol.animation.gis.GisRenderable2D;
 import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
-import nl.tudelft.simulation.dsol.simulators.AnimatorInterface;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.naming.context.Contextualized;
 import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
@@ -63,50 +62,46 @@ public class OsmRenderable2D implements GisRenderable2D
 
     /**
      * constructs a new GisRenderable2D.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      * @param map MapInterface; the map to use.
      */
-    public OsmRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final GisMapInterface map)
+    public OsmRenderable2D(final Contextualized contextProvider, final GisMapInterface map)
     {
-        this(simulator, map, new CoordinateTransform.NoTransform());
+        this(contextProvider, map, new CoordinateTransform.NoTransform());
     }
 
     /**
      * constructs a new GisRenderable2D.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      * @param map MapInterface; the map to use.
      * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
      */
-    public OsmRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final GisMapInterface map,
+    public OsmRenderable2D(final Contextualized contextProvider, final GisMapInterface map,
             final CoordinateTransform coordinateTransform)
     {
-        this(simulator, map, coordinateTransform, -Double.MAX_VALUE);
+        this(contextProvider, map, coordinateTransform, -Double.MAX_VALUE);
     }
 
     /**
      * constructs a new GisRenderable2D based on an existing Map.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator.
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      * @param map MapInterface; the map to use.
      * @param coordinateTransform CoordinateTransform; the transformation of (x, y) coordinates to (x', y') coordinates.
      * @param z double; the z-value to use
      */
-    public OsmRenderable2D(final SimulatorInterface<?, ?, ?> simulator, final GisMapInterface map,
+    public OsmRenderable2D(final Contextualized contextProvider, final GisMapInterface map,
             final CoordinateTransform coordinateTransform, final double z)
     {
-        if (!(simulator instanceof AnimatorInterface))
-        {
-            return;
-        }
         try
         {
             this.map = map;
             this.location = new OrientedPoint3d(this.cachedExtent.midPoint().getX(), this.cachedExtent.midPoint().getY(), z);
             this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
-            this.bind2Context(simulator);
+            this.bind2Context(contextProvider);
         }
         catch (Exception exception)
         {
-            simulator.getLogger().always().warn(exception, "<init>");
+            CategoryLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -114,18 +109,18 @@ public class OsmRenderable2D implements GisRenderable2D
      * binds a renderable2D to the context. The reason for specifying this in an independent method instead of adding the code
      * in the constructor is related to the RFE submitted by van Houten that in specific distributed context, such binding must
      * be overwritten.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for binding the object.
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      */
-    protected void bind2Context(final SimulatorInterface<?, ?, ?> simulator)
+    protected void bind2Context(final Contextualized contextProvider)
     {
         try
         {
-            ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+            ContextUtil.lookupOrCreateSubContext(contextProvider.getContext(), "animation/2D")
                     .bindObject(Integer.toString(System.identityHashCode(this)), this);
         }
         catch (NamingException | RemoteException exception)
         {
-            simulator.getLogger().always().warn(exception, "<init>");
+            CategoryLogger.always().warn(exception, "<init>");
         }
     }
 
@@ -137,7 +132,7 @@ public class OsmRenderable2D implements GisRenderable2D
         try
         {
             this.map.setDrawBackground(false);
-            
+
             // is the extent or the screen size still the same
             if (extent.equals(this.cachedExtent) && screen.equals(this.cachedScreenSize) && this.map.isSame())
             {
@@ -203,20 +198,18 @@ public class OsmRenderable2D implements GisRenderable2D
         this.bounds = new Bounds3d(this.cachedExtent.getDeltaX(), this.cachedExtent.getDeltaY(), 0.0);
     }
 
-    /**
-     * destroys an RenderableObject by unsubscribing it from the context.
-     */
+    /** {@inheritDoc} */
     @Override
-    public void destroy(final SimulatorInterface<?, ?, ?> simulator)
+    public void destroy(final Contextualized contextProvider)
     {
         try
         {
-            ContextUtil.lookupOrCreateSubContext(simulator.getReplication().getContext(), "animation/2D")
+            ContextUtil.lookupOrCreateSubContext(contextProvider.getContext(), "animation/2D")
                     .unbindObject(Integer.toString(System.identityHashCode(this)));
         }
         catch (Throwable throwable)
         {
-            simulator.getLogger().always().warn(throwable, "finalize");
+            CategoryLogger.always().warn(throwable, "finalize");
         }
     }
 

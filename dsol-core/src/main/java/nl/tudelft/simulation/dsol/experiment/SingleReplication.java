@@ -48,8 +48,8 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
      * @param warmupPeriod R; the warmup period, included in the runlength (!)
      * @param runLength R; the total length of the run, including the warm-up period.
      * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-     * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup time is
-     *             longer than or equal to the runlength, or when a context for the replication cannot be created
+     * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
+     *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
      */
     public SingleReplication(final String id, final T startTime, final R warmupPeriod, final R runLength)
     {
@@ -131,8 +131,9 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod double; the warmup period, included in the runlength (!)
          * @param runLength double; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeDouble(final String id, final double startTime, final double warmupPeriod, final double runLength)
         {
@@ -173,8 +174,9 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod float; the warmup period, included in the runlength (!)
          * @param runLength float; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeFloat(final String id, final float startTime, final float warmupPeriod, final float runLength)
         {
@@ -214,8 +216,9 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod long; the warmup period, included in the runlength (!)
          * @param runLength long; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeLong(final String id, final long startTime, final long warmupPeriod, final long runLength)
         {
@@ -256,8 +259,9 @@ public class SingleReplication<A extends Comparable<A> & Serializable, R extends
          * @param warmupPeriod Duration; the warmup period, included in the runlength (!)
          * @param runLength Duration; the total length of the run, including the warm-up period.
          * @throws NullPointerException when id, startTime, warmupPeriod or runLength is null
-         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the warmup
-         *             time is longer than or equal to the runlength, or when a context for the replication cannot be created
+         * @throws IllegalArgumentException when warmup period is negative, or run length is zero or negative, or when the
+         *             warmup time is longer than or equal to the runlength, or when a context for the replication cannot be
+         *             created
          */
         public TimeDoubleUnit(final String id, final Time startTime, final Duration warmupPeriod, final Duration runLength)
         {

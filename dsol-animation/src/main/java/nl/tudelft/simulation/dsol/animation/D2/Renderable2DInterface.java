@@ -12,7 +12,7 @@ import org.djutils.draw.bounds.Bounds2d;
 import org.djutils.draw.point.Point2d;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.naming.context.Contextualized;
 
 /**
  * The Renderable2D interface defines the basic interface for 2d animation. This is a hard-to-use interface. It is implemented
@@ -59,11 +59,11 @@ public interface Renderable2DInterface<L extends Locatable> extends Serializable
 
     /**
      * destroys this editable. How to do this must be implemented by the modeler.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator used for unbinding the object from the context
+     * @param contextProvider Contextualized; the object that can provide the context to bind and unbind the animation objects
      * @throws RemoteException RemoteException
      * @throws NamingException NamingException
      */
-    void destroy(SimulatorInterface<?, ?, ?> simulator) throws RemoteException, NamingException;
+    void destroy(Contextualized contextProvider) throws RemoteException, NamingException;
 
     /**
      * return the id of the renderable component.

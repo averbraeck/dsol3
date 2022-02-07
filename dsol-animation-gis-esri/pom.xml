@@ -20,5 +20,10 @@
       <artifactId>dsol-animation-gis</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>de.siegmar</groupId>
+      <artifactId>fastcsv</artifactId>
+    </dependency>
+
   </dependencies>
 </project>

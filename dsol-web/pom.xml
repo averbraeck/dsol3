@@ -14,6 +14,12 @@
   <url>https://simulation.tudelft.nl/dsol/3.0/dsol-web</url>
 
   <dependencies>
+
+    <dependency>
+      <groupId>dsol</groupId>
+      <artifactId>dsol-core</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>dsol</groupId>
       <artifactId>dsol-animation</artifactId>

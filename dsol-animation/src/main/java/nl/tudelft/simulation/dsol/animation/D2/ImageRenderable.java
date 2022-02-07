@@ -21,7 +21,7 @@ import org.djutils.logger.CategoryLogger;
 
 import nl.tudelft.simulation.dsol.animation.Locatable;
 import nl.tudelft.simulation.dsol.animation.StaticLocation3d;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.naming.context.Contextualized;
 
 /**
  * An abstract class for state-dependent image renderables.
@@ -86,12 +86,12 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
     /**
      * constructs a new ImageRenderable.
      * @param source T; the source to be animated.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used.
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      * @param images URL[]; the image urls.
      */
-    public ImageRenderable(final L source, final SimulatorInterface<?, ?, ?> simulator, final URL[] images)
+    public ImageRenderable(final L source, final Contextualized contextProvider, final URL[] images)
     {
-        super(source, simulator);
+        super(source, contextProvider);
         this.setOrientation(ImageRenderable.CC);
         this.readImages(images);
     }
@@ -122,29 +122,29 @@ public abstract class ImageRenderable<L extends Locatable> extends Renderable2D<
      * constructs a new ImageRenderable.
      * @param staticLocation OrientedPoint3d; the static location of the set of imageIcons
      * @param size Bounds3; the size of the imageIcons in world coordinates.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      * @param images URL[]; the imageIcons to display.
      */
     @SuppressWarnings("unchecked")
-    public ImageRenderable(final OrientedPoint3d staticLocation, final Bounds3d size,
-            final SimulatorInterface<?, ?, ?> simulator, final URL[] images)
+    public ImageRenderable(final OrientedPoint3d staticLocation, final Bounds3d size, final Contextualized contextProvider,
+            final URL[] images)
     {
-        this((L) new StaticLocation3d(staticLocation, size), simulator, images);
+        this((L) new StaticLocation3d(staticLocation, size), contextProvider, images);
     }
 
     /**
      * constructs a new ImageRenderable.
      * @param staticLocation Point3d; the static location of the set of imageIcons
      * @param size Bounds3d; the size of the imageIcons in world coordinates.
-     * @param simulator SimulatorInterface&lt;?,?,?&gt;; the simulator to be used
+     * @param contextProvider Contextualized; the object that can provide the context to store the animation objects
      * @param images URL[]; the imageIcons to display.
      */
     @SuppressWarnings("unchecked")
-    public ImageRenderable(final Point3d staticLocation, final Bounds3d size, final SimulatorInterface<?, ?, ?> simulator,
+    public ImageRenderable(final Point3d staticLocation, final Bounds3d size, final Contextualized contextProvider,
             final URL[] images)
     {
         this((L) new StaticLocation3d(new OrientedPoint3d(staticLocation.getX(), staticLocation.getY(), 0.0),
-                new Bounds3d(size.getDeltaX(), size.getDeltaY(), 0.0)), simulator, images);
+                new Bounds3d(size.getDeltaX(), size.getDeltaY(), 0.0)), contextProvider, images);
     }
 
     /** {@inheritDoc} */

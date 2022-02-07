@@ -17,7 +17,7 @@
 
     <dependency>
       <groupId>dsol</groupId>
-      <artifactId>dsol-core</artifactId>
+      <artifactId>dsol-naming</artifactId>
     </dependency>
 
   </dependencies>

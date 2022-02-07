@@ -16,6 +16,11 @@
 
     <dependency>
       <groupId>dsol</groupId>
+      <artifactId>dsol-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>dsol</groupId>
       <artifactId>dsol-animation</artifactId>
     </dependency>
 

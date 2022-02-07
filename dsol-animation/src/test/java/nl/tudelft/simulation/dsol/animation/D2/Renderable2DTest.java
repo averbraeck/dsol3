@@ -9,8 +9,9 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.Serializable;
 import java.rmi.RemoteException;
+
+import javax.naming.NamingException;
 
 import org.djutils.draw.bounds.Bounds;
 import org.djutils.draw.bounds.Bounds2d;
@@ -21,15 +22,11 @@ import org.djutils.draw.point.Point2d;
 import org.djutils.draw.point.Point3d;
 import org.junit.Test;
 
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.animation.Locatable;
-import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
-import nl.tudelft.simulation.dsol.experiment.SingleReplication;
-import nl.tudelft.simulation.dsol.model.AbstractDSOLModel;
-import nl.tudelft.simulation.dsol.model.DSOLModel;
-import nl.tudelft.simulation.dsol.simulators.DEVSAnimator;
-import nl.tudelft.simulation.dsol.simulators.DEVSSimulator;
-import nl.tudelft.simulation.dsol.simulators.SimulatorInterface;
+import nl.tudelft.simulation.naming.context.ContextInterface;
+import nl.tudelft.simulation.naming.context.Contextualized;
+import nl.tudelft.simulation.naming.context.event.InitialEventContext;
+import nl.tudelft.simulation.naming.context.util.ContextUtil;
 
 /**
  * Unit tests for the Renderable2D class.
@@ -45,13 +42,15 @@ public class Renderable2DTest
 {
     /**
      * Test the flags for a Rendeable2D.
+     * @throws NamingException when context cannot be created or found
+     * @throws RemoteException when context is remote and cannot be reached
      */
     @Test
-    public void testFlags()
+    public void testFlags() throws RemoteException, NamingException
     {
         LocatableAngle locatable = new LocatableAngle();
-        SimulatorInterface.TimeDouble simulator = createAnimator();
-        Renderable2D<Locatable> renderable = new Renderable2D<Locatable>(locatable, simulator)
+        ContextProvider contextProvider = new ContextProvider();
+        Renderable2D<Locatable> renderable = new Renderable2D<Locatable>(locatable, contextProvider)
         {
             /** */
             private static final long serialVersionUID = 1L;
@@ -116,7 +115,7 @@ public class Renderable2DTest
         assertTrue(renderable.contains(new Point2d(10, 20), new Bounds2d(0, 40, 0, 80)));
         assertFalse(renderable.contains(new Point2d(5, 10), new Bounds2d(0, 40, 0, 80)));
         renderable.contains(new Point2d(10, 20), new Bounds2d(0, 5, 0, 10));
-        renderable.destroy(simulator);
+        renderable.destroy(contextProvider);
     }
 
     /** Locatable with a settable dirZ. */
@@ -175,98 +174,28 @@ public class Renderable2DTest
         };
     }
 
-    /**
-     * @return a Animator.
-     */
-    SimulatorInterface.TimeDouble createAnimator()
+    /** */
+    static class ContextProvider implements Contextualized
     {
-        try
+        /** the context. */
+        private ContextInterface context;
+
+        /**
+         * Create the InitialContext for the provider.
+         * @throws NamingException when context cannot be created or found
+         * @throws RemoteException when context is remote and cannot be reached
+         */
+        ContextProvider() throws RemoteException, NamingException
         {
-            SimulatorInterface.TimeDouble simulator = new DEVSAnimator.TimeDouble("animator");
-            DSOLModel.TimeDouble<SimulatorInterface.TimeDouble> model =
-                    new AbstractDSOLModel.TimeDouble<SimulatorInterface.TimeDouble>(simulator)
-                    {
-                        /** */
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public void constructModel() throws SimRuntimeException
-                        {
-                            // placeholder
-                        }
-
-                        @Override
-                        public Serializable getSourceId()
-                        {
-                            return "model";
-                        }
-                    };
-            ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000000.0);
-            simulator.initialize(model, replication);
-            return simulator;
+            ContextInterface rootContext = InitialEventContext.instantiate("root");
+            this.context = ContextUtil.lookupOrCreateSubContext(rootContext, "testRenderable");
         }
-        catch (Exception e)
+
+        /** {@inheritDoc} */
+        @Override
+        public ContextInterface getContext()
         {
-            throw new RuntimeException(e);
+            return this.context;
         }
-    }
-
-    /**
-     * @return a Simulator.
-     */
-    SimulatorInterface.TimeDouble createSimulator()
-    {
-        try
-        {
-            SimulatorInterface.TimeDouble simulator = new DEVSSimulator.TimeDouble("simulator");
-            DSOLModel.TimeDouble<SimulatorInterface.TimeDouble> model =
-                    new AbstractDSOLModel.TimeDouble<SimulatorInterface.TimeDouble>(simulator)
-                    {
-                        /** */
-                        private static final long serialVersionUID = 1L;
-
-                        @Override
-                        public void constructModel() throws SimRuntimeException
-                        {
-                            // placeholder
-                        }
-
-                        @Override
-                        public Serializable getSourceId()
-                        {
-                            return "model";
-                        }
-                    };
-            ReplicationInterface.TimeDouble replication = new SingleReplication.TimeDouble("rep1", 0.0, 0.0, 1000000.0);
-            simulator.initialize(model, replication);
-            return simulator;
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Test a Rendeable2D without an animator.
-     */
-    @Test
-    public void testNoAnimator()
-    {
-        Locatable locatable = new LocatableAngle();
-        SimulatorInterface.TimeDouble simulator = createSimulator();
-        Renderable2D<Locatable> renderable = new Renderable2D<Locatable>(locatable, simulator)
-        {
-            /** */
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void paint(final Graphics2D graphics, final ImageObserver observer)
-            {
-                // placeholder
-            }
-        };
-        assertEquals(locatable, renderable.getSource());
-        assertEquals(0, renderable.getId()); // 0 means not incremented and not bound
     }
 }
