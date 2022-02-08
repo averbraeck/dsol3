@@ -16,6 +16,18 @@
         classes can extend the SimRenderable2D instead, which takes a simulator as the parameter to indicate where to 
         find the context.
       </action>
+      <action dev="averbraeck" type="update">
+        When running a DSOL program in Eclipse, the resources from src/main/resources are placed in /target/classes.
+        When building a Runnable JAR file from Eclipse from the same project, the resources are placed within the jar
+        in the /resources folder, and therefore cannot be found. This disconnect between Eclipse and Maven has existed 
+        for over 10 years and is seen as a 'feature' and not as a bug. Two solutions exist: remove the Exluded: ** in
+        all project properties, Java Build Path, under the source directories of /src/main/resources (then the resource
+        files will be placed in the root in the runnable jar file), but this reverts after a Maven Update of the project.
+        Therefore, we have chosen the opposite solution: all resources are copied to the /target/classes/resources folder
+        in Eclipse, and to the /resources folder within the runnable jar file. Thereby they are always found at the same 
+        location. All URLResource.getResource(...) calls have been changed to have a path starting with "/resources/...".
+        An additional advantage is that the Jar files look less cluttered without all the resources in the root folder. 
+      </action>
     </release>
     
     <release version="3.08.00" date="2022-02-01" description="GIS overhaul; OSM files for GIS maps; SimEvent errors">

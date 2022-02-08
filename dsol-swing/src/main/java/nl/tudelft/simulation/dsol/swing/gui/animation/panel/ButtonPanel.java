@@ -47,9 +47,9 @@ public class ButtonPanel extends JPanel implements ActionListener
     public void init()
     {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        add(ButtonUtil.makeButton(this, "allButton", "/Expand.png", "ZoomAll", "Zoom whole network", true));
-        add(ButtonUtil.makeButton(this, "homeButton", "/Home.png", "Home", "Zoom to original extent", true));
-        add(ButtonUtil.makeButton(this, "gridButton", "/Grid.png", "Grid", "Toggle grid on/off", true));
+        add(ButtonUtil.makeButton(this, "allButton", "/resources/Expand.png", "ZoomAll", "Zoom whole network", true));
+        add(ButtonUtil.makeButton(this, "homeButton", "/resources/Home.png", "Home", "Zoom to original extent", true));
+        add(ButtonUtil.makeButton(this, "gridButton", "/resources/Grid.png", "Grid", "Toggle grid on/off", true));
     }
 
     /** {@inheritDoc} */

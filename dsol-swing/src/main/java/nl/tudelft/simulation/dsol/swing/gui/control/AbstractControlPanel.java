@@ -106,8 +106,8 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
 
         this.controlButtonsPanel = new JPanel();
         this.controlButtonsPanel.setLayout(new BoxLayout(this.controlButtonsPanel, BoxLayout.X_AXIS));
-        this.controlButtonsPanel.add(makeButton("resetButton", "/Reset.png", "Reset", "Reset the simulation", false));
-        this.controlButtonsPanel.add(makeButton("runPauseButton", "/Run.png", "RunPause", "Run or pause the simulation", true));
+        this.controlButtonsPanel.add(makeButton("resetButton", "/resources/Reset.png", "Reset", "Reset the simulation", false));
+        this.controlButtonsPanel.add(makeButton("runPauseButton", "/resources/Run.png", "RunPause", "Run or pause the simulation", true));
         this.add(this.controlButtonsPanel);
         fixButtons();
 
@@ -334,12 +334,12 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
                 if (this.simulator.isStartingOrRunning())
                 {
                     button.setToolTipText("Pause the simulation");
-                    button.setIcon(Icons.loadIcon("/Pause.png"));
+                    button.setIcon(Icons.loadIcon("/resources/Pause.png"));
                 }
                 else
                 {
                     button.setToolTipText("Run the simulation at the indicated speed");
-                    button.setIcon(Icons.loadIcon("/Run.png"));
+                    button.setIcon(Icons.loadIcon("/resources/Run.png"));
                 }
                 button.setEnabled(moreWorkToDo && this.controlButtonsEnabled);
             }
@@ -362,7 +362,7 @@ public abstract class AbstractControlPanel<A extends Comparable<A> & Serializabl
             if (actionCommand.equals("RunPause"))
             {
                 button.setToolTipText("Run the simulation at the indicated speed");
-                button.setIcon(Icons.loadIcon("/Run.png"));
+                button.setIcon(Icons.loadIcon("/resources/Run.png"));
                 button.setEnabled(false);
             }
         }

@@ -65,8 +65,8 @@ public class DEVSControlPanel<A extends Comparable<A> & Serializable, R extends 
         super(model, simulator);
 
         // add the buttons to step the simulation
-        getControlButtonsPanel().add(makeButton("stepButton", "/Step.png", "Step", "Execute one event", true));
-        getControlButtonsPanel().add(makeButton("nextTimeButton", "/StepTime.png", "NextTime",
+        getControlButtonsPanel().add(makeButton("stepButton", "/resources/Step.png", "Step", "Execute one event", true));
+        getControlButtonsPanel().add(makeButton("nextTimeButton", "/resources/StepTime.png", "NextTime",
                 "Execute all events scheduled for the current time", true));
     }
 

@@ -30,7 +30,7 @@ public class ParserTest
     @Test
     public void testParser() throws IOException
     {
-        GisMapInterface map = EsriFileXmlParser.parseMapFile(URLResource.getResource("/esri/tudelft.xml"));
+        GisMapInterface map = EsriFileXmlParser.parseMapFile(URLResource.getResource("/resources/esri/tudelft.xml"));
         assertEquals("tudelft", map.getName());
         assertEquals(MapUnits.DECIMAL_DEGREES, map.getUnits());
     }

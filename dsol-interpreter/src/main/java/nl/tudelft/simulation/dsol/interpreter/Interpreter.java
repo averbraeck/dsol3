@@ -60,7 +60,7 @@ public final class Interpreter
         try
         {
             Properties properties = new Properties();
-            properties.load(URLResource.getResourceAsStream("/interpreter.properties"));
+            properties.load(URLResource.getResourceAsStream("/resources/interpreter.properties"));
 
             Class<?> factoryClass = Class.forName(properties.getProperty("interpreter.operation.factory"));
             if (properties.getProperty("interpreter.operation.oracle") != null)

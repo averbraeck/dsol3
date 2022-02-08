@@ -48,7 +48,7 @@ import nl.tudelft.simulation.dsol.animation.gis.transform.CoordinateTransform;
 public final class EsriFileXmlParser
 {
     /** the default mapfile. */
-    public static final URL MAPFILE_SCHEMA = URLResource.getResource("/mapfile.xsd");
+    public static final URL MAPFILE_SCHEMA = URLResource.getResource("/resources/mapfile.xsd");
 
     /** Utility class, no constructor. */
     private EsriFileXmlParser()

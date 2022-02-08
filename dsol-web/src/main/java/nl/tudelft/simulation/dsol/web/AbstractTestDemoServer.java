@@ -86,7 +86,7 @@ public abstract class AbstractTestDemoServer
             ResourceHandler resourceHandler = new MyResourceHandler();
 
             // root folder; to work in Eclipse, as an external jar, and in an embedded jar
-            URL homeFolder = URLResource.getResource("/home");
+            URL homeFolder = URLResource.getResource("/resources/home");
             String webRoot = homeFolder.toExternalForm();
             System.out.println("webRoot is " + webRoot);
 
@@ -290,7 +290,7 @@ public abstract class AbstractTestDemoServer
          * @param model the model with parameters
          * @return an XML string with the parameters
          */
-        private String makeParameterMap(DSOLModel model)
+        private String makeParameterMap(final DSOLModel model)
         {
             StringBuffer answer = new StringBuffer();
             answer.append("<parameters>\n");

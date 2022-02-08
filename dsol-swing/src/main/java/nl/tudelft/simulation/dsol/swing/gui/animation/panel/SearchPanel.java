@@ -82,7 +82,7 @@ public class SearchPanel extends JPanel implements ActionListener, FocusListener
         this.searchPanelEventProducer = new SearchPanelEventProducer();
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(new JLabel("    ")); // insert some white space in the GUI
-        this.add(new JLabel(Icons.loadIcon("/Search.png")));
+        this.add(new JLabel(Icons.loadIcon("/resources/Search.png")));
         this.objectKindList = new ArrayList<>();
         this.typeToSearch = new JComboBox<ObjectKind<?>>(new ObjectKind<?>[] {});
         this.add(this.typeToSearch);

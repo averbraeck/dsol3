@@ -102,7 +102,7 @@ public class EsriXmlSwingApplication extends DSOLAnimationApplication
         @Override
         public void constructModel() throws SimRuntimeException
         {
-            URL gisURL = URLResource.getResource("/esri/tudelft.xml");
+            URL gisURL = URLResource.getResource("/resources/esri/tudelft.xml");
             System.out.println("ESRI-map file: " + gisURL.toString());
             try
             {
