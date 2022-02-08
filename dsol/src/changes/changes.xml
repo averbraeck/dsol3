@@ -28,6 +28,16 @@
         location. All URLResource.getResource(...) calls have been changed to have a path starting with "/resources/...".
         An additional advantage is that the Jar files look less cluttered without all the resources in the root folder. 
       </action>
+      <action dev="averbraeck" type="fix">
+        The EsriFileXmlParser has been adapted to read shape files from within a jar file. The trick is to not open the 
+        file with URLResource.getResource(...).getPath, but rather with url.openStream(). Streams can usually be read much
+        easier than file names from the file system and jar files (and of course network links).
+      </action>
+      <action dev="averbraeck" type="fix">
+        The OsmFileReader has been adapted to read xml files from within a jar file. Since the Osmosis XmlReader class only 
+        accepts a filename, and not a stream, a new class XmlStreamReader has been added that can read a (compressed) 
+        osm xml file from a stream rather than from a file. 
+      </action>
     </release>
     
     <release version="3.08.00" date="2022-02-01" description="GIS overhaul; OSM files for GIS maps; SimEvent errors">

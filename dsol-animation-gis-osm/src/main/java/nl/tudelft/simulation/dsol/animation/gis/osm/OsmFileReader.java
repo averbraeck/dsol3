@@ -1,15 +1,12 @@
 package nl.tudelft.simulation.dsol.animation.gis.osm;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
-import org.djutils.io.URLResource;
 import org.openstreetmap.osmosis.core.task.v0_6.RunnableSource;
 import org.openstreetmap.osmosis.xml.common.CompressionMethod;
-import org.openstreetmap.osmosis.xml.v0_6.XmlReader;
 
 import crosby.binary.osmosis.OsmosisReader;
 import nl.tudelft.simulation.dsol.animation.gis.DataSourceInterface;
@@ -67,8 +64,8 @@ public class OsmFileReader implements DataSourceInterface
     @Override
     public void populateShapes() throws IOException
     {
-        String filename = this.osmURL.toString(); // TODO: toLower()
-        InputStream fis = URLResource.getResourceAsStream(filename);
+        InputStream fis = this.osmURL.openStream();
+        String filename = this.osmURL.toString().toLowerCase();
 
         OsmLayerSink sinkImplementation = new OsmLayerSink(this.featuresToRead, this.coordinateTransform);
         CompressionMethod compression = CompressionMethod.None;
@@ -93,31 +90,22 @@ public class OsmFileReader implements DataSourceInterface
             try
             {
                 reader = new OsmosisReader(fis);
-                System.out.println("osm map to read: " + filename);
+                System.out.println("osm pbf map to read: " + filename);
             }
             catch (Exception exception)
             {
+                sinkImplementation.close();
+                fis.close();
                 throw new IOException("Error during reading of OSM file " + filename, exception);
             }
         }
         else
         {
-            File file = null;
-            try
-            {
-                file = new File(URLResource.getResource(filename).toURI());
-            }
-            catch (Exception e)
-            {
-                // if it fails, try to get the file in the current root.
-                file = new File(getExecutionPath() + filename);
-            }
-            reader = new XmlReader(file, false, compression);
-            System.out.println("osm map to read: " + file.getAbsolutePath());
+            reader = new XmlStreamReader(fis, false, compression);
+            System.out.println("osm xml map to read: " + filename);
         }
 
         reader.setSink(sinkImplementation);
-
         Thread readerThread = new Thread(reader);
         readerThread.start();
 
@@ -135,17 +123,6 @@ public class OsmFileReader implements DataSourceInterface
         }
 
         System.out.println("OSM layer has been read");
-    }
-
-    /**
-     * @return Execution Path
-     */
-    private String getExecutionPath()
-    {
-        String absolutePath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        absolutePath = absolutePath.substring(0, absolutePath.lastIndexOf("/"));
-        absolutePath = absolutePath.replaceAll("%20", " ");
-        return absolutePath;
     }
 
     /** {@inheritDoc} */
