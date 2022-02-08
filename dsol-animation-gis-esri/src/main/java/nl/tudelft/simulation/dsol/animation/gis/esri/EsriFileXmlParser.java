@@ -2,7 +2,6 @@ package nl.tudelft.simulation.dsol.animation.gis.esri;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public final class EsriFileXmlParser
         {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new FileInputStream(url.getPath()));
+            Document document = builder.parse(url.openStream());
             document.getDocumentElement().normalize();
             Element root = document.getDocumentElement();
 
