@@ -102,9 +102,9 @@ public class OsmSwingApplication extends DSOLAnimationApplication
         @Override
         public void constructModel() throws SimRuntimeException
         {
-            URL csvUrl = URLResource.getResource("/osm/tudelft.csv");
+            URL csvUrl = URLResource.getResource("/resources/osm/tudelft.csv");
             System.out.println("GIS definitions file: " + csvUrl.toString());
-            URL osmUrl = URLResource.getResource("/osm/tudelft.osm.gz");
+            URL osmUrl = URLResource.getResource("/resources/osm/tudelft.osm.gz");
             System.out.println("GIS data file: " + osmUrl.toString());
             try
             {

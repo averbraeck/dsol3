@@ -68,7 +68,7 @@ public class RealTimeControlPanel<A extends Comparable<A> & Serializable, R exte
     {
         super(model, simulator);
 
-        getControlButtonsPanel().add(makeButton("fastForwardButton", "/FastForward.png", "FastForward",
+        getControlButtonsPanel().add(makeButton("fastForwardButton", "/resources/FastForward.png", "FastForward",
                 "Run the simulation as fast as possible", true));
 
         this.runSpeedSliderPanel = new RunSpeedSliderPanel(0.1, 1000, 1, 3, getSimulator());

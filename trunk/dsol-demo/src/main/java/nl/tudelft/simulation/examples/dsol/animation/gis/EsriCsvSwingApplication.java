@@ -102,7 +102,7 @@ public class EsriCsvSwingApplication extends DSOLAnimationApplication
         @Override
         public void constructModel() throws SimRuntimeException
         {
-            URL csvUrl = URLResource.getResource("/esri/tudelft.csv");
+            URL csvUrl = URLResource.getResource("/resources/esri/tudelft.csv");
             System.out.println("ESRI-map file: " + csvUrl.toString());
             try
             {

@@ -91,7 +91,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
         this.textField.setPreferredSize(new Dimension(120, 20));
         this.textField.setValue(this.initialValue);
 
-        Icon runUntilIcon = Icons.loadIcon("/Apply.png");
+        Icon runUntilIcon = Icons.loadIcon("/resources/Apply.png");
         this.runUntilButton = new AppearanceControlButton(runUntilIcon);
         this.runUntilButton.setName("runUntil");
         this.runUntilButton.setEnabled(true);
@@ -153,7 +153,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
         synchronized (this.textField)
         {
             this.textField.setBackground(Color.GREEN);
-            this.runUntilButton.setIcon(Icons.loadIcon("/Cancel.png"));
+            this.runUntilButton.setIcon(Icons.loadIcon("/resources/Cancel.png"));
             this.textField.validate();
             // getSimulator().addListener(this, SimulatorInterface.TIME_CHANGED_EVENT);
             synchronized (this)
@@ -182,7 +182,7 @@ public abstract class RunUntilPanel<A extends Comparable<A> & Serializable, R ex
             this.runUntilTime = null;
             this.textField.setValue(this.initialValue);
             this.textField.setBackground(Color.WHITE);
-            this.runUntilButton.setIcon(Icons.loadIcon("/Apply.png"));
+            this.runUntilButton.setIcon(Icons.loadIcon("/resources/Apply.png"));
             this.textField.validate();
             this.applyState = false;
         }

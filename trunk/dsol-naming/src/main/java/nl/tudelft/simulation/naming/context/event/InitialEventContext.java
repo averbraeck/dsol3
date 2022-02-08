@@ -172,7 +172,7 @@ public final class InitialEventContext implements EventContext
     /**
      * Build the properties that the generation of the initial event context will use. In sequence, the following sources of
      * properties are explored: (1) default values, (2) system environment, (3) Java system properties, (4) content of the
-     * /jndi.properties file, (5) the provided environment. If a property is available in a later evaluation, it takes
+     * /resources/jndi.properties file, (5) the provided environment. If a property is available in a later evaluation, it takes
      * precedence over an earlier definition.
      * @param environment the final overwriting environment to use (can be null)
      * @return Hashtable&lt;?,?&gt;; a combined Hashtable with information from system properties, jndi.properties and the
@@ -206,8 +206,8 @@ public final class InitialEventContext implements EventContext
             }
         }
 
-        // (4) content of the /jndi.properties file
-        InputStream stream = URLResource.getResourceAsStream("/jndi.properties");
+        // (4) content of the /resources/jndi.properties file
+        InputStream stream = URLResource.getResourceAsStream("/resources/jndi.properties");
         if (stream != null)
         {
             Properties jndiProps = new Properties();

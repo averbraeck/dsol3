@@ -110,7 +110,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
             ResourceHandler resourceHandler = new ResourceHandler();
 
             // root folder; to work in Eclipse, as an external jar, and in an embedded jar
-            URL homeFolder = URLResource.getResource("/home");
+            URL homeFolder = URLResource.getResource("/resources/home");
             String webRoot = homeFolder.toExternalForm();
             System.out.println("webRoot is " + webRoot);
 
@@ -226,7 +226,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
 
     /** {@inheritDoc} */
     @Override
-    public void notify(EventInterface event) throws RemoteException
+    public void notify(final EventInterface event) throws RemoteException
     {
         if (event.getType().equals(SimulatorInterface.START_EVENT))
         {
@@ -267,7 +267,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
         }
 
         @Override
-        public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
+        public void handle(final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response)
                 throws IOException, ServletException
         {
             // System.out.println("target=" + target);
@@ -422,7 +422,7 @@ public abstract class DSOLWebServer implements EventListenerInterface
                             }
                             catch (Exception exception)
                             {
-                                webServer.simulator.getLogger().always().warn(exception, "getSelectedObjects");
+                                this.webServer.simulator.getLogger().always().warn(exception, "getSelectedObjects");
                             }
                             if (targets.size() > 0)
                             {

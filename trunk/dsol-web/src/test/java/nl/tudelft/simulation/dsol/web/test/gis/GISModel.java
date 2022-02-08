@@ -36,7 +36,7 @@ public class GISModel extends AbstractDSOLModel.TimeDouble<DEVSRealTimeAnimator.
     @Override
     public void constructModel() throws SimRuntimeException
     {
-        URL gisURL = URLResource.getResource("/gis/map.xml");
+        URL gisURL = URLResource.getResource("/resources/gis/map.xml");
         System.err.println("GIS-map file: " + gisURL.toString());
         new GisRenderableNoCache2D(this.simulator, gisURL);
     }
