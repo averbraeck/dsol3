@@ -4,7 +4,7 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
-    <release version="3.08.01" date="2022-02-XX" description="">
+    <release version="3.08.01" date="2022-02-08" description="Deecoupling of dsol-animation; resources location">
       <action dev="averbraeck" type="update">
         The animation has been decoupled from dsol-core, and can now be used to display maps or animations without 
         having a DSOL simulator present. The animation package is still dependent on dsol-naming, which provides
