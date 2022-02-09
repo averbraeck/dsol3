@@ -1,8 +1,9 @@
-package nl.tudelft.simulation.dsol.animation.gis.mapfile;
+package nl.tudelft.simulation.dsol.animation.gis.esri;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.net.URL;
 
 import org.djutils.io.URLResource;
 import org.junit.Test;
@@ -30,6 +31,7 @@ public class ParserTest
     @Test
     public void testParser() throws IOException
     {
+        URL url = URLResource.getResource("/resources/esri/tudelft.xml");
         GisMapInterface map = EsriFileXmlParser.parseMapFile(URLResource.getResource("/resources/esri/tudelft.xml"));
         assertEquals("tudelft", map.getName());
         assertEquals(MapUnits.DECIMAL_DEGREES, map.getUnits());
