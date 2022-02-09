@@ -126,6 +126,36 @@
               <outputDirectory>${basedir}/target/classes/resources</outputDirectory>
             </configuration>
           </execution>
+          <execution>
+            <id>copy-test-resource-one</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/test/resources</directory>
+                </resource>
+              </resources>
+              <outputDirectory>${basedir}/target/test-classes/resources</outputDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-test-resource-two</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/resources</directory>
+                </resource>
+              </resources>
+              <outputDirectory>${basedir}/target/test-classes/resources</outputDirectory>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 

@@ -27,7 +27,7 @@
   <layer>
     <name>natural</name>
     <data>
-      <shapeFile>/esri/tudelft/natural.shp</shapeFile>
+      <shapeFile>/resources/esri/tudelft/natural.shp</shapeFile>
     </data>
     <fillColor>
       <r>127</r>
@@ -45,7 +45,7 @@
 	<layer>
 		<name>roads</name>
 		<data>
-			<shapeFile>/esri/tudelft/roads.shp</shapeFile>
+			<shapeFile>/resources/esri/tudelft/roads.shp</shapeFile>
 		</data>
 		<outlineColor>
 			<r>120</r>
@@ -58,7 +58,7 @@
 	<layer>
 		<name>buildings</name>
 		<data>
-			<shapeFile>/esri/tudelft/buildings.shp</shapeFile>
+			<shapeFile>/resources/esri/tudelft/buildings.shp</shapeFile>
 		</data>
 		<fillColor>
 			<r>200</r>
@@ -76,7 +76,7 @@
 	<layer>
 		<name>railways</name>
 		<data>
-			<shapeFile>/esri/tudelft/railways.shp</shapeFile>
+			<shapeFile>/resources/esri/tudelft/railways.shp</shapeFile>
 		</data>
 		<outlineColor>
 			<r>0</r>
@@ -89,7 +89,7 @@
 	<layer>
 		<name>waterways</name>
 		<data>
-			<shapeFile>/esri/tudelft/waterways.shp</shapeFile>
+			<shapeFile>/resources/esri/tudelft/waterways.shp</shapeFile>
 		</data>
 		<outlineColor>
 			<r>0</r>
