@@ -21,7 +21,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * @since 1.5
  */
 public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>>
-        implements SimEventInterface<T>, Comparable<AbstractSimEvent<T>>, Serializable
+        implements SimEventInterface<T>, Serializable
 {
     /** */
     private static final long serialVersionUID = 20140804L;
@@ -70,41 +70,6 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>>
 
     /** {@inheritDoc} */
     @Override
-    public int compareTo(final AbstractSimEvent<T> simEvent)
-    {
-        if (this.equals(simEvent))
-        {
-            return 0;
-        }
-        if (this.absoluteExecutionTime.lt(simEvent.getAbsoluteExecutionTime()))
-        {
-            return -1;
-        }
-        if (this.absoluteExecutionTime.gt(simEvent.getAbsoluteExecutionTime()))
-        {
-            return 1;
-        }
-        if (this.priority < simEvent.getPriority())
-        {
-            return 1;
-        }
-        if (this.priority > simEvent.getPriority())
-        {
-            return -1;
-        }
-        if (this.id < simEvent.id)
-        {
-            return -1;
-        }
-        if (this.id > simEvent.id)
-        {
-            return 1;
-        }
-        throw new IllegalStateException("This may never occur! " + this + " !=" + simEvent + ". Almost returned 0");
-    }
-
-    /** {@inheritDoc} */
-    @Override
     public abstract void execute() throws SimRuntimeException;
 
     /** {@inheritDoc} */
@@ -119,6 +84,13 @@ public abstract class AbstractSimEvent<T extends SimTime<?, ?, T>>
     public short getPriority()
     {
         return this.priority;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public long getId()
+    {
+        return this.id;
     }
 
 }

@@ -23,7 +23,7 @@ import nl.tudelft.simulation.dsol.simtime.SimTimeLong;
  * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
  */
-public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializable
+public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializable, Comparable<SimEventInterface<T>>
 {
     /** MAX_PRIORITY is a constant reflecting the maximum priority. */
     short MAX_PRIORITY = 10;
@@ -35,52 +35,96 @@ public interface SimEventInterface<T extends SimTime<?, ?, T>> extends Serializa
     short MIN_PRIORITY = 1;
 
     /**
-     * executes the simEvent.
+     * Executes the simEvent.
      * @throws SimRuntimeException on execution failure
      */
     void execute() throws SimRuntimeException;
 
     /**
-     * @return the scheduled execution time of a simulation event.
+     * Return the scheduled absolute execution time of a simulation event.
+     * @return T; the scheduled absolute execution time of a simulation event
      */
     T getAbsoluteExecutionTime();
 
     /**
+     * Return the priority of the event to act as a tie breaker when two events are scheduled at the same time.
      * @return The priority of a simulation event. The priorities are programmed according to the Java thread priority. Use 10
-     *         (MAX_PRIORITY), 9, .. , 5 (NORMAL_PRIORITY), 1(MIN_PRIORITY)
+     *         (MAX_PRIORITY), 9, .. , 5 (NORMAL_PRIORITY), 1 (MIN_PRIORITY)
      */
     short getPriority();
+
+    /**
+     * Return the event's id to act as a tie breaker when both the time and the priority are equal. Typically, the id is
+     * implemented as an incremental counter.
+     * @return long; the event's id to act as a tie breaker when both the time and the priority are equal
+     */
+    long getId();
+
+    /** {@inheritDoc} */
+    @Override
+    default int compareTo(final SimEventInterface<T> simEvent)
+    {
+        if (this.equals(simEvent))
+        {
+            return 0;
+        }
+        if (this.getAbsoluteExecutionTime().lt(simEvent.getAbsoluteExecutionTime()))
+        {
+            return -1;
+        }
+        if (this.getAbsoluteExecutionTime().gt(simEvent.getAbsoluteExecutionTime()))
+        {
+            return 1;
+        }
+        if (this.getPriority() < simEvent.getPriority())
+        {
+            return 1;
+        }
+        if (this.getPriority() > simEvent.getPriority())
+        {
+            return -1;
+        }
+        if (this.getId() < simEvent.getId())
+        {
+            return -1;
+        }
+        if (this.getId() > simEvent.getId())
+        {
+            return 1;
+        }
+        throw new IllegalStateException("This may never occur! " + this + " !=" + simEvent + ". Almost returned 0");
+    }
 
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
     /** Easy access class SimEvent.TimeDouble. */
-    public interface TimeDouble extends SimEventInterface<SimTimeDouble>
+    interface TimeDouble extends SimEventInterface<SimTimeDouble>
     {
         // no extra methods
     }
 
     /** Easy access class SimEvent.TimeFloat. */
-    public interface TimeFloat extends SimEventInterface<SimTimeFloat>
+    interface TimeFloat extends SimEventInterface<SimTimeFloat>
     {
         // no extra methods
     }
 
     /** Easy access class SimEvent.TimeLong. */
-    public interface TimeLong extends SimEventInterface<SimTimeLong>
+    interface TimeLong extends SimEventInterface<SimTimeLong>
     {
         // no extra methods
     }
 
     /** Easy access class SimEvent.TimeDoubleUnit. */
-    public interface TimeDoubleUnit extends SimEventInterface<SimTimeDoubleUnit>
+    interface TimeDoubleUnit extends SimEventInterface<SimTimeDoubleUnit>
     {
         // no extra methods
     }
 
     /** Easy access class SimEvent.TimeFloatUnit. */
-    public interface TimeFloatUnit extends SimEventInterface<SimTimeFloatUnit>
+    interface TimeFloatUnit extends SimEventInterface<SimTimeFloatUnit>
     {
         // no extra methods
     }
