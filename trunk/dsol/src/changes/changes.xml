@@ -4,6 +4,20 @@
 
     <!-- PLEASE MAKE SURE THE LINE LENGTH IN XML - EDITOR - FORMATTING IS SET TO 128 -->
 
+    <release version="3.08.01" date="2022-07-XX" description="Simulator and eventlist adapted">
+      <action dev="averbraeck" type="fix">
+        Simulator: Avoid firing START_REPLICATION_EVENT twice.
+      </action>
+      <action dev="averbraeck" type="update">
+        Made the SimEvent itself comparable.
+      </action>
+      <action dev="averbraeck" type="add">
+        Made EventList a separate interface not dependent on SortedSet and added a second EventList implementation
+        based on a PriorityQueue (heap queue structure) that is faster for simulations up to ~ 100,000 events on
+        the eventlist.   
+      </action>
+    </release>
+    
     <release version="3.08.01" date="2022-02-08" description="Deecoupling of dsol-animation; resources location">
       <action dev="averbraeck" type="update">
         The animation has been decoupled from dsol-core, and can now be used to display maps or animations without 
