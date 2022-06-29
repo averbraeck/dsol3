@@ -1,16 +1,13 @@
 package nl.tudelft.simulation.dsol.eventlists;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.TreeSet;
+import java.util.PriorityQueue;
 
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
 
 /**
- * A RedBlackTree implementation of the eventlistInterface. This implementation is based on Java's TreeSet. This implementation
- * embeds the data structure in the event list instead of extending it (extension has the chance that future implementations can
- * break the EventList, and that the user can use functions that do not belong to an EventList).
+ * A RedBlackTree implementation of the eventlistInterface. This implementation is based on Java's TreeSet.
  * <p>
  * Copyright (c) 2002-2022 Delft University of Technology, Jaffalaan 5, 2628 BX Delft, the Netherlands. All rights reserved. See
  * for project information <a href="https://simulation.tudelft.nl/" target="_blank"> https://simulation.tudelft.nl</a>. The DSOL
@@ -18,50 +15,38 @@ import nl.tudelft.simulation.dsol.simtime.SimTime;
  * <a href="https://simulation.tudelft.nl/dsol/3.0/license.html" target="_blank">
  * https://simulation.tudelft.nl/dsol/3.0/license.html</a>.
  * </p>
- * @author <a href="https://www.tudelft.nl/averbraeck">Alexander Verbraec</a>
+ * @author <a href="https://www.linkedin.com/in/peterhmjacobs">Peter Jacobs </a>
  * @param <T> the type of simulation time, e.g. SimTimeCalendarLong or SimTimeDouble or SimTimeDoubleUnit.
  * @since 1.5
  */
-public class RedBlackTree<T extends SimTime<?, ?, T>> implements EventListInterface<T>
+public class EventListPriorityQueue<T extends SimTime<?, ?, T>> implements EventListInterface<T>
 {
     /** The default serial version UID for serializable classes. */
     private static final long serialVersionUID = 1L;
 
     /** The embedded event list. */
-    private TreeSet<SimEventInterface<T>> eventList;
+    private PriorityQueue<SimEventInterface<T>> eventList;
 
     /**
      * Constructs a new <code>RedBlackTree</code>.
      */
-    public RedBlackTree()
+    public EventListPriorityQueue()
     {
-        this.eventList = new TreeSet<>();
+        this.eventList = new PriorityQueue<>();
     }
 
     /** {@inheritDoc} */
     @Override
     public synchronized SimEventInterface<T> removeFirst()
     {
-        SimEventInterface<T> first = first();
-        if (first != null)
-        {
-            this.eventList.remove(first);
-        }
-        return first;
+        return this.eventList.poll();
     }
 
     /** {@inheritDoc} */
     @Override
     public SimEventInterface<T> first()
     {
-        try
-        {
-            return this.eventList.first();
-        }
-        catch (NoSuchElementException noSuchElementException)
-        {
-            return null;
-        }
+        return this.eventList.peek();
     }
 
     /** {@inheritDoc} */
