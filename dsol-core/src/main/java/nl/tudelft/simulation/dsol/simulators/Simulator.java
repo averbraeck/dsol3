@@ -208,8 +208,8 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     /**
      * The implementation body of the step() method. The stepImpl() method should fire the TIME_CHANGED_EVENT before the
      * execution of the simulation event, or before executing the integration of the differential equation for the next
-     * timestep. So the time is changed first to match the lgic carried out for that time, and then the action for that time is
-     * carried out.
+     * timestep. So the time is changed first to match the logic carried out for that time, and then the action for that time is
+     * carried out. This is INDEPENDENT of the fact whether the time changes or not. The TIME_CHANGED_EVENT is always fired.
      */
     protected abstract void stepImpl();
 
@@ -228,6 +228,11 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         {
             synchronized (this.semaphore)
             {
+                if (this.replicationState == ReplicationState.INITIALIZED)
+                {
+                    fireTimedEvent(ReplicationInterface.START_REPLICATION_EVENT, null, getSimulatorTime());
+                    this.replicationState = ReplicationState.STARTED;
+                }
                 this.runState = RunState.STARTED;
                 fireTimedEvent(SimulatorInterface.START_EVENT, null, getSimulatorTime());
                 stepImpl();
@@ -482,11 +487,6 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
                             this.running.set(true);
                             try
                             {
-                                if (this.job.replicationState == ReplicationState.INITIALIZED)
-                                {
-                                    this.job.fireTimedEvent(ReplicationInterface.START_REPLICATION_EVENT);
-                                    this.job.replicationState = ReplicationState.STARTED;
-                                }
                                 this.job.fireTimedEvent(SimulatorInterface.START_EVENT);
                                 this.job.runState = RunState.STARTED;
                                 this.job.run();

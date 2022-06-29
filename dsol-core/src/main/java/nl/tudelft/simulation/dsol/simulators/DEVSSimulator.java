@@ -203,8 +203,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Executable executable)
-            throws SimRuntimeException
+    public SimEventInterface<T> scheduleEventRel(final R relativeDelay, final Executable executable) throws SimRuntimeException
     {
         return scheduleEventRel(relativeDelay, SimEventInterface.NORMAL_PRIORITY, executable);
     }
@@ -224,8 +223,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Executable executable)
-            throws SimRuntimeException
+    public SimEventInterface<T> scheduleEventAbs(final A absoluteTime, final Executable executable) throws SimRuntimeException
     {
         return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
     }
@@ -240,16 +238,14 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
-    public SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Executable executable)
-            throws SimRuntimeException
+    public SimEventInterface<T> scheduleEventAbs(final T absoluteTime, final Executable executable) throws SimRuntimeException
     {
         return scheduleEventAbs(absoluteTime, SimEventInterface.NORMAL_PRIORITY, executable);
     }
 
     /** {@inheritDoc} */
     @Override
-    public SimEventInterface<T> scheduleEventNow(final short priority, final Executable executable)
-            throws SimRuntimeException
+    public SimEventInterface<T> scheduleEventNow(final short priority, final Executable executable) throws SimRuntimeException
     {
         synchronized (super.semaphore)
         {
@@ -282,11 +278,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
             if (!this.eventList.isEmpty())
             {
                 SimEventInterface<T> event = this.eventList.removeFirst();
-                if (event.getAbsoluteExecutionTime().ne(super.simulatorTime))
-                {
-                    fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null,
-                            event.getAbsoluteExecutionTime().get());
-                }
+                fireUnverifiedTimedEvent(SimulatorInterface.TIME_CHANGED_EVENT, null, event.getAbsoluteExecutionTime().get());
                 super.simulatorTime = event.getAbsoluteExecutionTime();
                 event.execute();
             }
