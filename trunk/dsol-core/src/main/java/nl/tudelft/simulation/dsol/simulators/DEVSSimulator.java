@@ -51,9 +51,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @SuppressWarnings("checkstyle:visibilitymodifier")
     protected EventListInterface<T> eventList = new RedBlackTree<T>();
 
-    /** Does the simulation pause on error when executing an event? */
-    private boolean pauseOnError = false;
-
     /**
      * Constructs a new DEVSSimulator.
      * @param id the id of the simulator, used in logging and firing of events.
@@ -320,19 +317,7 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
                 }
                 catch (Exception exception)
                 {
-                    getLogger().always().error(exception);
-                    if (this.isPauseOnError())
-                    {
-                        try
-                        {
-                            this.runState = RunState.STOPPING;
-                            this.stopImpl();
-                        }
-                        catch (SimRuntimeException stopException)
-                        {
-                            getLogger().always().error(stopException);
-                        }
-                    }
+                    handleSimulationException(exception);
                 }
             }
         }
@@ -348,16 +333,18 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
 
     /** {@inheritDoc} */
     @Override
+    @Deprecated
     public boolean isPauseOnError()
     {
-        return this.pauseOnError;
+        return getErrorStrategy().equals(ErrorStrategy.WARN_AND_PAUSE);
     }
 
     /** {@inheritDoc} */
     @Override
+    @Deprecated
     public void setPauseOnError(final boolean pauseOnError)
     {
-        this.pauseOnError = pauseOnError;
+        setErrorStrategy(pauseOnError ? ErrorStrategy.WARN_AND_PAUSE : ErrorStrategy.LOG_AND_CONTINUE);
     }
 
     /***********************************************************************************************************/

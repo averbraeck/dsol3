@@ -117,19 +117,7 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
                     }
                     catch (Exception exception)
                     {
-                        getLogger().always().error(exception);
-                        if (this.isPauseOnError())
-                        {
-                            try
-                            {
-                                this.runState = RunState.STOPPING;
-                                this.stop();
-                            }
-                            catch (SimRuntimeException stopException)
-                            {
-                                getLogger().always().error(stopException);
-                            }
-                        }
+                        handleSimulationException(exception);
                     }
                 }
                 if (!isStoppingOrStopped())

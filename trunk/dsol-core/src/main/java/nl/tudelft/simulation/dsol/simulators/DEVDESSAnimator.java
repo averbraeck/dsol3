@@ -129,7 +129,7 @@ public class DEVDESSAnimator<A extends Comparable<A> & Serializable, R extends N
                     }
                     catch (Exception exception)
                     {
-                        getLogger().always().error(exception, "run");
+                        handleSimulationException(exception);
                     }
                 }
             }

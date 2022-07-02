@@ -15,6 +15,7 @@ import org.djutils.event.EventProducer;
 import org.djutils.event.TimedEventType;
 import org.djutils.exceptions.Throw;
 import org.djutils.logger.CategoryLogger;
+import org.pmw.tinylog.Level;
 import org.pmw.tinylog.Logger;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
@@ -94,6 +95,12 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
 
     /** the methods to execute after model initialization, e.g., to set-up the initial events. */
     private final List<SimEvent.TimeLong> initialmethodCalls = new ArrayList<>();
+
+    /** The error handling strategy. */
+    private ErrorStrategy errorStrategy = ErrorStrategy.WARN_AND_PAUSE;
+
+    /** The error strategy's log level. */
+    private Level errorLogLevel = Level.ERROR;
 
     /**
      * Constructs a new Simulator.
@@ -309,6 +316,91 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         }
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public final ErrorStrategy getErrorStrategy()
+    {
+        return this.errorStrategy;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void setErrorStrategy(final ErrorStrategy errorStrategy)
+    {
+        this.errorStrategy = errorStrategy;
+        this.errorLogLevel = errorStrategy.getDefaultLogLevel();
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void setErrorStrategy(final ErrorStrategy newErrorStrategy, final Level newErrorLogLevel)
+    {
+        this.errorStrategy = newErrorStrategy;
+        this.errorLogLevel = newErrorLogLevel;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final Level getErrorLogLevel()
+    {
+        return this.errorLogLevel;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public final void setErrorLogLevel(final Level errorLogLevel)
+    {
+        this.errorLogLevel = errorLogLevel;
+    }
+
+    /**
+     * Handle an exception thrown by executing a SimEvent according to the ErrorStrategy. A call to this method needs to be
+     * built into the run() method of every Simulator subclass.
+     * @param exception Exception; the exception that was thrown when executing the SimEvent
+     */
+    protected void handleSimulationException(final Exception exception)
+    {
+        String s = "Exception during simulation at t=" + getSimulatorTime() + ": " + exception.getMessage();
+        switch (this.errorLogLevel)
+        {
+            case DEBUG:
+                CategoryLogger.always().debug(s);
+                break;
+            case TRACE:
+                CategoryLogger.always().trace(s);
+                break;
+            case INFO:
+                CategoryLogger.always().info(s);
+                break;
+            case WARNING:
+                CategoryLogger.always().warn(s);
+                break;
+            case ERROR:
+                CategoryLogger.always().error(s);
+                break;
+            default:
+                break;
+        }
+        if (this.errorStrategy.equals(ErrorStrategy.LOG_AND_CONTINUE))
+        {
+            return;
+        }
+        System.err.println(s);
+        exception.printStackTrace();
+        if (this.errorStrategy.equals(ErrorStrategy.WARN_AND_PAUSE))
+        {
+            this.runState = RunState.STOPPING;
+        }
+        if (this.errorStrategy.equals(ErrorStrategy.WARN_AND_END))
+        {
+            cleanUp();
+        }
+        if (this.errorStrategy.equals(ErrorStrategy.WARN_AND_EXIT))
+        {
+            System.exit(-1);
+        }
+    }
+
     /**
      * The run method defines the actual time step mechanism of the simulator. The implementation of this method depends on the
      * formalism. Where discrete event formalisms loop over an event list, continuous simulators take predefined time steps.
@@ -490,7 +582,6 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
                                 this.job.fireTimedEvent(SimulatorInterface.START_EVENT);
                                 this.job.runState = RunState.STARTED;
                                 this.job.run();
-                                this.job.stopImpl();
                                 this.job.fireTimedEvent(SimulatorInterface.STOP_EVENT);
                                 this.job.runState = RunState.STOPPED;
                             }

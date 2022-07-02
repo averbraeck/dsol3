@@ -63,32 +63,32 @@ public interface DESSSimulatorInterface<A extends Comparable<A> & Serializable, 
     /***********************************************************************************************************/
 
     /** Easy access interface DESSSimulatorInterface.TimeDouble. */
-    public interface TimeDouble extends DESSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
+    interface TimeDouble extends DESSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.TimeFloat. */
-    public interface TimeFloat extends DESSSimulatorInterface<Float, Float, SimTimeFloat>, SimulatorInterface.TimeFloat
+    interface TimeFloat extends DESSSimulatorInterface<Float, Float, SimTimeFloat>, SimulatorInterface.TimeFloat
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.TimeLong. */
-    public interface TimeLong extends DESSSimulatorInterface<Long, Long, SimTimeLong>, SimulatorInterface.TimeLong
+    interface TimeLong extends DESSSimulatorInterface<Long, Long, SimTimeLong>, SimulatorInterface.TimeLong
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit
+    interface TimeDoubleUnit
             extends DESSSimulatorInterface<Time, Duration, SimTimeDoubleUnit>, SimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
     /** Easy access interface DESSSimulatorInterface.TimeFloatUnit. */
-    public interface TimeFloatUnit
+    interface TimeFloatUnit
             extends DESSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>, SimulatorInterface.TimeFloatUnit
     {
         // typed extension

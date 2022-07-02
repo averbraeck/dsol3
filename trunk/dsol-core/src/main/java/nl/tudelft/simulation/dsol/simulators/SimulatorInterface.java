@@ -11,6 +11,7 @@ import org.djutils.event.EventProducerInterface;
 import org.djutils.event.EventType;
 import org.djutils.event.TimedEventType;
 import org.djutils.metadata.MetaData;
+import org.pmw.tinylog.Level;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
@@ -244,36 +245,67 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
      */
     ReplicationState getReplicationState();
 
+    /**
+     * Return the current error handling strategy for an execution error for a SimEvent.
+     * @return errorStrategy ErrorStrategy; the current error handling strategy for an execution error for a SimEvent
+     */
+    ErrorStrategy getErrorStrategy();
+    
+    /**
+     * Set the error handling strategy for an execution error for a SimEvent, using the default error log level.
+     * @param errorStrategy ErrorStrategy; the error handling strategy for an execution error for a SimEvent
+     */
+    void setErrorStrategy(ErrorStrategy errorStrategy);
+
+    /**
+     * Set the error handling strategy for an execution error for a SimEvent.
+     * @param newErrorStrategy ErrorStrategy; the error handling strategy for an execution error for a SimEvent
+     * @param newErrorLogLevel Level; the error log level to use in the logger for simulation execution errors
+     */
+    void setErrorStrategy(ErrorStrategy newErrorStrategy, Level newErrorLogLevel);
+
+    /**
+     * Return the current error log level to use in the logger for simulation execution errors.
+     * @return Level; the current error log level to use in the logger for simulation execution errors
+     */
+    Level getErrorLogLevel();
+
+    /**
+     * Set the error log level to use in the logger for simulation execution errors.
+     * @param errorLogLevel Level; the error log level to use in the logger for simulation execution errors
+     */
+    void setErrorLogLevel(Level errorLogLevel);
+
     /***********************************************************************************************************/
     /*********************************** EASY ACCESS INTERFACE EXTENSIONS **************************************/
     /***********************************************************************************************************/
 
     /** Easy access interface SimulatorInterface.Double. */
-    public interface TimeDouble extends SimulatorInterface<Double, Double, SimTimeDouble>
+    interface TimeDouble extends SimulatorInterface<Double, Double, SimTimeDouble>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.Float. */
-    public interface TimeFloat extends SimulatorInterface<Float, Float, SimTimeFloat>
+    interface TimeFloat extends SimulatorInterface<Float, Float, SimTimeFloat>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.Long. */
-    public interface TimeLong extends SimulatorInterface<Long, Long, SimTimeLong>
+    interface TimeLong extends SimulatorInterface<Long, Long, SimTimeLong>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.DoubleUnit. */
-    public interface TimeDoubleUnit extends SimulatorInterface<Time, Duration, SimTimeDoubleUnit>
+    interface TimeDoubleUnit extends SimulatorInterface<Time, Duration, SimTimeDoubleUnit>
     {
         // typed extension
     }
 
     /** Easy access interface SimulatorInterface.FloatUnit. */
-    public interface TimeFloatUnit extends SimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>
+    interface TimeFloatUnit extends SimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>
     {
         // typed extension
     }

@@ -44,35 +44,35 @@ public interface DEVDESSSimulatorInterface<A extends Comparable<A> & Serializabl
     /***********************************************************************************************************/
 
     /** Easy access interface DEVDESSSimulatorInterface.TimeDouble. */
-    public interface TimeDouble extends DEVDESSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>,
+    interface TimeDouble extends DEVDESSSimulatorInterface<java.lang.Double, java.lang.Double, SimTimeDouble>,
             DEVSSimulatorInterface.TimeDouble, DESSSimulatorInterface.TimeDouble
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.TimeFloat. */
-    public interface TimeFloat extends DEVDESSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>,
+    interface TimeFloat extends DEVDESSSimulatorInterface<java.lang.Float, java.lang.Float, SimTimeFloat>,
             DEVSSimulatorInterface.TimeFloat, DESSSimulatorInterface.TimeFloat
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.TimeLong. */
-    public interface TimeLong extends DEVDESSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>,
+    interface TimeLong extends DEVDESSSimulatorInterface<java.lang.Long, java.lang.Long, SimTimeLong>,
             DEVSSimulatorInterface.TimeLong, DESSSimulatorInterface.TimeLong
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit extends DEVDESSSimulatorInterface<Time, Duration, SimTimeDoubleUnit>,
+    interface TimeDoubleUnit extends DEVDESSSimulatorInterface<Time, Duration, SimTimeDoubleUnit>,
             DEVSSimulatorInterface.TimeDoubleUnit, DESSSimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
     /** Easy access interface DEVDESSSimulatorInterface.TimeFloatUnit. */
-    public interface TimeFloatUnit extends DEVDESSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>,
+    interface TimeFloatUnit extends DEVDESSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>,
             DEVSSimulatorInterface.TimeFloatUnit, DESSSimulatorInterface.TimeFloatUnit
     {
         // typed extension

@@ -254,13 +254,18 @@ public interface DEVSSimulatorInterface<A extends Comparable<A> & Serializable, 
      */
     void setEventList(EventListInterface<T> eventList) throws SimRuntimeException;
 
-    /** @return pauseOnError whether we pause on an error or not. */
+    /**
+     * DEPRECATED: Replaced by getErrorHandler() and getErrorLogLevel().
+     * @return pauseOnError whether we pause on an error or not.
+     */
+    @Deprecated
     boolean isPauseOnError();
 
     /**
-     * Set the boolean whether we pause on an error or not.
+     * DEPRECATED: Replaced by setErrorHandler() and setErrorLogLevel(). Set the boolean whether we pause on an error or not.
      * @param pauseOnError boolean; set true or false.
      */
+    @Deprecated
     void setPauseOnError(boolean pauseOnError);
 
     /***********************************************************************************************************/
@@ -268,32 +273,32 @@ public interface DEVSSimulatorInterface<A extends Comparable<A> & Serializable, 
     /***********************************************************************************************************/
 
     /** Easy access interface DEVSSimulatorInterface.TimeDouble. */
-    public interface TimeDouble extends DEVSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
+    interface TimeDouble extends DEVSSimulatorInterface<Double, Double, SimTimeDouble>, SimulatorInterface.TimeDouble
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.TimeFloat. */
-    public interface TimeFloat extends DEVSSimulatorInterface<Float, Float, SimTimeFloat>, SimulatorInterface.TimeFloat
+    interface TimeFloat extends DEVSSimulatorInterface<Float, Float, SimTimeFloat>, SimulatorInterface.TimeFloat
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.TimeLong. */
-    public interface TimeLong extends DEVSSimulatorInterface<Long, Long, SimTimeLong>, SimulatorInterface.TimeLong
+    interface TimeLong extends DEVSSimulatorInterface<Long, Long, SimTimeLong>, SimulatorInterface.TimeLong
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.TimeDoubleUnit. */
-    public interface TimeDoubleUnit
+    interface TimeDoubleUnit
             extends DEVSSimulatorInterface<Time, Duration, SimTimeDoubleUnit>, SimulatorInterface.TimeDoubleUnit
     {
         // typed extension
     }
 
     /** Easy access interface DEVSSimulatorInterface.TimeFloatUnit. */
-    public interface TimeFloatUnit
+    interface TimeFloatUnit
             extends DEVSSimulatorInterface<FloatTime, FloatDuration, SimTimeFloatUnit>, SimulatorInterface.TimeFloatUnit
     {
         // typed extension
