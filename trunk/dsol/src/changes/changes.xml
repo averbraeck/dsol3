@@ -16,6 +16,12 @@
         based on a PriorityQueue (heap queue structure) that is faster for simulations up to ~ 100,000 events on
         the eventlist.   
       </action>
+      <action dev="averbraeck" type="update">
+        A new SimEvent.execute() error handling strategy has been implemented. In order to set the error handling, 
+        the setPauseOnError() and isPauseOnError() methods are deprecated and replaced by new 
+        setErrorStrategy(ErrorStrategy strategy) and getErrorStrategy() methods. ErrorStrategy is an enum. 
+        The log level can be overridden (and even be set to NONE). 
+      </action>
     </release>
     
     <release version="3.08.01" date="2022-02-08" description="Deecoupling of dsol-animation; resources location">
