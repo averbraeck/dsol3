@@ -7,7 +7,6 @@ import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
 
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -113,19 +112,7 @@ public class DEVSAnimator<A extends Comparable<A> & Serializable, R extends Numb
                     }
                     catch (Exception exception)
                     {
-                        getLogger().always().error(exception);
-                        if (this.isPauseOnError())
-                        {
-                            try
-                            {
-                                this.runState = RunState.STOPPING;
-                                this.stop();
-                            }
-                            catch (SimRuntimeException stopException)
-                            {
-                                getLogger().always().error(stopException);
-                            }
-                        }
+                        handleSimulationException(exception);
                     }
                 }
             }

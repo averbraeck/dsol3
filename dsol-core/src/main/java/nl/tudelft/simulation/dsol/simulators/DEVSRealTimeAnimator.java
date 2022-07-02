@@ -12,7 +12,6 @@ import org.djutils.event.TimedEventType;
 import org.djutils.metadata.MetaData;
 import org.djutils.metadata.ObjectDescriptor;
 
-import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.experiment.ReplicationInterface;
 import nl.tudelft.simulation.dsol.formalisms.eventscheduling.SimEventInterface;
 import nl.tudelft.simulation.dsol.simtime.SimTime;
@@ -305,18 +304,7 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
                         }
                         catch (Exception exception)
                         {
-                            getLogger().always().error(exception);
-                            if (this.isPauseOnError())
-                            {
-                                try
-                                {
-                                    this.stop();
-                                }
-                                catch (SimRuntimeException stopException)
-                                {
-                                    getLogger().always().error(stopException);
-                                }
-                            }
+                            handleSimulationException(exception);
                         }
                         if (!this.eventList.isEmpty())
                         {
