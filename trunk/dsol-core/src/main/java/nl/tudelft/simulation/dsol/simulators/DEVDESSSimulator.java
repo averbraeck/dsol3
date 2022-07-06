@@ -82,6 +82,8 @@ public class DEVDESSSimulator<A extends Comparable<A> & Serializable, R extends 
     @Override
     public void run()
     {
+        // set the run flag semaphore to signal to startImpl() that the run method has started
+        this.runflag = true;
         while (!isStoppingOrStopped() && !this.eventList.isEmpty() && this.simulatorTime.le(this.replication.getEndSimTime()))
         {
             synchronized (super.semaphore)

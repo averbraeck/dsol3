@@ -108,6 +108,9 @@ public abstract class DEVSRealTimeAnimator<A extends Comparable<A> & Serializabl
             }
         }
 
+        // set the run flag semaphore to signal to startImpl() that the run method has started
+        this.runflag = true;
+
         /* Baseline point for the wallclock time. */
         long wallTime0 = System.currentTimeMillis();
 

@@ -193,6 +193,16 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
     void runUpToAndIncluding(T stopTime) throws SimRuntimeException;
 
     /**
+     * End the replication before the official ending time. When the simulation is running, it will fire a STOP_EVENT followed
+     * by an END_REPLICATION_EVENT, and will stop the running of the simulator, moving the RunState and the ReplicatioNState
+     * both to the ENDED state. When the simulation time is not equal to or larger than the length of the replication, a logger
+     * warning is given, but the method is fully executed. In that case it does set the simulation time to the end time of the
+     * replication, to avoid restarting of the simulator.
+     * @throws SimRuntimeException when the simulator had already terminated, or is not initialized
+     */
+    void endReplication() throws SimRuntimeException;
+
+    /**
      * Get the logger for a simulator. Since the loggers display the simulator time, each logger that runs in the same JVM needs
      * to have its own logger.
      * @return SimLogger; the logger that is specific for this simulator
@@ -250,7 +260,7 @@ public interface SimulatorInterface<A extends Comparable<A> & Serializable, R ex
      * @return errorStrategy ErrorStrategy; the current error handling strategy for an execution error for a SimEvent
      */
     ErrorStrategy getErrorStrategy();
-    
+
     /**
      * Set the error handling strategy for an execution error for a SimEvent, using the default error log level.
      * @param errorStrategy ErrorStrategy; the error handling strategy for an execution error for a SimEvent

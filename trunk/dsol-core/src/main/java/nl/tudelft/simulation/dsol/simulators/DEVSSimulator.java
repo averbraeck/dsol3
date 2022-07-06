@@ -6,6 +6,7 @@ import org.djunits.value.vdouble.scalar.Duration;
 import org.djunits.value.vdouble.scalar.Time;
 import org.djunits.value.vfloat.scalar.FloatDuration;
 import org.djunits.value.vfloat.scalar.FloatTime;
+import org.djutils.exceptions.Throw;
 
 import nl.tudelft.simulation.dsol.SimRuntimeException;
 import nl.tudelft.simulation.dsol.eventlists.EventListInterface;
@@ -80,12 +81,12 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
     public void initialize(final DSOLModel<A, R, T, ? extends SimulatorInterface<A, R, T>> model,
             final ReplicationInterface<A, R, T> replication) throws SimRuntimeException
     {
+        // this check HAS to be done BEFORE clearing the event list
+        Throw.when(isStartingOrRunning(), SimRuntimeException.class, "Cannot initialize a running simulator");
         synchronized (super.semaphore)
         {
             this.eventList.clear();
             super.initialize(model, replication);
-            this.scheduleEvent(new SimEvent<T>(this.getReplication().getEndSimTime(),
-                    (short) (SimEventInterface.MIN_PRIORITY - 1), this, this, "endReplication", null));
             this.scheduleEvent(new SimEvent<T>(this.getReplication().getWarmupSimTime(),
                     (short) (SimEventInterface.MAX_PRIORITY + 1), this, this, "warmup", null));
         }
@@ -286,14 +287,18 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @Override
     public void run()
     {
+        // set the run flag semaphore to signal to startImpl() that the run method has started
+        this.runflag = true;
         while (!isStoppingOrStopped())
         {
             synchronized (super.semaphore)
             {
-                int cmp = this.eventList.first().getAbsoluteExecutionTime().compareTo(this.runUntilTime);
+                int cmp = this.eventList.isEmpty() ? 2
+                        : this.eventList.first().getAbsoluteExecutionTime().compareTo(this.runUntilTime);
                 if ((cmp == 0 && !this.runUntilIncluding) || cmp > 0)
                 {
                     this.simulatorTime.set(this.runUntilTime.get());
+                    this.replicationState = ReplicationState.ENDING;
                     this.runState = RunState.STOPPING;
                     break;
                 }
@@ -308,12 +313,6 @@ public class DEVSSimulator<A extends Comparable<A> & Serializable, R extends Num
                 try
                 {
                     event.execute();
-                    if (this.eventList.isEmpty())
-                    {
-                        this.simulatorTime.set(this.runUntilTime.get());
-                        this.runState = RunState.STOPPING;
-                        break;
-                    }
                 }
                 catch (Exception exception)
                 {
