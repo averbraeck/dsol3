@@ -96,6 +96,8 @@ public class DESSSimulator<A extends Comparable<A> & Serializable, R extends Num
     @Override
     public void run()
     {
+        // set the run flag semaphore to signal to startImpl() that the run method has started
+        this.runflag = true;
         while (this.simulatorTime.compareTo(this.runUntilTime) < 0 && !isStoppingOrStopped())
         {
             synchronized (super.semaphore)

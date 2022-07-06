@@ -102,6 +102,10 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     /** The error strategy's log level. */
     private Level errorLogLevel = Level.ERROR;
 
+    /** the run flag semaphore indicating that the run() method has started (and might have stopped). */
+    @SuppressWarnings("checkstyle:visibilitymodifier")
+    protected boolean runflag = false;
+
     /**
      * Constructs a new Simulator.
      * @param id the id of the simulator, used in logging and firing of events.
@@ -135,10 +139,25 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
             model.constructModel();
             this.runState = RunState.INITIALIZED;
             this.replicationState = ReplicationState.INITIALIZED;
+            this.runflag = false;
 
             for (SimEvent.TimeLong initialMethodCall : this.initialmethodCalls)
             {
                 initialMethodCall.execute();
+            }
+        }
+        // sleep maximally 1 second till the SimulatorWorkerThread gets into the WAITING state
+        int count = 0;
+        while (!this.worker.isWaiting() && this.worker.isAlive() && count < 1000)
+        {
+            try
+            {
+                Thread.sleep(1);
+                count++;
+            }
+            catch (InterruptedException exception)
+            {
+                // ignore
             }
         }
     }
@@ -174,14 +193,24 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
                 this.replicationState = ReplicationState.STARTED;
             }
             this.fireEvent(SimulatorInterface.STARTING_EVENT, null);
-            if (!Thread.currentThread().getName().equals(this.worker.getName()))
+            // continue the run() of the SimulatorWorkerThread that will start the Simulator's run() method
+            this.worker.interrupt();
+            // wait maximally 1 second till the Simulator.run() method has been called
+            int count = 0;
+            while (!this.runflag && count < 1000)
             {
-                this.worker.interrupt();
+                try
+                {
+                    Thread.sleep(1);
+                    count++;
+                }
+                catch (InterruptedException exception)
+                {
+                    // ignore
+                }
             }
-            else
-            {
-                run();
-            }
+            // clear the flag
+            this.runflag = false;
         }
     }
 
@@ -228,7 +257,7 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         Throw.when(!isInitialized(), SimRuntimeException.class, "Cannot start an uninitialized simulator");
         Throw.when(
                 !(this.replicationState == ReplicationState.INITIALIZED || this.replicationState == ReplicationState.STARTED),
-                SimRuntimeException.class, "State of the replication should be INITIALIZED or STARTED to run a simulationF");
+                SimRuntimeException.class, "State of the replication should be INITIALIZED or STARTED to run a simulation");
         Throw.when(this.simulatorTime.ge(this.replication.getEndSimTime()), SimRuntimeException.class,
                 "Cannot step simulator : simulatorTime >= runLength");
         try
@@ -258,6 +287,20 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
     protected void stopImpl()
     {
         this.runState = RunState.STOPPING;
+        // sleep maximally 1 second till the SimulatorWorkerThread gets into the WAITING state
+        int count = 0;
+        while (!this.worker.isWaiting() && this.worker.isAlive() && count < 1000)
+        {
+            try
+            {
+                Thread.sleep(1);
+                count++;
+            }
+            catch (InterruptedException exception)
+            {
+                // ignore
+            }
+        }
     }
 
     /** {@inheritDoc} */
@@ -297,22 +340,39 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         this.replicationState = ReplicationState.NOT_INITIALIZED;
     }
 
-    /**
-     * The method that is called when the replication ends. Note that it can also forcefully terminate the replication before
-     * the actual replication time is over. It immediately fires a STOP_EVENT followed by an END_REPLICATION_EVENT, and stops
-     * the running of the simulator. When the simulation time is not equal to or larger than the length of the replication, a
-     * logger warning is given, but the method is fully executed. In that case it does set the simulation time to the end time
-     * of the replication, to avoid restarting of the simulator.
-     */
-    protected void endReplication()
+    /** {@inheritDoc} */
+    @Override
+    public void endReplication() throws SimRuntimeException
     {
+        Throw.when(!isInitialized(), SimRuntimeException.class, "Cannot end the replication of an uninitialized simulator");
+        Throw.when(
+                !(this.replicationState == ReplicationState.INITIALIZED || this.replicationState == ReplicationState.STARTED),
+                SimRuntimeException.class, "State of the replication should be INITIALIZED or STARTED to end it");
         this.replicationState = ReplicationState.ENDING;
-        this.worker.interrupt(); // just to be sure
+        if (isStartingOrRunning())
+        {
+            this.runState = RunState.STOPPING;
+        }
+        this.worker.interrupt(); // just to be sure that the run will end, and the state will be moved to 'ENDED'
         if (this.simulatorTime.lt(this.getReplication().getEndSimTime()))
         {
-            Logger.warn("The simulator executes the endReplication method, but the simulation time " + this.simulatorTime.get()
+            Logger.warn("endReplication executed, but the simulation time " + this.simulatorTime.get()
                     + " is earlier than the replication length " + this.getReplication().getEndSimTime());
             this.simulatorTime = this.getReplication().getEndSimTime().copy();
+        }
+        // sleep maximally 1 second till the SimulatorWorkerThread finalizes
+        int count = 0;
+        while (this.worker.isAlive() && count < 1000)
+        {
+            try
+            {
+                Thread.sleep(1);
+                count++;
+            }
+            catch (InterruptedException exception)
+            {
+                // ignore
+            }
         }
     }
 
@@ -558,6 +618,14 @@ public abstract class Simulator<A extends Comparable<A> & Serializable, R extend
         public synchronized boolean isRunning()
         {
             return this.running.get();
+        }
+
+        /**
+         * @return whether the thread is in the waiting state
+         */
+        public synchronized boolean isWaiting()
+        {
+            return this.getState().equals(Thread.State.WAITING);
         }
 
         /** {@inheritDoc} */
