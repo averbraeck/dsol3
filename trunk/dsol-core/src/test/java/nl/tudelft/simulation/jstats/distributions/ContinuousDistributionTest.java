@@ -52,7 +52,7 @@ public class ContinuousDistributionTest
         testDist("DistTriangular", new DistTriangular(this.stream, 1, 4, 9), (1 + 4 + 9) / 3.0,
                 (1 * 1 + 4 * 4 + 9 * 9 - 1 * 4 - 1 * 9 - 4 * 9) / 18.0, 1.0, 9.0, 0.01);
         testDist("DistUniform", new DistUniform(this.stream, 0, 1), 0.5, 1.0 / 12.0, 0.0, 1.0, 0.01);
-        // testDist("DistWeibull", new DistWeibull(this.stream, 0.4, 1.5), 0.25, 0.25, 0.0, 1.0, 0.01);
+        testDist("DistWeibull", new DistWeibull(this.stream, 1.5, 1), 0.9027, 0.3756, 0.0, nan, 0.01);
     }
 
     /**
@@ -110,18 +110,21 @@ public class ContinuousDistributionTest
         assertEquals(0.0, dist.getProbabilityDensity(2.0), 0.0001);
         assertEquals(0.0, dist.getProbabilityDensity(-0.1), 0.0001);
 
-        Try.testFail(() -> { new DistBeta(null, 0.1, 2.0); }, NullPointerException.class);
-        Try.testFail(() -> { new DistBeta(ContinuousDistributionTest.this.stream, -0.1, 1.0); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistBeta(ContinuousDistributionTest.this.stream, 2.0, -1.0); },
-                IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistBeta(null, 0.1, 2.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistBeta(ContinuousDistributionTest.this.stream, -0.1, 1.0); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistBeta(ContinuousDistributionTest.this.stream, 2.0, -1.0); }, IllegalArgumentException.class);
 
         DistBeta dist1 = new DistBeta(new MersenneTwister(10L), 1, 2);
         double v = dist1.draw();
         dist1.setStream(new MersenneTwister(10L));
         assertEquals(v, dist1.draw(), 1E-6);
-        Try.testFail(() -> { dist1.setStream(null); });
-        Try.testFail(() -> { new DistBeta(null, 1, 2); });
+        Try.testFail(() ->
+        { dist1.setStream(null); });
+        Try.testFail(() ->
+        { new DistBeta(null, 1, 2); });
     }
 
     /**
@@ -142,7 +145,8 @@ public class ContinuousDistributionTest
         assertEquals(0.0, dist.getProbabilityDensity(1.0), 0.0001);
         assertEquals(1.0, dist.getProbabilityDensity(7.1), 0.0001);
 
-        Try.testFail(() -> { new DistConstant(null, 2.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistConstant(null, 2.0); }, NullPointerException.class);
 
         DistConstant dist1 = new DistConstant(new MersenneTwister(10L), 2);
         double v = dist1.draw();
@@ -178,11 +182,14 @@ public class ContinuousDistributionTest
         value = dist.draw();
         assertTrue(value > 0);
 
-        Try.testFail(() -> { new DistErlang(null, 2.0, 1); }, NullPointerException.class);
-        Try.testFail(() -> { new DistErlang(ContinuousDistributionTest.this.stream, 1.0, 0); }, IllegalArgumentException.class);
-        Try.testFail(() -> { new DistErlang(ContinuousDistributionTest.this.stream, -1.0, 5); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistErlang(ContinuousDistributionTest.this.stream, 0.0, 5); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistErlang(null, 2.0, 1); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistErlang(ContinuousDistributionTest.this.stream, 1.0, 0); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistErlang(ContinuousDistributionTest.this.stream, -1.0, 5); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistErlang(ContinuousDistributionTest.this.stream, 0.0, 5); }, IllegalArgumentException.class);
 
         DistErlang dist1 = new DistErlang(new MersenneTwister(10L), 1, 2); // below gamma threshold
         double v = dist1.draw();
@@ -217,11 +224,12 @@ public class ContinuousDistributionTest
         assertEquals(l * Math.exp(-l * 3.0), dist.getProbabilityDensity(3.0), 0.0001);
         assertEquals(l * Math.exp(-l * 4.0), dist.getProbabilityDensity(4.0), 0.0001);
 
-        Try.testFail(() -> { new DistExponential(null, 2.0); }, NullPointerException.class);
-        Try.testFail(() -> { new DistExponential(ContinuousDistributionTest.this.stream, -0.1); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistExponential(ContinuousDistributionTest.this.stream, 0.0); },
-                IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistExponential(null, 2.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistExponential(ContinuousDistributionTest.this.stream, -0.1); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistExponential(ContinuousDistributionTest.this.stream, 0.0); }, IllegalArgumentException.class);
 
         DistExponential dist1 = new DistExponential(new MersenneTwister(10L), 2);
         double v = dist1.draw();
@@ -274,11 +282,12 @@ public class ContinuousDistributionTest
         value = dist.draw();
         assertTrue(value > 0);
 
-        Try.testFail(() -> { new DistGamma(null, 1.0, 2.0); }, NullPointerException.class);
-        Try.testFail(() -> { new DistGamma(ContinuousDistributionTest.this.stream, -0.1, 1.0); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistGamma(ContinuousDistributionTest.this.stream, 2.0, -1.0); },
-                IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistGamma(null, 1.0, 2.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistGamma(ContinuousDistributionTest.this.stream, -0.1, 1.0); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistGamma(ContinuousDistributionTest.this.stream, 2.0, -1.0); }, IllegalArgumentException.class);
 
         DistGamma dist1 = new DistGamma(new MersenneTwister(10L), 1, 2);
         double v = dist1.draw();
@@ -362,14 +371,16 @@ public class ContinuousDistributionTest
             assertEquals(PEARSON5_R[2 * i + 1], dist.getProbabilityDensity(PEARSON5_R[2 * i]), 0.0001);
         }
 
-        Try.testFail(() -> { new DistPearson5(null, 2.0, 1.0); }, NullPointerException.class);
-        Try.testFail(() -> { new DistPearson5(ContinuousDistributionTest.this.stream, -0.1, 2); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistPearson5(ContinuousDistributionTest.this.stream, 0.0, 2); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistPearson5(ContinuousDistributionTest.this.stream, 4, -2); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistPearson5(ContinuousDistributionTest.this.stream, 4, 0); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson5(null, 2.0, 1.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistPearson5(ContinuousDistributionTest.this.stream, -0.1, 2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson5(ContinuousDistributionTest.this.stream, 0.0, 2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson5(ContinuousDistributionTest.this.stream, 4, -2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson5(ContinuousDistributionTest.this.stream, 4, 0); }, IllegalArgumentException.class);
 
         DistPearson5 dist1 = new DistPearson5(new MersenneTwister(10L), 1, 2);
         double v = dist1.draw();
@@ -515,19 +526,20 @@ public class ContinuousDistributionTest
             assertEquals(PEARSON6_R[2 * i + 1], dist.getProbabilityDensity(PEARSON6_R[2 * i]), 0.0001);
         }
 
-        Try.testFail(() -> { new DistPearson6(null, 2.0, 1.0, 3.0); }, NullPointerException.class);
-        Try.testFail(() -> { new DistPearson6(ContinuousDistributionTest.this.stream, -0.1, 2, 3); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistPearson6(ContinuousDistributionTest.this.stream, 0.0, 2, 3); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistPearson6(ContinuousDistributionTest.this.stream, 4, -2, 3); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistPearson6(ContinuousDistributionTest.this.stream, 4, 0, 3); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistPearson6(ContinuousDistributionTest.this.stream, 4, 2, -3); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistPearson6(ContinuousDistributionTest.this.stream, 4, 3, 0); },
-                IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson6(null, 2.0, 1.0, 3.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistPearson6(ContinuousDistributionTest.this.stream, -0.1, 2, 3); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson6(ContinuousDistributionTest.this.stream, 0.0, 2, 3); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson6(ContinuousDistributionTest.this.stream, 4, -2, 3); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson6(ContinuousDistributionTest.this.stream, 4, 0, 3); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson6(ContinuousDistributionTest.this.stream, 4, 2, -3); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistPearson6(ContinuousDistributionTest.this.stream, 4, 3, 0); }, IllegalArgumentException.class);
 
         DistPearson6 dist1 = new DistPearson6(new MersenneTwister(10L), 3, 1, 2);
         double v = dist1.draw();
@@ -574,17 +586,18 @@ public class ContinuousDistributionTest
             }
         }
 
-        Try.testFail(() -> { new DistTriangular(null, 1.0, 2.0, 3.0); }, NullPointerException.class);
-        Try.testFail(() -> { new DistTriangular(ContinuousDistributionTest.this.stream, 2, 1, 3); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistTriangular(ContinuousDistributionTest.this.stream, 2, 2, 2); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistTriangular(ContinuousDistributionTest.this.stream, 2, 4, 3); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistTriangular(ContinuousDistributionTest.this.stream, 5, 5, 2); },
-                IllegalArgumentException.class);
-        Try.testFail(() -> { new DistTriangular(ContinuousDistributionTest.this.stream, 5, 2, 2); },
-                IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistTriangular(null, 1.0, 2.0, 3.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistTriangular(ContinuousDistributionTest.this.stream, 2, 1, 3); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistTriangular(ContinuousDistributionTest.this.stream, 2, 2, 2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistTriangular(ContinuousDistributionTest.this.stream, 2, 4, 3); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistTriangular(ContinuousDistributionTest.this.stream, 5, 5, 2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistTriangular(ContinuousDistributionTest.this.stream, 5, 2, 2); }, IllegalArgumentException.class);
 
         DistTriangular dist1 = new DistTriangular(new MersenneTwister(10L), 1, 2, 3);
         double v = dist1.draw();
@@ -627,9 +640,12 @@ public class ContinuousDistributionTest
             }
         }
 
-        Try.testFail(() -> { new DistUniform(null, 1.0, 2.0); }, NullPointerException.class);
-        Try.testFail(() -> { new DistUniform(ContinuousDistributionTest.this.stream, 2, 2); }, IllegalArgumentException.class);
-        Try.testFail(() -> { new DistUniform(ContinuousDistributionTest.this.stream, 3, 2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistUniform(null, 1.0, 2.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistUniform(ContinuousDistributionTest.this.stream, 2, 2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistUniform(ContinuousDistributionTest.this.stream, 3, 2); }, IllegalArgumentException.class);
 
         DistUniform dist1 = new DistUniform(new MersenneTwister(10L), 1, 2);
         double v = dist1.draw();
@@ -657,19 +673,30 @@ public class ContinuousDistributionTest
         assertEquals(0.0, dist.getProbabilityDensity(0.0), 0.0001);
 
         dist = new DistWeibull(this.stream, 3, 2);
-        double a = 3;
-        double b = 2;
-        for (double x = 0; x <= 10; x += 0.02)
+        for (double a = 0.5; a <= 5; a += 0.5)
         {
-            assertEquals(a * Math.pow(b, -a) * Math.pow(x, a - 1) * Math.exp(-Math.pow(x / b, a)),
-                    dist.getProbabilityDensity(x), 0.0001);
+            for (double b = 0.5; b <= 5; b += 0.5)
+            {
+                dist = new DistWeibull(this.stream, a, b);
+                for (double x = 0.02; x <= 10; x += 0.02)
+                {
+                    assertEquals("a=" + a + ", b=" + b + ", x=" + x,
+                            a * Math.pow(b, -a) * Math.pow(x, a - 1) * Math.exp(-Math.pow(x / b, a)),
+                            dist.getProbabilityDensity(x), 0.0001);
+                }
+            }
         }
 
-        Try.testFail(() -> { new DistWeibull(null, 1.0, 2.0); }, NullPointerException.class);
-        Try.testFail(() -> { new DistWeibull(ContinuousDistributionTest.this.stream, 0, 2); }, IllegalArgumentException.class);
-        Try.testFail(() -> { new DistWeibull(ContinuousDistributionTest.this.stream, -1, 2); }, IllegalArgumentException.class);
-        Try.testFail(() -> { new DistWeibull(ContinuousDistributionTest.this.stream, 1, 0); }, IllegalArgumentException.class);
-        Try.testFail(() -> { new DistWeibull(ContinuousDistributionTest.this.stream, 1, -2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistWeibull(null, 1.0, 2.0); }, NullPointerException.class);
+        Try.testFail(() ->
+        { new DistWeibull(ContinuousDistributionTest.this.stream, 0, 2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistWeibull(ContinuousDistributionTest.this.stream, -1, 2); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistWeibull(ContinuousDistributionTest.this.stream, 1, 0); }, IllegalArgumentException.class);
+        Try.testFail(() ->
+        { new DistWeibull(ContinuousDistributionTest.this.stream, 1, -2); }, IllegalArgumentException.class);
 
         DistWeibull dist1 = new DistWeibull(new MersenneTwister(10L), 1, 2);
         double v = dist1.draw();

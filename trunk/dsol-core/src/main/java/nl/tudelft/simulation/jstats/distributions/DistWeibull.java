@@ -57,7 +57,7 @@ public class DistWeibull extends DistContinuous
         if (x > 0)
         {
             return this.alpha * Math.pow(this.beta, -this.alpha) * Math.pow(x, this.alpha - 1)
-                    * Math.exp(Math.pow(-1 * (x / this.beta), this.alpha));
+                    * Math.exp(-Math.pow(x / this.beta, this.alpha));
         }
         return 0.0;
     }

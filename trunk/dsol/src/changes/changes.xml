@@ -22,6 +22,9 @@
         setErrorStrategy(ErrorStrategy strategy) and getErrorStrategy() methods. ErrorStrategy is an enum. 
         The log level can be overridden (and even be set to NONE). 
       </action>
+      <action dev="averbraeck" type="fix">
+        DistWeibull and unit test for DistWeibull: small bug repaired. 
+      </action>
     </release>
     
     <release version="3.08.01" date="2022-02-08" description="Deecoupling of dsol-animation; resources location">
